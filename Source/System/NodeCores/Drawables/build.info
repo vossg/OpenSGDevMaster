@@ -1,0 +1,7 @@
+#!python
+#
+if option_pass:
+   print "Processing option pass"
+else:
+   library = "OSGDrawable"
+   lib_deps = ['OSGBase',"OSGSystem"]   

@@ -1,0 +1,36 @@
+#!python
+import os
+pj = os.path.join
+
+Import('*')
+
+common_lib_env = build_env.Copy()
+common_lib_env.Append(CPPPATH = [inst_paths['include'],
+                                 pj(inst_paths['include'],"OpenSG")],
+                      CPPDEFINES=["OSG_BUILD_DLL",])
+
+
+# HACK: Work around issue with getting yacc output into a library
+parser_env = build_env.Copy()
+parser_env.Append(YACCFLAGS = ["-d","-v","-pOSGScanParseSkel_"])
+source_file = "System/FileIO/ScanParseSkel/OSGScanParseSkel.y"
+#parser_env.CFile(target="OSGScanParseSkel_.tab", source=source_file)
+parser_env.CFile(target="ScanPraser.c", source=source_file)
+   
+for (lib_name, library) in lib_map.iteritems():
+   lib_env = common_lib_env.Copy()
+   
+   # XXX: Apply custom options
+   
+   if "shared" in combo["libtype"]:
+      shared_lib = lib_env.SharedLibrary(lib_name + shared_lib_suffix, library.source_files)
+      lib_env.Install(inst_paths['lib'], shared_lib)
+      
+   if "static" in combo["libtype"]:
+      static_lib = lib_env.StaticLibrary(lib_name + static_lib_suffix, library.source_files)
+      lib_env.Install(inst_paths['lib'], static_lib)
+
+   # Handle headers
+   if variant_pass == 0:
+      header_path = pj(inst_paths['include'],'OpenSG')
+      lib_env.Install(header_path, library.header_files)

@@ -1,0 +1,7 @@
+#!python
+#
+if option_pass:
+   print "Processing option pass"
+else:
+   library = "OSGSystem"
+   lib_deps = ["OSGBase",]
