@@ -1,0 +1,16 @@
+
+INCLUDE_EXPAT := @ac_gdz_expat_incdir_e23@
+LINK_EXPAT    := @ac_gdz_expat_libdir_e23@
+LIB_EXPAT     := @ac_gdz_expat_lib_e23@
+
+ifneq ($(INCLUDE_EXPAT),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_EXPAT)
+endif
+
+ifneq ($(LINK_EXPAT),)
+LIBPATHS_EXPAT     := $(LIBPATH_OPTION)$(LINK_EXPAT)
+endif
+
+ifneq ($(LIB_EXPAT),)
+LIB_FILE_EXPAT     := $(LIB_EXPAT)
+endif

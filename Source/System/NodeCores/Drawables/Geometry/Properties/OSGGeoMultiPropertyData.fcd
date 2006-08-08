@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="GeoMultiPropertyData"
+	parent="StateChunk"
+	library="Drawable"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+	<Field
+		name="iData"
+		type="UInt8"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	The data for the multi-properties.
+	</Field>
+	<Field
+		name="GLId"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+                defaukt="0"
+	>
+	The internal GL object id for the VBO, if used.
+	</Field>
+</FieldContainer>

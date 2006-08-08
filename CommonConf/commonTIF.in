@@ -1,0 +1,18 @@
+
+INCLUDE_TIF := @ac_gdz_tif_incdir_e9@
+LINK_TIF    := @ac_gdz_tif_libdir_e9@
+LIB_TIF     := @ac_gdz_tif_lib_e9@
+
+ifneq ($(INCLUDE_TIF),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_TIF)
+endif
+
+ifneq ($(LINK_TIF),)
+LIBPATHS_TIF     := $(LIBPATH_OPTION)$(LINK_TIF)
+endif
+
+ifneq ($(LIB_TIF),)
+LIB_FILE_TIF     := $(LIB_TIF)
+LIB_FILE_TIF_LNK := $(LIB_TIF)
+OSG_LIB_EXT      := $(OSG_LIB_EXT) $(LIB_TIF)
+endif

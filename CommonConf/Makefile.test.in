@@ -1,0 +1,46 @@
+
+
+@ac_gdz_project_praefix@COMMON     ?= Common
+@ac_gdz_project_praefix@COMMONPACK ?= CommonPackages
+
+ifndef @ac_gdz_project_praefix@POOL
+@ac_gdz_project_praefix@POOL         ?= @ac_gdz_src_dir@
+@ac_gdz_win_pool_e2@
+endif
+
+include $(@ac_gdz_project_praefix@POOL)/$(@ac_gdz_project_praefix@COMMON)/common.mk
+
+BUILD_BASE     := @ac_gdz_build_dir_e2@/@ac_gdz_package_sub_dir_out@
+@ac_gdz_win_build_base_e2@
+
+SUB_SO = $(LIBDIR)/$(SO_PRAEFIX)@ac_gdz_project_praefix@@ac_gdz_package_name_out@$(SO_SUFFIX)
+
+VPATH := @ac_gdz_vpath_out@
+
+LIB_REQUIRED_INCPACKAGES := @ac_gdz_package_inc_dep_out@
+LIB_REQUIRED_LNKPACKAGES := @ac_gdz_package_link_dep_out@
+
+LIB_REQUIRED_INCPACKAGES_FILES := @ac_gdz_package_inc_dep_out_files@
+LIB_REQUIRED_LNKPACKAGES_FILES := @ac_gdz_package_link_dep_out_files@
+
+LIB_REQUIRED_TESTINCPACKAGES       := @ac_gdz_package_testinc_dep_out@
+LIB_REQUIRED_TESTINCPACKAGES_FILES := @ac_gdz_package_testinc_dep_out_files@
+
+LIB_REQUIRED_TESTLNKPACKAGES       := @ac_gdz_package_testlink_dep_out@
+LIB_REQUIRED_TESTLNKPACKAGES_FILES := @ac_gdz_package_testlink_dep_out_files@
+
+IN_TEST_DIR := 1
+
+PACKAGE_NAME := @ac_gdz_package_name_out@
+
+SO_NEEDS_INIT := @ac_gdz_package_so_needs_init_e2@
+
+DEBUG_LIBS := @ac_gdz_package_test_debug_libs_e2@
+
+Tests: Test
+tests: Test
+
+include $(@ac_gdz_project_praefix@POOL)/$(@ac_gdz_project_praefix@COMMON)/commonBuildDetect.mk
+include $(@ac_gdz_project_praefix@POOL)/$(@ac_gdz_project_praefix@COMMON)/@ac_gdz_package_sys_common_out@
+include $(@ac_gdz_project_praefix@POOL)/$(@ac_gdz_project_praefix@COMMON)/commonSub.mk
+

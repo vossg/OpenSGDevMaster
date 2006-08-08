@@ -1,0 +1,25 @@
+
+
+@ac_gdz_lib_project_praefix@COMMON     ?= Common
+@ac_gdz_lib_project_praefix@COMMONPACK ?= CommonPackages
+
+ifndef @ac_gdz_lib_project_praefix@POOL
+@ac_gdz_lib_project_praefix@POOL       ?= @ac_gdz_lib_src_dir@
+endif
+
+include $(@ac_gdz_lib_project_praefix@POOL)/$(@ac_gdz_lib_project_praefix@COMMON)/common.mk
+
+@ac_gdz_lib_project_praefix@MAINMAKE    := 1
+
+SUB_LIBS       := @ac_gdz_package_order@
+
+SUB_TESTS      := @ac_gdz_package_order_test@
+
+INSTALL_DIR    := @ac_gdz_install_prefix_e3@
+
+@ac_gdz_lib_project_praefix@_DO_DOC     := 0
+@ac_gdz_lib_project_praefix@_DO_INSTALL := 0
+
+include $(@ac_gdz_lib_project_praefix@POOL)/$(@ac_gdz_lib_project_praefix@COMMON)/@ac_gdz_lib_package_sys_common_out@
+include $(@ac_gdz_lib_project_praefix@POOL)/$(@ac_gdz_lib_project_praefix@COMMON)/commonTopLevel.mk
+

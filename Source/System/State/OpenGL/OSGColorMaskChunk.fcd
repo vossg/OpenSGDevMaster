@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ColorMaskChunk"
+	parent="StateChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+The color mask chunk contains the parameters that are specific for color write.
+	<Field
+		name="maskR"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Used to mask the writing of the R value to the color   buffer.
+	</Field>
+	<Field
+		name="maskG"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Used to mask the writing of the G value to the color   buffer.
+	</Field>
+	<Field
+		name="maskB"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Used to mask the writing of the B value to the color   buffer.
+	</Field>
+	<Field
+		name="maskA"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Used to mask the writing of the A value to the color   buffer.
+	</Field>
+</FieldContainer>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="Billboard"
+	parent="Group"
+	library="Group"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="true"
+>
+	<Field
+		name="axisOfRotation"
+		type="Vec3f"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0.f, 1.f, 0.f"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="focusOnCamera"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="true"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="alignToScreen"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="false"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="minAngle"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0.0f"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="maxAngle"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="-1.0f"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

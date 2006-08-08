@@ -1,0 +1,18 @@
+
+INCLUDE_PNG := @ac_gdz_png_incdir_e11@
+LINK_PNG    := @ac_gdz_png_libdir_e11@
+LIB_PNG     := @ac_gdz_png_lib_e11@
+
+ifneq ($(INCLUDE_PNG),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_PNG)
+endif
+
+ifneq ($(LINK_PNG),)
+LIBPATHS_PNG     := $(LIBPATH_OPTION)$(LINK_PNG)
+endif
+
+ifneq ($(LIB_PNG),)
+LIB_FILE_PNG     := $(LIB_PNG)
+LIB_FILE_PNG_LNK := $(LIB_PNG)
+OSG_LIB_EXT      := $(OSG_LIB_EXT) $(LIB_PNG)
+endif

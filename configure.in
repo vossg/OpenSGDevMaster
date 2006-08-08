@@ -1,0 +1,1709 @@
+
+define([AC_CACHE_LOAD], )dnl
+define([AC_CACHE_SAVE], )dnl
+
+AC_INIT(Source/Base/Base/OSGBaseDef.h)
+
+AC_PREREQ(1.3)
+
+dnl ############# Default Settings #####################
+
+if test $srcdir = .; then
+	ac_gdz_src_dir=`pwd`
+	ac_gdz_lib_src_dir=`pwd`
+elif test $srcdir = ..; then
+    ac_gdz_src_dir=`pwd`/..
+    ac_gdz_lib_src_dir=`pwd`/..
+else
+	ac_gdz_src_dir=$srcdir
+	ac_gdz_lib_src_dir=$srcdir
+fi
+
+ac_gdz_common_dir=$ac_gdz_src_dir/Common
+ac_gdz_commonconf_dir=CommonConf
+ac_gdz_so_praefix=
+ac_gdz_so_suffix=
+ac_gdz_lib_suffix=
+ac_gdz_obj_suffix=
+ac_gdz_exe_suffix=
+ac_gdz_common_patterns=$ac_gdz_commonconf_dir/common.pattern.in
+ac_gdz_build_dir=`pwd`
+ac_gdz_compiler_exe=
+ac_gdz_conf_package_defs=
+ac_gdz_conf_package_qt='0'
+ac_gdz_conf_package_qt_e1='0'
+ac_gdz_conf_package_glut='0'
+ac_gdz_conf_package_glut_e1='0'
+ac_gdz_conf_package_stlport='0'
+ac_gdz_conf_package_stlport_e1='0'
+ac_gdz_conf_package_tif='0'
+ac_gdz_conf_package_tif_e1='0'
+ac_gdz_conf_package_jpg='0'
+ac_gdz_conf_package_jpg_e1='0'CommonConf/
+ac_gdz_conf_package_png='0'
+ac_gdz_conf_package_png_e1='0'
+ac_gdz_conf_package_mng='0'
+ac_gdz_conf_package_mng_e1='0'
+ac_gdz_conf_package_gif='0'
+ac_gdz_conf_package_gif_e1='0'
+ac_gdz_conf_package_expat='0'
+ac_gdz_conf_package_gif_expat='0'
+ac_gdz_conf_package_efence='0'
+ac_gdz_conf_package_efence_e1='0'
+ac_gdz_conf_package_mpatrol='0'
+ac_gdz_conf_package_mpatrol_e1='0'
+ac_gdz_conf_package_myrinet='0'
+ac_gdz_conf_package_myrinet_e1='0'
+ac_gdz_conf_package_freetype1='0'
+ac_gdz_conf_package_freetype1_e1='0'
+ac_gdz_conf_package_text='0'
+ac_gdz_conf_package_text_e1='0'
+
+ac_gdz_with_add_incdirs=
+ac_gdz_with_add_libdirs=
+ac_gdz_with_add_libs=
+
+ac_gdz_mpatrol_inc_dir_e1=
+ac_gdz_mpatrol_lib_dir_e1=
+ac_gdz_mpatrol_libs_e1=
+
+ac_gdz_test_debug_libs=
+
+ac_gdz_wrote_stl="no"
+
+ac_gdz_stl_suffix=
+
+AC_CONFIG_AUX_DIR($ac_gdz_commonconf_dir) 
+
+dnl ############# Compiler Settings #####################
+
+AC_ARG_WITH(compiler,[  --with-compiler=<compiler> choose one of the following\
+ compilers
+        IRIX      : CC, CC64
+        Windows   : icl (==50), icl50, icl60, icl70, icl71, icl80, cl.net, cl.net2003
+        GNU/Linux : g++,icc,g++3
+        Darwin    : c++,c++3,g++,g++3
+        HPUX      : aCC],
+        echo Compiler : $with_compiler;ac_gdz_compiler=$with_compiler;) 
+
+dnl ############# SUFFIX Settings #####################
+
+AC_ARG_WITH(suffix,     [  --with-suffix=SUFFIX                add suffix to build dir],
+			,with_suffix=no) 
+
+if test "$with_suffix" = yes; then
+	ac_gdz_suffix=
+elif test "$with_suffix" = no; then
+	ac_gdz_suffix=
+elif test "X$with_suffix" = X; then
+	ac_gdz_suffix=
+else
+	ac_gdz_suffix=-$with_suffix
+fi
+
+dnl ############# STL Settings #####################
+
+AC_ARG_WITH(stl,     [  --with-stl=DIR                      Where to find the stl to use, incompatible with stlport options],
+			,with_stl=no) 
+
+if test "$with_stl" = yes; then
+	ac_gdz_stl_dir=
+elif test "$with_stl" = no; then
+	ac_gdz_stl_dir=
+else
+	ac_gdz_stl_dir=$with_stl
+fi
+
+dnl ############# STLPort Settings #####################
+
+AC_ARG_ENABLE(stlport,     [  --enable-stlport                    Build with stlport support, incompatible with --with-stl, VS7 only ],
+			,enable_stlport=no) 
+
+AC_ARG_WITH(stlport,     [  --with-stlport          =DIR        Use DIR/lib DIR/include to find the stlport files, incompatible with --with-stl, VS7 only ],
+			,with_stlport=) 
+
+AC_ARG_WITH(stlportincludedir,     [  --with-stlportincludedir=DIR        Use stlport includes from the given directory, incompatible with --with-stl, VS7 only ],
+			,with_stlportincludedir=) 
+
+AC_ARG_WITH(stlportlibdir,     [  --with-stlportlibdir    =DIR        Use stlport library from the given directory, incompatible with --with-stl, VS7 only ],
+			,with_stlportlibdir=) 
+
+if test "$enable_stlport" = no && test "$with_stlport" = yes; then
+    enable_stlport=yes
+    with_stlport=
+fi
+
+if test "$enable_stlport" = no && test "$with_stlport"X != "X"; then
+    enable_stlport=yes
+fi
+
+
+if test "$enable_stlport" = yes; then
+	ac_gdz_stlport_incdir=
+	ac_gdz_stlport_libdir=
+	ac_gdz_conf_package_defs=-DOSG_WITH_STLPORT
+	ac_gdz_conf_package_stlport='1'
+	ac_gdz_conf_package_stlport_e1='1'
+
+    if test -n "$with_stlport"; then
+		ac_gdz_stlport_incdir=$with_stlport/stlport
+        ac_gdz_stlport_libdir=$with_stlport/lib
+
+        if ! test -d "$ac_gdz_stlport_incdir" && ! test -n "$with_stlportincludedir"; then
+            echo "ERROR stlport include dir ($ac_gdz_stlport_incdir) does not seem to exist, please check the given base dir \"$with_stlport\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_stlport_libdir" && ! test -n "$with_stlportlibdir"; then
+            echo "ERROR stlport lib dir does not seem to exist, please check the given base dir \"$with_stlport\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_stlportincludedir"; then
+		ac_gdz_stlport_incdir=$with_stlportincludedir
+
+        if ! test -d "$ac_gdz_stlport_incdir"; then
+            echo "ERROR stlport include dir does not seem to exist, please check the given dir \"$with_stlportincludedir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_stlportlibdir"; then
+	    ac_gdz_stlport_libdir=$with_stlportlibdir
+
+        if ! test -d "$ac_gdz_stlport_libdir"; then
+            echo "ERROR stlport lib dir does not seem to exist, please check the given dir \"$with_stlportlibdir\""
+            exit
+        fi
+    fi
+else
+	ac_gdz_stlport_dir=
+	ac_gdz_stlport_incdir=
+	ac_gdz_stlport_libdir=
+fi
+
+dnl ############# GL Settings #####################
+ 
+AC_ARG_WITH(gl,     [  --with-gl=DIR                       Use gl, if DIR is given use the file from the give directory],
+			,with_gl=yes) 
+
+if test "$with_gl" = yes; then
+	ac_gdz_gl_dir=yes
+	ac_gdz_conf_package_gl='1'
+	ac_gdz_conf_package_gl_e1='1'
+elif test "$with_gl" = no; then
+	ac_gdz_gl_dir=
+else
+	ac_gdz_gl_dir=$with_gl
+	ac_gdz_conf_package_gl='1'
+	ac_gdz_conf_package_gl_e1='1'
+fi
+
+
+dnl ############# GLUT Settings #####################
+
+AC_ARG_ENABLE(glut,     [  --enable-glut                       Build with glut support ],
+			,enable_glut=no) 
+
+AC_ARG_WITH(glut,     [  --with-glut          =DIR           Use DIR/lib DIR/include to find the glut files ],
+			,with_glut=) 
+
+AC_ARG_WITH(glutincludedir,     [  --with-glutincludedir=DIR           Use glut includes from the given directory ],
+			,with_glutincludedir=) 
+
+AC_ARG_WITH(glutlibdir,     [  --with-glutlibdir    =DIR           Use glut library from the given directory ],
+			,with_glutlibdir=) 
+
+if test "$enable_glut" = no && test "$with_glut" = yes; then
+    enable_glut=yes
+    with_glut=
+fi
+
+if test "$enable_glut" = no && test "$with_glut"X != "X"; then
+    enable_glut=yes
+fi
+
+if test "$enable_glut" = yes; then
+	ac_gdz_glut_incdir=
+	ac_gdz_glut_libdir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_GLUT'
+	ac_gdz_conf_package_glut='1'
+	ac_gdz_conf_package_glut_e1='1'
+
+    if test -n "$with_glut"; then
+		ac_gdz_glut_incdir=$with_glut/include
+
+        case $build_os in
+            hpux*)
+                ac_gdz_glut_libdir=$with_glut/lib/X11
+            ;;
+            *)
+		        ac_gdz_glut_libdir=$with_glut/lib
+            ;;
+        esac
+
+        if ! test -d "$ac_gdz_glut_incdir" && ! test -n "$with_glutincludedir"; then
+            echo "ERROR glut include dir does not seem to exist, please check the given base dir \"$with_glut\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_glut_libdir" && ! test -n "$with_glutlibdir"; then
+            echo "ERROR glut lib dir does not seem to exist, please check the given base dir \"$with_glut\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_glutincludedir"; then
+		ac_gdz_glut_incdir=$with_glutincludedir
+
+        if ! test -d "$ac_gdz_glut_incdir"; then
+            echo "ERROR glut include dir does not seem to exist, please check the given dir \"$with_glutincludedir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_glutlibdir"; then
+	    ac_gdz_glut_libdir=$with_glutlibdir
+
+        if ! test -d "$ac_gdz_glut_libdir"; then
+            echo "ERROR glut lib dir does not seem to exist, please check the given dir \"$with_glutlibdir\""
+            exit
+        fi
+    fi
+else
+	ac_gdz_glut_dir=
+	ac_gdz_glut_incdir=
+	ac_gdz_glut_libdir=
+fi
+
+dnl ############# QT Settings #####################
+
+AC_ARG_ENABLE(qt,     [  --enable-qt                         Build with qt support],
+			,enable_qt=no) 
+AC_ARG_WITH(qt,     [  --with-qt=DIR                       Use DIR/lib DIR/include to find the qt files],
+			,with_qt=) 
+AC_ARG_WITH(qtincludedir,     [  --with-qtincludedir=DIR             Use qt includes from the given directory],
+			,with_qtincludedir=) 
+AC_ARG_WITH(qtlibdir,     [  --with-qtlibdir=DIR                 Use qt library from the given directory],
+			,with_qtlibdir=) 
+AC_ARG_WITH(qtbindir,     [  --with-qtbindir=DIR                 Use qt binaries from the given directory],
+			,with_qtbindir=) 
+
+if test "$enable_qt" = no && test "$with_qt" = yes; then
+    enable_qt=yes
+    with_qt=
+fi
+
+if test "$enable_qt" = no && test "$with_qt"X != "X"; then
+    enable_qt=yes
+fi
+
+if test "$enable_qt" = yes; then
+	ac_gdz_qt_incdir=
+	ac_gdz_qt_libdir=
+	ac_gdz_qt_bindir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_QT'
+	ac_gdz_conf_package_qt='1'
+	ac_gdz_conf_package_qt_e1='1'
+
+    if test -n "$with_qt"; then
+		ac_gdz_qt_incdir=$with_qt/include
+        ac_gdz_qt_libdir=$with_qt/lib
+        ac_gdz_qt_bindir=$with_qt/bin
+
+        if ! test -d "$ac_gdz_qt_incdir" && ! test -n "$with_qtincludedir"; then
+            echo "ERROR qt include dir does not seem to exist, please check the given base dir \"$with_qt\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_qt_libdir" && ! test -n "$with_qtlibdir"; then
+            echo "ERROR qt lib dir does not seem to exist, please check the given base dir \"$with_qt\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_qt_bindir" && ! test -n "$with_qtbindir"; then
+            echo "ERROR qt bin dir does not seem to exist, please check the given base dir \"$with_qt\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_qtincludedir"; then
+		ac_gdz_qt_incdir=$with_qtincludedir
+
+        if ! test -d "$ac_gdz_qt_incdir"; then
+            echo "ERROR qt include dir does not seem to exist, please check the given dir \"$with_qtincludedir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_qtlibdir"; then
+	    ac_gdz_qt_libdir=$with_qtlibdir
+
+        if ! test -d "$ac_gdz_qt_libdir"; then
+            echo "ERROR qt lib dir does not seem to exist, please check the given dir \"$with_qtlibdir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_qtbindir"; then
+	    ac_gdz_qt_bindir=$with_qtbindir
+
+        if ! test -d "$ac_gdz_qt_bindir"; then
+            echo "ERROR qt bin dir does not seem to exist, please check the given dir \"$with_qtbindir\""
+            exit
+        fi
+    fi
+else
+	ac_gdz_qt_dir=
+	ac_gdz_qt_incdir=
+	ac_gdz_qt_libdir=
+	ac_gdz_qt_bindir=
+fi
+
+dnl ############# TIF Settings #####################
+
+AC_ARG_ENABLE(tif,     [  --enable-tif                        Build with tif support],
+			,enable_tif=no) 
+AC_ARG_WITH(tif,     [  --with-tif=DIR                      Use DIR/lib DIR/include to find the tif files],
+			,with_tif=) 
+AC_ARG_WITH(tifincludedir,     [  --with-tifincludedir=DIR            Use tif includes from the given directory],
+			,with_tifincludedir=) 
+AC_ARG_WITH(tiflibdir,     [  --with-tiflibdir=DIR                Use tif lib from the given directory],
+			,with_tiflibdir=) 
+
+if test "$enable_tif" = no && test "$with_tif" = yes; then
+    enable_tif=yes
+    with_tif=
+fi
+
+if test "$enable_tif" = no && test "$with_tif"X != "X"; then
+    enable_tif=yes
+fi
+
+if test "$enable_tif" = yes; then
+	ac_gdz_tif_incdir=
+	ac_gdz_tif_libdir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_TIF'
+	ac_gdz_conf_package_tif='1'
+	ac_gdz_conf_package_tif_e1='1'
+
+    if test -n "$with_tif"; then
+		ac_gdz_tif_incdir=$with_tif/include
+
+        ac_gdz_tif_libdir=$with_tif/lib
+
+        if ! test -d "$ac_gdz_tif_incdir" && ! test -n "$with_tifincludedir"; then
+            echo "ERROR tif include dir does not seem to exist, please check the given base dir \"$with_tif\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_tif_libdir" && ! test -n "$with_tiflibdir"; then
+            echo "ERROR tif lib dir does not seem to exist, please check the given base dir \"$with_tif\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_tifincludedir"; then
+		ac_gdz_tif_incdir=$with_tifincludedir
+
+        if ! test -d "$ac_gdz_tif_incdir"; then
+            echo "ERROR tif include dir does not seem to exist, please check the given dir \"$with_tifincludedir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_tiflibdir"; then
+	    ac_gdz_tif_libdir=$with_tiflibdir
+
+        if ! test -d "$ac_gdz_tif_libdir"; then
+            echo "ERROR tif lib dir does not seem to exist, please check the given dir \"$with_tiflibdir\""
+            exit
+        fi
+    fi
+else
+	ac_gdz_tif_dir=
+	ac_gdz_tif_incdir=
+	ac_gdz_tif_libdir=
+fi
+
+dnl ############# JPG Settings #####################
+
+AC_ARG_ENABLE(jpg,     [  --enable-jpg                        Build with jpg support],
+			,enable_jpg=no) 
+AC_ARG_WITH(jpg,     [  --with-jpg=DIR                      Use DIR/lib DIR/include to find the jpg files],
+			,with_jpg=) 
+AC_ARG_WITH(jpgincludedir,     [  --with-jpgincludedir=DIR            Use jpg includes from the given directory],
+			,with_jpgincludedir=) 
+AC_ARG_WITH(jpglibdir,     [  --with-jpglibdir=DIR                Use jpg lib from the given directory],
+			,with_jpglibdir=) 
+
+if test "$enable_jpg" = no && test "$with_jpg" = yes; then
+    enable_jpg=yes
+    with_jpg=
+fi
+
+if test "$enable_jpg" = no && test "$with_jpg"X != "X"; then
+    enable_jpg=yes
+fi
+
+if test "$enable_jpg" = yes; then
+	ac_gdz_jpg_incdir=
+	ac_gdz_jpg_libdir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_JPG'
+	ac_gdz_conf_package_jpg='1'
+	ac_gdz_conf_package_jpg_e1='1'
+
+    if test -n "$with_jpg"; then
+		ac_gdz_jpg_incdir=$with_jpg/include
+
+        ac_gdz_jpg_libdir=$with_jpg/lib
+
+        if ! test -d "$ac_gdz_jpg_incdir" && ! test -n "$with_jpgincludedir"; then
+            echo "ERROR jpg include dir does not seem to exist, please check the given base dir \"$with_jpg\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_jpg_libdir" && ! test -n "$with_jpglibdir"; then
+            echo "ERROR jpg lib dir does not seem to exist, please check the given base dir \"$with_jpg\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_jpgincludedir"; then
+		ac_gdz_jpg_incdir=$with_jpgincludedir
+
+        if ! test -d "$ac_gdz_jpg_incdir"; then
+            echo "ERROR jpg include dir does not seem to exist, please check the given dir \"$with_jpgincludedir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_jpglibdir"; then
+	    ac_gdz_jpg_libdir=$with_jpglibdir
+
+        if ! test -d "$ac_gdz_jpg_libdir"; then
+            echo "ERROR jpg lib dir does not seem to exist, please check the given dir \"$with_jpglibdir\""
+            exit
+        fi
+    fi
+else
+	ac_gdz_jpg_dir=
+	ac_gdz_jpg_incdir=
+	ac_gdz_jpg_libdir=
+fi
+
+dnl ############# PNG Settings #####################
+
+AC_ARG_ENABLE(png,     [  --enable-png                        Build with png support],
+			,enable_png=no) 
+AC_ARG_WITH(png,     [  --with-png=DIR                      Use DIR/lib DIR/include to find the png files],
+			,with_png=) 
+AC_ARG_WITH(pngincludedir,     [  --with-pngincludedir=DIR            Use png includes from the given directory],
+			,with_pngincludedir=) 
+AC_ARG_WITH(pnglibdir,     [  --with-pnglibdir=DIR                Use png lib from the given directory],
+			,with_pnglibdir=) 
+
+if test "$enable_png" = no && test "$with_png" = yes; then
+    enable_png=yes
+    with_png=
+fi
+
+if test "$enable_png" = no && test "$with_png"X != "X"; then
+    enable_png=yes
+fi
+
+if test "$enable_png" = yes; then
+	ac_gdz_png_incdir=
+	ac_gdz_png_libdir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_PNG'
+	ac_gdz_conf_package_png='1'
+	ac_gdz_conf_package_png_e1='1'
+
+    if test -n "$with_png"; then
+		ac_gdz_png_incdir=$with_png/include
+
+        ac_gdz_png_libdir=$with_png/lib
+
+        if ! test -d "$ac_gdz_png_incdir" && ! test -n "$with_pngincludedir"; then
+            echo "ERROR png include dir does not seem to exist, please check the given base dir \"$with_png\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_png_libdir" && ! test -n "$with_pnglibdir"; then
+            echo "ERROR png lib dir does not seem to exist, please check the given base dir \"$with_png\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_pngincludedir"; then
+		ac_gdz_png_incdir=$with_pngincludedir
+
+        if ! test -d "$ac_gdz_png_incdir"; then
+            echo "ERROR png include dir does not seem to exist, please check the given dir \"$with_pngincludedir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_pnglibdir"; then
+	    ac_gdz_png_libdir=$with_pnglibdir
+
+        if ! test -d "$ac_gdz_png_libdir"; then
+            echo "ERROR png lib dir does not seem to exist, please check the given dir \"$with_pnglibdir\""
+            exit
+        fi
+    fi
+else
+	ac_gdz_png_dir=
+	ac_gdz_png_incdir=
+	ac_gdz_png_libdir=
+fi
+
+
+dnl ############# MNG Settings #####################
+
+AC_ARG_ENABLE(mng,     [  --enable-mng                        Build with mng supprt],
+			,enable_mng=no) 
+AC_ARG_WITH(mng,     [  --with-mng=DIR                      Use DIR/lib DIR/include to find the mng files],
+			,with_mng=) 
+AC_ARG_WITH(mngincludedir,     [  --with-mngincludedir=DIR            Use mng includes from the given directory],
+			,with_mngincludedir=) 
+AC_ARG_WITH(mnglibdir,     [  --with-mnglibdir=DIR                Use mng lib from the given directory],
+			,with_mnglibdir=) 
+
+if test "$enable_mng" = no && test "$with_mng" = yes; then
+    enable_mng=yes
+    with_mng=
+fi
+
+if test "$enable_mng" = no && test "$with_mng"X != "X"; then
+    enable_mng=yes
+fi
+
+if test "$enable_mng" = yes; then
+	ac_gdz_mng_incdir=
+	ac_gdz_mng_libdir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_MNG'
+	ac_gdz_conf_package_mng='1'
+	ac_gdz_conf_package_mng_e1='1'
+
+    if test -n "$with_mng"; then
+		ac_gdz_mng_incdir=$with_mng/include
+
+        ac_gdz_mng_libdir=$with_mng/lib
+
+        if ! test -d "$ac_gdz_mng_incdir" && ! test -n "$with_mngincludedir"; then
+            echo "ERROR mng include dir does not seem to exist, please check the given base dir \"$with_mng\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_mng_libdir" && ! test -n "$with_mnglibdir"; then
+            echo "ERROR mng lib dir does not seem to exist, please check the given base dir \"$with_mng\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_mngincludedir"; then
+		ac_gdz_mng_incdir=$with_mngincludedir
+
+        if ! test -d "$ac_gdz_mng_incdir"; then
+            echo "ERROR mng include dir does not seem to exist, please check the given dir \"$with_mngincludedir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_mnglibdir"; then
+	    ac_gdz_mng_libdir=$with_mnglibdir
+
+        if ! test -d "$ac_gdz_mng_libdir"; then
+            echo "ERROR mng lib dir does not seem to exist, please check the given dir \"$with_mnglibdir\""
+            exit
+        fi
+    fi
+else
+	ac_gdz_mng_dir=
+	ac_gdz_mng_incdir=
+	ac_gdz_mng_libdir=
+fi
+
+
+dnl ############# GIF Settings #####################
+
+AC_ARG_WITH(gif,      [  --with-gif                          Build with gif support],
+enable_with_gif=yes, enable_with_gif=no)
+
+AC_ARG_ENABLE(gif,     [  --enable-gif                        Build with gif support],
+			,enable_gif=no) 
+
+if test "$enable_gif" = yes || test "$enable_with_gif" = yes; then
+    enable_gif=yes
+fi
+
+if test "$enable_gif" = yes; then
+	ac_gdz_gif_dir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_GIF'
+	ac_gdz_conf_package_gif='1'
+	ac_gdz_conf_package_gif_e1='1'
+elif test "$with_gif" = no; then
+	ac_gdz_gif_dir=
+fi
+
+dnl ############# EXPAT Settings #####################
+
+AC_ARG_WITH(expat,     [  --with-expat=DIR          Where to find the expat files to use],
+			,with_expat=no) 
+
+if test "$with_expat" = yes; then
+	ac_gdz_expat_dir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_EXPAT'
+elif test "$with_expat" = no; then
+	ac_gdz_expat_dir=
+else
+	ac_gdz_expat_dir=$with_expat
+	ac_gdz_conf_package_expat='1'
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_EXPAT'
+fi
+
+dnl ############# efence Settings #####################
+
+AC_ARG_WITH(efence,     [  --with-efence=DIR                   Use efence  lib, if DIR is given use the file from the given directory],
+			,with_efence=no) 
+
+if test "$with_efence" = yes; then
+	ac_gdz_efence_dir=
+	ac_gdz_conf_package_efence='1'
+	ac_gdz_conf_package_efence_e1='1'
+elif test "$with_efence" = no; then
+	ac_gdz_efence_dir=
+else
+	ac_gdz_efence_dir=$with_efence
+	ac_gdz_conf_package_efence='1'
+	ac_gdz_conf_package_efence_e1='1'
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs
+fi
+
+dnl ############# mpatrol Settings #####################
+
+AC_ARG_WITH(mpatrol,     [  --with-mpatrol=DIR                  Use mpatrol lib, if DIR is given use the file from the given directory],
+			,with_mpatrol=no) 
+
+if test "$with_mpatrol" = yes; then
+	ac_gdz_mpatrol_dir=
+	ac_gdz_conf_package_mpatrol'1'
+	ac_gdz_conf_package_mpatrol_e1='1'
+elif test "$with_mpatrol" = no; then
+	ac_gdz_mpatrol_dir=
+else
+	ac_gdz_mpatrol_dir=$with_mpatrol
+	ac_gdz_conf_package_mpatrol='1'
+	ac_gdz_conf_package_mpatrol_e1='1'
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs
+fi
+
+dnl ############# Myrinet Settings #####################
+
+AC_ARG_WITH(myrinet,   [  --with-myrinet=DIR                  Use Myrinet lib, if DIR is given use the file from the given directory],
+			,with_myrinet=no) 
+
+if test "$with_myrinet" = yes; then
+	ac_gdz_myrinet_dir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_MYRINET'
+	ac_gdz_conf_package_myrinet='1'
+	ac_gdz_conf_package_myrinet_e1='1'
+elif test "$with_myrinet" = no; then
+	ac_gdz_myrinet_dir=
+else
+	ac_gdz_myrinet_dir=$with_myrinet
+	ac_gdz_conf_package_myrinet='1'
+	ac_gdz_conf_package_myrinet_e1='1'
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_MYRINET'
+fi
+
+
+dnl ############# text Settings #####################
+
+AC_ARG_ENABLE(text,     [  --enable-text                        Build with text support],
+			,enable_text=no) 
+AC_ARG_WITH(text,     [  --with-text=DIR                      Use DIR/lib DIR/include to find the freetype2 files],
+			,with_text=) 
+AC_ARG_WITH(textincludedir,     [  --with-textincludedir=DIR            Use freetype2 includes from the given directory],
+			,with_textincludedir=) 
+AC_ARG_WITH(textlibdir,     [  --with-textlibdir=DIR                Use freetype2 lib from the given directory],
+			,with_textlibdir=) 
+
+if test "$enable_text" = no && test "$with_text" = yes; then
+    enable_text=yes
+    with_text=
+fi
+
+if test "$enable_text" = no && test "$with_text"X != "X"; then
+    enable_text=yes
+fi
+
+if test "$enable_text" = yes; then
+	ac_gdz_text_incdir=
+	ac_gdz_text_libdir=
+	ac_gdz_conf_package_text='1'
+	ac_gdz_conf_package_text_e1='1'
+
+    if test -n "$with_text"; then
+		ac_gdz_text_incdir=$with_text/include
+
+        ac_gdz_text_libdir=$with_text/lib
+
+        if ! test -d "$ac_gdz_text_incdir" && ! test -n "$with_textincludedir"; then
+            echo "ERROR text include dir does not seem to exist, please check the given base dir \"$with_text\""
+            exit
+        fi
+        if ! test -d "$ac_gdz_text_libdir" && ! test -n "$with_textlibdir"; then
+            echo "ERROR text lib dir does not seem to exist, please check the given base dir \"$with_text\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_textincludedir"; then
+		ac_gdz_text_incdir=$with_textincludedir
+
+        if ! test -d "$ac_gdz_text_incdir"; then
+            echo "ERROR text include dir does not seem to exist, please check the given dir \"$with_textincludedir\""
+            exit
+        fi
+    fi
+
+    if test -n "$with_textlibdir"; then
+	    ac_gdz_text_libdir=$with_textlibdir
+
+        if ! test -d "$ac_gdz_text_libdir"; then
+            echo "ERROR text lib dir does not seem to exist, please check the given dir \"$with_textlibdir\""
+            exit
+        fi
+    fi
+else
+	ac_gdz_text_dir=
+	ac_gdz_text_incdir=
+	ac_gdz_text_libdir=
+fi
+
+dnl ############# loglevel Settings #####################
+
+AC_ARG_WITH(log_level,     [  --with-log_level=LEVEL              Sets the default log level LEVEL (LOG, FATAL, WARNING, NOTICE, INFO, DEBUG) ],
+			,with_log_level=WARNING) 
+
+dnl ############# loglevel Settings #####################
+
+AC_ARG_WITH(log_type,     [  --with-log_type=TYPE                Sets the default log level TYPE (NONE, STDOUT, STDERR) ],
+			,with_log_type=STDERR) 
+
+dnl ############# TLS Settings #####################
+
+AC_ARG_ENABLE(win-localstorage,     [  --enable-win-localstorage           Use local storage instead of __declspec to get thread local storage on windows],
+			,enable_win_localstorage=no) 
+
+dnl ############# XTREE Settings #####################
+
+AC_ARG_ENABLE(fixed-xtree,     [  --enable-fixed-xtree                Use fixed xtree header ],
+			,enable_fixed_xtree=no) 
+
+dnl ############# XTREE Settings #####################
+
+AC_ARG_WITH(icc-gnu-compat,     [  --with-icc-gnu-compat=<GCC Version> make the icc result binary compatible to the given gcc version (e.g 333) ],
+			,with_icc_gnu_compat=no) 
+
+dnl ############# Depreciated Settings #####################
+
+AC_ARG_ENABLE(depreciated,     [  --disable-depreciated               Exclude depreciated interfaces ],
+		disable_depreciated=yes, disable_depreciated=no) 
+
+dnl ############# Depreciated Settings #####################
+
+AC_ARG_ENABLE(glut-glsubdir,     [  --disable-glut-glsubdir             do not use GL subdir while including glut.h ],
+		disable_glut_glsubdir=yes, disable_glut_glsubdir=no) 
+
+dnl ############# Compiler Logo Settings #####################
+
+AC_ARG_ENABLE(compilerLogo,     [  --disable-compilerLogo              Disable compiler logo (WIn32 cl, icl) ],
+		disable_compilerLogo=yes, disable_compilerLogo=no) 
+
+dnl ############# Bison line number Settings #####################
+
+AC_ARG_ENABLE(bisonLineNums,     [  --disable-bisonLineNums             Disable bison line number generation ],
+		disable_bisonLineNums=yes, disable_bisonLineNums=no) 
+
+dnl ############# Bool=unsigned int Settings #####################
+
+AC_ARG_ENABLE(win-bool-is-unsigned,     [  --enable-win-bool-is-unsigned       Define Bool as unsigned, required to combine the software with Microsoft stuff, since preprocessors ignore namespaces ],
+			,enable_win_bool_is_unsigned=no) 
+
+dnl ############# Win Default Path Settings #####################
+
+AC_ARG_ENABLE(win-exclude-default-path,     [  --enable-win-exclude-default-path   Do not include the default compiler and include path's on the command line, use INCLUDE and LIB instead ],
+			,enable_win_exclude_default_path=no) 
+
+dnl ############# TLS Settings #####################
+
+AC_ARG_ENABLE(sgi-pthread,     [  --enable-sgi-pthread                Use pthreads instead of sproc on sgi plattforms],
+			,enable_sgi_pthread=no) 
+
+dnl ############# Fullwarn Settings #####################
+
+AC_ARG_ENABLE(compiler-pedantic-errors,     [  --enable-compiler-pedantic-errors   Sets the compiler to generate more errors. WARNING, some external software (e.g. QT or STL) may require some patches to work with these settings ],
+			,enable_compiler_pedantic_errors=no) 
+
+
+dnl ############# CP Settings #####################
+
+AC_ARG_ENABLE(compiler-path,     [  --enable-compiler-path              Reference compiler with path],
+			,enable_compiler_path=no) 
+
+dnl ############# CP Settings #####################
+
+AC_ARG_ENABLE(gv-beta,     [  --enable-gv-beta                    enable gv beta],
+			,enable_gv_beta=no) 
+
+if test $enable_gv_beta = yes; then
+	ac_gdz_conf_gvbeta_e1=1
+else
+	ac_gdz_conf_gvbeta_e1=0
+fi
+
+dnl ############# CP Settings #####################
+
+AC_ARG_ENABLE(gv,     [  --enable-gv                    enable gv stuff],
+			,enable_gv=yes) 
+
+dnl ############# CP Settings #####################
+
+AC_ARG_ENABLE(osg-1-compat,     [  --enable-osg-1-compat             enable osg 1 compat],
+			,enable_osg_1_compat=no) 
+
+if test $enable_osg_1_compat = yes; then
+	ac_gdz_conf_osg1_compat_e1=1
+else
+	ac_gdz_conf_osg1_compat_e1=0
+fi
+
+dnl ############# CP Settings #####################
+
+AC_ARG_ENABLE(depreciated-props,     [  --depreciated-props             enable depreciated props],
+			,enable_depreciated_props=no) 
+
+if test $enable_depreciated_props = yes; then
+	ac_gdz_conf_depreciated_props_e1=1
+else
+	ac_gdz_conf_depreciated_props_e1=0
+fi
+
+dnl ############# typed fcptr Settings #################
+
+AC_ARG_ENABLE(typed_dbg_fcptr,     [  --enable-typed-dbg-fcptr            Add a typed ptr to the fieldcontainer ptr ],
+			,enable_typed_dbg_fcptr=no) 
+
+dnl ############# Depreciated Settings #####################
+
+AC_ARG_ENABLE(fcptr_arithm,     [  --disable-fcptr-arithm              Disable fieldcontainer ptr aspect arithmetics ],
+		disable_fcptr_arithm=yes, disable_fcptr_arithm=no) 
+
+dnl ############# typed fcptr Settings #################
+
+AC_ARG_ENABLE(use_cptr,     [  --enable-use-cptr               use std ptrs instead of fcptr ],
+	enable_use_cptr=yes,enable_use_cptr=no) 
+
+dnl ############# typed fcptr Settings #################
+
+AC_ARG_ENABLE(use_cptr_aspect,     [  --enable-use-cptr-aspect               use std ptrs instead of fcptr ],
+       enable_use_cptr_aspect=yes,enable_use_cptr_aspect=no)
+
+dnl ############# typed fcptr Settings #################
+
+AC_ARG_ENABLE(pthread_elf_tls,     [  --enable-pthread-elf-tls            enable elf tls if pthreads are used, tested on redhat 9 only ],
+			,enable_pthread_elf_tls=no) 
+
+dnl ############# Add Path Settings #####################
+
+AC_ARG_WITH(add-incdir,   [  --with-add-incdir=DIR{:DIR}*        use additional include directories (no spaces allowed) ],
+			,with_add_incdir=no) 
+
+if test "$with_add_incdir" = yes; then
+	ac_gdz_with_add_incdirs=
+elif test "$with_add_incdir" = no; then
+	ac_gdz_with_add_incdirs=
+else
+	ac_gdz_with_add_incdirs=$with_add_incdir 
+fi
+
+AC_ARG_WITH(add-libdir,   [  --with-add-libdir=DIR{:DIR}*        use additional library directories (no spaces allowed) ],
+			,with_add_libdir=no) 
+
+if test "$with_add_libdir" = yes; then
+	ac_gdz_with_add_libdirs=
+elif test "$with_add_libdir" = no; then
+	ac_gdz_with_add_libdirs=
+else
+	ac_gdz_with_add_libdirs=$with_add_libdir 
+fi
+
+AC_ARG_WITH(add-lib,   [  --with-add-lib=LIB{:LIB}*           use additional libraries (use foo not libfoo.so, no spaces allowed)],
+			,with_add_lib=no) 
+
+if test "$with_add_lib" = yes; then
+	ac_gdz_with_add_libs=
+elif test "$with_add_lib" = no; then
+	ac_gdz_with_add_libs=
+else
+	ac_gdz_with_add_libs=$with_add_lib 
+fi
+
+dnl ############# Helper #####################
+
+sinclude(./acinclude.m4)
+
+FK_GDZ_CREATE_PACKAGE_DIRS ()
+{
+    ac_gdz_package_dir_build=${1}Lib
+    ac_gdz_package_dir_test=${1}Test
+
+    if ! test -w $ac_gdz_package_dir_build; then 
+        echo Need $ac_gdz_package_dir_build
+	    mkdir $ac_gdz_package_dir_build
+    fi
+
+    if ! test -w $ac_gdz_package_dir_build/obj-dbg; then 
+	    echo Need $ac_gdz_package_dir_build/obj-dbg
+	    mkdir $ac_gdz_package_dir_build/obj-dbg
+    fi
+
+    if ! test -w $ac_gdz_package_dir_build/obj-opt; then 
+	   	echo Need $ac_gdz_package_dir_build/obj-opt
+	    mkdir $ac_gdz_package_dir_build/obj-opt
+    fi
+
+    if ! test -w $ac_gdz_package_dir_build/lib-dbg; then 
+	  	echo Need $ac_gdz_package_dir_build/lib-dbg
+	    mkdir $ac_gdz_package_dir_build/lib-dbg
+    fi
+
+    if ! test -w $ac_gdz_package_dir_build/lib-opt; then 
+	   	echo Need $ac_gdz_package_dir_build/lib-opt
+	    mkdir $ac_gdz_package_dir_build/lib-opt
+    fi
+
+
+    if ! test -w $ac_gdz_package_dir_build/obj-dbglnk; then 
+	    echo Need $ac_gdz_package_dir_build/obj-dbglnk
+	    mkdir $ac_gdz_package_dir_build/obj-dbglnk
+    fi
+
+    if ! test -w $ac_gdz_package_dir_build/obj-optlnk; then 
+	   	echo Need $ac_gdz_package_dir_build/obj-optlnk
+	    mkdir $ac_gdz_package_dir_build/obj-optlnk
+    fi
+
+    if ! test -w $ac_gdz_package_dir_build/lib-dbglnk; then 
+	  	echo Need $ac_gdz_package_dir_build/lib-dbglnk
+	    mkdir $ac_gdz_package_dir_build/lib-dbglnk
+    fi
+
+    if ! test -w $ac_gdz_package_dir_build/lib-optlnk; then 
+	   	echo Need $ac_gdz_package_dir_build/lib-optlnk
+	    mkdir $ac_gdz_package_dir_build/lib-optlnk
+    fi
+
+
+    if ! test -w $ac_gdz_package_dir_test; then 
+        echo Need $ac_gdz_package_dir_test
+	    mkdir $ac_gdz_package_dir_test
+    fi
+
+    if ! test -w $ac_gdz_package_dir_test/obj-dbg; then 
+	   	echo Need $ac_gdz_package_dir_test/obj-dbg
+	    mkdir $ac_gdz_package_dir_test/obj-dbg
+    fi
+
+    if ! test -w $ac_gdz_package_dir_test/obj-opt; then 
+	   	echo Need $ac_gdz_package_dir_test/obj-opt
+	    mkdir $ac_gdz_package_dir_test/obj-opt
+    fi
+
+    if ! test -w $ac_gdz_package_dir_test/exe-dbg; then 
+	   	echo Need $ac_gdz_package_dir_test/exe-dbg
+	    mkdir $ac_gdz_package_dir_test/exe-dbg
+    fi
+
+    if ! test -w $ac_gdz_package_dir_test/exe-opt; then 
+	   	echo Need $ac_gdz_package_dir_test/exe-opt
+	    mkdir $ac_gdz_package_dir_test/exe-opt
+    fi
+
+    if ! test -w $ac_gdz_package_dir_test/obj-optlnk; then 
+	   	echo Need $ac_gdz_package_dir_test/obj-optlnk
+	    mkdir $ac_gdz_package_dir_test/obj-optlnk
+    fi
+
+    if ! test -w $ac_gdz_package_dir_test/obj-dbglnk; then 
+	   	echo Need $ac_gdz_package_dir_test/obj-dbglnk
+	    mkdir $ac_gdz_package_dir_test/obj-dbglnk
+    fi
+
+    if ! test -w $ac_gdz_package_dir_test/exe-dbglnk; then 
+	   	echo Need $ac_gdz_package_dir_test/exe-dbglnk
+	    mkdir $ac_gdz_package_dir_test/exe-dbglnk
+    fi
+
+    if ! test -w $ac_gdz_package_dir_test/exe-optlnk; then 
+	   	echo Need $ac_gdz_package_dir_test/exe-optlnk
+	    mkdir $ac_gdz_package_dir_test/exe-optlnk
+    fi
+}
+
+dnl ############# Run Tests #####################
+
+AC_CANONICAL_SYSTEM()
+
+case "$build_os" in
+    darwin*)
+        build_os="darwin"
+    ;;
+esac
+
+case "$build" in
+    powerpc-apple-darwin*)
+        build="powerpc-apple-darwin"
+    ;;
+esac
+
+AC_GDZ_GUESS_COMPILER_DEFAULTS()
+
+ac_gdz_os_base=$build_os
+ac_gdz_os_buildbase=$build
+ac_gdz_compiler_base=$ac_gdz_compiler
+
+AC_GDZ_SET_COMPILER_DEFAULTS()
+
+ac_gdz_compiler_base_def=${ac_gdz_compiler}${ac_gdz_stl_suffix}
+
+AC_GDZ_EXEEXT()
+AC_GDZ_OBJEXT()
+AC_GDZ_LIBEXT()
+AC_GDZ_SOEXT()
+AC_GDZ_SOPRAEFIX()
+
+
+if test $build_os = cygwin; then 
+	if test $ac_gdz_compiler_base != g++; then
+
+		AC_GDZ_SET_SYSTEM_DIRS()
+
+	 	    case "$ac_gdz_compiler" in
+			    icl*)
+					ac_gdz_compiler_exe='"$(CC_PATH)/'$ac_gdz_compiler_exe'" '
+
+					ac_gdz_compiler_exe_shared='"$(CC_PATH)/'$ac_gdz_linker_exe'" -dll -map'
+
+					ac_gdz_compiler_exe_lnk='"$(CC_PATH)/xilink" -lib -NODEFAULTLIB'
+					ac_gdz_compiler_exe_exe='"$(CC_PATH)/'$ac_gdz_linker_exe'"'
+
+#					ac_gdz_base_system_libs='user32.lib kernel32.lib MSVCPRT$(DEBUG_CHAR).lib MSVCRT$(DEBUG_CHAR).lib libmmd$(DEBUG_CHAR).lib'
+					ac_gdz_base_system_libs='user32.lib kernel32.lib MSVCPRT$(DEBUG_CHAR).lib MSVCRT$(DEBUG_CHAR).lib libmmd.lib'
+
+					ac_gdz_base_system_libs="$ac_gdz_base_system_libs winmm.lib wsock32.lib"
+			    ;;
+			    cl*)
+					ac_gdz_compiler_exe='"$(CC_PATH)/'$ac_gdz_compiler_exe'" '
+
+					ac_gdz_compiler_exe_shared='"$(CC_PATH)/'$ac_gdz_linker_exe'" -dll -map'
+
+					ac_gdz_compiler_exe_lnk='"$(CC_PATH)/link" -lib -NODEFAULTLIB'
+					ac_gdz_compiler_exe_exe='"$(CC_PATH)/'$ac_gdz_linker_exe'"'
+
+					ac_gdz_base_system_libs='user32.lib kernel32.lib MSVCPRT$(DEBUG_CHAR).lib MSVCRT$(DEBUG_CHAR).lib'
+					ac_gdz_base_system_libs="$ac_gdz_base_system_libs winmm.lib wsock32.lib"
+			    ;;
+	            bcc*)
+					ac_gdz_compiler_exe='"$(CC_PATH)/'$ac_gdz_compiler_exe'"'
+
+					ac_gdz_compiler_exe_shared='"$(CC_PATH)/'$ac_gdz_linker_exe'" -WD'
+
+					ac_gdz_compiler_exe_exe='"$(CC_PATH)/'$ac_gdz_linker_exe'"'
+
+					ac_gdz_base_system_libs=
+				;;
+			esac
+
+		ac_gdz_ln_exe="cp"
+
+        if test $enable_win_exclude_default_path = yes; then
+			ac_gdz_system_incl_dir_e1=
+	    	ac_gdz_system_lib_dir_e1=
+
+			ac_gdz_compiler_incl=
+	    	ac_gdz_compiler_lib=
+        else
+			ac_gdz_system_incl_dir_e1=`cygpath -w "$ac_gdz_system_incl_dir"`
+	    	ac_gdz_system_lib_dir_e1=`cygpath -w "$ac_gdz_system_lib_dir"`
+
+		    ac_gdz_system_incl_dir_e1='"'$ac_gdz_system_incl_dir_e1'"'
+			ac_gdz_system_lib_dir_e1='"'$ac_gdz_system_lib_dir_e1'"'
+
+	    	ac_gdz_compiler_incl=`cygpath -w "$ac_gdz_compiler_incl"`
+		    ac_gdz_compiler_lib=`cygpath -w "$ac_gdz_compiler_lib"`
+
+			ac_gdz_compiler_incl='"'$ac_gdz_compiler_incl'"'
+	    	ac_gdz_compiler_lib='"'$ac_gdz_compiler_lib'"'
+        fi
+	else
+		ac_gdz_compiler_exe_shared='$(CC) -shared'
+
+		ac_gdz_system_incl_dir_e1=
+		ac_gdz_system_lib_dir_e1=
+
+		ac_gdz_base_system_libs='-lm'
+	fi
+
+	ac_gdz_flex_exe=flex.exe
+	ac_gdz_bison_exe=bison.exe
+
+	ac_gdz_sed_exe=sed
+
+	ac_gdz_gmake_exe=make
+
+else 
+
+    ac_gdz_compiler_exe_ranlib=
+    ac_gdz_compiler_exe_lnk="ar -cr"
+
+    case "$build_os" in
+
+       solaris*)
+		ac_gdz_compiler_exe_shared="$CC -template=no%wholeclass,extdef -ptv -G -mt"
+		ac_gdz_compiler_exe_lnk="$CC -template=no%wholeclass,extdef -ptv -xar -mt"
+        ;;
+
+       darwin*)
+		ac_gdz_compiler_exe_shared='$(CC) -dynamiclib -compatibility_version 1.2 -current_version 1.2.0 -Wl,-single_module -flat_namespace'
+        ac_gdz_compiler_exe_ranlib=ranlib
+        ;;
+
+       hpux*)
+		ac_gdz_compiler_exe_shared='$(CC) +DA2.0N -b -AA +ESnolit +inst_auto -Wf,-o'
+        ac_gdz_system_incl_dir_e1=/opt/aCC/include_std
+        ;;
+
+        *)
+		ac_gdz_compiler_exe_shared='$(CC) -shared'
+        ;;
+
+    esac
+
+
+	ac_gdz_flex_exe=flex
+	ac_gdz_bison_exe=bison
+
+dnl No linux distribution comes without GNU Make, but not everyone places
+dnl a symlink from gmake to make
+
+	if test $build_os = linux-gnu; then
+		ac_gdz_gmake_exe=make
+	else
+		ac_gdz_gmake_exe=gmake
+	fi
+
+	ac_gdz_ln_exe="ln -s"
+
+	ac_gdz_sed_exe=sed
+
+	ac_gdz_systen_incl_dir_e1=
+	ac_gdz_system_lib_dir_e1=
+
+	ac_gdz_base_system_libs='-lm'
+
+        if test $build_os = linux-gnu; then
+		ac_gdz_base_system_libs="-ldl $ac_gdz_base_system_libs"
+	fi
+
+    case $build_os in
+        hpux*)
+            ac_gdz_compiler_exe_exe='$(CC) +DA2.0N -AA +ESnolit +inst_auto -Wf,-o'
+			ac_gdz_base_system_libs=$ac_gdz_base_system_libs' -lpthread'
+        ;;
+        solaris*)
+    		ac_gdz_compiler_exe_exe='$(CC) -template=no%wholeclass,extdef -ptv -mt'
+			ac_gdz_base_system_libs=$ac_gdz_base_system_libs' -lpthread -lresolv -lsocket  -lnsl '
+        ;;
+        darwin*)
+            ac_gdz_compiler_exe_exe='$(CC) -flat_namespace'
+        ;;
+        *)
+            ac_gdz_compiler_exe_exe='$(CC)'
+        ;;
+    esac
+
+    if test "$with_icc_gnu_compat" != no; then
+        ac_gdz_compiler_exe=$ac_gdz_compiler_exe" -cxxlib-gcc -gcc-version=$with_icc_gnu_compat"
+        ac_gdz_compiler_exe_shared=$ac_gdz_compiler_exe_shared" -cxxlib-gcc -gcc-version=$with_icc_gnu_compat"
+    fi
+
+    if test $ac_gdz_conf_package_efence = "1"; then
+        if test "x"$ac_gdz_efence_dir = "x" ; then
+            ac_gdz_test_debug_libs=' -lefence'
+        else
+            ac_gdz_test_debug_libs=" -L$ac_gdz_efence_dir -lefence"
+        fi
+    fi
+
+    if test $build_os = linux-gnu; 
+    then 
+		ac_gdz_base_system_libs='-lpthread '$ac_gdz_base_system_libs
+    fi
+
+    if test "$enable_sgi_pthread" = yes; 
+    then 
+		ac_gdz_base_system_libs='-lpthread '$ac_gdz_base_system_libs
+    fi
+fi 
+
+if ! test -w Builds; then 
+	echo Need Builds
+	mkdir Builds
+fi
+
+ac_gdz_lib_base_dir=Builds/$build-$ac_gdz_compiler$ac_gdz_suffix
+ac_gdz_commonpackage_dir=$ac_gdz_src_dir/$ac_gdz_lib_base_dir/CommonPackages
+ac_gdz_commonbin=$ac_gdz_src_dir/$ac_gdz_lib_base_dir/bin
+
+if ! test -w $ac_gdz_lib_base_dir; then 
+	echo Need $ac_gdz_lib_base_dir
+	mkdir $ac_gdz_lib_base_dir
+    mkdir $ac_gdz_lib_base_dir/CommonPackages
+fi
+
+if ! test -w $ac_gdz_lib_base_dir/bin; then
+    echo Need $ac_gdz_lib_base_dir/bin
+    mkdir $ac_gdz_lib_base_dir/bin
+fi
+
+ac_gdz_common_system=$ac_gdz_commonconf_dir/common.$build-$ac_gdz_compiler_base.in
+
+AC_MSG_CHECKING([project config common.project.in])
+
+if test -r "$ac_gdz_commonconf_dir/common.project.in"; then
+    AC_MSG_RESULT("yes")
+    . "$ac_gdz_commonconf_dir/common.project.in"
+else
+    AC_MSG_RESULT("error could not find project config")
+	exit
+fi
+
+AC_MSG_CHECKING([package config common.libs.in])
+
+if test -r "$ac_gdz_commonconf_dir/common.libs.in"; then
+    AC_MSG_RESULT("yes")
+    . "$ac_gdz_commonconf_dir/common.libs.in"
+else
+    AC_MSG_RESULT("error could not find package config")
+	exit
+fi
+
+
+AC_MSG_CHECKING([additional package configs])
+
+for i in `find . -name common.libs.in | sed -e 's|^./||'` ;
+do
+    if test "$i" != "$ac_gdz_commonconf_dir/common.libs.in"
+    then
+        dir=`echo "$i" | sed -e 's|/common.libs.in$||'`
+        echo -n " $dir"
+        . "$i"
+    fi
+done
+AC_MSG_RESULT("")
+
+
+ac_gdz_package_sub_dir_out=Builds/$build-$ac_gdz_compiler$ac_gdz_suffix
+
+AC_CONFIG_HEADER($ac_gdz_package_sub_dir_out/Base/OSGConfigured.h:CommonConf/OSGConfigured.h.in)
+
+if test $build_os = cygwin; then 
+	if test ! -w $ac_gdz_package_sub_dir_out/Base; then
+		mkdir $ac_gdz_package_sub_dir_out/Base
+	fi
+
+	if test $ac_gdz_compiler_base = g++; then
+		ac_gdz_gen_base_inc_e1="../Base"
+	else
+		ac_gdz_gen_base_inc_e1="..\\Base"
+		touch $ac_gdz_package_sub_dir_out/Base/unistd.h
+    fi
+else
+    ac_gdz_gen_base_inc_e1="../Base"
+fi
+
+if test "$with_patrol" = yes; then
+    echo "not implemented"
+#    if test $build_os = cygwin; then
+#ac_gdz_mpatrol_inc_dir_e1=
+#ac_gdz_mpatrol_lib_dir_e1=
+#ac_gdz_mpatrol_libs_e1=
+#     else
+#           ac_gdz_freetype1_lib_e14='-lfreetype'
+#        fi
+
+elif test -n "$ac_gdz_mpatrol_dir"; then
+    if test $build_os = cygwin; then
+        ac_gdz_mpatrol_inc_dir_e1='"'`cygpath -w $ac_gdz_mpatrol_dirr/include`'"'
+        ac_gdz_mpatrol_lib_dir_e1='"'`cygpath -w $ac_gdz_mpatrol_dir/lib`'"'
+        ac_gdz_mpatrol_libs_e1=#'ttf.lib'
+    else
+        ac_gdz_mpatrol_inc_dir_e1=$ac_gdz_mpatrol_dir/include
+        ac_gdz_mpatrol_lib_dir_e1=$ac_gdz_mpatrol_dir/lib
+        ac_gdz_mpatrol_libs_e1=#'-lttf'
+    fi
+fi
+
+
+ac_gdz_additional_inc_dirs_e1=$ac_gdz_with_add_incdirs
+ac_gdz_additional_lib_dirs_e1=$ac_gdz_with_add_libdirs
+ac_gdz_additional_libs_e1=$ac_gdz_with_add_libs
+
+if test "$disable_compilerLogo" = yes; then
+	ac_gdz_compiler_logo_e1=-nologo
+fi
+
+if test "$disable_bisonLineNums" = yes; then
+	ac_gdz_bison_exe_flags_e1=-l
+fi
+
+echo $ac_gdz_bison_exe_flags_e1 $ac_gdz_compiler_logo_e1
+
+AC_GDZ_SCAN_PACKET_DESC()
+
+AC_SUBST(ac_gdz_so_praefix)
+AC_SUBST(ac_gdz_so_suffix)
+AC_SUBST(ac_gdz_lib_suffix)
+AC_SUBST(ac_gdz_obj_suffix)
+AC_SUBST(ac_gdz_exe_suffix)
+AC_SUBST(ac_gdz_os_base)
+AC_SUBST(ac_gdz_os_buildbase)
+AC_SUBST(ac_gdz_compiler_base)
+AC_SUBST(ac_gdz_compiler_base_def)
+
+AC_SUBST(ac_gdz_compiler_path)
+AC_SUBST(ac_gdz_compiler_exe)
+AC_SUBST(ac_gdz_compiler_exe_shared)
+AC_SUBST(ac_gdz_compiler_exe_lnk)
+AC_SUBST(ac_gdz_compiler_exe_exe)
+AC_SUBST(ac_gdz_compiler_exe_ranlib)
+AC_SUBST(ac_gdz_flex_exe)
+AC_SUBST(ac_gdz_bison_exe)
+AC_SUBST(ac_gdz_gmake_exe)
+AC_SUBST(ac_gdz_ln_exe)
+AC_SUBST(ac_gdz_sed_exe)
+
+AC_SUBST(ac_gdz_system_incl_dir_e1)
+AC_SUBST(ac_gdz_system_lib_dir_e1)
+
+AC_SUBST(ac_gdz_additional_inc_dirs_e1)
+AC_SUBST(ac_gdz_additional_lib_dirs_e1)
+AC_SUBST(ac_gdz_additional_libs_e1)
+
+AC_SUBST(ac_gdz_compiler_incl)
+AC_SUBST(ac_gdz_compiler_lib)
+
+AC_SUBST(ac_gdz_base_system_libs)
+AC_SUBST(ac_gdz_plat_project_praefix)
+
+AC_SUBST(ac_gdz_gen_base_inc_e1)
+
+AC_SUBST(ac_gdz_conf_package_defs)
+AC_SUBST(ac_gdz_conf_package_qt_e1)
+AC_SUBST(ac_gdz_conf_package_tif_e1)
+AC_SUBST(ac_gdz_conf_package_jpg_e1)
+AC_SUBST(ac_gdz_conf_package_png_e1)
+AC_SUBST(ac_gdz_conf_package_mng_e1)
+AC_SUBST(ac_gdz_conf_package_gif_e1)
+AC_SUBST(ac_gdz_conf_package_gl_e1)
+AC_SUBST(ac_gdz_conf_package_glut_e1)
+AC_SUBST(ac_gdz_conf_package_stlport_e1)
+AC_SUBST(ac_gdz_conf_package_freetype1_e1)
+AC_SUBST(ac_gdz_conf_package_text_e1)
+AC_SUBST(ac_gdz_conf_gvbeta_e1)
+
+AC_SUBST(ac_gdz_mpatrol_inc_dir_e1)
+AC_SUBST(ac_gdz_mpatrol_lib_dir_e1)
+AC_SUBST(ac_gdz_mpatrol_libs_e1)
+
+AC_SUBST(ac_gdz_compiler_logo_e1)
+AC_SUBST(ac_gdz_bison_exe_flags_e1)
+
+AC_SUBST_FILE(ac_gdz_common_patterns)
+AC_SUBST_FILE(ac_gdz_common_system)
+
+
+if test "$enable_compiler_pedantic_errors" = yes; then
+    ac_gdz_ped_errors_e1=1
+else
+    ac_gdz_ped_errors_e1=0    
+fi
+
+AC_SUBST(ac_gdz_ped_errors_e1)
+
+ac_gdz_commonpackage_dir_e1=$ac_gdz_commonpackage_dir
+
+AC_SUBST(ac_gdz_commonpackage_dir_e1)
+
+if test "$prefix" = NONE; then
+    ac_gdz_install_prefix=/usr/local
+elif test "$prefix" = "BUILD"; then
+    ac_gdz_install_prefix=$ac_gdz_src_dir/$ac_gdz_lib_base_dir
+elif test "$prefix" = ""; then
+    ac_gdz_install_prefix=$ac_gdz_src_dir/$ac_gdz_lib_base_dir
+else
+    prefix_f=${prefix#\/}
+
+    if test $prefix = $prefix_f; then
+        echo 'Local Path'
+        ac_gdz_install_prefix=$ac_gdz_src_dir/$prefix
+    else
+        echo 'Abs Path'
+        ac_gdz_install_prefix=$prefix
+    fi
+fi
+
+echo "OSGINSTALLPREFIX=\"$ac_gdz_install_prefix\"" > Tutorials/.prefix.$target
+echo "OSGINSTALLPREFIX=\"$ac_gdz_install_prefix\"" > Examples/SceneViewer/.prefix.$target
+echo "OSGINSTALLPREFIX=\"$ac_gdz_install_prefix\"" > Tools/fcdEdit/.prefix.$target
+
+ac_gdz_common_platform_in=$ac_gdz_commonconf_dir/common.platform.mk.in
+ac_gdz_common_platform=$ac_gdz_common_dir/common.$build-$ac_gdz_compiler$ac_gdz_suffix.mk
+
+ac_gdz_common_packetmake_in=$ac_gdz_commonconf_dir/Makefile.lib.in
+ac_gdz_common_buildsmake_in=$ac_gdz_commonconf_dir/Makefile.builds.in
+ac_gdz_common_testmake_in=$ac_gdz_commonconf_dir/Makefile.test.in
+
+AC_OUTPUT($ac_gdz_common_platform:$ac_gdz_common_platform_in)
+
+AC_GDZ_WRITE_COMMON_STLPORT()
+AC_GDZ_WRITE_COMMON_STL()
+
+AC_GDZ_WRITE_COMMON_GLUT()
+
+AC_GDZ_WRITE_COMMON_QT()
+
+AC_GDZ_WRITE_COMMON_TIF()
+
+AC_GDZ_WRITE_COMMON_JPG()
+
+AC_GDZ_WRITE_COMMON_PNG()
+
+AC_GDZ_WRITE_COMMON_MNG()
+
+AC_GDZ_WRITE_COMMON_GIF()
+
+AC_GDZ_WRITE_COMMON_EXPAT()
+
+AC_GDZ_WRITE_COMMON_GL()
+
+dnl disabled (files missing)
+dnl AC_GDZ_WRITE_COMMON_MYRINET()
+
+AC_GDZ_WRITE_COMMON_TEXT()
+
+AC_GDZ_WRITE_OSG_CONFIG()
+
+if test $build_os = irix6.5; then
+    if test "x"$ac_gdz_stl_dir = "x"; then
+        AC_GDZ_FIX_SGI_INCLUDES()
+    fi
+fi
+
+case $build_os in
+    solaris*)
+        AC_GDZ_FIX_SUN_INCLUDES()
+    ;;
+    hpux*)
+        AC_GDZ_FIX_HP_INCLUDES()
+    ;;
+    darwin*)
+        AC_GDZ_FIX_OSX_INCLUDES()
+    ;;
+esac
+
+case $build in
+    ia64-unknown*)
+        AC_GDZ_FIX_IA64_INCLUDES()
+    ;;
+esac
+                                                                                                               
+if test $build_os = cygwin; then
+	if test $ac_gdz_compiler_base != g++; then
+		AC_GDZ_FIX_MS_INCLUDES()
+	fi
+fi
+
+ac_gdz_package_sys_common_out=common.$build-$ac_gdz_compiler$ac_gdz_suffix.mk
+
+AC_GDZ_WRITE_PACKET_MAKE()
+
+ac_gdz_lib_package_sys_common_out=common.$build-$ac_gdz_compiler$ac_gdz_suffix.mk
+
+AC_GDZ_WRITE_BUILDS_MAKE()
+
+if test "$enable_win_localstorage" = yes; then
+    AC_DEFINE(OSG_ASPECT_USE_LOCALSTORAGE)
+else
+    AC_DEFINE(OSG_ASPECT_USE_DECLSPEC)
+fi
+
+if test "$enable_sgi_pthread" = yes; then
+    AC_DEFINE(OSG_SGI_USE_PTHREAD)
+else
+    AC_DEFINE(OSG_SGI_USE_SPROC)
+fi
+
+if test "$disable_depreciated" = yes; then
+    AC_DEFINE(OSG_DISABLE_DEPRECATED)
+fi
+
+if test "$disable_glut_glsubdir" = yes; then
+    AC_DEFINE(OSG_NO_GLUT_GLSUBDIR)
+fi
+
+if test "$with_mpatrol" != no; then
+    AC_DEFINE(OSG_USE_MPATROL)
+fi
+
+if test "$enable_win_bool_is_unsigned" = yes; then
+    AC_DEFINE(OSG_BOOL_IS_UNSIGNED)
+fi
+
+if test "$enable_typed_dbg_fcptr" = yes; then
+	AC_DEFINE(OSG_DEBUG_FCPTR)
+fi
+
+if test $enable_osg_1_compat = yes; then
+    AC_DEFINE(OSG_1_COMPAT)
+fi
+
+if test $enable_depreciated_props = yes; then
+    AC_DEFINE(OSG_DEPRECIATED_PROPS)
+fi
+
+if test "$disable_fcptr_arithm" = yes; then
+	AC_DEFINE(OSG_DEBUG_NO_FCPTR_ARITHM)
+fi
+
+if test "$enable_use_cptr" = no; then
+	AC_DEFINE(OSG_MT_FIELDCONTAINERPTR)
+fi
+
+if test "$enable_use_cptr_aspect" = yes; then
+       AC_DEFINE(OSG_MT_CPTR_ASPECT)
+fi
+
+if test "$enable_pthread_elf_tls" = yes; then
+	AC_DEFINE(OSG_PTHREAD_ELF_TLS)
+fi
+
+if test "$enable_gv" = yes; then
+	AC_DEFINE(OSG_CLEANED_RENDERACTION)
+fi
+
+AC_DEFINE(OSG_OLD_RENDER_ACTION)
+
+case $with_log_level in
+	LOG)
+		AC_DEFINE(OSG_DEFAULT_LOG_LEVEL, LOG_LOG)
+		;;
+    FATAL)
+		AC_DEFINE(OSG_DEFAULT_LOG_LEVEL, LOG_FATAL)
+		;;
+    WARNING)
+		AC_DEFINE(OSG_DEFAULT_LOG_LEVEL, LOG_WARNING)
+		;;
+    NOTICE)
+		AC_DEFINE(OSG_DEFAULT_LOG_LEVEL, LOG_NOTICE)
+		;;
+    INFO)
+		AC_DEFINE(OSG_DEFAULT_LOG_LEVEL, LOG_INFO)
+		;;
+    DEBUG)
+		AC_DEFINE(OSG_DEFAULT_LOG_LEVEL, LOG_DEBUG)
+		;;
+	*)
+		echo "Unknown log level ($with_log_level), resetting to WARNING"
+		AC_DEFINE(OSG_DEFAULT_LOG_LEVEL, LOG_WARNING)
+		;;
+esac
+
+case $with_log_type in
+
+	NONE) 
+		AC_DEFINE(OSG_DEFAULT_LOG_TYPE, LOG_NODE)
+		;;
+	STDOUT) 
+		AC_DEFINE(OSG_DEFAULT_LOG_TYPE, LOG_STDOUT)
+		;;
+	STDERR) 
+		AC_DEFINE(OSG_DEFAULT_LOG_TYPE, LOG_STDERR)
+		;;
+	*) 
+		echo "Unknown log level ($with_log_type), resetting to STDERR"
+		AC_DEFINE(OSG_DEFAULT_LOG_TYPE, LOG_STDERR)
+		;;
+esac
+
+if test "$with_icc_gnu_compat" != no; then
+    AC_DEFINE(OSG_ICC_GNU_COMPAT)
+fi
+
+AC_GDZ_WRITE_SYSTEM_COMMON()
+
+case "$build_os" in
+    darwin*)
+        echo "#############################"
+        echo "WARNING"
+        echo "#############################"
+        echo "This port is highly experimental, currently only the {dbg|opt}Lnk"
+        echo "targets are working" 
+        echo "In case you are interested in the OSX port"
+        echo "please contact me (vossg@camtech.ntu.edu.sg) beforehand"
+    ;;
+    linux*)
+        warn_gl=0
+        if test -e /usr/lib/libGL.so -a -e /usr/lib/libGL.so.1 
+        then
+            diff -q /usr/lib/libGL.so /usr/lib/libGL.so.1 > /dev/null
+            if test $? != 0
+            then
+                warn_gl=1
+            fi
+        fi
+        
+        warn_x11=0
+        if test -e /usr/X11R6/lib/libGLU.a -a ! -e /usr/X11R6/lib/libGLU.so
+        then
+            warn_x11=1
+        fi
+        
+        if test $warn_gl != 0 -o $warn_x11 != 0
+        then
+            echo "#############################"
+            echo "WARNING"
+            echo "#############################"
+            
+            if test $warn_gl != 0
+            then
+                echo "The libraries" 
+                \ls -ol /usr/lib/libGL.*so* | sed -e 's|^.*/usr|/usr|'
+                echo "differ from each other. This is usually a sign of a broken installation"
+                echo "If OpenSG programs crash when accessing OpenGL extensions, please make "
+                echo "sure your OpenGL installation is ok."
+                echo
+            fi
+            
+            if test $warn_x11 != 0  
+            then           
+                echo "Your system has /usr/X11R6/lib/libGLU.a but no /usr/X11R6/lib/libGLU.so!" 
+                echo "This can lead to linking problems. If you get unresolved symbols" 
+                echo "like gluErrorString, please execute (as root)"
+                echo "ln -s /usr/lib/libGLU.so /usr/X11R6/lib/libGLU.so"
+                echo
+            fi
+        fi
+    ;;
+esac
+
+echo "#!/bin/sh" > $ac_gdz_commonbin/run_configure
+grep '#' config.status | grep configure | grep '\-\-with' | sed -e 's/# //g' >> $ac_gdz_commonbin/run_configure
+chmod 755 $ac_gdz_commonbin/run_configure

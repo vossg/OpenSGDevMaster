@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="StereoBufferViewport"
+	parent="Viewport"
+	library="Window"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+A Viewport for rendering to quad-buffered visuals.
+	<Field
+		name="leftBuffer"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+        Defines whether the left buffer is written to.
+	</Field>
+	<Field
+		name="rightBuffer"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+        Defines whether the right buffer is written to.
+	</Field>
+</FieldContainer>

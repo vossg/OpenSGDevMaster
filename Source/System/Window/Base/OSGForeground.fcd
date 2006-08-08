@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="Foreground"
+	parent="AttachmentContainer"
+	library="System"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+Background is the base class for all background clearing. 
+	<Field
+		name="active"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Activate the grabber.
+	</Field>
+</FieldContainer>

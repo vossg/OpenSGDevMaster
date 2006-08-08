@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="TransformChunk"
+	parent="StateChunk"
+	library="State"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+	<Field
+		name="matrix"
+		type="Matrix"
+		cardinality="single"
+		visibility="external"
+	>
+	</Field>
+</FieldContainer>

@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="SimpleMaterial"
+	parent="ChunkMaterial"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="none"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+	<Field
+		name="ambient"
+		type="Color3r"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f,0.f,0.f"
+	>
+	</Field>
+	<Field
+		name="diffuse"
+		type="Color3r"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f,0.f,0.f"
+	>
+	</Field>
+	<Field
+		name="specular"
+		type="Color3r"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f,0.f,0.f"
+	>
+	</Field>
+	<Field
+		name="shininess"
+		type="Real"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.f"
+	>
+	</Field>
+	<Field
+		name="emission"
+		type="Color3r"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f,0.f,0.f"
+	>
+	</Field>
+	<Field
+		name="transparency"
+		type="Real"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f"
+	>
+	</Field>
+	<Field
+		name="lit"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+	>
+	</Field>
+	<Field
+		name="colorMaterial"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_DIFFUSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	</Field>
+</FieldContainer>
+
+

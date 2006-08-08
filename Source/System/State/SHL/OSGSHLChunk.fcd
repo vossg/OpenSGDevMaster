@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="SHLChunk"
+	parent="ShaderChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="cgFrontEnd"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="pointSize"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+        Flag to set whether the shader can change the point size.
+	</Field>
+	<Field
+		name="GLId"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        fieldFlags="FClusterLocal"
+	>
+	</Field>
+</FieldContainer>

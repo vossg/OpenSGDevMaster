@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="LineChunk"
+	parent="StateChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The line chunk contains the parameters that are specific set for lines.
+	<Field
+		name="width"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1"
+		access="public"
+	>
+        The line's width, in pixel.
+	</Field>
+	<Field
+		name="stippleRepeat"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1"
+		access="public"
+	>
+        Repetition factor for sitppling.
+	</Field>
+	<Field
+		name="stipplePattern"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0xffff"
+		access="public"
+	>
+	Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, 
+        starting with the most significant bit.
+	</Field>
+	<Field
+		name="smooth"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FALSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	Defines if line antialiasing is used.
+	</Field>
+</FieldContainer>

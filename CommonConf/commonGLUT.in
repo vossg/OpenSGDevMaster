@@ -1,0 +1,19 @@
+
+INCLUDE_GLUT := @ac_gdz_glut_incdir_e5@
+LINK_GLUT    := @ac_gdz_glut_libdir_e5@
+LIB_GLUT     := @ac_gdz_glut_lib_e5@
+
+ifneq ($(INCLUDE_GLUT),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_GLUT)
+endif
+
+ifneq ($(LINK_GLUT),)
+LIBPATHS_GLUT     := $(LIBPATH_OPTION)$(LINK_GLUT)
+endif
+
+ifneq ($(LIB_GLUT),)
+LIB_FILE_GLUT     := $(LIB_GLUT)
+LIB_FILE_GLUT_LNK := $(LIB_GLUT)
+OSG_LIB_EXT       := $(OSG_LIB_EXT) $(LIB_GLUT)
+endif
+

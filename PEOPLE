@@ -1,0 +1,44 @@
+#
+# This is a list of people who have contributed to the project.
+#
+# If you think you belong here, tell me. Or add yourself if you have
+# CVS write access.
+#
+
+Dirk Reiners <dirk@opensg.org>
+    - initiator, project lead
+    - Action
+    - Doc/tutorials
+    - Material
+    - State
+    - Window
+    - Nodes/Geometry, Nodes/Misc/Group
+    - Tools/fcdEdit
+    - website
+    - dailybuild/dist
+
+Gerrit Voss <gerrit.voss@vossg.org>
+    - Base
+    - configure/make system
+    - Field
+    - FieldContainer
+    - Loader
+    - MultiThreading
+    - Nodes/Misc/Transform
+    - templates everywhere ;)
+    
+Johannes Behr <jbehr@zgdv.de>
+    - Base
+    - Field
+    - FieldContainer
+    - Image
+    - Loader
+    - Statistics
+    - Tools/fcdEdit
+    - osgSceneViewer
+    
+Marcus Roth <mroth@igd.fhg.de>
+    - Cluster
+    - Binary Data Handler
+
+Your name here? ...

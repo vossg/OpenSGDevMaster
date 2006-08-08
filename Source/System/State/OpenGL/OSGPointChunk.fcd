@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="PointChunk"
+	parent="StateChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+The point chunk contains the parameters that are specific set for points.
+	<Field
+		name="size"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1"
+		access="public"
+	>
+	The point's size in pixel.
+	</Field>
+	<Field
+		name="smooth"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FALSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	Defines if line antialiasing is used.
+	</Field>
+	<Field
+		name="minSize"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="-1.f"
+		access="public"
+	>
+	Minimum point size for attenuation, less than 0 for disabling it. See ARB_point_parameters extension.
+	</Field>
+	<Field
+		name="maxSize"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="-1.f"
+		access="public"
+	>
+	Maximum point size for attenuation. See ARB_point_parameters extension.
+	</Field>
+	<Field
+		name="constantAttenuation"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1"
+		access="public"
+	>
+	The point size's constant attenuation.
+	</Field>
+	<Field
+		name="linearAttenuation"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	The point size's linear attenuation.
+	</Field>
+	<Field
+		name="quadraticAttenuation"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	The point size's quadratic attenuation.
+	</Field>
+	<Field
+		name="fadeThreshold"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f"
+		access="public"
+	>
+	Minimum point size for attenuation. See ARB_point_parameters extension.
+	</Field>
+	<Field
+		name="sprite"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FALSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	Flag to enable point sprites, see NV_point_sprite for details.
+	</Field>
+	<Field
+		name="rMode"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_ZERO"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

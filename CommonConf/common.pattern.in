@@ -1,0 +1,17 @@
+
+LIBDIR_BASE          := lib
+OBJDIR_BASE          := obj
+EXEDIR_BASE          := exe
+
+TEST_SRC_PATTERN     := test%.cpp
+
+INC_OPTION           := -I
+
+MAK_SUFFIX           := .mk
+DEP_SUFFIX           := .d
+
+INCL_$(OS_BASE)      :=
+INCL_$(OS_BASE)_DEP  :=
+INCL_EXP_$(OS_BASE)  :=
+LIBS_$(OS_BASE)      :=
+OSG_LIB_EXT          := 

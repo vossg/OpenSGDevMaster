@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ShaderChunk"
+	parent="ShaderParameterChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="vertexProgram"
+		type="std::string"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	vertex program source
+	</Field>
+	<Field
+		name="fragmentProgram"
+		type="std::string"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	fragment program source
+	</Field>
+</FieldContainer>

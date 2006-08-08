@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="PassiveWindow"
+	parent="Window"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+</FieldContainer>

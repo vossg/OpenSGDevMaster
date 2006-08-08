@@ -1,0 +1,152 @@
+
+LINKER_INIT_FLAG     := -Wl,-Bsymbolic -Wl,-init 
+
+LIBPATH_OPTION       := -L
+LIBLNK_OPTION        := -l
+
+OBJ_OPTION           := -o
+
+NO_STDINC_DEP_OPTION := -Y
+
+COMPONLY_OPTION      := -c
+
+DEPEND_OPTION        := -M
+
+LD_OUTOPT            := -o
+
+LNK_LD_OUTOPT        :=
+
+DIR_SEP              := /
+
+II_FILESDIR          := 
+
+### Defines #######################################################
+
+ifeq ($(CONFIGURED_GVBETA),1)
+DEF_GVBETA := -DOSG_GV_BETA
+else
+DEF_GVBETA :=
+endif
+
+# For QT
+DEP_PLATTFORMDEF =  -DQT_NO_XINERAMA -DQT_NO_XRENDER -DQT_NO_XFTFREETYPE 	\
+					-DQT_NO_XKB -DQT_NO_SM_SUPPORT -DQT_NO_IMAGEIO_MNG		\
+					-DQT_NO_IMAGEIO_JPEG -DQT_NO_STYLE_AQUA 				\
+					-DQT_NO_STYLE_MAC -DQT_NO_STYLE_INTERLACE 				\
+					-DQT_NO_STYLE_COMPACT
+
+SOURCE_DEFINES   = -D_GNU_SOURCE -DQT_CLEAN_NAMESPACE \
+                   $(CONFIGURED_PACKAGE_DEFS)
+#-DMNG_LIB -DPNG_LIB
+#-D__STL_USE_NEW_IOSTREAMS
+
+SYSTEM_DEFINES   = -D_OSG_HAVE_CONFIGURED_H_    \
+                   $(DEF_GVBETA)
+
+
+### Warnings #######################################################
+
+WARNINGS	   	:= -Wall -W   -Wpointer-arith 			        \
+				   -Wcast-align   -Wconversion   	\
+				   -Winline 
+
+#-Wshadow
+#				   -Wmissing-declarations -Wmissing-noreturn    \
+
+WARNINGS_C_OFF	:= # -woff 835
+
+# 1110 : statement is unreachable
+# 1174 : Variable declared but never referenced
+# 1375 : Base class Destructor not virtual
+# 1376 : class has no accessible constructors
+# 1424 : The template parameter is not used in declaring the argument types
+# 1682 : overloaded virtual function is only partially overridden
+# rubens
+# warning(3322): omission of explicit type is nonstandard ("int" assumed)
+
+WARNINGS_CPP_OFF := -Wno-unused -Wno-long-long
+
+# -Wcast-qual  (removed from default because of qt2.2
+# -Wno-reorder (removed from default because of the generated base fc's
+
+ifeq ($(PEDANTIC_ERRORS),1)
+WARNINGS         := $(WARNINGS) -Wsign-compare -Wcast-qual -Wreorder
+else
+WARNINGS_CPP_OFF := $(WARNINGS_CPP_OFF) -Wno-reorder -Wno-sign-compare
+endif
+
+### Language #######################################################
+
+LANG_FLAGS          = 
+#-frepo  -fno-implicit-templates
+COMPILER    		= -ansi  -use_readonly_const -ftemplate-depth-100
+
+### Optimize / Debug ###############################################
+
+ifeq ($(PRINT_INLINE), 1)
+COMP_INLINE := 
+endif
+
+ifeq ($(DEBUG_VERSION), 0)
+	COMP_OPTIMIZE    = -O2
+	COMP_DEBUG       = 
+else
+	COMP_OPTIMIZE    =
+	COMP_DEBUG       = -g -DOSG_DEBUG
+endif
+
+CCFLAGS_EXT_OPT := -O2
+CCFLAGS_EXT_DBG := -g -DOSG_DEBUG
+
+### Compiler Flags ################################################
+
+
+DEFINES     = $(SOURCE_DEFINES) $(SYSTEM_DEFINES) $(DEP_PLATTFORMDEF)
+
+# C Compiler Flags
+
+NO_STD_INC     = -nostdinc
+NO_STD_INC_DEP = -Y
+
+CFLAGS   = $(WARNINGS) $(WARNINGS_C_OFF) -D__STDC__ $(DEFINES) 	\
+		   $(COMPILER) $(COMP_OPTIMIZE) $(COMP_DEBUG) 
+
+# CPP Compiler Flags
+
+CCFLAGS   = $(WARNINGS)   $(WARNINGS_CPP_OFF) $(DEFINES)		\
+		    $(COMPILER)   $(LANG_FLAGS)       $(COMP_OPTIMIZE) 	\
+			$(COMP_DEBUG) 
+
+CCFLAGS_EXT     := $(SOURCE_DEFINES) $(SYSTEM_DEFINES) $(DEP_PLATTFORMDEF) $(COMPILER) 
+
+# Assembler Flags
+
+ASFLAGS   = $(WARNINGS) $(WARNINGS_C_OFF) $(DEFINES) 	\
+	 	    $(COMPILER) $(COMP_OPTIMIZE) $(COMP_DEBUG) 
+
+
+# Linker Flags
+
+ifeq ($(PRINT_INLINE), 1)
+LINK_INLINE := 
+endif
+
+ifeq ($(DEBUG_VERSION), 0)
+	LINK_OPTIMIZE    = -O2
+	AR_FLAGS         = 
+	LINK_DEBUG       = 
+else
+	LINK_OPTIMIZE    =
+	LINK_DEBUG       = -g 
+endif
+
+
+LD_FLAGS += $(LINK_OPTIMIZE) $(LINK_DEBUG)
+
+
+LD_FLAGS_EXT      =  
+LD_FLAGS_EXT_OPT := -O2 
+LD_FLAGS_EXT_DBG := -g 
+
+ADD_OS_LIB := -L/usr/X11R6/lib 
+

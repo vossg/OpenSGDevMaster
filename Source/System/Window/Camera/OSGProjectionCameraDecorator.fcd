@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ProjectionCameraDecorator"
+	parent="StereoCameraDecorator"
+	library="Window"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+The decorator for tracked projection screens.
+	<Field
+		name="user"
+		type="NodePtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The coordinate system relative to the camera.
+	</Field>
+	<Field
+		name="surface"
+		type="Pnt3f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	4 points describing the rectangular projection surface, in the camera coordinate system. Counterclockwise, starting at lower left corner of the screen.
+	</Field>
+	<Field
+		name="left"
+		type="Plane"
+		cardinality="single"
+		visibility="internal"
+		access="protected"
+	>
+	The left edge direction vector.
+	</Field>
+	<Field
+		name="bottom"
+		type="Plane"
+		cardinality="single"
+		visibility="internal"
+		access="protected"
+	>
+	The bottom edge direction vector.
+	</Field>
+	<Field
+		name="normal"
+		type="Plane"
+		cardinality="single"
+		visibility="internal"
+		access="protected"
+	>
+	The normal of the projection surface.
+	</Field>
+	<Field
+		name="width"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The width of the projection screen.
+	</Field>
+	<Field
+		name="height"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The height of the projection screen.
+	</Field>
+</FieldContainer>

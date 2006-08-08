@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="SimpleStatisticsForeground"
+	parent="StatisticsForeground"
+	library="Util"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+Simpe Statistics display. Just print all the selected elements in the upper right corner of the screen.
+	<Field
+		name="formats"
+		type="std::string"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	The format strings for the given StatElemDesc IDs. If not set, name and value are used.
+	</Field>
+	<Field
+		name="size"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="25"
+		access="public"
+	>
+	Height of a single line, in  pixel.
+	</Field>
+	<Field
+		name="color"
+		type="Color4f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1,1,1,1"
+		access="public"
+	>
+	Color of the text.
+	</Field>
+</FieldContainer>

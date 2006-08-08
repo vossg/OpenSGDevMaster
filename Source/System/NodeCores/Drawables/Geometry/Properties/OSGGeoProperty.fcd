@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="GeoProperty"
+	parent="StateChunk"
+	library="Drawable"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+	<Field
+		name="useVBO"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+	The id used to register with the Window, 0 if not set up yet.
+	</Field>
+	<Field
+		name="GLId"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		access="protected"
+	>
+	The id used to register with the Window, 0 if not set up yet.
+	</Field>
+	<Field
+		name="usage"
+		type="Int32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="GL_STATIC_DRAW_ARB"
+                defaultHeader="&lt;OSGGLEXT.h&gt;"
+		access="protected"
+	>
+	The usage pattern, only valid for VBO use.
+	</Field>
+</FieldContainer>

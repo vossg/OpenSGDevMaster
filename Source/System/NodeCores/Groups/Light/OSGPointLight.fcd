@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="PointLight"
+	parent="Light"
+	library="Group"
+	structure="concrete"
+	pointerfieldtypes="none"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="true"
+>
+	<Field
+		name="position"
+		type="Pnt3r"
+		cardinality="single"
+		visibility="external"
+                defaultValue="0.f,0.f,0.f"
+	>
+	</Field>
+</FieldContainer>

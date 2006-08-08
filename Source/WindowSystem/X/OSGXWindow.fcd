@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="XWindow"
+	parent="Window"
+	library="WindowX"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The class windows on X.
+	<Field
+		name="display"
+		type="DisplayP"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="NULL"
+		header="OSGXWindowDataFields.h"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="window"
+		type="X11Window"
+		cardinality="single"
+		visibility="internal"
+		header="OSGXWindowDataFields.h"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="context"
+		type="GLXContext"
+		cardinality="single"
+		visibility="internal"
+		header="OSGXWindowDataFields.h"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

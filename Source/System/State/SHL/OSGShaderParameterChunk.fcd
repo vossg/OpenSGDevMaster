@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ShaderParameterChunk"
+	parent="StateChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="parameters"
+		type="ShaderParameterPtr"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+
+        pushToFieldAs="addParameter"
+        insertIntoMFieldAs="insertParameter"
+        replaceInMFieldIndexAs="replaceParameter"
+        replaceInMFieldObjectAs="replaceParameterBy"
+        removeFromMFieldIndexAs="subParameter"
+        removeFromMFieldObjectAs="subParameter"
+        clearFieldAs="clearParameters"        
+	>
+	parameter list
+	</Field>
+</FieldContainer>

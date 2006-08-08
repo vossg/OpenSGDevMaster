@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="LightChunk"
+	parent="StateChunk"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The light chunk contains the parameter set for a single light source. It's taken
+straight from the glLight() manpage.
+	<Field
+		name="diffuse"
+		type="Color4r"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.f,1.f,1.f,0.f"
+	>
+	The light's diffuse color.
+	</Field>
+	<Field
+		name="ambient"
+		type="Color4r"
+		cardinality="single"
+		visibility="external"
+		defaultValue=".1f,.1f,.1f,0.f"
+	>
+	The light's ambient color.
+	</Field>
+	<Field
+		name="specular"
+		type="Color4r"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.f,1.f,1.f,0.f"
+	>
+	The light's specular color.
+	</Field>
+	<Field
+		name="position"
+		type="Vec4r"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f,-1.f,0.f,0.f"
+	>
+	The light's position.
+	</Field>
+	<Field
+		name="direction"
+		type="Vec3r"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f,0.f,1.f"
+	>
+	The light's direction (only for spotlights).
+	</Field>
+	<Field
+		name="exponent"
+		type="Real"
+		cardinality="single"
+		visibility="external"
+		defaultValue="2.f"
+	>
+	The light's spotlight exponent.
+	</Field>
+	<Field
+		name="cutoff"
+		type="Real"
+		cardinality="single"
+		visibility="external"
+		defaultValue="180.f"
+	>
+	The light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.
+	</Field>
+	<Field
+		name="constantAttenuation"
+		type="Real"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.f"
+	>
+	The light's constant attenuation.
+	</Field>
+	<Field
+		name="linearAttenuation"
+		type="Real"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f"
+	>
+	The light's linear attenuation.
+	</Field>
+	<Field
+		name="quadraticAttenuation"
+		type="Real"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.f"
+	>
+	The light's quadratic attenuation.
+	</Field>
+	<Field
+		name="beacon"
+		type="NodePtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+        doRefCount="false"
+	>
+	</Field>
+</FieldContainer>

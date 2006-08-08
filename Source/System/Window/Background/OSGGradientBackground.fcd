@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="GradientBackground"
+	parent="Background"
+	library="Window"
+	pointerfieldtypes="multi"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+A background showing a vertical color gradient. The colors and positions correspond to each other, so both have to have the same number of elements.
+	<Field
+		name="color"
+		type="Color3f"
+		cardinality="multi"
+		visibility="external"
+		access="protected"
+	>
+	The colors of the gradient.
+	</Field>
+	<Field
+		name="position"
+		type="Real32"
+		cardinality="multi"
+		visibility="external"
+		access="protected"
+	>
+	The positions of the gradient.
+	</Field>
+</FieldContainer>

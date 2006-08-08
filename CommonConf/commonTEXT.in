@@ -1,0 +1,36 @@
+
+INCLUDE_TEXT := @ac_gdz_text_incdir_e24@
+LINK_TEXT    := @ac_gdz_text_libdir_e24@
+LIB_TEXT     := @ac_gdz_text_lib_e24@
+DEFINE_TEXT  := -DFT2_LIB -DFONTCONFIG_LIB
+
+ifeq ($(OS_BASE), cygwin)
+INCLUDE_TEXT :=
+LINK_TEXT    :=
+LIB_TEXT     :=
+DEFINE_TEXT  :=
+endif
+
+ifeq ($(OS_BASE), darwin)
+INCLUDE_TEXT :=
+LINK_TEXT    :=
+LIB_TEXT     :=
+DEFINE_TEXT  :=
+endif
+
+ifneq ($(INCLUDE_TEXT),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_TEXT)
+endif
+
+ifneq ($(LINK_TEXT),)
+LIBPATHS_TEXT   := $(LIBPATH_OPTION)$(LINK_TEXT)
+endif
+
+ifneq ($(LIB_TEXT),)
+LIB_FILE_TEXT   := $(LIB_TEXT)
+OSG_LIB_EXT     := $(OSG_LIB_EXT) $(LIB_TEXT)
+endif
+
+ifneq ($(LIB_TEXT),)
+INCL_$(OS_BASE) += $(DEFINE_TEXT)
+endif

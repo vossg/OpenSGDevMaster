@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="SHLParameterChunk"
+	parent="ShaderParameterChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="SHLChunk"
+		type="SHLChunkPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="GeoIntegralProperty"
+	parent="GeoProperty"
+	library="Drawable"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+Patent class for integral (i.e. one dimensional unsigned integer typed) properties.
+
+The main reason for this class is as a parent class for indices, lengths and 
+types for the Geometry.
+
+</FieldContainer>

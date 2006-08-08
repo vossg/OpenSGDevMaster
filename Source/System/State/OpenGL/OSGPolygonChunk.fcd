@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="PolygonChunk"
+	parent="StateChunk"
+	library="State"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The polygon chunk contains the parameter that is specific set for filled surfaces, 
+i.e. polygons.
+	<Field
+		name="cullFace"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_NONE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything.
+	</Field>
+	<Field
+		name="frontFace"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_CCW"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	Defines which side of the polygon is considered the front side, 
+        defaults to GL_CCW.
+	</Field>
+	<Field
+		name="frontMode"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FILL"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	Defines if polygon front sides are rendered filled (default), outlined or as points.
+	</Field>
+	<Field
+		name="backMode"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FILL"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	Defines if polygon front sides are rendered filled (default), outlined or as points.
+	</Field>
+	<Field
+		name="smooth"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FALSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	Defines if polygon antialiasing is used.
+	</Field>
+	<Field
+		name="offsetFactor"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+	>
+	Defines the offset factor.
+	</Field>
+	<Field
+		name="offsetBias"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+	>
+	Defines the offset bias.
+	</Field>
+	<Field
+		name="offsetPoint"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FALSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	Enables offsetting for points.
+	</Field>
+	<Field
+		name="offsetLine"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FALSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	Enables offsetting for lines.
+	</Field>
+	<Field
+		name="offsetFill"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_FALSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+	Enables offsetting for polygons.
+	</Field>
+	<Field
+		name="stipple"
+		type="Int32"
+		cardinality="multi"
+		visibility="external"
+		defaultValue=""
+	>
+	Defines the stipple pattern. Is only valid and used if it contains 
+        32 elements.
+	</Field>
+</FieldContainer>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="ChunkMaterial"
+	parent="Material"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+	<Field
+		name="chunks"
+		type="StateChunkPtr"
+		cardinality="multi"
+		visibility="external"
+        clearField="clearChunks"
+	>
+	</Field>
+	<Field
+		name="slots"
+		type="Int32"
+		cardinality="multi"
+		visibility="external"
+	>
+	</Field>
+</FieldContainer>

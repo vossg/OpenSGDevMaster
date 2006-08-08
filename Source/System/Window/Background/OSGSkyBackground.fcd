@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="SkyBackground"
+	parent="Background"
+	library="Window"
+	pointerfieldtypes="multi"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+A sky-sphere background showing a color gradient. The colors and angles correspond to each other, they should have the same number of elements.
+	<Field
+		name="skyColor"
+		type="Color4f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	The colors for the sky gradient bands. Corresponds to the skyAngle         angles.  The first value is for the apex (i.e. straight up), which         doesn't need an angle, thus there  should be one more color than         angles. If no angles are given color[0] is used, or black if none are         given.
+	</Field>
+	<Field
+		name="skyAngle"
+		type="Real32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	The angles for the sky gradient bands. Corresponds to the skyColor colors,          with the exception of the apex. Values should be between 0 and PI.
+	</Field>
+	<Field
+		name="groundColor"
+		type="Color4f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	The colors of the ground sphere-part. Interpretation is similar to the sky.
+	</Field>
+	<Field
+		name="groundAngle"
+		type="Real32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	The angles of the ground sphere-part. Interpretation is similar to the sky, with          0 being straight down.
+	</Field>
+	<Field
+		name="sphereRes"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="8"
+		access="public"
+	>
+	The polygonal resolution of the sky/ground sphere.
+	</Field>
+	<Field
+		name="backTexture"
+		type="TextureChunkPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	Texture for the back (+Z) side of the sky cube.
+	</Field>
+	<Field
+		name="bottomTexture"
+		type="TextureChunkPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	Texture for the bottom (-Y) side of the sky cube.
+	</Field>
+	<Field
+		name="frontTexture"
+		type="TextureChunkPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	Texture for the front (-Z) side of the sky cube.
+	</Field>
+	<Field
+		name="leftTexture"
+		type="TextureChunkPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	Texture for the left (-X) side of the sky cube.
+	</Field>
+	<Field
+		name="rightTexture"
+		type="TextureChunkPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	Texture for the right (+X) side of the sky cube.
+	</Field>
+	<Field
+		name="topTexture"
+		type="TextureChunkPtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	Texture for the top (+Y) side of the sky cube.
+	</Field>
+	<Field
+		name="boxInside"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	flag to draw the box inside or outside of the sphere
+	</Field>
+	<Field
+		name="topTexCoord"
+		type="Vec3f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	Texture coordinates for the top face
+	</Field>
+	<Field
+		name="bottomTexCoord"
+		type="Vec3f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	Bottom texture coordinates
+	</Field>
+	<Field
+		name="rightTexCoord"
+		type="Vec3f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	right texture coordinates
+	</Field>
+	<Field
+		name="leftTexCoord"
+		type="Vec3f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	left texture coordinates
+	</Field>
+	<Field
+		name="frontTexCoord"
+		type="Vec3f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	front texture coordinates
+	</Field>
+	<Field
+		name="backTexCoord"
+		type="Vec3f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	back texture coordinates
+	</Field>
+	<Field
+		name="beacon"
+		type="NodePtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The object that defines the orientation of the background.
+	</Field>
+</FieldContainer>

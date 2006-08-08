@@ -1,0 +1,173 @@
+
+ac_gdz_package_order="BaseLib SystemLib DrawableLib StateLib GroupLib TextLib WindowLib FileIOLib ImageFileIOLib RenderTraversalLib UtilLib WindowXLib WindowWIN32Lib WindowGLUTLib"
+ac_gdz_package_order_test="BaseTest SystemTest DrawableTest GroupTest WindowTest"
+
+ac_gdz_packages="Base System Drawable State Group Text Window FileIO ImageFileIO RenderTraversal Util WindowX WindowWIN32 WindowGLUT "
+
+#WindowX WindowWIN32 WindowQT "
+
+#Experimental "
+
+ac_gdz_package_name_Base="Base" 
+#ac_gdz_package_dirs_Base="Base/OSHelpers/darwin@darwin Base/StringConversion@ " 
+ac_gdz_package_dirs_Base="Base/Base@ Base/Threading@ Base/Field@ Base/Field/Wrapper@ Base/Network/Base@ Base/Network/Socket@ " 
+ac_gdz_package_inc_dep_Base="GL" 
+ac_gdz_package_link_dep_Base="" 
+ac_gdz_package_testinc_dep_Base="" 
+ac_gdz_package_testlink_dep_Base="GL" 
+ac_gdz_package_def_Base="OSG_COMPILEBASELIB" 
+
+
+ac_gdz_package_name_System="System" 
+#ac_gdz_package_dirs_System="System/FieldContainer/Impl@ System/Image@ System/Material@   System/NodeCores/Drawables/Geometry@ System/NodeCores/Drawables/Particles@ System/NodeCores/Drawables/Misc@  System/State@ System/Window@ System/Statistics@  System/GraphOp@"
+ac_gdz_package_dirs_System="System/FieldContainer/Base@ System/FieldContainer/Mixins@ System/FieldContainer/Node@ System/FieldContainer/Attachments@ System/FieldContainer/Fields@ System/FieldContainer/Fields/Wrapper@ System/Action/Base@ System/Action/RenderAction@ System/Image@ System/Image/WS@ System/FileIO/Base@ System/FileIO/ScanParseSkel@ System/FileIO/OSG@ System/Action/IntersectAction@ System/State/Base@ System/State/Base/WS@ System/Material/Base@ System/Material/Simple@ System/NodeCores/Groups/Base@ System/NodeCores/Drawables/Base@ System/Window/Base@ System/Statistics/Base@ System/Window/FrameBufferObjects@ System/RenderingBackend@ "
+ac_gdz_package_inc_dep_System="@Base@ GL" 
+ac_gdz_package_link_dep_System="BaseLib TIF JPG PNG MNG EXPAT" 
+ac_gdz_package_testinc_dep_System="GLUT WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_System="WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_System="OSG_COMPILESYSTEMLIB" 
+
+
+ac_gdz_package_name_Drawable="Drawable" 
+ac_gdz_package_dirs_Drawable="System/NodeCores/Drawables/Geometry/Base@ System/NodeCores/Drawables/Geometry/Base/WS@ System/NodeCores/Drawables/Geometry/Properties@ System/NodeCores/Drawables/Geometry/Iterator@ System/NodeCores/Drawables/Geometry/Wrapper@ System/NodeCores/Drawables/Geometry/Util@ System/NodeCores/Drawables/Particles@ "
+ac_gdz_package_inc_dep_Drawable="@Base@ @System@ GL" 
+ac_gdz_package_link_dep_Drawable="BaseLib SystemLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_Drawable="@Group@ @Util@ @Window@ GLUT WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_Drawable="GroupLib WindowLib UtilLib WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_Drawable="OSG_COMPILEDRAWABLELIB" 
+
+
+ac_gdz_package_name_State="State" 
+ac_gdz_package_dirs_State="System/State/OpenGL@ System/State/NVidia@ System/State/ARBProgram@ System/State/SHL@ System/State/SHL/Parameter@ "
+ac_gdz_package_inc_dep_State="@Base@ @System@ GL" 
+ac_gdz_package_link_dep_State="BaseLib SystemLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_State="GLUT WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_State="WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_State="OSG_COMPILESTATELIB" 
+
+
+ac_gdz_package_name_Group="Group" 
+ac_gdz_package_dirs_Group="System/NodeCores/Groups/Light@ System/NodeCores/Groups/Misc@ System/NodeCores/Groups/Stage@ "
+ac_gdz_package_inc_dep_Group="@Base@ @System@ @State@ GL" 
+ac_gdz_package_link_dep_Group="BaseLib SystemLib StateLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_Group="GLUT @Window@ @Group@ @Drawable@ @FileIO@ @RenderTraversal@ @Util@ WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_Group="WindowGLUTLib WindowLib GroupLib DrawableLib FileIOLib RenderTraversalLib UtilLib  GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_Group="OSG_COMPILEGROUPLIB" 
+
+
+ac_gdz_package_name_Text="Text" 
+ac_gdz_package_dirs_Text="System/Text@ "
+ac_gdz_package_inc_dep_Text="@Base@ @System@ @State@ @Drawable@ TEXT GL" 
+ac_gdz_package_link_dep_Text="BaseLib SystemLib StateLib DrawableLib TEXT TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_Text="GLUT @Window@ @Text@ @Drawable@ @Group@ @RenderTraversal@ @FileIO@ @Util@ WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_Text="WindowGLUTLib WindowLib TextLib DrawableLib FileIOLib UtilLib  GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_Text="OSG_COMPILETEXTLIB" 
+
+
+ac_gdz_package_name_Window="Window" 
+ac_gdz_package_dirs_Window="System/Window/Camera@ System/Window/Background@ System/Window/Foreground@ System/Window/Viewport@ "
+ac_gdz_package_inc_dep_Window="@Base@ @System@ @Group@ GL" 
+ac_gdz_package_link_dep_Window="BaseLib SystemLib GroupLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_Window="GLUT WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_Window="WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_Window="OSG_COMPILEWINDOWLIB" 
+
+ac_gdz_packages="${ac_gdz_packages} RenderTraversal"
+ac_gdz_package_order="${ac_gdz_package_order} RenderTraversalLib"
+
+
+ac_gdz_package_name_RenderTraversal="RenderTraversal"
+ac_gdz_package_dirs_RenderTraversal="System/Action/RenderTraversal@ System/NodeCores/Groups/Light/Shadow/Base@ System/NodeCores/Groups/Light/Shadow/Engines@ "
+ac_gdz_package_inc_dep_RenderTraversal="@Base@ @System@ @Drawable@ @Group@ @State@ @Window@ GL"
+ac_gdz_package_link_dep_RenderTraversal="BaseLib SystemLib DrawableLib GroupLib StateLib WindowLib TIF JPG PNG MNG"
+ac_gdz_package_testinc_dep_RenderTraversal="@Window@ @Group@ @Drawable@ @FileIO@ @Util@ @State@ GLUT WindowSystem/GLUT WindowSystem/X "
+ac_gdz_package_testlink_dep_RenderTraversal="WindowLib GroupLib DrawableLib FileIOLib UtilLib StateLib WindowGLUTLib WindowXLib GLUT GL TIF JPG PNG MNG"
+ac_gdz_package_def_RenderTraversal="OSG_COMPILERENDERTRAVLIB"
+
+
+
+#System/Cluster/Window/SortFirst@ System/Cluster/Window/SortLast@ 
+
+ac_gdz_package_name_Cluster="Cluster" 
+ac_gdz_package_dirs_Cluster="System/Cluster/Base@ System/Cluster/Server@ System/Cluster/Window/Base@ System/Cluster/Window/MultiDisplay@ System/Cluster/Window/SortLast@ "
+ac_gdz_package_inc_dep_Cluster="@Base@ @System@ @Drawable@ @Group@ @State@ @Window@ GL" 
+ac_gdz_package_link_dep_Cluster="BaseLib SystemLib DrawableLib GroupLib StateLib WindowLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_Cluster="GLUT WindowSystem/GLUT System/Window/Utilities " 
+ac_gdz_package_testlink_dep_Cluster="WindowGLUTLib UtilLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_Cluster="OSG_COMPILECLUSTERLIB" 
+
+
+ac_gdz_package_name_FileIO="FileIO" 
+ac_gdz_package_dirs_FileIO="System/FileIO/OSB@ System/FileIO/WRL@ System/FileIO/OBJ@ System/FileIO/3DS@ "
+ac_gdz_package_inc_dep_FileIO="@Base@ @System@ @Group@ @Drawable@ @State@ GL" 
+ac_gdz_package_link_dep_FileIO="BaseLib SystemLib GroupLib DrawableLib StateLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_FileIO="GLUT WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_FileIO="WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_FileIO="OSG_COMPILEFILEIOLIB"
+
+
+ac_gdz_package_name_ImageFileIO="ImageFileIO" 
+ac_gdz_package_dirs_ImageFileIO="System/Image/FileIO@ "
+ac_gdz_package_inc_dep_ImageFileIO="@Base@ @System@ GL" 
+ac_gdz_package_link_dep_ImageFileIO="BaseLib SystemLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_ImageFileIO="GLUT WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_ImageFileIO="WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_ImageFileIO="OSG_COMPILEIMAGEFILEIOLIB"
+
+
+ac_gdz_package_name_Util="Util" 
+ac_gdz_package_dirs_Util="System/Window/Utilities@ System/GraphOp@ System/Statistics/Foregrounds@ "
+ac_gdz_package_inc_dep_Util="@Base@ @System@ @Window@ @Group@ @Drawable@ @Text@ @State@ @RenderTraversal@ GL" 
+ac_gdz_package_link_dep_Util="BaseLib SystemLib WindowLib GroupLib DrawableLib TextLib StateLib RenderTraversalLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_Util="GLUT @RenderTraversal@ WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_Util="RenderTraversalLib WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_Util="OSG_COMPILEUTILLIB" 
+
+
+ac_gdz_package_name_WindowX="WindowX" 
+ac_gdz_package_dirs_WindowX="WindowSystem/X@" 
+ac_gdz_package_inc_dep_WindowX="@Base@ @System@ GL" 
+ac_gdz_package_link_dep_WindowX="SystemLib BaseLib" 
+ac_gdz_package_testinc_dep_WindowX="@Window@ @Group@ @Drawable@ @FileIO@ @RenderTraversal@ @Util@ " 
+ac_gdz_package_testlink_dep_WindowX="WindowLib GroupLib DrawableLib FileIOLib RenderTraversalLib UtilLib GL TIF JPG PNG MNG" 
+ac_gdz_package_def_WindowX="OSG_COMPILEWINDOWXLIB" 
+
+
+ac_gdz_package_name_WindowWIN32="WindowWIN32" 
+ac_gdz_package_dirs_WindowWIN32="WindowSystem/WIN32@" 
+ac_gdz_package_inc_dep_WindowWIN32="@Base@ @System@ GL" 
+ac_gdz_package_link_dep_WindowWIN32="SystemLib BaseLib" 
+ac_gdz_package_testinc_dep_WindowWIN32="" 
+ac_gdz_package_testlink_dep_WindowWIN32="QT GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_WindowWIN32="OSG_COMPILEWINDOWWIN32LIB" 
+
+
+ac_gdz_package_name_WindowQT="WindowQT" 
+ac_gdz_package_dirs_WindowQT="WindowSystem/QT@" 
+ac_gdz_package_inc_dep_WindowQT="@Base@ @System@ WindowSystem/@WINDOWSYSTEM@ QT GL " 
+ac_gdz_package_link_dep_WindowQT="Window@WINDOWSYSTEM@Lib  SystemLib BaseLib" 
+ac_gdz_package_testinc_dep_WindowQT="GLUT WindowSystem/GLUT" 
+ac_gdz_package_testlink_dep_WindowQT="QT WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_WindowQT="OSG_COMPILEWINDOWQTLIB" 
+
+
+ac_gdz_package_name_WindowQT4="WindowQT4" 
+ac_gdz_package_dirs_WindowQT4="WindowSystem/QT4@" 
+ac_gdz_package_inc_dep_WindowQT4="@Base@ @System@ WindowSystem/@WINDOWSYSTEM@ QT4 GL " 
+ac_gdz_package_link_dep_WindowQT4="Window@WINDOWSYSTEM@Lib  SystemLib BaseLib" 
+ac_gdz_package_testinc_dep_WindowQT4="GLUT WindowSystem/GLUT" 
+ac_gdz_package_testlink_dep_WindowQT4="QT4 WindowGLUTLib GLUT GL TIF JPG PNG MNG TEXT" 
+ac_gdz_package_def_WindowQT4="OSG_COMPILEWINDOWQT4LIB" 
+
+
+ac_gdz_package_name_WindowGLUT="WindowGLUT" 
+ac_gdz_package_dirs_WindowGLUT="WindowSystem/GLUT@" 
+ac_gdz_package_inc_dep_WindowGLUT="@Base@ @System@ GLUT GL" 
+ac_gdz_package_link_dep_WindowGLUT="SystemLib BaseLib" 
+ac_gdz_package_testinc_dep_WindowGLUT="@Window@ @Group@ @State@ @Drawable@ @FileIO@ @Util@ @RenderTraversal@ " 
+ac_gdz_package_testlink_dep_WindowGLUT="WindowLib GroupLib StateLib DrawableLib FileIOLib ImageFileIOLib TextLib RenderTraversalLib UtilLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_def_WindowGLUT="OSG_COMPILEWINDOWGLUTLIB" 
+
+
+
+

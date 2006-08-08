@@ -1,0 +1,7 @@
+
+OS_BASE=@ac_gdz_common_sys_mk_os_base_e7@
+
+BUILD_ENV=@ac_gdz_common_sys_mk_build_env_e7@
+
+PROJ=OSG
+

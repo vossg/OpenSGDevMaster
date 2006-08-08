@@ -1,0 +1,17 @@
+
+INCLUDE_STL := @ac_gdz_stlport_incdir_e18@
+LINK_STL    := @ac_gdz_stlport_libdir_e18@
+LIB_STL     := @ac_gdz_stlport_lib_e18@
+
+ifneq ($(INCLUDE_STL),)
+INCL_$(OS_BASE) := $(INC_OPTION)$(INCLUDE_STL) $(INCL_$(OS_BASE))
+endif
+
+ifneq ($(LINK_STL),)
+LIBPATHS_$(OS_BASE) := $(LIBPATH_OPTION)$(LINK_STL) $(LIBPATHS_$(OS_BASE))
+endif
+
+ifneq ($(LIB_STL),)
+LIBS_$(OS_BASE) := $(LIB_STL) $(LIBS_$(OS_BASE))
+endif
+

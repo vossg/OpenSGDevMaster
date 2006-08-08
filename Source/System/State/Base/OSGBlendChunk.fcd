@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="BlendChunk"
+	parent="StateChunk"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel are combined with the pixel already in the frame buffer.
+	<Field
+		name="srcFactor"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultValue="GL_ONE"
+		access="public"
+	>
+	The incoming pixel is multiplied by the source factor. Legal values are directly taken from the glBlendFunc() manpage.
+	</Field>
+	<Field
+		name="destFactor"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultValue="GL_ZERO"
+		access="public"
+	>
+	The frame buffer pixel is multiplied by the destination factor. Legal values are directly taken from the glBlendFunc() manpage.
+	</Field>
+	<Field
+		name="equation"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultValue="GL_NONE"
+		access="public"
+	>
+	The equation used to combine the two values. Only available where GL_ARB_imaging is supported. See glBlendEquation() for details.
+	</Field>
+	<Field
+		name="color"
+		type="Color4f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0,0,0,0"
+		access="public"
+	>
+	This is the constant color used by blend modes *_CONSTANT_*.
+	</Field>
+	<Field
+		name="alphaFunc"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_NONE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	The alphaFunc defines how fragments which do not fulfill a certain condition are handled. 
+        See glAlphaFunc() for details. GL_NONE is used to disable alpha comparison.
+	</Field>
+	<Field
+		name="alphaValue"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+        The value used in alpha comparison.
+	</Field>
+	<Field
+		name="alphaSrcFactor"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="OSG_GL_UNUSED"
+		access="public"
+	>
+	The incoming alpha is multiplied by the source factor before being stored 
+        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.
+        The default is GL_NONE, which indicates using the standard BlendFunction.
+	</Field>
+	<Field
+		name="alphaDestFactor"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="OSG_GL_UNUSED"
+		access="public"
+	>
+	The frame buffer alpha is multiplied by the source factor before being stored 
+        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.
+        The default is GL_NONE, which indicates using the standard BlendFunction.
+	</Field>
+</FieldContainer>

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="SimpleTexturedMaterial"
+	parent="SimpleMaterial"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+A SimpleMaterial with an added texture. It doesn't expose all features of the texture, just the ones needed most often.
+	<Field
+		name="image"
+		type="ImagePtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	Defines the texture image.
+	</Field>
+	<Field
+		name="minFilter"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_LINEAR_MIPMAP_LINEAR"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	Defines the minification filter, see glTexParameter for details.          Default: GL_LINEAR_MIPMAP_LINEAR.
+	</Field>
+	<Field
+		name="magFilter"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_LINEAR"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	Defines the magnification filter, see glTexParameter for details.          Default: GL_LINEAR
+	</Field>
+	<Field
+		name="envMode"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_REPLACE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	Sets the environment mode, defining how texture and lighting color interact.         Default: GL_REPLACE.
+	</Field>
+	<Field
+		name="envMap"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+	Defines whether to use the texture as a spherical environment map.
+	</Field>
+</FieldContainer>

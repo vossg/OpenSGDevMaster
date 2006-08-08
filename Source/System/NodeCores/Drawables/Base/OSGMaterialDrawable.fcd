@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="MaterialDrawable"
+	parent="Drawable"
+	library="System"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+	<Field
+		name="material"
+		type="MaterialPtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The material used to render the Drawable.
+	</Field>
+</FieldContainer>

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="PerspectiveCamera"
+	parent="Camera"
+	library="Window"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+A perspective camera with a symmetric frustum.
+	<Field
+		name="fov"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+	>
+	The vertical field of view, in radians.
+	</Field>
+	<Field
+		name="aspect"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+                defaultValue="1"
+	>
+	The aspect ratio (i.e. width / height) of a pixel.
+	</Field>
+</FieldContainer>

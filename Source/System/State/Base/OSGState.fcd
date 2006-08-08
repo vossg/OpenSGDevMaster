@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="State"
+	parent="FieldContainer"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+	<Field
+		name="chunks"
+		type="StateChunkPtr"
+		cardinality="multi"
+		visibility="external"
+        checkNilPtr="false"
+        linkParent="false"
+        removeTo="NullFC"
+        clearMField="true"
+        pushToField=""
+        insertIntoMField=""
+        replaceInMFieldIndex=""
+        replaceInMFieldObject=""
+        removeFromMFieldIndex=""
+        removeFromMFieldObject=""
+        clearField=""
+	>
+	</Field>
+</FieldContainer>

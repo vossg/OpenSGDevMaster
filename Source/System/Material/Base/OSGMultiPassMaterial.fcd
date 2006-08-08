@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="MultiPassMaterial"
+	parent="Material"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="materials"
+		type="MaterialPtr"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+        pushToFieldAs="addMaterial"
+	>
+	</Field>
+</FieldContainer>

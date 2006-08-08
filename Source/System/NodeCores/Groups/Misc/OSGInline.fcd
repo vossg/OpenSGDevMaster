@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="Inline"
+	parent="NodeCore"
+	library="Group"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="true"
+>
+	<Field
+		name="url"
+		type="std::string"
+		cardinality="multi"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="loaded"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+		defaultValue="true"
+	>
+	</Field>
+</FieldContainer>

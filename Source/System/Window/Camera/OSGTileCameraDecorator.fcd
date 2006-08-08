@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="TileCameraDecorator"
+	parent="CameraDecorator"
+	library="Window"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The decorator to select a rectangular part of the image.
+	<Field
+		name="left"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	The left border of the selected tile.
+	</Field>
+	<Field
+		name="right"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1"
+		access="public"
+	>
+	The right border of the selected tile.
+	</Field>
+	<Field
+		name="bottom"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	The bottom border of the selected tile.
+	</Field>
+	<Field
+		name="top"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="1"
+		access="public"
+	>
+	The top border of the selected tile.
+	</Field>
+	<Field
+		name="fullWidth"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	The width of the full image this is a tile of.
+	</Field>
+	<Field
+		name="fullHeight"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		access="public"
+	>
+	The height of the full image this is a tile of.
+	</Field>
+</FieldContainer>

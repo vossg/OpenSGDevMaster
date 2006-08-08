@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ShaderParameter"
+	parent="AttachmentContainer"
+	library="State"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="name"
+		type="std::string"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	parameter name
+	</Field>
+</FieldContainer>

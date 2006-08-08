@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="SimpleShadowMapEngine"
+	parent="ShadowMapEngine"
+	library="RenderTrav"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="false"
+>
+	<Field
+		name="forceTextureUnit"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="-1"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="Viewport"
+	parent="AttachmentContainer"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+A Viewport is a part of the Window it is attached to used for rendering. Every Window can hold an arbitrary number of viewports.
+	<Field
+		name="left"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.
+	</Field>
+	<Field
+		name="right"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.
+	</Field>
+	<Field
+		name="bottom"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.
+	</Field>
+	<Field
+		name="top"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.
+	</Field>
+	<Field
+		name="parent"
+		type="ParentFieldContainerPtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        doRefCount="false"
+        passFieldMask="true"
+	>
+	The Window this viewport is contained in.
+	</Field>
+	<Field
+		name="camera"
+		type="CameraPtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The Camera used to render the viewport.
+	</Field>
+	<Field
+		name="root"
+		type="NodePtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The root of the tree that is displayed in this viewport.
+	</Field>
+	<Field
+		name="background"
+		type="BackgroundPtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The background used to clear this viewport.
+	</Field>
+	<Field
+		name="foregrounds"
+		type="ForegroundPtr"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+        pushToFieldAs="addForeground"
+	>
+	The foreground additions to the rendered image.
+	</Field>
+	<Field
+		name="travMask"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        defaultValue="TypeTraits&lt;UInt32&gt;::getMax()"
+	>
+	The foreground additions to the rendered image.
+	</Field>
+	<Field
+		name="drawTime"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+        defaultValue="0.0f"
+		access="public"
+	>
+	Drawtime of the last frame using this viewport.
+	</Field>
+</FieldContainer>

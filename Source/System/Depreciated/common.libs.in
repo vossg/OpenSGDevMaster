@@ -1,0 +1,5 @@
+# Add our directory to the System Lib
+
+if test $enable_osg_1_compat = yes; then
+ac_gdz_package_dirs_System="${ac_gdz_package_dirs_System} System/Depreciated@ "
+fi

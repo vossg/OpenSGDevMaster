@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="DepthClearBackground"
+	parent="Background"
+	library="Window"
+	structure="concrete"
+	pointerfieldtypes="single"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+</FieldContainer>

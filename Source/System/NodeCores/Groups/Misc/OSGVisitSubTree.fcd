@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="VisitSubTree"
+	parent="Group"
+	library="Group"
+	pointerfieldtypes="none"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+    isNodeCore="true"
+>
+	<Field
+		name="subTreeRoot"
+		type="NodePtr"
+		cardinality="single"
+		visibility="external"
+		defaultValue="NullFC"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

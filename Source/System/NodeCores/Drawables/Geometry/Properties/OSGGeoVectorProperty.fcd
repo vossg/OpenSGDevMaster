@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="GeoVectorProperty"
+	parent="GeoProperty"
+	library="Drawable"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+Abstract base class for all vector-valued GeoProperties
+</FieldContainer>

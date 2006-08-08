@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="SwitchMaterial"
+	parent="Material"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="materials"
+		type="MaterialPtr"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="choice"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

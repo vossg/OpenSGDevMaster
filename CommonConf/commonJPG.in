@@ -1,0 +1,18 @@
+
+INCLUDE_JPG := @ac_gdz_jpg_incdir_e10@
+LINK_JPG    := @ac_gdz_jpg_libdir_e10@
+LIB_JPG     := @ac_gdz_jpg_lib_e10@
+
+ifneq ($(INCLUDE_JPG),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_JPG)
+endif
+
+ifneq ($(LINK_JPG),)
+LIBPATHS_JPG     := $(LIBPATH_OPTION)$(LINK_JPG)
+endif
+
+ifneq ($(LIB_JPG),)
+LIB_FILE_JPG     := $(LIB_JPG)
+LIB_FILE_JPG_LNK := $(LIB_JPG)
+OSG_LIB_EXT      := $(OSG_LIB_EXT) $(LIB_JPG)
+endif

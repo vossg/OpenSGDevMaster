@@ -1,0 +1,159 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+
+#ifndef _OSGLIGHTENGINE_H_
+#define _OSGLIGHTENGINE_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGConfig.h"
+#include "OSGAction.h"
+#include "OSGLightEngineBase.h"
+#include "OSGLightFields.h"
+
+OSG_BEGIN_NAMESPACE
+
+class RenderTraversalAction;
+
+/*! \brief LightEngine is the basic NodeCore for inner nodes in the tree.
+    \ingroup GrpSystemNodeCoresMisc
+*/
+
+class OSG_SYSTEM_DLLMAPPING LightEngine : public LightEngineBase
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    enum LightTypeE
+    {
+        Directional,
+        Point,
+        Spot
+    };
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Render                                 */
+    /*! \{                                                                 */
+
+    virtual ActionBase::ResultE runOnEnter(LightPtr               pLight,
+                                           LightTypeE             eType,
+                                           RenderTraversalAction *pAction) = 0;
+    virtual ActionBase::ResultE runOnLeave(LightPtr               pLight,
+                                           LightTypeE             eType,
+                                           RenderTraversalAction *pAction) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(      UInt32    uiIndent = 0,
+                      const BitVector bvFlags  = 0) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef LightEngineBase Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    LightEngine(void);
+    LightEngine(const LightEngine &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~LightEngine(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Init                                  */
+    /*! \{                                                                 */
+
+    static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Action Callbacks                       */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    friend class LightEngineBase;
+
+    template<class ContainerFactoryT>
+    friend struct CPtrConstructionFunctions;
+
+    template<class ContainerFactoryT>
+    friend struct PtrConstructionFunctions;
+
+    /*---------------------------------------------------------------------*/
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const LightEngine &source);
+};
+
+typedef LightEngine *LightEngineP;
+
+OSG_END_NAMESPACE
+
+#include "OSGLightEngineBase.inl"
+#include "OSGLightEngine.inl"
+
+#define OSGLIGHTENGINE_HEADER_CVSID "@(#)$Id: OSGLightEngine.h,v 1.1.2.2 2006/07/28 06:22:00 vossg Exp $"
+
+#endif /* _OSGLIGHTENGINE_H_ */

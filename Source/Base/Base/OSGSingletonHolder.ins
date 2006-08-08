@@ -1,0 +1,87 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+
+OSG_BEGIN_NAMESPACE
+
+template<class SingletonT>
+SingletonT *SingletonHolder<SingletonT>::_the = NULL;
+
+#define OSG_SINGLETON_INST(OSG_CLASS)                  \
+template <> OSG_DLL_EXPORT                             \
+bool SingletonHolder< OSG_CLASS >::destroy(void)       \
+{                                                      \
+    fprintf(stderr, "Destroy Singleton %p\n", _the);   \
+                                                       \
+    delete _the;                                       \
+                                                       \
+    _the = NULL;                                       \
+                                                       \
+    return true;                                       \
+}                                                      \
+                                                       \
+template<> OSG_DLL_EXPORT                              \
+OSG_CLASS *SingletonHolder< OSG_CLASS >::the(void)     \
+{                                                      \
+    if(_the == NULL)                                   \
+    {                                                  \
+        _the = new OSG_CLASS();                        \
+                                                       \
+        addPostFactoryExitFunction(&Self::destroy);    \
+    }                                                  \
+                                                       \
+    return _the;                                       \
+}                                                      \
+                                                       \
+
+/*
+template<class SingletonT> inline
+SingletonT *SingletonHolder<SingletonT>::the(void)
+{
+    if(_the == NULL)
+    {
+        _the = new SingletonT();
+    }
+
+    return _the;
+}
+*/
+
+OSG_END_NAMESPACE
+
+#define OSGSINGLETONHOLDER_INLINE_CVSID "@(#)$Id: $"
+

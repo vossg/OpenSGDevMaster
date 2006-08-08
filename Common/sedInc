@@ -1,0 +1,24 @@
+#!/bin/sh
+
+file=`echo $1 | sed 's/\(.*\)\/\([^/]*\.h\)/\2/'`
+
+if test -r $1
+then
+
+    echo "Installing $1"
+    echo "    to $2/$file"
+
+#    sed -e 's/include[ ]*<OSG/include <OpenSG\/OSG/g' -e 's/include[ ]*\"OSG/include \"OpenSG\/OSG/g' $1 > $2/$file
+
+    cp $1 $2/$file
+
+    if test -r $2/$file
+    then
+        chmod 444 $2/$file
+    fi
+else
+
+    echo "Warning: $1 is not readable"
+
+fi
+

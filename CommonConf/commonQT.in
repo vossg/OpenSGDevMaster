@@ -1,0 +1,21 @@
+
+INCLUDE_QT := @ac_gdz_qt_incdir_e6@
+LINK_QT    := @ac_gdz_qt_libdir_e6@
+LIB_QT     := @ac_gdz_qt_lib_e6@
+
+MOC        := @ac_gdz_qt_moc_e6@
+
+
+ifneq ($(INCLUDE_QT),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_QT)
+endif
+
+ifneq ($(LINK_QT),)
+LIBPATHS_QT     := $(LIBPATH_OPTION)$(LINK_QT)
+endif
+
+ifneq ($(LIB_QT),)
+LIB_FILE_QT     := $(LIB_QT)
+LIB_FILE_QT_LNK := $(LIB_QT)
+OSG_LIB_EXT     := $(OSG_LIB_EXT) $(LIB_QT)
+endif

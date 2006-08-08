@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="DepthChunk"
+	parent="StateChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+The depth chunk contains the parameters that are specific for depth control.
+	<Field
+		name="enable"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Whether the depth test should be enabled or not.
+	</Field>
+	<Field
+		name="func"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_LEQUAL"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	The depth function to use. If GL_NONE, it's not changed. The         default is LEQUAL.
+	</Field>
+	<Field
+		name="near"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="-1.f"
+		access="public"
+	>
+	The near value for glDepthRange. Ignored if less than 0, defaults to -1.
+	</Field>
+	<Field
+		name="far"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="-1.f"
+		access="public"
+	>
+	The far value for glDepthRange. Ignored if less than 0, defaults to -1.
+	</Field>
+	<Field
+		name="readOnly"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+	Whether the depth buffer is enabled for writing or not.
+	</Field>
+</FieldContainer>

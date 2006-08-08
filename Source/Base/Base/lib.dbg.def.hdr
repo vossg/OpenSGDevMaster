@@ -1,0 +1,4 @@
+LIBRARY   OSGBaseD
+DESCRIPTION "Base lib"
+EXPORTS
+

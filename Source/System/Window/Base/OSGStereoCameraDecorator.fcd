@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="StereoCameraDecorator"
+	parent="CameraDecorator"
+	library="System"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+The base class for stereo decorators.
+	<Field
+		name="leftEye"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	Flag to distinguish between left and right eye views.
+	</Field>
+	<Field
+		name="eyeSeparation"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The distance between the two eyes.
+	</Field>
+</FieldContainer>

@@ -1,0 +1,17 @@
+
+INCLUDE_GIF := @ac_gdz_gif_incdir_e13@
+LINK_GIF    := @ac_gdz_gif_libdir_e13@
+LIB_GIF     := @ac_gdz_gif_lib_e13@
+
+ifneq ($(INCLUDE_GIF),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_GIF)
+endif
+
+ifneq ($(LINK_GIF),)
+LIBPATHS_GIF     := $(LIBPATH_OPTION)$(LINK_GIF)
+endif
+
+ifneq ($(LIB_GIF),)
+LIB_FILE_GIF     := $(LIB_GIF)
+LIB_FILE_GIF_LNK := $(LIB_GIF)
+endif

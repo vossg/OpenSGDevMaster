@@ -1,0 +1,442 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpBase OpenSG Base Library
+
+    \brief The Base Library contains fundamental classes, functions and, 
+           abstractions.
+
+    See \ref PageBase for details.
+*/
+
+/*! \defgroup GrpBaseBase Base
+    \ingroup GrpBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseBaseTypes BaseTypes
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseBaseTypeTraits BaseTypesTraits
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseColors Colors
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseCmpTimeFn Compile Time Functions
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseConstants Constants
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseFileSystem FileSystem
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseGLConstants GLConstants
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseHelper Helper
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseInitExit Initialization / Termination
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMath Math
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMathObj Objects
+    \ingroup GrpBaseBaseMath
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMathFn Functions
+    \ingroup GrpBaseBaseMath
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMatrixFn Matrix Utility Functions
+    \ingroup GrpBaseBaseMath
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMiscFn Miscellaneous Functions
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMultiThreading Multithreading
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseRefCountFn Reference Count Functions
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseStringFn String Functions
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseTypeSystem TypeSystem
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseVolume Volume
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+
+/*! \defgroup GrpBaseNetwork Network
+    \ingroup GrpBase
+
+The network part of OpenSG contains all objects used for network 
+communication. This objects are mainly used by OpenSG-Cluster support
+
+*/
+
+/*! \defgroup GrpBaseSTLHelpers STLHelpers
+    \ingroup GrpBase
+
+    STLHelpers are little structures and classes that are need to run STL
+    algorithms or to use STL containers. 
+ */
+
+/*! \page PageBase Base
+
+\latexonly Starter:NewChapter \endlatexonly
+
+All OpenSG symbols are part of the OSG name space, and they have no prefix.
+The actual files, including headers, all use the OSG prefix.
+
+*/
+
+/*! \page PageBaseTypes Base Types
+
+As one goal of OpenSG is the ability to run programs on a lot of different
+platforms, especially Unix and Windows, we have our own types which are
+guaranteed to have the same size on all platforms. 
+
+We have our own signed and unsigned integers in all useful
+sizes: Int8, UInt8, Int16, UInt16, Int32, UInt32, Int64, UInt64 as well as the
+two usual float sizes Real32 and Real64. Some useful constant are available:
+Eps, Pi, Inf and NegInf. A useful construct for template programming is the
+TypeConstants<type> structure, which defines some standard functions/values
+for the given type, see OSGBaseTypes.h for details.
+
+*/
+
+/*! \page PageBaseLog Log
+
+All output that OpenSG generates is channeled through the Log class, which is
+defined in OSGLog.h. OpenSG supplies a global Log object that is used by the
+library, but the application can create its own logs, if needed.
+
+Every log message has one specific level. Available levels are FATAL, WARNING,
+NOTICE, INFO and DEBUG. They are also numbered from 0 to 5. The verbosity of
+the system can be controlled by ignoring messages of specific levels. This can
+be achieved by calling osgLog().setLogLevel( <enum> ); or by setting the
+environment variable OSG_LOG_LEVEL.
+
+The system log has two different interfaces. One is based on C++ streams, one
+is based on C printf semantics. 
+
+The stream interface can be used by using SFATAL, SWARNING, SNOTICE or SINFO
+instead of cout or cerr. Note that there is no SDEBUG for efficiency reasons,
+as FDEBUG can be compiled out. These print the position in the code where the
+log is executed. For multi-line outputs you'll only want that on the first
+line, for the other lines use PFATAL, PWARNING, PNOTICE or PINFO. 
+
+To synchronize multiple outputs from various threads all S* commands lock the
+stream. You have to use 'osg::endLog' (e.g. SFATAL << "Message" << endLog;) to
+unlock the stream output. 
+
+Example: SINFO << "Line 1 of message 1" << endl; PINFO << "line2 of message 1"
+<< endLog; SINFO << "Message 2" << endLog;.
+
+The C interface tries to mimic the printf semantics. The following functions
+can be used for that: FFATAL, FWARNING, FNOTICE, FINFO and FDEBUG. The only
+difference to printf is that they have to be called with double parentheses,
+i.e. FWARNING(("What do you mean by %s?", s));. The nice thing about the C
+style interface is that the whole output can be compiled out. Actually, the
+FDEBUG (( )) are only compiled in when OSG_DEBUG is set. The OSG_DEBUG define
+is automatically set while compiling the system in debug (default) mode.
+
+The user can activate/deactivate various elements per log message at runtime
+by changing the LogHeaderElem mask. The following elements are supported right
+now: 
+
+LOG_BEGIN_NEWLINE_HEADER (creates an extra newline in front of every output),
+LOG_TYPE_HEADER (writes the Level (e.g. WARNING) as first element),
+LOG_TIMESTAMP_HEADER (writes a timestamp), LOG_MODULE_HEADER (writes the name
+of the current module), LOG_FILE_HEADER (writes the source file name),
+LOG_LINE_HEADER (writes the source line number) and LOG_END_NEWLINE_HEADER
+(creates an extra newline at the end) 
+
+When unchanged, the time stamp will be the time in seconds since the program
+started. The user can set/reset the time stamp at any time (e.g.
+osgLog().resetRefTime()).
+
+*/
+
+/*! \page PageBaseTime Time & Date
+
+To wrap time and date handling we have a little abstraction for them. 
+
+getSystemTime() returns the current time since system has been started in
+seconds, using the highest resolution timer available.
+
+The Date class provides a second resolution time stamp, factored into second,
+minute, hour, day, month and year. Date::setSystemDate() can be used to set it
+to the current date/time.
+
+*/
+
+/*! \page PageBaseMath Math
+
+Of course every scene-graph needs the basic math objects like Vectors, Points,
+Matrices, Quaternions etc., and OpenSG is no exception.
+
+\section BaseMatrices Matrices 
+
+OpenSG matrices are similar to the OpenGL matrices in their storage structure
+and conventions, i.e. a matrix is per default a 4x4 Real32 matrix, and the
+multiplication convention is just like OpenGL's: v'=M*v. 
+
+The matrix is stored column major and access methods respect the storage
+format, i.e. matrix[0] yields the first column. This is also true for the
+vector-based constructor. However, the constructor taking 16 single elements
+expects its parameters row-major like the matrix is written on paper.
+
+The positive side effect of this setup is the ability to access the base
+vectors of the matrix' coordinate space by accessing the vectors, i.e.
+matrix[3] is the translation to the origin of the local coordinate space. This
+is useful if you want to create your matrices from vectors, if you don't want
+to do that, don't worry about it.
+
+Setting the contents of a matrix is done by the setValues() methods, accessing
+the values via the [] operator for access to single columns or by using
+getValues() to get a pointer to the first element. In general most classes in
+OpenSG that keep an array of elements allow access to them via getValues().
+
+If you need to create a matrix for a specific transformation, use the
+setTransform() methods, which create a matrix that executes the given
+transformation.
+
+Matrices also supply the standard set of matrix operations like det(), det3(),
+invert(), transpose(), mult() and multLeft(). There are some variants that
+change the matrix in place, return their results in a different matrix or get
+their source data from a different matrix, see the class docs for details. 
+
+The default vector/point multiplication methods multMatrixVec() and
+multMatrixPnt() assume that the matrix only uses the standard 3x4 elements. To
+use the full 4x4 matrix use multFullMatrixPnt(). As Vectors have a w
+coordinate of 0, compared to points which have w = 1, they don't need a full
+transform.
+
+\section BaseVectors Vectors/Points/Colors
+
+OpenSG is different from most other systems in differentiating between
+vectors, points and colors. 
+
+Vectors are the most common class, and they should behave like every other
+vector library on the planet. They are templated to simplify having variants,
+and the standard ones that are available are Vec4ub, Vec2us, Vec2s, Vec2f,
+Vec3s, Vec3f and Vec4f. They have operators for the scalar operations, and
+methods for everything else, see the doxygen docs for osg::VectorInterface for
+details. Conceptually, the 3 element vector has a w coordinate of 0, thus
+there is no full matrix multiplication for vectors.
+
+Points represent positions in space, and as such they are more restricted than
+vectors. The available variants are Pnt2f, Pnt3f and Pnt4f. Some vector
+operations (dot, cross, etc.) don't make sense for points. Points can be
+subtracted (creating a vector), scaled and a vector can be added to or
+subtracted from them. If you want to represent a position, use a point. It
+helps keeping the concepts in order and not mix up everything just because it
+has the same data. When multiplied with a matrix, the w coordinate is set 
+as 1 for 3 element points. 
+
+If you really need to get from a point to a vector or vice versa, you can
+use 
+
+- Vector &osg::Point.subZero() 
+- Point  &osg::Vector.addToZero()
+
+to cast a point to a vector and back. 
+
+Colors are RGB vectors, which also have access functions to the named
+components. They also allow access via the HSV color model and scalar
+multiplication, but no other operations. 
+
+\section BaseQuaternions Quaternions
+
+Quaternions are the standard way to represent rotations. OpenSG quaternions
+feature the standard set of methods to get and set the rotations, in variants
+for radians and degrees. The standard order of the components is x,y,z,w. The
+standard operations (length, normalize, mult) are available, as well as slerp
+and multVec.
+
+*/
+
+/* \page PageBaseLine Line
+
+A Line defines a ray in space. It is defined by an origin and a direction,
+which is stored normalized. Lines can be constructed from two points or
+directly from a point and a direction. 
+
+A line can be intersected with all the bounding volumes and geometry. Only the
+positive parameter range of the line is intersected.
+
+The line can also find the closest point on itself to a given point or another
+line.
+
+*/
+
+/* \page PageBasePlane Plane
+
+A Plane defines a 3D infinite half-space. It is defined by a normal and the
+distance from the origin, and can be constructed from all useful combinations
+of points and vectors.
+
+Planes can also be intersected with infinite lines, if needed. Points can be
+tested for lying on the plane, or being in the positive half-space of the
+plane.
+
+*/
+
+/* \page PageBaseVolumes Volumes
+
+Volumes are primarily used for bounding geometry to speed up culling or
+intersection tests. All Volumes are derived from Volume. The supported volumes
+are the usual BoxVolume, defined by min and max points, the SphereVolume,
+defined by center and radius, and the FrustumVolume, which is defined by 6
+planes and primarily used to define the viewing frustum.
+
+Volumes are created empty (i.e. zero volume) and can be changed by extending
+them by a point or another volume. All volumes have a variety of access
+functions, some specific to the type of volume, some general. Every volume
+supports getBounds() to access the min/max points, getCenter() and
+getScalarVolume() to access the volume measure. Volumes can be intersected
+with points, lines and other volumes, and they can be transformed by a matrix.
+
+Volumes can be in one of several states. The default state is valid, special
+states are invalid, empty, infinite and static. There are specific functions
+to set them to any one of those states and to check if they are in any of
+those states.
+
+Invalid volumes have to be set to valid explicitly, before extending them has
+any effect. setEmpty() makes it valid implicitly. The states except empty
+define how extensions and intersections are handled. Invalid volumes stay
+invalid and ignore changes, static and infinite volumes keep their values and
+are not changed by extensions. Intersecting an infinite volume is always true,
+just as intersecting an empty volume is never true. 
+
+*/
+
+/* \page PageBaseThreads Threads
+
+OpenSG supports a thread abstraction to support efficient threading on all
+supported platforms. On Windows that means Windows threads, on Irix sproc() is
+used, for every other system pthreads are used.
+
+Every thread uses a Thread object for thread-specific data, most of which is
+needed for thread-safe data, see [threadsafety]. To create a new thread, the
+Thread object has a run() method, which executes a given function in a new
+thread. 
+
+For thread synchronization Lock and Barrier objects are available. They act
+like standard locks and barriers, see the doc for details.
+
+*/
+
+/* \page PageBaseImage Image
+
+Defines and holds a 1D/2D/3D image and optionally a mipmap pyramid and/or a
+list of equally sized frames with a single frameDelay. Various pixelTypes are
+supported to handle gray and RGB color images with or without alpha channel.
+The image data starts in the lower left (front) corner and all bytes for a
+single pixel (e.g. RGB) are stored sequentially in memory. They are not
+organized in separate layers or channels. 
+
+An Image is only a container for the pixel data and image description. It does
+not create or handle any OpenGL state elements. However, image objects are
+utilized to handle the data for texture (e.g. SimpleTextureMaterial) or bitmap
+objects (e.g. ImageForeground). 
+
+The system provides loaders and writers for various formats (see section
+[imageLoaderSection]). The graph loaders (e.g. OSGLoader, VRMLLoader) use
+image loaders to fetch the raster data. 
+
+*/
+
+/* \page PageBaseIDString IDString
+
+A primitive string class. Mainly used for string IDs (e.g. node type names).
+It is not a generic class like the std::string implementation. It's only for
+internal use to built efficient maps for names, not for application use. If
+you need a string class use std::string instead. 
+
+We decided to create our own specific string class since the std::string did
+not provide all features we needed (e.g. shared memory pointer, automatic
+preferred pointer comparison when comparing objects)
+
+*/
+
+/* \page PageBaseFunctors Functors
+
+Functors are the main method for OpenSG to call configurable actions. Functors
+wrap calls to a standard function, to a member of a specific instance or to a
+member of the first parameter. 
+
+Functors will have to be redesigned for 1.1, as they don't compile using the
+Microsoft Visual Studio compiler. :( Thus we don't talk much about them here,
+if you need to add a new action or GL object, send us mail.
+
+
+*/
+
+

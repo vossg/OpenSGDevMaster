@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="Camera"
+	parent="AttachmentContainer"
+	library="System"
+	structure="abstract"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="true"
+>
+The base class for the camera.
+	<Field
+		name="beacon"
+		type="NodePtr"
+		cardinality="single"
+		visibility="external"
+	>
+	The object that define's the camera's coordinate system. The camera is positioned
+	at the origin of the system and looks doen the negative z-axis (OpenGL-style).
+	</Field>
+	<Field
+		name="near"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+	>
+	The near distance of the camera.
+	</Field>
+	<Field
+		name="far"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+	>
+	The far distance of the camera.
+	</Field>
+</FieldContainer>

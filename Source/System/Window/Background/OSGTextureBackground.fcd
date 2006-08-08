@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="TextureBackground"
+	parent="Background"
+	library="Window"
+	pointerfieldtypes="single"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+A textured background e.g for distortion corrected fast live video from a camera with known intrinsic parameters.
+	<Field
+		name="color"
+		type="Color4f"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="texture"
+		type="TextureChunkPtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="texCoords"
+		type="Pnt2f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="radialDistortion"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="centerOfDistortion"
+		type="Vec2f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.5, 0.5"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="hor"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		defaultValue="2"
+		access="public"
+	>
+	horizontal subdivision
+	</Field>
+	<Field
+		name="vert"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		defaultValue="2"
+		access="public"
+	>
+	vertical subdivision
+	</Field>
+</FieldContainer>

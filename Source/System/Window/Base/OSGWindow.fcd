@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="Window"
+	parent="AttachmentContainer"
+	library="System"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The base class for all windows.
+	<Field
+		name="width"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="height"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="port"
+		type="ViewportPtr"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+
+        pushToFieldAs="addPort"
+        insertIntoMFieldAs="insertPort"
+        replaceInMFieldIndexAs="replacePort"
+        replaceInMFieldObjectAs="replacePortyBy"
+        removeFromMFieldIndexAs="subPort"
+        removeFromMFieldObjectAs="subPort"
+        clearFieldAs="clearPorts"        
+        
+        linkSParent="true"
+
+        checkNilPtr="true"
+	>
+	</Field>
+	<Field
+		name="resizePending"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="glObjectEventCounter"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="1"
+		access="protected"
+        fieldFlags="FClusterLocal"
+	>
+	Counter for GL object events. Needed for multi-aspect updates.
+        Is used in glObjectLastRefresh and glObjectLastReinitialize.
+	</Field>
+	<Field
+		name="glObjectLastRefresh"
+		type="UInt32"
+		cardinality="multi"
+		visibility="internal"
+		access="protected"
+        fieldFlags="FClusterLocal"
+	>
+	indicates the last refresh for the GL object
+	</Field>
+	<Field
+		name="glObjectLastReinitialize"
+		type="UInt32"
+		cardinality="multi"
+		visibility="internal"
+		access="protected"
+        fieldFlags="FClusterLocal"
+	>
+	indicates the last reinit for the GL object
+	</Field>
+</FieldContainer>

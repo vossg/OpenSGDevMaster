@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="GLUTWindow"
+	parent="Window"
+	library="WindowGLUT"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The class for GLUT-based windows.
+	<Field
+		name="id"
+		type="Int32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		header=""
+		access="public"
+	>
+	</Field>
+</FieldContainer>

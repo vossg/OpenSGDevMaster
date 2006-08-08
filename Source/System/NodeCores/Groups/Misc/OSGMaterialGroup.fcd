@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="MaterialGroup"
+	parent="Group"
+	library="Group"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="true"
+>
+	<Field
+		name="material"
+		type="MaterialPtr"
+		cardinality="single"
+		visibility="external"
+		header="OSGMaterial.h"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

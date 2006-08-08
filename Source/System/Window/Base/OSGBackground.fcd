@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="Background"
+	parent="AttachmentContainer"
+	library="System"
+	structure="abstract"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+Background is the base class for all background clearing.
+</FieldContainer>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="RenderBuffer"
+	parent="FrameBufferAttachment"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+Render buffer
+	<Field
+		name="GLId"
+		type="GLenum"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+		defaultValue="0"
+        fieldFlags="FClusterLocal"
+	>
+        The OpenGL texture id for this buffer object.
+	</Field>
+	<Field
+		name="internalFormat"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="GL_NONE"
+	>
+	</Field>
+</FieldContainer>

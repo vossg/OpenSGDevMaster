@@ -1,0 +1,18 @@
+
+INCLUDE_MNG := @ac_gdz_mng_incdir_e12@
+LINK_MNG    := @ac_gdz_mng_libdir_e12@
+LIB_MNG     := @ac_gdz_mng_lib_e12@
+
+ifneq ($(INCLUDE_MNG),)
+INCL_$(OS_BASE) += $(INC_OPTION)$(INCLUDE_MNG)
+endif
+
+ifneq ($(LINK_MNG),)
+LIBPATHS_MNG     := $(LIBPATH_OPTION)$(LINK_MNG)
+endif
+
+ifneq ($(LIB_MNG),)
+LIB_FILE_MNG     := $(LIB_MNG)
+LIB_FILE_MNG_LNK := $(LIB_MNG)
+endif
+

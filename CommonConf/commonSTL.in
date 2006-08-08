@@ -1,0 +1,17 @@
+
+INCLUDE_STL := @ac_gdz_stl_dir_e4@
+LINK_STL    := @ac_gdz_stl_dir_e4@
+LIB_STL     := @ac_gdz_stl_lib_e4@
+
+ifneq ($(INCLUDE_STL),)
+INCL_$(OS_BASE) := $(INC_OPTION)$(INCLUDE_STL) $(INCL_$(OS_BASE))
+endif
+
+ifneq ($(LINK_STL),)
+LIBPATHS_$(OS_BASE) := $(LIBPATH_OPTION)$(LINK_STL) $(LIBPATHS_$(OS_BASE))
+endif
+
+ifneq ($(LIB_STL),)
+LIBS_$(OS_BASE) := $(LIB_STL) $(LIBS_$(OS_BASE))
+endif
+

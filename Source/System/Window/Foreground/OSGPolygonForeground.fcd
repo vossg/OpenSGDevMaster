@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="PolygonForeground"
+	parent="Foreground"
+	library="Window"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+A Foreground that renders a single polygon used the specified material. The main use of this Foreground is rendering a simple texture above the viewport, but it's general enough to be used for other things. There have to be as many vertices as texture coordinates.
+	<Field
+		name="material"
+		type="MaterialPtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The material used to display.
+	</Field>
+	<Field
+		name="positions"
+		type="Pnt2f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	The vertices of the geometry to display.
+	</Field>
+	<Field
+		name="texCoords"
+		type="Vec3f"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	The texture coordinates of the geometry to display.
+	</Field>
+	<Field
+		name="normalizedX"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Define whether the x coordinates are normalized (0-1) or pixel-based .
+	</Field>
+	<Field
+		name="normalizedY"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Define whether the y coordinates are normalized (0-1) or pixel-based .
+	</Field>
+</FieldContainer>

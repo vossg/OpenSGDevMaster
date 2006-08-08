@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="FrameBufferAttachment"
+	parent="AttachmentContainer"
+	library="System"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+FramebufferAttachment base class
+	<Field
+		name="width"
+		type="UInt16"
+		cardinality="single"
+		visibility="internal"
+		access="protected"
+	>
+	</Field>
+	<Field
+		name="height"
+		type="UInt16"
+		cardinality="single"
+		visibility="internal"
+		access="protected"
+	>
+	</Field>
+</FieldContainer>

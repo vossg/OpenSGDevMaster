@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="VertexProgramChunk"
+	parent="ProgramChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived VertexProgramChunk and FragmentProgramChunk.
+</FieldContainer>

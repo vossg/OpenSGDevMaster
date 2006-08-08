@@ -1,0 +1,35 @@
+README for 3DSLoader
+====================
+
+Implementation of a 3ds loader. I used the great code from Lev Povalahev
+(http://www.levp.de/3d/index.html)
+I asked him for permission to use his code in OpenSG (see attached email)
+
+
+--------------------------
+
+Hallo Andreas!
+
+Aber selbstverständlich!
+
+mfg
+-Lev
+
+
+>> Hi Lev,
+>>
+>> I wrote a 3ds loader for OpenSG (www.opensg.org) a open source
+>> scenegraph renderer. I used your great 3ds loader code. I just wanted to
+>> ask for permission to use your code in OpenSG. Is this ok?
+>>
+>> Regards,
+>>
+>> Andreas
+>>
+>> --
+>> Andreas Zieringer       amz@igd.fhg.de
+>> Fraunhofer IGD - A4     phone +49 (0)6151 155 289
+>> Fraunhoferstr. 5        fax   +49 (0)6151 155 196
+>> D-64283 Darmstadt       www.igd.fhg.de/www/igd-a4
+>>
+>>

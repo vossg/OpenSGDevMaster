@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="MatrixCamera"
+	parent="Camera"
+	library="Window"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+A perspective camera with a symmetric frustum. 	
+	<Field
+		name="ProjectionMatrix"
+		type="Matrix"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="ModelviewMatrix"
+		type="Matrix"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+</FieldContainer>
