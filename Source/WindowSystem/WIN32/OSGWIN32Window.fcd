@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="WIN32Window"
+	parent="Window"
+	library="WindowWIN32"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The class for WIN32 windows.
+	<Field
+		name="hwnd"
+		type="HWND"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		header="OSGWIN32WindowDataFields.h"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="hdc"
+		type="HDC"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		header="OSGWIN32WindowDataFields.h"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="hglrc"
+		type="HGLRC"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		header="OSGWIN32WindowDataFields.h"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

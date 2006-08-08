@@ -52,6 +52,7 @@ EXE_SUFFIX           := @ac_gdz_exe_suffix@
 OS_BASE              := @ac_gdz_os_base@
 OS_CMPLR             := @ac_gdz_compiler_base@
 OS_CMPLR_DEF         := @ac_gdz_compiler_base_def@
+MS_COMPILER_VERSION  := @ac_gdz_ms_compiler_version@
 
 @ac_gdz_common_patterns@
 

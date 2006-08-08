@@ -22,6 +22,7 @@ fi
 ac_gdz_common_dir=$ac_gdz_src_dir/Common
 ac_gdz_commonconf_dir=CommonConf
 ac_gdz_so_praefix=
+ac_gdz_ms_compiler_version=
 ac_gdz_so_suffix=
 ac_gdz_lib_suffix=
 ac_gdz_obj_suffix=
@@ -1218,7 +1219,7 @@ dnl a symlink from gmake to make
 			ac_gdz_base_system_libs=$ac_gdz_base_system_libs' -lpthread'
         ;;
         solaris*)
-    		ac_gdz_compiler_exe_exe='$(CC) -template=no%wholeclass,extdef -ptv -mt'
+			ac_gdz_compiler_exe_exe='$(CC) -template=no%wholeclass,extdef -ptv -mt'
 			ac_gdz_base_system_libs=$ac_gdz_base_system_libs' -lpthread -lresolv -lsocket  -lnsl '
         ;;
         darwin*)
@@ -1368,6 +1369,7 @@ echo $ac_gdz_bison_exe_flags_e1 $ac_gdz_compiler_logo_e1
 
 AC_GDZ_SCAN_PACKET_DESC()
 
+AC_SUBST(ac_gdz_ms_compiler_version)
 AC_SUBST(ac_gdz_so_praefix)
 AC_SUBST(ac_gdz_so_suffix)
 AC_SUBST(ac_gdz_lib_suffix)

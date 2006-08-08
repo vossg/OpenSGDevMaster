@@ -381,6 +381,8 @@ AC_DEFUN(AC_GDZ_GUESS_COMPILER_DIR_AND_EXE,
             cl.net2005*|cl8*)
             AC_GDZ_SETUP_MSVCNET8("Microsoft Visual Studio 8")
         
+            ac_gdz_ms_compiler_version=vs8
+
             if test "$enable_stlport" = yes; then
                 ac_gdz_stl_suffix=.stlport
             else
@@ -391,6 +393,8 @@ AC_DEFUN(AC_GDZ_GUESS_COMPILER_DIR_AND_EXE,
 
             cl.net*)
             AC_GDZ_SETUP_MSVCNET("Microsoft Visual Studio.NET" "Microsoft Visual Studio .NET")
+
+            ac_gdz_ms_compiler_version=vs7
         
             if test "$enable_stlport" = yes; then
                 ac_gdz_stl_suffix=.stlport

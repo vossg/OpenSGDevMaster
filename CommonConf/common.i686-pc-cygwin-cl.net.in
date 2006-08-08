@@ -1,0 +1,164 @@
+
+LIBPATH_OPTION       := -LIBPATH:
+LIBLNK_OPTION        := 
+
+OBJ_OPTION           := -Fo
+
+NO_STDINC_DEP_OPTION := -X
+
+COMPONLY_OPTION      := -c
+
+DEPEND_OPTION        := -QM -nologo
+
+LD_OUTOPT            := -out:
+
+LNK_LD_OUTOPT        := -out:
+
+DIR_SEP              := /
+
+II_FILESDIR          := 
+
+### Defines #######################################################
+
+# For QT
+QT_PLATTFORMDEF := -DQT_NO_STL -DQT_DLL -DQT_THREAD_SUPPORT        \
+                   -DQT_ACCESSIBILITY_SUPPORT -DQT_NO_DEBUG
+
+SOURCE_DEFINES   := $(CONFIGURED_PACKAGE_DEFS)
+
+SYSTEM_DEFINES   := -DWIN32 -D_WINDOWS 				                 \
+				    -DWINVER=0x0400 -D_WIN32_WINDOWS=0x0410 	     \
+                    -D_WIN32_WINNT=0x0400                            \
+                    -D_OSG_HAVE_CONFIGURED_H_ 
+#-D_HAS_EXCEPTIONS=0
+
+#ifeq ($(COMPILERVERSION),501)
+#SYSTEM_DEFINES   := $(SYSTEM_DEFINES) -DOSG_SUPPORT_NO_GEO_INTERFACE=1
+#endif
+
+ifeq ($(LNK),lnk)
+RUNTIME_DEFINES  = 
+else
+RUNTIME_DEFINES  = -DOSG_BUILD_DLL 
+endif
+
+
+### Warnings #######################################################
+
+WARNINGS	   		= -W1
+
+WARNINGS_C_OFF		= # -woff 835
+
+WARNINGS_CPP_OFF 	:= #-Qwd985 -Qwd530 -Qwd981 -Qwd193
+
+# 444 : Destructor not virtual for baseclass
+# 279 : Controlling expression is constant
+#       have to rely on IRIX, or find a way to disable it in certain situations
+
+# VS.8 warning suppressions
+# 4996: deprecated stdio
+# 4275: non dll-interface class 'X' used as base for dll-interface struct 'Y' 
+#          (affects all STL usage)
+# 4251: 'X' : class 'Y' needs to have dll-interface to be used by clients of class 'Z'
+#          (affects all STL usage)
+# 4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+
+WARNINGS_CPP_OFF 	:=  -wd4996 -wd4275 -wd4251 -wd4290 #$(WARNINGS_CPP_OFF) -Qwd444 -Qwd279
+
+WARN_ERR_CPP        := #-Qwe698  -Qwe47 -Qwe373 -Qwe171 -Qwe373
+
+#ifeq ($(COMPILERVERSION),501)
+#WARN_ERR_CPP        := $(WARN_ERR_CPP) -Qwe1125
+#endif
+
+#-Qwe383
+
+### Language #######################################################
+
+LANG_FLAGS          = 
+
+#-Qvc6 -Qansi
+#-GX
+COMPILER    		=  -GX -Gi- -FD -GR -Zm1200
+
+ifeq ($(LNK),lnk)
+COMPILER_RUNTIME_DBG    = -MTd
+COMPILER_RUNTIME_OPT    = -MT
+else
+COMPILER_RUNTIME_DBG    = -MDd
+COMPILER_RUNTIME_OPT    = -MD
+endif
+
+CCFLAGS_EXT_OPT  := -O2 -Ob1 -MD
+CCFLAGS_EXT_DBG  := -ZI -Od -GZ -D_DEBUG -MDd
+
+### Optimize / Debug ###############################################
+
+ifeq ($(PRINT_INLINE), 1)
+COMP_INLINE :=
+endif
+
+ifeq ($(DEBUG_VERSION), 0)
+	COMP_OPTIMIZE    =  -O2 -Ob1
+	COMP_DEBUG       = 
+    COMPILER_RUNTIME = $(COMPILER_RUNTIME_OPT)
+else
+	COMP_OPTIMIZE    =
+	COMP_DEBUG       =  -ZI -Od -GZ -D_DEBUG
+    COMPILER_RUNTIME = $(COMPILER_RUNTIME_DBG)
+endif
+
+### Compiler Flags ################################################
+
+
+DEFINES     = $(SOURCE_DEFINES) $(SYSTEM_DEFINES) $(RUNTIME_DEFINES)    \
+              $(QT_PLATTFORMDEF)
+
+# C Compiler Flags
+
+CFLAGS   := $(WARNINGS) $(WARNINGS_C_OFF) -D__STDC__ 						\
+		    $(DEFINES) $(COMPILER) $(COMPILER_RUNTIME)                      \
+            $(COMP_OPTIMIZE) $(COMP_DEBUG)
+
+# CPP Compiler Flags
+
+CCFLAGS  := $(WARNINGS) $(WARNINGS_CPP_OFF) $(WARN_ERR_CPP) $(DEFINES)      \
+		    $(COMPILER) $(COMPILER_RUNTIME) $(COMP_OPTIMIZE) $(COMP_DEBUG)  \
+            $(COMPILER_LOGO)
+
+CCFLAGS_EXT         := $(WARNINGS_CPP_OFF) $(WARN_ERR_CPP) $(SYSTEM_DEFINES) $(RUNTIME_DEFINES) $(COMPILER)
+QT_PLATTFORMDEF_EXT := $(QT_PLATTFORMDEF)
+
+# Assembler Flags
+
+ASFLAGS  := $(WARNINGS) $(WARNINGS_C_OFF) $(DEFINES) 	\
+	 	    $(COMPILER) $(COMP_OPTIMIZE) $(COMP_DEBUG) 
+
+
+# Linker Flags
+
+ifeq ($(PRINT_INLINE), 1)
+LINK_INLINE :=
+endif
+
+ifeq ($(DEBUG_VERSION), 0)
+	LINK_OPTIMIZE    = 
+	AR_FLAGS         = 
+	LINK_DEBUG       = 
+else
+	LINK_OPTIMIZE    =
+	AR_FLAGS         = -Debug
+	LINK_DEBUG       = -Debug 
+endif
+
+LD_FLAGS += $(COMPILER_LOGO) -NODEFAULTLIB $(LINK_OPTIMIZE) $(LINK_DEBUG)
+
+LD_FLAGS_EXT     := -NODEFAULTLIB
+LD_FLAGS_EXT_OPT := 
+LD_FLAGS_EXT_DBG := -Debug
+
+
+
+
+
+

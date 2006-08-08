@@ -411,7 +411,7 @@ typedef BaseSprocBase BaseThreadBase;
 /*! \ingroup GrpBaseBaseMultiThreading
  */
 
-class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
+class BaseWinThreadBase : public BaseThreadCommonBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -434,9 +434,11 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     static void threadFunc(void *pThreadArg);
 
 #ifdef OSG_ASPECT_USE_LOCALSTORAGE
+    OSG_BASE_DLLMAPPING 
     static void freeThread(void            );
 #endif
 
@@ -456,6 +458,7 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     BaseWinThreadBase(const Char8 *szName, UInt32 uiId);
 
     /*! \}                                                                 */
@@ -463,6 +466,7 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                    Destructors                               */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     virtual ~BaseWinThreadBase(void);
 
     /*! \}                                                                 */
@@ -470,12 +474,17 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     virtual void init             (void                  );
+    OSG_BASE_DLLMAPPING 
     virtual void shutdown         (void                  );
 
+            OSG_BASE_DLLMAPPING 
             void setPid           (void                  );
+            OSG_BASE_DLLMAPPING 
             void setExternalHandle(Handle pExternalHandle);
 
+            OSG_BASE_DLLMAPPING 
             void setupThread      (void                  );
 
     /*! \}                                                                 */
@@ -483,6 +492,7 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                       Get                                    */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     static BaseThread *getCurrent(void);
 
     /*! \}                                                                 */
@@ -490,6 +500,7 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                      Join                                    */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     static void join(BaseWinThreadBase *pThread);
 
     /*! \}                                                                 */
@@ -497,6 +508,7 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                      Run                                     */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     bool runFunction(ThreadFuncF fThreadFunc,
                      void        *pThreadArg);
 
@@ -505,7 +517,9 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                   Blocking                                   */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     void block  (void);
+    OSG_BASE_DLLMAPPING 
     void unblock(void);
 
     /*! \}                                                                 */
@@ -513,9 +527,12 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     bool exists   (void);
 
+    OSG_BASE_DLLMAPPING 
     void terminate(void);
+    OSG_BASE_DLLMAPPING 
     void kill     (void);
 
     /*! \}                                                                 */
@@ -523,6 +540,7 @@ class OSG_BASE_DLLMAPPING BaseWinThreadBase : public BaseThreadCommonBase
     /*! \name                    Dump                                      */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     void print(void);
 
     /*! \}                                                                 */

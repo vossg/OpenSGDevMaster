@@ -359,7 +359,7 @@ typedef SprocBase ThreadBase;
 /*! \ingroup GrpSystemMultithreading
  */
 
-class OSG_SYSTEM_DLLMAPPING WinThreadBase : public ThreadCommonBase
+class WinThreadBase : public ThreadCommonBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -390,7 +390,9 @@ class OSG_SYSTEM_DLLMAPPING WinThreadBase : public ThreadCommonBase
     /*! \name                       Free                                   */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING 
     static void freeAspect    (void);
+    OSG_SYSTEM_DLLMAPPING 
     static void freeChangeList(void);
 #endif
 
@@ -399,7 +401,9 @@ class OSG_SYSTEM_DLLMAPPING WinThreadBase : public ThreadCommonBase
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING 
     static UInt32      getCurrentAspect    (void);
+    OSG_SYSTEM_DLLMAPPING 
     static ChangeList *getCurrentChangeList(void);
 
     /*! \}                                                                 */
@@ -407,6 +411,7 @@ class OSG_SYSTEM_DLLMAPPING WinThreadBase : public ThreadCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING 
     WinThreadBase(const Char8 *szName, UInt32 uiId);
 
     /*! \}                                                                 */
@@ -414,6 +419,7 @@ class OSG_SYSTEM_DLLMAPPING WinThreadBase : public ThreadCommonBase
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING 
     virtual ~WinThreadBase(void); 
 
     /*! \}                                                                 */
@@ -421,9 +427,12 @@ class OSG_SYSTEM_DLLMAPPING WinThreadBase : public ThreadCommonBase
     /*! \name                     Init                                     */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING 
     virtual void init            (void);
 
+            OSG_SYSTEM_DLLMAPPING 
             void setupAspect     (void);
+            OSG_SYSTEM_DLLMAPPING 
             void setupChangeList (void);
 
     /*! \}                                                                 */
@@ -431,6 +440,7 @@ class OSG_SYSTEM_DLLMAPPING WinThreadBase : public ThreadCommonBase
     /*! \name                      Debug                                   */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING 
     static void setAspectTo(UInt32 uiNewAspect);
 
     /*! \}                                                                 */
