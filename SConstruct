@@ -81,8 +81,25 @@ opts.AddOption(sca_opts.SeparatorOption("\nStandard settings"))
 opts.Add('prefix', 'Installation prefix', unspecified_prefix)
 opts.AddOption(sca_opts.SeparatorOption("\nPackage Options"))
 opts.AddOption( boost_options )
+# Custom options
+opts.AddOption(sca_opts.BoolOption("enable_gv","Enable gv code.",True))
+opts.AddOption(sca_opts.BoolOption("exclude_deprecated","Disable deprecated code.",True))
+opts.AddOption(sca_opts.EnumOption("default_log_level","Set the default log level",
+                                   "WARNING",[],
+                                   {"LOG":0, "FATAL":1, "WARNING":2, "NOTICE":3,
+                                    "INFO":4, "DEBUG":5}))
+opts.AddOption(sca_opts.EnumOption("default_log_type","Set the default log type",
+                                   "STDOUT",["NONE","STDOUT","STDERR"]))
+                                    
 base_bldr.addOptions(opts)             # Add environment builder options
 variant_helper.addOptions(opts)        # Add variant building options
+
+try:
+   opts.Process(common_env)               # Process the options
+except Exception, ex:
+   if not SConsAddons.Util.hasHelpFlag():
+      print "Option error: ", str(ex)
+      sys.exit(1)
 
 help_text = """--- OpenSG Build system ---
 %s
@@ -100,7 +117,6 @@ Help(help_text)
 # --- MAIN BUILD STEPS ---- #
 # If we are running the build
 if not SConsAddons.Util.hasHelpFlag():
-   opts.Process(common_env)               # Process the options
    try:                                   # Try to save the options if possible
       opts.Save(option_filename, common_env)
    except LookupError, le:
