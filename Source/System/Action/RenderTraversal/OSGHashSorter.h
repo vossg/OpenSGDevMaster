@@ -238,6 +238,11 @@ class OSG_RENDERTRAV_DLLMAPPING HashSorter
     //   friend classes                                                      
     //-----------------------------------------------------------------------
 
+    template <class ValueT, 
+        void (        *InitFunction )(ValueT *),
+        void (ValueT::*ClearFunction)(void    )>
+    friend class Pool;
+
     //-----------------------------------------------------------------------
     //   friend functions                                                    
     //-----------------------------------------------------------------------

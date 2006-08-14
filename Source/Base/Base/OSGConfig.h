@@ -909,15 +909,10 @@
 #include "OSGConfigured.h"
 #endif
 
-#if defined(OSG_DEBUG_NO_FCPTR_ARITHM)
-# if defined(OSG_DEFAULT_NUM_ASPECTS)
-#  undef OSG_DEFAULT_NUM_ASPECTS
-# endif
-# define OSG_DEFAULT_NUM_ASPECTS 1
-#endif
-
 #if OSG_DISABLE_DEPRECATED == 0
-# define OSG_DEPRECIATED_PROPS 1
+# ifndef OSG_DEPRECIATED_PROPS
+#  define OSG_DEPRECIATED_PROPS 1
+# endif
 #endif
 
 #define OSG_ASSERT(expr) assert(expr)

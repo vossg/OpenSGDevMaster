@@ -226,7 +226,7 @@ FieldContainerPtrBase::~FieldContainerPtrBase(void)
     _containerSize = 0;
     _uiParentEPos  = InvalidParentEPos;
     _storeP        = NULL;
-#ifdef OSG_DEBUG_FCPTR
+#ifdef OSG_FCPTR_TYPED_STORE
     _typedStoreP   = NULL;
 #endif
 #endif

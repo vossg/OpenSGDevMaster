@@ -86,10 +86,6 @@ ADD_INCLUDE     := @ac_gdz_additional_inc_dirs_e1@
 ADD_LINK        := @ac_gdz_additional_lib_dirs_e1@
 ADD_LIBS        := @ac_gdz_additional_libs_e1@
 
-INCLUDE_MPATROL := @ac_gdz_mpatrol_inc_dir_e1@
-LINK_MPATROL    := @ac_gdz_mpatrol_lib_dir_e1@
-LIB_MPATROL     := @ac_gdz_mpatrol_libs_e1@
-
 include @ac_gdz_commonpackage_dir_e1@/commonSTL.mk
 
 
@@ -105,20 +101,6 @@ endif
 
 ifneq ($(LINK_COMPILER),)
 LIBPATHS_$(OS_BASE) := $(LIBPATH_OPTION)$(LINK_COMPILER) $(LIBPATHS_$(OS_BASE))
-endif
-
-ifneq ($(INCLUDE_MPATROL),)
-INCL_$(OS_BASE) := $(INCL_$(OS_BASE)) $(INC_OPTION)$(INCLUDE_MPATROL)
-endif
-
-ifeq ($(IN_TEST_DIR),1)
-ifneq ($(LINK_MPATROL),)
-LIBPATHS_$(OS_BASE) := $(LIBPATH_OPTION)$(LINK_MPATROL) $(LIBPATHS_$(OS_BASE))
-endif
-
-ifneq ($(LB_MPATROL),)
-LIBS_$(OS_BASE) := $(LIBLNK_OPTION)$(LIB_MPATROL) $(LIBS_$(OS_BASE))
-endif
 endif
 
 #########################################################################

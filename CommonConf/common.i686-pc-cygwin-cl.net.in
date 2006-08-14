@@ -77,9 +77,11 @@ WARN_ERR_CPP        := #-Qwe698  -Qwe47 -Qwe373 -Qwe171 -Qwe373
 
 LANG_FLAGS          = 
 
-#-Qvc6 -Qansi
-#-GX
+ifeq ($(MS_COMPILER_VERSION),vs8)
+COMPILER    		=  -EHsc -FD -GR -Zm1200
+else
 COMPILER    		=  -GX -Gi- -FD -GR -Zm1200
+endif
 
 ifeq ($(LNK),lnk)
 COMPILER_RUNTIME_DBG    = -MTd
@@ -104,7 +106,11 @@ ifeq ($(DEBUG_VERSION), 0)
     COMPILER_RUNTIME = $(COMPILER_RUNTIME_OPT)
 else
 	COMP_OPTIMIZE    =
+ifeq ($(MS_COMPILER_VERSION),vs8)
+	COMP_DEBUG       =  -ZI -Od -RTC1 -D_DEBUG
+else
 	COMP_DEBUG       =  -ZI -Od -GZ -D_DEBUG
+endif
     COMPILER_RUNTIME = $(COMPILER_RUNTIME_DBG)
 endif
 

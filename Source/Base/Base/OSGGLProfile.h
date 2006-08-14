@@ -65,14 +65,16 @@ OSG_BEGIN_NAMESPACE
 
 namespace GLP
 {
-    static void glMaterialf (GLenum face, GLenum pname, GLfloat param)
+    static inline 
+    void glMaterialf (GLenum face, GLenum pname, GLfloat param)
     {
         GLfixed fixParam = osgFToFX(param);
 
         ::glMaterialx(face, pname, fixParam);
     }
 
-    static void glMaterialfv(GLenum face, GLenum pname, const GLfloat *params)
+    static inline
+    void glMaterialfv(GLenum face, GLenum pname, const GLfloat *params)
     {
         GLfixed fixParams[4];
 
@@ -84,7 +86,8 @@ namespace GLP
         ::glMaterialxv(face, pname, fixParams);
     }
 
-    static void glColor4fv(const GLfloat *v)
+    static inline
+    void glColor4fv(const GLfloat *v)
     {
         ::glColor4x(osgFToFX(v[0]),
                     osgFToFX(v[1]),
@@ -92,14 +95,16 @@ namespace GLP
                     osgFToFX(v[3]));
     }
 
-    static void glLightf (GLenum light, GLenum pname, GLfloat param)
+    static inline
+    void glLightf (GLenum light, GLenum pname, GLfloat param)
     {
         GLfixed fixParam = osgFToFX(param);
 
         ::glLightx(light, pname, fixParam);
     }
 
-    static void glLightfv (GLenum light, GLenum pname, const GLfloat *params)
+    static inline
+    void glLightfv (GLenum light, GLenum pname, const GLfloat *params)
     {
         GLfixed fixParams[4];
 
@@ -115,7 +120,8 @@ namespace GLP
         ::glLightxv(light, pname, fixParams);
     }
 
-    static void glClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
+    static inline
+    void glClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
     {
         ::glClearColorx(osgFToFX(r), 
                         osgFToFX(g), 
@@ -123,7 +129,8 @@ namespace GLP
                         osgFToFX(a));
     }
 
-    static void glLoadMatrixf (const GLfloat *m)
+    static inline
+    void glLoadMatrixf (const GLfloat *m)
     {
         GLfixed mf[16];
 
@@ -140,20 +147,23 @@ namespace GLP
 
 namespace GLP
 {
-    static void glMaterialf (GLenum face, GLenum pname, Fixed32 param)
+    static inline
+    void glMaterialf (GLenum face, GLenum pname, Fixed32 param)
     {
 
         ::glMaterialx(face, pname, param.getValue());
     }
 
-    static void glMaterialfv(      GLenum   face, 
-                                   GLenum   pname, 
-                             const Fixed32 *params)
+    static inline
+    void glMaterialfv(      GLenum   face, 
+                            GLenum   pname, 
+                      const Fixed32 *params)
     {
         ::glMaterialxv(face, pname, reinterpret_cast<const GLfixed *>(params));
     }
 
-    static void glColor4fv(const Fixed32 *v)
+    static inline
+    void glColor4fv(const Fixed32 *v)
     {
         ::glColor4x(v[0].getValue(),
                     v[1].getValue(),
@@ -161,17 +171,20 @@ namespace GLP
                     v[3].getValue());
     }
 
-    static void glLightf (GLenum light, GLenum pname, Fixed32 param)
+    static inline
+    void glLightf (GLenum light, GLenum pname, Fixed32 param)
     {
         ::glLightx(light, pname, param.getValue());
     }
 
-    static void glLightfv (GLenum light, GLenum pname, const Fixed32 *params)
+    static inline
+    void glLightfv (GLenum light, GLenum pname, const Fixed32 *params)
     {
         ::glLightxv(light, pname, reinterpret_cast<const GLfixed *>(params));
     }
 
-    static void glClearColor(Fixed32 r, 
+    static inline
+    void glClearColor(Fixed32 r, 
                              Fixed32 g, 
                              Fixed32 b, 
                              Fixed32 a)
@@ -182,7 +195,8 @@ namespace GLP
                         a.getValue());
     }
 
-    static void glLoadMatrixf (const Fixed32 *m)
+    static inline
+    void glLoadMatrixf (const Fixed32 *m)
     {
         ::glLoadMatrixx(reinterpret_cast<const GLfixed *>(m));
     }
@@ -193,37 +207,44 @@ namespace GLP
 
 namespace GLP
 {
-    static void glMaterialf (GLenum face, GLenum pname, GLfloat param)
+    static inline
+    void glMaterialf (GLenum face, GLenum pname, GLfloat param)
     {
         ::glMaterialf(face, pname, param);
     }
 
-    static void glMaterialfv(GLenum face, GLenum pname, const GLfloat *params)
+    static inline
+    void glMaterialfv(GLenum face, GLenum pname, const GLfloat *params)
     {
         ::glMaterialfv(face, pname, params);
     }
 
-    static void glColor4fv(const GLfloat *v)
+    static inline
+    void glColor4fv(const GLfloat *v)
     {
         ::glColor4fv(v);
     }
 
-    static void glLightf (GLenum light, GLenum pname, GLfloat param)
+    static inline
+    void glLightf (GLenum light, GLenum pname, GLfloat param)
     {
         ::glLightf(light, pname, param);
     }
 
-    static void glLightfv (GLenum light, GLenum pname, const GLfloat *params)
+    static inline
+    void glLightfv (GLenum light, GLenum pname, const GLfloat *params)
     {
         ::glLightfv(light, pname, params);
     }
 
-    static void glClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
+    static inline
+    void glClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
     {
         ::glClearColor(r, b, g, a);
     }
 
-    static void glLoadMatrixf (const GLfloat *m)
+    static inline
+    void glLoadMatrixf (const GLfloat *m)
     {
         ::glLoadMatrixf(m);
     }

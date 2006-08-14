@@ -1867,49 +1867,6 @@ dnl e15
     AC_SUBST(ac_gdz_mng_lib_e15)
     AC_SUBST(ac_gdz_have_mng_e15)
 
-
-    ac_gdz_freetype1_lib_e15=
-    ac_gdz_freetype1_incdir_e15=
-    ac_gdz_freetype1_libdir_e15=
-
-    if test "$enable_freetype1" = yes; then
-
-        case $build_os in
-            cygwin*)
-                ac_gdz_freetype1_lib_e15='freetype.lib'
-            ;;
-            *)
-                ac_gdz_freetype1_lib_e15='-lttf'
-            ;;
-        esac
-
-        if test -n "$ac_gdz_freetype1_incdir"; then
-            case $build_os in
-                cygwin*)
-                    ac_gdz_freetype1_incdir_e15='"'`cygpath -w $ac_gdz_freetype1_incdir`'"'
-                ;;
-                *)
-                    ac_gdz_freetype1_incdir_e15=$ac_gdz_freetype1_incdir
-                ;;
-            esac
-        fi
-
-        if test -n "$ac_gdz_freetype1_libdir"; then
-            case $build_os in
-                cygwin*)
-                    ac_gdz_freetype1_libdir_e15='"'`cygpath -w $ac_gdz_freetype1_libdir`'"'
-                ;;
-                *)
-                    ac_gdz_freetype1_libdir_e15=$ac_gdz_freetype1_libdir
-                ;;
-            esac
-        fi
-
-        ac_gdz_have_freetype1_e15=yes
-    else
-        ac_gdz_have_freetype1_e15=no
-    fi
-
     ac_gdz_text_lib_e15=
     ac_gdz_text_incdir_e15=
     ac_gdz_text_libdir_e15=
@@ -2100,11 +2057,6 @@ dnl e15
     AC_SUBST(ac_gdz_gif_libdir_e15)
     AC_SUBST(ac_gdz_gif_lib_e15)
     AC_SUBST(ac_gdz_have_gif_e15)
-
-    AC_SUBST(ac_gdz_freetype1_incdir_e15)
-    AC_SUBST(ac_gdz_freetype1_libdir_e15)
-    AC_SUBST(ac_gdz_freetype1_lib_e15)
-    AC_SUBST(ac_gdz_have_freetype1_e15)
 
     AC_SUBST(ac_gdz_stlport_lib_e15)
     AC_SUBST(ac_gdz_stlport_incdir_e15)

@@ -48,14 +48,6 @@
 #    define OSG_DEFAULT_LOG_TYPE LOG_STDERR 
 #endif
 
-#undef OSG_DISABLE_DEPRECATED
-
-#if defined(OSG_DEBUG)
-#undef OSG_DEBUG_FCPTR
-#undef OSG_DEBUG_NO_FCPTR_ARITHM
-#endif
-
-#undef OSG_OPT_DRAWTREE
 #undef OSG_PTHREAD_ELF_TLS
 
 #undef OSG_NO_GLUT_GLSUBDIR
@@ -77,13 +69,6 @@
 #   endif
 #endif
 
-#undef OSG_USE_MPATROL
-
-#if defined(OSG_USE_MPATROL)
-#define MP_NONEWDELETE 1
-#include <mpatrol.h>
-#endif
-
 #undef OSG_ICC_GNU_COMPAT
 
 #undef OSG_OLD_RENDER_ACTION
@@ -101,6 +86,7 @@
 #undef OSG_1_COMPAT 
 
 #undef OSG_DEPRECIATED_PROPS
+#undef OSG_DISABLE_DEPRECATED
 
 
 #endif

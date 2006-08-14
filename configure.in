@@ -51,22 +51,14 @@ ac_gdz_conf_package_expat='0'
 ac_gdz_conf_package_gif_expat='0'
 ac_gdz_conf_package_efence='0'
 ac_gdz_conf_package_efence_e1='0'
-ac_gdz_conf_package_mpatrol='0'
-ac_gdz_conf_package_mpatrol_e1='0'
 ac_gdz_conf_package_myrinet='0'
 ac_gdz_conf_package_myrinet_e1='0'
-ac_gdz_conf_package_freetype1='0'
-ac_gdz_conf_package_freetype1_e1='0'
 ac_gdz_conf_package_text='0'
 ac_gdz_conf_package_text_e1='0'
 
 ac_gdz_with_add_incdirs=
 ac_gdz_with_add_libdirs=
 ac_gdz_with_add_libs=
-
-ac_gdz_mpatrol_inc_dir_e1=
-ac_gdz_mpatrol_lib_dir_e1=
-ac_gdz_mpatrol_libs_e1=
 
 ac_gdz_test_debug_libs=
 
@@ -643,7 +635,7 @@ fi
 
 dnl ############# EXPAT Settings #####################
 
-AC_ARG_WITH(expat,     [  --with-expat=DIR          Where to find the expat files to use],
+AC_ARG_WITH(expat,     [  --with-expat=DIR                    Where to find the expat files to use],
 			,with_expat=no) 
 
 if test "$with_expat" = yes; then
@@ -675,24 +667,6 @@ else
 	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs
 fi
 
-dnl ############# mpatrol Settings #####################
-
-AC_ARG_WITH(mpatrol,     [  --with-mpatrol=DIR                  Use mpatrol lib, if DIR is given use the file from the given directory],
-			,with_mpatrol=no) 
-
-if test "$with_mpatrol" = yes; then
-	ac_gdz_mpatrol_dir=
-	ac_gdz_conf_package_mpatrol'1'
-	ac_gdz_conf_package_mpatrol_e1='1'
-elif test "$with_mpatrol" = no; then
-	ac_gdz_mpatrol_dir=
-else
-	ac_gdz_mpatrol_dir=$with_mpatrol
-	ac_gdz_conf_package_mpatrol='1'
-	ac_gdz_conf_package_mpatrol_e1='1'
-	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs
-fi
-
 dnl ############# Myrinet Settings #####################
 
 AC_ARG_WITH(myrinet,   [  --with-myrinet=DIR                  Use Myrinet lib, if DIR is given use the file from the given directory],
@@ -715,13 +689,13 @@ fi
 
 dnl ############# text Settings #####################
 
-AC_ARG_ENABLE(text,     [  --enable-text                        Build with text support],
+AC_ARG_ENABLE(text,     [  --enable-text                       Build with text support],
 			,enable_text=no) 
-AC_ARG_WITH(text,     [  --with-text=DIR                      Use DIR/lib DIR/include to find the freetype2 files],
+AC_ARG_WITH(text,     [  --with-text=DIR                     Use DIR/lib DIR/include to find the freetype2 files],
 			,with_text=) 
-AC_ARG_WITH(textincludedir,     [  --with-textincludedir=DIR            Use freetype2 includes from the given directory],
+AC_ARG_WITH(textincludedir,     [  --with-textincludedir=DIR           Use freetype2 includes from the given directory],
 			,with_textincludedir=) 
-AC_ARG_WITH(textlibdir,     [  --with-textlibdir=DIR                Use freetype2 lib from the given directory],
+AC_ARG_WITH(textlibdir,     [  --with-textlibdir=DIR               Use freetype2 lib from the given directory],
 			,with_textlibdir=) 
 
 if test "$enable_text" = no && test "$with_text" = yes; then
@@ -850,23 +824,7 @@ AC_ARG_ENABLE(compiler-path,     [  --enable-compiler-path              Referenc
 
 dnl ############# CP Settings #####################
 
-AC_ARG_ENABLE(gv-beta,     [  --enable-gv-beta                    enable gv beta],
-			,enable_gv_beta=no) 
-
-if test $enable_gv_beta = yes; then
-	ac_gdz_conf_gvbeta_e1=1
-else
-	ac_gdz_conf_gvbeta_e1=0
-fi
-
-dnl ############# CP Settings #####################
-
-AC_ARG_ENABLE(gv,     [  --enable-gv                    enable gv stuff],
-			,enable_gv=yes) 
-
-dnl ############# CP Settings #####################
-
-AC_ARG_ENABLE(osg-1-compat,     [  --enable-osg-1-compat             enable osg 1 compat],
+AC_ARG_ENABLE(osg-1-compat,     [  --enable-osg-1-compat               enable osg 1 compat],
 			,enable_osg_1_compat=no) 
 
 if test $enable_osg_1_compat = yes; then
@@ -877,7 +835,7 @@ fi
 
 dnl ############# CP Settings #####################
 
-AC_ARG_ENABLE(depreciated-props,     [  --depreciated-props             enable depreciated props],
+AC_ARG_ENABLE(depreciated-props,     [  --depreciated-props                 enable depreciated props],
 			,enable_depreciated_props=no) 
 
 if test $enable_depreciated_props = yes; then
@@ -888,22 +846,12 @@ fi
 
 dnl ############# typed fcptr Settings #################
 
-AC_ARG_ENABLE(typed_dbg_fcptr,     [  --enable-typed-dbg-fcptr            Add a typed ptr to the fieldcontainer ptr ],
-			,enable_typed_dbg_fcptr=no) 
-
-dnl ############# Depreciated Settings #####################
-
-AC_ARG_ENABLE(fcptr_arithm,     [  --disable-fcptr-arithm              Disable fieldcontainer ptr aspect arithmetics ],
-		disable_fcptr_arithm=yes, disable_fcptr_arithm=no) 
-
-dnl ############# typed fcptr Settings #################
-
-AC_ARG_ENABLE(use_cptr,     [  --enable-use-cptr               use std ptrs instead of fcptr ],
+AC_ARG_ENABLE(use_cptr,     [  --enable-use-cptr                   use std ptrs instead of fcptr ],
 	enable_use_cptr=yes,enable_use_cptr=no) 
 
 dnl ############# typed fcptr Settings #################
 
-AC_ARG_ENABLE(use_cptr_aspect,     [  --enable-use-cptr-aspect               use std ptrs instead of fcptr ],
+AC_ARG_ENABLE(use_cptr_aspect,     [  --enable-use-cptr-aspect            use aspects with std ptrs ],
        enable_use_cptr_aspect=yes,enable_use_cptr_aspect=no)
 
 dnl ############# typed fcptr Settings #################
@@ -945,6 +893,23 @@ elif test "$with_add_lib" = no; then
 else
 	ac_gdz_with_add_libs=$with_add_lib 
 fi
+
+
+dnl ############# CP Settings #####################
+
+AC_ARG_ENABLE(gv-beta,     [  --enable-gv-beta                    enable gv beta],
+			,enable_gv_beta=no) 
+
+if test $enable_gv_beta = yes; then
+	ac_gdz_conf_gvbeta_e1=1
+else
+	ac_gdz_conf_gvbeta_e1=0
+fi
+
+dnl ############# CP Settings #####################
+
+AC_ARG_ENABLE(gv,     [  --enable-gv                         enable gv stuff],
+			,enable_gv=yes) 
 
 dnl ############# Helper #####################
 
@@ -1330,29 +1295,6 @@ else
     ac_gdz_gen_base_inc_e1="../Base"
 fi
 
-if test "$with_patrol" = yes; then
-    echo "not implemented"
-#    if test $build_os = cygwin; then
-#ac_gdz_mpatrol_inc_dir_e1=
-#ac_gdz_mpatrol_lib_dir_e1=
-#ac_gdz_mpatrol_libs_e1=
-#     else
-#           ac_gdz_freetype1_lib_e14='-lfreetype'
-#        fi
-
-elif test -n "$ac_gdz_mpatrol_dir"; then
-    if test $build_os = cygwin; then
-        ac_gdz_mpatrol_inc_dir_e1='"'`cygpath -w $ac_gdz_mpatrol_dirr/include`'"'
-        ac_gdz_mpatrol_lib_dir_e1='"'`cygpath -w $ac_gdz_mpatrol_dir/lib`'"'
-        ac_gdz_mpatrol_libs_e1=#'ttf.lib'
-    else
-        ac_gdz_mpatrol_inc_dir_e1=$ac_gdz_mpatrol_dir/include
-        ac_gdz_mpatrol_lib_dir_e1=$ac_gdz_mpatrol_dir/lib
-        ac_gdz_mpatrol_libs_e1=#'-lttf'
-    fi
-fi
-
-
 ac_gdz_additional_inc_dirs_e1=$ac_gdz_with_add_incdirs
 ac_gdz_additional_lib_dirs_e1=$ac_gdz_with_add_libdirs
 ac_gdz_additional_libs_e1=$ac_gdz_with_add_libs
@@ -1417,13 +1359,8 @@ AC_SUBST(ac_gdz_conf_package_gif_e1)
 AC_SUBST(ac_gdz_conf_package_gl_e1)
 AC_SUBST(ac_gdz_conf_package_glut_e1)
 AC_SUBST(ac_gdz_conf_package_stlport_e1)
-AC_SUBST(ac_gdz_conf_package_freetype1_e1)
 AC_SUBST(ac_gdz_conf_package_text_e1)
 AC_SUBST(ac_gdz_conf_gvbeta_e1)
-
-AC_SUBST(ac_gdz_mpatrol_inc_dir_e1)
-AC_SUBST(ac_gdz_mpatrol_lib_dir_e1)
-AC_SUBST(ac_gdz_mpatrol_libs_e1)
 
 AC_SUBST(ac_gdz_compiler_logo_e1)
 AC_SUBST(ac_gdz_bison_exe_flags_e1)
@@ -1561,16 +1498,8 @@ if test "$disable_glut_glsubdir" = yes; then
     AC_DEFINE(OSG_NO_GLUT_GLSUBDIR)
 fi
 
-if test "$with_mpatrol" != no; then
-    AC_DEFINE(OSG_USE_MPATROL)
-fi
-
 if test "$enable_win_bool_is_unsigned" = yes; then
     AC_DEFINE(OSG_BOOL_IS_UNSIGNED)
-fi
-
-if test "$enable_typed_dbg_fcptr" = yes; then
-	AC_DEFINE(OSG_DEBUG_FCPTR)
 fi
 
 if test $enable_osg_1_compat = yes; then
@@ -1579,10 +1508,6 @@ fi
 
 if test $enable_depreciated_props = yes; then
     AC_DEFINE(OSG_DEPRECIATED_PROPS)
-fi
-
-if test "$disable_fcptr_arithm" = yes; then
-	AC_DEFINE(OSG_DEBUG_NO_FCPTR_ARITHM)
 fi
 
 if test "$enable_use_cptr" = no; then
@@ -1652,15 +1577,6 @@ fi
 AC_GDZ_WRITE_SYSTEM_COMMON()
 
 case "$build_os" in
-    darwin*)
-        echo "#############################"
-        echo "WARNING"
-        echo "#############################"
-        echo "This port is highly experimental, currently only the {dbg|opt}Lnk"
-        echo "targets are working" 
-        echo "In case you are interested in the OSX port"
-        echo "please contact me (vossg@camtech.ntu.edu.sg) beforehand"
-    ;;
     linux*)
         warn_gl=0
         if test -e /usr/lib/libGL.so -a -e /usr/lib/libGL.so.1 
