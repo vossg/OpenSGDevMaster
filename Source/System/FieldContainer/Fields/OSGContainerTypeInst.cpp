@@ -98,6 +98,10 @@ DataType FieldTraits<FieldBundleAttachmentMap   >::_type(
 DataType FieldTraits<FieldContainerAttachmentMap>::_type(
     "FieldContainerAttachmentMap",
     NULL);
+
+DataType FieldTraits<ChangedFunctorCallback     >::_type(
+    "ChangedFunctorCallback",
+    NULL);
  
 OSG_FIELDTRAITS_GETTYPE   (FieldContainerPtr          )
 OSG_FIELDTRAITS_GETTYPE_NS(ParentFieldContainerPtr,  1)
@@ -121,6 +125,9 @@ OSG_FIELD_DLLEXPORT_DEF2(MField, ParentNodePtr, 1);
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, FieldBundleAttachmentMap);
 OSG_FIELD_DLLEXPORT_DEF1(SField, FieldContainerAttachmentMap);
+
+OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
+OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback);
 
 OSG_END_NAMESPACE
 

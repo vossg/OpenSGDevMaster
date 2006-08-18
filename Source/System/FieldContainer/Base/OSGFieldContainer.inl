@@ -60,9 +60,26 @@ UInt16 FieldContainer::getClassGroupId(void)
 }
 
 inline
-void FieldContainer::changed(ConstFieldMaskArg, 
-                             UInt32           )
+void FieldContainer::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin    )
 {
+}
+
+inline
+void FieldContainer::callChangedFunctors(ConstFieldMaskArg whichField)
+{
+    MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
+    MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
+
+    ObjPtr thisP = Inherited::constructPtr<FieldContainer>(this);
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_func)
+            (cfIt->_func)(thisP, whichField);
+
+        ++cfIt;
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -70,22 +87,24 @@ void FieldContainer::changed(ConstFieldMaskArg,
 
 inline
 FieldContainer::FieldContainer(void) :
-     Inherited   (    ),
+     Inherited        (    ),
 #ifdef OSG_MT_CPTR_ASPECT
-    _pAspectStore(NULL),
+    _pAspectStore     (NULL),
 #endif
-    _pFieldFlags (NULL)
+    _pFieldFlags      (NULL),
+    _mfChangedFunctors(    )
 {
     _pFieldFlags = new FieldFlags;
 }
 
 inline
 FieldContainer::FieldContainer(const FieldContainer &source) :
-     Inherited  (source),
+     Inherited        (source                   ),
 #ifdef OSG_MT_CPTR_ASPECT
-    _pAspectStore(NULL),
+    _pAspectStore     (NULL                     ),
 #endif
-    _pFieldFlags(NULL  )
+    _pFieldFlags      (NULL                     ),
+    _mfChangedFunctors(source._mfChangedFunctors)
 {
     _pFieldFlags = new FieldFlags(*(source._pFieldFlags));
 }
@@ -97,6 +116,63 @@ inline
 FieldContainer::~FieldContainer(void)
 {
     delete _pFieldFlags;
+}
+
+inline
+UInt32 FieldContainer::addChangedFunctor(ChangedFunctor func,
+                                         std::string    createSymbol)
+{
+    ChangedFunctorCallback oTmp;
+
+    oTmp._func         = func;
+    oTmp._uiId         = _mfChangedFunctors.size();
+    oTmp._createSymbol = createSymbol;
+
+    _mfChangedFunctors.push_back(oTmp);
+
+    return oTmp._uiId;
+}
+
+template<class FunctorT> inline
+void FieldContainer::subChangedFunctor(FunctorT func)
+{
+    MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
+    MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_func == func)
+            break;
+
+        ++cfIt;
+    }
+
+    if(cfIt != cfEnd)
+        _mfChangedFunctors.erase(cfIt);
+}
+
+inline
+void FieldContainer::subChangedFunctor(UInt32 uiId)
+{
+    MFChangedFunctorCallback::iterator       cfIt = _mfChangedFunctors.begin();
+    MFChangedFunctorCallback::const_iterator cfEnd= _mfChangedFunctors.end();
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_uiId == uiId)
+            break;
+
+        ++cfIt;
+    }
+
+    if(cfIt != cfEnd)
+        _mfChangedFunctors.erase(cfIt);
+}
+
+inline 
+void FieldContainer::clearChangedFunctors(void)
+{
+    _mfChangedFunctors.clear();
 }
 
 inline

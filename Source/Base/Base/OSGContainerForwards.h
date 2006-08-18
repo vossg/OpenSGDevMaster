@@ -245,6 +245,8 @@ struct PointerBuilder<FieldContainer>
     typedef FieldContainerPtr      const &ObjPtrConstArg;
 };
 
+typedef PointerBuilder<FieldContainer>::ObjPtrArg FieldContainerPtrArg;
+
 template<>
 struct PointerBuilder<FieldContainerAttachment>
 {
@@ -578,6 +580,19 @@ typedef
     RefCountMixin<
         ContainerIdMixin<
             ContainerMixinHead<FieldBundleDesc> > > FieldBundleParent;
+
+
+typedef boost::function<
+              void (FieldContainerPtrArg, ConstFieldMaskArg )> ChangedFunctor;
+
+struct ChangedFunctorCallback
+{
+    ChangedFunctor _func;
+    UInt32         _uiId;
+    std::string    _createSymbol;
+
+    typedef std::allocator<void> Alloc;
+};
 
 OSG_END_NAMESPACE
 

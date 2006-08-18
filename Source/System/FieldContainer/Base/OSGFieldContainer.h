@@ -42,6 +42,9 @@
 #pragma once
 #endif
 
+#include <vector>
+#include <boost/function.hpp>
+
 #include "OSGReflexiveContainer.h"
 #include "OSGFieldContainerType.h"
 #include "OSGRefCountMixin.h"
@@ -49,7 +52,7 @@
 #include "OSGContainerMixinHead.h"
 #include "OSGContainerIdMixin.h"
 #include "OSGSystemProfile.h"
-//#include "OSGThread.h"
+#include "OSGChangedFunctorMFields.h"
 #include "OSGAspectStore.h"
 
 OSG_BEGIN_NAMESPACE
@@ -85,6 +88,9 @@ class FieldContainer : public FieldContainerParent
     struct  attempt_to_create_CoredNodePtr_on_non_NodeCore_FC {};
 
     static const bool isNodeCore = false;
+
+    OSG_RC_FIRST_FIELD_DECL(ChangedCallbacks);
+    OSG_RC_LAST_FIELD_DECL (ChangedCallbacks);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -131,8 +137,10 @@ class FieldContainer : public FieldContainerParent
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin    );
+    virtual void changed            (ConstFieldMaskArg whichField, 
+                                     UInt32            origin    );
+
+            void callChangedFunctors(ConstFieldMaskArg whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -173,6 +181,16 @@ class FieldContainer : public FieldContainerParent
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
+
+    UInt32 addChangedFunctor   (ChangedFunctor func,
+                                std::string    createSymbol);
+
+    template<class FunctorT>
+    void   subChangedFunctor   (FunctorT       func        );
+
+    void   subChangedFunctor   (UInt32         uiId        );
+
+    void   clearChangedFunctors(void                       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -220,7 +238,8 @@ class FieldContainer : public FieldContainerParent
     AspectStore *_pAspectStore;
 #endif
 
-    FieldFlags  *_pFieldFlags;
+    FieldFlags               *_pFieldFlags;
+    MFChangedFunctorCallback  _mfChangedFunctors;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -233,8 +252,8 @@ class FieldContainer : public FieldContainerParent
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
-
-    static const Char8 *getClassname(void);
+    static       void   classDescInserter(TypeObject &oType);
+    static const Char8 *getClassname     (void             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

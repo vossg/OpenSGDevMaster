@@ -55,11 +55,30 @@
 
 OSG_USING_NAMESPACE
 
+void FieldContainer::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc = NULL;
+
+    pDesc = new MFChangedFunctorCallback::Description(
+        MFChangedFunctorCallback::getClassType(),
+        "changedCallbacks",
+        OSG_RC_FIELD_DESC(FieldContainer::ChangedCallbacks),
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&FieldContainer::invalidEditField),
+        static_cast<FieldGetMethodSig >(&FieldContainer::invalidGetField ));
+        
+    oType.addInitialDesc(pDesc);
+}
+
 FieldContainer::TypeObject FieldContainer::_type(true,
     FieldContainer::getClassname(),
     NULL,
     NULL,
-    NULL,
+    0,
+    NULL,                                                  
+    NULL,                                                  
+    (InitalInsertDescFunc) &FieldContainer::classDescInserter,
     false);
 
 
