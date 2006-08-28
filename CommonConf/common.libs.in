@@ -98,9 +98,9 @@ ac_gdz_package_def_Cluster="OSG_COMPILECLUSTERLIB"
 
 
 ac_gdz_package_name_FileIO="FileIO" 
-ac_gdz_package_dirs_FileIO="System/FileIO/OSB@ System/FileIO/WRL@ System/FileIO/OBJ@ System/FileIO/3DS@ "
-ac_gdz_package_inc_dep_FileIO="@Base@ @System@ @Group@ @Drawable@ @State@ GL" 
-ac_gdz_package_link_dep_FileIO="BaseLib SystemLib GroupLib DrawableLib StateLib TIF JPG PNG MNG" 
+ac_gdz_package_dirs_FileIO="System/FileIO/OSB@ System/FileIO/Collada@ System/FileIO/WRL@ System/FileIO/OBJ@ System/FileIO/3DS@ "
+ac_gdz_package_inc_dep_FileIO="@Base@ @System@ @Group@ @Drawable@ @State@ COLLADA GL" 
+ac_gdz_package_link_dep_FileIO="BaseLib SystemLib GroupLib DrawableLib StateLib COLLADA LIBXML TIF JPG PNG MNG" 
 ac_gdz_package_testinc_dep_FileIO="GLUT WindowSystem/GLUT " 
 ac_gdz_package_testlink_dep_FileIO="WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
 ac_gdz_package_def_FileIO="OSG_COMPILEFILEIOLIB"

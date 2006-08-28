@@ -47,8 +47,8 @@ ac_gdz_conf_package_mng='0'
 ac_gdz_conf_package_mng_e1='0'
 ac_gdz_conf_package_gif='0'
 ac_gdz_conf_package_gif_e1='0'
-ac_gdz_conf_package_expat='0'
-ac_gdz_conf_package_gif_expat='0'
+ac_gdz_conf_package_libxml='0'
+ac_gdz_conf_package_libxml='0'
 ac_gdz_conf_package_efence='0'
 ac_gdz_conf_package_efence_e1='0'
 ac_gdz_conf_package_myrinet='0'
@@ -633,20 +633,36 @@ elif test "$with_gif" = no; then
 	ac_gdz_gif_dir=
 fi
 
-dnl ############# EXPAT Settings #####################
+dnl ############# CLAPACK Settings #####################
 
-AC_ARG_WITH(expat,     [  --with-expat=DIR                    Where to find the expat files to use],
-			,with_expat=no) 
+AC_ARG_WITH(libxml,     [  --with-libxml=DIR          Where to find the libxml files to use],
+			,with_libxml=yes) 
 
-if test "$with_expat" = yes; then
-	ac_gdz_expat_dir=
-	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_EXPAT'
-elif test "$with_expat" = no; then
-	ac_gdz_expat_dir=
+if test "$with_libxml" = yes; then
+	ac_gdz_libxml_dir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_LIBXML'
+elif test "$with_libxml" = no; then
+	ac_gdz_libxml_dir=
 else
-	ac_gdz_expat_dir=$with_expat
-	ac_gdz_conf_package_expat='1'
-	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_EXPAT'
+	ac_gdz_libxml_dir=$with_libxml
+	ac_gdz_conf_package_libxml='1'
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_LIBXML'
+fi
+
+dnl ############# CLAPACK Settings #####################
+
+AC_ARG_WITH(collada,     [  --with-collada=DIR          Where to find the collada files to use],
+			,with_collada=yes) 
+
+if test "$with_collada" = yes; then
+	ac_gdz_collada_dir=
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_COLLADA'
+elif test "$with_collada" = no; then
+	ac_gdz_collada_dir=
+else
+	ac_gdz_collada_dir=$with_collada
+	ac_gdz_conf_package_collada='1'
+	ac_gdz_conf_package_defs=$ac_gdz_conf_package_defs' -DOSG_WITH_COLLADA'
 fi
 
 dnl ############# efence Settings #####################
@@ -1429,7 +1445,9 @@ AC_GDZ_WRITE_COMMON_MNG()
 
 AC_GDZ_WRITE_COMMON_GIF()
 
-AC_GDZ_WRITE_COMMON_EXPAT()
+AC_GDZ_WRITE_COMMON_LIBXML()
+
+AC_GDZ_WRITE_COMMON_COLLADA()
 
 AC_GDZ_WRITE_COMMON_GL()
 

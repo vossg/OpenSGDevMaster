@@ -471,10 +471,10 @@ PointerT cast_dynamic(FieldContainer::ObjPtrConst pIn)
 }
 
 template<class PointerT> inline
-PointerT cast_static(FieldContainer::ObjPtrConst pIn)
+PointerT cast_static(FieldContainer::ObjPtr pIn)
 {
 #ifdef OSG_MT_FIELDCONTAINERPTR
-    return *(static_cast<FieldContainer::ObjPtrConst>(&pIn));
+    return *(static_cast<PointerT *>(&pIn));
 #else
     return static_cast<PointerT>(pIn);
 #endif

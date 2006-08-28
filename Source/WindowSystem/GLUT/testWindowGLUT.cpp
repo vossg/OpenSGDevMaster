@@ -288,9 +288,11 @@ int main (int argc, char **argv)
 
     // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
     
-    glEnable( GL_DEPTH_TEST );
-    glEnable( GL_LIGHTING );
-    glEnable( GL_LIGHT0 );
+//    glEnable( GL_DEPTH_TEST );
+//    glEnable( GL_LIGHTING );
+//    glEnable( GL_LIGHT0 );
+//    glFrontFace(GL_CW);
+    
 
     // OSG
 
@@ -321,8 +323,8 @@ int main (int argc, char **argv)
     dlight->setCore( dl );
 //    dlight->setCore( Group::create() );
     
-    dl->setAmbient( .3, .3, .3, 1 );
-    dl->setDiffuse( 1, 1, 1, 1 );
+    dl->setAmbient( .0, .0, .0, 1 );
+    dl->setDiffuse( .8, .8, .8, .8 );
     dl->setDirection(0,0,1);
     dl->setBeacon( b1n);
 
@@ -338,7 +340,7 @@ int main (int argc, char **argv)
 
     NodePtr file = NullFC;
     
-    if ( argc > 1 )
+    if(argc > 1)
         file = SceneFileHandler::the()->read(argv[1]);
     
     if ( file == NullFC )
@@ -351,7 +353,7 @@ int main (int argc, char **argv)
     Thread::getCurrentChangeList()->commitChanges();
     file->updateVolume();
 
-    file->dump();
+//    file->dump();
 
     char *outFileName = "/tmp/foo.osg";
 
@@ -406,7 +408,7 @@ int main (int argc, char **argv)
     // Background
     SolidBackgroundPtr bkgnd = SolidBackground::create();
 
-    bkgnd->setColor(Color3f(0,1,0));
+    bkgnd->setColor(Color3f(0,0,1));
     
     // Viewport
 

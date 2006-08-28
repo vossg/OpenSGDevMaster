@@ -2284,40 +2284,45 @@ dnl    ac_gdz__fix_out_e16=$ac_gdz_package_sub_dir_out/Base/
     AC_OUTPUT($ac_gdz_flexlexer_fix_out_e22:$ac_gdz_flexlexer_fix_in_e22)
 ])
  
-AC_DEFUN(AC_GDZ_WRITE_COMMON_EXPAT,
+
+AC_DEFUN(AC_GDZ_WRITE_COMMON_LIBXML,
 [
 dnl e23
 
-    ac_gdz_expat_lib_e23=
-    ac_gdz_expat_incdir_e23=
-    ac_gdz_expat_libdir_e23=
+    ac_gdz_libxml_lib_e23=
+    ac_gdz_libxml_incdir_e23=
+    ac_gdz_libxml_libdir_e23=
 
-    if test -n "$ac_gdz_expat_dir"; then
+    if test -n "$ac_gdz_libxml_dir"; then
         if test $build_os = cygwin; then
            echo $ac_gdz_exapt_dir
-           ac_gdz_expat_incdir_e23='"'`cygpath -w $ac_gdz_expat_dir`'\include"'
-           ac_gdz_expat_libdir_e23='"'`cygpath -w $ac_gdz_expat_dir`'\lib"'
-           ac_gdz_expat_lib_e23="Libexpat.lib"
+           ac_gdz_libxml_incdir_e23='"'`cygpath -w $ac_gdz_libxml_dir`'\include"'
+           ac_gdz_libxml_libdir_e23='"'`cygpath -w $ac_gdz_libxml_dir`'\lib"'
+           ac_gdz_libxml_lib_e23="Libxml.lib"
         else
-           ac_gdz_expat_incdir_e23="$ac_gdz_expat_dir/include"
-           ac_gdz_expat_libdir_e23="$ac_gdz_expat_dir/lib"
+           ac_gdz_libxml_incdir_e23="$ac_gdz_libxml_dir/include"
+           ac_gdz_libxml_libdir_e23="$ac_gdz_libxml_dir/lib"
         fi
     fi
 
-    if test "$with_expat" != no; then
-           ac_gdz_expat_lib_e23="-lexpat"
+    if test "$with_libxml" != no; then
+        if test $build_os = cygwin; then
+           ac_gdz_libxml_lib_e23="libxml.lib"
+        else
+           ac_gdz_libxml_lib_e23="-lxml2"
+        fi
     fi
 
-    ac_gdz_common_expat_in_e23=$ac_gdz_commonconf_dir/commonEXPAT.in
-    ac_gdz_common_expat_e23=$ac_gdz_commonpackage_dir/commonEXPAT.mk
+    ac_gdz_common_libxml_in_e23=$ac_gdz_commonconf_dir/commonLIBXML.in
+    ac_gdz_common_libxml_e23=$ac_gdz_commonpackage_dir/commonLIBXML.mk
 
-    AC_SUBST(ac_gdz_expat_incdir_e23)
-    AC_SUBST(ac_gdz_expat_libdir_e23)
-    AC_SUBST(ac_gdz_expat_lib_e23)
+    AC_SUBST(ac_gdz_libxml_incdir_e23)
+    AC_SUBST(ac_gdz_libxml_libdir_e23)
+    AC_SUBST(ac_gdz_libxml_lib_e23)
    
     touch confdefs.h
 
-    AC_OUTPUT($ac_gdz_common_expat_e23:$ac_gdz_common_expat_in_e23)
+    AC_OUTPUT($ac_gdz_common_libxml_e23:$ac_gdz_common_libxml_in_e23)
 ])
 
 AC_DEFUN(AC_GDZ_WRITE_COMMON_TEXT,
@@ -2358,4 +2363,44 @@ dnl e24
     touch confdefs.h
 
     AC_OUTPUT($ac_gdz_common_text_e24:$ac_gdz_common_text_in_e24)
+])
+
+AC_DEFUN(AC_GDZ_WRITE_COMMON_COLLADA,
+[
+dnl e25
+
+    ac_gdz_collada_lib_e25=
+    ac_gdz_collada_incdir_e25=
+    ac_gdz_collada_libdir_e25=
+
+    if test -n "$ac_gdz_collada_dir"; then
+        if test $build_os = cygwin; then
+           echo $ac_gdz_exapt_dir
+           ac_gdz_collada_incdir_e25='"'`cygpath -w $ac_gdz_collada_dir`'\include"'
+           ac_gdz_collada_libdir_e25='"'`cygpath -w $ac_gdz_collada_dir`'\lib"'
+           ac_gdz_collada_lib_e25="Libcollada.lib"
+        else
+           ac_gdz_collada_incdir_e25="$ac_gdz_collada_dir/include $ac_gdz_collada_dir/include/1.4"
+           ac_gdz_collada_libdir_e25="$ac_gdz_collada_dir/lib-\$(DBG)"
+        fi
+    fi
+
+    if test "$with_collada" != no; then
+        if test $build_os = cygwin; then
+           ac_gdz_collada_lib_e25="libcollada.lib"
+        else
+           ac_gdz_collada_lib_e25="-lcollada_dae -lcollada_LIBXMLPlugin -lcollada_STLDatabase -lcollada_dom -lcollada_stdErrPlugin"
+        fi
+    fi
+
+    ac_gdz_common_collada_in_e25=$ac_gdz_commonconf_dir/commonCOLLADA.in
+    ac_gdz_common_collada_e25=$ac_gdz_commonpackage_dir/commonCOLLADA.mk
+
+    AC_SUBST(ac_gdz_collada_incdir_e25)
+    AC_SUBST(ac_gdz_collada_libdir_e25)
+    AC_SUBST(ac_gdz_collada_lib_e25)
+   
+    touch confdefs.h
+
+    AC_OUTPUT($ac_gdz_common_collada_e25:$ac_gdz_common_collada_in_e25)
 ])
