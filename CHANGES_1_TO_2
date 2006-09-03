@@ -1,9 +1,0 @@
-This file contains the user-visible changes (i.e. things that people that
-don't extend the system can see) between OpenSG 1 and 2.
-
-- Base:
-  -
-  
-- Geometry:
-  - Multiple Indices are now handled with separate Index fields, not the
-    interleaved indices of OpenSG 1.
