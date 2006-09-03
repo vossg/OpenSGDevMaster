@@ -50,6 +50,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#ifdef OSG_WITH_COLLADA
+
 #include "OSGFileIODef.h"
 
 #include "OSGNode.h"
@@ -290,9 +292,21 @@ class GeometryIntegration : public ColladaIntegrationBase
            MatGeoMap       _mGeosByMat;
            GeoMap          _mGeosMap;
 
-    void   handlePolygon         (      domPolygonsRef &pPoly     );
+    void   setupGeometry         (xsNCName                    szMatName,
+                                  domInputLocal_Array        &aVertexInput,
+                                  domInputLocalOffset_Array  &aInput,
+                                  GeoUInt32PropertyPtr       &pLengthsOut,
+                                  GeoUInt8PropertyPtr        &pTypesOut,
+                                  PropVec                    &pPropVecOut );
 
-    UInt32 SemanticToPropGeoIndex(const Char8          *szSemantic);
+
+    void   handlePolygon         (      domInputLocal_Array &aVertexInput,
+                                        domPolygonsRef      &pPoly       );
+    void   handlePolygonList     (      domInputLocal_Array &aVertexInput,
+                                        domPolylistRef      &pPoly       );
+
+    UInt32 SemanticToPropGeoIndex(const Char8          *szSemantic,
+                                        bool            bVertexAsPos = false);
 
     void   fillVecProp           (      GeometryPtrArg  pGeo,
                                         UInt32          uiPropIdx,
@@ -366,18 +380,27 @@ class EffectIntegration : public ColladaIntegrationBase
 
     typedef domCommon_color_or_texture_type::domColor   DomColor;
     typedef domCommon_color_or_texture_type::domTexture DomTexture;
+    typedef domCommon_float_or_param_type               DomFloat;
 
     typedef ColladaIntegrationBase Inherited;
 
     static daeMetaElement   *_pMeta;
            ChunkMaterialPtr  _pMaterial;
  
-    void handlePhongColor   (DomColor          *pDiffuse,
+    void handleSimpleColor  (DomColor          *pDiffuse,
                              DomColor          *pAmbient,
                              DomColor          *pSpecular,
                              DomColor          *pEmission,
                              Real32             fShininess,
                              Real32             fTransparency);
+
+    template<class T>
+    void setupSimpleColorAndTex    (T           pTechT,
+                                    DomFloat   *pShininess   = NULL,
+                                    DomColor   *pSpecularCol = NULL,
+                                    DomTexture *pSpecularTex = NULL);
+    template<class T>
+    void setupSimpleSpecColorAndTex(T pTechT);
 
     void handleCommonProfile(domProfile_COMMON *pCommon);
     void handleGLSLProfile  (domProfile_GLSL   *pGLSL  );
@@ -403,7 +426,6 @@ class EffectIntegration : public ColladaIntegrationBase
 
 typedef daeSmartRef<EffectIntegration> EffectIntegrationRef;
 
-
 void initColladaIntegration(void);
 
 OSG_END_NAMESPACE
@@ -413,5 +435,8 @@ OSG_END_NAMESPACE
 #define OSGCOLLADAINTEGRATION_HEADER_CVSID "@(#)$Id: $"
 
 #endif
+
+#endif /* OSG_WITH_COLLADA */
+
 
 #endif /* _OSGCOLLADAINTEGRATION_H_ */

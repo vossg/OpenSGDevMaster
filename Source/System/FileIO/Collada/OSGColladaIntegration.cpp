@@ -40,6 +40,8 @@
     \ingroup GrpFoundationLoader
  */
 
+#ifdef OSG_WITH_COLLADA
+
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
@@ -694,19 +696,24 @@ void GeometryInstanceIntegration::fromCOLLADA(void)
 
 daeMetaElement *GeometryIntegration::_pMeta = NULL;
 
-void GeometryIntegration::handlePolygon(domPolygonsRef &pPoly)
+void GeometryIntegration::setupGeometry(
+    xsNCName                   szMatName,
+    domInputLocal_Array       &aVertexInput,
+    domInputLocalOffset_Array &aInput,
+    GeoUInt32PropertyPtr      &pLengthsOut,
+    GeoUInt8PropertyPtr       &pTypesOut,
+    PropVec                   &vPropVecOut  )
 {
-    domInputLocalOffset_Array &aInput = pPoly->getInput_array();
+    daeURI      oSource;
 
-    daeURI oSource;
     std::string szGeoRef;
     std::string szMatRef;
 
-    GeoUInt32PropertyPtr pLengths = NullFC;
-    GeoUInt8PropertyPtr  pTypes   = NullFC;
+    pLengthsOut = NullFC;
+    pTypesOut   = NullFC;
 
-    szGeoRef += pPoly->getMaterial();
-    szMatRef  = pPoly->getMaterial();
+    szGeoRef += szMatName;
+    szMatRef  = szMatName;
 
     for(UInt32 i = 0; i < aInput.getCount(); ++i)
     {
@@ -735,62 +742,107 @@ void GeometryIntegration::handlePolygon(domPolygonsRef &pPoly)
         _mGeosMap  [szGeoRef] = pGeo;
         _mGeosByMat[szMatRef].push_back(pGeo);
 
+        fprintf(stderr, "FOOO %d\n", aInput.getCount());
+
         for(UInt32 i = 0; i < aInput.getCount(); ++i)
         {
             UInt32 uiPropIdx = 
                 SemanticToPropGeoIndex(aInput[i]->getSemantic());
 
             GeoUInt32PropertyPtr pProp = GeoUInt32Property::create();
+
+            if(uiPropIdx == 0xFFFE)
+            {
+                for(UInt32 j = 0; j < aVertexInput.getCount(); ++j)
+                {
+                    UInt32 uiVPropIdx = 
+                        SemanticToPropGeoIndex(aVertexInput[j]->getSemantic());
+                    
+                    pGeo->setIndex(pProp,
+                                   uiVPropIdx);
+                    
+                    fprintf(stderr, "added Vprop %s %d %p\n", 
+                            aVertexInput[j]->getSemantic(),
+                            uiVPropIdx, 
+                            &(*pProp));
+                    
+                    fillVecProp(pGeo, 
+                                uiVPropIdx, 
+                                aVertexInput[j]->getSource());
+                }
+            }
+            else
+            {
+                pGeo->setIndex(pProp,
+                               uiPropIdx);
+            
+                fprintf(stderr, "added prop %s %d %p\n", 
+                        aInput[i]->getSemantic(),
+                        uiPropIdx, 
+                        &(*pProp));
                 
-            pGeo->setIndex(pProp,
-                           uiPropIdx);
-            
-            fprintf(stderr, "added prop %d %p\n", uiPropIdx, &(*pProp));
-            
-            fillVecProp(pGeo, uiPropIdx, aInput[i]->getSource());
+                fillVecProp(pGeo, uiPropIdx, aInput[i]->getSource());
+            }
         }
             
-        pLengths = GeoUInt32Property::create();
-        pTypes   = GeoUInt8Property ::create();
+        pLengthsOut = GeoUInt32Property::create();
+        pTypesOut   = GeoUInt8Property ::create();
 
-        pGeo->setLengths(pLengths);
-        pGeo->setTypes  (pTypes  );
+        pGeo->setLengths(pLengthsOut);
+        pGeo->setTypes  (pTypesOut  );
     }
     else
     {
         pGeo = iCurrGeo->second;
 
-        pLengths = cast_static<GeoUInt32PropertyPtr>(pGeo->getLengths());
-        pTypes   = cast_static<GeoUInt8PropertyPtr >(pGeo->getTypes  ());
+        pLengthsOut = cast_static<GeoUInt32PropertyPtr>(pGeo->getLengths());
+        pTypesOut   = cast_static<GeoUInt8PropertyPtr >(pGeo->getTypes  ());
     }
-
-    PropVec aProps;
 
     for(UInt32 i = 0; i < aInput.getCount(); ++i)
     {
-        if(aProps.size() <= aInput[i]->getOffset())
+        if(vPropVecOut.size() <= aInput[i]->getOffset())
         {
-            aProps.resize(aInput[i]->getOffset() + 1);
+            vPropVecOut.resize(aInput[i]->getOffset() + 1);
         }
 
-        UInt32 uiPropIdx = SemanticToPropGeoIndex(aInput[i]->getSemantic());
+        UInt32 uiPropIdx = SemanticToPropGeoIndex(aInput[i]->getSemantic(),
+                                                 true);
 
         fprintf(stderr, "%d %d %d %s %d %p\n", 
                 i, 
-                aProps.size(), 
+                vPropVecOut.size(), 
                 aInput[i]->getOffset(),
                 aInput[i]->getSemantic(),
                 uiPropIdx,
                 &(*(pGeo->getIndex(uiPropIdx))));
 
-        aProps[aInput[i]->getOffset()] =
+        vPropVecOut[aInput[i]->getOffset()] =
             cast_static<GeoUInt32PropertyPtr>(pGeo->getIndex(uiPropIdx));
     }
 
-    for(UInt32 i = 0; i < aProps.size(); i++)
+    for(UInt32 i = 0; i < vPropVecOut.size(); i++)
     {
-        fprintf(stderr, "%d : %p\n", i, &(*(aProps[i])));
+        fprintf(stderr, "%d : %p\n", i, &(*(vPropVecOut[i])));
     }
+}
+
+void GeometryIntegration::handlePolygon(domInputLocal_Array &aVertexInput,
+                                        domPolygonsRef      &pPoly)
+{
+    domInputLocalOffset_Array &aInput   = pPoly->getInput_array();
+
+    GeoUInt32PropertyPtr       pLengths = NullFC;
+    GeoUInt8PropertyPtr        pTypes   = NullFC;
+
+    PropVec                    aProps;
+
+    setupGeometry(pPoly->getMaterial(),
+                  aVertexInput,
+                  aInput,
+                  pLengths,
+                  pTypes,
+                  aProps);
     
 
     fprintf(stderr, "P %s\n", pPoly->getMaterial());
@@ -824,13 +876,69 @@ void GeometryIntegration::handlePolygon(domPolygonsRef &pPoly)
     }
 }
 
-UInt32 GeometryIntegration::SemanticToPropGeoIndex(const char *szSemantic)
+void GeometryIntegration::handlePolygonList(domInputLocal_Array &aVertexInput,
+                                            domPolylistRef      &pPoly)
+{
+    domInputLocalOffset_Array &aInput   = pPoly->getInput_array();
+
+    GeoUInt32PropertyPtr       pLengths = NullFC;
+    GeoUInt8PropertyPtr        pTypes   = NullFC;
+
+    PropVec                    aProps;
+
+    setupGeometry(pPoly->getMaterial(),
+                  aVertexInput,
+                  aInput,
+                  pLengths,
+                  pTypes,
+                  aProps);
+            
+
+    domListOfUInts &oPList = pPoly->getP     ()->getValue();
+    domListOfUInts &oVList = pPoly->getVcount()->getValue();
+
+    UInt32 uiCurrent  = 0;
+
+    for(UInt32 i = 0; i < oVList.getCount(); ++i)
+    {
+        for(UInt32 j = 0; j < oVList[i]; ++j)
+        {
+            for(UInt32 k = 0; k < aProps.size(); ++k)
+            {
+                aProps[k]->push_back(oPList[uiCurrent]);
+                
+                ++uiCurrent;
+            }
+
+        }
+
+        pTypes  ->push_back(GL_POLYGON);
+        pLengths->push_back(oVList[i] );
+    }
+
+    fprintf(stderr, "P %s\n", pPoly->getMaterial());
+}
+
+UInt32 GeometryIntegration::SemanticToPropGeoIndex(
+    const char *szSemantic,
+          bool  bVertexAsPos)
 {
     UInt32 returnValue = 0xFFFF;
 
     std::string szSem = szSemantic;
 
     if(szSem == "VERTEX")
+    {
+        if(bVertexAsPos == true)
+        {
+            returnValue = Geometry::PositionsIndex;
+        }
+        else
+        {
+            returnValue = 0xFFFE;
+        }
+    }
+    else if(szSem == "POSITION")
     {
         returnValue = Geometry::PositionsIndex;
     }
@@ -968,9 +1076,24 @@ void GeometryIntegration::fromCOLLADA(void)
     domMeshRef pMesh = pGeo->getMesh();
 
     fprintf(stderr, "got mesh %p\n", &(*pMesh));
-
+   
     if(pMesh == NULL)
         return;
+
+    domInputLocal_Array &oVertexInput = 
+        pMesh->getVertices()->getInput_array();
+
+    fprintf(stderr, "got mesh vertex input %d\n",
+            oVertexInput.getCount());
+
+    for(UInt32 v = 0; 
+               v < oVertexInput.getCount(); 
+             ++v)
+    {
+        // if it is the same as the semantic passed in then yippie!   
+        fprintf(stderr, "%s\n", 
+                oVertexInput[v]->getSemantic() );
+    }
 
     domPolygons_Array &aPolys = pMesh->getPolygons_array();
 
@@ -978,7 +1101,16 @@ void GeometryIntegration::fromCOLLADA(void)
 
     for(UInt32 i = 0; i < aPolys.getCount(); ++i)
     {
-        handlePolygon(aPolys[i]);
+        handlePolygon(oVertexInput, aPolys[i]);
+    }
+
+    domPolylist_Array &aPolyLists = pMesh->getPolylist_array();
+
+    fprintf(stderr, "got %d polylists\n", aPolyLists.getCount());
+
+    for(UInt32 i = 0; i < aPolyLists.getCount(); ++i)
+    {
+        handlePolygonList(oVertexInput, aPolyLists[i]);
     }
 }
 
@@ -1129,12 +1261,12 @@ GeoPnt3fPropertyPtr SourceIntegration::getAsPnt3fProp(void)
 
 daeMetaElement *EffectIntegration::_pMeta = NULL;
 
-void EffectIntegration::handlePhongColor(DomColor *pDiffuse,
-                                         DomColor *pAmbient,
-                                         DomColor *pSpecular,
-                                         DomColor *pEmission,
-                                         Real32    fShininess,
-                                         Real32    fTransparency)
+void EffectIntegration::handleSimpleColor(DomColor *pDiffuse,
+                                          DomColor *pAmbient,
+                                          DomColor *pSpecular,
+                                          DomColor *pEmission,
+                                          Real32    fShininess,
+                                          Real32    fTransparency)
 {
     MaterialChunkPtr pMatChunk = MaterialChunk::create();
 
@@ -1205,6 +1337,96 @@ void EffectIntegration::fillElements(
     }
 }
 
+template<class T>
+void EffectIntegration::setupSimpleColorAndTex(T           pTechT,
+                                               DomFloat   *pShininess,
+                                               DomColor   *pSpecularCol,
+                                               DomTexture *pSpecularTex)
+{
+    if(pTechT == NULL)
+        return;
+
+    domCommon_color_or_texture_type::domColor   *pDiffuseCol = NULL;
+    domCommon_color_or_texture_type::domTexture *pDiffuseTex = NULL;
+    
+    domCommon_color_or_texture_type::domColor   *pAmbientCol = NULL;
+    domCommon_color_or_texture_type::domTexture *pAmbientTex = NULL;
+       
+    domCommon_color_or_texture_type::domColor   *pEmissionCol = NULL;
+    domCommon_color_or_texture_type::domTexture *pEmissionTex = NULL;
+
+    fillElements(pTechT->getDiffuse(),
+                 pDiffuseCol,
+                 pDiffuseTex);
+    
+    fillElements(pTechT->getAmbient(),
+                 pAmbientCol,
+                 pAmbientTex);
+    
+    fillElements(pTechT->getEmission(),
+                 pEmissionCol,
+                 pEmissionTex);
+
+    domCommon_float_or_param_type   *pTransparency =
+        pTechT->getTransparency();
+
+    Real32 rShininess    = 10.f;
+    Real32 rTransparency = 1.f;
+    
+    if(pShininess != NULL && pShininess->getFloat() != NULL)
+        rShininess = pShininess->getFloat()->getValue();
+
+    if(pTransparency != NULL && pTransparency->getFloat() != NULL)
+        rTransparency = pTransparency->getFloat()->getValue();
+    
+    handleSimpleColor(pDiffuseCol,
+                      pAmbientCol,
+                      pSpecularCol,
+                      pEmissionCol,
+                      rShininess,
+                      rTransparency);
+
+    if(pDiffuseTex != NULL)
+    {
+#if 0
+        fprintf(stderr, "got texture %s\n",
+                pDiffuseTex->getTexture());
+
+        daeURI oUri(pDiffuseTex->getTexture());
+        
+        oUri.resolveElement();
+        
+        fprintf(stderr, "uri %s %d\n", oUri.getURI(), oUri.getState());
+        
+        daeElementRef pElem = oUri.getElement();
+        
+        fprintf(stderr, "elem %p %s %s\n", 
+                &*pElem, 
+                pElem->getTypeName(),
+                pElem->getElementName());
+#endif
+    }
+}                        
+
+template<class T>
+void EffectIntegration::setupSimpleSpecColorAndTex(T pTechT)
+{
+    domCommon_color_or_texture_type::domColor   *pSpecularCol = NULL;
+    domCommon_color_or_texture_type::domTexture *pSpecularTex = NULL;
+
+    fillElements(pTechT->getSpecular(),
+                 pSpecularCol,
+                 pSpecularTex);
+
+    domCommon_float_or_param_type   *pShininess =
+        pTechT->getShininess();
+
+    setupSimpleColorAndTex(pTechT, 
+                           pShininess,
+                           pSpecularCol,
+                           pSpecularTex);
+}
+
 void EffectIntegration::handleCommonProfile(domProfile_COMMON *pCommon)
 {
     domProfile_COMMON::domTechnique *pTechnique = pCommon->getTechnique(); 
@@ -1225,6 +1447,26 @@ void EffectIntegration::handleCommonProfile(domProfile_COMMON *pCommon)
     domCommon_float_or_param_typeRef   elemIndex_of_refraction;
  */
 
+    
+    domCommon_newparam_type_Array &aParams = pCommon->getNewparam_array();
+
+    fprintf(stderr, "Got %d params\n", aParams.getCount());
+
+    domFx_surface_common   *pSurface = NULL;
+    domFx_sampler2D_common *pSampler = NULL;
+
+    for(UInt32 i = 0; i < aParams.getCount(); ++i)
+    {
+        fprintf(stderr, "param[%d] %s\n", i, aParams[i]->getSid());
+
+        pSurface = aParams[i]->getSurface();
+        pSampler = aParams[i]->getSampler2D();
+    }
+
+    fprintf(stderr, "SF : %p | SA %p\n",
+            pSurface,
+            pSampler);
+
     if(pTechnique->getConstant() != NULL)
     {
         fprintf(stderr, "Constant\n");
@@ -1232,67 +1474,20 @@ void EffectIntegration::handleCommonProfile(domProfile_COMMON *pCommon)
     else if(pTechnique->getLambert() != NULL)
     {
         fprintf(stderr, "Lambert\n");
+
+        setupSimpleColorAndTex(pTechnique->getLambert());
     }
     else if(pTechnique->getPhong())
     {
         fprintf(stderr, "Phong\n");
-      
-        domCommon_color_or_texture_type::domColor   *pDiffuseCol;
-        domCommon_color_or_texture_type::domTexture *pDiffuseTex;
 
-        domCommon_color_or_texture_type::domColor   *pAmbientCol;
-        domCommon_color_or_texture_type::domTexture *pAmbientTex;
-
-        domCommon_color_or_texture_type::domColor   *pSpecularCol;
-        domCommon_color_or_texture_type::domTexture *pSpecularTex;
-
-        domCommon_color_or_texture_type::domColor   *pEmissionCol;
-        domCommon_color_or_texture_type::domTexture *pEmissionTex;
-
-
-        fillElements(pTechnique->getPhong()->getDiffuse(),
-                     pDiffuseCol,
-                     pDiffuseTex);
-
-        fillElements(pTechnique->getPhong()->getAmbient(),
-                     pAmbientCol,
-                     pAmbientTex);
-
-        fillElements(pTechnique->getPhong()->getSpecular(),
-                     pSpecularCol,
-                     pSpecularTex);
-
-        fillElements(pTechnique->getPhong()->getEmission(),
-                     pEmissionCol,
-                     pEmissionTex);
-
-        domCommon_float_or_param_type   *pShininess =
-            pTechnique->getPhong()->getShininess();
-
-        domCommon_float_or_param_type   *pTransparency =
-            pTechnique->getPhong()->getTransparency();
-
-        Real32 rShininess    = 10.f;
-        Real32 rTransparency = 1.f;
-
-        if(pShininess != NULL && pShininess->getFloat() != NULL)
-            rShininess = pShininess->getFloat()->getValue();
-
-        if(pTransparency != NULL && pTransparency->getFloat() != NULL)
-            rTransparency = pTransparency->getFloat()->getValue();
-
-        handlePhongColor(pDiffuseCol,
-                         pAmbientCol,
-                         pSpecularCol,
-                         pEmissionCol,
-                         rShininess,
-                         rTransparency);
-                        
-
+        setupSimpleSpecColorAndTex(pTechnique->getPhong());
     }
     else if(pTechnique->getBlinn())
     {
         fprintf(stderr, "Blinn\n");
+
+        setupSimpleSpecColorAndTex(pTechnique->getBlinn());
     }
     else
     {
@@ -1453,3 +1648,5 @@ namespace
 }
 
 #endif
+
+#endif /* OSG_WITH_COLLADA */

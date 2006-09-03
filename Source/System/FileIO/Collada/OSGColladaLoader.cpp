@@ -54,10 +54,12 @@
 #include "OSGColladaLoader.h"
 #include "OSGPathHandler.h"
 
+#ifdef OSG_WITH_COLLADA
 #include "OSGColladaIntegration.h"
 
 #include "dae.h"
 #include "dom/domCOLLADA.h"
+#endif
 
 OSG_USING_NAMESPACE
 
@@ -123,6 +125,7 @@ NodePtr ColladaLoader::read(      std::istream  &is,
 {
     NodePtr returnValue = NullFC;
 
+#ifdef OSG_WITH_COLLADA
     _pPathHandler->clearPathList();
     _pPathHandler->clearBaseFile();
     _pPathHandler->push_frontCurrentDir();
@@ -203,7 +206,7 @@ NodePtr ColladaLoader::read(      std::istream  &is,
     }
 
     fprintf(stderr, "returnValue %p\n", &(*returnValue));
-
+#endif
 
     return returnValue;
 }

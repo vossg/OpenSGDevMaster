@@ -636,7 +636,7 @@ fi
 dnl ############# CLAPACK Settings #####################
 
 AC_ARG_WITH(libxml,     [  --with-libxml=DIR          Where to find the libxml files to use],
-			,with_libxml=yes) 
+			,with_libxml=no) 
 
 if test "$with_libxml" = yes; then
 	ac_gdz_libxml_dir=
@@ -652,7 +652,7 @@ fi
 dnl ############# CLAPACK Settings #####################
 
 AC_ARG_WITH(collada,     [  --with-collada=DIR          Where to find the collada files to use],
-			,with_collada=yes) 
+			,with_collada=no) 
 
 if test "$with_collada" = yes; then
 	ac_gdz_collada_dir=
