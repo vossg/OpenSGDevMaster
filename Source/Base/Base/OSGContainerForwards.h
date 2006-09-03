@@ -383,6 +383,8 @@ struct BundlePointerBuilder
 typedef PointerBuilder<
           FieldContainer>::ObjPtr           FieldContainerPtr;
 typedef PointerBuilder<
+          FieldContainer>::ObjPtrArg        FieldContainerPtrArg;
+typedef PointerBuilder<
           FieldContainer>::ObjPtrConst      FieldContainerPtrConst;
 typedef PointerBuilder<
           FieldContainer>::ObjConstPtr      FieldContainerConstPtr;
