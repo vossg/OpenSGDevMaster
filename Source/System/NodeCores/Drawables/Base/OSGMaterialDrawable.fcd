@@ -3,7 +3,7 @@
 <FieldContainer
 	name="MaterialDrawable"
 	parent="Drawable"
-	library="System"
+	library="Drawable"
 	pointerfieldtypes="both"
 	structure="abstract"
 	systemcomponent="true"

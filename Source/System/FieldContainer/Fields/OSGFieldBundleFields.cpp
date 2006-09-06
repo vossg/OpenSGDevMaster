@@ -58,6 +58,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 DataType FieldTraits<FieldBundleP         >::_type("FieldBundleP", 
@@ -74,6 +76,8 @@ OSG_FIELDTRAITS_GETTYPE_NS(ParentFieldBundleP, 1)
 OSG_FIELD_DLLEXPORT_DEF1(MField,   FieldBundleP         )
 OSG_FIELD_DLLEXPORT_DEF2(MField,   ParentFieldBundleP, 1)
 
+
+OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

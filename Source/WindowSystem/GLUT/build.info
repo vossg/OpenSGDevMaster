@@ -1,0 +1,25 @@
+#!python
+#
+if option_pass:
+   print "Processing option pass"
+else:
+   glut_option = opts.GetOption("glut")
+   if not glut_option.isAvailable():
+      stop_traversal = True
+   else:
+      library = "OSGWindowGLUT"
+      osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGWindow']
+
+      libs.append(glut_option.library)
+      if glut_option.incDir:
+         cpppath.append(glut_option.incDir)
+      if glut_option.libDir:
+         libpath.append(glut_option.libDir)
+         
+      # Tests' dependencies
+      osg_test_libs = [ 'OSGGroup','OSGDrawable', 'OSGState', 
+                        'OSGFileIO', 'OSGText', 'OSGRenderTraversal',
+                        'OSGUtil']   
+      test_cpppath = []
+      test_libpath = []
+ 

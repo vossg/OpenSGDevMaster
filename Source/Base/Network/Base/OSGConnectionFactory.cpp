@@ -56,6 +56,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 OSG_SINGLETON_INST(ConnectionFactoryBase)
 
 template class SingletonHolder<ConnectionFactoryBase>;
@@ -180,6 +182,8 @@ void ConnectionFactoryBase::subGroupType(ConnectionType *type)
               << " removed" << std::endl;
     }
 }
+
+OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

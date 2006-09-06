@@ -53,11 +53,15 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 OSG_TAGGEDSINGLETON_INST(PartitionIdPoolBase,
                          PartitionIdTag       )
 
 template class TaggedSingletonHolder<PartitionIdPoolBase,
                                      PartitionIdTag       >;
+
+OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

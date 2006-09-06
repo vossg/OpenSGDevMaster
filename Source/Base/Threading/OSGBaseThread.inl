@@ -170,14 +170,13 @@ void BaseSprocBase::kill(void)
 inline
 BaseThread *BaseWinThreadBase::getCurrent(void)
 {
-#ifdef OSG_ASPECT_USE_LOCALSTORAGE
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
     BaseThread **pThread;
 
     pThread = (BaseThread **) TlsGetValue(_threadKey);
 
     return *pThread;
-#endif
-#ifdef OSG_ASPECT_USE_DECLSPEC
+#else
     return _pThreadLocal;
 #endif
 }

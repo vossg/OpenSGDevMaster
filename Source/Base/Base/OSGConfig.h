@@ -850,12 +850,6 @@
 #define OSG_DLSYM_UNDERSCORE
 #endif
 
-#ifndef _OSG_HAVE_CONFIGURED_H_
-#   if defined (OSG_USE_WINTHREADS)
-#       define OSG_ASPECT_USE_DECLSPEC
-#   endif
-#endif
-
 #define OSG_DEFAULT_NUM_ASPECTS 5
 
 
@@ -904,15 +898,10 @@
 #endif
 
 #include "OSGExportDefines.h"
-
-#ifdef _OSG_HAVE_CONFIGURED_H_
 #include "OSGConfigured.h"
-#endif
 
 #if OSG_DISABLE_DEPRECATED == 0
-# ifndef OSG_DEPRECIATED_PROPS
-#  define OSG_DEPRECIATED_PROPS 1
-# endif
+# define OSG_DEPRECIATED_PROPS 1
 #endif
 
 #define OSG_ASSERT(expr) assert(expr)
@@ -940,30 +929,10 @@
 
 //#define OSG_FCPTR_TYPED_STORE
 
-#if 0
-#if OSG_DEFAULT_NUM_ASPECTS == 1
-#error 1
-#endif
-
-#if OSG_DEFAULT_NUM_ASPECTS == 2
-#error 2
-#endif
-
-#if OSG_DEFAULT_NUM_ASPECTS == 3
-#error 3
-#endif
-
-#if OSG_DEFAULT_NUM_ASPECTS == 4
-#error 4
-#endif
-
-#if OSG_DEFAULT_NUM_ASPECTS == 5
-#error 5
-#endif
-#endif
 
 #define OSG_THREAD_DEBUG_SETASPECTTO
 
+// XXX: Todo: Add build support for this
 #if defined(OSG_ICC_GNU_COMPAT)
 
 # undef OSG_USE_HASH_COMPARE
@@ -989,4 +958,18 @@
 #ifndef OSG_PROFILE_SET
 # define OSG_FLOAT_PROFILE
 #endif
+
+// XXX: This may not be needed any more, should just be default.
+#define OSG_OPT_DRAWTREE 1
+
+// XXX: This will need to cleaned up before a release
+#define OSG_OLD_RENDER_ACTION 1
+#define OSG_CLEANED_RENDERACTION 1
+
+// Verify a sane setting for fcptrs
+#if defined(OSG_MT_FIELDCONTAINERPTR) && defined(OSG_MT_CPTR_ASPECT)
+#error Use either fcptr aspects or cptr aspects
+#endif
+
+
 #endif /* _OSGCONFIG_H_ */

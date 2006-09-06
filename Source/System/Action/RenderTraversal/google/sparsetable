@@ -56,7 +56,8 @@
 #ifndef _SPARSETABLE_H_
 #define _SPARSETABLE_H_
 
-#include <google/sparsehash/config.h>
+// !!! DR changed some <google/...> to "..." due to include path problems...
+#include "sparsehash/config.h"
 #include <stdlib.h>             // for malloc/free
 #include <stdio.h>              // to read/write tables
 #if defined HAVE_STDINT_H

@@ -55,7 +55,7 @@ class DrawEnv;
 /*! \brief *put brief class description here* 
  */
 
-class OSG_SYSTEM_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
+class OSG_DRAWABLE_DLLMAPPING MaterialDrawable : public MaterialDrawableBase
 {
   private:
 

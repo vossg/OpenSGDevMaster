@@ -50,28 +50,6 @@
 #include "OSGThreadManager.h"
 #include "OSGBaseInitFunctions.h"
 
-#if 0
-#if OSG_DEFAULT_NUM_ASPECTS == 1
-#error 1
-#endif
-
-#if OSG_DEFAULT_NUM_ASPECTS == 2
-#error 2
-#endif
-
-#if OSG_DEFAULT_NUM_ASPECTS == 3
-#error 3
-#endif
-
-#if OSG_DEFAULT_NUM_ASPECTS == 4
-#error 4
-#endif
-
-#if OSG_DEFAULT_NUM_ASPECTS == 5
-#error 5
-#endif
-#endif
-
 OSG_USING_NAMESPACE
 
 ThreadManager *ThreadManager::_pThreadManager      = NULL;

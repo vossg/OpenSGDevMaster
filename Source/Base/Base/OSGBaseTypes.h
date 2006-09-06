@@ -346,15 +346,6 @@ typedef long double Real128;
 
 #elif defined(OSG_WIN_TYPES)
 
-/*! \var typedef bool bool;
- *  \ingroup GrpBaseBaseBaseTypes
- */
-
-#ifdef OSG_BOOL_IS_UNSIGNED
-#ifndef bool
-typedef unsigned      bool;
-#endif
-#endif
 
 /*! \var typedef TCHAR TChar;
  *  \ingroup GrpBaseBaseBaseTypes

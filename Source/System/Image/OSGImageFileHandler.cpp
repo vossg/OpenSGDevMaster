@@ -73,6 +73,8 @@ OSG_USING_NAMESPACE
  *   Types
  *****************************/
 
+OSG_BEGIN_NAMESPACE
+
 OSG_SINGLETON_INST(ImageFileHandlerBase)
 
 template class SingletonHolder<ImageFileHandlerBase>;
@@ -696,3 +698,5 @@ ImageFileHandlerBase::~ImageFileHandlerBase(void)
 {
 }
 
+
+OSG_END_NAMESPACE

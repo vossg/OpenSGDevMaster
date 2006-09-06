@@ -449,11 +449,9 @@ void BaseSprocBase::print(void)
 //  Class
 //---------------------------------------------------------------------------
 
-#if defined(OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
 UInt32 BaseWinThreadBase::_threadKey = 0;
-#endif
-
-#if defined(OSG_ASPECT_USE_DECLSPEC)
+#else
 __declspec (thread) BaseThread *BaseWinThreadBase::_pThreadLocal     = NULL;
 #endif
 
@@ -538,15 +536,13 @@ void BaseWinThreadBase::setExternalHandle(Handle pExternalHandle)
 
 void BaseWinThreadBase::setupThread(void)
 {
-#if defined (OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined (OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
     BaseThread **pThread = new BaseThread *;
 
     *pThread = (BaseThread *) this;
 
     TlsSetValue(_threadKey, pThread);
-#endif
-
-#if defined (OSG_ASPECT_USE_DECLSPEC)
+#else
     _pThreadLocal = (BaseThread *) this;
 #endif
 }
@@ -664,7 +660,7 @@ void BaseThread::initThreading(void)
     FFASSERT((rc == 0), 1, ("Failed to create pthread thread key\n");)
 #endif
 
-#if defined(OSG_USE_WINTHREADS) && defined (OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined(OSG_USE_WINTHREADS) && defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
     BaseThread::_threadKey     = TlsAlloc();
 
     FFASSERT((BaseThread::_threadKey != 0xFFFFFFFF), 1,
@@ -685,7 +681,7 @@ void BaseThread::terminateThreading(void)
     FFASSERT((rc == 0), 1, ("Failed to create pthread thread key\n");)
 #endif
 
-#if defined(OSG_USE_WINTHREADS) && defined (OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined(OSG_USE_WINTHREADS) && defined (OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
     BaseThread::_threadKey     = TlsAlloc();
 
     FFASSERT((BaseThread::_threadKey != 0xFFFFFFFF), 1,

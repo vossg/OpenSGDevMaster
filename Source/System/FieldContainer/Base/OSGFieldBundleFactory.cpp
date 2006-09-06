@@ -55,6 +55,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 OSG_SINGLETON_INST(FieldBundleFactoryBase)
 
 template class SingletonHolder<FieldBundleFactoryBase>;
@@ -100,6 +102,8 @@ bool FieldBundleFactoryBase::initializeFactoryPost(void)
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 
+
+OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

@@ -62,6 +62,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -339,6 +341,8 @@ void TypeFactoryBase::writeTypeGraph(const Char8 *szFilename)
     if(pOut != NULL)
         fclose(pOut);
 }
+
+OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

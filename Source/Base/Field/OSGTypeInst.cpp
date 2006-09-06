@@ -68,6 +68,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 DataType FieldTraits<bool,      2 >::_type("bool"  ,       "IntegralType");
@@ -556,6 +558,8 @@ OSG_FIELD_DLLEXPORT_DEF1(MField, Matrix         )
 OSG_FIELD_DLLEXPORT_DEF1(MField, Matrix4fx      )
 OSG_FIELD_DLLEXPORT_DEF1(MField, Quaternion     )
 OSG_FIELD_DLLEXPORT_DEF1(MField, Quaternionfx   )
+
+OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

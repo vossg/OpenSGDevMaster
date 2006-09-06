@@ -423,10 +423,9 @@ class BaseWinThreadBase : public BaseThreadCommonBase
 
     typedef BaseThreadCommonBase Inherited;
 
-#if defined(OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
     static UInt32 _threadKey;
-#endif
-#if defined(OSG_ASPECT_USE_DECLSPEC)
+#else
     static __declspec (thread) BaseThread *_pThreadLocal;
 #endif
 
@@ -437,7 +436,7 @@ class BaseWinThreadBase : public BaseThreadCommonBase
     OSG_BASE_DLLMAPPING 
     static void threadFunc(void *pThreadArg);
 
-#ifdef OSG_ASPECT_USE_LOCALSTORAGE
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
     OSG_BASE_DLLMAPPING 
     static void freeThread(void            );
 #endif

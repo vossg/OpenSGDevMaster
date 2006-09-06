@@ -1,0 +1,10 @@
+#!python
+#
+if not"win32" == platform:
+   stop_traversal = True      
+else:
+   if option_pass:
+      print "Processing option pass"
+   else:
+      library = "OSGWIN32"
+      osg_dep_libs = ['OSGBase', 'OSGSystem']

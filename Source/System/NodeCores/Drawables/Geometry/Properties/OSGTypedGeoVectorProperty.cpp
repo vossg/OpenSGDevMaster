@@ -59,6 +59,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 #define OSG_EXPORT_PROP(DESC)                           \
 template <> OSG_DLL_EXPORT                              \
 TypedGeoVectorProperty< DESC >::TypeObject &            \
@@ -208,3 +210,5 @@ OSG_EXPORT_PROP(GeoColor4NubPropertyDesc)
 
 OSG_EXPORT_PROP(GeoColor3fPropertyDesc)
 OSG_EXPORT_PROP(GeoColor4fPropertyDesc)
+
+OSG_END_NAMESPACE

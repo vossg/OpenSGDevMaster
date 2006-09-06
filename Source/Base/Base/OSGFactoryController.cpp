@@ -59,6 +59,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -320,6 +322,8 @@ FactoryBase *FactoryControllerBase::findFactory(const Char8 *szName)
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */
+
+OSG_END_NAMESPACE
 
 #ifdef __sgi
 #pragma set woff 1174

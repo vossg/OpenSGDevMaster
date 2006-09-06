@@ -364,12 +364,10 @@ void SprocBase::setupChangeListInternal(void)
 
 #if defined (OSG_USE_WINTHREADS)
 
-#if defined(OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
 UInt32 WinThreadBase::_aspectKey     = 0;
 UInt32 WinThreadBase::_changeListKey = 0;
-#endif
-
-#if defined(OSG_ASPECT_USE_DECLSPEC)
+#else
 __declspec (thread) UInt32      WinThreadBase::_uiAspectLocal    = 0;
 __declspec (thread) ChangeList *WinThreadBase::_pChangeListLocal = NULL;
 #endif
@@ -377,7 +375,7 @@ __declspec (thread) ChangeList *WinThreadBase::_pChangeListLocal = NULL;
 /*-------------------------------------------------------------------------*/
 /*                               Free                                      */
 
-#if defined (OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined (OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
 void WinThreadBase::freeAspect(void)
 {
     UInt32 *pUint;
@@ -435,22 +433,20 @@ void WinThreadBase::init(void)
 
 void WinThreadBase::setupAspect(void)
 {
-#ifdef OSG_ASPECT_USE_LOCALSTORAGE
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
     UInt32 *pUint = new UInt32;
 
     *pUint = Inherited::_uiAspectId;
 
     TlsSetValue(_aspectKey, pUint);
-#endif
-
-#ifdef OSG_ASPECT_USE_DECLSPEC
+#else
     _uiAspectLocal = Inherited::_uiAspectId;
 #endif
 }
 
 void WinThreadBase::setupChangeList(void)
 {
-#if defined (OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined (OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
     ChangeList **pChangeList = new ChangeList *;
 
    if(Inherited::_pChangeList == NULL)
@@ -468,9 +464,7 @@ void WinThreadBase::setupChangeList(void)
 
     (*pChangeList)->setAspect(Inherited::_uiAspectId);
     TlsSetValue(_changeListKey, pChangeList);
-#endif
-
-#if defined (OSG_ASPECT_USE_DECLSPEC)
+#else
     if(Inherited::_pChangeList == NULL)
     {
         _pChangeListLocal = new ChangeList;
@@ -561,7 +555,7 @@ void Thread::initThreading(void)
     FFASSERT((rc == 0), 1, ("Failed to create pthread changelist key\n");)
 #endif
 
-#if defined(OSG_USE_WINTHREADS) && defined(OSG_ASPECT_USE_LOCALSTORAGE)       
+#if defined(OSG_USE_WINTHREADS) && defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)       
     Thread::_aspectKey     = TlsAlloc();
 
     FFASSERT((Thread::_aspectKey != 0xFFFFFFFF), 1, 

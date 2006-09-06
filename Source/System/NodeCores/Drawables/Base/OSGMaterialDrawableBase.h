@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class MaterialDrawable;
 
 //! \brief MaterialDrawable Base Class.
 
-class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
+class OSG_DRAWABLE_DLLMAPPING MaterialDrawableBase : public Drawable
 {
   public:
 

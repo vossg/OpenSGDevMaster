@@ -4,4 +4,10 @@ if option_pass:
    print "Processing option pass"
 else:
    library = "OSGDrawable"
-   lib_deps = ['OSGBase',"OSGSystem"]   
+   osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGState']
+
+   # Tests' dependencies
+
+   osg_test_libs = [ 'OSGGroup', 'OSGFileIO', 'OSGWindow', 'OSGUtil' ]
+   test_cpppath = []
+   test_libpath = []

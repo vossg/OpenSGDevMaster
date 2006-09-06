@@ -375,16 +375,15 @@ class WinThreadBase : public ThreadCommonBase
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-#if defined(OSG_ASPECT_USE_LOCALSTORAGE)
+#if defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
     static UInt32 _aspectKey;
     static UInt32 _changeListKey;
-#endif
-#if defined(OSG_ASPECT_USE_DECLSPEC)
+#else
     static __declspec (thread) UInt32      _uiAspectLocal;
     static __declspec (thread) ChangeList *_pChangeListLocal;
 #endif
 
-#ifdef OSG_ASPECT_USE_LOCALSTORAGE
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Free                                   */

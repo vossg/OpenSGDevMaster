@@ -87,13 +87,14 @@
 #ifndef _DENSE_HASH_SET_H_
 #define _DENSE_HASH_SET_H_
 
-#include <google/sparsehash/config.h>
+// !!! DR changed some <google/...> to "..." due to include path problems...
+#include "sparsehash/config.h"
 #include <stdio.h>                   // for FILE * in read()/write()
 #include <algorithm>                 // for the default template args
 #include <functional>                // for equal_to
 #include <memory>                    // for alloc<>
-#include <google/sparsehash/hash_fun.h>
-#include <google/sparsehash/densehashtable.h>
+#include "sparsehash/hash_fun.h"
+#include "sparsehash/densehashtable.h"
 
 
 _START_GOOGLE_NAMESPACE_

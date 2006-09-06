@@ -146,14 +146,13 @@ void SprocBase::setAspectTo(UInt32 uiNewAspect)
 inline
 UInt32 WinThreadBase::getCurrentAspect(void)
 {
-#ifdef OSG_ASPECT_USE_LOCALSTORAGE
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
     UInt32 *pUint;
 
     pUint = (UInt32 *) TlsGetValue(_aspectKey);
 
     return *pUint;
-#endif
-#ifdef OSG_ASPECT_USE_DECLSPEC
+#else
     return _uiAspectLocal;
 #endif
 }
@@ -161,14 +160,13 @@ UInt32 WinThreadBase::getCurrentAspect(void)
 inline
 ChangeList *WinThreadBase::getCurrentChangeList(void)
 {
-#ifdef OSG_ASPECT_USE_LOCALSTORAGE
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
     ChangeList **pCList;
 
     pCList = (ChangeList **) TlsGetValue(_changeListKey);
 
     return *pCList;
-#endif
-#ifdef OSG_ASPECT_USE_DECLSPEC
+#else
     return _pChangeListLocal;
 #endif
 }
@@ -176,14 +174,13 @@ ChangeList *WinThreadBase::getCurrentChangeList(void)
 inline
 void WinThreadBase::setAspectTo(UInt32 uiNewAspect)
 {
-#ifdef OSG_ASPECT_USE_LOCALSTORAGE
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
     UInt32 *pUint;
 
     pUint = (UInt32 *) TlsGetValue(_aspectKey);
 
     *pUint = uiNewAspect;
-#endif
-#ifdef OSG_ASPECT_USE_DECLSPEC
+#else
     _uiAspectLocal = uiNewAspect;
 #endif
 }

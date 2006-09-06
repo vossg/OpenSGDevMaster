@@ -53,6 +53,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 OSG_SINGLETON_INST(FieldContainerFactoryBase)
 
 template class SingletonHolder<FieldContainerFactoryBase>;
@@ -107,6 +109,8 @@ bool FieldContainerFactoryBase::initializeFactoryPost(void)
 /*                             Comparison                                  */
 
 
+
+OSG_END_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

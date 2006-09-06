@@ -45,7 +45,7 @@
 
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
-#include "OSGScanParseSkel.tab.h"
+#include "OSGScanParseSkelParser.hpp"
 #include "OSGScanParseSkelBase.h"
 
 #ifdef OSG_FLEX_USE_IOSTREAM_INPUT

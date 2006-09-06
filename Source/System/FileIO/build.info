@@ -4,4 +4,10 @@ if option_pass:
    print "Processing option pass"
 else:
    library = "OSGFileIO"
-   lib_deps = ['OSGBase',"OSGSystem"]
+   osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGGroup', 'OSGDrawable', 'OSGState']
+
+   # Tests' dependencies
+
+   osg_test_libs = []
+   test_cpppath = []
+   test_libpath = []

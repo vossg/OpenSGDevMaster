@@ -1,36 +1,63 @@
 #!python
-import os
+import os, os.path
 pj = os.path.join
+from LibraryUtils import *
 
 Import('*')
 
 common_lib_env = build_env.Copy()
-common_lib_env.Append(CPPPATH = [inst_paths['include'],
-                                 pj(inst_paths['include'],"OpenSG")],
-                      CPPDEFINES=["OSG_BUILD_DLL",])
+common_lib_env.Append(CPPDEFINES=["OSG_BUILD_DLL"])
 
-
-# HACK: Work around issue with getting yacc output into a library
-parser_env = build_env.Copy()
-parser_env.Append(YACCFLAGS = ["-d","-v","-pOSGScanParseSkel_"])
-source_file = "System/FileIO/ScanParseSkel/OSGScanParseSkel.y"
-#parser_env.CFile(target="OSGScanParseSkel_.tab", source=source_file)
-parser_env.CFile(target="ScanPraser.c", source=source_file)
-   
 for (lib_name, library) in lib_map.iteritems():
+   print "Library: ", lib_name, "  tests:", library.test_files
+   
+   # ---- Setup and Build library --- #
    lib_env = common_lib_env.Copy()
-   
+
    # XXX: Apply custom options
-   
+   #
+   # Add the define needed for declspec to know what library we are building
+   compile_define = "OSG_COMPILE%sLIB"%lib_name[3:].upper()
+   lib_env.Append(CPPDEFINES=[compile_define])
+    
    if "shared" in combo["libtype"]:
-      shared_lib = lib_env.SharedLibrary(lib_name + shared_lib_suffix, library.source_files)
+      shared_lib = lib_env.SharedLibrary(lib_name + shared_lib_suffix, library.source_files,
+                         LIBS=[l+shared_lib_suffix for l in library.osg_dep_libs] + library.libs, 
+                         LIBPATH=inst_paths['lib'])
       lib_env.Install(inst_paths['lib'], shared_lib)
       
-   if "static" in combo["libtype"]:
-      static_lib = lib_env.StaticLibrary(lib_name + static_lib_suffix, library.source_files)
-      lib_env.Install(inst_paths['lib'], static_lib)
-
-   # Handle headers
-   if variant_pass == 0:
-      header_path = pj(inst_paths['include'],'OpenSG')
-      lib_env.Install(header_path, library.header_files)
+   #if "static" in combo["libtype"]:
+   #   static_lib = lib_env.StaticLibrary(lib_name + static_lib_suffix, library.source_files)
+   #   lib_env.Install(inst_paths['lib'], static_lib)
+   
+   # Install headers (but only do it once during variant_pass 0 )
+   if variant_pass == 0:      
+      lib_env.Install(inst_paths["include"], library.header_files)
+   
+   # ---- Build Tests ---- #   
+   # Verify we have all the deps for the tests
+   #   todo: How do we verify the "other test libs"
+   have_test_deps = True
+   for n in library.osg_test_libs:
+      if not lib_map.has_key(n):
+         have_test_deps = False
+         print "   missing test dep library:", n
+   
+   if have_test_deps:
+      # default settings to pass to config info   
+      default_lib_settings = LibraryInfo()
+      default_lib_settings.libpath.insert(0, inst_paths["lib"]) 
+      default_lib_settings.cpppath.insert(0, inst_paths["include"])
+      config_info = ConfigInfoAdapter(library.osg_test_libs, lib_map, default_lib_settings)
+   
+      test_env = build_env.Copy()
+      test_env.Append(CPPPATH=library.test_cpppath + config_info.getIncPath(),
+                      LIBPATH=library.test_libpath + config_info.getLibPath(),
+                      LIBS=[lib_name] + config_info.getLibs() + library.other_test_libs)
+   
+      # - Build them all in the local 'test' subdir
+      for s in library.test_files:
+         test_env.Program(target= pj("..","test",os.path.splitext(os.path.basename(s))[0]),
+                          source=s)
+   
+   # Done   

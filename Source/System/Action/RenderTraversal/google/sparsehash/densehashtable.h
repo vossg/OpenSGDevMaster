@@ -100,7 +100,8 @@
 // Hashtable class, used to implement the hashed associative containers
 // hash_set and hash_map.
 
-#include <google/sparsehash/config.h>
+// !!! DR changed some <google/...> to "..." due to include path problems...
+#include "config.h"
 #include <assert.h>
 #include <algorithm>            // For swap(), eg
 
