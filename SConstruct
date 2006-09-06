@@ -183,15 +183,27 @@ if not SConsAddons.Util.hasHelpFlag():
    #   - Recurse into each subdirectory of source
    #   - Keep all file names relative to the Source directory (so they work in builddir)
    #
+   # ----- BUILD.INFO FILES ------- #
    # When evaluating build.info files:
    #   input vars:
    #      option_pass: If true, we are just trying to get options
    #      opts: If not none, this is an options object that can have options added
+   #      platform: The current platform string ("win32", "linux", )
+   #      compiler: The current compiler being used ("g++","cl", )
    #   output vars:
    #      library: Name of the library to add code to
-   #      osg_lib_deps: OpenSG libraries that this one depends upon
-   #      lib_deps: Standard libraries that this one depends upon
-
+   #      stop_traversal: If set tru, do not traverse into this directory
+   #      - Dependencies
+   #         osg_dep_libs: Name of OpenSG libraries that we depend upon (need for link)
+   #         libs: Name of non-OpenSG libraries we depend upon
+   #         cpppath: Additional cpp paths that we should set for building
+   #         libpath: Additional library paths that we should set
+   #      - Tests
+   #         osg_test_libs: OpenSG libraries that we need when building tests
+   #         other_test_libs: Other libraries we need when building tests
+   #         test_cpppath: Additional cpppaths for building tests
+   #         test_libpath: Additional lib paths we need for building tests
+   #
    lib_map = {}    # Map from name to library we are using   
    dir_ignores = [".svn", "ES","EGL"]   
 

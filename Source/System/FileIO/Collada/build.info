@@ -1,0 +1,5 @@
+#!python
+#
+
+# For now, ignore the collada loader
+stop_traversal = True
