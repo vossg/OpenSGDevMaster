@@ -193,6 +193,13 @@ const MFString *SimpleStatisticsForegroundBase::getMFFormats(void) const
     return &_mfFormats;
 }
 
+#ifdef OSG_1_COMPAT
+MFString *SimpleStatisticsForegroundBase::getMFFormats(void)
+{
+    return this->editMFFormats();
+}
+#endif
+
 SFReal32 *SimpleStatisticsForegroundBase::editSFSize(void)
 {
     editSField(SizeFieldMask);
@@ -205,6 +212,13 @@ const SFReal32 *SimpleStatisticsForegroundBase::getSFSize(void) const
     return &_sfSize;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *SimpleStatisticsForegroundBase::getSFSize(void)
+{
+    return this->editSFSize();
+}
+#endif
+
 SFColor4f *SimpleStatisticsForegroundBase::editSFColor(void)
 {
     editSField(ColorFieldMask);
@@ -216,6 +230,13 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void) const
 {
     return &_sfColor;
 }
+
+#ifdef OSG_1_COMPAT
+SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void)
+{
+    return this->editSFColor();
+}
+#endif
 
 
 
@@ -419,7 +440,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGSimpleStatisticsForegroundBase.cpp,v 1.1.2.3 2006/08/01 08:48:59 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGSIMPLESTATISTICSFOREGROUNDBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGSIMPLESTATISTICSFOREGROUNDBASE_INLINE_CVSID;
 

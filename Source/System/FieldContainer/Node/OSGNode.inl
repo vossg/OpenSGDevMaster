@@ -126,6 +126,14 @@ const DynamicVolume &Node::getVolume(void) const
 }
 
 
+#ifdef OSG_1_COMPAT
+inline
+DynamicVolume &Node::getVolume(bool update)
+{
+    return this->editVolume();
+}
+#endif
+
 inline
 void Node::setParent(NodePtrConst &parent)
 {

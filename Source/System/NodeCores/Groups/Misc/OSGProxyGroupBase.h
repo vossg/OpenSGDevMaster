@@ -446,10 +446,17 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+#ifdef OSG_1_COMPAT
+           SFString *getSFAbsoluteUrl(void);
+#endif
            SFString *editSFAbsoluteUrl(void);
      const SFString *getSFAbsoluteUrl (void) const;
 
 
+#ifdef OSG_1_COMPAT
+           std::string &getAbsoluteUrl(void);
+#endif
            std::string &editAbsoluteUrl(void);
      const std::string &getAbsoluteUrl(void) const;
 

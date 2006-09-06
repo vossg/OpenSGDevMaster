@@ -632,6 +632,13 @@ const SFInt32 *ImageBase::getSFDimension(void) const
     return &_sfDimension;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFDimension(void)
+{
+    return this->editSFDimension();
+}
+#endif
+
 SFInt32 *ImageBase::editSFWidth(void)
 {
     editSField(WidthFieldMask);
@@ -643,6 +650,13 @@ const SFInt32 *ImageBase::getSFWidth(void) const
 {
     return &_sfWidth;
 }
+
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFWidth(void)
+{
+    return this->editSFWidth();
+}
+#endif
 
 SFInt32 *ImageBase::editSFHeight(void)
 {
@@ -656,6 +670,13 @@ const SFInt32 *ImageBase::getSFHeight(void) const
     return &_sfHeight;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFHeight(void)
+{
+    return this->editSFHeight();
+}
+#endif
+
 SFInt32 *ImageBase::editSFDepth(void)
 {
     editSField(DepthFieldMask);
@@ -667,6 +688,13 @@ const SFInt32 *ImageBase::getSFDepth(void) const
 {
     return &_sfDepth;
 }
+
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFDepth(void)
+{
+    return this->editSFDepth();
+}
+#endif
 
 SFInt32 *ImageBase::editSFBpp(void)
 {
@@ -680,6 +708,13 @@ const SFInt32 *ImageBase::getSFBpp(void) const
     return &_sfBpp;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFBpp(void)
+{
+    return this->editSFBpp();
+}
+#endif
+
 SFInt32 *ImageBase::editSFMipMapCount(void)
 {
     editSField(MipMapCountFieldMask);
@@ -691,6 +726,13 @@ const SFInt32 *ImageBase::getSFMipMapCount(void) const
 {
     return &_sfMipMapCount;
 }
+
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFMipMapCount(void)
+{
+    return this->editSFMipMapCount();
+}
+#endif
 
 SFInt32 *ImageBase::editSFFrameCount(void)
 {
@@ -704,6 +746,13 @@ const SFInt32 *ImageBase::getSFFrameCount(void) const
     return &_sfFrameCount;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFFrameCount(void)
+{
+    return this->editSFFrameCount();
+}
+#endif
+
 SFTime *ImageBase::editSFFrameDelay(void)
 {
     editSField(FrameDelayFieldMask);
@@ -715,6 +764,13 @@ const SFTime *ImageBase::getSFFrameDelay(void) const
 {
     return &_sfFrameDelay;
 }
+
+#ifdef OSG_1_COMPAT
+SFTime *ImageBase::getSFFrameDelay(void)
+{
+    return this->editSFFrameDelay();
+}
+#endif
 
 SFUInt32 *ImageBase::editSFPixelFormat(void)
 {
@@ -728,6 +784,13 @@ const SFUInt32 *ImageBase::getSFPixelFormat(void) const
     return &_sfPixelFormat;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *ImageBase::getSFPixelFormat(void)
+{
+    return this->editSFPixelFormat();
+}
+#endif
+
 MFUInt8 *ImageBase::editMFPixel(void)
 {
     editMField(PixelFieldMask, _mfPixel);
@@ -739,6 +802,13 @@ const MFUInt8 *ImageBase::getMFPixel(void) const
 {
     return &_mfPixel;
 }
+
+#ifdef OSG_1_COMPAT
+MFUInt8 *ImageBase::getMFPixel(void)
+{
+    return this->editMFPixel();
+}
+#endif
 
 SFInt32 *ImageBase::editSFFrameSize(void)
 {
@@ -752,6 +822,13 @@ const SFInt32 *ImageBase::getSFFrameSize(void) const
     return &_sfFrameSize;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFFrameSize(void)
+{
+    return this->editSFFrameSize();
+}
+#endif
+
 SFString *ImageBase::editSFName(void)
 {
     editSField(NameFieldMask);
@@ -763,6 +840,13 @@ const SFString *ImageBase::getSFName(void) const
 {
     return &_sfName;
 }
+
+#ifdef OSG_1_COMPAT
+SFString *ImageBase::getSFName(void)
+{
+    return this->editSFName();
+}
+#endif
 
 SFInt32 *ImageBase::editSFDataType(void)
 {
@@ -776,6 +860,13 @@ const SFInt32 *ImageBase::getSFDataType(void) const
     return &_sfDataType;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFDataType(void)
+{
+    return this->editSFDataType();
+}
+#endif
+
 SFInt32 *ImageBase::editSFComponentSize(void)
 {
     editSField(ComponentSizeFieldMask);
@@ -787,6 +878,13 @@ const SFInt32 *ImageBase::getSFComponentSize(void) const
 {
     return &_sfComponentSize;
 }
+
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFComponentSize(void)
+{
+    return this->editSFComponentSize();
+}
+#endif
 
 SFInt32 *ImageBase::editSFSideCount(void)
 {
@@ -800,6 +898,13 @@ const SFInt32 *ImageBase::getSFSideCount(void) const
     return &_sfSideCount;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFSideCount(void)
+{
+    return this->editSFSideCount();
+}
+#endif
+
 SFInt32 *ImageBase::editSFSideSize(void)
 {
     editSField(SideSizeFieldMask);
@@ -811,6 +916,13 @@ const SFInt32 *ImageBase::getSFSideSize(void) const
 {
     return &_sfSideSize;
 }
+
+#ifdef OSG_1_COMPAT
+SFInt32 *ImageBase::getSFSideSize(void)
+{
+    return this->editSFSideSize();
+}
+#endif
 
 SFBool *ImageBase::editSFForceCompressedData(void)
 {
@@ -824,6 +936,13 @@ const SFBool *ImageBase::getSFForceCompressedData(void) const
     return &_sfForceCompressedData;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *ImageBase::getSFForceCompressedData(void)
+{
+    return this->editSFForceCompressedData();
+}
+#endif
+
 SFBool *ImageBase::editSFForceAlphaChannel(void)
 {
     editSField(ForceAlphaChannelFieldMask);
@@ -835,6 +954,13 @@ const SFBool *ImageBase::getSFForceAlphaChannel(void) const
 {
     return &_sfForceAlphaChannel;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *ImageBase::getSFForceAlphaChannel(void)
+{
+    return this->editSFForceAlphaChannel();
+}
+#endif
 
 SFBool *ImageBase::editSFForceColorChannel(void)
 {
@@ -848,6 +974,13 @@ const SFBool *ImageBase::getSFForceColorChannel(void) const
     return &_sfForceColorChannel;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *ImageBase::getSFForceColorChannel(void)
+{
+    return this->editSFForceColorChannel();
+}
+#endif
+
 SFBool *ImageBase::editSFForceAlphaBinary(void)
 {
     editSField(ForceAlphaBinaryFieldMask);
@@ -859,6 +992,13 @@ const SFBool *ImageBase::getSFForceAlphaBinary(void) const
 {
     return &_sfForceAlphaBinary;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *ImageBase::getSFForceAlphaBinary(void)
+{
+    return this->editSFForceAlphaBinary();
+}
+#endif
 
 
 void ImageBase::pushToField(      FieldContainerPtrConstArg pNewElement,

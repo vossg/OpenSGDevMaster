@@ -142,6 +142,13 @@ const SFInt32 *MaterialBase::getSFSortKey(void) const
     return &_sfSortKey;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *MaterialBase::getSFSortKey(void)
+{
+    return this->editSFSortKey();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/

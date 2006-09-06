@@ -107,6 +107,14 @@ const Plane &ProjectionCameraDecoratorBase::getLeft(void) const
     return _sfLeft.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Plane &ProjectionCameraDecoratorBase::getLeft(void)
+{
+    return this->editLeft();
+}
+#endif
+
 //! Set the value of the ProjectionCameraDecorator::_sfLeft field.
 inline
 void ProjectionCameraDecoratorBase::setLeft(const Plane &value)
@@ -131,6 +139,14 @@ const Plane &ProjectionCameraDecoratorBase::getBottom(void) const
 {
     return _sfBottom.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Plane &ProjectionCameraDecoratorBase::getBottom(void)
+{
+    return this->editBottom();
+}
+#endif
 
 //! Set the value of the ProjectionCameraDecorator::_sfBottom field.
 inline
@@ -157,6 +173,14 @@ const Plane &ProjectionCameraDecoratorBase::getNormal(void) const
     return _sfNormal.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Plane &ProjectionCameraDecoratorBase::getNormal(void)
+{
+    return this->editNormal();
+}
+#endif
+
 //! Set the value of the ProjectionCameraDecorator::_sfNormal field.
 inline
 void ProjectionCameraDecoratorBase::setNormal(const Plane &value)
@@ -182,6 +206,14 @@ const Real32 &ProjectionCameraDecoratorBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ProjectionCameraDecoratorBase::getWidth(void)
+{
+    return this->editWidth();
+}
+#endif
+
 //! Set the value of the ProjectionCameraDecorator::_sfWidth field.
 inline
 void ProjectionCameraDecoratorBase::setWidth(const Real32 &value)
@@ -206,6 +238,14 @@ const Real32 &ProjectionCameraDecoratorBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ProjectionCameraDecoratorBase::getHeight(void)
+{
+    return this->editHeight();
+}
+#endif
 
 //! Set the value of the ProjectionCameraDecorator::_sfHeight field.
 inline
@@ -239,6 +279,22 @@ MFPnt3f &ProjectionCameraDecoratorBase::editSurface(void)
 
     return _mfSurface;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Pnt3f &ProjectionCameraDecoratorBase::getSurface(const UInt32 index)
+{
+    return this->editSurface(index);
+}
+
+inline
+MFPnt3f &ProjectionCameraDecoratorBase::getSurface(void)
+{
+    return this->editSurface();
+}
+
+#endif
+
 
 //! Get the ProjectionCameraDecorator::_mfSurface field.
 inline
@@ -341,5 +397,5 @@ typedef PointerBuilder<ProjectionCameraDecorator>::ObjPtrConstArg  ProjectionCam
 
 OSG_END_NAMESPACE
 
-#define OSGPROJECTIONCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id: OSGProjectionCameraDecoratorBase.inl,v 1.1.2.3 2006/08/01 08:49:02 vossg Exp $"
+#define OSGPROJECTIONCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id: $"
 

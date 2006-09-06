@@ -107,6 +107,14 @@ const bool &GrabForegroundBase::getAutoResize(void) const
     return _sfAutoResize.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &GrabForegroundBase::getAutoResize(void)
+{
+    return this->editAutoResize();
+}
+#endif
+
 //! Set the value of the GrabForeground::_sfAutoResize field.
 inline
 void GrabForegroundBase::setAutoResize(const bool &value)

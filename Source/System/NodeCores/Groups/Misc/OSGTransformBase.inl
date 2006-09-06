@@ -90,6 +90,14 @@ const Matrixr &TransformBase::getMatrix(void) const
     return _sfMatrix.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Matrixr &TransformBase::getMatrix(void)
+{
+    return this->editMatrix();
+}
+#endif
+
 //! Set the value of the Transform::_sfMatrix field.
 inline
 void TransformBase::setMatrix(const Matrixr &value)

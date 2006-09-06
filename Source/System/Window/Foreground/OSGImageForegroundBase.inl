@@ -112,6 +112,22 @@ MFPnt2f &ImageForegroundBase::editPositions(void)
     return _mfPositions;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Pnt2f &ImageForegroundBase::getPositions(const UInt32 index)
+{
+    return this->editPositions(index);
+}
+
+inline
+MFPnt2f &ImageForegroundBase::getPositions(void)
+{
+    return this->editPositions();
+}
+
+#endif
+
+
 //! Get the ImageForeground::_mfPositions field.
 inline
 const MFPnt2f &ImageForegroundBase::getPositions(void) const
@@ -206,5 +222,5 @@ typedef PointerBuilder<ImageForeground>::ObjPtrConstArg  ImageForegroundPtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGIMAGEFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: OSGImageForegroundBase.inl,v 1.1.2.4 2006/08/01 08:49:02 vossg Exp $"
+#define OSGIMAGEFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
 

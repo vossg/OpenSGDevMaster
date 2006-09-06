@@ -397,6 +397,13 @@ const SFBool *ProxyGroupBase::getSFEnabled(void) const
     return &_sfEnabled;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *ProxyGroupBase::getSFEnabled(void)
+{
+    return this->editSFEnabled();
+}
+#endif
+
 SFString *ProxyGroupBase::editSFUrl(void)
 {
     editSField(UrlFieldMask);
@@ -408,6 +415,13 @@ const SFString *ProxyGroupBase::getSFUrl(void) const
 {
     return &_sfUrl;
 }
+
+#ifdef OSG_1_COMPAT
+SFString *ProxyGroupBase::getSFUrl(void)
+{
+    return this->editSFUrl();
+}
+#endif
 
 //! Get the ProxyGroup::_sfRoot field.
 const SFNodePtr *ProxyGroupBase::getSFRoot(void) const
@@ -427,6 +441,13 @@ const SFUInt32 *ProxyGroupBase::getSFState(void) const
     return &_sfState;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *ProxyGroupBase::getSFState(void)
+{
+    return this->editSFState();
+}
+#endif
+
 SFBool *ProxyGroupBase::editSFConcurrentLoad(void)
 {
     editSField(ConcurrentLoadFieldMask);
@@ -438,6 +459,13 @@ const SFBool *ProxyGroupBase::getSFConcurrentLoad(void) const
 {
     return &_sfConcurrentLoad;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *ProxyGroupBase::getSFConcurrentLoad(void)
+{
+    return this->editSFConcurrentLoad();
+}
+#endif
 
 SFDynamicVolume *ProxyGroupBase::editSFVolume(void)
 {
@@ -451,6 +479,13 @@ const SFDynamicVolume *ProxyGroupBase::getSFVolume(void) const
     return &_sfVolume;
 }
 
+#ifdef OSG_1_COMPAT
+SFDynamicVolume *ProxyGroupBase::getSFVolume(void)
+{
+    return this->editSFVolume();
+}
+#endif
+
 SFUInt32 *ProxyGroupBase::editSFIndices(void)
 {
     editSField(IndicesFieldMask);
@@ -462,6 +497,13 @@ const SFUInt32 *ProxyGroupBase::getSFIndices(void) const
 {
     return &_sfIndices;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *ProxyGroupBase::getSFIndices(void)
+{
+    return this->editSFIndices();
+}
+#endif
 
 SFUInt32 *ProxyGroupBase::editSFTriangles(void)
 {
@@ -475,6 +517,13 @@ const SFUInt32 *ProxyGroupBase::getSFTriangles(void) const
     return &_sfTriangles;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *ProxyGroupBase::getSFTriangles(void)
+{
+    return this->editSFTriangles();
+}
+#endif
+
 SFUInt32 *ProxyGroupBase::editSFPositions(void)
 {
     editSField(PositionsFieldMask);
@@ -486,6 +535,13 @@ const SFUInt32 *ProxyGroupBase::getSFPositions(void) const
 {
     return &_sfPositions;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *ProxyGroupBase::getSFPositions(void)
+{
+    return this->editSFPositions();
+}
+#endif
 
 SFUInt32 *ProxyGroupBase::editSFGeometries(void)
 {
@@ -499,6 +555,13 @@ const SFUInt32 *ProxyGroupBase::getSFGeometries(void) const
     return &_sfGeometries;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *ProxyGroupBase::getSFGeometries(void)
+{
+    return this->editSFGeometries();
+}
+#endif
+
 SFString *ProxyGroupBase::editSFAbsoluteUrl(void)
 {
     editSField(AbsoluteUrlFieldMask);
@@ -511,6 +574,13 @@ const SFString *ProxyGroupBase::getSFAbsoluteUrl(void) const
     return &_sfAbsoluteUrl;
 }
 
+#ifdef OSG_1_COMPAT
+SFString *ProxyGroupBase::getSFAbsoluteUrl(void)
+{
+    return this->editSFAbsoluteUrl();
+}
+#endif
+
 MFUInt8 *ProxyGroupBase::editMFInline(void)
 {
     editMField(InlineFieldMask, _mfInline);
@@ -522,6 +592,13 @@ const MFUInt8 *ProxyGroupBase::getMFInline(void) const
 {
     return &_mfInline;
 }
+
+#ifdef OSG_1_COMPAT
+MFUInt8 *ProxyGroupBase::getMFInline(void)
+{
+    return this->editMFInline();
+}
+#endif
 
 
 void ProxyGroupBase::pushToField(      FieldContainerPtrConstArg pNewElement,

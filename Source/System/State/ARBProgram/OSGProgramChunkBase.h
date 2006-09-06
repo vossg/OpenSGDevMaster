@@ -264,10 +264,17 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+#ifdef OSG_1_COMPAT
+           SFUInt32 *getSFGLId(void);
+#endif
            SFUInt32 *editSFGLId(void);
      const SFUInt32 *getSFGLId (void) const;
 
 
+#ifdef OSG_1_COMPAT
+           UInt32 &getGLId(void);
+#endif
            UInt32 &editGLId(void);
      const UInt32 &getGLId(void) const;
 

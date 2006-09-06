@@ -279,6 +279,13 @@ const SFColor4f *TextureBackgroundBase::getSFColor(void) const
     return &_sfColor;
 }
 
+#ifdef OSG_1_COMPAT
+SFColor4f *TextureBackgroundBase::getSFColor(void)
+{
+    return this->editSFColor();
+}
+#endif
+
 //! Get the TextureBackground::_sfTexture field.
 const SFTextureChunkPtr *TextureBackgroundBase::getSFTexture(void) const
 {
@@ -297,6 +304,13 @@ const MFPnt2f *TextureBackgroundBase::getMFTexCoords(void) const
     return &_mfTexCoords;
 }
 
+#ifdef OSG_1_COMPAT
+MFPnt2f *TextureBackgroundBase::getMFTexCoords(void)
+{
+    return this->editMFTexCoords();
+}
+#endif
+
 SFReal32 *TextureBackgroundBase::editSFRadialDistortion(void)
 {
     editSField(RadialDistortionFieldMask);
@@ -308,6 +322,13 @@ const SFReal32 *TextureBackgroundBase::getSFRadialDistortion(void) const
 {
     return &_sfRadialDistortion;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *TextureBackgroundBase::getSFRadialDistortion(void)
+{
+    return this->editSFRadialDistortion();
+}
+#endif
 
 SFVec2f *TextureBackgroundBase::editSFCenterOfDistortion(void)
 {
@@ -321,6 +342,13 @@ const SFVec2f *TextureBackgroundBase::getSFCenterOfDistortion(void) const
     return &_sfCenterOfDistortion;
 }
 
+#ifdef OSG_1_COMPAT
+SFVec2f *TextureBackgroundBase::getSFCenterOfDistortion(void)
+{
+    return this->editSFCenterOfDistortion();
+}
+#endif
+
 SFUInt16 *TextureBackgroundBase::editSFHor(void)
 {
     editSField(HorFieldMask);
@@ -333,6 +361,13 @@ const SFUInt16 *TextureBackgroundBase::getSFHor(void) const
     return &_sfHor;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt16 *TextureBackgroundBase::getSFHor(void)
+{
+    return this->editSFHor();
+}
+#endif
+
 SFUInt16 *TextureBackgroundBase::editSFVert(void)
 {
     editSField(VertFieldMask);
@@ -344,6 +379,13 @@ const SFUInt16 *TextureBackgroundBase::getSFVert(void) const
 {
     return &_sfVert;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt16 *TextureBackgroundBase::getSFVert(void)
+{
+    return this->editSFVert();
+}
+#endif
 
 
 void TextureBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
@@ -674,7 +716,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGTextureBackgroundBase.cpp,v 1.1.2.3 2006/08/01 08:49:00 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGTEXTUREBACKGROUNDBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTUREBACKGROUNDBASE_INLINE_CVSID;
 

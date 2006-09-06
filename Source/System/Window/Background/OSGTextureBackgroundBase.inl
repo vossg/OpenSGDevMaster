@@ -90,6 +90,14 @@ const Color4f &TextureBackgroundBase::getColor(void) const
     return _sfColor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &TextureBackgroundBase::getColor(void)
+{
+    return this->editColor();
+}
+#endif
+
 //! Set the value of the TextureBackground::_sfColor field.
 inline
 void TextureBackgroundBase::setColor(const Color4f &value)
@@ -132,6 +140,14 @@ const Real32 &TextureBackgroundBase::getRadialDistortion(void) const
     return _sfRadialDistortion.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureBackgroundBase::getRadialDistortion(void)
+{
+    return this->editRadialDistortion();
+}
+#endif
+
 //! Set the value of the TextureBackground::_sfRadialDistortion field.
 inline
 void TextureBackgroundBase::setRadialDistortion(const Real32 &value)
@@ -156,6 +172,14 @@ const Vec2f &TextureBackgroundBase::getCenterOfDistortion(void) const
 {
     return _sfCenterOfDistortion.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec2f &TextureBackgroundBase::getCenterOfDistortion(void)
+{
+    return this->editCenterOfDistortion();
+}
+#endif
 
 //! Set the value of the TextureBackground::_sfCenterOfDistortion field.
 inline
@@ -182,6 +206,14 @@ const UInt16 &TextureBackgroundBase::getHor(void) const
     return _sfHor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &TextureBackgroundBase::getHor(void)
+{
+    return this->editHor();
+}
+#endif
+
 //! Set the value of the TextureBackground::_sfHor field.
 inline
 void TextureBackgroundBase::setHor(const UInt16 &value)
@@ -206,6 +238,14 @@ const UInt16 &TextureBackgroundBase::getVert(void) const
 {
     return _sfVert.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &TextureBackgroundBase::getVert(void)
+{
+    return this->editVert();
+}
+#endif
 
 //! Set the value of the TextureBackground::_sfVert field.
 inline
@@ -239,6 +279,22 @@ MFPnt2f &TextureBackgroundBase::editTexCoords(void)
 
     return _mfTexCoords;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Pnt2f &TextureBackgroundBase::getTexCoords(const UInt32 index)
+{
+    return this->editTexCoords(index);
+}
+
+inline
+MFPnt2f &TextureBackgroundBase::getTexCoords(void)
+{
+    return this->editTexCoords();
+}
+
+#endif
+
 
 //! Get the TextureBackground::_mfTexCoords field.
 inline
@@ -341,5 +397,5 @@ typedef PointerBuilder<TextureBackground>::ObjPtrConstArg  TextureBackgroundPtrC
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: OSGTextureBackgroundBase.inl,v 1.1.2.3 2006/08/01 08:49:00 vossg Exp $"
+#define OSGTEXTUREBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
 

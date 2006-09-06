@@ -166,6 +166,13 @@ const SFMatrix *MatrixCameraBase::getSFProjectionMatrix(void) const
     return &_sfProjectionMatrix;
 }
 
+#ifdef OSG_1_COMPAT
+SFMatrix *MatrixCameraBase::getSFProjectionMatrix(void)
+{
+    return this->editSFProjectionMatrix();
+}
+#endif
+
 SFMatrix *MatrixCameraBase::editSFModelviewMatrix(void)
 {
     editSField(ModelviewMatrixFieldMask);
@@ -177,6 +184,13 @@ const SFMatrix *MatrixCameraBase::getSFModelviewMatrix(void) const
 {
     return &_sfModelviewMatrix;
 }
+
+#ifdef OSG_1_COMPAT
+SFMatrix *MatrixCameraBase::getSFModelviewMatrix(void)
+{
+    return this->editSFModelviewMatrix();
+}
+#endif
 
 
 

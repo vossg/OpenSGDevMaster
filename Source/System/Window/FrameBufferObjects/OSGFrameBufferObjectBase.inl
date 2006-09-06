@@ -90,6 +90,14 @@ const GLenum &FrameBufferObjectBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &FrameBufferObjectBase::getGLId(void)
+{
+    return this->editGLId();
+}
+#endif
+
 //! Set the value of the FrameBufferObject::_sfGLId field.
 inline
 void FrameBufferObjectBase::setGLId(const GLenum &value)
@@ -149,6 +157,14 @@ const UInt16 &FrameBufferObjectBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &FrameBufferObjectBase::getWidth(void)
+{
+    return this->editWidth();
+}
+#endif
+
 //! Set the value of the FrameBufferObject::_sfWidth field.
 inline
 void FrameBufferObjectBase::setWidth(const UInt16 &value)
@@ -173,6 +189,14 @@ const UInt16 &FrameBufferObjectBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &FrameBufferObjectBase::getHeight(void)
+{
+    return this->editHeight();
+}
+#endif
 
 //! Set the value of the FrameBufferObject::_sfHeight field.
 inline
@@ -220,6 +244,22 @@ MFGLenum &FrameBufferObjectBase::editDrawBuffers(void)
 
     return _mfDrawBuffers;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &FrameBufferObjectBase::getDrawBuffers(const UInt32 index)
+{
+    return this->editDrawBuffers(index);
+}
+
+inline
+MFGLenum &FrameBufferObjectBase::getDrawBuffers(void)
+{
+    return this->editDrawBuffers();
+}
+
+#endif
+
 
 //! Get the FrameBufferObject::_mfDrawBuffers field.
 inline

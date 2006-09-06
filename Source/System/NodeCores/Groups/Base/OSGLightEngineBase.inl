@@ -90,6 +90,14 @@ const bool &LightEngineBase::getEnabled(void) const
     return _sfEnabled.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &LightEngineBase::getEnabled(void)
+{
+    return this->editEnabled();
+}
+#endif
+
 //! Set the value of the LightEngine::_sfEnabled field.
 inline
 void LightEngineBase::setEnabled(const bool &value)
@@ -153,5 +161,5 @@ typedef PointerBuilder<LightEngine>::ObjPtrConstArg  LightEnginePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTENGINEBASE_INLINE_CVSID "@(#)$Id: OSGLightEngineBase.inl,v 1.1.2.3 2006/08/01 08:48:57 vossg Exp $"
+#define OSGLIGHTENGINEBASE_INLINE_CVSID "@(#)$Id: $"
 

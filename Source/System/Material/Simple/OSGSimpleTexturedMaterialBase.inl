@@ -107,6 +107,14 @@ const GLenum &SimpleTexturedMaterialBase::getMinFilter(void) const
     return _sfMinFilter.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &SimpleTexturedMaterialBase::getMinFilter(void)
+{
+    return this->editMinFilter();
+}
+#endif
+
 //! Set the value of the SimpleTexturedMaterial::_sfMinFilter field.
 inline
 void SimpleTexturedMaterialBase::setMinFilter(const GLenum &value)
@@ -131,6 +139,14 @@ const GLenum &SimpleTexturedMaterialBase::getMagFilter(void) const
 {
     return _sfMagFilter.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &SimpleTexturedMaterialBase::getMagFilter(void)
+{
+    return this->editMagFilter();
+}
+#endif
 
 //! Set the value of the SimpleTexturedMaterial::_sfMagFilter field.
 inline
@@ -157,6 +173,14 @@ const GLenum &SimpleTexturedMaterialBase::getEnvMode(void) const
     return _sfEnvMode.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &SimpleTexturedMaterialBase::getEnvMode(void)
+{
+    return this->editEnvMode();
+}
+#endif
+
 //! Set the value of the SimpleTexturedMaterial::_sfEnvMode field.
 inline
 void SimpleTexturedMaterialBase::setEnvMode(const GLenum &value)
@@ -181,6 +205,14 @@ const bool &SimpleTexturedMaterialBase::getEnvMap(void) const
 {
     return _sfEnvMap.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &SimpleTexturedMaterialBase::getEnvMap(void)
+{
+    return this->editEnvMap();
+}
+#endif
 
 //! Set the value of the SimpleTexturedMaterial::_sfEnvMap field.
 inline

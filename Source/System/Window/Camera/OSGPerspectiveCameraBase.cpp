@@ -168,6 +168,13 @@ const SFReal32 *PerspectiveCameraBase::getSFFov(void) const
     return &_sfFov;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *PerspectiveCameraBase::getSFFov(void)
+{
+    return this->editSFFov();
+}
+#endif
+
 SFReal32 *PerspectiveCameraBase::editSFAspect(void)
 {
     editSField(AspectFieldMask);
@@ -179,6 +186,13 @@ const SFReal32 *PerspectiveCameraBase::getSFAspect(void) const
 {
     return &_sfAspect;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *PerspectiveCameraBase::getSFAspect(void)
+{
+    return this->editSFAspect();
+}
+#endif
 
 
 

@@ -90,6 +90,14 @@ const UInt16 &WindowBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &WindowBase::getWidth(void)
+{
+    return this->editWidth();
+}
+#endif
+
 //! Set the value of the Window::_sfWidth field.
 inline
 void WindowBase::setWidth(const UInt16 &value)
@@ -114,6 +122,14 @@ const UInt16 &WindowBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &WindowBase::getHeight(void)
+{
+    return this->editHeight();
+}
+#endif
 
 //! Set the value of the Window::_sfHeight field.
 inline
@@ -140,6 +156,14 @@ const bool &WindowBase::getResizePending(void) const
     return _sfResizePending.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &WindowBase::getResizePending(void)
+{
+    return this->editResizePending();
+}
+#endif
+
 //! Set the value of the Window::_sfResizePending field.
 inline
 void WindowBase::setResizePending(const bool &value)
@@ -164,6 +188,14 @@ const UInt32 &WindowBase::getGlObjectEventCounter(void) const
 {
     return _sfGlObjectEventCounter.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &WindowBase::getGlObjectEventCounter(void)
+{
+    return this->editGlObjectEventCounter();
+}
+#endif
 
 //! Set the value of the Window::_sfGlObjectEventCounter field.
 inline
@@ -212,6 +244,22 @@ MFUInt32 &WindowBase::editGlObjectLastRefresh(void)
     return _mfGlObjectLastRefresh;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &WindowBase::getGlObjectLastRefresh(const UInt32 index)
+{
+    return this->editGlObjectLastRefresh(index);
+}
+
+inline
+MFUInt32 &WindowBase::getGlObjectLastRefresh(void)
+{
+    return this->editGlObjectLastRefresh();
+}
+
+#endif
+
+
 //! Get the Window::_mfGlObjectLastRefresh field.
 inline
 const MFUInt32 &WindowBase::getGlObjectLastRefresh(void) const
@@ -242,6 +290,22 @@ MFUInt32 &WindowBase::editGlObjectLastReinitialize(void)
 
     return _mfGlObjectLastReinitialize;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &WindowBase::getGlObjectLastReinitialize(const UInt32 index)
+{
+    return this->editGlObjectLastReinitialize(index);
+}
+
+inline
+MFUInt32 &WindowBase::getGlObjectLastReinitialize(void)
+{
+    return this->editGlObjectLastReinitialize();
+}
+
+#endif
+
 
 //! Get the Window::_mfGlObjectLastReinitialize field.
 inline

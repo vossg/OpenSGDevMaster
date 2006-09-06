@@ -90,6 +90,14 @@ const UInt32 &GeoMultiPropertyDataBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &GeoMultiPropertyDataBase::getGLId(void)
+{
+    return this->editGLId();
+}
+#endif
+
 //! Set the value of the GeoMultiPropertyData::_sfGLId field.
 inline
 void GeoMultiPropertyDataBase::setGLId(const UInt32 &value)
@@ -122,6 +130,22 @@ MFUInt8 &GeoMultiPropertyDataBase::editIData(void)
 
     return _mfIData;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &GeoMultiPropertyDataBase::getIData(const UInt32 index)
+{
+    return this->editIData(index);
+}
+
+inline
+MFUInt8 &GeoMultiPropertyDataBase::getIData(void)
+{
+    return this->editIData();
+}
+
+#endif
+
 
 //! Get the GeoMultiPropertyData::_mfIData field.
 inline
@@ -209,5 +233,5 @@ typedef PointerBuilder<GeoMultiPropertyData>::ObjPtrConstArg  GeoMultiPropertyDa
 
 OSG_END_NAMESPACE
 
-#define OSGGEOMULTIPROPERTYDATABASE_INLINE_CVSID "@(#)$Id: OSGGeoMultiPropertyDataBase.inl,v 1.1.2.5 2006/08/01 08:48:57 vossg Exp $"
+#define OSGGEOMULTIPROPERTYDATABASE_INLINE_CVSID "@(#)$Id: $"
 

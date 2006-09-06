@@ -264,6 +264,13 @@ const SFGLenum *FrameBufferObjectBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *FrameBufferObjectBase::getSFGLId(void)
+{
+    return this->editSFGLId();
+}
+#endif
+
 //! Get the FrameBufferObject::_mfColorAttachments field.
 const MFFrameBufferAttachmentPtr *FrameBufferObjectBase::getMFColorAttachments(void) const
 {
@@ -281,6 +288,13 @@ const MFGLenum *FrameBufferObjectBase::getMFDrawBuffers(void) const
 {
     return &_mfDrawBuffers;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *FrameBufferObjectBase::getMFDrawBuffers(void)
+{
+    return this->editMFDrawBuffers();
+}
+#endif
 
 //! Get the FrameBufferObject::_sfDepthAttachment field.
 const SFFrameBufferAttachmentPtr *FrameBufferObjectBase::getSFDepthAttachment(void) const
@@ -306,6 +320,13 @@ const SFUInt16 *FrameBufferObjectBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt16 *FrameBufferObjectBase::getSFWidth(void)
+{
+    return this->editSFWidth();
+}
+#endif
+
 SFUInt16 *FrameBufferObjectBase::editSFHeight(void)
 {
     editSField(HeightFieldMask);
@@ -317,6 +338,13 @@ const SFUInt16 *FrameBufferObjectBase::getSFHeight(void) const
 {
     return &_sfHeight;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt16 *FrameBufferObjectBase::getSFHeight(void)
+{
+    return this->editSFHeight();
+}
+#endif
 
 
 void FrameBufferObjectBase::pushToField(      FieldContainerPtrConstArg pNewElement,

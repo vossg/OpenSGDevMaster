@@ -142,6 +142,13 @@ const SFBool *LightEngineBase::getSFEnabled(void) const
     return &_sfEnabled;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *LightEngineBase::getSFEnabled(void)
+{
+    return this->editSFEnabled();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -286,7 +293,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGLightEngineBase.cpp,v 1.1.2.3 2006/08/01 08:48:57 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGLIGHTENGINEBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGLIGHTENGINEBASE_INLINE_CVSID;
 

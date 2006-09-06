@@ -168,6 +168,13 @@ const MFUInt8 *GeoMultiPropertyDataBase::getMFIData(void) const
     return &_mfIData;
 }
 
+#ifdef OSG_1_COMPAT
+MFUInt8 *GeoMultiPropertyDataBase::getMFIData(void)
+{
+    return this->editMFIData();
+}
+#endif
+
 SFUInt32 *GeoMultiPropertyDataBase::editSFGLId(void)
 {
     editSField(GLIdFieldMask);
@@ -179,6 +186,13 @@ const SFUInt32 *GeoMultiPropertyDataBase::getSFGLId(void) const
 {
     return &_sfGLId;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *GeoMultiPropertyDataBase::getSFGLId(void)
+{
+    return this->editSFGLId();
+}
+#endif
 
 
 
@@ -368,7 +382,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGGeoMultiPropertyDataBase.cpp,v 1.1.2.5 2006/08/01 08:48:57 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGGEOMULTIPROPERTYDATABASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGGEOMULTIPROPERTYDATABASE_INLINE_CVSID;
 

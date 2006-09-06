@@ -191,6 +191,13 @@ const SFBool *SHLChunkBase::getSFCgFrontEnd(void) const
     return &_sfCgFrontEnd;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *SHLChunkBase::getSFCgFrontEnd(void)
+{
+    return this->editSFCgFrontEnd();
+}
+#endif
+
 SFBool *SHLChunkBase::editSFPointSize(void)
 {
     editSField(PointSizeFieldMask);
@@ -203,6 +210,13 @@ const SFBool *SHLChunkBase::getSFPointSize(void) const
     return &_sfPointSize;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *SHLChunkBase::getSFPointSize(void)
+{
+    return this->editSFPointSize();
+}
+#endif
+
 SFUInt32 *SHLChunkBase::editSFGLId(void)
 {
     editSField(GLIdFieldMask);
@@ -214,6 +228,13 @@ const SFUInt32 *SHLChunkBase::getSFGLId(void) const
 {
     return &_sfGLId;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *SHLChunkBase::getSFGLId(void)
+{
+    return this->editSFGLId();
+}
+#endif
 
 
 

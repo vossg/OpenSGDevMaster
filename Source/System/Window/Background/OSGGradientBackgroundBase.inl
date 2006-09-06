@@ -98,6 +98,22 @@ MFColor3f &GradientBackgroundBase::editColor(void)
     return _mfColor;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color3f &GradientBackgroundBase::getColor(const UInt32 index)
+{
+    return this->editColor(index);
+}
+
+inline
+MFColor3f &GradientBackgroundBase::getColor(void)
+{
+    return this->editColor();
+}
+
+#endif
+
+
 //! Get the GradientBackground::_mfColor field.
 inline
 const MFColor3f &GradientBackgroundBase::getColor(void) const
@@ -128,6 +144,22 @@ MFReal32 &GradientBackgroundBase::editPosition(void)
 
     return _mfPosition;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &GradientBackgroundBase::getPosition(const UInt32 index)
+{
+    return this->editPosition(index);
+}
+
+inline
+MFReal32 &GradientBackgroundBase::getPosition(void)
+{
+    return this->editPosition();
+}
+
+#endif
+
 
 //! Get the GradientBackground::_mfPosition field.
 inline
@@ -223,5 +255,5 @@ typedef PointerBuilder<GradientBackground>::ObjPtrConstArg  GradientBackgroundPt
 
 OSG_END_NAMESPACE
 
-#define OSGGRADIENTBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: OSGGradientBackgroundBase.inl,v 1.1.2.4 2006/08/01 08:49:00 vossg Exp $"
+#define OSGGRADIENTBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
 

@@ -90,6 +90,14 @@ const Matrix &MatrixCameraBase::getProjectionMatrix(void) const
     return _sfProjectionMatrix.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Matrix &MatrixCameraBase::getProjectionMatrix(void)
+{
+    return this->editProjectionMatrix();
+}
+#endif
+
 //! Set the value of the MatrixCamera::_sfProjectionMatrix field.
 inline
 void MatrixCameraBase::setProjectionMatrix(const Matrix &value)
@@ -114,6 +122,14 @@ const Matrix &MatrixCameraBase::getModelviewMatrix(void) const
 {
     return _sfModelviewMatrix.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Matrix &MatrixCameraBase::getModelviewMatrix(void)
+{
+    return this->editModelviewMatrix();
+}
+#endif
 
 //! Set the value of the MatrixCamera::_sfModelviewMatrix field.
 inline

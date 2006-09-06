@@ -90,6 +90,14 @@ const Int32 &SimpleShadowMapEngineBase::getForceTextureUnit(void) const
     return _sfForceTextureUnit.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &SimpleShadowMapEngineBase::getForceTextureUnit(void)
+{
+    return this->editForceTextureUnit();
+}
+#endif
+
 //! Set the value of the SimpleShadowMapEngine::_sfForceTextureUnit field.
 inline
 void SimpleShadowMapEngineBase::setForceTextureUnit(const Int32 &value)
@@ -167,5 +175,5 @@ typedef PointerBuilder<SimpleShadowMapEngine>::ObjPtrConstArg  SimpleShadowMapEn
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESHADOWMAPENGINEBASE_INLINE_CVSID "@(#)$Id: OSGSimpleShadowMapEngineBase.inl,v 1.1.2.3 2006/08/01 08:48:58 vossg Exp $"
+#define OSGSIMPLESHADOWMAPENGINEBASE_INLINE_CVSID "@(#)$Id: $"
 

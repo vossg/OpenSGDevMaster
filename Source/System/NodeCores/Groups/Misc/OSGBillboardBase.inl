@@ -90,6 +90,14 @@ const Vec3f &BillboardBase::getAxisOfRotation(void) const
     return _sfAxisOfRotation.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &BillboardBase::getAxisOfRotation(void)
+{
+    return this->editAxisOfRotation();
+}
+#endif
+
 //! Set the value of the Billboard::_sfAxisOfRotation field.
 inline
 void BillboardBase::setAxisOfRotation(const Vec3f &value)
@@ -114,6 +122,14 @@ const bool &BillboardBase::getFocusOnCamera(void) const
 {
     return _sfFocusOnCamera.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &BillboardBase::getFocusOnCamera(void)
+{
+    return this->editFocusOnCamera();
+}
+#endif
 
 //! Set the value of the Billboard::_sfFocusOnCamera field.
 inline
@@ -140,6 +156,14 @@ const bool &BillboardBase::getAlignToScreen(void) const
     return _sfAlignToScreen.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &BillboardBase::getAlignToScreen(void)
+{
+    return this->editAlignToScreen();
+}
+#endif
+
 //! Set the value of the Billboard::_sfAlignToScreen field.
 inline
 void BillboardBase::setAlignToScreen(const bool &value)
@@ -165,6 +189,14 @@ const Real32 &BillboardBase::getMinAngle(void) const
     return _sfMinAngle.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &BillboardBase::getMinAngle(void)
+{
+    return this->editMinAngle();
+}
+#endif
+
 //! Set the value of the Billboard::_sfMinAngle field.
 inline
 void BillboardBase::setMinAngle(const Real32 &value)
@@ -189,6 +221,14 @@ const Real32 &BillboardBase::getMaxAngle(void) const
 {
     return _sfMaxAngle.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &BillboardBase::getMaxAngle(void)
+{
+    return this->editMaxAngle();
+}
+#endif
 
 //! Set the value of the Billboard::_sfMaxAngle field.
 inline

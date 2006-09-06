@@ -90,6 +90,14 @@ const Int32 &ImageBase::getDimension(void) const
     return _sfDimension.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getDimension(void)
+{
+    return this->editDimension();
+}
+#endif
+
 //! Set the value of the Image::_sfDimension field.
 inline
 void ImageBase::setDimension(const Int32 &value)
@@ -114,6 +122,14 @@ const Int32 &ImageBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getWidth(void)
+{
+    return this->editWidth();
+}
+#endif
 
 //! Set the value of the Image::_sfWidth field.
 inline
@@ -140,6 +156,14 @@ const Int32 &ImageBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getHeight(void)
+{
+    return this->editHeight();
+}
+#endif
+
 //! Set the value of the Image::_sfHeight field.
 inline
 void ImageBase::setHeight(const Int32 &value)
@@ -164,6 +188,14 @@ const Int32 &ImageBase::getDepth(void) const
 {
     return _sfDepth.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getDepth(void)
+{
+    return this->editDepth();
+}
+#endif
 
 //! Set the value of the Image::_sfDepth field.
 inline
@@ -190,6 +222,14 @@ const Int32 &ImageBase::getBpp(void) const
     return _sfBpp.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getBpp(void)
+{
+    return this->editBpp();
+}
+#endif
+
 //! Set the value of the Image::_sfBpp field.
 inline
 void ImageBase::setBpp(const Int32 &value)
@@ -214,6 +254,14 @@ const Int32 &ImageBase::getMipMapCount(void) const
 {
     return _sfMipMapCount.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getMipMapCount(void)
+{
+    return this->editMipMapCount();
+}
+#endif
 
 //! Set the value of the Image::_sfMipMapCount field.
 inline
@@ -240,6 +288,14 @@ const Int32 &ImageBase::getFrameCount(void) const
     return _sfFrameCount.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getFrameCount(void)
+{
+    return this->editFrameCount();
+}
+#endif
+
 //! Set the value of the Image::_sfFrameCount field.
 inline
 void ImageBase::setFrameCount(const Int32 &value)
@@ -264,6 +320,14 @@ const Time &ImageBase::getFrameDelay(void) const
 {
     return _sfFrameDelay.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Time &ImageBase::getFrameDelay(void)
+{
+    return this->editFrameDelay();
+}
+#endif
 
 //! Set the value of the Image::_sfFrameDelay field.
 inline
@@ -290,6 +354,14 @@ const UInt32 &ImageBase::getPixelFormat(void) const
     return _sfPixelFormat.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &ImageBase::getPixelFormat(void)
+{
+    return this->editPixelFormat();
+}
+#endif
+
 //! Set the value of the Image::_sfPixelFormat field.
 inline
 void ImageBase::setPixelFormat(const UInt32 &value)
@@ -314,6 +386,14 @@ const Int32 &ImageBase::getFrameSize(void) const
 {
     return _sfFrameSize.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getFrameSize(void)
+{
+    return this->editFrameSize();
+}
+#endif
 
 //! Set the value of the Image::_sfFrameSize field.
 inline
@@ -340,6 +420,14 @@ const std::string &ImageBase::getName(void) const
     return _sfName.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+std::string &ImageBase::getName(void)
+{
+    return this->editName();
+}
+#endif
+
 //! Set the value of the Image::_sfName field.
 inline
 void ImageBase::setName(const std::string &value)
@@ -364,6 +452,14 @@ const Int32 &ImageBase::getDataType(void) const
 {
     return _sfDataType.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getDataType(void)
+{
+    return this->editDataType();
+}
+#endif
 
 //! Set the value of the Image::_sfDataType field.
 inline
@@ -390,6 +486,14 @@ const Int32 &ImageBase::getComponentSize(void) const
     return _sfComponentSize.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getComponentSize(void)
+{
+    return this->editComponentSize();
+}
+#endif
+
 //! Set the value of the Image::_sfComponentSize field.
 inline
 void ImageBase::setComponentSize(const Int32 &value)
@@ -414,6 +518,14 @@ const Int32 &ImageBase::getSideCount(void) const
 {
     return _sfSideCount.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getSideCount(void)
+{
+    return this->editSideCount();
+}
+#endif
 
 //! Set the value of the Image::_sfSideCount field.
 inline
@@ -440,6 +552,14 @@ const Int32 &ImageBase::getSideSize(void) const
     return _sfSideSize.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ImageBase::getSideSize(void)
+{
+    return this->editSideSize();
+}
+#endif
+
 //! Set the value of the Image::_sfSideSize field.
 inline
 void ImageBase::setSideSize(const Int32 &value)
@@ -464,6 +584,14 @@ const bool &ImageBase::getForceCompressedData(void) const
 {
     return _sfForceCompressedData.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &ImageBase::getForceCompressedData(void)
+{
+    return this->editForceCompressedData();
+}
+#endif
 
 //! Set the value of the Image::_sfForceCompressedData field.
 inline
@@ -490,6 +618,14 @@ const bool &ImageBase::getForceAlphaChannel(void) const
     return _sfForceAlphaChannel.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &ImageBase::getForceAlphaChannel(void)
+{
+    return this->editForceAlphaChannel();
+}
+#endif
+
 //! Set the value of the Image::_sfForceAlphaChannel field.
 inline
 void ImageBase::setForceAlphaChannel(const bool &value)
@@ -515,6 +651,14 @@ const bool &ImageBase::getForceColorChannel(void) const
     return _sfForceColorChannel.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &ImageBase::getForceColorChannel(void)
+{
+    return this->editForceColorChannel();
+}
+#endif
+
 //! Set the value of the Image::_sfForceColorChannel field.
 inline
 void ImageBase::setForceColorChannel(const bool &value)
@@ -539,6 +683,14 @@ const bool &ImageBase::getForceAlphaBinary(void) const
 {
     return _sfForceAlphaBinary.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &ImageBase::getForceAlphaBinary(void)
+{
+    return this->editForceAlphaBinary();
+}
+#endif
 
 //! Set the value of the Image::_sfForceAlphaBinary field.
 inline
@@ -586,6 +738,22 @@ MFUInt8 &ImageBase::editPixel(void)
 
     return _mfPixel;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &ImageBase::getPixel(const UInt32 index)
+{
+    return this->editPixel(index);
+}
+
+inline
+MFUInt8 &ImageBase::getPixel(void)
+{
+    return this->editPixel();
+}
+
+#endif
+
 
 //! Get the Image::_mfPixel field.
 inline

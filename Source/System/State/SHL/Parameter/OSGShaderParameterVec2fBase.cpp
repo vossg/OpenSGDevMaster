@@ -143,6 +143,13 @@ const SFVec2f *ShaderParameterVec2fBase::getSFValue(void) const
     return &_sfValue;
 }
 
+#ifdef OSG_1_COMPAT
+SFVec2f *ShaderParameterVec2fBase::getSFValue(void)
+{
+    return this->editSFValue();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/

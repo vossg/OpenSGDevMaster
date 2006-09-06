@@ -268,6 +268,13 @@ const SFReal32 *TileCameraDecoratorBase::getSFLeft(void) const
     return &_sfLeft;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *TileCameraDecoratorBase::getSFLeft(void)
+{
+    return this->editSFLeft();
+}
+#endif
+
 SFReal32 *TileCameraDecoratorBase::editSFRight(void)
 {
     editSField(RightFieldMask);
@@ -279,6 +286,13 @@ const SFReal32 *TileCameraDecoratorBase::getSFRight(void) const
 {
     return &_sfRight;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *TileCameraDecoratorBase::getSFRight(void)
+{
+    return this->editSFRight();
+}
+#endif
 
 SFReal32 *TileCameraDecoratorBase::editSFBottom(void)
 {
@@ -292,6 +306,13 @@ const SFReal32 *TileCameraDecoratorBase::getSFBottom(void) const
     return &_sfBottom;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *TileCameraDecoratorBase::getSFBottom(void)
+{
+    return this->editSFBottom();
+}
+#endif
+
 SFReal32 *TileCameraDecoratorBase::editSFTop(void)
 {
     editSField(TopFieldMask);
@@ -303,6 +324,13 @@ const SFReal32 *TileCameraDecoratorBase::getSFTop(void) const
 {
     return &_sfTop;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *TileCameraDecoratorBase::getSFTop(void)
+{
+    return this->editSFTop();
+}
+#endif
 
 SFUInt32 *TileCameraDecoratorBase::editSFFullWidth(void)
 {
@@ -316,6 +344,13 @@ const SFUInt32 *TileCameraDecoratorBase::getSFFullWidth(void) const
     return &_sfFullWidth;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *TileCameraDecoratorBase::getSFFullWidth(void)
+{
+    return this->editSFFullWidth();
+}
+#endif
+
 SFUInt32 *TileCameraDecoratorBase::editSFFullHeight(void)
 {
     editSField(FullHeightFieldMask);
@@ -327,6 +362,13 @@ const SFUInt32 *TileCameraDecoratorBase::getSFFullHeight(void) const
 {
     return &_sfFullHeight;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *TileCameraDecoratorBase::getSFFullHeight(void)
+{
+    return this->editSFFullHeight();
+}
+#endif
 
 
 

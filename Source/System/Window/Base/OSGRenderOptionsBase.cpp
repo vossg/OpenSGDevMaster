@@ -527,6 +527,13 @@ const SFBool *RenderOptionsBase::getSFStatistic(void) const
     return &_sfStatistic;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFStatistic(void)
+{
+    return this->editSFStatistic();
+}
+#endif
+
 SFGLenum *RenderOptionsBase::editSFPolygonMode(void)
 {
     editSField(PolygonModeFieldMask);
@@ -538,6 +545,13 @@ const SFGLenum *RenderOptionsBase::getSFPolygonMode(void) const
 {
     return &_sfPolygonMode;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *RenderOptionsBase::getSFPolygonMode(void)
+{
+    return this->editSFPolygonMode();
+}
+#endif
 
 SFBool *RenderOptionsBase::editSFTwoSidedLighting(void)
 {
@@ -551,6 +565,13 @@ const SFBool *RenderOptionsBase::getSFTwoSidedLighting(void) const
     return &_sfTwoSidedLighting;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFTwoSidedLighting(void)
+{
+    return this->editSFTwoSidedLighting();
+}
+#endif
+
 SFBool *RenderOptionsBase::editSFSpecTexLighting(void)
 {
     editSField(SpecTexLightingFieldMask);
@@ -562,6 +583,13 @@ const SFBool *RenderOptionsBase::getSFSpecTexLighting(void) const
 {
     return &_sfSpecTexLighting;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFSpecTexLighting(void)
+{
+    return this->editSFSpecTexLighting();
+}
+#endif
 
 SFBool *RenderOptionsBase::editSFSortTrans(void)
 {
@@ -575,6 +603,13 @@ const SFBool *RenderOptionsBase::getSFSortTrans(void) const
     return &_sfSortTrans;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFSortTrans(void)
+{
+    return this->editSFSortTrans();
+}
+#endif
+
 SFBool *RenderOptionsBase::editSFZWriteTrans(void)
 {
     editSField(ZWriteTransFieldMask);
@@ -586,6 +621,13 @@ const SFBool *RenderOptionsBase::getSFZWriteTrans(void) const
 {
     return &_sfZWriteTrans;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFZWriteTrans(void)
+{
+    return this->editSFZWriteTrans();
+}
+#endif
 
 SFBool *RenderOptionsBase::editSFLocalLights(void)
 {
@@ -599,6 +641,13 @@ const SFBool *RenderOptionsBase::getSFLocalLights(void) const
     return &_sfLocalLights;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFLocalLights(void)
+{
+    return this->editSFLocalLights();
+}
+#endif
+
 SFBool *RenderOptionsBase::editSFCorrectTwoSidedLighting(void)
 {
     editSField(CorrectTwoSidedLightingFieldMask);
@@ -610,6 +659,13 @@ const SFBool *RenderOptionsBase::getSFCorrectTwoSidedLighting(void) const
 {
     return &_sfCorrectTwoSidedLighting;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFCorrectTwoSidedLighting(void)
+{
+    return this->editSFCorrectTwoSidedLighting();
+}
+#endif
 
 SFBool *RenderOptionsBase::editSFOcclusionCulling(void)
 {
@@ -623,6 +679,13 @@ const SFBool *RenderOptionsBase::getSFOcclusionCulling(void) const
     return &_sfOcclusionCulling;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFOcclusionCulling(void)
+{
+    return this->editSFOcclusionCulling();
+}
+#endif
+
 SFBool *RenderOptionsBase::editSFAntialiasing(void)
 {
     editSField(AntialiasingFieldMask);
@@ -634,6 +697,13 @@ const SFBool *RenderOptionsBase::getSFAntialiasing(void) const
 {
     return &_sfAntialiasing;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFAntialiasing(void)
+{
+    return this->editSFAntialiasing();
+}
+#endif
 
 SFReal32 *RenderOptionsBase::editSFAntialiasingDistance(void)
 {
@@ -647,6 +717,13 @@ const SFReal32 *RenderOptionsBase::getSFAntialiasingDistance(void) const
     return &_sfAntialiasingDistance;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *RenderOptionsBase::getSFAntialiasingDistance(void)
+{
+    return this->editSFAntialiasingDistance();
+}
+#endif
+
 SFReal32 *RenderOptionsBase::editSFAntialiasingScale(void)
 {
     editSField(AntialiasingScaleFieldMask);
@@ -658,6 +735,13 @@ const SFReal32 *RenderOptionsBase::getSFAntialiasingScale(void) const
 {
     return &_sfAntialiasingScale;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *RenderOptionsBase::getSFAntialiasingScale(void)
+{
+    return this->editSFAntialiasingScale();
+}
+#endif
 
 SFUInt32 *RenderOptionsBase::editSFAntialiasingTrigger(void)
 {
@@ -671,6 +755,13 @@ const SFUInt32 *RenderOptionsBase::getSFAntialiasingTrigger(void) const
     return &_sfAntialiasingTrigger;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *RenderOptionsBase::getSFAntialiasingTrigger(void)
+{
+    return this->editSFAntialiasingTrigger();
+}
+#endif
+
 SFBool *RenderOptionsBase::editSFBackfaceCulling(void)
 {
     editSField(BackfaceCullingFieldMask);
@@ -682,6 +773,13 @@ const SFBool *RenderOptionsBase::getSFBackfaceCulling(void) const
 {
     return &_sfBackfaceCulling;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFBackfaceCulling(void)
+{
+    return this->editSFBackfaceCulling();
+}
+#endif
 
 SFBool *RenderOptionsBase::editSFSmallFeatureCulling(void)
 {
@@ -695,6 +793,13 @@ const SFBool *RenderOptionsBase::getSFSmallFeatureCulling(void) const
     return &_sfSmallFeatureCulling;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *RenderOptionsBase::getSFSmallFeatureCulling(void)
+{
+    return this->editSFSmallFeatureCulling();
+}
+#endif
+
 SFReal32 *RenderOptionsBase::editSFSmallFeaturePixels(void)
 {
     editSField(SmallFeaturePixelsFieldMask);
@@ -707,6 +812,13 @@ const SFReal32 *RenderOptionsBase::getSFSmallFeaturePixels(void) const
     return &_sfSmallFeaturePixels;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *RenderOptionsBase::getSFSmallFeaturePixels(void)
+{
+    return this->editSFSmallFeaturePixels();
+}
+#endif
+
 SFUInt32 *RenderOptionsBase::editSFSmallFeatureThreshold(void)
 {
     editSField(SmallFeatureThresholdFieldMask);
@@ -718,6 +830,13 @@ const SFUInt32 *RenderOptionsBase::getSFSmallFeatureThreshold(void) const
 {
     return &_sfSmallFeatureThreshold;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *RenderOptionsBase::getSFSmallFeatureThreshold(void)
+{
+    return this->editSFSmallFeatureThreshold();
+}
+#endif
 
 
 
@@ -1117,7 +1236,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGRenderOptionsBase.cpp,v 1.1.2.3 2006/08/01 08:49:01 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGRENDEROPTIONSBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGRENDEROPTIONSBASE_INLINE_CVSID;
 

@@ -90,6 +90,14 @@ const Color4r &MaterialChunkBase::getDiffuse(void) const
     return _sfDiffuse.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4r &MaterialChunkBase::getDiffuse(void)
+{
+    return this->editDiffuse();
+}
+#endif
+
 //! Set the value of the MaterialChunk::_sfDiffuse field.
 inline
 void MaterialChunkBase::setDiffuse(const Color4r &value)
@@ -114,6 +122,14 @@ const Color4r &MaterialChunkBase::getAmbient(void) const
 {
     return _sfAmbient.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4r &MaterialChunkBase::getAmbient(void)
+{
+    return this->editAmbient();
+}
+#endif
 
 //! Set the value of the MaterialChunk::_sfAmbient field.
 inline
@@ -140,6 +156,14 @@ const Color4r &MaterialChunkBase::getSpecular(void) const
     return _sfSpecular.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4r &MaterialChunkBase::getSpecular(void)
+{
+    return this->editSpecular();
+}
+#endif
+
 //! Set the value of the MaterialChunk::_sfSpecular field.
 inline
 void MaterialChunkBase::setSpecular(const Color4r &value)
@@ -164,6 +188,14 @@ const Color4r &MaterialChunkBase::getEmission(void) const
 {
     return _sfEmission.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4r &MaterialChunkBase::getEmission(void)
+{
+    return this->editEmission();
+}
+#endif
 
 //! Set the value of the MaterialChunk::_sfEmission field.
 inline
@@ -190,6 +222,14 @@ const Real &MaterialChunkBase::getShininess(void) const
     return _sfShininess.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real &MaterialChunkBase::getShininess(void)
+{
+    return this->editShininess();
+}
+#endif
+
 //! Set the value of the MaterialChunk::_sfShininess field.
 inline
 void MaterialChunkBase::setShininess(const Real &value)
@@ -214,6 +254,14 @@ const bool &MaterialChunkBase::getLit(void) const
 {
     return _sfLit.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &MaterialChunkBase::getLit(void)
+{
+    return this->editLit();
+}
+#endif
 
 //! Set the value of the MaterialChunk::_sfLit field.
 inline
@@ -240,6 +288,14 @@ const GLenum &MaterialChunkBase::getColorMaterial(void) const
     return _sfColorMaterial.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &MaterialChunkBase::getColorMaterial(void)
+{
+    return this->editColorMaterial();
+}
+#endif
+
 //! Set the value of the MaterialChunk::_sfColorMaterial field.
 inline
 void MaterialChunkBase::setColorMaterial(const GLenum &value)
@@ -264,6 +320,14 @@ const bool &MaterialChunkBase::getBackMaterial(void) const
 {
     return _sfBackMaterial.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &MaterialChunkBase::getBackMaterial(void)
+{
+    return this->editBackMaterial();
+}
+#endif
 
 //! Set the value of the MaterialChunk::_sfBackMaterial field.
 inline
@@ -290,6 +354,14 @@ const Color4r &MaterialChunkBase::getBackDiffuse(void) const
     return _sfBackDiffuse.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4r &MaterialChunkBase::getBackDiffuse(void)
+{
+    return this->editBackDiffuse();
+}
+#endif
+
 //! Set the value of the MaterialChunk::_sfBackDiffuse field.
 inline
 void MaterialChunkBase::setBackDiffuse(const Color4r &value)
@@ -314,6 +386,14 @@ const Color4r &MaterialChunkBase::getBackAmbient(void) const
 {
     return _sfBackAmbient.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4r &MaterialChunkBase::getBackAmbient(void)
+{
+    return this->editBackAmbient();
+}
+#endif
 
 //! Set the value of the MaterialChunk::_sfBackAmbient field.
 inline
@@ -340,6 +420,14 @@ const Color4r &MaterialChunkBase::getBackSpecular(void) const
     return _sfBackSpecular.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4r &MaterialChunkBase::getBackSpecular(void)
+{
+    return this->editBackSpecular();
+}
+#endif
+
 //! Set the value of the MaterialChunk::_sfBackSpecular field.
 inline
 void MaterialChunkBase::setBackSpecular(const Color4r &value)
@@ -364,6 +452,14 @@ const Color4r &MaterialChunkBase::getBackEmission(void) const
 {
     return _sfBackEmission.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4r &MaterialChunkBase::getBackEmission(void)
+{
+    return this->editBackEmission();
+}
+#endif
 
 //! Set the value of the MaterialChunk::_sfBackEmission field.
 inline
@@ -390,6 +486,14 @@ const Real &MaterialChunkBase::getBackShininess(void) const
     return _sfBackShininess.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real &MaterialChunkBase::getBackShininess(void)
+{
+    return this->editBackShininess();
+}
+#endif
+
 //! Set the value of the MaterialChunk::_sfBackShininess field.
 inline
 void MaterialChunkBase::setBackShininess(const Real &value)
@@ -414,6 +518,14 @@ const GLenum &MaterialChunkBase::getBackColorMaterial(void) const
 {
     return _sfBackColorMaterial.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &MaterialChunkBase::getBackColorMaterial(void)
+{
+    return this->editBackColorMaterial();
+}
+#endif
 
 //! Set the value of the MaterialChunk::_sfBackColorMaterial field.
 inline

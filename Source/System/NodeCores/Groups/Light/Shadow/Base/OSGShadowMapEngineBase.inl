@@ -107,6 +107,14 @@ const Int32 &ShadowMapEngineBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ShadowMapEngineBase::getWidth(void)
+{
+    return this->editWidth();
+}
+#endif
+
 //! Set the value of the ShadowMapEngine::_sfWidth field.
 inline
 void ShadowMapEngineBase::setWidth(const Int32 &value)
@@ -131,6 +139,14 @@ const Int32 &ShadowMapEngineBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ShadowMapEngineBase::getHeight(void)
+{
+    return this->editHeight();
+}
+#endif
 
 //! Set the value of the ShadowMapEngine::_sfHeight field.
 inline
@@ -157,6 +173,14 @@ const Color4f &ShadowMapEngineBase::getShadowColor(void) const
     return _sfShadowColor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &ShadowMapEngineBase::getShadowColor(void)
+{
+    return this->editShadowColor();
+}
+#endif
+
 //! Set the value of the ShadowMapEngine::_sfShadowColor field.
 inline
 void ShadowMapEngineBase::setShadowColor(const Color4f &value)
@@ -181,6 +205,14 @@ const Real32 &ShadowMapEngineBase::getOffsetBias(void) const
 {
     return _sfOffsetBias.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ShadowMapEngineBase::getOffsetBias(void)
+{
+    return this->editOffsetBias();
+}
+#endif
 
 //! Set the value of the ShadowMapEngine::_sfOffsetBias field.
 inline
@@ -207,6 +239,14 @@ const Real32 &ShadowMapEngineBase::getOffsetFactor(void) const
     return _sfOffsetFactor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ShadowMapEngineBase::getOffsetFactor(void)
+{
+    return this->editOffsetFactor();
+}
+#endif
+
 //! Set the value of the ShadowMapEngine::_sfOffsetFactor field.
 inline
 void ShadowMapEngineBase::setOffsetFactor(const Real32 &value)
@@ -231,6 +271,14 @@ const UInt32 &ShadowMapEngineBase::getUpdateMode(void) const
 {
     return _sfUpdateMode.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &ShadowMapEngineBase::getUpdateMode(void)
+{
+    return this->editUpdateMode();
+}
+#endif
 
 //! Set the value of the ShadowMapEngine::_sfUpdateMode field.
 inline
@@ -313,5 +361,5 @@ typedef PointerBuilder<ShadowMapEngine>::ObjPtrConstArg  ShadowMapEnginePtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGSHADOWMAPENGINEBASE_INLINE_CVSID "@(#)$Id: OSGShadowMapEngineBase.inl,v 1.1.2.3 2006/08/01 08:48:58 vossg Exp $"
+#define OSGSHADOWMAPENGINEBASE_INLINE_CVSID "@(#)$Id: $"
 

@@ -142,6 +142,13 @@ const SFInt32 *SimpleShadowMapEngineBase::getSFForceTextureUnit(void) const
     return &_sfForceTextureUnit;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *SimpleShadowMapEngineBase::getSFForceTextureUnit(void)
+{
+    return this->editSFForceTextureUnit();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -316,7 +323,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGSimpleShadowMapEngineBase.cpp,v 1.1.2.3 2006/08/01 08:48:58 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGSIMPLESHADOWMAPENGINEBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGSIMPLESHADOWMAPENGINEBASE_INLINE_CVSID;
 

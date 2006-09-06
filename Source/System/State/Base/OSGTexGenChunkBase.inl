@@ -90,6 +90,14 @@ const GLenum &TexGenChunkBase::getGenFuncS(void) const
     return _sfGenFuncS.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TexGenChunkBase::getGenFuncS(void)
+{
+    return this->editGenFuncS();
+}
+#endif
+
 //! Set the value of the TexGenChunk::_sfGenFuncS field.
 inline
 void TexGenChunkBase::setGenFuncS(const GLenum &value)
@@ -114,6 +122,14 @@ const GLenum &TexGenChunkBase::getGenFuncT(void) const
 {
     return _sfGenFuncT.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TexGenChunkBase::getGenFuncT(void)
+{
+    return this->editGenFuncT();
+}
+#endif
 
 //! Set the value of the TexGenChunk::_sfGenFuncT field.
 inline
@@ -140,6 +156,14 @@ const GLenum &TexGenChunkBase::getGenFuncR(void) const
     return _sfGenFuncR.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TexGenChunkBase::getGenFuncR(void)
+{
+    return this->editGenFuncR();
+}
+#endif
+
 //! Set the value of the TexGenChunk::_sfGenFuncR field.
 inline
 void TexGenChunkBase::setGenFuncR(const GLenum &value)
@@ -164,6 +188,14 @@ const GLenum &TexGenChunkBase::getGenFuncQ(void) const
 {
     return _sfGenFuncQ.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TexGenChunkBase::getGenFuncQ(void)
+{
+    return this->editGenFuncQ();
+}
+#endif
 
 //! Set the value of the TexGenChunk::_sfGenFuncQ field.
 inline
@@ -190,6 +222,14 @@ const Vec4f &TexGenChunkBase::getGenFuncSPlane(void) const
     return _sfGenFuncSPlane.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec4f &TexGenChunkBase::getGenFuncSPlane(void)
+{
+    return this->editGenFuncSPlane();
+}
+#endif
+
 //! Set the value of the TexGenChunk::_sfGenFuncSPlane field.
 inline
 void TexGenChunkBase::setGenFuncSPlane(const Vec4f &value)
@@ -214,6 +254,14 @@ const Vec4f &TexGenChunkBase::getGenFuncTPlane(void) const
 {
     return _sfGenFuncTPlane.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec4f &TexGenChunkBase::getGenFuncTPlane(void)
+{
+    return this->editGenFuncTPlane();
+}
+#endif
 
 //! Set the value of the TexGenChunk::_sfGenFuncTPlane field.
 inline
@@ -240,6 +288,14 @@ const Vec4f &TexGenChunkBase::getGenFuncRPlane(void) const
     return _sfGenFuncRPlane.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec4f &TexGenChunkBase::getGenFuncRPlane(void)
+{
+    return this->editGenFuncRPlane();
+}
+#endif
+
 //! Set the value of the TexGenChunk::_sfGenFuncRPlane field.
 inline
 void TexGenChunkBase::setGenFuncRPlane(const Vec4f &value)
@@ -264,6 +320,14 @@ const Vec4f &TexGenChunkBase::getGenFuncQPlane(void) const
 {
     return _sfGenFuncQPlane.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec4f &TexGenChunkBase::getGenFuncQPlane(void)
+{
+    return this->editGenFuncQPlane();
+}
+#endif
 
 //! Set the value of the TexGenChunk::_sfGenFuncQPlane field.
 inline

@@ -143,6 +143,13 @@ const SFMatrix *ShaderParameterMatrixBase::getSFValue(void) const
     return &_sfValue;
 }
 
+#ifdef OSG_1_COMPAT
+SFMatrix *ShaderParameterMatrixBase::getSFValue(void)
+{
+    return this->editSFValue();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/

@@ -218,6 +218,13 @@ const SFBool *TextureGrabBackgroundBase::getSFAutoResize(void) const
     return &_sfAutoResize;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *TextureGrabBackgroundBase::getSFAutoResize(void)
+{
+    return this->editSFAutoResize();
+}
+#endif
+
 SFGLenum *TextureGrabBackgroundBase::editSFBindTarget(void)
 {
     editSField(BindTargetFieldMask);
@@ -230,6 +237,13 @@ const SFGLenum *TextureGrabBackgroundBase::getSFBindTarget(void) const
     return &_sfBindTarget;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *TextureGrabBackgroundBase::getSFBindTarget(void)
+{
+    return this->editSFBindTarget();
+}
+#endif
+
 SFGLenum *TextureGrabBackgroundBase::editSFCopyTarget(void)
 {
     editSField(CopyTargetFieldMask);
@@ -241,6 +255,13 @@ const SFGLenum *TextureGrabBackgroundBase::getSFCopyTarget(void) const
 {
     return &_sfCopyTarget;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *TextureGrabBackgroundBase::getSFCopyTarget(void)
+{
+    return this->editSFCopyTarget();
+}
+#endif
 
 
 void TextureGrabBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,

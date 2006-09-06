@@ -90,6 +90,14 @@ const bool &SHLChunkBase::getCgFrontEnd(void) const
     return _sfCgFrontEnd.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &SHLChunkBase::getCgFrontEnd(void)
+{
+    return this->editCgFrontEnd();
+}
+#endif
+
 //! Set the value of the SHLChunk::_sfCgFrontEnd field.
 inline
 void SHLChunkBase::setCgFrontEnd(const bool &value)
@@ -115,6 +123,14 @@ const bool &SHLChunkBase::getPointSize(void) const
     return _sfPointSize.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &SHLChunkBase::getPointSize(void)
+{
+    return this->editPointSize();
+}
+#endif
+
 //! Set the value of the SHLChunk::_sfPointSize field.
 inline
 void SHLChunkBase::setPointSize(const bool &value)
@@ -139,6 +155,14 @@ const UInt32 &SHLChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &SHLChunkBase::getGLId(void)
+{
+    return this->editGLId();
+}
+#endif
 
 //! Set the value of the SHLChunk::_sfGLId field.
 inline

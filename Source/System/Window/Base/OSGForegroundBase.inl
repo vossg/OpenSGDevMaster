@@ -90,6 +90,14 @@ const bool &ForegroundBase::getActive(void) const
     return _sfActive.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &ForegroundBase::getActive(void)
+{
+    return this->editActive();
+}
+#endif
+
 //! Set the value of the Foreground::_sfActive field.
 inline
 void ForegroundBase::setActive(const bool &value)

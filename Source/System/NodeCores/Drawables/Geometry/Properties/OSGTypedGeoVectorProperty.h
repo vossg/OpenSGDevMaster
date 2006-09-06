@@ -620,6 +620,11 @@ makecolorprop(ub,         255, GL_UNSIGNED_BYTE,  GLubyte);
 makeProp(Color3f, GL_FLOAT,  GLfloat);
 makeProp(Color4f, GL_FLOAT,  GLfloat);
 
+#ifdef OSG_WINCE
+makeProp(Color3fx, GL_FIXED,  GLfixed);
+makeProp(Color4fx, GL_FIXED,  GLfixed);
+#endif
+
        
 #ifdef OSG_DEPRECIATED_PROPS
 /*! \brief Backwards Compatibility Typedefs
@@ -638,6 +643,7 @@ typedef GeoPnt2sPropertyPtr GeoPositions2sPtr;
 typedef GeoPnt3sPropertyPtr GeoPositions3sPtr;
 typedef GeoPnt4sPropertyPtr GeoPositions4sPtr;
 
+#ifndef OSG_WINCE
 typedef GeoPnt2fProperty    GeoPositions2f;
 typedef GeoPnt3fProperty    GeoPositions3f;
 typedef GeoPnt4fProperty    GeoPositions4f;
@@ -651,7 +657,7 @@ typedef GeoPnt4dProperty    GeoPositions4d;
 typedef GeoPnt2dPropertyPtr GeoPositions2dPtr;
 typedef GeoPnt3dPropertyPtr GeoPositions3dPtr;
 typedef GeoPnt4dPropertyPtr GeoPositions4dPtr;
-
+#endif
 
 // Normals
 typedef GeoVectorPropertyPtr         GeoNormalsPtr;
@@ -659,10 +665,14 @@ typedef GeoVectorPropertyConstPtr    GeoNormalsConstPtr;
 typedef GeoVectorPropertyPtrConst    GeoNormalsPtrConst;
 typedef GeoVectorPropertyPtrConstArg GeoNormalsPtrConstArg;
 
+#ifndef OSG_WINCE
 typedef GeoVec3fProperty    GeoNormals3f;
+#endif
 typedef GeoVec3sProperty    GeoNormals3s;
 typedef GeoVec3bProperty    GeoNormals3b;
+#ifndef OSG_WINCE
 typedef GeoVec3fPropertyPtr GeoNormals3fPtr;
+#endif
 typedef GeoVec3sPropertyPtr GeoNormals3sPtr;
 typedef GeoVec3bPropertyPtr GeoNormals3bPtr;
  
@@ -672,12 +682,16 @@ typedef GeoVectorPropertyConstPtr    GeoColorsConstPtr;
 typedef GeoVectorPropertyPtrConst    GeoColorsPtrConst;
 typedef GeoVectorPropertyPtrConstArg GeoColorsPtrConstArg;
 
+#ifndef OSG_WINCE
 typedef GeoColor3fProperty     GeoColors3f;
 typedef GeoColor4fProperty     GeoColors4f;
+#endif
 typedef GeoColor3ubProperty    GeoColors3ub;
 typedef GeoColor4ubProperty    GeoColors4ub;
+#ifndef OSG_WINCE
 typedef GeoColor3fPropertyPtr  GeoColors3fPtr;
 typedef GeoColor4fPropertyPtr  GeoColors4fPtr;
+#endif
 typedef GeoColor3ubPropertyPtr GeoColors3ubPtr;
 typedef GeoColor4ubPropertyPtr GeoColors4ubPtr;
 
@@ -687,6 +701,7 @@ typedef GeoVectorPropertyConstPtr    GeoTexCoordsConstPtr;
 typedef GeoVectorPropertyPtrConst    GeoTexCoordsPtrConst;
 typedef GeoVectorPropertyPtrConstArg GeoTexCoordsPtrConstArg;
 
+#ifndef OSG_WINCE
 typedef GeoVec1fProperty     GeoTexCoords1f;
 typedef GeoVec2fProperty     GeoTexCoords2f;
 typedef GeoVec3fProperty     GeoTexCoords3f;
@@ -706,6 +721,8 @@ typedef GeoVec1dPropertyPtr  GeoTexCoords1dPtr;
 typedef GeoVec2dPropertyPtr  GeoTexCoords2dPtr;
 typedef GeoVec3dPropertyPtr  GeoTexCoords3dPtr;
 typedef GeoVec4dPropertyPtr  GeoTexCoords4dPtr;
+#endif
+
 #endif
 
 OSG_END_NAMESPACE

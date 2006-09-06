@@ -168,6 +168,13 @@ const MFColor3f *GradientBackgroundBase::getMFColor(void) const
     return &_mfColor;
 }
 
+#ifdef OSG_1_COMPAT
+MFColor3f *GradientBackgroundBase::getMFColor(void)
+{
+    return this->editMFColor();
+}
+#endif
+
 MFReal32 *GradientBackgroundBase::editMFPosition(void)
 {
     editMField(PositionFieldMask, _mfPosition);
@@ -179,6 +186,13 @@ const MFReal32 *GradientBackgroundBase::getMFPosition(void) const
 {
     return &_mfPosition;
 }
+
+#ifdef OSG_1_COMPAT
+MFReal32 *GradientBackgroundBase::getMFPosition(void)
+{
+    return this->editMFPosition();
+}
+#endif
 
 
 
@@ -365,7 +379,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGGradientBackgroundBase.cpp,v 1.1.2.4 2006/08/01 08:48:59 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGGRADIENTBACKGROUNDBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGGRADIENTBACKGROUNDBASE_INLINE_CVSID;
 

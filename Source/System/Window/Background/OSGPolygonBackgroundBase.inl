@@ -107,6 +107,14 @@ const bool &PolygonBackgroundBase::getNormalizedX(void) const
     return _sfNormalizedX.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &PolygonBackgroundBase::getNormalizedX(void)
+{
+    return this->editNormalizedX();
+}
+#endif
+
 //! Set the value of the PolygonBackground::_sfNormalizedX field.
 inline
 void PolygonBackgroundBase::setNormalizedX(const bool &value)
@@ -131,6 +139,14 @@ const bool &PolygonBackgroundBase::getNormalizedY(void) const
 {
     return _sfNormalizedY.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &PolygonBackgroundBase::getNormalizedY(void)
+{
+    return this->editNormalizedY();
+}
+#endif
 
 //! Set the value of the PolygonBackground::_sfNormalizedY field.
 inline
@@ -157,6 +173,14 @@ const UInt16 &PolygonBackgroundBase::getAspectHeight(void) const
     return _sfAspectHeight.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &PolygonBackgroundBase::getAspectHeight(void)
+{
+    return this->editAspectHeight();
+}
+#endif
+
 //! Set the value of the PolygonBackground::_sfAspectHeight field.
 inline
 void PolygonBackgroundBase::setAspectHeight(const UInt16 &value)
@@ -181,6 +205,14 @@ const UInt16 &PolygonBackgroundBase::getAspectWidth(void) const
 {
     return _sfAspectWidth.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &PolygonBackgroundBase::getAspectWidth(void)
+{
+    return this->editAspectWidth();
+}
+#endif
 
 //! Set the value of the PolygonBackground::_sfAspectWidth field.
 inline
@@ -215,6 +247,22 @@ MFVec3f &PolygonBackgroundBase::editTexCoords(void)
     return _mfTexCoords;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &PolygonBackgroundBase::getTexCoords(const UInt32 index)
+{
+    return this->editTexCoords(index);
+}
+
+inline
+MFVec3f &PolygonBackgroundBase::getTexCoords(void)
+{
+    return this->editTexCoords();
+}
+
+#endif
+
+
 //! Get the PolygonBackground::_mfTexCoords field.
 inline
 const MFVec3f &PolygonBackgroundBase::getTexCoords(void) const
@@ -245,6 +293,22 @@ MFPnt2f &PolygonBackgroundBase::editPositions(void)
 
     return _mfPositions;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Pnt2f &PolygonBackgroundBase::getPositions(const UInt32 index)
+{
+    return this->editPositions(index);
+}
+
+inline
+MFPnt2f &PolygonBackgroundBase::getPositions(void)
+{
+    return this->editPositions();
+}
+
+#endif
+
 
 //! Get the PolygonBackground::_mfPositions field.
 inline
@@ -355,5 +419,5 @@ typedef PointerBuilder<PolygonBackground>::ObjPtrConstArg  PolygonBackgroundPtrC
 
 OSG_END_NAMESPACE
 
-#define OSGPOLYGONBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: OSGPolygonBackgroundBase.inl,v 1.1.2.3 2006/08/01 08:49:00 vossg Exp $"
+#define OSGPOLYGONBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
 

@@ -142,6 +142,13 @@ const SFInt32 *SwitchBase::getSFChoice(void) const
     return &_sfChoice;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *SwitchBase::getSFChoice(void)
+{
+    return this->editSFChoice();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/

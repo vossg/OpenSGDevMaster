@@ -372,6 +372,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGSWITCHMATERIALBASE_HEADER_CVSID "@(#)$Id: OSGSwitchMaterialBase.h,v 1.1.2.3 2006/08/01 08:48:56 vossg Exp $"
+#define OSGSWITCHMATERIALBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGSWITCHMATERIALBASE_H_ */

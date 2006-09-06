@@ -168,6 +168,13 @@ const SFBool *StereoCameraDecoratorBase::getSFLeftEye(void) const
     return &_sfLeftEye;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *StereoCameraDecoratorBase::getSFLeftEye(void)
+{
+    return this->editSFLeftEye();
+}
+#endif
+
 SFReal32 *StereoCameraDecoratorBase::editSFEyeSeparation(void)
 {
     editSField(EyeSeparationFieldMask);
@@ -179,6 +186,13 @@ const SFReal32 *StereoCameraDecoratorBase::getSFEyeSeparation(void) const
 {
     return &_sfEyeSeparation;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *StereoCameraDecoratorBase::getSFEyeSeparation(void)
+{
+    return this->editSFEyeSeparation();
+}
+#endif
 
 
 

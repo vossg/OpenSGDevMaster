@@ -325,22 +325,45 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+#ifdef OSG_1_COMPAT
+           SFUInt32 *getSFGlObjectEventCounter(void);
+#endif
            SFUInt32 *editSFGlObjectEventCounter(void);
      const SFUInt32 *getSFGlObjectEventCounter (void) const;
+
+#ifdef OSG_1_COMPAT
+           MFUInt32 *getMFGlObjectLastRefresh(void);
+#endif
            MFUInt32 *editMFGlObjectLastRefresh(void);
      const MFUInt32 *getMFGlObjectLastRefresh (void) const;
+
+#ifdef OSG_1_COMPAT
+           MFUInt32 *getMFGlObjectLastReinitialize(void);
+#endif
            MFUInt32 *editMFGlObjectLastReinitialize(void);
      const MFUInt32 *getMFGlObjectLastReinitialize (void) const;
 
 
+#ifdef OSG_1_COMPAT
+           UInt32 &getGlObjectEventCounter(void);
+#endif
            UInt32 &editGlObjectEventCounter(void);
      const UInt32 &getGlObjectEventCounter(void) const;
 
+#ifdef OSG_1_COMPAT
+           UInt32 &getGlObjectLastRefresh(const UInt32 index);
+           MFUInt32 &getGlObjectLastRefresh(void);
+#endif
            UInt32 &editGlObjectLastRefresh(const UInt32 index);
      const UInt32 &getGlObjectLastRefresh(const UInt32 index) const;
            MFUInt32 &editGlObjectLastRefresh(void);
      const MFUInt32 &getGlObjectLastRefresh(void) const;
 
+#ifdef OSG_1_COMPAT
+           UInt32 &getGlObjectLastReinitialize(const UInt32 index);
+           MFUInt32 &getGlObjectLastReinitialize(void);
+#endif
            UInt32 &editGlObjectLastReinitialize(const UInt32 index);
      const UInt32 &getGlObjectLastReinitialize(const UInt32 index) const;
            MFUInt32 &editGlObjectLastReinitialize(void);

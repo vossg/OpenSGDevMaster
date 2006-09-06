@@ -168,6 +168,13 @@ const MFInt32 *StatisticsForegroundBase::getMFElementIDs(void) const
     return &_mfElementIDs;
 }
 
+#ifdef OSG_1_COMPAT
+MFInt32 *StatisticsForegroundBase::getMFElementIDs(void)
+{
+    return this->editMFElementIDs();
+}
+#endif
+
 SFStatCollector *StatisticsForegroundBase::editSFCollector(void)
 {
     editSField(CollectorFieldMask);
@@ -179,6 +186,13 @@ const SFStatCollector *StatisticsForegroundBase::getSFCollector(void) const
 {
     return &_sfCollector;
 }
+
+#ifdef OSG_1_COMPAT
+SFStatCollector *StatisticsForegroundBase::getSFCollector(void)
+{
+    return this->editSFCollector();
+}
+#endif
 
 
 
@@ -338,7 +352,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGStatisticsForegroundBase.cpp,v 1.1.2.3 2006/08/01 08:48:59 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGSTATISTICSFOREGROUNDBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGSTATISTICSFOREGROUNDBASE_INLINE_CVSID;
 

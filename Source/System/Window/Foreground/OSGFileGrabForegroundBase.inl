@@ -90,6 +90,14 @@ const std::string &FileGrabForegroundBase::getName(void) const
     return _sfName.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+std::string &FileGrabForegroundBase::getName(void)
+{
+    return this->editName();
+}
+#endif
+
 //! Set the value of the FileGrabForeground::_sfName field.
 inline
 void FileGrabForegroundBase::setName(const std::string &value)
@@ -115,6 +123,14 @@ const UInt32 &FileGrabForegroundBase::getFrame(void) const
     return _sfFrame.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &FileGrabForegroundBase::getFrame(void)
+{
+    return this->editFrame();
+}
+#endif
+
 //! Set the value of the FileGrabForeground::_sfFrame field.
 inline
 void FileGrabForegroundBase::setFrame(const UInt32 &value)
@@ -139,6 +155,14 @@ const bool &FileGrabForegroundBase::getIncrement(void) const
 {
     return _sfIncrement.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &FileGrabForegroundBase::getIncrement(void)
+{
+    return this->editIncrement();
+}
+#endif
 
 //! Set the value of the FileGrabForeground::_sfIncrement field.
 inline

@@ -445,12 +445,15 @@ typedef GeoUInt16PropertyPtr   GeoPTypesUI16Ptr;
 typedef GeoUInt16PropertyPtr   GeoPLengthsUI16Ptr;
 typedef GeoUInt16PropertyPtr   GeoIndicesUI16Ptr;
 
+#ifndef OSG_WINCE
 typedef GeoUInt32Property      GeoPTypesUI32;
 typedef GeoUInt32Property      GeoPLengthsUI32;
 typedef GeoUInt32Property      GeoIndicesUI32;
 typedef GeoUInt32PropertyPtr   GeoPTypesUI32Ptr;
 typedef GeoUInt32PropertyPtr   GeoPLengthsUI32Ptr;
 typedef GeoUInt32PropertyPtr   GeoIndicesUI32Ptr;
+#endif
+
 #endif
  
 OSG_END_NAMESPACE

@@ -330,20 +330,41 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+#ifdef OSG_1_COMPAT
+           SFPlane *getSFLeft(void);
+#endif
            SFPlane *editSFLeft(void);
      const SFPlane *getSFLeft (void) const;
+
+#ifdef OSG_1_COMPAT
+           SFPlane *getSFBottom(void);
+#endif
            SFPlane *editSFBottom(void);
      const SFPlane *getSFBottom (void) const;
+
+#ifdef OSG_1_COMPAT
+           SFPlane *getSFNormal(void);
+#endif
            SFPlane *editSFNormal(void);
      const SFPlane *getSFNormal (void) const;
 
 
+#ifdef OSG_1_COMPAT
+           Plane &getLeft(void);
+#endif
            Plane &editLeft(void);
      const Plane &getLeft(void) const;
 
+#ifdef OSG_1_COMPAT
+           Plane &getBottom(void);
+#endif
            Plane &editBottom(void);
      const Plane &getBottom(void) const;
 
+#ifdef OSG_1_COMPAT
+           Plane &getNormal(void);
+#endif
            Plane &editNormal(void);
      const Plane &getNormal(void) const;
 
@@ -453,6 +474,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGPROJECTIONCAMERADECORATORBASE_HEADER_CVSID "@(#)$Id: OSGProjectionCameraDecoratorBase.h,v 1.1.2.3 2006/08/01 08:49:01 vossg Exp $"
+#define OSGPROJECTIONCAMERADECORATORBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGPROJECTIONCAMERADECORATORBASE_H_ */

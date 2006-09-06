@@ -90,6 +90,14 @@ const Color4r &LightBase::getAmbient(void) const
     return _sfAmbient.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4r &LightBase::getAmbient(void)
+{
+    return this->editAmbient();
+}
+#endif
+
 //! Set the value of the Light::_sfAmbient field.
 inline
 void LightBase::setAmbient(const Color4r &value)
@@ -115,6 +123,14 @@ const Color4r &LightBase::getDiffuse(void) const
     return _sfDiffuse.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4r &LightBase::getDiffuse(void)
+{
+    return this->editDiffuse();
+}
+#endif
+
 //! Set the value of the Light::_sfDiffuse field.
 inline
 void LightBase::setDiffuse(const Color4r &value)
@@ -139,6 +155,14 @@ const Color4r &LightBase::getSpecular(void) const
 {
     return _sfSpecular.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4r &LightBase::getSpecular(void)
+{
+    return this->editSpecular();
+}
+#endif
 
 //! Set the value of the Light::_sfSpecular field.
 inline
@@ -182,6 +206,14 @@ const bool &LightBase::getOn(void) const
     return _sfOn.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &LightBase::getOn(void)
+{
+    return this->editOn();
+}
+#endif
+
 //! Set the value of the Light::_sfOn field.
 inline
 void LightBase::setOn(const bool &value)
@@ -206,6 +238,14 @@ const Real &LightBase::getConstantAttenuation(void) const
 {
     return _sfConstantAttenuation.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real &LightBase::getConstantAttenuation(void)
+{
+    return this->editConstantAttenuation();
+}
+#endif
 
 //! Set the value of the Light::_sfConstantAttenuation field.
 inline
@@ -232,6 +272,14 @@ const Real &LightBase::getLinearAttenuation(void) const
     return _sfLinearAttenuation.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real &LightBase::getLinearAttenuation(void)
+{
+    return this->editLinearAttenuation();
+}
+#endif
+
 //! Set the value of the Light::_sfLinearAttenuation field.
 inline
 void LightBase::setLinearAttenuation(const Real &value)
@@ -256,6 +304,14 @@ const Real &LightBase::getQuadraticAttenuation(void) const
 {
     return _sfQuadraticAttenuation.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real &LightBase::getQuadraticAttenuation(void)
+{
+    return this->editQuadraticAttenuation();
+}
+#endif
 
 //! Set the value of the Light::_sfQuadraticAttenuation field.
 inline

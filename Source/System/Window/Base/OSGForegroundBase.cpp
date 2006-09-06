@@ -143,6 +143,13 @@ const SFBool *ForegroundBase::getSFActive(void) const
     return &_sfActive;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *ForegroundBase::getSFActive(void)
+{
+    return this->editSFActive();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/

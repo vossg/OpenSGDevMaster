@@ -327,6 +327,13 @@ const SFGLenum *BlendChunkBase::getSFSrcFactor(void) const
     return &_sfSrcFactor;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *BlendChunkBase::getSFSrcFactor(void)
+{
+    return this->editSFSrcFactor();
+}
+#endif
+
 SFGLenum *BlendChunkBase::editSFDestFactor(void)
 {
     editSField(DestFactorFieldMask);
@@ -338,6 +345,13 @@ const SFGLenum *BlendChunkBase::getSFDestFactor(void) const
 {
     return &_sfDestFactor;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *BlendChunkBase::getSFDestFactor(void)
+{
+    return this->editSFDestFactor();
+}
+#endif
 
 SFGLenum *BlendChunkBase::editSFEquation(void)
 {
@@ -351,6 +365,13 @@ const SFGLenum *BlendChunkBase::getSFEquation(void) const
     return &_sfEquation;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *BlendChunkBase::getSFEquation(void)
+{
+    return this->editSFEquation();
+}
+#endif
+
 SFColor4f *BlendChunkBase::editSFColor(void)
 {
     editSField(ColorFieldMask);
@@ -362,6 +383,13 @@ const SFColor4f *BlendChunkBase::getSFColor(void) const
 {
     return &_sfColor;
 }
+
+#ifdef OSG_1_COMPAT
+SFColor4f *BlendChunkBase::getSFColor(void)
+{
+    return this->editSFColor();
+}
+#endif
 
 SFGLenum *BlendChunkBase::editSFAlphaFunc(void)
 {
@@ -375,6 +403,13 @@ const SFGLenum *BlendChunkBase::getSFAlphaFunc(void) const
     return &_sfAlphaFunc;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *BlendChunkBase::getSFAlphaFunc(void)
+{
+    return this->editSFAlphaFunc();
+}
+#endif
+
 SFReal32 *BlendChunkBase::editSFAlphaValue(void)
 {
     editSField(AlphaValueFieldMask);
@@ -386,6 +421,13 @@ const SFReal32 *BlendChunkBase::getSFAlphaValue(void) const
 {
     return &_sfAlphaValue;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *BlendChunkBase::getSFAlphaValue(void)
+{
+    return this->editSFAlphaValue();
+}
+#endif
 
 SFGLenum *BlendChunkBase::editSFAlphaSrcFactor(void)
 {
@@ -399,6 +441,13 @@ const SFGLenum *BlendChunkBase::getSFAlphaSrcFactor(void) const
     return &_sfAlphaSrcFactor;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *BlendChunkBase::getSFAlphaSrcFactor(void)
+{
+    return this->editSFAlphaSrcFactor();
+}
+#endif
+
 SFGLenum *BlendChunkBase::editSFAlphaDestFactor(void)
 {
     editSField(AlphaDestFactorFieldMask);
@@ -410,6 +459,13 @@ const SFGLenum *BlendChunkBase::getSFAlphaDestFactor(void) const
 {
     return &_sfAlphaDestFactor;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *BlendChunkBase::getSFAlphaDestFactor(void)
+{
+    return this->editSFAlphaDestFactor();
+}
+#endif
 
 
 

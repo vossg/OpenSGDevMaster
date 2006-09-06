@@ -90,6 +90,14 @@ const Vec2f &ShaderParameterVec2fBase::getValue(void) const
     return _sfValue.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec2f &ShaderParameterVec2fBase::getValue(void)
+{
+    return this->editValue();
+}
+#endif
+
 //! Set the value of the ShaderParameterVec2f::_sfValue field.
 inline
 void ShaderParameterVec2fBase::setValue(const Vec2f &value)

@@ -90,6 +90,14 @@ const bool &TextureTransformChunkBase::getUseCameraBeacon(void) const
     return _sfUseCameraBeacon.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &TextureTransformChunkBase::getUseCameraBeacon(void)
+{
+    return this->editUseCameraBeacon();
+}
+#endif
+
 //! Set the value of the TextureTransformChunk::_sfUseCameraBeacon field.
 inline
 void TextureTransformChunkBase::setUseCameraBeacon(const bool &value)

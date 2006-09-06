@@ -90,6 +90,14 @@ const Pnt3r &PointLightBase::getPosition(void) const
     return _sfPosition.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Pnt3r &PointLightBase::getPosition(void)
+{
+    return this->editPosition();
+}
+#endif
+
 //! Set the value of the PointLight::_sfPosition field.
 inline
 void PointLightBase::setPosition(const Pnt3r &value)

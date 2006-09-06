@@ -90,6 +90,14 @@ const Vec3r &SpotLightBase::getDirection(void) const
     return _sfDirection.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3r &SpotLightBase::getDirection(void)
+{
+    return this->editDirection();
+}
+#endif
+
 //! Set the value of the SpotLight::_sfDirection field.
 inline
 void SpotLightBase::setDirection(const Vec3r &value)
@@ -115,6 +123,14 @@ const Real &SpotLightBase::getSpotExponent(void) const
     return _sfSpotExponent.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real &SpotLightBase::getSpotExponent(void)
+{
+    return this->editSpotExponent();
+}
+#endif
+
 //! Set the value of the SpotLight::_sfSpotExponent field.
 inline
 void SpotLightBase::setSpotExponent(const Real &value)
@@ -139,6 +155,14 @@ const Real &SpotLightBase::getSpotCutOff(void) const
 {
     return _sfSpotCutOff.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real &SpotLightBase::getSpotCutOff(void)
+{
+    return this->editSpotCutOff();
+}
+#endif
 
 //! Set the value of the SpotLight::_sfSpotCutOff field.
 inline

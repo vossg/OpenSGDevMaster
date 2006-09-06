@@ -90,6 +90,14 @@ const UInt32 &SkyBackgroundBase::getSphereRes(void) const
     return _sfSphereRes.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &SkyBackgroundBase::getSphereRes(void)
+{
+    return this->editSphereRes();
+}
+#endif
+
 //! Set the value of the SkyBackground::_sfSphereRes field.
 inline
 void SkyBackgroundBase::setSphereRes(const UInt32 &value)
@@ -217,6 +225,14 @@ const bool &SkyBackgroundBase::getBoxInside(void) const
     return _sfBoxInside.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &SkyBackgroundBase::getBoxInside(void)
+{
+    return this->editBoxInside();
+}
+#endif
+
 //! Set the value of the SkyBackground::_sfBoxInside field.
 inline
 void SkyBackgroundBase::setBoxInside(const bool &value)
@@ -267,6 +283,22 @@ MFColor4f &SkyBackgroundBase::editSkyColor(void)
     return _mfSkyColor;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &SkyBackgroundBase::getSkyColor(const UInt32 index)
+{
+    return this->editSkyColor(index);
+}
+
+inline
+MFColor4f &SkyBackgroundBase::getSkyColor(void)
+{
+    return this->editSkyColor();
+}
+
+#endif
+
+
 //! Get the SkyBackground::_mfSkyColor field.
 inline
 const MFColor4f &SkyBackgroundBase::getSkyColor(void) const
@@ -297,6 +329,22 @@ MFReal32 &SkyBackgroundBase::editSkyAngle(void)
 
     return _mfSkyAngle;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &SkyBackgroundBase::getSkyAngle(const UInt32 index)
+{
+    return this->editSkyAngle(index);
+}
+
+inline
+MFReal32 &SkyBackgroundBase::getSkyAngle(void)
+{
+    return this->editSkyAngle();
+}
+
+#endif
+
 
 //! Get the SkyBackground::_mfSkyAngle field.
 inline
@@ -329,6 +377,22 @@ MFColor4f &SkyBackgroundBase::editGroundColor(void)
     return _mfGroundColor;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &SkyBackgroundBase::getGroundColor(const UInt32 index)
+{
+    return this->editGroundColor(index);
+}
+
+inline
+MFColor4f &SkyBackgroundBase::getGroundColor(void)
+{
+    return this->editGroundColor();
+}
+
+#endif
+
+
 //! Get the SkyBackground::_mfGroundColor field.
 inline
 const MFColor4f &SkyBackgroundBase::getGroundColor(void) const
@@ -359,6 +423,22 @@ MFReal32 &SkyBackgroundBase::editGroundAngle(void)
 
     return _mfGroundAngle;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &SkyBackgroundBase::getGroundAngle(const UInt32 index)
+{
+    return this->editGroundAngle(index);
+}
+
+inline
+MFReal32 &SkyBackgroundBase::getGroundAngle(void)
+{
+    return this->editGroundAngle();
+}
+
+#endif
+
 
 //! Get the SkyBackground::_mfGroundAngle field.
 inline
@@ -391,6 +471,22 @@ MFVec3f &SkyBackgroundBase::editTopTexCoord(void)
     return _mfTopTexCoord;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &SkyBackgroundBase::getTopTexCoord(const UInt32 index)
+{
+    return this->editTopTexCoord(index);
+}
+
+inline
+MFVec3f &SkyBackgroundBase::getTopTexCoord(void)
+{
+    return this->editTopTexCoord();
+}
+
+#endif
+
+
 //! Get the SkyBackground::_mfTopTexCoord field.
 inline
 const MFVec3f &SkyBackgroundBase::getTopTexCoord(void) const
@@ -421,6 +517,22 @@ MFVec3f &SkyBackgroundBase::editBottomTexCoord(void)
 
     return _mfBottomTexCoord;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &SkyBackgroundBase::getBottomTexCoord(const UInt32 index)
+{
+    return this->editBottomTexCoord(index);
+}
+
+inline
+MFVec3f &SkyBackgroundBase::getBottomTexCoord(void)
+{
+    return this->editBottomTexCoord();
+}
+
+#endif
+
 
 //! Get the SkyBackground::_mfBottomTexCoord field.
 inline
@@ -453,6 +565,22 @@ MFVec3f &SkyBackgroundBase::editRightTexCoord(void)
     return _mfRightTexCoord;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &SkyBackgroundBase::getRightTexCoord(const UInt32 index)
+{
+    return this->editRightTexCoord(index);
+}
+
+inline
+MFVec3f &SkyBackgroundBase::getRightTexCoord(void)
+{
+    return this->editRightTexCoord();
+}
+
+#endif
+
+
 //! Get the SkyBackground::_mfRightTexCoord field.
 inline
 const MFVec3f &SkyBackgroundBase::getRightTexCoord(void) const
@@ -483,6 +611,22 @@ MFVec3f &SkyBackgroundBase::editLeftTexCoord(void)
 
     return _mfLeftTexCoord;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &SkyBackgroundBase::getLeftTexCoord(const UInt32 index)
+{
+    return this->editLeftTexCoord(index);
+}
+
+inline
+MFVec3f &SkyBackgroundBase::getLeftTexCoord(void)
+{
+    return this->editLeftTexCoord();
+}
+
+#endif
+
 
 //! Get the SkyBackground::_mfLeftTexCoord field.
 inline
@@ -515,6 +659,22 @@ MFVec3f &SkyBackgroundBase::editFrontTexCoord(void)
     return _mfFrontTexCoord;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &SkyBackgroundBase::getFrontTexCoord(const UInt32 index)
+{
+    return this->editFrontTexCoord(index);
+}
+
+inline
+MFVec3f &SkyBackgroundBase::getFrontTexCoord(void)
+{
+    return this->editFrontTexCoord();
+}
+
+#endif
+
+
 //! Get the SkyBackground::_mfFrontTexCoord field.
 inline
 const MFVec3f &SkyBackgroundBase::getFrontTexCoord(void) const
@@ -545,6 +705,22 @@ MFVec3f &SkyBackgroundBase::editBackTexCoord(void)
 
     return _mfBackTexCoord;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &SkyBackgroundBase::getBackTexCoord(const UInt32 index)
+{
+    return this->editBackTexCoord(index);
+}
+
+inline
+MFVec3f &SkyBackgroundBase::getBackTexCoord(void)
+{
+    return this->editBackTexCoord();
+}
+
+#endif
+
 
 //! Get the SkyBackground::_mfBackTexCoord field.
 inline
@@ -755,5 +931,5 @@ typedef PointerBuilder<SkyBackground>::ObjPtrConstArg  SkyBackgroundPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSKYBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: OSGSkyBackgroundBase.inl,v 1.1.2.4 2006/08/01 08:49:00 vossg Exp $"
+#define OSGSKYBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
 

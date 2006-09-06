@@ -90,6 +90,14 @@ const Color4f &RegisterCombinersChunkBase::getColor0(void) const
     return _sfColor0.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &RegisterCombinersChunkBase::getColor0(void)
+{
+    return this->editColor0();
+}
+#endif
+
 //! Set the value of the RegisterCombinersChunk::_sfColor0 field.
 inline
 void RegisterCombinersChunkBase::setColor0(const Color4f &value)
@@ -114,6 +122,14 @@ const Color4f &RegisterCombinersChunkBase::getColor1(void) const
 {
     return _sfColor1.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4f &RegisterCombinersChunkBase::getColor1(void)
+{
+    return this->editColor1();
+}
+#endif
 
 //! Set the value of the RegisterCombinersChunk::_sfColor1 field.
 inline
@@ -140,6 +156,14 @@ const bool &RegisterCombinersChunkBase::getColorSumClamp(void) const
     return _sfColorSumClamp.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &RegisterCombinersChunkBase::getColorSumClamp(void)
+{
+    return this->editColorSumClamp();
+}
+#endif
+
 //! Set the value of the RegisterCombinersChunk::_sfColorSumClamp field.
 inline
 void RegisterCombinersChunkBase::setColorSumClamp(const bool &value)
@@ -164,6 +188,14 @@ const UInt8 &RegisterCombinersChunkBase::getPerStageConstants(void) const
 {
     return _sfPerStageConstants.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &RegisterCombinersChunkBase::getPerStageConstants(void)
+{
+    return this->editPerStageConstants();
+}
+#endif
 
 //! Set the value of the RegisterCombinersChunk::_sfPerStageConstants field.
 inline
@@ -198,6 +230,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableArgb(void)
     return _mfVariableArgb;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableArgb(const UInt32 index)
+{
+    return this->editVariableArgb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableArgb(void)
+{
+    return this->editVariableArgb();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfVariableArgb field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getVariableArgb(void) const
@@ -228,6 +276,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableBrgb(void)
 
     return _mfVariableBrgb;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableBrgb(const UInt32 index)
+{
+    return this->editVariableBrgb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableBrgb(void)
+{
+    return this->editVariableBrgb();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfVariableBrgb field.
 inline
@@ -260,6 +324,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableCrgb(void)
     return _mfVariableCrgb;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableCrgb(const UInt32 index)
+{
+    return this->editVariableCrgb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableCrgb(void)
+{
+    return this->editVariableCrgb();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfVariableCrgb field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getVariableCrgb(void) const
@@ -290,6 +370,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableDrgb(void)
 
     return _mfVariableDrgb;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableDrgb(const UInt32 index)
+{
+    return this->editVariableDrgb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableDrgb(void)
+{
+    return this->editVariableDrgb();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfVariableDrgb field.
 inline
@@ -322,6 +418,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableAalpha(void)
     return _mfVariableAalpha;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableAalpha(const UInt32 index)
+{
+    return this->editVariableAalpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableAalpha(void)
+{
+    return this->editVariableAalpha();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfVariableAalpha field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getVariableAalpha(void) const
@@ -352,6 +464,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableBalpha(void)
 
     return _mfVariableBalpha;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableBalpha(const UInt32 index)
+{
+    return this->editVariableBalpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableBalpha(void)
+{
+    return this->editVariableBalpha();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfVariableBalpha field.
 inline
@@ -384,6 +512,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableCalpha(void)
     return _mfVariableCalpha;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableCalpha(const UInt32 index)
+{
+    return this->editVariableCalpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableCalpha(void)
+{
+    return this->editVariableCalpha();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfVariableCalpha field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getVariableCalpha(void) const
@@ -414,6 +558,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableDalpha(void)
 
     return _mfVariableDalpha;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableDalpha(const UInt32 index)
+{
+    return this->editVariableDalpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableDalpha(void)
+{
+    return this->editVariableDalpha();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfVariableDalpha field.
 inline
@@ -446,6 +606,22 @@ MFGLenum &RegisterCombinersChunkBase::editOutputABrgb(void)
     return _mfOutputABrgb;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getOutputABrgb(const UInt32 index)
+{
+    return this->editOutputABrgb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getOutputABrgb(void)
+{
+    return this->editOutputABrgb();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfOutputABrgb field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getOutputABrgb(void) const
@@ -476,6 +652,22 @@ MFGLenum &RegisterCombinersChunkBase::editOutputCDrgb(void)
 
     return _mfOutputCDrgb;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getOutputCDrgb(const UInt32 index)
+{
+    return this->editOutputCDrgb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getOutputCDrgb(void)
+{
+    return this->editOutputCDrgb();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfOutputCDrgb field.
 inline
@@ -508,6 +700,22 @@ MFGLenum &RegisterCombinersChunkBase::editOutputSumrgb(void)
     return _mfOutputSumrgb;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getOutputSumrgb(const UInt32 index)
+{
+    return this->editOutputSumrgb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getOutputSumrgb(void)
+{
+    return this->editOutputSumrgb();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfOutputSumrgb field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getOutputSumrgb(void) const
@@ -538,6 +746,22 @@ MFGLenum &RegisterCombinersChunkBase::editScalergb(void)
 
     return _mfScalergb;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getScalergb(const UInt32 index)
+{
+    return this->editScalergb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getScalergb(void)
+{
+    return this->editScalergb();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfScalergb field.
 inline
@@ -570,6 +794,22 @@ MFGLenum &RegisterCombinersChunkBase::editBiasrgb(void)
     return _mfBiasrgb;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getBiasrgb(const UInt32 index)
+{
+    return this->editBiasrgb(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getBiasrgb(void)
+{
+    return this->editBiasrgb();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfBiasrgb field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getBiasrgb(void) const
@@ -600,6 +840,22 @@ MFGLenum &RegisterCombinersChunkBase::editOutputABalpha(void)
 
     return _mfOutputABalpha;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getOutputABalpha(const UInt32 index)
+{
+    return this->editOutputABalpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getOutputABalpha(void)
+{
+    return this->editOutputABalpha();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfOutputABalpha field.
 inline
@@ -632,6 +888,22 @@ MFGLenum &RegisterCombinersChunkBase::editOutputCDalpha(void)
     return _mfOutputCDalpha;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getOutputCDalpha(const UInt32 index)
+{
+    return this->editOutputCDalpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getOutputCDalpha(void)
+{
+    return this->editOutputCDalpha();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfOutputCDalpha field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getOutputCDalpha(void) const
@@ -662,6 +934,22 @@ MFGLenum &RegisterCombinersChunkBase::editOutputSumalpha(void)
 
     return _mfOutputSumalpha;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getOutputSumalpha(const UInt32 index)
+{
+    return this->editOutputSumalpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getOutputSumalpha(void)
+{
+    return this->editOutputSumalpha();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfOutputSumalpha field.
 inline
@@ -694,6 +982,22 @@ MFUInt8 &RegisterCombinersChunkBase::editDotABrgb(void)
     return _mfDotABrgb;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &RegisterCombinersChunkBase::getDotABrgb(const UInt32 index)
+{
+    return this->editDotABrgb(index);
+}
+
+inline
+MFUInt8 &RegisterCombinersChunkBase::getDotABrgb(void)
+{
+    return this->editDotABrgb();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfDotABrgb field.
 inline
 const MFUInt8 &RegisterCombinersChunkBase::getDotABrgb(void) const
@@ -724,6 +1028,22 @@ MFUInt8 &RegisterCombinersChunkBase::editDotCDrgb(void)
 
     return _mfDotCDrgb;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &RegisterCombinersChunkBase::getDotCDrgb(const UInt32 index)
+{
+    return this->editDotCDrgb(index);
+}
+
+inline
+MFUInt8 &RegisterCombinersChunkBase::getDotCDrgb(void)
+{
+    return this->editDotCDrgb();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfDotCDrgb field.
 inline
@@ -756,6 +1076,22 @@ MFUInt8 &RegisterCombinersChunkBase::editMuxSumrgb(void)
     return _mfMuxSumrgb;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &RegisterCombinersChunkBase::getMuxSumrgb(const UInt32 index)
+{
+    return this->editMuxSumrgb(index);
+}
+
+inline
+MFUInt8 &RegisterCombinersChunkBase::getMuxSumrgb(void)
+{
+    return this->editMuxSumrgb();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfMuxSumrgb field.
 inline
 const MFUInt8 &RegisterCombinersChunkBase::getMuxSumrgb(void) const
@@ -786,6 +1122,22 @@ MFGLenum &RegisterCombinersChunkBase::editScalealpha(void)
 
     return _mfScalealpha;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getScalealpha(const UInt32 index)
+{
+    return this->editScalealpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getScalealpha(void)
+{
+    return this->editScalealpha();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfScalealpha field.
 inline
@@ -818,6 +1170,22 @@ MFGLenum &RegisterCombinersChunkBase::editBiasalpha(void)
     return _mfBiasalpha;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getBiasalpha(const UInt32 index)
+{
+    return this->editBiasalpha(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getBiasalpha(void)
+{
+    return this->editBiasalpha();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfBiasalpha field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getBiasalpha(void) const
@@ -848,6 +1216,22 @@ MFUInt8 &RegisterCombinersChunkBase::editMuxSumalpha(void)
 
     return _mfMuxSumalpha;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &RegisterCombinersChunkBase::getMuxSumalpha(const UInt32 index)
+{
+    return this->editMuxSumalpha(index);
+}
+
+inline
+MFUInt8 &RegisterCombinersChunkBase::getMuxSumalpha(void)
+{
+    return this->editMuxSumalpha();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfMuxSumalpha field.
 inline
@@ -880,6 +1264,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableE(void)
     return _mfVariableE;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableE(const UInt32 index)
+{
+    return this->editVariableE(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableE(void)
+{
+    return this->editVariableE();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfVariableE field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getVariableE(void) const
@@ -910,6 +1310,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableF(void)
 
     return _mfVariableF;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableF(const UInt32 index)
+{
+    return this->editVariableF(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableF(void)
+{
+    return this->editVariableF();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfVariableF field.
 inline
@@ -942,6 +1358,22 @@ MFGLenum &RegisterCombinersChunkBase::editVariableG(void)
     return _mfVariableG;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RegisterCombinersChunkBase::getVariableG(const UInt32 index)
+{
+    return this->editVariableG(index);
+}
+
+inline
+MFGLenum &RegisterCombinersChunkBase::getVariableG(void)
+{
+    return this->editVariableG();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfVariableG field.
 inline
 const MFGLenum &RegisterCombinersChunkBase::getVariableG(void) const
@@ -973,6 +1405,22 @@ MFColor4f &RegisterCombinersChunkBase::editCombinerColor0(void)
     return _mfCombinerColor0;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &RegisterCombinersChunkBase::getCombinerColor0(const UInt32 index)
+{
+    return this->editCombinerColor0(index);
+}
+
+inline
+MFColor4f &RegisterCombinersChunkBase::getCombinerColor0(void)
+{
+    return this->editCombinerColor0();
+}
+
+#endif
+
+
 //! Get the RegisterCombinersChunk::_mfCombinerColor0 field.
 inline
 const MFColor4f &RegisterCombinersChunkBase::getCombinerColor0(void) const
@@ -1003,6 +1451,22 @@ MFColor4f &RegisterCombinersChunkBase::editCombinerColor1(void)
 
     return _mfCombinerColor1;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4f &RegisterCombinersChunkBase::getCombinerColor1(const UInt32 index)
+{
+    return this->editCombinerColor1(index);
+}
+
+inline
+MFColor4f &RegisterCombinersChunkBase::getCombinerColor1(void)
+{
+    return this->editCombinerColor1();
+}
+
+#endif
+
 
 //! Get the RegisterCombinersChunk::_mfCombinerColor1 field.
 inline

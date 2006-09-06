@@ -90,6 +90,14 @@ const Color3r &SimpleMaterialBase::getAmbient(void) const
     return _sfAmbient.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color3r &SimpleMaterialBase::getAmbient(void)
+{
+    return this->editAmbient();
+}
+#endif
+
 //! Set the value of the SimpleMaterial::_sfAmbient field.
 inline
 void SimpleMaterialBase::setAmbient(const Color3r &value)
@@ -114,6 +122,14 @@ const Color3r &SimpleMaterialBase::getDiffuse(void) const
 {
     return _sfDiffuse.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color3r &SimpleMaterialBase::getDiffuse(void)
+{
+    return this->editDiffuse();
+}
+#endif
 
 //! Set the value of the SimpleMaterial::_sfDiffuse field.
 inline
@@ -140,6 +156,14 @@ const Color3r &SimpleMaterialBase::getSpecular(void) const
     return _sfSpecular.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color3r &SimpleMaterialBase::getSpecular(void)
+{
+    return this->editSpecular();
+}
+#endif
+
 //! Set the value of the SimpleMaterial::_sfSpecular field.
 inline
 void SimpleMaterialBase::setSpecular(const Color3r &value)
@@ -164,6 +188,14 @@ const Real &SimpleMaterialBase::getShininess(void) const
 {
     return _sfShininess.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real &SimpleMaterialBase::getShininess(void)
+{
+    return this->editShininess();
+}
+#endif
 
 //! Set the value of the SimpleMaterial::_sfShininess field.
 inline
@@ -190,6 +222,14 @@ const Color3r &SimpleMaterialBase::getEmission(void) const
     return _sfEmission.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color3r &SimpleMaterialBase::getEmission(void)
+{
+    return this->editEmission();
+}
+#endif
+
 //! Set the value of the SimpleMaterial::_sfEmission field.
 inline
 void SimpleMaterialBase::setEmission(const Color3r &value)
@@ -214,6 +254,14 @@ const Real &SimpleMaterialBase::getTransparency(void) const
 {
     return _sfTransparency.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real &SimpleMaterialBase::getTransparency(void)
+{
+    return this->editTransparency();
+}
+#endif
 
 //! Set the value of the SimpleMaterial::_sfTransparency field.
 inline
@@ -240,6 +288,14 @@ const bool &SimpleMaterialBase::getLit(void) const
     return _sfLit.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &SimpleMaterialBase::getLit(void)
+{
+    return this->editLit();
+}
+#endif
+
 //! Set the value of the SimpleMaterial::_sfLit field.
 inline
 void SimpleMaterialBase::setLit(const bool &value)
@@ -264,6 +320,14 @@ const GLenum &SimpleMaterialBase::getColorMaterial(void) const
 {
     return _sfColorMaterial.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &SimpleMaterialBase::getColorMaterial(void)
+{
+    return this->editColorMaterial();
+}
+#endif
 
 //! Set the value of the SimpleMaterial::_sfColorMaterial field.
 inline

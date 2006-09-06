@@ -373,6 +373,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Attachments\OSGNameAttachment.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Node\OSGNode.cpp"
 					>
 				</File>
@@ -390,6 +394,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGThread.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Attachments\OSGVoidPAttachment.cpp"
 					>
 				</File>
 			</Filter>
@@ -1835,6 +1843,10 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Attachments\OSGNameAttachment.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Node\OSGNode.h"
 					>
 					<FileConfiguration
@@ -2427,6 +2439,10 @@
 							Outputs="..\include\OpenSG\$(InputFileName)"
 						/>
 					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Attachments\OSGVoidPAttachment.h"
+					>
 				</File>
 			</Filter>
 			<Filter

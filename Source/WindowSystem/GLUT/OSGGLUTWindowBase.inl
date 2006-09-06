@@ -90,6 +90,14 @@ const Int32 &GLUTWindowBase::getId(void) const
     return _sfId.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &GLUTWindowBase::getId(void)
+{
+    return this->editId();
+}
+#endif
+
 //! Set the value of the GLUTWindow::_sfId field.
 inline
 void GLUTWindowBase::setId(const Int32 &value)

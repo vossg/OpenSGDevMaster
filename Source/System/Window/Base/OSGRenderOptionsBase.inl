@@ -90,6 +90,14 @@ const bool &RenderOptionsBase::getStatistic(void) const
     return _sfStatistic.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getStatistic(void)
+{
+    return this->editStatistic();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfStatistic field.
 inline
 void RenderOptionsBase::setStatistic(const bool &value)
@@ -114,6 +122,14 @@ const GLenum &RenderOptionsBase::getPolygonMode(void) const
 {
     return _sfPolygonMode.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &RenderOptionsBase::getPolygonMode(void)
+{
+    return this->editPolygonMode();
+}
+#endif
 
 //! Set the value of the RenderOptions::_sfPolygonMode field.
 inline
@@ -140,6 +156,14 @@ const bool &RenderOptionsBase::getTwoSidedLighting(void) const
     return _sfTwoSidedLighting.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getTwoSidedLighting(void)
+{
+    return this->editTwoSidedLighting();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfTwoSidedLighting field.
 inline
 void RenderOptionsBase::setTwoSidedLighting(const bool &value)
@@ -164,6 +188,14 @@ const bool &RenderOptionsBase::getSpecTexLighting(void) const
 {
     return _sfSpecTexLighting.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getSpecTexLighting(void)
+{
+    return this->editSpecTexLighting();
+}
+#endif
 
 //! Set the value of the RenderOptions::_sfSpecTexLighting field.
 inline
@@ -190,6 +222,14 @@ const bool &RenderOptionsBase::getSortTrans(void) const
     return _sfSortTrans.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getSortTrans(void)
+{
+    return this->editSortTrans();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfSortTrans field.
 inline
 void RenderOptionsBase::setSortTrans(const bool &value)
@@ -214,6 +254,14 @@ const bool &RenderOptionsBase::getZWriteTrans(void) const
 {
     return _sfZWriteTrans.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getZWriteTrans(void)
+{
+    return this->editZWriteTrans();
+}
+#endif
 
 //! Set the value of the RenderOptions::_sfZWriteTrans field.
 inline
@@ -240,6 +288,14 @@ const bool &RenderOptionsBase::getLocalLights(void) const
     return _sfLocalLights.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getLocalLights(void)
+{
+    return this->editLocalLights();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfLocalLights field.
 inline
 void RenderOptionsBase::setLocalLights(const bool &value)
@@ -264,6 +320,14 @@ const bool &RenderOptionsBase::getCorrectTwoSidedLighting(void) const
 {
     return _sfCorrectTwoSidedLighting.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getCorrectTwoSidedLighting(void)
+{
+    return this->editCorrectTwoSidedLighting();
+}
+#endif
 
 //! Set the value of the RenderOptions::_sfCorrectTwoSidedLighting field.
 inline
@@ -290,6 +354,14 @@ const bool &RenderOptionsBase::getOcclusionCulling(void) const
     return _sfOcclusionCulling.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getOcclusionCulling(void)
+{
+    return this->editOcclusionCulling();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfOcclusionCulling field.
 inline
 void RenderOptionsBase::setOcclusionCulling(const bool &value)
@@ -314,6 +386,14 @@ const bool &RenderOptionsBase::getAntialiasing(void) const
 {
     return _sfAntialiasing.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getAntialiasing(void)
+{
+    return this->editAntialiasing();
+}
+#endif
 
 //! Set the value of the RenderOptions::_sfAntialiasing field.
 inline
@@ -340,6 +420,14 @@ const Real32 &RenderOptionsBase::getAntialiasingDistance(void) const
     return _sfAntialiasingDistance.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &RenderOptionsBase::getAntialiasingDistance(void)
+{
+    return this->editAntialiasingDistance();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfAntialiasingDistance field.
 inline
 void RenderOptionsBase::setAntialiasingDistance(const Real32 &value)
@@ -364,6 +452,14 @@ const Real32 &RenderOptionsBase::getAntialiasingScale(void) const
 {
     return _sfAntialiasingScale.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &RenderOptionsBase::getAntialiasingScale(void)
+{
+    return this->editAntialiasingScale();
+}
+#endif
 
 //! Set the value of the RenderOptions::_sfAntialiasingScale field.
 inline
@@ -390,6 +486,14 @@ const UInt32 &RenderOptionsBase::getAntialiasingTrigger(void) const
     return _sfAntialiasingTrigger.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &RenderOptionsBase::getAntialiasingTrigger(void)
+{
+    return this->editAntialiasingTrigger();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfAntialiasingTrigger field.
 inline
 void RenderOptionsBase::setAntialiasingTrigger(const UInt32 &value)
@@ -414,6 +518,14 @@ const bool &RenderOptionsBase::getBackfaceCulling(void) const
 {
     return _sfBackfaceCulling.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getBackfaceCulling(void)
+{
+    return this->editBackfaceCulling();
+}
+#endif
 
 //! Set the value of the RenderOptions::_sfBackfaceCulling field.
 inline
@@ -440,6 +552,14 @@ const bool &RenderOptionsBase::getSmallFeatureCulling(void) const
     return _sfSmallFeatureCulling.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &RenderOptionsBase::getSmallFeatureCulling(void)
+{
+    return this->editSmallFeatureCulling();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfSmallFeatureCulling field.
 inline
 void RenderOptionsBase::setSmallFeatureCulling(const bool &value)
@@ -465,6 +585,14 @@ const Real32 &RenderOptionsBase::getSmallFeaturePixels(void) const
     return _sfSmallFeaturePixels.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &RenderOptionsBase::getSmallFeaturePixels(void)
+{
+    return this->editSmallFeaturePixels();
+}
+#endif
+
 //! Set the value of the RenderOptions::_sfSmallFeaturePixels field.
 inline
 void RenderOptionsBase::setSmallFeaturePixels(const Real32 &value)
@@ -489,6 +617,14 @@ const UInt32 &RenderOptionsBase::getSmallFeatureThreshold(void) const
 {
     return _sfSmallFeatureThreshold.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &RenderOptionsBase::getSmallFeatureThreshold(void)
+{
+    return this->editSmallFeatureThreshold();
+}
+#endif
 
 //! Set the value of the RenderOptions::_sfSmallFeatureThreshold field.
 inline
@@ -615,5 +751,5 @@ typedef PointerBuilder<RenderOptions>::ObjPtrConstArg  RenderOptionsPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGRENDEROPTIONSBASE_INLINE_CVSID "@(#)$Id: OSGRenderOptionsBase.inl,v 1.1.2.3 2006/08/01 08:49:01 vossg Exp $"
+#define OSGRENDEROPTIONSBASE_INLINE_CVSID "@(#)$Id: $"
 

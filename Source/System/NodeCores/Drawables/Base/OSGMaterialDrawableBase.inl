@@ -145,5 +145,5 @@ typedef PointerBuilder<MaterialDrawable>::ObjPtrConstArg  MaterialDrawablePtrCon
 
 OSG_END_NAMESPACE
 
-#define OSGMATERIALDRAWABLEBASE_INLINE_CVSID "@(#)$Id: OSGMaterialDrawableBase.inl,v 1.3.4.8 2006/08/01 08:48:56 vossg Exp $"
+#define OSGMATERIALDRAWABLEBASE_INLINE_CVSID "@(#)$Id: $"
 

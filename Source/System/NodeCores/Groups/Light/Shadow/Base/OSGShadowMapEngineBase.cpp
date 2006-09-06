@@ -283,6 +283,13 @@ const SFInt32 *ShadowMapEngineBase::getSFWidth(void) const
     return &_sfWidth;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *ShadowMapEngineBase::getSFWidth(void)
+{
+    return this->editSFWidth();
+}
+#endif
+
 SFInt32 *ShadowMapEngineBase::editSFHeight(void)
 {
     editSField(HeightFieldMask);
@@ -294,6 +301,13 @@ const SFInt32 *ShadowMapEngineBase::getSFHeight(void) const
 {
     return &_sfHeight;
 }
+
+#ifdef OSG_1_COMPAT
+SFInt32 *ShadowMapEngineBase::getSFHeight(void)
+{
+    return this->editSFHeight();
+}
+#endif
 
 SFColor4f *ShadowMapEngineBase::editSFShadowColor(void)
 {
@@ -307,6 +321,13 @@ const SFColor4f *ShadowMapEngineBase::getSFShadowColor(void) const
     return &_sfShadowColor;
 }
 
+#ifdef OSG_1_COMPAT
+SFColor4f *ShadowMapEngineBase::getSFShadowColor(void)
+{
+    return this->editSFShadowColor();
+}
+#endif
+
 SFReal32 *ShadowMapEngineBase::editSFOffsetBias(void)
 {
     editSField(OffsetBiasFieldMask);
@@ -318,6 +339,13 @@ const SFReal32 *ShadowMapEngineBase::getSFOffsetBias(void) const
 {
     return &_sfOffsetBias;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *ShadowMapEngineBase::getSFOffsetBias(void)
+{
+    return this->editSFOffsetBias();
+}
+#endif
 
 SFReal32 *ShadowMapEngineBase::editSFOffsetFactor(void)
 {
@@ -331,6 +359,13 @@ const SFReal32 *ShadowMapEngineBase::getSFOffsetFactor(void) const
     return &_sfOffsetFactor;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *ShadowMapEngineBase::getSFOffsetFactor(void)
+{
+    return this->editSFOffsetFactor();
+}
+#endif
+
 SFUInt32 *ShadowMapEngineBase::editSFUpdateMode(void)
 {
     editSField(UpdateModeFieldMask);
@@ -342,6 +377,13 @@ const SFUInt32 *ShadowMapEngineBase::getSFUpdateMode(void) const
 {
     return &_sfUpdateMode;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *ShadowMapEngineBase::getSFUpdateMode(void)
+{
+    return this->editSFUpdateMode();
+}
+#endif
 
 
 void ShadowMapEngineBase::pushToField(      FieldContainerPtrConstArg pNewElement,
@@ -644,7 +686,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGShadowMapEngineBase.cpp,v 1.1.2.3 2006/08/01 08:48:58 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGSHADOWMAPENGINEBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGSHADOWMAPENGINEBASE_INLINE_CVSID;
 

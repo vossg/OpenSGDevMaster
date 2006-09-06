@@ -90,6 +90,14 @@ const Matrix &TransformChunkBase::getMatrix(void) const
     return _sfMatrix.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Matrix &TransformChunkBase::getMatrix(void)
+{
+    return this->editMatrix();
+}
+#endif
+
 //! Set the value of the TransformChunk::_sfMatrix field.
 inline
 void TransformChunkBase::setMatrix(const Matrix &value)

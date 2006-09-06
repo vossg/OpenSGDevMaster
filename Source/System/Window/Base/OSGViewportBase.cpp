@@ -356,6 +356,13 @@ const SFReal32 *ViewportBase::getSFLeft(void) const
     return &_sfLeft;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *ViewportBase::getSFLeft(void)
+{
+    return this->editSFLeft();
+}
+#endif
+
 SFReal32 *ViewportBase::editSFRight(void)
 {
     editSField(RightFieldMask);
@@ -367,6 +374,13 @@ const SFReal32 *ViewportBase::getSFRight(void) const
 {
     return &_sfRight;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *ViewportBase::getSFRight(void)
+{
+    return this->editSFRight();
+}
+#endif
 
 SFReal32 *ViewportBase::editSFBottom(void)
 {
@@ -380,6 +394,13 @@ const SFReal32 *ViewportBase::getSFBottom(void) const
     return &_sfBottom;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *ViewportBase::getSFBottom(void)
+{
+    return this->editSFBottom();
+}
+#endif
+
 SFReal32 *ViewportBase::editSFTop(void)
 {
     editSField(TopFieldMask);
@@ -391,6 +412,13 @@ const SFReal32 *ViewportBase::getSFTop(void) const
 {
     return &_sfTop;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *ViewportBase::getSFTop(void)
+{
+    return this->editSFTop();
+}
+#endif
 
 //! Get the Viewport::_sfParent field.
 const SFParentFieldContainerPtr *ViewportBase::getSFParent(void) const
@@ -434,6 +462,13 @@ const SFUInt32 *ViewportBase::getSFTravMask(void) const
     return &_sfTravMask;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *ViewportBase::getSFTravMask(void)
+{
+    return this->editSFTravMask();
+}
+#endif
+
 SFReal32 *ViewportBase::editSFDrawTime(void)
 {
     editSField(DrawTimeFieldMask);
@@ -445,6 +480,13 @@ const SFReal32 *ViewportBase::getSFDrawTime(void) const
 {
     return &_sfDrawTime;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *ViewportBase::getSFDrawTime(void)
+{
+    return this->editSFDrawTime();
+}
+#endif
 
 
 void ViewportBase::pushToField(      FieldContainerPtrConstArg pNewElement,

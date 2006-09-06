@@ -163,6 +163,13 @@ const SFUInt32 *SwitchMaterialBase::getSFChoice(void) const
     return &_sfChoice;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *SwitchMaterialBase::getSFChoice(void)
+{
+    return this->editSFChoice();
+}
+#endif
+
 
 void SwitchMaterialBase::pushToField(      FieldContainerPtrConstArg pNewElement,
                                     const UInt32                    uiFieldId  )
@@ -582,7 +589,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGSwitchMaterialBase.cpp,v 1.1.2.3 2006/08/01 08:48:56 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGSWITCHMATERIALBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGSWITCHMATERIALBASE_INLINE_CVSID;
 

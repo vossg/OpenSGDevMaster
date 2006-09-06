@@ -244,6 +244,13 @@ const SFBool *DepthChunkBase::getSFEnable(void) const
     return &_sfEnable;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *DepthChunkBase::getSFEnable(void)
+{
+    return this->editSFEnable();
+}
+#endif
+
 SFGLenum *DepthChunkBase::editSFFunc(void)
 {
     editSField(FuncFieldMask);
@@ -255,6 +262,13 @@ const SFGLenum *DepthChunkBase::getSFFunc(void) const
 {
     return &_sfFunc;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *DepthChunkBase::getSFFunc(void)
+{
+    return this->editSFFunc();
+}
+#endif
 
 SFReal32 *DepthChunkBase::editSFNear(void)
 {
@@ -268,6 +282,13 @@ const SFReal32 *DepthChunkBase::getSFNear(void) const
     return &_sfNear;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *DepthChunkBase::getSFNear(void)
+{
+    return this->editSFNear();
+}
+#endif
+
 SFReal32 *DepthChunkBase::editSFFar(void)
 {
     editSField(FarFieldMask);
@@ -280,6 +301,13 @@ const SFReal32 *DepthChunkBase::getSFFar(void) const
     return &_sfFar;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *DepthChunkBase::getSFFar(void)
+{
+    return this->editSFFar();
+}
+#endif
+
 SFBool *DepthChunkBase::editSFReadOnly(void)
 {
     editSField(ReadOnlyFieldMask);
@@ -291,6 +319,13 @@ const SFBool *DepthChunkBase::getSFReadOnly(void) const
 {
     return &_sfReadOnly;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *DepthChunkBase::getSFReadOnly(void)
+{
+    return this->editSFReadOnly();
+}
+#endif
 
 
 

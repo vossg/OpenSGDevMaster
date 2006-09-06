@@ -255,6 +255,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGDRAWABLEBASE_HEADER_CVSID "@(#)$Id: OSGDrawableBase.h,v 1.3.4.10 2006/08/01 08:48:56 vossg Exp $"
+#define OSGDRAWABLEBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGDRAWABLEBASE_H_ */

@@ -90,6 +90,14 @@ const UInt32 &SwitchMaterialBase::getChoice(void) const
     return _sfChoice.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &SwitchMaterialBase::getChoice(void)
+{
+    return this->editChoice();
+}
+#endif
+
 //! Set the value of the SwitchMaterial::_sfChoice field.
 inline
 void SwitchMaterialBase::setChoice(const UInt32 &value)
@@ -192,5 +200,5 @@ typedef PointerBuilder<SwitchMaterial>::ObjPtrConstArg  SwitchMaterialPtrConstAr
 
 OSG_END_NAMESPACE
 
-#define OSGSWITCHMATERIALBASE_INLINE_CVSID "@(#)$Id: OSGSwitchMaterialBase.inl,v 1.1.2.3 2006/08/01 08:48:56 vossg Exp $"
+#define OSGSWITCHMATERIALBASE_INLINE_CVSID "@(#)$Id: $"
 

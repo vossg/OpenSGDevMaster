@@ -143,6 +143,13 @@ const SFMatrixr *TransformBase::getSFMatrix(void) const
     return &_sfMatrix;
 }
 
+#ifdef OSG_1_COMPAT
+SFMatrixr *TransformBase::getSFMatrix(void)
+{
+    return this->editSFMatrix();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/

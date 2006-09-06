@@ -238,6 +238,13 @@ const SFVec3f *BillboardBase::getSFAxisOfRotation(void) const
     return &_sfAxisOfRotation;
 }
 
+#ifdef OSG_1_COMPAT
+SFVec3f *BillboardBase::getSFAxisOfRotation(void)
+{
+    return this->editSFAxisOfRotation();
+}
+#endif
+
 SFBool *BillboardBase::editSFFocusOnCamera(void)
 {
     editSField(FocusOnCameraFieldMask);
@@ -249,6 +256,13 @@ const SFBool *BillboardBase::getSFFocusOnCamera(void) const
 {
     return &_sfFocusOnCamera;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *BillboardBase::getSFFocusOnCamera(void)
+{
+    return this->editSFFocusOnCamera();
+}
+#endif
 
 SFBool *BillboardBase::editSFAlignToScreen(void)
 {
@@ -262,6 +276,13 @@ const SFBool *BillboardBase::getSFAlignToScreen(void) const
     return &_sfAlignToScreen;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *BillboardBase::getSFAlignToScreen(void)
+{
+    return this->editSFAlignToScreen();
+}
+#endif
+
 SFReal32 *BillboardBase::editSFMinAngle(void)
 {
     editSField(MinAngleFieldMask);
@@ -274,6 +295,13 @@ const SFReal32 *BillboardBase::getSFMinAngle(void) const
     return &_sfMinAngle;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *BillboardBase::getSFMinAngle(void)
+{
+    return this->editSFMinAngle();
+}
+#endif
+
 SFReal32 *BillboardBase::editSFMaxAngle(void)
 {
     editSField(MaxAngleFieldMask);
@@ -285,6 +313,13 @@ const SFReal32 *BillboardBase::getSFMaxAngle(void) const
 {
     return &_sfMaxAngle;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *BillboardBase::getSFMaxAngle(void)
+{
+    return this->editSFMaxAngle();
+}
+#endif
 
 
 

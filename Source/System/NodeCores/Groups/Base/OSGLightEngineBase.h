@@ -300,6 +300,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTENGINEBASE_HEADER_CVSID "@(#)$Id: OSGLightEngineBase.h,v 1.1.2.3 2006/08/01 08:48:57 vossg Exp $"
+#define OSGLIGHTENGINEBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGLIGHTENGINEBASE_H_ */

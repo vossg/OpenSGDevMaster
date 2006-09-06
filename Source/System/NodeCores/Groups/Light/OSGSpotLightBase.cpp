@@ -192,6 +192,13 @@ const SFVec3r *SpotLightBase::getSFDirection(void) const
     return &_sfDirection;
 }
 
+#ifdef OSG_1_COMPAT
+SFVec3r *SpotLightBase::getSFDirection(void)
+{
+    return this->editSFDirection();
+}
+#endif
+
 SFReal *SpotLightBase::editSFSpotExponent(void)
 {
     editSField(SpotExponentFieldMask);
@@ -204,6 +211,13 @@ const SFReal *SpotLightBase::getSFSpotExponent(void) const
     return &_sfSpotExponent;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal *SpotLightBase::getSFSpotExponent(void)
+{
+    return this->editSFSpotExponent();
+}
+#endif
+
 SFReal *SpotLightBase::editSFSpotCutOff(void)
 {
     editSField(SpotCutOffFieldMask);
@@ -215,6 +229,13 @@ const SFReal *SpotLightBase::getSFSpotCutOff(void) const
 {
     return &_sfSpotCutOff;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal *SpotLightBase::getSFSpotCutOff(void)
+{
+    return this->editSFSpotCutOff();
+}
+#endif
 
 
 

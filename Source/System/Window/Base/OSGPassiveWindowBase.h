@@ -274,6 +274,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGPASSIVEWINDOWBASE_HEADER_CVSID "@(#)$Id: OSGPassiveWindowBase.h,v 1.1.2.4 2006/08/01 08:49:01 vossg Exp $"
+#define OSGPASSIVEWINDOWBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGPASSIVEWINDOWBASE_H_ */

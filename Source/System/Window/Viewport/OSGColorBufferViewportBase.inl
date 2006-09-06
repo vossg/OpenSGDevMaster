@@ -90,6 +90,14 @@ const bool &ColorBufferViewportBase::getRed(void) const
     return _sfRed.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &ColorBufferViewportBase::getRed(void)
+{
+    return this->editRed();
+}
+#endif
+
 //! Set the value of the ColorBufferViewport::_sfRed field.
 inline
 void ColorBufferViewportBase::setRed(const bool &value)
@@ -114,6 +122,14 @@ const bool &ColorBufferViewportBase::getBlue(void) const
 {
     return _sfBlue.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &ColorBufferViewportBase::getBlue(void)
+{
+    return this->editBlue();
+}
+#endif
 
 //! Set the value of the ColorBufferViewport::_sfBlue field.
 inline
@@ -140,6 +156,14 @@ const bool &ColorBufferViewportBase::getGreen(void) const
     return _sfGreen.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &ColorBufferViewportBase::getGreen(void)
+{
+    return this->editGreen();
+}
+#endif
+
 //! Set the value of the ColorBufferViewport::_sfGreen field.
 inline
 void ColorBufferViewportBase::setGreen(const bool &value)
@@ -164,6 +188,14 @@ const bool &ColorBufferViewportBase::getAlpha(void) const
 {
     return _sfAlpha.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &ColorBufferViewportBase::getAlpha(void)
+{
+    return this->editAlpha();
+}
+#endif
 
 //! Set the value of the ColorBufferViewport::_sfAlpha field.
 inline

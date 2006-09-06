@@ -238,6 +238,13 @@ const SFVec3r *ComponentTransformBase::getSFCenter(void) const
     return &_sfCenter;
 }
 
+#ifdef OSG_1_COMPAT
+SFVec3r *ComponentTransformBase::getSFCenter(void)
+{
+    return this->editSFCenter();
+}
+#endif
+
 SFQuaternionr *ComponentTransformBase::editSFRotation(void)
 {
     editSField(RotationFieldMask);
@@ -249,6 +256,13 @@ const SFQuaternionr *ComponentTransformBase::getSFRotation(void) const
 {
     return &_sfRotation;
 }
+
+#ifdef OSG_1_COMPAT
+SFQuaternionr *ComponentTransformBase::getSFRotation(void)
+{
+    return this->editSFRotation();
+}
+#endif
 
 SFVec3r *ComponentTransformBase::editSFScale(void)
 {
@@ -262,6 +276,13 @@ const SFVec3r *ComponentTransformBase::getSFScale(void) const
     return &_sfScale;
 }
 
+#ifdef OSG_1_COMPAT
+SFVec3r *ComponentTransformBase::getSFScale(void)
+{
+    return this->editSFScale();
+}
+#endif
+
 SFQuaternionr *ComponentTransformBase::editSFScaleOrientation(void)
 {
     editSField(ScaleOrientationFieldMask);
@@ -274,6 +295,13 @@ const SFQuaternionr *ComponentTransformBase::getSFScaleOrientation(void) const
     return &_sfScaleOrientation;
 }
 
+#ifdef OSG_1_COMPAT
+SFQuaternionr *ComponentTransformBase::getSFScaleOrientation(void)
+{
+    return this->editSFScaleOrientation();
+}
+#endif
+
 SFVec3r *ComponentTransformBase::editSFTranslation(void)
 {
     editSField(TranslationFieldMask);
@@ -285,6 +313,13 @@ const SFVec3r *ComponentTransformBase::getSFTranslation(void) const
 {
     return &_sfTranslation;
 }
+
+#ifdef OSG_1_COMPAT
+SFVec3r *ComponentTransformBase::getSFTranslation(void)
+{
+    return this->editSFTranslation();
+}
+#endif
 
 
 

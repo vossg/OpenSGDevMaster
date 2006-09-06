@@ -149,6 +149,46 @@ void EGLWindowBase::setContext(const EGLContext &value)
     _sfContext.setValue(value);
 }
 
+#ifdef OSG_1_COMPAT
+inline
+SFEGLDisplay *EGLWindowBase::getSFDisplay(void)
+{
+    return this->editSFDisplay();
+}
+
+inline
+SFEGLSurface *EGLWindowBase::getSFWindow(void)
+{
+    return this->editSFWindow();
+}
+
+inline
+SFEGLContext *EGLWindowBase::getSFContext(void)
+{
+    return this->editSFContext();
+}
+
+inline
+EGLDisplay &EGLWindowBase::getDisplay(void)
+{
+    return this->editDisplay();
+}
+
+inline
+EGLSurface &EGLWindowBase::getWindow(void)
+{
+    return this->editWindow();
+}
+
+inline
+EGLContext &EGLWindowBase::getContext(void)
+{
+    return this->editContext();
+}
+
+#endif
+
+
 //! create a new instance of the class
 inline
 EGLWindowPtr EGLWindowBase::create(void) 

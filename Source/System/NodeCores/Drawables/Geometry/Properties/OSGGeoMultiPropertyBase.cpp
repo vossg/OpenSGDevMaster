@@ -292,6 +292,13 @@ const SFUInt32 *GeoMultiPropertyBase::getSFOffset(void) const
     return &_sfOffset;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *GeoMultiPropertyBase::getSFOffset(void)
+{
+    return this->editSFOffset();
+}
+#endif
+
 SFGLenum *GeoMultiPropertyBase::editSFIFormat(void)
 {
     editSField(IFormatFieldMask);
@@ -303,6 +310,13 @@ const SFGLenum *GeoMultiPropertyBase::getSFIFormat(void) const
 {
     return &_sfIFormat;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *GeoMultiPropertyBase::getSFIFormat(void)
+{
+    return this->editSFIFormat();
+}
+#endif
 
 SFUInt32 *GeoMultiPropertyBase::editSFIDimension(void)
 {
@@ -316,6 +330,13 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIDimension(void) const
     return &_sfIDimension;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *GeoMultiPropertyBase::getSFIDimension(void)
+{
+    return this->editSFIDimension();
+}
+#endif
+
 SFUInt32 *GeoMultiPropertyBase::editSFISize(void)
 {
     editSField(ISizeFieldMask);
@@ -327,6 +348,13 @@ const SFUInt32 *GeoMultiPropertyBase::getSFISize(void) const
 {
     return &_sfISize;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *GeoMultiPropertyBase::getSFISize(void)
+{
+    return this->editSFISize();
+}
+#endif
 
 SFBool *GeoMultiPropertyBase::editSFINormalize(void)
 {
@@ -340,6 +368,13 @@ const SFBool *GeoMultiPropertyBase::getSFINormalize(void) const
     return &_sfINormalize;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *GeoMultiPropertyBase::getSFINormalize(void)
+{
+    return this->editSFINormalize();
+}
+#endif
+
 SFUInt32 *GeoMultiPropertyBase::editSFIStride(void)
 {
     editSField(IStrideFieldMask);
@@ -351,6 +386,13 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIStride(void) const
 {
     return &_sfIStride;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *GeoMultiPropertyBase::getSFIStride(void)
+{
+    return this->editSFIStride();
+}
+#endif
 
 
 void GeoMultiPropertyBase::pushToField(      FieldContainerPtrConstArg pNewElement,
@@ -683,7 +725,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGGeoMultiPropertyBase.cpp,v 1.1.2.5 2006/08/01 08:48:57 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGGEOMULTIPROPERTYBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGGEOMULTIPROPERTYBASE_INLINE_CVSID;
 

@@ -643,6 +643,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGSKYBACKGROUNDBASE_HEADER_CVSID "@(#)$Id: OSGSkyBackgroundBase.h,v 1.1.2.4 2006/08/01 08:49:00 vossg Exp $"
+#define OSGSKYBACKGROUNDBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGSKYBACKGROUNDBASE_H_ */

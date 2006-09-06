@@ -165,6 +165,13 @@ const SFBool *GrabForegroundBase::getSFAutoResize(void) const
     return &_sfAutoResize;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *GrabForegroundBase::getSFAutoResize(void)
+{
+    return this->editSFAutoResize();
+}
+#endif
+
 
 void GrabForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
                                     const UInt32                    uiFieldId  )

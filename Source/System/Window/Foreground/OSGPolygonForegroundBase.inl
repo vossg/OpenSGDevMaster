@@ -107,6 +107,14 @@ const bool &PolygonForegroundBase::getNormalizedX(void) const
     return _sfNormalizedX.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &PolygonForegroundBase::getNormalizedX(void)
+{
+    return this->editNormalizedX();
+}
+#endif
+
 //! Set the value of the PolygonForeground::_sfNormalizedX field.
 inline
 void PolygonForegroundBase::setNormalizedX(const bool &value)
@@ -131,6 +139,14 @@ const bool &PolygonForegroundBase::getNormalizedY(void) const
 {
     return _sfNormalizedY.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+bool &PolygonForegroundBase::getNormalizedY(void)
+{
+    return this->editNormalizedY();
+}
+#endif
 
 //! Set the value of the PolygonForeground::_sfNormalizedY field.
 inline
@@ -165,6 +181,22 @@ MFPnt2f &PolygonForegroundBase::editPositions(void)
     return _mfPositions;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Pnt2f &PolygonForegroundBase::getPositions(const UInt32 index)
+{
+    return this->editPositions(index);
+}
+
+inline
+MFPnt2f &PolygonForegroundBase::getPositions(void)
+{
+    return this->editPositions();
+}
+
+#endif
+
+
 //! Get the PolygonForeground::_mfPositions field.
 inline
 const MFPnt2f &PolygonForegroundBase::getPositions(void) const
@@ -195,6 +227,22 @@ MFVec3f &PolygonForegroundBase::editTexCoords(void)
 
     return _mfTexCoords;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &PolygonForegroundBase::getTexCoords(const UInt32 index)
+{
+    return this->editTexCoords(index);
+}
+
+inline
+MFVec3f &PolygonForegroundBase::getTexCoords(void)
+{
+    return this->editTexCoords();
+}
+
+#endif
+
 
 //! Get the PolygonForeground::_mfTexCoords field.
 inline

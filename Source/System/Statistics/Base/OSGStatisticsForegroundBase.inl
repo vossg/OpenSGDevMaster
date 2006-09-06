@@ -90,6 +90,14 @@ const StatCollector &StatisticsForegroundBase::getCollector(void) const
     return _sfCollector.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+StatCollector &StatisticsForegroundBase::getCollector(void)
+{
+    return this->editCollector();
+}
+#endif
+
 //! Set the value of the StatisticsForeground::_sfCollector field.
 inline
 void StatisticsForegroundBase::setCollector(const StatCollector &value)
@@ -122,6 +130,22 @@ MFInt32 &StatisticsForegroundBase::editElementIDs(void)
 
     return _mfElementIDs;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &StatisticsForegroundBase::getElementIDs(const UInt32 index)
+{
+    return this->editElementIDs(index);
+}
+
+inline
+MFInt32 &StatisticsForegroundBase::getElementIDs(void)
+{
+    return this->editElementIDs();
+}
+
+#endif
+
 
 //! Get the StatisticsForeground::_mfElementIDs field.
 inline
@@ -195,5 +219,5 @@ typedef PointerBuilder<StatisticsForeground>::ObjPtrConstArg  StatisticsForegrou
 
 OSG_END_NAMESPACE
 
-#define OSGSTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: OSGStatisticsForegroundBase.inl,v 1.1.2.3 2006/08/01 08:48:59 vossg Exp $"
+#define OSGSTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
 

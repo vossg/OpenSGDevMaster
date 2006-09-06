@@ -125,5 +125,5 @@ typedef PointerBuilder<TextureBaseChunk>::ObjPtrConstArg  TextureBaseChunkPtrCon
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREBASECHUNKBASE_INLINE_CVSID "@(#)$Id: OSGTextureBaseChunkBase.inl,v 1.1.2.3 2006/08/01 08:48:59 vossg Exp $"
+#define OSGTEXTUREBASECHUNKBASE_INLINE_CVSID "@(#)$Id: $"
 

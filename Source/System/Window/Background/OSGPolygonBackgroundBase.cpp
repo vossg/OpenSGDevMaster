@@ -290,6 +290,13 @@ const MFVec3f *PolygonBackgroundBase::getMFTexCoords(void) const
     return &_mfTexCoords;
 }
 
+#ifdef OSG_1_COMPAT
+MFVec3f *PolygonBackgroundBase::getMFTexCoords(void)
+{
+    return this->editMFTexCoords();
+}
+#endif
+
 MFPnt2f *PolygonBackgroundBase::editMFPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
@@ -301,6 +308,13 @@ const MFPnt2f *PolygonBackgroundBase::getMFPositions(void) const
 {
     return &_mfPositions;
 }
+
+#ifdef OSG_1_COMPAT
+MFPnt2f *PolygonBackgroundBase::getMFPositions(void)
+{
+    return this->editMFPositions();
+}
+#endif
 
 SFBool *PolygonBackgroundBase::editSFNormalizedX(void)
 {
@@ -314,6 +328,13 @@ const SFBool *PolygonBackgroundBase::getSFNormalizedX(void) const
     return &_sfNormalizedX;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *PolygonBackgroundBase::getSFNormalizedX(void)
+{
+    return this->editSFNormalizedX();
+}
+#endif
+
 SFBool *PolygonBackgroundBase::editSFNormalizedY(void)
 {
     editSField(NormalizedYFieldMask);
@@ -325,6 +346,13 @@ const SFBool *PolygonBackgroundBase::getSFNormalizedY(void) const
 {
     return &_sfNormalizedY;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *PolygonBackgroundBase::getSFNormalizedY(void)
+{
+    return this->editSFNormalizedY();
+}
+#endif
 
 SFUInt16 *PolygonBackgroundBase::editSFAspectHeight(void)
 {
@@ -338,6 +366,13 @@ const SFUInt16 *PolygonBackgroundBase::getSFAspectHeight(void) const
     return &_sfAspectHeight;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt16 *PolygonBackgroundBase::getSFAspectHeight(void)
+{
+    return this->editSFAspectHeight();
+}
+#endif
+
 SFUInt16 *PolygonBackgroundBase::editSFAspectWidth(void)
 {
     editSField(AspectWidthFieldMask);
@@ -349,6 +384,13 @@ const SFUInt16 *PolygonBackgroundBase::getSFAspectWidth(void) const
 {
     return &_sfAspectWidth;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt16 *PolygonBackgroundBase::getSFAspectWidth(void)
+{
+    return this->editSFAspectWidth();
+}
+#endif
 
 
 void PolygonBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
@@ -683,7 +725,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGPolygonBackgroundBase.cpp,v 1.1.2.3 2006/08/01 08:49:00 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGPOLYGONBACKGROUNDBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGPOLYGONBACKGROUNDBASE_INLINE_CVSID;
 

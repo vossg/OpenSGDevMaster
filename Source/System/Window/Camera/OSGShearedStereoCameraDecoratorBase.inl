@@ -90,6 +90,14 @@ const Real32 &ShearedStereoCameraDecoratorBase::getZeroParallaxDistance(void) co
     return _sfZeroParallaxDistance.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ShearedStereoCameraDecoratorBase::getZeroParallaxDistance(void)
+{
+    return this->editZeroParallaxDistance();
+}
+#endif
+
 //! Set the value of the ShearedStereoCameraDecorator::_sfZeroParallaxDistance field.
 inline
 void ShearedStereoCameraDecoratorBase::setZeroParallaxDistance(const Real32 &value)
@@ -114,6 +122,14 @@ const Real32 &ShearedStereoCameraDecoratorBase::getOverlap(void) const
 {
     return _sfOverlap.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ShearedStereoCameraDecoratorBase::getOverlap(void)
+{
+    return this->editOverlap();
+}
+#endif
 
 //! Set the value of the ShearedStereoCameraDecorator::_sfOverlap field.
 inline

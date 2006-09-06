@@ -374,6 +374,13 @@ const SFGLenum *TexGenChunkBase::getSFGenFuncS(void) const
     return &_sfGenFuncS;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *TexGenChunkBase::getSFGenFuncS(void)
+{
+    return this->editSFGenFuncS();
+}
+#endif
+
 SFGLenum *TexGenChunkBase::editSFGenFuncT(void)
 {
     editSField(GenFuncTFieldMask);
@@ -385,6 +392,13 @@ const SFGLenum *TexGenChunkBase::getSFGenFuncT(void) const
 {
     return &_sfGenFuncT;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *TexGenChunkBase::getSFGenFuncT(void)
+{
+    return this->editSFGenFuncT();
+}
+#endif
 
 SFGLenum *TexGenChunkBase::editSFGenFuncR(void)
 {
@@ -398,6 +412,13 @@ const SFGLenum *TexGenChunkBase::getSFGenFuncR(void) const
     return &_sfGenFuncR;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *TexGenChunkBase::getSFGenFuncR(void)
+{
+    return this->editSFGenFuncR();
+}
+#endif
+
 SFGLenum *TexGenChunkBase::editSFGenFuncQ(void)
 {
     editSField(GenFuncQFieldMask);
@@ -409,6 +430,13 @@ const SFGLenum *TexGenChunkBase::getSFGenFuncQ(void) const
 {
     return &_sfGenFuncQ;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *TexGenChunkBase::getSFGenFuncQ(void)
+{
+    return this->editSFGenFuncQ();
+}
+#endif
 
 SFVec4f *TexGenChunkBase::editSFGenFuncSPlane(void)
 {
@@ -422,6 +450,13 @@ const SFVec4f *TexGenChunkBase::getSFGenFuncSPlane(void) const
     return &_sfGenFuncSPlane;
 }
 
+#ifdef OSG_1_COMPAT
+SFVec4f *TexGenChunkBase::getSFGenFuncSPlane(void)
+{
+    return this->editSFGenFuncSPlane();
+}
+#endif
+
 SFVec4f *TexGenChunkBase::editSFGenFuncTPlane(void)
 {
     editSField(GenFuncTPlaneFieldMask);
@@ -433,6 +468,13 @@ const SFVec4f *TexGenChunkBase::getSFGenFuncTPlane(void) const
 {
     return &_sfGenFuncTPlane;
 }
+
+#ifdef OSG_1_COMPAT
+SFVec4f *TexGenChunkBase::getSFGenFuncTPlane(void)
+{
+    return this->editSFGenFuncTPlane();
+}
+#endif
 
 SFVec4f *TexGenChunkBase::editSFGenFuncRPlane(void)
 {
@@ -446,6 +488,13 @@ const SFVec4f *TexGenChunkBase::getSFGenFuncRPlane(void) const
     return &_sfGenFuncRPlane;
 }
 
+#ifdef OSG_1_COMPAT
+SFVec4f *TexGenChunkBase::getSFGenFuncRPlane(void)
+{
+    return this->editSFGenFuncRPlane();
+}
+#endif
+
 SFVec4f *TexGenChunkBase::editSFGenFuncQPlane(void)
 {
     editSField(GenFuncQPlaneFieldMask);
@@ -457,6 +506,13 @@ const SFVec4f *TexGenChunkBase::getSFGenFuncQPlane(void) const
 {
     return &_sfGenFuncQPlane;
 }
+
+#ifdef OSG_1_COMPAT
+SFVec4f *TexGenChunkBase::getSFGenFuncQPlane(void)
+{
+    return this->editSFGenFuncQPlane();
+}
+#endif
 
 //! Get the TexGenChunk::_sfSBeacon field.
 const SFNodePtr *TexGenChunkBase::getSFSBeacon(void) const

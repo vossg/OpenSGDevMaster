@@ -107,6 +107,14 @@ const UInt32 &GeoMultiPropertyBase::getOffset(void) const
     return _sfOffset.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &GeoMultiPropertyBase::getOffset(void)
+{
+    return this->editOffset();
+}
+#endif
+
 //! Set the value of the GeoMultiProperty::_sfOffset field.
 inline
 void GeoMultiPropertyBase::setOffset(const UInt32 &value)
@@ -131,6 +139,14 @@ const GLenum &GeoMultiPropertyBase::getIFormat(void) const
 {
     return _sfIFormat.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &GeoMultiPropertyBase::getIFormat(void)
+{
+    return this->editIFormat();
+}
+#endif
 
 //! Set the value of the GeoMultiProperty::_sfIFormat field.
 inline
@@ -157,6 +173,14 @@ const UInt32 &GeoMultiPropertyBase::getIDimension(void) const
     return _sfIDimension.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &GeoMultiPropertyBase::getIDimension(void)
+{
+    return this->editIDimension();
+}
+#endif
+
 //! Set the value of the GeoMultiProperty::_sfIDimension field.
 inline
 void GeoMultiPropertyBase::setIDimension(const UInt32 &value)
@@ -181,6 +205,14 @@ const UInt32 &GeoMultiPropertyBase::getISize(void) const
 {
     return _sfISize.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &GeoMultiPropertyBase::getISize(void)
+{
+    return this->editISize();
+}
+#endif
 
 //! Set the value of the GeoMultiProperty::_sfISize field.
 inline
@@ -207,6 +239,14 @@ const bool &GeoMultiPropertyBase::getINormalize(void) const
     return _sfINormalize.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &GeoMultiPropertyBase::getINormalize(void)
+{
+    return this->editINormalize();
+}
+#endif
+
 //! Set the value of the GeoMultiProperty::_sfINormalize field.
 inline
 void GeoMultiPropertyBase::setINormalize(const bool &value)
@@ -231,6 +271,14 @@ const UInt32 &GeoMultiPropertyBase::getIStride(void) const
 {
     return _sfIStride.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &GeoMultiPropertyBase::getIStride(void)
+{
+    return this->editIStride();
+}
+#endif
 
 //! Set the value of the GeoMultiProperty::_sfIStride field.
 inline
@@ -327,5 +375,5 @@ typedef PointerBuilder<GeoMultiProperty>::ObjPtrConstArg  GeoMultiPropertyPtrCon
 
 OSG_END_NAMESPACE
 
-#define OSGGEOMULTIPROPERTYBASE_INLINE_CVSID "@(#)$Id: OSGGeoMultiPropertyBase.inl,v 1.1.2.5 2006/08/01 08:48:57 vossg Exp $"
+#define OSGGEOMULTIPROPERTYBASE_INLINE_CVSID "@(#)$Id: $"
 

@@ -607,6 +607,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGRENDEROPTIONSBASE_HEADER_CVSID "@(#)$Id: OSGRenderOptionsBase.h,v 1.1.2.3 2006/08/01 08:49:01 vossg Exp $"
+#define OSGRENDEROPTIONSBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGRENDEROPTIONSBASE_H_ */

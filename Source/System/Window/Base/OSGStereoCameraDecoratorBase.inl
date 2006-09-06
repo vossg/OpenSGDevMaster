@@ -90,6 +90,14 @@ const bool &StereoCameraDecoratorBase::getLeftEye(void) const
     return _sfLeftEye.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &StereoCameraDecoratorBase::getLeftEye(void)
+{
+    return this->editLeftEye();
+}
+#endif
+
 //! Set the value of the StereoCameraDecorator::_sfLeftEye field.
 inline
 void StereoCameraDecoratorBase::setLeftEye(const bool &value)
@@ -114,6 +122,14 @@ const Real32 &StereoCameraDecoratorBase::getEyeSeparation(void) const
 {
     return _sfEyeSeparation.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &StereoCameraDecoratorBase::getEyeSeparation(void)
+{
+    return this->editEyeSeparation();
+}
+#endif
 
 //! Set the value of the StereoCameraDecorator::_sfEyeSeparation field.
 inline

@@ -125,5 +125,5 @@ typedef PointerBuilder<Drawable>::ObjPtrConstArg  DrawablePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGDRAWABLEBASE_INLINE_CVSID "@(#)$Id: OSGDrawableBase.inl,v 1.3.4.7 2006/08/01 08:48:56 vossg Exp $"
+#define OSGDRAWABLEBASE_INLINE_CVSID "@(#)$Id: $"
 

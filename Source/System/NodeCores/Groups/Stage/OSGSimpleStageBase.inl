@@ -90,6 +90,14 @@ const Real32 &SimpleStageBase::getLeft(void) const
     return _sfLeft.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &SimpleStageBase::getLeft(void)
+{
+    return this->editLeft();
+}
+#endif
+
 //! Set the value of the SimpleStage::_sfLeft field.
 inline
 void SimpleStageBase::setLeft(const Real32 &value)
@@ -114,6 +122,14 @@ const Real32 &SimpleStageBase::getRight(void) const
 {
     return _sfRight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &SimpleStageBase::getRight(void)
+{
+    return this->editRight();
+}
+#endif
 
 //! Set the value of the SimpleStage::_sfRight field.
 inline
@@ -140,6 +156,14 @@ const Real32 &SimpleStageBase::getBottom(void) const
     return _sfBottom.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &SimpleStageBase::getBottom(void)
+{
+    return this->editBottom();
+}
+#endif
+
 //! Set the value of the SimpleStage::_sfBottom field.
 inline
 void SimpleStageBase::setBottom(const Real32 &value)
@@ -164,6 +188,14 @@ const Real32 &SimpleStageBase::getTop(void) const
 {
     return _sfTop.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &SimpleStageBase::getTop(void)
+{
+    return this->editTop();
+}
+#endif
 
 //! Set the value of the SimpleStage::_sfTop field.
 inline

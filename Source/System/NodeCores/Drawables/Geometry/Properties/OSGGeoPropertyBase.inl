@@ -90,6 +90,14 @@ const bool &GeoPropertyBase::getUseVBO(void) const
     return _sfUseVBO.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &GeoPropertyBase::getUseVBO(void)
+{
+    return this->editUseVBO();
+}
+#endif
+
 //! Set the value of the GeoProperty::_sfUseVBO field.
 inline
 void GeoPropertyBase::setUseVBO(const bool &value)
@@ -115,6 +123,14 @@ const UInt32 &GeoPropertyBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &GeoPropertyBase::getGLId(void)
+{
+    return this->editGLId();
+}
+#endif
+
 //! Set the value of the GeoProperty::_sfGLId field.
 inline
 void GeoPropertyBase::setGLId(const UInt32 &value)
@@ -139,6 +155,14 @@ const Int32 &GeoPropertyBase::getUsage(void) const
 {
     return _sfUsage.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &GeoPropertyBase::getUsage(void)
+{
+    return this->editUsage();
+}
+#endif
 
 //! Set the value of the GeoProperty::_sfUsage field.
 inline

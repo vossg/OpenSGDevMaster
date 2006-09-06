@@ -90,6 +90,14 @@ const Real32 &ViewportBase::getLeft(void) const
     return _sfLeft.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ViewportBase::getLeft(void)
+{
+    return this->editLeft();
+}
+#endif
+
 //! Set the value of the Viewport::_sfLeft field.
 inline
 void ViewportBase::setLeft(const Real32 &value)
@@ -114,6 +122,14 @@ const Real32 &ViewportBase::getRight(void) const
 {
     return _sfRight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ViewportBase::getRight(void)
+{
+    return this->editRight();
+}
+#endif
 
 //! Set the value of the Viewport::_sfRight field.
 inline
@@ -140,6 +156,14 @@ const Real32 &ViewportBase::getBottom(void) const
     return _sfBottom.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ViewportBase::getBottom(void)
+{
+    return this->editBottom();
+}
+#endif
+
 //! Set the value of the Viewport::_sfBottom field.
 inline
 void ViewportBase::setBottom(const Real32 &value)
@@ -164,6 +188,14 @@ const Real32 &ViewportBase::getTop(void) const
 {
     return _sfTop.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ViewportBase::getTop(void)
+{
+    return this->editTop();
+}
+#endif
 
 //! Set the value of the Viewport::_sfTop field.
 inline
@@ -260,6 +292,14 @@ const UInt32 &ViewportBase::getTravMask(void) const
     return _sfTravMask.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &ViewportBase::getTravMask(void)
+{
+    return this->editTravMask();
+}
+#endif
+
 //! Set the value of the Viewport::_sfTravMask field.
 inline
 void ViewportBase::setTravMask(const UInt32 &value)
@@ -284,6 +324,14 @@ const Real32 &ViewportBase::getDrawTime(void) const
 {
     return _sfDrawTime.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &ViewportBase::getDrawTime(void)
+{
+    return this->editDrawTime();
+}
+#endif
 
 //! Set the value of the Viewport::_sfDrawTime field.
 inline

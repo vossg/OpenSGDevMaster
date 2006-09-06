@@ -90,6 +90,14 @@ const Real32 &PerspectiveCameraBase::getFov(void) const
     return _sfFov.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &PerspectiveCameraBase::getFov(void)
+{
+    return this->editFov();
+}
+#endif
+
 //! Set the value of the PerspectiveCamera::_sfFov field.
 inline
 void PerspectiveCameraBase::setFov(const Real32 &value)
@@ -114,6 +122,14 @@ const Real32 &PerspectiveCameraBase::getAspect(void) const
 {
     return _sfAspect.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &PerspectiveCameraBase::getAspect(void)
+{
+    return this->editAspect();
+}
+#endif
 
 //! Set the value of the PerspectiveCamera::_sfAspect field.
 inline

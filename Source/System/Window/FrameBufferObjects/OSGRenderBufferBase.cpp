@@ -167,6 +167,13 @@ const SFGLenum *RenderBufferBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *RenderBufferBase::getSFGLId(void)
+{
+    return this->editSFGLId();
+}
+#endif
+
 SFGLenum *RenderBufferBase::editSFInternalFormat(void)
 {
     editSField(InternalFormatFieldMask);
@@ -178,6 +185,13 @@ const SFGLenum *RenderBufferBase::getSFInternalFormat(void) const
 {
     return &_sfInternalFormat;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLenum *RenderBufferBase::getSFInternalFormat(void)
+{
+    return this->editSFInternalFormat();
+}
+#endif
 
 
 

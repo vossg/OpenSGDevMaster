@@ -165,6 +165,13 @@ const MFPnt2f *ImageForegroundBase::getMFPositions(void) const
     return &_mfPositions;
 }
 
+#ifdef OSG_1_COMPAT
+MFPnt2f *ImageForegroundBase::getMFPositions(void)
+{
+    return this->editMFPositions();
+}
+#endif
+
 
 void ImageForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
                                     const UInt32                    uiFieldId  )
@@ -585,7 +592,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGImageForegroundBase.cpp,v 1.1.2.4 2006/08/01 08:49:02 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGIMAGEFOREGROUNDBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGIMAGEFOREGROUNDBASE_INLINE_CVSID;
 

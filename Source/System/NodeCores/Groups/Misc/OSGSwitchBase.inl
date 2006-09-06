@@ -90,6 +90,14 @@ const Int32 &SwitchBase::getChoice(void) const
     return _sfChoice.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &SwitchBase::getChoice(void)
+{
+    return this->editChoice();
+}
+#endif
+
 //! Set the value of the Switch::_sfChoice field.
 inline
 void SwitchBase::setChoice(const Int32 &value)

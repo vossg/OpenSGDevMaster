@@ -90,6 +90,14 @@ const Real32 &SimpleStatisticsForegroundBase::getSize(void) const
     return _sfSize.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &SimpleStatisticsForegroundBase::getSize(void)
+{
+    return this->editSize();
+}
+#endif
+
 //! Set the value of the SimpleStatisticsForeground::_sfSize field.
 inline
 void SimpleStatisticsForegroundBase::setSize(const Real32 &value)
@@ -114,6 +122,14 @@ const Color4f &SimpleStatisticsForegroundBase::getColor(void) const
 {
     return _sfColor.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4f &SimpleStatisticsForegroundBase::getColor(void)
+{
+    return this->editColor();
+}
+#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfColor field.
 inline
@@ -147,6 +163,22 @@ MFString &SimpleStatisticsForegroundBase::editFormats(void)
 
     return _mfFormats;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+std::string &SimpleStatisticsForegroundBase::getFormats(const UInt32 index)
+{
+    return this->editFormats(index);
+}
+
+inline
+MFString &SimpleStatisticsForegroundBase::getFormats(void)
+{
+    return this->editFormats();
+}
+
+#endif
+
 
 //! Get the SimpleStatisticsForeground::_mfFormats field.
 inline
@@ -237,5 +269,5 @@ typedef PointerBuilder<SimpleStatisticsForeground>::ObjPtrConstArg  SimpleStatis
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: OSGSimpleStatisticsForegroundBase.inl,v 1.1.2.3 2006/08/01 08:48:59 vossg Exp $"
+#define OSGSIMPLESTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
 

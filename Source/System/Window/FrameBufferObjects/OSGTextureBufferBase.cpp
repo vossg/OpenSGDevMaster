@@ -211,6 +211,13 @@ const SFGLenum *TextureBufferBase::getSFTexTarget(void) const
     return &_sfTexTarget;
 }
 
+#ifdef OSG_1_COMPAT
+SFGLenum *TextureBufferBase::getSFTexTarget(void)
+{
+    return this->editSFTexTarget();
+}
+#endif
+
 SFUInt32 *TextureBufferBase::editSFLevel(void)
 {
     editSField(LevelFieldMask);
@@ -223,6 +230,13 @@ const SFUInt32 *TextureBufferBase::getSFLevel(void) const
     return &_sfLevel;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *TextureBufferBase::getSFLevel(void)
+{
+    return this->editSFLevel();
+}
+#endif
+
 SFUInt32 *TextureBufferBase::editSFZoffset(void)
 {
     editSField(ZoffsetFieldMask);
@@ -234,6 +248,13 @@ const SFUInt32 *TextureBufferBase::getSFZoffset(void) const
 {
     return &_sfZoffset;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt32 *TextureBufferBase::getSFZoffset(void)
+{
+    return this->editSFZoffset();
+}
+#endif
 
 
 void TextureBufferBase::pushToField(      FieldContainerPtrConstArg pNewElement,

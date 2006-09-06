@@ -90,6 +90,14 @@ const GLenum &StencilChunkBase::getStencilFunc(void) const
     return _sfStencilFunc.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &StencilChunkBase::getStencilFunc(void)
+{
+    return this->editStencilFunc();
+}
+#endif
+
 //! Set the value of the StencilChunk::_sfStencilFunc field.
 inline
 void StencilChunkBase::setStencilFunc(const GLenum &value)
@@ -114,6 +122,14 @@ const Int32 &StencilChunkBase::getStencilValue(void) const
 {
     return _sfStencilValue.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &StencilChunkBase::getStencilValue(void)
+{
+    return this->editStencilValue();
+}
+#endif
 
 //! Set the value of the StencilChunk::_sfStencilValue field.
 inline
@@ -140,6 +156,14 @@ const UInt32 &StencilChunkBase::getStencilMask(void) const
     return _sfStencilMask.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &StencilChunkBase::getStencilMask(void)
+{
+    return this->editStencilMask();
+}
+#endif
+
 //! Set the value of the StencilChunk::_sfStencilMask field.
 inline
 void StencilChunkBase::setStencilMask(const UInt32 &value)
@@ -164,6 +188,14 @@ const GLenum &StencilChunkBase::getStencilOpFail(void) const
 {
     return _sfStencilOpFail.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &StencilChunkBase::getStencilOpFail(void)
+{
+    return this->editStencilOpFail();
+}
+#endif
 
 //! Set the value of the StencilChunk::_sfStencilOpFail field.
 inline
@@ -190,6 +222,14 @@ const GLenum &StencilChunkBase::getStencilOpZFail(void) const
     return _sfStencilOpZFail.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &StencilChunkBase::getStencilOpZFail(void)
+{
+    return this->editStencilOpZFail();
+}
+#endif
+
 //! Set the value of the StencilChunk::_sfStencilOpZFail field.
 inline
 void StencilChunkBase::setStencilOpZFail(const GLenum &value)
@@ -215,6 +255,14 @@ const GLenum &StencilChunkBase::getStencilOpZPass(void) const
     return _sfStencilOpZPass.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &StencilChunkBase::getStencilOpZPass(void)
+{
+    return this->editStencilOpZPass();
+}
+#endif
+
 //! Set the value of the StencilChunk::_sfStencilOpZPass field.
 inline
 void StencilChunkBase::setStencilOpZPass(const GLenum &value)
@@ -239,6 +287,14 @@ const Int32 &StencilChunkBase::getClearBuffer(void) const
 {
     return _sfClearBuffer.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &StencilChunkBase::getClearBuffer(void)
+{
+    return this->editClearBuffer();
+}
+#endif
 
 //! Set the value of the StencilChunk::_sfClearBuffer field.
 inline

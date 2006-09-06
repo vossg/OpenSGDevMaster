@@ -190,6 +190,13 @@ const SFHWND *WIN32WindowBase::getSFHwnd(void) const
     return &_sfHwnd;
 }
 
+#ifdef OSG_1_COMPAT
+SFHWND *WIN32WindowBase::getSFHwnd(void)
+{
+    return this->editSFHwnd();
+}
+#endif
+
 SFHDC *WIN32WindowBase::editSFHdc(void)
 {
     editSField(HdcFieldMask);
@@ -202,6 +209,13 @@ const SFHDC *WIN32WindowBase::getSFHdc(void) const
     return &_sfHdc;
 }
 
+#ifdef OSG_1_COMPAT
+SFHDC *WIN32WindowBase::getSFHdc(void)
+{
+    return this->editSFHdc();
+}
+#endif
+
 SFHGLRC *WIN32WindowBase::editSFHglrc(void)
 {
     editSField(HglrcFieldMask);
@@ -213,6 +227,13 @@ const SFHGLRC *WIN32WindowBase::getSFHglrc(void) const
 {
     return &_sfHglrc;
 }
+
+#ifdef OSG_1_COMPAT
+SFHGLRC *WIN32WindowBase::getSFHglrc(void)
+{
+    return this->editSFHglrc();
+}
+#endif
 
 
 

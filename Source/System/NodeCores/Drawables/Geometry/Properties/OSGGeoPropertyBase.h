@@ -229,15 +229,29 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+#ifdef OSG_1_COMPAT
+           SFUInt32 *getSFGLId(void);
+#endif
            SFUInt32 *editSFGLId(void);
      const SFUInt32 *getSFGLId (void) const;
+
+#ifdef OSG_1_COMPAT
+           SFInt32 *getSFUsage(void);
+#endif
            SFInt32 *editSFUsage(void);
      const SFInt32 *getSFUsage (void) const;
 
 
+#ifdef OSG_1_COMPAT
+           UInt32 &getGLId(void);
+#endif
            UInt32 &editGLId(void);
      const UInt32 &getGLId(void) const;
 
+#ifdef OSG_1_COMPAT
+           Int32 &getUsage(void);
+#endif
            Int32 &editUsage(void);
      const Int32 &getUsage(void) const;
 

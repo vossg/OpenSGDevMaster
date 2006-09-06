@@ -863,6 +863,13 @@ const SFColor4f *RegisterCombinersChunkBase::getSFColor0(void) const
     return &_sfColor0;
 }
 
+#ifdef OSG_1_COMPAT
+SFColor4f *RegisterCombinersChunkBase::getSFColor0(void)
+{
+    return this->editSFColor0();
+}
+#endif
+
 SFColor4f *RegisterCombinersChunkBase::editSFColor1(void)
 {
     editSField(Color1FieldMask);
@@ -874,6 +881,13 @@ const SFColor4f *RegisterCombinersChunkBase::getSFColor1(void) const
 {
     return &_sfColor1;
 }
+
+#ifdef OSG_1_COMPAT
+SFColor4f *RegisterCombinersChunkBase::getSFColor1(void)
+{
+    return this->editSFColor1();
+}
+#endif
 
 SFBool *RegisterCombinersChunkBase::editSFColorSumClamp(void)
 {
@@ -887,6 +901,13 @@ const SFBool *RegisterCombinersChunkBase::getSFColorSumClamp(void) const
     return &_sfColorSumClamp;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *RegisterCombinersChunkBase::getSFColorSumClamp(void)
+{
+    return this->editSFColorSumClamp();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFVariableArgb(void)
 {
     editMField(VariableArgbFieldMask, _mfVariableArgb);
@@ -898,6 +919,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableArgb(void) const
 {
     return &_mfVariableArgb;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableArgb(void)
+{
+    return this->editMFVariableArgb();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFVariableBrgb(void)
 {
@@ -911,6 +939,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableBrgb(void) const
     return &_mfVariableBrgb;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableBrgb(void)
+{
+    return this->editMFVariableBrgb();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFVariableCrgb(void)
 {
     editMField(VariableCrgbFieldMask, _mfVariableCrgb);
@@ -922,6 +957,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableCrgb(void) const
 {
     return &_mfVariableCrgb;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableCrgb(void)
+{
+    return this->editMFVariableCrgb();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFVariableDrgb(void)
 {
@@ -935,6 +977,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableDrgb(void) const
     return &_mfVariableDrgb;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableDrgb(void)
+{
+    return this->editMFVariableDrgb();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFVariableAalpha(void)
 {
     editMField(VariableAalphaFieldMask, _mfVariableAalpha);
@@ -946,6 +995,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableAalpha(void) const
 {
     return &_mfVariableAalpha;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableAalpha(void)
+{
+    return this->editMFVariableAalpha();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFVariableBalpha(void)
 {
@@ -959,6 +1015,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableBalpha(void) const
     return &_mfVariableBalpha;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableBalpha(void)
+{
+    return this->editMFVariableBalpha();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFVariableCalpha(void)
 {
     editMField(VariableCalphaFieldMask, _mfVariableCalpha);
@@ -970,6 +1033,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableCalpha(void) const
 {
     return &_mfVariableCalpha;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableCalpha(void)
+{
+    return this->editMFVariableCalpha();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFVariableDalpha(void)
 {
@@ -983,6 +1053,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableDalpha(void) const
     return &_mfVariableDalpha;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableDalpha(void)
+{
+    return this->editMFVariableDalpha();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFOutputABrgb(void)
 {
     editMField(OutputABrgbFieldMask, _mfOutputABrgb);
@@ -994,6 +1071,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputABrgb(void) const
 {
     return &_mfOutputABrgb;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFOutputABrgb(void)
+{
+    return this->editMFOutputABrgb();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFOutputCDrgb(void)
 {
@@ -1007,6 +1091,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputCDrgb(void) const
     return &_mfOutputCDrgb;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFOutputCDrgb(void)
+{
+    return this->editMFOutputCDrgb();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFOutputSumrgb(void)
 {
     editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
@@ -1018,6 +1109,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputSumrgb(void) const
 {
     return &_mfOutputSumrgb;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFOutputSumrgb(void)
+{
+    return this->editMFOutputSumrgb();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFScalergb(void)
 {
@@ -1031,6 +1129,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFScalergb(void) const
     return &_mfScalergb;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFScalergb(void)
+{
+    return this->editMFScalergb();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFBiasrgb(void)
 {
     editMField(BiasrgbFieldMask, _mfBiasrgb);
@@ -1042,6 +1147,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFBiasrgb(void) const
 {
     return &_mfBiasrgb;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFBiasrgb(void)
+{
+    return this->editMFBiasrgb();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFOutputABalpha(void)
 {
@@ -1055,6 +1167,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputABalpha(void) const
     return &_mfOutputABalpha;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFOutputABalpha(void)
+{
+    return this->editMFOutputABalpha();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFOutputCDalpha(void)
 {
     editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
@@ -1066,6 +1185,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputCDalpha(void) const
 {
     return &_mfOutputCDalpha;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFOutputCDalpha(void)
+{
+    return this->editMFOutputCDalpha();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFOutputSumalpha(void)
 {
@@ -1079,6 +1205,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputSumalpha(void) const
     return &_mfOutputSumalpha;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFOutputSumalpha(void)
+{
+    return this->editMFOutputSumalpha();
+}
+#endif
+
 MFUInt8 *RegisterCombinersChunkBase::editMFDotABrgb(void)
 {
     editMField(DotABrgbFieldMask, _mfDotABrgb);
@@ -1090,6 +1223,13 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFDotABrgb(void) const
 {
     return &_mfDotABrgb;
 }
+
+#ifdef OSG_1_COMPAT
+MFUInt8 *RegisterCombinersChunkBase::getMFDotABrgb(void)
+{
+    return this->editMFDotABrgb();
+}
+#endif
 
 MFUInt8 *RegisterCombinersChunkBase::editMFDotCDrgb(void)
 {
@@ -1103,6 +1243,13 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFDotCDrgb(void) const
     return &_mfDotCDrgb;
 }
 
+#ifdef OSG_1_COMPAT
+MFUInt8 *RegisterCombinersChunkBase::getMFDotCDrgb(void)
+{
+    return this->editMFDotCDrgb();
+}
+#endif
+
 MFUInt8 *RegisterCombinersChunkBase::editMFMuxSumrgb(void)
 {
     editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
@@ -1114,6 +1261,13 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumrgb(void) const
 {
     return &_mfMuxSumrgb;
 }
+
+#ifdef OSG_1_COMPAT
+MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumrgb(void)
+{
+    return this->editMFMuxSumrgb();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFScalealpha(void)
 {
@@ -1127,6 +1281,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFScalealpha(void) const
     return &_mfScalealpha;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFScalealpha(void)
+{
+    return this->editMFScalealpha();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFBiasalpha(void)
 {
     editMField(BiasalphaFieldMask, _mfBiasalpha);
@@ -1138,6 +1299,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFBiasalpha(void) const
 {
     return &_mfBiasalpha;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFBiasalpha(void)
+{
+    return this->editMFBiasalpha();
+}
+#endif
 
 MFUInt8 *RegisterCombinersChunkBase::editMFMuxSumalpha(void)
 {
@@ -1151,6 +1319,13 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumalpha(void) const
     return &_mfMuxSumalpha;
 }
 
+#ifdef OSG_1_COMPAT
+MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumalpha(void)
+{
+    return this->editMFMuxSumalpha();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFVariableE(void)
 {
     editMField(VariableEFieldMask, _mfVariableE);
@@ -1162,6 +1337,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableE(void) const
 {
     return &_mfVariableE;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableE(void)
+{
+    return this->editMFVariableE();
+}
+#endif
 
 MFGLenum *RegisterCombinersChunkBase::editMFVariableF(void)
 {
@@ -1175,6 +1357,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableF(void) const
     return &_mfVariableF;
 }
 
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableF(void)
+{
+    return this->editMFVariableF();
+}
+#endif
+
 MFGLenum *RegisterCombinersChunkBase::editMFVariableG(void)
 {
     editMField(VariableGFieldMask, _mfVariableG);
@@ -1186,6 +1375,13 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableG(void) const
 {
     return &_mfVariableG;
 }
+
+#ifdef OSG_1_COMPAT
+MFGLenum *RegisterCombinersChunkBase::getMFVariableG(void)
+{
+    return this->editMFVariableG();
+}
+#endif
 
 MFColor4f *RegisterCombinersChunkBase::editMFCombinerColor0(void)
 {
@@ -1199,6 +1395,13 @@ const MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor0(void) const
     return &_mfCombinerColor0;
 }
 
+#ifdef OSG_1_COMPAT
+MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor0(void)
+{
+    return this->editMFCombinerColor0();
+}
+#endif
+
 MFColor4f *RegisterCombinersChunkBase::editMFCombinerColor1(void)
 {
     editMField(CombinerColor1FieldMask, _mfCombinerColor1);
@@ -1211,6 +1414,13 @@ const MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor1(void) const
     return &_mfCombinerColor1;
 }
 
+#ifdef OSG_1_COMPAT
+MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor1(void)
+{
+    return this->editMFCombinerColor1();
+}
+#endif
+
 SFUInt8 *RegisterCombinersChunkBase::editSFPerStageConstants(void)
 {
     editSField(PerStageConstantsFieldMask);
@@ -1222,6 +1432,13 @@ const SFUInt8 *RegisterCombinersChunkBase::getSFPerStageConstants(void) const
 {
     return &_sfPerStageConstants;
 }
+
+#ifdef OSG_1_COMPAT
+SFUInt8 *RegisterCombinersChunkBase::getSFPerStageConstants(void)
+{
+    return this->editSFPerStageConstants();
+}
+#endif
 
 
 

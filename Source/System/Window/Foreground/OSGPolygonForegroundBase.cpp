@@ -240,6 +240,13 @@ const MFPnt2f *PolygonForegroundBase::getMFPositions(void) const
     return &_mfPositions;
 }
 
+#ifdef OSG_1_COMPAT
+MFPnt2f *PolygonForegroundBase::getMFPositions(void)
+{
+    return this->editMFPositions();
+}
+#endif
+
 MFVec3f *PolygonForegroundBase::editMFTexCoords(void)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
@@ -251,6 +258,13 @@ const MFVec3f *PolygonForegroundBase::getMFTexCoords(void) const
 {
     return &_mfTexCoords;
 }
+
+#ifdef OSG_1_COMPAT
+MFVec3f *PolygonForegroundBase::getMFTexCoords(void)
+{
+    return this->editMFTexCoords();
+}
+#endif
 
 SFBool *PolygonForegroundBase::editSFNormalizedX(void)
 {
@@ -264,6 +278,13 @@ const SFBool *PolygonForegroundBase::getSFNormalizedX(void) const
     return &_sfNormalizedX;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *PolygonForegroundBase::getSFNormalizedX(void)
+{
+    return this->editSFNormalizedX();
+}
+#endif
+
 SFBool *PolygonForegroundBase::editSFNormalizedY(void)
 {
     editSField(NormalizedYFieldMask);
@@ -275,6 +296,13 @@ const SFBool *PolygonForegroundBase::getSFNormalizedY(void) const
 {
     return &_sfNormalizedY;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *PolygonForegroundBase::getSFNormalizedY(void)
+{
+    return this->editSFNormalizedY();
+}
+#endif
 
 
 void PolygonForegroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,

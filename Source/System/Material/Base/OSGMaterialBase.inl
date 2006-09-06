@@ -90,6 +90,14 @@ const Int32 &MaterialBase::getSortKey(void) const
     return _sfSortKey.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &MaterialBase::getSortKey(void)
+{
+    return this->editSortKey();
+}
+#endif
+
 //! Set the value of the Material::_sfSortKey field.
 inline
 void MaterialBase::setSortKey(const Int32 &value)

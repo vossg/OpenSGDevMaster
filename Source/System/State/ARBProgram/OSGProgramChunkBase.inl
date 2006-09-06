@@ -90,6 +90,14 @@ const std::string &ProgramChunkBase::getProgram(void) const
     return _sfProgram.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+std::string &ProgramChunkBase::getProgram(void)
+{
+    return this->editProgram();
+}
+#endif
+
 //! Set the value of the ProgramChunk::_sfProgram field.
 inline
 void ProgramChunkBase::setProgram(const std::string &value)
@@ -114,6 +122,14 @@ const UInt32 &ProgramChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &ProgramChunkBase::getGLId(void)
+{
+    return this->editGLId();
+}
+#endif
 
 //! Set the value of the ProgramChunk::_sfGLId field.
 inline
@@ -148,6 +164,22 @@ MFVec4f &ProgramChunkBase::editParamValues(void)
     return _mfParamValues;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec4f &ProgramChunkBase::getParamValues(const UInt32 index)
+{
+    return this->editParamValues(index);
+}
+
+inline
+MFVec4f &ProgramChunkBase::getParamValues(void)
+{
+    return this->editParamValues();
+}
+
+#endif
+
+
 //! Get the ProgramChunk::_mfParamValues field.
 inline
 const MFVec4f &ProgramChunkBase::getParamValues(void) const
@@ -178,6 +210,22 @@ MFString &ProgramChunkBase::editParamNames(void)
 
     return _mfParamNames;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+std::string &ProgramChunkBase::getParamNames(const UInt32 index)
+{
+    return this->editParamNames(index);
+}
+
+inline
+MFString &ProgramChunkBase::getParamNames(void)
+{
+    return this->editParamNames();
+}
+
+#endif
+
 
 //! Get the ProgramChunk::_mfParamNames field.
 inline

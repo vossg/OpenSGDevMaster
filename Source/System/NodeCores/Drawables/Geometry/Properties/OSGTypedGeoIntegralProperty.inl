@@ -292,6 +292,21 @@ const typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
     return _field;
 }
 
+#ifdef OSG_1_COMPAT
+template <class GeoPropertyDesc> inline 
+typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType *
+    TypedGeoIntegralProperty<GeoPropertyDesc>::getFieldPtr (void)
+{
+    return this->editFieldPtr();
+}
+
+template <class GeoPropertyDesc> inline 
+typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
+    TypedGeoIntegralProperty<GeoPropertyDesc>::getField(void)
+{
+    return this->editField();
+}
+#endif
 
 
 template <class GeoPropertyDesc> inline 

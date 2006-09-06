@@ -175,6 +175,14 @@ const bool &CubeTextureChunkBase::getIsReflectionMap(void) const
     return _sfIsReflectionMap.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &CubeTextureChunkBase::getIsReflectionMap(void)
+{
+    return this->editIsReflectionMap();
+}
+#endif
+
 //! Set the value of the CubeTextureChunk::_sfIsReflectionMap field.
 inline
 void CubeTextureChunkBase::setIsReflectionMap(const bool &value)

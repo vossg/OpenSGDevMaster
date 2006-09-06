@@ -142,6 +142,13 @@ const SFInt32 *GLUTWindowBase::getSFId(void) const
     return &_sfId;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *GLUTWindowBase::getSFId(void)
+{
+    return this->editSFId();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/

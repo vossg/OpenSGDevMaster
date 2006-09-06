@@ -90,6 +90,14 @@ const UInt16 &FrameBufferAttachmentBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &FrameBufferAttachmentBase::getWidth(void)
+{
+    return this->editWidth();
+}
+#endif
+
 //! Set the value of the FrameBufferAttachment::_sfWidth field.
 inline
 void FrameBufferAttachmentBase::setWidth(const UInt16 &value)
@@ -114,6 +122,14 @@ const UInt16 &FrameBufferAttachmentBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt16 &FrameBufferAttachmentBase::getHeight(void)
+{
+    return this->editHeight();
+}
+#endif
 
 //! Set the value of the FrameBufferAttachment::_sfHeight field.
 inline

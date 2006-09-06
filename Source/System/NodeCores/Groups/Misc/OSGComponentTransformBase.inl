@@ -90,6 +90,14 @@ const Vec3r &ComponentTransformBase::getCenter(void) const
     return _sfCenter.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3r &ComponentTransformBase::getCenter(void)
+{
+    return this->editCenter();
+}
+#endif
+
 //! Set the value of the ComponentTransform::_sfCenter field.
 inline
 void ComponentTransformBase::setCenter(const Vec3r &value)
@@ -114,6 +122,14 @@ const Quaternionr &ComponentTransformBase::getRotation(void) const
 {
     return _sfRotation.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Quaternionr &ComponentTransformBase::getRotation(void)
+{
+    return this->editRotation();
+}
+#endif
 
 //! Set the value of the ComponentTransform::_sfRotation field.
 inline
@@ -140,6 +156,14 @@ const Vec3r &ComponentTransformBase::getScale(void) const
     return _sfScale.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3r &ComponentTransformBase::getScale(void)
+{
+    return this->editScale();
+}
+#endif
+
 //! Set the value of the ComponentTransform::_sfScale field.
 inline
 void ComponentTransformBase::setScale(const Vec3r &value)
@@ -165,6 +189,14 @@ const Quaternionr &ComponentTransformBase::getScaleOrientation(void) const
     return _sfScaleOrientation.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Quaternionr &ComponentTransformBase::getScaleOrientation(void)
+{
+    return this->editScaleOrientation();
+}
+#endif
+
 //! Set the value of the ComponentTransform::_sfScaleOrientation field.
 inline
 void ComponentTransformBase::setScaleOrientation(const Quaternionr &value)
@@ -189,6 +221,14 @@ const Vec3r &ComponentTransformBase::getTranslation(void) const
 {
     return _sfTranslation.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec3r &ComponentTransformBase::getTranslation(void)
+{
+    return this->editTranslation();
+}
+#endif
 
 //! Set the value of the ComponentTransform::_sfTranslation field.
 inline

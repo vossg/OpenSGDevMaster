@@ -257,7 +257,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGPassiveWindowBase.cpp,v 1.1.2.4 2006/08/01 08:49:01 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
     static Char8 cvsid_hpp       [] = OSGPASSIVEWINDOWBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGPASSIVEWINDOWBASE_INLINE_CVSID;
 

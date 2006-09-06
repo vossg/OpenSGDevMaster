@@ -252,6 +252,13 @@ const SFBool *CubeTextureChunkBase::getSFIsReflectionMap(void) const
     return &_sfIsReflectionMap;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *CubeTextureChunkBase::getSFIsReflectionMap(void)
+{
+    return this->editSFIsReflectionMap();
+}
+#endif
+
 
 void CubeTextureChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
                                     const UInt32                    uiFieldId  )

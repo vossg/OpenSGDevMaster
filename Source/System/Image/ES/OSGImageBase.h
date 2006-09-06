@@ -619,10 +619,17 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+#ifdef OSG_1_COMPAT
+           SFInt32 *getSFComponentSize(void);
+#endif
            SFInt32 *editSFComponentSize(void);
      const SFInt32 *getSFComponentSize (void) const;
 
 
+#ifdef OSG_1_COMPAT
+           Int32 &getComponentSize(void);
+#endif
            Int32 &editComponentSize(void);
      const Int32 &getComponentSize(void) const;
 

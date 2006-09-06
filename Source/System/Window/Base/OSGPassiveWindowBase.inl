@@ -139,5 +139,5 @@ typedef PointerBuilder<PassiveWindow>::ObjPtrConstArg  PassiveWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGPASSIVEWINDOWBASE_INLINE_CVSID "@(#)$Id: OSGPassiveWindowBase.inl,v 1.1.2.4 2006/08/01 08:49:01 vossg Exp $"
+#define OSGPASSIVEWINDOWBASE_INLINE_CVSID "@(#)$Id: $"
 

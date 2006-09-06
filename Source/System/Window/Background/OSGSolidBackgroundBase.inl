@@ -90,6 +90,14 @@ const Color3r &SolidBackgroundBase::getColor(void) const
     return _sfColor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color3r &SolidBackgroundBase::getColor(void)
+{
+    return this->editColor();
+}
+#endif
+
 //! Set the value of the SolidBackground::_sfColor field.
 inline
 void SolidBackgroundBase::setColor(const Color3r &value)

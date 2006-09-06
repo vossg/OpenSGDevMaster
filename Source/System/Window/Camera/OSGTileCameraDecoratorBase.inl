@@ -90,6 +90,14 @@ const Real32 &TileCameraDecoratorBase::getLeft(void) const
     return _sfLeft.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TileCameraDecoratorBase::getLeft(void)
+{
+    return this->editLeft();
+}
+#endif
+
 //! Set the value of the TileCameraDecorator::_sfLeft field.
 inline
 void TileCameraDecoratorBase::setLeft(const Real32 &value)
@@ -114,6 +122,14 @@ const Real32 &TileCameraDecoratorBase::getRight(void) const
 {
     return _sfRight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TileCameraDecoratorBase::getRight(void)
+{
+    return this->editRight();
+}
+#endif
 
 //! Set the value of the TileCameraDecorator::_sfRight field.
 inline
@@ -140,6 +156,14 @@ const Real32 &TileCameraDecoratorBase::getBottom(void) const
     return _sfBottom.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TileCameraDecoratorBase::getBottom(void)
+{
+    return this->editBottom();
+}
+#endif
+
 //! Set the value of the TileCameraDecorator::_sfBottom field.
 inline
 void TileCameraDecoratorBase::setBottom(const Real32 &value)
@@ -164,6 +188,14 @@ const Real32 &TileCameraDecoratorBase::getTop(void) const
 {
     return _sfTop.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TileCameraDecoratorBase::getTop(void)
+{
+    return this->editTop();
+}
+#endif
 
 //! Set the value of the TileCameraDecorator::_sfTop field.
 inline
@@ -190,6 +222,14 @@ const UInt32 &TileCameraDecoratorBase::getFullWidth(void) const
     return _sfFullWidth.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &TileCameraDecoratorBase::getFullWidth(void)
+{
+    return this->editFullWidth();
+}
+#endif
+
 //! Set the value of the TileCameraDecorator::_sfFullWidth field.
 inline
 void TileCameraDecoratorBase::setFullWidth(const UInt32 &value)
@@ -214,6 +254,14 @@ const UInt32 &TileCameraDecoratorBase::getFullHeight(void) const
 {
     return _sfFullHeight.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &TileCameraDecoratorBase::getFullHeight(void)
+{
+    return this->editFullHeight();
+}
+#endif
 
 //! Set the value of the TileCameraDecorator::_sfFullHeight field.
 inline

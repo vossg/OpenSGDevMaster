@@ -112,6 +112,22 @@ MFInt32 &ChunkMaterialBase::editSlots(void)
     return _mfSlots;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &ChunkMaterialBase::getSlots(const UInt32 index)
+{
+    return this->editSlots(index);
+}
+
+inline
+MFInt32 &ChunkMaterialBase::getSlots(void)
+{
+    return this->editSlots();
+}
+
+#endif
+
+
 //! Get the ChunkMaterial::_mfSlots field.
 inline
 const MFInt32 &ChunkMaterialBase::getSlots(void) const

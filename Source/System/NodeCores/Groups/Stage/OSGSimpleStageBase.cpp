@@ -274,6 +274,13 @@ const SFReal32 *SimpleStageBase::getSFLeft(void) const
     return &_sfLeft;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *SimpleStageBase::getSFLeft(void)
+{
+    return this->editSFLeft();
+}
+#endif
+
 SFReal32 *SimpleStageBase::editSFRight(void)
 {
     editSField(RightFieldMask);
@@ -285,6 +292,13 @@ const SFReal32 *SimpleStageBase::getSFRight(void) const
 {
     return &_sfRight;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *SimpleStageBase::getSFRight(void)
+{
+    return this->editSFRight();
+}
+#endif
 
 SFReal32 *SimpleStageBase::editSFBottom(void)
 {
@@ -298,6 +312,13 @@ const SFReal32 *SimpleStageBase::getSFBottom(void) const
     return &_sfBottom;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *SimpleStageBase::getSFBottom(void)
+{
+    return this->editSFBottom();
+}
+#endif
+
 SFReal32 *SimpleStageBase::editSFTop(void)
 {
     editSField(TopFieldMask);
@@ -309,6 +330,13 @@ const SFReal32 *SimpleStageBase::getSFTop(void) const
 {
     return &_sfTop;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal32 *SimpleStageBase::getSFTop(void)
+{
+    return this->editSFTop();
+}
+#endif
 
 //! Get the SimpleStage::_sfCamera field.
 const SFCameraPtr *SimpleStageBase::getSFCamera(void) const

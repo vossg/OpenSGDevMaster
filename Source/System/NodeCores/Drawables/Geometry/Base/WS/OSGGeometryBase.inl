@@ -150,6 +150,14 @@ const bool &GeometryBase::getDlistCache(void) const
     return _sfDlistCache.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &GeometryBase::getDlistCache(void)
+{
+    return this->editDlistCache();
+}
+#endif
+
 //! Set the value of the Geometry::_sfDlistCache field.
 inline
 void GeometryBase::setDlistCache(const bool &value)
@@ -175,6 +183,14 @@ const Int32 &GeometryBase::getClassicGLId(void) const
     return _sfClassicGLId.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &GeometryBase::getClassicGLId(void)
+{
+    return this->editClassicGLId();
+}
+#endif
+
 //! Set the value of the Geometry::_sfClassicGLId field.
 inline
 void GeometryBase::setClassicGLId(const Int32 &value)
@@ -199,6 +215,14 @@ const Int32 &GeometryBase::getAttGLId(void) const
 {
     return _sfAttGLId.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &GeometryBase::getAttGLId(void)
+{
+    return this->editAttGLId();
+}
+#endif
 
 //! Set the value of the Geometry::_sfAttGLId field.
 inline

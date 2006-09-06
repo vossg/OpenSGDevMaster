@@ -375,6 +375,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGIMAGEFOREGROUNDBASE_HEADER_CVSID "@(#)$Id: OSGImageForegroundBase.h,v 1.1.2.4 2006/08/01 08:49:02 vossg Exp $"
+#define OSGIMAGEFOREGROUNDBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGIMAGEFOREGROUNDBASE_H_ */

@@ -90,6 +90,14 @@ const Color4r &LightChunkBase::getDiffuse(void) const
     return _sfDiffuse.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4r &LightChunkBase::getDiffuse(void)
+{
+    return this->editDiffuse();
+}
+#endif
+
 //! Set the value of the LightChunk::_sfDiffuse field.
 inline
 void LightChunkBase::setDiffuse(const Color4r &value)
@@ -114,6 +122,14 @@ const Color4r &LightChunkBase::getAmbient(void) const
 {
     return _sfAmbient.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4r &LightChunkBase::getAmbient(void)
+{
+    return this->editAmbient();
+}
+#endif
 
 //! Set the value of the LightChunk::_sfAmbient field.
 inline
@@ -140,6 +156,14 @@ const Color4r &LightChunkBase::getSpecular(void) const
     return _sfSpecular.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4r &LightChunkBase::getSpecular(void)
+{
+    return this->editSpecular();
+}
+#endif
+
 //! Set the value of the LightChunk::_sfSpecular field.
 inline
 void LightChunkBase::setSpecular(const Color4r &value)
@@ -164,6 +188,14 @@ const Vec4r &LightChunkBase::getPosition(void) const
 {
     return _sfPosition.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Vec4r &LightChunkBase::getPosition(void)
+{
+    return this->editPosition();
+}
+#endif
 
 //! Set the value of the LightChunk::_sfPosition field.
 inline
@@ -190,6 +222,14 @@ const Vec3r &LightChunkBase::getDirection(void) const
     return _sfDirection.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3r &LightChunkBase::getDirection(void)
+{
+    return this->editDirection();
+}
+#endif
+
 //! Set the value of the LightChunk::_sfDirection field.
 inline
 void LightChunkBase::setDirection(const Vec3r &value)
@@ -214,6 +254,14 @@ const Real &LightChunkBase::getExponent(void) const
 {
     return _sfExponent.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real &LightChunkBase::getExponent(void)
+{
+    return this->editExponent();
+}
+#endif
 
 //! Set the value of the LightChunk::_sfExponent field.
 inline
@@ -240,6 +288,14 @@ const Real &LightChunkBase::getCutoff(void) const
     return _sfCutoff.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real &LightChunkBase::getCutoff(void)
+{
+    return this->editCutoff();
+}
+#endif
+
 //! Set the value of the LightChunk::_sfCutoff field.
 inline
 void LightChunkBase::setCutoff(const Real &value)
@@ -264,6 +320,14 @@ const Real &LightChunkBase::getConstantAttenuation(void) const
 {
     return _sfConstantAttenuation.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real &LightChunkBase::getConstantAttenuation(void)
+{
+    return this->editConstantAttenuation();
+}
+#endif
 
 //! Set the value of the LightChunk::_sfConstantAttenuation field.
 inline
@@ -290,6 +354,14 @@ const Real &LightChunkBase::getLinearAttenuation(void) const
     return _sfLinearAttenuation.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real &LightChunkBase::getLinearAttenuation(void)
+{
+    return this->editLinearAttenuation();
+}
+#endif
+
 //! Set the value of the LightChunk::_sfLinearAttenuation field.
 inline
 void LightChunkBase::setLinearAttenuation(const Real &value)
@@ -314,6 +386,14 @@ const Real &LightChunkBase::getQuadraticAttenuation(void) const
 {
     return _sfQuadraticAttenuation.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real &LightChunkBase::getQuadraticAttenuation(void)
+{
+    return this->editQuadraticAttenuation();
+}
+#endif
 
 //! Set the value of the LightChunk::_sfQuadraticAttenuation field.
 inline

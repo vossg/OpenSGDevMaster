@@ -166,6 +166,13 @@ const MFString *InlineBase::getMFUrl(void) const
     return &_mfUrl;
 }
 
+#ifdef OSG_1_COMPAT
+MFString *InlineBase::getMFUrl(void)
+{
+    return this->editMFUrl();
+}
+#endif
+
 SFBool *InlineBase::editSFLoaded(void)
 {
     editSField(LoadedFieldMask);
@@ -177,6 +184,13 @@ const SFBool *InlineBase::getSFLoaded(void) const
 {
     return &_sfLoaded;
 }
+
+#ifdef OSG_1_COMPAT
+SFBool *InlineBase::getSFLoaded(void)
+{
+    return this->editSFLoaded();
+}
+#endif
 
 
 

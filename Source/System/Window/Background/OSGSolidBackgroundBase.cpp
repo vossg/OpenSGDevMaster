@@ -143,6 +143,13 @@ const SFColor3r *SolidBackgroundBase::getSFColor(void) const
     return &_sfColor;
 }
 
+#ifdef OSG_1_COMPAT
+SFColor3r *SolidBackgroundBase::getSFColor(void)
+{
+    return this->editSFColor();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/

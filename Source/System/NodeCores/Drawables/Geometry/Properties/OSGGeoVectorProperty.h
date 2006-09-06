@@ -172,6 +172,19 @@ struct GeoConvert
     {
         convertCustomOut(dest, src, scale, offset);
     }
+    template <class ExternalType>
+    inline static void convertOut(ExternalType& dest, const Color3fx& src,
+                                  Real64 scale = 1, Real64 offset = 0)
+    {
+        convertCustomOut(dest, src, scale, offset);
+    }
+    template <class ExternalType>
+    inline static void convertOut(ExternalType& dest, const Color4fx& src,
+                                  Real64 scale = 1, Real64 offset = 0)
+    {
+        convertCustomOut(dest, src, scale, offset);
+    }
+
 };
 
 struct GeoConvertNormalize

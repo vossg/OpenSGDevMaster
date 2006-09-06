@@ -168,6 +168,13 @@ const SFString *ShaderChunkBase::getSFVertexProgram(void) const
     return &_sfVertexProgram;
 }
 
+#ifdef OSG_1_COMPAT
+SFString *ShaderChunkBase::getSFVertexProgram(void)
+{
+    return this->editSFVertexProgram();
+}
+#endif
+
 SFString *ShaderChunkBase::editSFFragmentProgram(void)
 {
     editSField(FragmentProgramFieldMask);
@@ -179,6 +186,13 @@ const SFString *ShaderChunkBase::getSFFragmentProgram(void) const
 {
     return &_sfFragmentProgram;
 }
+
+#ifdef OSG_1_COMPAT
+SFString *ShaderChunkBase::getSFFragmentProgram(void)
+{
+    return this->editSFFragmentProgram();
+}
+#endif
 
 
 

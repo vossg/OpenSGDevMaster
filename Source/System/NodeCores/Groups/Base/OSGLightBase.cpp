@@ -322,6 +322,13 @@ const SFColor4r *LightBase::getSFAmbient(void) const
     return &_sfAmbient;
 }
 
+#ifdef OSG_1_COMPAT
+SFColor4r *LightBase::getSFAmbient(void)
+{
+    return this->editSFAmbient();
+}
+#endif
+
 SFColor4r *LightBase::editSFDiffuse(void)
 {
     editSField(DiffuseFieldMask);
@@ -334,6 +341,13 @@ const SFColor4r *LightBase::getSFDiffuse(void) const
     return &_sfDiffuse;
 }
 
+#ifdef OSG_1_COMPAT
+SFColor4r *LightBase::getSFDiffuse(void)
+{
+    return this->editSFDiffuse();
+}
+#endif
+
 SFColor4r *LightBase::editSFSpecular(void)
 {
     editSField(SpecularFieldMask);
@@ -345,6 +359,13 @@ const SFColor4r *LightBase::getSFSpecular(void) const
 {
     return &_sfSpecular;
 }
+
+#ifdef OSG_1_COMPAT
+SFColor4r *LightBase::getSFSpecular(void)
+{
+    return this->editSFSpecular();
+}
+#endif
 
 //! Get the Light::_sfBeacon field.
 const SFNodePtr *LightBase::getSFBeacon(void) const
@@ -364,6 +385,13 @@ const SFBool *LightBase::getSFOn(void) const
     return &_sfOn;
 }
 
+#ifdef OSG_1_COMPAT
+SFBool *LightBase::getSFOn(void)
+{
+    return this->editSFOn();
+}
+#endif
+
 SFReal *LightBase::editSFConstantAttenuation(void)
 {
     editSField(ConstantAttenuationFieldMask);
@@ -375,6 +403,13 @@ const SFReal *LightBase::getSFConstantAttenuation(void) const
 {
     return &_sfConstantAttenuation;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal *LightBase::getSFConstantAttenuation(void)
+{
+    return this->editSFConstantAttenuation();
+}
+#endif
 
 SFReal *LightBase::editSFLinearAttenuation(void)
 {
@@ -388,6 +423,13 @@ const SFReal *LightBase::getSFLinearAttenuation(void) const
     return &_sfLinearAttenuation;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal *LightBase::getSFLinearAttenuation(void)
+{
+    return this->editSFLinearAttenuation();
+}
+#endif
+
 SFReal *LightBase::editSFQuadraticAttenuation(void)
 {
     editSField(QuadraticAttenuationFieldMask);
@@ -399,6 +441,13 @@ const SFReal *LightBase::getSFQuadraticAttenuation(void) const
 {
     return &_sfQuadraticAttenuation;
 }
+
+#ifdef OSG_1_COMPAT
+SFReal *LightBase::getSFQuadraticAttenuation(void)
+{
+    return this->editSFQuadraticAttenuation();
+}
+#endif
 
 //! Get the Light::_sfLightEngine field.
 const SFLightEnginePtr *LightBase::getSFLightEngine(void) const
