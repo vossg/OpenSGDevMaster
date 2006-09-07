@@ -73,6 +73,14 @@ def main():
 
    (options, pos_args) = parser.parse_args()  
    
+   # Process simple single options
+   if options.prefix:
+      print inst_prefix
+      return
+   elif options.version:
+      print version
+      return
+   
    # Try to find libname
    # - Try given name and name with OSG prefix
    libraries = []
@@ -84,11 +92,12 @@ def main():
             libraries.append(lib_map["OSG%s"%n])
          else:
             print "Error: Can not find library named: ", n
-   
+      
+   # Make sure we have libraries
    if len(libraries) == 0:
       printUsage()
       sys.exit(1)
-   
+
    # If set to no prefix flags, then clear all defaults
    if options.no_prefix_flags:
       options.inc_prefix = ""
@@ -101,12 +110,8 @@ def main():
    default_lib_settings.cpppath.insert(0, inst_inc_path)
    config_info = ConfigInfoAdapter(libraries, lib_map, default_lib_settings,
                      options.inc_prefix, options.lib_prefix, options.libpath_prefix)
-      
-   if options.prefix:
-      print inst_prefix
-   elif options.version:
-      print version
-   elif options.cflags:
+            
+   if options.cflags:
       print config_info.getIncPathStr()
    elif options.libs or options.llibs or options.lflags:
       if options.libs:
