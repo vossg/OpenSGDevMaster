@@ -86,7 +86,7 @@ MAKEMAJOR := \
 	$(shell $(MAKE) --version | head -1 | cut -d' ' -f 3 | cut -d'.' -f 1)
 
 MAKEMINOR := \
-	$(shell $(MAKE) --version | head -1 | cut -d' ' -f 3 | cut -d'.' -f 2)
+	$(shell $(MAKE) --version | head -1 | cut -d' ' -f 3 | cut -d'.' -f 2 | cut -b -2)
 endif
 
 
