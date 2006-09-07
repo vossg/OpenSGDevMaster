@@ -20,8 +20,7 @@ else:
             libpath.append(option.libDir)
 
    # Tests' dependencies
-   osg_test_libs = [ 'OSGGroup', 'OSGDrawable', 'OSGFileIO', 'OSGWindow', 
-                     'OSGWindowX', 'OSGText', 'OSGUtil']
+   osg_test_libs = ['OSGBase']
    test_cpppath = []
    test_libpath = []
      
