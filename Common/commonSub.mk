@@ -77,9 +77,9 @@ getProjFCDSourceFiles   = $(foreach dir,$(1),$(call getFCDSourceFiles,$(dir)))
 # Get Flex/Bison Source Files
 #########################################################################
 
-getBisonSources  = $(wildcard $(1)/*.y)
-getFlexSources   = $(wildcard $(1)/*.l)
-getFlexPPSources = $(wildcard $(1)/*.lpp)
+getBisonSources  = $(wildcard $(1)/*.yyx)
+getFlexSources   = $(wildcard $(1)/*.lx)
+getFlexPPSources = $(wildcard $(1)/*.lppx)
 
 getProjFlexSourceFiles   = $(foreach dir,$(1),$(call getFlexSources,$(dir)))
 getProjFlexPPSourceFiles = $(foreach dir,$(1),$(call getFlexPPSources,$(dir)))
@@ -304,13 +304,13 @@ flex_int = $(strip $(basename $(notdir $(1))))_
 flex_ext = $(strip $(basename $(notdir $(1))))
 
 ifneq ($(LIB_BISONSOURCES),)
-LIB_BISONSOURCES_CPP := $(notdir $(patsubst %.y,%.cpp,$(LIB_BISONSOURCES)))
-LIB_BISONTARGET_CPP  := $(notdir $(patsubst %.y,%.tab.cpp,$(LIB_BISONSOURCES)))
+LIB_BISONSOURCES_CPP := $(notdir $(patsubst %.yy,%.cpp,$(LIB_BISONSOURCES)))
+LIB_BISONTARGET_CPP  := $(notdir $(patsubst %.yy,%.tab.cpp,$(LIB_BISONSOURCES)))
 LIB_BISONTARGET_CPP  := $(addprefix $(OBJDIR)/,$(LIB_BISONTARGET_CPP))
 
-LIB_BISONTARGET_HPP  := $(notdir $(patsubst %.y,%.tab.h,$(LIB_BISONSOURCES)))
+LIB_BISONTARGET_HPP  := $(notdir $(patsubst %.yy,%.tab.h,$(LIB_BISONSOURCES)))
 
-LIB_BISONTARGET_OBJ  := $(notdir $(patsubst %.y,%$(OBJ_SUFFIX),$(LIB_BISONSOURCES)))
+LIB_BISONTARGET_OBJ  := $(notdir $(patsubst %.yy,%$(OBJ_SUFFIX),$(LIB_BISONSOURCES)))
 LIB_BISONTARGET_OBJ  := $(addprefix $(OBJDIR)/,$(LIB_BISONTARGET_OBJ))
 
 ifneq ($(OSGNODEPS),1)

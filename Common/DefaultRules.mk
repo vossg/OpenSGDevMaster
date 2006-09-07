@@ -3,7 +3,7 @@
 # Build Rules
 #########################################################################
 
-.SUFFIXES:	.src $(OBJ_SUFFIX) .cpp .c .hpp .l .y .tab.cpp .tab.h .s 	\
+.SUFFIXES:	.src $(OBJ_SUFFIX) .cpp .c .hpp .l .yy .tab.cpp .tab.h .s 	\
 			$(SO_SUFFIX) _moc.o _moc.cpp _qt.hpp .inl _as.s _ias.s .ins
 
 cnvUnix2Win = "$(shell cygpath -w $(1))"
@@ -632,16 +632,16 @@ endif
 
 ifneq ($(LIB_BISONTARGET_CPP),)
 
-$(OBJDIR)/%.tab.cpp: %.y
+$(OBJDIR)/%.tab.cpp: %.yy
 	$(BISON) -d -v -p$(call bison_int,$<) -b$(call bison_int,$<) $<
-	mv $(call bison_int,$<).tab.c  $(OBJDIR)/$(call bison_ext,$<).tab.cpp
-	mv $(call bison_int,$<).tab.h            $(call bison_ext,$<).tab.h
+	mv $(call bison_int,$<).tab.cc $(OBJDIR)/$(call bison_ext,$<).tab.cpp
+	mv $(call bison_int,$<).tab.hh           $(call bison_ext,$<).tab.h
 	mv $(call bison_int,$<).output $(OBJDIR)/$(call bison_ext,$<).output
 
-%.tab.h: %.y
+%.tab.h: %.yy
 	$(BISON) -d -v -p$(call bison_int,$<) -b$(call bison_int,$<) $<
-	mv $(call bison_int,$<).tab.c  $(OBJDIR)/$(call bison_ext,$<).tab.cpp
-	mv $(call bison_int,$<).tab.h            $(call bison_ext,$<).tab.h
+	mv $(call bison_int,$<).tab.cc $(OBJDIR)/$(call bison_ext,$<).tab.cpp
+	mv $(call bison_int,$<).tab.hh           $(call bison_ext,$<).tab.h
 	mv $(call bison_int,$<).output $(OBJDIR)/$(call bison_ext,$<).output
 
 $(LIB_BISONTARGET_CPP) : $(LIB_BISONSOURCES)
