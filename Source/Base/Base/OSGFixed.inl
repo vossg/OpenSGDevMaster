@@ -258,7 +258,7 @@ Fixed32 Fixed32::sqrt(Fixed32 rhs)
 inline
 Fixed32 Fixed32::sin(Fixed32 rhs)
 {
-    Fixed32 returnValue(Real32(std::sin(Fixed32::toFloat(rhs))));
+    Fixed32 returnValue((Real32(std::sin(Fixed32::toFloat(rhs)))));
 
     return returnValue;
 }
@@ -266,7 +266,7 @@ Fixed32 Fixed32::sin(Fixed32 rhs)
 inline
 Fixed32 Fixed32::cos(Fixed32 rhs)
 {
-    Fixed32 returnValue(Real32(std::cos(Fixed32::toFloat(rhs))));
+    Fixed32 returnValue((Real32(std::cos(Fixed32::toFloat(rhs)))));
 
     return returnValue;
 }
@@ -274,7 +274,7 @@ Fixed32 Fixed32::cos(Fixed32 rhs)
 inline
 Fixed32 Fixed32::tan(Fixed32 rhs)
 {
-    Fixed32 returnValue(Real32(std::tan(Fixed32::toFloat(rhs))));
+    Fixed32 returnValue((Real32(std::tan(Fixed32::toFloat(rhs)))));
 
     return returnValue;
 }
