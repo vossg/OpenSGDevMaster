@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemxDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class Drawable;
 
 //! \brief Drawable Base Class.
 
-class OSG_SYSTEMX_DLLMAPPING DrawableBase : public NodeCore
+class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
 {
   public:
 
