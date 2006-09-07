@@ -130,6 +130,7 @@ opts.AddOption(sca_opts.BoolOption("disable_deprecated","Disable deprecated code
 opts.AddOption(sca_opts.BoolOption("disable_glut_glsubdir","Do not use GL subdir while including glut.h",False))
 opts.AddOption(sca_opts.BoolOption("osg_1_compat","Enable opensg 1.x compatibility.",False))
 opts.AddOption(sca_opts.BoolOption("osg_deprecated_props","Enable deprecated property types.",False))
+opts.Add("build_suffix", "Suffix to append to build directory.  Useful for compiling multiple variations on same platform.", "")                                    
 opts.Add("icc_gnu_compat","<GCC Verion> to make the icc resultbinary compatible to the given gcc version. (unsupported)")
 if "win32" == platform:
    opts.AddOption(sca_opts.BoolOption("win_localstorage", "Use local storage instead of __declspec to get thread local storage on windows",
@@ -170,6 +171,10 @@ if not SConsAddons.Util.hasHelpFlag():
       opts.Save(option_filename, common_env)
    except LookupError, le:
       pass
+   
+   # Update settings
+   if common_env["build_suffix"] != "":
+      buildDir = buildDir + "." + common_env["build_suffix"]
    
    # --- Collect all Source and Header files --- #         
    
