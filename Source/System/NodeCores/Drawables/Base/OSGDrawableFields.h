@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGDrawableDef.h"
+#include "OSGSystemxDef.h"
 
 #include "OSGNodeCoreFields.h"
 
@@ -92,7 +92,7 @@ typedef PointerFwdBuilder<NodeCorePtr,
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpSystemxFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -112,7 +112,7 @@ struct FieldTraits<DrawablePtr> :
 
     enum                        { StringConvertable = 0x00 };
 
-    static OSG_DRAWABLE_DLLMAPPING 
+    static OSG_SYSTEMX_DLLMAPPING 
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFDrawablePtr"; }
@@ -129,23 +129,23 @@ struct FieldTraits<DrawablePtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
+/*! \ingroup GrpSystemxFieldSingle */
 
 typedef SFieldAdaptor<DrawablePtr, SFFieldContainerPtr> SFDrawablePtr;
 #endif
 
 #ifndef OSG_COMPILEDRAWABLEINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, DrawablePtr, OSG_DRAWABLE_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, DrawablePtr, OSG_SYSTEMX_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
+/*! \ingroup GrpSystemxFieldMulti */
 
 typedef MFieldAdaptor<DrawablePtr, MFFieldContainerPtr> MFDrawablePtr;
 #endif
 
 #ifndef OSG_COMPILEDRAWABLEINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, DrawablePtr, OSG_DRAWABLE_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, DrawablePtr, OSG_SYSTEMX_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE
