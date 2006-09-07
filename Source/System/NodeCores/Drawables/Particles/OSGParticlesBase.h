@@ -520,9 +520,16 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+#ifdef OSG_1_COMPAT
+           SFUInt32 *getSFPump(void);
+#endif
            SFUInt32 *editSFPump(void);
      const SFUInt32 *getSFPump (void) const;
 
+#ifdef OSG_1_COMPAT
+           UInt32 &getPump(void);
+#endif
            UInt32 &editPump(void);
      const UInt32 &getPump(void) const;
 
