@@ -70,11 +70,13 @@ class ConfigInfoAdapter(object):
    """ Class to adapt a LibraryInfo object into something that returns config info
        type data.  (flags, paths, etc)
        
-       libraries: List or single library. (string name of class)
+       libs: List or single library. (string name of class)
        libMap: Map from string library name to library object.
    """
-   def __init__(self, libraries, libMap, defaultMergedLib=None,
+   def __init__(self, libs, libMap, defaultMergedLib=None,
                 incprefix="-I", libprefix="-l", libpathprefix="-L"):
+      
+      libraries = copy.copy(libs)    # Make a copy so we don't modify the original
       
       # Make sure we have a list of library objects
       if not type(libraries) == list:
