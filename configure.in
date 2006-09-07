@@ -1474,6 +1474,9 @@ case $build_os in
     darwin*)
         AC_GDZ_FIX_OSX_INCLUDES()
     ;;
+    linux*)
+        AC_GDZ_FIX_OSX_INCLUDES()
+    ;;
 esac
 
 case $build in
