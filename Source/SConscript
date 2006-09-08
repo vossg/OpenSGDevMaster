@@ -32,7 +32,7 @@ for (lib_name, library) in lib_map.iteritems():
    
    # Install headers (but only do it once during variant_pass 0 )
    if variant_pass == 0:      
-      lib_env.Install(inst_paths["include"], library.header_files)
+      lib_env.Install(pj(inst_paths["include"],"OpenSG"), library.header_files)
    
    # ---- Build Tests ---- #   
    # Verify we have all the deps for the tests

@@ -345,7 +345,7 @@ if not SConsAddons.Util.hasHelpFlag():
    paths = {}
    paths['base']      = os.path.abspath(common_env['prefix'])
    paths['lib']       = pj(paths['base'], 'lib')
-   paths['include']   = pj(paths['base'], 'include', 'OpenSG')   
+   paths['include']   = pj(paths['base'], 'include')   
    paths['bin']       = pj(paths['base'], 'bin')   
    print "using prefix: ", paths['base']         
       
@@ -369,7 +369,7 @@ if not SConsAddons.Util.hasHelpFlag():
    else:
       definemap.update( {"OSG_PTHREAD_ELF_TLS":(common_env["pthread_elf_tls"],"Use elf tls with pthreads."),} )
    
-   common_env.DefineBuilder(pj(paths["include"],"OSGConfigured.h"),Value(definemap), 
+   common_env.DefineBuilder(pj(paths["include"],"OpenSG","OSGConfigured.h"),Value(definemap), 
                             definemap=definemap)
    
    # ---- FOR EACH VARIANT ----- #   
@@ -377,7 +377,7 @@ if not SConsAddons.Util.hasHelpFlag():
    print "types: ",    variant_helper.variants["type"] 
    print "libtypes: ", variant_helper.variants["libtype"] 
    print "archs: ",    variant_helper.variants["arch"]    
-   common_env.Append(CPPPATH = [paths['include'],])
+   common_env.Append(CPPPATH = [paths['include'],pj(paths['include'],"OpenSG")])
    
    for combo in variant_helper.iterate(locals(), base_bldr, common_env):            
       #baseEnv = env_bldr.applyToEnvironment(common_env.Copy(), variant=combo,options=opts)      
