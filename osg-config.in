@@ -70,6 +70,8 @@ def main():
                      help="Linker lib prefix to use. (%s)"%def_libprefix)
    parser.add_option("--libpath-prefix",default=def_libpathprefix, 
                      help="Linker library path prefix to use. (%s)"%def_libpathprefix)
+   parser.add_option("--opt",action="store_true",help="Ignored for backwards compatibility.")
+   parser.add_option("--dbg",action="store_true",help="Ignored for backwards compatibility.")
 
    (options, pos_args) = parser.parse_args()  
    
@@ -82,16 +84,17 @@ def main():
       return
    
    # Try to find libname
-   # - Try given name and name with OSG prefix
+   # - Try given name and name with OSG or OSGWindow prefix
    libraries = []
    if len(pos_args):      
       for n in pos_args:
-         if lib_map.has_key(n):
-            libraries.append(lib_map[n])
-         elif lib_map.has_key("OSG%s"%n):
-            libraries.append(lib_map["OSG%s"%n])
-         else:
-            print "Error: Can not find library named: ", n
+         for name_alt in [n, "OSG"+n, "OSGWindow"+n, None]:
+            if not name_alt:
+               print "Error: Can not find library named: ", n            
+            elif lib_map.has_key(name_alt):
+               libraries.append(lib_map[name_alt])
+               break
+
       
    # Make sure we have libraries
    if len(libraries) == 0:
