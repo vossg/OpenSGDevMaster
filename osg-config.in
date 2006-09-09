@@ -112,7 +112,6 @@ def main():
    default_lib_settings = LibraryInfo()
    default_lib_settings.libpath.insert(0, inst_lib_path) 
    default_lib_settings.cpppath.insert(0, inst_inc_path)
-   default_lib_settings.cpppath.insert(0, pj(inst_inc_path,"OpenSG"))
    config_info = ConfigInfoAdapter(libraries, lib_map, default_lib_settings,
                      options.inc_prefix, options.lib_prefix, options.libpath_prefix)
             
