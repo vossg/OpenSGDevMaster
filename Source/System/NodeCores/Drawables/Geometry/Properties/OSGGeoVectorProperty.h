@@ -59,13 +59,13 @@ struct GeoConvert
     {
         if(ExternalType::_uiSize >= StoredType::_uiSize)
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < StoredType::_uiSize; ++i)
                 dest[i] = static_cast<typename StoredType::ValueType>(src[i]);
         }
         else
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < ExternalType::_uiSize; ++i)
                 dest[i] = static_cast<typename StoredType::ValueType>(src[i]);
             for(; i < StoredType::_uiSize; ++i)
@@ -79,13 +79,13 @@ struct GeoConvert
     {
         if(StoredType::_uiSize >= ExternalType::_uiSize)
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < ExternalType::_uiSize; ++i)
                 dest[i] = static_cast<typename ExternalType::ValueType>(src[i]);
         }
         else
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < StoredType::_uiSize; ++i)
                 dest[i] = static_cast<typename ExternalType::ValueType>(src[i]);
             for(; i < ExternalType::_uiSize; ++i)
@@ -101,7 +101,7 @@ struct GeoConvert
     {
         if(StoredType::_uiSize >= ExternalType::_uiSize)
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < ExternalType::_uiSize; ++i)
             {
                 dest[i] = 
@@ -111,7 +111,7 @@ struct GeoConvert
         }
         else
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < StoredType::_uiSize; ++i)
             {
                 dest[i] = 
@@ -195,14 +195,14 @@ struct GeoConvertNormalize
     {
         if(ExternalType::_uiSize >= StoredType::_uiSize)
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < StoredType::_uiSize; ++i)
                 dest[i] = static_cast<typename StoredType::ValueType>(
                             src[i] * scale + offset);
         }
         else
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < ExternalType::_uiSize; ++i)
                 dest[i] = static_cast<typename StoredType::ValueType>(
                             src[i] * scale + offset);
@@ -218,14 +218,14 @@ struct GeoConvertNormalize
     {
         if(StoredType::_uiSize >= ExternalType::_uiSize)
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < StoredType::_uiSize; ++i)
                 dest[i] = static_cast<typename ExternalType::ValueType>(
                             (src[i] - offset) / scale);
         }
         else
         {
-            int i;
+            UInt32 i;
             for(i = 0; i < StoredType::_uiSize; ++i)
                 dest[i] = static_cast<typename ExternalType::ValueType>(
                             (src[i] - offset) / scale);
