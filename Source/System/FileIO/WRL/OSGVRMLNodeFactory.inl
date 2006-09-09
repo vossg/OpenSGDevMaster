@@ -39,11 +39,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <OSGConfig.h>
-#include <OSGLog.h>
+#include "OSGConfig.h"
+#include "OSGLog.h"
 
 //#include <OSGFieldFactory.h>
-#include <OSGTransform.h>
+#include "OSGTransform.h"
 
 #include <iostream>
 

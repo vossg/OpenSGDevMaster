@@ -42,9 +42,9 @@
 #pragma once
 #endif
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGPassiveWindowBase.h>
+#include "OSGPassiveWindowBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -133,8 +133,8 @@ typedef PassiveWindow *PassiveWindowP;
 
 OSG_END_NAMESPACE
 
-#include <OSGPassiveWindowBase.inl>
-#include <OSGPassiveWindow.inl>
+#include "OSGPassiveWindowBase.inl"
+#include "OSGPassiveWindow.inl"
 
 #define OSGPASSIVEWINDOW_HEADER_CVSID "@(#)$Id: OSGPassiveWindow.h,v 1.1.2.3 2006/08/01 07:54:18 vossg Exp $"
 
