@@ -75,8 +75,7 @@ class OSG_WINDOW_DLLMAPPING MatrixCamera : public MatrixCameraBase
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
-    virtual void draw         (      DrawAction *action, 
-                               const Viewport   &port  );
+
 
     virtual void getProjection(      Matrix     &result, 
                                      UInt32      width, 

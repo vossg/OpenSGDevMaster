@@ -161,10 +161,7 @@ void Camera::setupProjection(      DrawActionBase *OSG_CHECK_ARG(action),
 /*! Draw the camera's geometry (if any). Usually there is none. 
  */
 
-void Camera::draw(      DrawAction *OSG_CHECK_ARG(action), 
-                  const Viewport   &OSG_CHECK_ARG(port  ))
-{
-}
+
 
 /*! Get/calculate the projection matrix for this camera. 
  */

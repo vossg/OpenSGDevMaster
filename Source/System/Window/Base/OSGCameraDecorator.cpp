@@ -97,12 +97,6 @@ void CameraDecorator::dump(      UInt32    ,
 /*---------------------- Decorated Functions ----------------------------*/
 
 
-void CameraDecorator::draw(      DrawAction *action, 
-                           const Viewport   &port  )
-{
-    getDecoratee()->draw(action, port);
-}
-
 void CameraDecorator::getProjection(Matrix &result,
                                     UInt32  width ,
                                     UInt32  height)

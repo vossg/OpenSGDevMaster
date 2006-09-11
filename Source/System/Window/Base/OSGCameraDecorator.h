@@ -70,13 +70,6 @@ class OSG_SYSTEM_DLLMAPPING CameraDecorator : public CameraDecoratorBase
     /*! \name                      your_category                           */
     /*! \{                                                                 */
 
-    virtual void draw(DrawAction *action, const Viewport &port);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      your_category                           */
-    /*! \{                                                                 */
-
     virtual void getProjection           (Matrix        &result, 
                                           UInt32 width, 
                                           UInt32 height);

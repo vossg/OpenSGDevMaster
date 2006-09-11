@@ -46,7 +46,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawAction;
 
 /*! \brief Perspective Camera class. See 
   \ref PageSystemWindowCameraPerspective 
@@ -71,8 +70,6 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCamera : public PerspectiveCameraBase
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
-    virtual void draw         (      DrawAction *action, 
-                               const Viewport   &port  );
 
     virtual void getProjection(      Matrixr    &result, 
                                      UInt32      width,

@@ -110,10 +110,6 @@ void MatrixCamera::dump(      UInt32     OSG_CHECK_ARG(uiIndent),
 	SLOG << "Dump MatrixCamera NI" << std::endl;
 }
 
-void MatrixCamera::draw(      DrawAction *OSG_CHECK_ARG(action), 
-                        const Viewport   &OSG_CHECK_ARG(port) )
-{
-}
 
 void MatrixCamera::getProjection(Matrix& result, UInt32 OSG_CHECK_ARG(width), 
                                                  UInt32 OSG_CHECK_ARG(height))

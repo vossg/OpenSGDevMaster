@@ -119,10 +119,7 @@ void PerspectiveCamera::changed(ConstFieldMaskArg whichField, UInt32 origin)
 
 /*-------------------------- your_category---------------------------------*/
 
-void PerspectiveCamera::draw(      DrawAction *OSG_CHECK_ARG(action), 
-                             const Viewport&   OSG_CHECK_ARG(port ))
-{
-}
+
 
 void PerspectiveCamera::getProjection(Matrixr &result, 
                                       UInt32   width, 
