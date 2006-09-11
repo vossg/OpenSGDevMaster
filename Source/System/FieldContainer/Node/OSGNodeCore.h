@@ -347,6 +347,8 @@ typedef NodeCore::ObjPtrArg        NodeCorePtrArg;
 typedef NodeCore::ObjConstPtrArg   NodeCoreConstPtrArg;
 typedef NodeCore::ObjPtrConstArg   NodeCorePtrConstArg;
 
+typedef RefPtr<NodeCorePtr>        NodeCoreRefPtr;
+
 OSG_END_NAMESPACE
 
 #define OSGNODECORE_HEADER_CVSID "@(#)$Id: $"
