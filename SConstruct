@@ -47,6 +47,50 @@ pj = os.path.join
 
 # ------ HELPER METHODS -------- #
 
+# ------------------ BUILDERS ------------------- #
+# fcdProcess builder
+# - Custom builder for fcdProcess
+def registerFcdProcessBuilder(env, required=True):
+   print "Setting up fcdProcess builder...",
+   
+   fcdProcess_cmd = pj("Tools", "fcdProcess","fcdProcess.pl")
+   fcdProcess_cmd = os.path.abspath(fcdProcess_cmd)
+   if not os.path.isfile(fcdProcess_cmd):
+      print " Warning: fcdProcess not found at: ", fcdProcess_cmd      
+      if required:
+         sys.exit(1)
+      return
+   
+   template_files = glob.glob(pj("Tools","fcdProcess","*Template*"))   
+   
+      
+   def prop_emitter(target,source,env, template_files=template_files):
+      """ Returns a list of files including all output forms and
+          The input templates as sources.
+      """
+      assert str(source[0]).endswith(".fcd")
+      assert len(source) == 1
+
+      base_name = os.path.splitext(str(source[0]))[0]
+
+      # Targets are all the files that we build
+      target = []
+      for ext in ["Base.cpp","Base.h","Base.inl","Fields.h"]:
+         target.append(base_name+ext)
+      
+      # Sources are the fcd file and all the template files
+      source.extend(template_files)
+
+      return (target, source)
+   
+   
+   fcdprocess_builder = Builder(action = fcdProcess_cmd + ' -b -d $SOURCE -p ${TARGET.dir}',
+                              src_suffix = '.fcd',
+                              suffix = 'unused.h',
+                              emitter = prop_emitter)
+   env.Append(BUILDERS = {'FcdProcess' : fcdprocess_builder});
+   print "[OK]"
+
    
 #------------------------------------------------------------------------------
 # Main build setup
@@ -84,11 +128,11 @@ base_bldr = EnvironmentBuilder()
 # --- OPTIONS --- #
 # --------------- #
 # Find all build.info files that may have options
-build_info_files = []
-for root, dirs, files in os.walk(pj(os.getcwd(),'Source')):
-   build_info_files += [pj(root,f) for f in files if f == "build.info"]
-
-print "Build info files found: ", build_info_files
+#build_info_files = []
+#for root, dirs, files in os.walk(pj(os.getcwd(),'Source')):
+#   build_info_files += [pj(root,f) for f in files if f == "build.info"]
+#
+#print "Build info files found: ", build_info_files
 
 opts = sca_opts.Options(files = [option_filename, 'options.custom'],
                                    args= ARGUMENTS)
@@ -131,6 +175,7 @@ opts.AddOption(sca_opts.BoolOption("disable_glut_glsubdir","Do not use GL subdir
 opts.AddOption(sca_opts.BoolOption("osg_1_compat","Enable opensg 1.x compatibility.",False))
 opts.AddOption(sca_opts.BoolOption("osg_deprecated_props","Enable deprecated property types.",False))
 opts.Add("build_suffix", "Suffix to append to build directory.  Useful for compiling multiple variations on same platform.", "")                                    
+opts.AddOption(sca_opts.BoolOption("enable_fcdprocess","If true, enable support for fcdProcess in the build.",False))
 opts.Add("icc_gnu_compat","<GCC Verion> to make the icc resultbinary compatible to the given gcc version. (unsupported)")
 if "win32" == platform:
    opts.AddOption(sca_opts.BoolOption("win_localstorage", "Use local storage instead of __declspec to get thread local storage on windows",
@@ -175,6 +220,18 @@ if not SConsAddons.Util.hasHelpFlag():
    # Update settings
    if common_env["build_suffix"] != "":
       buildDir = buildDir + "." + common_env["build_suffix"]
+      
+   # .fcd processing
+   if common_env["enable_fcdprocess"]:      
+      registerFcdProcessBuilder(common_env)
+      
+      fcd_files = []
+      for root, dirs, files in os.walk(pj(os.getcwd(),'Source')):
+         fcd_files += [pj(root,f) for f in files if f.endswith(".fcd")]
+      
+      for f in fcd_files:
+         common_env.FcdProcess(source=f)
+
    
    # --- Collect all Source and Header files --- #         
    
