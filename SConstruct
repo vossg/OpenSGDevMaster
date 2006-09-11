@@ -230,7 +230,8 @@ if not SConsAddons.Util.hasHelpFlag():
          fcd_files += [pj(root,f) for f in files if f.endswith(".fcd")]
       
       for f in fcd_files:
-         common_env.FcdProcess(source=f)
+         fcd_targets = common_env.FcdProcess(source=f)
+         NoClean(fcd_targets)
 
    
    # --- Collect all Source and Header files --- #         
