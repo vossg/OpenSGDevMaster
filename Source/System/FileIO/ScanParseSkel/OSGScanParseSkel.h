@@ -316,7 +316,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel : public ScanParseSkelBase
 
 OSG_END_NAMESPACE
 
-#define OSGSCANPARSESKEL_HEADER_CVSID "@(#)$Id: $"
+#define OSGSCANPARSESKEL_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSCANPARSESKEL_H_ */
 

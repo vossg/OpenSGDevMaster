@@ -53,7 +53,7 @@
 
 #ifndef yyFlexLexer
 #define yyFlexLexer OSGScanParseSkel_FlexLexer
-#include "OSGFlexLexer.h"
+#include <FlexLexer.h>
 #undef yyFlexLexer
 #endif
 
@@ -206,6 +206,6 @@ class OSGScanParseLexer : public OSGScanParseSkel_FlexLexer
 
 //OSG_END_NAMESPACE
 
-#define OSGSCANPARSELEXER_HEADER_CVSID "@(#)$Id: $"
+#define OSGSCANPARSELEXER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSCANPARSESKELLEXER_H_ */

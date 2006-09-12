@@ -401,7 +401,7 @@ void XMLScanParseSkel::scanFile(const Char8 *szFilename)
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGXMLSCANPARSESKEL_HEADER_CVSID;
 }
 

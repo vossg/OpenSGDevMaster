@@ -153,7 +153,7 @@ void OSGScanParseLexer::expectType(OSG::Int32 iType)
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSCANPARSELEXER_HEADER_CVSID;
 }
 
