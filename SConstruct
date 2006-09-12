@@ -84,7 +84,7 @@ def registerFcdProcessBuilder(env, required=True):
       return (target, source)
    
    
-   fcdprocess_builder = Builder(action = fcdProcess_cmd + ' -b -d $SOURCE -p ${TARGET.dir}',
+   fcdprocess_builder = Builder(action = fcdProcess_cmd + ' -c -b -d $SOURCE -p ${TARGET.dir}',
                               src_suffix = '.fcd',
                               suffix = 'unused.h',
                               emitter = prop_emitter)
