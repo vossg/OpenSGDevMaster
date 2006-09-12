@@ -139,5 +139,5 @@ Real64 getTimeStampMsecs(TimeStamp ticks)
 
 OSG_END_NAMESPACE
 
-#define OSGTIME_INLINE_CVSID "@(#)$Id: $"
+#define OSGTIME_INLINE_CVSID "@(#)$Id$"
 
