@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
 
 class Window;
 
-/*! \brief GeoProperty class. See \ref 
+/*! \brief GeoProperty class. See \ref
            PageSystemGeoProperty for a description.
 */
 
@@ -76,14 +76,15 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     virtual       UInt32  getDimension (void) const = 0;
     virtual       UInt32  getSize      (void) const;
     virtual       UInt32  size         (void) const = 0;
-    virtual const UInt8  *getData      (void) const = 0;
+    virtual const UInt8  *getData      (void) const
+    { return NULL;  }
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -91,7 +92,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -116,7 +117,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
 
     virtual void activate      (DrawEnv *pEnv, UInt32 index = 0) = 0;
 
-    virtual void changeFrom    (DrawEnv    *pEnv, 
+    virtual void changeFrom    (DrawEnv    *pEnv,
                                 StateChunk *old,
                                 UInt32      index = 0)  = 0;
 
@@ -164,12 +165,12 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoProperty(void); 
+    virtual ~GeoProperty(void);
 
     /*! \}                                                                 */
 
     virtual GLenum getBufferType(void) = 0; // buffer type for VBOs
-    
+
     static StateChunkClass _class;
 
     /*---------------------------------------------------------------------*/
@@ -213,7 +214,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     /*! \{                                                                 */
 
     void handleGL(DrawEnv *pEnv, UInt32 id);
-    
+
    /*! \}                                                                 */
 
     // prohibit default functions (move to 'public' if you need one)
