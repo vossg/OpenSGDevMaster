@@ -253,6 +253,19 @@ void ColorMaskChunkBase::execSync (      ColorMaskChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (MaskRFieldMask & whichField))
+        _sfMaskR.syncWith(pFrom->_sfMaskR);
+
+    if(FieldBits::NoField != (MaskGFieldMask & whichField))
+        _sfMaskG.syncWith(pFrom->_sfMaskG);
+
+    if(FieldBits::NoField != (MaskBFieldMask & whichField))
+        _sfMaskB.syncWith(pFrom->_sfMaskB);
+
+    if(FieldBits::NoField != (MaskAFieldMask & whichField))
+        _sfMaskA.syncWith(pFrom->_sfMaskA);
 }
 #endif
 

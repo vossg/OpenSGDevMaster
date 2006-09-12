@@ -181,6 +181,13 @@ void RenderBufferBase::execSync (      RenderBufferBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
+
+    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
+        _sfInternalFormat.syncWith(pFrom->_sfInternalFormat);
 }
 #endif
 

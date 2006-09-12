@@ -325,6 +325,25 @@ void MatrixCameraDecoratorBase::execSync (      MatrixCameraDecoratorBase *pFrom
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (PreViewingFieldMask & whichField))
+        _sfPreViewing.syncWith(pFrom->_sfPreViewing);
+
+    if(FieldBits::NoField != (PostViewingFieldMask & whichField))
+        _sfPostViewing.syncWith(pFrom->_sfPostViewing);
+
+    if(FieldBits::NoField != (PreProjectionTranslationFieldMask & whichField))
+        _sfPreProjectionTranslation.syncWith(pFrom->_sfPreProjectionTranslation);
+
+    if(FieldBits::NoField != (PostProjectionTranslationFieldMask & whichField))
+        _sfPostProjectionTranslation.syncWith(pFrom->_sfPostProjectionTranslation);
+
+    if(FieldBits::NoField != (PreProjectionFieldMask & whichField))
+        _sfPreProjection.syncWith(pFrom->_sfPreProjection);
+
+    if(FieldBits::NoField != (PostProjectionFieldMask & whichField))
+        _sfPostProjection.syncWith(pFrom->_sfPostProjection);
 }
 #endif
 

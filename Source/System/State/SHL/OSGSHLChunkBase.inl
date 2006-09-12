@@ -217,6 +217,16 @@ void SHLChunkBase::execSync (      SHLChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (CgFrontEndFieldMask & whichField))
+        _sfCgFrontEnd.syncWith(pFrom->_sfCgFrontEnd);
+
+    if(FieldBits::NoField != (PointSizeFieldMask & whichField))
+        _sfPointSize.syncWith(pFrom->_sfPointSize);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
 }
 #endif
 

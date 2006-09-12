@@ -184,6 +184,16 @@ void StatisticsForegroundBase::execSync (      StatisticsForegroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ElementIDsFieldMask & whichField))
+        _mfElementIDs.syncWith(pFrom->_mfElementIDs, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (CollectorFieldMask & whichField))
+        _sfCollector.syncWith(pFrom->_sfCollector);
 }
 #endif
 

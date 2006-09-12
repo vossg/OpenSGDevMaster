@@ -542,6 +542,46 @@ void ProxyGroupBase::execSync (      ProxyGroupBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+        _sfEnabled.syncWith(pFrom->_sfEnabled);
+
+    if(FieldBits::NoField != (UrlFieldMask & whichField))
+        _sfUrl.syncWith(pFrom->_sfUrl);
+
+    if(FieldBits::NoField != (RootFieldMask & whichField))
+        _sfRoot.syncWith(pFrom->_sfRoot);
+
+    if(FieldBits::NoField != (StateFieldMask & whichField))
+        _sfState.syncWith(pFrom->_sfState);
+
+    if(FieldBits::NoField != (ConcurrentLoadFieldMask & whichField))
+        _sfConcurrentLoad.syncWith(pFrom->_sfConcurrentLoad);
+
+    if(FieldBits::NoField != (VolumeFieldMask & whichField))
+        _sfVolume.syncWith(pFrom->_sfVolume);
+
+    if(FieldBits::NoField != (IndicesFieldMask & whichField))
+        _sfIndices.syncWith(pFrom->_sfIndices);
+
+    if(FieldBits::NoField != (TrianglesFieldMask & whichField))
+        _sfTriangles.syncWith(pFrom->_sfTriangles);
+
+    if(FieldBits::NoField != (PositionsFieldMask & whichField))
+        _sfPositions.syncWith(pFrom->_sfPositions);
+
+    if(FieldBits::NoField != (GeometriesFieldMask & whichField))
+        _sfGeometries.syncWith(pFrom->_sfGeometries);
+
+    if(FieldBits::NoField != (AbsoluteUrlFieldMask & whichField))
+        _sfAbsoluteUrl.syncWith(pFrom->_sfAbsoluteUrl);
+
+    if(FieldBits::NoField != (InlineFieldMask & whichField))
+        _mfInline.syncWith(pFrom->_mfInline, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

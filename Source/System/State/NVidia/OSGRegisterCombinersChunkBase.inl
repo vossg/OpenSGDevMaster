@@ -1684,6 +1684,181 @@ void RegisterCombinersChunkBase::execSync (      RegisterCombinersChunkBase *pFr
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (Color0FieldMask & whichField))
+        _sfColor0.syncWith(pFrom->_sfColor0);
+
+    if(FieldBits::NoField != (Color1FieldMask & whichField))
+        _sfColor1.syncWith(pFrom->_sfColor1);
+
+    if(FieldBits::NoField != (ColorSumClampFieldMask & whichField))
+        _sfColorSumClamp.syncWith(pFrom->_sfColorSumClamp);
+
+    if(FieldBits::NoField != (VariableArgbFieldMask & whichField))
+        _mfVariableArgb.syncWith(pFrom->_mfVariableArgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableBrgbFieldMask & whichField))
+        _mfVariableBrgb.syncWith(pFrom->_mfVariableBrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableCrgbFieldMask & whichField))
+        _mfVariableCrgb.syncWith(pFrom->_mfVariableCrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableDrgbFieldMask & whichField))
+        _mfVariableDrgb.syncWith(pFrom->_mfVariableDrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableAalphaFieldMask & whichField))
+        _mfVariableAalpha.syncWith(pFrom->_mfVariableAalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableBalphaFieldMask & whichField))
+        _mfVariableBalpha.syncWith(pFrom->_mfVariableBalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableCalphaFieldMask & whichField))
+        _mfVariableCalpha.syncWith(pFrom->_mfVariableCalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableDalphaFieldMask & whichField))
+        _mfVariableDalpha.syncWith(pFrom->_mfVariableDalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (OutputABrgbFieldMask & whichField))
+        _mfOutputABrgb.syncWith(pFrom->_mfOutputABrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (OutputCDrgbFieldMask & whichField))
+        _mfOutputCDrgb.syncWith(pFrom->_mfOutputCDrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (OutputSumrgbFieldMask & whichField))
+        _mfOutputSumrgb.syncWith(pFrom->_mfOutputSumrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ScalergbFieldMask & whichField))
+        _mfScalergb.syncWith(pFrom->_mfScalergb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (BiasrgbFieldMask & whichField))
+        _mfBiasrgb.syncWith(pFrom->_mfBiasrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (OutputABalphaFieldMask & whichField))
+        _mfOutputABalpha.syncWith(pFrom->_mfOutputABalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (OutputCDalphaFieldMask & whichField))
+        _mfOutputCDalpha.syncWith(pFrom->_mfOutputCDalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (OutputSumalphaFieldMask & whichField))
+        _mfOutputSumalpha.syncWith(pFrom->_mfOutputSumalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (DotABrgbFieldMask & whichField))
+        _mfDotABrgb.syncWith(pFrom->_mfDotABrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (DotCDrgbFieldMask & whichField))
+        _mfDotCDrgb.syncWith(pFrom->_mfDotCDrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (MuxSumrgbFieldMask & whichField))
+        _mfMuxSumrgb.syncWith(pFrom->_mfMuxSumrgb, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ScalealphaFieldMask & whichField))
+        _mfScalealpha.syncWith(pFrom->_mfScalealpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (BiasalphaFieldMask & whichField))
+        _mfBiasalpha.syncWith(pFrom->_mfBiasalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (MuxSumalphaFieldMask & whichField))
+        _mfMuxSumalpha.syncWith(pFrom->_mfMuxSumalpha, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableEFieldMask & whichField))
+        _mfVariableE.syncWith(pFrom->_mfVariableE, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableFFieldMask & whichField))
+        _mfVariableF.syncWith(pFrom->_mfVariableF, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (VariableGFieldMask & whichField))
+        _mfVariableG.syncWith(pFrom->_mfVariableG, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (CombinerColor0FieldMask & whichField))
+        _mfCombinerColor0.syncWith(pFrom->_mfCombinerColor0, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (CombinerColor1FieldMask & whichField))
+        _mfCombinerColor1.syncWith(pFrom->_mfCombinerColor1, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (PerStageConstantsFieldMask & whichField))
+        _sfPerStageConstants.syncWith(pFrom->_sfPerStageConstants);
 }
 #endif
 

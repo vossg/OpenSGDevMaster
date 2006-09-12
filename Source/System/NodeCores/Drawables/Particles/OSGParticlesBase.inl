@@ -616,6 +616,55 @@ void ParticlesBase::execSync (      ParticlesBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ModeFieldMask & whichField))
+        _sfMode.syncWith(pFrom->_sfMode);
+
+    if(FieldBits::NoField != (PositionsFieldMask & whichField))
+        _sfPositions.syncWith(pFrom->_sfPositions);
+
+    if(FieldBits::NoField != (SizesFieldMask & whichField))
+        _mfSizes.syncWith(pFrom->_mfSizes, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (SecPositionsFieldMask & whichField))
+        _sfSecPositions.syncWith(pFrom->_sfSecPositions);
+
+    if(FieldBits::NoField != (ColorsFieldMask & whichField))
+        _sfColors.syncWith(pFrom->_sfColors);
+
+    if(FieldBits::NoField != (NormalsFieldMask & whichField))
+        _sfNormals.syncWith(pFrom->_sfNormals);
+
+    if(FieldBits::NoField != (IndicesFieldMask & whichField))
+        _mfIndices.syncWith(pFrom->_mfIndices, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (TextureZsFieldMask & whichField))
+        _mfTextureZs.syncWith(pFrom->_mfTextureZs, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (DrawOrderFieldMask & whichField))
+        _sfDrawOrder.syncWith(pFrom->_sfDrawOrder);
+
+    if(FieldBits::NoField != (DynamicFieldMask & whichField))
+        _sfDynamic.syncWith(pFrom->_sfDynamic);
+
+    if(FieldBits::NoField != (PumpFieldMask & whichField))
+        _sfPump.syncWith(pFrom->_sfPump);
+
+    if(FieldBits::NoField != (BspFieldMask & whichField))
+        _sfBsp.syncWith(pFrom->_sfBsp);
+
+    if(FieldBits::NoField != (NumParticlesFieldMask & whichField))
+        _sfNumParticles.syncWith(pFrom->_sfNumParticles);
 }
 #endif
 

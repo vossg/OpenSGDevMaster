@@ -201,6 +201,16 @@ void ClipPlaneChunkBase::execSync (      ClipPlaneChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EquationFieldMask & whichField))
+        _sfEquation.syncWith(pFrom->_sfEquation);
+
+    if(FieldBits::NoField != (EnableFieldMask & whichField))
+        _sfEnable.syncWith(pFrom->_sfEnable);
+
+    if(FieldBits::NoField != (BeaconFieldMask & whichField))
+        _sfBeacon.syncWith(pFrom->_sfBeacon);
 }
 #endif
 

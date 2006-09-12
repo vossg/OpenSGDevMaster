@@ -289,6 +289,22 @@ void ComponentTransformBase::execSync (      ComponentTransformBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (CenterFieldMask & whichField))
+        _sfCenter.syncWith(pFrom->_sfCenter);
+
+    if(FieldBits::NoField != (RotationFieldMask & whichField))
+        _sfRotation.syncWith(pFrom->_sfRotation);
+
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+        _sfScale.syncWith(pFrom->_sfScale);
+
+    if(FieldBits::NoField != (ScaleOrientationFieldMask & whichField))
+        _sfScaleOrientation.syncWith(pFrom->_sfScaleOrientation);
+
+    if(FieldBits::NoField != (TranslationFieldMask & whichField))
+        _sfTranslation.syncWith(pFrom->_sfTranslation);
 }
 #endif
 

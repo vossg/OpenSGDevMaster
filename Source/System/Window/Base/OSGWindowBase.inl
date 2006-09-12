@@ -365,6 +365,37 @@ void WindowBase::execSync (      WindowBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (WidthFieldMask & whichField))
+        _sfWidth.syncWith(pFrom->_sfWidth);
+
+    if(FieldBits::NoField != (HeightFieldMask & whichField))
+        _sfHeight.syncWith(pFrom->_sfHeight);
+
+    if(FieldBits::NoField != (PortFieldMask & whichField))
+        _mfPort.syncWith(pFrom->_mfPort, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ResizePendingFieldMask & whichField))
+        _sfResizePending.syncWith(pFrom->_sfResizePending);
+
+    if(FieldBits::NoField != (GlObjectEventCounterFieldMask & whichField))
+        _sfGlObjectEventCounter.syncWith(pFrom->_sfGlObjectEventCounter);
+
+    if(FieldBits::NoField != (GlObjectLastRefreshFieldMask & whichField))
+        _mfGlObjectLastRefresh.syncWith(pFrom->_mfGlObjectLastRefresh, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (GlObjectLastReinitializeFieldMask & whichField))
+        _mfGlObjectLastReinitialize.syncWith(pFrom->_mfGlObjectLastReinitialize, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

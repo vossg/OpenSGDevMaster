@@ -477,6 +477,43 @@ void TexGenChunkBase::execSync (      TexGenChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (GenFuncSFieldMask & whichField))
+        _sfGenFuncS.syncWith(pFrom->_sfGenFuncS);
+
+    if(FieldBits::NoField != (GenFuncTFieldMask & whichField))
+        _sfGenFuncT.syncWith(pFrom->_sfGenFuncT);
+
+    if(FieldBits::NoField != (GenFuncRFieldMask & whichField))
+        _sfGenFuncR.syncWith(pFrom->_sfGenFuncR);
+
+    if(FieldBits::NoField != (GenFuncQFieldMask & whichField))
+        _sfGenFuncQ.syncWith(pFrom->_sfGenFuncQ);
+
+    if(FieldBits::NoField != (GenFuncSPlaneFieldMask & whichField))
+        _sfGenFuncSPlane.syncWith(pFrom->_sfGenFuncSPlane);
+
+    if(FieldBits::NoField != (GenFuncTPlaneFieldMask & whichField))
+        _sfGenFuncTPlane.syncWith(pFrom->_sfGenFuncTPlane);
+
+    if(FieldBits::NoField != (GenFuncRPlaneFieldMask & whichField))
+        _sfGenFuncRPlane.syncWith(pFrom->_sfGenFuncRPlane);
+
+    if(FieldBits::NoField != (GenFuncQPlaneFieldMask & whichField))
+        _sfGenFuncQPlane.syncWith(pFrom->_sfGenFuncQPlane);
+
+    if(FieldBits::NoField != (SBeaconFieldMask & whichField))
+        _sfSBeacon.syncWith(pFrom->_sfSBeacon);
+
+    if(FieldBits::NoField != (TBeaconFieldMask & whichField))
+        _sfTBeacon.syncWith(pFrom->_sfTBeacon);
+
+    if(FieldBits::NoField != (RBeaconFieldMask & whichField))
+        _sfRBeacon.syncWith(pFrom->_sfRBeacon);
+
+    if(FieldBits::NoField != (QBeaconFieldMask & whichField))
+        _sfQBeacon.syncWith(pFrom->_sfQBeacon);
 }
 #endif
 

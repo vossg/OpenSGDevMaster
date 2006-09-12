@@ -216,6 +216,23 @@ void AttachmentContainerMixin<ParentT>::execSync(
     }
 }
 #endif
+#ifdef OSG_MT_CPTR_ASPECT
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::execSync(
+          Self              *pFrom,
+          ConstFieldMaskArg  whichField,
+                             AspectOffsetStore &oOffsets,
+          ConstFieldMaskArg  syncMode  ,
+    const UInt32             uiSyncInfo)
+{
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
+    {
+        _sfAttachments.syncWith(pFrom->_sfAttachments);
+    }
+}
+#endif
 
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */

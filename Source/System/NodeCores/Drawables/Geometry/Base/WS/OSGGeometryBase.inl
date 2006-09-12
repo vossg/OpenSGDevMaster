@@ -323,6 +323,34 @@ void GeometryBase::execSync (      GeometryBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (TypesFieldMask & whichField))
+        _sfTypes.syncWith(pFrom->_sfTypes);
+
+    if(FieldBits::NoField != (LengthsFieldMask & whichField))
+        _sfLengths.syncWith(pFrom->_sfLengths);
+
+    if(FieldBits::NoField != (PropertiesFieldMask & whichField))
+        _mfProperties.syncWith(pFrom->_mfProperties, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (PropIndicesFieldMask & whichField))
+        _mfPropIndices.syncWith(pFrom->_mfPropIndices, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (DlistCacheFieldMask & whichField))
+        _sfDlistCache.syncWith(pFrom->_sfDlistCache);
+
+    if(FieldBits::NoField != (ClassicGLIdFieldMask & whichField))
+        _sfClassicGLId.syncWith(pFrom->_sfClassicGLId);
+
+    if(FieldBits::NoField != (AttGLIdFieldMask & whichField))
+        _sfAttGLId.syncWith(pFrom->_sfAttGLId);
 }
 #endif
 

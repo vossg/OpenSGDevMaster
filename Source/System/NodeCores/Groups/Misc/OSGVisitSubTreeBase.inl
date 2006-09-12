@@ -129,6 +129,10 @@ void VisitSubTreeBase::execSync (      VisitSubTreeBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (SubTreeRootFieldMask & whichField))
+        _sfSubTreeRoot.syncWith(pFrom->_sfSubTreeRoot);
 }
 #endif
 

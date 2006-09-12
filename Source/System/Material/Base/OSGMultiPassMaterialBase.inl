@@ -129,6 +129,13 @@ void MultiPassMaterialBase::execSync (      MultiPassMaterialBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (MaterialsFieldMask & whichField))
+        _mfMaterials.syncWith(pFrom->_mfMaterials, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

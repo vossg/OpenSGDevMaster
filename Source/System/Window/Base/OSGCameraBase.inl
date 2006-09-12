@@ -101,6 +101,16 @@ void CameraBase::execSync (      CameraBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (BeaconFieldMask & whichField))
+        _sfBeacon.syncWith(pFrom->_sfBeacon);
+
+    if(FieldBits::NoField != (NearFieldMask & whichField))
+        _sfNear.syncWith(pFrom->_sfNear);
+
+    if(FieldBits::NoField != (FarFieldMask & whichField))
+        _sfFar.syncWith(pFrom->_sfFar);
 }
 #endif
 

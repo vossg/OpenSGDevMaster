@@ -198,6 +198,16 @@ void DistanceLODBase::execSync (      DistanceLODBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (CenterFieldMask & whichField))
+        _sfCenter.syncWith(pFrom->_sfCenter);
+
+    if(FieldBits::NoField != (RangeFieldMask & whichField))
+        _mfRange.syncWith(pFrom->_mfRange, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

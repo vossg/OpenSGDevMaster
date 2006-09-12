@@ -224,6 +224,7 @@ void DynFieldAttachment<AttachmentDescT>::execSyncV(
     const UInt32              uiSyncInfo,
           UInt32              uiCopyOffset)
 {
+    OSG_ASSERT(false);
 }
 
 template <class AttachmentDescT> inline
@@ -232,6 +233,7 @@ void DynFieldAttachment<AttachmentDescT>::execBeginEditV(
     UInt32            uiAspect,
     UInt32            uiContainerSize)
 {
+    OSG_ASSERT(false);
 }
 
 OSG_END_NAMESPACE

@@ -145,6 +145,10 @@ void TransformChunkBase::execSync (      TransformChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (MatrixFieldMask & whichField))
+        _sfMatrix.syncWith(pFrom->_sfMatrix);
 }
 #endif
 

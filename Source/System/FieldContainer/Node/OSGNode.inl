@@ -196,6 +196,35 @@ void Node::execSync(      Node              *pFrom,
                           ConstFieldMaskArg  syncMode  ,
                     const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (VolumeFieldMask & whichField))
+    {
+        _sfVolume.syncWith(pFrom->_sfVolume);
+    }
+
+    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
+    {
+        _sfTravMask.syncWith(pFrom->_sfTravMask);
+    }
+
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
+    {
+        _sfParent.syncWith(pFrom->_sfParent);
+    }
+
+    if(FieldBits::NoField != (ChildrenFieldMask & whichField))
+    {
+        _mfChildren.syncWith(pFrom->_mfChildren, 
+                             syncMode, 
+                             uiSyncInfo,
+                             oOffsets);
+    }
+
+    if(FieldBits::NoField != (CoreFieldMask & whichField))
+    {
+        _sfCore.syncWith(pFrom->_sfCore);
+    }
 }
 #endif
 

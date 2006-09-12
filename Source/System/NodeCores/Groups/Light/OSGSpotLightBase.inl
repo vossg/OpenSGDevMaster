@@ -217,6 +217,16 @@ void SpotLightBase::execSync (      SpotLightBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (DirectionFieldMask & whichField))
+        _sfDirection.syncWith(pFrom->_sfDirection);
+
+    if(FieldBits::NoField != (SpotExponentFieldMask & whichField))
+        _sfSpotExponent.syncWith(pFrom->_sfSpotExponent);
+
+    if(FieldBits::NoField != (SpotCutOffFieldMask & whichField))
+        _sfSpotCutOff.syncWith(pFrom->_sfSpotCutOff);
 }
 #endif
 

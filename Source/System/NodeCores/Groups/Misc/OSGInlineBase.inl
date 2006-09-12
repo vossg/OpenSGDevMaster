@@ -198,6 +198,16 @@ void InlineBase::execSync (      InlineBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (UrlFieldMask & whichField))
+        _mfUrl.syncWith(pFrom->_mfUrl, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (LoadedFieldMask & whichField))
+        _sfLoaded.syncWith(pFrom->_sfLoaded);
 }
 #endif
 

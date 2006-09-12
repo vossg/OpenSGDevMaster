@@ -917,7 +917,7 @@ execFCDProcessCompat = $(foreach file,$(1), $(call doFCDProcessCompat,$(file)))
 
 fcdToBaseCompat:
 	@echo "Running fcdProcess compat for $(LIB_FCD_SOURCES)" 
-	@echo $(call execFCDProcessCompat, $(LIB_FCD_SOURCES)) done
+	echo $(call execFCDProcessCompat, $(LIB_FCD_SOURCES)) done
 
 #########################################################################
 # DSP

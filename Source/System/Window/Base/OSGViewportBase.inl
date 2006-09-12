@@ -427,6 +427,43 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (LeftFieldMask & whichField))
+        _sfLeft.syncWith(pFrom->_sfLeft);
+
+    if(FieldBits::NoField != (RightFieldMask & whichField))
+        _sfRight.syncWith(pFrom->_sfRight);
+
+    if(FieldBits::NoField != (BottomFieldMask & whichField))
+        _sfBottom.syncWith(pFrom->_sfBottom);
+
+    if(FieldBits::NoField != (TopFieldMask & whichField))
+        _sfTop.syncWith(pFrom->_sfTop);
+
+    if(FieldBits::NoField != (ParentFieldMask & whichField))
+        _sfParent.syncWith(pFrom->_sfParent);
+
+    if(FieldBits::NoField != (CameraFieldMask & whichField))
+        _sfCamera.syncWith(pFrom->_sfCamera);
+
+    if(FieldBits::NoField != (RootFieldMask & whichField))
+        _sfRoot.syncWith(pFrom->_sfRoot);
+
+    if(FieldBits::NoField != (BackgroundFieldMask & whichField))
+        _sfBackground.syncWith(pFrom->_sfBackground);
+
+    if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
+        _mfForegrounds.syncWith(pFrom->_mfForegrounds, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (TravMaskFieldMask & whichField))
+        _sfTravMask.syncWith(pFrom->_sfTravMask);
+
+    if(FieldBits::NoField != (DrawTimeFieldMask & whichField))
+        _sfDrawTime.syncWith(pFrom->_sfDrawTime);
 }
 #endif
 

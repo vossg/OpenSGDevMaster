@@ -721,6 +721,58 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (StatisticFieldMask & whichField))
+        _sfStatistic.syncWith(pFrom->_sfStatistic);
+
+    if(FieldBits::NoField != (PolygonModeFieldMask & whichField))
+        _sfPolygonMode.syncWith(pFrom->_sfPolygonMode);
+
+    if(FieldBits::NoField != (TwoSidedLightingFieldMask & whichField))
+        _sfTwoSidedLighting.syncWith(pFrom->_sfTwoSidedLighting);
+
+    if(FieldBits::NoField != (SpecTexLightingFieldMask & whichField))
+        _sfSpecTexLighting.syncWith(pFrom->_sfSpecTexLighting);
+
+    if(FieldBits::NoField != (SortTransFieldMask & whichField))
+        _sfSortTrans.syncWith(pFrom->_sfSortTrans);
+
+    if(FieldBits::NoField != (ZWriteTransFieldMask & whichField))
+        _sfZWriteTrans.syncWith(pFrom->_sfZWriteTrans);
+
+    if(FieldBits::NoField != (LocalLightsFieldMask & whichField))
+        _sfLocalLights.syncWith(pFrom->_sfLocalLights);
+
+    if(FieldBits::NoField != (CorrectTwoSidedLightingFieldMask & whichField))
+        _sfCorrectTwoSidedLighting.syncWith(pFrom->_sfCorrectTwoSidedLighting);
+
+    if(FieldBits::NoField != (OcclusionCullingFieldMask & whichField))
+        _sfOcclusionCulling.syncWith(pFrom->_sfOcclusionCulling);
+
+    if(FieldBits::NoField != (AntialiasingFieldMask & whichField))
+        _sfAntialiasing.syncWith(pFrom->_sfAntialiasing);
+
+    if(FieldBits::NoField != (AntialiasingDistanceFieldMask & whichField))
+        _sfAntialiasingDistance.syncWith(pFrom->_sfAntialiasingDistance);
+
+    if(FieldBits::NoField != (AntialiasingScaleFieldMask & whichField))
+        _sfAntialiasingScale.syncWith(pFrom->_sfAntialiasingScale);
+
+    if(FieldBits::NoField != (AntialiasingTriggerFieldMask & whichField))
+        _sfAntialiasingTrigger.syncWith(pFrom->_sfAntialiasingTrigger);
+
+    if(FieldBits::NoField != (BackfaceCullingFieldMask & whichField))
+        _sfBackfaceCulling.syncWith(pFrom->_sfBackfaceCulling);
+
+    if(FieldBits::NoField != (SmallFeatureCullingFieldMask & whichField))
+        _sfSmallFeatureCulling.syncWith(pFrom->_sfSmallFeatureCulling);
+
+    if(FieldBits::NoField != (SmallFeaturePixelsFieldMask & whichField))
+        _sfSmallFeaturePixels.syncWith(pFrom->_sfSmallFeaturePixels);
+
+    if(FieldBits::NoField != (SmallFeatureThresholdFieldMask & whichField))
+        _sfSmallFeatureThreshold.syncWith(pFrom->_sfSmallFeatureThreshold);
 }
 #endif
 

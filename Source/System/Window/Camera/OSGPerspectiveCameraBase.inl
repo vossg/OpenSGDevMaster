@@ -181,6 +181,13 @@ void PerspectiveCameraBase::execSync (      PerspectiveCameraBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (FovFieldMask & whichField))
+        _sfFov.syncWith(pFrom->_sfFov);
+
+    if(FieldBits::NoField != (AspectFieldMask & whichField))
+        _sfAspect.syncWith(pFrom->_sfAspect);
 }
 #endif
 

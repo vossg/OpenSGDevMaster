@@ -345,6 +345,28 @@ void GeoMultiPropertyBase::execSync (      GeoMultiPropertyBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ContainerFieldMask & whichField))
+        _sfContainer.syncWith(pFrom->_sfContainer);
+
+    if(FieldBits::NoField != (OffsetFieldMask & whichField))
+        _sfOffset.syncWith(pFrom->_sfOffset);
+
+    if(FieldBits::NoField != (IFormatFieldMask & whichField))
+        _sfIFormat.syncWith(pFrom->_sfIFormat);
+
+    if(FieldBits::NoField != (IDimensionFieldMask & whichField))
+        _sfIDimension.syncWith(pFrom->_sfIDimension);
+
+    if(FieldBits::NoField != (ISizeFieldMask & whichField))
+        _sfISize.syncWith(pFrom->_sfISize);
+
+    if(FieldBits::NoField != (INormalizeFieldMask & whichField))
+        _sfINormalize.syncWith(pFrom->_sfINormalize);
+
+    if(FieldBits::NoField != (IStrideFieldMask & whichField))
+        _sfIStride.syncWith(pFrom->_sfIStride);
 }
 #endif
 

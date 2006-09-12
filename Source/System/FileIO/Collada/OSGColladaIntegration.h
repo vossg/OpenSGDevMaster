@@ -60,6 +60,7 @@
 #include "OSGGeometry.h"
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGTypedGeoVectorProperty.h"
+#include "OSGTransform.h"
 
 #include "dae/daeIntegrationObject.h"
 #include "dae/daeMetaElement.h"
@@ -181,7 +182,8 @@ class NodeIntegration : public ColladaIntegrationBase
 
     static daeMetaElement *_pMeta;
 
-    NodePtr _pNode;
+    NodePtr      _pNode;
+    TransformPtr _pTransform;
 
     bool handleNode     (daeElementRef pElem);
     bool handleTranslate(daeElementRef pElem);
@@ -383,6 +385,10 @@ class EffectIntegration : public ColladaIntegrationBase
     typedef domCommon_float_or_param_type               DomFloat;
 
     typedef ColladaIntegrationBase Inherited;
+
+    struct TextureHelper
+    {
+    };
 
     static daeMetaElement   *_pMeta;
            ChunkMaterialPtr  _pMaterial;

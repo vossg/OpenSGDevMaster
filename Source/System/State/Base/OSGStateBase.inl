@@ -129,6 +129,13 @@ void StateBase::execSync (      StateBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+        _mfChunks.syncWith(pFrom->_mfChunks, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

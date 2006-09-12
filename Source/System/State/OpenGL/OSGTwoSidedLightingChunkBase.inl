@@ -109,6 +109,7 @@ void TwoSidedLightingChunkBase::execSync (      TwoSidedLightingChunkBase *pFrom
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 }
 #endif
 

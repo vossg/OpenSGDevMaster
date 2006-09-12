@@ -253,6 +253,19 @@ void LineChunkBase::execSync (      LineChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (WidthFieldMask & whichField))
+        _sfWidth.syncWith(pFrom->_sfWidth);
+
+    if(FieldBits::NoField != (StippleRepeatFieldMask & whichField))
+        _sfStippleRepeat.syncWith(pFrom->_sfStippleRepeat);
+
+    if(FieldBits::NoField != (StipplePatternFieldMask & whichField))
+        _sfStipplePattern.syncWith(pFrom->_sfStipplePattern);
+
+    if(FieldBits::NoField != (SmoothFieldMask & whichField))
+        _sfSmooth.syncWith(pFrom->_sfSmooth);
 }
 #endif
 

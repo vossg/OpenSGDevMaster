@@ -232,8 +232,13 @@ typename PtrStripper<Ptr>::Object      *getCPtr     (Ptr objectP);
 template <class Ptr> inline 
 typename PtrStripper<Ptr>::ConstObject *getConstCPtr(Ptr objectP);
 
-template <class Ptr> inline 
-typename PtrStripper<Ptr>::Object      *get_pointer (Ptr objectP);
+//template <class Ptr> inline 
+//typename PtrStripper<Ptr>::Object      *get_pointer (Ptr objectP);
+
+#ifdef OSG_MT_FIELDCONTAINERPTR
+template <class B, class C> inline 
+typename PtrStripper< FCPtr<B, C> >::Object *get_pointer( FCPtr<B,C> object);
+#endif
 
 #ifdef OSG_LINUX_ICC
 #pragma warning( disable : 488 )

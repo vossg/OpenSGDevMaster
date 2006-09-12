@@ -397,6 +397,31 @@ void BlendChunkBase::execSync (      BlendChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (SrcFactorFieldMask & whichField))
+        _sfSrcFactor.syncWith(pFrom->_sfSrcFactor);
+
+    if(FieldBits::NoField != (DestFactorFieldMask & whichField))
+        _sfDestFactor.syncWith(pFrom->_sfDestFactor);
+
+    if(FieldBits::NoField != (EquationFieldMask & whichField))
+        _sfEquation.syncWith(pFrom->_sfEquation);
+
+    if(FieldBits::NoField != (ColorFieldMask & whichField))
+        _sfColor.syncWith(pFrom->_sfColor);
+
+    if(FieldBits::NoField != (AlphaFuncFieldMask & whichField))
+        _sfAlphaFunc.syncWith(pFrom->_sfAlphaFunc);
+
+    if(FieldBits::NoField != (AlphaValueFieldMask & whichField))
+        _sfAlphaValue.syncWith(pFrom->_sfAlphaValue);
+
+    if(FieldBits::NoField != (AlphaSrcFactorFieldMask & whichField))
+        _sfAlphaSrcFactor.syncWith(pFrom->_sfAlphaSrcFactor);
+
+    if(FieldBits::NoField != (AlphaDestFactorFieldMask & whichField))
+        _sfAlphaDestFactor.syncWith(pFrom->_sfAlphaDestFactor);
 }
 #endif
 

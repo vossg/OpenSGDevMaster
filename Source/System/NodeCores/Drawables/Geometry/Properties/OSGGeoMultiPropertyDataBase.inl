@@ -198,6 +198,16 @@ void GeoMultiPropertyDataBase::execSync (      GeoMultiPropertyDataBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (IDataFieldMask & whichField))
+        _mfIData.syncWith(pFrom->_mfIData, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
 }
 #endif
 

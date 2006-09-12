@@ -253,6 +253,19 @@ void ColorBufferViewportBase::execSync (      ColorBufferViewportBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (RedFieldMask & whichField))
+        _sfRed.syncWith(pFrom->_sfRed);
+
+    if(FieldBits::NoField != (BlueFieldMask & whichField))
+        _sfBlue.syncWith(pFrom->_sfBlue);
+
+    if(FieldBits::NoField != (GreenFieldMask & whichField))
+        _sfGreen.syncWith(pFrom->_sfGreen);
+
+    if(FieldBits::NoField != (AlphaFieldMask & whichField))
+        _sfAlpha.syncWith(pFrom->_sfAlpha);
 }
 #endif
 

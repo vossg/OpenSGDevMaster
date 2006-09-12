@@ -167,6 +167,13 @@ void StereoCameraDecoratorBase::execSync (      StereoCameraDecoratorBase *pFrom
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (LeftEyeFieldMask & whichField))
+        _sfLeftEye.syncWith(pFrom->_sfLeftEye);
+
+    if(FieldBits::NoField != (EyeSeparationFieldMask & whichField))
+        _sfEyeSeparation.syncWith(pFrom->_sfEyeSeparation);
 }
 #endif
 

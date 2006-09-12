@@ -325,6 +325,25 @@ void TileCameraDecoratorBase::execSync (      TileCameraDecoratorBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (LeftFieldMask & whichField))
+        _sfLeft.syncWith(pFrom->_sfLeft);
+
+    if(FieldBits::NoField != (RightFieldMask & whichField))
+        _sfRight.syncWith(pFrom->_sfRight);
+
+    if(FieldBits::NoField != (BottomFieldMask & whichField))
+        _sfBottom.syncWith(pFrom->_sfBottom);
+
+    if(FieldBits::NoField != (TopFieldMask & whichField))
+        _sfTop.syncWith(pFrom->_sfTop);
+
+    if(FieldBits::NoField != (FullWidthFieldMask & whichField))
+        _sfFullWidth.syncWith(pFrom->_sfFullWidth);
+
+    if(FieldBits::NoField != (FullHeightFieldMask & whichField))
+        _sfFullHeight.syncWith(pFrom->_sfFullHeight);
 }
 #endif
 

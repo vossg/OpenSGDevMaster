@@ -273,6 +273,25 @@ void ProgramChunkBase::execSync (      ProgramChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ProgramFieldMask & whichField))
+        _sfProgram.syncWith(pFrom->_sfProgram);
+
+    if(FieldBits::NoField != (ParamValuesFieldMask & whichField))
+        _mfParamValues.syncWith(pFrom->_mfParamValues, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ParamNamesFieldMask & whichField))
+        _mfParamNames.syncWith(pFrom->_mfParamNames, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
 }
 #endif
 

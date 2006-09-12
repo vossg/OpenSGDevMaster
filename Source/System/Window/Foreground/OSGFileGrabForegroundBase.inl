@@ -217,6 +217,16 @@ void FileGrabForegroundBase::execSync (      FileGrabForegroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+        _sfName.syncWith(pFrom->_sfName);
+
+    if(FieldBits::NoField != (FrameFieldMask & whichField))
+        _sfFrame.syncWith(pFrom->_sfFrame);
+
+    if(FieldBits::NoField != (IncrementFieldMask & whichField))
+        _sfIncrement.syncWith(pFrom->_sfIncrement);
 }
 #endif
 

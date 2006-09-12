@@ -361,6 +361,28 @@ void StencilChunkBase::execSync (      StencilChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (StencilFuncFieldMask & whichField))
+        _sfStencilFunc.syncWith(pFrom->_sfStencilFunc);
+
+    if(FieldBits::NoField != (StencilValueFieldMask & whichField))
+        _sfStencilValue.syncWith(pFrom->_sfStencilValue);
+
+    if(FieldBits::NoField != (StencilMaskFieldMask & whichField))
+        _sfStencilMask.syncWith(pFrom->_sfStencilMask);
+
+    if(FieldBits::NoField != (StencilOpFailFieldMask & whichField))
+        _sfStencilOpFail.syncWith(pFrom->_sfStencilOpFail);
+
+    if(FieldBits::NoField != (StencilOpZFailFieldMask & whichField))
+        _sfStencilOpZFail.syncWith(pFrom->_sfStencilOpZFail);
+
+    if(FieldBits::NoField != (StencilOpZPassFieldMask & whichField))
+        _sfStencilOpZPass.syncWith(pFrom->_sfStencilOpZPass);
+
+    if(FieldBits::NoField != (ClearBufferFieldMask & whichField))
+        _sfClearBuffer.syncWith(pFrom->_sfClearBuffer);
 }
 #endif
 

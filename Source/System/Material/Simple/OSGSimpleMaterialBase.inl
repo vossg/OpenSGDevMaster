@@ -397,6 +397,31 @@ void SimpleMaterialBase::execSync (      SimpleMaterialBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (AmbientFieldMask & whichField))
+        _sfAmbient.syncWith(pFrom->_sfAmbient);
+
+    if(FieldBits::NoField != (DiffuseFieldMask & whichField))
+        _sfDiffuse.syncWith(pFrom->_sfDiffuse);
+
+    if(FieldBits::NoField != (SpecularFieldMask & whichField))
+        _sfSpecular.syncWith(pFrom->_sfSpecular);
+
+    if(FieldBits::NoField != (ShininessFieldMask & whichField))
+        _sfShininess.syncWith(pFrom->_sfShininess);
+
+    if(FieldBits::NoField != (EmissionFieldMask & whichField))
+        _sfEmission.syncWith(pFrom->_sfEmission);
+
+    if(FieldBits::NoField != (TransparencyFieldMask & whichField))
+        _sfTransparency.syncWith(pFrom->_sfTransparency);
+
+    if(FieldBits::NoField != (LitFieldMask & whichField))
+        _sfLit.syncWith(pFrom->_sfLit);
+
+    if(FieldBits::NoField != (ColorMaterialFieldMask & whichField))
+        _sfColorMaterial.syncWith(pFrom->_sfColorMaterial);
 }
 #endif
 

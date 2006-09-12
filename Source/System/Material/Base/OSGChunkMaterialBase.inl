@@ -182,6 +182,19 @@ void ChunkMaterialBase::execSync (      ChunkMaterialBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
+        _mfChunks.syncWith(pFrom->_mfChunks, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (SlotsFieldMask & whichField))
+        _mfSlots.syncWith(pFrom->_mfSlots, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

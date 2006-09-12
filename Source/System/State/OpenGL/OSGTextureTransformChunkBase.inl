@@ -145,6 +145,10 @@ void TextureTransformChunkBase::execSync (      TextureTransformChunkBase *pFrom
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (UseCameraBeaconFieldMask & whichField))
+        _sfUseCameraBeacon.syncWith(pFrom->_sfUseCameraBeacon);
 }
 #endif
 

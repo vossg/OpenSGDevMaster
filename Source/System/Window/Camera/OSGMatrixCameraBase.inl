@@ -181,6 +181,13 @@ void MatrixCameraBase::execSync (      MatrixCameraBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
+        _sfProjectionMatrix.syncWith(pFrom->_sfProjectionMatrix);
+
+    if(FieldBits::NoField != (ModelviewMatrixFieldMask & whichField))
+        _sfModelviewMatrix.syncWith(pFrom->_sfModelviewMatrix);
 }
 #endif
 

@@ -362,6 +362,31 @@ void ProjectionCameraDecoratorBase::execSync (      ProjectionCameraDecoratorBas
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (UserFieldMask & whichField))
+        _sfUser.syncWith(pFrom->_sfUser);
+
+    if(FieldBits::NoField != (SurfaceFieldMask & whichField))
+        _mfSurface.syncWith(pFrom->_mfSurface, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (LeftFieldMask & whichField))
+        _sfLeft.syncWith(pFrom->_sfLeft);
+
+    if(FieldBits::NoField != (BottomFieldMask & whichField))
+        _sfBottom.syncWith(pFrom->_sfBottom);
+
+    if(FieldBits::NoField != (NormalFieldMask & whichField))
+        _sfNormal.syncWith(pFrom->_sfNormal);
+
+    if(FieldBits::NoField != (WidthFieldMask & whichField))
+        _sfWidth.syncWith(pFrom->_sfWidth);
+
+    if(FieldBits::NoField != (HeightFieldMask & whichField))
+        _sfHeight.syncWith(pFrom->_sfHeight);
 }
 #endif
 

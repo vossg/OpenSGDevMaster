@@ -167,6 +167,13 @@ void ShaderChunkBase::execSync (      ShaderChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (VertexProgramFieldMask & whichField))
+        _sfVertexProgram.syncWith(pFrom->_sfVertexProgram);
+
+    if(FieldBits::NoField != (FragmentProgramFieldMask & whichField))
+        _sfFragmentProgram.syncWith(pFrom->_sfFragmentProgram);
 }
 #endif
 

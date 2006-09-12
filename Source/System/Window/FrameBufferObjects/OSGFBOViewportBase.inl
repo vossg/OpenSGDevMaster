@@ -129,6 +129,10 @@ void FBOViewportBase::execSync (      FBOViewportBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (FrameBufferObjectFieldMask & whichField))
+        _sfFrameBufferObject.syncWith(pFrom->_sfFrameBufferObject);
 }
 #endif
 

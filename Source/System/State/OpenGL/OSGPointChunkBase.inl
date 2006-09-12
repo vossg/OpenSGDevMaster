@@ -469,6 +469,37 @@ void PointChunkBase::execSync (      PointChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (SizeFieldMask & whichField))
+        _sfSize.syncWith(pFrom->_sfSize);
+
+    if(FieldBits::NoField != (SmoothFieldMask & whichField))
+        _sfSmooth.syncWith(pFrom->_sfSmooth);
+
+    if(FieldBits::NoField != (MinSizeFieldMask & whichField))
+        _sfMinSize.syncWith(pFrom->_sfMinSize);
+
+    if(FieldBits::NoField != (MaxSizeFieldMask & whichField))
+        _sfMaxSize.syncWith(pFrom->_sfMaxSize);
+
+    if(FieldBits::NoField != (ConstantAttenuationFieldMask & whichField))
+        _sfConstantAttenuation.syncWith(pFrom->_sfConstantAttenuation);
+
+    if(FieldBits::NoField != (LinearAttenuationFieldMask & whichField))
+        _sfLinearAttenuation.syncWith(pFrom->_sfLinearAttenuation);
+
+    if(FieldBits::NoField != (QuadraticAttenuationFieldMask & whichField))
+        _sfQuadraticAttenuation.syncWith(pFrom->_sfQuadraticAttenuation);
+
+    if(FieldBits::NoField != (FadeThresholdFieldMask & whichField))
+        _sfFadeThreshold.syncWith(pFrom->_sfFadeThreshold);
+
+    if(FieldBits::NoField != (SpriteFieldMask & whichField))
+        _sfSprite.syncWith(pFrom->_sfSprite);
+
+    if(FieldBits::NoField != (RModeFieldMask & whichField))
+        _sfRMode.syncWith(pFrom->_sfRMode);
 }
 #endif
 

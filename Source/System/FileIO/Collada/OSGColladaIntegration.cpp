@@ -281,6 +281,24 @@ bool NodeIntegration::handleTranslate(daeElementRef pElem)
 
     fprintf(stderr, "Handle Trans\n");
 
+    if(_pTransform == NullFC)
+    {
+        _pTransform = Transform::create();
+
+        OSG::addRef(_pTransform);
+
+        _pNode->setCore(_pTransform);
+    }
+
+    Matrix mTr;
+
+    mTr.setTranslate(pTrans->getValue()[0],
+                     pTrans->getValue()[1],
+                     pTrans->getValue()[2]);
+
+
+    _pTransform->editMatrix().mult(mTr);
+
     return true;
 }
 
@@ -294,6 +312,28 @@ bool NodeIntegration::handleRotate(daeElementRef pElem)
 
     fprintf(stderr, "Handle Rot\n");
 
+    if(_pTransform == NullFC)
+    {
+        _pTransform = Transform::create();
+
+        OSG::addRef(_pTransform);
+
+        _pNode->setCore(_pTransform);
+    }
+
+    Matrix     mTr;
+    Quaternion qR;
+
+    qR.setValueAsAxisDeg(pRot->getValue()[0],
+                         pRot->getValue()[1],
+                         pRot->getValue()[2],
+                         pRot->getValue()[3]);
+
+
+    mTr.setRotate(qR);
+
+    _pTransform->editMatrix().mult(mTr);
+
     return true;
 }
 
@@ -306,6 +346,24 @@ bool NodeIntegration::handleScale(daeElementRef pElem)
         return false;
 
     fprintf(stderr, "Handle Scale\n");
+
+    if(_pTransform == NullFC)
+    {
+        _pTransform = Transform::create();
+
+        OSG::addRef(_pTransform);
+
+        _pNode->setCore(_pTransform);
+    }
+
+    Matrix mTr;
+
+    mTr.setScale(pScale->getValue()[0],
+                 pScale->getValue()[1],
+                 pScale->getValue()[2]);
+
+
+    _pTransform->editMatrix().mult(mTr);
 
     return true;
 }
@@ -344,14 +402,16 @@ bool NodeIntegration::handleInstance(daeElementRef pElem)
 }
 
 NodeIntegration::NodeIntegration(void) :
-     Inherited(      ),
-    _pNode    (NullFC)
+     Inherited (      ),
+    _pNode     (NullFC),
+    _pTransform(NullFC)
 {
 }
 
 NodeIntegration::~NodeIntegration(void)
 {
-    OSG::subRef(_pNode);
+    OSG::subRef(_pNode     );
+    OSG::subRef(_pTransform);
 }
 
 daeElementRef NodeIntegration::create(daeInt bytes)
@@ -1388,17 +1448,44 @@ void EffectIntegration::setupSimpleColorAndTex(T           pTechT,
 
     if(pDiffuseTex != NULL)
     {
+        domEffect *pEffect = dynamic_cast<domEffect *>(_pElement);
+
+        fprintf(stderr, "got domX effect %p %s\n", pEffect, pEffect->getId());
+
+        std::string effectUri = "#";
+        
+        effectUri += pEffect->getId();
+        
+        fprintf(stderr, "%s %s\n", effectUri.c_str(), pEffect->getId());
+
 #if 0
         fprintf(stderr, "got texture %s\n",
                 pDiffuseTex->getTexture());
 
-        daeURI oUri(pDiffuseTex->getTexture());
+        daeURI oUri(effectUri.c_str());
         
         oUri.resolveElement();
         
         fprintf(stderr, "uri %s %d\n", oUri.getURI(), oUri.getState());
+
+        std::string texUrl = oUri.getURI();
+
+        texUrl += "/";
+        texUrl += pDiffuseTex->getTexture();
         
-        daeElementRef pElem = oUri.getElement();
+        fprintf(stderr, "Try to find %s\n", texUrl.c_str());
+
+        daeIDRef idRef(texUrl.c_str());
+
+        daeURI oUriX(texUrl.c_str());
+        
+        oUriX.resolveElement();
+        
+        fprintf(stderr, "uriX %s %d\n", oUriX.getURI(), oUriX.getState());
+
+        idRef.resolveElement();
+
+        daeElementRef pElem = idRef.getElement();
         
         fprintf(stderr, "elem %p %s %s\n", 
                 &*pElem, 
@@ -1452,20 +1539,83 @@ void EffectIntegration::handleCommonProfile(domProfile_COMMON *pCommon)
 
     fprintf(stderr, "Got %d params\n", aParams.getCount());
 
-    domFx_surface_common   *pSurface = NULL;
-    domFx_sampler2D_common *pSampler = NULL;
+    std::vector< std::pair<domFx_surface_common   *, std::string> > vSurfaces;
+    std::vector< std::pair<domFx_sampler2D_common *, std::string> > vSampler;
 
     for(UInt32 i = 0; i < aParams.getCount(); ++i)
     {
         fprintf(stderr, "param[%d] %s\n", i, aParams[i]->getSid());
 
-        pSurface = aParams[i]->getSurface();
-        pSampler = aParams[i]->getSampler2D();
+        if(aParams[i]->getSurface() != NULL)
+        {
+            std::pair<domFx_surface_common   *, std::string> oTmp;
+
+            oTmp.first  = aParams[i]->getSurface();
+            oTmp.second = aParams[i]->getSid    ();
+
+            vSurfaces.push_back(oTmp);
+        }
+
+        if(aParams[i]->getSampler2D() != NULL)
+        {
+            std::pair<domFx_sampler2D_common *, std::string> oTmp;
+
+            oTmp.first  = aParams[i]->getSampler2D();
+            oTmp.second = aParams[i]->getSid      ();
+
+            vSampler.push_back(oTmp);
+        }
+
     }
 
-    fprintf(stderr, "SF : %p | SA %p\n",
-            pSurface,
-            pSampler);
+    for(UInt32 i = 0; i < vSampler.size(); ++i)
+    {
+        fprintf(stderr, "[%d] %s\n", i, vSampler[i].second.c_str());
+
+        if(vSampler[i].first->getSource() != NULL)
+        {
+            for(UInt32 j = 0; j < vSurfaces.size(); ++j)
+            {
+                fprintf(stderr, "  [%d] %s\n", j, vSurfaces[j].second.c_str());
+
+                std::string tmpName = 
+                    vSampler[i].first->getSource()->getValue();
+
+                if(vSurfaces[i].second == tmpName)
+                {
+                    domFx_surface_init_common *pInit =
+                        vSurfaces[i].first->getFx_surface_init_common();
+
+                    if(pInit == NULL)
+                        break;
+
+                    fprintf(stderr, "Found XX %p %s\n",
+                            pInit,
+                            pInit->getTypeName());
+
+                    domFx_surface_init_from_common_Array *commonInitA =
+                        &(pInit->getInit_from_array());
+
+                    domFx_surface_init_from_common *pCommonInit =
+                        (*(commonInitA))[0];
+
+                    fprintf(stderr, "Got commonInit %d %p \n", 
+                            commonInitA->getCount(),
+                            pCommonInit);
+
+                    pCommonInit->getValue().resolveElement();
+
+                    daeElement *pImageElem = 
+                        pCommonInit->getValue().getElement();
+
+                    fprintf(stderr, "%p %d\n",
+                            pImageElem,
+                            pCommonInit->getValue().getState());
+                    break;
+                }
+            }
+        }
+    }
 
     if(pTechnique->getConstant() != NULL)
     {

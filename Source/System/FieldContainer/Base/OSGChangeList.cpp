@@ -561,6 +561,12 @@ void ChangeList::copy(ChangeList &other)
 {
 }
 
+#ifdef OSG_1_COMPAT
+void ChangeList::setReadWriteDefault(void)
+{
+}
+#endif
+
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 

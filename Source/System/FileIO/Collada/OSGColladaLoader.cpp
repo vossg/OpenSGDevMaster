@@ -58,6 +58,7 @@
 #include "OSGColladaIntegration.h"
 
 #include "dae.h"
+#include "modules/daeSTLDatabase.h"
 #include "dom/domCOLLADA.h"
 #endif
 
@@ -136,7 +137,10 @@ NodePtr ColladaLoader::read(      std::istream  &is,
     fprintf(stderr, "Read %s\n", szFileName);
 
 
-    DAE *pInput = new DAE;
+    DAE            *pInput    = new DAE;
+    daeSTLDatabase *pDataBase = new daeSTLDatabase;
+
+    pInput->setDatabase(pDataBase);
 
     initColladaIntegration();
   
@@ -152,6 +156,8 @@ NodePtr ColladaLoader::read(      std::istream  &is,
 
     fprintf(stderr, "%d collections\n", 
             uiNumCollections);
+
+//    pDataBase->dump();
 
     UInt32 i = 0;
 

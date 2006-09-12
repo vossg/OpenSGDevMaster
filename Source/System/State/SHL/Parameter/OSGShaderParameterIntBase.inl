@@ -145,6 +145,10 @@ void ShaderParameterIntBase::execSync (      ShaderParameterIntBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ValueFieldMask & whichField))
+        _sfValue.syncWith(pFrom->_sfValue);
 }
 #endif
 

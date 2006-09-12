@@ -129,6 +129,10 @@ void StageBase::execSync (      StageBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+        _sfRenderTarget.syncWith(pFrom->_sfRenderTarget);
 }
 #endif
 

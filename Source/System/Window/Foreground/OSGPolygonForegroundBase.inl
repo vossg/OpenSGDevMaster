@@ -307,6 +307,28 @@ void PolygonForegroundBase::execSync (      PolygonForegroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (MaterialFieldMask & whichField))
+        _sfMaterial.syncWith(pFrom->_sfMaterial);
+
+    if(FieldBits::NoField != (PositionsFieldMask & whichField))
+        _mfPositions.syncWith(pFrom->_mfPositions, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
+        _mfTexCoords.syncWith(pFrom->_mfTexCoords, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (NormalizedXFieldMask & whichField))
+        _sfNormalizedX.syncWith(pFrom->_sfNormalizedX);
+
+    if(FieldBits::NoField != (NormalizedYFieldMask & whichField))
+        _sfNormalizedY.syncWith(pFrom->_sfNormalizedY);
 }
 #endif
 

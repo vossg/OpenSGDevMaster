@@ -115,6 +115,13 @@ void ShaderParameterChunkBase::execSync (      ShaderParameterChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ParametersFieldMask & whichField))
+        _mfParameters.syncWith(pFrom->_mfParameters, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

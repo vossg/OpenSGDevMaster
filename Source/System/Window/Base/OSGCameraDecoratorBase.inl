@@ -111,6 +111,12 @@ void CameraDecoratorBase::execSync (      CameraDecoratorBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (DecorateeFieldMask & whichField))
+    {
+        _sfDecoratee.syncWith(pFrom->_sfDecoratee);
+    }
 }
 #endif
 

@@ -289,6 +289,22 @@ void BillboardBase::execSync (      BillboardBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (AxisOfRotationFieldMask & whichField))
+        _sfAxisOfRotation.syncWith(pFrom->_sfAxisOfRotation);
+
+    if(FieldBits::NoField != (FocusOnCameraFieldMask & whichField))
+        _sfFocusOnCamera.syncWith(pFrom->_sfFocusOnCamera);
+
+    if(FieldBits::NoField != (AlignToScreenFieldMask & whichField))
+        _sfAlignToScreen.syncWith(pFrom->_sfAlignToScreen);
+
+    if(FieldBits::NoField != (MinAngleFieldMask & whichField))
+        _sfMinAngle.syncWith(pFrom->_sfMinAngle);
+
+    if(FieldBits::NoField != (MaxAngleFieldMask & whichField))
+        _sfMaxAngle.syncWith(pFrom->_sfMaxAngle);
 }
 #endif
 

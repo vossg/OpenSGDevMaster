@@ -145,6 +145,10 @@ void DirectionalLightBase::execSync (      DirectionalLightBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (DirectionFieldMask & whichField))
+        _sfDirection.syncWith(pFrom->_sfDirection);
 }
 #endif
 

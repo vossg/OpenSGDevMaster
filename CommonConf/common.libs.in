@@ -129,7 +129,7 @@ ac_gdz_package_dirs_WindowX="WindowSystem/X@"
 ac_gdz_package_inc_dep_WindowX="@Base@ @System@ GL" 
 ac_gdz_package_link_dep_WindowX="SystemLib BaseLib" 
 ac_gdz_package_testinc_dep_WindowX="@Window@ @Group@ @Drawable@ @FileIO@ @RenderTraversal@ @Util@ " 
-ac_gdz_package_testlink_dep_WindowX="WindowLib GroupLib DrawableLib FileIOLib RenderTraversalLib UtilLib GL TIF JPG PNG MNG" 
+ac_gdz_package_testlink_dep_WindowX="SystemLib WindowLib GroupLib DrawableLib FileIOLib RenderTraversalLib UtilLib GL TIF JPG PNG MNG" 
 ac_gdz_package_def_WindowX="OSG_COMPILEWINDOWXLIB" 
 
 

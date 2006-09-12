@@ -851,6 +851,94 @@ void SkyBackgroundBase::execSync (      SkyBackgroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (SkyColorFieldMask & whichField))
+        _mfSkyColor.syncWith(pFrom->_mfSkyColor, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (SkyAngleFieldMask & whichField))
+        _mfSkyAngle.syncWith(pFrom->_mfSkyAngle, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (GroundColorFieldMask & whichField))
+        _mfGroundColor.syncWith(pFrom->_mfGroundColor, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (GroundAngleFieldMask & whichField))
+        _mfGroundAngle.syncWith(pFrom->_mfGroundAngle, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (SphereResFieldMask & whichField))
+        _sfSphereRes.syncWith(pFrom->_sfSphereRes);
+
+    if(FieldBits::NoField != (BackTextureFieldMask & whichField))
+        _sfBackTexture.syncWith(pFrom->_sfBackTexture);
+
+    if(FieldBits::NoField != (BottomTextureFieldMask & whichField))
+        _sfBottomTexture.syncWith(pFrom->_sfBottomTexture);
+
+    if(FieldBits::NoField != (FrontTextureFieldMask & whichField))
+        _sfFrontTexture.syncWith(pFrom->_sfFrontTexture);
+
+    if(FieldBits::NoField != (LeftTextureFieldMask & whichField))
+        _sfLeftTexture.syncWith(pFrom->_sfLeftTexture);
+
+    if(FieldBits::NoField != (RightTextureFieldMask & whichField))
+        _sfRightTexture.syncWith(pFrom->_sfRightTexture);
+
+    if(FieldBits::NoField != (TopTextureFieldMask & whichField))
+        _sfTopTexture.syncWith(pFrom->_sfTopTexture);
+
+    if(FieldBits::NoField != (BoxInsideFieldMask & whichField))
+        _sfBoxInside.syncWith(pFrom->_sfBoxInside);
+
+    if(FieldBits::NoField != (TopTexCoordFieldMask & whichField))
+        _mfTopTexCoord.syncWith(pFrom->_mfTopTexCoord, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (BottomTexCoordFieldMask & whichField))
+        _mfBottomTexCoord.syncWith(pFrom->_mfBottomTexCoord, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (RightTexCoordFieldMask & whichField))
+        _mfRightTexCoord.syncWith(pFrom->_mfRightTexCoord, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (LeftTexCoordFieldMask & whichField))
+        _mfLeftTexCoord.syncWith(pFrom->_mfLeftTexCoord, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (FrontTexCoordFieldMask & whichField))
+        _mfFrontTexCoord.syncWith(pFrom->_mfFrontTexCoord, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (BackTexCoordFieldMask & whichField))
+        _mfBackTexCoord.syncWith(pFrom->_mfBackTexCoord, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (BeaconFieldMask & whichField))
+        _sfBeacon.syncWith(pFrom->_sfBeacon);
 }
 #endif
 

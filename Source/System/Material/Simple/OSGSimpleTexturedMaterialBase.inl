@@ -273,6 +273,22 @@ void SimpleTexturedMaterialBase::execSync (      SimpleTexturedMaterialBase *pFr
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ImageFieldMask & whichField))
+        _sfImage.syncWith(pFrom->_sfImage);
+
+    if(FieldBits::NoField != (MinFilterFieldMask & whichField))
+        _sfMinFilter.syncWith(pFrom->_sfMinFilter);
+
+    if(FieldBits::NoField != (MagFilterFieldMask & whichField))
+        _sfMagFilter.syncWith(pFrom->_sfMagFilter);
+
+    if(FieldBits::NoField != (EnvModeFieldMask & whichField))
+        _sfEnvMode.syncWith(pFrom->_sfEnvMode);
+
+    if(FieldBits::NoField != (EnvMapFieldMask & whichField))
+        _sfEnvMap.syncWith(pFrom->_sfEnvMap);
 }
 #endif
 

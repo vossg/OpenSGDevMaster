@@ -330,6 +330,34 @@ void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
+
+    if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
+        _mfColorAttachments.syncWith(pFrom->_mfColorAttachments, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (DrawBuffersFieldMask & whichField))
+        _mfDrawBuffers.syncWith(pFrom->_mfDrawBuffers, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (DepthAttachmentFieldMask & whichField))
+        _sfDepthAttachment.syncWith(pFrom->_sfDepthAttachment);
+
+    if(FieldBits::NoField != (StencilAttachmentFieldMask & whichField))
+        _sfStencilAttachment.syncWith(pFrom->_sfStencilAttachment);
+
+    if(FieldBits::NoField != (WidthFieldMask & whichField))
+        _sfWidth.syncWith(pFrom->_sfWidth);
+
+    if(FieldBits::NoField != (HeightFieldMask & whichField))
+        _sfHeight.syncWith(pFrom->_sfHeight);
 }
 #endif
 

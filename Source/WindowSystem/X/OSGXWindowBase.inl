@@ -90,6 +90,14 @@ const DisplayP &XWindowBase::getDisplay(void) const
     return _sfDisplay.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+DisplayP &XWindowBase::getDisplay(void)
+{
+    return this->editDisplay();
+}
+#endif
+
 //! Set the value of the XWindow::_sfDisplay field.
 inline
 void XWindowBase::setDisplay(const DisplayP &value)
@@ -115,6 +123,14 @@ const X11Window &XWindowBase::getWindow(void) const
     return _sfWindow.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+X11Window &XWindowBase::getWindow(void)
+{
+    return this->editWindow();
+}
+#endif
+
 //! Set the value of the XWindow::_sfWindow field.
 inline
 void XWindowBase::setWindow(const X11Window &value)
@@ -139,6 +155,14 @@ const GLXContext &XWindowBase::getContext(void) const
 {
     return _sfContext.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLXContext &XWindowBase::getContext(void)
+{
+    return this->editContext();
+}
+#endif
 
 //! Set the value of the XWindow::_sfContext field.
 inline
@@ -193,6 +217,16 @@ void XWindowBase::execSync (      XWindowBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (DisplayFieldMask & whichField))
+        _sfDisplay.syncWith(pFrom->_sfDisplay);
+
+    if(FieldBits::NoField != (WindowFieldMask & whichField))
+        _sfWindow.syncWith(pFrom->_sfWindow);
+
+    if(FieldBits::NoField != (ContextFieldMask & whichField))
+        _sfContext.syncWith(pFrom->_sfContext);
 }
 #endif
 

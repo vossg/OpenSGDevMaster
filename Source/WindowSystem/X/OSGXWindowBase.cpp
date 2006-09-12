@@ -190,6 +190,13 @@ const SFDisplayP *XWindowBase::getSFDisplay(void) const
     return &_sfDisplay;
 }
 
+#ifdef OSG_1_COMPAT
+SFDisplayP *XWindowBase::getSFDisplay(void)
+{
+    return this->editSFDisplay();
+}
+#endif
+
 SFX11Window *XWindowBase::editSFWindow(void)
 {
     editSField(WindowFieldMask);
@@ -202,6 +209,13 @@ const SFX11Window *XWindowBase::getSFWindow(void) const
     return &_sfWindow;
 }
 
+#ifdef OSG_1_COMPAT
+SFX11Window *XWindowBase::getSFWindow(void)
+{
+    return this->editSFWindow();
+}
+#endif
+
 SFGLXContext *XWindowBase::editSFContext(void)
 {
     editSField(ContextFieldMask);
@@ -213,6 +227,13 @@ const SFGLXContext *XWindowBase::getSFContext(void) const
 {
     return &_sfContext;
 }
+
+#ifdef OSG_1_COMPAT
+SFGLXContext *XWindowBase::getSFContext(void)
+{
+    return this->editSFContext();
+}
+#endif
 
 
 

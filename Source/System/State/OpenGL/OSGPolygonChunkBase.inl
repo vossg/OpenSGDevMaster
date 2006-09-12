@@ -522,6 +522,43 @@ void PolygonChunkBase::execSync (      PolygonChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (CullFaceFieldMask & whichField))
+        _sfCullFace.syncWith(pFrom->_sfCullFace);
+
+    if(FieldBits::NoField != (FrontFaceFieldMask & whichField))
+        _sfFrontFace.syncWith(pFrom->_sfFrontFace);
+
+    if(FieldBits::NoField != (FrontModeFieldMask & whichField))
+        _sfFrontMode.syncWith(pFrom->_sfFrontMode);
+
+    if(FieldBits::NoField != (BackModeFieldMask & whichField))
+        _sfBackMode.syncWith(pFrom->_sfBackMode);
+
+    if(FieldBits::NoField != (SmoothFieldMask & whichField))
+        _sfSmooth.syncWith(pFrom->_sfSmooth);
+
+    if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
+        _sfOffsetFactor.syncWith(pFrom->_sfOffsetFactor);
+
+    if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
+        _sfOffsetBias.syncWith(pFrom->_sfOffsetBias);
+
+    if(FieldBits::NoField != (OffsetPointFieldMask & whichField))
+        _sfOffsetPoint.syncWith(pFrom->_sfOffsetPoint);
+
+    if(FieldBits::NoField != (OffsetLineFieldMask & whichField))
+        _sfOffsetLine.syncWith(pFrom->_sfOffsetLine);
+
+    if(FieldBits::NoField != (OffsetFillFieldMask & whichField))
+        _sfOffsetFill.syncWith(pFrom->_sfOffsetFill);
+
+    if(FieldBits::NoField != (StippleFieldMask & whichField))
+        _mfStipple.syncWith(pFrom->_mfStipple, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

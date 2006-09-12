@@ -203,6 +203,16 @@ void GeoPropertyBase::execSync (      GeoPropertyBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (UseVBOFieldMask & whichField))
+        _sfUseVBO.syncWith(pFrom->_sfUseVBO);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
+
+    if(FieldBits::NoField != (UsageFieldMask & whichField))
+        _sfUsage.syncWith(pFrom->_sfUsage);
 }
 #endif
 

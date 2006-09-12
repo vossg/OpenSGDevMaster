@@ -165,6 +165,16 @@ void SwitchMaterialBase::execSync (      SwitchMaterialBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (MaterialsFieldMask & whichField))
+        _mfMaterials.syncWith(pFrom->_mfMaterials, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ChoiceFieldMask & whichField))
+        _sfChoice.syncWith(pFrom->_sfChoice);
 }
 #endif
 

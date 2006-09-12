@@ -165,6 +165,13 @@ void GrabForegroundBase::execSync (      GrabForegroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ImageFieldMask & whichField))
+        _sfImage.syncWith(pFrom->_sfImage);
+
+    if(FieldBits::NoField != (AutoResizeFieldMask & whichField))
+        _sfAutoResize.syncWith(pFrom->_sfAutoResize);
 }
 #endif
 

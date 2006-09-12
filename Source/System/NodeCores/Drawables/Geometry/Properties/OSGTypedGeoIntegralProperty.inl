@@ -114,8 +114,8 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::execSyncV(
                    uiCopyOffset);
 }
 #endif
-#ifdef OSG_MT_CPTR_ASPECT
 
+#ifdef OSG_MT_CPTR_ASPECT
 template <class GeoPropertyDesc> inline
 void TypedGeoIntegralProperty<GeoPropertyDesc>::execSync(
           Self              *pFrom,

@@ -181,6 +181,13 @@ void StereoBufferViewportBase::execSync (      StereoBufferViewportBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (LeftBufferFieldMask & whichField))
+        _sfLeftBuffer.syncWith(pFrom->_sfLeftBuffer);
+
+    if(FieldBits::NoField != (RightBufferFieldMask & whichField))
+        _sfRightBuffer.syncWith(pFrom->_sfRightBuffer);
 }
 #endif
 

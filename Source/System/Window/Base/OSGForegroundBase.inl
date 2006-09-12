@@ -131,6 +131,10 @@ void ForegroundBase::execSync (      ForegroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ActiveFieldMask & whichField))
+        _sfActive.syncWith(pFrom->_sfActive);
 }
 #endif
 

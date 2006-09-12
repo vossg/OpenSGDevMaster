@@ -331,6 +331,28 @@ void ShadowMapEngineBase::execSync (      ShadowMapEngineBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+        _sfRenderTarget.syncWith(pFrom->_sfRenderTarget);
+
+    if(FieldBits::NoField != (WidthFieldMask & whichField))
+        _sfWidth.syncWith(pFrom->_sfWidth);
+
+    if(FieldBits::NoField != (HeightFieldMask & whichField))
+        _sfHeight.syncWith(pFrom->_sfHeight);
+
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+        _sfShadowColor.syncWith(pFrom->_sfShadowColor);
+
+    if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
+        _sfOffsetBias.syncWith(pFrom->_sfOffsetBias);
+
+    if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
+        _sfOffsetFactor.syncWith(pFrom->_sfOffsetFactor);
+
+    if(FieldBits::NoField != (UpdateModeFieldMask & whichField))
+        _sfUpdateMode.syncWith(pFrom->_sfUpdateMode);
 }
 #endif
 

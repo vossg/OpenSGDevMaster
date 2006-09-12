@@ -114,8 +114,8 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::execSyncV(
                    uiCopyOffset);
 }
 #endif
-#ifdef OSG_MT_CPTR_ASPECT
 
+#ifdef OSG_MT_CPTR_ASPECT
 template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::execSync(
           Self              *pFrom,
@@ -292,6 +292,21 @@ const typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
 }
 
 
+#ifdef OSG_1_COMPAT
+template <class GeoPropertyDesc> inline 
+typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType *
+    TypedGeoVectorProperty<GeoPropertyDesc>::getFieldPtr (void)
+{
+    return this->editFieldPtr();
+}
+
+template <class GeoPropertyDesc> inline 
+typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
+    TypedGeoVectorProperty<GeoPropertyDesc>::getField(void)
+{
+    return this->editField();
+}
+#endif
 
 template <class GeoPropertyDesc> inline 
 typename TypedGeoVectorProperty<GeoPropertyDesc>::const_reference

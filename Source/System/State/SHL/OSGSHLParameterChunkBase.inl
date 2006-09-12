@@ -129,6 +129,10 @@ void SHLParameterChunkBase::execSync (      SHLParameterChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (SHLChunkFieldMask & whichField))
+        _sfSHLChunk.syncWith(pFrom->_sfSHLChunk);
 }
 #endif
 

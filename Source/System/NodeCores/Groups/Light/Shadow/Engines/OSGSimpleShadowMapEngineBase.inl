@@ -145,6 +145,10 @@ void SimpleShadowMapEngineBase::execSync (      SimpleShadowMapEngineBase *pFrom
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
+        _sfForceTextureUnit.syncWith(pFrom->_sfForceTextureUnit);
 }
 #endif
 

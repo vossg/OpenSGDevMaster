@@ -181,6 +181,13 @@ void ShearedStereoCameraDecoratorBase::execSync (      ShearedStereoCameraDecora
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ZeroParallaxDistanceFieldMask & whichField))
+        _sfZeroParallaxDistance.syncWith(pFrom->_sfZeroParallaxDistance);
+
+    if(FieldBits::NoField != (OverlapFieldMask & whichField))
+        _sfOverlap.syncWith(pFrom->_sfOverlap);
 }
 #endif
 

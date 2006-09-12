@@ -215,6 +215,19 @@ void GradientBackgroundBase::execSync (      GradientBackgroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ColorFieldMask & whichField))
+        _mfColor.syncWith(pFrom->_mfColor, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (PositionFieldMask & whichField))
+        _mfPosition.syncWith(pFrom->_mfPosition, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

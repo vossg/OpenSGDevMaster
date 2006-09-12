@@ -182,6 +182,19 @@ void ImageForegroundBase::execSync (      ImageForegroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ImagesFieldMask & whichField))
+        _mfImages.syncWith(pFrom->_mfImages, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (PositionsFieldMask & whichField))
+        _mfPositions.syncWith(pFrom->_mfPositions, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

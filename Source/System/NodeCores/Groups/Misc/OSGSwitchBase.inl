@@ -145,6 +145,10 @@ void SwitchBase::execSync (      SwitchBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ChoiceFieldMask & whichField))
+        _sfChoice.syncWith(pFrom->_sfChoice);
 }
 #endif
 

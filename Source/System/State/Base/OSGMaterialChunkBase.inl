@@ -613,6 +613,49 @@ void MaterialChunkBase::execSync (      MaterialChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (DiffuseFieldMask & whichField))
+        _sfDiffuse.syncWith(pFrom->_sfDiffuse);
+
+    if(FieldBits::NoField != (AmbientFieldMask & whichField))
+        _sfAmbient.syncWith(pFrom->_sfAmbient);
+
+    if(FieldBits::NoField != (SpecularFieldMask & whichField))
+        _sfSpecular.syncWith(pFrom->_sfSpecular);
+
+    if(FieldBits::NoField != (EmissionFieldMask & whichField))
+        _sfEmission.syncWith(pFrom->_sfEmission);
+
+    if(FieldBits::NoField != (ShininessFieldMask & whichField))
+        _sfShininess.syncWith(pFrom->_sfShininess);
+
+    if(FieldBits::NoField != (LitFieldMask & whichField))
+        _sfLit.syncWith(pFrom->_sfLit);
+
+    if(FieldBits::NoField != (ColorMaterialFieldMask & whichField))
+        _sfColorMaterial.syncWith(pFrom->_sfColorMaterial);
+
+    if(FieldBits::NoField != (BackMaterialFieldMask & whichField))
+        _sfBackMaterial.syncWith(pFrom->_sfBackMaterial);
+
+    if(FieldBits::NoField != (BackDiffuseFieldMask & whichField))
+        _sfBackDiffuse.syncWith(pFrom->_sfBackDiffuse);
+
+    if(FieldBits::NoField != (BackAmbientFieldMask & whichField))
+        _sfBackAmbient.syncWith(pFrom->_sfBackAmbient);
+
+    if(FieldBits::NoField != (BackSpecularFieldMask & whichField))
+        _sfBackSpecular.syncWith(pFrom->_sfBackSpecular);
+
+    if(FieldBits::NoField != (BackEmissionFieldMask & whichField))
+        _sfBackEmission.syncWith(pFrom->_sfBackEmission);
+
+    if(FieldBits::NoField != (BackShininessFieldMask & whichField))
+        _sfBackShininess.syncWith(pFrom->_sfBackShininess);
+
+    if(FieldBits::NoField != (BackColorMaterialFieldMask & whichField))
+        _sfBackColorMaterial.syncWith(pFrom->_sfBackColorMaterial);
 }
 #endif
 

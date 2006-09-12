@@ -362,6 +362,31 @@ void TextureBackgroundBase::execSync (      TextureBackgroundBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ColorFieldMask & whichField))
+        _sfColor.syncWith(pFrom->_sfColor);
+
+    if(FieldBits::NoField != (TextureFieldMask & whichField))
+        _sfTexture.syncWith(pFrom->_sfTexture);
+
+    if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
+        _mfTexCoords.syncWith(pFrom->_mfTexCoords, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (RadialDistortionFieldMask & whichField))
+        _sfRadialDistortion.syncWith(pFrom->_sfRadialDistortion);
+
+    if(FieldBits::NoField != (CenterOfDistortionFieldMask & whichField))
+        _sfCenterOfDistortion.syncWith(pFrom->_sfCenterOfDistortion);
+
+    if(FieldBits::NoField != (HorFieldMask & whichField))
+        _sfHor.syncWith(pFrom->_sfHor);
+
+    if(FieldBits::NoField != (VertFieldMask & whichField))
+        _sfVert.syncWith(pFrom->_sfVert);
 }
 #endif
 

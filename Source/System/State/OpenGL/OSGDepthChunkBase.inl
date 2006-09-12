@@ -289,6 +289,22 @@ void DepthChunkBase::execSync (      DepthChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EnableFieldMask & whichField))
+        _sfEnable.syncWith(pFrom->_sfEnable);
+
+    if(FieldBits::NoField != (FuncFieldMask & whichField))
+        _sfFunc.syncWith(pFrom->_sfFunc);
+
+    if(FieldBits::NoField != (NearFieldMask & whichField))
+        _sfNear.syncWith(pFrom->_sfNear);
+
+    if(FieldBits::NoField != (FarFieldMask & whichField))
+        _sfFar.syncWith(pFrom->_sfFar);
+
+    if(FieldBits::NoField != (ReadOnlyFieldMask & whichField))
+        _sfReadOnly.syncWith(pFrom->_sfReadOnly);
 }
 #endif
 

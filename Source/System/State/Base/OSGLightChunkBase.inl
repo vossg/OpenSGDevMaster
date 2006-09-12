@@ -489,6 +489,40 @@ void LightChunkBase::execSync (      LightChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (DiffuseFieldMask & whichField))
+        _sfDiffuse.syncWith(pFrom->_sfDiffuse);
+
+    if(FieldBits::NoField != (AmbientFieldMask & whichField))
+        _sfAmbient.syncWith(pFrom->_sfAmbient);
+
+    if(FieldBits::NoField != (SpecularFieldMask & whichField))
+        _sfSpecular.syncWith(pFrom->_sfSpecular);
+
+    if(FieldBits::NoField != (PositionFieldMask & whichField))
+        _sfPosition.syncWith(pFrom->_sfPosition);
+
+    if(FieldBits::NoField != (DirectionFieldMask & whichField))
+        _sfDirection.syncWith(pFrom->_sfDirection);
+
+    if(FieldBits::NoField != (ExponentFieldMask & whichField))
+        _sfExponent.syncWith(pFrom->_sfExponent);
+
+    if(FieldBits::NoField != (CutoffFieldMask & whichField))
+        _sfCutoff.syncWith(pFrom->_sfCutoff);
+
+    if(FieldBits::NoField != (ConstantAttenuationFieldMask & whichField))
+        _sfConstantAttenuation.syncWith(pFrom->_sfConstantAttenuation);
+
+    if(FieldBits::NoField != (LinearAttenuationFieldMask & whichField))
+        _sfLinearAttenuation.syncWith(pFrom->_sfLinearAttenuation);
+
+    if(FieldBits::NoField != (QuadraticAttenuationFieldMask & whichField))
+        _sfQuadraticAttenuation.syncWith(pFrom->_sfQuadraticAttenuation);
+
+    if(FieldBits::NoField != (BeaconFieldMask & whichField))
+        _sfBeacon.syncWith(pFrom->_sfBeacon);
 }
 #endif
 
