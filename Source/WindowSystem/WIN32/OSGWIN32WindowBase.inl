@@ -217,6 +217,16 @@ void WIN32WindowBase::execSync (      WIN32WindowBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (HwndFieldMask & whichField))
+        _sfHwnd.syncWith(pFrom->_sfHwnd);
+
+    if(FieldBits::NoField != (HdcFieldMask & whichField))
+        _sfHdc.syncWith(pFrom->_sfHdc);
+
+    if(FieldBits::NoField != (HglrcFieldMask & whichField))
+        _sfHglrc.syncWith(pFrom->_sfHglrc);
 }
 #endif
 

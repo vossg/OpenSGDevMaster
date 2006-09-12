@@ -90,6 +90,14 @@ const EGLDisplay &EGLWindowBase::getDisplay(void) const
     return _sfDisplay.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+EGLDisplay &EGLWindowBase::getDisplay(void)
+{
+    return this->editDisplay();
+}
+#endif
+
 //! Set the value of the EGLWindow::_sfDisplay field.
 inline
 void EGLWindowBase::setDisplay(const EGLDisplay &value)
@@ -114,6 +122,14 @@ const EGLSurface &EGLWindowBase::getWindow(void) const
 {
     return _sfWindow.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+EGLSurface &EGLWindowBase::getWindow(void)
+{
+    return this->editWindow();
+}
+#endif
 
 //! Set the value of the EGLWindow::_sfWindow field.
 inline
@@ -140,6 +156,14 @@ const EGLContext &EGLWindowBase::getContext(void) const
     return _sfContext.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+EGLContext &EGLWindowBase::getContext(void)
+{
+    return this->editContext();
+}
+#endif
+
 //! Set the value of the EGLWindow::_sfContext field.
 inline
 void EGLWindowBase::setContext(const EGLContext &value)
@@ -148,46 +172,6 @@ void EGLWindowBase::setContext(const EGLContext &value)
 
     _sfContext.setValue(value);
 }
-
-#ifdef OSG_1_COMPAT
-inline
-SFEGLDisplay *EGLWindowBase::getSFDisplay(void)
-{
-    return this->editSFDisplay();
-}
-
-inline
-SFEGLSurface *EGLWindowBase::getSFWindow(void)
-{
-    return this->editSFWindow();
-}
-
-inline
-SFEGLContext *EGLWindowBase::getSFContext(void)
-{
-    return this->editSFContext();
-}
-
-inline
-EGLDisplay &EGLWindowBase::getDisplay(void)
-{
-    return this->editDisplay();
-}
-
-inline
-EGLSurface &EGLWindowBase::getWindow(void)
-{
-    return this->editWindow();
-}
-
-inline
-EGLContext &EGLWindowBase::getContext(void)
-{
-    return this->editContext();
-}
-
-#endif
-
 
 //! create a new instance of the class
 inline
@@ -233,6 +217,16 @@ void EGLWindowBase::execSync (      EGLWindowBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (DisplayFieldMask & whichField))
+        _sfDisplay.syncWith(pFrom->_sfDisplay);
+
+    if(FieldBits::NoField != (WindowFieldMask & whichField))
+        _sfWindow.syncWith(pFrom->_sfWindow);
+
+    if(FieldBits::NoField != (ContextFieldMask & whichField))
+        _sfContext.syncWith(pFrom->_sfContext);
 }
 #endif
 

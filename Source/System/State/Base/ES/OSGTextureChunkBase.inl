@@ -2054,6 +2054,172 @@ void TextureChunkBase::execSync (      TextureChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ImageFieldMask & whichField))
+        _sfImage.syncWith(pFrom->_sfImage);
+
+    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
+        _sfInternalFormat.syncWith(pFrom->_sfInternalFormat);
+
+    if(FieldBits::NoField != (ExternalFormatFieldMask & whichField))
+        _sfExternalFormat.syncWith(pFrom->_sfExternalFormat);
+
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+        _sfScale.syncWith(pFrom->_sfScale);
+
+    if(FieldBits::NoField != (FrameFieldMask & whichField))
+        _sfFrame.syncWith(pFrom->_sfFrame);
+
+    if(FieldBits::NoField != (MinFilterFieldMask & whichField))
+        _sfMinFilter.syncWith(pFrom->_sfMinFilter);
+
+    if(FieldBits::NoField != (MagFilterFieldMask & whichField))
+        _sfMagFilter.syncWith(pFrom->_sfMagFilter);
+
+    if(FieldBits::NoField != (WrapSFieldMask & whichField))
+        _sfWrapS.syncWith(pFrom->_sfWrapS);
+
+    if(FieldBits::NoField != (WrapTFieldMask & whichField))
+        _sfWrapT.syncWith(pFrom->_sfWrapT);
+
+    if(FieldBits::NoField != (WrapRFieldMask & whichField))
+        _sfWrapR.syncWith(pFrom->_sfWrapR);
+
+    if(FieldBits::NoField != (EnvModeFieldMask & whichField))
+        _sfEnvMode.syncWith(pFrom->_sfEnvMode);
+
+    if(FieldBits::NoField != (EnvColorFieldMask & whichField))
+        _sfEnvColor.syncWith(pFrom->_sfEnvColor);
+
+    if(FieldBits::NoField != (EnvCombineRGBFieldMask & whichField))
+        _sfEnvCombineRGB.syncWith(pFrom->_sfEnvCombineRGB);
+
+    if(FieldBits::NoField != (EnvCombineAlphaFieldMask & whichField))
+        _sfEnvCombineAlpha.syncWith(pFrom->_sfEnvCombineAlpha);
+
+    if(FieldBits::NoField != (EnvScaleRGBFieldMask & whichField))
+        _sfEnvScaleRGB.syncWith(pFrom->_sfEnvScaleRGB);
+
+    if(FieldBits::NoField != (EnvScaleAlphaFieldMask & whichField))
+        _sfEnvScaleAlpha.syncWith(pFrom->_sfEnvScaleAlpha);
+
+    if(FieldBits::NoField != (EnvSource0RGBFieldMask & whichField))
+        _sfEnvSource0RGB.syncWith(pFrom->_sfEnvSource0RGB);
+
+    if(FieldBits::NoField != (EnvSource1RGBFieldMask & whichField))
+        _sfEnvSource1RGB.syncWith(pFrom->_sfEnvSource1RGB);
+
+    if(FieldBits::NoField != (EnvSource2RGBFieldMask & whichField))
+        _sfEnvSource2RGB.syncWith(pFrom->_sfEnvSource2RGB);
+
+    if(FieldBits::NoField != (EnvSource0AlphaFieldMask & whichField))
+        _sfEnvSource0Alpha.syncWith(pFrom->_sfEnvSource0Alpha);
+
+    if(FieldBits::NoField != (EnvSource1AlphaFieldMask & whichField))
+        _sfEnvSource1Alpha.syncWith(pFrom->_sfEnvSource1Alpha);
+
+    if(FieldBits::NoField != (EnvSource2AlphaFieldMask & whichField))
+        _sfEnvSource2Alpha.syncWith(pFrom->_sfEnvSource2Alpha);
+
+    if(FieldBits::NoField != (EnvOperand0RGBFieldMask & whichField))
+        _sfEnvOperand0RGB.syncWith(pFrom->_sfEnvOperand0RGB);
+
+    if(FieldBits::NoField != (EnvOperand1RGBFieldMask & whichField))
+        _sfEnvOperand1RGB.syncWith(pFrom->_sfEnvOperand1RGB);
+
+    if(FieldBits::NoField != (EnvOperand2RGBFieldMask & whichField))
+        _sfEnvOperand2RGB.syncWith(pFrom->_sfEnvOperand2RGB);
+
+    if(FieldBits::NoField != (EnvOperand0AlphaFieldMask & whichField))
+        _sfEnvOperand0Alpha.syncWith(pFrom->_sfEnvOperand0Alpha);
+
+    if(FieldBits::NoField != (EnvOperand1AlphaFieldMask & whichField))
+        _sfEnvOperand1Alpha.syncWith(pFrom->_sfEnvOperand1Alpha);
+
+    if(FieldBits::NoField != (EnvOperand2AlphaFieldMask & whichField))
+        _sfEnvOperand2Alpha.syncWith(pFrom->_sfEnvOperand2Alpha);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
+
+    if(FieldBits::NoField != (IgnoreGLForAspectFieldMask & whichField))
+        _sfIgnoreGLForAspect.syncWith(pFrom->_sfIgnoreGLForAspect);
+
+    if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
+        _sfPointSprite.syncWith(pFrom->_sfPointSprite);
+
+    if(FieldBits::NoField != (PriorityFieldMask & whichField))
+        _sfPriority.syncWith(pFrom->_sfPriority);
+
+    if(FieldBits::NoField != (ShaderOperationFieldMask & whichField))
+        _sfShaderOperation.syncWith(pFrom->_sfShaderOperation);
+
+    if(FieldBits::NoField != (ShaderInputFieldMask & whichField))
+        _sfShaderInput.syncWith(pFrom->_sfShaderInput);
+
+    if(FieldBits::NoField != (ShaderOffsetMatrixFieldMask & whichField))
+        _mfShaderOffsetMatrix.syncWith(pFrom->_mfShaderOffsetMatrix, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ShaderOffsetScaleFieldMask & whichField))
+        _sfShaderOffsetScale.syncWith(pFrom->_sfShaderOffsetScale);
+
+    if(FieldBits::NoField != (ShaderOffsetBiasFieldMask & whichField))
+        _sfShaderOffsetBias.syncWith(pFrom->_sfShaderOffsetBias);
+
+    if(FieldBits::NoField != (ShaderRGBADotProductFieldMask & whichField))
+        _sfShaderRGBADotProduct.syncWith(pFrom->_sfShaderRGBADotProduct);
+
+    if(FieldBits::NoField != (ShaderCullModesFieldMask & whichField))
+        _sfShaderCullModes.syncWith(pFrom->_sfShaderCullModes);
+
+    if(FieldBits::NoField != (ShaderConstEyeFieldMask & whichField))
+        _sfShaderConstEye.syncWith(pFrom->_sfShaderConstEye);
+
+    if(FieldBits::NoField != (LodBiasFieldMask & whichField))
+        _sfLodBias.syncWith(pFrom->_sfLodBias);
+
+    if(FieldBits::NoField != (TargetFieldMask & whichField))
+        _sfTarget.syncWith(pFrom->_sfTarget);
+
+    if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
+        _sfDirtyLeft.syncWith(pFrom->_sfDirtyLeft);
+
+    if(FieldBits::NoField != (DirtyMinXFieldMask & whichField))
+        _sfDirtyMinX.syncWith(pFrom->_sfDirtyMinX);
+
+    if(FieldBits::NoField != (DirtyMaxXFieldMask & whichField))
+        _sfDirtyMaxX.syncWith(pFrom->_sfDirtyMaxX);
+
+    if(FieldBits::NoField != (DirtyMinYFieldMask & whichField))
+        _sfDirtyMinY.syncWith(pFrom->_sfDirtyMinY);
+
+    if(FieldBits::NoField != (DirtyMaxYFieldMask & whichField))
+        _sfDirtyMaxY.syncWith(pFrom->_sfDirtyMaxY);
+
+    if(FieldBits::NoField != (DirtyMinZFieldMask & whichField))
+        _sfDirtyMinZ.syncWith(pFrom->_sfDirtyMinZ);
+
+    if(FieldBits::NoField != (DirtyMaxZFieldMask & whichField))
+        _sfDirtyMaxZ.syncWith(pFrom->_sfDirtyMaxZ);
+
+    if(FieldBits::NoField != (AnisotropyFieldMask & whichField))
+        _sfAnisotropy.syncWith(pFrom->_sfAnisotropy);
+
+    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
+        _sfBorderColor.syncWith(pFrom->_sfBorderColor);
+
+    if(FieldBits::NoField != (CompareModeFieldMask & whichField))
+        _sfCompareMode.syncWith(pFrom->_sfCompareMode);
+
+    if(FieldBits::NoField != (CompareFuncFieldMask & whichField))
+        _sfCompareFunc.syncWith(pFrom->_sfCompareFunc);
+
+    if(FieldBits::NoField != (DepthModeFieldMask & whichField))
+        _sfDepthMode.syncWith(pFrom->_sfDepthMode);
 }
 #endif
 
