@@ -307,7 +307,8 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
 
 typedef SimpleShadowMapEngineBase *SimpleShadowMapEngineBaseP;
 
-typedef RefPtr<SimpleShadowMapEngine> SimpleShadowMapEngineRefPtr;
+/** Type specific RefPtr type for SimpleShadowMapEngine. */
+typedef RefPtr<SimpleShadowMapEnginePtr> SimpleShadowMapEngineRefPtr;
 
 typedef osgIF<
     SimpleShadowMapEngineBase::isNodeCore,

@@ -367,7 +367,8 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
 
 typedef ClipPlaneChunkBase *ClipPlaneChunkBaseP;
 
-typedef RefPtr<ClipPlaneChunk> ClipPlaneChunkRefPtr;
+/** Type specific RefPtr type for ClipPlaneChunk. */
+typedef RefPtr<ClipPlaneChunkPtr> ClipPlaneChunkRefPtr;
 
 typedef osgIF<
     ClipPlaneChunkBase::isNodeCore,

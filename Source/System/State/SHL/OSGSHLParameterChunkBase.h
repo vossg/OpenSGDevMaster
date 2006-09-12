@@ -331,7 +331,8 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
 
 typedef SHLParameterChunkBase *SHLParameterChunkBaseP;
 
-typedef RefPtr<SHLParameterChunk> SHLParameterChunkRefPtr;
+/** Type specific RefPtr type for SHLParameterChunk. */
+typedef RefPtr<SHLParameterChunkPtr> SHLParameterChunkRefPtr;
 
 typedef osgIF<
     SHLParameterChunkBase::isNodeCore,

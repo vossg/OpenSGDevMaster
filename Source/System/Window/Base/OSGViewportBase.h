@@ -487,7 +487,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 
 typedef ViewportBase *ViewportBaseP;
 
-typedef RefPtr<Viewport> ViewportRefPtr;
+/** Type specific RefPtr type for Viewport. */
+typedef RefPtr<ViewportPtr> ViewportRefPtr;
 
 typedef osgIF<
     ViewportBase::isNodeCore,

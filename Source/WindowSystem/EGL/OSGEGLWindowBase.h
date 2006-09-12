@@ -343,7 +343,8 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
 
 typedef EGLWindowBase *EGLWindowBaseP;
 
-typedef RefPtr<EGLWindow> EGLWindowRefPtr;
+/** Type specific RefPtr type for EGLWindow. */
+typedef RefPtr<EGLWindowPtr> EGLWindowRefPtr;
 
 typedef osgIF<
     EGLWindowBase::isNodeCore,

@@ -433,7 +433,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
 
 typedef SimpleMaterialBase *SimpleMaterialBaseP;
 
-typedef RefPtr<SimpleMaterial> SimpleMaterialRefPtr;
+/** Type specific RefPtr type for SimpleMaterial. */
+typedef RefPtr<SimpleMaterialPtr> SimpleMaterialRefPtr;
 
 typedef osgIF<
     SimpleMaterialBase::isNodeCore,

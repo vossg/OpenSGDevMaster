@@ -439,7 +439,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
 
 typedef GeoMultiPropertyBase *GeoMultiPropertyBaseP;
 
-typedef RefPtr<GeoMultiProperty> GeoMultiPropertyRefPtr;
+/** Type specific RefPtr type for GeoMultiProperty. */
+typedef RefPtr<GeoMultiPropertyPtr> GeoMultiPropertyRefPtr;
 
 typedef osgIF<
     GeoMultiPropertyBase::isNodeCore,

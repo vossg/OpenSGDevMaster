@@ -262,7 +262,8 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
 
 typedef LightEnvBase *LightEnvBaseP;
 
-typedef RefPtr<LightEnv> LightEnvRefPtr;
+/** Type specific RefPtr type for LightEnv. */
+typedef RefPtr<LightEnvPtr> LightEnvRefPtr;
 
 typedef osgIF<
     LightEnvBase::isNodeCore,

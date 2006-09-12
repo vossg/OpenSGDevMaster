@@ -442,7 +442,8 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
 
 typedef TextureBackgroundBase *TextureBackgroundBaseP;
 
-typedef RefPtr<TextureBackground> TextureBackgroundRefPtr;
+/** Type specific RefPtr type for TextureBackground. */
+typedef RefPtr<TextureBackgroundPtr> TextureBackgroundRefPtr;
 
 typedef osgIF<
     TextureBackgroundBase::isNodeCore,

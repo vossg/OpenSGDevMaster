@@ -455,7 +455,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 typedef GeometryBase *GeometryBaseP;
 
-typedef RefPtr<Geometry> GeometryRefPtr;
+/** Type specific RefPtr type for Geometry. */
+typedef RefPtr<GeometryPtr> GeometryRefPtr;
 
 typedef osgIF<
     GeometryBase::isNodeCore,

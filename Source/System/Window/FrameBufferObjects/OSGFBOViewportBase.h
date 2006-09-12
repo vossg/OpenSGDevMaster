@@ -331,7 +331,8 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
 
 typedef FBOViewportBase *FBOViewportBaseP;
 
-typedef RefPtr<FBOViewport> FBOViewportRefPtr;
+/** Type specific RefPtr type for FBOViewport. */
+typedef RefPtr<FBOViewportPtr> FBOViewportRefPtr;
 
 typedef osgIF<
     FBOViewportBase::isNodeCore,

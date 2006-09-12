@@ -348,7 +348,8 @@ class OSG_SYSTEM_DLLMAPPING CameraBase : public AttachmentContainer
 
 typedef CameraBase *CameraBaseP;
 
-typedef RefPtr<Camera> CameraRefPtr;
+/** Type specific RefPtr type for Camera. */
+typedef RefPtr<CameraPtr> CameraRefPtr;
 
 typedef osgIF<
     CameraBase::isNodeCore,

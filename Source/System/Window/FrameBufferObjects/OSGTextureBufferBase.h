@@ -385,7 +385,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
 
 typedef TextureBufferBase *TextureBufferBaseP;
 
-typedef RefPtr<TextureBuffer> TextureBufferRefPtr;
+/** Type specific RefPtr type for TextureBuffer. */
+typedef RefPtr<TextureBufferPtr> TextureBufferRefPtr;
 
 typedef osgIF<
     TextureBufferBase::isNodeCore,

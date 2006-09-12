@@ -360,7 +360,8 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
 
 typedef SwitchMaterialBase *SwitchMaterialBaseP;
 
-typedef RefPtr<SwitchMaterial> SwitchMaterialRefPtr;
+/** Type specific RefPtr type for SwitchMaterial. */
+typedef RefPtr<SwitchMaterialPtr> SwitchMaterialRefPtr;
 
 typedef osgIF<
     SwitchMaterialBase::isNodeCore,

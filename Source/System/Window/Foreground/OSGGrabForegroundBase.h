@@ -349,7 +349,8 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
 
 typedef GrabForegroundBase *GrabForegroundBaseP;
 
-typedef RefPtr<GrabForeground> GrabForegroundRefPtr;
+/** Type specific RefPtr type for GrabForeground. */
+typedef RefPtr<GrabForegroundPtr> GrabForegroundRefPtr;
 
 typedef osgIF<
     GrabForegroundBase::isNodeCore,

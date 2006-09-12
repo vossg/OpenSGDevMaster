@@ -362,7 +362,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
 
 typedef ChunkMaterialBase *ChunkMaterialBaseP;
 
-typedef RefPtr<ChunkMaterial> ChunkMaterialRefPtr;
+/** Type specific RefPtr type for ChunkMaterial. */
+typedef RefPtr<ChunkMaterialPtr> ChunkMaterialRefPtr;
 
 typedef osgIF<
     ChunkMaterialBase::isNodeCore,

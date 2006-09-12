@@ -385,7 +385,8 @@ class OSG_STATE_DLLMAPPING CubeTextureChunkBase : public TextureChunk
 
 typedef CubeTextureChunkBase *CubeTextureChunkBaseP;
 
-typedef RefPtr<CubeTextureChunk> CubeTextureChunkRefPtr;
+/** Type specific RefPtr type for CubeTextureChunk. */
+typedef RefPtr<CubeTextureChunkPtr> CubeTextureChunkRefPtr;
 
 typedef osgIF<
     CubeTextureChunkBase::isNodeCore,

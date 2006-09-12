@@ -262,7 +262,8 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
 
 typedef PassiveWindowBase *PassiveWindowBaseP;
 
-typedef RefPtr<PassiveWindow> PassiveWindowRefPtr;
+/** Type specific RefPtr type for PassiveWindow. */
+typedef RefPtr<PassiveWindowPtr> PassiveWindowRefPtr;
 
 typedef osgIF<
     PassiveWindowBase::isNodeCore,

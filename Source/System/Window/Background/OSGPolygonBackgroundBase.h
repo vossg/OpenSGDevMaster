@@ -445,7 +445,8 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
 
 typedef PolygonBackgroundBase *PolygonBackgroundBaseP;
 
-typedef RefPtr<PolygonBackground> PolygonBackgroundRefPtr;
+/** Type specific RefPtr type for PolygonBackground. */
+typedef RefPtr<PolygonBackgroundPtr> PolygonBackgroundRefPtr;
 
 typedef osgIF<
     PolygonBackgroundBase::isNodeCore,

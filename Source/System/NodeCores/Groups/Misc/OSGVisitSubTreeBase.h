@@ -331,7 +331,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
 
 typedef VisitSubTreeBase *VisitSubTreeBaseP;
 
-typedef RefPtr<VisitSubTree> VisitSubTreeRefPtr;
+/** Type specific RefPtr type for VisitSubTree. */
+typedef RefPtr<VisitSubTreePtr> VisitSubTreeRefPtr;
 
 typedef osgIF<
     VisitSubTreeBase::isNodeCore,

@@ -367,7 +367,8 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
 
 typedef ProgramChunkBase *ProgramChunkBaseP;
 
-typedef RefPtr<ProgramChunk> ProgramChunkRefPtr;
+/** Type specific RefPtr type for ProgramChunk. */
+typedef RefPtr<ProgramChunkPtr> ProgramChunkRefPtr;
 
 typedef osgIF<
     ProgramChunkBase::isNodeCore,

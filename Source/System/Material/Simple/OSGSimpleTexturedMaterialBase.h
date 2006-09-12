@@ -403,7 +403,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
 
 typedef SimpleTexturedMaterialBase *SimpleTexturedMaterialBaseP;
 
-typedef RefPtr<SimpleTexturedMaterial> SimpleTexturedMaterialRefPtr;
+/** Type specific RefPtr type for SimpleTexturedMaterial. */
+typedef RefPtr<SimpleTexturedMaterialPtr> SimpleTexturedMaterialRefPtr;
 
 typedef osgIF<
     SimpleTexturedMaterialBase::isNodeCore,

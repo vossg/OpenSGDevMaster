@@ -243,7 +243,8 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
 
 typedef StateChunkBase *StateChunkBaseP;
 
-typedef RefPtr<StateChunk> StateChunkRefPtr;
+/** Type specific RefPtr type for StateChunk. */
+typedef RefPtr<StateChunkPtr> StateChunkRefPtr;
 
 typedef osgIF<
     StateChunkBase::isNodeCore,

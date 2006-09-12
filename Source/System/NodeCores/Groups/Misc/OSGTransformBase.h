@@ -307,7 +307,8 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
 
 typedef TransformBase *TransformBaseP;
 
-typedef RefPtr<Transform> TransformRefPtr;
+/** Type specific RefPtr type for Transform. */
+typedef RefPtr<TransformPtr> TransformRefPtr;
 
 typedef osgIF<
     TransformBase::isNodeCore,

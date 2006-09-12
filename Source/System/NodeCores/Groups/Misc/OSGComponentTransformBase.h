@@ -379,7 +379,8 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
 
 typedef ComponentTransformBase *ComponentTransformBaseP;
 
-typedef RefPtr<ComponentTransform> ComponentTransformRefPtr;
+/** Type specific RefPtr type for ComponentTransform. */
+typedef RefPtr<ComponentTransformPtr> ComponentTransformRefPtr;
 
 typedef osgIF<
     ComponentTransformBase::isNodeCore,

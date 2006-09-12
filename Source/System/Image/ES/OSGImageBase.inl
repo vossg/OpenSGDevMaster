@@ -866,6 +866,76 @@ void ImageBase::execSync (      ImageBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+        _mfParents.syncWith(pFrom->_mfParents, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (DimensionFieldMask & whichField))
+        _sfDimension.syncWith(pFrom->_sfDimension);
+
+    if(FieldBits::NoField != (WidthFieldMask & whichField))
+        _sfWidth.syncWith(pFrom->_sfWidth);
+
+    if(FieldBits::NoField != (HeightFieldMask & whichField))
+        _sfHeight.syncWith(pFrom->_sfHeight);
+
+    if(FieldBits::NoField != (DepthFieldMask & whichField))
+        _sfDepth.syncWith(pFrom->_sfDepth);
+
+    if(FieldBits::NoField != (BppFieldMask & whichField))
+        _sfBpp.syncWith(pFrom->_sfBpp);
+
+    if(FieldBits::NoField != (MipMapCountFieldMask & whichField))
+        _sfMipMapCount.syncWith(pFrom->_sfMipMapCount);
+
+    if(FieldBits::NoField != (FrameCountFieldMask & whichField))
+        _sfFrameCount.syncWith(pFrom->_sfFrameCount);
+
+    if(FieldBits::NoField != (FrameDelayFieldMask & whichField))
+        _sfFrameDelay.syncWith(pFrom->_sfFrameDelay);
+
+    if(FieldBits::NoField != (PixelFormatFieldMask & whichField))
+        _sfPixelFormat.syncWith(pFrom->_sfPixelFormat);
+
+    if(FieldBits::NoField != (PixelFieldMask & whichField))
+        _mfPixel.syncWith(pFrom->_mfPixel, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (FrameSizeFieldMask & whichField))
+        _sfFrameSize.syncWith(pFrom->_sfFrameSize);
+
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+        _sfName.syncWith(pFrom->_sfName);
+
+    if(FieldBits::NoField != (DataTypeFieldMask & whichField))
+        _sfDataType.syncWith(pFrom->_sfDataType);
+
+    if(FieldBits::NoField != (ComponentSizeFieldMask & whichField))
+        _sfComponentSize.syncWith(pFrom->_sfComponentSize);
+
+    if(FieldBits::NoField != (SideCountFieldMask & whichField))
+        _sfSideCount.syncWith(pFrom->_sfSideCount);
+
+    if(FieldBits::NoField != (SideSizeFieldMask & whichField))
+        _sfSideSize.syncWith(pFrom->_sfSideSize);
+
+    if(FieldBits::NoField != (ForceCompressedDataFieldMask & whichField))
+        _sfForceCompressedData.syncWith(pFrom->_sfForceCompressedData);
+
+    if(FieldBits::NoField != (ForceAlphaChannelFieldMask & whichField))
+        _sfForceAlphaChannel.syncWith(pFrom->_sfForceAlphaChannel);
+
+    if(FieldBits::NoField != (ForceColorChannelFieldMask & whichField))
+        _sfForceColorChannel.syncWith(pFrom->_sfForceColorChannel);
+
+    if(FieldBits::NoField != (ForceAlphaBinaryFieldMask & whichField))
+        _sfForceAlphaBinary.syncWith(pFrom->_sfForceAlphaBinary);
 }
 #endif
 

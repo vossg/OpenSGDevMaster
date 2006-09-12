@@ -238,6 +238,9 @@ typename PtrStripper<Ptr>::ConstObject *getConstCPtr(Ptr objectP);
 #ifdef OSG_MT_FIELDCONTAINERPTR
 template <class B, class C> inline 
 typename PtrStripper< FCPtr<B, C> >::Object *get_pointer( FCPtr<B,C> object);
+
+template <typename FcPtrType>
+inline typename RefPtr<FcPtrType>::Ref::StoredObject* get_pointer(RefPtr<FcPtrType> p);
 #endif
 
 #ifdef OSG_LINUX_ICC

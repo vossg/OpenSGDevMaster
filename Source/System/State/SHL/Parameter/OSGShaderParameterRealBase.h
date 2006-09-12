@@ -307,7 +307,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
 
 typedef ShaderParameterRealBase *ShaderParameterRealBaseP;
 
-typedef RefPtr<ShaderParameterReal> ShaderParameterRealRefPtr;
+/** Type specific RefPtr type for ShaderParameterReal. */
+typedef RefPtr<ShaderParameterRealPtr> ShaderParameterRealRefPtr;
 
 typedef osgIF<
     ShaderParameterRealBase::isNodeCore,

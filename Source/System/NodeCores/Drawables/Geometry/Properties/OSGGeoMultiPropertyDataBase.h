@@ -327,7 +327,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
 
 typedef GeoMultiPropertyDataBase *GeoMultiPropertyDataBaseP;
 
-typedef RefPtr<GeoMultiPropertyData> GeoMultiPropertyDataRefPtr;
+/** Type specific RefPtr type for GeoMultiPropertyData. */
+typedef RefPtr<GeoMultiPropertyDataPtr> GeoMultiPropertyDataRefPtr;
 
 typedef osgIF<
     GeoMultiPropertyDataBase::isNodeCore,

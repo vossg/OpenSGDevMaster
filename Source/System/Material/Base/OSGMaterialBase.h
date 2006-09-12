@@ -288,7 +288,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
 
 typedef MaterialBase *MaterialBaseP;
 
-typedef RefPtr<Material> MaterialRefPtr;
+/** Type specific RefPtr type for Material. */
+typedef RefPtr<MaterialPtr> MaterialRefPtr;
 
 typedef osgIF<
     MaterialBase::isNodeCore,

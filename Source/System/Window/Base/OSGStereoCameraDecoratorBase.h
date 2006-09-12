@@ -306,7 +306,8 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
 
 typedef StereoCameraDecoratorBase *StereoCameraDecoratorBaseP;
 
-typedef RefPtr<StereoCameraDecorator> StereoCameraDecoratorRefPtr;
+/** Type specific RefPtr type for StereoCameraDecorator. */
+typedef RefPtr<StereoCameraDecoratorPtr> StereoCameraDecoratorRefPtr;
 
 typedef osgIF<
     StereoCameraDecoratorBase::isNodeCore,

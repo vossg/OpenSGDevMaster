@@ -307,7 +307,8 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
 
 typedef PointLightBase *PointLightBaseP;
 
-typedef RefPtr<PointLight> PointLightRefPtr;
+/** Type specific RefPtr type for PointLight. */
+typedef RefPtr<PointLightPtr> PointLightRefPtr;
 
 typedef osgIF<
     PointLightBase::isNodeCore,

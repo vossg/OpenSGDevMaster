@@ -262,7 +262,8 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
 
 typedef FragmentProgramChunkBase *FragmentProgramChunkBaseP;
 
-typedef RefPtr<FragmentProgramChunk> FragmentProgramChunkRefPtr;
+/** Type specific RefPtr type for FragmentProgramChunk. */
+typedef RefPtr<FragmentProgramChunkPtr> FragmentProgramChunkRefPtr;
 
 typedef osgIF<
     FragmentProgramChunkBase::isNodeCore,

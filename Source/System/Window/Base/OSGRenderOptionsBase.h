@@ -595,7 +595,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
 
 typedef RenderOptionsBase *RenderOptionsBaseP;
 
-typedef RefPtr<RenderOptions> RenderOptionsRefPtr;
+/** Type specific RefPtr type for RenderOptions. */
+typedef RefPtr<RenderOptionsPtr> RenderOptionsRefPtr;
 
 typedef osgIF<
     RenderOptionsBase::isNodeCore,

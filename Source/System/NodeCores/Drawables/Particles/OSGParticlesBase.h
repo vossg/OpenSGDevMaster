@@ -557,7 +557,8 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 
 typedef ParticlesBase *ParticlesBaseP;
 
-typedef RefPtr<Particles> ParticlesRefPtr;
+/** Type specific RefPtr type for Particles. */
+typedef RefPtr<ParticlesPtr> ParticlesRefPtr;
 
 typedef osgIF<
     ParticlesBase::isNodeCore,

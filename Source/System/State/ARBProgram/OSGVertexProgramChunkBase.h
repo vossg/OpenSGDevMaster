@@ -262,7 +262,8 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
 
 typedef VertexProgramChunkBase *VertexProgramChunkBaseP;
 
-typedef RefPtr<VertexProgramChunk> VertexProgramChunkRefPtr;
+/** Type specific RefPtr type for VertexProgramChunk. */
+typedef RefPtr<VertexProgramChunkPtr> VertexProgramChunkRefPtr;
 
 typedef osgIF<
     VertexProgramChunkBase::isNodeCore,

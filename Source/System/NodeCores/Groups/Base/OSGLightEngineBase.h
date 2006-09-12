@@ -288,7 +288,8 @@ class OSG_SYSTEM_DLLMAPPING LightEngineBase : public AttachmentContainer
 
 typedef LightEngineBase *LightEngineBaseP;
 
-typedef RefPtr<LightEngine> LightEngineRefPtr;
+/** Type specific RefPtr type for LightEngine. */
+typedef RefPtr<LightEnginePtr> LightEngineRefPtr;
 
 typedef osgIF<
     LightEngineBase::isNodeCore,

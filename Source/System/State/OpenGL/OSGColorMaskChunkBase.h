@@ -361,7 +361,8 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
 
 typedef ColorMaskChunkBase *ColorMaskChunkBaseP;
 
-typedef RefPtr<ColorMaskChunk> ColorMaskChunkRefPtr;
+/** Type specific RefPtr type for ColorMaskChunk. */
+typedef RefPtr<ColorMaskChunkPtr> ColorMaskChunkRefPtr;
 
 typedef osgIF<
     ColorMaskChunkBase::isNodeCore,

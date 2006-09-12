@@ -489,7 +489,8 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
 
 typedef PolygonChunkBase *PolygonChunkBaseP;
 
-typedef RefPtr<PolygonChunk> PolygonChunkRefPtr;
+/** Type specific RefPtr type for PolygonChunk. */
+typedef RefPtr<PolygonChunkPtr> PolygonChunkRefPtr;
 
 typedef osgIF<
     PolygonChunkBase::isNodeCore,

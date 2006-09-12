@@ -552,7 +552,8 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 
 typedef ProxyGroupBase *ProxyGroupBaseP;
 
-typedef RefPtr<ProxyGroup> ProxyGroupRefPtr;
+/** Type specific RefPtr type for ProxyGroup. */
+typedef RefPtr<ProxyGroupPtr> ProxyGroupRefPtr;
 
 typedef osgIF<
     ProxyGroupBase::isNodeCore,

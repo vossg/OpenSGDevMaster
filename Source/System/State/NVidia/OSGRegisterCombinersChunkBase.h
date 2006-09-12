@@ -901,7 +901,8 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
 
 typedef RegisterCombinersChunkBase *RegisterCombinersChunkBaseP;
 
-typedef RefPtr<RegisterCombinersChunk> RegisterCombinersChunkRefPtr;
+/** Type specific RefPtr type for RegisterCombinersChunk. */
+typedef RefPtr<RegisterCombinersChunkPtr> RegisterCombinersChunkRefPtr;
 
 typedef osgIF<
     RegisterCombinersChunkBase::isNodeCore,

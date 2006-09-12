@@ -312,7 +312,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialDrawableBase : public Drawable
 
 typedef MaterialDrawableBase *MaterialDrawableBaseP;
 
-typedef RefPtr<MaterialDrawable> MaterialDrawableRefPtr;
+/** Type specific RefPtr type for MaterialDrawable. */
+typedef RefPtr<MaterialDrawablePtr> MaterialDrawableRefPtr;
 
 typedef osgIF<
     MaterialDrawableBase::isNodeCore,

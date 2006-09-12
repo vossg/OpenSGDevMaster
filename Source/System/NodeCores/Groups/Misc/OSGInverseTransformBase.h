@@ -262,7 +262,8 @@ class OSG_GROUP_DLLMAPPING InverseTransformBase : public Group
 
 typedef InverseTransformBase *InverseTransformBaseP;
 
-typedef RefPtr<InverseTransform> InverseTransformRefPtr;
+/** Type specific RefPtr type for InverseTransform. */
+typedef RefPtr<InverseTransformPtr> InverseTransformRefPtr;
 
 typedef osgIF<
     InverseTransformBase::isNodeCore,

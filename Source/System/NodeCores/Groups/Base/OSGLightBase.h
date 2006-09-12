@@ -447,7 +447,8 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public NodeCore
 
 typedef LightBase *LightBaseP;
 
-typedef RefPtr<Light> LightRefPtr;
+/** Type specific RefPtr type for Light. */
+typedef RefPtr<LightPtr> LightRefPtr;
 
 typedef osgIF<
     LightBase::isNodeCore,

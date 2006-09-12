@@ -379,7 +379,8 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
 
 typedef BillboardBase *BillboardBaseP;
 
-typedef RefPtr<Billboard> BillboardRefPtr;
+/** Type specific RefPtr type for Billboard. */
+typedef RefPtr<BillboardPtr> BillboardRefPtr;
 
 typedef osgIF<
     BillboardBase::isNodeCore,

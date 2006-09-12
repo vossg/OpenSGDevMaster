@@ -327,7 +327,8 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
 
 typedef DistanceLODBase *DistanceLODBaseP;
 
-typedef RefPtr<DistanceLOD> DistanceLODRefPtr;
+/** Type specific RefPtr type for DistanceLOD. */
+typedef RefPtr<DistanceLODPtr> DistanceLODRefPtr;
 
 typedef osgIF<
     DistanceLODBase::isNodeCore,

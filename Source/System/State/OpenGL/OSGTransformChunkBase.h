@@ -307,7 +307,8 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
 
 typedef TransformChunkBase *TransformChunkBaseP;
 
-typedef RefPtr<TransformChunk> TransformChunkRefPtr;
+/** Type specific RefPtr type for TransformChunk. */
+typedef RefPtr<TransformChunkPtr> TransformChunkRefPtr;
 
 typedef osgIF<
     TransformChunkBase::isNodeCore,

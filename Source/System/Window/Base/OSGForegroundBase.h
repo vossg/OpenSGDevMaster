@@ -288,7 +288,8 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
 
 typedef ForegroundBase *ForegroundBaseP;
 
-typedef RefPtr<Foreground> ForegroundRefPtr;
+/** Type specific RefPtr type for Foreground. */
+typedef RefPtr<ForegroundPtr> ForegroundRefPtr;
 
 typedef osgIF<
     ForegroundBase::isNodeCore,

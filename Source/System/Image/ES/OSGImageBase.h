@@ -726,7 +726,8 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
 
 typedef ImageBase *ImageBaseP;
 
-typedef RefPtr<Image> ImageRefPtr;
+/** Type specific RefPtr type for Image. */
+typedef RefPtr<ImagePtr> ImageRefPtr;
 
 typedef osgIF<
     ImageBase::isNodeCore,

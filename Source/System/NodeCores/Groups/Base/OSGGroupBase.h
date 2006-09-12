@@ -262,7 +262,8 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
 
 typedef GroupBase *GroupBaseP;
 
-typedef RefPtr<Group> GroupRefPtr;
+/** Type specific RefPtr type for Group. */
+typedef RefPtr<GroupPtr> GroupRefPtr;
 
 typedef osgIF<
     GroupBase::isNodeCore,

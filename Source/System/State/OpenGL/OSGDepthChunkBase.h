@@ -379,7 +379,8 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
 
 typedef DepthChunkBase *DepthChunkBaseP;
 
-typedef RefPtr<DepthChunk> DepthChunkRefPtr;
+/** Type specific RefPtr type for DepthChunk. */
+typedef RefPtr<DepthChunkPtr> DepthChunkRefPtr;
 
 typedef osgIF<
     DepthChunkBase::isNodeCore,

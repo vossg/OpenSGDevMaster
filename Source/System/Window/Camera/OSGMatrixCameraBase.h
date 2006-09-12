@@ -325,7 +325,8 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
 
 typedef MatrixCameraBase *MatrixCameraBaseP;
 
-typedef RefPtr<MatrixCamera> MatrixCameraRefPtr;
+/** Type specific RefPtr type for MatrixCamera. */
+typedef RefPtr<MatrixCameraPtr> MatrixCameraRefPtr;
 
 typedef osgIF<
     MatrixCameraBase::isNodeCore,

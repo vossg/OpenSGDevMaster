@@ -511,7 +511,8 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
 
 typedef LightChunkBase *LightChunkBaseP;
 
-typedef RefPtr<LightChunk> LightChunkRefPtr;
+/** Type specific RefPtr type for LightChunk. */
+typedef RefPtr<LightChunkPtr> LightChunkRefPtr;
 
 typedef osgIF<
     LightChunkBase::isNodeCore,

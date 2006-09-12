@@ -325,7 +325,8 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
 
 typedef RenderBufferBase *RenderBufferBaseP;
 
-typedef RefPtr<RenderBuffer> RenderBufferRefPtr;
+/** Type specific RefPtr type for RenderBuffer. */
+typedef RefPtr<RenderBufferPtr> RenderBufferRefPtr;
 
 typedef osgIF<
     RenderBufferBase::isNodeCore,

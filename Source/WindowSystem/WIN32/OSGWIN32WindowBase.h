@@ -343,7 +343,8 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
 
 typedef WIN32WindowBase *WIN32WindowBaseP;
 
-typedef RefPtr<WIN32Window> WIN32WindowRefPtr;
+/** Type specific RefPtr type for WIN32Window. */
+typedef RefPtr<WIN32WindowPtr> WIN32WindowRefPtr;
 
 typedef osgIF<
     WIN32WindowBase::isNodeCore,

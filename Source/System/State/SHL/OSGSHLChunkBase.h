@@ -343,7 +343,8 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
 
 typedef SHLChunkBase *SHLChunkBaseP;
 
-typedef RefPtr<SHLChunk> SHLChunkRefPtr;
+/** Type specific RefPtr type for SHLChunk. */
+typedef RefPtr<SHLChunkPtr> SHLChunkRefPtr;
 
 typedef osgIF<
     SHLChunkBase::isNodeCore,

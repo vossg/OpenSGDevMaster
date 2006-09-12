@@ -469,7 +469,8 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
 
 typedef PointChunkBase *PointChunkBaseP;
 
-typedef RefPtr<PointChunk> PointChunkRefPtr;
+/** Type specific RefPtr type for PointChunk. */
+typedef RefPtr<PointChunkPtr> PointChunkRefPtr;
 
 typedef osgIF<
     PointChunkBase::isNodeCore,

@@ -451,6 +451,12 @@ typename PtrStripper< FCPtr<B, C> >::Object *get_pointer( FCPtr<B,C> objectP)
 {
     return getCPtr(objectP);
 }
+
+template <typename FcPtrType>
+inline typename RefPtr<FcPtrType>::Ref::StoredObject* get_pointer(RefPtr<FcPtrType> p)
+{
+   return getCPtr(p.get());
+}
 #endif
 
 #ifdef OSG_LINUX_ICC

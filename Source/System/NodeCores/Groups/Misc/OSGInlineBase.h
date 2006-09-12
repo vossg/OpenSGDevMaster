@@ -327,7 +327,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
 
 typedef InlineBase *InlineBaseP;
 
-typedef RefPtr<Inline> InlineRefPtr;
+/** Type specific RefPtr type for Inline. */
+typedef RefPtr<InlinePtr> InlineRefPtr;
 
 typedef osgIF<
     InlineBase::isNodeCore,

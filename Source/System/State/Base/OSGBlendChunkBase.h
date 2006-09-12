@@ -433,7 +433,8 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
 
 typedef BlendChunkBase *BlendChunkBaseP;
 
-typedef RefPtr<BlendChunk> BlendChunkRefPtr;
+/** Type specific RefPtr type for BlendChunk. */
+typedef RefPtr<BlendChunkPtr> BlendChunkRefPtr;
 
 typedef osgIF<
     BlendChunkBase::isNodeCore,

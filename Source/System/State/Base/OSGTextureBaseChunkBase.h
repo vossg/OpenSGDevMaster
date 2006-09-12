@@ -243,7 +243,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
 
 typedef TextureBaseChunkBase *TextureBaseChunkBaseP;
 
-typedef RefPtr<TextureBaseChunk> TextureBaseChunkRefPtr;
+/** Type specific RefPtr type for TextureBaseChunk. */
+typedef RefPtr<TextureBaseChunkPtr> TextureBaseChunkRefPtr;
 
 typedef osgIF<
     TextureBaseChunkBase::isNodeCore,

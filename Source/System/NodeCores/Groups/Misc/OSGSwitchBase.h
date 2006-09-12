@@ -307,7 +307,8 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
 
 typedef SwitchBase *SwitchBaseP;
 
-typedef RefPtr<Switch> SwitchRefPtr;
+/** Type specific RefPtr type for Switch. */
+typedef RefPtr<SwitchPtr> SwitchRefPtr;
 
 typedef osgIF<
     SwitchBase::isNodeCore,

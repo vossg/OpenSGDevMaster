@@ -261,6 +261,13 @@ const SFInt32 *GeometryBase::getSFClassicGLId(void) const
     return &_sfClassicGLId;
 }
 
+#ifdef OSG_1_COMPAT
+SFInt32 *GeometryBase::getSFClassicGLId(void)
+{
+    return this->editSFClassicGLId();
+}
+#endif
+
 SFInt32 *GeometryBase::editSFAttGLId(void)
 {
     editSField(AttGLIdFieldMask);
@@ -272,6 +279,13 @@ const SFInt32 *GeometryBase::getSFAttGLId(void) const
 {
     return &_sfAttGLId;
 }
+
+#ifdef OSG_1_COMPAT
+SFInt32 *GeometryBase::getSFAttGLId(void)
+{
+    return this->editSFAttGLId();
+}
+#endif
 
 
 void GeometryBase::pushToField(      FieldContainerPtrConstArg pNewElement,

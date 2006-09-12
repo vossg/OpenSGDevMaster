@@ -288,7 +288,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
 
 typedef ShaderParameterBase *ShaderParameterBaseP;
 
-typedef RefPtr<ShaderParameter> ShaderParameterRefPtr;
+/** Type specific RefPtr type for ShaderParameter. */
+typedef RefPtr<ShaderParameterPtr> ShaderParameterRefPtr;
 
 typedef osgIF<
     ShaderParameterBase::isNodeCore,

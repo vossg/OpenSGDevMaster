@@ -325,7 +325,8 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
 
 typedef PerspectiveCameraBase *PerspectiveCameraBaseP;
 
-typedef RefPtr<PerspectiveCamera> PerspectiveCameraRefPtr;
+/** Type specific RefPtr type for PerspectiveCamera. */
+typedef RefPtr<PerspectiveCameraPtr> PerspectiveCameraRefPtr;
 
 typedef osgIF<
     PerspectiveCameraBase::isNodeCore,

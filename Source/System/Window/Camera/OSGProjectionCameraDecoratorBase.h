@@ -462,7 +462,8 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
 
 typedef ProjectionCameraDecoratorBase *ProjectionCameraDecoratorBaseP;
 
-typedef RefPtr<ProjectionCameraDecorator> ProjectionCameraDecoratorRefPtr;
+/** Type specific RefPtr type for ProjectionCameraDecorator. */
+typedef RefPtr<ProjectionCameraDecoratorPtr> ProjectionCameraDecoratorRefPtr;
 
 typedef osgIF<
     ProjectionCameraDecoratorBase::isNodeCore,

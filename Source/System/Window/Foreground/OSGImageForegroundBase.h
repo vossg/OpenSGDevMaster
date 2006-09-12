@@ -363,7 +363,8 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
 
 typedef ImageForegroundBase *ImageForegroundBaseP;
 
-typedef RefPtr<ImageForeground> ImageForegroundRefPtr;
+/** Type specific RefPtr type for ImageForeground. */
+typedef RefPtr<ImageForegroundPtr> ImageForegroundRefPtr;
 
 typedef osgIF<
     ImageForegroundBase::isNodeCore,

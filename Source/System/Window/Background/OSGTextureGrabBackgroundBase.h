@@ -385,7 +385,8 @@ class OSG_WINDOW_DLLMAPPING TextureGrabBackgroundBase : public SolidBackground
 
 typedef TextureGrabBackgroundBase *TextureGrabBackgroundBaseP;
 
-typedef RefPtr<TextureGrabBackground> TextureGrabBackgroundRefPtr;
+/** Type specific RefPtr type for TextureGrabBackground. */
+typedef RefPtr<TextureGrabBackgroundPtr> TextureGrabBackgroundRefPtr;
 
 typedef osgIF<
     TextureGrabBackgroundBase::isNodeCore,

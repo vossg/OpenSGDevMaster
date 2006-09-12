@@ -307,7 +307,8 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
 
 typedef SolidBackgroundBase *SolidBackgroundBaseP;
 
-typedef RefPtr<SolidBackground> SolidBackgroundRefPtr;
+/** Type specific RefPtr type for SolidBackground. */
+typedef RefPtr<SolidBackgroundPtr> SolidBackgroundRefPtr;
 
 typedef osgIF<
     SolidBackgroundBase::isNodeCore,

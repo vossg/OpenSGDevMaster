@@ -311,7 +311,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
 
 typedef FrameBufferAttachmentBase *FrameBufferAttachmentBaseP;
 
-typedef RefPtr<FrameBufferAttachment> FrameBufferAttachmentRefPtr;
+/** Type specific RefPtr type for FrameBufferAttachment. */
+typedef RefPtr<FrameBufferAttachmentPtr> FrameBufferAttachmentRefPtr;
 
 typedef osgIF<
     FrameBufferAttachmentBase::isNodeCore,

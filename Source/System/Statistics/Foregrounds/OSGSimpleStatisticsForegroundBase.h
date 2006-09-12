@@ -345,7 +345,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
 
 typedef SimpleStatisticsForegroundBase *SimpleStatisticsForegroundBaseP;
 
-typedef RefPtr<SimpleStatisticsForeground> SimpleStatisticsForegroundRefPtr;
+/** Type specific RefPtr type for SimpleStatisticsForeground. */
+typedef RefPtr<SimpleStatisticsForegroundPtr> SimpleStatisticsForegroundRefPtr;
 
 typedef osgIF<
     SimpleStatisticsForegroundBase::isNodeCore,

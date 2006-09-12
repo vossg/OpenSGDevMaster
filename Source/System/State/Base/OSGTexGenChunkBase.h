@@ -502,7 +502,8 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
 
 typedef TexGenChunkBase *TexGenChunkBaseP;
 
-typedef RefPtr<TexGenChunk> TexGenChunkRefPtr;
+/** Type specific RefPtr type for TexGenChunk. */
+typedef RefPtr<TexGenChunkPtr> TexGenChunkRefPtr;
 
 typedef osgIF<
     TexGenChunkBase::isNodeCore,

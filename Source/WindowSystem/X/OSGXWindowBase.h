@@ -343,7 +343,8 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
 
 typedef XWindowBase *XWindowBaseP;
 
-typedef RefPtr<XWindow> XWindowRefPtr;
+/** Type specific RefPtr type for XWindow. */
+typedef RefPtr<XWindowPtr> XWindowRefPtr;
 
 typedef osgIF<
     XWindowBase::isNodeCore,

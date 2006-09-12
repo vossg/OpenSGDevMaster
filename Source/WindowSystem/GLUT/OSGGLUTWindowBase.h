@@ -307,7 +307,8 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
 
 typedef GLUTWindowBase *GLUTWindowBaseP;
 
-typedef RefPtr<GLUTWindow> GLUTWindowRefPtr;
+/** Type specific RefPtr type for GLUTWindow. */
+typedef RefPtr<GLUTWindowPtr> GLUTWindowRefPtr;
 
 typedef osgIF<
     GLUTWindowBase::isNodeCore,

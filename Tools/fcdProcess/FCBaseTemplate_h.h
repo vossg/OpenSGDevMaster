@@ -710,7 +710,8 @@ char *FCBaseTemplate_h[]={
 "",
 "typedef @!Classname!@Base *@!Classname!@BaseP;",
 "",
-"typedef RefPtr<@!Classname!@> @!Classname!@RefPtr;",
+"/** Type specific RefPtr type for @!Classname!@. */
+"typedef RefPtr<@!Classname!@Ptr> @!Classname!@RefPtr;",
 "",
 "typedef osgIF<",
 "    @!Classname!@Base::isNodeCore,",

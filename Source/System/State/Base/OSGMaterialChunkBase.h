@@ -541,7 +541,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
 
 typedef MaterialChunkBase *MaterialChunkBaseP;
 
-typedef RefPtr<MaterialChunk> MaterialChunkRefPtr;
+/** Type specific RefPtr type for MaterialChunk. */
+typedef RefPtr<MaterialChunkPtr> MaterialChunkRefPtr;
 
 typedef osgIF<
     MaterialChunkBase::isNodeCore,

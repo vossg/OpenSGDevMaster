@@ -361,7 +361,8 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
 
 typedef LineChunkBase *LineChunkBaseP;
 
-typedef RefPtr<LineChunk> LineChunkRefPtr;
+/** Type specific RefPtr type for LineChunk. */
+typedef RefPtr<LineChunkPtr> LineChunkRefPtr;
 
 typedef osgIF<
     LineChunkBase::isNodeCore,

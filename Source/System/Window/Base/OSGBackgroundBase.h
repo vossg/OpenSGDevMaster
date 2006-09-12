@@ -243,7 +243,8 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
 
 typedef BackgroundBase *BackgroundBaseP;
 
-typedef RefPtr<Background> BackgroundRefPtr;
+/** Type specific RefPtr type for Background. */
+typedef RefPtr<BackgroundPtr> BackgroundRefPtr;
 
 typedef osgIF<
     BackgroundBase::isNodeCore,

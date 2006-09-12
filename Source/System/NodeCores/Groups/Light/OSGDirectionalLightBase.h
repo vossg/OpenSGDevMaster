@@ -307,7 +307,8 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
 
 typedef DirectionalLightBase *DirectionalLightBaseP;
 
-typedef RefPtr<DirectionalLight> DirectionalLightRefPtr;
+/** Type specific RefPtr type for DirectionalLight. */
+typedef RefPtr<DirectionalLightPtr> DirectionalLightRefPtr;
 
 typedef osgIF<
     DirectionalLightBase::isNodeCore,

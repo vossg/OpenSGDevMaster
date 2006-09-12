@@ -307,7 +307,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec3fBase : public ShaderParameter
 
 typedef ShaderParameterVec3fBase *ShaderParameterVec3fBaseP;
 
-typedef RefPtr<ShaderParameterVec3f> ShaderParameterVec3fRefPtr;
+/** Type specific RefPtr type for ShaderParameterVec3f. */
+typedef RefPtr<ShaderParameterVec3fPtr> ShaderParameterVec3fRefPtr;
 
 typedef osgIF<
     ShaderParameterVec3fBase::isNodeCore,

@@ -325,7 +325,8 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
 
 typedef StereoBufferViewportBase *StereoBufferViewportBaseP;
 
-typedef RefPtr<StereoBufferViewport> StereoBufferViewportRefPtr;
+/** Type specific RefPtr type for StereoBufferViewport. */
+typedef RefPtr<StereoBufferViewportPtr> StereoBufferViewportRefPtr;
 
 typedef osgIF<
     StereoBufferViewportBase::isNodeCore,

@@ -307,7 +307,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
 
 typedef ShaderParameterMatrixBase *ShaderParameterMatrixBaseP;
 
-typedef RefPtr<ShaderParameterMatrix> ShaderParameterMatrixRefPtr;
+/** Type specific RefPtr type for ShaderParameterMatrix. */
+typedef RefPtr<ShaderParameterMatrixPtr> ShaderParameterMatrixRefPtr;
 
 typedef osgIF<
     ShaderParameterMatrixBase::isNodeCore,

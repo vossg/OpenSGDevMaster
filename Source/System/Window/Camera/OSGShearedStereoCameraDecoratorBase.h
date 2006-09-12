@@ -325,7 +325,8 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
 
 typedef ShearedStereoCameraDecoratorBase *ShearedStereoCameraDecoratorBaseP;
 
-typedef RefPtr<ShearedStereoCameraDecorator> ShearedStereoCameraDecoratorRefPtr;
+/** Type specific RefPtr type for ShearedStereoCameraDecorator. */
+typedef RefPtr<ShearedStereoCameraDecoratorPtr> ShearedStereoCameraDecoratorRefPtr;
 
 typedef osgIF<
     ShearedStereoCameraDecoratorBase::isNodeCore,
