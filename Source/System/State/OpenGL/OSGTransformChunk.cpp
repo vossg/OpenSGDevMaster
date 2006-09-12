@@ -56,7 +56,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TransformChunk
+/*! \class OSG::TransformChunk
     \ingroup GrpSystemState
 
 See \ref PageSystemTransformChunk for a description.

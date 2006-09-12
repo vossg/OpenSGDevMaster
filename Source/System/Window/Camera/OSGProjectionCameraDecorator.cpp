@@ -57,7 +57,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ProjectionCameraDecorator
+/*! \class OSG::ProjectionCameraDecorator
     \ingroup GrpSystemWindowCameraDecoratorsStereo
 
 The decorator for tracked projection screens, see \ref

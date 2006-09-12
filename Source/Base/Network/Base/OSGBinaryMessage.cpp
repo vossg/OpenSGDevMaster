@@ -49,7 +49,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::BinaryMessage
+/** \class OSG::BinaryMessage
  *  \ingroup GrpBaseNetwork
  *  \brief Little-, Big endian independent message buffer
  *

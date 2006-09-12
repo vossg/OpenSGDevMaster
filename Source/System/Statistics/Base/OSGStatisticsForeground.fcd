@@ -27,6 +27,6 @@ Background is the base class for all background clearing.
 		visibility="external"
 		access="public"
 	>
-        The osg::StatisticsCollector that keeps the displayed statistics.
+        The OSG::StatisticsCollector that keeps the displayed statistics.
 	</Field>
 </FieldContainer>

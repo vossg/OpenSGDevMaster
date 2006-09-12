@@ -57,7 +57,7 @@ Int32 TriangleIterator::getIndex(Int32 which) const
 
 /*! Return the index of the current face. The index runs from 0 to the
     number of triangles in the geometry. Its main use is as an input to 
-    osg::TriangleIterator::seek.
+    OSG::TriangleIterator::seek.
 */
 inline       
 Int32 TriangleIterator::getIndex(void) const

@@ -168,7 +168,7 @@ struct Type2Type {
 template<typename Chunk>
 typename Chunk::ObjPtr getOrAddChunk(ChunkMaterialPtr cm,
                                      Type2Type<Chunk> = Type2Type<Chunk>()) {
-    osg::StateChunkPtr stateChunk = cm->find(Chunk::getClassType());
+    OSG::StateChunkPtr stateChunk = cm->find(Chunk::getClassType());
 
     typename Chunk::ObjPtr chunk = cast_dynamic<typename Chunk::ObjPtr>(stateChunk);
 

@@ -55,7 +55,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::LineIterator
+/*! \class OSG::LineIterator
     \ingroup GrpSystemDrawablesGeometryIterators
     
 The LineIterator iterates through the geometry one line at a
@@ -67,17 +67,17 @@ time. See \ref PageSystemLineIterator for details.
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-/*! \var osg::LineIterator::_lineIndex
+/*! \var OSG::LineIterator::_lineIndex
 
     Running index of the lines iterated.
 */
 
-/*! \var osg::LineIterator::_actPrimIndex
+/*! \var OSG::LineIterator::_actPrimIndex
 
     Index of the next point to use in the current primitive.
 */
 
-/*! \var osg::LineIterator::_linePntIndex
+/*! \var OSG::LineIterator::_linePntIndex
 
     The vertex indices of the current line.
 */
@@ -118,8 +118,8 @@ LineIterator::LineIterator(const LineIterator &source) :
 
 /*! This constructor creates an iterator for the given geometry. It is useful
     to create an iterator to be used to seek() to a specific indexed face. 
-    Otherwise, use osg::Geometry::beginTriangles() resp. 
-    osg::Geometry::endTriangles() to create an iterator.
+    Otherwise, use OSG::Geometry::beginTriangles() resp. 
+    OSG::Geometry::endTriangles() to create an iterator.
 */
 LineIterator::LineIterator(GeometryConstPtrArg geo) :
     PrimitiveIterator(),
@@ -131,8 +131,8 @@ LineIterator::LineIterator(GeometryConstPtrArg geo) :
 
 /*! This constructor creates an iterator for the given node. It is useful to
     create an iterator to be used to seek() to a specific indexed face. 
-    Otherwise, use osg::Geometry::beginTriangles() resp. 
-    osg::Geometry::endTriangles() to create an iterator.
+    Otherwise, use OSG::Geometry::beginTriangles() resp. 
+    OSG::Geometry::endTriangles() to create an iterator.
 */
 
 LineIterator::LineIterator(const NodePtr& geo) : 
@@ -248,7 +248,7 @@ void LineIterator::startPrim(void)
 /*! Seek the iterator to a specific triangle indicated by its index. 
 
     This is primarily used in conjunction with 
-    osg::LineIterator::getIndex to record a position in the iteration and
+    OSG::LineIterator::getIndex to record a position in the iteration and
     later return to it.
 */
 void LineIterator::seek(Int32 index)
@@ -261,7 +261,7 @@ void LineIterator::seek(Int32 index)
 
 
 /*! Set the iterator to the beginning of the attached Geometry. Is primarily
-    used by osg::Geometry::beginTriangles, but can also be used to quickly
+    used by OSG::Geometry::beginTriangles, but can also be used to quickly
     recycle an iterator.
 */
 void LineIterator::setToBegin(void)
@@ -272,7 +272,7 @@ void LineIterator::setToBegin(void)
 }
 
 /*! Set the iterator to the end of the attached Geometry. Is primarily used by
-    osg::Geometry::endTriangles, but can also be used to quickly recycle an
+    OSG::Geometry::endTriangles, but can also be used to quickly recycle an
     iterator.
 */
 void LineIterator::setToEnd(void)

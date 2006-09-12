@@ -47,7 +47,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::NFIOFactory
+/*! \class OSG::NFIOFactory
            Registers the read or write method for specific object type.
  */
 

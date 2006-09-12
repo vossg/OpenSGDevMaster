@@ -48,7 +48,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::OverrideState
+/*! \class OSG::OverrideState
     \ingroup GrpSystemRenderingBackend
  */
 

@@ -55,7 +55,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::NFIOName
+/*! \class OSG::NFIOName
            reads and writes a name attachment.
  */
 

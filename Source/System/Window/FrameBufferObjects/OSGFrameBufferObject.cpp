@@ -138,7 +138,7 @@ typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
           GLsizei  n, 
     const GLenum  *buffers);
 
-/*! \class osg::FrameBufferObject
+/*! \class OSG::FrameBufferObject
     \ingroup GrpSystemWindowViewports
  */
 

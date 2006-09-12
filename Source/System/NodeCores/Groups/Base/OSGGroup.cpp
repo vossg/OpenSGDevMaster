@@ -50,7 +50,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Group
+/*! \class OSG::Group
 
   Group is the simplest form of a NodeCore. A group
   carries no predefined data and most actions will only traverse the

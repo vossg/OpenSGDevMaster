@@ -62,7 +62,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TextureGrabBackground
+/*! \class OSG::TextureGrabBackground
     \ingroup GrpSystemWindowBackgrounds
 
   A background that grabs what's underneath it into a texture before it clears 

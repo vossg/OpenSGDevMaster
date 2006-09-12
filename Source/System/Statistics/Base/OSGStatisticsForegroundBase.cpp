@@ -73,7 +73,7 @@ OSG_USING_NAMESPACE
 
 */
 /*! \var StatCollector StatisticsForegroundBase::_sfCollector
-            The osg::StatisticsCollector that keeps the displayed statistics.
+            The OSG::StatisticsCollector that keeps the displayed statistics.
 
 */
 

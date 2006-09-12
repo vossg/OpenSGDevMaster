@@ -61,7 +61,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::DrawActionBase
+/*! \class OSG::DrawActionBase
     \ingroup GrpSystemAction
 
 The base class for all rendering-related actions.

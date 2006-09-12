@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::MultiPassMaterial
+/*! \class OSG::MultiPassMaterial
 
 */
 
@@ -168,7 +168,7 @@ void MultiPassMaterial::draw(DrawFunctor& func, DrawActionBase * action)
 {
 }
 
-/*! Create a osg::State that represents this Material and return it.
+/*! Create a OSG::State that represents this Material and return it.
 */
 
 StatePtr MultiPassMaterial::makeState(void)

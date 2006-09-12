@@ -65,7 +65,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::SGIImageFileType 
+/*! \class OSG::SGIImageFileType 
     \ingroup GrpSystemImage
   
   Image File Type to read/write and store/restore Image objects as

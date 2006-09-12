@@ -51,7 +51,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ShadowMapEngine
+/*! \class OSG::ShadowMapEngine
 */
 
 BitVector ShadowMapEngine::bvLightPassMask   = 0;

@@ -52,7 +52,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::NFIOImage
+/*! \class OSG::NFIOImage
            reads and writes a image.
  */
 

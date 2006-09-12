@@ -70,7 +70,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::SimpleSceneManager
+/*! \class OSG::SimpleSceneManager
     \ingroup GrpSystemWindow
     
     SimpleSceneManager manages the OpenSG components that are needed to do

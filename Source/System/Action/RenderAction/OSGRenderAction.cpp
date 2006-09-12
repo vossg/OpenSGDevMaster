@@ -85,7 +85,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::RenderAction
+/*! \class OSG::RenderAction
     \ingroup GrpSystemAction
 
     The render action class.

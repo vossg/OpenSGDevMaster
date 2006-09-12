@@ -59,12 +59,12 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ParticleBSPTree
+/*! \class OSG::ParticleBSPTree
 
 A very simple BSP tree, optimized for particle sorting.
 */
 
-/*! \class osg::ParticleBSPNode
+/*! \class OSG::ParticleBSPNode
 
 A node of the ParticleBSPTree.
 */

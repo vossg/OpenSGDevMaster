@@ -56,7 +56,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::GeoVectorProperty
+/*! \class OSG::GeoVectorProperty
 Abstract base class for all vector-valued GeoProperties 
 */
 

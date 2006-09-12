@@ -49,7 +49,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::WalkNavigator
+/*! \class OSG::WalkNavigator
     \ingroup GrpSystemWindowNavigators
 
 

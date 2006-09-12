@@ -50,7 +50,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::FrameBufferAttachment
+/*! \class OSG::FrameBufferAttachment
     \ingroup GrpSystemWindowViewports
 
  */

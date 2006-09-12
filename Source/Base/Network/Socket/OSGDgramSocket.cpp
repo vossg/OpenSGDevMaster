@@ -69,7 +69,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::DgramSocket
+/** \class OSG::DgramSocket
  *  \ingroup GrpBaseNetwork
  *  \brief Datagramm socket handler
  *

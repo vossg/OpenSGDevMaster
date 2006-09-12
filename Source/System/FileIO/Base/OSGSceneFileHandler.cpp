@@ -859,10 +859,10 @@ void SceneFileHandlerBase::initReadProgress(std::istream &is)
 
     if(_useProgressThread)
     {
-        Thread *pt = Thread::find("osg::FileIOReadProgressThread");\
+        Thread *pt = Thread::find("OSG::FileIOReadProgressThread");\
 
         if(pt == NULL)
-            pt = OSG::Thread::get("osg::FileIOReadProgressThread");
+            pt = OSG::Thread::get("OSG::FileIOReadProgressThread");
 
         if(pt != NULL)
         {
@@ -882,7 +882,7 @@ void SceneFileHandlerBase::terminateReadProgress(void)
 
     _readReady = true;
 
-    Thread *pt = Thread::find("osg::FileIOReadProgressThread");
+    Thread *pt = Thread::find("OSG::FileIOReadProgressThread");
 
     if(pt != NULL)
     {

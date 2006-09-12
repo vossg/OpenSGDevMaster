@@ -69,7 +69,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::MNGImageFileType 
+/*! \class OSG::MNGImageFileType 
     \ingroup GrpSystemImage
 
   Image File Type to read/write and store/restore Image objects as

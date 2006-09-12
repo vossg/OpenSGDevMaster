@@ -50,7 +50,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::PointLight
+/*! \class OSG::PointLight
     PointLight is a located lightsource. The position of the light source
     (in the beacon's coordinate system) is defined by the \c position 
     attribute. The influence of the light diminishes with distance, controlled

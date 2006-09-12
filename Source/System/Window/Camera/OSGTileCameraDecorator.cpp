@@ -54,10 +54,10 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TileCameraDecorator
+/*! \class OSG::TileCameraDecorator
     \ingroup GrpSystemWindowCameraDecorators
 
-  The osg::TileCameraDecorator for selecting only a part of a virtual large
+  The OSG::TileCameraDecorator for selecting only a part of a virtual large
   image, see \ref
   PageSystemWindowCameraDecoratorsTile for a description.
   

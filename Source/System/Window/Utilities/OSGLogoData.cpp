@@ -50,7 +50,7 @@ OSG_USING_NAMESPACE
     The file containing the data array for the "Powered by OpenSG" logo.
  */
  
-/*! \var osg::LogoData
+/*! \var OSG::LogoData
     \ingroup GrpSystemWindow
     
     Binary data for a "Powered by OpenSG" logo image. Use with 

@@ -53,7 +53,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ComponentTransform
+/*! \class OSG::ComponentTransform
 */
 
 

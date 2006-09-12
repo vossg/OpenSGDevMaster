@@ -55,7 +55,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PolygonBackground
+/*! \class OSG::PolygonBackground
   A Background that renders a single polygon using the specified material.
 */
 

@@ -57,7 +57,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Billboard
+/*! \class OSG::Billboard
 
 */
 

@@ -63,7 +63,7 @@ OSG_SINGLETON_INST(ConnectionFactoryBase)
 template class SingletonHolder<ConnectionFactoryBase>;
 
 
-/** \class osg::ConnectionFactory
+/** \class OSG::ConnectionFactory
  *  \ingroup GrpBaseNetwork
  *
  * The ConnectionFactory knows all types of connections by name. 

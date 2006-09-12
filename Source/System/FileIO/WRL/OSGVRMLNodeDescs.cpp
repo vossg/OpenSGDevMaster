@@ -120,7 +120,7 @@ OSG_DYNFIELD_FC_DLLEXPORT_DEF(DynFieldAttachment,
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLNodeDesc
+/*! \class OSG::VRMLNodeDesc
     \ingroup GrpSystemFileIOVRML
     General VRML Node description
 */
@@ -686,7 +686,7 @@ const Field *VRMLNodeDesc::getField(      FieldContainerPtr  pFC1,
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLShapeDesc
+/*! \class OSG::VRMLShapeDesc
     \ingroup GrpSystemFileIOVRML
     VRML Shape description
 */
@@ -966,7 +966,7 @@ void VRMLShapeDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLGeometryDesc
+/*! \class OSG::VRMLGeometryDesc
     \ingroup GrpSystemFileIOVRML
     VRML Geometry description
 */
@@ -1486,7 +1486,7 @@ void VRMLGeometryDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLGeometryPointSetDesc
+/*! \class OSG::VRMLGeometryPointSetDesc
     \ingroup GrpSystemFileIOVRML
     VRML Geometry Point Set description
 */
@@ -1985,7 +1985,7 @@ void VRMLGeometryPointSetDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLGeometryPartDesc
+/*! \class OSG::VRMLGeometryPartDesc
     \ingroup GrpSystemFileIOVRML
     VRML Geometry Part Set description
 */
@@ -2168,7 +2168,7 @@ void VRMLGeometryPartDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLGeometryObjectDesc
+/*! \class OSG::VRMLGeometryObjectDesc
     \ingroup GrpSystemFileIOVRML
     VRML Geometry Object Set description
 */
@@ -2521,7 +2521,7 @@ void VRMLGeometryObjectDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLAppearanceDesc
+/*! \class OSG::VRMLAppearanceDesc
     \ingroup GrpSystemFileIOVRML
     VRML Appearance description
 */
@@ -2809,7 +2809,7 @@ void VRMLAppearanceDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLMaterialDesc
+/*! \class OSG::VRMLMaterialDesc
     \ingroup GrpSystemFileIOVRML
     VRML Material description
 */
@@ -3082,7 +3082,7 @@ void VRMLMaterialDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLTextureTransformDesc
+/*! \class OSG::VRMLTextureTransformDesc
     \ingroup GrpSystemFileIOVRML
     VRML Texture Transform description
 */
@@ -3295,7 +3295,7 @@ void VRMLTextureTransformDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLImageTextureDesc
+/*! \class OSG::VRMLImageTextureDesc
     \ingroup GrpSystemFileIOVRML
     VRML Texture description
 */
@@ -3520,7 +3520,7 @@ void VRMLImageTextureDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLPixelTextureDesc
+/*! \class OSG::VRMLPixelTextureDesc
     \ingroup GrpSystemFileIOVRML
     VRML Pixel Texture description
 */
@@ -3743,7 +3743,7 @@ void VRMLPixelTextureDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLLODDesc
+/*! \class OSG::VRMLLODDesc
     \ingroup GrpSystemFileIOVRML
     VRML Level Of Detail description
 */
@@ -3984,7 +3984,7 @@ void VRMLLODDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLSwitchDesc
+/*! \class OSG::VRMLSwitchDesc
     \ingroup GrpSystemFileIOVRML
     VRML Switch description
 */
@@ -4207,7 +4207,7 @@ void VRMLSwitchDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLGroupDesc
+/*! \class OSG::VRMLGroupDesc
     \ingroup GrpSystemFileIOVRML
     VRML Group description
 */
@@ -4452,7 +4452,7 @@ void VRMLGroupDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLExtrusionDesc
+/*! \class OSG::VRMLExtrusionDesc
     \ingroup GrpSystemFileIOVRML
     VRML Extrusion description
 */
@@ -4781,7 +4781,7 @@ void VRMLExtrusionDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLInlineDesc
+/*! \class OSG::VRMLInlineDesc
     \ingroup GrpSystemFileIOVRML
     VRML Inline description
 */
@@ -5074,7 +5074,7 @@ void VRMLInlineDesc::dump(const Char8 *)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::VRMLViewpointDesc
+/*! \class OSG::VRMLViewpointDesc
     \ingroup GrpSystemFileIOVRML
     VRML Viewpoint description
 */

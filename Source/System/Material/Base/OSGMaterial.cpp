@@ -56,39 +56,39 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Material
+/*! \class OSG::Material
     \ingroup GrpSystemMaterial
 
   The material base class.
   
   \ext The Material has two interfaces to return a State that represents it.
-  osg::Material::makeState() creates a new osg::State and returns it. This is 
+  OSG::Material::makeState() creates a new OSG::State and returns it. This is 
   ok for rare use, but for every frame this is going to be too expensive. For 
-  these cases osg::Material::rebuildState() and osg::Material::getState() are 
+  these cases OSG::Material::rebuildState() and OSG::Material::getState() are 
   used, which modify and return an internal copy of the State. 
 
-  The other method to implement is osg::Material::isTransparent(), to identify
+  The other method to implement is OSG::Material::isTransparent(), to identify
   transparent materials to be rendered after the opaque ones.
   \endext
  */
 
-/*! \fn osg::Material::makeState()
+/*! \fn OSG::Material::makeState()
   
-  Creates an instance of a osg::State that is used to represent the material.
-  This is used by the osg::DrawAction.  
+  Creates an instance of a OSG::State that is used to represent the material.
+  This is used by the OSG::DrawAction.  
  */
 
-/*! \fn osg::Material::rebuildState()
+/*! \fn OSG::Material::rebuildState()
   
-  Update the internal osg::State. 
+  Update the internal OSG::State. 
  */
 
-/*! \fn osg::Material::getState()
+/*! \fn OSG::Material::getState()
   
-  Access the internal osg::State, used by the osg::RenderAction.
+  Access the internal OSG::State, used by the OSG::RenderAction.
  */
 
-/*! \fn osg::Material::isTransparent()
+/*! \fn OSG::Material::isTransparent()
   
   Check if the Material is transparent and thus has to be rendered afte the
   opaque ones.

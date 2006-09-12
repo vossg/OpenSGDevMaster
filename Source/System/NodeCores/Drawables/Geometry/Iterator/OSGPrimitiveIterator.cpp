@@ -55,7 +55,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PrimitiveIterator
+/*! \class OSG::PrimitiveIterator
     \ingroup GrpSystemDrawablesGeometryIterators
     
     Geometry Iterator for primitives. See \ref 
@@ -65,46 +65,46 @@ OSG_USING_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-/*! \var osg::PrimitiveIterator::_geo;
+/*! \var OSG::PrimitiveIterator::_geo;
 
     The geometry being iterated.
 */
 
-/*! \var osg::PrimitiveIterator::_ended;
+/*! \var OSG::PrimitiveIterator::_ended;
 
     Flag whether the iterator has reached the end.
 */
 
-/*! \var osg::PrimitiveIterator::_primIndex;
+/*! \var OSG::PrimitiveIterator::_primIndex;
 
     Index of the currently iterated primitive. Returned by getIndex().
 */
 
-/*! \var osg::PrimitiveIterator::_actPointIndex;
+/*! \var OSG::PrimitiveIterator::_actPointIndex;
 
     The base of the indices used for this primitive.
 */
 
-/*! \var osg::PrimitiveIterator::_actPrimType;
+/*! \var OSG::PrimitiveIterator::_actPrimType;
 
     Type of the current primitive.
 */
 
-/*! \var osg::PrimitiveIterator::_actPrimLength;
+/*! \var OSG::PrimitiveIterator::_actPrimLength;
 
     Length of the current primitive.
 */
 
-/*! \var osg::PrimitiveIterator::_types;
+/*! \var OSG::PrimitiveIterator::_types;
 
     Cache variable for quick access to the Types Property of the iterated
-    osg::Geometry.
+    OSG::Geometry.
 */
 
-/*! \var osg::PrimitiveIterator::_lengths;
+/*! \var OSG::PrimitiveIterator::_lengths;
 
     Cache variable for quick access to the Lengths Property of the iterated
-    osg::Geometry.
+    OSG::Geometry.
 */
 
 #endif // only include in dev docs
@@ -288,7 +288,7 @@ void PrimitiveIterator::operator++()
 }
 
 /*! Set the iterator to the beginning of the attached Geometry. Is primarily
-    used by osg::Geometry::beginPrimitives, but can also be used to quickly
+    used by OSG::Geometry::beginPrimitives, but can also be used to quickly
     recycle an iterator.
 */
 void PrimitiveIterator::setToBegin(void)
@@ -321,7 +321,7 @@ void PrimitiveIterator::setToBegin(void)
 }
 
 /*! Set the iterator to the end of the attached Geometry. Is primarily used by
-    osg::Geometry::endPrimitives, but can also be used to quickly recycle an
+    OSG::Geometry::endPrimitives, but can also be used to quickly recycle an
     iterator.
 */
 void PrimitiveIterator::setToEnd(void)
@@ -337,7 +337,7 @@ void PrimitiveIterator::setToEnd(void)
 /*! Seek the iterator to a specific primitive indicated by its index. 
 
     This is primarily used in conjunction with 
-    osg::PrimitiveIterator::getIndex to record a position in the iteration and
+    OSG::PrimitiveIterator::getIndex to record a position in the iteration and
     later return to it.
 */
 void PrimitiveIterator::seek(Int32 index)

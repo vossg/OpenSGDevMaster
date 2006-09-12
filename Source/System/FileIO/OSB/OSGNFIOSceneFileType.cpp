@@ -55,7 +55,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::NFIOSceneFileType
+/*! \class OSG::NFIOSceneFileType
     \ingroup GrpSystemFileIO
 
     Binary file type

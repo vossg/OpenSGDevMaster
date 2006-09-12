@@ -66,31 +66,31 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TextureChunk
+/*! \class OSG::TextureChunk
     \ingroup GrpSystemState
 
 See \ref PageSystemTextureChunk for a description.
 
-This chunk wraps glTexImage[123]D (osg::TextureChunk::_sfImage,
-osg::TextureChunk::_sfInternalFormat, osg::TextureChunk::_sfExternalFormat),
-glTexParameter (osg::TextureChunk::_sfMinFilter,
-osg::TextureChunk::_sfMagFilter, osg::TextureChunk::_sfWrapS,
-osg::TextureChunk::_sfWrapT, osg::TextureChunk::_sfWrapR), glTexEnv
-(osg::TextureChunk::_sfEnvMode, osg::TextureChunk::_sfEnvColor,
-osg::TextureChunk::_sfPriority). The ARB combine extension is also supported,
-where available (osg::TextureChunk::_sfEnvCombineRGB,
-osg::TextureChunk::_sfEnvScaleRGB, osg::TextureChunk::_sfEnvSource0RGB,
-osg::TextureChunk::_sfEnvSource1RGB, osg::TextureChunk::_sfEnvSource2RGB,
-osg::TextureChunk::_sfEnvOperand0RGB, osg::TextureChunk::_sfEnvOperand1RGB,
-osg::TextureChunk::_sfEnvOperand2RGB,
-osg::TextureChunk::_sfEnvCombineAlpha,   osg::TextureChunk::_sfEnvScaleAlpha,
-osg::TextureChunk::_sfEnvSource0Alpha, osg::TextureChunk::_sfEnvSource1Alpha,
-osg::TextureChunk::_sfEnvSource2Alpha, osg::TextureChunk::_sfEnvOperand0Alpha,
-osg::TextureChunk::_sfEnvOperand1Alpha,
-osg::TextureChunk::_sfEnvOperand2Alpha). It is possible to enable the point
-sprite coordinate replacement  (osg::TextureChunk::_sfPointSprite), see \ref
+This chunk wraps glTexImage[123]D (OSG::TextureChunk::_sfImage,
+OSG::TextureChunk::_sfInternalFormat, OSG::TextureChunk::_sfExternalFormat),
+glTexParameter (OSG::TextureChunk::_sfMinFilter,
+OSG::TextureChunk::_sfMagFilter, OSG::TextureChunk::_sfWrapS,
+OSG::TextureChunk::_sfWrapT, OSG::TextureChunk::_sfWrapR), glTexEnv
+(OSG::TextureChunk::_sfEnvMode, OSG::TextureChunk::_sfEnvColor,
+OSG::TextureChunk::_sfPriority). The ARB combine extension is also supported,
+where available (OSG::TextureChunk::_sfEnvCombineRGB,
+OSG::TextureChunk::_sfEnvScaleRGB, OSG::TextureChunk::_sfEnvSource0RGB,
+OSG::TextureChunk::_sfEnvSource1RGB, OSG::TextureChunk::_sfEnvSource2RGB,
+OSG::TextureChunk::_sfEnvOperand0RGB, OSG::TextureChunk::_sfEnvOperand1RGB,
+OSG::TextureChunk::_sfEnvOperand2RGB,
+OSG::TextureChunk::_sfEnvCombineAlpha,   OSG::TextureChunk::_sfEnvScaleAlpha,
+OSG::TextureChunk::_sfEnvSource0Alpha, OSG::TextureChunk::_sfEnvSource1Alpha,
+OSG::TextureChunk::_sfEnvSource2Alpha, OSG::TextureChunk::_sfEnvOperand0Alpha,
+OSG::TextureChunk::_sfEnvOperand1Alpha,
+OSG::TextureChunk::_sfEnvOperand2Alpha). It is possible to enable the point
+sprite coordinate replacement  (OSG::TextureChunk::_sfPointSprite), see \ref
 PageSystemPointChunk for details. The two parameters
-osg::TextureChunk::_sfScale and osg::TextureChunk::_sfFrame specify details
+OSG::TextureChunk::_sfScale and OSG::TextureChunk::_sfFrame specify details
 about the texture.
 
 On hardware that supports it (i.e. NVidia boards) the texture shader

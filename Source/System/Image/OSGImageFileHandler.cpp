@@ -56,7 +56,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ImageFileHandler 
+/*! \class OSG::ImageFileHandler 
     \ingroup GrpSystemImage
 
   Singelton Object/Class which holds all known ImageFileTypes.

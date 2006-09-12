@@ -53,12 +53,12 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::MatrixCameraDecorator
+/*! \class OSG::MatrixCameraDecorator
     \ingroup GrpSystemWindowCameraDecorators
 
   The decorator to modify the Camera matrices simply by matrices. 	
   
-  The osg::MatrixCameraDecorator for madifying the camera matrices by 
+  The OSG::MatrixCameraDecorator for madifying the camera matrices by 
   matrices, see \ref
   PageSystemWindowCameraDecoratorsMatrix for a description.
   

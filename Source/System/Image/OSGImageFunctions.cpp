@@ -294,7 +294,7 @@ bool createNormalVolume ( ImagePtr inImage,
                           const std::string &outputFormat )
 {
   const Real32 gMax = 441.67295593, gF = 255.0/gMax;
-  const osg::Real32 TwoPi = 2 * osg::Pi;
+  const OSG::Real32 TwoPi = 2 * OSG::Pi;
 
   enum DataIndex { SCALAR_DI,
                    SCALAR_NULLEDGE_DI,
@@ -307,8 +307,8 @@ bool createNormalVolume ( ImagePtr inImage,
   
   const UInt8 *data = 0;
   UInt8 *ds, dc;
-  osg::Real32 minU = osg::Inf, maxU = -osg::Inf;
-  osg::Real32 minV = osg::Inf, maxV = -osg::Inf;
+  OSG::Real32 minU = OSG::Inf, maxU = -OSG::Inf;
+  OSG::Real32 minV = OSG::Inf, maxV = -OSG::Inf;
   Int32 w, h, d, x, y, z, md, ld, hd, xs, ys, zs, ps, ls, ss, os;
   Int32 i,voxelSize ,g,t,p;
   std::vector<UInt32> dataIndex;
@@ -481,11 +481,11 @@ bool createNormalVolume ( ImagePtr inImage,
         
         // calc ThetaPhi
         if (calcThetaPhi) {
-          v = osg::osgacos(normal[2]) / osg::Pi;
-          u = osg::osgsqrt(normal[0]*normal[0] + normal[1]*normal[1]);
+          v = OSG::osgacos(normal[2]) / OSG::Pi;
+          u = OSG::osgsqrt(normal[0]*normal[0] + normal[1]*normal[1]);
           
           if (u) u = normal[0] / u;
-          u = osg::osgacos(u);
+          u = OSG::osgacos(u);
           if (normal[1]<0) u = TwoPi - u;
           u /= TwoPi;
           
@@ -494,8 +494,8 @@ bool createNormalVolume ( ImagePtr inImage,
           if (v<minV) minV=v;
           if (v>maxV) maxV=v;
 
-          voxelData[THETA_DI] = (osg::UInt8)(v * 255.f);	// theta
-          voxelData[PHI_DI]   = (osg::UInt8)(u * 255.f);	// phi
+          voxelData[THETA_DI] = (OSG::UInt8)(v * 255.f);	// theta
+          voxelData[PHI_DI]   = (OSG::UInt8)(u * 255.f);	// phi
         }
 
         // copy voxeldata to image data
@@ -699,8 +699,8 @@ bool blendImage ( ImagePtr canvas,
   const UChar8 *s = 0;
   UInt8 *d = 0;
   
-  const osg::UChar8 *src  = brush->getData();
-        osg::UChar8 *dest = canvas->editData();
+  const OSG::UChar8 *src  = brush->getData();
+        OSG::UChar8 *dest = canvas->editData();
   
   const float cred   = color.red();
   const float cgreen = color.green();
@@ -728,13 +728,13 @@ bool blendImage ( ImagePtr canvas,
 
   // canvas->setSubData (xcOff,ycOff,zcOff,bW,bH,bD,src);
 
-  const int xcMin = osg::osgMax(0, xcOff);
-  const int ycMin = osg::osgMax(0, ycOff);
-  const int zcMin = osg::osgMax(0, zcOff);
+  const int xcMin = OSG::osgMax(0, xcOff);
+  const int ycMin = OSG::osgMax(0, ycOff);
+  const int zcMin = OSG::osgMax(0, zcOff);
   
-  const int xcMax = osg::osgMin(cW, xcOff + bW);
-  const int ycMax = osg::osgMin(cH, ycOff + bH);
-  const int zcMax = osg::osgMin(cD, zcOff + bD);
+  const int xcMax = OSG::osgMin(cW, xcOff + bW);
+  const int ycMax = OSG::osgMin(cH, ycOff + bH);
+  const int zcMax = OSG::osgMin(cD, zcOff + bD);
 
   const int width  = (xcMax - xcMin);
   const int height = (ycMax - ycMin);
@@ -746,7 +746,7 @@ bool blendImage ( ImagePtr canvas,
 
   //select slice for volume brush
   if ((bD > 1) && (depth == 1)) {
-    z = int(osg::osgabs(paintZ) * (bD - 1)) % bD;
+    z = int(OSG::osgabs(paintZ) * (bD - 1)) % bD;
     src += bW * bH * bBpp * z;    
     zbMin = 0;
   }
@@ -764,28 +764,28 @@ bool blendImage ( ImagePtr canvas,
           blue  = int(cblue  * grey);
           alpha = int(calpha * grey);
           break;
-        case osg::Image::OSG_L_PF:
+        case OSG::Image::OSG_L_PF:
           grey  = *s++;
           red   = int(cred   * grey);
           green = int(cgreen * grey);
           blue  = int(cblue  * grey);
           alpha = int(calpha * 255);
           break;
-        case osg::Image::OSG_LA_PF:
+        case OSG::Image::OSG_LA_PF:
           grey  = *s++;
           red   = int(cred   * grey);
           green = int(cgreen * grey);
           blue  = int(cblue  * grey);
           alpha = int(calpha * *s++);
           break;
-        case osg::Image::OSG_RGB_PF:
+        case OSG::Image::OSG_RGB_PF:
           red   = *s++;
           green = *s++;
           blue  = *s++;
           grey  = green; // FIXME
           alpha = 255;          
           break;
-        case osg::Image::OSG_RGBA_PF:
+        case OSG::Image::OSG_RGBA_PF:
           red   = *s++;
           green = *s++;
           blue  = *s++;
@@ -799,22 +799,22 @@ bool blendImage ( ImagePtr canvas,
         }
         alpha = int(talpha * alpha);
         switch ( cPF ) {
-        case osg::Image::OSG_I_PF:
+        case OSG::Image::OSG_I_PF:
           *d++  = int(*d * (alpha - 255) + grey  * alpha) / 255;
           break;
-        case osg::Image::OSG_L_PF:
+        case OSG::Image::OSG_L_PF:
           *d++  = int(*d * (alpha - 255) + grey  * alpha) / 255;
           break;
-        case osg::Image::OSG_LA_PF:
+        case OSG::Image::OSG_LA_PF:
           *d++  = int(*d * (alpha - 255) + grey  * alpha) / 255;
           d++;
           break;
-        case osg::Image::OSG_RGB_PF:
+        case OSG::Image::OSG_RGB_PF:
           *d++  = int(*d * (255 - alpha) + red   * alpha) / 255;
           *d++  = int(*d * (255 - alpha) + green * alpha) / 255;
           *d++  = int(*d * (255 - alpha) + blue  * alpha) / 255;
           break;
-        case osg::Image::OSG_RGBA_PF:
+        case OSG::Image::OSG_RGBA_PF:
           *d++  = int(*d * (255 - alpha) + red   * alpha) / 255;
           *d++  = int(*d * (255 - alpha) + green * alpha) / 255;
           *d++  = int(*d * (255 - alpha) + blue  * alpha) / 255;
@@ -885,16 +885,16 @@ bool createPhongVolume ( ImagePtr image,
                          UInt32   lutScalar,
                          Real32   lutIncr )
 {
-  const osg::Int32 lutFSize = lutSize / lutScalar;
-	osg::Real32 theta1, theta2, dPhi, incr = lutScalar * lutIncr;
-	osg::Real32 Const = 0.2f, Shi = 40, NdotL;
-	osg::Vec3f color;
-  osg::Vec3f diffuse  (diffuseColor[0],diffuseColor[1],diffuseColor[2]);
-  osg::Vec3f specular (specularColor[0],specularColor[1],specularColor[2]);
-	osg::UInt8 *ds;
-	osg::Real32 min = osg::Inf, max = -osg::Inf;
+  const OSG::Int32 lutFSize = lutSize / lutScalar;
+	OSG::Real32 theta1, theta2, dPhi, incr = lutScalar * lutIncr;
+	OSG::Real32 Const = 0.2f, Shi = 40, NdotL;
+	OSG::Vec3f color;
+  OSG::Vec3f diffuse  (diffuseColor[0],diffuseColor[1],diffuseColor[2]);
+  OSG::Vec3f specular (specularColor[0],specularColor[1],specularColor[2]);
+	OSG::UInt8 *ds;
+	OSG::Real32 min = OSG::Inf, max = -OSG::Inf;
 	
-	image->set( osg::Image::OSG_RGB_PF, lutFSize, lutFSize, lutFSize );
+	image->set( OSG::Image::OSG_RGB_PF, lutFSize, lutFSize, lutFSize );
 
   ds = image->editData();
 
@@ -903,21 +903,21 @@ bool createPhongVolume ( ImagePtr image,
 	for (dPhi=0; dPhi<360; dPhi+=incr) {
       for (theta1=0; theta1<180; theta1+=incr) {
         for (theta2=0; theta2<180; theta2+=incr) {
-			osg::Real32 t1 = osg::osgdegree2rad(theta1),
-						t2 = osg::osgdegree2rad(theta2),
-						dp = osg::osgdegree2rad(dPhi);
-			NdotL = osg::osgsin(t1)*osg::osgsin(t2)*osg::osgcos(dp) +
-					osg::osgcos(t1)*osg::osgcos(t2);
+			OSG::Real32 t1 = OSG::osgdegree2rad(theta1),
+						t2 = OSG::osgdegree2rad(theta2),
+						dp = OSG::osgdegree2rad(dPhi);
+			NdotL = OSG::osgsin(t1)*OSG::osgsin(t2)*OSG::osgcos(dp) +
+					OSG::osgcos(t1)*OSG::osgcos(t2);
 			NdotL = (NdotL >= 0) ? NdotL : 0;
 			color = diffuse * (NdotL + Const) +
-					specular * osg::osgpow(NdotL, Shi);
+					specular * OSG::osgpow(NdotL, Shi);
 
 			for (int i=0; i<3; i++) {
 				if (min>color[i]) min=color[i];
 				if (max<color[i]) max=color[i];
 				
-				color[i] = osg::osgClamp(0.f, (color[i]), 1.f);
-				*ds++ = (osg::UInt8)(color[i]*255);
+				color[i] = OSG::osgClamp(0.f, (color[i]), 1.f);
+				*ds++ = (OSG::UInt8)(color[i]*255);
 			}
 		}
 	  }

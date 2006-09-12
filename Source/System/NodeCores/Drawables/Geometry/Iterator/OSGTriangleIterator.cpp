@@ -55,7 +55,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TriangleIterator
+/*! \class OSG::TriangleIterator
     \ingroup GrpSystemDrawablesGeometryIterators
     
 The TriangleIterator iterates through the geometry one triangle at a
@@ -67,17 +67,17 @@ time. See \ref PageSystemTriangleIterator for details.
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-/*! \var osg::TriangleIterator::_triIndex
+/*! \var OSG::TriangleIterator::_triIndex
 
     Running index of the triangles iterated.
 */
 
-/*! \var osg::TriangleIterator::_actPrimIndex
+/*! \var OSG::TriangleIterator::_actPrimIndex
 
     Index of the next point to use in the current primitive.
 */
 
-/*! \var osg::TriangleIterator::_triPntIndex
+/*! \var OSG::TriangleIterator::_triPntIndex
 
     The vertex indices of the current triangle.
 */
@@ -119,8 +119,8 @@ TriangleIterator::TriangleIterator(const TriangleIterator &source) :
 
 /*! This constructor creates an iterator for the given geometry. It is useful
     to create an iterator to be used to seek() to a specific indexed face. 
-    Otherwise, use osg::Geometry::beginTriangles() resp. 
-    osg::Geometry::endTriangles() to create an iterator.
+    Otherwise, use OSG::Geometry::beginTriangles() resp. 
+    OSG::Geometry::endTriangles() to create an iterator.
 */
 TriangleIterator::TriangleIterator(GeometryConstPtrArg geo) :
     PrimitiveIterator(),
@@ -132,8 +132,8 @@ TriangleIterator::TriangleIterator(GeometryConstPtrArg geo) :
 
 /*! This constructor creates an iterator for the given node. It is useful to
     create an iterator to be used to seek() to a specific indexed face. 
-    Otherwise, use osg::Geometry::beginTriangles() resp. 
-    osg::Geometry::endTriangles() to create an iterator.
+    Otherwise, use OSG::Geometry::beginTriangles() resp. 
+    OSG::Geometry::endTriangles() to create an iterator.
 */
 
 TriangleIterator::TriangleIterator(const NodePtr& geo) : 
@@ -271,7 +271,7 @@ void TriangleIterator::startPrim(void)
 /*! Seek the iterator to a specific triangle indicated by its index. 
 
     This is primarily used in conjunction with 
-    osg::TriangleIterator::getIndex to record a position in the iteration and
+    OSG::TriangleIterator::getIndex to record a position in the iteration and
     later return to it.
 */
 void TriangleIterator::seek(Int32 index)
@@ -284,7 +284,7 @@ void TriangleIterator::seek(Int32 index)
 
 
 /*! Set the iterator to the beginning of the attached Geometry. Is primarily
-    used by osg::Geometry::beginTriangles, but can also be used to quickly
+    used by OSG::Geometry::beginTriangles, but can also be used to quickly
     recycle an iterator.
 */
 void TriangleIterator::setToBegin(void)
@@ -295,7 +295,7 @@ void TriangleIterator::setToBegin(void)
 }
 
 /*! Set the iterator to the end of the attached Geometry. Is primarily used by
-    osg::Geometry::endTriangles, but can also be used to quickly recycle an
+    OSG::Geometry::endTriangles, but can also be used to quickly recycle an
     iterator.
 */
 void TriangleIterator::setToEnd(void)

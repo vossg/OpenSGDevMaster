@@ -90,7 +90,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::VRMLFile
+/*! \class OSG::VRMLFile
  */
 
 #ifndef __sgi

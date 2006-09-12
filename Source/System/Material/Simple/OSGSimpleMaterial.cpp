@@ -62,19 +62,19 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::SimpleMaterial
+/*! \class OSG::SimpleMaterial
     \ingroup GrpSystemMaterial
 
   The simple material class. See \ref PageSystemMaterialSimpleMaterial for a
   description.
   
   This material wraps the standard calls to glMaterial() in
-  osg::SimpleMaterial::_sfAmbient, osg::SimpleMaterial::_sfDiffuse, 
-  osg::SimpleMaterial::_sfEmission, osg::SimpleMaterial::_sfSpecular, 
-  osg::SimpleMaterial::_sfShininess. In addition it supports transparency 
-  (osg::SimpleMaterial::_sfTransparency), can switch lighting 
-  (osg::SimpleMaterial::_sfLit) and the color material 
-  (osg::SimpleMaterial::_sfColorMaterial).
+  OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, 
+  OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, 
+  OSG::SimpleMaterial::_sfShininess. In addition it supports transparency 
+  (OSG::SimpleMaterial::_sfTransparency), can switch lighting 
+  (OSG::SimpleMaterial::_sfLit) and the color material 
+  (OSG::SimpleMaterial::_sfColorMaterial).
   
  */
 

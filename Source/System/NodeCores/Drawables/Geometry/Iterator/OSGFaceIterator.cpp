@@ -56,7 +56,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::FaceIterator
+/*! \class OSG::FaceIterator
     \ingroup GrpSystemDrawablesGeometryIterators
         
 The FaceIterator iterates through the geometry one face at a
@@ -68,20 +68,20 @@ time. See \ref PageSystemFaceIterator for a description.
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-/*! \var osg::FaceIterator::_faceIndex
+/*! \var OSG::FaceIterator::_faceIndex
 
     Simple runing face count. Returned by getIndex() and can be used as the
     input to seek();
 */
 
-/*! \var osg::FaceIterator::_actPrimIndex
+/*! \var OSG::FaceIterator::_actPrimIndex
 
     The next unused point in the current primitive. Starts at 0 and indicates
     that the primitive is exhausted when it goes over the length of the
     primitive.
 */
 
-/*! \var osg::FaceIterator::_facePntIndex
+/*! \var OSG::FaceIterator::_facePntIndex
 
     Keeps the indices of the currently active face vertices. If the face is a
     tri the fourth index is -1. 
@@ -304,7 +304,7 @@ void FaceIterator::startPrim(void)
 /*! Seek the iterator to a specific face indicated by its index. 
 
     This is primarily used in conjunction with 
-    osg::FaceIterator::getIndex to record a position in the iteration and
+    OSG::FaceIterator::getIndex to record a position in the iteration and
     later return to it.
 */
 void FaceIterator::seek(Int32 index)
@@ -316,7 +316,7 @@ void FaceIterator::seek(Int32 index)
 }
 
 /*! Set the iterator to the beginning of the geometry. Is primarily used by
-    osg::Geometry::beginFaces, but can also be used to quickly recycle an
+    OSG::Geometry::beginFaces, but can also be used to quickly recycle an
     iterator.
 */
 void FaceIterator::setToBegin(void)
@@ -327,7 +327,7 @@ void FaceIterator::setToBegin(void)
 }
 
 /*! Set the iterator to the end of the geometry. Is primarily used by
-    osg::Geometry::endFaces, but can also be used to quickly recycle an
+    OSG::Geometry::endFaces, but can also be used to quickly recycle an
     iterator.
 */
 void FaceIterator::setToEnd(void)

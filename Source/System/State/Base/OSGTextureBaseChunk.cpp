@@ -66,7 +66,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TextureBaseChunk
+/*! \class OSG::TextureBaseChunk
     \ingroup GrpSystemState
 
 See \ref PageSystemTextureChunk for a description.

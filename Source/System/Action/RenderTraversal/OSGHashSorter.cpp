@@ -49,7 +49,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::HashSorter
+/*! \class OSG::HashSorter
     \ingroup 
  */
 

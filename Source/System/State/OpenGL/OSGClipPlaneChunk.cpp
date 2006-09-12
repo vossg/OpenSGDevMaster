@@ -58,14 +58,14 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ClipPlaneChunk
+/*! \class OSG::ClipPlaneChunk
     \ingroup GrpSystemState
     
 See \ref PageSystemClipPlaneChunk for a description.
 
-This chunk wraps glCLipPlane() (osg::ClipPlaneChunk::_sfEquation) and
-glEnable(GL_CLIP_PLANEi) (osg::ClipPlaneChunk::_sfEnable). The coordinate
-system the plane is in is defined by osg::ClipPlaneChunk::_sfBeacon.
+This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and
+glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The coordinate
+system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
 
 */
 

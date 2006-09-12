@@ -49,7 +49,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::StatisticsForeground
+/*! \class OSG::StatisticsForeground
     \ingroup GrpSystemWindowForegrounds
     
 StatisticsForeground is the base class for all foregrounds that process

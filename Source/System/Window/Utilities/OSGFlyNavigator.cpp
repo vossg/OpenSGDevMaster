@@ -49,7 +49,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::FlyNavigator
+/*! \class OSG::FlyNavigator
     \ingroup GrpSystemWindowNavigators
 
 The FlyNavigator models a simple flying navigation model, see \ref 
@@ -57,22 +57,22 @@ PageSystemWindowNavigatorsFly for a description.
 
 */
 
-/*! \var osg::FlyNavigator::_rFrom
+/*! \var OSG::FlyNavigator::_rFrom
 
     The from point, i.e. the viewer position.
 */
 
-/*! \var osg::FlyNavigator::_rAt
+/*! \var OSG::FlyNavigator::_rAt
 
     The at point, i.e. the target position.
 */
 
-/*! \var osg::FlyNavigator::_vUp
+/*! \var OSG::FlyNavigator::_vUp
 
     The up vector.
 */
 
-/*! \var osg::FlyNavigator::_tMatrix
+/*! \var OSG::FlyNavigator::_tMatrix
 
     The transformation matrix for this navigator.
 */

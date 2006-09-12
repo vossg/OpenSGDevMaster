@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ShaderParameterVec3f
+/*! \class OSG::ShaderParameterVec3f
 
 */
 

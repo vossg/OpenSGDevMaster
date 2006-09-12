@@ -62,7 +62,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::SkyBackground
+/*! \class OSG::SkyBackground
     \ingroup GrpSystemWindowBackgrounds
 
 A Sky/Ground/Skybox background, inspired by VRML, see \ref

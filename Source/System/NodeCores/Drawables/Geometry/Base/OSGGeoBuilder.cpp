@@ -58,7 +58,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/* \class osg::GeoBuilder
+/* \class OSG::GeoBuilder
    \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 */

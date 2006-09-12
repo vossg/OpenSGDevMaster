@@ -58,7 +58,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Transform
+/*! \class OSG::Transform
 
   The basic Transformation class. Just keeps a single matrix. For more complex 
   behaviour, see its descendents.     

@@ -62,7 +62,7 @@ GraphOpFactory *GraphOpFactory::_the=NULL;
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::GraphOpFactory
+/*! \class OSG::GraphOpFactory
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 A base class used to traverse geometries.

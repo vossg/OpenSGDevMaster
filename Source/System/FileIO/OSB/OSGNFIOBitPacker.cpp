@@ -47,7 +47,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::BitPacker
+/*! \class OSG::BitPacker
            packs and unpacks UInt32.
  */
 

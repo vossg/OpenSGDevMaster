@@ -71,7 +71,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Viewport
+/*! \class OSG::Viewport
     \ingroup GrpSystemWindowsViewports
 
   A Viewport is a part of the Window it is attached to used for rendering. See

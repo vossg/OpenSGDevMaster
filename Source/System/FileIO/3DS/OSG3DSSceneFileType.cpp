@@ -207,7 +207,7 @@ NodePtr A3DSSceneFileType::createMesh(L3DS &scene, LMesh &mesh) const
     }
 
     // create material opensg supports only one material per geometry!
-    MaterialPtr mat = osg::getDefaultMaterial();
+    MaterialPtr mat = OSG::getDefaultMaterial();
     if(mesh.GetMaterialCount() > 0)
         mat = createMaterial(scene, mesh.GetMaterial(0));
 
@@ -233,7 +233,7 @@ NodePtr A3DSSceneFileType::createMesh(L3DS &scene, LMesh &mesh) const
     geo->setTypes(types);
 
     //createSharedIndex(geo);
-    //osg::calcVertexNormals(geo);
+    //OSG::calcVertexNormals(geo);
 
     return node;
 }

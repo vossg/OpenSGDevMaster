@@ -50,7 +50,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Action
+/*! \class OSG::Action
     \ingroup GrpSystemAction
 
 The action base class.

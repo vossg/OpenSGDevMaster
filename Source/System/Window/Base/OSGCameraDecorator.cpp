@@ -49,7 +49,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::CameraDecorator
+/*! \class OSG::CameraDecorator
     \ingroup GrpSystemWindowCameraDecorators
     
 The base class for the camera decorator, see \ref

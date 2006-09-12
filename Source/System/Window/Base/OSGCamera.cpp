@@ -63,7 +63,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Camera
+/*! \class OSG::Camera
     \ingroup GrpSystemWindowCameras
 
   The Camera base class, see \ref PageSystemWindowCamera for a description.

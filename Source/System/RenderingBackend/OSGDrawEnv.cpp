@@ -48,7 +48,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::DrawEnv
+/*! \class OSG::DrawEnv
     \ingroup GrpSystemRenderingBackend
  */
 

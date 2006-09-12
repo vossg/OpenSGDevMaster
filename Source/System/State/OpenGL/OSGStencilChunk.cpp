@@ -58,7 +58,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StencilChunk
+/*! \class OSG::StencilChunk
   The stencil chunk handles OpenGL stencil tests by wrapping 
   glStencilFunc() and glStencilOp().
 */

@@ -59,7 +59,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PolygonForeground
+/*! \class OSG::PolygonForeground
     \ingroup GrpSystemWindowForegrounds
     
 A foreground that renders a single polygon used the specified material, 

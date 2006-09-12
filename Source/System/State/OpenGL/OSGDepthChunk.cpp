@@ -58,13 +58,13 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::DepthChunk
+/*! \class OSG::DepthChunk
   The depth chunk contains the parameters that are specific for depth control. 
 
   The parameters of the following functions are wrapped here: glDepthFunc
-  (osg::DepthChunk::_sfFunc), glDepthRange (osg::DepthChunk::_sfNear,
-  osg::DepthChunk::_sfFar), glEnable(GL_DEPTH_TEST)
-  (osg::DepthChunk::_sfEnable).
+  (OSG::DepthChunk::_sfFunc), glDepthRange (OSG::DepthChunk::_sfNear,
+  OSG::DepthChunk::_sfFar), glEnable(GL_DEPTH_TEST)
+  (OSG::DepthChunk::_sfEnable).
 */
 
 /***************************************************************************\

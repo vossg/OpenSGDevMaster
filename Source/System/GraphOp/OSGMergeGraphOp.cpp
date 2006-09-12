@@ -67,7 +67,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::MergeGraphOp
+/*! \class OSG::MergeGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 A class used to optimize geometries a bit.

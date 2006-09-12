@@ -51,7 +51,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::FileGrabForeground
+/*! \class OSG::FileGrabForeground
     \ingroup GrpSystemWindowForegrounds
     
 The FileGrabForeground is used for grabbing a frame or sequence of frames to

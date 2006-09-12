@@ -73,7 +73,7 @@ OSG_USING_NAMESPACE
 // Field descriptions
 
 /*! \var UInt32 ParticlesBase::_sfMode
-    	The particle mode, see osg::Particles::modeE for options.
+    	The particle mode, see OSG::Particles::modeE for options.
 
 */
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfPositions
@@ -116,7 +116,7 @@ OSG_USING_NAMESPACE
 
 */
 /*! \var UInt32 ParticlesBase::_sfDrawOrder
-            Define an optional sorting on the particles, see osg::Particles::DrawOrderE
+            Define an optional sorting on the particles, see OSG::Particles::DrawOrderE
         for variants. Default is unordered.
 
 */

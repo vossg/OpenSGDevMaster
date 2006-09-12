@@ -71,7 +71,7 @@ OSG_USING_NAMESPACE
 // copy source -> dest
 #define copy_rgbe(c1, c2) (c2[RED]=c1[RED],c2[GRN]=c1[GRN],c2[BLU]=c1[BLU],c2[EXP]=c1[EXP])
 
-/*! \class osg::HDRImageFileType 
+/*! \class OSG::HDRImageFileType 
     \ingroup GrpSystemImage
 
 Image File Type to read/write and store/restore Image objects as

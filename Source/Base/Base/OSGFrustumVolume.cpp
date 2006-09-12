@@ -53,7 +53,7 @@
 #include "OSGLine.h"
 
 
-/*! \class osg::FrustumVolume
+/*! \class OSG::FrustumVolume
 
     
 */

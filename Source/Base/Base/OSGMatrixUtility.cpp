@@ -275,7 +275,7 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(Matrixr &projection,
 }
 
 /*! \warning This matrix is meant to used for setting up the 
-      beacon transformation of a osg::Camera! They are inverted compared to
+      beacon transformation of a OSG::Camera! They are inverted compared to
       the similarly named OpenGl function!
 */
 
@@ -324,7 +324,7 @@ OSG_BASE_DLLMAPPING bool MatrixLookAt(Matrix &result,
 }
 
 /*! \warning This matrix is meant to used for setting up the 
-      beacon transformation of a osg::Camera! They are inverted compared to
+      beacon transformation of a OSG::Camera! They are inverted compared to
       the similarly named OpenGl function!
 */
 

@@ -54,19 +54,19 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::PointChunk
+/*! \class OSG::PointChunk
     \ingroup GrpSystemState
 
   See \ref PageSystemPointChunk for a description. 
 
-  This chunk wraps glPointSize() (osg::PointChunk::_sfSize) and
-  glEnable(GL_POINT_SMOOTH) (osg::PointChunk::_sfSmooth). It encompasses the
-  ARB_point_parameters extension (osg::PointChunk::_sfMinSize, 
-  osg::PointChunk::_sfMaxSize, osg::PointChunk::_sfFadeThreshold, 
-  osg::PointChunk::_sfConstantAttenuation, 
-  osg::PointChunk::_sfLinearAttenuation,
-  osg::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
-  (osg::PointChunk::_sfSprite, osg::PointChunk::_sfRMode).
+  This chunk wraps glPointSize() (OSG::PointChunk::_sfSize) and
+  glEnable(GL_POINT_SMOOTH) (OSG::PointChunk::_sfSmooth). It encompasses the
+  ARB_point_parameters extension (OSG::PointChunk::_sfMinSize, 
+  OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, 
+  OSG::PointChunk::_sfConstantAttenuation, 
+  OSG::PointChunk::_sfLinearAttenuation,
+  OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
+  (OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).
 
 */
 

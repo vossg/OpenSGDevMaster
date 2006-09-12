@@ -48,7 +48,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::PointConnection
+/** \class OSG::PointConnection
  *  \inpoint GrpBaseNetwork
  **/
 

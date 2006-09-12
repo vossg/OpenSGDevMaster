@@ -50,7 +50,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::DirectionalLight
+/*! \class OSG::DirectionalLight
  *  DirectionalLight is an infinitely distant lightsource. Its only
  *  attribute is the light's direction.
  */

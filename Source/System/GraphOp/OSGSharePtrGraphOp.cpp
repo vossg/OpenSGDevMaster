@@ -57,7 +57,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::UnifyVerticesGraphOp
+/*! \class OSG::UnifyVerticesGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 A class used to create indexed geometries.
@@ -408,8 +408,8 @@ static bool compareMField(Field *a, Field *b)
  * \param field container b
  * \return true if equal.
  */
-bool SharePtrGraphOp::isEqual(const osg::FieldContainerPtr &a,
-                              const osg::FieldContainerPtr &b)
+bool SharePtrGraphOp::isEqual(const OSG::FieldContainerPtr &a,
+                              const OSG::FieldContainerPtr &b)
 {
     // Compare the pointers.
     if(a == b)

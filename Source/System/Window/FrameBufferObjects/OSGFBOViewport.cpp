@@ -58,7 +58,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::FBOViewport
+/*! \class OSG::FBOViewport
     \ingroup GrpSystemWindowViewports
 
 

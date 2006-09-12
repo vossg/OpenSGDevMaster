@@ -72,7 +72,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Socket
+/*! \class OSG::Socket
     \ingroup GrpBaseNetwork
     \brief Abstract network socket handler
 

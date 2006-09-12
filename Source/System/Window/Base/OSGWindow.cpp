@@ -92,7 +92,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Window
+/*! \class OSG::Window
     \ingroup GrpSystemWindow
 
   Window is the base class for all window management classes.  See \ref
@@ -109,7 +109,7 @@ OSG_USING_NAMESPACE
 
 // Window-sytem specific virtual functions
 
-/*! \fn void osg::Window::init(void)
+/*! \fn void OSG::Window::init(void)
   
   Initialize the Window and its OpenGL context. This method needs to be
   called once after the Window has been created and its Window
@@ -119,18 +119,18 @@ OSG_USING_NAMESPACE
   state. 
  */
 
-/*! \fn void osg::Window::activate(void)
+/*! \fn void OSG::Window::activate(void)
   
   Activate the Window's OpenGL context, so that OpenGL can be called. 
  */
 
-/*! \fn void osg::Window::deactivate(void)
+/*! \fn void OSG::Window::deactivate(void)
   
   Deativate the Window's OpenGL context. OpenGL calls are no longer possible
   after this call.
  */
 
-/*! \fn void osg::Window::swap(void)
+/*! \fn void OSG::Window::swap(void)
   
   Swap the back and front buffers. 
   
@@ -141,56 +141,56 @@ OSG_USING_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-/*! \enum osg::Window::GLObjectStatusE
+/*! \enum OSG::Window::GLObjectStatusE
   Enumeration values for the status of the GL objects. This is primarily
   used to signal the object's callback functions what to do. See \ref
   PageSystemOGLObjects for a description.
  */
 
-/*! \var osg::Window::GLObjectStatusE Window::notused
+/*! \var OSG::Window::GLObjectStatusE Window::notused
   Object is not used at all right now.
  */
 
-/*! \var osg::Window::GLObjectStatusE Window::initialize
+/*! \var OSG::Window::GLObjectStatusE Window::initialize
   The object is being initialized for the first time.
  */
 
-/*! \var osg::Window::GLObjectStatusE Window::reinitialize
+/*! \var OSG::Window::GLObjectStatusE Window::reinitialize
   The object is being re-initialized, i.e. it has changed significantly.
  */
 
-/*! \var osg::Window::GLObjectStatusE Window::initialized
+/*! \var OSG::Window::GLObjectStatusE Window::initialized
   The object is initialized and valid.
  */
 
-/*! \var osg::Window::GLObjectStatusE Window::needrefresh
+/*! \var OSG::Window::GLObjectStatusE Window::needrefresh
   The object is initialized but needs a refresh.
  */
 
-/*! \var osg::Window::GLObjectStatusE Window::destroy
+/*! \var OSG::Window::GLObjectStatusE Window::destroy
   The object is to be destroyed, i.e. removed from the current OpenGL context.
  */
 
-/*! \var osg::Window::GLObjectStatusE Window::finaldestroy
+/*! \var OSG::Window::GLObjectStatusE Window::finaldestroy
   The object has been removed from all OpenGL contexts and used ressources
   but be freed now.
  */
 
-/*! \enum osg::Window::invalidExtensionID
+/*! \enum OSG::Window::invalidExtensionID
  */
 
-/*! \enum osg::Window::invalidFunctionID
+/*! \enum OSG::Window::invalidFunctionID
  */
 
-/*! \enum osg::Window::statusShift
+/*! \enum OSG::Window::statusShift
   Shift value to transform object id and status into  asingle int.
  */
 
-/*! \enum osg::Window::statusMask
+/*! \enum OSG::Window::statusMask
   Mask value to transform object id and status into  asingle int.
  */
 
-/*! \class osg::Window::GLObject
+/*! \class OSG::Window::GLObject
   \ingroup GrpSystemWindow
   
   The GLObject class is used to keep track of the OpenGL objects registered 

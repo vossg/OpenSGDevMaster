@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ColorMaskChunk
+/*! \class OSG::ColorMaskChunk
 The color chunk contains the parameters that are specific for color write.
 */
 

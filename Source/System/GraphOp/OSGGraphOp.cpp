@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::GraphOp
+/*! \class OSG::GraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 A base class used to traverse geometries.

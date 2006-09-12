@@ -86,7 +86,7 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 
-/*! \class osg::State
+/*! \class OSG::State
     \ingroup GrpSystemState
     
 The state base class. See \ref PageSystemState for the conceptual background. 

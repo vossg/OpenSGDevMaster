@@ -114,8 +114,8 @@ private:
     bool isInList(const std::vector<std::string> &tlist,
                   const FieldContainerPtr &fc);
     FieldContainerPtr compareFCs(const FieldContainerPtr &fc);
-    static bool isEqual(const osg::FieldContainerPtr &a,
-                        const osg::FieldContainerPtr &b);
+    static bool isEqual(const OSG::FieldContainerPtr &a,
+                        const OSG::FieldContainerPtr &b);
 
     //static Action::ResultE clearAttachmentParent(NodePtr &node);
     //static Action::ResultE addAttachmentParent(NodePtr &node);

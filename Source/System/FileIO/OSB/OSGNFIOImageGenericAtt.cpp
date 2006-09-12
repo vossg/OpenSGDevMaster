@@ -51,7 +51,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::NFIOImageGenericAtt
+/*! \class OSG::NFIOImageGenericAtt
            reads and writes a image.
  */
 

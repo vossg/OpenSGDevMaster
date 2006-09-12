@@ -52,7 +52,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::WIN32Window
+/*! \class OSG::WIN32Window
 The class for WIN32 windows. 	
 */
 

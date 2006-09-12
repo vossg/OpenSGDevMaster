@@ -54,7 +54,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StatElem
+/*! \class OSG::StatElem
     \ingroup Statistics
 
   The StatElem is the abstract base class for all the data types that can be 
@@ -68,7 +68,7 @@ OSG_USING_NAMESPACE
   switched on or off,  to prevent collecting statistics that is not needed, 
   via the setOn methods. 
   Finally, ever StatElem can give information about itself in the form of a 
-  osg::StatElemDesc*. 
+  OSG::StatElemDesc*. 
 
   /ext 
 
@@ -80,7 +80,7 @@ OSG_USING_NAMESPACE
 
  */
 
-/*! \fn void osg::StatElem::putToString(std::string &str, 
+/*! \fn void OSG::StatElem::putToString(std::string &str, 
                                         const char *format) const
   
   The putToString method converts the value of the StatElem into a standard 

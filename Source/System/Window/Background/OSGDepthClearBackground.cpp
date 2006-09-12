@@ -63,7 +63,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::DepthClearBackground
+/*! \class OSG::DepthClearBackground
     \ingroup GrpSystemWindowBackgrounds
 
 A depth-clear background, see \ref PageSystemWindowBackgroundDepthClear for a

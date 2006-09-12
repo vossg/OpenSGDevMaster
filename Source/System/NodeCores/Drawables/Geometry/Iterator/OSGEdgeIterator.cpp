@@ -56,7 +56,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::EdgeIterator
+/*! \class OSG::EdgeIterator
     \ingroup GrpSystemDrawablesGeometryIterators
         
 The EdgeIterator iterates through the geometry one edge at a
@@ -68,20 +68,20 @@ time. See \ref PageSystemEdgeIterator for a description.
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-/*! \var osg::EdgeIterator::_edgeIndex
+/*! \var OSG::EdgeIterator::_edgeIndex
 
     Simple running edge count. Returned by getIndex() and can be used as the
     input to seek();
 */
 
-/*! \var osg::EdgeIterator::_actPrimIndex
+/*! \var OSG::EdgeIterator::_actPrimIndex
 
     The next unused point in the current primitive. Starts at 0 and indicates
     that the primitive is exhausted when it goes over the length of the
     primitive.
 */
 
-/*! \var osg::EdgeIterator::_edgePntIndex
+/*! \var OSG::EdgeIterator::_edgePntIndex
 
     Keeps the indices of the currently active line vertices for GL_LINES
     primitives. Unused otherwise.
@@ -258,7 +258,7 @@ void EdgeIterator::startPrim(void)
 /*! Seek the iterator to a specific edge indicated by its index. 
 
     This is primarily used in conjunction with 
-    osg::EdgeIterator::getIndex to record a position in the iteration and
+    OSG::EdgeIterator::getIndex to record a position in the iteration and
     later return to it.
 */
 void EdgeIterator::seek(Int32 index)
@@ -270,7 +270,7 @@ void EdgeIterator::seek(Int32 index)
 }
 
 /*! Set the iterator to the beginning of the geometry. Is primarily used by
-    osg::Geometry::beginEdges, but can also be used to quickly recycle an
+    OSG::Geometry::beginEdges, but can also be used to quickly recycle an
     iterator.
 */
 void EdgeIterator::setToBegin(void)
@@ -281,7 +281,7 @@ void EdgeIterator::setToBegin(void)
 }
 
 /*! Set the iterator to the end of the geometry. Is primarily used by
-    osg::Geometry::endEdges, but can also be used to quickly recycle an
+    OSG::Geometry::endEdges, but can also be used to quickly recycle an
     iterator.
 */
 void EdgeIterator::setToEnd(void)

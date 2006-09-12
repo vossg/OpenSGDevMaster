@@ -49,7 +49,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Light
+/*! \class OSG::Light
     \ingroup GrpSystemNodeCoresLights
     
     Light is the base class for all the light source nodes.

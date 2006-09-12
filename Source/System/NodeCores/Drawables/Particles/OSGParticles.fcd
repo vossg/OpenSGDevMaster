@@ -17,7 +17,7 @@
 		defaultValue="2"
 		access="public"
 	>
-	The particle mode, see osg::Particles::modeE for options.
+	The particle mode, see OSG::Particles::modeE for options.
 	</Field>
 	<Field
 		name="positions"
@@ -105,7 +105,7 @@
 		defaultValue="0"
 		access="public"
 	>
-        Define an optional sorting on the particles, see osg::Particles::DrawOrderE
+        Define an optional sorting on the particles, see OSG::Particles::DrawOrderE
         for variants. Default is unordered.
 	</Field>
 	<Field

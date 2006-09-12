@@ -48,7 +48,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::Dgram
+/** \class OSG::Dgram
  *  \ingroup GrpBaseNetwork
  *  \brief Datagram used for reliable multicast
  *

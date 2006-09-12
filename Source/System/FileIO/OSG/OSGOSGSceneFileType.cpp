@@ -56,7 +56,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::OSGSceneFileType
+/*! \class OSG::OSGSceneFileType
     \ingroup GrpSystemFileIO
 
  */

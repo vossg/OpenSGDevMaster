@@ -50,11 +50,11 @@
 #include "OSGMatrix.h"
 
 
-/*! \class osg::BoxVolume
+/*! \class OSG::BoxVolume
 
     A volume encompassing an axis-aligned box. The box is defined by the 
-    point with the smallest coordinates (osg::BoxVolume::_min) and the point
-    with the largest coordinates (osg::BoxVolume::_max).
+    point with the smallest coordinates (OSG::BoxVolume::_min) and the point
+    with the largest coordinates (OSG::BoxVolume::_max).
 */
 
 

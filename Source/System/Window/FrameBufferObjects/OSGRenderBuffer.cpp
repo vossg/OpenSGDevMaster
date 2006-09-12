@@ -90,7 +90,7 @@ typedef void (OSG_APIENTRY *GLRenderbufferStorageEXTProcT    )(
     GLsizei width, 
     GLsizei height);
 
-/*! \class osg::RenderBuffer
+/*! \class OSG::RenderBuffer
     \ingroup GrpSystemWindowViewports
 
 */

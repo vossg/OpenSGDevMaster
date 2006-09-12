@@ -58,21 +58,21 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::SimpleTexturedMaterial
+/*! \class OSG::SimpleTexturedMaterial
     \ingroup GrpSystemMaterial
 
   The simple textured material class. See \ref
   PageSystemMaterialTexturedSimpleMaterial for a description.
   
-  A osg::SimpleMaterial with an added texture. It doesn't expose all features 
+  A OSG::SimpleMaterial with an added texture. It doesn't expose all features 
   of the texture, just the ones needed most often.
 
-  osg::SimpleTexturedMaterial::_sfImage defines the texture, 
-  osg::SimpleTexturedMaterial::_sfMinFilter and
-  osg::SimpleTexturedMaterial::_sfMagFilter the used filters and 
-  osg::SimpleTexturedMaterial::_sfEnvMode the environment mode. As a special 
+  OSG::SimpleTexturedMaterial::_sfImage defines the texture, 
+  OSG::SimpleTexturedMaterial::_sfMinFilter and
+  OSG::SimpleTexturedMaterial::_sfMagFilter the used filters and 
+  OSG::SimpleTexturedMaterial::_sfEnvMode the environment mode. As a special 
   case
-  osg::SimpleTexturedMaterial::_sfEnvMap can be used to use the txture as a
+  OSG::SimpleTexturedMaterial::_sfEnvMap can be used to use the txture as a
   spherical environment map.
 
  */

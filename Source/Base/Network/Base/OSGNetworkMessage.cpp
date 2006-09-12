@@ -48,7 +48,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::NetworkMessage
+/** \class OSG::NetworkMessage
  *  \ingroup GrpBaseNetwork
  *  \brief Abstract socket message buffer
  *

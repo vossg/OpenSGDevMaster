@@ -69,7 +69,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::DDSImageFileType 
+/*! \class OSG::DDSImageFileType 
     \ingroup GrpSystemImage
 
   Image File Type to read/write and store/restore Image objects as
@@ -397,10 +397,10 @@ bool DDSImageFileType::read(      ImagePtrArg       pImage,
         
         if(validImage) 
         {
-            pImage->set( osg::Image::PixelFormat(format), 
+            pImage->set( OSG::Image::PixelFormat(format), 
                         width, height, depth,
                         numMipMaps + 1,
-                        1, 0.0, 0, osg::Image::OSG_UINT8_IMAGEDATA,
+                        1, 0.0, 0, OSG::Image::OSG_UINT8_IMAGEDATA,
                         true, 
                         ddsImage.get_num_images() );
             

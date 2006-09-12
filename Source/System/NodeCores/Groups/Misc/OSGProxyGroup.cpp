@@ -54,7 +54,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ProxyGroup
+/*! \class OSG::ProxyGroup
 
   This group is used for delayed loading. If enabled the child
   noads are loaded in a second thread. Until the load is finished

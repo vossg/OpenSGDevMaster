@@ -70,7 +70,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/* \class osg::GeoPumpGroup
+/* \class OSG::GeoPumpGroup
    \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 The PumpGroup is responsible for selecting the most appropriate pump

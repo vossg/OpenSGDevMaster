@@ -65,7 +65,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::NFIOBase
+/*! \class OSG::NFIOBase
            Base class for native file io.
  */
 

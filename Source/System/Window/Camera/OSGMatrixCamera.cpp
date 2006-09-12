@@ -54,7 +54,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::MatrixCamera
+/*! \class OSG::MatrixCamera
     \ingroup GrpSystemWindowCameras
 
   The Matrix Camera class, see \ref PageSystemWindowCameraMatrix for 

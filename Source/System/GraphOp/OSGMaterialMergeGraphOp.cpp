@@ -51,7 +51,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::MaterialMergeGraphOp
+/*! \class OSG::MaterialMergeGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 Merges equivalent materials in a scene.
@@ -77,7 +77,7 @@ T next(T t) { // Iterator passed by value.
 }
 
 
-bool isEqual(const osg::FieldContainerPtr& a, const osg::FieldContainerPtr& b)
+bool isEqual(const OSG::FieldContainerPtr& a, const OSG::FieldContainerPtr& b)
 {
     using std::string;
 

@@ -48,7 +48,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::Connection
+/** \class OSG::Connection
  *  \ingroup GrpBaseNetwork
  *  \brief Abstract 1 to n connection
  *

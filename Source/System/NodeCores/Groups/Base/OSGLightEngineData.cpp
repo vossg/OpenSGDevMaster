@@ -45,7 +45,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::LightEngineData
+/*! \class OSG::LightEngineData
 */
 
 LightEngineData::LightEngineData(void) :

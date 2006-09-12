@@ -62,7 +62,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \class osg::VRMLNodeFactory
+/*! \class OSG::VRMLNodeFactory
  */
 
 /*-------------------------------------------------------------------------*/

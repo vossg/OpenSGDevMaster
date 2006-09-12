@@ -49,7 +49,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Drawable
+/*! \class OSG::Drawable
 
 */
 

@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ShaderParameterBool
+/*! \class OSG::ShaderParameterBool
  */
 
 /***************************************************************************\

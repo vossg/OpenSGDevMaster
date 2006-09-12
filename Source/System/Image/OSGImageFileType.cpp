@@ -52,7 +52,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::ImageFileType
+/*! \class OSG::ImageFileType
     \ingroup GrpSystemImage
 */
 

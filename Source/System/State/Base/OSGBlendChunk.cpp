@@ -60,16 +60,16 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::BlendChunk
+/*! \class OSG::BlendChunk
     \ingroup GrpSystemState
 
   See \ref PageSystemBlendChunk for a description. 
   
-  This chunk wraps glBlendFunc() (osg::BlendChunk::_sfSrcFactor,
-  osg::BlendChunk::_sfDestFactor), glBlendEquation() or glBlendEquationEXT()
-  (whichever is supported) (osg::BlendChunk::_sfEquation), glBlendColor() 
-  (osg::BlendChunk::_sfColor) and glAlphaFunc() (osg::BlendChunk::_sfAlphaFunc,
-  osg::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).
+  This chunk wraps glBlendFunc() (OSG::BlendChunk::_sfSrcFactor,
+  OSG::BlendChunk::_sfDestFactor), glBlendEquation() or glBlendEquationEXT()
+  (whichever is supported) (OSG::BlendChunk::_sfEquation), glBlendColor() 
+  (OSG::BlendChunk::_sfColor) and glAlphaFunc() (OSG::BlendChunk::_sfAlphaFunc,
+  OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).
   
  */
 

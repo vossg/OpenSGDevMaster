@@ -88,7 +88,7 @@ NodePtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
 }
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makePlane. 
+    Create the Geometry Core for used by OSG::makePlane. 
 */
 
 GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize, 
@@ -188,7 +188,7 @@ NodePtr makeCone(Real32 height,
 }
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makeCone. 
+    Create the Geometry Core for used by OSG::makeCone. 
 */
 
 GeometryPtr makeConeGeo(Real32 height, 
@@ -233,7 +233,7 @@ NodePtr makeCylinder(Real32 height,
 }
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makeCylinder. 
+    Create the Geometry Core for used by OSG::makeCylinder. 
 */
 
 GeometryPtr makeCylinderGeo(Real32 height, 
@@ -293,7 +293,7 @@ NodePtr makeConicalFrustum(Real32 height,
 }
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makeConicalFrustum. 
+    Create the Geometry Core for used by OSG::makeConicalFrustum. 
 */
 
 GeometryPtr makeConicalFrustumGeo(Real32 height, 
@@ -468,7 +468,7 @@ NodePtr makeTorus(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
 }
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makeTorus. 
+    Create the Geometry Core for used by OSG::makeTorus. 
 */
 
 GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides, 
@@ -690,7 +690,7 @@ NodePtr makeSphere(UInt16 depth, Real32 radius)
 }
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makeSphere. 
+    Create the Geometry Core for used by OSG::makeSphere. 
 */
 
 GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
@@ -882,7 +882,7 @@ NodePtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
 }
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makeLatLongSphere. 
+    Create the Geometry Core for used by OSG::makeLatLongSphere. 
 */
 
 GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
@@ -1000,7 +1000,7 @@ NodePtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
 }
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makeBox. 
+    Create the Geometry Core for used by OSG::makeBox. 
 */
 
 GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize, 
@@ -1569,7 +1569,7 @@ points_from_basis(int tot_vert, Real64 s[], Real64 t[], Matrix mgm[3],
 
 
 /*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by osg::makeTeapot. 
+    Create the Geometry Core for used by OSG::makeTeapot. 
 */
 
 GeometryPtr makeTeapotGeo(UInt16 depth)

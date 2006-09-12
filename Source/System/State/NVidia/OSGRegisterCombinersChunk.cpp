@@ -61,25 +61,25 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::RegisterCombinersChunk
+/*! \class OSG::RegisterCombinersChunk
 
   See \ref PageSystemRegisterCombinersChunk for a description.
 
   This chunk wraps nVidia's register combiners. The
-  osg::RegisterCombinersChunk::setCombinerRGB and
-  osg::RegisterCombinersChunk::setCombinerAlpha convenience functions
+  OSG::RegisterCombinersChunk::setCombinerRGB and
+  OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions
   should be used,
   which set up all the parameters for a single combiner's RGB or alpha part.
-  osg::RegisterCombinersChunk::setFinalCombiner sets all parameters for the
+  OSG::RegisterCombinersChunk::setFinalCombiner sets all parameters for the
   final combiner. The constants are set by
-  osg::RegisterCombinersChunk::setConstantColors(Color4f &color0, Color4f
+  OSG::RegisterCombinersChunk::setConstantColors(Color4f &color0, Color4f
   &color1) for the gloabl constants and 
-  osg::RegisterCombinersChunk::setConstantColors(UInt16 which,  
+  OSG::RegisterCombinersChunk::setConstantColors(UInt16 which,  
   Color4f &color0,
   Color4f &color1) for the per-combiner constants (if supported). To reset a
   combiner one or all of the combiners use
-  osg::RegisterCombinersChunk::clearCombiners or 
-  osg::RegisterCombinersChunk::clearCombiner. 
+  OSG::RegisterCombinersChunk::clearCombiners or 
+  OSG::RegisterCombinersChunk::clearCombiner. 
   
   Don't use the direct field access to set the register combiner's parameter
   unlesss you really have to, as the internal representation is a bit

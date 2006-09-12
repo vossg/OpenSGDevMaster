@@ -192,7 +192,7 @@ log is executed. For multi-line outputs you'll only want that on the first
 line, for the other lines use PFATAL, PWARNING, PNOTICE or PINFO. 
 
 To synchronize multiple outputs from various threads all S* commands lock the
-stream. You have to use 'osg::endLog' (e.g. SFATAL << "Message" << endLog;) to
+stream. You have to use 'OSG::endLog' (e.g. SFATAL << "Message" << endLog;) to
 unlock the stream output. 
 
 Example: SINFO << "Line 1 of message 1" << endl; PINFO << "line2 of message 1"
@@ -287,7 +287,7 @@ Vectors are the most common class, and they should behave like every other
 vector library on the planet. They are templated to simplify having variants,
 and the standard ones that are available are Vec4ub, Vec2us, Vec2s, Vec2f,
 Vec3s, Vec3f and Vec4f. They have operators for the scalar operations, and
-methods for everything else, see the doxygen docs for osg::VectorInterface for
+methods for everything else, see the doxygen docs for OSG::VectorInterface for
 details. Conceptually, the 3 element vector has a w coordinate of 0, thus
 there is no full matrix multiplication for vectors.
 
@@ -303,8 +303,8 @@ as 1 for 3 element points.
 If you really need to get from a point to a vector or vice versa, you can
 use 
 
-- Vector &osg::Point.subZero() 
-- Point  &osg::Vector.addToZero()
+- Vector &OSG::Point.subZero() 
+- Point  &OSG::Vector.addToZero()
 
 to cast a point to a vector and back. 
 

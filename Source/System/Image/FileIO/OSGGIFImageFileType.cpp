@@ -66,7 +66,7 @@
 #ifdef OSG_WITH_GIF
 
 
-/*! \class osg::GIFImageFileType 
+/*! \class OSG::GIFImageFileType 
     \ingroup GrpSystemImage
 
   Image File Type to read/write and store/restore Image objects as

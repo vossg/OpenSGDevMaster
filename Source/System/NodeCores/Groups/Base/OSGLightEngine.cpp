@@ -47,7 +47,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::LightEngine
+/*! \class OSG::LightEngine
 */
 
 /*-------------------------------------------------------------------------*/

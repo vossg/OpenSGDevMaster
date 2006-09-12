@@ -49,7 +49,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PruneGraphOp
+/*! \class OSG::PruneGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 Removes nodes of size smaller than a given threshold from the scene.

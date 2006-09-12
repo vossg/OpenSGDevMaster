@@ -56,7 +56,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::NFIOGeometry
+/*! \class OSG::NFIOGeometry
            reads and writes a geometry node.
  */
 

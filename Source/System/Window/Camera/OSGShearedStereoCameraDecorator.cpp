@@ -56,10 +56,10 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ShearedStereoCameraDecorator
+/*! \class OSG::ShearedStereoCameraDecorator
     \ingroup GrpSystemWindowCameraDecorators
 
-  The osg::CameraDecorator for standard sheared stereo projections, see \ref
+  The OSG::CameraDecorator for standard sheared stereo projections, see \ref
   PageSystemWindowCameraDecoratorsStereoSheared for a description.
   
   The only parameter is defined by the _sfZeroParallaxDistance field.

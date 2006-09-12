@@ -54,7 +54,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::VisitSubTree
+/*! \class OSG::VisitSubTree
 
 */
 

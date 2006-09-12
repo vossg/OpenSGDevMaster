@@ -47,7 +47,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Trackball
+/*! \class OSG::Trackball
     \ingroup GrpSystemWindows
 
 The old Trackball class. Use is deprecated, use the TrackballNavigator instead,

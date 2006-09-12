@@ -68,7 +68,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/* \class osg::GeoImmediatePumpGroup
+/* \class OSG::GeoImmediatePumpGroup
    \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 */

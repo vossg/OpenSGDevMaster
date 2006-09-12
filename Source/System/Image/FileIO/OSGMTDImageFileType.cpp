@@ -55,7 +55,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::MTDImageFileType 
+/*! \class OSG::MTDImageFileType 
     \ingroup GrpSystemImage
 
   Image File Type to read/write and store/restore Image objects as

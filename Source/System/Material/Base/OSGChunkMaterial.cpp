@@ -60,15 +60,15 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ChunkMaterial
+/*! \class OSG::ChunkMaterial
     \ingroup GrpSystemMaterial
 
   The chunk material class. See \ref PageSystemMaterialChunkMaterial for a
   description.
   
   Chunks can be attached and detached from the material using
-  osg::ChunkMaterial::addChunk() and osg::ChunkMaterial::subChunk(). For more
-  complex manipulation of the chunk list use the osg::ChunkMaterial::_mfChunks
+  OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more
+  complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks
   field's functions.
   
  */
@@ -299,7 +299,7 @@ void ChunkMaterial::draw(DrawFunctor& func, DrawActionBase * action)
     subRef(state); // kill it
 }
 
-/*! Create a osg::State that represents this Material and return it.
+/*! Create a OSG::State that represents this Material and return it.
  */
 
 StatePtr ChunkMaterial::makeState(void)

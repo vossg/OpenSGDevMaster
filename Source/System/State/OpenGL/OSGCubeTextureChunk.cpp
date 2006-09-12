@@ -59,7 +59,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::CubeTextureChunk
+/*! \class OSG::CubeTextureChunk
     \ingroup GrpSystemState
 
 See \ref PageSystemCubeTextureChunk for a description.
@@ -67,9 +67,9 @@ See \ref PageSystemCubeTextureChunk for a description.
 The CubeTexture is defined by 6 separate texture images. As it is derived from 
 the standard texture chunk it already has an image, which is used for the 
 negative Z direction. The other 5 images are stored in variables that are named
-according to the direction they represent (osg::CubeTextureChunk::_sfPosZImage,
-osg::CubeTextureChunk::_sfNegYImage, osg::CubeTextureChunk::_sfPosYImage, 
-osg::CubeTextureChunk::_sfNegXImage, osg::CubeTextureChunk::_sfPosXImage).
+according to the direction they represent (OSG::CubeTextureChunk::_sfPosZImage,
+OSG::CubeTextureChunk::_sfNegYImage, OSG::CubeTextureChunk::_sfPosYImage, 
+OSG::CubeTextureChunk::_sfNegXImage, OSG::CubeTextureChunk::_sfPosXImage).
 
 */
 

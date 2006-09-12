@@ -51,7 +51,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::VerifyGeoGraphOp
+/*! \class OSG::VerifyGeoGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 A base class used to traverse geometries.

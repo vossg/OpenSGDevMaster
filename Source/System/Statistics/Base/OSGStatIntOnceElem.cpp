@@ -55,10 +55,10 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StatIntOnceElem
+/*! \class OSG::StatIntOnceElem
     \ingroup GrpSystemStatistics
 
-    The StatIntOnceElem is similar to the osg::StatIntElem, but it keeps
+    The StatIntOnceElem is similar to the OSG::StatIntElem, but it keeps
     track of who has contributed already and only allows each ID to
     contribute once. \ref PageSystemStatistics for details. 
 */

@@ -56,7 +56,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::GeoIntegralProperty
+/*! \class OSG::GeoIntegralProperty
 Parent class for integral (i.e. one dimensional integer typed) properties.  The main reason for this class is as a parent class for indices, lengths and  types for the Geometry.  
 */
 

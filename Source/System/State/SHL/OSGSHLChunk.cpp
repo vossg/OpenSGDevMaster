@@ -70,7 +70,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::SHLChunk
+/*! \class OSG::SHLChunk
 
 */
 

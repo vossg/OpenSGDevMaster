@@ -63,7 +63,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Image
+/*! \class OSG::Image
   1D/2D/3D Image with various pixel types data, can also optional hold 
   mipMap and simple multi-frame data.
  */
@@ -465,19 +465,19 @@ bool Image::addValue(const char *value)
                 switch(pixelDepth)
                 {
                     case 1:
-                        pf = osg::Image::OSG_L_PF;
+                        pf = OSG::Image::OSG_L_PF;
                         break;
                     case 2:
-                        pf = osg::Image::OSG_LA_PF;
+                        pf = OSG::Image::OSG_LA_PF;
                         break;
                     case 3:
-                        pf = osg::Image::OSG_RGB_PF;
+                        pf = OSG::Image::OSG_RGB_PF;
                         break;
                     case 4:
-                        pf = osg::Image::OSG_RGBA_PF;
+                        pf = OSG::Image::OSG_RGBA_PF;
                         break;
                     default:
-                        pf = osg::Image::OSG_INVALID_PF;
+                        pf = OSG::Image::OSG_INVALID_PF;
                         FFATAL(("Invalid pixel depth: %d\n", pixelDepth));
                         break;
                 }
@@ -487,19 +487,19 @@ bool Image::addValue(const char *value)
                 switch(pixelDepth)
                 {
                     case 2:
-                        pf = osg::Image::OSG_L_PF;
+                        pf = OSG::Image::OSG_L_PF;
                         break;
                     case 4:
-                        pf = osg::Image::OSG_LA_PF;
+                        pf = OSG::Image::OSG_LA_PF;
                         break;
                     case 6:
-                        pf = osg::Image::OSG_RGB_PF;
+                        pf = OSG::Image::OSG_RGB_PF;
                         break;
                     case 8:
-                        pf = osg::Image::OSG_RGBA_PF;
+                        pf = OSG::Image::OSG_RGBA_PF;
                         break;
                     default:
-                        pf = osg::Image::OSG_INVALID_PF;
+                        pf = OSG::Image::OSG_INVALID_PF;
                         FFATAL(("Invalid pixel depth: %d\n", pixelDepth));
                         break;
                 }
@@ -509,19 +509,19 @@ bool Image::addValue(const char *value)
                 switch(pixelDepth)
                 {
                     case 4:
-                        pf = osg::Image::OSG_L_PF;
+                        pf = OSG::Image::OSG_L_PF;
                         break;
                     case 8:
-                        pf = osg::Image::OSG_LA_PF;
+                        pf = OSG::Image::OSG_LA_PF;
                         break;
                     case 12:
-                        pf = osg::Image::OSG_RGB_PF;
+                        pf = OSG::Image::OSG_RGB_PF;
                         break;
                     case 16:
-                        pf = osg::Image::OSG_RGBA_PF;
+                        pf = OSG::Image::OSG_RGBA_PF;
                         break;
                     default:
-                        pf = osg::Image::OSG_INVALID_PF;
+                        pf = OSG::Image::OSG_INVALID_PF;
                         FFATAL(("Invalid pixel depth: %d\n", pixelDepth));
                         break;
                 }
@@ -531,19 +531,19 @@ bool Image::addValue(const char *value)
                 switch(pixelDepth)
                 {
                     case 4:
-                        pf = osg::Image::OSG_L_PF;
+                        pf = OSG::Image::OSG_L_PF;
                         break;
                     case 8:
-                        pf = osg::Image::OSG_LA_PF;
+                        pf = OSG::Image::OSG_LA_PF;
                         break;
                     case 12:
-                        pf = osg::Image::OSG_RGB_PF;
+                        pf = OSG::Image::OSG_RGB_PF;
                         break;
                     case 16:
-                        pf = osg::Image::OSG_RGBA_PF;
+                        pf = OSG::Image::OSG_RGBA_PF;
                         break;
                     default:
-                        pf = osg::Image::OSG_INVALID_PF;
+                        pf = OSG::Image::OSG_INVALID_PF;
                         FFATAL(("Invalid pixel depth: %d\n", pixelDepth));
                         break;
                 }
@@ -553,19 +553,19 @@ bool Image::addValue(const char *value)
                 switch(pixelDepth)
                 {
                     case 2:
-                        pf = osg::Image::OSG_L_PF;
+                        pf = OSG::Image::OSG_L_PF;
                         break;
                     case 4:
-                        pf = osg::Image::OSG_LA_PF;
+                        pf = OSG::Image::OSG_LA_PF;
                         break;
                     case 6:
-                        pf = osg::Image::OSG_RGB_PF;
+                        pf = OSG::Image::OSG_RGB_PF;
                         break;
                     case 8:
-                        pf = osg::Image::OSG_RGBA_PF;
+                        pf = OSG::Image::OSG_RGBA_PF;
                         break;
                     default:
-                        pf = osg::Image::OSG_INVALID_PF;
+                        pf = OSG::Image::OSG_INVALID_PF;
                         FFATAL(("Invalid pixel depth: %d\n", pixelDepth));
                         break;
                 }

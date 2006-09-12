@@ -50,7 +50,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::SpotLight
+/*! \class OSG::SpotLight
     SpotLight is a located lightsource. The position of the light source
     (in the beacon's coordinate system) is defined by the \c position 
     attribute, its direction by the \c direction attribute. The spot has an 

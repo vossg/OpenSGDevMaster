@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TrackballNavigator
+/*! \class OSG::TrackballNavigator
     \ingroup GrpSystemWindowNavigators
 
 The TrackballNavigator models a navigation model based on a rotating sphere,  

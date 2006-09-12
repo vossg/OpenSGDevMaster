@@ -64,7 +64,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ShaderParameterChunk
+/*! \class OSG::ShaderParameterChunk
 
 */
 

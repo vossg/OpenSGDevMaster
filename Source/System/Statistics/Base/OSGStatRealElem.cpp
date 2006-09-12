@@ -55,7 +55,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StatRealElem
+/*! \class OSG::StatRealElem
     \ingroup GrpSystemStatistics
 
     The StatIntElem keeps an Real32 value, see \ref PageSystemStatistics for

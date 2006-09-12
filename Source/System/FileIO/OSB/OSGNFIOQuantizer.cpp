@@ -45,7 +45,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Quantizer
+/*! \class OSG::Quantizer
            quantize reals into 8, 16, or 24 bit integers.
            round then left-reconstruct
  */

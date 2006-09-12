@@ -55,10 +55,10 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StatTimeElem
+/*! \class OSG::StatTimeElem
     \ingroup GrpSystemStatistics
 
-    The StatIntElem keeps a osg::Time value for time measurements, 
+    The StatIntElem keeps a OSG::Time value for time measurements, 
     see \ref PageSystemStatistics for details. 
 */
 

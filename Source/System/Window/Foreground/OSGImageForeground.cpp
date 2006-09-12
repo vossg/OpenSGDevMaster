@@ -65,7 +65,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ImageForeground
+/*! \class OSG::ImageForeground
     \ingroup GrpSystemWindowForegrounds
     
 The ImageForeground is used to draw images on top of the viewport.  See \ref

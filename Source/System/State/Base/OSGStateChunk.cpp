@@ -68,7 +68,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StateChunk
+/*! \class OSG::StateChunk
     \ingroup GrpSystemState
     
 See \ref PageSystemState for the conceptual background. 
@@ -79,7 +79,7 @@ See \ref PageSystemState for the conceptual background.
  *                               Types                                     *
 \***************************************************************************/
 
-/*! \class osg::StateChunkClass
+/*! \class OSG::StateChunkClass
     \ingroup GrpSystemState
 
 See \ref StateChunkClass for the
@@ -87,20 +87,20 @@ conceptual background.
 
 */
 
-/*! \var osg::StateChunkClass::_classId
+/*! \var OSG::StateChunkClass::_classId
     The numerical ID associated with each StateChunkClass. It is used to
     uniquely identify and quickly compare the class.
     
     \dev The classId is consecutive in the number of slots allocated to the
     chunk class, i.e. if a class has id 4 and 4 chunks, the next registered
-    class will get id 8. The classId is used as an index into the osg::State's
+    class will get id 8. The classId is used as an index into the OSG::State's
     chunk vector, which necessitates this behaviour. \enddev
 */   
 
 /*! The global vector of known StateChunkClasses' names. Use
     StateChunkClass::getName with the Classes ID to access it.
     
-    \dev See the osg::StateChunkClass::_classId for details. \enddev
+    \dev See the OSG::StateChunkClass::_classId for details. \enddev
 */   
 
 std::vector<std::string> *StateChunkClass::_classNames = NULL;
@@ -109,7 +109,7 @@ std::vector<std::string> *StateChunkClass::_classNames = NULL;
     active slots. Use StateChunkClass::getNumSlots with the Class's ID to access
     it.
     
-    \dev See the osg::StateChunkClass::_classId for details. \enddev
+    \dev See the OSG::StateChunkClass::_classId for details. \enddev
 */   
 
 std::vector<UInt32                     > *StateChunkClass::_numslots   = NULL;
@@ -196,7 +196,7 @@ Int32 StateChunkClass::getNumSlots(UInt32 index)
     return (*_numslots)[index];
 }
 
-/*! \var osg::StateChunkClass::iterator
+/*! \var OSG::StateChunkClass::iterator
 
     Iterator type to access the chunk class list.
 */

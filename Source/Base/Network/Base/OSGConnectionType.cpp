@@ -51,7 +51,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ConnectionType
+/*! \class OSG::ConnectionType
  
     A connection type describes a network connection and provides an
     interface for dynamic connection creation.

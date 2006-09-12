@@ -46,7 +46,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::MaterialGroup
+/*! \class OSG::MaterialGroup
 */
 
 /*-------------------------------------------------------------------------*/

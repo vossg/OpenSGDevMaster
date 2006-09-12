@@ -52,7 +52,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Plane
+/*! \class OSG::Plane
 
     Oriented plane in 3D space defined by normal and distance.
 
@@ -70,7 +70,7 @@ OSG_USING_NAMESPACE
 
     \dev 
 
-    Internally the plane keeps an additional osg::Plane::_index, which is used
+    Internally the plane keeps an additional OSG::Plane::_index, which is used
     to speed up volume checks.
 
     \enddev

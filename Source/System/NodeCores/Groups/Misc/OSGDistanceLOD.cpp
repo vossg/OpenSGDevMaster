@@ -53,7 +53,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::DistanceLOD
+/*! \class OSG::DistanceLOD
 
   This Node manages the different levels of detail available for a Geometry
   and decides which one should be rendered, according to the distance from the
@@ -74,7 +74,7 @@ OSG_USING_NAMESPACE
   the first LOD is drawn. If it is between the first and the second values, 
   then the second LOD is drawn, and so on.
   
-  \example Setting up a osg::DistanceLOD
+  \example Setting up a OSG::DistanceLOD
   
   Here is an example of setting up an lod core with a center and a range.
   You would also need to add children for the 4 LODs.

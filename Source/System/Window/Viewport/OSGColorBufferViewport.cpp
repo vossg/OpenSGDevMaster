@@ -53,7 +53,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ColorBufferViewport
+/*! \class OSG::ColorBufferViewport
     \ingroup GrpSystemWindowViewports
 
 Viewport to only render to specific color channels, see \ref

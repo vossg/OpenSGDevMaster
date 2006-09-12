@@ -57,7 +57,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StereoBufferViewport
+/*! \class OSG::StereoBufferViewport
     \ingroup GrpSystemWindowViewports
 
 Viewport for quad-buffered stereo rendering, see \ref

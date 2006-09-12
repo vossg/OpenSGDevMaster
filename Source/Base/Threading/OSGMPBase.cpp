@@ -54,7 +54,7 @@ OSG_USING_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::MPType
+/*! \class OSG::MPType
  */
 
 MPType::MPType(const Char8  *szName, 
@@ -78,7 +78,7 @@ MPType::~MPType(void)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::MPThreadType
+/*! \class OSG::MPThreadType
  */
 
 UInt32 MPThreadType::_uiThreadCount = 0;
@@ -136,7 +136,7 @@ BaseThread *MPThreadType::create(const Char8 *szName)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::MPBarrierType
+/*! \class OSG::MPBarrierType
  */
 
 UInt32 MPBarrierType::_uiBarrierCount = 0;
@@ -190,7 +190,7 @@ Barrier *MPBarrierType::create(const Char8 *szName)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::MPLockType
+/*! \class OSG::MPLockType
  */
 
 UInt32 MPLockType::_uiLockCount = 0;
@@ -244,7 +244,7 @@ Lock *MPLockType::create(const Char8 *szName)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::MPLockPoolType
+/*! \class OSG::MPLockPoolType
  */
 
 UInt32 MPLockPoolType::_uiLockPoolCount = 0;
@@ -300,7 +300,7 @@ LockPool *MPLockPoolType::create(const Char8 *szName)
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class osg::MPBase
+/*! \class OSG::MPBase
  */
 
 MPType MPBase::_type("OSGMPBase", NULL);

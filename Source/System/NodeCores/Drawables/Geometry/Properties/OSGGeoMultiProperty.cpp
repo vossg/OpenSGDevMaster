@@ -56,7 +56,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::GeoMultiProperty
+/*! \class OSG::GeoMultiProperty
 Class referencing data from a GeoMultiPropertyData. 
 */
 

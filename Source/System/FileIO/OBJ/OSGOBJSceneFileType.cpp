@@ -72,7 +72,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::OBJSceneFileType
+/*! \class OSG::OBJSceneFileType
     \ingroup GrpSystemFileIO
 
  */

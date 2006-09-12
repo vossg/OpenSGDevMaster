@@ -62,7 +62,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::GrabForeground
+/*! \class OSG::GrabForeground
     \ingroup GrpSystemWindowForegrounds
     
 The GrabForeground is used for grabbing a rendered viewport into an Image. 

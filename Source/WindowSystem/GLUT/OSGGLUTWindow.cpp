@@ -60,7 +60,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::GLUTWindow
+/*! \class OSG::GLUTWindow
 
   The class for GLUT-based windows. See \ref PageWindowGlut for a description.
 

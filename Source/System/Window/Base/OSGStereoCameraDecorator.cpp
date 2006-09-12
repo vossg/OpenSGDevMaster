@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StereoCameraDecorator
+/*! \class OSG::StereoCameraDecorator
     \ingroup PageSystemWindowCameraDecoratorsStereo
 
 The abstract base class for stereo camera decorators, see \ref

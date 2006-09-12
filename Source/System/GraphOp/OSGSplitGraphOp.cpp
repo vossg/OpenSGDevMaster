@@ -60,7 +60,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::SplitGraphOp
+/*! \class OSG::SplitGraphOp
     \ingroup GrpSystemNodeCoresDrawablesGeometry
     
 A class used to optimize geometries a bit.

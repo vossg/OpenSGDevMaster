@@ -46,7 +46,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::DrawTreeNode
+/*! \class OSG::DrawTreeNode
     \ingroup GrpSystemRenderingBackend
  */
 

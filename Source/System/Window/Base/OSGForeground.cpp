@@ -54,7 +54,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Foreground
+/*! \class OSG::Foreground
     \ingroup GrpSystemWindowForegrounds
     
   Foreground is the base class for all foreground rendering.  See \ref

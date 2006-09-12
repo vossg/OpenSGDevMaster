@@ -64,7 +64,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::StreamSocket
+/** \class OSG::StreamSocket
  *  \ingroup GrpBaseNetwork
  *  \brief Stream socket handler
  *

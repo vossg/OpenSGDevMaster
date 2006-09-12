@@ -58,7 +58,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::GeoProperty
+/*! \class OSG::GeoProperty
 
 */
 

@@ -121,7 +121,7 @@ OSG_USING_NAMESPACE
 
 */
 /*! \var UInt32 TextureChunkBase::_sfFrame
-            Select the frame of the image to be used. See osg::Image about details
+            Select the frame of the image to be used. See OSG::Image about details
         concerning multi-frame images.
         \hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap
         creation is slow right now. \endhint

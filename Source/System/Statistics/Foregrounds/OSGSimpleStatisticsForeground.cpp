@@ -62,7 +62,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::SimpleStatisticsForeground
+/*! \class OSG::SimpleStatisticsForeground
     \ingroup GrpSystemWindowForegroundsStatistics
 
 SimpleStatisticsForeground displays the Statistics info as simple text lines.

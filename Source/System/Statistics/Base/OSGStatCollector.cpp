@@ -60,10 +60,10 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::StatCollector
+/*! \class OSG::StatCollector
     \ingroup GrpSystemStatistics
 
-    The StatCollector is responsible for managing a set of osg::StatElem
+    The StatCollector is responsible for managing a set of OSG::StatElem
     elements, see \ref PageSystemStatistics for details.
 */
 

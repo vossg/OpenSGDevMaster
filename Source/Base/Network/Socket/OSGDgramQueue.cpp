@@ -51,7 +51,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::DgramQueue
+/** \class OSG::DgramQueue
  *  \ingroup GrpBaseNetwork
  *  \brief Stream socket connection
  *

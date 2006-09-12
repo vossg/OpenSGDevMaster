@@ -54,7 +54,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::EGLWindow
+/*! \class OSG::EGLWindow
 The class for EGL windows. 	
 */
 

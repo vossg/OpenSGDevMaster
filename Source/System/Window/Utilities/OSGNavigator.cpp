@@ -51,7 +51,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::Navigator
+/*! \class OSG::Navigator
     \ingroup GrpSystemWindowNavigators
 
     The general Navigator helper class, see \ref 
@@ -61,14 +61,14 @@ OSG_USING_NAMESPACE
 */
 
 
-/*! \enum osg::Navigator::Mode
+/*! \enum OSG::Navigator::Mode
 
     The navigation mode, i.e. the actual active low-level navigator.
     The NONE case is also used for the purpose of matrix consistency.
 */
 
 
-/*! \enum osg::Navigator::State
+/*! \enum OSG::Navigator::State
 
     The navigation state, mainly needed for correct interpretation of mouse
     motions, which have to be interpreted differently for  different states. 
@@ -108,7 +108,7 @@ OSG_USING_NAMESPACE
 */
 
 
-/*! \enum osg::Navigator::MouseButton
+/*! \enum OSG::Navigator::MouseButton
 
     Abstraction enumeration for mouse buttons, to keep the Navigator
     independent of the actual Window System.
@@ -125,7 +125,7 @@ OSG_USING_NAMESPACE
 */
 
 
-/*! \enum osg::Navigator::Key
+/*! \enum OSG::Navigator::Key
 
     Abstraction enumeration for keys, to keep the Navigator
     independent of the actual Window System.

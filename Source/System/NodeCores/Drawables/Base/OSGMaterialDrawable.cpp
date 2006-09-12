@@ -52,7 +52,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::MaterialDrawable
+/*! \class OSG::MaterialDrawable
 
 */
 

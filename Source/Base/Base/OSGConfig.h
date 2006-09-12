@@ -816,13 +816,6 @@
 
 /*@{*/
 
-/** \brief osg namespace, use to reference a object within the namespace, like
- *  \ingroup GrpBaseDefines
-    OSG::OSGUInt32.
-*/
-
-# define OSG osg
-
 /** \brief Begin the osg namespace
  *  \ingroup GrpBaseDefines
  */

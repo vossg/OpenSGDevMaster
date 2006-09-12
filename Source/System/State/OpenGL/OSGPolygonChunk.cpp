@@ -56,22 +56,22 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PolygonChunk
+/*! \class OSG::PolygonChunk
     \ingroup GrpSystemState
 
 See \ref PageSystemPolygonChunk for details.
 
 The parameters of the following functions are wrapped here: glCullFace()
-(osg::PolygonChunk::_sfCullFace), glFrontFace()
-(osg::PolygonChunk::_sfFrontFace), glPolygonMode() 
-(osg::PolygonChunk::_sfFrontMode, osg::PolygonChunk::_sfBackMode),
-glEnable(GL_POLYGON_SMOOTH) (osg::PolygonChunk::_sfSmooth), glPolygonOffset()
-(osg::PolygonChunk::_sfOffsetFactor, osg::PolygonChunk::_sfOffsetBias),
-glEnable(GL_POLYGON_OFFSET_POINT) (osg::PolygonChunk::_sfOffsetPoint),
-glEnable(GL_POLYGON_OFFSET_LINE) (osg::PolygonChunk::_sfOffsetLine),
-glEnable(GL_POLYGON_OFFSET_FILL) (osg::PolygonChunk::_sfOffsetFill),
+(OSG::PolygonChunk::_sfCullFace), glFrontFace()
+(OSG::PolygonChunk::_sfFrontFace), glPolygonMode() 
+(OSG::PolygonChunk::_sfFrontMode, OSG::PolygonChunk::_sfBackMode),
+glEnable(GL_POLYGON_SMOOTH) (OSG::PolygonChunk::_sfSmooth), glPolygonOffset()
+(OSG::PolygonChunk::_sfOffsetFactor, OSG::PolygonChunk::_sfOffsetBias),
+glEnable(GL_POLYGON_OFFSET_POINT) (OSG::PolygonChunk::_sfOffsetPoint),
+glEnable(GL_POLYGON_OFFSET_LINE) (OSG::PolygonChunk::_sfOffsetLine),
+glEnable(GL_POLYGON_OFFSET_FILL) (OSG::PolygonChunk::_sfOffsetFill),
 glStipplePattern() and glEnable(GL_POLYGON_STIPPLE)
-(osg::PolygonChunk::_sfStipple).
+(OSG::PolygonChunk::_sfStipple).
 */
 
 /***************************************************************************\

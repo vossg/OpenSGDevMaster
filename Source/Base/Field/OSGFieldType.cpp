@@ -46,7 +46,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \var osg::FieldType::_contentType
+/*! \var OSG::FieldType::_contentType
     Type stored within fields of this type
  */
 

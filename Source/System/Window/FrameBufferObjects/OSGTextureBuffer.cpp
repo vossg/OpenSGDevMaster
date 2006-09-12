@@ -85,7 +85,7 @@ typedef void (OSG_APIENTRY *GLFramebufferTexture3DEXTProcT)(
     GLint level, 
     GLint zoffset);
 
-/*! \class osg::TextureBuffer
+/*! \class OSG::TextureBuffer
     \ingroup GrpSystemWindowViewports
 
 */

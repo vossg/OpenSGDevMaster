@@ -54,7 +54,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::GroupSockConnection
+/** \class OSG::GroupSockConnection
  *  \ingroup GrpBaseNetwork
  **/
 

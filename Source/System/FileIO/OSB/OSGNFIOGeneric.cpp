@@ -54,7 +54,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::NFIOGeneric
+/*! \class OSG::NFIOGeneric
            reads and writes a fieldcontainer.
  */
 

@@ -64,7 +64,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::GradientBackground
+/*! \class OSG::GradientBackground
     \ingroup GrpSystemWindowBackgrounds
 
 A background showing a vertical color gradient, see

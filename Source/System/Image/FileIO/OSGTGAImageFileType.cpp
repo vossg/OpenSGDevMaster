@@ -61,7 +61,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::TGAImageFileType
+/*! \class OSG::TGAImageFileType
     \ingroup GrpSystemImage
 
   Image File Type to read/write and store/restore Image objects as

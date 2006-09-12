@@ -61,7 +61,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TextureGrabForeground
+/*! \class OSG::TextureGrabForeground
     \ingroup GrpSystemWindowForegrounds
     
   The GrabForeground is used for grabbing a rendered viewport into a Texture. 

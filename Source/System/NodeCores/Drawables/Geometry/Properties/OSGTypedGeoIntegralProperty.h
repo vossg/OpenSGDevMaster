@@ -344,7 +344,7 @@ struct TypedGeoIntegralPropertyDescBase
 };
 
 
-/*! \brief The descriptor trait for osg::GeoPositionsUInt8.
+/*! \brief The descriptor trait for OSG::GeoPositionsUInt8.
     \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
     \hideinhierarchy
 */
@@ -369,7 +369,7 @@ typedef GeoUInt8Property::ObjPtr                       GeoUInt8PropertyPtr;
 #endif
 
 
-/*! \brief The descriptor trait for osg::GeoPositionsUInt16.
+/*! \brief The descriptor trait for OSG::GeoPositionsUInt16.
     \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
     \hideinhierarchy
 */
@@ -395,7 +395,7 @@ typedef GeoUInt16Property::ObjPtr                       GeoUInt16PropertyPtr;
 
 
 #ifndef OSG_WINCE
-/*! \brief The descriptor trait for osg::GeoPositionsUInt32.
+/*! \brief The descriptor trait for OSG::GeoPositionsUInt32.
     \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
     \hideinhierarchy
 */

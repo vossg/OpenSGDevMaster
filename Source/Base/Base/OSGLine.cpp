@@ -57,7 +57,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Line
+/*! \class OSG::Line
      A line starting at a point p and extending infinitely far into the 
      direction d. This will probably split up into multiple classes for 
      dual-inifinite and non-infinite lines

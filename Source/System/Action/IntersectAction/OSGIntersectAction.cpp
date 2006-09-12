@@ -60,7 +60,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::IntersectAction
+/*! \class OSG::IntersectAction
     \ingroup GrpSystemAction
 
   The intersect action class.

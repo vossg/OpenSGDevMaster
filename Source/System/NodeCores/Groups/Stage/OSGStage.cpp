@@ -57,7 +57,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::Stage
+/*! \class OSG::Stage
 
 */
 

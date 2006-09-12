@@ -48,7 +48,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! Return the index of the current face. The index runs from 0 to the
     number of triangles in the geometry. Its main use is as an input to 
-    osg::LineIterator::seek.
+    OSG::LineIterator::seek.
 */
 inline       
 Int32 LineIterator::getIndex(void) const

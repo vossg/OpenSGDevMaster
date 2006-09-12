@@ -52,7 +52,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::XWindow
+/*! \class OSG::XWindow
 
   The class for X-based windows. See \ref PageWindowX for a description.
 

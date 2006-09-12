@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::SwitchMaterial
+/*! \class OSG::SwitchMaterial
 
 */
 
@@ -183,7 +183,7 @@ void SwitchMaterial::draw(DrawFunctor &OSG_CHECK_ARG(func), DrawActionBase *OSG_
 {
 }
 
-/*! Create a osg::State that represents this Material and return it.
+/*! Create a OSG::State that represents this Material and return it.
 */
 
 StatePtr SwitchMaterial::makeState(void)

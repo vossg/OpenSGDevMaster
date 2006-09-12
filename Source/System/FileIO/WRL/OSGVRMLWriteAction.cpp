@@ -77,7 +77,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::VRMLWriteAction
+/*! \class OSG::VRMLWriteAction
     \ingroup GrpSystemAction
 
 The action class for writing VRML files.

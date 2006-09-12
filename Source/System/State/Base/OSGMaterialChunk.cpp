@@ -56,16 +56,16 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::MaterialChunk
+/*! \class OSG::MaterialChunk
     \ingroup GrpSystemState
 
   See \ref PageSystemMaterialChunk for details.
 
-  This chunk wraps glMaterial() (osg::MaterialChunk::_sfDiffuse,
-  osg::MaterialChunk::_sfSpecular, osg::MaterialChunk::_sfEmission,
-  osg::MaterialChunk::_sfShininess, osg::MaterialChunk::_sfAmbient),
-  glEnable(GL_LIGHTING)(osg::MaterialChunk::_sfLit) and glColorMaterial()
-  (osg::MaterialChunk::_sfColorMaterial).
+  This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,
+  OSG::MaterialChunk::_sfSpecular, OSG::MaterialChunk::_sfEmission,
+  OSG::MaterialChunk::_sfShininess, OSG::MaterialChunk::_sfAmbient),
+  glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
+  (OSG::MaterialChunk::_sfColorMaterial).
 
 */
 

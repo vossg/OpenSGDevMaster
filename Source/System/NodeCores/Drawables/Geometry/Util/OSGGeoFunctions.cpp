@@ -785,7 +785,7 @@ void calcVertexTexCoords(GeometryPtr geo,
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
 
-    setIndexFromVRMLData creates an osg::Geometry's interleaved index data
+    setIndexFromVRMLData creates an OSG::Geometry's interleaved index data
     from VRML-style separate indices, see \ref PageSystemGeoFunctionsMakeGeo
     for a description.
 
@@ -1400,7 +1400,7 @@ else
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
 
-    setIndexFromIndexedX3DData creates an osg::Geometry's interleaved index data
+    setIndexFromIndexedX3DData creates an OSG::Geometry's interleaved index data
     from X3D-style separate indices, see \ref PageSystemGeoFunctionsMakeGeo
     for a description.
     

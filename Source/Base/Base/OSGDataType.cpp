@@ -51,7 +51,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::DataType
+/*! \class OSG::DataType
  */
 
 /*-------------------------------------------------------------------------*/

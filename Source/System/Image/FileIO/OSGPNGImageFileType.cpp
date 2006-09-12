@@ -67,7 +67,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::PNGImageFileType 
+/*! \class OSG::PNGImageFileType 
     \ingroup GrpSystemImage
 
   Image File Type to read/write and store/restore Image objects as
@@ -155,7 +155,7 @@ bool PNGImageFileType::read(      ImagePtrArg   OSG_PNG_ARG(pImage  ),
 #ifdef OSG_WITH_PNG
 
     bool                retCode;
-    Image::PixelFormat  pixelFormat = osg::Image::OSG_INVALID_PF;
+    Image::PixelFormat  pixelFormat = OSG::Image::OSG_INVALID_PF;
     png_structp         png_ptr;
     png_infop           info_ptr;
     png_uint_32         width, wc, height, h, i;

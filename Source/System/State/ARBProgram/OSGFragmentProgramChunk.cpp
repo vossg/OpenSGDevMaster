@@ -56,13 +56,13 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::FragmentProgramChunk
+/*! \class OSG::FragmentProgramChunk
     \ingroup GrpSystemState
 
   See \ref PageSystemFragmentProgramChunk for a description. The 
   FragmentProgramChunk implements Fragment Programs as specified in the 
   GL_ARB_fragment_program extension.
-  It is just a special version of the osg::ProgramChunk, which contains the
+  It is just a special version of the OSG::ProgramChunk, which contains the
   whole public interface.
  */
 

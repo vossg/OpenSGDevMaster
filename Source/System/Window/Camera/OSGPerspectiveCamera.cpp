@@ -65,7 +65,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PerspectiveCamera
+/*! \class OSG::PerspectiveCamera
     \ingroup GrpSystemWindowCameras
 
   The Perspective Camera class, see \ref PageSystemWindowCameraPerspective for 

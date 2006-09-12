@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PassiveWindow
+/*! \class OSG::PassiveWindow
     \ingroup GrpSystemWindowPassive
 
 A PassiveWindow is a Window class for integration into other OpenGL

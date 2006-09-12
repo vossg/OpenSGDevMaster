@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::NFIOOptions
+/*! \class OSG::NFIOOptions
            parses the reader/writer options.
  */
 

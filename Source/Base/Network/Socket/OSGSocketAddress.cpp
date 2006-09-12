@@ -60,7 +60,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::SocketAddress
+/** \class OSG::SocketAddress
  *  \ingroup GrpBaseNetwork
  *  \brief Network address
  *

@@ -155,7 +155,7 @@ PolygonChunkPtr SimpleShadowMapEngine::EngineData::getPolyChunk(void)
 
 
 
-/*! \class osg::SimpleShadowMapEngine
+/*! \class OSG::SimpleShadowMapEngine
 */
 
 /*-------------------------------------------------------------------------*/

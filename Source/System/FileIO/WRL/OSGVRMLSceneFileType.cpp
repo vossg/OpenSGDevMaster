@@ -50,7 +50,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::VRMLSceneFileType
+/*! \class OSG::VRMLSceneFileType
     \ingroup GrpSystemFileIO
 */
 

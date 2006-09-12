@@ -58,7 +58,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::TextureBackground
+/*! \class OSG::TextureBackground
   A textured background e.g for distortion corrected fast live video from a 
   camera with known intrinsic parameters.
  */
