@@ -73,7 +73,7 @@ class DrawEnv;
 class RenderTraversalActionBase;
 #endif
 
-/*! \brief Window base class. See \ref PageSystemWindowWindow 
+/*! \brief Window base class. See \ref PageSystemWindowWindow
 for a description. */
 
 class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
@@ -82,37 +82,37 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
   public:
 
-    enum GLObjectStatusE 
+    enum GLObjectStatusE
     {
-        notused      = 1, 
-        initialize, 
-        reinitialize, 
+        notused      = 1,
+        initialize,
+        reinitialize,
         initialized,
-        needrefresh, 
-        destroy, 
-        finaldestroy 
+        needrefresh,
+        destroy,
+        finaldestroy
     };
 
-    enum 
-    { 
-        invalidExtensionID = 0x7fffffff, 
-        invalidFunctionID  = 0x7fffffff 
+    enum
+    {
+        invalidExtensionID = 0x7fffffff,
+        invalidFunctionID  = 0x7fffffff
     };
 
-    // max status value = 7, 3 bit shift is enough 
-    enum 
-    { 
-        statusShift = 3, 
-        statusMask  = 7 
-    }; 
+    // max status value = 7, 3 bit shift is enough
+    enum
+    {
+        statusShift = 3,
+        statusMask  = 7
+    };
 
-    static const Real32 unknownConstant;    
+    static const Real32 unknownConstant;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Typedefs                               */
     /*! \{                                                                 */
-    
+
     typedef boost::function<void (DrawEnv *, UInt32)> GLObjectFunctor;
 
     typedef void (*GLExtensionFunction)(void);
@@ -151,7 +151,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     static UInt32 registerExtension(const Char8 *s       );
     static void   ignoreExtensions (const Char8 *s       );
 
-    static UInt32 registerFunction (const Char8 *s,  
+    static UInt32 registerFunction (const Char8 *s,
                                           Int32  ext = -1);
 
     static void   registerConstant (       GLenum val    );
@@ -172,24 +172,24 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
            void                 dumpExtensions    (      void       );
            GLExtensionFunction  getFunctionByName (const Char8  *s  );
            Real32               getConstantValue  (      GLenum  val);
-    const  Vec2f               &getConstantValuev (      GLenum  val);    
-    
+    const  Vec2f               &getConstantValuev (      GLenum  val);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name            Extension string handling                         */
     /*! \{                                                                 */
 
-    static const std::vector<std::string> &getRegisteredExtensions(void);   
-           const std::vector<std::string> &getRegisteredFunctions (void);   
+    static const std::vector<std::string> &getRegisteredExtensions(void);
+           const std::vector<std::string> &getRegisteredFunctions (void);
            const std::vector<std::string> &getExtensions          (void);
            const std::vector<std::string> &getIgnoredExtensions   (void);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name             GL object registration                           */
     /*! \{                                                                 */
 
-    static UInt32 registerGLObject(GLObjectFunctor functor, 
+    static UInt32 registerGLObject(GLObjectFunctor functor,
                                    UInt32          num = 1);
 
     /*! \}                                                                 */
@@ -201,12 +201,12 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
                                                 DrawEnv         *pEnv    );
            void            validateAllGLObjects(DrawEnv         *pEnv    );
 
-           GLObjectStatusE getGLObjectStatus   (UInt32           id      );
-           void            setGLObjectId       (UInt32           id, 
+           //GLObjectStatusE getGLObjectStatus   (UInt32           id      );
+           void            setGLObjectId       (UInt32           id,
                                                 UInt32           id2     );
            UInt32          getGLObjectId       (UInt32           id      );
 
-    
+
     static UInt32          getGLObjectsSize    (void                     );
 
     static void            refreshGLObject         (UInt32           id      );
@@ -215,10 +215,10 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     static void            reinitializeGLObject    (UInt32           id      );
     static void            reinitializeAllGLObjects(void                     );
 
-    static void            destroyGLObject         (UInt32           id, 
+    static void            destroyGLObject         (UInt32           id,
                                                     UInt32           num = 1 );
-    static void            unpackIdStatus          (UInt32           idstatus, 
-                                                    UInt32          &id, 
+    static void            unpackIdStatus          (UInt32           idstatus,
+                                                    UInt32          &id,
                                                     GLObjectStatusE &status  );
 
     /*! \}                                                                 */
@@ -228,7 +228,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
             bool isResizePending(void         );
 
-    virtual void resize         (int width, 
+    virtual void resize         (int width,
                                  int height   );
     virtual void resizeGL       (void         );
 
@@ -240,7 +240,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                    Drawing                                   */
     /*! \{                                                                 */
 
-    virtual void    frameInit         (void); 
+    virtual void    frameInit         (void);
     virtual void    frameExit         (void);
 
 #ifdef OSG_OLD_RENDER_ACTION
@@ -311,13 +311,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                GL object handling                            */
     /*! \{                                                                 */
 
-    static void   initRegisterGLObject  (UInt32          id, 
+    static void   initRegisterGLObject  (UInt32          id,
                                          UInt32          num   );
 
-    static UInt32 packIdStatus          (UInt32          id, 
+    static UInt32 packIdStatus          (UInt32          id,
                                          GLObjectStatusE status);
 
-           void   doInitRegisterGLObject(UInt32          id, 
+           void   doInitRegisterGLObject(UInt32          id,
                                          UInt32          num   );
 
     /*! \}                                                                 */
@@ -329,7 +329,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     friend class GLObject;
 
-    class GLObject 
+    class GLObject
     {
       public:
 
@@ -344,7 +344,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
         UInt32 getRefCounter(void);
         UInt32 incRefCounter(void);
         UInt32 decRefCounter(void);
- 
+
       protected:
 
         GLObjectFunctor _functor;
@@ -373,12 +373,12 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \{                                                                 */
 
 #ifdef OSG_STL_HAS_HASH_MAP
-    typedef 
+    typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
-            GLenum,  
+            GLenum,
             Vec2f> ConstHash;
 #else
-    typedef 
+    typedef
         std::map< GLenum,  Vec2f > ConstHash;
 #endif
 
