@@ -241,8 +241,8 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                    Pump Handling                             */
     /*! \{                                                                 */
 
-    GeoPumpGroup::PropertyCharacteristics 
-                            calcPropertyCharacteristics(void);
+//    GeoPumpGroup::PropertyCharacteristics 
+//                            calcPropertyCharacteristics(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
