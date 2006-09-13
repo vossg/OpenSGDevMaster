@@ -139,9 +139,9 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-#ifdef OSG_1_COMPAT
+//#ifdef OSG_1_COMPAT
     Int32  getRefCount(void) const;
-#endif
+//#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

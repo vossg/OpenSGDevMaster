@@ -274,13 +274,13 @@ FieldContainer *FieldContainerPtrBase::getAspectCPtr(UInt32 uiAspectId) const
     return reinterpret_cast<FieldContainer *>(getElemP(uiAspectId));
 }
 
-#ifdef OSG_1_COMPAT
+//#ifdef OSG_1_COMPAT
 inline
 Int32  FieldContainerPtrBase::getRefCount(void) const
 {
     return *getRefCountP();
 }
-#endif
+//#endif
 
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
