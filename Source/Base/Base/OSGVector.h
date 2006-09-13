@@ -405,7 +405,7 @@ class PointInterface : public StorageInterfaceT
        interface :-(. I still find them a little bit wrong placed (GV)
     */
 
-    PointInterface(const ValueTypeT rVal1);
+//    PointInterface(const ValueTypeT rVal1);
 
     PointInterface(const ValueTypeT rVal1, const ValueTypeT rVal2);
 
@@ -672,7 +672,7 @@ class VectorInterface :
        interface :-(. I still find them a little bit wrong placed (GV)
     */
 
-    VectorInterface(const ValueTypeT       rVal1 );
+    //VectorInterface(const ValueTypeT       rVal1 );
 
     VectorInterface(const ValueTypeT rVal1, const ValueTypeT rVal2);
 
