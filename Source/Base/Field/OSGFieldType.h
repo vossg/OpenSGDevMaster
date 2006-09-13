@@ -99,7 +99,7 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
     /*! \name                      Is                                      */
     /*! \{                                                                 */
 
-    bool isFieldContainerPtrField(void);
+//    bool isFieldContainerPtrField(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
