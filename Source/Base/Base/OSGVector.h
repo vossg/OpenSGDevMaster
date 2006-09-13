@@ -430,7 +430,7 @@ class PointInterface : public StorageInterfaceT
     void setNull (void);
 
 
-    void setValue(const ValueTypeT     &rVal1);
+    //void setValue(const ValueTypeT     &rVal1);
 
     void setValue(const PointInterface &vec     );
 
