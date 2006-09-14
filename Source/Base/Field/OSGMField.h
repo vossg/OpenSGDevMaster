@@ -326,7 +326,7 @@ class MField : public Field
 
 OSG_END_NAMESPACE
 
-#define OSGMFIELD_HEADER_CVSID "@(#)$Id: $"
+#define OSGMFIELD_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGMField.inl"
 

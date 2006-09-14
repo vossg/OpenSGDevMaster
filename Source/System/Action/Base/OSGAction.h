@@ -374,7 +374,7 @@ ActionBase::ResultE traverse(const std::vector<NodePtr> &nodeList,
 
 OSG_END_NAMESPACE
 
-#define OSGACTION_HEADER_CVSID "@(#)$Id: $"
+#define OSGACTION_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGAction.inl"
 

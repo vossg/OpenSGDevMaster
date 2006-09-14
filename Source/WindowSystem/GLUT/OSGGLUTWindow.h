@@ -136,7 +136,7 @@ OSG_END_NAMESPACE
 #include "OSGGLUTWindow.inl"
 #include "OSGGLUTWindowBase.inl"
 
-#define OSGGLUTWINDOW_HEADER_CVSID "@(#)$Id: $"
+#define OSGGLUTWINDOW_HEADER_CVSID "@(#)$Id$"
 
 #endif /* OSG_WITH_GLUT */
 

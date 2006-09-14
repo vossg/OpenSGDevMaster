@@ -451,7 +451,7 @@ void FrameBufferObject::handleGL(DrawEnv *pEnv, UInt32 idstatus)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGFRAMEBUFFEROBJECTBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGFRAMEBUFFEROBJECTBASE_INLINE_CVSID;
 

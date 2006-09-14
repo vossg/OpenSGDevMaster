@@ -273,7 +273,7 @@ class OSG_RENDERTRAV_DLLMAPPING HashSorter
 
 OSG_END_NAMESPACE
 
-#define OSGHASHSORTER_HEADER_CVSID "@(#)$Id: $"
+#define OSGHASHSORTER_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGHashSorter.inl"
 

@@ -53,6 +53,6 @@ void SimpleStage::setSize(Real32 left,
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESTAGE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSIMPLESTAGE_INLINE_CVSID "@(#)$Id$"
 
 

@@ -140,5 +140,5 @@ typedef PointerBuilder<DepthClearBackground>::ObjPtrConstArg  DepthClearBackgrou
 
 OSG_END_NAMESPACE
 
-#define OSGDEPTHCLEARBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGDEPTHCLEARBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
 

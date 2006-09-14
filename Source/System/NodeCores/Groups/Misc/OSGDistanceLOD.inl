@@ -96,6 +96,6 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
 
 OSG_END_NAMESPACE
 
-#define OSGDISTANCELOD_INLINE_CVSID "@(#)$Id: $"
+#define OSGDISTANCELOD_INLINE_CVSID "@(#)$Id$"
 
 

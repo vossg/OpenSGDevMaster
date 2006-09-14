@@ -100,7 +100,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-char RenderAction::cvsid[] = "@(#)$Id: $";
+char RenderAction::cvsid[] = "@(#)$Id$";
 
 
 /*! \brief the prototype which is copied to create new actions

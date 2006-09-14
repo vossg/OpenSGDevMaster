@@ -111,6 +111,6 @@ typedef SFQuaternionfx SFQuaternionr;
 
 OSG_END_NAMESPACE
 
-#define OSGMATHSFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGMATHSFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMATHSFIELDS_H_ */

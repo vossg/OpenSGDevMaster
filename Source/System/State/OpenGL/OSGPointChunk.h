@@ -183,6 +183,6 @@ OSG_END_NAMESPACE
 #include "OSGPointChunkBase.inl"
 #include "OSGPointChunk.inl"
 
-#define OSGPOINTCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGPOINTCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPOINTCHUNK_H_ */

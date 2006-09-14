@@ -422,5 +422,5 @@ typedef PointerBuilder<ProjectionCameraDecorator>::ObjPtrConstArg  ProjectionCam
 
 OSG_END_NAMESPACE
 
-#define OSGPROJECTIONCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGPROJECTIONCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -198,7 +198,7 @@ StatElem &StatTimeElem::operator += (const StatElem &other)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSTATTIMEELEM_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSTATTIMEELEM_INLINE_CVSID;
 }

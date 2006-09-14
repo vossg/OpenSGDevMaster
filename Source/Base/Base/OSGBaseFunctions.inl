@@ -1797,4 +1797,4 @@ void clearRefP(T *&pObject)
 
 OSG_END_NAMESPACE
 
-#define OSGBASEFUNCTIONS_INLINE_CVSID "@(#)$Id: $"
+#define OSGBASEFUNCTIONS_INLINE_CVSID "@(#)$Id$"

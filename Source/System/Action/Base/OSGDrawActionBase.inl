@@ -192,4 +192,4 @@ DrawEnv *DrawActionBase::getDrawEnv(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGDRAWACTIONBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGDRAWACTIONBASE_INLINE_CVSID "@(#)$Id$"

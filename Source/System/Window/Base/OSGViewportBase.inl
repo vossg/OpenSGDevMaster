@@ -499,5 +499,5 @@ typedef PointerBuilder<Viewport>::ObjPtrConstArg  ViewportPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGVIEWPORTBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGVIEWPORTBASE_INLINE_CVSID "@(#)$Id$"
 

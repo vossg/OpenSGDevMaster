@@ -179,6 +179,6 @@ OSG_END_NAMESPACE
 #include "OSGFragmentProgramChunkBase.inl"
 #include "OSGFragmentProgramChunk.inl"
 
-#define OSGFRAGMENTPROGRAMCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGFRAGMENTPROGRAMCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFRAGMENTPROGRAMCHUNK_H_ */

@@ -243,5 +243,5 @@ typedef PointerBuilder<Inline>::ObjPtrConstArg  InlinePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGINLINEBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGINLINEBASE_INLINE_CVSID "@(#)$Id$"
 

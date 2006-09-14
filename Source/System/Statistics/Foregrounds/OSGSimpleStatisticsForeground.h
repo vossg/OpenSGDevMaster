@@ -148,6 +148,6 @@ OSG_END_NAMESPACE
 #include "OSGSimpleStatisticsForegroundBase.inl"
 #include "OSGSimpleStatisticsForeground.inl"
 
-#define OSGSIMPLESTATISTICSFOREGROUND_HEADER_CVSID "@(#)$Id: OSGSimpleStatisticsForeground.h,v 1.1.2.2 2006/07/28 06:22:26 vossg Exp $"
+#define OSGSIMPLESTATISTICSFOREGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSIMPLESTATISTICSFOREGROUND_H_ */

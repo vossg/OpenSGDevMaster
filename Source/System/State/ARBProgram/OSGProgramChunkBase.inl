@@ -332,5 +332,5 @@ typedef PointerBuilder<ProgramChunk>::ObjPtrConstArg  ProgramChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGPROGRAMCHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGPROGRAMCHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

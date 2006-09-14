@@ -97,7 +97,7 @@ DrawTreeNode::~DrawTreeNode(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGDRAWTREENODE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGDRAWTREENODE_INLINE_CVSID;
 }

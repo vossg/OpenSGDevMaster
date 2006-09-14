@@ -404,7 +404,7 @@ ActionBase::ResultE Billboard::renderLeave(Action *action)
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGBILLBOARD_HEADER_CVSID;
     static char cvsid_inl[] = OSGBILLBOARD_INLINE_CVSID;
 }

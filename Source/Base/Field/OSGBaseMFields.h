@@ -188,6 +188,6 @@ typedef MFColor4fx MFColor4r;
 
 OSG_END_NAMESPACE
 
-#define OSGBASEMFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGBASEMFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGBASEMFIELDS_H_ */

@@ -225,4 +225,4 @@ void RenderTreeNode::reset(void)
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERTREENODE_INLINE_CVSID "@(#)$Id: $"
+#define OSGRENDERTREENODE_INLINE_CVSID "@(#)$Id$"

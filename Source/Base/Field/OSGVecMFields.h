@@ -809,6 +809,6 @@ typedef MFPnt4fx MFPnt4r;
 
 OSG_END_NAMESPACE
 
-#define OSGVECMFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGVECMFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVECMFIELDS_H_ */

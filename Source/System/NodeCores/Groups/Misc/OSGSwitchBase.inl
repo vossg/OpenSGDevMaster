@@ -179,5 +179,5 @@ typedef PointerBuilder<Switch>::ObjPtrConstArg  SwitchPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSWITCHBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSWITCHBASE_INLINE_CVSID "@(#)$Id$"
 

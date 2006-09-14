@@ -138,7 +138,7 @@ class OSG_BASE_DLLMAPPING NormalQuantifier
 
 OSG_END_NAMESPACE
 
-#define OSGNORMALQUANTIFIER_HEADER_CVSID "@(#)$Id: $"
+#define OSGNORMALQUANTIFIER_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGNormalQuantifier.inl"
 

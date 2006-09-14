@@ -189,6 +189,6 @@ typedef SFColor4fx SFColor4r;
 
 OSG_END_NAMESPACE
 
-#define OSGBASEFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGBASEFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGBASESFIELDS_H_ */

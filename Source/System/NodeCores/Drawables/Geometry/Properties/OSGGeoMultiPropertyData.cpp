@@ -298,7 +298,7 @@ void GeoMultiPropertyData::dump(      UInt32    ,
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGGeoMultiPropertyData.cpp,v 1.1.2.2 2005/10/04 08:40:22 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGGEOMULTIPROPERTYDATABASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGGEOMULTIPROPERTYDATABASE_INLINE_CVSID;
 

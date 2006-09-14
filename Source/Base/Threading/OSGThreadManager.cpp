@@ -439,7 +439,7 @@ ThreadManager::~ThreadManager(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGTHREADMANAGER_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGTHREADMANAGER_INLINE_CVSID;
 }

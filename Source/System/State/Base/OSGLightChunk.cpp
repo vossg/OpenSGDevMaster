@@ -366,7 +366,7 @@ bool LightChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGLIGHTCHUNK_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGLIGHTCHUNK_INLINE_CVSID;
 

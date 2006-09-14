@@ -153,7 +153,7 @@ bool EGLWindow::swap( void )
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGEGLWINDOW_HEADER_CVSID;
     static char cvsid_inl[] = OSGEGLWINDOW_INLINE_CVSID;
 

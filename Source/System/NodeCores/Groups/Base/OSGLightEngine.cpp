@@ -109,7 +109,7 @@ void LightEngine::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSGLightEngine.cpp,v 1.1.2.2 2006/08/01 03:16:33 vossg Exp $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGLIGHTENGINE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGLIGHTENGINE_INLINE_CVSID;
 }

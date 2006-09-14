@@ -163,5 +163,5 @@ typedef PointerBuilder<MaterialGroup>::ObjPtrConstArg  MaterialGroupPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGMATERIALGROUPBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGMATERIALGROUPBASE_INLINE_CVSID "@(#)$Id$"
 

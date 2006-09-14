@@ -570,6 +570,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGPARTICLESBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGPARTICLESBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPARTICLESBASE_H_ */

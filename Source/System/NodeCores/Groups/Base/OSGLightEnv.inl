@@ -61,4 +61,4 @@ Action::ResultE LightEnv::renderLeave(Action *action)
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTENV_INLINE_CVSID "@(#)$Id: $"
+#define OSGLIGHTENV_INLINE_CVSID "@(#)$Id$"

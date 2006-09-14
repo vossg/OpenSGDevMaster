@@ -44,4 +44,4 @@ void DirectionalLight::setDirection(const Vec3f &value)
 
 OSG_END_NAMESPACE
 
-#define OSGDIRECTIONALLIGHT_INLINE_CVSID "@(#)$Id: $"
+#define OSGDIRECTIONALLIGHT_INLINE_CVSID "@(#)$Id$"

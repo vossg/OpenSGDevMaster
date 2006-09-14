@@ -179,5 +179,5 @@ typedef PointerBuilder<Transform>::ObjPtrConstArg  TransformPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGTRANSFORMBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGTRANSFORMBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -56,6 +56,6 @@ typedef TaggedSingletonHolder<PartitionIdPoolBase,
 
 OSG_END_NAMESPACE
 
-#define OSGPARTITIONIDPOOL_HEADER_CVSID "@(#)$Id: $"
+#define OSGPARTITIONIDPOOL_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPARTITIONPOOL_H_ */

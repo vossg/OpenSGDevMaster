@@ -257,7 +257,7 @@ GeoPumpGroup::~GeoPumpGroup()
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGGEOPUMPGROUP_HEADER_CVSID;
 //    static Char8 cvsid_inl       [] = OSGGEOPUMPGROUP_INLINE_CVSID;
 }

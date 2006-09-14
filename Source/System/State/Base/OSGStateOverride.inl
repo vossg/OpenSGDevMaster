@@ -110,4 +110,4 @@ UInt32 StateOverride::size(void)
 
 OSG_END_NAMESPACE
 
-#define OSGSTATEOVERRIDE_INLINE_CVSID "@(#)$Id: OSGStateOverride.inl,v 1.1.2.1 2006/04/21 02:27:50 vossg Exp $"
+#define OSGSTATEOVERRIDE_INLINE_CVSID "@(#)$Id$"

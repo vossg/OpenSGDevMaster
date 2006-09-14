@@ -335,5 +335,5 @@ typedef PointerBuilder<Billboard>::ObjPtrConstArg  BillboardPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGBILLBOARDBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGBILLBOARDBASE_INLINE_CVSID "@(#)$Id$"
 

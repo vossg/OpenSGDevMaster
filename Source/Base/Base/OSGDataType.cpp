@@ -104,7 +104,7 @@ bool DataType::operator !=(const DataType &other) const
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGDATATYPE_HEADER_CVSID;
 }
 

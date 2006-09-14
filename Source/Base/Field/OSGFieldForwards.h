@@ -90,6 +90,6 @@ enum FieldCardinality
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDFORWARDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDFORWARDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFIELDFORWARDS_H_ */

@@ -165,7 +165,7 @@ void HashSorter::insert(UInt16              uiKey1,
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGHASHSORTER_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGHASHSORTER_INLINE_CVSID;
 }

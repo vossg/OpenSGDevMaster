@@ -76,4 +76,4 @@ void StatIntElem::dec(void)
 
 OSG_END_NAMESPACE
 
-#define OSGSTATINTELEM_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATINTELEM_INLINE_CVSID "@(#)$Id$"

@@ -124,7 +124,7 @@ void Connection::setInterface(const std::string &interf)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_inl       [] = OSG_CONNECTION_INLINE_CVSID;
     static Char8 cvsid_hpp       [] = OSG_CONNECTION_HEADER_CVSID;
 }

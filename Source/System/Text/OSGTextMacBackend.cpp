@@ -1546,7 +1546,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static OSG::Char8 cvsid_cpp[] = "@(#)$Id: OSGTextMacBackend.cpp,v 1.3.4.2 2006/05/08 06:01:15 vossg Exp $";
+    static OSG::Char8 cvsid_cpp[] = "@(#)$Id$";
     static OSG::Char8 cvsid_hpp[] = OSGTEXTMACBACKEND_HEADER_CVSID;
     static OSG::Char8 cvsid_inl[] = OSGTEXTMACBACKEND_INLINE_CVSID;
 }

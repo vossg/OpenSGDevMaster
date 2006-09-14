@@ -54,5 +54,5 @@ void subRef(const MPBaseP objectP)
 
 OSG_END_NAMESPACE
 
-#define OSG_INLINE_CVSID "@(#)$Id: $"
+#define OSG_INLINE_CVSID "@(#)$Id$"
 

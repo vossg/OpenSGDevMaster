@@ -455,7 +455,7 @@ bool TexGenChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGTEXGENCHUNK_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGTEXGENCHUNK_INLINE_CVSID;
 

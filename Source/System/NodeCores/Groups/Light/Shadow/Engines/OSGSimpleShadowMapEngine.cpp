@@ -861,7 +861,7 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnLeave(
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSGSimpleShadowMapEngine.cpp,v 1.1.2.3 2006/06/30 08:05:10 vossg Exp $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSIMPLESHADOWMAPENGINE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSIMPLESHADOWMAPENGINE_INLINE_CVSID;
 }

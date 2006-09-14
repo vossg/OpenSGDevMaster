@@ -228,7 +228,7 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: OSGImageForeground.cpp,v 1.1.2.3 2006/02/09 05:21:49 vossg Exp $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGIMAGEFOREGROUND_HEADER_CVSID;
     static char cvsid_inl[] = OSGIMAGEFOREGROUND_INLINE_CVSID;
 }

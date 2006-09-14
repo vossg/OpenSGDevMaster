@@ -324,4 +324,4 @@ void RenderPartition::dropFunctor(SimpleDrawCallback &oSimpleCallback)
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERPARTITION_INLINE_CVSID "@(#)$Id: $"
+#define OSGRENDERPARTITION_INLINE_CVSID "@(#)$Id$"

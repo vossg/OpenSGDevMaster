@@ -54,5 +54,5 @@ UInt32 RegisterCombinersChunk::getStaticClassId(void)
 
 OSG_END_NAMESPACE
 
-#define OSGREGISTERCOMBINERSCHUNK_INLINE_CVSID "@(#)$Id: $"
+#define OSGREGISTERCOMBINERSCHUNK_INLINE_CVSID "@(#)$Id$"
 

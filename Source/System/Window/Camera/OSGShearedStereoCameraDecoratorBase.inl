@@ -218,5 +218,5 @@ typedef PointerBuilder<ShearedStereoCameraDecorator>::ObjPtrConstArg  ShearedSte
 
 OSG_END_NAMESPACE
 
-#define OSGSHEAREDSTEREOCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSHEAREDSTEREOCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -360,7 +360,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSTATCOLLECTOR_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSTATCOLLECTOR_INLINE_CVSID;
 }

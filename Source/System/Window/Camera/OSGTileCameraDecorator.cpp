@@ -185,7 +185,7 @@ void TileCameraDecorator::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGTILECAMERADECORATOR_HEADER_CVSID;
     static char cvsid_inl[] = OSGTILECAMERADECORATOR_INLINE_CVSID;
 }

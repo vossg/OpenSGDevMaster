@@ -189,6 +189,6 @@ OSG_END_NAMESPACE
 #include "OSGBlendChunkBase.inl"
 #include "OSGBlendChunk.inl"
 
-#define OSGBLENDCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGBLENDCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGBLENDCHUNK_H_ */

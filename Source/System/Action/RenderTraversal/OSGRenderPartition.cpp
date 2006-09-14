@@ -909,7 +909,7 @@ const Matrix &RenderPartition::topMatrix(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGRENDERPARTITION_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGRENDERPARTITION_INLINE_CVSID;
 }

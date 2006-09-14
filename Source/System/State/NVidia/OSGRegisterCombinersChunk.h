@@ -241,6 +241,6 @@ OSG_END_NAMESPACE
 #include "OSGRegisterCombinersChunkBase.inl"
 #include "OSGRegisterCombinersChunk.inl"
 
-#define OSGREGISTERCOMBINERSCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGREGISTERCOMBINERSCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGREGISTERCOMBINERSCHUNK_H_ */

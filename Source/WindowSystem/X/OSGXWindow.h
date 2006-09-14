@@ -136,6 +136,6 @@ OSG_END_NAMESPACE
 #include "OSGXWindow.inl"
 #include "OSGXWindowBase.inl"
 
-#define OSGXWINDOW_HEADER_CVSID "@(#)$Id: $"
+#define OSGXWINDOW_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGXWINDOW_H_ */

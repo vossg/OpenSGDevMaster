@@ -121,7 +121,7 @@ OSG_END_NAMESPACE
 
 #include "OSGFileSystem.inl"
 
-#define OSGFILESYSTEM_HEADER_CVSID "@(#)$Id: $"
+#define OSGFILESYSTEM_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFILESYSTEM_H_ */
 

@@ -298,6 +298,6 @@ void TypeBase::dump(      UInt32    uiIndent,
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGTYPEBASE_HEADER_CVSID;
 }

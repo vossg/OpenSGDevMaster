@@ -177,7 +177,7 @@ void Switch::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSWITCH_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSWITCH_INLINE_CVSID;
 }

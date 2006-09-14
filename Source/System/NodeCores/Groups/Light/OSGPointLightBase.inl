@@ -179,5 +179,5 @@ typedef PointerBuilder<PointLight>::ObjPtrConstArg  PointLightPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGPOINTLIGHTBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGPOINTLIGHTBASE_INLINE_CVSID "@(#)$Id$"
 

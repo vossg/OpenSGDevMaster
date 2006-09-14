@@ -64,6 +64,6 @@ class OSG_SYSTEM_DLLMAPPING LightEngineData : public MemoryObject
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTENGINEDATA_HEADER_CVSID "@(#)$Id: OSGLightEngineData.h,v 1.1.2.1 2006/04/21 02:27:49 vossg Exp $"
+#define OSGLIGHTENGINEDATA_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGLIGHTENGINEDATA_H_ */

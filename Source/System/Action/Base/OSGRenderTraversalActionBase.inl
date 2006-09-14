@@ -143,5 +143,5 @@ StatCollector* RenderTraversalActionBase::getStatistics(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERTRAVERSALACTIONBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGRENDERTRAVERSALACTIONBASE_INLINE_CVSID "@(#)$Id$"
 

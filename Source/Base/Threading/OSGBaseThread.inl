@@ -343,5 +343,5 @@ void setRefd(BaseThread *&pObject,
 
 OSG_END_NAMESPACE
 
-#define OSGBASETHREAD_INLINE_CVSID "@(#)$Id: $"
+#define OSGBASETHREAD_INLINE_CVSID "@(#)$Id$"
 

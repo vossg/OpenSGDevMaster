@@ -49,4 +49,4 @@ OSG_END_NAMESPACE
 #endif // __APPLE__
 
 
-#define OSGTEXTMACBACKEND_INLINE_CVSID "@(#)$Id: OSGTextMacBackend.inl,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTMACBACKEND_INLINE_CVSID "@(#)$Id$"

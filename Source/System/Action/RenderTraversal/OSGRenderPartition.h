@@ -467,7 +467,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERPARTITION_HEADER_CVSID "@(#)$Id: $"
+#define OSGRENDERPARTITION_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGRenderPartition.inl"
 

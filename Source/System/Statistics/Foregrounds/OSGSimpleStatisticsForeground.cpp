@@ -332,7 +332,7 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 #endif
 namespace
 {
-static char cvsid_cpp[] = "@(#)$Id: OSGSimpleStatisticsForeground.cpp,v 1.1.2.1 2006/05/08 06:01:14 vossg Exp $";
+static char cvsid_cpp[] = "@(#)$Id$";
 static char cvsid_hpp[] = OSGSIMPLESTATISTICSFOREGROUND_HEADER_CVSID;
 static char cvsid_inl[] = OSGSIMPLESTATISTICSFOREGROUND_INLINE_CVSID;
 }

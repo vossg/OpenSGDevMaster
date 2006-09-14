@@ -140,6 +140,6 @@ OSG_END_NAMESPACE
 #include "OSGTextureGrabBackgroundBase.inl"
 #include "OSGTextureGrabBackground.inl"
 
-#define OSGTEXTUREGRABBACKGROUND_HEADER_CVSID "@(#)$Id: $"
+#define OSGTEXTUREGRABBACKGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTUREGRABBACKGROUND_H_ */

@@ -209,6 +209,6 @@ OSG_END_NAMESPACE
 
 #include "OSGDrawEnv.inl"
 
-#define OSGDRAWENV_HEADER_CVSID "@(#)$Id: $"
+#define OSGDRAWENV_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGDRAWENV_H_ */

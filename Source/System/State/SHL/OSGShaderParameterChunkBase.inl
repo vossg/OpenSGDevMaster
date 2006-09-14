@@ -157,5 +157,5 @@ typedef PointerBuilder<ShaderParameterChunk>::ObjPtrConstArg  ShaderParameterChu
 
 OSG_END_NAMESPACE
 
-#define OSGSHADERPARAMETERCHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSHADERPARAMETERCHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

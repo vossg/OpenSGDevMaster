@@ -64,4 +64,4 @@ void StatRealElem::sub(Real32 v)
 
 OSG_END_NAMESPACE
 
-#define OSGSTATREALELEM_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATREALELEM_INLINE_CVSID "@(#)$Id$"

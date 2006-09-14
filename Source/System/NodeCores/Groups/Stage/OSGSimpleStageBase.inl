@@ -373,5 +373,5 @@ typedef PointerBuilder<SimpleStage>::ObjPtrConstArg  SimpleStagePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESTAGEBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSIMPLESTAGEBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -99,7 +99,7 @@ void DrawTreeNodeFactory::printStat(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGDRAWTREENODEFACTORY_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGDRAWTREENODEFACTORY_INLINE_CVSID;
 }

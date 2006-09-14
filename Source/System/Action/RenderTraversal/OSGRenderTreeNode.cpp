@@ -91,7 +91,7 @@ RenderTreeNode::~RenderTreeNode(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGRENDERTREENODE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGRENDERTREENODE_INLINE_CVSID;
 }

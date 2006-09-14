@@ -48,4 +48,4 @@ inline TextVectorFace::TextVectorFace()
 OSG_END_NAMESPACE
 
 
-#define OSGTEXTVECTORFACE_INLINE_CVSID "@(#)$Id: OSGTextVectorFace.inl,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTVECTORFACE_INLINE_CVSID "@(#)$Id$"

@@ -53,6 +53,6 @@
 #endif
 
 
-#define OSGGLUT_HEADER_CVSID "@(#)$Id: $"
+#define OSGGLUT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGLUT_H_ */

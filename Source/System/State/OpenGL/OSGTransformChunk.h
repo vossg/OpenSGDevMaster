@@ -173,6 +173,6 @@ OSG_END_NAMESPACE
 #include "OSGTransformChunkBase.inl"
 #include "OSGTransformChunk.inl"
 
-#define OSGTRANSFORMCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGTRANSFORMCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTRANSFORMCHUNK_H_ */

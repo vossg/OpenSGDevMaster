@@ -16855,6 +16855,6 @@ printBits (char c[35], float f)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGREAL16_HEADER_CVSID;
 }

@@ -124,5 +124,5 @@ void Pool<ValueT, InitFunction, ClearFunction>::printStat(void)
 
 OSG_END_NAMESPACE
 
-#define OSGPOOL_INLINE_CVSID "@(#)$Id: $"
+#define OSGPOOL_INLINE_CVSID "@(#)$Id$"
 

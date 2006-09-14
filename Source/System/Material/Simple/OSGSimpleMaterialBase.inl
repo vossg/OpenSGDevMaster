@@ -452,5 +452,5 @@ typedef PointerBuilder<SimpleMaterial>::ObjPtrConstArg  SimpleMaterialPtrConstAr
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLEMATERIALBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSIMPLEMATERIALBASE_INLINE_CVSID "@(#)$Id$"
 

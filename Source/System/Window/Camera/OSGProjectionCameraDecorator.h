@@ -150,6 +150,6 @@ OSG_END_NAMESPACE
 #include "OSGProjectionCameraDecoratorBase.inl"
 #include "OSGProjectionCameraDecorator.inl"
 
-#define OSGPROJECTIONCAMERADECORATOR_HEADER_CVSID "@(#)$Id: OSGProjectionCameraDecorator.h,v 1.1.2.2 2006/07/28 06:22:31 vossg Exp $"
+#define OSGPROJECTIONCAMERADECORATOR_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPROJECTIONCAMERADECORATOR_H_ */

@@ -423,7 +423,7 @@ bool PointChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGPOINTCHUNKBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGPOINTCHUNKBASE_INLINE_CVSID;
 

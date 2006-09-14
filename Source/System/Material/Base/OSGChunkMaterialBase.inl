@@ -235,5 +235,5 @@ typedef PointerBuilder<ChunkMaterial>::ObjPtrConstArg  ChunkMaterialPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGCHUNKMATERIALBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGCHUNKMATERIALBASE_INLINE_CVSID "@(#)$Id$"
 

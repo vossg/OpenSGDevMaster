@@ -330,7 +330,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERTRAVERSALACTION_HEADER_CVSID "@(#)$Id: $"
+#define OSGRENDERTRAVERSALACTION_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGRenderTraversalAction.inl"
 

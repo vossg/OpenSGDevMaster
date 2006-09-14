@@ -51,5 +51,5 @@ UInt32 MaterialChunk::getStaticClassId(void)
 
 OSG_END_NAMESPACE
 
-#define OSGMATERIALCHUNK_INLINE_CVSID "@(#)$Id: $"
+#define OSGMATERIALCHUNK_INLINE_CVSID "@(#)$Id$"
 

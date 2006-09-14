@@ -89,7 +89,7 @@ time. See \ref PageSystemLineIterator for details.
  *                           Class variables                               *
 \***************************************************************************/
 
-char LineIterator::cvsid[] = "@(#)$Id: OSGLineIterator.cpp,v 1.1.2.1 2005/08/15 01:06:00 dirk Exp $";
+char LineIterator::cvsid[] = "@(#)$Id$";
 
 /***************************************************************************\
  *                           Instance methods                              *

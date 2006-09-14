@@ -194,7 +194,7 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : public Action
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERTRAVERSALACTIONBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGRENDERTRAVERSALACTIONBASE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGRenderTraversalActionBase.inl"
 

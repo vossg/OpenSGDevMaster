@@ -46,4 +46,4 @@ inline TextFaceFactory &TextFaceFactory::the() { return _the; }
 OSG_END_NAMESPACE
 
 
-#define OSGTEXTFACEFACTORY_INLINE_CVSID "@(#)$Id: OSGTextFaceFactory.inl,v 1.1.4.2 2006/05/08 06:01:14 vossg Exp $"
+#define OSGTEXTFACEFACTORY_INLINE_CVSID "@(#)$Id$"

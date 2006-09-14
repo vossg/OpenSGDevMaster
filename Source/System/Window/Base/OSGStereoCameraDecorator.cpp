@@ -113,7 +113,7 @@ void StereoCameraDecorator::dump(      UInt32    ,
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGSTEREOCAMERADECORATOR_HEADER_CVSID;
     static char cvsid_inl[] = OSGSTEREOCAMERADECORATOR_INLINE_CVSID;
 }

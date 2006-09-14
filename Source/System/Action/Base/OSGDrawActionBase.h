@@ -272,7 +272,7 @@ typedef DrawActionBase *DrawActionBaseP;
 
 OSG_END_NAMESPACE
 
-#define OSGDRAWACTIONBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGDRAWACTIONBASE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGDrawActionBase.inl"
 

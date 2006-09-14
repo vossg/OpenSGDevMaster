@@ -338,7 +338,7 @@ void GradientBackground::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGGradientBackground.cpp,v 1.1.2.2 2005/10/04 08:40:25 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGGRADIENTBACKGROUND_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGGRADIENTBACKGROUND_INLINE_CVSID;
 

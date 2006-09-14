@@ -1392,6 +1392,6 @@ OSG_END_NAMESPACE
 #define getAllSet()   BitsSet
 #endif
 
-#define OSGBASETYPETRAITS_HEADER_CVSID "@(#)$Id: $"
+#define OSGBASETYPETRAITS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGBASETYPETRAITS_H_ */

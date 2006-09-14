@@ -202,5 +202,5 @@ typedef PointerBuilder<GrabForeground>::ObjPtrConstArg  GrabForegroundPtrConstAr
 
 OSG_END_NAMESPACE
 
-#define OSGGRABFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGGRABFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
 

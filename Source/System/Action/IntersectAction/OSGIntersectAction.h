@@ -285,6 +285,6 @@ OSG_END_NAMESPACE
 
 #include "OSGIntersectAction.inl"
 
-#define OSGINTERSECTACTION_HEADER_CVSID "@(#)$Id: $"
+#define OSGINTERSECTACTION_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGRENDERACTION_H_ */

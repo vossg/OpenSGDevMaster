@@ -255,6 +255,6 @@ OSG_END_NAMESPACE
 
 #include "OSGSimpleSceneManager.inl"
 
-#define OSGSIMPLESCENEMANAGER_HEADER_CVSID "@(#)$Id: OSGSimpleSceneManager.h,v 1.1.2.6 2006/02/09 05:21:50 vossg Exp $"
+#define OSGSIMPLESCENEMANAGER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSIMPLESCENEMANAGER_H_ */

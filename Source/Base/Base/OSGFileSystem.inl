@@ -421,6 +421,6 @@ namespace Path
     }
 }
 
-#define OSGFILESYSTEM_INLINE_CVSID "@(#)$Id: $"
+#define OSGFILESYSTEM_INLINE_CVSID "@(#)$Id$"
 
 OSG_END_NAMESPACE

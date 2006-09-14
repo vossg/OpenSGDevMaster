@@ -179,5 +179,5 @@ typedef PointerBuilder<SolidBackground>::ObjPtrConstArg  SolidBackgroundPtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGSOLIDBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSOLIDBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
 

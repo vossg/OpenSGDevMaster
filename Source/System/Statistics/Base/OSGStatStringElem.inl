@@ -58,4 +58,4 @@ void StatStringElem::set(const Char8 *value)
 
 OSG_END_NAMESPACE
 
-#define OSGSTATSTRINGELEM_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATSTRINGELEM_INLINE_CVSID "@(#)$Id$"

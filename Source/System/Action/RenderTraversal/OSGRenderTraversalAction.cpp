@@ -942,7 +942,7 @@ std::vector<Action::Functor> *
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGRENDERTRAVERSALACTION_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGRENDERTRAVERSALACTION_INLINE_CVSID;
 }

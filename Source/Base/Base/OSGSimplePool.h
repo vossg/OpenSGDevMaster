@@ -128,7 +128,7 @@ class SimplePool
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLEPOOL_HEADER_CVSID "@(#)$Id: $"
+#define OSGSIMPLEPOOL_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGSimplePool.inl"
 

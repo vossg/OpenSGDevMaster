@@ -126,7 +126,7 @@ class OSG_SYSTEM_DLLMAPPING DrawTreeNodeFactory
 
 OSG_END_NAMESPACE
 
-#define OSGDRAWTREENODEFACTORY_HEADER_CVSID "@(#)$Id: $"
+#define OSGDRAWTREENODEFACTORY_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGDrawTreeNodeFactory.inl"
 

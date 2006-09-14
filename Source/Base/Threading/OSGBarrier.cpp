@@ -331,7 +331,7 @@ Barrier *Barrier::create (const Char8  *szName,
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGBARRIER_HEADER_CVSID;
 }
 

@@ -179,5 +179,5 @@ typedef PointerBuilder<TransformChunk>::ObjPtrConstArg  TransformChunkPtrConstAr
 
 OSG_END_NAMESPACE
 
-#define OSGTRANSFORMCHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGTRANSFORMCHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

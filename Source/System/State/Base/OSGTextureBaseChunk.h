@@ -208,6 +208,6 @@ OSG_END_NAMESPACE
 #include "OSGTextureBaseChunkBase.inl"
 #include "OSGTextureBaseChunk.inl"
 
-#define OSGTEXTUREBASECHUNK_HEADER_CVSID "@(#)$Id: OSGTextureBaseChunk.h,v 1.1.2.2 2006/07/28 06:22:18 vossg Exp $"
+#define OSGTEXTUREBASECHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTUREBASECHUNK_H_ */

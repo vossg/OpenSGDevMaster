@@ -147,6 +147,6 @@ OSG_END_NAMESPACE
 #include "OSGMatrixCameraBase.inl"
 #include "OSGMatrixCamera.inl"
 
-#define OSGMATRIXCAMERA_HEADER_CVSID "@(#)$Id: $"
+#define OSGMATRIXCAMERA_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMATRIXCAMERA_H_ */

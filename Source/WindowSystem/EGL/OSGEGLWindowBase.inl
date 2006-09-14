@@ -257,5 +257,5 @@ typedef PointerBuilder<EGLWindow>::ObjPtrConstArg  EGLWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGEGLWINDOWBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGEGLWINDOWBASE_INLINE_CVSID "@(#)$Id$"
 

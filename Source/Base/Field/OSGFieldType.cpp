@@ -107,7 +107,7 @@ FieldType::~FieldType(void)
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELDTYPE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGFIELDTYPE_INLINE_CVSID;
 }

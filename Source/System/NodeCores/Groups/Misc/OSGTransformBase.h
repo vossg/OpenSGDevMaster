@@ -320,6 +320,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGTRANSFORMBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGTRANSFORMBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTRANSFORMBASE_H_ */

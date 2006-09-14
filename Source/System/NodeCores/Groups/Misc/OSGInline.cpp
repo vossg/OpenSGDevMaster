@@ -113,7 +113,7 @@ void Inline::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGINLINE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGINLINE_INLINE_CVSID;
 }

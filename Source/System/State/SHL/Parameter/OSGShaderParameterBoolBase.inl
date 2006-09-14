@@ -179,5 +179,5 @@ typedef PointerBuilder<ShaderParameterBool>::ObjPtrConstArg  ShaderParameterBool
 
 OSG_END_NAMESPACE
 
-#define OSGSHADERPARAMETERBOOLBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSHADERPARAMETERBOOLBASE_INLINE_CVSID "@(#)$Id$"
 

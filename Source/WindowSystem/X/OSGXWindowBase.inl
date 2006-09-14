@@ -257,5 +257,5 @@ typedef PointerBuilder<XWindow>::ObjPtrConstArg  XWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGXWINDOWBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGXWINDOWBASE_INLINE_CVSID "@(#)$Id$"
 

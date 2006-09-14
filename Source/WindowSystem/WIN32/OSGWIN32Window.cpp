@@ -165,7 +165,7 @@ bool WIN32Window::swap( void )
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGWIN32WINDOW_HEADER_CVSID;
     static char cvsid_inl[] = OSGWIN32WINDOW_INLINE_CVSID;
 

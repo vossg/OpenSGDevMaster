@@ -72,5 +72,5 @@ void ColorMaskChunk::setMask(const bool &r,
 
 OSG_END_NAMESPACE
 
-#define OSGCOLORMASKCHUNK_INLINE_CVSID "@(#)$Id: $"
+#define OSGCOLORMASKCHUNK_INLINE_CVSID "@(#)$Id$"
 

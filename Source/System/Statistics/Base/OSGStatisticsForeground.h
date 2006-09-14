@@ -133,6 +133,6 @@ OSG_END_NAMESPACE
 #include "OSGStatisticsForegroundBase.inl"
 #include "OSGStatisticsForeground.inl"
 
-#define OSGSTATISTICSFOREGROUND_HEADER_CVSID "@(#)$Id: OSGStatisticsForeground.h,v 1.1.2.3 2006/07/28 06:22:25 vossg Exp $"
+#define OSGSTATISTICSFOREGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSTATISTICSFOREGROUND_H_ */

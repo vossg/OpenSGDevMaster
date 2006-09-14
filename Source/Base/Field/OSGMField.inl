@@ -823,5 +823,5 @@ void MField<ValueT, iNamespace>::dump(      UInt32    uiIndent,
 
 OSG_END_NAMESPACE
 
-#define OSGMFIELD_INLINE_CVSID "@(#)$Id: $"
+#define OSGMFIELD_INLINE_CVSID "@(#)$Id$"
 

@@ -530,5 +530,5 @@ typedef PointerBuilder<PointChunk>::ObjPtrConstArg  PointChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGPOINTCHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGPOINTCHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

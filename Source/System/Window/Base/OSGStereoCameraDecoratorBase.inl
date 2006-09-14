@@ -204,5 +204,5 @@ typedef PointerBuilder<StereoCameraDecorator>::ObjPtrConstArg  StereoCameraDecor
 
 OSG_END_NAMESPACE
 
-#define OSGSTEREOCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTEREOCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
 

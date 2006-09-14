@@ -125,6 +125,6 @@ struct FieldTraits<PointLightPtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGPOINTLIGHTFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGPOINTLIGHTFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPOINTLIGHTFIELDS_H_ */

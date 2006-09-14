@@ -218,4 +218,4 @@ UInt32 ThreadManager::getNumAspects(void)
 
 OSG_END_NAMESPACE
 
-#define OSGTHREADMANAGER_INLINE_CVSID "@(#)$Id: $"
+#define OSGTHREADMANAGER_INLINE_CVSID "@(#)$Id$"

@@ -197,7 +197,7 @@ void PointLight::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGPOINTLIGHT_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGPOINTLIGHT_INLINE_CVSID;
 }

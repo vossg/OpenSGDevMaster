@@ -126,5 +126,5 @@ typedef PointerBuilder<StateChunk>::ObjPtrConstArg  StateChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSTATECHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATECHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

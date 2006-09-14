@@ -122,5 +122,5 @@ void SFImagePtr::pushValueByStr(const Char8 *str)
 
 OSG_END_NAMESPACE
 
-#define OSGIMAGE_INLINE_CVSID "@(#)$Id: $"
+#define OSGIMAGE_INLINE_CVSID "@(#)$Id$"
 

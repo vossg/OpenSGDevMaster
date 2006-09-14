@@ -146,7 +146,7 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSGShadowMapEngine.cpp,v 1.1.2.1 2006/04/21 02:27:50 vossg Exp $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSHADOWMAPENGINE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSHADOWMAPENGINE_INLINE_CVSID;
 }

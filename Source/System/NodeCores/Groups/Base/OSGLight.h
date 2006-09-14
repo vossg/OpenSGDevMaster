@@ -177,6 +177,6 @@ OSG_END_NAMESPACE
 #include "OSGLightBase.inl"
 #include "OSGLight.inl"
 
-#define OSGLIGHT_HEADER_CVSID "@(#)$Id: $"
+#define OSGLIGHT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGLIGHT_H_ */

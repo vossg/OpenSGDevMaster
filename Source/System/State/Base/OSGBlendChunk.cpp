@@ -567,7 +567,7 @@ bool BlendChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGBLENDCHUNK_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGBLENDCHUNK_INLINE_CVSID;
 

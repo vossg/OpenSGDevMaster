@@ -218,5 +218,5 @@ typedef PointerBuilder<MatrixCamera>::ObjPtrConstArg  MatrixCameraPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGMATRIXCAMERABASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGMATRIXCAMERABASE_INLINE_CVSID "@(#)$Id$"
 

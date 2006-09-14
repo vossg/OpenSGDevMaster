@@ -533,7 +533,7 @@ void SharedObjectHandler::dump(void)
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSHAREDOBJECTHANDLER_HEADER_CVSID;
 }
 

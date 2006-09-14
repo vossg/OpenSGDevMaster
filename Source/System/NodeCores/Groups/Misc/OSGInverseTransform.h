@@ -164,6 +164,6 @@ OSG_END_NAMESPACE
 #include "OSGInverseTransformBase.inl"
 #include "OSGInverseTransform.inl"
 
-#define OSGINVERSETRANSFORM_HEADER_CVSID "@(#)$Id: $"
+#define OSGINVERSETRANSFORM_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGINVERSETRANSFORM_H_ */

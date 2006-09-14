@@ -163,6 +163,6 @@ OSG_END_NAMESPACE
 #include "OSGPointLightBase.inl"
 #include "OSGPointLight.inl"
 
-#define OSGPOINTLIGHT_HEADER_CVSID "@(#)$Id: $"
+#define OSGPOINTLIGHT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPOINTLIGHT_H_ */

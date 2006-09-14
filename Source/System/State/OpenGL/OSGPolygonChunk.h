@@ -173,6 +173,6 @@ OSG_END_NAMESPACE
 #include "OSGPolygonChunkBase.inl"
 #include "OSGPolygonChunk.inl"
 
-#define OSGPOLYGONCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGPOLYGONCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPOLYGONCHUNK_H_ */

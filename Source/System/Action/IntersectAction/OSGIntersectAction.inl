@@ -196,4 +196,4 @@ Int32 IntersectAction::getHitTriangle(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGINTERSECTACTION_INLINE_CVSID "@(#)$Id: $"
+#define OSGINTERSECTACTION_INLINE_CVSID "@(#)$Id$"

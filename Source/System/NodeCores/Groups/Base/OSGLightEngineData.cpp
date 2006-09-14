@@ -70,7 +70,7 @@ LightEngineData::~LightEngineData(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSGLightEngineData.cpp,v 1.1.2.1 2006/04/21 02:27:49 vossg Exp $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGLIGHTENGINEDATA_HEADER_CVSID;
 }
 

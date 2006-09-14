@@ -245,7 +245,7 @@ Action::ResultE InverseTransform::renderLeave(Action *action)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGInverseTransform.cpp,v 1.2 2004/10/13 14:51:34 a-m-z Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGINVERSETRANSFORMBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGINVERSETRANSFORMBASE_INLINE_CVSID;
 

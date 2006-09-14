@@ -171,6 +171,6 @@ class OSG_BASE_DLLMAPPING Socket
 
 OSG_END_NAMESPACE
 
-#define OSG_SOCKET_HEADER_CVSID "@(#)$Id: $"
+#define OSG_SOCKET_HEADER_CVSID "@(#)$Id$"
 
 #endif

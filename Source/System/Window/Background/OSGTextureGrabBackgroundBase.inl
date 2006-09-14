@@ -280,5 +280,5 @@ typedef PointerBuilder<TextureGrabBackground>::ObjPtrConstArg  TextureGrabBackgr
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREGRABBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGTEXTUREGRABBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -222,5 +222,5 @@ void SField<ValueT, iNamespace>::operator =(const SField &source)
 
 OSG_END_NAMESPACE
 
-#define OSGSFIELD_INLINE_CVSID "@(#)$Id: $"
+#define OSGSFIELD_INLINE_CVSID "@(#)$Id$"
 

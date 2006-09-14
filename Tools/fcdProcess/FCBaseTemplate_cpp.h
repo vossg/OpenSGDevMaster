@@ -1287,7 +1287,7 @@ char *FCBaseTemplate_cpp[]={
 "",
 "namespace",
 "{",
-"    static Char8 cvsid_cpp       [] = \"@(#)$Id: $\";",
+"    static Char8 cvsid_cpp       [] = \"@(#)$Id$\";",
 "    static Char8 cvsid_hpp       [] = OSG@!CLASSNAME!@BASE_HEADER_CVSID;",
 "    static Char8 cvsid_inl       [] = OSG@!CLASSNAME!@BASE_INLINE_CVSID;",
 "",

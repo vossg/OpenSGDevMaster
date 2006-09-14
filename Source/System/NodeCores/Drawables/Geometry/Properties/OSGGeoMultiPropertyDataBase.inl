@@ -243,5 +243,5 @@ typedef PointerBuilder<GeoMultiPropertyData>::ObjPtrConstArg  GeoMultiPropertyDa
 
 OSG_END_NAMESPACE
 
-#define OSGGEOMULTIPROPERTYDATABASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGGEOMULTIPROPERTYDATABASE_INLINE_CVSID "@(#)$Id$"
 

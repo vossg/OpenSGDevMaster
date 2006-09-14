@@ -392,6 +392,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGBILLBOARDBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGBILLBOARDBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGBILLBOARDBASE_H_ */

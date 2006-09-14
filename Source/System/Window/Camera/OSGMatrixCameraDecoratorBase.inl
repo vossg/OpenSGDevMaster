@@ -374,5 +374,5 @@ typedef PointerBuilder<MatrixCameraDecorator>::ObjPtrConstArg  MatrixCameraDecor
 
 OSG_END_NAMESPACE
 
-#define OSGMATRIXCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGMATRIXCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -222,7 +222,7 @@ class OSG_BASE_DLLMAPPING TypeBase
 
 OSG_END_NAMESPACE
 
-#define OSGTYPEBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGTYPEBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTYPEBASE_HPP_ */
 

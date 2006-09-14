@@ -55,5 +55,5 @@ UInt32 LineChunk::getStaticClassId(void)
 
 OSG_END_NAMESPACE
 
-#define OSGLINECHUNK_INLINE_CVSID "@(#)$Id: $"
+#define OSGLINECHUNK_INLINE_CVSID "@(#)$Id$"
 

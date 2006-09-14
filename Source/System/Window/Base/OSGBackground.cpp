@@ -134,7 +134,7 @@ void Background::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGBACKGROUND_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGBACKGROUND_INLINE_CVSID;
 

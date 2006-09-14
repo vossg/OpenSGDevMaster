@@ -2744,4 +2744,4 @@ std::ostream &operator <<(      std::ostream                     &os,
 
 OSG_END_NAMESPACE
 
-#define OSGMATRIX_INLINE_CVSID "@(#)$Id: $"
+#define OSGMATRIX_INLINE_CVSID "@(#)$Id$"

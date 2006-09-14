@@ -49,4 +49,4 @@ inline TextPixmapFace::TextPixmapFace(): TextFace(), _size(), _glyphMap() {}
 OSG_END_NAMESPACE
 
 
-#define OSGTEXTPIXMAPFACE_INLINE_CVSID "@(#)$Id: OSGTextPixmapFace.inl,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTPIXMAPFACE_INLINE_CVSID "@(#)$Id$"

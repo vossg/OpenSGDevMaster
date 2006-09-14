@@ -132,6 +132,6 @@ OSG_END_NAMESPACE
 
 #include "OSGTextMacBackend.inl"
 
-#define OSGTEXTMACBACKEND_HEADER_CVSID "@(#)$Id: OSGTextMacBackend.h,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTMACBACKEND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTMACBACKEND_H_ */

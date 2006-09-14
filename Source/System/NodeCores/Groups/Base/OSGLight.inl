@@ -62,4 +62,4 @@ LightEngineData *Light::getLightEngineData(void)
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHT_INLINE_CVSID "@(#)$Id: $"
+#define OSGLIGHT_INLINE_CVSID "@(#)$Id$"

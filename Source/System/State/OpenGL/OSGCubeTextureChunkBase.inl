@@ -294,5 +294,5 @@ typedef PointerBuilder<CubeTextureChunk>::ObjPtrConstArg  CubeTextureChunkPtrCon
 
 OSG_END_NAMESPACE
 
-#define OSGCUBETEXTURECHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGCUBETEXTURECHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

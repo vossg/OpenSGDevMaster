@@ -222,5 +222,5 @@ void MFieldVector<Tp, A>::resolveShare(void)
 
 OSG_END_NAMESPACE
 
-#define OSGMFIELDVECTOR_INLINE_CVSID "@(#)$Id: $"
+#define OSGMFIELDVECTOR_INLINE_CVSID "@(#)$Id$"
 

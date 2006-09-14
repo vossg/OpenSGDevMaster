@@ -214,6 +214,6 @@ typedef SFFixed32 SFReal;
 
 OSG_END_NAMESPACE
 
-#define OSGSYSSFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGSYSSFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSYSSFIELDS_H_ */

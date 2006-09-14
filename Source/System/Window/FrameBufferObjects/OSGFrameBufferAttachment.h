@@ -150,6 +150,6 @@ OSG_END_NAMESPACE
 #include "OSGFrameBufferAttachmentBase.inl"
 #include "OSGFrameBufferAttachment.inl"
 
-#define OSGFRAMEBUFFERATTACHMENT_HEADER_CVSID "@(#)$Id: $"
+#define OSGFRAMEBUFFERATTACHMENT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFRAMEBUFFERATTACHMENT_H_ */

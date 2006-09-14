@@ -170,6 +170,6 @@ OSG_END_NAMESPACE
 #include "OSGTexGenChunkBase.inl"
 #include "OSGTexGenChunk.inl"
 
-#define OSGTEXGENCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGTEXGENCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXGENCHUNK_H_ */

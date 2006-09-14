@@ -219,7 +219,7 @@ void StateSorter::add(RenderTreeNode *pNode,
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSTATESORTER_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSTATESORTER_INLINE_CVSID;
 }

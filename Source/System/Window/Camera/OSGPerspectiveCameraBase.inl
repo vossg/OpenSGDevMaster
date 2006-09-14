@@ -218,5 +218,5 @@ typedef PointerBuilder<PerspectiveCamera>::ObjPtrConstArg  PerspectiveCameraPtrC
 
 OSG_END_NAMESPACE
 
-#define OSGPERSPECTIVECAMERABASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGPERSPECTIVECAMERABASE_INLINE_CVSID "@(#)$Id$"
 

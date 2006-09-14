@@ -83,7 +83,7 @@ Field::Field(const Field &)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELD_HEADER_CVSID;
 }
 

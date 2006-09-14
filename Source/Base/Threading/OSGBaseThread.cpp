@@ -736,7 +736,7 @@ void BaseThread::workProc(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGBASETHREAD_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGBASETHREAD_INLINE_CVSID;
 }

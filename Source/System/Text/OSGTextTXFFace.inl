@@ -58,4 +58,4 @@ inline TextTXFFace::TextTXFFace()
 OSG_END_NAMESPACE
 
 
-#define OSGTEXTTXFFACE_INLINE_CVSID "@(#)$Id: OSGTextTXFFace.inl,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTTXFFACE_INLINE_CVSID "@(#)$Id$"

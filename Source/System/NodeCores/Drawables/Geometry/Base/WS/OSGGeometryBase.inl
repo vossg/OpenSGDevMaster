@@ -391,5 +391,5 @@ typedef PointerBuilder<Geometry>::ObjPtrConstArg  GeometryPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGGEOMETRYBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGGEOMETRYBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -178,7 +178,7 @@ char *FCPtrTemplate_h[]={
 "@@endif",
 "OSG_END_NAMESPACE",
 "",
-"#define OSG@!CLASSNAME!@FIELDS_HEADER_CVSID \"@(#)$Id: $\"",
+"#define OSG@!CLASSNAME!@FIELDS_HEADER_CVSID \"@(#)$Id$\"",
 "", 
 "#endif /* _OSG@!CLASSNAME!@FIELDS_H_ */",
 NULL };

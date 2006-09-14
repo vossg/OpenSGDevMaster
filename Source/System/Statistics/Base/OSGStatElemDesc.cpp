@@ -217,7 +217,7 @@ bool StatElemDescBase::operator < (const StatElemDescBase &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSTATELEMDESC_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSTATELEMDESC_INLINE_CVSID;
 }

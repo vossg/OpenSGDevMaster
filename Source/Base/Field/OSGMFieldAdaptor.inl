@@ -266,5 +266,5 @@ const typename MFieldAdaptor<ValueT, ParentT, iNamespace>::StorageType &
 
 OSG_END_NAMESPACE
 
-#define OSGMFIELDADAPTOR_INLINE_CVSID "@(#)$Id: $"
+#define OSGMFIELDADAPTOR_INLINE_CVSID "@(#)$Id$"
 

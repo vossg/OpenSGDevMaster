@@ -151,6 +151,6 @@ OSG_END_NAMESPACE
 #include "OSGTextureBufferBase.inl"
 #include "OSGTextureBuffer.inl"
 
-#define OSGTEXTUREBUFFER_HEADER_CVSID "@(#)$Id: $"
+#define OSGTEXTUREBUFFER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTUREBUFFER_H_ */

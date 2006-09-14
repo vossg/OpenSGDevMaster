@@ -256,6 +256,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGDRAWABLEBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGDRAWABLEBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGDRAWABLEBASE_H_ */

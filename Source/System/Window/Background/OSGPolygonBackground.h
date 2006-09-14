@@ -140,6 +140,6 @@ OSG_END_NAMESPACE
 #include "OSGPolygonBackgroundBase.inl"
 #include "OSGPolygonBackground.inl"
 
-#define OSGPOLYGONBACKGROUND_HEADER_CVSID "@(#)$Id: OSGPolygonBackground.h,v 1.1.2.2 2006/07/28 06:22:27 vossg Exp $"
+#define OSGPOLYGONBACKGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPOLYGONBACKGROUND_H_ */

@@ -124,6 +124,6 @@ typedef PointConnection *PointConnectionP;
 
 OSG_END_NAMESPACE
 
-#define OSG_POINTCONNECTION_HEADER_CVSID "@(#)$Id: $"
+#define OSG_POINTCONNECTION_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _CONNECTION_H_ */

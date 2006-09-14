@@ -462,6 +462,6 @@ OSG_END_NAMESPACE
 #include "OSGGeoVectorPropertyBase.inl"
 #include "OSGGeoVectorProperty.inl"
 
-#define OSGGEOVECTORPROPERTY_HEADER_CVSID "@(#)$Id: $"
+#define OSGGEOVECTORPROPERTY_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGEOVECTORPROPERTY_H_ */

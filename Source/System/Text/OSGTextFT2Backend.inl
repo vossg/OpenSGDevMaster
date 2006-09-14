@@ -49,4 +49,4 @@ OSG_END_NAMESPACE
 #endif // FT2_LIB
 
 
-#define OSGTEXTFT2BACKEND_INLINE_CVSID "@(#)$Id: OSGTextFT2Backend.inl,v 1.1.4.2 2006/05/08 06:01:14 vossg Exp $"
+#define OSGTEXTFT2BACKEND_INLINE_CVSID "@(#)$Id$"

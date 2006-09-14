@@ -117,6 +117,6 @@ class OSG_UTIL_DLLMAPPING FlyNavigator
 
 OSG_END_NAMESPACE
 
-#define OSGFLYNAVIGATOR_HEADER_CVSID "@(#)$Id: OSGFlyNavigator.h,v 1.1.2.2 2005/08/12 12:02:28 a-m-z Exp $"
+#define OSGFLYNAVIGATOR_HEADER_CVSID "@(#)$Id$"
 
 #endif

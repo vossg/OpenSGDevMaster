@@ -544,5 +544,5 @@ typedef PointerBuilder<TexGenChunk>::ObjPtrConstArg  TexGenChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGTEXGENCHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGTEXGENCHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

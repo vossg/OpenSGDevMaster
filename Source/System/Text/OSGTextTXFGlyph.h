@@ -250,6 +250,6 @@ OSG_END_NAMESPACE
 
 #include "OSGTextTXFGlyph.inl"
 
-#define OSGTEXTTXFGLYPH_HEADER_CVSID "@(#)$Id: OSGTextTXFGlyph.h,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTTXFGLYPH_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTTXFGLYPH_H_ */

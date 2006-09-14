@@ -50,4 +50,4 @@ bool SimpleSceneManager::setClickCenter( bool mode )
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESCENEMANAGER_INLINE_CVSID "@(#)$Id: OSGSimpleSceneManager.inl,v 1.1.2.2 2005/08/16 12:16:41 a-m-z Exp $"
+#define OSGSIMPLESCENEMANAGER_INLINE_CVSID "@(#)$Id$"

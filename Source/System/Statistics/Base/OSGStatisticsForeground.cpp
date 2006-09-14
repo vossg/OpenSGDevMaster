@@ -108,7 +108,7 @@ void StatisticsForeground::dump(      UInt32    ,
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: OSGStatisticsForeground.cpp,v 1.1.2.1 2006/04/21 02:27:50 vossg Exp $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGSTATISTICSFOREGROUND_HEADER_CVSID;
     static char cvsid_inl[] = OSGSTATISTICSFOREGROUND_INLINE_CVSID;
 }

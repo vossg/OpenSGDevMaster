@@ -65,5 +65,5 @@ UInt32 FieldType::getScanTypeId(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDTYPE_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDTYPE_INLINE_CVSID "@(#)$Id$"
 

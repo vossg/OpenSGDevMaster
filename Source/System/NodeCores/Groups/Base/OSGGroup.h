@@ -139,6 +139,6 @@ OSG_END_NAMESPACE
 #include "OSGGroupBase.inl"
 #include "OSGGroup.inl"
 
-#define OSGGROUP_HEADER_CVSID "@(#)$Id: $"
+#define OSGGROUP_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGROUP_H_ */

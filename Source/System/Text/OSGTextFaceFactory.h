@@ -174,6 +174,6 @@ OSG_END_NAMESPACE
 
 #include "OSGTextFaceFactory.inl"
 
-#define OSGTEXTFACEFACTORY_HEADER_CVSID "@(#)$Id: OSGTextFaceFactory.h,v 1.1.4.2 2006/05/08 06:01:14 vossg Exp $"
+#define OSGTEXTFACEFACTORY_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTFACEFACTORY_H_ */

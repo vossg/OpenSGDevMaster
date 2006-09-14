@@ -500,6 +500,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGVIEWPORTBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGVIEWPORTBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVIEWPORTBASE_H_ */

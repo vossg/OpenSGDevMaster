@@ -318,6 +318,6 @@ struct QuaternionFieldDesc : public FieldDescBase
 
 OSG_END_NAMESPACE
 
-#define OSGMATHFIELDTRAITS_HEADER_CVSID "@(#)$Id: $"
+#define OSGMATHFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMATHFIELDTRAITS_H_ */

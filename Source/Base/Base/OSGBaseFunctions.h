@@ -490,6 +490,6 @@ OSG_END_NAMESPACE
 
 #include "OSGBaseFunctions.inl"
 
-#define OSGBASEFUNCTIONS_HEADER_CVSID "@(#)$Id: $"
+#define OSGBASEFUNCTIONS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* OSGBASEFUNCTIONS_H */

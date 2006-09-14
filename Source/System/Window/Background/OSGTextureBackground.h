@@ -145,6 +145,6 @@ OSG_END_NAMESPACE
 #include "OSGTextureBackgroundBase.inl"
 #include "OSGTextureBackground.inl"
 
-#define OSGTEXTUREBACKGROUND_HEADER_CVSID "@(#)$Id: OSGTextureBackground.h,v 1.1.2.2 2006/07/28 06:22:27 vossg Exp $"
+#define OSGTEXTUREBACKGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTUREBACKGROUND_H_ */

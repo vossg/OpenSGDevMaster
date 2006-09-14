@@ -58,4 +58,4 @@ StatElemDescBase *StatElem::getDesc(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGSTATELEM_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATELEM_INLINE_CVSID "@(#)$Id$"

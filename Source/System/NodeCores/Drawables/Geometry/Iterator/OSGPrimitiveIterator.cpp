@@ -113,7 +113,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-char PrimitiveIterator::cvsid[] = "@(#)$Id: OSGPrimitiveIterator.cpp,v 1.17 2001/11/01 05:55:06 vossg Exp $";
+char PrimitiveIterator::cvsid[] = "@(#)$Id$";
 
 /***************************************************************************\
  *                           Instance methods                              *

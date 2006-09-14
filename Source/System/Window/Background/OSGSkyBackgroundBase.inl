@@ -1019,5 +1019,5 @@ typedef PointerBuilder<SkyBackground>::ObjPtrConstArg  SkyBackgroundPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSKYBACKGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSKYBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
 

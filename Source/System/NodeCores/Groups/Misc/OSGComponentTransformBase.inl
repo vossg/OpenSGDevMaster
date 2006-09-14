@@ -335,5 +335,5 @@ typedef PointerBuilder<ComponentTransform>::ObjPtrConstArg  ComponentTransformPt
 
 OSG_END_NAMESPACE
 
-#define OSGCOMPONENTTRANSFORMBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGCOMPONENTTRANSFORMBASE_INLINE_CVSID "@(#)$Id$"
 

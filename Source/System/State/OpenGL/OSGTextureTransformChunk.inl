@@ -54,5 +54,5 @@ UInt32 TextureTransformChunk::getStaticClassId(void)
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTURETRANSFORMCHUNK_INLINE_CVSID "@(#)$Id: $"
+#define OSGTEXTURETRANSFORMCHUNK_INLINE_CVSID "@(#)$Id$"
 

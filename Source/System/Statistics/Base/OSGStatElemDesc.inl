@@ -113,4 +113,4 @@ StatElem *StatElemDesc<T>::createElem(void)
 
 OSG_END_NAMESPACE
 
-#define OSGSTATELEMDESC_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATELEMDESC_INLINE_CVSID "@(#)$Id$"

@@ -138,6 +138,6 @@ OSG_END_NAMESPACE
 #include "OSGGrabForegroundBase.inl"
 #include "OSGGrabForeground.inl"
 
-#define OSGGRABFOREGROUND_HEADER_CVSID "@(#)$Id: $"
+#define OSGGRABFOREGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGRABFOREGROUND_H_ */

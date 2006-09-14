@@ -140,5 +140,5 @@ typedef PointerBuilder<LightEnv>::ObjPtrConstArg  LightEnvPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTENVBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGLIGHTENVBASE_INLINE_CVSID "@(#)$Id$"
 

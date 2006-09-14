@@ -129,4 +129,4 @@ RenderTreeNode *StateSorter::getRoot(void)
 
 OSG_END_NAMESPACE
 
-#define OSGSTATESORTER_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATESORTER_INLINE_CVSID "@(#)$Id$"

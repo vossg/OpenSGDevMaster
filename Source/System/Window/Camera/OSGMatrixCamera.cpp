@@ -137,7 +137,7 @@ void MatrixCamera::getViewing(Matrix& result, UInt32 OSG_CHECK_ARG(width),
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGMATRIXCAMERA_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGMATRIXCAMERA_INLINE_CVSID;
 

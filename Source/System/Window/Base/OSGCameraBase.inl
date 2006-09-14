@@ -141,5 +141,5 @@ typedef PointerBuilder<Camera>::ObjPtrConstArg  CameraPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGCAMERABASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGCAMERABASE_INLINE_CVSID "@(#)$Id$"
 

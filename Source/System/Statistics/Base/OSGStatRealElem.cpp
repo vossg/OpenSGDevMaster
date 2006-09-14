@@ -174,7 +174,7 @@ StatElem &StatRealElem::operator += (const StatElem &other)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSTATREALELEM_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSTATREALELEM_INLINE_CVSID;
 }

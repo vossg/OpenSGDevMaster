@@ -198,6 +198,6 @@ typedef GroupMCastConnection *GroupMCastConnectionP;
 
 OSG_END_NAMESPACE
 
-#define OSG_GROUPMCASTCONNECTION_HEADER_CVSID "@(#)$Id: $"
+#define OSG_GROUPMCASTCONNECTION_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _GROUPMCASTCONNECTION_H_ */

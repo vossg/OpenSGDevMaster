@@ -54,5 +54,5 @@ UInt32 VertexProgramChunk::getStaticClassId(void)
 
 OSG_END_NAMESPACE
 
-#define OSGVERTEXPROGRAMCHUNK_INLINE_CVSID "@(#)$Id: $"
+#define OSGVERTEXPROGRAMCHUNK_INLINE_CVSID "@(#)$Id$"
 

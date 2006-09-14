@@ -678,7 +678,7 @@ struct StringConversionError
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDTRAITS_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldTraits.inl"
 

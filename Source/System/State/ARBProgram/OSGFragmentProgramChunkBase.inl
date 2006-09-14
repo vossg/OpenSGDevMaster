@@ -140,5 +140,5 @@ typedef PointerBuilder<FragmentProgramChunk>::ObjPtrConstArg  FragmentProgramChu
 
 OSG_END_NAMESPACE
 
-#define OSGFRAGMENTPROGRAMCHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGFRAGMENTPROGRAMCHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

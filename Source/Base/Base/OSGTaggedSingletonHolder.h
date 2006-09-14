@@ -99,6 +99,6 @@ class TaggedSingletonHolder
 
 OSG_END_NAMESPACE
 
-#define OSGTAGGEDSINGLETONHOLDER_HEADER_CVSID "@(#)$Id: OSGTaggedSingletonHolder.h,v 1.1.2.1 2006/04/21 02:27:46 vossg Exp $"
+#define OSGTAGGEDSINGLETONHOLDER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTAGGEDSINGLETONHOLDER_H_ */

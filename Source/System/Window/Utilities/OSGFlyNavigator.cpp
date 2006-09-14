@@ -263,7 +263,7 @@ Real32 FlyNavigator::right(Real32 step)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGFlyNavigator.cpp,v 1.1.2.1 2005/08/12 11:24:20 a-m-z Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGFLYNAVIGATOR_HEADER_CVSID;
 
     static Char8 cvsid_fields_hpp[] = OSGFLYNAVIGATOR_HEADER_CVSID;

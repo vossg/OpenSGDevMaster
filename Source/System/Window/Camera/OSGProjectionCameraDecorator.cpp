@@ -316,7 +316,7 @@ static bool hack = true;
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: OSGProjectionCameraDecorator.cpp,v 1.1.2.1 2006/04/21 02:27:51 vossg Exp $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGPROJECTIONCAMERADECORATOR_HEADER_CVSID;
     static char cvsid_inl[] = OSGPROJECTIONCAMERADECORATOR_INLINE_CVSID;
 }

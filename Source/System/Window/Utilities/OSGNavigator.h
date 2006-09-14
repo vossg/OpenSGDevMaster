@@ -209,6 +209,6 @@ class OSG_UTIL_DLLMAPPING Navigator
 
 OSG_END_NAMESPACE
 
-#define OSGNAVIGATOR_HEADER_CVSID "@(#)$Id: OSGNavigator.h,v 1.1.2.3 2006/02/09 05:21:50 vossg Exp $"
+#define OSGNAVIGATOR_HEADER_CVSID "@(#)$Id$"
 
 #endif

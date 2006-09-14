@@ -587,7 +587,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static OSG::Char8 cvsid_cpp[] = "@(#)$Id: OSGTextVectorFace.cpp,v 1.2.4.3 2006/05/15 06:33:12 vossg Exp $";
+    static OSG::Char8 cvsid_cpp[] = "@(#)$Id$";
     static OSG::Char8 cvsid_hpp[] = OSGTEXTVECTORFACE_HEADER_CVSID;
     static OSG::Char8 cvsid_inl[] = OSGTEXTVECTORFACE_INLINE_CVSID;
 }

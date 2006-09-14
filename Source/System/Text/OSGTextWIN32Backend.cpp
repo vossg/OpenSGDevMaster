@@ -1330,7 +1330,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static OSG::Char8 cvsid_cpp[] = "@(#)$Id: OSGTextWIN32Backend.cpp,v 1.4.2.3 2006/05/08 10:38:07 vossg Exp $";
+    static OSG::Char8 cvsid_cpp[] = "@(#)$Id$";
     static OSG::Char8 cvsid_hpp[] = OSGTEXTWIN32BACKEND_HEADER_CVSID;
     static OSG::Char8 cvsid_inl[] = OSGTEXTWIN32BACKEND_INLINE_CVSID;
 }

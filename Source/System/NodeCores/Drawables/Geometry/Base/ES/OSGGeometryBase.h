@@ -450,6 +450,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGGEOMETRYBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGGEOMETRYBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGEOMETRYBASE_H_ */

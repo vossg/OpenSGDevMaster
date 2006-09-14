@@ -156,6 +156,6 @@ OSG_END_NAMESPACE
 
 #include "OSGTextWIN32Backend.inl"
 
-#define OSGTEXTWIN32BACKEND_HEADER_CVSID "@(#)$Id: OSGTextWIN32Backend.h,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTWIN32BACKEND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTWIN32BACKEND_H_ */

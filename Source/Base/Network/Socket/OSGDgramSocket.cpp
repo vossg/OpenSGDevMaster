@@ -399,6 +399,6 @@ const DgramSocket & DgramSocket::operator =(const DgramSocket &source)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_DGRAMSOCKET_HEADER_CVSID;
 }

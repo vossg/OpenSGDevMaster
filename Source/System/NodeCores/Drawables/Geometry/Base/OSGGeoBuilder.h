@@ -156,6 +156,6 @@ OSG_END_NAMESPACE
 
 #include "OSGGeoBuilder.inl"
 
-#define OSGGEOBUILDER_HEADER_CVSID "@(#)$Id: $"
+#define OSGGEOBUILDER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGEOBUILDER_H_ */

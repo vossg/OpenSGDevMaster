@@ -163,5 +163,5 @@ typedef PointerBuilder<VisitSubTree>::ObjPtrConstArg  VisitSubTreePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGVISITSUBTREEBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGVISITSUBTREEBASE_INLINE_CVSID "@(#)$Id$"
 

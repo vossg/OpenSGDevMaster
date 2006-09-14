@@ -329,6 +329,6 @@ OSG_END_NAMESPACE
 
 #include "OSGTextTXFFace.inl"
 
-#define OSGTEXTTXFFACE_HEADER_CVSID "@(#)$Id: OSGTextTXFFace.h,v 1.4.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTTXFFACE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTTXFFACE_H_ */

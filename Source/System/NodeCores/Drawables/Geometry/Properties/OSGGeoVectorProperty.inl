@@ -57,5 +57,5 @@ const StateChunkClass *GeoVectorProperty::getStaticClass(void)
 
 OSG_END_NAMESPACE
 
-#define OSGGEOVECTORPROPERTY_INLINE_CVSID "@(#)$Id: $"
+#define OSGGEOVECTORPROPERTY_INLINE_CVSID "@(#)$Id$"
 

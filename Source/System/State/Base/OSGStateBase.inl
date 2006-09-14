@@ -171,5 +171,5 @@ typedef PointerBuilder<State>::ObjPtrConstArg  StatePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSTATEBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATEBASE_INLINE_CVSID "@(#)$Id$"
 

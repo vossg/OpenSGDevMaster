@@ -156,6 +156,6 @@ typedef GroupSockPipeline *GroupSockPipelineP;
 
 OSG_END_NAMESPACE
 
-#define OSG_GROUPSOCKPIPELINE_HEADER_CVSID "@(#)$Id: $"
+#define OSG_GROUPSOCKPIPELINE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _GROUPSOCKPIPELINE_H_ */

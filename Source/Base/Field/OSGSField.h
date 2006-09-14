@@ -197,7 +197,7 @@ class SField : public Field
 
 OSG_END_NAMESPACE
 
-#define OSGSFIELD_HEADER_CVSID "@(#)$Id: $"
+#define OSGSFIELD_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGSField.inl"
 

@@ -290,7 +290,7 @@ const SocketSelection & SocketSelection::operator =(const SocketSelection &sourc
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_SOCKET_SELECTION_HEADER_CVSID;
 }
 

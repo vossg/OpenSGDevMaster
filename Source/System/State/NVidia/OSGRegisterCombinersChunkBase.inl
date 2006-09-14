@@ -2024,5 +2024,5 @@ typedef PointerBuilder<RegisterCombinersChunk>::ObjPtrConstArg  RegisterCombiner
 
 OSG_END_NAMESPACE
 
-#define OSGREGISTERCOMBINERSCHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGREGISTERCOMBINERSCHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

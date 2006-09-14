@@ -515,7 +515,7 @@ void ExceptionBinaryDataHandler::freeMem()
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGEXCEPTIONBINARYDATAHANDLER_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGEXCEPTIONBINARYDATAHANDLER_INLINE_CVSID;
 }

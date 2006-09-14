@@ -193,7 +193,7 @@ void TextureBaseChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGTextureBaseChunk.cpp,v 1.1.2.1 2006/05/08 07:27:24 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGTEXTUREBASECHUNK_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTUREBASECHUNK_INLINE_CVSID;
 

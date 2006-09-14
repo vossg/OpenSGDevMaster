@@ -114,7 +114,7 @@ class OSG_BASE_DLLMAPPING SocketSelection
 
 OSG_END_NAMESPACE
 
-#define OSG_SOCKET_SELECTION_HEADER_CVSID "@(#)$Id: $"
+#define OSG_SOCKET_SELECTION_HEADER_CVSID "@(#)$Id$"
 
 #endif
 

@@ -699,7 +699,7 @@ void setRefd(BaseThread *&pObject,
 
 OSG_END_NAMESPACE
 
-#define OSGBASETHREAD_HEADER_CVSID "@(#)$Id: $"
+#define OSGBASETHREAD_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGBaseThread.inl"
 

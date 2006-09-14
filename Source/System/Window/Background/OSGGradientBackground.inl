@@ -54,5 +54,5 @@ void GradientBackground::clearLines(void)
 
 OSG_END_NAMESPACE
 
-#define OSGGRADIENTBACKGROUND_INLINE_CVSID "@(#)$Id: OSGGradientBackground.inl,v 1.1.2.2 2005/10/04 08:40:25 vossg Exp $"
+#define OSGGRADIENTBACKGROUND_INLINE_CVSID "@(#)$Id$"
 

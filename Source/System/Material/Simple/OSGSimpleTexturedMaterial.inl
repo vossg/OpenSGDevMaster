@@ -57,5 +57,5 @@ void SimpleTexturedMaterial::imageChanged(void)
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLETEXTUREDMATERIAL_INLINE_CVSID "@(#)$Id: $"
+#define OSGSIMPLETEXTUREDMATERIAL_INLINE_CVSID "@(#)$Id$"
 

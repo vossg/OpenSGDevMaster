@@ -655,7 +655,7 @@ std::string Socket::getHostErrorStr(void)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_SOCKET_HEADER_CVSID;
 }
 

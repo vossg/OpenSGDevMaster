@@ -125,6 +125,6 @@ struct FieldTraits<DistanceLODPtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGDISTANCELODFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGDISTANCELODFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGDISTANCELODFIELDS_H_ */

@@ -142,7 +142,7 @@ const Char8 *FactoryBase::getCName(void) const
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFACTORYBASE_HEADER_CVSID;
 }
 

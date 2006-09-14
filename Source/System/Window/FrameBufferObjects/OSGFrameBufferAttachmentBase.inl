@@ -204,5 +204,5 @@ typedef PointerBuilder<FrameBufferAttachment>::ObjPtrConstArg  FrameBufferAttach
 
 OSG_END_NAMESPACE
 
-#define OSGFRAMEBUFFERATTACHMENTBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGFRAMEBUFFERATTACHMENTBASE_INLINE_CVSID "@(#)$Id$"
 

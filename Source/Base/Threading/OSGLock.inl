@@ -244,5 +244,5 @@ bool LockPool::request(void *keyP)
 
 OSG_END_NAMESPACE
 
-#define OSGLOCK_INLINE_CVSID "@(#)$Id: $"
+#define OSGLOCK_INLINE_CVSID "@(#)$Id$"
 

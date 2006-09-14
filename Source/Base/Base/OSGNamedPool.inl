@@ -107,5 +107,5 @@ void NamedPool<ValueT>::printStat(void)
 
 OSG_END_NAMESPACE
 
-#define OSGNAMESPOOL_INLINE_CVSID "@(#)$Id: OSGNamedPool.inl,v 1.1.2.1 2006/04/21 02:27:46 vossg Exp $"
+#define OSGNAMESPOOL_INLINE_CVSID "@(#)$Id$"
 

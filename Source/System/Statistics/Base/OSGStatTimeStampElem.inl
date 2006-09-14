@@ -58,4 +58,4 @@ const TimeStamp & StatTimeStampElem::getTime(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGSTATTIMESTAMPELEM_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTATTIMESTAMPELEM_INLINE_CVSID "@(#)$Id$"

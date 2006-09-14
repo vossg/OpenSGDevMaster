@@ -269,7 +269,7 @@ UInt32 RenderTraversalActionBase::selectVisibles(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGRENDERTRAVERSALACTIONBASE_HEADER_CVSID;
 }
 

@@ -65,7 +65,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static OSG::Char8 cvsid_cpp[] = "@(#)$Id: OSGTextGlyph.cpp,v 1.1.4.2 2006/05/08 06:01:14 vossg Exp $";
+    static OSG::Char8 cvsid_cpp[] = "@(#)$Id$";
     static OSG::Char8 cvsid_hpp[] = OSGTEXTGLYPH_HEADER_CVSID;
     static OSG::Char8 cvsid_inl[] = OSGTEXTGLYPH_INLINE_CVSID;
 }

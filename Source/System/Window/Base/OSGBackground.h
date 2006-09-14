@@ -138,6 +138,6 @@ OSG_END_NAMESPACE
 #include "OSGBackgroundBase.inl"
 #include "OSGBackground.inl"
 
-#define OSGBACKGROUND_HEADER_CVSID "@(#)$Id: $"
+#define OSGBACKGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGBACKGROUND_H_ */

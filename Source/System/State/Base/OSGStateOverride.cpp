@@ -81,7 +81,7 @@ StateOverride::~StateOverride(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSGStateOverride.cpp,v 1.1.2.1 2006/04/21 02:27:50 vossg Exp $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSTATEOVERRIDE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSTATEOVERRIDE_INLINE_CVSID;
 }

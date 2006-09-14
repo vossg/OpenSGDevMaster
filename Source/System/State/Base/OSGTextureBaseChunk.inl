@@ -52,5 +52,5 @@ UInt32 TextureBaseChunk::getStaticClassId(void)
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREBASECHUNK_INLINE_CVSID "@(#)$Id: OSGTextureBaseChunk.inl,v 1.1.2.1 2006/05/08 07:27:24 vossg Exp $"
+#define OSGTEXTUREBASECHUNK_INLINE_CVSID "@(#)$Id$"
 

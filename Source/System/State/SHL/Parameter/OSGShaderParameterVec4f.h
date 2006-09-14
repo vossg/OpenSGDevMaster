@@ -127,6 +127,6 @@ OSG_END_NAMESPACE
 #include "OSGShaderParameterVec4fBase.inl"
 #include "OSGShaderParameterVec4f.inl"
 
-#define OSGSHADERPARAMETERVEC4F_HEADER_CVSID "@(#)$Id: $"
+#define OSGSHADERPARAMETERVEC4F_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSHADERPARAMETERVEC4F_H_ */

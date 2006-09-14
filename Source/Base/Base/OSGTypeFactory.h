@@ -239,6 +239,6 @@ typedef SingletonHolder<TypeFactoryBase> TypeFactory;
 
 OSG_END_NAMESPACE
 
-#define OSGTYPEFACTORY_HEADER_CVSID "@(#)$Id: $"
+#define OSGTYPEFACTORY_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTYPEFACTORY_HPP_ */

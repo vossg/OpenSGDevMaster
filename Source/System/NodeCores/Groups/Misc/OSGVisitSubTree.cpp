@@ -195,7 +195,7 @@ void VisitSubTree::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGVISITSUBTREE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGVISITSUBTREE_INLINE_CVSID;
 }

@@ -160,7 +160,7 @@ char *FCTemplate_h[]={
 "#include \"OSG@!Classname!@Base.inl\"",
 "#include \"OSG@!Classname!@.inl\"",
 "",
-"#define OSG@!CLASSNAME!@_HEADER_CVSID \"@(#)$Id: $\"",
+"#define OSG@!CLASSNAME!@_HEADER_CVSID \"@(#)$Id$\"",
 "",
 "#endif /* _OSG@!CLASSNAME!@_H_ */",
 NULL };

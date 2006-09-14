@@ -108,6 +108,6 @@ OSG_END_NAMESPACE
 
 #include "OSGMemoryObject.inl"
 
-#define OSGMEMORYOBJECT_HEADER_CVSID "@(#)$Id: $"
+#define OSGMEMORYOBJECT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMEMORYOBJECT_H_ */

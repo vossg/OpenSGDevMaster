@@ -330,7 +330,7 @@ OSG_END_NAMESPACE
 
 #include "OSGParticleBSP.inl"
 
-#define OSGPARTICLEBSP_HEADER_CVSID "@(#)$Id: $"
+#define OSGPARTICLEBSP_HEADER_CVSID "@(#)$Id$"
 
 #endif            // exclude from user doc
 

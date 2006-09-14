@@ -154,6 +154,6 @@ OSG_END_NAMESPACE
 #include "OSGSimpleStageBase.inl"
 #include "OSGSimpleStage.inl"
 
-#define OSGSIMPLESTAGE_HEADER_CVSID "@(#)$Id: $"
+#define OSGSIMPLESTAGE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSIMPLESTAGE_H_ */

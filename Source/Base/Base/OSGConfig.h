@@ -64,7 +64,7 @@
     e.g. "1.3.0pre1"
  */
 
-#define OSG_VERSION_STRING      "2.0.0pre-11"
+#define OSG_VERSION_STRING      "2.0.0-pre1"
 
 /*! The numeric full version, with two digits per major/minor/release, e.g.
     010300

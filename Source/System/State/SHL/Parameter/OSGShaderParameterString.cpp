@@ -129,7 +129,7 @@ void ShaderParameterString::dump(      UInt32    ,
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = 
                                    OSGSHADERPARAMETERSTRINGBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = 

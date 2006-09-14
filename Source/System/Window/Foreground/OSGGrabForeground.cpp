@@ -175,7 +175,7 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGGRABFOREGROUND_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGGRABFOREGROUND_INLINE_CVSID;
 }

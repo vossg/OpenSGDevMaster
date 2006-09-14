@@ -149,6 +149,6 @@ OSG_END_NAMESPACE
 #include "OSGVisitSubTreeBase.inl"
 #include "OSGVisitSubTree.inl"
 
-#define OSGVISITSUBTREE_HEADER_CVSID "@(#)$Id: $"
+#define OSGVISITSUBTREE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVISITSUBTREE_H_ */

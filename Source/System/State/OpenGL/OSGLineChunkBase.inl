@@ -296,5 +296,5 @@ typedef PointerBuilder<LineChunk>::ObjPtrConstArg  LineChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGLINECHUNKBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGLINECHUNKBASE_INLINE_CVSID "@(#)$Id$"
 

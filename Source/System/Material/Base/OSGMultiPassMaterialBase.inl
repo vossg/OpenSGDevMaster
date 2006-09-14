@@ -171,5 +171,5 @@ typedef PointerBuilder<MultiPassMaterial>::ObjPtrConstArg  MultiPassMaterialPtrC
 
 OSG_END_NAMESPACE
 
-#define OSGMULTIPASSMATERIALBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGMULTIPASSMATERIALBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -412,7 +412,7 @@ void ChunkMaterial::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGCHUNKMATERIAL_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGCHUNKMATERIAL_INLINE_CVSID;
 

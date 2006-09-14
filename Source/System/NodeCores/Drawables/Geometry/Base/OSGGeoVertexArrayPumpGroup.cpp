@@ -1289,7 +1289,7 @@ bool GeoVertexArrayPumpGroup::glextInitFunction(void)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGGEOVERTEXARRAYPUMPGROUP_HEADER_CVSID;
 //    static Char8 cvsid_inl       [] = OSGGEOVERTEXARRAYPUMPGROUP_INLINE_CVSID;
 }

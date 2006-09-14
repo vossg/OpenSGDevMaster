@@ -128,6 +128,6 @@ class OSG_BASE_DLLMAPPING DgramSocket:public Socket
 
 OSG_END_NAMESPACE
 
-#define OSG_DGRAMSOCKET_HEADER_CVSID "@(#)$Id: $"
+#define OSG_DGRAMSOCKET_HEADER_CVSID "@(#)$Id$"
 
 #endif

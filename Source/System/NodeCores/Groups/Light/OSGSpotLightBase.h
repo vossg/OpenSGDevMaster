@@ -356,6 +356,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGSPOTLIGHTBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGSPOTLIGHTBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSPOTLIGHTBASE_H_ */

@@ -180,6 +180,6 @@ OSG_END_NAMESPACE
 #include "OSGFrameBufferObjectBase.inl"
 #include "OSGFrameBufferObject.inl"
 
-#define OSGFRAMEBUFFEROBJECT_HEADER_CVSID "@(#)$Id: $"
+#define OSGFRAMEBUFFEROBJECT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFRAMEBUFFEROBJECT_H_ */

@@ -321,7 +321,7 @@ bool GeoProperty::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGGEOPROPERTYBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGGEOPROPERTYBASE_INLINE_CVSID;
 

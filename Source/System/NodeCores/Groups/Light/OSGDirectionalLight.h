@@ -158,7 +158,7 @@ OSG_END_NAMESPACE
 #include "OSGDirectionalLightBase.inl"
 #include "OSGDirectionalLight.inl"
 
-#define OSGDIRECTIONALLIGHT_HEADER_CVSID "@(#)$Id: $"
+#define OSGDIRECTIONALLIGHT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGDIRECTIONALLIGHT_H_ */
 

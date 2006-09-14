@@ -186,7 +186,7 @@ void SimpleStage::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSIMPLESTAGE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGSIMPLESTAGE_INLINE_CVSID;
 }

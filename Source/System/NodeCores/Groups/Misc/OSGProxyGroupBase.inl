@@ -617,5 +617,5 @@ typedef PointerBuilder<ProxyGroup>::ObjPtrConstArg  ProxyGroupPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGPROXYGROUPBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGPROXYGROUPBASE_INLINE_CVSID "@(#)$Id$"
 

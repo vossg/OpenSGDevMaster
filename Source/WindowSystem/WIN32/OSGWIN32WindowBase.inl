@@ -257,5 +257,5 @@ typedef PointerBuilder<WIN32Window>::ObjPtrConstArg  WIN32WindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGWIN32WINDOWBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGWIN32WINDOWBASE_INLINE_CVSID "@(#)$Id$"
 

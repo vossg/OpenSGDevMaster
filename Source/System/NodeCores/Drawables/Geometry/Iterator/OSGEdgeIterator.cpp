@@ -96,7 +96,7 @@ time. See \ref PageSystemEdgeIterator for a description.
  *                           Class variables                               *
 \***************************************************************************/
 
-char EdgeIterator::cvsid[] = "@(#)$Id: OSGEdgeIterator.cpp,v 1.1.2.1 2005/08/15 01:06:00 dirk Exp $";
+char EdgeIterator::cvsid[] = "@(#)$Id$";
 
 /***************************************************************************\
  *                           Instance methods                              *

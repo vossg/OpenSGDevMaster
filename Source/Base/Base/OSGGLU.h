@@ -93,6 +93,6 @@ typedef void (*OSGGLUfuncptr)();
 #define glErr(text)
 #endif
 
-#define OSGGLU_HEADER_CVSID "@(#)$Id: $"
+#define OSGGLU_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGLU_H_ */

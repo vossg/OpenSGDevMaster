@@ -151,6 +151,6 @@ OSG_END_NAMESPACE
 #include "OSGDepthClearBackgroundBase.inl"
 #include "OSGDepthClearBackground.inl"
 
-#define OSGDEPTHCLEARBACKGROUND_HEADER_CVSID "@(#)$Id: $"
+#define OSGDEPTHCLEARBACKGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGDEPTHCLEARBACKGROUND_H_ */

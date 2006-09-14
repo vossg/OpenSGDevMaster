@@ -83,7 +83,7 @@ PointConnection::~PointConnection(void)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_POINTCONNECTION_HEADER_CVSID;
 }
 

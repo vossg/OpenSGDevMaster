@@ -55,6 +55,6 @@ extern OSG_UTIL_DLLMAPPING UChar8 LogoData[];
 
 OSG_END_NAMESPACE
 
-#define OSGLOGODATA_HEADER_CVSID "@(#)$Id: OSGLogoData.h,v 1.1.2.2 2006/01/12 08:15:46 vossg Exp $"
+#define OSGLOGODATA_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGLOGODATA_H_ */

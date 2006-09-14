@@ -555,7 +555,7 @@ ConnectionType GroupSockConnection::_type(
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_GROUPSOCKCONNECTION_HEADER_CVSID;
 }
 

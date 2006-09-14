@@ -235,5 +235,5 @@ typedef PointerBuilder<ImageForeground>::ObjPtrConstArg  ImageForegroundPtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGIMAGEFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGIMAGEFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
 

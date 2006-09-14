@@ -156,7 +156,7 @@ OSG_END_NAMESPACE
 #include "OSGBillboardBase.inl"
 #include "OSGBillboard.inl"
 
-#define OSGBILLBOARD_HEADER_CVSID "@(#)$Id: $"
+#define OSGBILLBOARD_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGBILLBOARD_H_ */
 

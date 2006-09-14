@@ -1503,7 +1503,7 @@
 #define GL_DEPTH_TEXTURE_MODE_ARB 0x884B
 #endif
 
-#define OSGGLEXT_HEADER_CVSID "@(#)$Id: $"
+#define OSGGLEXT_HEADER_CVSID "@(#)$Id$"
 
 #else
 

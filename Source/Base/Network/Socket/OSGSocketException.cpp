@@ -125,6 +125,6 @@ SocketConnReset::SocketConnReset(const char *function):
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_SOCKETEXCEPTION_HEADER_CVSID;
 }

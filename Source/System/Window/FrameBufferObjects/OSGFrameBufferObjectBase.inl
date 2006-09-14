@@ -398,5 +398,5 @@ typedef PointerBuilder<FrameBufferObject>::ObjPtrConstArg  FrameBufferObjectPtrC
 
 OSG_END_NAMESPACE
 
-#define OSGFRAMEBUFFEROBJECTBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGFRAMEBUFFEROBJECTBASE_INLINE_CVSID "@(#)$Id$"
 

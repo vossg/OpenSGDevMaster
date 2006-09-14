@@ -138,6 +138,6 @@ OSG_END_NAMESPACE
 #include "OSGDrawableBase.inl"
 #include "OSGDrawable.inl"
 
-#define OSGDRAWABLE_HEADER_CVSID "@(#)$Id: OSGDrawable.h,v 1.3.4.5 2006/07/28 06:21:56 vossg Exp $"
+#define OSGDRAWABLE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGDRAWABLE_H_ */

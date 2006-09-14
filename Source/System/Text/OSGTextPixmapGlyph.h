@@ -231,6 +231,6 @@ OSG_END_NAMESPACE
 
 #include "OSGTextPixmapGlyph.inl"
 
-#define OSGTEXTPIXMAPGLYPH_HEADER_CVSID "@(#)$Id: OSGTextPixmapGlyph.h,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTPIXMAPGLYPH_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTPIXMAPGLYPH_H_ */

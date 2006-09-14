@@ -489,6 +489,6 @@ StaticInitFuncWrapper::StaticInitFuncWrapper(const InitFuncF func)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGBASEINITFUNCTIONS_HEADER_CVSID;
 }

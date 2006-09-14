@@ -1177,7 +1177,7 @@ bool GeoImmediatePumpGroup::glextInitFunction(void)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGGEOIMMEDIATEPUMPGROUP_HEADER_CVSID;
 //    static Char8 cvsid_inl       [] = OSGGEOIMMEDIATEPUMPGROUP_INLINE_CVSID;
 }

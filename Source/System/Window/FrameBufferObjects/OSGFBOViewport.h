@@ -152,6 +152,6 @@ OSG_END_NAMESPACE
 #include "OSGFBOViewportBase.inl"
 #include "OSGFBOViewport.inl"
 
-#define OSGFBOVIEWPORT_HEADER_CVSID "@(#)$Id: $"
+#define OSGFBOVIEWPORT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFBOVIEWPORT_H_ */

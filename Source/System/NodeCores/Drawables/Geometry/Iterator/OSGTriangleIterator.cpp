@@ -89,7 +89,7 @@ time. See \ref PageSystemTriangleIterator for details.
  *                           Class variables                               *
 \***************************************************************************/
 
-char TriangleIterator::cvsid[] = "@(#)$Id: OSGTriangleIterator.cpp,v 1.13 2001/10/15 04:52:16 vossg Exp $";
+char TriangleIterator::cvsid[] = "@(#)$Id$";
 
 /***************************************************************************\
  *                           Instance methods                              *

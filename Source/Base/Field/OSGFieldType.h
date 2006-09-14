@@ -149,7 +149,7 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDTYPE_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDTYPE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldType.inl"
 

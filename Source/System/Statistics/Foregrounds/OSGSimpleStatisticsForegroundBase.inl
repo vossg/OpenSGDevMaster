@@ -282,5 +282,5 @@ typedef PointerBuilder<SimpleStatisticsForeground>::ObjPtrConstArg  SimpleStatis
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSIMPLESTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -155,6 +155,6 @@ OSG_END_NAMESPACE
 #include "OSGShadowMapEngineBase.inl"
 #include "OSGShadowMapEngine.inl"
 
-#define OSGSHADOWMAPENGINE_HEADER_CVSID "@(#)$Id: OSGShadowMapEngine.h,v 1.1.2.4 2006/07/28 06:22:02 vossg Exp $"
+#define OSGSHADOWMAPENGINE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSHADOWMAPENGINE_H_ */

@@ -198,7 +198,7 @@ bool ColorMaskChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGCOLORMASKCHUNKBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGCOLORMASKCHUNKBASE_INLINE_CVSID;
 

@@ -156,6 +156,6 @@ OSG_END_NAMESPACE
 #include "OSGGradientBackgroundBase.inl"
 #include "OSGGradientBackground.inl"
 
-#define OSGGRADIENTBACKGROUND_HEADER_CVSID "@(#)$Id: OSGGradientBackground.h,v 1.1.2.3 2006/07/28 06:22:26 vossg Exp $"
+#define OSGGRADIENTBACKGROUND_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGRADIENTBACKGROUND_H_ */

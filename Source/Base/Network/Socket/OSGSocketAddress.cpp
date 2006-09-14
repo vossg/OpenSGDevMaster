@@ -263,7 +263,7 @@ bool SocketAddress::operator < (const SocketAddress &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_SOCKET_ADDRESS_HEADER_CVSID;
 }
 

@@ -301,6 +301,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGMATERIALBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGMATERIALBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMATERIALBASE_H_ */

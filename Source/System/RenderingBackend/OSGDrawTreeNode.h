@@ -185,6 +185,6 @@ OSG_END_NAMESPACE
 
 #include "OSGDrawTreeNode.inl"
 
-#define OSGDRAWTREENODE_HEADER_CVSID "@(#)$Id: $"
+#define OSGDRAWTREENODE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGDRAWTREENODE_H_ */

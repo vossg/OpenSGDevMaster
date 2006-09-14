@@ -374,6 +374,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGLINECHUNKBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGLINECHUNKBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGLINECHUNKBASE_H_ */

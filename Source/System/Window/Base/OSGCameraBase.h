@@ -361,6 +361,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGCAMERABASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGCAMERABASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCAMERABASE_H_ */

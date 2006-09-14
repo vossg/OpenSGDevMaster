@@ -215,7 +215,7 @@ void Light::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGLIGHT_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGLIGHT_INLINE_CVSID;
 }

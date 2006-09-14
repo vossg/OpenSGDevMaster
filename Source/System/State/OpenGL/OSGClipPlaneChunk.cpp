@@ -290,7 +290,7 @@ bool ClipPlaneChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGCLIPPLANECHUNK_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGCLIPPLANECHUNK_INLINE_CVSID;
 

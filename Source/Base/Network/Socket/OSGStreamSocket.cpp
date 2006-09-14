@@ -218,6 +218,6 @@ const StreamSocket & StreamSocket::operator =(const StreamSocket &source)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_STREAMSOCKET_HEADER_CVSID;
 }

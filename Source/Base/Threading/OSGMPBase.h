@@ -465,6 +465,6 @@ OSG_END_NAMESPACE
 
 #include "OSGMPBase.inl"
 
-#define OSGMPBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGMPBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMPBASE_H_ */

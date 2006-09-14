@@ -181,6 +181,6 @@ OSG_END_NAMESPACE
 #include "OSGColorMaskChunkBase.inl"
 #include "OSGColorMaskChunk.inl"
 
-#define OSGCOLORMASKCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGCOLORMASKCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCOLORMASKCHUNK_H_ */

@@ -120,4 +120,4 @@ BitVector RenderTraversalAction::getPassMask(void)
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERTRAVERSALACTION_INLINE_CVSID "@(#)$Id: $"
+#define OSGRENDERTRAVERSALACTION_INLINE_CVSID "@(#)$Id$"

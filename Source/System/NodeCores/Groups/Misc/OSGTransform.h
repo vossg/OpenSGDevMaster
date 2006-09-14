@@ -160,6 +160,6 @@ OSG_END_NAMESPACE
 #include "OSGTransformBase.inl"
 #include "OSGTransform.inl"
 
-#define OSGTRANSFORM_HEADER_CVSID "@(#)$Id: $"
+#define OSGTRANSFORM_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTRANSFORM_H_ */

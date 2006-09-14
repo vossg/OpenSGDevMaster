@@ -96,7 +96,7 @@ time. See \ref PageSystemFaceIterator for a description.
  *                           Class variables                               *
 \***************************************************************************/
 
-char FaceIterator::cvsid[] = "@(#)$Id: OSGFaceIterator.cpp,v 1.13 2001/11/01 09:03:28 vossg Exp $";
+char FaceIterator::cvsid[] = "@(#)$Id$";
 
 /***************************************************************************\
  *                           Instance methods                              *

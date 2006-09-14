@@ -267,4 +267,4 @@ void DrawTreeNode::reset(void)
 
 OSG_END_NAMESPACE
 
-#define OSGDRAWTREENODE_INLINE_CVSID "@(#)$Id: $"
+#define OSGDRAWTREENODE_INLINE_CVSID "@(#)$Id$"

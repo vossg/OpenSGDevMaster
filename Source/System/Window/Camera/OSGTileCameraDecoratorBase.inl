@@ -374,5 +374,5 @@ typedef PointerBuilder<TileCameraDecorator>::ObjPtrConstArg  TileCameraDecorator
 
 OSG_END_NAMESPACE
 
-#define OSGTILECAMERADECORATORBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGTILECAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -105,5 +105,5 @@ void subRef(const MemoryObjectP pObject)
 
 OSG_END_NAMESPACE
 
-#define OSGMEMORYOBJECT_INLINE_CVSID "@(#)$Id: $"
+#define OSGMEMORYOBJECT_INLINE_CVSID "@(#)$Id$"
 

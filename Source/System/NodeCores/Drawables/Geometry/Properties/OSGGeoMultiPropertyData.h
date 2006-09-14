@@ -201,6 +201,6 @@ OSG_END_NAMESPACE
 #include "OSGGeoMultiPropertyDataBase.inl"
 #include "OSGGeoMultiPropertyData.inl"
 
-#define OSGGEOMULTIPROPERTYDATA_HEADER_CVSID "@(#)$Id: OSGGeoMultiPropertyData.h,v 1.1.2.3 2006/07/28 06:21:57 vossg Exp $"
+#define OSGGEOMULTIPROPERTYDATA_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGGEOMULTIPROPERTYDATA_H_ */

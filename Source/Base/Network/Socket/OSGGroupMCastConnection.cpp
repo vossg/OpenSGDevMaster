@@ -674,7 +674,7 @@ ConnectionType GroupMCastConnection::_type(
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_GROUPMCASTCONNECTION_HEADER_CVSID;
 }
 

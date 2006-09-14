@@ -122,6 +122,6 @@ OSG_END_NAMESPACE
 
 #include "OSGTextTXFParam.inl"
 
-#define OSGTEXTTXFPARAM_HEADER_CVSID "@(#)$Id: OSGTextTXFParam.h,v 1.1.4.2 2006/05/08 06:01:15 vossg Exp $"
+#define OSGTEXTTXFPARAM_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTTXFPARAM_H_ */

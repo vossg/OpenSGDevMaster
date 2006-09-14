@@ -209,6 +209,6 @@ typedef SingletonHolder<FactoryControllerBase> FactoryController;
 
 OSG_END_NAMESPACE
 
-#define OSGFACTORYCONTROLLER_HEADER_CVSID "@(#)$Id: $"
+#define OSGFACTORYCONTROLLER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFACTORYCONTROLLER_HPP_ */

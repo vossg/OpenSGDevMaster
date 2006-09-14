@@ -210,7 +210,7 @@ Connection::Channel GroupConnection::indexToChannel(ChannelIndex index) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSG_GROUPCONNECTION_HEADER_CVSID;
 }
 

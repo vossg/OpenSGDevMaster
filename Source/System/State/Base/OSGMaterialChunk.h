@@ -191,6 +191,6 @@ OSG_END_NAMESPACE
 #include "OSGMaterialChunkBase.inl"
 #include "OSGMaterialChunk.inl"
 
-#define OSGMATERIALCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGMATERIALCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMATERIALCHUNK_H_ */

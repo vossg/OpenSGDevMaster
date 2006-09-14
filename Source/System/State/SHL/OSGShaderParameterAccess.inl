@@ -135,4 +135,4 @@ bool ShaderParameterAccess::getParameter(const Char8 *name, ValueType &value)
 
 OSG_END_NAMESPACE
 
-#define OSGSHADERPARAMETERACCESS_INLINE_CVSID "@(#)$Id: $"
+#define OSGSHADERPARAMETERACCESS_INLINE_CVSID "@(#)$Id$"

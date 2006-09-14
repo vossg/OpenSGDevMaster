@@ -684,6 +684,6 @@ OSG_END_NAMESPACE
 #include "OSGBaseTypeTraits.h"
 #include "OSGBaseTypes.inl"
 
-#define OSGBASETPYES_HEADER_CVSID "@(#)$Id: $"
+#define OSGBASETPYES_HEADER_CVSID "@(#)$Id$"
 
 #endif /* OSGBASETYPES_H */

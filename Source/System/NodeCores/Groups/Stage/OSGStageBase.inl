@@ -163,5 +163,5 @@ typedef PointerBuilder<Stage>::ObjPtrConstArg  StagePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSTAGEBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGSTAGEBASE_INLINE_CVSID "@(#)$Id$"
 

@@ -582,6 +582,6 @@ struct FieldTraits<void *> : public FieldTraitsPODTemplateBase<void *>
 
 OSG_END_NAMESPACE
 
-#define OSGSYSFIELDTRAITS_HEADER_CVSID "@(#)$Id: $"
+#define OSGSYSFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSYSFIELDTRAITS_H_ */

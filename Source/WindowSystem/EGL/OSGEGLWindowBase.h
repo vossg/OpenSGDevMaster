@@ -356,6 +356,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGEGLWINDOWBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGEGLWINDOWBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGEGLWINDOWBASE_H_ */

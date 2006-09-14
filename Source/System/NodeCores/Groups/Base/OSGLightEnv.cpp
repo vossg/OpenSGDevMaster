@@ -128,7 +128,7 @@ void LightEnv::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGLIGHTENV_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGLIGHTENV_INLINE_CVSID;
 }

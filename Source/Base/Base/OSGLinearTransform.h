@@ -226,6 +226,6 @@ OSG_END_NAMESPACE
 
 #include "OSGLinearTransform.inl"
 
-#define OSGLINEARTRANSFORM_HEADER_CVSID "@(#)$Id: $"
+#define OSGLINEARTRANSFORM_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGLINEARTRANSFORM_H_ */

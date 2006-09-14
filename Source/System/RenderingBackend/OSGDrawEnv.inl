@@ -217,4 +217,4 @@ void DrawEnv::activateState(State         *pNewState,
 
 OSG_END_NAMESPACE
 
-#define OSGDRAWENV_INLINE_CVSID "@(#)$Id: $"
+#define OSGDRAWENV_INLINE_CVSID "@(#)$Id$"

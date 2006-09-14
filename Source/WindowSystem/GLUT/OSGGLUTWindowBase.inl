@@ -179,5 +179,5 @@ typedef PointerBuilder<GLUTWindow>::ObjPtrConstArg  GLUTWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGGLUTWINDOWBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGGLUTWINDOWBASE_INLINE_CVSID "@(#)$Id$"
 

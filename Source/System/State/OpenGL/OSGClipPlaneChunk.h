@@ -170,6 +170,6 @@ OSG_END_NAMESPACE
 #include "OSGClipPlaneChunkBase.inl"
 #include "OSGClipPlaneChunk.inl"
 
-#define OSGCLIPPLANECHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGCLIPPLANECHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCLIPPLANECHUNK_H_ */

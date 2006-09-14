@@ -50,6 +50,6 @@ UInt32 LightChunk::getStaticClassId(void)
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTCHUNK_INLINE_CVSID "@(#)$Id: $"
+#define OSGLIGHTCHUNK_INLINE_CVSID "@(#)$Id$"
 
 

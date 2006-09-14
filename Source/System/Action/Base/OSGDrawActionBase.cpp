@@ -386,7 +386,7 @@ UInt32 DrawActionBase::selectVisibles(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGDRAWACTIONBASE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGDRAWACTIONBASE_INLINE_CVSID;
 }

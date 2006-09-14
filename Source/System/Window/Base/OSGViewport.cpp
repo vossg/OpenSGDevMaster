@@ -325,7 +325,7 @@ void Viewport::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGVIEWPORT_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGVIEWPORT_INLINE_CVSID;
 

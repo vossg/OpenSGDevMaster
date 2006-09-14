@@ -120,6 +120,6 @@ class OSG_BASE_DLLMAPPING Exception :
 
 OSG_END_NAMESPACE
 
-#define OSGEXCEPTION_HEADER_CVSID "@(#)$Id: $"
+#define OSGEXCEPTION_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _EXCEPTION_H_ */

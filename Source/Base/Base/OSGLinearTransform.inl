@@ -72,7 +72,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 //template<class ValueTypeT>
-//char LinearTransform<ValueTypeT>::cvsid[] = "@(#)$Id: $";
+//char LinearTransform<ValueTypeT>::cvsid[] = "@(#)$Id$";
 
 
 /***************************************************************************\
@@ -395,6 +395,6 @@ LinearTransform<ValueTypeT>
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/
 
-#define OSGLINEARTRANSFORM_INLINE_CVSID "@(#)$Id: $"
+#define OSGLINEARTRANSFORM_INLINE_CVSID "@(#)$Id$"
 
 OSG_END_NAMESPACE

@@ -372,7 +372,7 @@ Lock                     *ProxyGroup::_loadLock   = NULL;
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGPROXYGROUP_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGPROXYGROUP_INLINE_CVSID;
 }

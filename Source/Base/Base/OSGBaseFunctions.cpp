@@ -154,7 +154,7 @@ void string_token_iterator::find_next(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGBASEFUNCTIONS_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGBASEFUNCTIONS_INLINE_CVSID;
 }

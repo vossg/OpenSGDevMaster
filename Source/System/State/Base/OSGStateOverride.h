@@ -139,6 +139,6 @@ OSG_END_NAMESPACE
 
 #include "OSGStateOverride.inl"
 
-#define OSGSTATEOVERRIDE_HEADER_CVSID "@(#)$Id: OSGStateOverride.h,v 1.1.2.2 2006/07/28 06:22:17 vossg Exp $"
+#define OSGSTATEOVERRIDE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSTATEOVERRIDE_H_ */

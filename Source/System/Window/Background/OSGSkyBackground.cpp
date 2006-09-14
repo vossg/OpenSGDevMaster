@@ -457,7 +457,7 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 
 namespace
 {
-    static char cvsid_cpp[] = "@(#)$Id: OSGSkyBackground.cpp,v 1.1.2.3 2006/05/15 06:33:12 vossg Exp $";
+    static char cvsid_cpp[] = "@(#)$Id$";
     static char cvsid_hpp[] = OSGSKYBACKGROUND_HEADER_CVSID;
     static char cvsid_inl[] = OSGSKYBACKGROUND_INLINE_CVSID;
 }

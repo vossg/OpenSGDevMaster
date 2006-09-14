@@ -443,5 +443,5 @@ FieldDescriptionBase *FieldDescription<DescT, eFieldCard>::clone(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDTRAITS_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDTRAITS_INLINE_CVSID "@(#)$Id$"
 

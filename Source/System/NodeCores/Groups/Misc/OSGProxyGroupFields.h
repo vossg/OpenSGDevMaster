@@ -125,6 +125,6 @@ struct FieldTraits<ProxyGroupPtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGPROXYGROUPFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGPROXYGROUPFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGPROXYGROUPFIELDS_H_ */

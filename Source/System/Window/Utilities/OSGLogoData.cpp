@@ -4322,6 +4322,6 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static char cvsid_cpp       [] = "@(#)$Id: OSGLogoData.cpp,v 1.1.2.2 2006/02/09 05:21:50 vossg Exp $";
+    static char cvsid_cpp       [] = "@(#)$Id$";
     static char cvsid_hpp       [] = OSGLOGODATA_HEADER_CVSID;
 }

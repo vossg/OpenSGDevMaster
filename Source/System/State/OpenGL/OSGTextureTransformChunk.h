@@ -175,6 +175,6 @@ OSG_END_NAMESPACE
 #include "OSGTextureTransformChunkBase.inl"
 #include "OSGTextureTransformChunk.inl"
 
-#define OSGTEXTURETRANSFORMCHUNK_HEADER_CVSID "@(#)$Id: $"
+#define OSGTEXTURETRANSFORMCHUNK_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTURETRANSFORMCHUNK_H_ */
