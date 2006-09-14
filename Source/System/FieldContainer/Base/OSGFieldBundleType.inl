@@ -46,5 +46,5 @@ bool FieldBundleType::isAbstract(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDBUNDLETYPE_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDBUNDLETYPE_INLINE_CVSID "@(#)$Id$"
 

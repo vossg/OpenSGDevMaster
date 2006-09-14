@@ -222,6 +222,6 @@ bool SceneFileType::writeFile(const NodePtr &OSG_CHECK_ARG(node    ),
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSCENEFILETYPE_HEADER_CVSID;
 }

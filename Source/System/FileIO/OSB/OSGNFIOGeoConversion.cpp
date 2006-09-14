@@ -200,5 +200,5 @@ static NFIOGeoConversion<GeoUInt32Property> geoIndicesUI32("GeoIndicesUI32");
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOGeoConversion.cpp,v 1.1.2.5 2006/05/08 06:01:07 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
 }

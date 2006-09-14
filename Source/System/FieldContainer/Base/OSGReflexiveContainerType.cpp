@@ -372,7 +372,7 @@ bool ReflexiveContainerType::subDescription(UInt32 uiFieldId)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGREFLEXIVECONTAINERTYPE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGREFLEXIVECONTAINERTYPE_INLINE_CVSID;
 }

@@ -334,5 +334,5 @@ PtrCreateMixin<ParentT>::~PtrCreateMixin(void)
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERCREATEMIXIN_INLINE_CVSID "@(#)$Id: $"
+#define OSGCONTAINERCREATEMIXIN_INLINE_CVSID "@(#)$Id$"
 

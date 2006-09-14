@@ -282,5 +282,5 @@ void CoredNodePtr<Core>::updateNode(void)
 
 OSG_END_NAMESPACE
 
-#define OSGCOREDNODEPTR_INLINE_CVSID "@(#)$Id: $"
+#define OSGCOREDNODEPTR_INLINE_CVSID "@(#)$Id$"
 

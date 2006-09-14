@@ -397,5 +397,5 @@ const Char8 *FieldContainer::getClassname(void)
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINER_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDCONTAINER_INLINE_CVSID "@(#)$Id$"
 

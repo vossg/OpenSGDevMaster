@@ -192,7 +192,7 @@ class RefCountMixin : public ParentT
 
 OSG_END_NAMESPACE
 
-#define OSGREFCOUNTMIXIN_HEADER_CVSID "@(#)$Id: $"
+#define OSGREFCOUNTMIXIN_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGRefCountMixin.inl"
 

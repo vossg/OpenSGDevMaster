@@ -61,5 +61,5 @@ FieldContainerPtr FieldContainerFactoryBase::getMappedContainer(
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINERFACTORY_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDCONTAINERFACTORY_INLINE_CVSID "@(#)$Id$"
 

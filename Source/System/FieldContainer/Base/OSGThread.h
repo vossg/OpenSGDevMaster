@@ -725,7 +725,7 @@ class OSG_SYSTEM_DLLMAPPING Thread
 
 OSG_END_NAMESPACE
 
-#define OSGTHREAD_HEADER_CVSID "@(#)$Id: $"
+#define OSGTHREAD_HEADER_CVSID "@(#)$Id$"
 
 #ifndef OSG_WINCE
 #include "OSGThread.inl"

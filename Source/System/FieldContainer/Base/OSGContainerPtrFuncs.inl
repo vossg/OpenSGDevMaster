@@ -509,4 +509,4 @@ ParentFieldContainerPtr cast_dynamic(FieldContainer::ObjPtrConst pIn)
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERPTRFUNCS_INLINE_CVSID "@(#)$Id: $"
+#define OSGCONTAINERPTRFUNCS_INLINE_CVSID "@(#)$Id$"

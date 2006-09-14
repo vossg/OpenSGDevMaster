@@ -1125,5 +1125,5 @@ NilFieldContainerPtr::~NilFieldContainerPtr(void)
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINERPTR_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDCONTAINERPTR_INLINE_CVSID "@(#)$Id$"
 

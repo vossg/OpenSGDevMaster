@@ -249,7 +249,7 @@ void FieldContainerType::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELDCONTAINERTYPE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGFIELDCONTAINERTYPE_INLINE_CVSID;
 }

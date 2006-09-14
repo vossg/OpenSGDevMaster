@@ -906,6 +906,6 @@ void NFIOBase::BinaryWriteHandler::write(MemoryHandle mem, UInt32 size)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOBase.cpp,v 1.1.2.12 2005/10/21 13:18:11 a-m-z Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGNFIOBASE_HEADER_CVSID;
 }

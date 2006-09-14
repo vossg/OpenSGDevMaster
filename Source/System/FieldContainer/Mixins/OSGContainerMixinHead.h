@@ -186,7 +186,7 @@ class ContainerMixinHead : public DescT::ParentT
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERMIXINHEAD_HEADER_CVSID "@(#)$Id: $"
+#define OSGCONTAINERMIXINHEAD_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGContainerMixinHead.inl"
 

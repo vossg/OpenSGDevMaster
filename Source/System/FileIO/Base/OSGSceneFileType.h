@@ -186,6 +186,6 @@ typedef SceneFileType* SceneFileTypeP;
 
 OSG_END_NAMESPACE
 
-#define OSGSCENEFILETYPE_HEADER_CVSID "@(#)$Id: $"
+#define OSGSCENEFILETYPE_HEADER_CVSID "@(#)$Id$"
 
 #endif // _OSGSCENEFILETYPE_H_

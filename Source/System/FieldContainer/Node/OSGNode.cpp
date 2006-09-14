@@ -950,7 +950,7 @@ NodePtr OSG::deepCloneTree(      NodePtrConstArg  src,
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGNODE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGNODE_INLINE_CVSID;
 }

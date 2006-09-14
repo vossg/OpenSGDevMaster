@@ -262,7 +262,7 @@ ParentFieldContainerPtr cast_dynamic(FieldContainer::ObjPtrConst pIn);
 
 OSG_END_NAMESPACE
 
-#define OSG_HEADER_CVSID "@(#)$Id: $"
+#define OSG_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGContainerPtrFuncs.inl"
 //#include "OSGContainerPtrFuncsObjDep.inl"

@@ -448,7 +448,7 @@ typedef const Field *(ReflexiveContainer::*FieldGetMethod )(void) const;
 
 OSG_END_NAMESPACE
 
-#define OSGREFLEXIVECONTAINER_HEADER_CVSID "@(#)$Id: $"
+#define OSGREFLEXIVECONTAINER_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldDescriptionBase.h"
 #include "OSGReflexiveContainer.inl"

@@ -225,7 +225,7 @@ typedef SingletonHolder<FieldBundleFactoryBase> FieldBundleFactory;
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDBUNDLEFACTORY_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDBUNDLEFACTORY_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldBundleFactory.inl"
 

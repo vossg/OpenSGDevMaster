@@ -675,6 +675,6 @@ FieldContainerPtr OSGLoader::getReference(const Char8 *szName)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGLOADER_HEADER_CVSID;
 }

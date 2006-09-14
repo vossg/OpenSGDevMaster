@@ -252,7 +252,7 @@ typedef FieldContainerAttachmentRefPtr      AttachmentRefPtr;
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINERATTACHMENT_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDCONTAINERATTACHMENT_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldContainerAttachment.inl"
 

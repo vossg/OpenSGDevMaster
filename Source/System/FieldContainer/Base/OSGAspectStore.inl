@@ -178,5 +178,5 @@ void subRef(const AspectStoreP pObject)
 
 OSG_END_NAMESPACE
 
-#define OSGASPECTSTORE_INLINE_CVSID "@(#)$Id: OSGAspectStore.inl,v 1.1.2.1 2006/07/25 03:50:02 vossg Exp $"
+#define OSGASPECTSTORE_INLINE_CVSID "@(#)$Id$"
 

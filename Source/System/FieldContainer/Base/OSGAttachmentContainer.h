@@ -222,7 +222,7 @@ void deepCloneAttachments(      AttachmentContainerPtrConstArg src,
 
 OSG_END_NAMESPACE
 
-#define OSGATTACHMENTCONTAINER_HEADER_CVSID "@(#)$Id: $"
+#define OSGATTACHMENTCONTAINER_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGAttachmentContainer.inl"
 

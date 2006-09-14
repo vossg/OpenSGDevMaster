@@ -107,7 +107,7 @@ const Field *ReflexiveContainer::invalidGetField(void) const
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGREFLEXIVECONTAINER_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGREFLEXIVECONTAINER_INLINE_CVSID;
 }

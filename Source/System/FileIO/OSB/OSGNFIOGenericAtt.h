@@ -88,6 +88,6 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOGENERICATT_HEADER_CVSID "@(#)$Id: OSGNFIOGenericAtt.h,v 1.1.2.1 2005/08/16 16:18:10 a-m-z Exp $"
+#define OSGNFIOGENERICATT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGNFIOGENERICATT_H_ */

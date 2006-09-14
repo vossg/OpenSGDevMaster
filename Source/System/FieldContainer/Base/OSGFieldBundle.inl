@@ -97,5 +97,5 @@ FieldBundle::~FieldBundle(void)
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDBUNDLE_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDBUNDLE_INLINE_CVSID "@(#)$Id$"
 

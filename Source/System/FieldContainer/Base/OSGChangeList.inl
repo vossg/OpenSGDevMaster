@@ -165,5 +165,5 @@ void ChangeList::decSubRefLevel(void)
 
 OSG_END_NAMESPACE
 
-#define OSGCHANGELIST_INLINE_CVSID "@(#)$Id: $"
+#define OSGCHANGELIST_INLINE_CVSID "@(#)$Id$"
 

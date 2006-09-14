@@ -227,6 +227,6 @@ Int32 NFIOOptions::getInteger(const std::string &str)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOOptions.cpp,v 1.1.2.3 2005/10/06 09:51:32 a-m-z Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGNFIOOPTIONS_HEADER_CVSID;
 }

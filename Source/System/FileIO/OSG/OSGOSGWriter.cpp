@@ -563,6 +563,6 @@ void OSGWriter::writeField(const FieldHandle &hF)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGOSGWRITER_HEADER_CVSID;
 }

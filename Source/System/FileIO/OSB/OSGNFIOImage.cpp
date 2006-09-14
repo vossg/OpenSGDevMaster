@@ -246,6 +246,6 @@ bool NFIOImage::isJPEGSupported(void)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOImage.cpp,v 1.1.2.2 2006/05/08 06:01:07 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGNFIOIMAGE_HEADER_CVSID;
 }

@@ -220,7 +220,7 @@ class AttachmentMixin  : public ParentT
 
 OSG_END_NAMESPACE
 
-#define OSGATTACHMENTMIXIN_HEADER_CVSID "@(#)$Id: $"
+#define OSGATTACHMENTMIXIN_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGAttachmentMixin.inl"
 

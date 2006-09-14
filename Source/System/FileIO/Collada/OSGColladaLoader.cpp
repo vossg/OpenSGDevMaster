@@ -236,7 +236,7 @@ NodePtr ColladaLoader::read(      std::istream  &is,
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGCOLLADALOADER_HEADER_CVSID;
 }
 

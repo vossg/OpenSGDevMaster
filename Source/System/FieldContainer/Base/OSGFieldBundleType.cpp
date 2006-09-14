@@ -162,7 +162,7 @@ FieldBundleP FieldBundleType::createContainer(void) const
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELDBUNDLETYPE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGFIELDBUNDLETYPE_INLINE_CVSID;
 }

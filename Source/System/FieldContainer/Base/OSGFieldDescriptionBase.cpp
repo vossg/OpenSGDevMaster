@@ -159,7 +159,7 @@ FieldDescriptionBase::~FieldDescriptionBase(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELDDESCRIPTIONBASE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGFIELDDESCRIPTIONBASE_INLINE_CVSID;
 }

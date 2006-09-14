@@ -850,7 +850,7 @@ class HandledContainerStoreFactoryMixin : public ParentT
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERFACTORYMIXINS_HEADER_CVSID "@(#)$Id: $"
+#define OSGCONTAINERFACTORYMIXINS_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGContainerFactoryMixins.inl"
 

@@ -150,7 +150,7 @@ void OSG::deepCloneAttachments(
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGATTACHMENTCONTAINER_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGATTACHMENTCONTAINER_INLINE_CVSID;
 }

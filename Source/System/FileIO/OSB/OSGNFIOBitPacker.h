@@ -115,6 +115,6 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOBITPACKER_HEADER_CVSID "@(#)$Id: OSGNFIOBitPacker.h,v 1.1.2.2 2005/10/04 08:40:21 vossg Exp $"
+#define OSGNFIOBITPACKER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGNFIOBITPACKER_H_ */

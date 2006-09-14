@@ -56,6 +56,6 @@ typedef SField<ChangedFunctor> SFChangedFunctorCallback;
 
 OSG_END_NAMESPACE
 
-#define OSGCHANGEDFUNCTORSFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGCHANGEDFUNCTORSFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCHANGEDFUNCTORSFIELDS_H_ */

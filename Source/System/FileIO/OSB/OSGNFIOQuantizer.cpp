@@ -153,6 +153,6 @@ Real32 Quantizer::normalize_input(Real32 input, Real32 input_min, Real32 input_s
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOQuantizer.cpp,v 1.1.2.1 2005/08/16 16:18:10 a-m-z Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGNFIOQUANTIZER_HEADER_CVSID;
 }

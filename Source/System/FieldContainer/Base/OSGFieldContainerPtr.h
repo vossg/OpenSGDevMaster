@@ -1152,7 +1152,7 @@ std::ostream &operator <<(      std::ostream      &os,
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINERPTR_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDCONTAINERPTR_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldContainerPtr.inl"
 

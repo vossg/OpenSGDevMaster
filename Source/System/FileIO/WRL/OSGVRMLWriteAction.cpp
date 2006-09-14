@@ -237,7 +237,7 @@ Int32 VRMLWriteAction::FCInfo::clear(void)
  *                           Class variables                               *
 \***************************************************************************/
 
-char VRMLWriteAction::cvsid[] = "@(#)$Id: $";
+char VRMLWriteAction::cvsid[] = "@(#)$Id$";
 
 VRMLWriteAction * VRMLWriteAction::_prototype = NULL;
 

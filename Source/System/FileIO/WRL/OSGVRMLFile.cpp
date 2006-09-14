@@ -3116,7 +3116,7 @@ void VRMLFile::setContainerFieldValue(const FieldContainerPtr &pFC)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGVRMLFILE_HEADER_CVSID;
 }
 

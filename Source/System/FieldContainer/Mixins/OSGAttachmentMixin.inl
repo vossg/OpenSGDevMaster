@@ -188,5 +188,5 @@ void AttachmentMixin<ParentT>::subParent(ParentPtrConst &parent)
 
 OSG_END_NAMESPACE
 
-#define OSGATTACHMENTMIXIN_INLINE_CVSID "@(#)$Id: $"
+#define OSGATTACHMENTMIXIN_INLINE_CVSID "@(#)$Id$"
 

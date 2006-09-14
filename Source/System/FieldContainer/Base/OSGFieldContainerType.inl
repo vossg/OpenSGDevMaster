@@ -70,5 +70,5 @@ bool FieldContainerType::isAttachment(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINERTYPE_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDCONTAINERTYPE_INLINE_CVSID "@(#)$Id$"
 

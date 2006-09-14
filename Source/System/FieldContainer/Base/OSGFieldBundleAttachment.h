@@ -203,7 +203,7 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleAttachment :
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDBUNDLEATTACHMENT_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDBUNDLEATTACHMENT_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldBundleAttachment.inl"
 

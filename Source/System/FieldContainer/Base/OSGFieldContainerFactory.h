@@ -280,7 +280,7 @@ typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINERFACTORY_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDCONTAINERFACTORY_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldContainerFactory.inl"
 

@@ -84,5 +84,5 @@ void RefCountMixin<ParentT>::subReference(void)
 
 OSG_END_NAMESPACE
 
-#define OSGREFCOUNTMIXIN_INLINE_CVSID "@(#)$Id: $"
+#define OSGREFCOUNTMIXIN_INLINE_CVSID "@(#)$Id$"
 

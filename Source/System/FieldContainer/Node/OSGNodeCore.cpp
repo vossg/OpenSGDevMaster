@@ -323,7 +323,7 @@ ActionBase::ResultE NodeCore::defaultLeave(Action *)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGNODECORE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGNODECORE_INLINE_CVSID;
 }

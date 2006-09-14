@@ -76,5 +76,5 @@ ContainerMixinHead<DescT>::~ContainerMixinHead(void)
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERMIXINHEAD_INLINE_CVSID "@(#)$Id: $"
+#define OSGCONTAINERMIXINHEAD_INLINE_CVSID "@(#)$Id$"
 

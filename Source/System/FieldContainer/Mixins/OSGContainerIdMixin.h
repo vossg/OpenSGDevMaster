@@ -182,7 +182,7 @@ class ContainerIdMixin : public ParentT
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERIDMIXIN_HEADER_CVSID "@(#)$Id: $"
+#define OSGCONTAINERIDMIXIN_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGContainerIdMixin.inl"
 

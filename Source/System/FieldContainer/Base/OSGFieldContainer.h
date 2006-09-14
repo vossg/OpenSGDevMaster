@@ -441,7 +441,7 @@ void fillGroupShareList(const std::vector<UInt16     > &shareGroupIds,
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDCONTAINER_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDCONTAINER_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"

@@ -242,5 +242,5 @@ void AttachmentContainerMixin<ParentT>::execSync(
 
 OSG_END_NAMESPACE
 
-#define OSGATTACHMENTCONTAINERMIXIN_INLINE_CVSID "@(#)$Id: $"
+#define OSGATTACHMENTCONTAINERMIXIN_INLINE_CVSID "@(#)$Id$"
 

@@ -189,6 +189,6 @@ OSG_END_NAMESPACE
 
 #include "OSGVRMLNodeFactory.inl"
 
-#define OSGVRMLNODEFACTORY_HEADER_CVSID "@(#)$Id: $"
+#define OSGVRMLNODEFACTORY_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVRMLNODEFACTORY_H_ */

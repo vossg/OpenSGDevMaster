@@ -83,6 +83,6 @@ typedef MField<ParentFieldBundleP, 1> MFParentFieldBundleP;
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDBUNDLEMFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDBUNDLEMFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGFIELDCBUNDLEMFIELDS_H_ */

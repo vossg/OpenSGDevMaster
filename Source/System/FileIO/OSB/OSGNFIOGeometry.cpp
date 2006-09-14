@@ -841,6 +841,6 @@ void NFIOGeometry::postProcessFC(const FieldContainerPtr &fc)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOGeometry.cpp,v 1.1.2.11 2006/05/15 06:33:11 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGNFIOGEOMETRY_HEADER_CVSID;
 }

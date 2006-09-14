@@ -100,6 +100,6 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOATEST_HEADER_CVSID "@(#)$Id: OSGNFIOGeneric.h,v 1.1.2.2 2005/09/21 16:19:23 a-m-z Exp $"
+#define OSGNFIOATEST_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGNFIOGENERIC_H_ */

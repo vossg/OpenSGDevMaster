@@ -198,6 +198,6 @@ OSGSceneFileType::~OSGSceneFileType(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGOSGSCENEFILETYPE_HEADER_CVSID;
 }

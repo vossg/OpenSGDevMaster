@@ -801,5 +801,5 @@ bool HandledContainerStoreFactoryMixin<ParentT>::initializeFactoryPost(void)
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERFACTORYMIXINS_INLINE_CVSID "@(#)$Id: $"
+#define OSGCONTAINERFACTORYMIXINS_INLINE_CVSID "@(#)$Id$"
 

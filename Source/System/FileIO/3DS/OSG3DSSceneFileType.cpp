@@ -364,6 +364,6 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSG3DSSceneFileType.cpp,v 1.6 2003/09/19 13:47:10 a-m-z Exp $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSG3DSSCENEFILETYPE_HEADER_CVSID;
 }

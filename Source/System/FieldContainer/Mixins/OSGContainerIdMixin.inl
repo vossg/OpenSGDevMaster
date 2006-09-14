@@ -71,5 +71,5 @@ UInt32 ContainerIdMixin<ParentT>::getId(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERIDMIXIN_INLINE_CVSID "@(#)$Id: $"
+#define OSGCONTAINERIDMIXIN_INLINE_CVSID "@(#)$Id$"
 

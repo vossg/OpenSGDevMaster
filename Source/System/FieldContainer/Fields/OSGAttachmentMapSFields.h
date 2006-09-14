@@ -86,6 +86,6 @@ void FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
 
 OSG_END_NAMESPACE
 
-#define OSGATTACHMENTMAPSFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGATTACHMENTMAPSFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGATTACHMENTMAPSFIELDS_H_ */

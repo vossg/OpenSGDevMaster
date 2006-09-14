@@ -612,4 +612,4 @@ void VRMLNodeFactory<BaseT>::postStandardProtos(void)
 
 OSG_END_NAMESPACE
 
-#define OSGVRNLNODEFACTORY_INLINE_CVSID "@(#)$Id: $"
+#define OSGVRNLNODEFACTORY_INLINE_CVSID "@(#)$Id$"

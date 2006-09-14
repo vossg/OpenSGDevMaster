@@ -135,6 +135,6 @@ OSG_END_NAMESPACE
 
 #include "OSGRefPtr.inl"
 
-#define OSGREFPTR_HEADER_CVSID "@(#)$Id: $"
+#define OSGREFPTR_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCOREDNODEPTR_H_ */

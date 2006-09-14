@@ -90,7 +90,7 @@ FieldBundleAttachment::~FieldBundleAttachment(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELDBUNDLEATTACHMENT_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGFIELDBUNDLEATTACHMENT_INLINE_CVSID;
 }

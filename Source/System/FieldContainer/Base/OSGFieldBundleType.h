@@ -220,7 +220,7 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleType : public ReflexiveContainerType
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDBUNDLETYPE_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDBUNDLETYPE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldBundleType.inl"
 

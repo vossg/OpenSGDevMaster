@@ -63,6 +63,6 @@ bool MField<ChangedFunctorCallback, 0>::operator ==(
 
 OSG_END_NAMESPACE
 
-#define OSGCHANGEDFUNCTORMFIELDS_HEADER_CVSID "@(#)$Id: $"
+#define OSGCHANGEDFUNCTORMFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCHANGEDFUNCTORCOREMFIELDS_H_ */

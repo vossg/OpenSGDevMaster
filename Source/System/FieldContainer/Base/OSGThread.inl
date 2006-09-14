@@ -230,5 +230,5 @@ void setRefd(Thread *&pObject,
 
 OSG_END_NAMESPACE
 
-#define OSGTHREAD_INLINE_CVSID "@(#)$Id: $"
+#define OSGTHREAD_INLINE_CVSID "@(#)$Id$"
 

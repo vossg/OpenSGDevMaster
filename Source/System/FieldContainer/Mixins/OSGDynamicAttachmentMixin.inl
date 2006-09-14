@@ -238,5 +238,5 @@ void DynFieldAttachment<AttachmentDescT>::execBeginEditV(
 
 OSG_END_NAMESPACE
 
-#define OSGDYNAMICATTACHMENTMIXIN_INLINE_CVSID "@(#)$Id: $"
+#define OSGDYNAMICATTACHMENTMIXIN_INLINE_CVSID "@(#)$Id$"
 

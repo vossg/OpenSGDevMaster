@@ -85,7 +85,7 @@ bool FieldBundle::deregister(UInt32 uiBundleId)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELDBUNDLE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGFIELDBUNDLE_INLINE_CVSID;
 }

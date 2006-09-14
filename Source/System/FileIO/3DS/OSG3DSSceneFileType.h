@@ -97,6 +97,6 @@ typedef A3DSSceneFileType* A3DSSceneFileTypeP;
 
 OSG_END_NAMESPACE
 
-#define OSG3DSSCENEFILETYPE_HEADER_CVSID "@(#)$Id: OSG3DSSceneFileType.h,v 1.5.2.2 2006/01/13 12:49:37 a-m-z Exp $"
+#define OSG3DSSCENEFILETYPE_HEADER_CVSID "@(#)$Id$"
 
 #endif // _OSG3DSSCENEFILETYPE_H_

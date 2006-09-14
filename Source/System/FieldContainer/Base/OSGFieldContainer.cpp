@@ -311,7 +311,7 @@ FieldContainerPtr OSG::deepClone(      FieldContainerPtrConstArg  src,
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELDCONTAINER_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGFIELDCONTAINER_INLINE_CVSID;
 }

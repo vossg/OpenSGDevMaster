@@ -233,6 +233,6 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 
 OSG_END_NAMESPACE
 
-#define OSGVRMLFILE_HEADER_CVSID "@(#)$Id: $"
+#define OSGVRMLFILE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVRMLFILE_H_ */

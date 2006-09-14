@@ -168,7 +168,7 @@ VRMLSceneFileType::VRMLSceneFileType(const Char8  *suffixArray[],
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGVRMLSCENEFILETYPE_HEADER_CVSID;
 }
 

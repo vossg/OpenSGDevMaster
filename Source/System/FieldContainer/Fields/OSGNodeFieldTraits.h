@@ -116,6 +116,6 @@ struct FieldTraits<ParentNodePtr, 1> :
 
 OSG_END_NAMESPACE
 
-#define OSGNODEFIELDTRAITS_HEADER_CVSID "@(#)$Id: $"
+#define OSGNODEFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGNODEFIELDTRAITS_H_ */

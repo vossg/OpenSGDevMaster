@@ -201,6 +201,6 @@ OSG_END_NAMESPACE
 
 #include "OSGCoredNodePtr.inl"
 
-#define OSGCOREDNODEPTR_HEADER_CVSID "@(#)$Id: $"
+#define OSGCOREDNODEPTR_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCOREDNODEPTR_H_ */

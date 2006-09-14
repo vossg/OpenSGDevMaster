@@ -226,7 +226,7 @@ typedef FieldBundle::ObjConstPtr FieldBundleConstP;
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDBUNDLE_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDBUNDLE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldBundle.inl"
 #include "OSGContainerPtrFuncs.h"

@@ -146,6 +146,6 @@ void NFIOGenericAtt::writeFC(const FieldContainerPtr &/*fc*/)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOGenericAtt.cpp,v 1.1.2.4 2006/05/08 06:01:07 vossg Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGNFIOGENERICATT_HEADER_CVSID;
 }

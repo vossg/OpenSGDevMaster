@@ -164,6 +164,6 @@ NFIOSceneFileType NFIOSceneFileType:: _the(_suffixA,
 
 namespace
 {
-    static Char8    cvsid_cpp[] = "@(#)$Id: OSGNFIOSceneFileType.cpp,v 1.1.2.1 2005/08/16 16:18:10 a-m-z Exp $";
+    static Char8    cvsid_cpp[] = "@(#)$Id$";
     static Char8    cvsid_hpp[] = OSGBINSCENEFILETYPE_HEADER_CVSID;
 }

@@ -165,7 +165,7 @@ std::ostream &OSG::operator <<(      std::ostream       &os,
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGFIELDCONTAINERPTR_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGFIELDCONTAINERPTR_INLINE_CVSID;
 }

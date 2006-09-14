@@ -176,7 +176,7 @@ bool ColladaFileType::write(const NodePtr      &node,
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGCOLLADAFILETYPE_HEADER_CVSID;
 }
 

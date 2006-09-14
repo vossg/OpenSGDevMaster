@@ -351,7 +351,7 @@ typedef RefPtr<NodeCorePtr>        NodeCoreRefPtr;
 
 OSG_END_NAMESPACE
 
-#define OSGNODECORE_HEADER_CVSID "@(#)$Id: $"
+#define OSGNODECORE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGNodeCore.inl"
 

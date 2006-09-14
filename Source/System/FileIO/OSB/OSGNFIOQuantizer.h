@@ -96,6 +96,6 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOQUANTIZER_HEADER_CVSID "@(#)$Id: OSGNFIOQuantizer.h,v 1.1.2.2 2005/10/04 08:40:21 vossg Exp $"
+#define OSGNFIOQUANTIZER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGNFIOQUANTIZER_H_ */

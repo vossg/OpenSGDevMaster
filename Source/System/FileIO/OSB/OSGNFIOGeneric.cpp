@@ -218,6 +218,6 @@ FieldContainerPtr NFIOGeneric::createFCReplacement(UInt8 fcPtrType)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOGeneric.cpp,v 1.1.2.2 2005/09/21 16:19:23 a-m-z Exp $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGNFIOATEST_HEADER_CVSID;
 }

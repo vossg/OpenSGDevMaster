@@ -89,5 +89,5 @@ UInt32 ReflexiveContainerType::getNumFieldDescs(void) const
 
 OSG_END_NAMESPACE
 
-#define OSGREFLEXIVECONTAINERTYPE_INLINE_CVSID "@(#)$Id: $"
+#define OSGREFLEXIVECONTAINERTYPE_INLINE_CVSID "@(#)$Id$"
 

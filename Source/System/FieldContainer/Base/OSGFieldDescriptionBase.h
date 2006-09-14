@@ -361,7 +361,7 @@ struct FieldDescriptionBasePLT
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDDESCRIPTIONBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGFIELDDESCRIPTIONBASE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldDescriptionBase.inl"
 

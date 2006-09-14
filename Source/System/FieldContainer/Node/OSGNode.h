@@ -439,7 +439,7 @@ NodePtr makeNodeFor(CorePtr core);
 
 OSG_END_NAMESPACE
 
-#define OSGNODE_HEADER_CVSID "@(#)$Id: $"
+#define OSGNODE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGNode.inl"
 #include "OSGCoredNodePtr.h"

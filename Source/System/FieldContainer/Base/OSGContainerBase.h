@@ -130,7 +130,7 @@ static const UInt16 InvalidParentEPos = 0xFFFF;
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGCONTAINERBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCONTAINERBASE_H_ */
 

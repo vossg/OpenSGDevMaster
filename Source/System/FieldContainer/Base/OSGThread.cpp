@@ -677,6 +677,6 @@ ChangeList *Thread::getCurrentChangeList(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGTHREAD_HEADER_CVSID;
 }

@@ -235,7 +235,7 @@ class OSG_SYSTEM_DLLMAPPING ReflexiveContainerType : public DataType
 
 OSG_END_NAMESPACE
 
-#define OSGREFLEXIVECONTAINERTYPE_HEADER_CVSID "@(#)$Id: $"
+#define OSGREFLEXIVECONTAINERTYPE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGReflexiveContainerType.inl"
 

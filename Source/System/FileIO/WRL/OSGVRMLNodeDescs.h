@@ -2151,7 +2151,7 @@ class OSG_FILEIO_DLLMAPPING VRMLDirectionalLightDesc : public VRMLNodeDesc
 
 OSG_END_NAMESPACE
 
-#define OSGVRMLNODEDESCS_HEADER_CVSID "@(#)$Id: $"
+#define OSGVRMLNODEDESCS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVRMLNODEDESCS_H_ */
 

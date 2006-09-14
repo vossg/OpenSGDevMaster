@@ -88,6 +88,6 @@ private:
 
 OSG_END_NAMESPACE
 
-#define OSGNFIONAME_HEADER_CVSID "@(#)$Id: OSGNFIOName.h,v 1.1.2.1 2005/09/21 16:19:23 a-m-z Exp $"
+#define OSGNFIONAME_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGNFIONAME_H_ */

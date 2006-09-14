@@ -338,7 +338,7 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
 
 OSG_END_NAMESPACE
 
-#define OSGCHANGELIST_HEADER_CVSID "@(#)$Id: $"
+#define OSGCHANGELIST_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGChangeList.inl"
 

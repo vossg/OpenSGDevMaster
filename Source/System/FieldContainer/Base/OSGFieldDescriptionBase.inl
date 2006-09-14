@@ -196,5 +196,5 @@ bool FieldDescriptionBasePLT::operator()(
 
 OSG_END_NAMESPACE
 
-#define OSGFIELDDESCRIPTIONBASE_INLINE_CVSID "@(#)$Id: $"
+#define OSGFIELDDESCRIPTIONBASE_INLINE_CVSID "@(#)$Id$"
 
