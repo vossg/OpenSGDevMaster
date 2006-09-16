@@ -1079,7 +1079,7 @@ if test $build_os = cygwin; then
 #					ac_gdz_base_system_libs='user32.lib kernel32.lib MSVCPRT$(DEBUG_CHAR).lib MSVCRT$(DEBUG_CHAR).lib libmmd$(DEBUG_CHAR).lib'
 					ac_gdz_base_system_libs='user32.lib kernel32.lib MSVCPRT$(DEBUG_CHAR).lib MSVCRT$(DEBUG_CHAR).lib libmmd.lib'
 
-					ac_gdz_base_system_libs="$ac_gdz_base_system_libs winmm.lib wsock32.lib"
+					ac_gdz_base_system_libs="$ac_gdz_base_system_libs winmm.lib wsock32.lib oldnames.lib"
 			    ;;
 			    cl*)
 					ac_gdz_compiler_exe='"$(CC_PATH)/'$ac_gdz_compiler_exe'" '
@@ -1090,7 +1090,7 @@ if test $build_os = cygwin; then
 					ac_gdz_compiler_exe_exe='"$(CC_PATH)/'$ac_gdz_linker_exe'"'
 
 					ac_gdz_base_system_libs='user32.lib kernel32.lib MSVCPRT$(DEBUG_CHAR).lib MSVCRT$(DEBUG_CHAR).lib'
-					ac_gdz_base_system_libs="$ac_gdz_base_system_libs winmm.lib wsock32.lib"
+					ac_gdz_base_system_libs="$ac_gdz_base_system_libs winmm.lib wsock32.lib oldnames.lib"
 			    ;;
 	            bcc*)
 					ac_gdz_compiler_exe='"$(CC_PATH)/'$ac_gdz_compiler_exe'"'
