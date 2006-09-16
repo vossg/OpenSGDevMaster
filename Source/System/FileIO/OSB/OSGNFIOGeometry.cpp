@@ -72,7 +72,11 @@ const UInt16 NFIOGeometry::MapTexCoords      = NFIOGeometry::MapSecondaryColor <
 const UInt16 NFIOGeometry::MapTexCoords1     = NFIOGeometry::MapTexCoords << 1;
 const UInt16 NFIOGeometry::MapTexCoords2     = NFIOGeometry::MapTexCoords1 << 1;
 const UInt16 NFIOGeometry::MapTexCoords3     = NFIOGeometry::MapTexCoords2 << 1;
-const UInt16 NFIOGeometry::MapEmpty          = NFIOGeometry::MapTexCoords3 << 1;
+const UInt16 NFIOGeometry::MapTexCoords4     = NFIOGeometry::MapTexCoords3 << 1;
+const UInt16 NFIOGeometry::MapTexCoords5     = NFIOGeometry::MapTexCoords4 << 1;
+const UInt16 NFIOGeometry::MapTexCoords6     = NFIOGeometry::MapTexCoords5 << 1;
+const UInt16 NFIOGeometry::MapTexCoords7     = NFIOGeometry::MapTexCoords6 << 1;
+const UInt16 NFIOGeometry::MapEmpty          = NFIOGeometry::MapTexCoords7 << 1;
 
 NFIOGeometry NFIOGeometry::_the;
 
@@ -255,6 +259,34 @@ FieldContainerPtr NFIOGeometry::readFC(const std::string &/*typeName*/)
                 UInt32 id = 0;
                 _in->getValue(id);
                 prop_info._ids[Geometry::TexCoords3Index] = id;
+                //printf("NFIOGeometry::readFC : reading %s size: %u  type: '%s' id: %u\n", fieldName.c_str(), size, fieldType.c_str(), id);
+            }
+            else if(fieldName == "texCoords4")
+            {
+                UInt32 id = 0;
+                _in->getValue(id);
+                prop_info._ids[Geometry::TexCoords4Index] = id;
+                //printf("NFIOGeometry::readFC : reading %s size: %u  type: '%s' id: %u\n", fieldName.c_str(), size, fieldType.c_str(), id);
+            }
+            else if(fieldName == "texCoords5")
+            {
+                UInt32 id = 0;
+                _in->getValue(id);
+                prop_info._ids[Geometry::TexCoords5Index] = id;
+                //printf("NFIOGeometry::readFC : reading %s size: %u  type: '%s' id: %u\n", fieldName.c_str(), size, fieldType.c_str(), id);
+            }
+            else if(fieldName == "texCoords6")
+            {
+                UInt32 id = 0;
+                _in->getValue(id);
+                prop_info._ids[Geometry::TexCoords6Index] = id;
+                //printf("NFIOGeometry::readFC : reading %s size: %u  type: '%s' id: %u\n", fieldName.c_str(), size, fieldType.c_str(), id);
+            }
+            else if(fieldName == "texCoords7")
+            {
+                UInt32 id = 0;
+                _in->getValue(id);
+                prop_info._ids[Geometry::TexCoords7Index] = id;
                 //printf("NFIOGeometry::readFC : reading %s size: %u  type: '%s' id: %u\n", fieldName.c_str(), size, fieldType.c_str(), id);
             }
             // packed stuff
@@ -823,6 +855,14 @@ void NFIOGeometry::postProcessFC(const FieldContainerPtr &fc)
                 geo->setIndex(indices_list[i], Geometry::TexCoords2Index);
             if(index_mapping[i] & NFIOGeometry::MapTexCoords3)
                 geo->setIndex(indices_list[i], Geometry::TexCoords3Index);
+            if(index_mapping[i] & NFIOGeometry::MapTexCoords4)
+                geo->setIndex(indices_list[i], Geometry::TexCoords4Index);
+            if(index_mapping[i] & NFIOGeometry::MapTexCoords5)
+                geo->setIndex(indices_list[i], Geometry::TexCoords5Index);
+            if(index_mapping[i] & NFIOGeometry::MapTexCoords6)
+                geo->setIndex(indices_list[i], Geometry::TexCoords6Index);
+            if(index_mapping[i] & NFIOGeometry::MapTexCoords7)
+                geo->setIndex(indices_list[i], Geometry::TexCoords7Index);
         }
     }
 }

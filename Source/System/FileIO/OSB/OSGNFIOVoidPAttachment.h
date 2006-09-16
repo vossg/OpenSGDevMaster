@@ -36,23 +36,21 @@
  *                                                                           * 
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNFIOGEOMETRY_H_
-#define _OSGNFIOGEOMETRY_H_
+#ifndef _OSGNFIOVOIDPATTACHMENT_H_
+#define _OSGNFIOVOIDPATTACHMENT_H_
 #ifdef __sgi
 #pragma once
 #endif
-
-#include "OSGGeometry.h"
 
 #include "OSGNFIOBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/* \brief NFIOGeometry class.
-          reads and writes a geometry node.
+/* \brief NFIOVoidPAttachment class.
+          reads and writes a image.
 */
 
-class NFIOGeometry : public NFIOBase
+class NFIOVoidPAttachment : public NFIOBase
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -61,80 +59,35 @@ class NFIOGeometry : public NFIOBase
     /*! \name                  Constructor                                 */
     /*! \{                                                                 */
 
-    NFIOGeometry                     (void);
+    NFIOVoidPAttachment                     (void);
   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Destructor                                */
     /*! \{                                                                 */
 
-    virtual ~NFIOGeometry            (void);
+    virtual ~NFIOVoidPAttachment            (void);
   
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 protected:
 
     /*---------------------------------------------------------------------*/
-    /*! \name                    Init                                      */
-    /*! \{                                                                 */
-        
-    virtual void                initialise    (void);
-    virtual void                terminate    (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                    Read/Write                                */
     /*! \{                                                                 */
-    
+
     virtual FieldContainerPtr   readFC  (const std::string &typeName);
     virtual void                writeFC (const FieldContainerPtr &fc);
-    virtual void                postProcessFC(const FieldContainerPtr &fc);
 
     /*! \}                                                                 */ 
     /*==========================  PRIVATE  ================================*/
 private:
-    
-    void readQuantizedPositions (GeometryPtr &geo      );
-    void readQuantizedNormals   (GeometryPtr &geo      );
-    void readQuantizedTexCoords (GeometryPtr &geo      );
-    void readPackedIndices      (GeometryPtr &geo, UInt32 size = 0);
-    template<class VecType, class GeoPropType> 
-    void readQuantizedVectors(const GeoPropType &prop  );
-    
-    void writeQuantizedPositions(const GeometryPtr &geo, UInt8 res);
-    void writeQuantizedNormals  (const GeometryPtr &geo, UInt8 res);
-    void writeQuantizedTexCoords(const GeometryPtr &geo, UInt8 res);
-    void writePackedIndices     (const GeometryPtr &geo                     );
-    template<class VecType, class GeoPropType>
-    void writeQuantizedVectors  (const GeoPropType &prop,
-                                 const std::string &fieldName,
-                                 const std::string &fieldType,
-                                 UInt8 res);
 
-    bool _conversion;
-    
-    typedef std::map<GeometryPtr, std::vector<UInt16> > geosIndexMappingMap;
-    geosIndexMappingMap _geos_index_mapping;
-
-    static const UInt16 MapPosition;
-    static const UInt16 MapNormal;
-    static const UInt16 MapColor;
-    static const UInt16 MapSecondaryColor;
-    static const UInt16 MapTexCoords;
-    static const UInt16 MapTexCoords1;
-    static const UInt16 MapTexCoords2;
-    static const UInt16 MapTexCoords3;
-    static const UInt16 MapTexCoords4;
-    static const UInt16 MapTexCoords5;
-    static const UInt16 MapTexCoords6;
-    static const UInt16 MapTexCoords7;
-    static const UInt16 MapEmpty;
-    
-    static NFIOGeometry _the;
+    static NFIOVoidPAttachment _the;
 };
 
 OSG_END_NAMESPACE
 
-#define OSGNFIOGEOMETRY_HEADER_CVSID "@(#)$Id$"
+#define OSGNFIOVOIDPATTACHMENT_HEADER_CVSID "@(#)$Id: OSGNFIOVoidPAttachment.h 107 2006-09-14 03:21:56Z dirk $"
 
-#endif /* _OSGNFIOGEOMETRY_H_ */
+#endif /* _OSGNFIOVOIDPATTACHMENT_H_ */
