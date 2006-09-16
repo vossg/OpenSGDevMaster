@@ -265,12 +265,13 @@ FieldContainerPtr NFIOBase::readFieldContainer(void)
     {
         for(fcMap::iterator it = _fcMap.begin();it != _fcMap.end(); ++it)
         {
-            fc = FieldContainerFactory::the()->getContainer((*it).first);
+            // we use here the fieldcontainer id as postProcessFC can
+            // delete a field container that is still to be processed
+            // (geometry indices in my case)
+            fc = FieldContainerFactory::the()->getContainer((*it).second);
 
             if(fc != NullFC)
             {
-                //fc = (*it).second;
-
                 FieldContainerType  &fcType = fc->getType();
                 typeName = fcType.getCName();
                 NFIOFactory::the().get(typeName)->postProcessFC(fc);
@@ -310,7 +311,7 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
                 return;
             }
 
-            fc = (*i).second;
+            fc = FieldContainerFactory::the()->getContainer((*i).second);
 
             if(fc == NullFC)
                 return;
@@ -338,7 +339,7 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
                               "FieldContainer with id %u\n", id));
                     continue;
                 }
-                fc = (*i).second;
+                fc = FieldContainerFactory::the()->getContainer((*i).second);
                 if(fc == NullFC)
                     continue;
             }
@@ -351,7 +352,7 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
 
 void NFIOBase::addReadFieldContainer(const FieldContainerPtr &fc, UInt32 id)
 {
-    _fcMap.insert(std::pair<UInt32, FieldContainerPtr>(id, fc));
+    _fcMap.insert(std::pair<UInt32, UInt32>(id, OSG::getContainerId(fc)));
 }
 
 std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,

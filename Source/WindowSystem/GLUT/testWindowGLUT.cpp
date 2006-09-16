@@ -341,7 +341,7 @@ int main (int argc, char **argv)
     NodePtr file = NullFC;
     
     if(argc > 1)
-        file = SceneFileHandler::the()->read(argv[1]);
+        file = SceneFileHandler::the()->read(argv[1], NULL);
     
     if ( file == NullFC )
     {

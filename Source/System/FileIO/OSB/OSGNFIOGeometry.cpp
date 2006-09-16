@@ -783,12 +783,12 @@ void NFIOGeometry::postProcessFC(const FieldContainerPtr &fc)
 {
     if(!_conversion)
         return;
-    
+
     GeometryPtr geo = cast_dynamic<GeometryPtr>(fc);
     
     if(geo == NullFC)
         return;
-    
+
     geosIndexMappingMap::iterator it = _geos_index_mapping.find(geo);
     
     if(it == _geos_index_mapping.end())
@@ -836,7 +836,11 @@ void NFIOGeometry::postProcessFC(const FieldContainerPtr &fc)
                     interleaved_indices->getValue(i+j));
             }
         }
-    
+
+        // remove the old interleaved indices.
+        geo->setIndices(NullFC);
+        geo->resizePropIndices(0);
+
         for(UInt32 i=0;i<size;++i)
         {
             if(index_mapping[i] & NFIOGeometry::MapPosition)

@@ -243,7 +243,7 @@ protected:
                                         UInt32 id                   );
     static void chargeFieldPtr         (const fcInfo &info          );
 
-    typedef std::map<UInt32, FieldContainerPtr> fcMap;
+    typedef std::map<UInt32, UInt32> fcMap;
 
     static fcMap                _fcMap;
     static std::list<fcInfo>    _fieldList;
