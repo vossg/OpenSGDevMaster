@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 //-------------------------------
-//      Includes                                    
+//      Includes
 //-------------------------------
 
 #include <stdlib.h>
@@ -58,33 +58,33 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::DATImageFileType 
+/*! \class OSG::DATImageFileType
     \ingroup GrpSystemImage
 
   Image File Type to read/write and store/restore Image objects as
   PNM/RAW data.
-  
+
   All the type specific code is included in the class. Does
   not depend on external libs.
-  
+
  */
 
 
-// Static Class Varible implementations: 
+// Static Class Varible implementations:
 
-static const Char8 *suffixArray[] = 
+static const Char8 *suffixArray[] =
 {
     "dat"
 };
 
 DATImageFileType DATImageFileType::_the("dat",
-                                        suffixArray, 
+                                        suffixArray,
                                         sizeof(suffixArray) );
 
-std::map<std::string, 
+std::map<std::string,
          DATImageFileType::KeyType   > DATImageFileType::_keyStrMap;
 
-std::map<std::string, 
+std::map<std::string,
          DATImageFileType::FormatDesc> DATImageFileType::_formatStrMap;
 
 
@@ -95,7 +95,7 @@ std::map<std::string,
     the given fileName. Returns true on success.
  */
 
-bool DATImageFileType::read(      ImagePtrArg  image, 
+bool DATImageFileType::read(      ImagePtrArg  image,
                             const Char8       *fileName)
 {
     bool retCode = false;
@@ -127,18 +127,18 @@ bool DATImageFileType::read(      ImagePtrArg  image,
 
     initTypeMap();
 
-    // read the data file 
-    for(lineBuffer[0] = 0; 
+    // read the data file
+    for(lineBuffer[0] = 0;
         inDat.getline(lineBuffer, lineBufferSize);
-        lineBuffer[0] = 0) 
-    {        
-        if((keySepPos = strchr(lineBuffer,keySep))) 
+        lineBuffer[0] = 0)
+    {
+        if((keySepPos = strchr(lineBuffer,keySep)))
         {
             keyL = keySepPos - lineBuffer;
-            keyStr.assign( lineBuffer, keyL );        
+            keyStr.assign( lineBuffer, keyL );
             keyI = _keyStrMap.find(keyStr);
             key = ((keyI == _keyStrMap.end()) ? UNKNOWN_KT : keyI->second);
-            value = keySepPos + 1;        
+            value = keySepPos + 1;
 
             while (value && isspace(*value))
                 value++;
@@ -155,7 +155,7 @@ bool DATImageFileType::read(      ImagePtrArg  image,
                     image->setAttachmentField ( keyStr, value );
                     break;
                 case RESOLUTION_KT:
-                    sscanf ( value, "%d %d %d", 
+                    sscanf ( value, "%d %d %d",
                              &(res[0]), &(res[1]), &(res[2]));
                     image->setAttachmentField ( keyStr, value );
                     break;
@@ -165,7 +165,7 @@ bool DATImageFileType::read(      ImagePtrArg  image,
                     {
                         formatType = formatI->second.type;
                     }
-                    else 
+                    else
                     {
                         formatType = Image::OSG_INVALID_IMAGEDATATYPE;
                     }
@@ -191,20 +191,20 @@ bool DATImageFileType::read(      ImagePtrArg  image,
                     break;
             }
         }
-        else 
-        {        
+        else
+        {
             FINFO (("Skip DAT line\n"));
         }
     }
-  
+
     // check the setting and read the raw vol data
-    if (objectFileName.empty() == false) 
+    if (objectFileName.empty() == false)
     {
-        if((res[0] > 0) && (res[1] > 0) && (res[2] > 0)) 
+        if((res[0] > 0) && (res[1] > 0) && (res[2] > 0))
         {
-            if(formatType != Image::OSG_INVALID_IMAGEDATATYPE) 
+            if(formatType != Image::OSG_INVALID_IMAGEDATATYPE)
             {
-                inVolS.open(objectFileName.c_str(), 
+                inVolS.open(objectFileName.c_str(),
                             std::ios::in | std::ios::binary);
 
                 if (inVolS.fail() && ImageFileHandler::the()->getPathHandler())
@@ -212,7 +212,7 @@ bool DATImageFileType::read(      ImagePtrArg  image,
                     // Try to find the file in the search path
                     inVolS.clear(); // reset the error state
 
-                    PathHandler *ph = 
+                    PathHandler *ph =
                         ImageFileHandler::the()->getPathHandler();
 
                     inVolS.open(ph->findFile(objectFileName.c_str()).c_str(),
@@ -226,43 +226,43 @@ bool DATImageFileType::read(      ImagePtrArg  image,
 
                     inVolS.clear(); // reset the error state
 
-                    inVolS.open(gzname.c_str(), 
+                    inVolS.open(gzname.c_str(),
                                 std::ios::in | std::ios::binary );
 
-                    if(inVolS.fail() && 
+                    if(inVolS.fail() &&
                        ImageFileHandler::the()->getPathHandler())
                     {
                         // Try to find the file in the search path
                         inVolS.clear(); // reset the error state
 
-                        PathHandler *ph = 
+                        PathHandler *ph =
                             ImageFileHandler::the()->getPathHandler();
 
                         inVolS.open(ph->findFile(gzname.c_str()).c_str(),
                                     std::ios::in | std::ios::binary );
                     }
-                } 
+                }
 
                 if(inVolS.good())
-                {                    
-#ifdef OSG_ZSTREAM_SUPPORTED
+                {
+#ifdef OSG_WITH_ZLIB
                     zip_istream *unzipper = NULL;
 #endif
-                    
-                    image->set(pixelFormat, 
-                               res[0], res[1], res[2], 
-                               1, 1, 0.0, 0, 
+
+                    image->set(pixelFormat,
+                               res[0], res[1], res[2],
+                               1, 1, 0.0, 0,
                                formatType);
 
                     image->clear();
 
                     dataSize = image->getSize();
-                    
+
                     UInt32 fileDataSize = dataSize;
 
                     if(isGZip(inVolS))
                     {
-#ifdef OSG_ZSTREAM_SUPPORTED
+#ifdef OSG_WITH_ZLIB
                         unzipper = new zip_istream(inVolS);
                         inVol = unzipper;
 #else
@@ -291,7 +291,7 @@ bool DATImageFileType::read(      ImagePtrArg  image,
                             FWARNING (( "RAW file length to big!\n" ));
                         }
                     }
-                    
+
                     if(needConversion)
                         dataBuffer = new char [ dataSize ];
                     else
@@ -302,28 +302,28 @@ bool DATImageFileType::read(      ImagePtrArg  image,
 
                     inVol->read ( dataBuffer, fileDataSize );
 
-#ifdef OSG_ZSTREAM_SUPPORTED
+#ifdef OSG_WITH_ZLIB
                     if(unzipper != NULL)
                         delete unzipper;
 #endif
                 }
-                else 
+                else
                 {
-                    FWARNING (( "Can not open %s image data\n", 
+                    FWARNING (( "Can not open %s image data\n",
                                 objectFileName.c_str() ));
                 }
             }
-            else 
+            else
             {
                 FWARNING (( "Invalid/Missing DAT Format\n" ));
             }
         }
-        else 
+        else
         {
             FWARNING (( "Invalid/Missing DAT Resolution\n" ));
         }
     }
-    else 
+    else
     {
         FWARNING (( "Invalid/Missing DAT ObjectFileName\n" ));
     }
@@ -338,8 +338,8 @@ bool DATImageFileType::read(      ImagePtrArg  image,
 
         if(big_endian != host_big_endian)
             image->swapDataEndian();
-    
-        if (needConversion) 
+
+        if (needConversion)
         {
             FLOG (("DAT-Data convert not impl. yet !\n"));
             {
@@ -358,7 +358,7 @@ bool DATImageFileType::read(      ImagePtrArg  image,
                 }
             }
         }
-        else 
+        else
         {
             retCode = true;
         }
@@ -371,13 +371,13 @@ bool DATImageFileType::read(      ImagePtrArg  image,
        void *headData = (void*)(&head);
        unsigned dataSize, headSize = sizeof(Head);
 
-       if ( in &&        
-       in.read(static_cast<char *>(headData), 
+       if ( in &&
+       in.read(static_cast<char *>(headData),
        headSize) && head.netToHost() &&
-       image.set ( Image::PixelFormat(head.pixelFormat), 
-       head.width, head.height, head.depth, head.mipmapCount, 
+       image.set ( Image::PixelFormat(head.pixelFormat),
+       head.width, head.height, head.depth, head.mipmapCount,
        head.frameCount, float(head.frameDelay) / 1000.0) &&
-       (dataSize = image.getSize()) && 
+       (dataSize = image.getSize()) &&
        in.read((char *)(image.getData()), dataSize ))
        retCode = true;
        else
@@ -391,7 +391,7 @@ bool DATImageFileType::read(      ImagePtrArg  image,
 /*! Tries to write the image object to the given fileName.
     Returns true on success.
 */
-bool DATImageFileType::write(      ImageConstPtrArg  image, 
+bool DATImageFileType::write(      ImageConstPtrArg  image,
                              const Char8            *fileName)
 {
     initTypeMap();
@@ -409,8 +409,8 @@ bool DATImageFileType::write(      ImageConstPtrArg  image,
     {
         SWARNING << "DATImageFileType::write : Can not open output stream "
                  << "for file '"
-                 << fileName 
-                 << "'!" 
+                 << fileName
+                 << "'!"
                  << std::endl;
 
         return false;
@@ -423,7 +423,7 @@ bool DATImageFileType::write(      ImageConstPtrArg  image,
 
     if(attr != NULL)
         sscanf(attr->c_str(), "%lf %lf %lf", &sT[0], &sT[1], &sT[2]);
-    
+
     std::string format = "UCHAR";
 
     for(std::map<std::string, FormatDesc>::iterator it = _formatStrMap.begin();
@@ -444,7 +444,7 @@ bool DATImageFileType::write(      ImageConstPtrArg  image,
         basename = basename.substr(0, i);
 
     basename += ".raw";
-    
+
     std::string name = basename;
 
     i = name.rfind("/");
@@ -470,7 +470,7 @@ bool DATImageFileType::write(      ImageConstPtrArg  image,
     dat << "GridType:       EQUIDISTANT\n";
 
     dat.close();
-    
+
     std::ofstream raw(basename.c_str(), std::ios::binary);
 
     if(!raw)
@@ -478,12 +478,12 @@ bool DATImageFileType::write(      ImageConstPtrArg  image,
         SWARNING << "DATImageFileType::write : Can not open output stream "
                  << "for file '"
                  << basename
-                 << "'!" 
+                 << "'!"
                  << std::endl;
 
         return false;
     }
-    
+
     raw.write ((const char *) image->getData(), image->getSize());
     raw.close();
 
@@ -506,13 +506,13 @@ bool DATImageFileType::write(      ImageConstPtrArg  image,
     head.frameCount   = image.getFrameCount();
     head.frameDelay   = short(image.getFrameDelay() * 1000.0);
     head.hostToNet();
-  
-    if ( out && out.write(static_cast<const char *>(headData), headSize) && 
+
+    if ( out && out.write(static_cast<const char *>(headData), headSize) &&
          dataSize &&
              out.write((char *)(image.getData()), dataSize) )
             retCode = true;
     else
-        retCode = false;    
+        retCode = false;
     */
 
     return true;
@@ -524,7 +524,7 @@ bool DATImageFileType::write(      ImageConstPtrArg  image,
     Returns the amount of data read.
 */
 
-UInt64 DATImageFileType::restoreData(      ImagePtrArg  image, 
+UInt64 DATImageFileType::restoreData(      ImagePtrArg  image,
                                      const UChar8      *buffer,
                                            Int32        OSG_CHECK_ARG(memSize))
 {
@@ -538,7 +538,7 @@ UInt64 DATImageFileType::restoreData(      ImagePtrArg  image,
     Returns the amount of data written.
 */
 
-UInt64 DATImageFileType::storeData(ImageConstPtrArg  image, 
+UInt64 DATImageFileType::storeData(ImageConstPtrArg  image,
                                    UChar8           *buffer,
                                    Int32             OSG_CHECK_ARG(memSize))
 {
@@ -547,9 +547,9 @@ UInt64 DATImageFileType::storeData(ImageConstPtrArg  image,
 
     if(dataSize && src && buffer)
         memcpy( buffer, src, dataSize);
-  
+
     return dataSize;
-} 
+}
 
 
 //-------------------------------------------------------------------------
@@ -557,10 +557,10 @@ UInt64 DATImageFileType::storeData(ImageConstPtrArg  image,
  */
 
 DATImageFileType::DATImageFileType(const Char8  *mimeType,
-                                   const Char8  *suffixArray[], 
-                                         UInt16  suffixByteCount) : 
-    Inherited(mimeType, 
-              suffixArray, 
+                                   const Char8  *suffixArray[],
+                                         UInt16  suffixByteCount) :
+    Inherited(mimeType,
+              suffixArray,
               suffixByteCount)
 {
 }
@@ -591,7 +591,7 @@ void DATImageFileType::initTypeMap(void)
         _keyStrMap["Endian"]          = ENDIAN_KT;
         _keyStrMap["FileOffset"]      = FILE_OFFSET_KT;
     }
-  
+
     if(_formatStrMap.empty())
     {
         desc = &(_formatStrMap["UCHAR"]);
@@ -626,7 +626,7 @@ void DATImageFileType::initTypeMap(void)
 
         desc = &(_formatStrMap["DOUBLE"]);
         // we have no OSG_FLOAT64_IMAGEDATA
-        desc->type = Image::OSG_FLOAT32_IMAGEDATA; 
+        desc->type = Image::OSG_FLOAT32_IMAGEDATA;
         desc->bpv  = 8;
         desc->pixelFormat = Image::OSG_L_PF;
         desc->needConversion = false;

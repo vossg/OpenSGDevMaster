@@ -6,19 +6,19 @@ The zlib/libpng License Copyright (c) 2003 Jonathan de Halleux.
 
 This software is provided 'as-is', without any express or implied warranty. In
 no event will the authors be held liable for any damages arising from the use
-of this software. 
+of this software.
 
 Permission is granted to anyone to use this software for any purpose,
 including commercial applications, and to alter it and redistribute it freely,
-subject to the following restrictions: 
+subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim
    that you wrote the original software. If you use this software in a
    product, an acknowledgment in the product documentation would be
-   appreciated but is not required. 
+   appreciated but is not required.
 
 2. Altered source versions must be plainly marked as such, and must not be
-   misrepresented as being the original software. 
+   misrepresented as being the original software.
 
 3. This notice may not be removed or altered from any source distribution
 
@@ -31,15 +31,6 @@ Altered by: Andreas Zieringer 2003
 #ifndef _OSGZSTREAM_H_
 #define _OSGZSTREAM_H_
 
-#undef OSG_ZSTREAM_SUPPORTED
-// The zlib is only linked into the OSGSystem lib when png support is enabled.
-// We should link it into the BaseLib and move this header file to Base and
-// define something like OSG_WITH_ZLIB via a new configure option --with-zlib=...
-#if defined(OSG_WITH_PNG)
-#define OSG_ZSTREAM_SUPPORTED
-#endif
-
-
 #include <vector>
 #include <string>
 #include <streambuf>
@@ -50,18 +41,18 @@ Altered by: Andreas Zieringer 2003
 OSG_BEGIN_NAMESPACE
 
 //! Helper function to check whether stream is compressed or not.
-inline 
+inline
 bool isGZip(std::istream &is)
 {
     const int gz_magic[2] = {0x1f, 0x8b};
-    
+
     int c1 = (int) is.get();
     if(c1 != gz_magic[0])
     {
         is.putback(c1);
         return false;
     }
-    
+
     int c2 = (int) is.get();
     if(c2 != gz_magic[1])
     {
@@ -69,14 +60,14 @@ bool isGZip(std::istream &is)
         is.putback(c1);
         return false;
     }
-    
+
     is.putback(c2);
     is.putback(c1);
     return true;
 }
 OSG_END_NAMESPACE
 
-#ifdef OSG_ZSTREAM_SUPPORTED
+#ifdef OSG_WITH_ZLIB
 
 #include <zlib.h>
 
@@ -98,16 +89,16 @@ OSG_BEGIN_NAMESPACE
 
 namespace detail
 {
-	const int gz_magic[2] = {0x1f, 0x8b}; /* gzip magic header */
+    const int gz_magic[2] = {0x1f, 0x8b}; /* gzip magic header */
 
-	/* gzip flag byte */
-	const int gz_ascii_flag =  0x01; /* bit 0 set: file probably ascii text */
-	const int gz_head_crc    = 0x02; /* bit 1 set: header CRC present */
-	const int gz_extra_field = 0x04; /* bit 2 set: extra field present */
-	const int gz_orig_name  =  0x08; /* bit 3 set: original file name present*/
+    /* gzip flag byte */
+    const int gz_ascii_flag =  0x01; /* bit 0 set: file probably ascii text */
+    const int gz_head_crc    = 0x02; /* bit 1 set: header CRC present */
+    const int gz_extra_field = 0x04; /* bit 2 set: extra field present */
+    const int gz_orig_name  =  0x08; /* bit 3 set: original file name present*/
 
-	const int gz_comment    =  0x10; /* bit 4 set: file comment present */
-	const int gz_reserved   =  0xE0; /* bits 5..7: reserved */	
+    const int gz_comment    =  0x10; /* bit 4 set: file comment present */
+    const int gz_reserved   =  0xE0; /* bits 5..7: reserved */
 }
 
 /// default gzip buffer size,
@@ -117,9 +108,9 @@ const size_t zstream_default_buffer_size = 4096;
 /// Compression strategy, see zlib doc.
 enum EStrategy
 {
-	StrategyFiltered = 1,
-	StrategyHuffmanOnly = 2,
-	DefaultStrategy = 0
+    StrategyFiltered = 1,
+    StrategyHuffmanOnly = 2,
+    DefaultStrategy = 0
 };
 
 
@@ -136,12 +127,12 @@ template <class charT,
 class basic_zip_streambuf : public std::basic_streambuf<charT, traits>
 {
 public:
-	typedef std::basic_ostream<charT, traits>& ostream_reference;
-	typedef unsigned char byte_type;
+    typedef std::basic_ostream<charT, traits>& ostream_reference;
+    typedef unsigned char byte_type;
     typedef char          char_type;
-	typedef byte_type* byte_buffer_type;
-	typedef std::vector<byte_type> byte_vector_type;
-	typedef std::vector<char_type> char_vector_type;
+    typedef byte_type* byte_buffer_type;
+    typedef std::vector<byte_type> byte_vector_type;
+    typedef std::vector<char_type> char_vector_type;
     typedef int int_type;
     typedef basic_zip_streambuf Self;
     typedef std::basic_streambuf<charT, traits> Inherited;
@@ -152,28 +143,28 @@ public:
                         int window_size,
                         int memory_level,
                         size_t buffer_size);
-	~basic_zip_streambuf(void);
+    ~basic_zip_streambuf(void);
 
     int               sync        (void);
-	int_type          overflow    (int_type c);
-	std::streamsize   flush       (void);
+    int_type          overflow    (int_type c);
+    std::streamsize   flush       (void);
     ostream_reference get_ostream (void) const;
     int               get_zerr    (void) const;
     unsigned long     get_crc     (void) const;
     unsigned long     get_in_size (void) const;
     long              get_out_size(void) const;
-    
+
 
 private:
-    
-	bool zip_to_stream(char_type *buffer, std::streamsize buffer_size);
-    
-	ostream_reference   _ostream;
-	z_stream            _zip_stream;
+
+    bool zip_to_stream(char_type *buffer, std::streamsize buffer_size);
+
+    ostream_reference   _ostream;
+    z_stream            _zip_stream;
     int                 _err;
-	byte_vector_type    _output_buffer;
-	char_vector_type    _buffer;
-	unsigned long       _crc;
+    byte_vector_type    _output_buffer;
+    char_vector_type    _buffer;
+    unsigned long       _crc;
 };
 
 //*****************************************************************************
@@ -187,15 +178,15 @@ The class wraps up the deflate method of the zlib library 1.1.4 http://www.gzip.
 template <class charT,
           class traits = std::char_traits<charT> >
 class basic_unzip_streambuf :
-	public std::basic_streambuf<charT, traits>
+    public std::basic_streambuf<charT, traits>
 {
 public:
-	typedef std::basic_istream<charT,traits>& istream_reference;
-	typedef unsigned char byte_type;
+    typedef std::basic_istream<charT,traits>& istream_reference;
+    typedef unsigned char byte_type;
     typedef char          char_type;
-	typedef byte_type* byte_buffer_type;
-	typedef std::vector<byte_type> byte_vector_type;
-	typedef std::vector<char_type> char_vector_type;
+    typedef byte_type* byte_buffer_type;
+    typedef std::vector<byte_type> byte_vector_type;
+    typedef std::vector<char_type> char_vector_type;
     typedef int int_type;
 
      /** Construct a unzip stream
@@ -205,30 +196,30 @@ public:
                           int window_size,
                           size_t read_buffer_size,
                           size_t input_buffer_size);
-	~basic_unzip_streambuf(void);
+    ~basic_unzip_streambuf(void);
 
 
     int_type           underflow     (void);
-	istream_reference  get_istream   (void);
-	z_stream          &get_zip_stream(void);
-	int                get_zerr      (void) const;
-	unsigned           long get_crc  (void) const;
-	long               get_out_size  (void) const;
-	long               get_in_size   (void) const;
+    istream_reference  get_istream   (void);
+    z_stream          &get_zip_stream(void);
+    int                get_zerr      (void) const;
+    unsigned           long get_crc  (void) const;
+    long               get_out_size  (void) const;
+    long               get_in_size   (void) const;
 
 private:
-	
-	void            put_back_from_zip_stream(void                        );
-    std::streamsize unzip_from_stream       (char_type       *buffer, 
+
+    void            put_back_from_zip_stream(void                        );
+    std::streamsize unzip_from_stream       (char_type       *buffer,
                                              std::streamsize  buffer_size);
     size_t          fill_input_buffer       (void                        );
 
-	istream_reference   _istream;
-	z_stream            _zip_stream;
+    istream_reference   _istream;
+    z_stream            _zip_stream;
     int                 _err;
-	byte_vector_type    _input_buffer;
-	char_vector_type    _buffer;
-	unsigned long       _crc;
+    byte_vector_type    _input_buffer;
+    char_vector_type    _buffer;
+    unsigned long       _crc;
 };
 
 // ****************************************************************************
@@ -242,7 +233,7 @@ class basic_zip_ostream :
     public std::basic_ostream<charT, traits>
 {
 public:
-    
+
     typedef char char_type;
     typedef std::basic_ostream<charT, traits>& ostream_reference;
 
@@ -253,18 +244,18 @@ public:
                                int window_size = -15 /*windowBits is passed < 0 to suppress zlib header */,
                                int memory_level = 8,
                                size_t buffer_size = zstream_default_buffer_size) ;
-	~basic_zip_ostream(void);
+    ~basic_zip_ostream(void);
 
-	bool                              is_gzip (void) const;
-	basic_zip_ostream<charT, traits> &zflush  (void);
+    bool                              is_gzip (void) const;
+    basic_zip_ostream<charT, traits> &zflush  (void);
     void                              finished(void);
 
 private:
-    
-	basic_zip_ostream<charT,traits>& add_header(void);
-	basic_zip_ostream<charT,traits>& add_footer(void);
-    
-	bool _is_gzip;
+
+    basic_zip_ostream<charT,traits>& add_header(void);
+    basic_zip_ostream<charT,traits>& add_footer(void);
+
+    bool _is_gzip;
     bool _added_footer;
 };
 
@@ -286,20 +277,20 @@ public:
                                size_t read_buffer_size = zstream_default_buffer_size,
                                size_t input_buffer_size = zstream_default_buffer_size);
 
-	bool is_gzip           (void) const;
-	bool check_crc         (void);
-	bool check_data_size   (void) const;
-	long get_gzip_crc      (void) const;
-	long get_gzip_data_size(void) const;
-    
+    bool is_gzip           (void) const;
+    bool check_crc         (void);
+    bool check_data_size   (void) const;
+    long get_gzip_crc      (void) const;
+    long get_gzip_data_size(void) const;
+
 protected:
-    
-	int check_header(void);
+
+    int check_header(void);
     void read_footer(void);
-    
-	bool _is_gzip;
+
+    bool _is_gzip;
     long _gzip_crc;
-	long _gzip_data_size;
+    long _gzip_data_size;
 };
 
 
@@ -323,7 +314,7 @@ OSG_END_NAMESPACE
 #pragma warning(default : 4355)
 #endif
 
-#endif // OSG_ZSTREAM_SUPPORTED
+#endif // OSG_WITH_ZLIB
 
 #endif // _OSGZSTREAM_H_
 

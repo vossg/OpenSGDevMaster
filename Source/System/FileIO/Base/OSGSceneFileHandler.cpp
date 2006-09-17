@@ -89,11 +89,11 @@ SceneFileType *SceneFileHandlerBase::getFileType(
         return NULL;
 
     std::string fe = fileNameOrExtension;
-    
+
     Int32 p = fe.rfind(separator);
-    
+
     std::string ext;
-    
+
     if(p != -1)
     {
         ext = fe.substr(p+1, fe.length() - p - 1);
@@ -118,7 +118,7 @@ SceneFileType *SceneFileHandlerBase::getFileType(
             ext = fe;
         }
     }
-    
+
     IDString suffix;
 
     suffix.set    (ext.c_str());
@@ -126,7 +126,7 @@ SceneFileType *SceneFileHandlerBase::getFileType(
 
     FileTypeMap::iterator sI = _suffixTypeMap.find(suffix);
 
-    SceneFileType *type = 
+    SceneFileType *type =
         (sI == _suffixTypeMap.end()) ? 0 : sI->second->front();
 
     return type;
@@ -144,7 +144,7 @@ Int32 SceneFileHandlerBase::getSuffixList(std::list<const Char8 *> &suffixList,
     FileTypeMap::iterator sI;
 
     suffixList.clear();
-    
+
     for(sI = _suffixTypeMap.begin(); sI != _suffixTypeMap.end(); ++sI)
     {
         SceneFileType *type = sI->second->front();
@@ -164,7 +164,7 @@ Int32 SceneFileHandlerBase::getSuffixList(std::list<const Char8 *> &suffixList,
 #endif
 
 
-NodePtr SceneFileHandlerBase::read(      std::istream &is, 
+NodePtr SceneFileHandlerBase::read(      std::istream &is,
                                    const Char8        *fileNameOrExtension,
                                          GraphOpSeq   *graphOpSeq         )
 {
@@ -180,7 +180,7 @@ NodePtr SceneFileHandlerBase::read(      std::istream &is,
     if(type != NULL)
     {
         SINFO << "try to read stream as " << type->getName() << std::endl;
-    
+
         // check for fileio read callback
         if(_readFP != NULL)
         {
@@ -194,7 +194,7 @@ NodePtr SceneFileHandlerBase::read(      std::istream &is,
             {
                 SINFO << "Detected gzip compressed stream." << std::endl;
 
-#ifdef OSG_ZSTREAM_SUPPORTED
+#ifdef OSG_WITH_ZLIB
 
                 initReadProgress(is);
 
@@ -206,19 +206,19 @@ NodePtr SceneFileHandlerBase::read(      std::istream &is,
                 {
                     if(unzipper.check_crc() == true)
                     {
-                        SINFO << "Compressed stream has correct checksum." 
+                        SINFO << "Compressed stream has correct checksum."
                               << std::endl;
                     }
                     else
                     {
-                        SFATAL << "Compressed stream has wrong checksum." 
+                        SFATAL << "Compressed stream has wrong checksum."
                                << std::endl;
                     }
                 }
                 terminateReadProgress();
 #else
                 SFATAL << "Compressed streams are not supported! Configure "
-                       << "with --enable-png --with-png=DIR options." 
+                       << "with --enable-png --with-png=DIR options."
                        << std::endl;
 #endif
             }
@@ -255,7 +255,7 @@ NodePtr SceneFileHandlerBase::read(      std::istream &is,
 
 
 SceneFileHandlerBase::FCPtrStore SceneFileHandlerBase::readTopNodes(
-          std::istream &is, 
+          std::istream &is,
     const Char8        *fileNameOrExtension,
           GraphOpSeq   *graphOpSeq         )
 {
@@ -316,7 +316,7 @@ NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
               << " as "         << type->getName() << std::endl;
 
         std::ifstream in(fullFilePath.c_str(), std::ios::binary);
-        
+
         if(in)
         {
             scene = read(in, fullFilePath.c_str(), graphOpSeq);
@@ -329,7 +329,7 @@ NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
         else
         {
             SWARNING << "Couldn't open input stream for file "
-                     << fullFilePath 
+                     << fullFilePath
                      << std::endl;
         }
 
@@ -393,8 +393,8 @@ SceneFileHandlerBase::FCPtrStore SceneFileHandlerBase::readTopNodes(
     }
     else
     {
-        SWARNING << "Couldn't open input stream for file " 
-                 << fullFilePath 
+        SWARNING << "Couldn't open input stream for file "
+                 << fullFilePath
                  << std::endl;
     }
 
@@ -442,9 +442,9 @@ SceneFileHandlerBase::FileIOReadCBF SceneFileHandlerBase::getReadCB(void)
     return _readFP;
 }
 
-bool SceneFileHandlerBase::write(const NodePtr      &node, 
+bool SceneFileHandlerBase::write(const NodePtr      &node,
                                        std::ostream &os,
-                                 const Char8        *fileNameOrExtension, 
+                                 const Char8        *fileNameOrExtension,
                                        bool          compress)
 {
     bool           retCode = false;
@@ -464,7 +464,7 @@ bool SceneFileHandlerBase::write(const NodePtr      &node,
         {
             if(compress == true)
             {
-#ifdef OSG_ZSTREAM_SUPPORTED
+#ifdef OSG_WITH_ZLIB
                 SINFO << "writing compressed stream." << std::endl;
 
                 zip_ostream zipper(os, true);
@@ -473,8 +473,8 @@ bool SceneFileHandlerBase::write(const NodePtr      &node,
 
                 zipper.zflush();
 #else
-                SFATAL << "Compressed streams are not supported! Configure "
-                       << "with --enable-png --with-png=DIR options." 
+                SFATAL << "Compressed streams are not supported! Build "
+                       << "with zlib= options."
                        << std::endl;
 #endif
             }
@@ -492,8 +492,8 @@ bool SceneFileHandlerBase::write(const NodePtr      &node,
     return retCode;
 }
 
-bool SceneFileHandlerBase::write(const NodePtr &node, 
-                                 const Char8   *fileName, 
+bool SceneFileHandlerBase::write(const NodePtr &node,
+                                 const Char8   *fileName,
                                        bool     compress)
 {
     bool           retCode = false;
@@ -503,10 +503,10 @@ bool SceneFileHandlerBase::write(const NodePtr &node,
     {
         updateWriteProgress(0);
 
-        SINFO << "try to write " 
-              << fileName 
-              << " as " 
-              << type->getName() 
+        SINFO << "try to write "
+              << fileName
+              << " as "
+              << type->getName()
               << std::endl;
 
         std::ofstream out(fileName, std::ios::binary);
@@ -518,9 +518,9 @@ bool SceneFileHandlerBase::write(const NodePtr &node,
         }
         else
         {
-            SWARNING << "Can not open output stream for file '" 
-                     << fileName 
-                     << "'!" 
+            SWARNING << "Can not open output stream for file '"
+                     << fileName
+                     << "'!"
                      << std::endl;
         }
 
@@ -537,8 +537,8 @@ bool SceneFileHandlerBase::write(const NodePtr &node,
         }
     }
     else
-        SWARNING << "can't write " 
-                 << fileName 
+        SWARNING << "can't write "
+                 << fileName
                  << "; unknown scene format"
                  << std::endl;
 
@@ -622,19 +622,19 @@ void SceneFileHandlerBase::setDefaultGraphOp(GraphOpSeq *graphOpSeq)
 }
 
 
-bool SceneFileHandlerBase::setOptions(const Char8 *suffix, 
+bool SceneFileHandlerBase::setOptions(const Char8 *suffix,
                                       const Char8 *options)
 {
     if(suffix == NULL)
         return false;
-    
+
     SceneFileType *type = getFileType(suffix);
 
     if(type == NULL)
         return false;
-    
+
     type->setOptions(options);
-    
+
     return true;
 }
 
@@ -642,12 +642,12 @@ const Char8 *SceneFileHandlerBase::getOptions(const Char8 *suffix)
 {
     if(suffix == NULL)
         return NULL;
-    
+
     SceneFileType *type = getFileType(suffix);
-    
+
     if(type == NULL)
         return NULL;
-    
+
     return type->getOptions();
 }
 
@@ -673,10 +673,10 @@ void SceneFileHandlerBase::print (void )
             if(type->getFlags() & SceneFileType::OSG_WRITE_SUPPORTED)
                 rw = "writer";
         }
-        
+
         std::cerr << "suffix: " << sI->first.str()
                   << ", type: " << sI->second->front()->getName()
-                  << " "        << rw 
+                  << " "        << rw
                   << std::endl;
     }
 }
@@ -765,7 +765,7 @@ bool SceneFileHandlerBase::addSceneFileType(SceneFileType &fileType)
 
 bool SceneFileHandlerBase::subSceneFileType(SceneFileType &fileType)
 {
-	bool retCode = false;
+    bool retCode = false;
 
     std::list<IDString>::iterator sI;
          FileTypeMap   ::iterator smI;
@@ -781,7 +781,7 @@ bool SceneFileHandlerBase::subSceneFileType(SceneFileType &fileType)
 
         smI = _suffixTypeMap.find(suffix);
 
-		if (smI != _suffixTypeMap.end())
+        if (smI != _suffixTypeMap.end())
         {
             _suffixTypeMap.erase(smI);
             retCode = true;
@@ -838,7 +838,7 @@ void SceneFileHandlerBase::setReadProgressCB(progresscbfp fp, bool use_thread)
     _useProgressThread = use_thread;
 }
 
-SceneFileHandlerBase::progresscbfp 
+SceneFileHandlerBase::progresscbfp
     SceneFileHandlerBase::getReadProgressCB(void)
 {
     return _readProgressFP;

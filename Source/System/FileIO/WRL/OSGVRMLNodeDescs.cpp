@@ -1369,7 +1369,7 @@ void VRMLGeometryDesc::endNode(FieldContainerPtr pFC)
                 createConvexPrimitives( pGeo );
 
             // TODO: Need some option _uiOptions param
-						createSharedIndex( pGeo);
+                        createSharedIndex( pGeo);
 
             //if((0 != (_uiOptions & VRMLFile::CreateNormals) )    &&
             //   (pGeo->getNormals() == NullFC))
@@ -2710,14 +2710,14 @@ void VRMLAppearanceDesc::endNode(FieldContainerPtr pFC)
         if(pChunkMat != NullFC)
         {
             StateChunkPtr cp = pChunkMat->find(TextureChunk::getClassType());
-            
+
             TextureChunkPtr tex = NullFC;
-            
+
             if(cp != NullFC)
                 tex = cast_dynamic<TextureChunkPtr>(cp);
-            
+
             if (pChunkMat->isTransparent() == true ||
-                (tex != NullFC && tex->getImage() != NullFC && 
+                (tex != NullFC && tex->getImage() != NullFC &&
                  tex->getImage()->hasAlphaChannel()
                ))
             {
@@ -2734,7 +2734,7 @@ void VRMLAppearanceDesc::endNode(FieldContainerPtr pFC)
                     pBlendChunk->setSrcFactor (GL_SRC_ALPHA);
                     pBlendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
                 }
-                
+
                 pChunkMat->addChunk(pBlendChunk);
             }
         }
@@ -3252,7 +3252,7 @@ void VRMLTextureTransformDesc::endNode(FieldContainerPtr pFC)
 
         Vec3f scale(_scale.getValue()[0],
                     _scale.getValue()[1], 1.0f);
-        
+
         Vec3f translation(_translation.getValue()[0],
                           _translation.getValue()[1], 0.0f);
 
@@ -3453,7 +3453,7 @@ void VRMLImageTextureDesc::endNode(FieldContainerPtr pFC)
 #endif
 
         pImage = ImageFileHandler::the()->read(_url[0].c_str());
-        
+
         if(pImage != NullFC)
         {
             pImage->setForceAlphaBinary(pImage->calcIsAlphaBinary());
@@ -4732,7 +4732,7 @@ void VRMLExtrusionDesc::endNode(FieldContainerPtr pFC)
                                               pOrientation ->getValues(),
                                               pScale       ->getValues(),
                                               pSpine       ->getValues(),
-					      pCreaseAngle ->getValue (),
+                          pCreaseAngle ->getValue (),
                                               pBeginCap    ->getValue (),
                                               pEndCap      ->getValue (),
                                               pCcw         ->getValue (),
@@ -4989,14 +4989,14 @@ FieldContainerPtr VRMLInlineDesc::beginNode(
 }
 
 void VRMLInlineDesc::endNode(FieldContainerPtr pFC)
-{    
+{
     const Field            *pField;
     const FieldDescriptionBase *pFieldDesc;
 
     NodePtr pNode = cast_dynamic<NodePtr>(pFC);
 
-    VRMLNodeDesc::getFieldAndDesc(pFC, 
-                                  "url", 
+    VRMLNodeDesc::getFieldAndDesc(pFC,
+                                  "url",
                                   pField,
                                   pFieldDesc);
 
@@ -5023,7 +5023,7 @@ void VRMLInlineDesc::endNode(FieldContainerPtr pFC)
 
         if(OSG::isGZip(in))
         {
-#ifdef OSG_ZSTREAM_SUPPORTED
+#ifdef OSG_WITH_ZLIB
             zip_istream unzipper(in);
             pVRMLLoader->scanStream(unzipper);
 #else

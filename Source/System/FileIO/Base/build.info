@@ -3,9 +3,17 @@
 if option_pass:
    print "Processing option pass"
 else:
+   zlib_option = opts.GetOption("zlib")
    
    library = "OSGSystem"
    osg_dep_libs = ['OSGBase']
+   
+   if zlib_option.isAvailable():
+      libs.append(zlib_option.library)
+      if zlib_option.incDir:
+         cpppath.append(zlib_option.incDir)
+      if zlib_option.libDir:
+         libpath.append(zlib_option.libDir)
 
    # Tests' dependencies
 

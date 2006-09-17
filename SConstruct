@@ -155,8 +155,10 @@ png_option = sca_opts.StandardPackageOption("png","PNG library location",
                                              library="png", required=False)
 glut_option = sca_opts.StandardPackageOption("glut","GLUT library location",
                                              library=glut_libname, header="GL/glut.h", required=False)
+zlib_option = sca_opts.StandardPackageOption("zlib","zlib library location",
+                                             library="z", header="zlib.h", required=False)                                             
 
-format_options = [jpeg_option,tiff_option,png_option]
+format_options = [jpeg_option,tiff_option,png_option,zlib_option]
 # Setup options
 opts.AddOption(sca_opts.SeparatorOption("\nStandard settings"))
 opts.Add('prefix', 'Installation prefix', unspecified_prefix)
@@ -422,6 +424,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OGG_WITH_PNG":png_option.isAvailable(),
                 "OSG_WITH_GLUT":glut_option.isAvailable(),
                 "OSG_WITH_GIF":common_env["enable_gif"],
+                "OSG_WITH_ZLIB":zlib_option.isAvailable()
                }
    if "win32" == platform:   # Win32 specific defines
       definemap.update( {"OSG_WIN32_ASPECT_USE_LOCALSTORAGE": common_env["win_localstorage"],} )
