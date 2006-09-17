@@ -23,8 +23,14 @@ for (lib_name, library) in lib_map.iteritems():
    if "shared" in combo["libtype"]:
       shared_lib = lib_env.SharedLibrary(lib_name + shared_lib_suffix, library.source_files,
                          LIBS=[l+shared_lib_suffix for l in library.osg_dep_libs] + library.libs, 
-                         LIBPATH=inst_paths['lib'])
-      lib_env.Install(inst_paths['lib'], shared_lib)
+                         LIBPATH=inst_paths['lib_inst_combo'])
+      shared_lib_inst = lib_env.Install(inst_paths['lib_inst_combo'], shared_lib)
+      
+      print "def:", default_combo_type
+      # If default combo type, then make links from lib dir
+      if default_combo_type == combo["type"] and (GetPlatform() != "win32"):
+         print "  link default:", inst_paths["lib"], "  ", shared_lib_inst
+         lib_env.Install(inst_paths["lib"], shared_lib_inst)      
       
    #if "static" in combo["libtype"]:
    #   static_lib = lib_env.StaticLibrary(lib_name + static_lib_suffix, library.source_files)
@@ -46,7 +52,7 @@ for (lib_name, library) in lib_map.iteritems():
    if have_test_deps:
       # default settings to pass to config info   
       default_lib_settings = LibraryInfo()
-      default_lib_settings.libpath.insert(0, inst_paths["lib"]) 
+      default_lib_settings.libpath.insert(0, inst_paths["lib_inst_combo"]) 
       default_lib_settings.cpppath.insert(0, inst_paths["include"])
       config_info = ConfigInfoAdapter(library.osg_test_libs, lib_map, default_lib_settings)
    

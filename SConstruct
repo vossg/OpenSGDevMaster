@@ -438,19 +438,27 @@ if not SConsAddons.Util.hasHelpFlag():
    print "archs: ",    variant_helper.variants["arch"]    
    common_env.Append(CPPPATH = [paths['include'],pj(paths['include'],"OpenSG")])
    
+   # We tread the first variant type special (auto link from libs here)
+   default_combo_type = variant_helper.variants["type"][0][0]
+   
    for combo in variant_helper.iterate(locals(), base_bldr, common_env):            
       #baseEnv = env_bldr.applyToEnvironment(common_env.Copy(), variant=combo,options=opts)      
       print "   Processing combo: ", ", ".join(['%s:%s'%(i[0],i[1]) for i in combo.iteritems()])
 
       inst_paths = copy.copy(paths)
-      if GetPlatform() != "win32" and "debug" == combo["type"]:
-         inst_paths["lib"] = pj(inst_paths["lib"],"debug")      
+      inst_paths["lib_inst_combo"] = inst_paths["lib"]
       if "x64" == combo["arch"]:
-         inst_paths['lib'] = inst_paths['lib'] + '64'                  
+         inst_paths['lib_inst_combo'] = inst_paths['lib'] + '64'                  
+      if GetPlatform() != "win32":
+         if "debug" == combo["type"]:
+            inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"debug")      
+         else:
+            inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"opt")      
       
       Export('build_env','inst_paths','opts', 'variant_pass','combo',
              'lib_map','boost_options', 
-             'shared_lib_suffix','static_lib_suffix')
+             'shared_lib_suffix','static_lib_suffix',
+             'default_combo_type')
       
       # Process subdirectories
       sub_dirs = ['Source']   
