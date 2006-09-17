@@ -13,7 +13,7 @@ except:
 import os, string, sys, re, glob, copy, types, traceback, pprint
 pj = os.path.join
 
-print "WARNING:"
+print "-------------------------------------------------"
 print "WARNING: The build is currently in development.  "
 print "            - It needs the svn version of scons-addons"
 print "WARNING:"
