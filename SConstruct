@@ -2,6 +2,7 @@
 #
 # SCons build script for OpenSG
 #
+#
 
 # If we have wingide, try loading the debugging extenstions
 try:
