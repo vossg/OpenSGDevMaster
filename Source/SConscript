@@ -26,10 +26,8 @@ for (lib_name, library) in lib_map.iteritems():
                          LIBPATH=inst_paths['lib_inst_combo'])
       shared_lib_inst = lib_env.Install(inst_paths['lib_inst_combo'], shared_lib)
       
-      print "def:", default_combo_type
       # If default combo type, then make links from lib dir
       if default_combo_type == combo["type"] and (GetPlatform() != "win32"):
-         print "  link default:", inst_paths["lib"], "  ", shared_lib_inst
          lib_env.Install(inst_paths["lib"], shared_lib_inst)      
       
    #if "static" in combo["libtype"]:
