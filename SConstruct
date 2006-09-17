@@ -14,7 +14,8 @@ import os, string, sys, re, glob, copy, types, traceback, pprint
 pj = os.path.join
 
 print "WARNING:"
-print "WARNING: The build is currently in development.  It needs the svn version of scons-addons"
+print "WARNING: The build is currently in development.  "
+print "            - It needs the svn version of scons-addons"
 print "WARNING:"
 
 sys.path.insert(0,pj('Tools','scons-addons','src'))
