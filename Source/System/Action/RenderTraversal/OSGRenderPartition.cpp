@@ -387,9 +387,11 @@ void RenderPartition::setupExecution(void)
         glEnable(GL_SCISSOR_TEST);
     }
     
+
     glMatrixMode (GL_PROJECTION);
+    glPushMatrix();
     glLoadMatrixf(_oDrawEnv.getCameraFullProjection().getValues());
-    
+
     glMatrixMode(GL_MODELVIEW);
     
     if(_pBackground != NULL)
@@ -443,10 +445,14 @@ void RenderPartition::doExecution   (void)
         {
             glDisable(GL_SCISSOR_TEST);
         }
-        
-        if(_pRenderTarget != NULL)
-            _pRenderTarget->deactivate(&_oDrawEnv);
     }
+
+    glMatrixMode (GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+
+    if(_pRenderTarget != NULL)
+        _pRenderTarget->deactivate(&_oDrawEnv);
 }
 
 

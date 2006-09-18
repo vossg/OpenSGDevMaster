@@ -782,12 +782,11 @@ sub finalize
         $self->{fieldname}   = "mf";
     }
 
-    if($self->{CapsFieldtypeClean} =~ m/GLP::/)
+    if($self->{CapsFieldtypeClean} =~ m/([A-Za-z_]*)::/)
     {
-        $self->{FieldNamespace} = "GLP::";
+        $self->{FieldNamespace} = "$1::";
+        $self->{CapsFieldtypeClean} =~ s/$1:://;
     }
-
-    $self->{CapsFieldtypeClean} =~ s/GLP:://;
 
     $self->{fieldname} .= $self->{Fieldname};
 
