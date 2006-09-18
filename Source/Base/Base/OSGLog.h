@@ -71,12 +71,13 @@ enum LogType
 
 enum LogLevel
 {
-    LOG_LOG     = 0,
-    LOG_FATAL   = 1,
-    LOG_WARNING = 2,
-    LOG_NOTICE  = 3,
-    LOG_INFO    = 4,
-    LOG_DEBUG   = 5
+    LOG_LOG      = 0,
+    LOG_FATAL    = 1,
+    LOG_WARNING  = 2,
+    LOG_NOTICE   = 3,
+    LOG_DEBUG_GV = 4,
+    LOG_INFO     = 5,
+    LOG_DEBUG    = 6
 };
 
 /*! \ingroup GrpBaseLog
@@ -633,6 +634,28 @@ void          indentLog   (     UInt32        indent,
 #define FDEBUG(par)
 #endif
 
+/*! \brief FDEBUG
+    \ingroup GrpBaseLog
+*/
+
+#ifdef OSG_DEBUG
+#define FDEBUG_GV(par)                                          \
+{                                                               \
+    OSG::initLog();                                             \
+    if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG_GV))             \
+    {                                                           \
+        OSG::osgStartLog(true,                                  \
+                         OSG::LOG_DEBUG_GV,OSG_LOG_MODULE,      \
+                         __FILE__,                              \
+                         __LINE__);                             \
+        OSG::osgLogP->doLog par;                                \
+        OSG::osgLogP->unlock();                                 \
+    }                                                           \
+}
+#else
+#define FDEBUG_GV(par)
+#endif
+
 /*! \brief FASSERT
     \ingroup GrpBaseLog
 */
@@ -796,6 +819,24 @@ void          indentLog   (     UInt32        indent,
 }
 #else
 #define FPDEBUG(par)
+#endif
+
+#ifdef OSG_DEBUG
+#define FPDEBUG_GV(par)                                         \
+{                                                               \
+    OSG::initLog();                                             \
+    if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG_GV))             \
+    {                                                           \
+        OSG::osgStartLog(false,                                 \
+                         OSG::LOG_DEBUG_GV,OSG_LOG_MODULE,      \
+                         __FILE__,                              \
+                         __LINE__);                             \
+        OSG::osgLogP->doLog par;                                \
+        OSG::osgLogP->unlock();                                 \
+    }                                                           \
+}
+#else
+#define FPDEBUG_GV(par)
 #endif
 
 OSG_END_NAMESPACE

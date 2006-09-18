@@ -592,6 +592,7 @@ void Log::setLogLevel(LogLevel logLevel, bool force)
         "fatal", 
         "warning", 
         "notice", 
+        "debug_gv",
         "info", 
         "debug", 
         NULL 
@@ -603,6 +604,7 @@ void Log::setLogLevel(LogLevel logLevel, bool force)
         LOG_FATAL,
         LOG_WARNING, 
         LOG_NOTICE,
+        LOG_DEBUG_GV,
         LOG_INFO,
         LOG_DEBUG
     };

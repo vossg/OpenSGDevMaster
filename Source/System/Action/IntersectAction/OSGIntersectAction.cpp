@@ -86,7 +86,7 @@ std::vector<Action::Functor> *IntersectAction::_defaultLeaveFunctors = NULL;
 
 bool IntersectAction::terminateEnter(void)
 {
-    fprintf(stderr, "Terminate IntersectAction Enter\n");
+    FDEBUG_GV(("Terminate IntersectAction Enter\n"));
 
     delete _defaultEnterFunctors;
 
@@ -97,7 +97,7 @@ bool IntersectAction::terminateEnter(void)
 
 bool IntersectAction::terminateLeave(void)
 {
-    fprintf(stderr, "Terminate IntersectAction Leave\n");
+    FDEBUG_GV(("Terminate IntersectAction Leave\n"));
 
     delete _defaultLeaveFunctors;
 

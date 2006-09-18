@@ -45,7 +45,7 @@ SingletonT *TaggedSingletonHolder<SingletonT, TagT>::_the = NULL;
 template <> OSG_DLL_EXPORT                                        \
 bool TaggedSingletonHolder< OSG_CLASS, OSG_TAG >::destroy(void)   \
 {                                                                 \
-    fprintf(stderr, "Destroy Singleton %p\n", _the);              \
+    FDEBUG_GV(("Destroy Singleton %p\n", _the));                  \
                                                                   \
     delete _the;                                                  \
                                                                   \

@@ -94,7 +94,7 @@ Action::ResultE MaterialDrawableRenderEnter(const NodeCorePtr &pCore,
                                                   Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter MaterialDrawable %p\n", &(*pCore));
+    FDEBUG_GV(("Enter MaterialDrawable %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -187,7 +187,7 @@ ActionBase::ResultE GroupRenderEnter(const NodeCorePtr &pCore,
                                            Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter Group %p\n", &(*pCore));
+    FDEBUG_GV(("Enter Group %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -201,7 +201,7 @@ ActionBase::ResultE GroupRenderLeave(const NodeCorePtr &pCore,
                                            Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave Group %p\n", &(*pCore));
+    FDEBUG_GV(("Leave Group %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -215,7 +215,7 @@ ActionBase::ResultE TransformRenderEnter(const NodeCorePtr &pCore,
                                                Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter Transform %p\n", &(*pCore));
+    FDEBUG_GV(("Enter Transform %p\n", &(*pCore)));
 #endif
 
     TransformPtr pThis = cast_dynamic<TransformPtr>(pCore);
@@ -234,7 +234,7 @@ ActionBase::ResultE TransformRenderLeave(const NodeCorePtr &pCore,
                                                Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave Transform %p\n", &(*pCore));
+    FDEBUG_GV(("Leave Transform %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *pAction = 
@@ -251,7 +251,7 @@ ActionBase::ResultE MaterialGroupRenderEnter(const NodeCorePtr &pCore,
                                                    Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter MaterialGroup %p\n", &(*pCore));
+    FDEBUG_GV(("Enter MaterialGroup %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *pAction = 
@@ -274,7 +274,7 @@ ActionBase::ResultE MaterialGroupRenderLeave(const NodeCorePtr &pCore,
                                                    Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave MaterialGroup %p\n", &(*pCore));
+    FDEBUG_GV(("Leave MaterialGroup %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *pAction = 
@@ -365,7 +365,7 @@ Action::ResultE DirectionalLightRenderEnter(const NodeCorePtr &pCore,
                                                   Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter DirLight %p\n", &(*pCore));
+    FDEBUG_GV(("Enter DirLight %p\n", &(*pCore)));
 #endif
 
 #if 0
@@ -387,7 +387,7 @@ Action::ResultE DirectionalLightRenderLeave(const NodeCorePtr &pCore,
                                                   Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave DirLight %p\n", &(*pCore));
+    FDEBUG_GV(("Leave DirLight %p\n", &(*pCore)));
 #endif
 
 #if 0
@@ -404,7 +404,7 @@ Action::ResultE PointLightRenderEnter(const NodeCorePtr &pCore,
                                             Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter PointLight %p\n", &(*pCore));
+    FDEBUG_GV(("Enter PointLight %p\n", &(*pCore)));
 #endif
 
 #if 0
@@ -427,7 +427,7 @@ Action::ResultE PointLightRenderLeave(const NodeCorePtr &pCore,
                                             Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave PointLight %p\n", &(*pCore));
+    FDEBUG_GV(("Leave PointLight %p\n", &(*pCore)));
 #endif
 
 #if 0
@@ -446,7 +446,7 @@ Action::ResultE SpotLightRenderEnter(const NodeCorePtr &pCore,
                                            Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter SpotLight %p\n", &(*pCore));
+    FDEBUG_GV(("Enter SpotLight %p\n", &(*pCore)));
 #endif
 
 #if 0
@@ -468,7 +468,7 @@ Action::ResultE SpotLightRenderLeave(const NodeCorePtr &pCore,
                                            Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave SpotLight %p\n", &(*pCore));
+    FDEBUG_GV(("Leave SpotLight %p\n", &(*pCore)));
 #endif
 
 #if 0
@@ -489,7 +489,7 @@ Action::ResultE ShadowSpotLightRenderEnter(const NodeCorePtr &pCore,
                                                  Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter ShadowSpotLight %p\n", &(*pCore));
+    FDEBUG_GV(("Enter ShadowSpotLight %p\n", &(*pCore)));
 #endif
 
     return LightRenderEnter(pCore, action);
@@ -499,7 +499,7 @@ Action::ResultE ShadowSpotLightRenderLeave(const NodeCorePtr &pCore,
                                                  Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave ShadowSpotLight %p\n", &(*pCore));
+    FDEBUG_GV(("Leave ShadowSpotLight %p\n", &(*pCore)));
 #endif
 
     return LightRenderLeave(pCore, action);
@@ -510,7 +510,7 @@ ActionBase::ResultE StageRenderEnter(const NodeCorePtr &pCore,
                                            Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter Stage %p\n", &(*pCore));
+    FDEBUG_GV(("Enter Stage %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -593,7 +593,7 @@ ActionBase::ResultE StageRenderLeave(const NodeCorePtr &pCore,
                                            Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave Stage %p\n", &(*pCore));
+    FDEBUG_GV(("Leave Stage %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -608,7 +608,7 @@ ActionBase::ResultE SimpleStageRenderEnter(const NodeCorePtr &pCore,
                                                  Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter SimpleStage %p\n", &(*pCore));
+    FDEBUG_GV(("Enter SimpleStage %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -679,7 +679,7 @@ ActionBase::ResultE SimpleStageRenderLeave(const NodeCorePtr &pCore,
                                                  Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave SimpleStage %p\n", &(*pCore));
+    FDEBUG_GV(("Leave SimpleStage %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -695,7 +695,7 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
                                               Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter HDRStage %p\n", &(*pCore));
+    FDEBUG_GV(("Enter HDRStage %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -822,7 +822,7 @@ ActionBase::ResultE HDRStageRenderLeave(const NodeCorePtr &pCore,
                                               Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave HDRStage %p\n", &(*pCore));
+    FDEBUG_GV(("Leave HDRStage %p\n", &(*pCore)));
 #endif
 
     return Action::Skip;
@@ -834,7 +834,7 @@ ActionBase::ResultE AlgorithmStageRenderEnter(const NodeCorePtr &pCore,
                                                     Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Enter AlgorithmStage %p\n", &(*pCore));
+    FDEBUG_GV(("Enter AlgorithmStage %p\n", &(*pCore)));
 #endif
 
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
@@ -942,7 +942,7 @@ ActionBase::ResultE AlgorithmStageRenderLeave(const NodeCorePtr &pCore,
                                                     Action      *action)
 {
 #ifdef OSG_DUMP_TRAVERSAL
-    fprintf(stderr, "Leave AlgorithmStage %p\n", &(*pCore));
+    FDEBUG_GV(("Leave AlgorithmStage %p\n", &(*pCore)));
 #endif
 
     return Action::Skip;

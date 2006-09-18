@@ -45,7 +45,7 @@ SingletonT *SingletonHolder<SingletonT>::_the = NULL;
 template <> OSG_DLL_EXPORT                             \
 bool SingletonHolder< OSG_CLASS >::destroy(void)       \
 {                                                      \
-    fprintf(stderr, "Destroy Singleton %p\n", _the);   \
+    FDEBUG_GV(("Destroy Singleton %p\n", _the));       \
                                                        \
     delete _the;                                       \
                                                        \
@@ -67,19 +67,6 @@ OSG_CLASS *SingletonHolder< OSG_CLASS >::the(void)     \
     return _the;                                       \
 }                                                      \
                                                        \
-
-/*
-template<class SingletonT> inline
-SingletonT *SingletonHolder<SingletonT>::the(void)
-{
-    if(_the == NULL)
-    {
-        _the = new SingletonT();
-    }
-
-    return _the;
-}
-*/
 
 OSG_END_NAMESPACE
 

@@ -121,46 +121,9 @@ bool StateChunkClass::terminate(void)
 
 bool StateChunkClass::initialize(void)
 {
-#if 0
-        _classes    = new std::vector<StateChunkClass *>(0);
-        _classNames = new std::vector<std::string      >(0);
-        _numslots   = new std::vector<     UInt32      >(0);
-        _idMap      = new std::vector<     IdMapValue  >(0);
-
-        _idMap     ->push_back(IdMapValue(_classNames->size(), priority));
-
-        _classNames->push_back(std::string(name));
-        _numslots  ->push_back(numslots         );
-
-
-    std::stable_sort(_idMap->begin(),
-                     _idMap->end  (),
-                      IdMapCompare());
-#endif
-
-    for(UInt32 i = 0; i < _initClasses->size(); ++i)
-    {
-        fprintf(stderr, "[%d] %s %d %d %d\n",
-                i,
-                (*_initClasses)[i]->_className.c_str(),
-                (*_initClasses)[i]->_priority,
-                (*_initClasses)[i]->_numSlots,
-                (*_initClasses)[i]->_classId);
-    }
-
     std::stable_sort(_initClasses->begin    (),
                      _initClasses->end      (),
                       StateChunkClassCompare());
-
-    for(UInt32 i = 0; i < _initClasses->size(); ++i)
-    {
-        fprintf(stderr, "[%d] %s %d %d %d\n",
-                i,
-                (*_initClasses)[i]->_className.c_str(),
-                (*_initClasses)[i]->_priority,
-                (*_initClasses)[i]->_numSlots,
-                (*_initClasses)[i]->_classId);
-    }
 
     _classes  = new std::vector<StateChunkClass *>;
     _numslots = new std::vector<     UInt32      >;
@@ -178,12 +141,12 @@ bool StateChunkClass::initialize(void)
 
     for(UInt32 i = 0; i < _classes->size(); ++i)
     {
-        fprintf(stderr, "[%d][%d] %s %d %d\n",
-                i,
-                (*_classes)[i]->_classId,
-                (*_classes)[i]->_className.c_str(),
-                (*_classes)[i]->_priority,
-                (*_classes)[i]->_numSlots);
+        FDEBUG_GV(("[%d][%d] %s %d %d\n",
+                   i,
+                   (*_classes)[i]->_classId,
+                   (*_classes)[i]->_className.c_str(),
+                   (*_classes)[i]->_priority,
+                   (*_classes)[i]->_numSlots));
     }
 
     return true;

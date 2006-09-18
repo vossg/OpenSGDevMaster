@@ -145,7 +145,7 @@ UInt32 RenderAction::_funcGetQueryObjectuivARB  = Window::invalidFunctionID;
 
 bool RenderAction::terminateEnter(void)
 {
-    fprintf(stderr, "Terminate RenderAction Enter\n");
+    FDEBUG_GV(("Terminate RenderAction Enter\n"));
 
     delete _vDefaultEnterFunctors;
 
@@ -156,7 +156,7 @@ bool RenderAction::terminateEnter(void)
 
 bool RenderAction::terminateLeave(void)
 {
-    fprintf(stderr, "Terminate RenderAction Leave\n");
+    FDEBUG_GV(("Terminate RenderAction Leave\n"));
 
     delete _vDefaultLeaveFunctors;
 

@@ -29,11 +29,11 @@ ac_gdz_package_def_System="OSG_COMPILESYSTEMLIB"
 
 
 ac_gdz_package_name_Drawable="Drawable" 
-ac_gdz_package_dirs_Drawable="System/NodeCores/Drawables/Geometry/Base@ System/NodeCores/Drawables/Geometry/Base/WS@ System/NodeCores/Drawables/Geometry/Properties@ System/NodeCores/Drawables/Geometry/Iterator@ System/NodeCores/Drawables/Geometry/Wrapper@ System/NodeCores/Drawables/Geometry/Util@ System/NodeCores/Drawables/Particles@ "
-ac_gdz_package_inc_dep_Drawable="@Base@ @System@ GL" 
-ac_gdz_package_link_dep_Drawable="BaseLib SystemLib TIF JPG PNG MNG" 
-ac_gdz_package_testinc_dep_Drawable="@Group@ @Util@ @Window@ GLUT WindowSystem/GLUT " 
-ac_gdz_package_testlink_dep_Drawable="GroupLib WindowLib UtilLib WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_dirs_Drawable="System/NodeCores/Drawables/Geometry/Base@ System/NodeCores/Drawables/Geometry/Base/WS@ System/NodeCores/Drawables/Geometry/Properties@ System/NodeCores/Drawables/Geometry/Iterator@ System/NodeCores/Drawables/Geometry/Wrapper@ System/NodeCores/Drawables/Geometry/Util@ System/NodeCores/Drawables/Particles@ System/NodeCores/Drawables/Terrain/QuadTree@ "
+ac_gdz_package_inc_dep_Drawable="@Base@ @System@ @State@ GL" 
+ac_gdz_package_link_dep_Drawable="BaseLib SystemLib StateLib TIF JPG PNG MNG" 
+ac_gdz_package_testinc_dep_Drawable="@Group@ @Util@ @Window@ @RenderTraversal@ GLUT WindowSystem/GLUT " 
+ac_gdz_package_testlink_dep_Drawable="ImageFileIOLib GroupLib WindowLib UtilLib WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
 ac_gdz_package_def_Drawable="OSG_COMPILEDRAWABLELIB" 
 
 

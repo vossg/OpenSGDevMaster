@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGGroupFields.h"
 
@@ -92,7 +92,7 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpSystemFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -112,7 +112,7 @@ struct FieldTraits<MaterialGroupPtr> :
 
     enum                        { StringConvertable = 0x00 };
 
-    static OSG_GROUP_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING 
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFMaterialGroupPtr"; }
@@ -129,23 +129,23 @@ struct FieldTraits<MaterialGroupPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
+/*! \ingroup GrpSystemFieldSingle */
 
 typedef SFieldAdaptor<MaterialGroupPtr, SFFieldContainerPtr> SFMaterialGroupPtr;
 #endif
 
 #ifndef OSG_COMPILEMATERIALGROUPINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, MaterialGroupPtr, OSG_GROUP_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, MaterialGroupPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
+/*! \ingroup GrpSystemFieldMulti */
 
 typedef MFieldAdaptor<MaterialGroupPtr, MFFieldContainerPtr> MFMaterialGroupPtr;
 #endif
 
 #ifndef OSG_COMPILEMATERIALGROUPINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, MaterialGroupPtr, OSG_GROUP_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, MaterialGroupPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

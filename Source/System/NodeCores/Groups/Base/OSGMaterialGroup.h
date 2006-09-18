@@ -45,11 +45,10 @@
 
 #include "OSGMaterialGroupBase.h"
 #include "OSGAction.h"
-#include "OSGGroupDef.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_GROUP_DLLMAPPING MaterialGroup : public MaterialGroupBase
+class OSG_SYSTEM_DLLMAPPING MaterialGroup : public MaterialGroupBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -98,6 +97,13 @@ class OSG_GROUP_DLLMAPPING MaterialGroup : public MaterialGroupBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
+    static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Render                                     */
     /*! \{                                                                 */
 
@@ -117,13 +123,6 @@ class OSG_GROUP_DLLMAPPING MaterialGroup : public MaterialGroupBase
     template<class ContainerFactoryT>
     friend struct PtrConstructionFunctions;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     /*!\brief prohibit default function (move to 'public' if needed) */

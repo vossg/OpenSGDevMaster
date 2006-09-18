@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGBaseTypes.h"
+#include "OSGLog.h"
 
 OSG_BEGIN_NAMESPACE
 

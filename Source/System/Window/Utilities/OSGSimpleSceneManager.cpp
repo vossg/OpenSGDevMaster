@@ -513,7 +513,7 @@ void SimpleSceneManager::initialize(void)
 
         SolidBackgroundPtr bg = SolidBackground::create();
         
-        bg->setColor(Color3f(0, 0, 0));
+        bg->setColor(Color3f(0.2, 0.2, 0.2));
 
         _foreground = ImageForeground::create();
         

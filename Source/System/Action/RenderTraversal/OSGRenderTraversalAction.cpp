@@ -117,7 +117,7 @@ StatElemDesc<StatIntElem > RenderTraversalAction::statNTransGeometries(
 
 bool RenderTraversalAction::terminateEnter(void)
 {
-    fprintf(stderr, "Terminate RenderTraversalAction Enter\n");
+    FDEBUG_GV(("Terminate RenderTraversalAction Enter\n"));
 
     delete _vDefaultEnterFunctors;
 
@@ -128,7 +128,7 @@ bool RenderTraversalAction::terminateEnter(void)
 
 bool RenderTraversalAction::terminateLeave(void)
 {
-    fprintf(stderr, "Terminate RenderTraversalAction Leave\n");
+    FDEBUG_GV(("Terminate RenderTraversalAction Leave\n"));
 
     delete _vDefaultLeaveFunctors;
 
@@ -160,7 +160,7 @@ void RenderTraversalAction::registerEnterDefault(
         _vDefaultEnterFunctors->push_back(&Action::_defaultEnterFunction);
     }
     
-    fprintf(stderr, "Register rendertrav for %s\n", type.getCName());
+    FDEBUG_GV(("Register rendertrav for %s\n", type.getCName()));
 
     (*_vDefaultEnterFunctors)[type.getId()] = func;
 }
@@ -181,7 +181,7 @@ void RenderTraversalAction::registerLeaveDefault(
         _vDefaultLeaveFunctors->push_back(&Action::_defaultLeaveFunction);
     }
 
-    fprintf(stderr, "Register rendertrav leave for %s\n", type.getCName());
+    FDEBUG_GV(("Register rendertrav leave for %s\n", type.getCName()));
     
     (*_vDefaultLeaveFunctors)[type.getId()] = func;
 }

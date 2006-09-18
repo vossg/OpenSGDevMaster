@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class MaterialGroup;
 
 //! \brief MaterialGroup Base Class.
 
-class OSG_GROUP_DLLMAPPING MaterialGroupBase : public Group
+class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
 {
   public:
 
