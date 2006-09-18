@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="QuadTreeTerrain"
+	parent="Geometry"
+	library="Drawable"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+Terrain node core
+	<Field
+		name="heightData"
+		type="ImagePtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	Terrain height as image
+	</Field>
+	<Field
+		name="heightScale"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.0f"
+		access="public"
+	>
+	Scale factor for terrain height
+	</Field>
+	<Field
+		name="heightError"
+		type="Real32"
+		cardinality="multi"
+		visibility="internal"
+		access="public"
+	>
+	Error values
+	</Field>
+	<Field
+		name="heightQuad"
+		type="Real32"
+		cardinality="multi"
+		visibility="internal"
+		access="public"
+	>
+	Vertex indices used in current tesselation (encoding terrain quadtree)
+	</Field>
+	<Field
+		name="width"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		access="protected"
+	>
+	width and height of dataset
+	</Field>
+	<Field
+		name="level"
+		type="UInt32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="1"
+		access="protected"
+	>
+	levels of terrain quadtree
+	</Field>
+	<Field
+		name="detail"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="22.0f"
+		access="public"
+	>
+	Detail of terrain tesselation
+	</Field>
+	<Field
+		name="borderDetail"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Detail for borders (0: determined by height data, positive: borders at level borderDetail)
+	</Field>
+	<Field
+		name="vertexSpacing"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.1f"
+		access="public"
+	>
+	Spacing to horizontal and vertical neighbour vertices
+	</Field>
+	<Field
+		name="heightVertices"
+		type="GeoVectorPropertyPtr"
+		cardinality="single"
+		visibility="internal"
+		access="protected"
+	>
+	Precomputed terrain vertices
+	</Field>
+	<Field
+		name="geoMorphing"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="boundMin"
+		type="Pnt3f"
+		cardinality="single"
+		visibility="internal"
+		access="protected"
+	>
+	Min vertex of AABB
+	</Field>
+	<Field
+		name="boundMax"
+		type="Pnt3f"
+		cardinality="single"
+		visibility="internal"
+		access="protected"
+	>
+	Max vertex of AABB
+	</Field>
+	<Field
+		name="eyePoint"
+		type="Pnt3f"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	Eye point of this frame
+	</Field>
+	<Field
+		name="eyeHeight"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0.0f"
+		access="protected"
+	>
+	Height of eye point above terrain
+	</Field>
+	<Field
+		name="eyePointValid"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+	Eye point set externally, otherwise it is computed internally
+	</Field>
+	<Field
+		name="originX"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.0f"
+		access="public"
+	>
+	X-component of terrain lower left point
+	</Field>
+	<Field
+		name="originY"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.0f"
+		access="public"
+	>
+	Y-component of terrain lower left point
+	</Field>
+	<Field
+		name="originTexX"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.0f"
+		access="public"
+	>
+	texture X-component of terrain lower left point
+	</Field>
+	<Field
+		name="originTexY"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0.0f"
+		access="public"
+	>
+	texture Y-component of terrain lower left point
+	</Field>
+	<Field
+		name="texSpacing"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.0f"
+		access="public"
+	>
+	Spacing of texture coordinates for horizontal (and vertical) neighbour vertices
+	</Field>
+	<Field
+		name="texYSpacing"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.0f"
+		access="public"
+	>
+	Spacing of texture coordinates for vertical neighbour vertices
+	</Field>
+	<Field
+		name="updateTerrain"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	update terrain in next frame
+	</Field>
+	<Field
+		name="perPixelLighting"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals
+	</Field>
+</FieldContainer>
