@@ -103,6 +103,8 @@ OSG_USING_NAMESPACE
 UInt32 FrameBufferObject::_uiFramebuffer_object_extension = 
     Window::invalidExtensionID;
 
+UInt32 FrameBufferObject::_uiFuncGenFramebuffers          = 
+    Window::invalidFunctionID;
 
 UInt32 FrameBufferObject::_uiFuncCheckFramebufferStatus   = 
     Window::invalidFunctionID;
@@ -118,6 +120,9 @@ UInt32 FrameBufferObject::_uiFuncFramebufferRenderbuffer  =
 
 UInt32 FrameBufferObject::_uiFuncDrawBuffers              =
     Window::invalidFunctionID;
+
+typedef void   (OSG_APIENTRY *GLGenFramebuffersEXTProcT)(GLsizei, 
+                                                         GLuint *);
 
 typedef void   (OSG_APIENTRY *GLBindFramebufferEXTProcT)(GLenum target, 
                                                          GLuint framebuffer);
@@ -192,7 +197,12 @@ void FrameBufferObject::initMethod(InitPhase ePhase)
     {
         _uiFramebuffer_object_extension = 
             Window::registerExtension("GL_EXT_framebuffer_object");
-                    
+
+        _uiFuncGenFramebuffers =
+            Window::registerFunction (
+                OSG_DLSYM_UNDERSCORE"glGenFramebuffersEXT",
+                _uiFramebuffer_object_extension);
+
         _uiFuncCheckFramebufferStatus   = 
             Window::registerFunction (
                 OSG_DLSYM_UNDERSCORE"glCheckFramebufferStatusEXT", 
@@ -280,10 +290,17 @@ void FrameBufferObject::activate(DrawEnv *pEnv)
 
 //    FLOG(("FBO Activate %p\n", this));
 
+    win->validateGLObject(getGLId(), pEnv);
+
     GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
         (GLBindFramebufferEXTProcT) win->getFunction(_uiFuncBindFramebuffer);
 
-    glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, getGLId());
+    glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, 
+                             win->getGLObjectId(getGLId()));
+
+    glErr("FrameBufferObject::activate::bind");
+
+    glErr("FrameBufferObject::activate");
 
     if(_mfDrawBuffers.size() != 0)
     {
@@ -297,12 +314,6 @@ void FrameBufferObject::activate(DrawEnv *pEnv)
         glDrawBuffer(GL_NONE);
         glReadBuffer(GL_NONE);
     }
-
-    glErr("FrameBufferObject::activate::bind");
-
-    win->validateGLObject(getGLId(), pEnv);
-
-    glErr("FrameBufferObject::activate");
 
     CHECK_FRAMEBUFFER_STATUS();
 }
@@ -328,14 +339,14 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
 void FrameBufferObject::handleGL(DrawEnv *pEnv, UInt32 idstatus)
 {
     Window::GLObjectStatusE mode;
-    UInt32 id;
+    UInt32 osgid;
     Window *win = pEnv->getWindow();
 
-    Window::unpackIdStatus(idstatus, id, mode);
+    Window::unpackIdStatus(idstatus, osgid, mode);
 
     if(mode == Window::destroy)
     {
-        GLuint uiFBO = id;
+        GLuint uiFBOId = win->getGLObjectId(osgid);
 
         if(win->hasExtension(_uiFramebuffer_object_extension) == false)
         {
@@ -343,12 +354,28 @@ void FrameBufferObject::handleGL(DrawEnv *pEnv, UInt32 idstatus)
                 (GLDeleteFramebuffersEXTProcT) win->getFunction(
                     _uiFuncDeleteFramebuffers);
             
-            glDeleteFramebuffersEXTProc(1, &uiFBO);
+            glDeleteFramebuffersEXTProc(1, &uiFBOId);
         }
     }
     else if(mode == Window::initialize || mode == Window::reinitialize ||
             mode == Window::needrefresh )
     {
+        GLuint uiFBOId;
+
+        GLGenFramebuffersEXTProcT glGenFramebuffersEXTProc = 
+            (GLGenFramebuffersEXTProcT) win->getFunction(
+                _uiFuncGenFramebuffers);
+
+        glGenFramebuffersEXTProc(1, &uiFBOId);
+
+        win->setGLObjectId(osgid, uiFBOId);
+
+        GLBindFramebufferEXTProcT glBindFramebufferEXTProc =
+            (GLBindFramebufferEXTProcT) win->getFunction(
+                _uiFuncBindFramebuffer);
+
+        glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, uiFBOId);
+
         GLFramebufferRenderbufferEXTProcT glFramebufferRenderbufferEXTProc =
             (GLFramebufferRenderbufferEXTProcT) win->getFunction(
                 _uiFuncFramebufferRenderbuffer);
@@ -435,7 +462,7 @@ void FrameBufferObject::handleGL(DrawEnv *pEnv, UInt32 idstatus)
     fprintf(stderr, "FBO handleGL %p, %p, %d\n", 
             this,
             win,
-            id);
+            osgid);
 }
 
 /*------------------------------------------------------------------------*/

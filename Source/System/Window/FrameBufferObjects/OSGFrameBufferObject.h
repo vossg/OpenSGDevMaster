@@ -131,7 +131,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
 
     static UInt32 _uiFramebuffer_object_extension;
 
-
+    static UInt32 _uiFuncGenFramebuffers;
     static UInt32 _uiFuncCheckFramebufferStatus;
     static UInt32 _uiFuncBindFramebuffer;
     static UInt32 _uiFuncDeleteFramebuffers;
