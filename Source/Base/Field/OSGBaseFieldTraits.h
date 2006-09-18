@@ -295,7 +295,8 @@ struct FieldTraits<std::string> : public FieldTraitsTemplateBase<std::string>
 
     typedef FieldTraits<std::string>  Self;
 
-    enum             { Convertible = Self::NotConvertible                };
+    enum             { Convertible = (Self::FromStringConvertible |
+                                      Self::ToStreamConvertible   )  };
 
     static OSG_BASE_DLLMAPPING
                  DataType   &getType      (void);
@@ -306,6 +307,21 @@ struct FieldTraits<std::string> : public FieldTraitsTemplateBase<std::string>
 
     static       std::string getDefault   (void) { return std::string(); }
 
+    static void putToStream(const std::string &val,
+                                  OutStream   &outStr)
+    {
+        outStr << "\"";
+        outStr << val;
+        outStr << "\"";
+    }
+
+    static bool      getFromCString(      std::string  &outVal,
+                                    const Char8       *&inVal)
+    {
+        outVal.assign(inVal);
+
+        return true;
+    }
 
     static       UInt32    getBinSize (const std::string &oObject)
     {
@@ -381,7 +397,7 @@ struct FieldTraits<Time, 1> : public FieldTraitsPODTemplateBase<Time, 1>
 
     typedef FieldTraits<Time, 1>  Self;
 
-    enum             { Convertible = (Self::NotConvertible  |
+    enum             { Convertible = (Self::ToStreamConvertible  |
                                       Self::FromStringConvertible)     };
 
     static OSG_BASE_DLLMAPPING

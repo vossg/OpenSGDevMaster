@@ -76,7 +76,8 @@ struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
 
     typedef FieldTraits<Matrix>  Self;
 
-    enum             { Convertible = Self::NotConvertible           };
+    enum             { Convertible = (Self::FromStringConvertible |
+                                      Self::ToStreamConvertible   ) };
 
     static OSG_BASE_DLLMAPPING
            DataType &getType      (void);
@@ -87,11 +88,52 @@ struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
     static Matrix    getDefault   (void) { return Matrix();         }
 
 
-    static bool      getFromString(      Matrix   &outVal,
-                                   const Char8   *&inVal)
+    static bool      getFromCString(      Matrix   &outVal,
+                                    const Char8   *&inVal)
     {
         outVal.setValue(inVal, false);
         return true;
+    }
+
+    static void putToStream(const Matrix    &val,
+                                  OutStream &outStr)
+    {
+        typedef TypeTraits<Matrix::ValueType> TypeTrait;
+
+        TypeTrait::putToStream((val.getValues())[0], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[4], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[8], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[12], outStr);
+
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[1], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[5], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[9], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[13], outStr);
+
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[2], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[6], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[10], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[14], outStr);
+
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[3], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[7], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[11], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[15], outStr);
     }
 
     static       UInt32    getBinSize (const Matrix &)
