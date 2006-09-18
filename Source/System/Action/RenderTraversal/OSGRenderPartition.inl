@@ -112,6 +112,12 @@ Int32 RenderPartition::getViewportHeight(void)
 }
 
 inline
+void RenderPartition::setSetupMode(SetupMode eSetupMode)
+{
+    _eSetupMode = eSetupMode;
+}
+
+inline
 void RenderPartition::setNodePool(RenderTreeNodePool *pNodePool)
 {
     _pNodePool = pNodePool;

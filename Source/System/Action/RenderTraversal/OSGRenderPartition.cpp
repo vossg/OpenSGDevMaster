@@ -120,6 +120,7 @@ RenderPartition::RenderPartition(Mode eMode) :
     _oDrawEnv                (      ),
 
     _eMode                   (eMode ),
+    _eSetupMode              (FullSetup),
 
     _pBackground             (  NULL),
 
@@ -243,6 +244,8 @@ OSG_END_NAMESPACE
 void RenderPartition::reset(Mode eMode)
 {
     _eMode = eMode;
+
+    _eSetupMode = FullSetup;
 
     if(_eMode == StateSorting || _eMode == TransformSorting)
     {
@@ -376,27 +379,36 @@ void RenderPartition::setupExecution(void)
     if(_pRenderTarget != NULL)
         _pRenderTarget->activate(&_oDrawEnv);
 
-    Int32 pw  = _iPixelRight - _iPixelLeft + 1;
-    Int32 ph  = _iPixelTop   - _iPixelBottom + 1;
-       
-    glViewport(_iPixelLeft, _iPixelBottom, pw, ph);
-    
-    if(_bFull == false)
+    if(0x0000 != (_eSetupMode & ViewportSetup))
     {
-        glScissor (_iPixelLeft, _iPixelBottom, pw, ph);
-        glEnable(GL_SCISSOR_TEST);
+        Int32 pw  = _iPixelRight - _iPixelLeft + 1;
+        Int32 ph  = _iPixelTop   - _iPixelBottom + 1;
+        
+        glViewport(_iPixelLeft, _iPixelBottom, pw, ph);
+        
+        if(_bFull == false)
+        {
+            glScissor (_iPixelLeft, _iPixelBottom, pw, ph);
+            glEnable(GL_SCISSOR_TEST);
+        }
+    }
+
+    if(0x0000 != (_eSetupMode & ProjectionSetup))
+    {
+        glMatrixMode (GL_PROJECTION);
+        glPushMatrix();
+
+        glLoadMatrixf(_oDrawEnv.getCameraFullProjection().getValues());
+
+        glMatrixMode(GL_MODELVIEW);
     }
     
-
-    glMatrixMode (GL_PROJECTION);
-    glPushMatrix();
-    glLoadMatrixf(_oDrawEnv.getCameraFullProjection().getValues());
-
-    glMatrixMode(GL_MODELVIEW);
-    
-    if(_pBackground != NULL)
+    if(0x0000 != (_eSetupMode & BackgroundSetup))
     {
-        _pBackground->clear(&_oDrawEnv, _oDrawEnv.getViewport());
+        if(_pBackground != NULL)
+        {
+            _pBackground->clear(&_oDrawEnv, _oDrawEnv.getViewport());
+        }
     }
 }
 
@@ -447,9 +459,12 @@ void RenderPartition::doExecution   (void)
         }
     }
 
-    glMatrixMode (GL_PROJECTION);
-    glPopMatrix();
-    glMatrixMode(GL_MODELVIEW);
+    if(0x0000 != (_eSetupMode & ProjectionSetup))
+    {
+        glMatrixMode (GL_PROJECTION);
+        glPopMatrix();
+        glMatrixMode(GL_MODELVIEW);
+    }
 
     if(_pRenderTarget != NULL)
         _pRenderTarget->deactivate(&_oDrawEnv);

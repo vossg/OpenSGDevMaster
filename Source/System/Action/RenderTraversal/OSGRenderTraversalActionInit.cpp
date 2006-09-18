@@ -843,40 +843,95 @@ ActionBase::ResultE AlgorithmStageRenderEnter(const NodeCorePtr &pCore,
 
     a->pushPartition(0, RenderPartition::SimpleCallback);
     {
-        Viewport        *pPort  = a->getViewport();
         RenderPartition *pPart  = a->getActivePartition();
 
-        if(pPort != NULL)
+        if(pStage->getProjectionMode() != AlgorithmStage::Ignore)
         {
-            pPart->setViewport(pPort         );
-            pPart->setWindow  (a->getWindow());
+            Viewport *pPort = a->getViewport();
             
-            pPart->calcViewportDimension(pPort->getLeft  (),
-                                         pPort->getBottom(),
-                                         pPort->getRight (),
-                                         pPort->getTop   (),
-                                         
-                                         a->getWindow()->getWidth (),
-                                         a->getWindow()->getHeight());
-
-            Matrix m, t;
-
-            m.setIdentity();
-            t.setIdentity();
-
-            MatrixOrthogonal( m,
-                              0.f, 1.f,
-                              0.f, 1.f,
-                             -1.f, 1.f);
+            if(pPort != NULL)
+            {
+                pPart->setViewport(pPort         );
+                pPart->setWindow  (a->getWindow());
+                
+                pPart->calcViewportDimension(pPort->getLeft  (),
+                                             pPort->getBottom(),
+                                             pPort->getRight (),
+                                             pPort->getTop   (),
+                                             
+                                             a->getWindow()->getWidth (),
+                                             a->getWindow()->getHeight());
+                
+                Matrix m, t;
+                
+                m.setIdentity();
+                t.setIdentity();
+                
+                switch(pStage->getProjectionMode())
+                {
+                    case AlgorithmStage::ZeroOne:
+                        MatrixOrthogonal( m,
+                                          0.f, 1.f,
+                                          0.f, 1.f,
+                                         -1.f, 1.f);
             
-            pPart->setupProjection(m, t);
+                        break;
 
-            RenderPartition::SimpleDrawCallback f;
+                    case AlgorithmStage::CenterOne:
+                        MatrixOrthogonal( m,
+                                         -1.f, 1.f,
+                                         -1.f, 1.f,
+                                         -1.f, 1.f);
+            
+                        break;
 
-            f = boost::bind(&AlgorithmStage::execute, pStage, _1);
+                    case AlgorithmStage::ZeroSize:
+                        MatrixOrthogonal( m,
+                                          0.f, pPart->getViewportWidth(),
+                                          0.f, pPart->getViewportHeight(),
+                                         -1.f, 1.f);
+            
+                        break;
 
-            pPart->dropFunctor(f);
+                    case AlgorithmStage::CenterSize:
+                    {
+                        Real32 rWHalf = 
+                            Real32(pPart->getViewportWidth()) / 2.f;
+                        Real32 rHHalf = 
+                            Real32(pPart->getViewportWidth()) / 2.f;
+
+                        MatrixOrthogonal( m,
+                                         -rWHalf, rWHalf,
+                                         -rHHalf, rHHalf,
+                                         -1.f, 1.f);
+                    }
+                    break;
+
+                    case AlgorithmStage::StoredMatrix:
+                        
+                        m = pStage->getProjectionMatrix();
+            
+                        break;
+                }
+
+                pPart->setSetupMode(RenderPartition::FullSetup);
+                pPart->setupProjection(m, t);
+            }
+            else
+            {
+                pPart->setSetupMode(RenderPartition::EmptySetup);
+            }
         }
+        else
+        {
+            pPart->setSetupMode(RenderPartition::EmptySetup);
+        }
+         
+        RenderPartition::SimpleDrawCallback f;
+        
+        f = boost::bind(&AlgorithmStage::execute, pStage, _1);
+        
+        pPart->dropFunctor(f);
     }
     a->popPartition();
 

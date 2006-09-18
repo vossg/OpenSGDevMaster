@@ -126,6 +126,15 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
         SimpleCallback   = 0x0003
     };
 
+    enum SetupMode
+    {
+        EmptySetup      = 0x0000,
+        ProjectionSetup = 0x0001,
+        ViewportSetup   = 0x0002,
+        BackgroundSetup = 0x0004,
+        FullSetup       = 0x0007
+    };
+
     //-----------------------------------------------------------------------
     //   types                                                               
     //-----------------------------------------------------------------------
@@ -212,6 +221,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     Int32 getViewportWidth (void);
     Int32 getViewportHeight(void);
+
+    void setSetupMode(SetupMode eSetupMode);
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -311,6 +322,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //-----------------------------------------------------------------------
 
     Mode                _eMode;
+    SetupMode           _eSetupMode;
     DrawEnv             _oDrawEnv;
 
     Background         *_pBackground;

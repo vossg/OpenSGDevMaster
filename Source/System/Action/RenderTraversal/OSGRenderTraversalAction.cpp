@@ -443,10 +443,12 @@ Action::ResultE RenderTraversalAction::start(void)
 {
     Inherited::start();
 
+#if 0 // Not needed done by the partition setup anyway.
     if(_pWindow != NULL && !_doCullOnly)
     {
         _pWindow->resizeGL();
     }
+#endif
 
     _vRenderPartitions[_currentBuffer].clear   ();
 
@@ -542,7 +544,7 @@ void RenderTraversalAction::drawBuffer(UInt32 buf)
 
     _vRenderPartitions[buf][0]->setupExecution();
 
-    for(Int32 i = 1; i < _vRenderPartitions[buf].size() ; ++i)
+    for(Int32 i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
     {
         _vRenderPartitions[buf][i]->execute();
         _vRenderPartitions[buf][i]->exit();
