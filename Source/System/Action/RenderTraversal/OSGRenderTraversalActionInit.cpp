@@ -701,6 +701,45 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
     RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
     HDRStagePtr      pStage = cast_dynamic<HDRStagePtr>(pCore);
+
+    a->pushPartition(0, RenderPartition::SimpleCallback);
+    {
+        Viewport        *pPort  = a->getViewport();
+        RenderPartition *pPart  = a->getActivePartition();
+
+        if(pPort != NULL)
+        {
+            pPart->setViewport(pPort         );
+            pPart->setWindow  (a->getWindow());
+            
+            pPart->calcViewportDimension(pPort->getLeft  (),
+                                         pPort->getBottom(),
+                                         pPort->getRight (),
+                                         pPort->getTop   (),
+                                         
+                                         a->getWindow()->getWidth (),
+                                         a->getWindow()->getHeight());
+
+            Matrix m, t;
+
+            m.setIdentity();
+            t.setIdentity();
+
+            MatrixOrthogonal( m,
+                              0.f, 1.f,
+                              0.f, 1.f,
+                             -1.f, 1.f);
+            
+            pPart->setupProjection(m, t);
+
+            RenderPartition::SimpleDrawCallback f;
+
+            f = boost::bind(&HDRStage::postProcess, pStage, _1);
+
+            pPart->dropFunctor(f);
+        }
+    }
+    a->popPartition();
         
     a->pushPartition();
     {
@@ -772,46 +811,6 @@ ActionBase::ResultE HDRStageRenderEnter(const NodeCorePtr &pCore,
         NodePtr pActNode = a->getActNode();
         
         a->recurceNoNodeCallbacks(pActNode);
-    }
-    a->popPartition();
-
-
-    a->pushPartition(0, RenderPartition::SimpleCallback);
-    {
-        Viewport        *pPort  = a->getViewport();
-        RenderPartition *pPart  = a->getActivePartition();
-
-        if(pPort != NULL)
-        {
-            pPart->setViewport(pPort         );
-            pPart->setWindow  (a->getWindow());
-            
-            pPart->calcViewportDimension(pPort->getLeft  (),
-                                         pPort->getBottom(),
-                                         pPort->getRight (),
-                                         pPort->getTop   (),
-                                         
-                                         a->getWindow()->getWidth (),
-                                         a->getWindow()->getHeight());
-
-            Matrix m, t;
-
-            m.setIdentity();
-            t.setIdentity();
-
-            MatrixOrthogonal( m,
-                              0.f, 1.f,
-                              0.f, 1.f,
-                             -1.f, 1.f);
-            
-            pPart->setupProjection(m, t);
-
-            RenderPartition::SimpleDrawCallback f;
-
-            f = boost::bind(&HDRStage::postProcess, pStage, _1);
-
-            pPart->dropFunctor(f);
-        }
     }
     a->popPartition();
 

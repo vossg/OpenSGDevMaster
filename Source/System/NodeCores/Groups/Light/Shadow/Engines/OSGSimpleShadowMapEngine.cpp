@@ -482,42 +482,6 @@ void SimpleShadowMapEngine::doLightPass(LightPtr               pLight,
 
     TextureObjChunkPtr pTexChunk = pEngineData->getTextureChunk();
     
-    if(pTexChunk == NullFC)
-    {
-        pTexChunk = TextureObjChunk::create();
-        
-        pEngineData->setTextureChunk(pTexChunk);
-
-        ImagePtr pImage = Image::create();
-        
-            // creates a image without allocating main memory.
-        
-        pImage->set(Image::OSG_L_PF,
-                    pTarget->getWidth (), 
-                    pTarget->getHeight(),
-                    1, 
-                    1, 
-                    1, 
-                    0, 
-                    NULL,
-                    Image::OSG_UINT8_IMAGEDATA, 
-                    false);
-        
-        
-        pTexChunk->setImage         (pImage);
-        pTexChunk->setInternalFormat(GL_DEPTH_COMPONENT32);
-        pTexChunk->setExternalFormat(GL_DEPTH_COMPONENT);
-        pTexChunk->setMinFilter     (GL_LINEAR);
-        pTexChunk->setMagFilter     (GL_LINEAR);
-        pTexChunk->setWrapS         (GL_CLAMP_TO_BORDER);
-        pTexChunk->setWrapT         (GL_CLAMP_TO_BORDER);
-//        pTexChunk->setEnvMode       (GL_MODULATE);
-        pTexChunk->setTarget        (GL_TEXTURE_2D);
-        
-        pTexChunk->setCompareMode(GL_COMPARE_R_TO_TEXTURE);
-        pTexChunk->setCompareFunc(GL_LEQUAL);
-        pTexChunk->setDepthMode  (GL_INTENSITY);
-    }
 
     TextureBufferPtr pTexBuffer = pEngineData->getTextureBuffer();
 
@@ -663,6 +627,20 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
                             RenderPartition::CopyFrustum      |
                             RenderPartition::CopyNearFar      ));
     
+    FrameBufferObject *pTarget = getCPtr(this->getRenderTarget());
+
+    if(pTarget == NULL)
+    {
+        FrameBufferObjectPtr pFBO = FrameBufferObject::create();
+
+        pFBO->setWidth (this->getWidth ());
+        pFBO->setHeight(this->getHeight());
+
+        setRenderTarget(pFBO);
+
+        pTarget = getCPtr(pFBO);
+    }
+
     BlendChunkPtr pBlender      = pEngineData->getBlendChunk();
 
     if(pBlender == NullFC)
@@ -729,13 +707,50 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
     pTexGen->setGenFuncRPlane(pr);
     pTexGen->setGenFuncQPlane(pq);
     
-    TextureObjChunkPtr pTex = pEngineData->getTextureChunk();
+    TextureObjChunkPtr pTexChunk = pEngineData->getTextureChunk();
+
+    if(pTexChunk == NullFC)
+    {
+        pTexChunk = TextureObjChunk::create();
+        
+        pEngineData->setTextureChunk(pTexChunk);
+
+        ImagePtr pImage = Image::create();
+        
+            // creates a image without allocating main memory.
+        
+        pImage->set(Image::OSG_L_PF,
+                    pTarget->getWidth (), 
+                    pTarget->getHeight(),
+                    1, 
+                    1, 
+                    1, 
+                    0, 
+                    NULL,
+                    Image::OSG_UINT8_IMAGEDATA, 
+                    false);
+        
+        
+        pTexChunk->setImage         (pImage);
+        pTexChunk->setInternalFormat(GL_DEPTH_COMPONENT32);
+        pTexChunk->setExternalFormat(GL_DEPTH_COMPONENT);
+        pTexChunk->setMinFilter     (GL_LINEAR);
+        pTexChunk->setMagFilter     (GL_LINEAR);
+        pTexChunk->setWrapS         (GL_CLAMP_TO_BORDER);
+        pTexChunk->setWrapT         (GL_CLAMP_TO_BORDER);
+//        pTexChunk->setEnvMode       (GL_MODULATE);
+        pTexChunk->setTarget        (GL_TEXTURE_2D);
+        
+        pTexChunk->setCompareMode(GL_COMPARE_R_TO_TEXTURE);
+        pTexChunk->setCompareFunc(GL_LEQUAL);
+        pTexChunk->setDepthMode  (GL_INTENSITY);
+    }
 
     pAction->pushState();
 
-    UInt32 uiBlendSlot  = pBlender->getClassId();
-    UInt32 uiTexSlot    = pTex    ->getClassId();
-    UInt32 uiTexGenSlot = pTexGen ->getClassId();
+    UInt32 uiBlendSlot  = pBlender ->getClassId();
+    UInt32 uiTexSlot    = pTexChunk->getClassId();
+    UInt32 uiTexGenSlot = pTexGen  ->getClassId();
     
     if(this->getForceTextureUnit() != -1)
     {
@@ -748,9 +763,9 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
         uiTexGenSlot += 3;
     }
 
-    pAction->addOverride(uiBlendSlot,  getCPtr(pBlender));
-    pAction->addOverride(uiTexSlot,    getCPtr(pTex    ));
-    pAction->addOverride(uiTexGenSlot, getCPtr(pTexGen ));
+    pAction->addOverride(uiBlendSlot,  getCPtr(pBlender ));
+    pAction->addOverride(uiTexSlot,    getCPtr(pTexChunk));
+    pAction->addOverride(uiTexGenSlot, getCPtr(pTexGen  ));
     
     lightRenderEnter(pLight, pAction);
 
@@ -795,6 +810,20 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
 
     if(0x0000 != bvMask)
     {
+        if(0x0000 != (bvMask & bvDiffusePassMask))
+        {
+            pAction->recurceNoNodeCallbacks(pAction->getActNode());
+            
+            doFinalPass    (pLight,  pAction, pEngineData);
+        }
+
+        if(0x0000 != (bvMask & bvAmbientPassMask))
+        {
+            pAction->recurceNoNodeCallbacks(pAction->getActNode());
+            
+            setupLightChunk(pLight, eType, pAction, pEngineData);
+        }
+
         if(0x0000 != (bvMask & bvLightPassMask))
         {
             pAction->recurceNoNodeCallbacks(pAction->getActNode());
@@ -802,39 +831,25 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
             setupCamera    (pLight, eType, pAction, pEngineData);
             doLightPass    (pLight,        pAction, pEngineData);
         }
-        
-        
-        if(0x0000 != (bvMask & bvAmbientPassMask))
-        {
-            pAction->recurceNoNodeCallbacks(pAction->getActNode());
-            
-            setupLightChunk(pLight, eType, pAction, pEngineData);
-        }
-        
-        if(0x0000 != (bvMask & bvDiffusePassMask))
-        {
-            pAction->recurceNoNodeCallbacks(pAction->getActNode());
-            
-            doFinalPass    (pLight,  pAction, pEngineData);
-        }
     }
     else
     {
         setupCamera    (pLight, eType, pAction, pEngineData);
-        
-        pAction->addPassMask(bvLightPassMask);
-        doLightPass    (pLight,        pAction, pEngineData);
-        pAction->subPassMask(bvLightPassMask);
-        
         setupLightChunk(pLight, eType, pAction, pEngineData);
+
+        pAction->addPassMask(bvDiffusePassMask);
+        doFinalPass    (pLight,        pAction, pEngineData);
+        pAction->subPassMask(bvDiffusePassMask);
         
         pAction->addPassMask(bvAmbientPassMask);
         doAmbientPass  (pLight,        pAction, pEngineData);
         pAction->subPassMask(bvAmbientPassMask);
+
         
-        pAction->addPassMask(bvDiffusePassMask);
-        doFinalPass    (pLight,        pAction, pEngineData);
-        pAction->subPassMask(bvDiffusePassMask);
+        pAction->addPassMask(bvLightPassMask);
+        doLightPass    (pLight,        pAction, pEngineData);
+        pAction->subPassMask(bvLightPassMask);
+                
     }
 
     return ActionBase::Skip;
