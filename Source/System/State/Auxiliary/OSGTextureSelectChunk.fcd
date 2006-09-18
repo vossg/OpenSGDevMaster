@@ -22,7 +22,7 @@
 	</Field>
 	<Field
 		name="textures"
-		type="TextureChunkPtr"
+		type="TextureBaseChunkPtr"
 		cardinality="multi"
 		visibility="external"
 		access="public"

@@ -66,7 +66,7 @@
 #include "OSGTextureBaseChunk.h" // Parent
 
 #include "OSGUInt32Fields.h" // Choice type
-#include "OSGTextureChunkFields.h" // Textures type
+#include "OSGTextureBaseChunkFields.h" // Textures type
 
 #include "OSGTextureSelectChunkFields.h"
 
@@ -153,7 +153,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
 #endif
            SFUInt32 *editSFChoice(void);
      const SFUInt32 *getSFChoice (void) const;
-     const MFTextureChunkPtr *getMFTextures (void) const;
+     const MFTextureBaseChunkPtr *getMFTextures (void) const;
 
 
 #ifdef OSG_1_COMPAT
@@ -162,8 +162,8 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
            UInt32 &editChoice(void);
      const UInt32 &getChoice (void) const;
 
-           TextureChunkPtrConst getTextures(const UInt32 index) const;
-     const MFTextureChunkPtr &getTextures(void) const;
+           TextureBaseChunkPtrConst getTextures(const UInt32 index) const;
+     const MFTextureBaseChunkPtr &getTextures(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -205,15 +205,15 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToTextures           (TextureChunkPtrConstArg value   );
+    void pushToTextures           (TextureBaseChunkPtrConstArg value   );
     void insertIntoTextures      (UInt32                uiIndex,
-                                    TextureChunkPtrConstArg value   );
+                                    TextureBaseChunkPtrConstArg value   );
     void replaceInTextures  (UInt32                uiIndex,
-                                    TextureChunkPtrConstArg value   );
-    void replaceInTextures (TextureChunkPtrConstArg pOldElem,
-                                    TextureChunkPtrConstArg pNewElem);
+                                    TextureBaseChunkPtrConstArg value   );
+    void replaceInTextures (TextureBaseChunkPtrConstArg pOldElem,
+                                    TextureBaseChunkPtrConstArg pNewElem);
     void removeFromTextures (UInt32                uiIndex );
-    void removeFromTextures(TextureChunkPtrConstArg value   );
+    void removeFromTextures(TextureBaseChunkPtrConstArg value   );
     void clearTextures            (void                          );
 
     /*! \}                                                                 */
@@ -258,7 +258,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
     SFUInt32 _sfChoice;
-    MFTextureChunkPtr _mfTextures;
+    MFTextureBaseChunkPtr _mfTextures;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

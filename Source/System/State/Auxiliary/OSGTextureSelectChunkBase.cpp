@@ -60,7 +60,7 @@
 
 
 
-#include <OSGTextureChunk.h> // Textures Class
+#include <OSGTextureBaseChunk.h> // Textures Class
 
 #include "OSGTextureSelectChunkBase.h"
 #include "OSGTextureSelectChunk.h"
@@ -73,7 +73,7 @@ OSG_USING_NAMESPACE
     	Texture selector
 
 */
-/*! \var TextureChunkPtr TextureSelectChunkBase::_mfTextures
+/*! \var TextureBaseChunkPtr TextureSelectChunkBase::_mfTextures
     	Texture chunks to choose from 
 
 */
@@ -104,8 +104,8 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFTextureChunkPtr::Description(
-        MFTextureChunkPtr::getClassType(), 
+    pDesc = new MFTextureBaseChunkPtr::Description(
+        MFTextureBaseChunkPtr::getClassType(), 
         "textures", 
         TexturesFieldId, TexturesFieldMask,
         false,
@@ -160,7 +160,7 @@ const SFUInt32 *TextureSelectChunkBase::getSFChoice(void) const
 }
 
 //! Get the TextureSelectChunk::_mfTextures field.
-const MFTextureChunkPtr *TextureSelectChunkBase::getMFTextures(void) const
+const MFTextureBaseChunkPtr *TextureSelectChunkBase::getMFTextures(void) const
 {
     return &_mfTextures;
 }
@@ -174,7 +174,7 @@ void TextureSelectChunkBase::pushToField(      FieldContainerPtrConstArg pNewEle
     if(uiFieldId == TexturesFieldId)
     {
         static_cast<TextureSelectChunk *>(this)->pushToTextures(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
     }
 }
 
@@ -188,7 +188,7 @@ void TextureSelectChunkBase::insertIntoMField(const UInt32                    ui
     {
         static_cast<TextureSelectChunk *>(this)->insertIntoTextures(
             uiIndex,
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
     }
 }
 
@@ -202,7 +202,7 @@ void TextureSelectChunkBase::replaceInMField (const UInt32                    ui
     {
         static_cast<TextureSelectChunk *>(this)->replaceInTextures(
             uiIndex,
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
     }
 }
 
@@ -215,8 +215,8 @@ void TextureSelectChunkBase::replaceInMField (      FieldContainerPtrConstArg pO
     if(uiFieldId == TexturesFieldId)
     {
         static_cast<TextureSelectChunk *>(this)->replaceInTextures(
-            cast_dynamic<TextureChunkPtr>(pOldElement),
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureBaseChunkPtr>(pOldElement),
+            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
     }
 }
 
@@ -240,7 +240,7 @@ void TextureSelectChunkBase::removeFromMField(      FieldContainerPtrConstArg pE
     if(uiFieldId == TexturesFieldId)
     {
         static_cast<TextureSelectChunk *>(this)->removeFromTextures(
-            cast_dynamic<TextureChunkPtr>(pElement));
+            cast_dynamic<TextureBaseChunkPtr>(pElement));
     }
 }
 
@@ -254,10 +254,10 @@ void TextureSelectChunkBase::clearField(const UInt32 uiFieldId)
     }
 }
 
-void TextureSelectChunkBase::pushToTextures(TextureChunkPtrConstArg value)
+void TextureSelectChunkBase::pushToTextures(TextureBaseChunkPtrConstArg value)
 {
-    if(value == NullFC)
-        return;
+//    if(value == NullFC)
+//        return;
 
     editMField(TexturesFieldMask, _mfTextures);
 
@@ -267,14 +267,14 @@ void TextureSelectChunkBase::pushToTextures(TextureChunkPtrConstArg value)
 }
 
 void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
-                                             TextureChunkPtrConstArg value   )
+                                             TextureBaseChunkPtrConstArg value   )
 {
     if(value == NullFC)
         return;
 
     editMField(TexturesFieldMask, _mfTextures);
 
-    MFTextureChunkPtr::iterator fieldIt = _mfTextures.begin();
+    MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
     addRef(value);
 
@@ -284,7 +284,7 @@ void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
 }
 
 void TextureSelectChunkBase::replaceInTextures(UInt32                uiIndex,
-                                                 TextureChunkPtrConstArg value   )
+                                                 TextureBaseChunkPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -301,8 +301,8 @@ void TextureSelectChunkBase::replaceInTextures(UInt32                uiIndex,
     _mfTextures[uiIndex] = value;
 }
 
-void TextureSelectChunkBase::replaceInTextures(TextureChunkPtrConstArg pOldElem,
-                                                  TextureChunkPtrConstArg pNewElem)
+void TextureSelectChunkBase::replaceInTextures(TextureBaseChunkPtrConstArg pOldElem,
+                                                  TextureBaseChunkPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -313,7 +313,7 @@ void TextureSelectChunkBase::replaceInTextures(TextureChunkPtrConstArg pOldElem,
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFTextureChunkPtr::iterator fieldIt = _mfTextures.begin();
+        MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
         fieldIt += elemIdx;
 
@@ -330,7 +330,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFTextureChunkPtr::iterator fieldIt = _mfTextures.begin();
+        MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
         fieldIt += uiIndex;
 
@@ -340,7 +340,7 @@ void TextureSelectChunkBase::removeFromTextures(UInt32 uiIndex)
     }
 }
 
-void TextureSelectChunkBase::removeFromTextures(TextureChunkPtrConstArg value)
+void TextureSelectChunkBase::removeFromTextures(TextureBaseChunkPtrConstArg value)
 {
     Int32 iElemIdx = _mfTextures.findIndex(value);
 
@@ -348,7 +348,7 @@ void TextureSelectChunkBase::removeFromTextures(TextureChunkPtrConstArg value)
     {
         editMField(TexturesFieldMask, _mfTextures);
 
-        MFTextureChunkPtr::iterator fieldIt = _mfTextures.begin();
+        MFTextureBaseChunkPtr::iterator fieldIt = _mfTextures.begin();
 
         fieldIt += iElemIdx;
 
@@ -361,8 +361,8 @@ void TextureSelectChunkBase::clearTextures(void)
 {
     editMField(TexturesFieldMask, _mfTextures);
 
-    MFTextureChunkPtr::iterator       fieldIt  = _mfTextures.begin();
-    MFTextureChunkPtr::const_iterator fieldEnd = _mfTextures.end  ();
+    MFTextureBaseChunkPtr::iterator       fieldIt  = _mfTextures.begin();
+    MFTextureBaseChunkPtr::const_iterator fieldEnd = _mfTextures.end  ();
 
     while(fieldIt != fieldEnd)
     {
@@ -474,9 +474,9 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
     if(source != NULL)
     {
 
-        MFTextureChunkPtr::const_iterator TexturesIt  = 
+        MFTextureBaseChunkPtr::const_iterator TexturesIt  = 
             source->_mfTextures.begin();
-        MFTextureChunkPtr::const_iterator TexturesEnd = 
+        MFTextureBaseChunkPtr::const_iterator TexturesEnd = 
             source->_mfTextures.end  ();
 
         while(TexturesIt != TexturesEnd)
