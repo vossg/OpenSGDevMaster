@@ -8,6 +8,6 @@ else:
 
    # Tests' dependencies
 
-   osg_test_libs = [ 'OSGGroup', 'OSGFileIO', 'OSGWindow', 'OSGUtil' ]
+   osg_test_libs = [ 'OSGGroup', 'OSGFileIO', 'OSGWindow', 'OSGUtil', 'OSGWindowGLUT' ]
    test_cpppath = []
    test_libpath = []
