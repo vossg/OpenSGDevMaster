@@ -36,6 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#define GL_GLEXT_PROTOTYPES
+
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
@@ -162,9 +164,15 @@ void TextureObjRefChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 void TextureObjRefChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {    
+    Window *pWin = pEnv->getWindow();
+
+    if(activateTexture(pWin, idx))
+        return; // trying to access too many textures
+
     glBindTexture(this->getTarget(), 
                   this->getGLId  ());
 
+    pEnv->setActiveTexTarget(idx, this->getTarget());
 
     glEnable(this->getTarget());
 }
@@ -180,15 +188,29 @@ void TextureObjRefChunk::changeFrom(DrawEnv    *pEnv,
     if(old == this)
         return;
 
+    Window *pWin = pEnv->getWindow();
+
+    if(activateTexture(pWin, idx))
+        return; // trying to access too many textures
+
     glBindTexture(this->getTarget(), 
                   this->getGLId  ());
+
+    pEnv->setActiveTexTarget(idx, this->getTarget());
 
     glEnable(this->getTarget());
 }
 
 void TextureObjRefChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
+    Window *pWin = pEnv->getWindow();
+
+    if(activateTexture(pWin, idx))
+        return; // trying to access too many textures
+
     glDisable(this->getTarget());
+
+    pEnv->setActiveTexTarget(idx, GL_NONE);
 }
 
 /*-------------------------- Comparison -----------------------------------*/

@@ -56,7 +56,7 @@
 #include "OSGDrawEnv.h"
 
 #include "OSGTextureSelectChunk.h"
-#include "OSGTextureChunk.h"
+#include "OSGTextureBaseChunk.h"
 
 //#define OSG_DUMP_TEX
 

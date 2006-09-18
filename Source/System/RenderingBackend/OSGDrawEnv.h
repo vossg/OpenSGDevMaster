@@ -46,6 +46,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGSystemDef.h"
 #include "OSGSystemProfile.h"
+#include "OSGGLEXT.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,39 +75,47 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    void setAction       (      RAction  *pAction    );
-    void setAction       (      RTAction *pAction    );
-    void setViewport     (      Viewport *pViewport  );
-    void setWindow       (      Window   *pWindow    );
+    void setAction         (      RAction  *pAction    );
+    void setAction         (      RTAction *pAction    );
+    void setViewport       (      Viewport *pViewport  );
+    void setWindow         (      Window   *pWindow    );
 
-    void setupProjection (const Matrixr  &projection,
-                          const Matrixr  &translation);
-    void setupViewing    (const Matrixr  &matrix     );
-    void setObjectToWorld(const Matrixr  &matrix     );
+    void setupProjection   (const Matrixr  &projection,
+                            const Matrixr  &translation);
+    void setupViewing      (const Matrixr  &matrix     );
+    void setObjectToWorld  (const Matrixr  &matrix     );
 
-    void setCameraNear   (const Real     &camNear    ); 
-    void setCameraFar    (const Real     &camFar     ); 
+    void setCameraNear     (const Real     &camNear    ); 
+    void setCameraFar      (const Real     &camFar     ); 
+
+    void setActiveTexTarget(      UInt32    uiSlot,
+                                  GLenum    uiTarget   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    const Matrixr  &getCameraFullProjection (void) const;
-    const Matrixr  &getCameraProjection     (void) const;
-    const Matrixr  &getCameraProjectionTrans(void) const;
+    const Matrixr  &getCameraFullProjection (void         ) const;
+    const Matrixr  &getCameraProjection     (void         ) const;
+    const Matrixr  &getCameraProjectionTrans(void         ) const;
 
-    const Matrixr  &getCameraViewing        (void) const;
-    const Matrixr  &getCameraToWorld        (void) const; //CamViewing^-1
-    const Matrixr  &getObjectToWorld        (void) const;
+    const Matrixr  &getCameraViewing        (void         ) const;
 
-          Real      getCameraNear           (void) const;
-          Real      getCameraFar            (void) const;
+    //CamViewing^-1
+    const Matrixr  &getCameraToWorld        (void         ) const; 
 
-          RAction  *getRAction              (void) const;
-          RTAction *getRTAction             (void) const;
-          Viewport *getViewport             (void) const;
-          Window   *getWindow               (void) const;
+    const Matrixr  &getObjectToWorld        (void         ) const;
+
+          Real      getCameraNear           (void         ) const;
+          Real      getCameraFar            (void         ) const;
+
+          RAction  *getRAction              (void         ) const;
+          RTAction *getRTAction             (void         ) const;
+          Viewport *getViewport             (void         ) const;
+          Window   *getWindow               (void         ) const;
+
+          GLenum    getActiveTexTarget      (UInt32 uiSlot) const;
                
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -161,6 +170,8 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     
     State         *_pActiveState;
     StateOverride *_pActiveStateOverride;
+
+    GLenum         _aActiveTexTargets[osgMaxTexImages];
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

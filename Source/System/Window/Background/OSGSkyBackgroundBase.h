@@ -70,12 +70,12 @@
 #include "OSGColor4fFields.h" // GroundColor type
 #include "OSGReal32Fields.h" // GroundAngle type
 #include "OSGUInt32Fields.h" // SphereRes type
-#include "OSGTextureChunkFields.h" // BackTexture type
-#include "OSGTextureChunkFields.h" // BottomTexture type
-#include "OSGTextureChunkFields.h" // FrontTexture type
-#include "OSGTextureChunkFields.h" // LeftTexture type
-#include "OSGTextureChunkFields.h" // RightTexture type
-#include "OSGTextureChunkFields.h" // TopTexture type
+#include "OSGTextureObjChunkFields.h" // BackTexture type
+#include "OSGTextureObjChunkFields.h" // BottomTexture type
+#include "OSGTextureObjChunkFields.h" // FrontTexture type
+#include "OSGTextureObjChunkFields.h" // LeftTexture type
+#include "OSGTextureObjChunkFields.h" // RightTexture type
+#include "OSGTextureObjChunkFields.h" // TopTexture type
 #include "OSGBoolFields.h" // BoxInside type
 #include "OSGVec3fFields.h" // TopTexCoord type
 #include "OSGVec3fFields.h" // BottomTexCoord type
@@ -245,12 +245,12 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
 #endif
            SFUInt32 *editSFSphereRes(void);
      const SFUInt32 *getSFSphereRes (void) const;
-     const SFTextureChunkPtr *getSFBackTexture (void) const;
-     const SFTextureChunkPtr *getSFBottomTexture (void) const;
-     const SFTextureChunkPtr *getSFFrontTexture (void) const;
-     const SFTextureChunkPtr *getSFLeftTexture (void) const;
-     const SFTextureChunkPtr *getSFRightTexture (void) const;
-     const SFTextureChunkPtr *getSFTopTexture (void) const;
+     const SFTextureObjChunkPtr *getSFBackTexture (void) const;
+     const SFTextureObjChunkPtr *getSFBottomTexture (void) const;
+     const SFTextureObjChunkPtr *getSFFrontTexture (void) const;
+     const SFTextureObjChunkPtr *getSFLeftTexture (void) const;
+     const SFTextureObjChunkPtr *getSFRightTexture (void) const;
+     const SFTextureObjChunkPtr *getSFTopTexture (void) const;
 
 #ifdef OSG_1_COMPAT
            SFBool *getSFBoxInside(void);
@@ -338,17 +338,17 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
            UInt32 &editSphereRes(void);
      const UInt32 &getSphereRes (void) const;
 
-           TextureChunkPtrConst getBackTexture(void) const;
+           TextureObjChunkPtrConst getBackTexture(void) const;
 
-           TextureChunkPtrConst getBottomTexture(void) const;
+           TextureObjChunkPtrConst getBottomTexture(void) const;
 
-           TextureChunkPtrConst getFrontTexture(void) const;
+           TextureObjChunkPtrConst getFrontTexture(void) const;
 
-           TextureChunkPtrConst getLeftTexture(void) const;
+           TextureObjChunkPtrConst getLeftTexture(void) const;
 
-           TextureChunkPtrConst getRightTexture(void) const;
+           TextureObjChunkPtrConst getRightTexture(void) const;
 
-           TextureChunkPtrConst getTopTexture(void) const;
+           TextureObjChunkPtrConst getTopTexture(void) const;
 
 #ifdef OSG_1_COMPAT
            bool &getBoxInside(void);
@@ -418,12 +418,12 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
      void setSphereRes(const UInt32 &value);
-     void setBackTexture(TextureChunkPtrConstArg value);
-     void setBottomTexture(TextureChunkPtrConstArg value);
-     void setFrontTexture(TextureChunkPtrConstArg value);
-     void setLeftTexture(TextureChunkPtrConstArg value);
-     void setRightTexture(TextureChunkPtrConstArg value);
-     void setTopTexture(TextureChunkPtrConstArg value);
+     void setBackTexture(TextureObjChunkPtrConstArg value);
+     void setBottomTexture(TextureObjChunkPtrConstArg value);
+     void setFrontTexture(TextureObjChunkPtrConstArg value);
+     void setLeftTexture(TextureObjChunkPtrConstArg value);
+     void setRightTexture(TextureObjChunkPtrConstArg value);
+     void setTopTexture(TextureObjChunkPtrConstArg value);
      void setBoxInside(const bool &value);
      void setBeacon(NodePtrConstArg value);
 
@@ -516,12 +516,12 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     MFColor4f _mfGroundColor;
     MFReal32 _mfGroundAngle;
     SFUInt32 _sfSphereRes;
-    SFTextureChunkPtr _sfBackTexture;
-    SFTextureChunkPtr _sfBottomTexture;
-    SFTextureChunkPtr _sfFrontTexture;
-    SFTextureChunkPtr _sfLeftTexture;
-    SFTextureChunkPtr _sfRightTexture;
-    SFTextureChunkPtr _sfTopTexture;
+    SFTextureObjChunkPtr _sfBackTexture;
+    SFTextureObjChunkPtr _sfBottomTexture;
+    SFTextureObjChunkPtr _sfFrontTexture;
+    SFTextureObjChunkPtr _sfLeftTexture;
+    SFTextureObjChunkPtr _sfRightTexture;
+    SFTextureObjChunkPtr _sfTopTexture;
     SFBool _sfBoxInside;
     MFVec3f _mfTopTexCoord;
     MFVec3f _mfBottomTexCoord;

@@ -22,7 +22,7 @@ A textured background e.g for distortion corrected fast live video from a camera
 	</Field>
 	<Field
 		name="texture"
-		type="TextureChunkPtr"
+		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
 		access="public"

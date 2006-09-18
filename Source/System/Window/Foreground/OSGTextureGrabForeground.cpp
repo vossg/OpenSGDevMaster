@@ -50,7 +50,7 @@
 
 #include <OSGViewport.h>
 #include <OSGImage.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
 #include <OSGDrawEnv.h>
 
 #include "OSGTextureGrabForeground.h"
@@ -129,7 +129,7 @@ void TextureGrabForeground::dump(      UInt32    ,
 void TextureGrabForeground::draw(DrawEnv  *pEnv, 
                                  Viewport *port  )
 {
-    TextureChunkPtr t = getTexture();
+    TextureObjChunkPtr t = getTexture();
     
     if(t == NullFC)       // No texture, no grab.
         return;

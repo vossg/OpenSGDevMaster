@@ -47,7 +47,6 @@
 #include <OSGWindow.h>
 #include <OSGDrawActionBase.h>
 #include <OSGCamera.h>
-#include <OSGTextureChunk.h>
 
 OSG_USING_NAMESPACE
 

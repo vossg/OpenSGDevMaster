@@ -59,7 +59,6 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // Target default header
 
 
 #include "OSGTextureObjRefChunkBase.h"
@@ -71,12 +70,6 @@ OSG_USING_NAMESPACE
 
 /*! \var GLenum TextureObjRefChunkBase::_sfGLId
     	glid
-    
-
-*/
-/*! \var GLenum TextureObjRefChunkBase::_sfTarget
-            Texture target.
-    
 
 */
 
@@ -102,27 +95,6 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureObjRefChunkBase::getSFGLId));
-#endif
-
-    oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_COMPAT
-    typedef const SFGLenum *(TextureObjRefChunkBase::*GetSFTargetF)(void) const;
-
-    GetSFTargetF GetSFTarget = &TextureObjRefChunkBase::getSFTarget;
-#endif
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "target", 
-        TargetFieldId, TargetFieldMask,
-        false,
-        Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureObjRefChunkBase::editSFTarget),
-#ifdef OSG_1_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTarget));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureObjRefChunkBase::getSFTarget));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -171,18 +143,6 @@ const SFGLenum *TextureObjRefChunkBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-SFGLenum *TextureObjRefChunkBase::editSFTarget(void)
-{
-    editSField(TargetFieldMask);
-
-    return &_sfTarget;
-}
-
-const SFGLenum *TextureObjRefChunkBase::getSFTarget(void) const
-{
-    return &_sfTarget;
-}
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -194,10 +154,6 @@ UInt32 TextureObjRefChunkBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         returnValue += _sfGLId.getBinSize();
-    }
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-    {
-        returnValue += _sfTarget.getBinSize();
     }
 
     return returnValue;
@@ -212,10 +168,6 @@ void TextureObjRefChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfGLId.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-    {
-        _sfTarget.copyToBin(pMem);
-    }
 }
 
 void TextureObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -226,10 +178,6 @@ void TextureObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         _sfGLId.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-    {
-        _sfTarget.copyFromBin(pMem);
     }
 }
 
@@ -258,15 +206,13 @@ FieldContainerPtr TextureObjRefChunkBase::shallowCopy(void) const
 
 TextureObjRefChunkBase::TextureObjRefChunkBase(void) :
     Inherited(),
-    _sfGLId(GLenum(0)),
-    _sfTarget(GLenum(GL_TEXTURE_2D))
+    _sfGLId(GLenum(0))
 {
 }
 
 TextureObjRefChunkBase::TextureObjRefChunkBase(const TextureObjRefChunkBase &source) :
     Inherited(source),
-    _sfGLId(source._sfGLId),
-    _sfTarget(source._sfTarget)
+    _sfGLId(source._sfGLId)
 {
 }
 

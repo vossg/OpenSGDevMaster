@@ -59,12 +59,51 @@
 #include <OSGConfig.h>
 
 
+#include <OSGGL.h>   // Target default header
 
 
 #include "OSGTextureBaseChunkBase.h"
 #include "OSGTextureBaseChunk.h"
 
 OSG_USING_NAMESPACE
+
+// Field descriptions
+
+/*! \var GLenum TextureBaseChunkBase::_sfTarget
+            Texture target. Overwrite automatically determined texture target
+        based on the parameters of the assigned image if set to anything 
+        else than GL_NONE. Used for nVidia's rectangle textures. Be careful
+        when using it!
+    
+
+*/
+
+void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc = NULL; 
+
+
+#ifdef OSG_1_COMPAT
+    typedef const SFGLenum *(TextureBaseChunkBase::*GetSFTargetF)(void) const;
+
+    GetSFTargetF GetSFTarget = &TextureBaseChunkBase::getSFTarget;
+#endif
+
+    pDesc = new SFGLenum::Description(
+        SFGLenum::getClassType(), 
+        "target", 
+        TargetFieldId, TargetFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&TextureBaseChunkBase::editSFTarget),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFTarget));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&TextureBaseChunkBase::getSFTarget));
+#endif
+
+    oType.addInitialDesc(pDesc);
+}
 
 
 TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(true,
@@ -74,7 +113,7 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(true,
     0,
     NULL, 
     TextureBaseChunk::initMethod,
-    NULL,
+    (InitalInsertDescFunc) &TextureBaseChunkBase::classDescInserter,
     false);
 
 /*------------------------------ get -----------------------------------*/
@@ -97,6 +136,18 @@ UInt32 TextureBaseChunkBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFGLenum *TextureBaseChunkBase::editSFTarget(void)
+{
+    editSField(TargetFieldMask);
+
+    return &_sfTarget;
+}
+
+const SFGLenum *TextureBaseChunkBase::getSFTarget(void) const
+{
+    return &_sfTarget;
+}
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -105,6 +156,10 @@ UInt32 TextureBaseChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (TargetFieldMask & whichField))
+    {
+        returnValue += _sfTarget.getBinSize();
+    }
 
     return returnValue;
 }
@@ -114,6 +169,10 @@ void TextureBaseChunkBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (TargetFieldMask & whichField))
+    {
+        _sfTarget.copyToBin(pMem);
+    }
 }
 
 void TextureBaseChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -121,6 +180,10 @@ void TextureBaseChunkBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (TargetFieldMask & whichField))
+    {
+        _sfTarget.copyFromBin(pMem);
+    }
 }
 
 
@@ -128,12 +191,14 @@ void TextureBaseChunkBase::copyFromBin(BinaryDataHandler &pMem,
 /*------------------------- constructors ----------------------------------*/
 
 TextureBaseChunkBase::TextureBaseChunkBase(void) :
-    Inherited()
+    Inherited(),
+    _sfTarget(GLenum(GL_NONE))
 {
 }
 
 TextureBaseChunkBase::TextureBaseChunkBase(const TextureBaseChunkBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfTarget(source._sfTarget)
 {
 }
 

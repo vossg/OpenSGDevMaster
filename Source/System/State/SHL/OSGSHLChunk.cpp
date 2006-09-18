@@ -78,7 +78,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass SHLChunk::_class("SHL");
+StateChunkClass SHLChunk::_class("SHL", 1, 30);
 
 UInt32 SHLChunk::_shl_extension            = Window::invalidExtensionID;
 UInt32 SHLChunk::_cg_extension             = Window::invalidExtensionID;

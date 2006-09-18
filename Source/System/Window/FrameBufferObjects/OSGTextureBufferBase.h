@@ -65,7 +65,7 @@
 
 #include "OSGFrameBufferAttachment.h" // Parent
 
-#include "OSGTextureChunkFields.h" // Texture type
+#include "OSGTextureObjChunkFields.h" // Texture type
 #include "OSGGLenumFields.h" // TexTarget type
 #include "OSGUInt32Fields.h" // Level type
 #include "OSGUInt32Fields.h" // Zoffset type
@@ -155,7 +155,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFTextureChunkPtr *getSFTexture (void) const;
+     const SFTextureObjChunkPtr *getSFTexture (void) const;
 
 #ifdef OSG_1_COMPAT
            SFGLenum *getSFTexTarget(void);
@@ -176,7 +176,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
      const SFUInt32 *getSFZoffset (void) const;
 
 
-           TextureChunkPtrConst getTexture(void) const;
+           TextureObjChunkPtrConst getTexture(void) const;
 
 #ifdef OSG_1_COMPAT
            GLenum &getTexTarget(void);
@@ -201,7 +201,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setTexture(TextureChunkPtrConstArg value);
+     void setTexture(TextureObjChunkPtrConstArg value);
      void setTexTarget(const GLenum &value);
      void setLevel(const UInt32 &value);
      void setZoffset(const UInt32 &value);
@@ -280,7 +280,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFTextureChunkPtr _sfTexture;
+    SFTextureObjChunkPtr _sfTexture;
     SFGLenum _sfTexTarget;
     SFUInt32 _sfLevel;
     SFUInt32 _sfZoffset;

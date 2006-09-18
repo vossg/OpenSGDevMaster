@@ -50,7 +50,7 @@
 
 #include <OSGViewport.h>
 #include <OSGImage.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
 #include <OSGDrawActionBase.h>
 #include <OSGDrawEnv.h>
 
@@ -126,7 +126,7 @@ void TextureGrabBackground::changed(ConstFieldMaskArg whichField,
 void TextureGrabBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 {   
     // grab the texture
-    TextureChunkPtr t = getTexture();
+    TextureObjChunkPtr t = getTexture();
     
     if(t == NullFC)       // No texture, no grab.
     {

@@ -49,7 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawEnv;
+class  DrawEnv;
+struct StateChunkClassInit;
 
 /*! \brief The classification class for StateChunks, see \ref StateChunkClass
     for a description. 
@@ -61,15 +62,13 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
 
   public:
 
-    typedef std::pair<UInt32, UInt32> IdMapValue;
-
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructor                                */
     /*! \{                                                                 */
 
     StateChunkClass(Char8  *name, 
                     UInt32  numslots  = 1,
-                    UInt32  priortity = 10);
+                    UInt32  priortity = 50);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -77,11 +76,10 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     /*! \{                                                                 */
 
            UInt32   getId       (void     ) const;
+           UInt32   getPriority (void     ) const;
     const  Char8   *getName     (void     ) const;
            Int32    getNumSlots (void     ) const;
  
-    static UInt32   mapId       (UInt32 id);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Class Access                                */
@@ -91,7 +89,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
            static       Int32   getNumSlots (UInt32 index);
     inline static       UInt32  getUsedSlots(void) ;
 
-    typedef std::vector<std::string>::const_iterator iterator;
+    typedef std::vector<StateChunkClass *>::const_iterator iterator;
 
     static iterator begin(void);
     static iterator end  (void);
@@ -101,13 +99,20 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
 
   private:
 
-           UInt32                    _classId;
+    friend struct StateChunkClassInit;
 
-    static std::vector<std::string    > *_classNames;
-    static std::vector<     UInt32    > *_numslots;
-    static std::vector<     IdMapValue> *_idMap;
+           UInt32                          _classId;
+           UInt32                          _numSlots;
+           UInt32                          _priority;
+           std::string                     _className;
 
-    static bool terminate(void);
+    static std::vector<StateChunkClass *> *_classes;
+    static std::vector<StateChunkClass *> *_initClasses;
+
+    static std::vector<     UInt32      > *_numslots;
+
+    static bool terminate (void);
+    static bool initialize(void);
 };
 
 /*! \brief The abstract base class for StateChunks, see \ref StateChunk

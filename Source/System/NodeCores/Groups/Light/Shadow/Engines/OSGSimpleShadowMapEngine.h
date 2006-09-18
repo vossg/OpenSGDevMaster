@@ -47,7 +47,7 @@
 #include "OSGLightEngineData.h"
 
 #include "OSGCamera.h"
-#include "OSGTextureChunk.h"
+#include "OSGTextureObjChunk.h"
 #include "OSGTextureBuffer.h"
 #include "OSGLightChunk.h"
 #include "OSGBlendChunk.h"
@@ -76,39 +76,39 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngine :
 
       private:
 
-        CameraPtr        _pCamera;
-        TextureChunkPtr  _pTexChunk;
-        TextureBufferPtr _pTexBuffer;
-        LightChunkPtr    _pLightChunk;
-        BlendChunkPtr    _pBlendChunk;
-        TexGenChunkPtr   _pTexGenChunk;
-        PolygonChunkPtr  _pPolyChunk;
+        CameraPtr           _pCamera;
+        TextureObjChunkPtr  _pTexChunk;
+        TextureBufferPtr    _pTexBuffer;
+        LightChunkPtr       _pLightChunk;
+        BlendChunkPtr       _pBlendChunk;
+        TexGenChunkPtr      _pTexGenChunk;
+        PolygonChunkPtr     _pPolyChunk;
 
       public:
 
         EngineData(void);
         virtual ~EngineData(void);
 
-        void             setCamera       (CameraPtr pCamera       );
-        CameraPtr        getCamera       (void                    );
+        void                setCamera       (CameraPtr          pCamera);
+        CameraPtr           getCamera       (void                      );
 
-        void             setTextureChunk (TextureChunkPtr pChunk  );
-        TextureChunkPtr  getTextureChunk (void                    );
+        void                setTextureChunk (TextureObjChunkPtr pChunk );
+        TextureObjChunkPtr  getTextureChunk (void                      );
         
-        void             setTextureBuffer(TextureBufferPtr pBuffer);
-        TextureBufferPtr getTextureBuffer(void                    );
+        void                setTextureBuffer(TextureBufferPtr   pBuffer);
+        TextureBufferPtr    getTextureBuffer(void                      );
         
-        void             setLightChunk   (LightChunkPtr    pLight );
-        LightChunkPtr    getLightChunk   (void                    );
+        void                setLightChunk   (LightChunkPtr      pLight );
+        LightChunkPtr       getLightChunk   (void                      );
         
-        void             setBlendChunk   (BlendChunkPtr    pBlend );
-        BlendChunkPtr    getBlendChunk   (void                    );
+        void                setBlendChunk   (BlendChunkPtr      pBlend );
+        BlendChunkPtr       getBlendChunk   (void                      );
         
-        void             setTexGenChunk  (TexGenChunkPtr   pTexGen);
-        TexGenChunkPtr   getTexGenChunk  (void                    );
+        void                setTexGenChunk  (TexGenChunkPtr     pTexGen);
+        TexGenChunkPtr      getTexGenChunk  (void                      );
         
-        void             setPolyChunk    (PolygonChunkPtr  pPoly  );
-        PolygonChunkPtr  getPolyChunk    (void                    );
+        void                setPolyChunk    (PolygonChunkPtr    pPoly  );
+        PolygonChunkPtr     getPolyChunk    (void                      );
     };
 
     /*---------------------------------------------------------------------*/

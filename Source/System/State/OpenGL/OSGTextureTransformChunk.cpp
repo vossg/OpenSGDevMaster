@@ -51,7 +51,7 @@
 #include <OSGWindow.h>
 #include <OSGCamera.h>
 #include <OSGViewport.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureBaseChunk.h>
 #include <OSGDrawEnv.h>
 
 OSG_USING_NAMESPACE
@@ -160,7 +160,7 @@ void TextureTransformChunk::activate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
 
-    TextureChunk::activateTexture(win, idx);
+    TextureBaseChunk::activateTexture(win, idx);
   
     glMatrixMode(GL_TEXTURE);
     if(getUseCameraBeacon())
@@ -209,7 +209,7 @@ void TextureTransformChunk::changeFrom(DrawEnv    *pEnv,
         return;        
     }
 
-    TextureChunk::activateTexture(win, idx);
+    TextureBaseChunk::activateTexture(win, idx);
 
     glMatrixMode(GL_TEXTURE);
     if(getUseCameraBeacon())
@@ -251,7 +251,7 @@ void TextureTransformChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
 
-    TextureChunk::activateTexture(win, idx);
+    TextureBaseChunk::activateTexture(win, idx);
 
     glMatrixMode(GL_TEXTURE);
     glLoadIdentity();

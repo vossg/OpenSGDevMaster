@@ -50,7 +50,7 @@
 
 #include "OSGDrawEnv.h"
 
-#include "OSGTextureChunk.h"
+#include "OSGTextureBaseChunk.h"
 
 #include "OSGTexGenChunk.h"
 #include "OSGCamera.h"
@@ -82,7 +82,7 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TexGenChunk::_class("TexGen", osgMaxTexCoords);
+StateChunkClass TexGenChunk::_class("TexGen", osgMaxTexCoords, 20);
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -208,7 +208,7 @@ void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
         
-    TextureChunk::activateTexture(win, idx);
+    TextureBaseChunk::activateTexture(win, idx);
 
     FDEBUG(("TexGenChunk::activate\n"));
 
@@ -338,7 +338,7 @@ void TexGenChunk::changeFrom(DrawEnv    *pEnv,
 	}
 #endif
    
-    TextureChunk::activateTexture(win, idx);
+    TextureBaseChunk::activateTexture(win, idx);
 
     changeGenFunc(oldp->getGenFuncS(), 
                   oldp->getSBeacon(), 
@@ -389,7 +389,7 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
 
-    TextureChunk::activateTexture(win, idx);
+    TextureBaseChunk::activateTexture(win, idx);
 
     if(getGenFuncS() != GL_NONE || getSBeacon() != NullFC)
         glDisable(GL_TEXTURE_GEN_S);

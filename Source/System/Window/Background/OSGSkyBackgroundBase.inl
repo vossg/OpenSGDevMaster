@@ -109,14 +109,14 @@ void SkyBackgroundBase::setSphereRes(const UInt32 &value)
 
 //! Get the value of the SkyBackground::_sfBackTexture field.
 inline
-TextureChunkPtrConst SkyBackgroundBase::getBackTexture(void) const
+TextureObjChunkPtrConst SkyBackgroundBase::getBackTexture(void) const
 {
     return _sfBackTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfBackTexture field.
 inline
-void SkyBackgroundBase::setBackTexture(TextureChunkPtrConstArg value)
+void SkyBackgroundBase::setBackTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(BackTextureFieldMask);
 
@@ -126,14 +126,14 @@ void SkyBackgroundBase::setBackTexture(TextureChunkPtrConstArg value)
 
 //! Get the value of the SkyBackground::_sfBottomTexture field.
 inline
-TextureChunkPtrConst SkyBackgroundBase::getBottomTexture(void) const
+TextureObjChunkPtrConst SkyBackgroundBase::getBottomTexture(void) const
 {
     return _sfBottomTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfBottomTexture field.
 inline
-void SkyBackgroundBase::setBottomTexture(TextureChunkPtrConstArg value)
+void SkyBackgroundBase::setBottomTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(BottomTextureFieldMask);
 
@@ -143,14 +143,14 @@ void SkyBackgroundBase::setBottomTexture(TextureChunkPtrConstArg value)
 
 //! Get the value of the SkyBackground::_sfFrontTexture field.
 inline
-TextureChunkPtrConst SkyBackgroundBase::getFrontTexture(void) const
+TextureObjChunkPtrConst SkyBackgroundBase::getFrontTexture(void) const
 {
     return _sfFrontTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfFrontTexture field.
 inline
-void SkyBackgroundBase::setFrontTexture(TextureChunkPtrConstArg value)
+void SkyBackgroundBase::setFrontTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(FrontTextureFieldMask);
 
@@ -160,14 +160,14 @@ void SkyBackgroundBase::setFrontTexture(TextureChunkPtrConstArg value)
 
 //! Get the value of the SkyBackground::_sfLeftTexture field.
 inline
-TextureChunkPtrConst SkyBackgroundBase::getLeftTexture(void) const
+TextureObjChunkPtrConst SkyBackgroundBase::getLeftTexture(void) const
 {
     return _sfLeftTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfLeftTexture field.
 inline
-void SkyBackgroundBase::setLeftTexture(TextureChunkPtrConstArg value)
+void SkyBackgroundBase::setLeftTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(LeftTextureFieldMask);
 
@@ -177,14 +177,14 @@ void SkyBackgroundBase::setLeftTexture(TextureChunkPtrConstArg value)
 
 //! Get the value of the SkyBackground::_sfRightTexture field.
 inline
-TextureChunkPtrConst SkyBackgroundBase::getRightTexture(void) const
+TextureObjChunkPtrConst SkyBackgroundBase::getRightTexture(void) const
 {
     return _sfRightTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfRightTexture field.
 inline
-void SkyBackgroundBase::setRightTexture(TextureChunkPtrConstArg value)
+void SkyBackgroundBase::setRightTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(RightTextureFieldMask);
 
@@ -194,14 +194,14 @@ void SkyBackgroundBase::setRightTexture(TextureChunkPtrConstArg value)
 
 //! Get the value of the SkyBackground::_sfTopTexture field.
 inline
-TextureChunkPtrConst SkyBackgroundBase::getTopTexture(void) const
+TextureObjChunkPtrConst SkyBackgroundBase::getTopTexture(void) const
 {
     return _sfTopTexture.getValue();
 }
 
 //! Set the value of the SkyBackground::_sfTopTexture field.
 inline
-void SkyBackgroundBase::setTopTexture(TextureChunkPtrConstArg value)
+void SkyBackgroundBase::setTopTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(TopTextureFieldMask);
 

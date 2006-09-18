@@ -66,7 +66,7 @@
 #include "OSGBackground.h" // Parent
 
 #include "OSGColor4fFields.h" // Color type
-#include "OSGTextureChunkFields.h" // Texture type
+#include "OSGTextureObjChunkFields.h" // Texture type
 #include "OSGPnt2fFields.h" // TexCoords type
 #include "OSGReal32Fields.h" // RadialDistortion type
 #include "OSGVec2fFields.h" // CenterOfDistortion type
@@ -173,7 +173,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
 #endif
            SFColor4f *editSFColor(void);
      const SFColor4f *getSFColor (void) const;
-     const SFTextureChunkPtr *getSFTexture (void) const;
+     const SFTextureObjChunkPtr *getSFTexture (void) const;
 
 #ifdef OSG_1_COMPAT
            MFPnt2f *getMFTexCoords(void);
@@ -212,7 +212,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
            Color4f &editColor(void);
      const Color4f &getColor (void) const;
 
-           TextureChunkPtrConst getTexture(void) const;
+           TextureObjChunkPtrConst getTexture(void) const;
 
 #ifdef OSG_1_COMPAT
            Pnt2f &getTexCoords(const UInt32 index);
@@ -253,7 +253,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
      void setColor(const Color4f &value);
-     void setTexture(TextureChunkPtrConstArg value);
+     void setTexture(TextureObjChunkPtrConstArg value);
      void setRadialDistortion(const Real32 &value);
      void setCenterOfDistortion(const Vec2f &value);
      void setHor(const UInt16 &value);
@@ -335,7 +335,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
     SFColor4f _sfColor;
-    SFTextureChunkPtr _sfTexture;
+    SFTextureObjChunkPtr _sfTexture;
     MFPnt2f _mfTexCoords;
     SFReal32 _sfRadialDistortion;
     SFVec2f _sfCenterOfDistortion;

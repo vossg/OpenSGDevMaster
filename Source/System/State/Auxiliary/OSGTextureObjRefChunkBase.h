@@ -66,7 +66,6 @@
 #include "OSGTextureBaseChunk.h" // Parent
 
 #include "OSGGLenumFields.h" // GLId type
-#include "OSGGLenumFields.h" // Target type
 
 #include "OSGTextureObjRefChunkFields.h"
 
@@ -112,14 +111,11 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     enum
     {
         GLIdFieldId = Inherited::NextFieldId,
-        TargetFieldId = GLIdFieldId + 1,
-        NextFieldId = TargetFieldId + 1
+        NextFieldId = GLIdFieldId + 1
     };
 
     static const OSG::BitVector GLIdFieldMask = 
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector TargetFieldMask = 
-        (TypeTraits<BitVector>::One << TargetFieldId);
     static const OSG::BitVector NextFieldMask = 
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -154,12 +150,6 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
            SFGLenum *editSFGLId(void);
      const SFGLenum *getSFGLId (void) const;
 
-#ifdef OSG_1_COMPAT
-           SFGLenum *getSFTarget(void);
-#endif
-           SFGLenum *editSFTarget(void);
-     const SFGLenum *getSFTarget (void) const;
-
 
 #ifdef OSG_1_COMPAT
            GLenum &getGLId(void);
@@ -167,19 +157,12 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
            GLenum &editGLId(void);
      const GLenum &getGLId (void) const;
 
-#ifdef OSG_1_COMPAT
-           GLenum &getTarget(void);
-#endif
-           GLenum &editTarget(void);
-     const GLenum &getTarget (void) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
      void setGLId(const GLenum &value);
-     void setTarget(const GLenum &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -224,7 +207,6 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
     SFGLenum _sfGLId;
-    SFGLenum _sfTarget;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

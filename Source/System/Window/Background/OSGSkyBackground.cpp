@@ -48,7 +48,7 @@
 #include <OSGDrawActionBase.h>
 #include <OSGCamera.h>
 #include <OSGViewport.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
 #include <OSGImage.h>
 #include <OSGDrawEnv.h>
 
@@ -112,14 +112,14 @@ void SkyBackground::dump(     UInt32    ,
 
 /*-------------------------- drawing ---------------------------------*/
 
-void SkyBackground::drawFace(      DrawEnv         * pEnv, 
-                                   TextureChunkPtr   tex, 
-                                   StateChunk      *&oldtex, 
-                             const Pnt3f            &p1, 
-                             const Pnt3f            &p2, 
-                             const Pnt3f            &p3, 
-                             const Pnt3f            &p4, 
-                             const Vec3f           * texCoord)
+void SkyBackground::drawFace(      DrawEnv            * pEnv, 
+                                   TextureObjChunkPtr   tex, 
+                                   StateChunk         *&oldtex, 
+                             const Pnt3f               &p1, 
+                             const Pnt3f               &p2, 
+                             const Pnt3f               &p3, 
+                             const Pnt3f               &p4, 
+                             const Vec3f              * texCoord)
 {
     
     if(tex != NullFC)

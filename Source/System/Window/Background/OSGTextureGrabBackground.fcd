@@ -12,7 +12,7 @@
 >
 	<Field
 		name="texture"
-		type="TextureChunkPtr"
+		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
 		access="public"

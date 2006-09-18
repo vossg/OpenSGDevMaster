@@ -44,7 +44,8 @@
 
 #include "OSGSimpleStatisticsForegroundBase.h"
 #include "OSGTextTXFFace.h"
-#include "OSGTextureChunk.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -124,7 +125,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
 
     static TextTXFFace*    _face;
 
-    static TextureChunkPtr _texchunk;
+    static TextureObjChunkPtr _texchunk;
+    static TextureEnvChunkPtr _texenvchunk;
 
     friend class SimpleStatisticsForegroundBase;
 

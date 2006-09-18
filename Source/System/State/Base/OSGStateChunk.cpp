@@ -51,12 +51,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-struct IdMapCompare
+struct StateChunkClassCompare
 {
-    bool operator()(const StateChunkClass::IdMapValue &lhs, 
-                    const StateChunkClass::IdMapValue &rhs)
+    bool operator()(const StateChunkClass *lhs, 
+                    const StateChunkClass *rhs)
     {
-        return lhs.second < rhs.second;
+        return lhs->getPriority() < rhs->getPriority();
     }
 };
 
@@ -97,13 +97,8 @@ conceptual background.
     chunk vector, which necessitates this behaviour. \enddev
 */   
 
-/*! The global vector of known StateChunkClasses' names. Use
-    StateChunkClass::getName with the Classes ID to access it.
-    
-    \dev See the OSG::StateChunkClass::_classId for details. \enddev
-*/   
-
-std::vector<std::string> *StateChunkClass::_classNames = NULL;
+std::vector<StateChunkClass *> *StateChunkClass::_classes     = NULL;
+std::vector<StateChunkClass *> *StateChunkClass::_initClasses = NULL;
 
 /*! The global vector of known StateChunkClasses' number of concurrently
     active slots. Use StateChunkClass::getNumSlots with the Class's ID to access
@@ -114,16 +109,99 @@ std::vector<std::string> *StateChunkClass::_classNames = NULL;
 
 std::vector<UInt32                     > *StateChunkClass::_numslots   = NULL;
 
-std::vector<StateChunkClass::IdMapValue> *StateChunkClass::_idMap      = NULL;
 
 bool StateChunkClass::terminate(void)
 {
-    delete _classNames;
+    delete _classes;
+    delete _initClasses;
     delete _numslots;
-    delete _idMap;
 
     return true;
 }
+
+bool StateChunkClass::initialize(void)
+{
+#if 0
+        _classes    = new std::vector<StateChunkClass *>(0);
+        _classNames = new std::vector<std::string      >(0);
+        _numslots   = new std::vector<     UInt32      >(0);
+        _idMap      = new std::vector<     IdMapValue  >(0);
+
+        _idMap     ->push_back(IdMapValue(_classNames->size(), priority));
+
+        _classNames->push_back(std::string(name));
+        _numslots  ->push_back(numslots         );
+
+
+    std::stable_sort(_idMap->begin(),
+                     _idMap->end  (),
+                      IdMapCompare());
+#endif
+
+    for(UInt32 i = 0; i < _initClasses->size(); ++i)
+    {
+        fprintf(stderr, "[%d] %s %d %d %d\n",
+                i,
+                (*_initClasses)[i]->_className.c_str(),
+                (*_initClasses)[i]->_priority,
+                (*_initClasses)[i]->_numSlots,
+                (*_initClasses)[i]->_classId);
+    }
+
+    std::stable_sort(_initClasses->begin    (),
+                     _initClasses->end      (),
+                      StateChunkClassCompare());
+
+    for(UInt32 i = 0; i < _initClasses->size(); ++i)
+    {
+        fprintf(stderr, "[%d] %s %d %d %d\n",
+                i,
+                (*_initClasses)[i]->_className.c_str(),
+                (*_initClasses)[i]->_priority,
+                (*_initClasses)[i]->_numSlots,
+                (*_initClasses)[i]->_classId);
+    }
+
+    _classes  = new std::vector<StateChunkClass *>;
+    _numslots = new std::vector<     UInt32      >;
+
+    for(UInt32 i = 0; i < _initClasses->size(); ++i)
+    {
+        (*_initClasses)[i]->_classId = _classes->size();
+
+        for(UInt32 j = 0; j < (*_initClasses)[i]->_numSlots; ++j)
+        {
+            _classes ->push_back((*_initClasses)[i]);
+            _numslots->push_back((*_initClasses)[i]->_numSlots);
+        }
+    }
+
+    for(UInt32 i = 0; i < _classes->size(); ++i)
+    {
+        fprintf(stderr, "[%d][%d] %s %d %d\n",
+                i,
+                (*_classes)[i]->_classId,
+                (*_classes)[i]->_className.c_str(),
+                (*_classes)[i]->_priority,
+                (*_classes)[i]->_numSlots);
+    }
+
+    return true;
+}
+
+OSG_BEGIN_NAMESPACE
+
+struct StateChunkClassInit
+{
+    StateChunkClassInit(void) 
+    { 
+        addPostFactoryInitFunction(&StateChunkClass::initialize); 
+    }
+};
+
+static StateChunkClassInit initDummy;
+
+OSG_END_NAMESPACE
 
 /*! Constructor. The name is mandatory, the number of concurrently active slots
     is optional, default is 1. 
@@ -132,36 +210,24 @@ bool StateChunkClass::terminate(void)
 StateChunkClass::StateChunkClass(Char8  *name, 
                                  UInt32  numslots,
                                  UInt32  priority) : 
-    _classId(0)
+    _classId  (       0),
+    _numSlots (numslots),
+    _priority (priority),
+    _className(    name)
 {
-    if(!_classNames)
+    if(!_initClasses)
     {
-        _classNames = new std::vector<std::string    >(0);
-        _numslots   = new std::vector<     UInt32    >(0);
-        _idMap      = new std::vector<     IdMapValue>(0);
-        
+        _initClasses = new std::vector<StateChunkClass *>;
+
         addPostFactoryExitFunction(&StateChunkClass::terminate); 
     }
 
-    _classId = _classNames->size();
-    
-    for(unsigned i = 0; i < numslots; i++)
-    {
-        _idMap     ->push_back(IdMapValue(_classNames->size(), priority));
-
-        _classNames->push_back(std::string(name));
-        _numslots  ->push_back(numslots         );
-    }
-
-
-    std::stable_sort(_idMap->begin(),
-                     _idMap->end  (),
-                      IdMapCompare());
+    _initClasses->push_back(this);
 }
 
 const Char8 *StateChunkClass::getName(void) const
 {
-    return(*_classNames)[_classId].c_str();
+    return _className.c_str();
 }
 
 Int32 StateChunkClass::getNumSlots(void) const
@@ -174,22 +240,12 @@ Int32 StateChunkClass::getNumSlots(void) const
 
 const Char8 *StateChunkClass::getName(UInt32 index)
 {
-    if(index >=(*_classNames).size())
+    if(index >=(*_classes).size())
             return "<Unknown StatChunkClass!>";
 
-    return(*_classNames)[index].c_str();
+    return(*_classes)[index]->_className.c_str();
 }
 
-/*! Access the number of slots for the class whose id is index. 
-*/
-
-Int32 StateChunkClass::getNumSlots(UInt32 index)
-{
-    if(index >= (*_numslots).size())
-        return -1;
-
-    return (*_numslots)[index];
-}
 
 /*! \var OSG::StateChunkClass::iterator
 
@@ -201,7 +257,7 @@ Int32 StateChunkClass::getNumSlots(UInt32 index)
 
 StateChunkClass::iterator StateChunkClass::begin(void)
 {
-    return _classNames->begin();
+    return _classes->begin();
 }
 
 /*! Iterator to allow access to all known StateChunkClasses. 
@@ -209,7 +265,7 @@ StateChunkClass::iterator StateChunkClass::begin(void)
 
 StateChunkClass::iterator StateChunkClass::end(void)
 {
-    return _classNames->end();
+    return _classes->end();
 }
 
 

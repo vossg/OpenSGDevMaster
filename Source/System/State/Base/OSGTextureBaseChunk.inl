@@ -49,6 +49,11 @@ UInt32 TextureBaseChunk::getStaticClassId(void)
     return getStaticClass()->getId();
 }
 
+inline
+UInt16 TextureBaseChunk::getChunkId(void)
+{
+    return _uiChunkId;
+}
 
 inline 
 bool TextureBaseChunk::hasMultiTexture(Window *win)

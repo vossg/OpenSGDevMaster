@@ -60,12 +60,12 @@
 
 
 
-#include <OSGTextureChunk.h> // BackTexture Class
-#include <OSGTextureChunk.h> // BottomTexture Class
-#include <OSGTextureChunk.h> // FrontTexture Class
-#include <OSGTextureChunk.h> // LeftTexture Class
-#include <OSGTextureChunk.h> // RightTexture Class
-#include <OSGTextureChunk.h> // TopTexture Class
+#include <OSGTextureObjChunk.h> // BackTexture Class
+#include <OSGTextureObjChunk.h> // BottomTexture Class
+#include <OSGTextureObjChunk.h> // FrontTexture Class
+#include <OSGTextureObjChunk.h> // LeftTexture Class
+#include <OSGTextureObjChunk.h> // RightTexture Class
+#include <OSGTextureObjChunk.h> // TopTexture Class
 #include <OSGNode.h> // Beacon Class
 
 #include "OSGSkyBackgroundBase.h"
@@ -95,27 +95,27 @@ OSG_USING_NAMESPACE
     	The polygonal resolution of the sky/ground sphere.
 
 */
-/*! \var TextureChunkPtr SkyBackgroundBase::_sfBackTexture
+/*! \var TextureObjChunkPtr SkyBackgroundBase::_sfBackTexture
     	Texture for the back (+Z) side of the sky cube.
 
 */
-/*! \var TextureChunkPtr SkyBackgroundBase::_sfBottomTexture
+/*! \var TextureObjChunkPtr SkyBackgroundBase::_sfBottomTexture
     	Texture for the bottom (-Y) side of the sky cube.
 
 */
-/*! \var TextureChunkPtr SkyBackgroundBase::_sfFrontTexture
+/*! \var TextureObjChunkPtr SkyBackgroundBase::_sfFrontTexture
     	Texture for the front (-Z) side of the sky cube.
 
 */
-/*! \var TextureChunkPtr SkyBackgroundBase::_sfLeftTexture
+/*! \var TextureObjChunkPtr SkyBackgroundBase::_sfLeftTexture
     	Texture for the left (-X) side of the sky cube.
 
 */
-/*! \var TextureChunkPtr SkyBackgroundBase::_sfRightTexture
+/*! \var TextureObjChunkPtr SkyBackgroundBase::_sfRightTexture
     	Texture for the right (+X) side of the sky cube.
 
 */
-/*! \var TextureChunkPtr SkyBackgroundBase::_sfTopTexture
+/*! \var TextureObjChunkPtr SkyBackgroundBase::_sfTopTexture
     	Texture for the top (+Y) side of the sky cube.
 
 */
@@ -262,8 +262,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureChunkPtr::Description(
-        SFTextureChunkPtr::getClassType(), 
+    pDesc = new SFTextureObjChunkPtr::Description(
+        SFTextureObjChunkPtr::getClassType(), 
         "backTexture", 
         BackTextureFieldId, BackTextureFieldMask,
         false,
@@ -273,8 +273,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureChunkPtr::Description(
-        SFTextureChunkPtr::getClassType(), 
+    pDesc = new SFTextureObjChunkPtr::Description(
+        SFTextureObjChunkPtr::getClassType(), 
         "bottomTexture", 
         BottomTextureFieldId, BottomTextureFieldMask,
         false,
@@ -284,8 +284,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureChunkPtr::Description(
-        SFTextureChunkPtr::getClassType(), 
+    pDesc = new SFTextureObjChunkPtr::Description(
+        SFTextureObjChunkPtr::getClassType(), 
         "frontTexture", 
         FrontTextureFieldId, FrontTextureFieldMask,
         false,
@@ -295,8 +295,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureChunkPtr::Description(
-        SFTextureChunkPtr::getClassType(), 
+    pDesc = new SFTextureObjChunkPtr::Description(
+        SFTextureObjChunkPtr::getClassType(), 
         "leftTexture", 
         LeftTextureFieldId, LeftTextureFieldMask,
         false,
@@ -306,8 +306,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureChunkPtr::Description(
-        SFTextureChunkPtr::getClassType(), 
+    pDesc = new SFTextureObjChunkPtr::Description(
+        SFTextureObjChunkPtr::getClassType(), 
         "rightTexture", 
         RightTextureFieldId, RightTextureFieldMask,
         false,
@@ -317,8 +317,8 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureChunkPtr::Description(
-        SFTextureChunkPtr::getClassType(), 
+    pDesc = new SFTextureObjChunkPtr::Description(
+        SFTextureObjChunkPtr::getClassType(), 
         "topTexture", 
         TopTextureFieldId, TopTextureFieldMask,
         false,
@@ -614,37 +614,37 @@ SFUInt32 *SkyBackgroundBase::getSFSphereRes(void)
 #endif
 
 //! Get the SkyBackground::_sfBackTexture field.
-const SFTextureChunkPtr *SkyBackgroundBase::getSFBackTexture(void) const
+const SFTextureObjChunkPtr *SkyBackgroundBase::getSFBackTexture(void) const
 {
     return &_sfBackTexture;
 }
 
 //! Get the SkyBackground::_sfBottomTexture field.
-const SFTextureChunkPtr *SkyBackgroundBase::getSFBottomTexture(void) const
+const SFTextureObjChunkPtr *SkyBackgroundBase::getSFBottomTexture(void) const
 {
     return &_sfBottomTexture;
 }
 
 //! Get the SkyBackground::_sfFrontTexture field.
-const SFTextureChunkPtr *SkyBackgroundBase::getSFFrontTexture(void) const
+const SFTextureObjChunkPtr *SkyBackgroundBase::getSFFrontTexture(void) const
 {
     return &_sfFrontTexture;
 }
 
 //! Get the SkyBackground::_sfLeftTexture field.
-const SFTextureChunkPtr *SkyBackgroundBase::getSFLeftTexture(void) const
+const SFTextureObjChunkPtr *SkyBackgroundBase::getSFLeftTexture(void) const
 {
     return &_sfLeftTexture;
 }
 
 //! Get the SkyBackground::_sfRightTexture field.
-const SFTextureChunkPtr *SkyBackgroundBase::getSFRightTexture(void) const
+const SFTextureObjChunkPtr *SkyBackgroundBase::getSFRightTexture(void) const
 {
     return &_sfRightTexture;
 }
 
 //! Get the SkyBackground::_sfTopTexture field.
-const SFTextureChunkPtr *SkyBackgroundBase::getSFTopTexture(void) const
+const SFTextureObjChunkPtr *SkyBackgroundBase::getSFTopTexture(void) const
 {
     return &_sfTopTexture;
 }
@@ -797,32 +797,32 @@ void SkyBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == BackTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setBackTexture(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureObjChunkPtr>(pNewElement));
     }
     if(uiFieldId == BottomTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setBottomTexture(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureObjChunkPtr>(pNewElement));
     }
     if(uiFieldId == FrontTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setFrontTexture(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureObjChunkPtr>(pNewElement));
     }
     if(uiFieldId == LeftTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setLeftTexture(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureObjChunkPtr>(pNewElement));
     }
     if(uiFieldId == RightTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setRightTexture(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureObjChunkPtr>(pNewElement));
     }
     if(uiFieldId == TopTextureFieldId)
     {
         static_cast<SkyBackground *>(this)->setTopTexture(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureObjChunkPtr>(pNewElement));
     }
     if(uiFieldId == BeaconFieldId)
     {
@@ -1197,12 +1197,12 @@ SkyBackgroundBase::SkyBackgroundBase(void) :
     _mfGroundColor(),
     _mfGroundAngle(),
     _sfSphereRes(UInt32(8)),
-    _sfBackTexture(TextureChunkPtr(NullFC)),
-    _sfBottomTexture(TextureChunkPtr(NullFC)),
-    _sfFrontTexture(TextureChunkPtr(NullFC)),
-    _sfLeftTexture(TextureChunkPtr(NullFC)),
-    _sfRightTexture(TextureChunkPtr(NullFC)),
-    _sfTopTexture(TextureChunkPtr(NullFC)),
+    _sfBackTexture(TextureObjChunkPtr(NullFC)),
+    _sfBottomTexture(TextureObjChunkPtr(NullFC)),
+    _sfFrontTexture(TextureObjChunkPtr(NullFC)),
+    _sfLeftTexture(TextureObjChunkPtr(NullFC)),
+    _sfRightTexture(TextureObjChunkPtr(NullFC)),
+    _sfTopTexture(TextureObjChunkPtr(NullFC)),
     _sfBoxInside(bool(true)),
     _mfTopTexCoord(),
     _mfBottomTexCoord(),

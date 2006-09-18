@@ -73,6 +73,31 @@ OSG::UInt16 TextureBaseChunkBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the TextureBaseChunk::_sfTarget field.
+
+inline
+GLenum &TextureBaseChunkBase::editTarget(void)
+{
+    editSField(TargetFieldMask);
+
+    return _sfTarget.getValue();
+}
+
+//! Get the value of the TextureBaseChunk::_sfTarget field.
+inline
+const GLenum &TextureBaseChunkBase::getTarget(void) const
+{
+    return _sfTarget.getValue();
+}
+
+//! Set the value of the TextureBaseChunk::_sfTarget field.
+inline
+void TextureBaseChunkBase::setTarget(const GLenum &value)
+{
+    editSField(TargetFieldMask);
+
+    _sfTarget.setValue(value);
+}
 
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
@@ -84,6 +109,9 @@ void TextureBaseChunkBase::execSync(      TextureBaseChunkBase *pOther,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
+
+    if(FieldBits::NoField != (TargetFieldMask & whichField))
+        _sfTarget.syncWith(pOther->_sfTarget);
 }
 #endif
 

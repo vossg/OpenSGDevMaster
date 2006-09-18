@@ -66,7 +66,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass SHLParameterChunk::_class("SHLParameter");
+StateChunkClass SHLParameterChunk::_class("SHLParameter", 1, 31);
 
 volatile UInt16 SHLParameterChunk::_uiChunkCounter = 1;
 

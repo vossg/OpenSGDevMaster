@@ -76,14 +76,14 @@ OSG::UInt16 TextureGrabForegroundBase::getClassGroupId(void)
 
 //! Get the value of the TextureGrabForeground::_sfTexture field.
 inline
-TextureChunkPtrConst TextureGrabForegroundBase::getTexture(void) const
+TextureObjChunkPtrConst TextureGrabForegroundBase::getTexture(void) const
 {
     return _sfTexture.getValue();
 }
 
 //! Set the value of the TextureGrabForeground::_sfTexture field.
 inline
-void TextureGrabForegroundBase::setTexture(TextureChunkPtrConstArg value)
+void TextureGrabForegroundBase::setTexture(TextureObjChunkPtrConstArg value)
 {
     editSField(TextureFieldMask);
 

@@ -65,6 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
+#include "OSGGLenumFields.h" // Target type
 
 #include "OSGTextureBaseChunkFields.h"
 
@@ -107,6 +108,16 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
 
   public:
 
+    enum
+    {
+        TargetFieldId = Inherited::NextFieldId,
+        NextFieldId = TargetFieldId + 1
+    };
+
+    static const OSG::BitVector TargetFieldMask = 
+        (TypeTraits<BitVector>::One << TargetFieldId);
+    static const OSG::BitVector NextFieldMask = 
+        (TypeTraits<BitVector>::One << NextFieldId);
 
 
     /*---------------------------------------------------------------------*/
@@ -129,6 +140,33 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+#ifdef OSG_1_COMPAT
+           SFGLenum *getSFTarget(void);
+#endif
+           SFGLenum *editSFTarget(void);
+     const SFGLenum *getSFTarget (void) const;
+
+
+#ifdef OSG_1_COMPAT
+           GLenum &getTarget(void);
+#endif
+           GLenum &editTarget(void);
+     const GLenum &getTarget (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+     void setTarget(const GLenum &value);
+
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
@@ -149,6 +187,13 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
     static void   classDescInserter(TypeObject &oType);
     static Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFGLenum _sfTarget;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */

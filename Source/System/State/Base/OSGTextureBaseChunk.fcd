@@ -11,4 +11,18 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
+    <Field
+        name="target"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_NONE"
+        defaultHeader="&lt;OSGGL.h&gt;"
+        access="public"
+    >
+        Texture target. Overwrite automatically determined texture target
+        based on the parameters of the assigned image if set to anything 
+        else than GL_NONE. Used for nVidia's rectangle textures. Be careful
+        when using it!
+    </Field>
 </FieldContainer>

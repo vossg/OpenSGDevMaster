@@ -98,31 +98,6 @@ void TextureObjRefChunkBase::setGLId(const GLenum &value)
 
     _sfGLId.setValue(value);
 }
-//! Get the value of the TextureObjRefChunk::_sfTarget field.
-
-inline
-GLenum &TextureObjRefChunkBase::editTarget(void)
-{
-    editSField(TargetFieldMask);
-
-    return _sfTarget.getValue();
-}
-
-//! Get the value of the TextureObjRefChunk::_sfTarget field.
-inline
-const GLenum &TextureObjRefChunkBase::getTarget(void) const
-{
-    return _sfTarget.getValue();
-}
-
-//! Set the value of the TextureObjRefChunk::_sfTarget field.
-inline
-void TextureObjRefChunkBase::setTarget(const GLenum &value)
-{
-    editSField(TargetFieldMask);
-
-    _sfTarget.setValue(value);
-}
 
 //! create a new instance of the class
 inline
@@ -151,9 +126,6 @@ void TextureObjRefChunkBase::execSync(      TextureObjRefChunkBase *pOther,
 
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
         _sfGLId.syncWith(pOther->_sfGLId);
-
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-        _sfTarget.syncWith(pOther->_sfTarget);
 }
 #endif
 

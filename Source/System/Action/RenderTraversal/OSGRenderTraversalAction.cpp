@@ -56,7 +56,7 @@
 
 #include "OSGWindow.h"
 
-#include "OSGTextureChunk.h"
+#include "OSGTextureBaseChunk.h"
 #include "OSGMaterialChunk.h"
 #include "OSGSHLChunk.h"
 
@@ -249,9 +249,9 @@ RenderTraversalAction::RenderTraversalAction(void) :
     setNumBuffers(1);
 
 
-    UInt32 uiSId = SHLChunk     ::getStaticClassId() & 0x000003FF;
-    UInt32 uiTId = TextureChunk ::getStaticClassId() & 0x000003FF;
-    UInt32 uiMId = MaterialChunk::getStaticClassId() & 0x000003FF;
+    UInt32 uiSId = SHLChunk        ::getStaticClassId() & 0x000003FF;
+    UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
+    UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
   
 //    _uiKeyGen = (uiTId | (uiMId << 10) | (State::Key1Mask << 20));
   

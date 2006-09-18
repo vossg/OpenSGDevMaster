@@ -60,7 +60,7 @@
 #include "OSGAction.h"
 #include "OSGVRMLWriteAction.h"
 #include "OSGNameAttachment.h"
-#include "OSGTextureChunk.h"
+#include "OSGTextureObjChunk.h"
 #include "OSGImage.h"
 #include "OSGImageFileHandler.h"
 #include "OSGSimpleGeometry.h"
@@ -1298,9 +1298,9 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
     pWriter->printIndent();
     fprintf(pFile, "}\n");
 
-    sChunk = st->getChunk(TextureChunk::getStaticClassId());    
+    sChunk = st->getChunk(TextureObjChunk::getStaticClassId());    
 
-    TextureChunkPtr pTChunk = cast_dynamic<TextureChunkPtr>(sChunk);
+    TextureObjChunkPtr pTChunk = cast_dynamic<TextureObjChunkPtr>(sChunk);
 
     if(pTChunk != NullFC)
     {

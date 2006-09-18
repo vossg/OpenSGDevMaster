@@ -50,7 +50,7 @@
 #include "OSGTextureBuffer.h"
 #include "OSGWindow.h"
 #include "OSGDrawEnv.h"
-#include "OSGTextureChunk.h"
+#include "OSGTextureObjChunk.h"
 
 OSG_USING_NAMESPACE
 

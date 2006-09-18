@@ -60,7 +60,7 @@
 
 
 
-#include <OSGTextureChunk.h> // Texture Class
+#include <OSGTextureObjChunk.h> // Texture Class
 
 #include "OSGTextureGrabBackgroundBase.h"
 #include "OSGTextureGrabBackground.h"
@@ -69,7 +69,7 @@ OSG_USING_NAMESPACE
 
 // Field descriptions
 
-/*! \var TextureChunkPtr TextureGrabBackgroundBase::_sfTexture
+/*! \var TextureObjChunkPtr TextureGrabBackgroundBase::_sfTexture
     	The texture to grab into.
 
 */
@@ -94,8 +94,8 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL; 
 
 
-    pDesc = new SFTextureChunkPtr::Description(
-        SFTextureChunkPtr::getClassType(), 
+    pDesc = new SFTextureObjChunkPtr::Description(
+        SFTextureObjChunkPtr::getClassType(), 
         "texture", 
         TextureFieldId, TextureFieldMask,
         false,
@@ -201,7 +201,7 @@ UInt32 TextureGrabBackgroundBase::getContainerSize(void) const
 
 
 //! Get the TextureGrabBackground::_sfTexture field.
-const SFTextureChunkPtr *TextureGrabBackgroundBase::getSFTexture(void) const
+const SFTextureObjChunkPtr *TextureGrabBackgroundBase::getSFTexture(void) const
 {
     return &_sfTexture;
 }
@@ -272,7 +272,7 @@ void TextureGrabBackgroundBase::pushToField(      FieldContainerPtrConstArg pNew
     if(uiFieldId == TextureFieldId)
     {
         static_cast<TextureGrabBackground *>(this)->setTexture(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureObjChunkPtr>(pNewElement));
     }
 }
 

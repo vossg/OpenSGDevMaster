@@ -142,11 +142,6 @@ const StateChunkClass *TextureBaseChunk::getClass(void) const
     return &_class;
 }
 
-UInt16 TextureBaseChunk::getChunkId(void)
-{
-    return _uiChunkId;
-}
-
 /*------------------------------- Sync -----------------------------------*/
 
 /*! React to field changes.

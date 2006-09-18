@@ -92,12 +92,13 @@ CameraPtr SimpleShadowMapEngine::EngineData::getCamera(void)
 }
 
 
-void SimpleShadowMapEngine::EngineData::setTextureChunk(TextureChunkPtr pChunk)
+void SimpleShadowMapEngine::EngineData::setTextureChunk(
+    TextureObjChunkPtr pChunk)
 {
     setRefd(_pTexChunk, pChunk);
 }
 
-TextureChunkPtr SimpleShadowMapEngine::EngineData::getTextureChunk(void)
+TextureObjChunkPtr SimpleShadowMapEngine::EngineData::getTextureChunk(void)
 {
     return _pTexChunk;
 }
@@ -479,11 +480,11 @@ void SimpleShadowMapEngine::doLightPass(LightPtr               pLight,
         pTarget = getCPtr(pFBO);
     }
 
-    TextureChunkPtr pTexChunk = pEngineData->getTextureChunk();
+    TextureObjChunkPtr pTexChunk = pEngineData->getTextureChunk();
     
     if(pTexChunk == NullFC)
     {
-        pTexChunk = TextureChunk::create();
+        pTexChunk = TextureObjChunk::create();
         
         pEngineData->setTextureChunk(pTexChunk);
 
@@ -510,7 +511,7 @@ void SimpleShadowMapEngine::doLightPass(LightPtr               pLight,
         pTexChunk->setMagFilter     (GL_LINEAR);
         pTexChunk->setWrapS         (GL_CLAMP_TO_BORDER);
         pTexChunk->setWrapT         (GL_CLAMP_TO_BORDER);
-        pTexChunk->setEnvMode       (GL_MODULATE);
+//        pTexChunk->setEnvMode       (GL_MODULATE);
         pTexChunk->setTarget        (GL_TEXTURE_2D);
         
         pTexChunk->setCompareMode(GL_COMPARE_R_TO_TEXTURE);
@@ -728,7 +729,7 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
     pTexGen->setGenFuncRPlane(pr);
     pTexGen->setGenFuncQPlane(pq);
     
-    TextureChunkPtr pTex = pEngineData->getTextureChunk();
+    TextureObjChunkPtr pTex = pEngineData->getTextureChunk();
 
     pAction->pushState();
 

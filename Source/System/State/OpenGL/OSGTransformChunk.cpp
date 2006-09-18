@@ -69,7 +69,7 @@ This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TransformChunk::_class("Transform");
+StateChunkClass TransformChunk::_class("Transform", 1, 200);
 
 /***************************************************************************\
  *                           Class methods                                 *

@@ -51,7 +51,7 @@
 
 #include "OSGState.h"
 
-#include "OSGTextureChunk.h"
+#include "OSGTextureBaseChunk.h"
 #include "OSGMaterialChunk.h"
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
@@ -123,8 +123,8 @@ void State::onCreateAspect(const State *createAspect,
 {
     Inherited::onCreateAspect(createAspect, source);
 
-    UInt32 uiTId = TextureChunk ::getStaticClassId() & 0x000003FF;
-    UInt32 uiMId = MaterialChunk::getStaticClassId() & 0x000003FF;
+    UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
+    UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
     
     _uiKeyGen = (uiTId | (uiMId << 10) | (Key1Mask << 20));
     

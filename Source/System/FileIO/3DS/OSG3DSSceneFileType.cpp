@@ -56,7 +56,8 @@
 #include "OSGMaterialChunk.h"
 #include "OSGBlendChunk.h"
 #include "OSGImage.h"
-#include "OSGTextureChunk.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
 #include "OSGImageFileHandler.h"
 
 #include "OSG3DSSceneFileType.h"
@@ -305,7 +306,8 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
         {
             image->setForceAlphaBinary(image->calcIsAlphaBinary());
             
-            TextureChunkPtr texc = TextureChunk::create();
+            TextureObjChunkPtr texc  = TextureObjChunk::create();
+            TextureEnvChunkPtr texec = TextureEnvChunk::create();
 
             texc->setImage(image);
             texc->setWrapS( (map.tiling & 0x1)    ? 
@@ -316,11 +318,12 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
                             GL_REPEAT         :
                             GL_CLAMP_TO_EDGE
                           );
-            texc->setEnvMode(GL_MODULATE);
-            texc->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
-            texc->setMagFilter(GL_LINEAR);
+            texec->setEnvMode(GL_MODULATE);
+            texc ->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
+            texc ->setMagFilter(GL_LINEAR);
 
             cmat->addChunk(texc);
+            cmat->addChunk(texec);
         }
     }
 

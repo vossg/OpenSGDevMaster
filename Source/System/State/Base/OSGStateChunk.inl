@@ -36,16 +36,29 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline
-UInt32 StateChunkClass::mapId(UInt32 id) 
-{
-    return (*_idMap)[id].first;
-}
 
 inline
 UInt32 StateChunkClass::getId(void) const
 {
-    return mapId(_classId);
+    return _classId;
+}
+
+inline
+UInt32 StateChunkClass::getPriority(void) const
+{
+    return _priority;
+}
+
+/*! Access the number of slots for the class whose id is index. 
+*/
+
+inline
+Int32 StateChunkClass::getNumSlots(UInt32 index)
+{
+    if(index >= (*_numslots).size())
+        return -1;
+
+    return (*_numslots)[index];
 }
 
 /*---------------------- Chunk Class Access -------------------------------*/
@@ -53,7 +66,7 @@ UInt32 StateChunkClass::getId(void) const
 inline
 UInt32 StateChunk::getClassId(void) const
 {
-    return StateChunkClass::mapId(getClass()->getId());
+    return getClass()->getId();
 }
 
 /*-------------------- Static Chunk Class Access --------------------------*/
@@ -61,7 +74,7 @@ UInt32 StateChunk::getClassId(void) const
 inline
 UInt32 StateChunk::getStaticClassId(void)
 {
-    return StateChunkClass::mapId(StateChunk::getStaticClass()->getId());
+    return StateChunk::getStaticClass()->getId();
 }
 
 inline

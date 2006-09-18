@@ -60,7 +60,7 @@
 
 
 
-#include <OSGTextureChunk.h> // Texture Class
+#include <OSGTextureObjChunk.h> // Texture Class
 
 #include "OSGTextureBufferBase.h"
 #include "OSGTextureBuffer.h"
@@ -69,7 +69,7 @@ OSG_USING_NAMESPACE
 
 // Field descriptions
 
-/*! \var TextureChunkPtr TextureBufferBase::_sfTexture
+/*! \var TextureObjChunkPtr TextureBufferBase::_sfTexture
     
 */
 /*! \var GLenum TextureBufferBase::_sfTexTarget
@@ -87,8 +87,8 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL; 
 
 
-    pDesc = new SFTextureChunkPtr::Description(
-        SFTextureChunkPtr::getClassType(), 
+    pDesc = new SFTextureObjChunkPtr::Description(
+        SFTextureObjChunkPtr::getClassType(), 
         "texture", 
         TextureFieldId, TextureFieldMask,
         false,
@@ -194,7 +194,7 @@ UInt32 TextureBufferBase::getContainerSize(void) const
 
 
 //! Get the TextureBuffer::_sfTexture field.
-const SFTextureChunkPtr *TextureBufferBase::getSFTexture(void) const
+const SFTextureObjChunkPtr *TextureBufferBase::getSFTexture(void) const
 {
     return &_sfTexture;
 }
@@ -265,7 +265,7 @@ void TextureBufferBase::pushToField(      FieldContainerPtrConstArg pNewElement,
     if(uiFieldId == TextureFieldId)
     {
         static_cast<TextureBuffer *>(this)->setTexture(
-            cast_dynamic<TextureChunkPtr>(pNewElement));
+            cast_dynamic<TextureObjChunkPtr>(pNewElement));
     }
 }
 

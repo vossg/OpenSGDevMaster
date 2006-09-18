@@ -42,8 +42,9 @@
 #pragma once
 #endif
 
-#include "OSGTextureChunk.h"
+#include "OSGTextureObjChunk.h"
 #include "OSGTexGenChunk.h"
+#include "OSGTextureEnvChunk.h"
 #include "OSGSimpleTexturedMaterialBase.h"
 
 OSG_BEGIN_NAMESPACE
@@ -102,8 +103,9 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterial :
 
     // these chunks are used for rendering the material
 
-    TextureChunkPtr _textureChunk;
-    TexGenChunkPtr  _texGenChunk;
+    TextureObjChunkPtr _textureChunk;
+    TexGenChunkPtr     _texGenChunk;
+    TextureEnvChunkPtr _texEnvChunk;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

@@ -49,9 +49,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-#define osgMaxTexImages 16
-#define osgMaxTexCoords 8
-
 /*! \brief State chunk for textures. See \ref PageSystemTextureBaseChunk 
     for a description.
  */

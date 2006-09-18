@@ -20,15 +20,4 @@
 	>
 	glid
 	</Field>
-    <Field
-        name="target"
-        type="GLenum"
-        cardinality="single"
-        visibility="external"
-        defaultValue="GL_TEXTURE_2D"
-        defaultHeader="&lt;OSGGL.h&gt;"
-        access="public"
-    >
-        Texture target.
-    </Field>
 </FieldContainer>

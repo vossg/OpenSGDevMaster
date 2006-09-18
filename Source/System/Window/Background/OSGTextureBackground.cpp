@@ -46,7 +46,7 @@
 #include <OSGConfig.h>
 #include <OSGDrawActionBase.h>
 #include <OSGViewport.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
 
 #include "OSGTextureBackground.h"
 
@@ -197,7 +197,7 @@ void TextureBackground::updateGrid(void)
 void TextureBackground::clear(DrawEnv  *pEnv, 
                               Viewport *   )
 {
-    TextureChunkPtr tex = getTexture();
+    TextureObjChunkPtr tex = getTexture();
 
     if(tex == NullFC)
     {

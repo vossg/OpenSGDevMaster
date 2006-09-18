@@ -60,7 +60,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 	</Field>
 	<Field
 		name="backTexture"
-		type="TextureChunkPtr"
+		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -70,7 +70,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 	</Field>
 	<Field
 		name="bottomTexture"
-		type="TextureChunkPtr"
+		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -80,7 +80,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 	</Field>
 	<Field
 		name="frontTexture"
-		type="TextureChunkPtr"
+		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -90,7 +90,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 	</Field>
 	<Field
 		name="leftTexture"
-		type="TextureChunkPtr"
+		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -100,7 +100,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 	</Field>
 	<Field
 		name="rightTexture"
-		type="TextureChunkPtr"
+		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -110,7 +110,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 	</Field>
 	<Field
 		name="topTexture"
-		type="TextureChunkPtr"
+		type="TextureObjChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"

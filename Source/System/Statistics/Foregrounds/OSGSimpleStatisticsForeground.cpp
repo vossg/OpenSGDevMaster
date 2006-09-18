@@ -74,7 +74,8 @@ the size and color used for all lines in _sfSize and _sfColor.
 /* static vars */
 TextTXFFace *SimpleStatisticsForeground::       _face = 0;
 
-TextureChunkPtr SimpleStatisticsForeground::    _texchunk;
+TextureObjChunkPtr SimpleStatisticsForeground:: _texchunk;
+TextureEnvChunkPtr SimpleStatisticsForeground:: _texenvchunk;
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -153,12 +154,13 @@ void SimpleStatisticsForeground::initText(void)
     addRefP(_face);
 
     ImagePtr texture = _face->getTexture();
-    _texchunk = TextureChunk::create();
+    _texchunk    = TextureObjChunk::create();
+    _texenvchunk = TextureEnvChunk::create();
 
-    _texchunk->setImage(texture);
-    _texchunk->setWrapS(GL_CLAMP);
-    _texchunk->setWrapT(GL_CLAMP);
-    _texchunk->setEnvMode(GL_MODULATE);
+    _texchunk   ->setImage(texture);
+    _texchunk   ->setWrapS(GL_CLAMP);
+    _texchunk   ->setWrapT(GL_CLAMP);
+    _texenvchunk->setEnvMode(GL_MODULATE);
 }
 
 /*! Draw the statistics lines.
@@ -257,7 +259,8 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     TextLayoutResult layoutResult;
     _face->layout(stat, layoutParam, layoutResult);
 
-    _texchunk->activate(pEnv);
+    _texchunk   ->activate(pEnv);
+    _texenvchunk->activate(pEnv);
 
     glColor4fv((GLfloat *) getColor().getValuesRGBA());
 
@@ -301,7 +304,8 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     }
     glEnd();
 
-    _texchunk->deactivate(pEnv);
+    _texchunk   ->deactivate(pEnv);
+    _texenvchunk->deactivate(pEnv);
 
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);

@@ -44,6 +44,9 @@
 
 #include "OSGConfig.h"
 
+#define osgMaxTexImages 16
+#define osgMaxTexCoords 8
+
 #ifndef OSG_WINCE
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS

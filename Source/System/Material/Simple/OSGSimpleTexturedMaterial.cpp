@@ -82,7 +82,8 @@ OSG_USING_NAMESPACE
 SimpleTexturedMaterial::SimpleTexturedMaterial(void) :
      Inherited   (      ),
     _textureChunk(NullFC),
-    _texGenChunk (NullFC)
+    _texGenChunk (NullFC),
+    _texEnvChunk (NullFC)
 {
 }
 
@@ -91,14 +92,16 @@ SimpleTexturedMaterial::SimpleTexturedMaterial(
 
     Inherited    (source              ),
     _textureChunk(source._textureChunk),
-    _texGenChunk (source._texGenChunk )
+    _texGenChunk (source._texGenChunk ),
+    _texEnvChunk (source._texEnvChunk )
 {
 }
 
 SimpleTexturedMaterial::~SimpleTexturedMaterial(void)
 {
     subRef(_textureChunk);
-    subRef(_texGenChunk);
+    subRef(_texGenChunk );
+    subRef(_texEnvChunk );
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -131,7 +134,7 @@ void SimpleTexturedMaterial::changed(BitVector whichField, UInt32 origin)
     // this is not as expensive, but why do it more often then needed?
     if(whichField & EnvModeFieldMask)
     {
-        _textureChunk->setEnvMode(getEnvMode());
+        _texEnvChunk->setEnvMode(getEnvMode());
     }
     if(whichField & EnvMapFieldMask)
     {
@@ -163,6 +166,7 @@ StatePtr SimpleTexturedMaterial::makeState(void)
 
     state->addChunk(_textureChunk);
     state->addChunk(_texGenChunk );
+    state->addChunk(_texEnvChunk );
 
     return state;
 }
@@ -176,6 +180,7 @@ void SimpleTexturedMaterial::rebuildState(void)
 
     _pState->addChunk(_textureChunk);
     _pState->addChunk(_texGenChunk );
+    _pState->addChunk(_texEnvChunk );
 
     if(getImage  ()                    != NullFC &&
        getImage  ()->hasAlphaChannel() == true   && 
@@ -227,7 +232,7 @@ void SimpleTexturedMaterial::prepareLocalChunks(void)
 {
     if(_textureChunk == NullFC)
     {
-        _textureChunk = TextureChunk::create();
+        _textureChunk = TextureObjChunk::create();
 
          addRef(_textureChunk);
     }
@@ -237,6 +242,13 @@ void SimpleTexturedMaterial::prepareLocalChunks(void)
         _texGenChunk  = TexGenChunk::create();
 
         addRef(_texGenChunk);
+    }
+
+    if(_texEnvChunk == NullFC)
+    {
+        _texEnvChunk  = TextureEnvChunk::create();
+
+        addRef(_texEnvChunk);
     }
 }
 

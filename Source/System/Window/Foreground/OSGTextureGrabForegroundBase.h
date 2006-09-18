@@ -65,7 +65,7 @@
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGTextureChunkFields.h" // Texture type
+#include "OSGTextureObjChunkFields.h" // Texture type
 #include "OSGBoolFields.h" // AutoResize type
 #include "OSGGLenumFields.h" // BindTarget type
 #include "OSGGLenumFields.h" // CopyTarget type
@@ -155,7 +155,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFTextureChunkPtr *getSFTexture (void) const;
+     const SFTextureObjChunkPtr *getSFTexture (void) const;
 
 #ifdef OSG_1_COMPAT
            SFBool *getSFAutoResize(void);
@@ -176,7 +176,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
      const SFGLenum *getSFCopyTarget (void) const;
 
 
-           TextureChunkPtrConst getTexture(void) const;
+           TextureObjChunkPtrConst getTexture(void) const;
 
 #ifdef OSG_1_COMPAT
            bool &getAutoResize(void);
@@ -201,7 +201,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setTexture(TextureChunkPtrConstArg value);
+     void setTexture(TextureObjChunkPtrConstArg value);
      void setAutoResize(const bool &value);
      void setBindTarget(const GLenum &value);
      void setCopyTarget(const GLenum &value);
@@ -280,7 +280,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFTextureChunkPtr _sfTexture;
+    SFTextureObjChunkPtr _sfTexture;
     SFBool _sfAutoResize;
     SFGLenum _sfBindTarget;
     SFGLenum _sfCopyTarget;

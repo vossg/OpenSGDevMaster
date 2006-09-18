@@ -100,6 +100,13 @@ void DrawEnv::setCameraFar(const Real &camFar)
     _cameraFar = camFar;
 }
 
+inline 
+void DrawEnv::setActiveTexTarget(UInt32    uiSlot,
+                                 GLenum    uiTarget)
+{
+    _aActiveTexTargets[uiSlot] = uiTarget;
+}
+
 inline
 const Matrixr &DrawEnv::getCameraFullProjection(void) const
 {
@@ -170,6 +177,12 @@ inline
 Window *DrawEnv::getWindow(void) const
 {
     return _pWindow;
+}
+
+inline
+GLenum DrawEnv::getActiveTexTarget(UInt32 uiSlot) const
+{
+    return _aActiveTexTargets[uiSlot];
 }
 
 inline
