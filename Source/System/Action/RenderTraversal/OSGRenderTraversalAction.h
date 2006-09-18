@@ -328,6 +328,12 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
 //   Exported Types
 //---------------------------------------------------------------------------
 
+Action::ResultE MaterialDrawableRenderEnter(const NodeCorePtr &pCore,
+                                                  Action      *action);
+
+Action::ResultE MaterialDrawableRenderLeave(const NodeCorePtr &pCore,
+                                                  Action      *action);
+
 OSG_END_NAMESPACE
 
 #define OSGRENDERTRAVERSALACTION_HEADER_CVSID "@(#)$Id$"
