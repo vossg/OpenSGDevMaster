@@ -271,7 +271,7 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
     LMap &map = m.GetTextureMap1();
     const char *texname = map.mapName;
     ImagePtr image = NullFC;
-    if(strlen(texname) > 0)
+    if(texname != NULL && strlen(texname) > 0)
     {
         image = Image::create();
         bool img_ok = image->read(texname);
@@ -310,14 +310,12 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
             TextureEnvChunkPtr texec = TextureEnvChunk::create();
 
             texc->setImage(image);
-            texc->setWrapS( (map.tiling & 0x1)    ? 
-                            GL_REPEAT         :
-                            GL_CLAMP_TO_EDGE
-                          );
-            texc->setWrapT( (map.tiling & 0x2)    ? 
-                            GL_REPEAT         :
-                            GL_CLAMP_TO_EDGE
-                          );
+
+            // 0x0008 means no tiling.
+            GLenum wm = (map.tiling & 0x0008) ? GL_CLAMP_TO_EDGE : GL_REPEAT;
+            texc->setWrapS(wm);
+            texc->setWrapT(wm);
+
             texec->setEnvMode(GL_MODULATE);
             texc ->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
             texc ->setMagFilter(GL_LINEAR);
@@ -335,7 +333,7 @@ MaterialPtr A3DSSceneFileType::createMaterial(L3DS &scene, UInt32 id) const
     {
         BlendChunkPtr blendc = BlendChunk::create();
         
-        if(image->isAlphaBinary())
+        if(image != NullFC && image->isAlphaBinary())
         {
             blendc->setAlphaFunc(GL_NOTEQUAL);
             blendc->setAlphaValue(0);
