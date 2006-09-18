@@ -89,11 +89,57 @@ SystemState GlobalSystemState = Startup;
 /*! \name add init functions                                           */
 /*! \{                                                                 */
 
-/*! addPreMPInitFunction, function called by osgInit before the
-    multithreading is initialized 
+/*! \typedef InitFuncF
+
+    Prototype for the initialization callbacks. The system initialization and
+    the points that allow customization through callbacks are as follows:
+
+    <ol>
+    <li>PreMP, this is before multithreading is initialized, callbacks can
+    be added through addPreMPInitFunction.</li>
+    <li>MP, this is the initialization of the multithreading subsystem, it is
+    an internal call with no callbacks.</li>
+    <li>PreFactories, this is before the FactoryController is initialized,
+    callbacks can be added through addPreFactoryInitFunction.</li>
+    <li>Factories, this initializes the FactoryController, it is an internal
+    call with no callbacks.</li>
+    <li>PostFactories, this is after the FactoryController is initialized,
+    callbacks can be added through addPostFactoryInitFunction.</li>
+    </ol>
+
     \ingroup GrpBaseBaseInitExit
  */
 
+/*! \typedef ExitFuncF
+
+    Prototype for the shutdown callbacks. The system shutdown steps and the
+    points that allow customization through callbacks are as follows:
+
+    <ol>
+    <li>PreFactories, this is before the FactorController is shut down,
+    callbacks can be added through addPreFactoryExitFunction.</li>
+    <li>Factories, this shuts the FactoryController down, it is an internal
+    call with no callbacks.</li>
+    <li>PostFactories, this is after the FactoryController was shut down,
+    callbacks can be added through addPostFactoryExitFunction.</li>
+    <li>MP, this shuts down the multithreading subsystem, it is an internal
+    call with no callbacks.</li>
+    <li>PostMP, this is after multithreading was shut down, callbacks can be
+    added through addPostMPExitFunction.</li>
+    </ol>
+
+    \ingroup GrpBaseBaseInitExit
+ */
+
+/*! Adds a callback function that is called by \c osgInit before multithreading
+    is initialized.
+
+    \param[in] initFunc Callback function to add.
+
+    \sa InitFuncF
+
+    \ingroup GrpBaseBaseInitExit
+ */
 void addPreMPInitFunction(InitFuncF initFunc)
 {
     if(osgPreMPInitFunctions == NULL)
@@ -104,11 +150,15 @@ void addPreMPInitFunction(InitFuncF initFunc)
     osgPreMPInitFunctions->push_back(initFunc);
 }
 
-/*! addPreFactoryInitFunction, function called by osgInit after the
-    multithreading is and before the factories are initialized.
+/*! Adds a callback function that is called by \c osgInit after multithreading,
+    but before the factories are initialized.
+
+    \param[in] initFunc Callback function to add.
+
+    \sa InitFuncF
+
     \ingroup GrpBaseBaseInitExit
  */
-
 void addPreFactoryInitFunction(InitFuncF initFunc)
 {
     if(osgPreFactoryInitFunctions == NULL)
@@ -119,11 +169,15 @@ void addPreFactoryInitFunction(InitFuncF initFunc)
     osgPreFactoryInitFunctions->push_back(initFunc);
 }
 
-/*! addPostFactoryInitFunction, function called by osgInit after the
-    the factories are initialized.
+/*! Adds a callback function that is called by \c osgInit after multithreading
+    and the factories are initialized.
+
+    \param[in] initFunc Callback function to add.
+
+    \sa InitFuncF
+
     \ingroup GrpBaseBaseInitExit
  */
-
 void addPostFactoryInitFunction(InitFuncF initFunc)
 {
     if(osgPostFactoryInitFunctions == NULL)
@@ -139,49 +193,61 @@ void addPostFactoryInitFunction(InitFuncF initFunc)
 /*! \name add exit function                                            */
 /*! \{                                                                 */
 
-/*! addPreFactoryExitFunction, function called by osgExit before
-    the factories are termininated
-   \ingroup GrpBaseBaseInitExit
- */
+/*! Adds a callback function that is called by \c osgExit before the factories
+    and multithreading are terminated.
 
+    \param[in] exitFunc Callback function to add.
+
+    \sa ExitFuncF
+
+    \ingroup GrpBaseBaseInitExit
+ */
 void addPreFactoryExitFunction(ExitFuncF exitFunc)
 {
     if(osgPreFactoryExitFunctions == NULL)
     {
         osgPreFactoryExitFunctions = new std::vector<ExitFuncF>(0);
     }
-    
+
     osgPreFactoryExitFunctions->push_back(exitFunc);
 }
 
-/*! addPostFactoryExitFunction, function called by osgExit after
-    the factories are and before the multithreading is termininated
-   \ingroup GrpBaseBaseInitExit
- */
+/*! Adds a callback function that is called by \c osgExit after the factories,
+    but before multithreading is terminated.
 
+    \param[in] exitFunc Callback function to add.
+
+    \sa ExitFuncF
+
+    \ingroup GrpBaseBaseInitExit
+ */
 void addPostFactoryExitFunction(ExitFuncF exitFunc)
 {
     if(osgPostFactoryExitFunctions == NULL)
     {
         osgPostFactoryExitFunctions = new std::vector<ExitFuncF>(0);
     }
-    
+
     osgPostFactoryExitFunctions->push_back(exitFunc);
 }
 
 
-/*! addPostExitFunction, function called by osgExit after the
-    multithreading is termininated
-   \ingroup GrpBaseBaseInitExit
- */
+/*! Adds a callback function that is called by \c osgExit after the factories,
+    and multithreading are terminated.
 
+    \param[in] exitFunc Callback function to add.
+
+    \sa ExitFuncF
+
+    \ingroup GrpBaseBaseInitExit
+ */
 void addPostMPExitFunction(ExitFuncF exitFunc)
 {
     if(osgPostMPExitFunctions == NULL)
     {
         osgPostMPExitFunctions = new std::vector<ExitFuncF>(0);
     }
-    
+
     osgPostMPExitFunctions->push_back(exitFunc);
 }
 
@@ -190,9 +256,13 @@ void addPostMPExitFunction(ExitFuncF exitFunc)
 /*! \name init / exit                                                  */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseInitExit
- */
+/*! Adds the name of a shared object to the list of objects that are dynamically
+    loaded by \c osgInit.
 
+    \param[in] szName Name of shared object.
+
+    \ingroup GrpBaseBaseInitExit
+ */
 void preloadSharedObject(const TChar *szName)
 {
     if(osgPreloadSharedObject == NULL)
@@ -205,9 +275,33 @@ void preloadSharedObject(const TChar *szName)
     osgPreloadSharedObject->push_back(tmpString);
 }
 
-/*! \ingroup GrpBaseBaseInitExit
- */
+/*! Initializes the system and performs startup tasks registered with
+    \c addPreMPInitFunction, \c addPreFactoryInitFunction and 
+    \c addPostFactoryInitFunction functions. The arguments can be used to
+    pass command line arguments to the library, but this is currently unused.
 
+#ifndef OSG_WINCE
+    Part of the behavior of \c osgInit can be controlled through environment
+    variables, these are:
+
+    <dl>
+    <dt>OSG_LOAD_LIBS</dt>
+    <dd>A list of shared object names (separated by the platform path
+        delimiter) that will be loaded during \c osgInit. </dd>
+    <dt>OSG_PLUGIN_PATH</dt>
+    <dd>A directory name. From this directory plugins that match the 
+        OSG_PLUGIN_PATTERN will be loaded. This avoids writing out the names of
+        all plugins and putting them in OSG_LOAD_LIBS, which would result in
+        the same behavior. </dd>
+    <dt>OSG_PLUGIN_PATTERN</dt>
+    <dd>A regular expression against which all files in the directory
+        specified with OSG_PLUGIN_PATH are tested, those that match are
+        loaded dynamically as shared objects.</dd> 
+    </dl>
+#endif
+
+    \ingroup GrpBaseBaseInitExit
+ */
 bool osgInit(Int32, Char8 **)
 {
     bool returnValue = true;
@@ -373,9 +467,15 @@ static void osgExitWrapper(void)
     osgExit();
 }
 
-/*! \ingroup GrpBaseBaseInitExit
- */
+/*! Shuts down the system and performs shutdown tasks registered with
+    \c addPreFactoryExitFunction, \c addPostFactoryExitFunction and
+    \c addPostMPExitFunction. The returnvalue indicates if the shutdown was
+    successfull (\c true ) or failed (\c false ).
 
+    \return \c true on successfull shutdown, \c false otherwise.
+
+    \ingroup GrpBaseBaseInitExit
+ */
 bool osgExit(void)
 {
     bool returnValue = true;
@@ -462,19 +562,48 @@ OSG_END_NAMESPACE
 
 OSG_USING_NAMESPACE
 
+/*! \class InitFuncWrapper
 
+    \brief Registers an init function during instance creation
+
+    InitFuncWrapper is a little wrapper class that allows calling an init 
+    function without an associated class.
+
+    \ingroup GrpBaseBaseInitExit
+    \hideinhierarchy
+*/
+
+/*! The constructor has the important side effect of adding \a func to the list
+    of init functions by calling addPostFactoryInitFunction.
+
+    \param[in] func Init function to be added.
+ */
 InitFuncWrapper::InitFuncWrapper(const InitFuncF func)
 {
     addPostFactoryInitFunction(func);
 }
 
+/*! \class StaticInitFuncWrapper
 
- 
+    \brief Calls an init function during instance creation.
+
+    StaticInitFuncWrapper is a little wrapper class that allows calling a 
+    static init function without an associated class.
+
+    \ingroup GrpBaseBaseInitExit
+    \hideinhierarchy
+ */
+
+/*! The constructor has the important side effect of calling \a func, thus
+    executing it during C++ static init by creating a static member of type
+    StaticInitFuncWrapper.
+
+    \param[in] func Init function to be called during static init.
+ */
 StaticInitFuncWrapper::StaticInitFuncWrapper(const InitFuncF func)
 {
     func();
 }
-
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

@@ -48,9 +48,17 @@ OSG_BEGIN_NAMESPACE
 /*! \name sqrt                                                         */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the square root of the argument, i.e. the number \c y that satisfies
+    <tt>y<sup>2</sup> == rValue</tt>. The argument must be nonnegative.
 
+    \param[in] rValue The number to compute the square root of, must be >= 0.
+    \return The square root of the argument.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType 
     osgsqrt(const FloatTypeT rValue)
@@ -62,7 +70,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgsqrt(const Real32 rValue)
 {
@@ -77,7 +84,6 @@ Real32 osgsqrt(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgsqrt(const Real64 rValue)
 {
@@ -90,7 +96,6 @@ Real64 osgsqrt(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgsqrt(const Real128 rValue)
 {
@@ -104,7 +109,6 @@ Real128 osgsqrt(const Real128 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Fixed32 osgsqrt(const Fixed32 rValue)
 {
@@ -116,9 +120,16 @@ Fixed32 osgsqrt(const Fixed32 rValue)
 /*! \name cos                                                          */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the cosine of the argument, which is given in radians.
 
+    \param[in] rValue The angle in radians to compute the cosine of.
+    \return Cosine of \a rValue, it is in the range -1 to 1.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType 
     osgcos(const FloatTypeT rValue)
@@ -130,7 +141,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgcos(const Real32 rValue)
 {
@@ -145,7 +155,6 @@ Real32 osgcos(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgcos(const Real64 rValue)
 {
@@ -158,7 +167,6 @@ Real64 osgcos(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgcos(const Real128 rValue)
 {
@@ -171,7 +179,6 @@ Real128 osgcos(const Real128 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Fixed32 osgcos(const Fixed32 rValue)
 {
@@ -183,9 +190,16 @@ Fixed32 osgcos(const Fixed32 rValue)
 /*! \name sin                                                          */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the sine of the argument, which is given in radians.
 
+    \param[in] rValue The angle in radians to compute the sine of.
+    \return Sine of \a rValue, it is in the range -1 to 1.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType 
     osgsin(const FloatTypeT rValue)
@@ -197,7 +211,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgsin(const Real32 rValue)
 {
@@ -212,7 +225,6 @@ Real32 osgsin(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgsin(const Real64 rValue)
 {
@@ -225,7 +237,6 @@ Real64 osgsin(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgsin(const Real128 rValue)
 {
@@ -238,7 +249,6 @@ Real128 osgsin(const Real128 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Fixed32 osgsin(const Fixed32 rValue)
 {
@@ -251,9 +261,18 @@ Fixed32 osgsin(const Fixed32 rValue)
 /*! \name tan                                                          */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the tangent of the argument, which is given in radians. The tangent
+    is defined as tan(x) = sin(x) / cos(x) and therefore has singularities at
+    odd multiples of pi/2.
 
+    \param[in] rValue The angle in radians to compute the tangent of.
+    \return Tangent of \a rValue.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgtan(const FloatTypeT rValue)
@@ -265,7 +284,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgtan(const Real32 rValue)
 {
@@ -280,7 +298,6 @@ Real32 osgtan(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgtan(const Real64 rValue)
 {
@@ -293,7 +310,6 @@ Real64 osgtan(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgtan(const Real128 rValue)
 {
@@ -306,7 +322,6 @@ Real128 osgtan(const Real128 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Fixed32 osgtan(const Fixed32 rValue)
 {
@@ -318,9 +333,18 @@ Fixed32 osgtan(const Fixed32 rValue)
 /*! \name acos                                                         */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the arc cosine (in radians) of the argument, i.e. the number \c y
+    such that <tt>rValue == cos(y)</tt> and \c y is in the range [-pi/2; pi/2].
 
+    \param[in] rValue The number to compute the arc cosine of, must be
+    in the range [-1; 1].
+    \return The arc cosine of \a rValue in the range [-pi/2; pi/2].
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType 
     osgacos(const FloatTypeT rValue)
@@ -332,7 +356,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgacos(const Real32 rValue)
 {
@@ -347,7 +370,6 @@ Real32 osgacos(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgacos(const Real64 rValue)
 {
@@ -360,7 +382,6 @@ Real64 osgacos(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgacos(const Real128 rValue)
 {
@@ -376,9 +397,18 @@ Real128 osgacos(const Real128 rValue)
 /*! \name asin                                                         */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the arc sine (in radians) of the argument, i.e. the number \c y such
+    that <tt>rValue == sin(y)</tt> and \c y is in the range [-pi/2; pi/2].
 
+    \param[in] rValue The number to compute the arc sine of, must be
+    in the range [-1; 1].
+    \return The arc sine of \a rValue in the range [-pi/2; pi/2].
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgasin(const FloatTypeT rValue)
@@ -390,7 +420,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgasin(const Real32 rValue)
 {
@@ -406,7 +435,6 @@ Real32 osgasin(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgasin(const Real64 rValue)
 {
@@ -419,7 +447,6 @@ Real64 osgasin(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgasin(const Real128 rValue)
 {
@@ -435,9 +462,19 @@ Real128 osgasin(const Real128 rValue)
 /*! \name atan                                                         */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the arc tangent (in radians) of the argument, i.e. the number \c y
+    such that <tt>rValue == tan(y)</tt> and \c y is in the range [-pi/2; pi/2].
 
+    \param[in] rValue The number to compute the arc tangent of.
+    \return The arc tangent of \a rValue in the range [-pi/2; pi/2].
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \sa osgatan2(const FloatTypeT,const FloatTypeT)
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType 
     osgatan(const FloatTypeT rValue)
@@ -449,7 +486,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgatan(const Real32 rValue)
 {
@@ -464,7 +500,6 @@ Real32 osgatan(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgatan(const Real64 rValue)
 {
@@ -477,7 +512,6 @@ Real64 osgatan(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgatan(const Real128 rValue)
 {
@@ -493,9 +527,20 @@ Real128 osgatan(const Real128 rValue)
 /*! \name atan2                                                        */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the arc tangent (in radians) of <tt>rValue1 / rValue2</tt> using
+    the signs of both arguments to determine the quadrant. This can be used to
+    obtain the angle component of the polar coordinates of a point with
+    cartesian coordinates (\a rValue2, \a rValue1).
 
+    \param[in] rValue1 The numerator of the value to compute atan of.
+    \param[in] rValue2 The denominator of the value to compute atan of.
+    \return The arc tangent of <tt>rValue1 / rValue2</tt> in the range [-pi; pi].
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType 
     osgatan2(const FloatTypeT rValue1,
@@ -508,7 +553,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgatan2(const Real32 rValue1, const Real32 rValue2)
 {
@@ -527,7 +571,6 @@ Real32 osgatan2(const Real32 rValue1, const Real32 rValue2)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgatan2(const Real64 rValue1, const Real64 rValue2)
 {
@@ -540,7 +583,6 @@ Real64 osgatan2(const Real64 rValue1, const Real64 rValue2)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgatan2(const Real128 rValue1, const Real128 rValue2)
 {
@@ -556,9 +598,17 @@ Real128 osgatan2(const Real128 rValue1, const Real128 rValue2)
 /*! \name abs                                                          */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the absolute value of the argument.
 
+    \param[in] rValue Number to compute absolute value of.
+    \return Absolute value of \a rValue.
+
+    \note For floating point arguments this function forwards to an
+    appropriate C++ or C library function, hence exhibits the 
+    respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class TypeT> inline
 TypeT osgabs(const TypeT rValue)
 {
@@ -567,7 +617,6 @@ TypeT osgabs(const TypeT rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgabs(const Real32 rValue)
 {
@@ -582,7 +631,6 @@ Real32 osgabs(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgabs(const Real64 rValue)
 {
@@ -595,7 +643,6 @@ Real64 osgabs(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Fixed32 osgabs(const Fixed32 rValue)
 {
@@ -604,7 +651,6 @@ Fixed32 osgabs(const Fixed32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgabs(const Real128 rValue)
 {
@@ -620,9 +666,16 @@ Real128 osgabs(const Real128 rValue)
 /*! \name pow                                                          */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return \a rValue to the power of \a rExp.
 
+    \param[in] rValue Base.
+    \param[in] rExp Exponent.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgpow(const FloatTypeT rValue,
@@ -635,7 +688,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgpow(const Real32 rValue, const Real32 rExp)
 {
@@ -650,7 +702,6 @@ Real32 osgpow(const Real32 rValue, const Real32 rExp)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgpow(const Real64 rValue, const Real64 rExp)
 {
@@ -663,7 +714,6 @@ Real64 osgpow(const Real64 rValue, const Real64 rExp)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgpow(const Real128 rValue, const Real128 rExp)
 {
@@ -679,9 +729,18 @@ Real128 osgpow(const Real128 rValue, const Real128 rExp)
 /*! \name log                                                          */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the natural logarithm of the argument, i.e. the number \c y such that
+    <tt>e<sup>y</sup> == rValue</tt>, where e is Euler's number.
 
+    \param[in] rValue The number to compute the natural logarithm of,
+    must be >= 0.
+    \return Natural logarithm of \a rValue.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osglog(const FloatTypeT rValue)
@@ -693,7 +752,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osglog(const Real32 rValue)
 {
@@ -708,7 +766,6 @@ Real32 osglog(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osglog(const Real64 rValue)
 {
@@ -721,7 +778,6 @@ Real64 osglog(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osglog(const Real128 rValue)
 {
@@ -737,9 +793,17 @@ Real128 osglog(const Real128 rValue)
 /*! \name exp                                                          */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return e to the power \a rValue, where e is Euler's number, the base of the
+    natural logarithm.
 
+    \param[in] rValue Exponent.
+    \return e to the power \a rValue.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgexp(const FloatTypeT rValue)
@@ -751,7 +815,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgexp(const Real32 rValue)
 {
@@ -766,7 +829,6 @@ Real32 osgexp(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgexp(const Real64 rValue)
 {
@@ -779,7 +841,6 @@ Real64 osgexp(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgexp(const Real128 rValue)
 {
@@ -795,9 +856,23 @@ Real128 osgexp(const Real128 rValue)
 /*! \name floor                                                        */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Returns the argument rounded downwards to the nearest integer, i.e. returns
+    the largest integer not greater than \a rValue.
 
+    Example:
+    \code
+    osgfloor( 1.5) ==  1.0;
+    osgfloor(-1.5) == -2.0;
+    \endcode
+
+    \param[in] rValue Number to round down.
+    \return Largest integer not greater than the argument.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgfloor(const FloatTypeT rValue)
@@ -809,7 +884,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgfloor(const Real32 rValue)
 {
@@ -828,7 +902,6 @@ Real32 osgfloor(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgfloor(const Real64 rValue)
 {
@@ -841,7 +914,6 @@ Real64 osgfloor(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgfloor(const Real128 rValue)
 {
@@ -857,9 +929,23 @@ Real128 osgfloor(const Real128 rValue)
 /*! \name ceil                                                         */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Returns the argument rounded upwards to the nearest integer, i.e. returns
+    the smallest integer not less than \a rValue.
 
+    Example:
+    \code
+    osgceil( 1.5) ==  2.0;
+    osgceil(-1.5) == -1.0;
+    \endcode
+
+    \param[in] rValue Number to round up.
+    \return Smallest integer not less than the argument.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgceil(const FloatTypeT rValue)
@@ -871,7 +957,6 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real32 osgceil(const Real32 rValue)
 {
@@ -890,7 +975,6 @@ Real32 osgceil(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgceil(const Real64 rValue)
 {
@@ -903,7 +987,6 @@ Real64 osgceil(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real128 osgceil(const Real128 rValue)
 {
@@ -919,9 +1002,17 @@ Real128 osgceil(const Real128 rValue)
 /*! \name finite                                                       */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Returns a nonzero value if \a rValue is a finite number, i.e. neither
+    plus or minus infinity nor NAN.
 
+    \param[in] rValue Number to test.
+    \return Nonzero value if argument is finite.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 UInt32 osgfinite(const FloatTypeT rValue)
 {
@@ -941,28 +1032,43 @@ UInt32 osgfinite(const FloatTypeT rValue)
 /*! \name min / max                                                    */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the smaller of the two arguments.
 
+    \param[in] lVal First value for comparison.
+    \param[in] rValue Second value for comparison.
+    \return The smaller of the two arguments.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class TypeT> inline
 TypeT osgMin(const TypeT lValue, const TypeT rValue)
 {
     return ((lValue < rValue) ? lValue : rValue);
 }
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the larger of the two arguments.
 
+    \param[in] lVal First value for comparison.
+    \param[in] rValue Second value for comparison.
+    \return The larger of the two arguments.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class TypeT> inline
 TypeT osgMax(const TypeT lValue, const TypeT rValue)
 {
     return ((lValue > rValue) ? lValue : rValue);
 }
 
-/*! \ingroup GrpBaseBaseMathFn
-    Clamp \a val to [\a minVal - \a maxVal].
- */
+/*! Restrict val to the range [minVal; maxVal], inclusive.
 
+    \param[in] minVal Lower bound of the range.
+    \param[in] val Value to clamp.
+    \param[in] maxVal Upper bound of the range.
+    \return The value from the given range that is closest to val.
+
+    \ingroup GrpBaseBaseMathFn
+*/
 template <class TypeT> inline
 TypeT osgClamp(const TypeT minVal, const TypeT val, const TypeT maxVal)
 {
@@ -974,9 +1080,14 @@ TypeT osgClamp(const TypeT minVal, const TypeT val, const TypeT maxVal)
 /*! \name sgn                                                          */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the sign of the argument, i.e. -1 if val is negative, 1 if it is
+    positive and 0 otherwise.
 
+    \param[in] val The number to classify.
+    \return The sign of the argument.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class TypeT> inline
 Int8 osgSgn(TypeT val)
 {
@@ -994,9 +1105,15 @@ Int8 osgSgn(TypeT val)
 /*! \name swap                                                         */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Exchanges the values of the arguments.
 
+    \param[in,out] lVal New value for \a rValue, is assigned the 
+    old value of \a rValue.
+    \param[in,out] rValue New value for lVal, is assigned the
+    old value of rVal.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class TypeT> inline
 void osgSwap(TypeT & lValue, TypeT & rValue)
 {
@@ -1011,9 +1128,13 @@ void osgSwap(TypeT & lValue, TypeT & rValue)
 /*! \name degree2rad                                                   */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Converts the argument angle from degrees to radians.
 
+    \param[in] rValue Angle in degree to convert.
+    \return Angle in radians.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 inline
 Real32 osgdegree2rad(const Real32 rValue)
 {
@@ -1022,7 +1143,6 @@ Real32 osgdegree2rad(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgdegree2rad(const Real64 rValue)
 {
@@ -1031,7 +1151,6 @@ Real64 osgdegree2rad(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Fixed32 osgdegree2rad(const Fixed32 rValue)
 {
@@ -1055,9 +1174,13 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \name rad2degree                                                   */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Converts the argument angle from radians to degrees.
 
+    \param[in] rValue Angle in radians to convert.
+    \return Angle in degrees.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 inline
 Real32 osgrad2degree(const Real32 rValue)
 {
@@ -1066,7 +1189,6 @@ Real32 osgrad2degree(const Real32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Real64 osgrad2degree(const Real64 rValue)
 {
@@ -1075,7 +1197,6 @@ Real64 osgrad2degree(const Real64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 inline
 Fixed32 osgrad2degree(const Fixed32 rValue)
 {
@@ -1084,7 +1205,6 @@ Fixed32 osgrad2degree(const Fixed32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgrad2degree(const FloatTypeT rValue)
@@ -1099,9 +1219,13 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \name deg2rad / rad2deg                                            */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Converts the argument angle from degrees to radians.
 
+    \param[in] rValue Angle in degree to convert.
+    \return Angle in radians.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     deg2rad(const FloatTypeT rValue)
@@ -1109,9 +1233,13 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     return osgdegree2rad(rValue);
 }
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Converts the argument angle from radians to degrees.
 
+    \param[in] rValue Angle in radians to convert.
+    \return Angle in degrees.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType 
     rad2deg(const FloatTypeT rValue)
@@ -1124,9 +1252,13 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \name ispower2                                                     */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Test if the argument is a power of 2 or zero.
 
+    \param[in] rValue Number to test.
+    \return true if rValue is a power of 2 or zero.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <> inline
 bool osgispower2<UInt32>(UInt32 rValue)
 {
@@ -1146,9 +1278,13 @@ bool osgispower2<UInt32>(UInt32 rValue)
         return true;
 }
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Test if the argument is a power of 2 or zero.
 
+    \param[in] rValue Number to test, must be >= 0.
+    \return true if rValue is a power of 2 or zero.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <> inline
 bool osgispower2<Int32>(Int32 rValue)
 {
@@ -1173,9 +1309,14 @@ bool osgispower2<Int32>(Int32 rValue)
 /*! \name nextpower2                                                   */
 /*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseMathFn
- */
+/*! Return the next larger power of 2, i.e. the smallest power of 2 not less
+    than \a rValue.
 
+    \param[in] rValue The lower bound for the wanted power of 2.
+    \return A power of 2 to not less than \a rValue.
+
+    \ingroup GrpBaseBaseMathFn
+ */
 template <> inline
 UInt32 osgnextpower2<UInt32>(UInt32 rValue)
 {
@@ -1193,7 +1334,6 @@ UInt32 osgnextpower2<UInt32>(UInt32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 template <> inline
 Int32 osgnextpower2<Int32>(Int32 rValue)
 {
@@ -1211,7 +1351,6 @@ Int32 osgnextpower2<Int32>(Int32 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 template <> inline
 Int64 osgnextpower2<Int64>(Int64 rValue)
 {
@@ -1229,7 +1368,6 @@ Int64 osgnextpower2<Int64>(Int64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 template <> inline
 UInt64 osgnextpower2<UInt64>(UInt64 rValue)
 {
@@ -1249,7 +1387,6 @@ UInt64 osgnextpower2<UInt64>(UInt64 rValue)
 
 /*! \ingroup GrpBaseBaseMathFn
  */
-
 template <> inline
 size_t osgnextpower2<size_t>(size_t rValue)
 {
@@ -1268,15 +1405,18 @@ size_t osgnextpower2<size_t>(size_t rValue)
 #endif
 
 /*! \}                                                                 */
-//---------------------------------------------------------------------------
-// Misc Functions
-//---------------------------------------------------------------------------
+/*---------------------------------------------------------------------*/
+/*! \name Misc                                                         */
+/*! \{                                                                 */
 
-/*! find the index that has the largest absolute value for a vec3/pnt3
+/*! Returns the index of the element that has the largest absolute value in
+    a Vec3 or Pnt3.
+
+    \param[in] v Input Vec3 or Pnt3.
+    \return Index of the element with largest absolute value.
+
     \ingroup GrpBaseBaseMiscFn
  */
-
-
 template<class VecPntT> inline
 UInt32 getMaxIndexAbs3(const VecPntT &v)
 {
@@ -1286,10 +1426,23 @@ UInt32 getMaxIndexAbs3(const VecPntT &v)
             (osgabs(v[1]) > osgabs(v[2]) ? 1 : 2);
 }
 
-/*! \ingroup GrpBaseBaseMiscFn
- */
-
 #ifndef OSG_WINCE
+/*! Sets or removes an environment variable. If the \a string is of the form
+    <tt>name=value</tt> the env. variable \c name is set to \c value. Otherwise
+    the contents of \a string a interpreted as the name of an env. variable and
+    any definition of this variable is removed from the environment.
+
+    \param[in] string String to put into the environment.
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+
+    \warning The exact \a string is put into the environment, any changes to
+    it will be directly reflected there. The lifetime of \a string must only end
+    when the program terminates.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Int32 putenv(Char8 *string)
 {
@@ -1307,10 +1460,12 @@ Char8 *getenv(Char8 *string)
 }
 #endif
 
-/*! \ingroup GrpBaseBaseMiscFn
+/*! Pause program execution for the given number of milliseconds.
+
+    \param[in] millisecs Duration of the pause.
+
+    \ingroup GrpBaseBaseMiscFn
  */
-
-
 inline
 void osgsleep(UInt32 millisecs)
 {
@@ -1351,29 +1506,28 @@ void osgsleep(UInt32 millisecs)
 #endif
 }
 
-/*! get a random value between 0 and 1
+/*! Returns a uniformly distributed random Real32 between 0 and 1 inclusive.
+
+    \return A random Real32 number between 0 and 1 inclusive.
+
     \ingroup GrpBaseBaseMiscFn
  */
-
-
 inline
 Real32 osgrand(void)
 {
     return rand() / (Real32) RAND_MAX;
 }
 
-/*! return true if the current system is big endian
-    \ingroup GrpBaseBaseMiscFn
- */
-
-inline
-bool osgIsBigEndian(void)
-{
-    return (BYTE_ORDER) == (BIG_ENDIAN);   
-}
-
 #if defined(WIN32) && defined(_MSC_VER) 
 #if _MSC_VER <= 1200  // VC6
+/*! Write a UInt64 value to the given stream.
+
+    \param[in] os Output stream to write to.
+    \param[in] v Value to write.
+    \return The given output stream.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 std::ostream &operator<<(std::ostream &os, UInt64 v)
 {
@@ -1382,6 +1536,14 @@ std::ostream &operator<<(std::ostream &os, UInt64 v)
     return os << buf;
 }
 
+/*! Write a Int64 value to the given stream.
+
+    \param[in] os Output stream to write to.
+    \param[in] v Value to write.
+    \return The given output stream.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 std::ostream &operator<<(std::ostream &os, Int64 v)
 {
@@ -1392,19 +1554,53 @@ std::ostream &operator<<(std::ostream &os, Int64 v)
 #endif
 #endif
 
+/*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*               big/little endian conversion functions                */
+/*! \name Byte Order                                                   */
+/*! \{                                                                 */
+
+/*! Returns \c true if the system architecture is big endian.
+
+    \return \c true on big endian architectures, \c false otherwise.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
+inline
+bool osgIsBigEndian(void)
+{
+    return (BYTE_ORDER) == (BIG_ENDIAN);
+}
 
 #if BYTE_ORDER == LITTLE_ENDIAN
 
 // host to network
 
+/*! Convert a UInt16 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt16 osghtons(UInt16 src)
 {
     return (src >> 8) | (src << 8);
 }
 
+/*! Convert a UInt32 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt32 osghtonl(UInt32 src)
 {
@@ -1414,6 +1610,16 @@ UInt32 osghtonl(UInt32 src)
            ((src&0xff000000) >> 24);
 }
 
+/*! Convert a UInt64 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt64 osghtonll(UInt64 src)
 {
@@ -1438,6 +1644,16 @@ UInt64 osghtonll(UInt64 src)
 #endif
 }
 
+/*! Convert a Real32 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real32 osghtonf(Real32 src)
 {
@@ -1449,6 +1665,16 @@ Real32 osghtonf(Real32 src)
     return src;
 }
 
+/*! Convert a Real64 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real64 osghtond(Real64 src)
 {
@@ -1462,6 +1688,16 @@ Real64 osghtond(Real64 src)
     return src;
 }
 
+/*! Convert a Real128 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real128 osghtondd(Real128 src)
 {
@@ -1481,12 +1717,32 @@ Real128 osghtondd(Real128 src)
 
 // network to host
 
+/*! Convert a UInt16 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt16 osgntohs(UInt16 src)
 {
     return (src >> 8) | (src << 8);
 }
 
+/*! Convert a UInt32 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt32 osgntohl(UInt32 src)
 {
@@ -1496,6 +1752,16 @@ UInt32 osgntohl(UInt32 src)
            ((src&0xff000000) >> 24);
 }
 
+/*! Convert a UInt64 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt64 osgntohll(UInt64 src)
 {
@@ -1520,6 +1786,16 @@ UInt64 osgntohll(UInt64 src)
 #endif
 }
 
+/*! Convert a Real32 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real32 osgntohf(Real32 src)
 {
@@ -1531,6 +1807,16 @@ Real32 osgntohf(Real32 src)
     return src;
 }
 
+/*! Convert a Real64 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real64 osgntohd(Real64 src)
 {
@@ -1544,6 +1830,16 @@ Real64 osgntohd(Real64 src)
     return src;
 }
 
+/*! Convert a Real128 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real128 osgntohdd(Real128 src)
 {
@@ -1566,36 +1862,96 @@ Real128 osgntohdd(Real128 src)
 // host to network
 // perhaps we should use macros here ...
 
+/*! Convert a UInt16 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt16 osghtons(UInt16 src)
 {
     return src;
 }
 
+/*! Convert a UInt32 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt32 osghtonl(UInt32 src)
 {
     return src;
 }
 
+/*! Convert a UInt64 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt64 osghtonll(UInt64 src)
 {
     return src;
 }
 
+/*! Convert a Real32 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real32 osghtonf(Real32 src)
 {
     return src;
 }
 
+/*! Convert a Real64 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real64 osghtond(Real64 src)
 {
     return src;
 }
 
+/*! Convert a Real128 from host byte order to network byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real128 osghtondd(Real128 src)
 {
@@ -1604,36 +1960,96 @@ Real128 osghtondd(Real128 src)
 
 // network to host
 
+/*! Convert a UInt16 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt16 osgntohs(UInt16 src)
 {
     return src;
 }
 
+/*! Convert a UInt32 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt32 osgntohl(UInt32 src)
 {
     return src;
 }
 
+/*! Convert a UInt64 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 UInt64 osgntohll(UInt64 src)
 {
     return src;
 }
 
+/*! Convert a Real32 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real32 osgntohf(Real32 src)
 {
     return src;
 }
 
+/*! Convert a Real64 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real64 osgntohd(Real64 src)
 {
     return src;
 }
 
+/*! Convert a Real128 from network byte order to host byte order.
+
+    \param[in] src Input value in host byte order.
+    \return The input converted to network byte order.
+
+    \note Network byte order is big endian, so an actual conversion only
+    happens on little endian architectures.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
 inline
 Real128 osgntohdd(Real128 src)
 {
@@ -1642,14 +2058,21 @@ Real128 osgntohdd(Real128 src)
 
 #endif
 
-//-----------------------------------------------------------------------
-// String Functions
-//-----------------------------------------------------------------------
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name C strings                                                    */
+/*! \{                                                                 */
 
-/*! copy c strings, allocate new memory using new []
+/*! Creates a copy of the C string \a szInput and stores a pointer to the copy
+    in \a szOutput. The memory for the copy is allocated using \c new[], while
+    any memory already pointed to by \a szOutput is deallocated
+    with \c delete[].
+
+    \param[in] szInput The C string to copy.
+    \param[out] szOutput Set to point to the copy.
+
     \ingroup GrpBaseBaseStringFn
  */
-
 inline
 void stringDup(const TChar *szInput, TChar *&szOutput)
 {
@@ -1669,10 +2092,18 @@ void stringDup(const TChar *szInput, TChar *&szOutput)
     }
 }
 
-/*! copy c strings, does not allocate new memory 
+/*! Creates a copy of the C string \a szInput at the position pointed to by
+    \a szOutput. This function does not allocate memory, so \a szOutput must
+    point to a buffer that is large enough.
+
+    \param[in] szInput The C string to copy.
+    \param[out] szOutput Pointer to a buffer where the copy is stored.
+
+    \warning This function does not check the size of the destination buffer,
+    hence it could overwrite other data if the buffer is not large enough !
+
     \ingroup GrpBaseBaseStringFn
  */
-
 inline
 void  stringcpy(const Char8 *szInput, Char8 *szOutput)
 {
@@ -1682,40 +2113,64 @@ void  stringcpy(const Char8 *szInput, Char8 *szOutput)
     }
 }
 
-/*! limited string compare
+/*! Compares two C strings, but considers at most the first \a count characters.
+    The return value has the same sign as the difference of the first differing
+    pair of characters.
+
+    \param[in] string1 First string for comparison.
+    \param[in] string2 Second string for comparison.
+    \param[in] count Maximal number of charaters to compare
+    \return 0 if the first \a count characters of both strings are equal,
+    -1 if \a string1 is less than \a string2 and 1 otherwise.
+
     \ingroup GrpBaseBaseStringFn
  */
-
 inline
 Int32 stringncmp(const Char8 *string1, const Char8 *string2, size_t count)
 {
     return ::strncmp(string1, string2, count);
 }
 
-/*! string length
+/*! Returns the length of a C string, i.e. the number of characters from the
+    given pointer, to the first zero character.
+
+    \param[in] string1 String whose length is determined.
+    \return Length of the string.
+
     \ingroup GrpBaseBaseStringFn 
  */
-
 inline
 Int32 stringlen(const Char8 *string1)
 {
     return ::strlen(string1);
 }
 
-/*! string compare
+/*! Compares two C strings. The return value has the same sign as the
+    difference of the first differing pair of characters.
+
+    \param[in] string1 First string for comparison.
+    \param[in] string2 Second string for comparison.
+    \return 0 if both strings are equal, -1 if \a string1 is less than
+    \a string2 and 1 otherwise.
+
     \ingroup GrpBaseBaseStringFn
  */
-
 inline
 Int32 stringcmp(const Char8 *string1, const Char8 *string2)
 {
     return ::strcmp(string1, string2);
 }
 
-/*! string case compare
+/*! Compare two C strings ignoring differences in case. The return value has
+    the same sign as the difference of the first differing pair of characters.
+
+    \param[in] string1 First string for comparison.
+    \param[in] string2 Second string for comparison.
+    \return 0 if both strings are equal, -1 if \a string1 is less than
+    \a string2 and 1 otherwise.
+
     \ingroup GrpBaseBaseStringFn
  */
-
 inline
 Int32 stringcasecmp(const Char8 *string1,
                     const Char8 *string2)
@@ -1744,13 +2199,20 @@ bool indirector<ContentT, IndexT>::operator()(IndexT a, IndexT b)
     return false;
 }
 
-//---------------------------------------------------------------------------
-// Reference Count Functions
-//---------------------------------------------------------------------------
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name Reference Count                                              */
+/*! \{                                                                 */
 
-/*! \ingroup GrpBaseBaseRefCountFn
+/*! Assigns \a pNewObject to \a pObject and adjusts the ref counts, i.e.
+    the ref count of \a pObject is decreased and the ref count of \a pNewObject
+    is increased. Both arguments must point to a ref counted object or be NULL.
+
+    \param[in,out] pObject Pointer that is assigned to, may be NULL.
+    \param[in]     pNewObject Pointer that is assigned, may be NULL.
+
+    \ingroup GrpBaseBaseRefCountFn
  */
-
 template <class T> inline
 void setRefP(T *&pObject, T *&pNewObject)
 {
@@ -1763,9 +2225,12 @@ void setRefP(T *&pObject, T *&pNewObject)
     pObject = pNewObject;
 }
 
-/*! \ingroup GrpBaseBaseRefCountFn
- */
+/*! Increase the ref count of the object pointed to by \a pObject.
 
+    \param[in] pObject Pointer to a ref counted object or NULL.
+
+    \ingroup GrpBaseBaseRefCountFn
+ */
 template <class T> inline
 void addRefP(T *&pObject)
 {
@@ -1773,9 +2238,12 @@ void addRefP(T *&pObject)
         pObject->addRef();
 }
 
-/*! \ingroup GrpBaseBaseRefCountFn
- */
+/*! Decrease the ref count of the object pointed to by \a pObject.
 
+    \param[in] pObject Pointer to a ref counted object or NULL.
+
+    \ingroup GrpBaseBaseRefCountFn
+ */
 template <class T> inline
 void subRefP(T *&pObject)
 {
@@ -1783,9 +2251,14 @@ void subRefP(T *&pObject)
         pObject->subRef();
 }
 
-/*! \ingroup GrpBaseBaseRefCountFn
- */
+/*! Clear the pointer \a pObject, i.e. decrease the ref count of the pointee and
+    assign NULL to the pointer. The argument must point to a ref counted
+    object or be NULL.
 
+    \param[in,out] pObject Pointer to a ref counted object or NULL.
+
+    \ingroup GrpBaseBaseRefCountFn
+ */
 template <class T> inline
 void clearRefP(T *&pObject)
 {
@@ -1794,6 +2267,9 @@ void clearRefP(T *&pObject)
 
     pObject = NULL;
 }
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

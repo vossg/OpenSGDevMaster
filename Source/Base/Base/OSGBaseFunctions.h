@@ -242,9 +242,6 @@ void osgsleep(UInt32 millisecs);
 inline
 Real32 osgrand(void);
 
-inline
-bool osgIsBigEndian(void);
-
 #if defined(WIN32) && defined(_MSC_VER) 
 #if _MSC_VER <= 1200  // VC6
 inline
@@ -257,6 +254,9 @@ std::ostream &operator<<(std::ostream &os, Int64  v);
 
 /*---------------------------------------------------------------------*/
 /*               big/little endian conversion functions                */
+
+inline
+bool osgIsBigEndian(void);
 
 // host to network
 

@@ -63,39 +63,25 @@ enum SystemState
 
 extern OSG_BASE_DLLMAPPING SystemState GlobalSystemState;
 
-/*! init function prototype
-   \ingroup GrpBaseBaseInitExit
- 
-   order :
-    
-       - PreMP
-       - MP            * internal call
-       - PreFactories
-       - Factories     * Internal call
-       - PostFactories
- */
+// Init sequence:
+//
+// * PreMP
+// * MP              internal call
+// * PreFactories
+// * Factories       internal call
+// * PostFactories
 
 typedef bool (*InitFuncF)(void);
 
-/*! exit function prototype
-    \ingroup GrpBaseBaseInitExit
-    order :
-  
-       - PreFactories
-       - Factories     * internal call
-       - PostFactories
-       - MP            * internal call
-       - PostMP
- */
+// Shutdown sequence:
+//
+// * PreFactories
+// * Factories       internal call
+// * PostFactories
+// * MP              internal call
+// * PostMP
 
 typedef bool (*ExitFuncF)(void);
-
-
-/*! \ingroup GrpBaseBaseInitExit
-    \hideinhierarchy
-    InitFuncWrapper is a little wrapper class that allows calling an init 
-    function without an associated class.
- */
 
 struct OSG_BASE_DLLMAPPING InitFuncWrapper
 {
@@ -108,11 +94,6 @@ struct OSG_BASE_DLLMAPPING InitFuncWrapper
     /*! \}                                                                 */
 };
 
-/*! \ingroup GrpBaseBaseInitExit
-    \hideinhierarchy
-    StaticInitFuncWrapper is a little wrapper class that allows calling a 
-    static init function without an associated class.
- */
 
 struct OSG_BASE_DLLMAPPING StaticInitFuncWrapper
 {
