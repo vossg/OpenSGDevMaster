@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="TextureSelectChunk"
+	parent="TextureBaseChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+	<Field
+		name="choice"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="0"
+	>
+	Texture selector
+	</Field>
+	<Field
+		name="textures"
+		type="TextureChunkPtr"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	Texture chunks to choose from 
+	</Field>
+</FieldContainer>
