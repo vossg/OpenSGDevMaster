@@ -1,0 +1,46 @@
+
+Script for mechanical code changes
+==================================
+
+NOTE:
+This script requires python 2.4 as it makes use of syntax introduced in
+that version.
+
+Run the file Main.py without arguments to get a list of the available command
+line options. In general call Main.py with the desired options followed by a
+list of files or directories. For directories all files in the mentioned dir and
+in any subdirectory will be processed, for files on the command line only the
+mentioned file will be processed.
+
+Currently known options:
+
+  -h, --help            show the help message and exit.
+  -d DIFFFILE, --diff=DIFFFILE
+                        write a unified diff to DIFFFILE. This can later be
+                        applied with the patch tool. If this options is present
+                        the diff will be written independent of the -n option.
+                        [default: write no diff].
+  -f, --followsymlink   follow symbolic links to directories.
+                        [default: do not follow symlinks].
+  -l LOGFILE, --logfile=LOGFILE
+                        write a log to LOGFILE. [default: write no log].
+  -n, --noop            do not modify files on disk.
+                        [default: modify files on disk].
+  -o "OP1:OP2:...", --operations="OP1:OP2:..."
+                        only perform the listed operations "OP1:OP2:...".
+                        See the -s option for a list of recognized names.
+                        [default: all].
+  -p REGEX, --pattern=REGEX
+                        only operate on files matching the REGEX. Only the name
+                        of the file, not including its path is tested against
+                        the reg ex.
+                        [default: operate on all files].
+  -s, --show-ops        display a list of operation names for use with the -o
+                        option and exit.
+  -v, --verbose         print verbose log, can be used multiple times to
+                        increase verbosity.
+
+To add more operations have a look at the file StandardOperation.py, where
+the already known operations are instantiated. If an operation requires more
+sophisticated changes than a simple replace, have a look at Operations.py and
+ConversionDriver.py to see how these interact.
