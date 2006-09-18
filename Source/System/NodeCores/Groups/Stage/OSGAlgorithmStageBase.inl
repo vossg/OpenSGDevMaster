@@ -107,6 +107,14 @@ const UInt32 &AlgorithmStageBase::getProjectionMode(void) const
     return _sfProjectionMode.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &AlgorithmStageBase::getProjectionMode(void)
+{
+    return this->editProjectionMode();
+}
+#endif
+
 //! Set the value of the AlgorithmStage::_sfProjectionMode field.
 inline
 void AlgorithmStageBase::setProjectionMode(const UInt32 &value)
@@ -131,6 +139,14 @@ const Matrix &AlgorithmStageBase::getProjectionMatrix(void) const
 {
     return _sfProjectionMatrix.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Matrix &AlgorithmStageBase::getProjectionMatrix(void)
+{
+    return this->editProjectionMatrix();
+}
+#endif
 
 //! Set the value of the AlgorithmStage::_sfProjectionMatrix field.
 inline
@@ -185,6 +201,16 @@ void AlgorithmStageBase::execSync (      AlgorithmStageBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
+        _sfAlgorithm.syncWith(pFrom->_sfAlgorithm);
+
+    if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
+        _sfProjectionMode.syncWith(pFrom->_sfProjectionMode);
+
+    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
+        _sfProjectionMatrix.syncWith(pFrom->_sfProjectionMatrix);
 }
 #endif
 

@@ -187,6 +187,13 @@ const SFUInt32 *AlgorithmStageBase::getSFProjectionMode(void) const
     return &_sfProjectionMode;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *AlgorithmStageBase::getSFProjectionMode(void)
+{
+    return this->editSFProjectionMode();
+}
+#endif
+
 SFMatrix *AlgorithmStageBase::editSFProjectionMatrix(void)
 {
     editSField(ProjectionMatrixFieldMask);
@@ -198,6 +205,13 @@ const SFMatrix *AlgorithmStageBase::getSFProjectionMatrix(void) const
 {
     return &_sfProjectionMatrix;
 }
+
+#ifdef OSG_1_COMPAT
+SFMatrix *AlgorithmStageBase::getSFProjectionMatrix(void)
+{
+    return this->editSFProjectionMatrix();
+}
+#endif
 
 
 void AlgorithmStageBase::pushToField(      FieldContainerPtrConstArg pNewElement,

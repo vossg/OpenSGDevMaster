@@ -309,6 +309,64 @@ void VTKMapperBase::execSync (      VTKMapperBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (RootFieldMask & whichField))
+        _sfRoot.syncWith(pFrom->_sfRoot);
+
+    if(FieldBits::NoField != (GeoRootsFieldMask & whichField))
+        _mfGeoRoots.syncWith(pFrom->_mfGeoRoots, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (GeometriesFieldMask & whichField))
+        _mfGeometries.syncWith(pFrom->_mfGeometries, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (MaterialsFieldMask & whichField))
+        _mfMaterials.syncWith(pFrom->_mfMaterials, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (MaterialChunksFieldMask & whichField))
+        _mfMaterialChunks.syncWith(pFrom->_mfMaterialChunks, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (PositionsFieldMask & whichField))
+        _mfPositions.syncWith(pFrom->_mfPositions, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (LengthFieldMask & whichField))
+        _mfLength.syncWith(pFrom->_mfLength, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (TypesFieldMask & whichField))
+        _mfTypes.syncWith(pFrom->_mfTypes, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ColorsFieldMask & whichField))
+        _mfColors.syncWith(pFrom->_mfColors, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (NormalsFieldMask & whichField))
+        _mfNormals.syncWith(pFrom->_mfNormals, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

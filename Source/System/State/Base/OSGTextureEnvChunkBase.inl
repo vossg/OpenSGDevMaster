@@ -90,6 +90,14 @@ const GLenum &TextureEnvChunkBase::getEnvMode(void) const
     return _sfEnvMode.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvMode(void)
+{
+    return this->editEnvMode();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvMode field.
 inline
 void TextureEnvChunkBase::setEnvMode(const GLenum &value)
@@ -114,6 +122,14 @@ const Color4f &TextureEnvChunkBase::getEnvColor(void) const
 {
     return _sfEnvColor.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Color4f &TextureEnvChunkBase::getEnvColor(void)
+{
+    return this->editEnvColor();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvColor field.
 inline
@@ -140,6 +156,14 @@ const GLenum &TextureEnvChunkBase::getEnvCombineRGB(void) const
     return _sfEnvCombineRGB.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvCombineRGB(void)
+{
+    return this->editEnvCombineRGB();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvCombineRGB field.
 inline
 void TextureEnvChunkBase::setEnvCombineRGB(const GLenum &value)
@@ -164,6 +188,14 @@ const GLenum &TextureEnvChunkBase::getEnvCombineAlpha(void) const
 {
     return _sfEnvCombineAlpha.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvCombineAlpha(void)
+{
+    return this->editEnvCombineAlpha();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvCombineAlpha field.
 inline
@@ -190,6 +222,14 @@ const Real32 &TextureEnvChunkBase::getEnvScaleRGB(void) const
     return _sfEnvScaleRGB.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureEnvChunkBase::getEnvScaleRGB(void)
+{
+    return this->editEnvScaleRGB();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvScaleRGB field.
 inline
 void TextureEnvChunkBase::setEnvScaleRGB(const Real32 &value)
@@ -214,6 +254,14 @@ const Real32 &TextureEnvChunkBase::getEnvScaleAlpha(void) const
 {
     return _sfEnvScaleAlpha.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureEnvChunkBase::getEnvScaleAlpha(void)
+{
+    return this->editEnvScaleAlpha();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvScaleAlpha field.
 inline
@@ -240,6 +288,14 @@ const GLenum &TextureEnvChunkBase::getEnvSource0RGB(void) const
     return _sfEnvSource0RGB.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvSource0RGB(void)
+{
+    return this->editEnvSource0RGB();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvSource0RGB field.
 inline
 void TextureEnvChunkBase::setEnvSource0RGB(const GLenum &value)
@@ -264,6 +320,14 @@ const GLenum &TextureEnvChunkBase::getEnvSource1RGB(void) const
 {
     return _sfEnvSource1RGB.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvSource1RGB(void)
+{
+    return this->editEnvSource1RGB();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvSource1RGB field.
 inline
@@ -290,6 +354,14 @@ const GLenum &TextureEnvChunkBase::getEnvSource2RGB(void) const
     return _sfEnvSource2RGB.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvSource2RGB(void)
+{
+    return this->editEnvSource2RGB();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvSource2RGB field.
 inline
 void TextureEnvChunkBase::setEnvSource2RGB(const GLenum &value)
@@ -314,6 +386,14 @@ const GLenum &TextureEnvChunkBase::getEnvSource0Alpha(void) const
 {
     return _sfEnvSource0Alpha.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvSource0Alpha(void)
+{
+    return this->editEnvSource0Alpha();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvSource0Alpha field.
 inline
@@ -340,6 +420,14 @@ const GLenum &TextureEnvChunkBase::getEnvSource1Alpha(void) const
     return _sfEnvSource1Alpha.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvSource1Alpha(void)
+{
+    return this->editEnvSource1Alpha();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvSource1Alpha field.
 inline
 void TextureEnvChunkBase::setEnvSource1Alpha(const GLenum &value)
@@ -364,6 +452,14 @@ const GLenum &TextureEnvChunkBase::getEnvSource2Alpha(void) const
 {
     return _sfEnvSource2Alpha.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvSource2Alpha(void)
+{
+    return this->editEnvSource2Alpha();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvSource2Alpha field.
 inline
@@ -390,6 +486,14 @@ const GLenum &TextureEnvChunkBase::getEnvOperand0RGB(void) const
     return _sfEnvOperand0RGB.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvOperand0RGB(void)
+{
+    return this->editEnvOperand0RGB();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvOperand0RGB field.
 inline
 void TextureEnvChunkBase::setEnvOperand0RGB(const GLenum &value)
@@ -414,6 +518,14 @@ const GLenum &TextureEnvChunkBase::getEnvOperand1RGB(void) const
 {
     return _sfEnvOperand1RGB.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvOperand1RGB(void)
+{
+    return this->editEnvOperand1RGB();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvOperand1RGB field.
 inline
@@ -440,6 +552,14 @@ const GLenum &TextureEnvChunkBase::getEnvOperand2RGB(void) const
     return _sfEnvOperand2RGB.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvOperand2RGB(void)
+{
+    return this->editEnvOperand2RGB();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvOperand2RGB field.
 inline
 void TextureEnvChunkBase::setEnvOperand2RGB(const GLenum &value)
@@ -464,6 +584,14 @@ const GLenum &TextureEnvChunkBase::getEnvOperand0Alpha(void) const
 {
     return _sfEnvOperand0Alpha.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvOperand0Alpha(void)
+{
+    return this->editEnvOperand0Alpha();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvOperand0Alpha field.
 inline
@@ -490,6 +618,14 @@ const GLenum &TextureEnvChunkBase::getEnvOperand1Alpha(void) const
     return _sfEnvOperand1Alpha.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvOperand1Alpha(void)
+{
+    return this->editEnvOperand1Alpha();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfEnvOperand1Alpha field.
 inline
 void TextureEnvChunkBase::setEnvOperand1Alpha(const GLenum &value)
@@ -514,6 +650,14 @@ const GLenum &TextureEnvChunkBase::getEnvOperand2Alpha(void) const
 {
     return _sfEnvOperand2Alpha.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getEnvOperand2Alpha(void)
+{
+    return this->editEnvOperand2Alpha();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfEnvOperand2Alpha field.
 inline
@@ -540,6 +684,14 @@ const bool &TextureEnvChunkBase::getPointSprite(void) const
     return _sfPointSprite.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &TextureEnvChunkBase::getPointSprite(void)
+{
+    return this->editPointSprite();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfPointSprite field.
 inline
 void TextureEnvChunkBase::setPointSprite(const bool &value)
@@ -564,6 +716,14 @@ const GLenum &TextureEnvChunkBase::getShaderOperation(void) const
 {
     return _sfShaderOperation.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getShaderOperation(void)
+{
+    return this->editShaderOperation();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfShaderOperation field.
 inline
@@ -590,6 +750,14 @@ const GLenum &TextureEnvChunkBase::getShaderInput(void) const
     return _sfShaderInput.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getShaderInput(void)
+{
+    return this->editShaderInput();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfShaderInput field.
 inline
 void TextureEnvChunkBase::setShaderInput(const GLenum &value)
@@ -614,6 +782,14 @@ const Real32 &TextureEnvChunkBase::getShaderOffsetScale(void) const
 {
     return _sfShaderOffsetScale.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureEnvChunkBase::getShaderOffsetScale(void)
+{
+    return this->editShaderOffsetScale();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfShaderOffsetScale field.
 inline
@@ -640,6 +816,14 @@ const Real32 &TextureEnvChunkBase::getShaderOffsetBias(void) const
     return _sfShaderOffsetBias.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureEnvChunkBase::getShaderOffsetBias(void)
+{
+    return this->editShaderOffsetBias();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfShaderOffsetBias field.
 inline
 void TextureEnvChunkBase::setShaderOffsetBias(const Real32 &value)
@@ -664,6 +848,14 @@ const GLenum &TextureEnvChunkBase::getShaderRGBADotProduct(void) const
 {
     return _sfShaderRGBADotProduct.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureEnvChunkBase::getShaderRGBADotProduct(void)
+{
+    return this->editShaderRGBADotProduct();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfShaderRGBADotProduct field.
 inline
@@ -690,6 +882,14 @@ const UInt8 &TextureEnvChunkBase::getShaderCullModes(void) const
     return _sfShaderCullModes.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &TextureEnvChunkBase::getShaderCullModes(void)
+{
+    return this->editShaderCullModes();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfShaderCullModes field.
 inline
 void TextureEnvChunkBase::setShaderCullModes(const UInt8 &value)
@@ -715,6 +915,14 @@ const Vec3f &TextureEnvChunkBase::getShaderConstEye(void) const
     return _sfShaderConstEye.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Vec3f &TextureEnvChunkBase::getShaderConstEye(void)
+{
+    return this->editShaderConstEye();
+}
+#endif
+
 //! Set the value of the TextureEnvChunk::_sfShaderConstEye field.
 inline
 void TextureEnvChunkBase::setShaderConstEye(const Vec3f &value)
@@ -739,6 +947,14 @@ const Real32 &TextureEnvChunkBase::getLodBias(void) const
 {
     return _sfLodBias.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureEnvChunkBase::getLodBias(void)
+{
+    return this->editLodBias();
+}
+#endif
 
 //! Set the value of the TextureEnvChunk::_sfLodBias field.
 inline
@@ -772,6 +988,22 @@ MFReal32 &TextureEnvChunkBase::editShaderOffsetMatrix(void)
 
     return _mfShaderOffsetMatrix;
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureEnvChunkBase::getShaderOffsetMatrix(const UInt32 index)
+{
+    return this->editShaderOffsetMatrix(index);
+}
+
+inline
+MFReal32 &TextureEnvChunkBase::getShaderOffsetMatrix(void)
+{
+    return this->editShaderOffsetMatrix();
+}
+
+#endif
+
 
 //! Get the TextureEnvChunk::_mfShaderOffsetMatrix field.
 inline
@@ -902,6 +1134,94 @@ void TextureEnvChunkBase::execSync (      TextureEnvChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EnvModeFieldMask & whichField))
+        _sfEnvMode.syncWith(pFrom->_sfEnvMode);
+
+    if(FieldBits::NoField != (EnvColorFieldMask & whichField))
+        _sfEnvColor.syncWith(pFrom->_sfEnvColor);
+
+    if(FieldBits::NoField != (EnvCombineRGBFieldMask & whichField))
+        _sfEnvCombineRGB.syncWith(pFrom->_sfEnvCombineRGB);
+
+    if(FieldBits::NoField != (EnvCombineAlphaFieldMask & whichField))
+        _sfEnvCombineAlpha.syncWith(pFrom->_sfEnvCombineAlpha);
+
+    if(FieldBits::NoField != (EnvScaleRGBFieldMask & whichField))
+        _sfEnvScaleRGB.syncWith(pFrom->_sfEnvScaleRGB);
+
+    if(FieldBits::NoField != (EnvScaleAlphaFieldMask & whichField))
+        _sfEnvScaleAlpha.syncWith(pFrom->_sfEnvScaleAlpha);
+
+    if(FieldBits::NoField != (EnvSource0RGBFieldMask & whichField))
+        _sfEnvSource0RGB.syncWith(pFrom->_sfEnvSource0RGB);
+
+    if(FieldBits::NoField != (EnvSource1RGBFieldMask & whichField))
+        _sfEnvSource1RGB.syncWith(pFrom->_sfEnvSource1RGB);
+
+    if(FieldBits::NoField != (EnvSource2RGBFieldMask & whichField))
+        _sfEnvSource2RGB.syncWith(pFrom->_sfEnvSource2RGB);
+
+    if(FieldBits::NoField != (EnvSource0AlphaFieldMask & whichField))
+        _sfEnvSource0Alpha.syncWith(pFrom->_sfEnvSource0Alpha);
+
+    if(FieldBits::NoField != (EnvSource1AlphaFieldMask & whichField))
+        _sfEnvSource1Alpha.syncWith(pFrom->_sfEnvSource1Alpha);
+
+    if(FieldBits::NoField != (EnvSource2AlphaFieldMask & whichField))
+        _sfEnvSource2Alpha.syncWith(pFrom->_sfEnvSource2Alpha);
+
+    if(FieldBits::NoField != (EnvOperand0RGBFieldMask & whichField))
+        _sfEnvOperand0RGB.syncWith(pFrom->_sfEnvOperand0RGB);
+
+    if(FieldBits::NoField != (EnvOperand1RGBFieldMask & whichField))
+        _sfEnvOperand1RGB.syncWith(pFrom->_sfEnvOperand1RGB);
+
+    if(FieldBits::NoField != (EnvOperand2RGBFieldMask & whichField))
+        _sfEnvOperand2RGB.syncWith(pFrom->_sfEnvOperand2RGB);
+
+    if(FieldBits::NoField != (EnvOperand0AlphaFieldMask & whichField))
+        _sfEnvOperand0Alpha.syncWith(pFrom->_sfEnvOperand0Alpha);
+
+    if(FieldBits::NoField != (EnvOperand1AlphaFieldMask & whichField))
+        _sfEnvOperand1Alpha.syncWith(pFrom->_sfEnvOperand1Alpha);
+
+    if(FieldBits::NoField != (EnvOperand2AlphaFieldMask & whichField))
+        _sfEnvOperand2Alpha.syncWith(pFrom->_sfEnvOperand2Alpha);
+
+    if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
+        _sfPointSprite.syncWith(pFrom->_sfPointSprite);
+
+    if(FieldBits::NoField != (ShaderOperationFieldMask & whichField))
+        _sfShaderOperation.syncWith(pFrom->_sfShaderOperation);
+
+    if(FieldBits::NoField != (ShaderInputFieldMask & whichField))
+        _sfShaderInput.syncWith(pFrom->_sfShaderInput);
+
+    if(FieldBits::NoField != (ShaderOffsetMatrixFieldMask & whichField))
+        _mfShaderOffsetMatrix.syncWith(pFrom->_mfShaderOffsetMatrix, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (ShaderOffsetScaleFieldMask & whichField))
+        _sfShaderOffsetScale.syncWith(pFrom->_sfShaderOffsetScale);
+
+    if(FieldBits::NoField != (ShaderOffsetBiasFieldMask & whichField))
+        _sfShaderOffsetBias.syncWith(pFrom->_sfShaderOffsetBias);
+
+    if(FieldBits::NoField != (ShaderRGBADotProductFieldMask & whichField))
+        _sfShaderRGBADotProduct.syncWith(pFrom->_sfShaderRGBADotProduct);
+
+    if(FieldBits::NoField != (ShaderCullModesFieldMask & whichField))
+        _sfShaderCullModes.syncWith(pFrom->_sfShaderCullModes);
+
+    if(FieldBits::NoField != (ShaderConstEyeFieldMask & whichField))
+        _sfShaderConstEye.syncWith(pFrom->_sfShaderConstEye);
+
+    if(FieldBits::NoField != (LodBiasFieldMask & whichField))
+        _sfLodBias.syncWith(pFrom->_sfLodBias);
 }
 #endif
 

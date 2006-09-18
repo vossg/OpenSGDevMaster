@@ -175,6 +175,14 @@ const bool &CubeTextureObjChunkBase::getIsReflectionMap(void) const
     return _sfIsReflectionMap.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &CubeTextureObjChunkBase::getIsReflectionMap(void)
+{
+    return this->editIsReflectionMap();
+}
+#endif
+
 //! Set the value of the CubeTextureObjChunk::_sfIsReflectionMap field.
 inline
 void CubeTextureObjChunkBase::setIsReflectionMap(const bool &value)
@@ -237,6 +245,25 @@ void CubeTextureObjChunkBase::execSync (      CubeTextureObjChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (PosZImageFieldMask & whichField))
+        _sfPosZImage.syncWith(pFrom->_sfPosZImage);
+
+    if(FieldBits::NoField != (PosXImageFieldMask & whichField))
+        _sfPosXImage.syncWith(pFrom->_sfPosXImage);
+
+    if(FieldBits::NoField != (NegXImageFieldMask & whichField))
+        _sfNegXImage.syncWith(pFrom->_sfNegXImage);
+
+    if(FieldBits::NoField != (PosYImageFieldMask & whichField))
+        _sfPosYImage.syncWith(pFrom->_sfPosYImage);
+
+    if(FieldBits::NoField != (NegYImageFieldMask & whichField))
+        _sfNegYImage.syncWith(pFrom->_sfNegYImage);
+
+    if(FieldBits::NoField != (IsReflectionMapFieldMask & whichField))
+        _sfIsReflectionMap.syncWith(pFrom->_sfIsReflectionMap);
 }
 #endif
 

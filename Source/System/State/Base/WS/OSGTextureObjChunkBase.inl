@@ -107,6 +107,14 @@ const GLenum &TextureObjChunkBase::getInternalFormat(void) const
     return _sfInternalFormat.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getInternalFormat(void)
+{
+    return this->editInternalFormat();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfInternalFormat field.
 inline
 void TextureObjChunkBase::setInternalFormat(const GLenum &value)
@@ -131,6 +139,14 @@ const GLenum &TextureObjChunkBase::getExternalFormat(void) const
 {
     return _sfExternalFormat.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getExternalFormat(void)
+{
+    return this->editExternalFormat();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfExternalFormat field.
 inline
@@ -157,6 +173,14 @@ const bool &TextureObjChunkBase::getScale(void) const
     return _sfScale.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+bool &TextureObjChunkBase::getScale(void)
+{
+    return this->editScale();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfScale field.
 inline
 void TextureObjChunkBase::setScale(const bool &value)
@@ -181,6 +205,14 @@ const UInt32 &TextureObjChunkBase::getFrame(void) const
 {
     return _sfFrame.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &TextureObjChunkBase::getFrame(void)
+{
+    return this->editFrame();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfFrame field.
 inline
@@ -207,6 +239,14 @@ const GLenum &TextureObjChunkBase::getMinFilter(void) const
     return _sfMinFilter.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getMinFilter(void)
+{
+    return this->editMinFilter();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfMinFilter field.
 inline
 void TextureObjChunkBase::setMinFilter(const GLenum &value)
@@ -231,6 +271,14 @@ const GLenum &TextureObjChunkBase::getMagFilter(void) const
 {
     return _sfMagFilter.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getMagFilter(void)
+{
+    return this->editMagFilter();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfMagFilter field.
 inline
@@ -257,6 +305,14 @@ const GLenum &TextureObjChunkBase::getWrapS(void) const
     return _sfWrapS.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getWrapS(void)
+{
+    return this->editWrapS();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfWrapS field.
 inline
 void TextureObjChunkBase::setWrapS(const GLenum &value)
@@ -281,6 +337,14 @@ const GLenum &TextureObjChunkBase::getWrapT(void) const
 {
     return _sfWrapT.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getWrapT(void)
+{
+    return this->editWrapT();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfWrapT field.
 inline
@@ -307,6 +371,14 @@ const GLenum &TextureObjChunkBase::getWrapR(void) const
     return _sfWrapR.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getWrapR(void)
+{
+    return this->editWrapR();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfWrapR field.
 inline
 void TextureObjChunkBase::setWrapR(const GLenum &value)
@@ -331,6 +403,14 @@ const GLenum &TextureObjChunkBase::getGLId(void) const
 {
     return _sfGLId.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getGLId(void)
+{
+    return this->editGLId();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfGLId field.
 inline
@@ -357,6 +437,14 @@ const Int32 &TextureObjChunkBase::getIgnoreGLForAspect(void) const
     return _sfIgnoreGLForAspect.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &TextureObjChunkBase::getIgnoreGLForAspect(void)
+{
+    return this->editIgnoreGLForAspect();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfIgnoreGLForAspect field.
 inline
 void TextureObjChunkBase::setIgnoreGLForAspect(const Int32 &value)
@@ -381,6 +469,14 @@ const Real32 &TextureObjChunkBase::getPriority(void) const
 {
     return _sfPriority.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureObjChunkBase::getPriority(void)
+{
+    return this->editPriority();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfPriority field.
 inline
@@ -407,6 +503,14 @@ const Int32 &TextureObjChunkBase::getDirtyLeft(void) const
     return _sfDirtyLeft.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &TextureObjChunkBase::getDirtyLeft(void)
+{
+    return this->editDirtyLeft();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfDirtyLeft field.
 inline
 void TextureObjChunkBase::setDirtyLeft(const Int32 &value)
@@ -431,6 +535,14 @@ const Int32 &TextureObjChunkBase::getDirtyMinX(void) const
 {
     return _sfDirtyMinX.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &TextureObjChunkBase::getDirtyMinX(void)
+{
+    return this->editDirtyMinX();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfDirtyMinX field.
 inline
@@ -457,6 +569,14 @@ const Int32 &TextureObjChunkBase::getDirtyMaxX(void) const
     return _sfDirtyMaxX.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &TextureObjChunkBase::getDirtyMaxX(void)
+{
+    return this->editDirtyMaxX();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfDirtyMaxX field.
 inline
 void TextureObjChunkBase::setDirtyMaxX(const Int32 &value)
@@ -481,6 +601,14 @@ const Int32 &TextureObjChunkBase::getDirtyMinY(void) const
 {
     return _sfDirtyMinY.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &TextureObjChunkBase::getDirtyMinY(void)
+{
+    return this->editDirtyMinY();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfDirtyMinY field.
 inline
@@ -507,6 +635,14 @@ const Int32 &TextureObjChunkBase::getDirtyMaxY(void) const
     return _sfDirtyMaxY.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &TextureObjChunkBase::getDirtyMaxY(void)
+{
+    return this->editDirtyMaxY();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfDirtyMaxY field.
 inline
 void TextureObjChunkBase::setDirtyMaxY(const Int32 &value)
@@ -531,6 +667,14 @@ const Int32 &TextureObjChunkBase::getDirtyMinZ(void) const
 {
     return _sfDirtyMinZ.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 &TextureObjChunkBase::getDirtyMinZ(void)
+{
+    return this->editDirtyMinZ();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfDirtyMinZ field.
 inline
@@ -557,6 +701,14 @@ const Int32 &TextureObjChunkBase::getDirtyMaxZ(void) const
     return _sfDirtyMaxZ.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32 &TextureObjChunkBase::getDirtyMaxZ(void)
+{
+    return this->editDirtyMaxZ();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfDirtyMaxZ field.
 inline
 void TextureObjChunkBase::setDirtyMaxZ(const Int32 &value)
@@ -581,6 +733,14 @@ const Real32 &TextureObjChunkBase::getAnisotropy(void) const
 {
     return _sfAnisotropy.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+Real32 &TextureObjChunkBase::getAnisotropy(void)
+{
+    return this->editAnisotropy();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfAnisotropy field.
 inline
@@ -607,6 +767,14 @@ const Color4f &TextureObjChunkBase::getBorderColor(void) const
     return _sfBorderColor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &TextureObjChunkBase::getBorderColor(void)
+{
+    return this->editBorderColor();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfBorderColor field.
 inline
 void TextureObjChunkBase::setBorderColor(const Color4f &value)
@@ -631,6 +799,14 @@ const GLenum &TextureObjChunkBase::getCompareMode(void) const
 {
     return _sfCompareMode.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getCompareMode(void)
+{
+    return this->editCompareMode();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfCompareMode field.
 inline
@@ -657,6 +833,14 @@ const GLenum &TextureObjChunkBase::getCompareFunc(void) const
     return _sfCompareFunc.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getCompareFunc(void)
+{
+    return this->editCompareFunc();
+}
+#endif
+
 //! Set the value of the TextureObjChunk::_sfCompareFunc field.
 inline
 void TextureObjChunkBase::setCompareFunc(const GLenum &value)
@@ -681,6 +865,14 @@ const GLenum &TextureObjChunkBase::getDepthMode(void) const
 {
     return _sfDepthMode.getValue();
 }
+
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjChunkBase::getDepthMode(void)
+{
+    return this->editDepthMode();
+}
+#endif
 
 //! Set the value of the TextureObjChunk::_sfDepthMode field.
 inline
@@ -801,6 +993,82 @@ void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ImageFieldMask & whichField))
+        _sfImage.syncWith(pFrom->_sfImage);
+
+    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
+        _sfInternalFormat.syncWith(pFrom->_sfInternalFormat);
+
+    if(FieldBits::NoField != (ExternalFormatFieldMask & whichField))
+        _sfExternalFormat.syncWith(pFrom->_sfExternalFormat);
+
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+        _sfScale.syncWith(pFrom->_sfScale);
+
+    if(FieldBits::NoField != (FrameFieldMask & whichField))
+        _sfFrame.syncWith(pFrom->_sfFrame);
+
+    if(FieldBits::NoField != (MinFilterFieldMask & whichField))
+        _sfMinFilter.syncWith(pFrom->_sfMinFilter);
+
+    if(FieldBits::NoField != (MagFilterFieldMask & whichField))
+        _sfMagFilter.syncWith(pFrom->_sfMagFilter);
+
+    if(FieldBits::NoField != (WrapSFieldMask & whichField))
+        _sfWrapS.syncWith(pFrom->_sfWrapS);
+
+    if(FieldBits::NoField != (WrapTFieldMask & whichField))
+        _sfWrapT.syncWith(pFrom->_sfWrapT);
+
+    if(FieldBits::NoField != (WrapRFieldMask & whichField))
+        _sfWrapR.syncWith(pFrom->_sfWrapR);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
+
+    if(FieldBits::NoField != (IgnoreGLForAspectFieldMask & whichField))
+        _sfIgnoreGLForAspect.syncWith(pFrom->_sfIgnoreGLForAspect);
+
+    if(FieldBits::NoField != (PriorityFieldMask & whichField))
+        _sfPriority.syncWith(pFrom->_sfPriority);
+
+    if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
+        _sfDirtyLeft.syncWith(pFrom->_sfDirtyLeft);
+
+    if(FieldBits::NoField != (DirtyMinXFieldMask & whichField))
+        _sfDirtyMinX.syncWith(pFrom->_sfDirtyMinX);
+
+    if(FieldBits::NoField != (DirtyMaxXFieldMask & whichField))
+        _sfDirtyMaxX.syncWith(pFrom->_sfDirtyMaxX);
+
+    if(FieldBits::NoField != (DirtyMinYFieldMask & whichField))
+        _sfDirtyMinY.syncWith(pFrom->_sfDirtyMinY);
+
+    if(FieldBits::NoField != (DirtyMaxYFieldMask & whichField))
+        _sfDirtyMaxY.syncWith(pFrom->_sfDirtyMaxY);
+
+    if(FieldBits::NoField != (DirtyMinZFieldMask & whichField))
+        _sfDirtyMinZ.syncWith(pFrom->_sfDirtyMinZ);
+
+    if(FieldBits::NoField != (DirtyMaxZFieldMask & whichField))
+        _sfDirtyMaxZ.syncWith(pFrom->_sfDirtyMaxZ);
+
+    if(FieldBits::NoField != (AnisotropyFieldMask & whichField))
+        _sfAnisotropy.syncWith(pFrom->_sfAnisotropy);
+
+    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
+        _sfBorderColor.syncWith(pFrom->_sfBorderColor);
+
+    if(FieldBits::NoField != (CompareModeFieldMask & whichField))
+        _sfCompareMode.syncWith(pFrom->_sfCompareMode);
+
+    if(FieldBits::NoField != (CompareFuncFieldMask & whichField))
+        _sfCompareFunc.syncWith(pFrom->_sfCompareFunc);
+
+    if(FieldBits::NoField != (DepthModeFieldMask & whichField))
+        _sfDepthMode.syncWith(pFrom->_sfDepthMode);
 }
 #endif
 

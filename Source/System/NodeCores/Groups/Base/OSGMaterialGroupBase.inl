@@ -129,6 +129,10 @@ void MaterialGroupBase::execSync (      MaterialGroupBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (MaterialFieldMask & whichField))
+        _sfMaterial.syncWith(pFrom->_sfMaterial);
 }
 #endif
 

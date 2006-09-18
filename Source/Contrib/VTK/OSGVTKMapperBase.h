@@ -511,7 +511,8 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
 
 typedef VTKMapperBase *VTKMapperBaseP;
 
-typedef RefPtr<VTKMapper> VTKMapperRefPtr;
+/** Type specific RefPtr type for VTKMapper. */
+typedef RefPtr<VTKMapperPtr> VTKMapperRefPtr;
 
 typedef osgIF<
     VTKMapperBase::isNodeCore,

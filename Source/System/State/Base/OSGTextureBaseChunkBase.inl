@@ -90,6 +90,14 @@ const GLenum &TextureBaseChunkBase::getTarget(void) const
     return _sfTarget.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureBaseChunkBase::getTarget(void)
+{
+    return this->editTarget();
+}
+#endif
+
 //! Set the value of the TextureBaseChunk::_sfTarget field.
 inline
 void TextureBaseChunkBase::setTarget(const GLenum &value)
@@ -124,6 +132,9 @@ void TextureBaseChunkBase::execSync (      TextureBaseChunkBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (TargetFieldMask & whichField))
+        _sfTarget.syncWith(pFrom->_sfTarget);
 }
 #endif
 

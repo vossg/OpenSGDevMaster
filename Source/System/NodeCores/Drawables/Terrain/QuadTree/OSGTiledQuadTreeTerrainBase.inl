@@ -581,6 +581,55 @@ void TiledQuadTreeTerrainBase::execSync (      TiledQuadTreeTerrainBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (HeightTilesFieldMask & whichField))
+        _mfHeightTiles.syncWith(pFrom->_mfHeightTiles, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (HeightTexturesFieldMask & whichField))
+        _mfHeightTextures.syncWith(pFrom->_mfHeightTextures, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (SizeXFieldMask & whichField))
+        _sfSizeX.syncWith(pFrom->_sfSizeX);
+
+    if(FieldBits::NoField != (SizeYFieldMask & whichField))
+        _sfSizeY.syncWith(pFrom->_sfSizeY);
+
+    if(FieldBits::NoField != (HeightScaleFieldMask & whichField))
+        _sfHeightScale.syncWith(pFrom->_sfHeightScale);
+
+    if(FieldBits::NoField != (VertexSpacingFieldMask & whichField))
+        _sfVertexSpacing.syncWith(pFrom->_sfVertexSpacing);
+
+    if(FieldBits::NoField != (GeoMorphingFieldMask & whichField))
+        _sfGeoMorphing.syncWith(pFrom->_sfGeoMorphing);
+
+    if(FieldBits::NoField != (DetailFieldMask & whichField))
+        _sfDetail.syncWith(pFrom->_sfDetail);
+
+    if(FieldBits::NoField != (CurrentXFieldMask & whichField))
+        _sfCurrentX.syncWith(pFrom->_sfCurrentX);
+
+    if(FieldBits::NoField != (CurrentYFieldMask & whichField))
+        _sfCurrentY.syncWith(pFrom->_sfCurrentY);
+
+    if(FieldBits::NoField != (SizeROIFieldMask & whichField))
+        _sfSizeROI.syncWith(pFrom->_sfSizeROI);
+
+    if(FieldBits::NoField != (UpdateFieldMask & whichField))
+        _sfUpdate.syncWith(pFrom->_sfUpdate);
+
+    if(FieldBits::NoField != (UpdateTerrainFieldMask & whichField))
+        _sfUpdateTerrain.syncWith(pFrom->_sfUpdateTerrain);
+
+    if(FieldBits::NoField != (PerPixelLightingFieldMask & whichField))
+        _sfPerPixelLighting.syncWith(pFrom->_sfPerPixelLighting);
 }
 #endif
 

@@ -975,6 +975,85 @@ void QuadTreeTerrainBase::execSync (      QuadTreeTerrainBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (HeightDataFieldMask & whichField))
+        _sfHeightData.syncWith(pFrom->_sfHeightData);
+
+    if(FieldBits::NoField != (HeightScaleFieldMask & whichField))
+        _sfHeightScale.syncWith(pFrom->_sfHeightScale);
+
+    if(FieldBits::NoField != (HeightErrorFieldMask & whichField))
+        _mfHeightError.syncWith(pFrom->_mfHeightError, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (HeightQuadFieldMask & whichField))
+        _mfHeightQuad.syncWith(pFrom->_mfHeightQuad, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (WidthFieldMask & whichField))
+        _sfWidth.syncWith(pFrom->_sfWidth);
+
+    if(FieldBits::NoField != (LevelFieldMask & whichField))
+        _sfLevel.syncWith(pFrom->_sfLevel);
+
+    if(FieldBits::NoField != (DetailFieldMask & whichField))
+        _sfDetail.syncWith(pFrom->_sfDetail);
+
+    if(FieldBits::NoField != (BorderDetailFieldMask & whichField))
+        _sfBorderDetail.syncWith(pFrom->_sfBorderDetail);
+
+    if(FieldBits::NoField != (VertexSpacingFieldMask & whichField))
+        _sfVertexSpacing.syncWith(pFrom->_sfVertexSpacing);
+
+    if(FieldBits::NoField != (HeightVerticesFieldMask & whichField))
+        _sfHeightVertices.syncWith(pFrom->_sfHeightVertices);
+
+    if(FieldBits::NoField != (GeoMorphingFieldMask & whichField))
+        _sfGeoMorphing.syncWith(pFrom->_sfGeoMorphing);
+
+    if(FieldBits::NoField != (BoundMinFieldMask & whichField))
+        _sfBoundMin.syncWith(pFrom->_sfBoundMin);
+
+    if(FieldBits::NoField != (BoundMaxFieldMask & whichField))
+        _sfBoundMax.syncWith(pFrom->_sfBoundMax);
+
+    if(FieldBits::NoField != (EyePointFieldMask & whichField))
+        _sfEyePoint.syncWith(pFrom->_sfEyePoint);
+
+    if(FieldBits::NoField != (EyeHeightFieldMask & whichField))
+        _sfEyeHeight.syncWith(pFrom->_sfEyeHeight);
+
+    if(FieldBits::NoField != (EyePointValidFieldMask & whichField))
+        _sfEyePointValid.syncWith(pFrom->_sfEyePointValid);
+
+    if(FieldBits::NoField != (OriginXFieldMask & whichField))
+        _sfOriginX.syncWith(pFrom->_sfOriginX);
+
+    if(FieldBits::NoField != (OriginYFieldMask & whichField))
+        _sfOriginY.syncWith(pFrom->_sfOriginY);
+
+    if(FieldBits::NoField != (OriginTexXFieldMask & whichField))
+        _sfOriginTexX.syncWith(pFrom->_sfOriginTexX);
+
+    if(FieldBits::NoField != (OriginTexYFieldMask & whichField))
+        _sfOriginTexY.syncWith(pFrom->_sfOriginTexY);
+
+    if(FieldBits::NoField != (TexSpacingFieldMask & whichField))
+        _sfTexSpacing.syncWith(pFrom->_sfTexSpacing);
+
+    if(FieldBits::NoField != (TexYSpacingFieldMask & whichField))
+        _sfTexYSpacing.syncWith(pFrom->_sfTexYSpacing);
+
+    if(FieldBits::NoField != (UpdateTerrainFieldMask & whichField))
+        _sfUpdateTerrain.syncWith(pFrom->_sfUpdateTerrain);
+
+    if(FieldBits::NoField != (PerPixelLightingFieldMask & whichField))
+        _sfPerPixelLighting.syncWith(pFrom->_sfPerPixelLighting);
 }
 #endif
 

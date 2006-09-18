@@ -90,6 +90,14 @@ const GLenum &TextureObjRefChunkBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+GLenum &TextureObjRefChunkBase::getGLId(void)
+{
+    return this->editGLId();
+}
+#endif
+
 //! Set the value of the TextureObjRefChunk::_sfGLId field.
 inline
 void TextureObjRefChunkBase::setGLId(const GLenum &value)
@@ -137,6 +145,10 @@ void TextureObjRefChunkBase::execSync (      TextureObjRefChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (GLIdFieldMask & whichField))
+        _sfGLId.syncWith(pFrom->_sfGLId);
 }
 #endif
 

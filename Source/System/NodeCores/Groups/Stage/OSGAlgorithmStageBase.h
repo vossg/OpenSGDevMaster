@@ -367,7 +367,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
 
 typedef AlgorithmStageBase *AlgorithmStageBaseP;
 
-typedef RefPtr<AlgorithmStage> AlgorithmStageRefPtr;
+/** Type specific RefPtr type for AlgorithmStage. */
+typedef RefPtr<AlgorithmStagePtr> AlgorithmStageRefPtr;
 
 typedef osgIF<
     AlgorithmStageBase::isNodeCore,

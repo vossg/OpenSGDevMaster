@@ -763,7 +763,8 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
 
 typedef QuadTreeTerrainBase *QuadTreeTerrainBaseP;
 
-typedef RefPtr<QuadTreeTerrain> QuadTreeTerrainRefPtr;
+/** Type specific RefPtr type for QuadTreeTerrain. */
+typedef RefPtr<QuadTreeTerrainPtr> QuadTreeTerrainRefPtr;
 
 typedef osgIF<
     QuadTreeTerrainBase::isNodeCore,

@@ -360,7 +360,8 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
 
 typedef TextureSelectChunkBase *TextureSelectChunkBaseP;
 
-typedef RefPtr<TextureSelectChunk> TextureSelectChunkRefPtr;
+/** Type specific RefPtr type for TextureSelectChunk. */
+typedef RefPtr<TextureSelectChunkPtr> TextureSelectChunkRefPtr;
 
 typedef osgIF<
     TextureSelectChunkBase::isNodeCore,

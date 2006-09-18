@@ -243,7 +243,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
 
 typedef AlgorithmBase *AlgorithmBaseP;
 
-typedef RefPtr<Algorithm> AlgorithmRefPtr;
+/** Type specific RefPtr type for Algorithm. */
+typedef RefPtr<AlgorithmPtr> AlgorithmRefPtr;
 
 typedef osgIF<
     AlgorithmBase::isNodeCore,

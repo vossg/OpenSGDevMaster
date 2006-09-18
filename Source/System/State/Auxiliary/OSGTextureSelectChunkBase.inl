@@ -90,6 +90,14 @@ const UInt32 &TextureSelectChunkBase::getChoice(void) const
     return _sfChoice.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+UInt32 &TextureSelectChunkBase::getChoice(void)
+{
+    return this->editChoice();
+}
+#endif
+
 //! Set the value of the TextureSelectChunk::_sfChoice field.
 inline
 void TextureSelectChunkBase::setChoice(const UInt32 &value)
@@ -157,6 +165,16 @@ void TextureSelectChunkBase::execSync (      TextureSelectChunkBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ChoiceFieldMask & whichField))
+        _sfChoice.syncWith(pFrom->_sfChoice);
+
+    if(FieldBits::NoField != (TexturesFieldMask & whichField))
+        _mfTextures.syncWith(pFrom->_mfTextures, 
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

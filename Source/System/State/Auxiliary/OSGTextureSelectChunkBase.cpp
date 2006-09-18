@@ -159,6 +159,13 @@ const SFUInt32 *TextureSelectChunkBase::getSFChoice(void) const
     return &_sfChoice;
 }
 
+#ifdef OSG_1_COMPAT
+SFUInt32 *TextureSelectChunkBase::getSFChoice(void)
+{
+    return this->editSFChoice();
+}
+#endif
+
 //! Get the TextureSelectChunk::_mfTextures field.
 const MFTextureBaseChunkPtr *TextureSelectChunkBase::getMFTextures(void) const
 {
@@ -256,8 +263,8 @@ void TextureSelectChunkBase::clearField(const UInt32 uiFieldId)
 
 void TextureSelectChunkBase::pushToTextures(TextureBaseChunkPtrConstArg value)
 {
-//    if(value == NullFC)
-//        return;
+    if(value == NullFC)
+        return;
 
     editMField(TexturesFieldMask, _mfTextures);
 
