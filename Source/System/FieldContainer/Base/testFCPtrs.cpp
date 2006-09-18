@@ -1,8 +1,8 @@
 
-#include <OpenSG/OSGBaseInitFunctions.h>
-#include <OpenSG/OSGNode.h>
-#include <OpenSG/OSGNodeCore.h>
-#include <OpenSG/OSGRefPtr.h>
+#include <OSGBaseInitFunctions.h>
+#include <OSGNode.h>
+#include <OSGNodeCore.h>
+#include <OSGRefPtr.h>
 
 
 int main (int argc, char **argv)

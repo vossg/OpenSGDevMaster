@@ -40,7 +40,8 @@
 #include "OSGOSGWriter.h"
 #include "OSGChangeList.h"
 #include "OSGIOStream.h"
-#include "OSGTextureChunk.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
 #include "OSGSimpleMaterial.h"
 #include "OSGSimpleStage.h"
 #include "OSGVisitSubTree.h"
@@ -68,7 +69,8 @@ TransformPtr scene_trans;
 
 TransformPtr cam_transPlane;
 
-TextureChunkPtr tx1;
+TextureObjChunkPtr tx1o;
+TextureEnvChunkPtr tx1e;
 
 Trackball    tball;
 
@@ -355,7 +357,7 @@ void initAnimSetup(int argc, char **argv)
 
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
 
-    pTexBuffer->setTexture(tx1);
+    pTexBuffer->setTexture(tx1o);
 
     pFBO->setSize(512, 512);
     
@@ -457,18 +459,20 @@ void initPlaneSetup(void)
 
     pImg->set(Image::OSG_RGB_PF, 512, 512);
 
-    tx1->setImage    (pImg      ); 
-    tx1->setMinFilter(GL_LINEAR );
-    tx1->setMagFilter(GL_LINEAR );
-    tx1->setWrapS    (GL_REPEAT );
-    tx1->setWrapT    (GL_REPEAT );
-    tx1->setEnvMode  (GL_REPLACE);
+    tx1o->setImage    (pImg      ); 
+    tx1o->setMinFilter(GL_LINEAR );
+    tx1o->setMagFilter(GL_LINEAR );
+    tx1o->setWrapS    (GL_REPEAT );
+    tx1o->setWrapT    (GL_REPEAT );
+
+    tx1e->setEnvMode (GL_REPLACE);
 
     SimpleMaterialPtr mat = SimpleMaterial::create();
     
     mat->setDiffuse(Color3f(1,1,1));
     mat->setLit    (false         );
-    mat->addChunk  (tx1           );
+    mat->addChunk  (tx1o          );
+    mat->addChunk  (tx1e          );
 
     pGeo->setMaterial(mat);
 
@@ -560,7 +564,8 @@ int main (int argc, char **argv)
 
     // create shared texture
 
-    tx1 = TextureChunk::create();
+    tx1o = TextureObjChunk::create();
+    tx1e = TextureEnvChunk::create();
 
     // create the graph
 
