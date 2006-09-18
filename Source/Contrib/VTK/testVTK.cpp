@@ -35,6 +35,7 @@
 #include "OSGVTKMapper.h"
 
 #include "OSGTrackball.h"
+#include "OSGOSGWriter.h"
 
 #include "vtkStructuredGridReader.h"
 #include "vtkStructuredGrid.h"
@@ -114,6 +115,8 @@ display(void)
     {
         cam_trans->editSFMatrix()->setValue( m1 );
     }
+
+    Thread::getCurrentChangeList()->commitChanges();
 
 //    win->draw( ract );
     win->render(renact);
@@ -841,6 +844,18 @@ int main (int argc, char **argv)
     Thread::getCurrentChangeList()->commitChanges();
     file1->updateVolume();
 
+#if 0
+    OSG::IndentFileOutStream outFileStream("/tmp/vsc_out.osg");
+    
+    if(outFileStream)
+    {
+        std::cerr << "STARTING PRINTOUT:" << std::endl;
+        OSG::OSGWriter writer(outFileStream, 4);
+        writer.write(file1);
+        outFileStream.close(); 
+    }
+#endif
+   
 //    file->dump();
 
 //    subRefCP(file);

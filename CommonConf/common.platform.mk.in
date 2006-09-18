@@ -85,6 +85,7 @@ LINK_SYSTEM     := @ac_gdz_system_lib_dir_e1@
 ADD_INCLUDE     := @ac_gdz_additional_inc_dirs_e1@
 ADD_LINK        := @ac_gdz_additional_lib_dirs_e1@
 ADD_LIBS        := @ac_gdz_additional_libs_e1@
+ADD_DEFS        := @ac_gdz_additional_defs_e1@
 
 include @ac_gdz_commonpackage_dir_e1@/commonSTL.mk
 
@@ -163,6 +164,17 @@ ADD_LIBS_$(OS_BASE) := $(foreach lib,$(ADD_LIBS),$(LIBLNK_OPTION)$(lib))
 endif
 
 LIBS_$(OS_BASE) := $(ADD_LIBS_$(OS_BASE)) $(LIBS_$(OS_BASE))
+
+endif
+
+ifneq ($(ADD_DEFS),)
+
+ADD_DEFS := $(subst :, ,$(ADD_DEFS))
+
+ADD_DEFS_$(OS_BASE) := $(foreach def,$(ADD_DEFS),-D$(def))
+
+CCFLAGS     := $(CCFLAGS)     $(ADD_DEFS_$(OS_BASE))
+CCFLAGS_EXT := $(CCFLAGS_EXT) $(ADD_DEFS_$(OS_BASE))
 
 endif
 

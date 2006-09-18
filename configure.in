@@ -910,6 +910,17 @@ else
 	ac_gdz_with_add_libs=$with_add_lib 
 fi
 
+AC_ARG_WITH(add-def,   [  --with-add-def=DEF=[Value]{:DEF[=Value]}*           use additional defines (no spaces allowed)],
+			,with_add_def=no) 
+
+if test "$with_add_def" = yes; then
+	ac_gdz_with_add_defs=
+elif test "$with_add_def" = no; then
+	ac_gdz_with_add_defs=
+else
+	ac_gdz_with_add_defs=$with_add_def 
+fi
+
 
 dnl ############# CP Settings #####################
 
@@ -1314,6 +1325,7 @@ fi
 ac_gdz_additional_inc_dirs_e1=$ac_gdz_with_add_incdirs
 ac_gdz_additional_lib_dirs_e1=$ac_gdz_with_add_libdirs
 ac_gdz_additional_libs_e1=$ac_gdz_with_add_libs
+ac_gdz_additional_defs_e1=$ac_gdz_with_add_defs
 
 if test "$disable_compilerLogo" = yes; then
 	ac_gdz_compiler_logo_e1=-nologo
@@ -1356,6 +1368,7 @@ AC_SUBST(ac_gdz_system_lib_dir_e1)
 AC_SUBST(ac_gdz_additional_inc_dirs_e1)
 AC_SUBST(ac_gdz_additional_lib_dirs_e1)
 AC_SUBST(ac_gdz_additional_libs_e1)
+AC_SUBST(ac_gdz_additional_defs_e1)
 
 AC_SUBST(ac_gdz_compiler_incl)
 AC_SUBST(ac_gdz_compiler_lib)
