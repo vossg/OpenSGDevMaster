@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="TextureEnvChunk"
+	parent="StateChunk"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="envMode"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_REPLACE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment mode, default GL_REPLACE
+	</Field>
+	<Field
+		name="envColor"
+		type="Color4f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0,0,0,0"
+		access="public"
+	>
+        Texture environment color default transparent black.
+	</Field>
+	<Field
+		name="envCombineRGB"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_MODULATE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment rgb combine mode, default GL_MODULATE
+	</Field>
+	<Field
+		name="envCombineAlpha"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_MODULATE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment alpha combine mode, default GL_MODULATE
+	</Field>
+	<Field
+		name="envScaleRGB"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.0f"
+		access="public"
+	>
+        Texture environment combine rgb scale factor, default 1.f
+	</Field>
+	<Field
+		name="envScaleAlpha"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.0f"
+		access="public"
+	>
+        Texture environment combine alpha scale factor, default 1.f
+	</Field>
+	<Field
+		name="envSource0RGB"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_TEXTURE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment combine source 0 rgb, default GL_TEXTURE
+	</Field>
+	<Field
+		name="envSource1RGB"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_PREVIOUS_EXT"
+		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		access="public"
+	>
+        Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT
+	</Field>
+	<Field
+		name="envSource2RGB"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_CONSTANT_EXT"
+		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		access="public"
+	>
+        Texture environment combine source 2 rgb, default GL_CONSTANT_EXT
+	</Field>
+	<Field
+		name="envSource0Alpha"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_TEXTURE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment combine source 0 alpha, default GL_TEXTURE
+	</Field>
+	<Field
+		name="envSource1Alpha"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_PREVIOUS_EXT"
+		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		access="public"
+	>
+        Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT
+	</Field>
+	<Field
+		name="envSource2Alpha"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_CONSTANT_EXT"
+		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		access="public"
+	>
+        Texture environment combine source 2 alpha, default GL_CONSTANT_EXT
+	</Field>
+	<Field
+		name="envOperand0RGB"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_SRC_COLOR"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment combine operand 0 rgb, default GL_SRC_COLOR
+	</Field>
+	<Field
+		name="envOperand1RGB"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_SRC_COLOR"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment combine operand 1 rgb, default GL_SRC_COLOR
+	</Field>
+	<Field
+		name="envOperand2RGB"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_SRC_ALPHA"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment combine operand 2 rgb, default GL_SRC_ALPHA
+	</Field>
+	<Field
+		name="envOperand0Alpha"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_SRC_ALPHA"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment combine operand 0 alpha, default GL_SRC_ALPHA
+	</Field>
+	<Field
+		name="envOperand1Alpha"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_SRC_ALPHA"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment combine operand 1 alpha, default GL_SRC_ALPHA
+	</Field>
+	<Field
+		name="envOperand2Alpha"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		defaultValue="GL_SRC_ALPHA"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+        Texture environment combine operand 2 alpha, default GL_SRC_ALPHA
+	</Field>
+	<Field
+		name="pointSprite"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="GL_FALSE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+        Flag to use this texture for Point Sprites.
+	</Field>
+	<Field
+		name="shaderOperation"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="GL_NONE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+        Shader operation of this texture unit, default GL_NONE. If unit 0 uses
+        GL_NONE, shading is switched off.
+	</Field>
+	<Field
+		name="shaderInput"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="GL_NONE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+        Input texture unit for this shader's operation.
+	</Field>
+	<Field
+		name="shaderOffsetMatrix"
+		type="Real32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+        The 2x2 transformation matrix for offset textures.
+	</Field>
+	<Field
+		name="shaderOffsetScale"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="1.f"
+	>
+        The scaling factor for scaled offset textures.
+	</Field>
+	<Field
+		name="shaderOffsetBias"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="0.f"
+	>
+        The bias factor for scaled offset textures.
+	</Field>
+	<Field
+		name="shaderRGBADotProduct"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="GL_NONE"
+		defaultHeader="&lt;OSGGL.h&gt;"
+	>
+        The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.
+	</Field>
+	<Field
+		name="shaderCullModes"
+		type="UInt8"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="0"
+	>
+        The CULL_MODES_NV value, coded into a single byte. The first 4 bits of
+        the byte are used to indicate the wnated cull modes, a value of 0 
+        signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for 
+        the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4 
+        (mask 8) for Q.
+	</Field>
+	<Field
+		name="shaderConstEye"
+		type="Vec3f"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+        The CONST_EYE_NV value, i.e. the constant eye position used by the 
+        DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.
+	</Field>
+	<Field
+		name="lodBias"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="0.f"
+		defaultHeader=""
+	>
+        Bias of LOD calculation for texture access.
+	</Field>
+</FieldContainer>
