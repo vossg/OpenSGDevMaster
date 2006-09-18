@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="TextureObjRefChunk"
+	parent="TextureBaseChunk"
+	library="State"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+	<Field
+		name="GLId"
+		type="GLenum"
+		cardinality="single"
+		visibility="external"
+		access="public"
+		defaultValue="0"
+	>
+	glid
+	</Field>
+    <Field
+        name="target"
+        type="GLenum"
+        cardinality="single"
+        visibility="external"
+        defaultValue="GL_TEXTURE_2D"
+        defaultHeader="&lt;OSGGL.h&gt;"
+        access="public"
+    >
+        Texture target.
+    </Field>
+</FieldContainer>
