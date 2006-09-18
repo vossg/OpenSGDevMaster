@@ -72,6 +72,12 @@ OSG_USING_NAMESPACE
 /*! \var AlgorithmPtr AlgorithmStageBase::_sfAlgorithm
     
 */
+/*! \var UInt32 AlgorithmStageBase::_sfProjectionMode
+    
+*/
+/*! \var Matrix AlgorithmStageBase::_sfProjectionMatrix
+    
+*/
 
 void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 {
@@ -86,6 +92,48 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&AlgorithmStageBase::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getSFAlgorithm));
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt32 *(AlgorithmStageBase::*GetSFProjectionModeF)(void) const;
+
+    GetSFProjectionModeF GetSFProjectionMode = &AlgorithmStageBase::getSFProjectionMode;
+#endif
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(), 
+        "projectionMode", 
+        ProjectionModeFieldId, ProjectionModeFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editSFProjectionMode),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFProjectionMode));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getSFProjectionMode));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFMatrix *(AlgorithmStageBase::*GetSFProjectionMatrixF)(void) const;
+
+    GetSFProjectionMatrixF GetSFProjectionMatrix = &AlgorithmStageBase::getSFProjectionMatrix;
+#endif
+
+    pDesc = new SFMatrix::Description(
+        SFMatrix::getClassType(), 
+        "projectionMatrix", 
+        ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&AlgorithmStageBase::editSFProjectionMatrix),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFProjectionMatrix));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&AlgorithmStageBase::getSFProjectionMatrix));
+#endif
 
     oType.addInitialDesc(pDesc);
 }
@@ -125,6 +173,30 @@ UInt32 AlgorithmStageBase::getContainerSize(void) const
 const SFAlgorithmPtr *AlgorithmStageBase::getSFAlgorithm(void) const
 {
     return &_sfAlgorithm;
+}
+
+SFUInt32 *AlgorithmStageBase::editSFProjectionMode(void)
+{
+    editSField(ProjectionModeFieldMask);
+
+    return &_sfProjectionMode;
+}
+
+const SFUInt32 *AlgorithmStageBase::getSFProjectionMode(void) const
+{
+    return &_sfProjectionMode;
+}
+
+SFMatrix *AlgorithmStageBase::editSFProjectionMatrix(void)
+{
+    editSField(ProjectionMatrixFieldMask);
+
+    return &_sfProjectionMatrix;
+}
+
+const SFMatrix *AlgorithmStageBase::getSFProjectionMatrix(void) const
+{
+    return &_sfProjectionMatrix;
 }
 
 
@@ -200,6 +272,14 @@ UInt32 AlgorithmStageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfAlgorithm.getBinSize();
     }
+    if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
+    {
+        returnValue += _sfProjectionMode.getBinSize();
+    }
+    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
+    {
+        returnValue += _sfProjectionMatrix.getBinSize();
+    }
 
     return returnValue;
 }
@@ -213,6 +293,14 @@ void AlgorithmStageBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfAlgorithm.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
+    {
+        _sfProjectionMode.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
+    {
+        _sfProjectionMatrix.copyToBin(pMem);
+    }
 }
 
 void AlgorithmStageBase::copyFromBin(BinaryDataHandler &pMem,
@@ -223,6 +311,14 @@ void AlgorithmStageBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
     {
         _sfAlgorithm.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
+    {
+        _sfProjectionMode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
+    {
+        _sfProjectionMatrix.copyFromBin(pMem);
     }
 }
 
@@ -251,13 +347,17 @@ FieldContainerPtr AlgorithmStageBase::shallowCopy(void) const
 
 AlgorithmStageBase::AlgorithmStageBase(void) :
     Inherited(),
-    _sfAlgorithm(AlgorithmPtr(NullFC))
+    _sfAlgorithm(AlgorithmPtr(NullFC)),
+    _sfProjectionMode(UInt32(0x0001)),
+    _sfProjectionMatrix()
 {
 }
 
 AlgorithmStageBase::AlgorithmStageBase(const AlgorithmStageBase &source) :
     Inherited(source),
-    _sfAlgorithm()
+    _sfAlgorithm(),
+    _sfProjectionMode(source._sfProjectionMode),
+    _sfProjectionMatrix(source._sfProjectionMatrix)
 {
 }
 

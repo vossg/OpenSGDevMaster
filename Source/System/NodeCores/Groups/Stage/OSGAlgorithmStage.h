@@ -62,6 +62,16 @@ class OSG_GROUP_DLLMAPPING AlgorithmStage : public AlgorithmStageBase
 
     typedef AlgorithmStageBase                           Inherited;
 
+    enum ProjectionMode
+    {
+        Ignore       = 0x0000,
+        ZeroOne      = 0x0001,
+        CenterOne    = 0x0002,
+        ZeroSize     = 0x0003,
+        CenterSize   = 0x0004,
+        StoredMatrix = 0x0005
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */

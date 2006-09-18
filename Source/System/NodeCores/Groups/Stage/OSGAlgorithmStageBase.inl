@@ -90,6 +90,56 @@ void AlgorithmStageBase::setAlgorithm(AlgorithmPtrConstArg value)
     setRefd(_sfAlgorithm.getValue(), value);
 
 }
+//! Get the value of the AlgorithmStage::_sfProjectionMode field.
+
+inline
+UInt32 &AlgorithmStageBase::editProjectionMode(void)
+{
+    editSField(ProjectionModeFieldMask);
+
+    return _sfProjectionMode.getValue();
+}
+
+//! Get the value of the AlgorithmStage::_sfProjectionMode field.
+inline
+const UInt32 &AlgorithmStageBase::getProjectionMode(void) const
+{
+    return _sfProjectionMode.getValue();
+}
+
+//! Set the value of the AlgorithmStage::_sfProjectionMode field.
+inline
+void AlgorithmStageBase::setProjectionMode(const UInt32 &value)
+{
+    editSField(ProjectionModeFieldMask);
+
+    _sfProjectionMode.setValue(value);
+}
+//! Get the value of the AlgorithmStage::_sfProjectionMatrix field.
+
+inline
+Matrix &AlgorithmStageBase::editProjectionMatrix(void)
+{
+    editSField(ProjectionMatrixFieldMask);
+
+    return _sfProjectionMatrix.getValue();
+}
+
+//! Get the value of the AlgorithmStage::_sfProjectionMatrix field.
+inline
+const Matrix &AlgorithmStageBase::getProjectionMatrix(void) const
+{
+    return _sfProjectionMatrix.getValue();
+}
+
+//! Set the value of the AlgorithmStage::_sfProjectionMatrix field.
+inline
+void AlgorithmStageBase::setProjectionMatrix(const Matrix &value)
+{
+    editSField(ProjectionMatrixFieldMask);
+
+    _sfProjectionMatrix.setValue(value);
+}
 
 //! create a new instance of the class
 inline
@@ -118,6 +168,12 @@ void AlgorithmStageBase::execSync(      AlgorithmStageBase *pOther,
 
     if(FieldBits::NoField != (AlgorithmFieldMask & whichField))
         _sfAlgorithm.syncWith(pOther->_sfAlgorithm);
+
+    if(FieldBits::NoField != (ProjectionModeFieldMask & whichField))
+        _sfProjectionMode.syncWith(pOther->_sfProjectionMode);
+
+    if(FieldBits::NoField != (ProjectionMatrixFieldMask & whichField))
+        _sfProjectionMatrix.syncWith(pOther->_sfProjectionMatrix);
 }
 #endif
 

@@ -66,6 +66,8 @@
 #include "OSGStage.h" // Parent
 
 #include "OSGAlgorithmFields.h" // Algorithm type
+#include "OSGUInt32Fields.h" // ProjectionMode type
+#include "OSGMatrixFields.h" // ProjectionMatrix type
 
 #include "OSGAlgorithmStageFields.h"
 
@@ -111,11 +113,17 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     enum
     {
         AlgorithmFieldId = Inherited::NextFieldId,
-        NextFieldId = AlgorithmFieldId + 1
+        ProjectionModeFieldId = AlgorithmFieldId + 1,
+        ProjectionMatrixFieldId = ProjectionModeFieldId + 1,
+        NextFieldId = ProjectionMatrixFieldId + 1
     };
 
     static const OSG::BitVector AlgorithmFieldMask = 
         (TypeTraits<BitVector>::One << AlgorithmFieldId);
+    static const OSG::BitVector ProjectionModeFieldMask = 
+        (TypeTraits<BitVector>::One << ProjectionModeFieldId);
+    static const OSG::BitVector ProjectionMatrixFieldMask = 
+        (TypeTraits<BitVector>::One << ProjectionMatrixFieldId);
     static const OSG::BitVector NextFieldMask = 
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -145,8 +153,32 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
 
      const SFAlgorithmPtr *getSFAlgorithm (void) const;
 
+#ifdef OSG_1_COMPAT
+           SFUInt32 *getSFProjectionMode(void);
+#endif
+           SFUInt32 *editSFProjectionMode(void);
+     const SFUInt32 *getSFProjectionMode (void) const;
+
+#ifdef OSG_1_COMPAT
+           SFMatrix *getSFProjectionMatrix(void);
+#endif
+           SFMatrix *editSFProjectionMatrix(void);
+     const SFMatrix *getSFProjectionMatrix (void) const;
+
 
            AlgorithmPtrConst getAlgorithm(void) const;
+
+#ifdef OSG_1_COMPAT
+           UInt32 &getProjectionMode(void);
+#endif
+           UInt32 &editProjectionMode(void);
+     const UInt32 &getProjectionMode (void) const;
+
+#ifdef OSG_1_COMPAT
+           Matrix &getProjectionMatrix(void);
+#endif
+           Matrix &editProjectionMatrix(void);
+     const Matrix &getProjectionMatrix (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -154,6 +186,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \{                                                                 */
 
      void setAlgorithm(AlgorithmPtrConstArg value);
+     void setProjectionMode(const UInt32 &value);
+     void setProjectionMatrix(const Matrix &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -230,6 +264,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \{                                                                 */
 
     SFAlgorithmPtr _sfAlgorithm;
+    SFUInt32 _sfProjectionMode;
+    SFMatrix _sfProjectionMatrix;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

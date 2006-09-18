@@ -21,4 +21,22 @@
 		access="public"
 	>
 	</Field>
+	<Field
+		name="projectionMode"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0x0001"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="projectionMatrix"
+		type="Matrix"
+		cardinality="single"
+		visibility="external"
+		defaultValue=""
+		access="public"
+	>
+	</Field>
 </FieldContainer>
