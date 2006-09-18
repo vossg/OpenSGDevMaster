@@ -1,0 +1,13 @@
+# Add the COntrib library to the system
+
+ac_gdz_packages="${ac_gdz_packages} Contrib" 
+ac_gdz_package_order="${ac_gdz_package_order} ContribLib"
+
+ac_gdz_package_name_Contrib="Contrib"
+ac_gdz_package_fact_init_Contrib="1"
+ac_gdz_package_dirs_Contrib="${ac_gdz_package_dirs_Contrib} Contrib@"
+ac_gdz_package_inc_dep_Contrib="@Base@ @System@ @Drawable@ @RenderTraversal@ @State@ "
+ac_gdz_package_link_dep_Contrib="RenderTraversalLib StateLib DrawableLib SystemLib BaseLib GL"
+ac_gdz_package_testinc_dep_Contrib=" @Util@ @Group@ @Window@ WindowSystem/GLUT GLUT"
+ac_gdz_package_testlink_dep_Contrib="UtilLib GroupLib WindowLib WindowGLUTLib GLUT GL TIF JPG PNG MNG"
+ac_gdz_package_def_Contrib="OSG_COMPILECONTRIBLIB"
