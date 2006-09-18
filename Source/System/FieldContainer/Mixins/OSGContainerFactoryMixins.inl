@@ -115,7 +115,7 @@ const Char8 *ContainerFactoryMixin<ParentT>::findGroupName(
 
     GroupMap::const_iterator gIt  = _mGroupMap.begin();
     GroupMap::const_iterator gEnd = _mGroupMap.end  ();
-    
+
     while(gIt != gEnd)
     {
         if((*gIt).second == uiGroupId)
@@ -123,7 +123,7 @@ const Char8 *ContainerFactoryMixin<ParentT>::findGroupName(
 
         ++gIt;
     }
-    
+
 #ifndef OSG_WINCE
     if(_pLock != NULL)
         _pLock->release();
@@ -131,7 +131,7 @@ const Char8 *ContainerFactoryMixin<ParentT>::findGroupName(
 
     return returnValue;
 }
-        
+
 template <class ParentT> inline
 UInt32 ContainerFactoryMixin<ParentT>::getNumGroups(void) const
 {
@@ -208,34 +208,34 @@ template <class ParentT> inline
 typename ContainerFactoryMixin<ParentT>::ContainerType *
     ContainerFactoryMixin<ParentT>::findType(UInt32 uiTypeId) const
 {
-	TypeIdMapConstIt  typeIt;
-	ContainerType    *pType = NULL;
+    TypeIdMapConstIt  typeIt;
+    ContainerType    *pType = NULL;
 
     typeIt = _mTypeIdMap.find(uiTypeId);
 
     pType   = (typeIt == _mTypeIdMap.end()) ? NULL : (*typeIt).second;
 
-	return pType;
+    return pType;
 }
 
 template <class ParentT> inline
 typename ContainerFactoryMixin<ParentT>::ContainerType *
     ContainerFactoryMixin<ParentT>::findType(const Char8 *szName) const
 {
-	TypeNameMapCnstIt  typeIt;
-	ContainerType     *pType = NULL;
+    TypeNameMapCnstIt  typeIt;
+    ContainerType     *pType = NULL;
 
     typeIt = _mTypeNameMap.find(IDStringLink(szName));
-    
+
     pType  = (typeIt == _mTypeNameMap.end()) ? NULL : (*typeIt).second;
 
-	return pType;
+    return pType;
 }
 
 template <class ParentT> inline
 UInt32 ContainerFactoryMixin<ParentT>::getNumTypes(void) const
 {
-    return _mTypeNameMap.size(); 
+    return _mTypeNameMap.size();
 }
 
 
@@ -258,7 +258,7 @@ ContainerFactoryMixin<ParentT>::ContainerFactoryMixin(
 #endif
 {
 }
-    
+
 template <class ParentT> inline
 ContainerFactoryMixin<ParentT>::~ContainerFactoryMixin(void)
 {
@@ -281,17 +281,17 @@ bool ContainerFactoryMixin<FactoryDescT>::initializePendingElements(void)
     if(_pLock != NULL)
         _pLock->acquire();
 #endif
-    
+
     UninitTypeStoreIt uninitIt  = _vUnitTypesStore.begin();
-        
+
     while(uninitIt != _vUnitTypesStore.end())
     {
         pType = *uninitIt;
-        
+
         if(pType->isInitialized() == true)
         {
             uninitIt = _vUnitTypesStore.erase(uninitIt);
-            
+
             _mTypeIdMap  [pType->getId()                  ] = pType;
             _mTypeNameMap[IDStringLink(pType->getCName()) ] = pType;
 
@@ -302,7 +302,7 @@ bool ContainerFactoryMixin<FactoryDescT>::initializePendingElements(void)
             if(pType->initialize() == true)
             {
                 uninitIt = _vUnitTypesStore.erase(uninitIt);
-                
+
                 _mTypeIdMap  [pType->getId()                  ] = pType;
                 _mTypeNameMap[IDStringLink(pType->getCName()) ] = pType;
 
@@ -311,24 +311,24 @@ bool ContainerFactoryMixin<FactoryDescT>::initializePendingElements(void)
             else
             {
                 returnValue = false;
-                
+
                 uninitIt++;
             }
         }
     }
-    
+
 #ifndef OSG_WINCE
     if(_pLock != NULL)
         _pLock->release();
 #endif
-    
-    PINFO << "(" 
-             << returnValue 
-             << "|" 
-             << _vUnitTypesStore.size() 
+
+    PINFO << "("
+             << returnValue
+             << "|"
+             << _vUnitTypesStore.size()
              << "|"
              << _mTypeIdMap.size()
-             << ")" 
+             << ")"
              << std::endl;
 
     return returnValue;
@@ -349,12 +349,12 @@ bool ContainerFactoryMixin<ParentT>::initialize(void)
     PINFO << "init singleton " << this->_szName.str() << std::endl;
 
 #ifndef OSG_WINCE
-    _pLock   = 
+    _pLock   =
         ThreadManager::the()->getLock(Desc::getContainerFactoryLockName());
-    
+
     addRef(_pLock);
 
-    PINFO << "Got map   lock " << _pLock   << std::endl;    
+    PINFO << "Got map   lock " << _pLock   << std::endl;
 
     this->_bInitialized = (_pLock != NULL);
 #endif
@@ -364,14 +364,14 @@ bool ContainerFactoryMixin<ParentT>::initialize(void)
 
     this->_bInitialized = this->initializePendingElements();
 
-	return this->_bInitialized;
+    return this->_bInitialized;
 }
 
 template <class ParentT> inline
 bool ContainerFactoryMixin<ParentT>::initializePendingElementsFactoryPost(void)
 {
     UninitTypeStoreIt uninitIt  = _vPostUnitTypes.begin();
-        
+
     while(uninitIt != _vPostUnitTypes.end())
     {
         (*uninitIt)->initialize(TypeBase::FactoryPost);
@@ -402,7 +402,7 @@ bool ContainerFactoryMixin<ParentT>::terminate(void)
     while(typeIt != typeEnd)
     {
         (*typeIt).second->terminate();
-        
+
         ++typeIt;
     }
 
@@ -415,15 +415,15 @@ bool ContainerFactoryMixin<ParentT>::terminate(void)
 
 
 template <class ParentT> inline
-typename PrototypeFactoryMixin<ParentT>::ContainerPtr 
+typename PrototypeFactoryMixin<ParentT>::ContainerPtr
     PrototypeFactoryMixin<ParentT>::createContainer(const Char8 *szName)
 {
     ContainerPtr returnValue = Desc::getNilPtr();
 
-	const ContainerType *pType = Inherited::findType(szName);
+    const ContainerType *pType = Inherited::findType(szName);
 
     if(pType != NULL)
-    {    
+    {
         returnValue = pType->createContainer();
     }
 
@@ -432,7 +432,7 @@ typename PrototypeFactoryMixin<ParentT>::ContainerPtr
 
 #ifdef OSG_1_COMPAT
 template <class ParentT> inline
-typename PrototypeFactoryMixin<ParentT>::ContainerPtr 
+typename PrototypeFactoryMixin<ParentT>::ContainerPtr
     PrototypeFactoryMixin<ParentT>::createFieldContainer(const Char8 *szName)
 {
     return createContainer(szName);
@@ -446,7 +446,7 @@ PrototypeFactoryMixin<ParentT>::PrototypeFactoryMixin(
     Inherited(szFactoryName)
 {
 }
-    
+
 template <class ParentT> inline
 PrototypeFactoryMixin<ParentT>::~PrototypeFactoryMixin(void)
 {
@@ -473,7 +473,12 @@ bool PrototypeFactoryMixin<ParentT>::initializeFactoryPost()
 
 
 
-
+/*! Register a new container with the store.
+The container is added to the store and its index in the store (the fcid)
+is returned.
+   \param pContainer  The new container to add.  Must not be NullFC
+   \return The index in the store.
+*/
 template <class ParentT> inline
 UInt32 ContainerStoreFactoryMixin<ParentT>::registerContainer(
     const ContainerPtr &pContainer)
@@ -485,7 +490,7 @@ UInt32 ContainerStoreFactoryMixin<ParentT>::registerContainer(
 #endif
 
     _vContainerStore.push_back(pContainer);
-    
+
     returnValue = _vContainerStore.size() - 1;
 
 #ifndef OSG_WINCE
@@ -495,6 +500,11 @@ UInt32 ContainerStoreFactoryMixin<ParentT>::registerContainer(
     return returnValue;
 }
 
+/*! Unregister a field container with the store.
+   \param uiContainerId  The id in the store to remove.
+          If id is out of range, ignore.
+   \return true if compiled debug and out of range otherwise false.
+*/
 template <class ParentT> inline
 bool ContainerStoreFactoryMixin<ParentT>::deregisterContainer(
     const UInt32 uiContainerId)
@@ -513,10 +523,10 @@ bool ContainerStoreFactoryMixin<ParentT>::deregisterContainer(
     else
     {
         FWARNING(("FieldContainerFactory::unregisterFieldContainer:"
-                  "id %d inconsistent with store size %d!\n", 
-                uiContainerId, 
-                _vContainerStore.size()));   
-        returnValue = true;         
+                  "id %d inconsistent with store size %d!\n",
+                uiContainerId,
+                _vContainerStore.size()));
+        returnValue = true;
     }
 #endif
 
@@ -527,8 +537,13 @@ bool ContainerStoreFactoryMixin<ParentT>::deregisterContainer(
     return returnValue;
 }
 
+/*! Return container from the store with the given index (fcid).
+   \param uiContainerId  Id of the container to lookup.
+   \return Ptr to the container found.
+           Null if index is out of bounds or found container is Null.
+*/
 template <class ParentT> inline
-typename ContainerStoreFactoryMixin<ParentT>::ContainerPtr 
+typename ContainerStoreFactoryMixin<ParentT>::ContainerPtr
     ContainerStoreFactoryMixin<ParentT>::getContainer(
         UInt32 uiContainerId) const
 {
@@ -551,7 +566,7 @@ typename ContainerStoreFactoryMixin<ParentT>::ContainerPtr
 }
 
 template <class ParentT> inline
-typename ContainerStoreFactoryMixin<ParentT>::ContainerPtr 
+typename ContainerStoreFactoryMixin<ParentT>::ContainerPtr
     ContainerStoreFactoryMixin<ParentT>::getMappedContainer(
         UInt32 uiContainerId) const
 {
@@ -593,10 +608,10 @@ bool ContainerStoreFactoryMixin<ParentT>::initialize(void)
 
 #ifndef OSG_WINCE
     _pStoreLock = ThreadManager::the()->getLock(Desc::getStoreLockName());
-        
+
     addRef(_pStoreLock);
 
-    PINFO << "Got store lock " << _pStoreLock << std::endl;    
+    PINFO << "Got store lock " << _pStoreLock << std::endl;
 
     if(_pStoreLock == NULL)
     {
@@ -619,7 +634,7 @@ bool ContainerStoreFactoryMixin<ParentT>::terminate (void)
 #ifndef OSG_WINCE
     subRefP(_pStoreLock);
 #endif
-    
+
     this->_bInitialized = false;
 
     return returnValue;
@@ -645,7 +660,7 @@ UInt32 HandledContainerStoreFactoryMixin<ParentT>::registerContainer(
     ContainerHandlerP pHandler = Desc::getHandler(pContainer);
 
     _vContainerStore.push_back(pHandler);
-    
+
     returnValue = _vContainerStore.size() - 1;
 
     _pStoreLock->release();
@@ -669,10 +684,10 @@ bool HandledContainerStoreFactoryMixin<ParentT>::deregisterContainer(
     else
     {
         FWARNING(("FieldContainerFactory::unregisterFieldContainer:"
-                  "id %d inconsistent with store size %d!\n", 
-                uiContainerId, 
-                _vContainerStore.size()));   
-        returnValue = true;         
+                  "id %d inconsistent with store size %d!\n",
+                uiContainerId,
+                _vContainerStore.size()));
+        returnValue = true;
     }
 #endif
 
@@ -682,7 +697,7 @@ bool HandledContainerStoreFactoryMixin<ParentT>::deregisterContainer(
 }
 
 template <class ParentT> inline
-typename HandledContainerStoreFactoryMixin<ParentT>::ContainerPtr 
+typename HandledContainerStoreFactoryMixin<ParentT>::ContainerPtr
     HandledContainerStoreFactoryMixin<ParentT>::getContainer(
         UInt32 uiContainerId) const
 {
@@ -704,7 +719,7 @@ typename HandledContainerStoreFactoryMixin<ParentT>::ContainerPtr
 }
 
 template <class ParentT> inline
-typename HandledContainerStoreFactoryMixin<ParentT>::ContainerHandlerP 
+typename HandledContainerStoreFactoryMixin<ParentT>::ContainerHandlerP
     HandledContainerStoreFactoryMixin<ParentT>::getContainerHandler(
         UInt32 uiContainerId) const
 {
@@ -723,7 +738,7 @@ typename HandledContainerStoreFactoryMixin<ParentT>::ContainerHandlerP
 }
 
 template <class ParentT> inline
-typename HandledContainerStoreFactoryMixin<ParentT>::ContainerPtr 
+typename HandledContainerStoreFactoryMixin<ParentT>::ContainerPtr
     HandledContainerStoreFactoryMixin<ParentT>::getMappedContainer(
         UInt32 uiContainerId) const
 {
@@ -765,10 +780,10 @@ bool HandledContainerStoreFactoryMixin<ParentT>::initialize(void)
         return true;
 
     _pStoreLock = ThreadManager::the()->getLock(Desc::getStoreLockName());
-        
+
     addRef(_pStoreLock);
 
-    PINFO << "Got store lock " << _pStoreLock << std::endl;    
+    PINFO << "Got store lock " << _pStoreLock << std::endl;
 
     if(_pStoreLock == NULL)
     {
@@ -786,7 +801,7 @@ bool HandledContainerStoreFactoryMixin<ParentT>::terminate (void)
     bool returnValue = Inherited::terminate();
 
     subRefP(_pStoreLock);
-    
+
     this->_bInitialized = false;
 
     return returnValue;

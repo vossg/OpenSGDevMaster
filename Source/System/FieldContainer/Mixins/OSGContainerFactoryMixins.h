@@ -200,9 +200,9 @@ class FactoryMixinHead : public FactoryBase
 };
 
 
-/*! \ingroup GrpSystemFieldContainer
+/*!
+    \ingroup GrpSystemFieldContainer
  */
-
 template <class ParentT>
 class ContainerFactoryMixin : public ParentT
 {
@@ -221,7 +221,7 @@ class ContainerFactoryMixin : public ParentT
     /*! \{                                                                 */
 
     typedef typename Inherited::Desc          Desc;
-    
+
     typedef typename Desc     ::ContainerType ContainerType;
     typedef typename Desc     ::ContainerPtr  ContainerPtr;
 
@@ -232,7 +232,7 @@ class ContainerFactoryMixin : public ParentT
 
           UInt16  findGroupId  (const Char8  *szName   ) const;
     const Char8  *findGroupName(      UInt16  uiGroupId) const;
-        
+
           UInt32  getNumGroups (      void             ) const;
 
     /*! \}                                                                 */
@@ -349,7 +349,7 @@ class ContainerFactoryMixin : public ParentT
     /*! \{                                                                 */
 
     ContainerFactoryMixin(const Char8 *szFactoryName);
-    
+
     virtual ~ContainerFactoryMixin(void);
 
     /*! \}                                                                 */
@@ -499,7 +499,7 @@ class PrototypeFactoryMixin : public ParentT
     /*! \{                                                                 */
 
     PrototypeFactoryMixin(const Char8 *szFactoryName);
-    
+
     virtual ~PrototypeFactoryMixin(void);
 
     /*! \}                                                                 */
@@ -534,9 +534,9 @@ class PrototypeFactoryMixin : public ParentT
 };
 
 
-/*! \ingroup GrpSystemFieldContainer
+/*! \brief Mixin to add field container store interface.
+    \ingroup GrpSystemFieldContainer
  */
-
 template <class ParentT>
 class ContainerStoreFactoryMixin : public ParentT
 {
@@ -647,6 +647,9 @@ class ContainerStoreFactoryMixin : public ParentT
     Lock           *_pStoreLock;
 #endif
 
+    /*! List of containers currently alloated in the system.
+        Indexed by container id.
+    */
     ContainerStore  _vContainerStore;
 
     /*! \}                                                                 */

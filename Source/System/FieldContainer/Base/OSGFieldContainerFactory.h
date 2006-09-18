@@ -56,10 +56,17 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \brief Helper class for mapping field container id's from one system to another.
+    \ingroup GrpSystemFieldContainer
+*/
 struct OSG_SYSTEM_DLLMAPPING FieldContainerMapper
 {
     virtual ~FieldContainerMapper();
 
+    /*! Return mapping of field container id.
+      \param uiId  The id to map from.
+      \return Returns the mapped id.
+    */
     virtual UInt32 map(UInt32 uiId) = 0;
 };
 
@@ -120,10 +127,11 @@ struct FieldContainerFactoryDesc
 };
 #endif
 
-/*! \ingroup GrpSystemFieldContainer
+/*! \brief FieldContainerFactoryBase is the central class in OpenSG for accessing,
+           allocating, and mapping field containers allocated in the system.
+    \ingroup GrpSystemFieldContainer
  */
-
-class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase : 
+class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
     public FieldContainerFactoryParent
 {
     /*==========================  PUBLIC  =================================*/
@@ -155,7 +163,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
     /*! \{                                                                 */
 
     void              setMapper         (FieldContainerMapper *pMapper);
-        
+
     FieldContainerPtr getMappedContainer(UInt32 uiContainerId) const;
 
     /*! \}                                                                 */
@@ -222,6 +230,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    /*! Currently active field container mapper. */
     FieldContainerMapper *_pMapper;
 
     /*! \}                                                                 */
@@ -270,8 +279,8 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
 
 #if defined(WIN32)
 #    if !defined(OSG_COMPILE_FIELDCONTAINERFACTORY)
-//OSG_SYSTEM_EXPIMP_TMPL 
-//template 
+//OSG_SYSTEM_EXPIMP_TMPL
+//template
 //class OSG_SYSTEM_DLLMAPPING SingletonHolder<FieldContainerFactoryBase>;
 #    endif
 #endif

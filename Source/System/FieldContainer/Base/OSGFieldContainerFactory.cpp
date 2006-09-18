@@ -63,10 +63,17 @@ FieldContainerMapper::~FieldContainerMapper(void)
 {
 }
 
+/*! \class OSG::FieldContainerFactoryBase
+
+This class is a singleton.  It should be accessed using the typedef
+for OSG::FieldContainerFactory.
+*/
+
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-FieldContainerFactoryBase::FieldContainerFactoryBase(void) : 
+FieldContainerFactoryBase::FieldContainerFactoryBase(void) :
      Inherited("FieldContainerFactory"),
     _pMapper  (NULL                   )
 {

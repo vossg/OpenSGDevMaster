@@ -38,13 +38,18 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! Set the mapper to use for mapping field container ids. */
 inline
 void FieldContainerFactoryBase::setMapper(FieldContainerMapper *pMapper)
 {
     _pMapper = pMapper;
 }
 
-
+/*! Get the container for the given id remapped using the active field container mapper.
+    \param uiContainerId  The container id to look up.
+    \return Field container found after mapping.  If no mapper is active, results
+            in standard getContainer lookup.
+*/
 inline
 FieldContainerPtr FieldContainerFactoryBase::getMappedContainer(
     UInt32 uiContainerId) const
