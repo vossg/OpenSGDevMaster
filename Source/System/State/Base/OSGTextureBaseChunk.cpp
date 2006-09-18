@@ -77,9 +77,12 @@ See \ref PageSystemTextureChunk for a description.
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TextureBaseChunk::_class("Texture", osgMaxTexImages);
+StateChunkClass TextureBaseChunk::_class("Texture", osgMaxTexImages, 15);
 
 volatile UInt16 TextureBaseChunk::_uiChunkCounter = 1;
+
+UInt32 TextureBaseChunk::_arbMultiTex           = Window::invalidExtensionID;
+UInt32 TextureBaseChunk::_funcActiveTexture     = Window::invalidFunctionID;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -92,6 +95,17 @@ volatile UInt16 TextureBaseChunk::_uiChunkCounter = 1;
 void TextureBaseChunk::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+        _arbMultiTex       =
+            Window::registerExtension("GL_ARB_multitexture");
+
+        _funcActiveTexture =
+            Window::registerFunction (OSG_DLSYM_UNDERSCORE"glActiveTextureARB",
+                                      _arbMultiTex);
+    }
+
 }
 
 /***************************************************************************\

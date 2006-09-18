@@ -37,9 +37,15 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-UInt32 StateChunkClass::mapId(UInt32 id) const
+UInt32 StateChunkClass::mapId(UInt32 id) 
 {
     return (*_idMap)[id].first;
+}
+
+inline
+UInt32 StateChunkClass::getId(void) const
+{
+    return mapId(_classId);
 }
 
 /*---------------------- Chunk Class Access -------------------------------*/
@@ -47,7 +53,7 @@ UInt32 StateChunkClass::mapId(UInt32 id) const
 inline
 UInt32 StateChunk::getClassId(void) const
 {
-    return getClass()->getId();
+    return StateChunkClass::mapId(getClass()->getId());
 }
 
 /*-------------------- Static Chunk Class Access --------------------------*/
@@ -55,7 +61,7 @@ UInt32 StateChunk::getClassId(void) const
 inline
 UInt32 StateChunk::getStaticClassId(void)
 {
-    return StateChunk::getStaticClass()->getId();
+    return StateChunkClass::mapId(StateChunk::getStaticClass()->getId());
 }
 
 inline

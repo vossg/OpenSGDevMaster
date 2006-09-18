@@ -159,11 +159,6 @@ StateChunkClass::StateChunkClass(Char8  *name,
                       IdMapCompare());
 }
 
-UInt32 StateChunkClass::getId(void) const
-{
-    return _classId;
-}
-
 const Char8 *StateChunkClass::getName(void) const
 {
     return(*_classNames)[_classId].c_str();

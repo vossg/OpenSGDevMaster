@@ -103,7 +103,6 @@ extension(s) are also available.
 \***************************************************************************/
 
 UInt32 TextureChunk::_extTex3D                    = Window::invalidExtensionID;
-UInt32 TextureChunk::_arbMultiTex                 = Window::invalidExtensionID;
 UInt32 TextureChunk::_arbCubeTex                  = Window::invalidExtensionID;
 UInt32 TextureChunk::_nvPointSprite               = Window::invalidExtensionID;
 UInt32 TextureChunk::_nvTextureShader             = Window::invalidExtensionID;
@@ -120,7 +119,6 @@ UInt32 TextureChunk::_extDepthTexture             = Window::invalidExtensionID;
 
 UInt32 TextureChunk::_funcTexImage3D              = Window::invalidFunctionID;
 UInt32 TextureChunk::_funcTexSubImage3D           = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcActiveTexture           = Window::invalidFunctionID;
 UInt32 TextureChunk::_funcCompressedTexImage1D    = Window::invalidFunctionID;
 UInt32 TextureChunk::_funcCompressedTexSubImage1D = Window::invalidFunctionID;
 UInt32 TextureChunk::_funcCompressedTexImage2D    = Window::invalidFunctionID;
@@ -154,8 +152,6 @@ void TextureChunk::initMethod(InitPhase ePhase)
     {
         _extTex3D          =
             Window::registerExtension("GL_EXT_texture3D"       );
-        _arbMultiTex       =
-            Window::registerExtension("GL_ARB_multitexture"    );
         _arbCubeTex        =
             Window::registerExtension("GL_ARB_texture_cube_map");
         _nvPointSprite     =
@@ -190,9 +186,6 @@ void TextureChunk::initMethod(InitPhase ePhase)
         _funcTexSubImage3D =
             Window::registerFunction (GL_FUNC_TEXSUBIMAGE3D, 
                                       _extTex3D);
-        _funcActiveTexture =
-            Window::registerFunction (OSG_DLSYM_UNDERSCORE"glActiveTextureARB",
-                                      _arbMultiTex);
         
         _funcCompressedTexImage1D    = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glCompressedTexImage1DARB"             , 
@@ -1675,8 +1668,7 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
     Real32 nteximages, ntexcoords;
 
     if((nteximages = win->getConstantValue(GL_MAX_TEXTURE_IMAGE_UNITS_ARB)) ==
-       Window::unknownConstant
-      )
+       Window::unknownConstant)
     {
         nteximages = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
 
@@ -1684,9 +1676,9 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
         if(nteximages == Window::unknownConstant)
             nteximages = 1.0f;
     }
+
     if((ntexcoords = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
-       Window::unknownConstant
-      )
+       Window::unknownConstant)
     {
         ntexcoords = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
 
@@ -1710,22 +1702,24 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
 
     win->validateGLObject(getGLId(), pEnv);
 
-    ImagePtr img = getImage();
-    GLenum target = getTarget();
+    ImagePtr img    = getImage();
+    GLenum   target = getTarget();
 
-    if( img == NullFC || ! img->getDimension()) // no image ?
+    if(img == NullFC || ! img->getDimension()) // no image ?
         return;
 
     glErr("TextureChunk::activate precheck");
 
     if(img->getSideCount() == 1)
     {
-        if ( target == GL_NONE )
+        if(target == GL_NONE)
         {
-            if ( img->getDepth() > 1 )
+            if(img->getDepth() > 1)
             {
                 if(win->hasExtension(_extTex3D))
+                {
                     target = GL_TEXTURE_3D;
+                }
                 else
                 {
                     FWARNING(("TextureChunk::activate: 3D textures not "
@@ -1734,16 +1728,19 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
                 }
             }
             else if(img->getHeight() > 1)   
+            {
                 target = GL_TEXTURE_2D;
+            }
             else                            
+            {
                 target = GL_TEXTURE_1D;
+            }
         }
     }
     else
     {
         target = GL_TEXTURE_CUBE_MAP_ARB;
     }
-
 
     FDEBUG(("TextureChunk::activate - %d\n", getGLId()));
 
@@ -1752,8 +1749,7 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
 #ifdef GL_NV_point_sprite
     if(idx < static_cast<UInt32>(ntexcoords))
     {
-        if(getPointSprite() &&
-           win->hasExtension(_nvPointSprite))
+        if(getPointSprite() && win->hasExtension(_nvPointSprite))
         {
             glTexEnvi(GL_POINT_SPRITE_NV, GL_COORD_REPLACE_NV, GL_TRUE);
         }

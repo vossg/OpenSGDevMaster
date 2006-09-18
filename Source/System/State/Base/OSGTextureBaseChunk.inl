@@ -50,6 +50,48 @@ UInt32 TextureBaseChunk::getStaticClassId(void)
 }
 
 
+inline 
+bool TextureBaseChunk::hasMultiTexture(Window *win)
+{
+    return win->hasExtension(_arbMultiTex);
+}
+
+//! call glActiveTexture via the extension mechanism
+inline 
+void TextureBaseChunk::activeTexture(Window *win, UInt16 texture)
+{
+    void (OSG_APIENTRY *ActiveTexture)(GLenum target) = 
+        (void (OSG_APIENTRY*)(GLenum target))
+            win->getFunction(_funcActiveTexture);
+
+    ActiveTexture(GL_TEXTURE0_ARB + texture);
+}
+
+//! call glActiveTexture via the extension mechanism, if MultiTextures
+//! are supported. Return false if successful, true if not.
+inline 
+bool TextureBaseChunk::activateTexture(Window *win, UInt16 texture)
+{
+    if(hasMultiTexture(win))
+    {
+        activeTexture(win, texture);
+    }
+#ifdef OSG_DEBUG
+    else
+    {
+        if(texture != 0)
+        {
+            FWARNING(("TextureChunk::activateTexture: trying to activate "
+                "texture %d, but Window %p doesn't support multi-textures!\n",
+                texture, win));
+            return true;
+        }
+    }
+#endif
+    return false;
+}
+
+
 OSG_END_NAMESPACE
 
 #define OSGTEXTUREBASECHUNK_INLINE_CVSID "@(#)$Id$"

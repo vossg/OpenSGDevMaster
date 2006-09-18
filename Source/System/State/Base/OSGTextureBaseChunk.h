@@ -45,7 +45,6 @@
 #include "OSGConfig.h"
 #include "OSGGLEXT.h"
 #include "OSGWindow.h"
-#include "OSGImage.h"
 #include "OSGTextureBaseChunkBase.h"
 
 OSG_BEGIN_NAMESPACE
@@ -125,6 +124,10 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
     /*! \name             Multitexture handling                            */
     /*! \{                                                                 */
 
+    static bool hasMultiTexture(Window *win);
+    static void activeTexture  (Window *win, UInt16 texture);
+    static bool activateTexture(Window *win, UInt16 texture);
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -166,6 +169,10 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
     /*---------------------------------------------------------------------*/
     /*! \name                         GL                                   */
     /*! \{                                                                 */
+
+    static UInt32 _arbMultiTex;
+
+    static UInt32 _funcActiveTexture;
 
     /*! \}                                                                 */ 
     /*---------------------------------------------------------------------*/

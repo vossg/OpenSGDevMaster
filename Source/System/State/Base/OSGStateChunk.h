@@ -76,11 +76,11 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     /*! \name                 Instance Access                              */
     /*! \{                                                                 */
 
-          UInt32   getId       (void     ) const;
-    const Char8   *getName     (void     ) const;
-          Int32    getNumSlots (void     ) const;
+           UInt32   getId       (void     ) const;
+    const  Char8   *getName     (void     ) const;
+           Int32    getNumSlots (void     ) const;
  
-          UInt32   mapId       (UInt32 id) const;
+    static UInt32   mapId       (UInt32 id);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

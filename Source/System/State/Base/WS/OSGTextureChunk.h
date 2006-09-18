@@ -43,8 +43,6 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGGLEXT.h"
-#include "OSGWindow.h"
 #include "OSGImage.h"
 #include "OSGTextureChunkBase.h"
 
@@ -145,10 +143,6 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
     /*! \name             Multitexture handling                            */
     /*! \{                                                                 */
 
-    static bool hasMultiTexture(Window *win);
-    static void activeTexture  (Window *win, UInt16 texture);
-    static bool activateTexture(Window *win, UInt16 texture);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -205,7 +199,6 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
 
     // extension indices for used extensions;
     static UInt32 _extTex3D;
-    static UInt32 _arbMultiTex;
     static UInt32 _nvPointSprite;
     static UInt32 _nvTextureShader;
     static UInt32 _nvTextureShader2;
@@ -222,7 +215,6 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
     // extension indices for used fucntions;
     static UInt32 _funcTexImage3D;
     static UInt32 _funcTexSubImage3D;
-    static UInt32 _funcActiveTexture;
     static UInt32 _arbCubeTex;
     static UInt32 _funcCompressedTexImage1D;
     static UInt32 _funcCompressedTexSubImage1D;
