@@ -192,11 +192,38 @@ UInt32 DrawEnv::getNumStateChanges(void) const
 }
 
 inline
+UInt32 DrawEnv::getNumShaderChanges(void) const
+{
+    return _uiNumShaderChanges;
+}
+
+inline
+UInt32 DrawEnv::getNumShaderParamChanges(void) const
+{
+    return _uiNumShaderParamChanges;
+}
+
+inline
+void DrawEnv::incNumShaderChanges(void) 
+{
+    ++_uiNumShaderChanges;
+}
+
+inline
+void DrawEnv::incNumShaderParamChanges(void) 
+{
+    ++_uiNumShaderParamChanges;
+}
+
+
+inline
 void DrawEnv::clearState(void)
 {
-    _pActiveState         = NULL;
-    _pActiveStateOverride = NULL;
-    _uiNumStateChanges    = 0;
+    _pActiveState            = NULL;
+    _pActiveStateOverride    = NULL;
+    _uiNumStateChanges       = 0;
+    _uiNumShaderChanges      = 0;
+    _uiNumShaderParamChanges = 0;
 }
 
 inline

@@ -113,6 +113,12 @@ void keyboard(unsigned char k, int, int)
             mgr->setUseTraversalAction(true);
             break;
 
+        case 'n':
+            fprintf(stderr, "1) set s sorting to %d\n", act->getStateSorting());
+            act->setStateSorting(!act->getStateSorting());
+            fprintf(stderr, "2) set s sorting to %d\n", act->getStateSorting());
+            break;
+
         case 'm':
             tact->setKeyGen(0);
             break;

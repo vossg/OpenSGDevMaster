@@ -154,15 +154,7 @@ bool StateChunkClass::initialize(void)
 
 OSG_BEGIN_NAMESPACE
 
-struct StateChunkClassInit
-{
-    StateChunkClassInit(void) 
-    { 
-        addPostFactoryInitFunction(&StateChunkClass::initialize); 
-    }
-};
-
-static StateChunkClassInit initDummy;
+StateChunkClass::StateChunkClassInit StateChunkClass::InitHelper;
 
 OSG_END_NAMESPACE
 

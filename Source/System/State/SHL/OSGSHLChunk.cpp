@@ -672,8 +672,8 @@ void SHLChunk::updateParameters(Window *win,
         (OSGGLUSEPROGRAMOBJECTARBPROC)
             win->getFunction(_funcUseProgramObject);
 
-    if(useProgram)
-        useProgramObject(program);
+//    if(useProgram)
+//        useProgramObject(program);
 
     // get "glGetUniformLocationARB" function pointer
     OSGGLGETUNIFORMLOCATIONARBPROC getUniformLocation = 
@@ -1404,6 +1404,8 @@ void SHLChunk::activate(DrawEnv *pEnv, UInt32 /*idx*/)
     {
         glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
     }
+
+    pEnv->incNumShaderChanges();
 }
 
 void SHLChunk::changeFrom(DrawEnv    *pEnv, 
@@ -1448,6 +1450,8 @@ void SHLChunk::changeFrom(DrawEnv    *pEnv,
             glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
         }
     }
+
+    pEnv->incNumShaderChanges();
 }
 
 

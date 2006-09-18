@@ -117,7 +117,19 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
           GLenum    getActiveTexTarget      (UInt32 uiSlot) const;
     
-          UInt32    getNumStateChanges      (void         ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+
+    UInt32 getNumStateChanges      (void) const;
+    UInt32 getNumShaderChanges     (void) const;
+    UInt32 getNumShaderParamChanges(void) const;
+
+    void   incNumShaderChanges     (void);
+    void   incNumShaderParamChanges(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -174,6 +186,8 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     StateOverride *_pActiveStateOverride;
 
     UInt32         _uiNumStateChanges;
+    UInt32         _uiNumShaderChanges;
+    UInt32         _uiNumShaderParamChanges;
 
     GLenum         _aActiveTexTargets[osgMaxTexImages];
 

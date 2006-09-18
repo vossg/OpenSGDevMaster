@@ -99,7 +99,20 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
 
   private:
 
+    struct StateChunkClassInit;
+
     friend struct StateChunkClassInit;
+
+    struct StateChunkClassInit
+    {
+        StateChunkClassInit(void) 
+        { 
+            addPostFactoryInitFunction(&StateChunkClass::initialize); 
+        }
+    };
+
+    static StateChunkClassInit InitHelper;
+
 
            UInt32                          _classId;
            UInt32                          _numSlots;

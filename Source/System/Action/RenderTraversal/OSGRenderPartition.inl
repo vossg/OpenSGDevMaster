@@ -326,6 +326,18 @@ UInt32 RenderPartition::getNumStateChanges(void)
     return _oDrawEnv.getNumStateChanges();
 }
 
+inline
+UInt32 RenderPartition::getNumShaderChanges(void)
+{
+    return _oDrawEnv.getNumShaderChanges();
+}
+
+inline
+UInt32 RenderPartition::getNumShaderParamChanges(void)
+{
+    return _oDrawEnv.getNumShaderParamChanges();
+}
+
 /*-------------------------- your_category---------------------------------*/
 
 /*-------------------------- assignment -----------------------------------*/

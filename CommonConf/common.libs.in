@@ -120,7 +120,7 @@ ac_gdz_package_dirs_Util="System/Window/Utilities@ System/GraphOp@ System/Statis
 ac_gdz_package_inc_dep_Util="@Base@ @System@ @Window@ @Group@ @Drawable@ @Text@ @State@ @RenderTraversal@ GL" 
 ac_gdz_package_link_dep_Util="BaseLib SystemLib WindowLib GroupLib DrawableLib TextLib StateLib RenderTraversalLib TIF JPG PNG MNG" 
 ac_gdz_package_testinc_dep_Util="GLUT @RenderTraversal@ WindowSystem/GLUT " 
-ac_gdz_package_testlink_dep_Util="RenderTraversalLib WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
+ac_gdz_package_testlink_dep_Util="RenderTraversalLib ImageFileIOLib WindowGLUTLib GLUT GL TIF JPG PNG MNG" 
 ac_gdz_package_def_Util="OSG_COMPILEUTILLIB" 
 
 

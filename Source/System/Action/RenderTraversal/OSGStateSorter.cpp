@@ -142,8 +142,8 @@ void StateSorter::add(RenderTreeNode *pNode,
             {
                 pMatElem = _pNodePool->create();
         
-                pMatElem->setState        (pState        );
-                pMatElem->setStateOverride(pStateOverride);
+//                pMatElem->setState        (pState        );
+//                pMatElem->setStateOverride(pStateOverride);
                 
                 _oSorter.insert( uiKey1,
                                  uiKey2,
@@ -157,6 +157,9 @@ void StateSorter::add(RenderTreeNode *pNode,
             }
 
             pMatElem->addChild(pNode);
+
+            pNode->setState        (pState        );
+            pNode->setStateOverride(pStateOverride);
         }
     }
     else

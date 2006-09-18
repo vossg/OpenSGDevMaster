@@ -87,6 +87,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     static StatElemDesc<StatIntElem > statNMatrices;
     static StatElemDesc<StatIntElem > statNGeometries;
 //    static StatElemDesc<StatIntElem > statNTransGeometries;
+    static StatElemDesc<StatIntElem > statNShaders;
+    static StatElemDesc<StatIntElem > statNShaderParams;
 
     //-----------------------------------------------------------------------
     //   enums                                                               

@@ -56,22 +56,24 @@ OSG_USING_NAMESPACE
 /*                            Constructors                                 */
 
 DrawEnv::DrawEnv(void) :
-    _pRAction             (NULL ),
-    _pRTAction            (NULL ),
-    _cameraFullProjection (     ),
-    _cameraProjection     (     ),
-    _cameraProjectionTrans(     ),
-    _cameraViewing        (     ),
-    _cameraToWorld        (     ),
-    _objectToWorld        (     ),
-    _cameraNear           (1.f  ),
-    _cameraFar            (100.f),
+    _pRAction               (NULL ),
+    _pRTAction              (NULL ),
+    _cameraFullProjection   (     ),
+    _cameraProjection       (     ),
+    _cameraProjectionTrans  (     ),
+    _cameraViewing          (     ),
+    _cameraToWorld          (     ),
+    _objectToWorld          (     ),
+    _cameraNear             (1.f  ),
+    _cameraFar              (100.f), 
 
-    _pWindow              (NULL ),
-    _pViewport            (NULL ),
-    _pActiveState         (NULL ),
-    _pActiveStateOverride (NULL ),
-    _uiNumStateChanges    (0    )
+    _pWindow                (NULL ),
+    _pViewport              (NULL ),
+    _pActiveState           (NULL ),
+    _pActiveStateOverride   (NULL ),
+    _uiNumStateChanges      (0    ),
+    _uiNumShaderChanges     (0    ),
+    _uiNumShaderParamChanges(0    )
 {
     _cameraFullProjection .setIdentity();
     _cameraProjection     .setIdentity();

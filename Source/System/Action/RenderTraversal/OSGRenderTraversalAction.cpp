@@ -92,19 +92,25 @@ std::vector<
     Action::Functor> *RenderTraversalAction::_vDefaultLeaveFunctors = NULL;
 
 
-StatElemDesc<StatTimeElem> RenderTraversalAction::statDrawTime   (
+StatElemDesc<StatTimeElem> RenderTraversalAction::statDrawTime     (
     "RT-DrawTime", 
     "time for draw tree traversal");
 
-StatElemDesc<StatIntElem > RenderTraversalAction::statNStates    (
+StatElemDesc<StatIntElem > RenderTraversalAction::statNStates      (
     "RT-States", 
     "number of material changes");
-StatElemDesc<StatIntElem > RenderTraversalAction::statNMatrices  (
+StatElemDesc<StatIntElem > RenderTraversalAction::statNMatrices    (
     "RT-NMatrices",  
     "number of matrix changes");
-StatElemDesc<StatIntElem > RenderTraversalAction::statNGeometries(
+StatElemDesc<StatIntElem > RenderTraversalAction::statNGeometries  (
     "RT-NGeometries", 
     "number of Geometry nodes");
+StatElemDesc<StatIntElem > RenderTraversalAction::statNShaders     (
+    "RT-Shaders", 
+    "number of shader changes");
+StatElemDesc<StatIntElem > RenderTraversalAction::statNShaderParams(
+    "RT-ShaderParams", 
+    "number of shader params changes");
 
 /*
 StatElemDesc<StatIntElem > RenderTraversalAction::statNTransGeometries(
@@ -537,8 +543,10 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
         if(getVolumeDrawing())
             drawVolume(_oFrustum);  
 
-        UInt32 uiNMatrix = 0;
-        UInt32 uiNState  = 0;
+        UInt32 uiNMatrix      = 0;
+        UInt32 uiNState       = 0;
+        UInt32 uiNShader      = 0;
+        UInt32 uiNShaderParam = 0;
 
         for(Int32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
         {
@@ -547,10 +555,18 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
 
             uiNState  +=
                 _vRenderPartitions[_currentBuffer][i]->getNumStateChanges();
+
+            uiNShader +=
+                _vRenderPartitions[_currentBuffer][i]->getNumShaderChanges();
+
+            uiNShaderParam +=
+                _vRenderPartitions[_currentBuffer][i]->getNumShaderParamChanges();
         }
 
-        getStatistics()->getElem(statNMatrices)->set(uiNMatrix);
-        getStatistics()->getElem(statNStates  )->set(uiNState );
+        getStatistics()->getElem(statNMatrices    )->set(uiNMatrix     );
+        getStatistics()->getElem(statNStates      )->set(uiNState      );
+        getStatistics()->getElem(statNShaders     )->set(uiNShader     );
+        getStatistics()->getElem(statNShaderParams)->set(uiNShaderParam);
     }
     
     return Action::Continue;

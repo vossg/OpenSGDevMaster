@@ -298,8 +298,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     /*-------------------------- comparison ---------------------------------*/
 
-    UInt32 getNumMatrixChanges(void);
-    UInt32 getNumStateChanges (void);
+    UInt32 getNumMatrixChanges     (void);
+    UInt32 getNumStateChanges      (void);
+    UInt32 getNumShaderChanges     (void);
+    UInt32 getNumShaderParamChanges(void);
 
     /*-------------------------- comparison ---------------------------------*/
 
