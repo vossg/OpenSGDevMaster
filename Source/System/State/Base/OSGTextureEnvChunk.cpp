@@ -737,6 +737,13 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     if(!isActive)
         TextureBaseChunk::activateTexture(win, idx);
 
+
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+    glTexEnvfv(GL_TEXTURE_ENV, 
+               GL_TEXTURE_ENV_COLOR,
+               (GLfloat *) Vec4f::Null.getValues());
+    
     if(getShaderOperation() != GL_NONE &&
        win->hasExtension(_nvTextureShader))
     {
