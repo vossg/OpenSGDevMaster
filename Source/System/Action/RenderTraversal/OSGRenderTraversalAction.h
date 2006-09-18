@@ -83,9 +83,9 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     //-----------------------------------------------------------------------
 
     static StatElemDesc<StatTimeElem> statDrawTime;
-//    static StatElemDesc<StatIntElem > statNMaterials;
-//    static StatElemDesc<StatIntElem > statNMatrices;
-//    static StatElemDesc<StatIntElem > statNGeometries;
+    static StatElemDesc<StatIntElem > statNStates;
+    static StatElemDesc<StatIntElem > statNMatrices;
+    static StatElemDesc<StatIntElem > statNGeometries;
 //    static StatElemDesc<StatIntElem > statNTransGeometries;
 
     //-----------------------------------------------------------------------
@@ -185,14 +185,18 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     /*------------------------- comparison ----------------------------------*/
 
     void      overrideMaterial(Material        *pMaterial,
-                          NodePtrConstArg  pNode    );
+                               NodePtrConstArg  pNode    );
 
     Material *getMaterial(void);
 
+    void setKeyGen(UInt32 uiKeyGen);
+
     /*------------------------- comparison ----------------------------------*/
 
+
     void pushPartition(UInt32 uiCopyOnPush = 0x0000, 
-                       RenderPartition::Mode eMode = RenderPartition::StateSorting);
+                       RenderPartition::Mode eMode = 
+                                                RenderPartition::StateSorting);
     void popPartition (void                        );
 
     RenderPartition *getActivePartition(void);
@@ -214,7 +218,12 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
    
     // use with care. Should probably be more protected
     void    drawBuffer(UInt32 buf);
-    
+
+    /*----------- multi-frame buffering / split cull/draw -------------------*/
+
+    void setUseGLFinish(bool bVal);
+    bool getUseGLFinish(void     );
+
   protected:
 
     //-----------------------------------------------------------------------
@@ -267,6 +276,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     RenderPartitionStack    _sRenderPartitionStack;
 
     BitVector               _bvPassMask;
+    bool                    _bUseGLFinish;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  

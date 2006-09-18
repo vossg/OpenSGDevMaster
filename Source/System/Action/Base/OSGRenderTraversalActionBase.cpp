@@ -130,6 +130,8 @@ ActionBase::ResultE RenderTraversalActionBase::start(void)
         _bOwnStat    = true;
     }
 
+    _pStatistics->reset();
+
     getStatistics()->getElem(statTravTime       )->start();
 //    getStatistics()->getElem(statCullTestedNodes)->reset();
 //    getStatistics()->getElem(statCulledNodes    )->reset();

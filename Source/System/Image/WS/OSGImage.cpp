@@ -2144,7 +2144,6 @@ void Image::setAttachmentField(const std::string &key,
         findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
 
-    FieldContainerAttachmentPtr fooP = att;
 
     if(att == NullFC)
     {

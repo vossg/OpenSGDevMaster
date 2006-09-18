@@ -92,20 +92,21 @@ std::vector<
     Action::Functor> *RenderTraversalAction::_vDefaultLeaveFunctors = NULL;
 
 
-StatElemDesc<StatTimeElem> RenderTraversalAction::statDrawTime(
+StatElemDesc<StatTimeElem> RenderTraversalAction::statDrawTime   (
     "RT-DrawTime", 
     "time for draw tree traversal");
 
-/*
-StatElemDesc<StatIntElem > RenderTraversalAction::statNMaterials(
-    "shNMaterials", 
+StatElemDesc<StatIntElem > RenderTraversalAction::statNStates    (
+    "RT-States", 
     "number of material changes");
-StatElemDesc<StatIntElem > RenderTraversalAction::statNMatrices(
-    "shNMatrices",  
+StatElemDesc<StatIntElem > RenderTraversalAction::statNMatrices  (
+    "RT-NMatrices",  
     "number of matrix changes");
 StatElemDesc<StatIntElem > RenderTraversalAction::statNGeometries(
-    "shNGeometries", 
+    "RT-NGeometries", 
     "number of Geometry nodes");
+
+/*
 StatElemDesc<StatIntElem > RenderTraversalAction::statNTransGeometries(
     "shNTransGeometries",
     "number of transformed Geometry nodes");
@@ -238,7 +239,8 @@ RenderTraversalAction::RenderTraversalAction(void) :
 
     _vRenderPartitions    (    ),
     _sRenderPartitionStack(    ),
-    _bvPassMask           (    )
+    _bvPassMask           (    ),
+    _bUseGLFinish         (false)
 {
     if(_vDefaultEnterFunctors != NULL)
         _enterFunctors = *_vDefaultEnterFunctors;
@@ -284,8 +286,9 @@ RenderTraversalAction::RenderTraversalAction(
     _pActivePartition     (NULL),
 
     _vRenderPartitions    (    ),
-    _sRenderPartitionStack(    )
-
+    _sRenderPartitionStack(    ),
+    _bvPassMask           (source._bvPassMask),
+    _bUseGLFinish         (source._bUseGLFinish)
 {
     setNumBuffers(source._numBuffers);
 }
@@ -533,6 +536,21 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
 
         if(getVolumeDrawing())
             drawVolume(_oFrustum);  
+
+        UInt32 uiNMatrix = 0;
+        UInt32 uiNState  = 0;
+
+        for(Int32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
+        {
+            uiNMatrix += 
+                _vRenderPartitions[_currentBuffer][i]->getNumMatrixChanges();
+
+            uiNState  +=
+                _vRenderPartitions[_currentBuffer][i]->getNumStateChanges();
+        }
+
+        getStatistics()->getElem(statNMatrices)->set(uiNMatrix);
+        getStatistics()->getElem(statNStates  )->set(uiNState );
     }
     
     return Action::Continue;
@@ -552,6 +570,11 @@ void RenderTraversalAction::drawBuffer(UInt32 buf)
 
     _vRenderPartitions[buf][0]->doExecution();
     _vRenderPartitions[buf][0]->exit();
+
+    if(_bUseGLFinish == true)
+    {
+        glFinish();
+    }
 
     getStatistics()->getElem(statDrawTime)->stop();
 }

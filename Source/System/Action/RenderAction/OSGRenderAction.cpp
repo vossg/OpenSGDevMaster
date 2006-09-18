@@ -1910,6 +1910,8 @@ Action::ResultE RenderAction::start(void)
 
 Action::ResultE RenderAction::stop(ResultE res)
 {
+    Inherited::stop(res);
+
     getStatistics()->getElem(statDrawTime)->start();
     
     UInt32 i;
@@ -2073,7 +2075,9 @@ Action::ResultE RenderAction::stop(ResultE res)
 //            _uiNumGeometries,
 //            _uiNumTransGeometries));
 
-    Inherited::stop(res);
+    if(getVolumeDrawing())
+        drawVolume(_frustum);  
+
     return res;
 }
 

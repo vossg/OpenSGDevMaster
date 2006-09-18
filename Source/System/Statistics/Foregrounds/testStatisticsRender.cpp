@@ -11,6 +11,11 @@
 #include <OSGStatElemTypes.h>
 #include <OSGStatCollector.h>
 
+#include "OSGTextureBaseChunk.h"
+#include "OSGMaterialChunk.h"
+#include "OSGSHLChunk.h"
+
+
 OSG_USING_NAMESPACE
 
 SimpleSceneManager    *mgr;
@@ -20,6 +25,7 @@ RenderAction          *act = NULL;
 StatCollector         *collector;
 
 bool show = true;
+bool bGLFinish = false;
 
 // redraw the window
 void display(void)
@@ -84,7 +90,7 @@ void keyboard(unsigned char k, int, int)
                       << std::endl;
         }
         
-        case 's':
+        case 'z':
         {
             RenderAction *ract = 
                 dynamic_cast<RenderAction *>(mgr->getAction());
@@ -97,6 +103,7 @@ void keyboard(unsigned char k, int, int)
              
         }
         break;
+
         case 'r':
             initElements();
             mgr->setUseTraversalAction(false);
@@ -106,6 +113,28 @@ void keyboard(unsigned char k, int, int)
             mgr->setUseTraversalAction(true);
             break;
 
+        case 'm':
+            tact->setKeyGen(0);
+            break;
+
+        case 's':
+        {
+            UInt32 uiSId = SHLChunk        ::getStaticClassId() & 0x000003FF;
+            UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
+            UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
+            
+  
+            UInt32 uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
+
+            tact->setKeyGen(uiKeyGen);
+        }
+        break;
+
+        case 'g':
+            bGLFinish = !bGLFinish;
+            tact->setUseGLFinish(bGLFinish);
+            act->setUseGLFinish(bGLFinish);
+            break;
     }
 }
 
@@ -164,7 +193,9 @@ int main(int argc, char **argv)
     mgr->setWindow(pwin );
     // tell the manager what to manage
     mgr->setRoot  (scene);
-    
+
+    Thread::getCurrentChangeList()->commitChanges();
+
     // show the whole scene
     mgr->showAll();
 

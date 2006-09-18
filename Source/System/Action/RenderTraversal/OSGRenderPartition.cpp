@@ -159,7 +159,7 @@ RenderPartition::RenderPartition(Mode eMode) :
     _bFull                   (  true),
 
     _oStatistics             (      ),
-
+    _uiNumMatrixChanges      (     0),
     _visibilityStack         (      ),
 
     _bFrustumCulling          (  true),
@@ -169,59 +169,6 @@ RenderPartition::RenderPartition(Mode eMode) :
     _oSimpleDrawCallback      (NULL  )
 {
 }
-
-#if 0
-RenderPartition::RenderPartition(const RenderPartition &source) :
-    _oDrawEnv                (                                ),
-    
-    _pBackground             (NULL                            ),
-
-    _uiMatrixId              (source._uiMatrixId              ),
-    _currMatrix              (source._currMatrix              ),
-    _accMatrix               (source._accMatrix               ),
-    _vMatrixStack            (source._vMatrixStack            ),
-    
-    _pNodePool               (NULL                            ),
-    
-    _mMatRoots               (                                ),
-    _mTransMatRoots          (                                ),
-
-    _bSortTrans              (source._bSortTrans              ),
-    _bZWriteTrans            (source._bZWriteTrans            ),
-    _bCorrectTwoSidedLighting(source._bCorrectTwoSidedLighting),
-
-    _uiActiveMatrix          (0                               ),
-
-    _pStatePool              (NULL                            ),
-    _sStateOverrides         (                                ),
-
-    _pStateSorterPool        (NULL                            ),
-
-    _iNextLightIndex         (0                               ),
-
-    _pMaterial(NULL),
-    _pMaterialNode(NullFC),
-
-    _pRenderTarget(NULL),
-    _iPixelLeft (0),
-    _iPixelRight(1),
-    _iPixelBottom(0),
-    _iPixelTop(1),
-    _bFull    (true),
-
-    StatCollector _oStatistics(),
-
-    //Culling
-
-    _visibilityStack(),
-
-    _frustumCulling(true ),
-    _volumeDrawing (false),
-    _autoFrustum   (true ),
-    _frustum       (     )
-{
-}
-#endif
 
 RenderPartition::~RenderPartition(void)
 {
@@ -423,6 +370,8 @@ void RenderPartition::doExecution   (void)
         SortKeyMapIt      mapIt  = _mMatRoots.begin();
         SortKeyMapConstIt mapEnd = _mMatRoots.end  ();
         
+        _uiNumMatrixChanges = 0;
+
         while(mapIt != mapEnd)
         {
             if(mapIt->second != NULL)
@@ -825,6 +774,8 @@ void RenderPartition::draw(RenderTreeNode *pRoot)
             updateTopMatrix();
             
             _oDrawEnv.setObjectToWorld(_accMatrix);
+
+            ++_uiNumMatrixChanges;
 
             // Negative scaled matrices in conjunction with double sided 
             // lighting

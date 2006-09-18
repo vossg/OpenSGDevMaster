@@ -86,6 +86,12 @@ OSG_BEGIN_NAMESPACE
 /*---------------------------- properties ---------------------------------*/
 
 inline
+void RenderTraversalAction::setKeyGen(UInt32 uiKeyGen)
+{
+    _uiKeyGen = uiKeyGen;
+}
+
+inline
 void RenderTraversalAction::addPassMask(BitVector bvMask)
 {
     _bvPassMask |= bvMask;
@@ -103,6 +109,17 @@ BitVector RenderTraversalAction::getPassMask(void)
     return _bvPassMask;
 }
 
+inline
+void RenderTraversalAction::setUseGLFinish(bool bVal)
+{
+    _bUseGLFinish = bVal;
+}
+
+inline
+bool RenderTraversalAction::getUseGLFinish(void)
+{
+    return _bUseGLFinish;
+}
 
 /*-------------------------- your_category---------------------------------*/
 

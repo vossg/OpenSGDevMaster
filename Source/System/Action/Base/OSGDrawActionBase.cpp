@@ -239,9 +239,6 @@ ActionBase::ResultE DrawActionBase::start(void)
 
 ActionBase::ResultE DrawActionBase::stop(ActionBase::ResultE res)
 {
-    if(getVolumeDrawing())
-        drawVolume(_frustum);  
- 
     getStatistics()->getElem(statTravTime)->stop();
   
 #if 0 // Altered for last frame time

@@ -186,10 +186,17 @@ GLenum DrawEnv::getActiveTexTarget(UInt32 uiSlot) const
 }
 
 inline
+UInt32 DrawEnv::getNumStateChanges(void) const
+{
+    return _uiNumStateChanges;
+}
+
+inline
 void DrawEnv::clearState(void)
 {
     _pActiveState         = NULL;
     _pActiveStateOverride = NULL;
+    _uiNumStateChanges    = 0;
 }
 
 inline

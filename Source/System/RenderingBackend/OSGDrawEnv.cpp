@@ -70,8 +70,8 @@ DrawEnv::DrawEnv(void) :
     _pWindow              (NULL ),
     _pViewport            (NULL ),
     _pActiveState         (NULL ),
-    _pActiveStateOverride (NULL )
-
+    _pActiveStateOverride (NULL ),
+    _uiNumStateChanges    (0    )
 {
     _cameraFullProjection .setIdentity();
     _cameraProjection     .setIdentity();
@@ -91,6 +91,8 @@ DrawEnv::~DrawEnv(void)
 void DrawEnv::activate(State *pState)
 {
     pState->activate(this);
+
+    ++_uiNumStateChanges;
 }
 
 void DrawEnv::activate(State         *pState,
@@ -136,13 +138,19 @@ void DrawEnv::activate(State         *pState,
                                         overIt->second->getClassId()));
         ++overIt;
     }
+
+    ++_uiNumStateChanges;
 }
 
 void DrawEnv::changeTo(State         *pState, 
                        State         *pOld)
 {
     if(pState != pOld)
+    {
         pState->changeFrom(this, pOld);
+
+        ++_uiNumStateChanges;
+    }
 }
 
 void DrawEnv::changeTo(State         *pState, 
@@ -204,6 +212,8 @@ void DrawEnv::changeTo(State         *pState,
                                           overIt->second->getClassId()));
         ++overIt;
     }
+
+    ++_uiNumStateChanges;
 }
 
 void DrawEnv::changeTo(State         *pState,
@@ -303,6 +313,8 @@ void DrawEnv::changeTo(State         *pState,
                                         overIt->second->getClassId()));
         ++overIt;
     }
+
+    ++_uiNumStateChanges;
 }
 
 void DrawEnv::changeTo(State         *pState, 
@@ -454,6 +466,7 @@ void DrawEnv::changeTo(State         *pState,
         ++newOverIt;
     }
 
+    ++_uiNumStateChanges;
 }
 
 void DrawEnv::deactivate(State *pState)

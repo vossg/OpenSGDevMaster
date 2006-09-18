@@ -116,7 +116,9 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
           Window   *getWindow               (void         ) const;
 
           GLenum    getActiveTexTarget      (UInt32 uiSlot) const;
-               
+    
+          UInt32    getNumStateChanges      (void         ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -170,6 +172,8 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     
     State         *_pActiveState;
     StateOverride *_pActiveStateOverride;
+
+    UInt32         _uiNumStateChanges;
 
     GLenum         _aActiveTexTargets[osgMaxTexImages];
 

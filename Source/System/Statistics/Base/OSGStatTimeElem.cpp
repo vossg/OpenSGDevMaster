@@ -90,7 +90,13 @@ void StatTimeElem::putToString(std::string &str, const Char8 *format) const
 {
     if(!format)
     {
-        FieldTraits<Time, 1>::putToString(_time, str);
+        // Confusing if %e is used.
+
+        Char8 temp[64];
+
+        sprintf(temp, "%f", _time);
+
+        str.assign(temp);
     }
     else
     {

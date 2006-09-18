@@ -1,6 +1,6 @@
 
-ac_gdz_package_order="BaseLib SystemLib DrawableLib StateLib GroupLib TextLib WindowLib FileIOLib ImageFileIOLib RenderTraversalLib UtilLib WindowXLib WindowWIN32Lib WindowGLUTLib"
-ac_gdz_package_order_test="BaseTest SystemTest DrawableTest StateTest GroupTest TextTest WindowTest FileIOTest ImageFileIOTest RenderTraversalTest UtilTest WindowXTest WindowGLUTTest"
+ac_gdz_package_order="BaseLib SystemLib StateLib DrawableLib GroupLib TextLib WindowLib FileIOLib ImageFileIOLib RenderTraversalLib UtilLib WindowXLib WindowWIN32Lib WindowGLUTLib"
+ac_gdz_package_order_test="BaseTest SystemTest StateTest DrawableTest GroupTest TextTest WindowTest FileIOTest ImageFileIOTest RenderTraversalTest UtilTest WindowXTest WindowGLUTTest"
 
 ac_gdz_packages="Base System Drawable State Group Text Window FileIO ImageFileIO RenderTraversal Util WindowX WindowWIN32 WindowGLUT "
 

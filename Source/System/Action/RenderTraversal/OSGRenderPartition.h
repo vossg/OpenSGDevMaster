@@ -298,6 +298,9 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     /*-------------------------- comparison ---------------------------------*/
 
+    UInt32 getNumMatrixChanges(void);
+    UInt32 getNumStateChanges (void);
+
     /*-------------------------- comparison ---------------------------------*/
 
     void init(void);
@@ -383,6 +386,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     // Stat
 
     StatCollector       _oStatistics;
+    UInt32              _uiNumMatrixChanges;
 
     //Culling
 

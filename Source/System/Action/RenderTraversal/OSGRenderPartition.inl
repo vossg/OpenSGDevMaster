@@ -314,6 +314,18 @@ void RenderPartition::dropFunctor(SimpleDrawCallback &oSimpleCallback)
     _oSimpleDrawCallback = oSimpleCallback;
 }
 
+inline
+UInt32 RenderPartition::getNumMatrixChanges(void)
+{
+    return _uiNumMatrixChanges;
+}
+
+inline
+UInt32 RenderPartition::getNumStateChanges(void)
+{
+    return _oDrawEnv.getNumStateChanges();
+}
+
 /*-------------------------- your_category---------------------------------*/
 
 /*-------------------------- assignment -----------------------------------*/
