@@ -331,8 +331,7 @@ class OSG_GROUP_DLLMAPPING MaterialGroupBase : public Group
 
 typedef MaterialGroupBase *MaterialGroupBaseP;
 
-/** Type specific RefPtr type for MaterialGroup. */
-typedef RefPtr<MaterialGroupPtr> MaterialGroupRefPtr;
+typedef RefPtr<MaterialGroup> MaterialGroupRefPtr;
 
 typedef osgIF<
     MaterialGroupBase::isNodeCore,
@@ -344,6 +343,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGMATERIALGROUPBASE_HEADER_CVSID "@(#)$Id$"
+#define OSGMATERIALGROUPBASE_HEADER_CVSID "@(#)$Id: $"
 
 #endif /* _OSGMATERIALGROUPBASE_H_ */

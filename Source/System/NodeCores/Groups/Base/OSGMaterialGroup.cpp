@@ -46,7 +46,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::MaterialGroup
+/*! \class osg::MaterialGroup
 */
 
 /*-------------------------------------------------------------------------*/
@@ -148,7 +148,7 @@ void MaterialGroup::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
+    static Char8 cvsid_cpp[] = "@(#)$Id: $";
     static Char8 cvsid_hpp[] = OSGMATERIALGROUP_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGMATERIALGROUP_INLINE_CVSID;
 }

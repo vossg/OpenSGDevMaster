@@ -129,10 +129,6 @@ void MaterialGroupBase::execSync (      MaterialGroupBase *pFrom,
                                         ConstFieldMaskArg  syncMode  ,
                                   const UInt32             uiSyncInfo)
 {
-    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (MaterialFieldMask & whichField))
-        _sfMaterial.syncWith(pFrom->_sfMaterial);
 }
 #endif
 
@@ -163,5 +159,5 @@ typedef PointerBuilder<MaterialGroup>::ObjPtrConstArg  MaterialGroupPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGMATERIALGROUPBASE_INLINE_CVSID "@(#)$Id$"
+#define OSGMATERIALGROUPBASE_INLINE_CVSID "@(#)$Id: $"
 
