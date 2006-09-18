@@ -104,6 +104,9 @@ void addRef(const MemoryObjectP pObject);
 inline
 void subRef(const MemoryObjectP pObject);
 
+inline 
+void setRefd(MemoryObjectP &pTarget, MemoryObjectP pSource);
+
 OSG_END_NAMESPACE
 
 #include "OSGMemoryObject.inl"

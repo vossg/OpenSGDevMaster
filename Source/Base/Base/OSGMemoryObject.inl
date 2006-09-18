@@ -103,6 +103,21 @@ void subRef(const MemoryObjectP pObject)
         pObject->addRef();
 }
 
+inline 
+void setRefd(MemoryObjectP &pTarget, const MemoryObjectP pSource)
+{
+    if(pTarget != pSource)
+    {
+        if(pTarget != NULL)
+            pTarget->subRef();
+ 
+        pTarget = pSource;
+ 
+        if(pTarget != NULL)
+            pTarget->addRef();
+    }
+}
+
 OSG_END_NAMESPACE
 
 #define OSGMEMORYOBJECT_INLINE_CVSID "@(#)$Id$"
