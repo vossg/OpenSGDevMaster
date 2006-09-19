@@ -8,8 +8,14 @@ Import('*')
 common_lib_env = build_env.Copy()
 common_lib_env.Append(CPPDEFINES=["OSG_BUILD_DLL"])
 
+if not verbose_build:
+   print "Setting up build for libraries: ",
+   
 for (lib_name, library) in lib_map.iteritems():
-   print "Library: ", lib_name, "  tests:", library.test_files
+   if verbose_build:
+      print "Library: ", lib_name, "  tests:", library.test_files
+   else:
+      print "%s"%lib_name,
    
    # ---- Setup and Build library --- #
    lib_env = common_lib_env.Copy()
@@ -64,4 +70,6 @@ for (lib_name, library) in lib_map.iteritems():
          test_env.Program(target= pj("..","test",os.path.splitext(os.path.basename(s))[0]),
                           source=s)
    
-   # Done   
+   # Done
+if not verbose_build:
+   print ""

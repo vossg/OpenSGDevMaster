@@ -36,6 +36,7 @@ from sets import Set
 GetPlatform = sca_util.GetPlatform
 Export('GetPlatform')
 pj = os.path.join
+verbose_build = False
 
 # Build TODO
 # - Support selection of WS/ES
@@ -92,6 +93,88 @@ def registerFcdProcessBuilder(env, required=True):
    env.Append(BUILDERS = {'FcdProcess' : fcdprocess_builder});
    print "[OK]"
 
+
+def addScanParseSkel(common_env):
+   """ This is an ugly hack to add the lex/yacc support into the build.  It is ugly because of a couple of things.
+      - We use some very custom flags
+      - We need to post process the scanner to include a different file then normal.
+      - We are forcing this to be done in the source tree in a subdir without actually going there.
+      - Dependency management seems to be a little messed up right now in the code or scons.
+      - BUGS: Scons does not seem to recognize that the files we are building here are source
+              files for the libraries.  This makes it so we have to run the build twice if the files change.
+   """
+   # Hack to handle the generation of the parser from .y
+   # This pretty hacky to allow using a version of the file from the repository if yacc is not installed
+   # 1. Call bison: OSGScanParseSkelParser.yy -> OSGScanParseSkelParser.hpp .cpp .output (we don't need the last one) 
+   if "yacc" in common_env["TOOLS"]:
+      parser_env = common_env.Copy()
+      parser_env.Append(YACCFLAGS = ["-d","-v","-pOSGScanParseSkel_","-bOSGScanParseSkel_"])
+      source_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+      target_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.cpp"
+      yfiles = parser_env.CXXFile(target=target_file,source=source_file)   
+      NoClean(yfiles)
+      #print "yfiles: ", yfiles
+
+      # Make sure the parser files have been found for OSGFileIO
+      y_cpp_file = str(yfiles[0]).replace("Source/","",1) 
+      y_hpp_file = str(yfiles[1]).replace("Source/","",1)
+      #if not y_cpp_file in lib_map["OSGSystem"].source_files:
+      #   lib_map["OSGSystem"].source_files.append(y_cpp_file)
+      #if not y_hpp_file in lib_map["OSGSystem"].header_files:
+      #   lib_map["OSGSystem"].header_files.append(y_hpp_file)
+      #print " yy source: %s \n header: %s"%(lib_map["OSGSystem"].source_files, lib_map["OSGSystem"].header_files)
+   else:
+      print "WARNING: bison not available.  If you change .yy files they will not be built."
+   
+   # Hack to handle the generation of the scanner from .lpp
+   # This pretty hacky to allow using a version of the file from the repository if lex is not installed
+   # 2. Call flex: OSGScanParseSkelScanner.lpp -> OSGScanParseSkelScanner.cpp (this one needs to be filtered to change the include) 
+   if "lex" in common_env["TOOLS"]:
+      def filter_header(target, source, env):
+         """ Custom filter to change the include file for the flexlexer.h"""
+         fname = str(target[0])
+         contents = open(fname).readlines()
+         for i in range(len(contents)):
+            if contents[i] == "#include <FlexLexer.h>\n":
+               contents[i] = "#include \"%s\"\n" % os.path.split(OSG_flexlexer_h)[1]
+               break
+         open(fname,'w').writelines(contents)
+         #print "filter_header: Created ", fname      
+
+      lexer_env = common_env.Copy()
+      lexer_env.Append(LEXFLAGS = ["-+","-POSGScanParseSkel_"])
+
+      lexer_dir       = pj('Source','System','FileIO','ScanParseSkel')
+      sys_flexlexer_h = "/usr/include/FlexLexer.h"
+      OSG_flexlexer_h = pj(lexer_dir,"OSGScanParseSkelScanner_FlexLexer.h")
+      source_file     = pj(lexer_dir,"OSGScanParseSkelScanner.ll")
+      target_file     = pj(lexer_dir,"OSGScanParseSkelScanner.cpp")
+
+      # Replace lex builder with new action that calls flex and then filters
+      std_lex_action = Action("$LEXCOM", "$LEXCOMSTR")      
+      filter_action = Action(filter_header, lambda t,s,e: "Filtering header: %s %s"%(str(t),str(s)))
+      cxx_file_builder = lexer_env['BUILDERS']['CXXFile']
+      cxx_file_builder.add_action('.ll', Action([std_lex_action, filter_action]))            
+      lfiles = lexer_env.CXXFile(target=target_file,source=source_file)
+      NoClean(lfiles)
+      #print "lfiles: ", lfiles 
+      
+      # If available, copy the system FlexLexer.h file to local source dir
+      if os.path.exists(sys_flexlexer_h):      
+         flexlex_cp = lexer_env.Command(OSG_flexlexer_h, sys_flexlexer_h,[Copy('$TARGET','$SOURCE'),])
+         Depends(lfiles, flexlex_cp)
+
+      #Depends(lfiles, "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.hpp") # the scanner includes the token header from the parser...
+      if vars().has_key('yfiles'):
+         Depends(lfiles, yfiles)      
+      
+      # Strip off "Source/" since this will be in the build dir
+      scanner_src = target_file.replace("Source/","",1)
+      #if not scanner_src in lib_map["OSGSystem"].source_files:
+      #   lib_map["OSGSystem"].source_files.append(scanner_src)
+      #print "FileIO source files: ", lib_map["OSGSystem"].source_files         
+   else:
+      print "WARNING: flex not available.  If you change .ll files they will not be built."  
    
 #------------------------------------------------------------------------------
 # Main build setup
@@ -296,7 +379,10 @@ if not SConsAddons.Util.hasHelpFlag():
       # - Fill with anything from the file
       if have_build_info:
          bi_filename = pj(full_dir,"build.info")
-         print "   Evaluating: ", bi_filename         
+         if verbose_build:
+            print "   Evaluating: ", bi_filename         
+         else:
+            sys.stdout.write(".")
          
          # Custom options
          ns = {"option_pass":False, 
@@ -312,7 +398,8 @@ if not SConsAddons.Util.hasHelpFlag():
             
          execfile(bi_filename, ns)
          if ns["stop_traversal"]:          # Don't traverse any further
-            print "   Pruning traversal."
+            if verbose_build:
+               print "   Pruning traversal."
             return
          if not ns.has_key("library"):
             print "Error: Must specify 'library' value in build.info file:", bi_filename
@@ -326,8 +413,7 @@ if not SConsAddons.Util.hasHelpFlag():
          # Add all the lib options from the evaluation
          for n in lib_attrib_names:
             getattr(cur_lib,n).extend(ns[n])
-         
-      
+               
       test_files =   [f for f in files if os.path.basename(f).startswith("test") and f.endswith(".cpp")]
       source_files = [f for f in files if (os.path.splitext(f)[1] in [".cpp",".cc"]) and\
                                           (f not in test_files)]
@@ -349,40 +435,15 @@ if not SConsAddons.Util.hasHelpFlag():
          if not os.path.basename(d) in dir_ignores:
             scan_libs(base_dir, d, copy.copy(name_stack))
    
-   scan_libs(pj(os.getcwd(),"Source"), '', [])   
+   # Trigger recursive scanning of library directorties
+   if not verbose_build:
+      print "Scanning libraries: ",
+   scan_libs(pj(os.getcwd(),"Source"), '', [])
+   if not verbose_build:
+      print "  found %s libraries"%len(lib_map)
    
-   # Hack to handle the generation of the parser from .y
-   # This pretty hacky to allow using a version of the file from the repository if yacc is not installed
-   if "yacc" in common_env["TOOLS"]:
-      parser_env = common_env.Copy()
-      parser_env.Append(YACCFLAGS = ["-d","-v","-pOSGScanParseSkel_","-bOSGScanParseSkel_"])
-      source_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-      target_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.cpp"
-      yfiles = parser_env.CXXFile(target=target_file,source=source_file)   
-      NoClean(yfiles)
-      print "yfiles: ", yfiles 
-      #if not yfiles[0] in lib_map["OSGFileIO"].source_files:
-      #   lib_map["OSGFileIO"].source_files.append(yfiles[0])
-      #if not yfiles[1] in lib_map["OSGFileIO"].header_files:
-      #   lib_map["OSGFileIO"].header_files.append(yfiles[1])
-   else:
-      print "WARNING: bison not available.  If you change .yy files they will not be built."
-   
-   # Hack to handle the generation of the scanner from .lpp
-   # This pretty hacky to allow using a version of the file from the repository if lex is not installed
-   if "lex" in common_env["TOOLS"]:
-      lexer_env = common_env.Copy()
-      lexer_env.Append(LEXFLAGS = ["-+","-POSGScanParseSkel_"])
-      source_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelScanner.ll"
-      target_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelScanner.cpp"
-      lfiles = lexer_env.CXXFile(target=target_file,source=source_file)   
-      NoClean(lfiles)
-      Depends(lfiles, "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.hpp") # the scanner includes the token header from the parser...
-      print "lfiles: ", lfiles 
-      #if not lfiles[0] in lib_map["OSGFileIO"].source_files:
-      #   lib_map["OSGFileIO"].source_files.append(lfiles[0])
-   else:
-      print "WARNING: flex not available.  If you change .ll files they will not be built."   
+   # Add lexer to the build
+   addScanParseSkel(common_env) 
 
    # -- Common builder settings
    variant_helper.readOptions(common_env)
@@ -408,7 +469,8 @@ if not SConsAddons.Util.hasHelpFlag():
    paths['lib']       = pj(paths['base'], 'lib')
    paths['include']   = pj(paths['base'], 'include')   
    paths['bin']       = pj(paths['base'], 'bin')   
-   print "using prefix: ", paths['base']         
+   print "Using prefix: ", paths['base']         
+   common_env.Append(CPPPATH = [paths['include'],pj(paths['include'],"OpenSG")])
       
    # ---- Generate OSGConfigured.h --- #
    definemap = {"OSG_DISABLE_DEPRECATED": (common_env["disable_deprecated"],
@@ -436,10 +498,10 @@ if not SConsAddons.Util.hasHelpFlag():
    
    # ---- FOR EACH VARIANT ----- #   
    # This is the core of the build.
-   print "types: ",    variant_helper.variants["type"] 
-   print "libtypes: ", variant_helper.variants["libtype"] 
-   print "archs: ",    variant_helper.variants["arch"]    
-   common_env.Append(CPPPATH = [paths['include'],pj(paths['include'],"OpenSG")])
+   if verbose_build:
+      print "types: ",    variant_helper.variants["type"] 
+      print "libtypes: ", variant_helper.variants["libtype"] 
+      print "archs: ",    variant_helper.variants["arch"]    
    
    # We tread the first variant type special (auto link from libs here)
    default_combo_type = variant_helper.variants["type"][0][0]
@@ -461,7 +523,7 @@ if not SConsAddons.Util.hasHelpFlag():
       Export('build_env','inst_paths','opts', 'variant_pass','combo',
              'lib_map','boost_options', 
              'shared_lib_suffix','static_lib_suffix',
-             'default_combo_type')
+             'default_combo_type','verbose_build')
       
       # Process subdirectories
       sub_dirs = ['Source']   
