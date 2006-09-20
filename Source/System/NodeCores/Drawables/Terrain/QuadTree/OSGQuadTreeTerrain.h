@@ -42,11 +42,11 @@
 #pragma once
 #endif
 
-#include <OSGConfig.h>
-#include <OSGQuadTreeTerrainBase.h>
-#include <OSGSHLChunk.h>
-#include <OSGVertexProgramChunk.h>
-#include <OSGFragmentProgramChunk.h>
+#include "OSGConfig.h"
+#include "OSGQuadTreeTerrainBase.h"
+#include "OSGSHLChunk.h"
+#include "OSGVertexProgramChunk.h"
+#include "OSGFragmentProgramChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -215,8 +215,8 @@ typedef QuadTreeTerrain *QuadTreeTerrainP;
 
 OSG_END_NAMESPACE
 
-#include <OSGQuadTreeTerrainBase.inl>
-#include <OSGQuadTreeTerrain.inl>
+#include "OSGQuadTreeTerrainBase.inl"
+#include "OSGQuadTreeTerrain.inl"
 
 #define OSGQUADTREETERRAIN_HEADER_CVSID "@(#)$Id: $"
 
