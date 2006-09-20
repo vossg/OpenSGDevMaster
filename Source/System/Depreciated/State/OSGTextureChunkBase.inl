@@ -1377,39 +1377,6 @@ void TextureChunkBase::setLodBias(const Real32 &value)
 
     _sfLodBias.setValue(value);
 }
-//! Get the value of the TextureChunk::_sfTarget field.
-
-inline
-GLenum &TextureChunkBase::editTarget(void)
-{
-    editSField(TargetFieldMask);
-
-    return _sfTarget.getValue();
-}
-
-//! Get the value of the TextureChunk::_sfTarget field.
-inline
-const GLenum &TextureChunkBase::getTarget(void) const
-{
-    return _sfTarget.getValue();
-}
-
-#ifdef OSG_1_COMPAT
-inline
-GLenum &TextureChunkBase::getTarget(void)
-{
-    return this->editTarget();
-}
-#endif
-
-//! Set the value of the TextureChunk::_sfTarget field.
-inline
-void TextureChunkBase::setTarget(const GLenum &value)
-{
-    editSField(TargetFieldMask);
-
-    _sfTarget.setValue(value);
-}
 //! Get the value of the TextureChunk::_sfDirtyLeft field.
 
 inline
@@ -2005,9 +1972,6 @@ void TextureChunkBase::execSync(      TextureChunkBase *pOther,
     if(FieldBits::NoField != (LodBiasFieldMask & whichField))
         _sfLodBias.syncWith(pOther->_sfLodBias);
 
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-        _sfTarget.syncWith(pOther->_sfTarget);
-
     if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
         _sfDirtyLeft.syncWith(pOther->_sfDirtyLeft);
 
@@ -2182,9 +2146,6 @@ void TextureChunkBase::execSync (      TextureChunkBase *pFrom,
     if(FieldBits::NoField != (LodBiasFieldMask & whichField))
         _sfLodBias.syncWith(pFrom->_sfLodBias);
 
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-        _sfTarget.syncWith(pFrom->_sfTarget);
-
     if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
         _sfDirtyLeft.syncWith(pFrom->_sfDirtyLeft);
 
@@ -2255,5 +2216,5 @@ typedef PointerBuilder<TextureChunk>::ObjPtrConstArg  TextureChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTURECHUNKBASE_INLINE_CVSID "@(#)$Id$"
+#define OSGTEXTURECHUNKBASE_INLINE_CVSID "@(#)$Id: FCBaseTemplate_inl.h 106 2006-09-14 03:15:53Z dirk $"
 

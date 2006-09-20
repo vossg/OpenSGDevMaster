@@ -85,7 +85,6 @@
 #include <OSGGL.h>   // ShaderOperation default header
 #include <OSGGL.h>   // ShaderInput default header
 #include <OSGGL.h>   // ShaderRGBADotProduct default header
-#include <OSGGL.h>   // Target default header
 #include <OSGGL.h>   // CompareMode default header
 #include <OSGGL.h>   // CompareFunc default header
 #include <OSGGL.h>   // DepthMode default header
@@ -275,15 +274,6 @@ OSG_USING_NAMESPACE
 */
 /*! \var Real32 TextureChunkBase::_sfLodBias
             Bias of LOD calculation for texture access.
-    
-
-*/
-/*! \var GLenum TextureChunkBase::_sfTarget
-            Texture target. Overwrite automatically determined texture target
-        based on the parameters of the assigned image if set to anything 
-        else than GL_NONE. Used for nVidia's rectangle textures. Be careful
-        when using it!
-    
     
 
 */
@@ -1214,27 +1204,6 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
         reinterpret_cast<FieldGetMethodSig >(GetSFLodBias));
 #else
         reinterpret_cast<FieldGetMethodSig >(&TextureChunkBase::getSFLodBias));
-#endif
-
-    oType.addInitialDesc(pDesc);
-
-#ifdef OSG_1_COMPAT
-    typedef const SFGLenum *(TextureChunkBase::*GetSFTargetF)(void) const;
-
-    GetSFTargetF GetSFTarget = &TextureChunkBase::getSFTarget;
-#endif
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "target", 
-        TargetFieldId, TargetFieldMask,
-        false,
-        Field::SFDefaultFlags,
-        reinterpret_cast<FieldEditMethodSig>(&TextureChunkBase::editSFTarget),
-#ifdef OSG_1_COMPAT
-        reinterpret_cast<FieldGetMethodSig >(GetSFTarget));
-#else
-        reinterpret_cast<FieldGetMethodSig >(&TextureChunkBase::getSFTarget));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -2289,25 +2258,6 @@ SFReal32 *TextureChunkBase::getSFLodBias(void)
 }
 #endif
 
-SFGLenum *TextureChunkBase::editSFTarget(void)
-{
-    editSField(TargetFieldMask);
-
-    return &_sfTarget;
-}
-
-const SFGLenum *TextureChunkBase::getSFTarget(void) const
-{
-    return &_sfTarget;
-}
-
-#ifdef OSG_1_COMPAT
-SFGLenum *TextureChunkBase::getSFTarget(void)
-{
-    return this->editSFTarget();
-}
-#endif
-
 SFInt32 *TextureChunkBase::editSFDirtyLeft(void)
 {
     editSField(DirtyLeftFieldMask);
@@ -2770,10 +2720,6 @@ UInt32 TextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfLodBias.getBinSize();
     }
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-    {
-        returnValue += _sfTarget.getBinSize();
-    }
     if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
     {
         returnValue += _sfDirtyLeft.getBinSize();
@@ -2995,10 +2941,6 @@ void TextureChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfLodBias.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-    {
-        _sfTarget.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
     {
         _sfDirtyLeft.copyToBin(pMem);
@@ -3218,10 +3160,6 @@ void TextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfLodBias.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (TargetFieldMask & whichField))
-    {
-        _sfTarget.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
     {
         _sfDirtyLeft.copyFromBin(pMem);
@@ -3338,7 +3276,6 @@ TextureChunkBase::TextureChunkBase(void) :
     _sfShaderCullModes(UInt8(0)),
     _sfShaderConstEye(),
     _sfLodBias(Real32(0.f)),
-    _sfTarget(GLenum(GL_NONE)),
     _sfDirtyLeft(Int32(-1)),
     _sfDirtyMinX(Int32(-1)),
     _sfDirtyMaxX(Int32(-1)),
@@ -3397,7 +3334,6 @@ TextureChunkBase::TextureChunkBase(const TextureChunkBase &source) :
     _sfShaderCullModes(source._sfShaderCullModes),
     _sfShaderConstEye(source._sfShaderConstEye),
     _sfLodBias(source._sfLodBias),
-    _sfTarget(source._sfTarget),
     _sfDirtyLeft(source._sfDirtyLeft),
     _sfDirtyMinX(source._sfDirtyMinX),
     _sfDirtyMaxX(source._sfDirtyMaxX),
@@ -3526,7 +3462,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 120 2006-09-18 08:12:52Z vossg $";
     static Char8 cvsid_hpp       [] = OSGTEXTURECHUNKBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTURECHUNKBASE_INLINE_CVSID;
 
