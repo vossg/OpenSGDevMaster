@@ -112,7 +112,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjRefChunk : public TextureObjRefChunkBase
     /*! \name                       query                                  */
     /*! \{                                                                 */
 
-    GLenum determineTextureTarget(Window *pWindow) const;
+    //GLenum determineTextureTarget(Window *pWindow) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -117,7 +117,7 @@ class OSG_SYSTEM_DLLMAPPING TextureEnvChunk : public TextureEnvChunkBase
     /*! \name                       query                                  */
     /*! \{                                                                 */
 
-    GLenum determineTextureTarget(Window *pWindow) const;
+    //GLenum determineTextureTarget(Window *pWindow) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
