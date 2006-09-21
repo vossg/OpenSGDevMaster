@@ -362,6 +362,9 @@ class FieldContainer : public FieldContainerParent
     virtual ObjPtr createAspectCopy(void) const = 0;
 #endif
 
+    OSG_SYSTEM_DLLMAPPING
+    virtual void resolveLinks   (      void                             );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                MT Construction                               */

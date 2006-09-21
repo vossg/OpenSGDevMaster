@@ -6,7 +6,7 @@
 
 void testCB(OSG::FieldContainerPtr pObj, OSG::BitVector whichField)
 {
-    fprintf(stderr, "testCB\n");
+    fprintf(stderr, "testCB %llx\n", whichField);
 }
 
 int main (int argc, char **argv)
@@ -58,4 +58,6 @@ int main (int argc, char **argv)
     fprintf(stderr, "Test 5\n");
     OSG::Thread::getCurrentChangeList()->commitChanges();
 
+    fprintf(stderr, "Delete\n");
+    OSG::subRef(pNode);
 }

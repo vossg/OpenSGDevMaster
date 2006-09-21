@@ -479,9 +479,10 @@ void FieldContainerPtrBase::subReference(void) const
             reinterpret_cast<ReflexiveContainer *>(
                 getElemP(Thread::getCurrentAspect()));
 
+
         pRC->onDestroy   (*(getIdP()));
         pRC->resolveLinks(           );
-
+        
 #ifdef OSG_ASPECT_REFCOUNT
         if((*getARefCountP()) <= 0)
         {

@@ -188,6 +188,11 @@ bool FieldContainer::deregister(UInt32 uiContainerId)
     return FieldContainerFactory::the()->deregisterContainer(uiContainerId);
 }
 
+void FieldContainer::resolveLinks(void)
+{
+    callChangedFunctors(0);
+}
+
  
 void OSG::splitShareString(const std::string               &shareString,
                                  std::vector<std::string> &shareList  )
