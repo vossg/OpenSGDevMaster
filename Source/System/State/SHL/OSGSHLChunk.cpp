@@ -672,8 +672,8 @@ void SHLChunk::updateParameters(Window *win,
         (OSGGLUSEPROGRAMOBJECTARBPROC)
             win->getFunction(_funcUseProgramObject);
 
-//    if(useProgram)
-//        useProgramObject(program);
+    if(useProgram)
+        useProgramObject(program);
 
     // get "glGetUniformLocationARB" function pointer
     OSGGLGETUNIFORMLOCATIONARBPROC getUniformLocation = 
