@@ -1260,48 +1260,27 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-bool osgispower2<UInt32>(UInt32 rValue)
+bool osgispower2<UInt32>(const UInt32 rValue)
 {
-    // find the lowest 1 bit
-    while(rValue && ! (rValue & 1))
-    {
-        rValue >>= 1;
-    }
-
-    // shift the 1 bit out
-    rValue >>= 1;
-
-    // if another 1 left => not 2^
-    if(rValue)
-        return false;
-    else            
-        return true;
+    return !(rValue & (rValue - 1)) && (rValue != 0);
 }
 
-/*! Test if the argument is a power of 2 or zero.
-
-    \param[in] rValue Number to test, must be >= 0.
-    \return true if rValue is a power of 2 or zero.
-
-    \ingroup GrpBaseBaseMathFn
- */
 template <> inline
-bool osgispower2<Int32>(Int32 rValue)
+bool osgispower2<Int32>(const Int32 rValue)
 {
-    // find the lowest 1 bit
-    while(rValue && ! (rValue & 1))
-    {
-        rValue >>= 1;
-    }
+    return !(rValue & (rValue - 1)) && (rValue > 0);
+}
 
-    // shift the 1 bit out
-    rValue >>= 1;
+template <> inline
+bool osgispower2<UInt64>(const UInt64 rValue)
+{
+    return !(rValue & (rValue - 1)) && (rValue != 0);
+}
 
-    // if another 1 left => not 2^
-    if(rValue)
-        return false;
-    else
-        return true;
+template <> inline
+bool osgispower2<Int64>(const Int64 rValue)
+{
+    return !(rValue & (rValue - 1)) && (rValue > 0);
 }
 
 /*! \}                                                                 */
@@ -1320,16 +1299,18 @@ bool osgispower2<Int32>(Int32 rValue)
 template <> inline
 UInt32 osgnextpower2<UInt32>(UInt32 rValue)
 {
-    UInt32 result  = 1;
-    UInt32 oresult = 0;
-
-    while(result < rValue && result > oresult)
-    {
-        oresult = result;
-        result <<= 1;
-    }
-
-    return (result > oresult) ? result : 0;
+    if(rValue == 0)
+        return TypeTraits<UInt32>::getOneElement();
+    
+    --rValue;
+    rValue |= rValue >> 1;
+    rValue |= rValue >> 2;
+    rValue |= rValue >> 4;
+    rValue |= rValue >> 8;
+    rValue |= rValue >> 16;
+    ++rValue;
+    
+    return rValue;
 }
 
 /*! \ingroup GrpBaseBaseMathFn
@@ -1337,33 +1318,24 @@ UInt32 osgnextpower2<UInt32>(UInt32 rValue)
 template <> inline
 Int32 osgnextpower2<Int32>(Int32 rValue)
 {
-    Int32 result  = 1;
-    Int32 oresult = 0;
-
-    while(result < rValue && result > oresult)
-    {
-        oresult = result;
-        result <<= 1;
-    }
-
-    return (result > oresult) ? result : 0;
-}
-
-/*! \ingroup GrpBaseBaseMathFn
- */
-template <> inline
-Int64 osgnextpower2<Int64>(Int64 rValue)
-{
-    Int64 result  = 1;
-    Int64 oresult = 0;
-
-    while(result < rValue && result > oresult)
-    {
-        oresult = result;
-        result <<= 1;
-    }
-
-    return (result > oresult) ? result : 0;
+    const Int32 maxPower2 = TypeTraits<Int32>::getOneElement() << 30;
+    
+    if(rValue <= 0)
+        return TypeTraits<Int32>::getOneElement();
+    
+    // signed overflow invokes undefined behavior, avoid it.
+    if(rValue > maxPower2)
+        return TypeTraits<Int32>::getZeroElement();
+    
+    --rValue;
+    rValue |= rValue >> 1;
+    rValue |= rValue >> 2;
+    rValue |= rValue >> 4;
+    rValue |= rValue >> 8;
+    rValue |= rValue >> 16;
+    ++rValue;
+    
+    return rValue;
 }
 
 /*! \ingroup GrpBaseBaseMathFn
@@ -1371,16 +1343,45 @@ Int64 osgnextpower2<Int64>(Int64 rValue)
 template <> inline
 UInt64 osgnextpower2<UInt64>(UInt64 rValue)
 {
-    UInt64 result  = 1;
-    UInt64 oresult = 0;
+    if(rValue == 0)
+        return TypeTraits<UInt64>::getOneElement();
+    
+    --rValue;
+    rValue |= rValue >> 1;
+    rValue |= rValue >> 2;
+    rValue |= rValue >> 4;
+    rValue |= rValue >> 8;
+    rValue |= rValue >> 16;
+    rValue |= rValue >> 32;
+    ++rValue;
+    
+    return rValue;
+}
 
-    while(result < rValue && result > oresult)
-    {
-        oresult = result;
-        result <<= 1;
-    }
-
-    return (result > oresult)? result : 0;
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <> inline
+Int64 osgnextpower2<Int64>(Int64 rValue)
+{
+    const Int64 maxPower2 = TypeTraits<Int64>::getOneElement() << 62;
+    
+    if(rValue <= 0)
+        return TypeTraits<Int64>::getOneElement();
+    
+    // signed overflow invokes undefined behavior, avoid it.
+    if(rValue > maxPower2)
+        return TypeTraits<Int64>::getZeroElement();
+    
+    --rValue;
+    rValue |= rValue >> 1;
+    rValue |= rValue >> 2;
+    rValue |= rValue >> 4;
+    rValue |= rValue >> 8;
+    rValue |= rValue >> 16;
+    rValue |= rValue >> 32;
+    ++rValue;
+    
+    return rValue;
 }
 
 #ifdef SIZE_T_NEQ_UINT32
@@ -1390,16 +1391,19 @@ UInt64 osgnextpower2<UInt64>(UInt64 rValue)
 template <> inline
 size_t osgnextpower2<size_t>(size_t rValue)
 {
-    size_t result  = 1;
-    size_t oresult = 0;
-
-    while(result < rValue && result > oresult)
-    {
-        oresult = result;
-        result <<= 1;
-    }
-
-    return (result > oresult)? result : 0;
+    if(rValue == 0)
+        return TypeTraits<size_t>::getOneElement();
+    
+    --rValue;
+    rValue |= rValue >> 1;
+    rValue |= rValue >> 2;
+    rValue |= rValue >> 4;
+    rValue |= rValue >> 8;
+    rValue |= rValue >> 16;
+    rValue |= rValue >> 32;
+    ++rValue;
+    
+    return rValue;
 }
 
 #endif

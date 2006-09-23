@@ -217,10 +217,8 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 template <class TypeT> inline
 bool osgispower2(TypeT rValue);
 
-
 template <class TypeT> inline
 TypeT osgnextpower2(TypeT rValue);
-
 
 /*---------------------------------------------------------------------*/
 /*                    Miscellaneous Functions                          */
