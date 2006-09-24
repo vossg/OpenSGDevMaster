@@ -10,7 +10,7 @@ try:
 except:
    pass
 
-import os, string, sys, re, glob, copy, types, traceback, pprint
+import os, string, sys, re, glob, copy, types, traceback, pprint, tempfile, shutil
 pj = os.path.join
 
 print "-------------------------------------------------"
@@ -390,7 +390,7 @@ if not SConsAddons.Util.hasHelpFlag():
                "library":None,
                "platform":platform,
                "compiler":common_env["CXX"],
-               "stop_traversal":False,               
+               "stop_traversal":False
          }
          # Options for the lib package
          for n in lib_attrib_names:
@@ -415,8 +415,11 @@ if not SConsAddons.Util.hasHelpFlag():
             getattr(cur_lib,n).extend(ns[n])
                
       test_files =   [f for f in files if os.path.basename(f).startswith("test") and f.endswith(".cpp")]
+      unittest_files =   [f for f in files if os.path.basename(f).endswith("Test.cpp") and\
+                                              os.path.basename(f).startswith("OSG")]
       source_files = [f for f in files if (os.path.splitext(f)[1] in [".cpp",".cc"]) and\
-                                          (f not in test_files)]
+                                          (os.path.basename(f).startswith("OSG") and\
+                                           f not in test_files and f not in unittest_files)]
       header_files = [f for f in files if os.path.splitext(f)[1] in [".h",".inl",".ins",".hpp"] and\
                                          (os.path.basename(f).startswith("OSG"))]      
       
@@ -426,9 +429,10 @@ if not SConsAddons.Util.hasHelpFlag():
             print "Error: Attempted to add source with no library build.info specifed.  In dir: %s"%pj(base_dir,cur_dir)
             sys.exit(1)
          lib_name = name_stack[-1]
-         lib_map[lib_name].source_files += source_files
-         lib_map[lib_name].header_files += header_files
-         lib_map[lib_name].test_files   += test_files
+         lib_map[lib_name].source_files     += source_files
+         lib_map[lib_name].header_files     += header_files
+         lib_map[lib_name].test_files       += test_files
+         lib_map[lib_name].unittest_files   += unittest_files
 
       # Recurse into subdirectories
       for d in dirs:
@@ -503,6 +507,22 @@ if not SConsAddons.Util.hasHelpFlag():
       print "libtypes: ", variant_helper.variants["libtype"] 
       print "archs: ",    variant_helper.variants["arch"]    
    
+   # common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
+   
+   # Unit Tests
+   
+   # Make the framework
+   
+   # Until they have the SConstruct in their svn, let's just copy it over
+   SConscript(pj("Tools", "unittest-cpp.SConstruct"))
+   
+   
+   # set the needed vars
+   unittest_inc = pj(os.getcwd(),"Tools","unittest-cpp","UnitTest++","src");
+   unittest_libpath = pj(os.getcwd(),"Tools","unittest-cpp","UnitTest++");
+   unittest_lib = "UnitTest++";
+   unittest_runner = pj(os.getcwd(),"Tools","UnitTestRunner.cpp");
+   
    # We tread the first variant type special (auto link from libs here)
    default_combo_type = variant_helper.variants["type"][0][0]
    
@@ -523,7 +543,8 @@ if not SConsAddons.Util.hasHelpFlag():
       Export('build_env','inst_paths','opts', 'variant_pass','combo',
              'lib_map','boost_options', 
              'shared_lib_suffix','static_lib_suffix',
-             'default_combo_type','verbose_build')
+             'default_combo_type','verbose_build',
+             'unittest_inc', 'unittest_lib', 'unittest_libpath', 'unittest_runner')
       
       # Process subdirectories
       sub_dirs = ['Source']   
@@ -553,7 +574,7 @@ if not SConsAddons.Util.hasHelpFlag():
             common_env.Depends(osg_config, Value(lib_map_str))
 
    
-   common_env.Alias('install', paths['base'])
+   common_env.Alias('install', paths['base'])   
    
    # Close up with aliases and defaults   
    Default('.')

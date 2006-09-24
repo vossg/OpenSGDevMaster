@@ -13,7 +13,7 @@ if not verbose_build:
    
 for (lib_name, library) in lib_map.iteritems():
    if verbose_build:
-      print "Library: ", lib_name, "  tests:", library.test_files
+      print "Library: ", lib_name, "  tests:", library.test_files, "  unittests:", library.unittest_files
    else:
       print "%s"%lib_name,
    
@@ -70,6 +70,33 @@ for (lib_name, library) in lib_map.iteritems():
          test_env.Program(target= pj("..","test",os.path.splitext(os.path.basename(s))[0]),
                           source=s)
    
-   # Done
+      # ---- Build Unit Tests ---- #   
+      if len(library.unittest_files) > 0:
+         unittest_env = test_env.Copy()
+         unittest_env.Append(CPPPATH=unittest_inc,
+                             LIBPATH=unittest_libpath,
+                             LIBS=unittest_lib)
+
+         # - Build them all in the local 'unittest' subdir
+         unittest_objs = []
+         for s in library.unittest_files:
+            t=pj("..","unittest",os.path.splitext(os.path.basename(s))[0])
+            unittest_objs += unittest_env.Object(target=t, source=s)
+
+         # Build the unit test runner
+         t=pj("..","unittest",lib_name + "Runner")
+         unittest_objs += unittest_env.Object(target=t, source=unittest_runner)
+         runner = unittest_env.Program(target=pj("..","unittest","run" + lib_name), source=unittest_objs)
+
+
+         # Run the Test once the program is built
+         def runTest(target, source, env):
+            print "Running ", os.path.basename(str(target[0]))
+            os.system(str(target[0]))
+
+         AddPostAction(runner, runTest)
+
+      
+   # Done   
 if not verbose_build:
    print ""

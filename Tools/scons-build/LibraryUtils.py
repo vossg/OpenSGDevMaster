@@ -15,6 +15,7 @@ class LibraryInfo(object):
       self.other_test_libs = []      # Names of non-OSG libraries the tests depend on
       self.test_cpppath = []         # Includedirs of libraries the tests depend on
       self.test_libpath = []         # Libpaths of libraries the tests depend on
+      self.unittest_files = []       # list of source files for unit tests
 
    def dump(self):
       """ Dump contained date to a dictionary that could be pprinted. """
@@ -35,7 +36,7 @@ class LibraryInfo(object):
       # Merge the lists but only merge in new unique entries
       for a in ["source_files","header_files","test_files","osg_dep_libs",
                 "libs","libpath","cpppath",
-                "osg_test_libs","other_test_libs","test_cpppath","test_libpath"]:
+                "osg_test_libs","other_test_libs","test_cpppath","test_libpath","unittest_files"]:
          getattr(self,a).extend([i for i in getattr(other,a) if not i in getattr(self,a)])
  
 
