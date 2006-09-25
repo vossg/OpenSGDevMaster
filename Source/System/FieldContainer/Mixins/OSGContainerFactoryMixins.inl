@@ -78,7 +78,12 @@ bool  FactoryMixinHead<DescT>::initializePendingElementsFactoryPost(void)
     return true;
 }
 
-
+/*! Attempt to find the id of the group with the given name.
+* \param  szName  Name of group to lookup.
+* \return Returns id if found, else returns 0.
+* \bug t64 When 0 is returned and immediately passed to findGroupName we don't get the same thing back.
+*      ie.  findGroupName(findGroupId("not there")) != "not there"
+*/
 template <class ParentT> inline
 UInt16 ContainerFactoryMixin<ParentT>::findGroupId(const Char8  *szName) const
 {
@@ -102,6 +107,10 @@ UInt16 ContainerFactoryMixin<ParentT>::findGroupId(const Char8  *szName) const
     return returnValue;
 }
 
+/*! Attempt to find name of the group with the given id.
+* \param  uiGroupId  Id of the group to lookup.
+* \return Pointer to string of name.  If not found, returns NULL.
+*/
 template <class ParentT> inline
 const Char8 *ContainerFactoryMixin<ParentT>::findGroupName(
     UInt16 uiGroupId) const
@@ -132,6 +141,7 @@ const Char8 *ContainerFactoryMixin<ParentT>::findGroupName(
     return returnValue;
 }
 
+/*! Return the number of groups that the factory knows about. */
 template <class ParentT> inline
 UInt32 ContainerFactoryMixin<ParentT>::getNumGroups(void) const
 {
@@ -171,6 +181,11 @@ void ContainerFactoryMixin<ParentT>::registerType(ContainerType *pType)
 #endif
 }
 
+/*! Register a new group name with the factory.
+* \param szGroupName  The new group name to register.
+* \return Returns id of the (new) group.
+* \postcond If already registered, just returns the id without updating the map.
+*/
 template <class ParentT> inline
 UInt16 ContainerFactoryMixin<ParentT>::registerGroup(const Char8 *szGroupName)
 {
