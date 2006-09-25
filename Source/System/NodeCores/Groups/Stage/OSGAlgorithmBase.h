@@ -256,6 +256,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGALGORITHMBASE_HEADER_CVSID "@(#)$Id: $"
+#define OSGALGORITHMBASE_HEADER_CVSID "@(#)$Id: FCBaseTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
 
 #endif /* _OSGALGORITHMBASE_H_ */
