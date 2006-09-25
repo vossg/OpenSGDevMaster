@@ -116,7 +116,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \{                                                                 */
 
     FieldContainerPtr getPrototype(void                        ) const;
-    bool              setPrototype(FieldContainerPtr pPrototype);
+    //bool              setPrototype(FieldContainerPtr pPrototype);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -110,8 +110,8 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleType : public ReflexiveContainerType
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    FieldBundleP getPrototype(void                   ) const;
-    bool         setPrototype(FieldBundleP pPrototype);
+    //FieldBundleP getPrototype(void                   ) const;
+    //bool         setPrototype(FieldBundleP pPrototype);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
