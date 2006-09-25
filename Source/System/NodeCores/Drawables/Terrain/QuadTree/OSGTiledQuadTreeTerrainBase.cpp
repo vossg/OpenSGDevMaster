@@ -1431,7 +1431,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 120 2006-09-18 08:12:52Z vossg $";
     static Char8 cvsid_hpp       [] = OSGTILEDQUADTREETERRAINBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTILEDQUADTREETERRAINBASE_INLINE_CVSID;
 
