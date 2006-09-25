@@ -262,6 +262,7 @@ opts.AddOption(sca_opts.BoolOption("osg_1_compat","Enable opensg 1.x compatibili
 opts.AddOption(sca_opts.BoolOption("osg_deprecated_props","Enable deprecated property types.",False))
 opts.Add("build_suffix", "Suffix to append to build directory.  Useful for compiling multiple variations on same platform.", "")                                    
 opts.AddOption(sca_opts.BoolOption("enable_fcdprocess","If true, enable support for fcdProcess in the build.",False))
+opts.AddOption(sca_opts.BoolOption("enable_unittests","If true, enable unit tests in the build.",True))
 opts.Add("icc_gnu_compat","<GCC Verion> to make the icc resultbinary compatible to the given gcc version. (unsupported)")
 if "win32" == platform:
    opts.AddOption(sca_opts.BoolOption("win_localstorage", "Use local storage instead of __declspec to get thread local storage on windows",
@@ -500,29 +501,28 @@ if not SConsAddons.Util.hasHelpFlag():
    common_env.DefineBuilder(pj(paths["include"],"OpenSG","OSGConfigured.h"),Value(definemap), 
                             definemap=definemap)
    
+   # Unit Testing framework
+   # - Build the framework
+   if common_env["enable_unittests"]:      
+      # common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
+      # Until they have the SConstruct in their svn, let's just copy it over
+      SConscript(pj("Tools", "unittest-cpp.SConstruct"))   
+   
+      # set the needed vars
+      unittest_inc = pj(os.getcwd(),"Tools","unittest-cpp","UnitTest++","src");
+      unittest_libpath = pj(os.getcwd(),"Tools","unittest-cpp","UnitTest++");
+      unittest_lib = "UnitTest++";
+      unittest_runner = pj(os.getcwd(),"Tools","UnitTestRunner.cpp");
+      Export('unittest_inc', 'unittest_lib', 'unittest_libpath', 'unittest_runner')
+   
+      
    # ---- FOR EACH VARIANT ----- #   
    # This is the core of the build.
    if verbose_build:
       print "types: ",    variant_helper.variants["type"] 
       print "libtypes: ", variant_helper.variants["libtype"] 
       print "archs: ",    variant_helper.variants["arch"]    
-   
-   # common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
-   
-   # Unit Tests
-   
-   # Make the framework
-   
-   # Until they have the SConstruct in their svn, let's just copy it over
-   SConscript(pj("Tools", "unittest-cpp.SConstruct"))
-   
-   
-   # set the needed vars
-   unittest_inc = pj(os.getcwd(),"Tools","unittest-cpp","UnitTest++","src");
-   unittest_libpath = pj(os.getcwd(),"Tools","unittest-cpp","UnitTest++");
-   unittest_lib = "UnitTest++";
-   unittest_runner = pj(os.getcwd(),"Tools","UnitTestRunner.cpp");
-   
+      
    # We tread the first variant type special (auto link from libs here)
    default_combo_type = variant_helper.variants["type"][0][0]
    
@@ -543,8 +543,7 @@ if not SConsAddons.Util.hasHelpFlag():
       Export('build_env','inst_paths','opts', 'variant_pass','combo',
              'lib_map','boost_options', 
              'shared_lib_suffix','static_lib_suffix',
-             'default_combo_type','verbose_build',
-             'unittest_inc', 'unittest_lib', 'unittest_libpath', 'unittest_runner')
+             'default_combo_type','verbose_build',)
       
       # Process subdirectories
       sub_dirs = ['Source']   

@@ -71,13 +71,15 @@ for (lib_name, library) in lib_map.iteritems():
                           source=s)
    
       # ---- Build Unit Tests ---- #   
-      if len(library.unittest_files) > 0:
+      if build_env["enable_unittests"] and (len(library.unittest_files) > 0):
          unittest_env = test_env.Copy()
          unittest_env.Append(CPPPATH=unittest_inc,
                              LIBPATH=unittest_libpath,
                              LIBS=unittest_lib)
 
-         # - Build them all in the local 'unittest' subdir
+         # - Build them all in the local 'unittest' subdir, 
+         # name the runner off the name of the library
+         # XXX: Why do this instead of just letting the obj build in their normal directories
          unittest_objs = []
          for s in library.unittest_files:
             t=pj("..","unittest",os.path.splitext(os.path.basename(s))[0])
@@ -87,7 +89,6 @@ for (lib_name, library) in lib_map.iteritems():
          t=pj("..","unittest",lib_name + "Runner")
          unittest_objs += unittest_env.Object(target=t, source=unittest_runner)
          runner = unittest_env.Program(target=pj("..","unittest","run" + lib_name), source=unittest_objs)
-
 
          # Run the Test once the program is built
          def runTest(target, source, env):
