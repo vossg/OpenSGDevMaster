@@ -1,7 +1,9 @@
 import copy
 
 class LibraryInfo(object):
-   """ Helper class for capturing all the files that we are finding in source tree. """
+   """ Helper class for capturing all the files that we are finding in source tree. 
+       This class is used internally by the build and by the osg-config script.
+   """
    def __init__(self, name=""):
       self.name = name
       self.source_files = []         # List of source files for this library
@@ -18,7 +20,7 @@ class LibraryInfo(object):
       self.unittest_files = []       # list of source files for unit tests
 
    def dump(self):
-      """ Dump contained date to a dictionary that could be pprinted. """
+      """ Dump contained data to a dictionary that could be pprinted. """
       ret_dict = {}
       for i in self.__dict__.keys():
          if i not in ["source_files","header_files","test_files"]:
@@ -41,12 +43,15 @@ class LibraryInfo(object):
  
 
    def getLibDepList(self, knownList, libMap):
-      """ Get full list of dependent libraries base on libMap and existing known list. """
+      """ Return list of all OSG libraries that we depend upon (and that they depend upon).
+          Get full list of dependent libraries based on libMap and existing known list. 
+      """      
       dep_list = []
-      dep_list.extend([l for l in self.osg_dep_libs if not l in knownList])
+      dep_list.extend([l for l in self.osg_dep_libs if not (l in knownList)])
       for l in dep_list[:]:
          if libMap.has_key(l):
-            dep_list.extend(libMap[l].getLibDepList(dep_list, libMap))
+            sub_deps = libMap[l].getLibDepList(knownList + dep_list, libMap)            
+            dep_list.extend(sub_deps)            
       return dep_list
    
    def createMergedDepLibrary(self, libMap):
@@ -54,13 +59,17 @@ class LibraryInfo(object):
           merged for the dependencies of this library.
           This is used to combine all the options for a library and
           it's dependencies into a single object
+          osg_dep_libs will be filled with all OSG libs (not just dep libs)
       """      
-      dep_list = [self.name] + self.getLibDepList([], libMap)
+      dep_list = self.getLibDepList([], libMap)
+      if not self.name in dep_list:
+         dep_list.insert(0,self.name)
+      
       #print "Deps for lib: %s  are: %s"%(self.name, dep_list)   
       
       dep_lib_list = [libMap[l] for l in dep_list]   
       merged_lib = LibraryInfo()
-      merged_lib.libs = dep_list[:]               # Add on the OSG libraries      
+      merged_lib.osg_dep_libs = dep_list[:]   # Add on the OSG libraries
       
       for lib in dep_lib_list:
          merged_lib.merge(lib)         
@@ -73,9 +82,10 @@ class ConfigInfoAdapter(object):
        
        libs: List or single library. (string name of class)
        libMap: Map from string library name to library object.
+       osg_lib_suffix: Suffix to use for names of OSG libraries.
    """
    def __init__(self, libs, libMap, defaultMergedLib=None,
-                incprefix="-I", libprefix="-l", libpathprefix="-L"):
+                incprefix="-I", libprefix="-l", libpathprefix="-L", osg_lib_suffix=""):
       
       libraries = copy.copy(libs)    # Make a copy so we don't modify the original
       
@@ -99,15 +109,17 @@ class ConfigInfoAdapter(object):
       self.incprefix = incprefix
       self.libprefix = libprefix
       self.libpathprefix = libpathprefix
+      self.osg_lib_suffix = osg_lib_suffix
 
    def getIncPath(self):
       return self.merged_lib.cpppath
    def getIncPathStr(self):
       return " ".join(["%s%s"%(self.incprefix,p) for p in self.merged_lib.cpppath])
    def getLibs(self):
-      return self.merged_lib.libs
+      osg_lib_list = ["%s%s"%(l,self.osg_lib_suffix) for l in self.merged_lib.osg_dep_libs]
+      return osg_lib_list + self.merged_lib.libs
    def getLibsStr(self):
-      return " ".join(["%s%s"%(self.libprefix,l) for l in self.merged_lib.libs])
+      return " ".join(["%s%s"%(self.libprefix,l) for l in self.getLibs()])
    def getLibPath(self):
       return self.merged_lib.libpath
    def getLibPathStr(self):
