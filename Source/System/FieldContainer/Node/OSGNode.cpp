@@ -64,7 +64,7 @@ void Node::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&Node::editSFVolume),
         reinterpret_cast<FieldGetMethodSig >(&Node::getSFVolume ));
-        
+
     oType.addInitialDesc(pDesc);
 
 
@@ -112,7 +112,7 @@ void Node::classDescInserter(TypeObject &oType)
         Field::MFDefaultFlags,
         static_cast     <FieldEditMethodSig>(&Node::invalidEditField),
         reinterpret_cast<FieldGetMethodSig >(&Node::getMFChildren  ));
-    
+
     oType.addInitialDesc(pDesc);
 }
 
@@ -179,8 +179,20 @@ void Node::addChild(NodePtrConstArg childP)
     }
 }
 
+/*! Insert child node into child list.
+* Upon completion, getChild(childIndex) will return the new child.
+* (ie. child is at childIndex pos in list)
+* All other children after childIndex are moved back in list.
+* If childP is Null, does nothing.
+*
+* \warning childP is not ranged checked.  Out of range values will have undefined behavior.
+* \param childIndex  The location in the list to put the new child.
+* \param childP  Pointer to the child to insert.
+*/
 void Node::insertChild(UInt32 childIndex, NodePtrConstArg childP)
 {
+    OSG_ASSERT((childIndex <= getNChildren()) && "Child index out of range");
+
     if(childP != NullFC)
     {
         // do the ref early, to prevent destroys on getParent(a)->addChild(a)
@@ -242,7 +254,7 @@ bool Node::replaceChildBy(NodePtrConstArg childP,
 
         if(childIdx != -1)
         {
-            // do the ref early, to prevent destroys on 
+            // do the ref early, to prevent destroys on
             // getParent(a)->addChild(a)
 
             addRef(newChildP);
@@ -310,7 +322,7 @@ void Node::subChild(NodePtrConstArg childP)
     }
     else
     {
-        SWARNING << "Node(" << this << ")::subChild: " << childP 
+        SWARNING << "Node(" << this << ")::subChild: " << childP
                  << " is not one of my children!" << std::endl;
     }
 }
@@ -322,7 +334,7 @@ void Node::subChild(UInt32 childIndex)
         editMField(ChildrenFieldMask, _mfChildren);
 
         MFNodePtr::iterator childIt = _mfChildren.begin();
-        
+
         childIt += childIndex;
 
         (*childIt)->setParent(NullFC);
@@ -333,7 +345,7 @@ void Node::subChild(UInt32 childIndex)
     }
 }
 
-void Node::pushToField(      FieldContainerPtrConstArg pNewElement, 
+void Node::pushToField(      FieldContainerPtrConstArg pNewElement,
                        const UInt32                    uiFieldId  )
 {
     Inherited::pushToField(pNewElement, uiFieldId);
@@ -348,8 +360,8 @@ void Node::pushToField(      FieldContainerPtrConstArg pNewElement,
     }
 }
 
-void Node::insertIntoMField(const UInt32                    uiIndex, 
-                                  FieldContainerPtrConstArg pNewElement, 
+void Node::insertIntoMField(const UInt32                    uiIndex,
+                                  FieldContainerPtrConstArg pNewElement,
                             const UInt32                    uiFieldId  )
 {
     Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
@@ -362,7 +374,7 @@ void Node::insertIntoMField(const UInt32                    uiIndex,
 }
 
 void Node::replaceInMField(const UInt32                    uiIndex,
-                                 FieldContainerPtrConstArg pNewElement, 
+                                 FieldContainerPtrConstArg pNewElement,
                            const UInt32                    uiFieldId  )
 {
     Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
@@ -375,7 +387,7 @@ void Node::replaceInMField(const UInt32                    uiIndex,
 }
 
 void Node::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                  FieldContainerPtrConstArg pNewElement, 
+                                  FieldContainerPtrConstArg pNewElement,
                             const UInt32                    uiFieldId  )
 {
     Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
@@ -387,7 +399,7 @@ void Node::replaceInMField (      FieldContainerPtrConstArg pOldElement,
     }
 }
 
-void Node::removeFromMField(const UInt32 uiIndex, 
+void Node::removeFromMField(const UInt32 uiIndex,
                             const UInt32 uiFieldId)
 {
     Inherited::removeFromMField(uiIndex, uiFieldId);
@@ -397,8 +409,8 @@ void Node::removeFromMField(const UInt32 uiIndex,
         subChild(uiIndex);
     }
 }
-   
-void Node::removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+void Node::removeFromMField(      FieldContainerPtrConstArg pElement,
                             const UInt32                    uiFieldId)
 {
     Inherited::removeFromMField(pElement, uiFieldId);
@@ -579,7 +591,7 @@ void Node::updateVolume(void)
 
     // be careful to not change the real volume. If two threads
     // are updating the same aspect this will lead to chaos
-    
+
     DynamicVolume vol = _sfVolume.getValue();
 
     MFNodePtr::iterator it;
@@ -594,7 +606,7 @@ void Node::updateVolume(void)
             vol.getInstance().extendBy((*it)->getVolume());
         }
     }
-    
+
     // test for null core. Shouldn't happen, but just in case...
     if(getCore() != NullFC)
     {
@@ -604,7 +616,7 @@ void Node::updateVolume(void)
     editSField(VolumeFieldMask);
 
     vol.instanceChanged();
-    
+
     _sfVolume.setValue(vol);
 }
 
@@ -624,9 +636,9 @@ Node::Node(void) :
 Node::Node(const Node &source) :
      Inherited (source            ),
     _sfVolume  (                  ),
-    
+
     _sfTravMask(source._sfTravMask),
-    
+
     _sfParent  (NullFC            ),
     _mfChildren(                  ),
 
@@ -643,13 +655,13 @@ Node::~Node(void)
 void Node::invalidateVolume(void)
 {
     Volume &vol=_sfVolume.getValue().getInstance();
-    
+
     if(vol.isValid() == true && vol.isStatic() == false)
     {
         editSField(VolumeFieldMask);
 
         vol.setValid(false);
-        
+
         _sfVolume.getValue().instanceChanged();
 
         if(getParent() != NullFC)
@@ -659,7 +671,7 @@ void Node::invalidateVolume(void)
     }
 }
 
-void Node::changed(ConstFieldMaskArg whichField, 
+void Node::changed(ConstFieldMaskArg whichField,
                    UInt32            origin    )
 {
     Inherited::changed(whichField, origin);
@@ -682,7 +694,7 @@ void Node::changed(ConstFieldMaskArg whichField,
     }
 }
 
-void Node::dump(      UInt32    uiIndent, 
+void Node::dump(      UInt32    uiIndent,
                 const BitVector bvFlags ) const
 {
     UInt32 i;
@@ -695,9 +707,9 @@ void Node::dump(      UInt32    uiIndent,
          << "("
          << getContainerId(thisP)
          << ") : "
-         << _mfChildren.size() 
+         << _mfChildren.size()
          << " children | "
-//         << _attachmentMap.getValue().size() 
+//         << _attachmentMap.getValue().size()
          << " attachments | "
          << "Parent : " << std::hex;
 
@@ -788,12 +800,12 @@ const MFNodePtr *Node::getMFChildren(void) const
 #ifdef OSG_MT_CPTR_ASPECT
 Node::ObjPtr Node::createAspectCopy(void) const
 {
-    NodePtr returnValue; 
+    NodePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Node *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Node *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -804,8 +816,8 @@ void Node::execSyncV(      FieldContainer    &oFrom,
                      const UInt32             uiSyncInfo,
                            UInt32             uiCopyOffset)
 {
-    this->execSync(static_cast<Node *>(&oFrom), 
-                   whichField, 
+    this->execSync(static_cast<Node *>(&oFrom),
+                   whichField,
                    syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
@@ -818,7 +830,7 @@ void Node::execSyncV(      FieldContainer     &oFrom,
                             ConstFieldMaskArg  syncMode  ,
                       const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<Node *>(&oFrom), 
+    this->execSync(static_cast<Node *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -827,7 +839,7 @@ void Node::execSyncV(      FieldContainer     &oFrom,
 #endif
 
 #if 0
-void Node::execBeginEditV(ConstFieldMaskArg whichField, 
+void Node::execBeginEditV(ConstFieldMaskArg whichField,
                           UInt32            uiAspect,
                           UInt32            uiContainerSize)
 {
@@ -876,11 +888,11 @@ NodePtr OSG::cloneTree(NodePtrConstArg pRootNode)
 
         returnValue->setTravMask(pRootNode->getTravMask());
         returnValue->setCore    (pRootNode->getCore());
-            
+
         for(UInt32 i = 0; i < pRootNode->getNChildren(); i++)
         {
             pChildClone = cloneTree(pRootNode->getChild(i));
-            
+
             returnValue->addChild(pChildClone);
         }
     }
@@ -899,19 +911,19 @@ NodePtr OSG::deepCloneTree(      NodePtrConstArg           src,
         dst = Node::create();
 
         deepCloneAttachments(src, dst, share);
-        
+
         dst->setTravMask(src->getTravMask());
         dst->setCore    (
-            cast_dynamic<NodeCorePtr>(OSG::deepClone(src->getCore(), 
+            cast_dynamic<NodeCorePtr>(OSG::deepClone(src->getCore(),
                                                      share         )));
-            
+
         for(UInt32 i = 0; i < src->getNChildren(); i++)
         {
             dst->addChild(deepCloneTree(src->getChild(i), share));
         }
 
     }
-    
+
     return dst;
 }
 
@@ -931,9 +943,9 @@ NodePtr OSG::deepCloneTree(      NodePtrConstArg  src,
                            const std::string     &shareString)
 {
     std::vector<std::string> share;
-    
+
     splitShareString(shareString, share);
-  
+
     return OSG::deepCloneTree(src, share);
 }
 
