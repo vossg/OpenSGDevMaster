@@ -9,5 +9,5 @@ else:
       libs = ['opengl32',"glu32","winmm", "wsock32"]
       cpppath = []
    else:
-      libs = ["GL","pthread","dl","m"]
+      libs = ["GL","GLU","pthread","dl","m"]
       cpppath = []

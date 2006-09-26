@@ -5,7 +5,7 @@ if option_pass:
 else:
    library = "OSGState"
    osg_dep_libs = ['OSGBase', 'OSGSystem']
-   libs = ["GLU"]
+   libs = []
 
    # Tests' dependencies
 
