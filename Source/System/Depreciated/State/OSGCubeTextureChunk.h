@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
     for a description.
 */
 
-class OSG_STATE_DLLMAPPING CubeTextureChunk : public CubeTextureChunkBase
+class OSG_SYSTEM_DLLMAPPING CubeTextureChunk : public CubeTextureChunkBase
 {
     /*==========================  PUBLIC  =================================*/
 

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGStateDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -80,7 +80,7 @@ class CubeTextureChunk;
 
 //! \brief CubeTextureChunk Base Class.
 
-class OSG_STATE_DLLMAPPING CubeTextureChunkBase : public TextureChunk
+class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
 {
   public:
 

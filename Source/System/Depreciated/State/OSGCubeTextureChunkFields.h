@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGStateDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGTextureChunkFields.h"
 
@@ -92,7 +92,7 @@ typedef PointerFwdBuilder<TextureChunkPtr,
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpStateFieldTraits
+/*! \ingroup GrpSystemFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -112,7 +112,7 @@ struct FieldTraits<CubeTextureChunkPtr> :
 
     enum                        { StringConvertable = 0x00 };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING 
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFCubeTextureChunkPtr"; }
@@ -129,23 +129,23 @@ struct FieldTraits<CubeTextureChunkPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
+/*! \ingroup GrpSystemFieldSingle */
 
 typedef SFieldAdaptor<CubeTextureChunkPtr, SFFieldContainerPtr> SFCubeTextureChunkPtr;
 #endif
 
 #ifndef OSG_COMPILECUBETEXTURECHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, CubeTextureChunkPtr, OSG_STATE_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, CubeTextureChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
+/*! \ingroup GrpSystemFieldMulti */
 
 typedef MFieldAdaptor<CubeTextureChunkPtr, MFFieldContainerPtr> MFCubeTextureChunkPtr;
 #endif
 
 #ifndef OSG_COMPILECUBETEXTURECHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, CubeTextureChunkPtr, OSG_STATE_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, CubeTextureChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE
