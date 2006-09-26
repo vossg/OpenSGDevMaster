@@ -3,7 +3,7 @@
 
 // Unit tests for matrix classes
 
-#include "OSGMatrix.h"
+#include <OpenSG/OSGMatrix.h>
 
 
 OSG_USING_NAMESPACE
