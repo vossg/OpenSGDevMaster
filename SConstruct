@@ -412,8 +412,10 @@ if not SConsAddons.Util.hasHelpFlag():
          cur_lib = lib_map[lib_name]
          
          # Add all the lib options from the evaluation
+         # - Only add on the unique ones
          for n in lib_attrib_names:
-            getattr(cur_lib,n).extend(ns[n])
+            attrib_list = getattr(cur_lib,n)
+            attrib_list.extend([x for x in ns[n] if x not in attrib_list])
                
       test_files =   [f for f in files if os.path.basename(f).startswith("test") and f.endswith(".cpp")]
       unittest_files =   [f for f in files if os.path.basename(f).endswith("Test.cpp") and\
