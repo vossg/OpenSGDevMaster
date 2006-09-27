@@ -636,21 +636,26 @@ const Char8  DirSep    = '/';
 
 #else
 
-/*! \ingroup GrpBaseBaseConstants
- */
-
-static const Char8 *PluginExt     = ".so";
-
-/*! \ingroup GrpBaseBaseConstants
- */
-
-static const Char8 *PluginPattern = "*.so";
+#if defined(__GNUC__)
+#define OSG_UNUSED_ATTRIB __attribute__((__unused__))
+#else
+#define OSG_UNUSED_ATTRIB
+#endif
 
 /*! \ingroup GrpBaseBaseConstants
  */
+static const Char8 *PluginExt OSG_UNUSED_ATTRIB = ".so";
 
-static const Char8  DirSep    = '/';
+/*! \ingroup GrpBaseBaseConstants
+ */
+static const Char8 *PluginPattern OSG_UNUSED_ATTRIB = "*.so";
 
+/*! \ingroup GrpBaseBaseConstants
+ */
+
+static const Char8  DirSep OSG_UNUSED_ATTRIB = '/';
+
+#undef OSG_UNUSED_ATTRIB
 #endif
 
 /*! MathTypeProperties
