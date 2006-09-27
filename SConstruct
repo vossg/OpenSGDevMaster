@@ -179,7 +179,7 @@ def addScanParseSkel(common_env):
 #------------------------------------------------------------------------------
 # Main build setup
 #------------------------------------------------------------------------------
-EnsureSConsVersion(0,96)
+EnsureSConsVersion(0,96,92)
 SourceSignatures('MD5')
 #SourceSignatures('timestamp')
 SConsignFile('.sconsign.'+GetPlatform())
@@ -378,7 +378,7 @@ if not SConsAddons.Util.hasHelpFlag():
       # - Setup namespace and evaluate it
       # - Create on demand
       # - Fill with anything from the file
-      if have_build_info:
+      if have_build_info:      
          bi_filename = pj(full_dir,"build.info")
          if verbose_build:
             print "   Evaluating: ", bi_filename         
@@ -408,15 +408,21 @@ if not SConsAddons.Util.hasHelpFlag():
          lib_name = ns["library"]
          if not lib_map.has_key(lib_name):
             lib_map[lib_name] = LibraryInfo(name=lib_name)
+            if verbose_build:
+               print "Created new LibraryInfo: ", lib_name
          name_stack.append(lib_name)
          cur_lib = lib_map[lib_name]
+   
+         if verbose_build:
+            print "lib name: ", lib_name
          
          # Add all the lib options from the evaluation
          # - Only add on the unique ones
          for n in lib_attrib_names:
             attrib_list = getattr(cur_lib,n)
             attrib_list.extend([x for x in ns[n] if x not in attrib_list])
-               
+      
+      # Collect source files from all directories and put them into the active library object         
       test_files =   [f for f in files if os.path.basename(f).startswith("test") and f.endswith(".cpp")]
       unittest_files =   [f for f in files if os.path.basename(f).endswith("Test.cpp") and\
                                               os.path.basename(f).startswith("OSG")]
