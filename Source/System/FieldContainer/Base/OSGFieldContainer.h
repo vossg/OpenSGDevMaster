@@ -222,6 +222,7 @@ class FieldContainer : public FieldContainerParent
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING
     virtual void dump(      UInt32    uiIndent = 0, 
                       const BitVector bvFlags  = 0) const;
 
