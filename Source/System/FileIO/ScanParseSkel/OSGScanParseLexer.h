@@ -53,7 +53,7 @@
 
 #ifndef yyFlexLexer
 #define yyFlexLexer OSGScanParseSkel_FlexLexer
-#include <FlexLexer.h>
+#include <OSGScanParseSkelScanner_FlexLexer.h>
 #undef yyFlexLexer
 #endif
 
