@@ -213,6 +213,7 @@ LIB_SOURCES        := $(call getProjSourceFiles,$(LIB_ABSSOURCEDIRS))
 
 LIB_SOURCES        := $(notdir $(LIB_SOURCES))
 LIB_SOURCES        := $(filter-out $(LIB_RMMDSOURCES),$(LIB_SOURCES))
+LIB_SOURCES        := $(filter-out OSG*Test.cpp,$(LIB_SOURCE))
 
 LIB_ALL_SOURCES    := $(LIB_SOURCES)
 
