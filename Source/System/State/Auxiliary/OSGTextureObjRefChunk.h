@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
     for a description.
  */
 
-class OSG_SYSTEM_DLLMAPPING TextureObjRefChunk : public TextureObjRefChunkBase
+class OSG_STATE_DLLMAPPING TextureObjRefChunk : public TextureObjRefChunkBase
 {
     /*==========================  PUBLIC  =================================*/
 
