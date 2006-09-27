@@ -6,7 +6,7 @@ else:
    library = "OSGBase"
    osg_dep_libs = []
    if "win32" == platform:
-      libs = ['opengl32',"glu32","winmm", "wsock32"]
+      libs = ['opengl32',"glu32","user32", "kernel32", "winmm", "wsock32", "oldnames"]
       cpppath = []
    else:
       libs = ["GL","GLU","pthread","dl","m"]

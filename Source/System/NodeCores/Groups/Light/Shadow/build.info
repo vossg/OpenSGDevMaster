@@ -1,10 +1,16 @@
 #!python
 #
+
+# For now ignore this code because it causes a cycle in the
+# library dependencies.
+# RenderTraversal depends upon Window and Window depends upon RenderTraversal
+stop_traversal = True
+
 if option_pass:
    print "Processing option pass"
 else:
    library = "OSGRenderTraversal"
-   osg_dep_libs = ['OSGBase','OSGSystem']
+   osg_dep_libs = ['OSGBase','OSGSystem','OSGWindow']
 
    # Tests' dependencies
 
