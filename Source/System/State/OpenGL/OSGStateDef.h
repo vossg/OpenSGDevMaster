@@ -46,7 +46,7 @@
 //  Defines
 //---------------------------------------------------------------------------
 
-#if defined(WIN32) && defined(OSG_BUILD_DLL)
+#if defined(WIN32)
 #   ifdef OSG_COMPILESTATELIB
 #       define OSG_STATE_DLLMAPPING  __declspec(dllexport)
 #       define OSG_STATE_EXPIMP_TMPL 
@@ -56,6 +56,7 @@
 #   endif
 #else
 #define OSG_STATE_DLLMAPPING
+#define OSG_STATE_EXPIMP_TMPL
 #endif
 
 #endif /* _OSGSTATEDEF_H_ */

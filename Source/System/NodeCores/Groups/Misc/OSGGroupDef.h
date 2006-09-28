@@ -46,7 +46,7 @@
 //  Defines
 //---------------------------------------------------------------------------
 
-#if defined(WIN32) && defined(OSG_BUILD_DLL)
+#if defined(WIN32)
 #   ifdef OSG_COMPILEGROUPLIB
 #       define OSG_GROUP_DLLMAPPING  __declspec(dllexport)
 #       define OSG_GROUP_EXPIMP_TMPL 
@@ -56,6 +56,7 @@
 #   endif
 #else
 #define OSG_GROUP_DLLMAPPING
+#define OSG_GROUP_EXPIMP_TMPL
 #endif
 
 #endif /* _OSGGROUPDEF_H_ */

@@ -47,7 +47,7 @@
 //  Defines
 //---------------------------------------------------------------------------
 
-#if defined(WIN32) && defined(OSG_BUILD_DLL)
+#if defined(WIN32)
 #   ifdef OSG_COMPILEUTILLIB
 #       define OSG_UTIL_DLLMAPPING     __declspec(dllexport)
 #       define OSG_UTIL_DLLTMPLMAPPING __declspec(dllexport)

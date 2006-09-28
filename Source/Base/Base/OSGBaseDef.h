@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-#if defined(WIN32) && defined(OSG_BUILD_DLL)
+#if defined(WIN32)
 #   ifdef OSG_COMPILEBASELIB
 #       define OSG_BASE_DLLMAPPING  __declspec(dllexport)
 #       define OSG_BASE_EXPIMP_TMPL 
@@ -52,6 +52,7 @@
 #   endif
 #else
 #define OSG_BASE_DLLMAPPING
+#define OSG_BASE_EXPIMP_TMPL
 #endif
 
 #endif /* _OSGBASEDEF_H_ */

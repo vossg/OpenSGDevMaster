@@ -46,7 +46,7 @@
 //  Defines
 //---------------------------------------------------------------------------
 
-#if defined(WIN32) && defined(OSG_BUILD_DLL)
+#if defined(WIN32)
 #   ifdef OSG_COMPILETEXTLIB
 #       define OSG_TEXT_DLLMAPPING  __declspec(dllexport)
 #       define OSG_TEXT_EXPIMP_TMPL 
@@ -56,6 +56,7 @@
 #   endif
 #else
 #define OSG_TEXT_DLLMAPPING
+#define OSG_TEXT_EXPIMP_TMPL
 #endif
 
 #endif /* _OSGTEXTDEF_H_ */

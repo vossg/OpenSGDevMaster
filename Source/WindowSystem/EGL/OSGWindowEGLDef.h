@@ -47,7 +47,7 @@
 //  Defines
 //---------------------------------------------------------------------------
 
-#if defined(WIN32) && defined(OSG_BUILD_DLL)
+#if defined(WIN32)
 #   ifdef OSG_COMPILEWINDOWEGLLIB
 #       define OSG_WINDOWEGL_DLLMAPPING     __declspec(dllexport)
 #       define OSG_WINDOWEGL_DLLTMPLMAPPING __declspec(dllexport)

@@ -46,7 +46,7 @@
 //  Defines
 //---------------------------------------------------------------------------
 
-#if defined(WIN32) && defined(OSG_BUILD_DLL)
+#if defined(WIN32)
 #   if defined(OSG_COMPILERENDERTRAVLIB) || defined(OSG_COMPILERENDERTRAVERSALLIB)
 #       define OSG_RENDERTRAV_DLLMAPPING  __declspec(dllexport)
 #       define OSG_RENDERTRAV_EXPIMP_TMPL 
@@ -56,6 +56,7 @@
 #   endif
 #else
 #define OSG_RENDERTRAV_DLLMAPPING
+#define OSG_RENDERTRAV_EXPIMP_TMPL
 #endif
 
 #endif /* _OSGRENDERTRAVERSALDEF_H_ */
