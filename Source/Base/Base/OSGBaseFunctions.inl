@@ -78,7 +78,7 @@ Real32 osgsqrt(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return sqrtf(rValue);
 #else
-    return (Real32) sqrt((Real32) rValue);
+    return static_cast<Real32>(sqrt(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -149,7 +149,7 @@ Real32 osgcos(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return cosf(rValue);
 #else
-    return (Real32) cos((Real32) rValue);
+    return static_cast<Real32>(cos(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -219,7 +219,7 @@ Real32 osgsin(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return sinf(rValue);
 #else
-    return (Real32) sin((Real32) rValue);
+    return static_cast<Real32>(sin(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -292,7 +292,7 @@ Real32 osgtan(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return tanf(rValue);
 #else
-    return (Real32) tan((Real32) rValue);
+    return static_cast<Real32>(tan(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -364,7 +364,7 @@ Real32 osgacos(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return acosf(rValue);
 #else
-    return (Real32) acos((Real32) rValue);
+    return static_cast<Real32>(acos(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -428,7 +428,7 @@ Real32 osgasin(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return asinf(rValue);
 #else
-    return (Real32) asin((Real32) rValue);
+    return static_cast<Real32>(asin(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -494,7 +494,7 @@ Real32 osgatan(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return atanf(rValue);
 #else
-    return (Real32) atan((Real32) rValue);
+    return static_cast<Real32>(atan(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -562,10 +562,12 @@ Real32 osgatan2(const Real32 rValue1, const Real32 rValue2)
 #ifndef _OSG_HAS_ATANF2__
     return atan2f(rValue1, rValue2);
 #else
-    return (Real32) atan2((Real32) rValue1, (Real32) rValue2);
+    return static_cast<Real32>(atan2(static_cast<Real32>(rValue1),
+                                     static_cast<Real32>(rValue2) ));
 #endif
 #else
-    return (Real32) atan2((Real32) rValue1, (Real32) rValue2);
+    return static_cast<Real32>(atan2(static_cast<Real32>(rValue1),
+                                     static_cast<Real32>(rValue2) ));
 #endif
 }
 
@@ -625,7 +627,7 @@ Real32 osgabs(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH) && !defined(OSG_NO_FABSF)
     return fabsf(rValue);
 #else
-    return (Real32) fabs((Real32) rValue);
+    return static_cast<Real32>(fabs(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -696,7 +698,8 @@ Real32 osgpow(const Real32 rValue, const Real32 rExp)
 #elif defined(OSG_HAS_FLOATMATH)
     return powf(rValue, rExp);
 #else
-    return (Real32) pow((Real32) rValue, (Real32) rExp);
+    return static_cast<Real32>(pow(static_cast<Real32>(rValue),
+                                   static_cast<Real32>(rExp)   ));
 #endif
 }
 
@@ -760,7 +763,7 @@ Real32 osglog(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return logf(rValue);
 #else
-    return (Real32) log((Real32) rValue);
+    return static_cast<Real32>(log(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -823,7 +826,7 @@ Real32 osgexp(const Real32 rValue)
 #elif defined(OSG_HAS_FLOATMATH)
     return expf(rValue);
 #else
-    return (Real32) exp((Real32) rValue);
+    return static_cast<Real32>(exp(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -891,12 +894,12 @@ Real32 osgfloor(const Real32 rValue)
     return std::floor(rValue);
 #elif defined(OSG_HAS_FLOATMATH)
 # ifdef OSG_HPUX_ACC
-    return (Real32) floor((Real32) rValue);
+    return static_cast<Real32>(floor(static_cast<Real32>(rValue)));
 # else
     return floorf(rValue);
 # endif
 #else
-    return (Real32) floor((Real32) rValue);
+    return static_cast<Real32>(floor(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -964,12 +967,12 @@ Real32 osgceil(const Real32 rValue)
     return std::ceil(rValue);
 #elif defined(OSG_HAS_FLOATMATH)
 # ifdef OSG_HPUX_ACC
-    return (Real32) ceil((Real32) rValue);
+    return static_cast<Real32>(ceil(static_cast<Real32>(rValue)));
 # else
     return ceilf(rValue);
 # endif
 #else
-    return (Real32) ceil((Real32) rValue);
+    return static_cast<Real32>(ceil(static_cast<Real32>(rValue)));
 #endif
 }
 
@@ -1255,7 +1258,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! Test if the argument is a power of 2 or zero.
 
     \param[in] rValue Number to test.
-    \return true if rValue is a power of 2 or zero.
+    \return true if rValue is a power of 2 or zero, false otherwise.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -1292,7 +1295,8 @@ bool osgispower2<Int64>(const Int64 rValue)
     than \a rValue.
 
     \param[in] rValue The lower bound for the wanted power of 2.
-    \return A power of 2 to not less than \a rValue.
+    \return A power of 2 not less than \a rValue or 0 if there is no such value
+    within \a rValue type's range.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -1519,7 +1523,7 @@ void osgsleep(UInt32 millisecs)
 inline
 Real32 osgrand(void)
 {
-    return rand() / (Real32) RAND_MAX;
+    return rand() / static_cast<Real32>(RAND_MAX);
 }
 
 #if defined(WIN32) && defined(_MSC_VER) 
