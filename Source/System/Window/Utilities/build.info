@@ -6,7 +6,7 @@ else:
    
    library = "OSGUtil"
    osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGWindow', 'OSGGroup', 
-                   'OSGDrawable', 'OSGState', 'OSGText']
+                   'OSGDrawable', 'OSGState', 'OSGText', 'OSGRenderTraversal']
 
    # Tests' dependencies
 
