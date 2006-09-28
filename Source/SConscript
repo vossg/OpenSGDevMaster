@@ -8,7 +8,7 @@ Import('*')
 common_lib_env = build_env.Copy()
 common_lib_env.Append(CPPDEFINES=["OSG_BUILD_DLL"])
 
-if not verbose_build:
+if verbose_build:
    print "Setting up build for libraries: ",
    
 for (lib_name, library) in lib_map.iteritems():
@@ -30,7 +30,6 @@ for (lib_name, library) in lib_map.iteritems():
    config_info = ConfigInfoAdapter(lib_name, lib_map, default_lib_settings,
                                    osg_lib_suffix=shared_lib_suffix)
    dep_libs = [l for l in config_info.getLibs() if l != full_lib_name]
-   print "  dep_libs:", dep_libs
    lib_env.Append(CPPPATH=config_info.getIncPath(),
                   LIBPATH=[inst_paths["lib_inst_combo"]] + config_info.getLibPath(),
                   LIBS=dep_libs)
@@ -64,12 +63,13 @@ for (lib_name, library) in lib_map.iteritems():
    
    if have_test_deps:
       # Use ConfigInfo to find build flags for building applications against this library
-      config_info = ConfigInfoAdapter(library.osg_test_libs, lib_map,
+      config_info = ConfigInfoAdapter([lib_name] + library.osg_test_libs, 
+                                       lib_map,
                                       osg_lib_suffix=shared_lib_suffix)   
       test_env = build_env.Copy()
       test_env.Append(CPPPATH=library.test_cpppath + config_info.getIncPath(),
                       LIBPATH=library.test_libpath + [inst_paths["lib_inst_combo"]] + config_info.getLibPath(),
-                      LIBS=[lib_name] + config_info.getLibs() + library.other_test_libs)
+                      LIBS=config_info.getLibs() + library.other_test_libs)
    
       # - Build them all in the local 'test' subdir
       for s in library.test_files:
