@@ -10,7 +10,7 @@ else:
 
    # Tests' dependencies
 
-   osg_test_libs = [ 'OSGFileIO','OSGRenderTraversal','OSGText','OSGWindow']
-   other_test_libs = ['glut' ]
+   osg_test_libs = [ 'OSGFileIO','OSGRenderTraversal','OSGText','OSGWindow','OSGWindowGLUT']
+   other_test_libs = []
    test_cpppath = []
    test_libpath = []
