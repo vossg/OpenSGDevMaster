@@ -42,7 +42,8 @@ getSourceFiles         = \
 			 			 $(wildcard $(1)/$(PROJ)*.s)
 
 getTestSourceFiles     = \
-					     $(wildcard $(1)/test*.cpp)
+					     $(wildcard $(1)/test*.cpp) \
+					     $(wildcard $(1)/OSG*Test.cpp) 
 
 getQTSourceFiles       = $(wildcard $(1)/OSG*_qt.cpp)
 getTestQTSourceFiles   = $(wildcard $(1)/test*_qt.cpp)
@@ -202,6 +203,9 @@ LIB_SOURCEPACKAGES := $(strip $(subst :, ,$(subst /,,$(subst $($(PROJ)POOL)/,,\
 
 LIB_ABSSOURCEDIRS  := $(strip $(subst :, ,$(subst .:,,$(VPATH))))
 
+TEST_SOURCES       := $(call getProjTestSourceFiles,$(LIB_ABSSOURCEDIRS))
+TEST_SOURCES       := $(notdir $(TEST_SOURCES))
+
 LIB_SYSMDSOURCES   := $(call getSysMDSourceFiles,$(LIB_ABSSOURCEDIRS))
 
 LIB_ALLMDSOURCES   := $(call getProjAllMDSourceFiles,$(LIB_ABSSOURCEDIRS))
@@ -213,12 +217,9 @@ LIB_SOURCES        := $(call getProjSourceFiles,$(LIB_ABSSOURCEDIRS))
 
 LIB_SOURCES        := $(notdir $(LIB_SOURCES))
 LIB_SOURCES        := $(filter-out $(LIB_RMMDSOURCES),$(LIB_SOURCES))
-LIB_SOURCES        := $(filter-out OSG*Test.cpp,$(LIB_SOURCE))
+LIB_SOURCES        := $(filter-out  $(TEST_SOURCES),$(LIB_SOURCES))
 
 LIB_ALL_SOURCES    := $(LIB_SOURCES)
-
-TEST_SOURCES       := $(call getProjTestSourceFiles,$(LIB_ABSSOURCEDIRS))
-TEST_SOURCES       := $(notdir $(TEST_SOURCES))
 
 ifeq ($(OS_BASE),darwin)
 
