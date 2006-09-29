@@ -205,7 +205,7 @@ SConsAddons.Builders.registerDefineBuilder(common_env)
 SConsAddons.Builders.registerSubstBuilder(common_env)
 
 # Create variant helper and builder
-variant_helper = sca_variants.VariantsHelper()
+variant_helper = sca_variants.VariantsHelper(variantKeys=["type","arch"])
 base_bldr = EnvironmentBuilder()
 
 # --------------- #

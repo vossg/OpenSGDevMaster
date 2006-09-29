@@ -40,13 +40,12 @@ for (lib_name, library) in lib_map.iteritems():
    compile_define = "OSG_COMPILE%sLIB"%lib_name[3:].upper()
    lib_env.Append(CPPDEFINES=[compile_define])
     
-   if "shared" in combo["libtype"]:
-      shared_lib = lib_env.SharedLibrary(full_lib_name, library.source_files)
-      shared_lib_inst = lib_env.Install(inst_paths['lib_inst_combo'], shared_lib)
+   shared_lib = lib_env.SharedLibrary(full_lib_name, library.source_files)
+   shared_lib_inst = lib_env.Install(inst_paths['lib_inst_combo'], shared_lib)
       
-      # If default combo type, then make links from lib dir
-      if default_combo_type == combo["type"] and (GetPlatform() != "win32"):
-         lib_env.Install(inst_paths["lib"], shared_lib_inst)      
+   # If default combo type, then make links from lib dir
+   if default_combo_type == combo["type"] and (GetPlatform() != "win32"):
+      lib_env.Install(inst_paths["lib"], shared_lib_inst)      
    
    # Install headers (but only do it once during variant_pass 0 )
    if variant_pass == 0:      
