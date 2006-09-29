@@ -6,7 +6,6 @@ from LibraryUtils import *
 Import('*')
 
 common_lib_env = build_env.Copy()
-common_lib_env.Append(CPPDEFINES=["OSG_BUILD_DLL"])
 
 if verbose_build:
    print "Setting up build for libraries: ",
@@ -82,8 +81,9 @@ for (lib_name, library) in lib_map.iteritems():
          unittest_env.Append(CPPPATH=unittest_inc,
                              LIBPATH=unittest_libpath,
                              LIBS=unittest_lib)
+         runner_obj = unittest_env.Object(target=pj("..","unittest","run"+lib_name), source=unittest_runner)
          runner = unittest_env.Program(pj("..","unittest","run"+lib_name), 
-                                       library.unittest_files + [unittest_runner])
+                                       library.unittest_files + [str(runner_obj[0])])
 
          # Run the Test once the program is built
          def runTest(target, source, env):
