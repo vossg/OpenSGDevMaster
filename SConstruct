@@ -539,9 +539,9 @@ if not SConsAddons.Util.hasHelpFlag():
       print "   Processing combo: ", ", ".join(['%s:%s'%(i[0],i[1]) for i in combo.iteritems()])
 
       inst_paths = copy.copy(paths)
-      inst_paths["lib_inst_combo"] = inst_paths["lib"]
       if "x64" == combo["arch"]:
-         inst_paths['lib_inst_combo'] = inst_paths['lib'] + '64'                  
+         inst_paths['lib'] = inst_paths['lib'] + '64'                  
+      inst_paths["lib_inst_combo"] = inst_paths["lib"]
       if GetPlatform() != "win32":
          if "debug" == combo["type"]:
             inst_paths["lib_inst_combo"] = pj(inst_paths["lib_inst_combo"],"debug")      
