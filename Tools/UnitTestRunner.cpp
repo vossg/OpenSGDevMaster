@@ -1,6 +1,11 @@
 #include <UnitTest++.h>
 
-int main()
+#include <OpenSG/OSGConfig.h>
+#include <OpenSG/OSGBaseInitFunctions.h>
+
+int main(int argc, char *argv[])
 {
+    OSG::osgInit(argc, argv);
+    
     return UnitTest::RunAllTests();
 }
