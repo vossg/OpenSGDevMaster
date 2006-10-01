@@ -163,6 +163,12 @@ void ChangeList::decSubRefLevel(void)
     --_iSubRefLevel;
 }
 
+inline 
+void commitChanges(void)
+{
+    Thread::getCurrentChangeList()->commitChanges();
+}
+
 OSG_END_NAMESPACE
 
 #define OSGCHANGELIST_INLINE_CVSID "@(#)$Id$"

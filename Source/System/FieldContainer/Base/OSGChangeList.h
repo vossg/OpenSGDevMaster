@@ -51,6 +51,7 @@
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGMemoryObject.h"
+#include "OSGThread.h"
 
 #include <list>
 #include <vector>
@@ -335,6 +336,10 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const ChangeList &source);
 };
+
+
+/*! Convenience function for committing changes */
+inline void commitChanges(void);
 
 OSG_END_NAMESPACE
 
