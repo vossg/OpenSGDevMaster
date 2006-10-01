@@ -128,10 +128,13 @@ class ConversionDriver:
     # call operations for single file
     def processFile(self, filePath, fileName):
         log = logging.getLogger(self.logName);
-        log.debug(">> processing file: \"%s\"." % os.path.join(filePath, fileName));
+        log.debug(">> processFile");
+        
         self.currFilePath = filePath;
         self.currFileName = fileName;
         fullFilePath = os.path.join(filePath, fileName);
+        
+        log.info("  File: \"%s\"." % fullFilePath);
         
         fileLastMTime = time.ctime(os.stat(fullFilePath).st_mtime);
         fileNewMTime = time.ctime();
