@@ -1,0 +1,21 @@
+
+These are the humble beginnings of a benchmarking system for OpenSG
+
+The idea was to have a Python wrapper around some core functions
+that would simplify setting up test scene (similar to what GLscry does,
+but a lot less fancy ;).
+
+It's borderline useable, but not complete by any means.
+
+Use at your own risk!
+
+
+*** IMPORTANT:
+
+Because there are problems loading libs referenced by modules with 
+python, you have to set LD_PRELOAD to /usr/lib*/libGL.so or extensions 
+will not work!
+
+
+Dirk
+dirk@users.sf.net
