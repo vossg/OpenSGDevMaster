@@ -548,6 +548,32 @@ void QuaternionBase<ValueTypeT>::setValue(const ValueTypeT alpha,
     _quat[3] = (cx * cy * cz) + (sx * sy * sz);
 }
 
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::setValueFromCString(const Char8 *szString)
+{
+    setValueAsAxisRad(szString);
+}
+
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::setValueFromCString(      Char8 *szString)
+{
+    setValueAsAxisRad(szString);
+}
+
+#ifndef OSG_DISABLE_DEPRECATED
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::setValue           (const Char8 *szString)
+{
+    setValueAsAxisRad(szString);
+}
+
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::setValue           (      Char8 *szString)
+{
+    setValueAsAxisRad(szString);
+}
+#endif
+
 /*-------------------------------------------------------------------------*/
 /*                                Get                                      */
 

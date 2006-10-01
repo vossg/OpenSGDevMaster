@@ -147,6 +147,15 @@ class QuaternionBase
                            const  ValueTypeT beta,
                            const  ValueTypeT gamma      );
 
+
+    void setValueFromCString(const Char8          *szString);
+    void setValueFromCString(      Char8          *szString);
+
+#ifndef OSG_DISABLE_DEPRECATED
+    void setValue           (const Char8          *szString);
+    void setValue           (      Char8          *szString);
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Get                                        */
