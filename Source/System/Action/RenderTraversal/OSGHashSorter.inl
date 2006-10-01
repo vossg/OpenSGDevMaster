@@ -78,6 +78,8 @@ void HashSorter::Level3Sorter::init(void)
 {
     _mLevelMap.set_empty_key  (0xFFFF);
     _mLevelMap.set_deleted_key(0xFFFE);
+
+    _pRoot = NULL;
 }
 
 inline
@@ -93,6 +95,8 @@ void HashSorter::Level2Sorter::init(void)
 {
     _mLevelMap.set_empty_key  (0xFFFF);
     _mLevelMap.set_deleted_key(0xFFFE);
+
+    _pRoot = NULL;
 }
 
 inline
@@ -108,6 +112,8 @@ void HashSorter::Level1Sorter::init(void)
 {
     _mLevelMap.set_empty_key  (0xFFFF);
     _mLevelMap.set_deleted_key(0xFFFE);
+
+    _pRoot = NULL;
 }
 
 inline
