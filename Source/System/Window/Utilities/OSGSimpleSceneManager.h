@@ -117,6 +117,9 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     virtual WindowPtr            getWindow          ( void );
     virtual NodePtr              getHighlight       ( void );
     virtual DrawActionBase      *getAction          ( void );
+#ifdef OSG_CLEANED_RENDERACTION
+    virtual RenderTraversalAction *getRenderTraversalAction( void );
+#endif
     virtual Navigator           *getNavigator       ( void );
     virtual bool                 getHeadlightState  ( void );
     virtual DirectionalLightPtr  getHeadlight       ( void );

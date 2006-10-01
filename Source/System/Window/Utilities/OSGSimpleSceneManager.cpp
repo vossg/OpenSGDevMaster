@@ -230,7 +230,7 @@ SimpleSceneManager::~SimpleSceneManager(void)
 {
     delete _ownAction;
 
-    if(_action)
+    if(_action && _action != _ownAction)
         delete _action;
 
 #ifdef OSG_CLEANED_RENDERACTION
@@ -312,6 +312,15 @@ DrawActionBase *SimpleSceneManager::getAction(void)
 {
     return _action;
 }
+
+#ifdef OSG_CLEANED_RENDERACTION
+/*! get the traversal action used to render the scene
+ */
+RenderTraversalAction *SimpleSceneManager::getRenderTraversalAction(void)
+{
+    return _taction;
+}
+#endif
 
 /*! set the action used to render the scene. Use NULL to set to 
     internally created action.
