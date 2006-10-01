@@ -118,8 +118,6 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
     {
         if(_pLightPassMat == NullFC)
         {
-            fprintf(stderr, "######## F POST\n");
-
             _pLightPassMat = ChunkMaterial::create();
 
             MaterialChunkPtr pMatChunk = MaterialChunk::create();

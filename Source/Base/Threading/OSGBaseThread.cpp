@@ -228,8 +228,6 @@ void BasePThreadBase::shutdown(void)
 
     pThread = (BaseThread **) pthread_getspecific(_threadKey);
 
-    fprintf(stderr, "##### Delete foo %p %p\n", this, pThread);
-
     delete pThread;
 #endif
 

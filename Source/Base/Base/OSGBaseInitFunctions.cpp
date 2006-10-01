@@ -339,7 +339,7 @@ bool osgInit(Int32, Char8 **)
     const char *szEnvPlugins       = getenv("OSG_PLUGIN_PATH");
     const char *szEnvPluginPattern = getenv("OSG_PLUGIN_PATTERN");
 
-    SharedObjectHandler::the()->dump();
+    //SharedObjectHandler::the()->dump();
 
     if(szEnvPlugins != NULL)
     {
@@ -389,7 +389,7 @@ bool osgInit(Int32, Char8 **)
     }
 #endif
 
-    SharedObjectHandler::the()->dump();
+    //SharedObjectHandler::the()->dump();
 
     if(returnValue == false)
         return returnValue;

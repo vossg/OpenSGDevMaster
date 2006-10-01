@@ -384,11 +384,12 @@ bool ThreadManager::shutdown(void)
 
     _pAppThread->shutdown();
 
-    fprintf(stderr, "%d %d %d %d\n",
+    FDEBUG(("Sizes: ThreadStore: %d BarrierStore: %d "
+            "LockStore: %d LockPoolStore: %d\n",
             _sThreadStore._mFieldMap.size(),
             _sBarrierStore._mFieldMap.size(),
             _sLockStore._mFieldMap.size(),
-            _sLockPoolStore._mFieldMap.size());
+            _sLockPoolStore._mFieldMap.size()));
           
     _sThreadStore  .clear();
     _sBarrierStore .clear();

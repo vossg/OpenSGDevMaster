@@ -137,8 +137,6 @@ bool SharedObject::close(void)
 {
     bool returnValue = false;
 
-    fprintf(stderr, "close %p\n", _pHandle);
-
     if(_pHandle != NULL)
     {
 #ifndef WIN32
@@ -148,8 +146,6 @@ bool SharedObject::close(void)
 #endif
         _pHandle    = NULL;
     }
-
-    fprintf(stderr, "close done %p\n", _pHandle);
 
     return returnValue;
 }
@@ -174,8 +170,6 @@ bool SharedObject::open()
         libName = _szName.c_str();
     }
 
-    fprintf(stderr, "open %s %p\n", libName, _pHandle);
-
 #ifndef WIN32
 #ifdef OSG_DLOPEN_LAZY
     _pHandle = dlopen(libName, RTLD_LAZY);
@@ -185,13 +179,11 @@ bool SharedObject::open()
 
     if(_pHandle == NULL)
     {
-        fprintf(stderr, "%s\n", dlerror());
+        fprintf(stderr, "%s\n", dlerror()); // Why not using log? !!! DR
     }
 #else
     _pHandle = LoadLibrary(libName);
 #endif
-
-    fprintf(stderr, "open done %s %p\n", libName, _pHandle);
 
     return (_pHandle != NULL);
 }
@@ -220,14 +212,9 @@ AnonSymbolHandle SharedObject::getSymbol(const TChar *szSymbolName)
 
 #ifndef WIN32
     if(returnValue == NULL)
-        fprintf(stderr, "%s\n", dlerror());
+        fprintf(stderr, "%s\n", dlerror()); // Why not using log? !!! DR
 #else
 #endif
-
-    fprintf(stderr, "Got Symbol : %s %p %x\n", 
-            szSymbolName, 
-            _pHandle, 
-            returnValue);
 
     return returnValue;
 }
@@ -329,19 +316,19 @@ SharedObjectHandler::SharedObjectHandler(void) :
     _mSharedObjects(),
     _vLoadedNames  ()
 {
-    FINFO(("create SharedObjectHandler\n"));
+    FDEBUG(("create SharedObjectHandler\n"));
 }
 
 SharedObjectHandler::~SharedObjectHandler(void)
 {
-    FINFO(("destroy SharedObjectHandler\n"));
+    FDEBUG(("destroy SharedObjectHandler\n"));
 }
 
 void SharedObjectHandler::terminate(void)
 {
-    FINFO(("terminate SharedObjectHandler\n"));
+    FDEBUG(("terminate SharedObjectHandler\n"));
 
-    this->dump();
+    //this->dump();
 
     SharedObjectMapIt soIt  = _mSharedObjects.begin();
     SharedObjectMapIt soEnd = _mSharedObjects.end  ();
@@ -511,7 +498,8 @@ void SharedObjectHandler::dump(void)
 
     while(soIt != soEnd)
     {
-        FLOG(("SO : %s | %p\n", soIt->first.c_str(), soIt->second));
+        FLOG(("%s: %s | %p\n", __func__, 
+            soIt->first.c_str(), soIt->second));
 
         soIt->second->dump();
         ++soIt;
