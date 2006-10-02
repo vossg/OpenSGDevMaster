@@ -158,7 +158,6 @@ inline
 std::ostream &Log::doHeader(      LogLevel  level, 
                             const Char8    *module, 
                             const Char8    *file, 
-                            const Char8    *func, 
                                   UInt32    line)
 {
     LogOStream &sout       = *(_streamVec[level]);
@@ -188,9 +187,6 @@ std::ostream &Log::doHeader(      LogLevel  level,
 
         if(module && *module && (_headerElem & LOG_MODULE_HEADER))
             sout << module << sep;
-
-        if(func && *func && (_headerElem & LOG_FUNC_HEADER))
-            sout << func << sep;
 
         if(file && *file && (_headerElem & LOG_FILE_HEADER)) 
         {
@@ -236,7 +232,6 @@ std::ostream &osgStartLog(      bool      logHeader,
                                 LogLevel  level, 
                           const Char8    *module,
                           const Char8    *file, 
-                          const Char8    *func, 
                                 UInt32    line)
 {
     initLog();
@@ -246,7 +241,7 @@ std::ostream &osgStartLog(      bool      logHeader,
     if(osgLogP->checkModule(module)) 
     {
         if(logHeader)
-            osgLogP->doHeader(level,module,file,func,line);
+            osgLogP->doHeader(level,module,file,line);
 
         return osgLogP->stream(level);
     }

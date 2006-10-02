@@ -93,12 +93,11 @@ enum LogHeaderElem
     LOG_FILE_HEADER          = 16,
     LOG_LINE_HEADER          = 32,
     LOG_END_NEWLINE_HEADER   = 64,
-    LOG_FUNC_HEADER          = 128,
 
     LOG_COLOR_HEADER         = 8192,
     LOG_TAB_HEADER           = 16384,
 
-    LOG_ALL_HEADER           = 255
+    LOG_ALL_HEADER           = 127
 };
 
 /*! \ingroup GrpBaseLog
@@ -317,7 +316,6 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     std::ostream &doHeader(      LogLevel  level,
                            const Char8    *module,
                            const Char8    *file,
-                           const Char8    *func,
                                  UInt32    line       );
 
     void          doLog   (const Char8    *format, ...);
@@ -436,7 +434,6 @@ std::ostream &osgStartLog(      bool          logHeader,
                                 LogLevel      level,
                           const Char8        *module,
                           const Char8        *file,
-                          const Char8        *func,
                                 UInt32        line     );
 
 inline              
@@ -452,35 +449,35 @@ void          indentLog   (     UInt32        indent,
 */
 
 #define SLOG     \
-  OSG::osgStartLog(true, OSG::LOG_LOG,     OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(true, OSG::LOG_LOG,     OSG_LOG_MODULE, __FILE__, __LINE__)
 
 /*! \brief SFATAL
     \ingroup GrpBaseLog
 */
 
 #define SFATAL   \
-  OSG::osgStartLog(true, OSG::LOG_FATAL,   OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(true, OSG::LOG_FATAL,   OSG_LOG_MODULE, __FILE__, __LINE__)
 
 /*! \brief SWARNING
     \ingroup GrpBaseLog
 */
 
 #define SWARNING \
-  OSG::osgStartLog(true, OSG::LOG_WARNING, OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(true, OSG::LOG_WARNING, OSG_LOG_MODULE, __FILE__, __LINE__)
 
 /*! \brief SNOTICE
     \ingroup GrpBaseLog
 */
 
 #define SNOTICE  \
-  OSG::osgStartLog(true, OSG::LOG_NOTICE,  OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(true, OSG::LOG_NOTICE,  OSG_LOG_MODULE, __FILE__, __LINE__)
 
 /*! \brief SINFO
     \ingroup GrpBaseLog
 */
 
 #define SINFO    \
-  OSG::osgStartLog(true, OSG::LOG_INFO,    OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(true, OSG::LOG_INFO,    OSG_LOG_MODULE, __FILE__, __LINE__)
 
 
 /*! \brief PLOG
@@ -488,35 +485,35 @@ void          indentLog   (     UInt32        indent,
 */
 
 #define PLOG     \
-  OSG::osgStartLog(false, OSG::LOG_LOG,     OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(false, OSG::LOG_LOG,     OSG_LOG_MODULE, __FILE__, __LINE__)
 
 /*! \brief PFATAL
     \ingroup GrpBaseLog
 */
 
 #define PFATAL   \
-  OSG::osgStartLog(false, OSG::LOG_FATAL,   OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(false, OSG::LOG_FATAL,   OSG_LOG_MODULE, __FILE__, __LINE__)
 
 /*! \brief PWARNING
     \ingroup GrpBaseLog
 */
 
 #define PWARNING \
- OSG:: osgStartLog(false, OSG::LOG_WARNING, OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+ OSG:: osgStartLog(false, OSG::LOG_WARNING, OSG_LOG_MODULE, __FILE__, __LINE__)
 
 /*! \brief PNOTICE
     \ingroup GrpBaseLog
 */
 
 #define PNOTICE  \
-  OSG::osgStartLog(false, OSG::LOG_NOTICE,  OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(false, OSG::LOG_NOTICE,  OSG_LOG_MODULE, __FILE__, __LINE__)
 
 /*! \brief PINFO
     \ingroup GrpBaseLog
 */
 
 #define PINFO    \
-  OSG::osgStartLog(false, OSG::LOG_INFO,    OSG_LOG_MODULE, __FILE__,  __func__, __LINE__)
+  OSG::osgStartLog(false, OSG::LOG_INFO,    OSG_LOG_MODULE, __FILE__, __LINE__)
 
 
 // C interface, because it can be compiled away
@@ -534,7 +531,6 @@ void          indentLog   (     UInt32        indent,
                     OSG::LOG_LOG,                               \
                     OSG_LOG_MODULE,                             \
                     __FILE__,                                   \
-                    __func__,                                   \
                     __LINE__);                                  \
    OSG::osgLogP->doLog par;                                     \
    OSG::osgLogP->unlock();                                      \
@@ -553,7 +549,6 @@ void          indentLog   (     UInt32        indent,
                          OSG::LOG_FATAL,                        \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -573,7 +568,6 @@ void          indentLog   (     UInt32        indent,
                          OSG::LOG_WARNING,                      \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -593,7 +587,6 @@ void          indentLog   (     UInt32        indent,
                          OSG::LOG_NOTICE,                       \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -613,7 +606,6 @@ void          indentLog   (     UInt32        indent,
                          OSG::LOG_INFO,                         \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -633,7 +625,6 @@ void          indentLog   (     UInt32        indent,
         OSG::osgStartLog(true,                                  \
                          OSG::LOG_DEBUG,OSG_LOG_MODULE,         \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -656,7 +647,6 @@ void          indentLog   (     UInt32        indent,
         OSG::osgStartLog(true,                                  \
                          OSG::LOG_DEBUG_GV,OSG_LOG_MODULE,      \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -728,7 +718,6 @@ void          indentLog   (     UInt32        indent,
                     OSG::LOG_LOG,                               \
                     OSG_LOG_MODULE,                             \
                     __FILE__,                                   \
-                    __func__,                                   \
                     __LINE__);                                  \
    OSG::osgLogP->doLog par;                                     \
    OSG::osgLogP->unlock();                                      \
@@ -747,7 +736,6 @@ void          indentLog   (     UInt32        indent,
                          OSG::LOG_FPATAL,                       \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -767,7 +755,6 @@ void          indentLog   (     UInt32        indent,
                          OSG::LOG_WARNING,                      \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -787,7 +774,6 @@ void          indentLog   (     UInt32        indent,
                          OSG::LOG_NOTICE,                       \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -807,7 +793,6 @@ void          indentLog   (     UInt32        indent,
                          OSG::LOG_INFPO,                        \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -827,7 +812,6 @@ void          indentLog   (     UInt32        indent,
         OSG::osgStartLog(false,                                 \
                          OSG::LOG_DEBUG,OSG_LOG_MODULE,         \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
@@ -846,7 +830,6 @@ void          indentLog   (     UInt32        indent,
         OSG::osgStartLog(false,                                 \
                          OSG::LOG_DEBUG_GV,OSG_LOG_MODULE,      \
                          __FILE__,                              \
-                         __func__,                              \
                          __LINE__);                             \
         OSG::osgLogP->doLog par;                                \
         OSG::osgLogP->unlock();                                 \
