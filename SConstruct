@@ -195,12 +195,20 @@ option_filename = "option.cache." + platform
 
 # Create base environment to use for option processing
 if GetPlatform() == "win32":
-   common_env = Environment()
+   # XXX: Temp hack to get msvs version setting
+   if ARGUMENTS.has_key("MSVS_VERSION"):
+      common_env = Environment(MSVS_VERSION=ARGUMENTS["MSVS_VERSION"])
+   else:
+      common_env = Environment()
 else:
    common_env = Environment(ENV = os.environ)
 # Setup the directories used for sconf processing
 common_env["CONFIGUREDIR"] = '.sconf_temp_'+platform
 common_env["CONFIGURELOG"] = 'sconf.log_'+platform
+if common_env.has_key("MSVS"):
+   common_env["CONFIGUREDIR"] += "." + common_env["MSVS"]["VERSION"]
+   common_env["CONFIGURELOG"] += "." + common_env["MSVS"]["VERSION"]
+
 SConsAddons.Builders.registerDefineBuilder(common_env)
 SConsAddons.Builders.registerSubstBuilder(common_env)
 
@@ -303,10 +311,17 @@ if not SConsAddons.Util.hasHelpFlag():
       opts.Save(option_filename, common_env)
    except LookupError, le:
       pass
-   
+  
+   if common_env.has_key("MSVS"):
+      import pprint
+      print "Found MSVS. using version: ", common_env["MSVS"]["VERSION"]
+      pprint.pprint(common_env["MSVS"])
+
    # Update settings
+   if common_env.has_key("MSVS"):
+      buildDir += "." + common_env["MSVS"]["VERSION"]
    if common_env["build_suffix"] != "":
-      buildDir = buildDir + "." + common_env["build_suffix"]
+      buildDir += "." + common_env["build_suffix"]
       
    # .fcd processing
    if common_env["enable_fcdprocess"]:      
