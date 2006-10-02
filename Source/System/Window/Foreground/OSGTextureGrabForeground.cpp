@@ -147,8 +147,8 @@ void TextureGrabForeground::draw(DrawEnv  *pEnv,
     // the 2x2 is because you can't create 0x0 images
 
     if((i->getWidth() <= 1 && i->getHeight() <= 1) ||
-       (getAutoResize() && (osgabs(i->getWidth()  - pw) > 1 ||
-                            osgabs(i->getHeight() - ph) > 1 ) ) )
+       (getAutoResize() && (osgAbs(i->getWidth()  - pw) > 1 ||
+                            osgAbs(i->getHeight() - ph) > 1 ) ) )
     {
         i->set(i->getPixelFormat(), pw, ph);
     }

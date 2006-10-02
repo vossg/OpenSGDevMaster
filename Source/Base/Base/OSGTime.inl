@@ -114,7 +114,7 @@ TimeStamp getTimeStampFreq(void)
         cstart = getTimeStamp();
         start = getSystemTime();
 
-        osgsleep(200);
+        osgSleep(200);
 
         cend = getTimeStamp();
         end = getSystemTime();

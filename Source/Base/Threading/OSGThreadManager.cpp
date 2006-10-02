@@ -65,7 +65,7 @@ Char8         *ThreadManager::_szAppThreadType     = NULL;
 
 void ThreadManager::setAppThreadType(const Char8 *szAppThreadType)
 {
-    stringDup(szAppThreadType, _szAppThreadType);
+    osgStringDup(szAppThreadType, _szAppThreadType);
 }
 
 

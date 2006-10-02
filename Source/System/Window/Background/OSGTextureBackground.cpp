@@ -249,7 +249,7 @@ void TextureBackground::clear(DrawEnv  *pEnv,
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
     }
-    if(osgabs(getRadialDistortion())<Eps)
+    if(osgAbs(getRadialDistortion())<Eps)
     {
 	    if(getTexCoords().size() < 4)
 	    {

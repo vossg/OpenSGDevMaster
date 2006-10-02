@@ -888,9 +888,9 @@ void TextFT2VectorFace::layout(const wstring &text, const TextLayoutParam &param
 
     // Determine text bounds / line bounds
     if (param.horizontal == true)
-        layoutResult.textBounds.setValues(osgabs(currPos.x()), _horiAscent - _horiDescent);
+        layoutResult.textBounds.setValues(osgAbs(currPos.x()), _horiAscent - _horiDescent);
     else
-        layoutResult.textBounds.setValues(_vertDescent - _vertAscent, osgabs(currPos.y()));
+        layoutResult.textBounds.setValues(_vertDescent - _vertAscent, osgAbs(currPos.y()));
     layoutResult.lineBounds.push_back(layoutResult.textBounds);
 }
 
@@ -1199,9 +1199,9 @@ void TextFT2PixmapFace::layout(const wstring &text, const TextLayoutParam &param
 
     // Determine text bounds / line bounds
     if (param.horizontal == true)
-        layoutResult.textBounds.setValues(osgabs(currPos.x()), _horiAscent - _horiDescent);
+        layoutResult.textBounds.setValues(osgAbs(currPos.x()), _horiAscent - _horiDescent);
     else
-        layoutResult.textBounds.setValues(_vertDescent - _vertAscent, osgabs(currPos.y()));
+        layoutResult.textBounds.setValues(_vertDescent - _vertAscent, osgAbs(currPos.y()));
     layoutResult.lineBounds.push_back(layoutResult.textBounds);
 }
 

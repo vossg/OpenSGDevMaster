@@ -342,7 +342,7 @@ void TextFace::justifyLine(const TextLayoutParam &param,
         return;
 
     // Determine how much additional white space we have
-    Real32 actualLength = osgabs(param.horizontal == true ? currPos.x() : currPos.y());
+    Real32 actualLength = osgAbs(param.horizontal == true ? currPos.x() : currPos.y());
     Real32 delta = param.getLength(0) - actualLength;
 
     // Determine the amount of space that is added between glyphs and words

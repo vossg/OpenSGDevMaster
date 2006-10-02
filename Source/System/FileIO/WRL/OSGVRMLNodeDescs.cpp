@@ -191,7 +191,7 @@ void VRMLNodeDesc::init(const Char8 *szName)
     {
         _pNodeCoreProto = Group::create();
     }
-    else if(stringcasecmp(szName, "Transform") == 0)
+    else if(osgStringCaseCmp(szName, "Transform") == 0)
     {
         _pNodeCoreProto = ComponentTransform::create();
     }
@@ -753,7 +753,7 @@ bool VRMLShapeDesc::prototypeAddField(const Char8  *szFieldType,
 
     incIndent();
 
-    if(stringcasecmp("geometry", szFieldname) == 0)
+    if(osgStringCaseCmp("geometry", szFieldname) == 0)
     {
         _pCurrField = _pNodeProto->getField("children");
         returnValue = true;
@@ -768,7 +768,7 @@ bool VRMLShapeDesc::prototypeAddField(const Char8  *szFieldType,
 #endif
     }
 
-    if(stringcasecmp("appearance", szFieldname) == 0)
+    if(osgStringCaseCmp("appearance", szFieldname) == 0)
     {
         _pCurrField = _pNodeCoreProto->getField("material");
         returnValue = true;
@@ -819,7 +819,7 @@ void VRMLShapeDesc::getFieldAndDesc(
     incIndent();
 #endif
 
-    if(stringcasecmp("geometry", szFieldname) == 0)
+    if(osgStringCaseCmp("geometry", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -833,7 +833,7 @@ void VRMLShapeDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pFC->getFieldDescription("children");
     }
-    else if(stringcasecmp("appearance", szFieldname) == 0)
+    else if(osgStringCaseCmp("appearance", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -1025,19 +1025,19 @@ bool VRMLGeometryDesc::prototypeAddField(const Char8  *szFieldType,
     if(szFieldname == NULL)
         return false;
 
-    if(stringcasecmp("coord", szFieldname) == 0)
+    if(osgStringCaseCmp("coord", szFieldname) == 0)
     {
         bFound = true;
     }
-    else if(stringcasecmp("normal", szFieldname) == 0)
+    else if(osgStringCaseCmp("normal", szFieldname) == 0)
     {
         bFound = true;
     }
-    else if(stringcasecmp("color", szFieldname) == 0)
+    else if(osgStringCaseCmp("color", szFieldname) == 0)
     {
         bFound = true;
     }
-    else if(stringcasecmp("texCoord", szFieldname) == 0)
+    else if(osgStringCaseCmp("texCoord", szFieldname) == 0)
     {
         bFound = true;
     }
@@ -1100,7 +1100,7 @@ void VRMLGeometryDesc::getFieldAndDesc(
 
     _bInIndex = false;
 
-    if(stringcasecmp("coord", szFieldname) == 0)
+    if(osgStringCaseCmp("coord", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -1112,7 +1112,7 @@ void VRMLGeometryDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pGeo->getFieldDescription("positions");
     }
-    else if(stringcasecmp("normal", szFieldname) == 0)
+    else if(osgStringCaseCmp("normal", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -1125,7 +1125,7 @@ void VRMLGeometryDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pGeo->getFieldDescription("normals");
     }
-    else if(stringcasecmp("color", szFieldname) == 0)
+    else if(osgStringCaseCmp("color", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -1138,7 +1138,7 @@ void VRMLGeometryDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pGeo->getFieldDescription("colors");
     }
-    else if(stringcasecmp("texCoord", szFieldname) == 0)
+    else if(osgStringCaseCmp("texCoord", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -1543,11 +1543,11 @@ bool VRMLGeometryPointSetDesc::prototypeAddField(const Char8  *szFieldType,
     if(szFieldname == NULL)
         return false;
 
-    if(stringcasecmp("coord", szFieldname) == 0)
+    if(osgStringCaseCmp("coord", szFieldname) == 0)
     {
         bFound = true;
     }
-    else if(stringcasecmp("color", szFieldname) == 0)
+    else if(osgStringCaseCmp("color", szFieldname) == 0)
     {
         bFound = true;
     }
@@ -1610,7 +1610,7 @@ void VRMLGeometryPointSetDesc::getFieldAndDesc(
 
     _bInIndex = false;
 
-    if(stringcasecmp("coord", szFieldname) == 0)
+    if(osgStringCaseCmp("coord", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -1622,7 +1622,7 @@ void VRMLGeometryPointSetDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pGeo->getFieldDescription("positions");
     }
-    else if(stringcasecmp("color", szFieldname) == 0)
+    else if(osgStringCaseCmp("color", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -2002,9 +2002,9 @@ VRMLGeometryPartDesc::VRMLGeometryPartDesc(Char8 *szVRMLPartname,
     _szOSGPartname (NULL),
     _szOSGProtoname(NULL)
 {
-    stringDup(szVRMLPartname, _szVRMLPartname);
-    stringDup(szOSGPartname,  _szOSGPartname );
-    stringDup(szOSGProtoname, _szOSGProtoname);
+    osgStringDup(szVRMLPartname, _szVRMLPartname);
+    osgStringDup(szOSGPartname,  _szOSGPartname );
+    osgStringDup(szOSGProtoname, _szOSGProtoname);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2054,7 +2054,7 @@ bool VRMLGeometryPartDesc::prototypeAddField(const Char8  *szFieldType,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp(_szVRMLPartname, szFieldname) == 0)
+    if(osgStringCaseCmp(_szVRMLPartname, szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -2100,7 +2100,7 @@ void VRMLGeometryPartDesc::getFieldAndDesc(
 
     incIndent();
 
-    if(stringcasecmp(_szVRMLPartname, szFieldname) == 0)
+    if(osgStringCaseCmp(_szVRMLPartname, szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -2181,7 +2181,7 @@ VRMLGeometryObjectDesc::VRMLGeometryObjectDesc(Char8 *szVRMLObjectname) :
 
     _szVRMLObjectname(NULL)
 {
-    stringDup(szVRMLObjectname, _szVRMLObjectname);
+    osgStringDup(szVRMLObjectname, _szVRMLObjectname);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2309,7 +2309,7 @@ void VRMLGeometryObjectDesc::endNode(FieldContainerPtr pFC)
     if(pNode == NullFC)
         return;
 
-    if(     stringcasecmp("Box",      _szVRMLObjectname) == 0)
+    if(     osgStringCaseCmp("Box",      _szVRMLObjectname) == 0)
     {
         Inherited::getFieldAndDesc(pFC,
                                    "size",
@@ -2334,7 +2334,7 @@ void VRMLGeometryObjectDesc::endNode(FieldContainerPtr pFC)
             pNode->setCore(pGeo);
         }
     }
-    else if(stringcasecmp("Cone",     _szVRMLObjectname) == 0)
+    else if(osgStringCaseCmp("Cone",     _szVRMLObjectname) == 0)
     {
         SFReal32 *pBotRad = NULL;
         SFReal32 *pHeight = NULL;
@@ -2401,7 +2401,7 @@ void VRMLGeometryObjectDesc::endNode(FieldContainerPtr pFC)
             pNode->setCore(pGeo);
         }
     }
-    else if(stringcasecmp("Cylinder", _szVRMLObjectname) == 0)
+    else if(osgStringCaseCmp("Cylinder", _szVRMLObjectname) == 0)
     {
         SFBool   *pBottom = NULL;
         SFReal32 *pHeight = NULL;
@@ -2482,7 +2482,7 @@ void VRMLGeometryObjectDesc::endNode(FieldContainerPtr pFC)
             pNode->setCore(pGeo);
         }
     }
-    else if(stringcasecmp("Sphere",   _szVRMLObjectname) == 0)
+    else if(osgStringCaseCmp("Sphere",   _szVRMLObjectname) == 0)
     {
         Inherited::getFieldAndDesc(pFC,
                                    "radius",
@@ -2582,15 +2582,15 @@ bool VRMLAppearanceDesc::prototypeAddField(const Char8  *szFieldType,
     if(szFieldname == NULL)
         return false;
 
-    if(stringcasecmp("material", szFieldname) == 0)
+    if(osgStringCaseCmp("material", szFieldname) == 0)
     {
         return true;
     }
-    else if(stringcasecmp("texture", szFieldname) == 0)
+    else if(osgStringCaseCmp("texture", szFieldname) == 0)
     {
         return true;
     }
-    else if(stringcasecmp("textureTransform", szFieldname) == 0)
+    else if(osgStringCaseCmp("textureTransform", szFieldname) == 0)
     {
         return true;
     }
@@ -2624,7 +2624,7 @@ void VRMLAppearanceDesc::getFieldAndDesc(
 
     incIndent();
 
-    if(stringcasecmp("material", szFieldname) == 0)
+    if(osgStringCaseCmp("material", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -2638,7 +2638,7 @@ void VRMLAppearanceDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pFC->getFieldDescription("chunks");
     }
-    else if(stringcasecmp("texture", szFieldname) == 0)
+    else if(osgStringCaseCmp("texture", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -2652,7 +2652,7 @@ void VRMLAppearanceDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pFC->getFieldDescription("chunks");
     }
-    else if(stringcasecmp("textureTransform", szFieldname) == 0)
+    else if(osgStringCaseCmp("textureTransform", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -2886,37 +2886,37 @@ bool VRMLMaterialDesc::prototypeAddField(const Char8  *,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("ambientIntensity", szFieldname) == 0)
+    if(osgStringCaseCmp("ambientIntensity", szFieldname) == 0)
     {
         _pCurrField = &_defaultAmbientIntensity;
 
         bFound = true;
     }
-    else if(stringcasecmp("diffuseColor", szFieldname) == 0)
+    else if(osgStringCaseCmp("diffuseColor", szFieldname) == 0)
     {
         _pCurrField = &_defaultDiffuseColor;
 
         bFound = true;
     }
-    else if(stringcasecmp("emissiveColor", szFieldname) == 0)
+    else if(osgStringCaseCmp("emissiveColor", szFieldname) == 0)
     {
         _pCurrField = &_defaultEmissiveColor;
 
         bFound = true;
     }
-    else if(stringcasecmp("shininess", szFieldname) == 0)
+    else if(osgStringCaseCmp("shininess", szFieldname) == 0)
     {
         _pCurrField = &_defaultShininess;
 
         bFound = true;
     }
-    else if(stringcasecmp("specularColor", szFieldname) == 0)
+    else if(osgStringCaseCmp("specularColor", szFieldname) == 0)
     {
         _pCurrField = &_defaultSpecularColor;
 
         bFound = true;
     }
-    else if(stringcasecmp("transparency", szFieldname) == 0)
+    else if(osgStringCaseCmp("transparency", szFieldname) == 0)
     {
         _pCurrField = &_defaultTransparency;
 
@@ -2989,27 +2989,27 @@ void VRMLMaterialDesc::getFieldAndDesc(
     const Field            *&pField,
     const FieldDescriptionBase *&pDesc)
 {
-    if(stringcasecmp("ambientIntensity", szFieldname) == 0)
+    if(osgStringCaseCmp("ambientIntensity", szFieldname) == 0)
     {
         pField = &_ambientIntensity;
     }
-    else if(stringcasecmp("diffuseColor", szFieldname) == 0)
+    else if(osgStringCaseCmp("diffuseColor", szFieldname) == 0)
     {
         pField = &_diffuseColor;
     }
-    else if(stringcasecmp("emissiveColor", szFieldname) == 0)
+    else if(osgStringCaseCmp("emissiveColor", szFieldname) == 0)
     {
         pField = &_emissiveColor;
     }
-    else if(stringcasecmp("shininess", szFieldname) == 0)
+    else if(osgStringCaseCmp("shininess", szFieldname) == 0)
     {
         pField = &_shininess;
     }
-    else if(stringcasecmp("specularColor", szFieldname) == 0)
+    else if(osgStringCaseCmp("specularColor", szFieldname) == 0)
     {
         pField = &_specularColor;
     }
-    else if(stringcasecmp("transparency", szFieldname) == 0)
+    else if(osgStringCaseCmp("transparency", szFieldname) == 0)
     {
         pField = &_transparency;
     }
@@ -3137,25 +3137,25 @@ bool VRMLTextureTransformDesc::prototypeAddField(const Char8  *,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("center", szFieldname) == 0)
+    if(osgStringCaseCmp("center", szFieldname) == 0)
     {
         _pCurrField = &_defaultCenter;
 
         bFound = true;
     }
-    else if(stringcasecmp("rotation", szFieldname) == 0)
+    else if(osgStringCaseCmp("rotation", szFieldname) == 0)
     {
         _pCurrField = &_defaultRotation;
 
         bFound = true;
     }
-    else if(stringcasecmp("scale", szFieldname) == 0)
+    else if(osgStringCaseCmp("scale", szFieldname) == 0)
     {
         _pCurrField = &_defaultScale;
 
         bFound = true;
     }
-    else if(stringcasecmp("translation", szFieldname) == 0)
+    else if(osgStringCaseCmp("translation", szFieldname) == 0)
     {
         _pCurrField = &_defaultTranslation;
 
@@ -3189,19 +3189,19 @@ void VRMLTextureTransformDesc::getFieldAndDesc(
     const Field            *&pField,
     const FieldDescriptionBase *&pDesc)
 {
-    if(stringcasecmp("center", szFieldname) == 0)
+    if(osgStringCaseCmp("center", szFieldname) == 0)
     {
         pField = &_center;
     }
-    else if(stringcasecmp("rotation", szFieldname) == 0)
+    else if(osgStringCaseCmp("rotation", szFieldname) == 0)
     {
         pField = &_rotation;
     }
-    else if(stringcasecmp("scale", szFieldname) == 0)
+    else if(osgStringCaseCmp("scale", szFieldname) == 0)
     {
         pField = &_scale;
     }
-    else if(stringcasecmp("translation", szFieldname) == 0)
+    else if(osgStringCaseCmp("translation", szFieldname) == 0)
     {
         pField = &_translation;
     }
@@ -3349,19 +3349,19 @@ bool VRMLImageTextureDesc::prototypeAddField(const Char8  *,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("url", szFieldname) == 0)
+    if(osgStringCaseCmp("url", szFieldname) == 0)
     {
         _pCurrField = &_defaultURL;
 
         bFound = true;
     }
-    else if(stringcasecmp("repeatS", szFieldname) == 0)
+    else if(osgStringCaseCmp("repeatS", szFieldname) == 0)
     {
         _pCurrField = &_defaultRepeatS;
 
         bFound = true;
     }
-    else if(stringcasecmp("repeatT", szFieldname) == 0)
+    else if(osgStringCaseCmp("repeatT", szFieldname) == 0)
     {
         _pCurrField = &_defaultRepeatT;
 
@@ -3395,15 +3395,15 @@ void VRMLImageTextureDesc::getFieldAndDesc(
     const Field            *&pField,
     const FieldDescriptionBase *&pDesc)
 {
-    if(stringcasecmp("url", szFieldname) == 0)
+    if(osgStringCaseCmp("url", szFieldname) == 0)
     {
         pField = &_url;
     }
-    else if(stringcasecmp("repeatS", szFieldname) == 0)
+    else if(osgStringCaseCmp("repeatS", szFieldname) == 0)
     {
         pField = &_repeatS;
     }
-    else if(stringcasecmp("repeatT", szFieldname) == 0)
+    else if(osgStringCaseCmp("repeatT", szFieldname) == 0)
     {
         pField = &_repeatT;
     }
@@ -3574,19 +3574,19 @@ bool VRMLPixelTextureDesc::prototypeAddField(const Char8  *,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("image", szFieldname) == 0)
+    if(osgStringCaseCmp("image", szFieldname) == 0)
     {
         _pCurrField = &_defaultImage;
 
         bFound = true;
     }
-    else if(stringcasecmp("repeatS", szFieldname) == 0)
+    else if(osgStringCaseCmp("repeatS", szFieldname) == 0)
     {
         _pCurrField = &_defaultRepeatS;
 
         bFound = true;
     }
-    else if(stringcasecmp("repeatT", szFieldname) == 0)
+    else if(osgStringCaseCmp("repeatT", szFieldname) == 0)
     {
         _pCurrField = &_defaultRepeatT;
 
@@ -3620,15 +3620,15 @@ void VRMLPixelTextureDesc::getFieldAndDesc(
     const Field            *&pField,
     const FieldDescriptionBase *&pDesc)
 {
-    if(stringcasecmp("image", szFieldname) == 0)
+    if(osgStringCaseCmp("image", szFieldname) == 0)
     {
         pField = &_image;
     }
-    else if(stringcasecmp("repeatS", szFieldname) == 0)
+    else if(osgStringCaseCmp("repeatS", szFieldname) == 0)
     {
         pField = &_repeatS;
     }
-    else if(stringcasecmp("repeatT", szFieldname) == 0)
+    else if(osgStringCaseCmp("repeatT", szFieldname) == 0)
     {
         pField = &_repeatT;
     }
@@ -3791,15 +3791,15 @@ bool VRMLLODDesc::prototypeAddField(const Char8  *szFieldType,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("level", szFieldname) == 0)
+    if(osgStringCaseCmp("level", szFieldname) == 0)
     {
         bFound = true;
     }
-    else if(stringcasecmp("center", szFieldname) == 0)
+    else if(osgStringCaseCmp("center", szFieldname) == 0)
     {
         bFound = true;
     }
-    else if(stringcasecmp("range", szFieldname) == 0)
+    else if(osgStringCaseCmp("range", szFieldname) == 0)
     {
         bFound = true;
     }
@@ -3859,7 +3859,7 @@ void VRMLLODDesc::getFieldAndDesc(
 
     incIndent();
 
-    if(stringcasecmp("level", szFieldname) == 0)
+    if(osgStringCaseCmp("level", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -3873,7 +3873,7 @@ void VRMLLODDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pNode->getFieldDescription("children");
     }
-    else if(stringcasecmp("center", szFieldname) == 0)
+    else if(osgStringCaseCmp("center", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -3887,7 +3887,7 @@ void VRMLLODDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pLOD->getFieldDescription("children");
     }
-    else if(stringcasecmp("range", szFieldname) == 0)
+    else if(osgStringCaseCmp("range", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -4032,11 +4032,11 @@ bool VRMLSwitchDesc::prototypeAddField(const Char8  *szFieldType,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("choice", szFieldname) == 0)
+    if(osgStringCaseCmp("choice", szFieldname) == 0)
     {
         bFound = true;
     }
-    else if(stringcasecmp("whichChoice", szFieldname) == 0)
+    else if(osgStringCaseCmp("whichChoice", szFieldname) == 0)
     {
         bFound = true;
     }
@@ -4096,7 +4096,7 @@ void VRMLSwitchDesc::getFieldAndDesc(
 
     incIndent();
 
-    if(stringcasecmp("choice", szFieldname) == 0)
+    if(osgStringCaseCmp("choice", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -4110,7 +4110,7 @@ void VRMLSwitchDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pNode->getFieldDescription("children");
     }
-    else if(stringcasecmp("whichChoice", szFieldname) == 0)
+    else if(osgStringCaseCmp("whichChoice", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -4261,17 +4261,17 @@ bool VRMLGroupDesc::prototypeAddField(const Char8  *szFieldType,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("bboxCenter", szFieldname) == 0)
+    if(osgStringCaseCmp("bboxCenter", szFieldname) == 0)
     {
         _pCurrField = &_defaultBoxCenter;
         bFound = true;
     }
-    else if(stringcasecmp("bboxSize", szFieldname) == 0)
+    else if(osgStringCaseCmp("bboxSize", szFieldname) == 0)
     {
         _pCurrField = &_defaultBoxSize;
         bFound = true;
     }
-    else if(stringcasecmp("children", szFieldname) == 0)
+    else if(osgStringCaseCmp("children", szFieldname) == 0)
     {
         bFound = true;
     }
@@ -4331,7 +4331,7 @@ void VRMLGroupDesc::getFieldAndDesc(
 
     incIndent();
 
-    if(stringcasecmp("bboxCenter", szFieldname) == 0)
+    if(osgStringCaseCmp("bboxCenter", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -4343,7 +4343,7 @@ void VRMLGroupDesc::getFieldAndDesc(
         pField = &_boxCenter;
         pDesc  = NULL;
     }
-    else if(stringcasecmp("bboxSize", szFieldname) == 0)
+    else if(osgStringCaseCmp("bboxSize", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -4355,7 +4355,7 @@ void VRMLGroupDesc::getFieldAndDesc(
         pField = &_boxSize;
         pDesc  = NULL;
     }
-    else if(stringcasecmp("children", szFieldname) == 0)
+    else if(osgStringCaseCmp("children", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -4835,17 +4835,17 @@ bool VRMLInlineDesc::prototypeAddField(const Char8  *szFieldType,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("bboxCenter", szFieldname) == 0)
+    if(osgStringCaseCmp("bboxCenter", szFieldname) == 0)
     {
         _pCurrField = &_defaultBoxCenter;
         bFound = true;
     }
-    else if(stringcasecmp("bboxSize", szFieldname) == 0)
+    else if(osgStringCaseCmp("bboxSize", szFieldname) == 0)
     {
         _pCurrField = &_defaultBoxSize;
         bFound = true;
     }
-    else if(stringcasecmp("url", szFieldname) == 0)
+    else if(osgStringCaseCmp("url", szFieldname) == 0)
     {
         bFound = true;
     }
@@ -4905,7 +4905,7 @@ void VRMLInlineDesc::getFieldAndDesc(
 
     incIndent();
 
-    if(stringcasecmp("bboxCenter", szFieldname) == 0)
+    if(osgStringCaseCmp("bboxCenter", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -4917,7 +4917,7 @@ void VRMLInlineDesc::getFieldAndDesc(
         pField = &_boxCenter;
         pDesc  = NULL;
     }
-    else if(stringcasecmp("bboxSize", szFieldname) == 0)
+    else if(osgStringCaseCmp("bboxSize", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -5155,13 +5155,13 @@ bool VRMLViewpointDesc::prototypeAddField(const Char8  *szFieldType,
 
     _pCurrField = NULL;
 
-    if(stringcasecmp("orientation", szFieldname) == 0)
+    if(osgStringCaseCmp("orientation", szFieldname) == 0)
     {
         _pCurrField = _pNodeCoreProto->getField("rotation");
 
         bFound = true;
     }
-    else if(stringcasecmp("position", szFieldname) == 0)
+    else if(osgStringCaseCmp("position", szFieldname) == 0)
     {
         _pCurrField = _pNodeCoreProto->getField("translation");
 
@@ -5221,7 +5221,7 @@ void VRMLViewpointDesc::getFieldAndDesc(
         return;
     }
 
-    if(stringcasecmp("orientation", szFieldname) == 0)
+    if(osgStringCaseCmp("orientation", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);
@@ -5234,7 +5234,7 @@ void VRMLViewpointDesc::getFieldAndDesc(
         if(pField != NULL)
             pDesc = pTransform->getFieldDescription("rotation");
     }
-    else if(stringcasecmp("position", szFieldname) == 0)
+    else if(osgStringCaseCmp("position", szFieldname) == 0)
     {
 #ifdef OSG_DEBUG_VRML
         indentLog(getIndent(), PINFO);

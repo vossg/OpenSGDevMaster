@@ -377,7 +377,7 @@ void calcVertexNormals(GeometryPtrArg geo,
 
     norms->clear();
 
-    Real32 cosCrease = osgcos(creaseAngle);
+    Real32 cosCrease = osgCos(creaseAngle);
     Vec3f norm;
 
     std::vector < UInt32 > normset;

@@ -57,7 +57,7 @@ void FieldDescription<DescT,
 
     pField->pushValueToString(tmpVal);
 
-    stringcpy(tmpVal.c_str(), str);
+    osgStringCopy(tmpVal.c_str(), str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
@@ -135,7 +135,7 @@ void FieldDescription<DescT,
 
     pField->pushValuesToString(tmpVal);
 
-    stringcpy(tmpVal.c_str(), str);
+    osgStringCopy(tmpVal.c_str(), str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline

@@ -503,7 +503,7 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
         {
             for(q = p+1; q < JacobiRank; q++)
             {
-                sm += osgabs(a[p][q]);
+                sm += osgAbs(a[p][q]);
             }
         }
 
@@ -518,31 +518,31 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
         {
             for (q = p + 1; q < JacobiRank; q++) 
             {
-                g = 100.0 * osgabs(a[p][q]);
+                g = 100.0 * osgAbs(a[p][q]);
                 
                 if (i > 3                                          && 
-                    (osgabs(evalues[p]) + g == osgabs(evalues[p])) &&
-                    (osgabs(evalues[q]) + g == osgabs(evalues[q])))
+                    (osgAbs(evalues[p]) + g == osgAbs(evalues[p])) &&
+                    (osgAbs(evalues[q]) + g == osgAbs(evalues[q])))
                 {
                     a[p][q] = 0.0;
                 }
-                else if (osgabs(a[p][q]) > thresh) 
+                else if (osgAbs(a[p][q]) > thresh) 
                 {
                     h = evalues[q] - evalues[p];
                     
-                    if (osgabs(h) + g == osgabs(h))
+                    if (osgAbs(h) + g == osgAbs(h))
                     {
                         t = a[p][q] / h;
                     }
                     else 
                     {
                         theta = .5 * h / a[p][q];
-                        t = 1.0 / (osgabs(theta) + osgsqrt(1 + theta * theta));
+                        t = 1.0 / (osgAbs(theta) + osgSqrt(1 + theta * theta));
                         if (theta < 0.0)  t = -t;
                     }
                     // End of computing tangent of rotation angle
                     
-                    c = 1.0 / osgsqrt(1.0 + t * t);
+                    c = 1.0 / osgSqrt(1.0 + t * t);
                     s = t * c;
 
                     tau = s / (1.0 + c);
@@ -1090,7 +1090,7 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
 
     for(i = 0; i < 3; i++) 
     {
-        s[i] = ValueTypeT(det_sign * osgsqrt(evalues[i]));
+        s[i] = ValueTypeT(det_sign * osgSqrt(evalues[i]));
 
         si._matrix[i][i] = 1.0f / s[i];
     }
@@ -1516,7 +1516,7 @@ bool TransformationMatrix<ValueTypeT>::inverse(
 
     rDet = det();
 
-    if(osgabs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
+    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {
 #ifdef OSG_PRINT_MATHERR
         fprintf(stderr, "invertMatrix: Singular matrix, no inverse!\n");
@@ -1605,7 +1605,7 @@ bool TransformationMatrix<ValueTypeT>::invert(void)
 
     rDet = det();
 
-    if(osgabs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
+    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {
 #ifdef OSG_PRINT_MATHERR
         fprintf(stderr, "invertMatrix: Singular matrix, no inverse!\n");
@@ -1696,7 +1696,7 @@ bool TransformationMatrix<ValueTypeT>::invertFrom(
 
     rDet = matrix.det();
 
-    if (osgabs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
+    if (osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {
 #ifdef OSG_PRINT_MATHERR
         fprintf(stderr, "invertMatrix: Singular matrix, no inverse!\n");
@@ -1753,7 +1753,7 @@ bool TransformationMatrix<ValueTypeT>::inverse3(
 {
     ValueTypeT rDet = det3();
 
-    if(osgabs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
+    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {
 #ifdef OSG_PRINT_MATHERR
         fprintf(stderr, "inverse3: matrix singular, no inverse!\n");
@@ -1820,7 +1820,7 @@ bool TransformationMatrix<ValueTypeT>::invert3(void)
     ValueTypeT           rDet    = det3();
     TransformationMatrix result;
 
-    if(osgabs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
+    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {
 #ifdef OSG_PRINT_MATHERR
         fprintf(stderr, "invert3: matrix singular, no inverse!\n");
@@ -1888,7 +1888,7 @@ bool TransformationMatrix<ValueTypeT>::invertFrom3(
 {
     ValueTypeT rDet = matrix.det3();
 
-    if(osgabs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
+    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {
 #ifdef OSG_PRINT_MATHERR
         fprintf(stderr, "invertFrom3: matrix singular, no inverse!\n");
@@ -2196,22 +2196,22 @@ ValueTypeT TransformationMatrix<ValueTypeT>::norm1(void) const
 {
     ValueTypeT m(0);
 
-    m += osgabs(_matrix[0][0]);
-    m += osgabs(_matrix[0][1]);
-    m += osgabs(_matrix[0][2]);
-    m += osgabs(_matrix[0][3]);
-    m += osgabs(_matrix[1][0]);
-    m += osgabs(_matrix[1][1]);
-    m += osgabs(_matrix[1][2]);
-    m += osgabs(_matrix[1][3]);
-    m += osgabs(_matrix[2][0]);
-    m += osgabs(_matrix[2][1]);
-    m += osgabs(_matrix[2][2]);
-    m += osgabs(_matrix[2][3]);
-    m += osgabs(_matrix[3][0]);
-    m += osgabs(_matrix[3][1]);
-    m += osgabs(_matrix[3][2]);
-    m += osgabs(_matrix[3][3]);
+    m += osgAbs(_matrix[0][0]);
+    m += osgAbs(_matrix[0][1]);
+    m += osgAbs(_matrix[0][2]);
+    m += osgAbs(_matrix[0][3]);
+    m += osgAbs(_matrix[1][0]);
+    m += osgAbs(_matrix[1][1]);
+    m += osgAbs(_matrix[1][2]);
+    m += osgAbs(_matrix[1][3]);
+    m += osgAbs(_matrix[2][0]);
+    m += osgAbs(_matrix[2][1]);
+    m += osgAbs(_matrix[2][2]);
+    m += osgAbs(_matrix[2][3]);
+    m += osgAbs(_matrix[3][0]);
+    m += osgAbs(_matrix[3][1]);
+    m += osgAbs(_matrix[3][2]);
+    m += osgAbs(_matrix[3][3]);
 
     return m;
 }
@@ -2241,7 +2241,7 @@ ValueTypeT TransformationMatrix<ValueTypeT>::norm2(void) const
     t = _matrix[3][2]; m += t*t;
     t = _matrix[3][3]; m += t*t;
 
-    return osgsqrt(m);
+    return osgSqrt(m);
 }
 
 //! Returns the infinity norm of this matrix
@@ -2252,37 +2252,37 @@ ValueTypeT TransformationMatrix<ValueTypeT>::normInfinity(void) const
     ValueTypeT m = 0.;
     ValueTypeT t;
 
-    if((t = osgabs(_matrix[0][0])) > m) 
+    if((t = osgAbs(_matrix[0][0])) > m) 
         m = t;
-    if((t = osgabs(_matrix[0][1])) > m)
+    if((t = osgAbs(_matrix[0][1])) > m)
         m = t;
-    if((t = osgabs(_matrix[0][2])) > m) 
+    if((t = osgAbs(_matrix[0][2])) > m) 
         m = t;
-    if((t = osgabs(_matrix[0][3])) > m) 
+    if((t = osgAbs(_matrix[0][3])) > m) 
         m = t;
-    if((t = osgabs(_matrix[1][0])) > m) 
+    if((t = osgAbs(_matrix[1][0])) > m) 
         m = t;
-    if((t = osgabs(_matrix[1][1])) > m) 
+    if((t = osgAbs(_matrix[1][1])) > m) 
         m = t;
-    if((t = osgabs(_matrix[1][2])) > m) 
+    if((t = osgAbs(_matrix[1][2])) > m) 
         m = t;
-    if((t = osgabs(_matrix[1][3])) > m) 
+    if((t = osgAbs(_matrix[1][3])) > m) 
         m = t;
-    if((t = osgabs(_matrix[2][0])) > m) 
+    if((t = osgAbs(_matrix[2][0])) > m) 
         m = t;
-    if((t = osgabs(_matrix[2][1])) > m) 
+    if((t = osgAbs(_matrix[2][1])) > m) 
         m = t;
-    if((t = osgabs(_matrix[2][2])) > m) 
+    if((t = osgAbs(_matrix[2][2])) > m) 
         m = t;
-    if((t = osgabs(_matrix[2][3])) > m) 
+    if((t = osgAbs(_matrix[2][3])) > m) 
         m = t;
-    if((t = osgabs(_matrix[3][0])) > m) 
+    if((t = osgAbs(_matrix[3][0])) > m) 
         m = t;
-    if((t = osgabs(_matrix[3][1])) > m) 
+    if((t = osgAbs(_matrix[3][1])) > m) 
         m = t;
-    if((t = osgabs(_matrix[3][2])) > m) 
+    if((t = osgAbs(_matrix[3][2])) > m) 
         m = t;
-    if((t = osgabs(_matrix[3][3])) > m) 
+    if((t = osgAbs(_matrix[3][3])) > m) 
         m = t;
 
     return m;
@@ -2312,7 +2312,7 @@ bool TransformationMatrix<ValueTypeT>::sqrt(TransformationMatrix &result) const
 
         Y.inverse(iY);
 
-        g = osgabs(osgpow(result.det() * Y.det(), ValueTypeT(-0.125)));
+        g = osgAbs(osgPow(result.det() * Y.det(), ValueTypeT(-0.125)));
 
         ig = ValueTypeT(1.0 / g);
 
@@ -2354,7 +2354,7 @@ bool TransformationMatrix<ValueTypeT>::sqrtOf(
 
         Y.inverse(iY);
 
-        g = osgabs(osgpow(det() * Y.det(), ValueTypeT(-0.125)));
+        g = osgAbs(osgPow(det() * Y.det(), ValueTypeT(-0.125)));
 
         ig = ValueTypeT(1.0 / g);
 
@@ -2391,7 +2391,7 @@ bool TransformationMatrix<ValueTypeT>::sqrt(void)
 
         Y.inverse(iY);
 
-        g = osgabs(osgpow(det() * Y.det(), ValueTypeT(-0.125)));
+        g = osgAbs(osgPow(det() * Y.det(), ValueTypeT(-0.125)));
 
         ig = ValueTypeT(1.0 / g);
 
@@ -2552,7 +2552,7 @@ bool TransformationMatrix<ValueTypeT>::exp(TransformationMatrix &result) const
 
           ValueTypeT           c(1.0);
 
-    j += Int32(osglog(A.normInfinity() / 0.693));
+    j += Int32(osgLog(A.normInfinity() / 0.693));
 
     if(j < 0) 
         j = 0;
@@ -2607,7 +2607,7 @@ bool TransformationMatrix<ValueTypeT>::expOf(
 
           ValueTypeT           c(1.0);
 
-    j += int(osglog(A.normInfinity() / 0.693));
+    j += int(osgLog(A.normInfinity() / 0.693));
 
     if(j < 0) 
         j = 0;

@@ -173,7 +173,7 @@ void ExceptionBinaryDataHandler::putValue(const Real128 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const std::string &value)
 {
-    UInt32 len = stringlen(value.c_str()) + 1;
+    UInt32 len = osgStringLen(value.c_str()) + 1;
 
     putValue(len);
 

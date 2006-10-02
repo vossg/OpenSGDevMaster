@@ -123,7 +123,7 @@ ImageFileType *ImageFileHandlerBase::getFileType(const Char8 *mimeType,
         // check mime type
         for(sI = _suffixTypeMap.begin(); sI != _suffixTypeMap.end(); ++sI)
         {
-            if(!stringcasecmp(sI->second->getMimeType(), mimeType))
+            if(!osgStringCaseCmp(sI->second->getMimeType(), mimeType))
             {
                 type = sI->second;
 

@@ -138,7 +138,7 @@ void PerspectiveCamera::getProjection(Matrixr &result,
     // try to be nice to people giving degrees...
 
     if(fov > Pi)
-        fov = osgdegree2rad(fov);
+        fov = osgDegree2Rad(fov);
 
     MatrixPerspective(result, 
                       fov   / 2, 

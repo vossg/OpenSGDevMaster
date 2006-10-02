@@ -140,9 +140,9 @@ Real FrustumVolume::getScalarVolume() const
         Vec3r main_diag = vertices[faces[i][0]] - vertices[faces[i][2]];
         Vec3r sec_diag  = vertices[faces[i][1]] - vertices[faces[i][3]];
 
-        area = osgabs((main_diag.cross(sec_diag)).length() / 2.f);        
+        area = osgAbs((main_diag.cross(sec_diag)).length() / 2.f);        
 
-        volume += osgabs((height*area)) / 3.f;
+        volume += osgAbs((height*area)) / 3.f;
     }
 
     return volume;
@@ -237,7 +237,7 @@ void FrustumVolume::setPlanes(const Matrixr &objectClipMat)
     for(Int32  i = 0; i < 6; i++) 
     {
         vectorLength = 
-            osgsqrt(planeEquation[i][0] * planeEquation[i][0] +
+            osgSqrt(planeEquation[i][0] * planeEquation[i][0] +
                     planeEquation[i][1] * planeEquation[i][1] +
                     planeEquation[i][2] * planeEquation[i][2]);
  

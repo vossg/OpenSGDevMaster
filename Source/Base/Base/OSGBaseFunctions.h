@@ -92,75 +92,166 @@ OSG_BEGIN_NAMESPACE
 
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
+    osgSqrt(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgsqrt(const FloatTypeT rValue);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgCos(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgcos(const FloatTypeT rValue);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgSin(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgsin(const FloatTypeT rValue);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgTan(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgtan(const FloatTypeT rValue);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgACos(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgacos(const FloatTypeT rValue);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgASin(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgasin(const FloatTypeT rValue);
+#endif
 
 
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
+    osgATan(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgatan(const FloatTypeT rValue);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgATan2(const FloatTypeT rValue1,
+             const FloatTypeT rValue2);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgatan2(const FloatTypeT rValue1,
              const FloatTypeT rValue2);
+#endif
 
 
 template <class FloatTypeT> inline
+FloatTypeT osgAbs(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class FloatTypeT> inline
 FloatTypeT osgabs(const FloatTypeT rValue);
+#endif
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgPow(const FloatTypeT rValue,
+           const FloatTypeT rExp);
 
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgpow(const FloatTypeT rValue,
            const FloatTypeT rExp);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgLog(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osglog(const FloatTypeT rValue);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgExp(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgexp(const FloatTypeT rValue);
+#endif
 
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgFloor(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     osgfloor(const FloatTypeT rValue);
+#endif
+
 
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
+    osgCeil(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgceil(const FloatTypeT rValue);
+#endif
+
 
 template <class FloatTypeT> inline
+UInt32 osgFinite(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class FloatTypeT> inline
 UInt32 osgfinite(const FloatTypeT rValue);
+#endif
 
 /*---------------------------------------------------------------------*/
 /*                           Min / Max Functions                       */
@@ -194,12 +285,24 @@ Int8 osgSgn(TypeT val);
 
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
+    osgDegree2Rad(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgdegree2rad(const FloatTypeT rValue);
+#endif
 
 
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
+    osgRad2Degree(const FloatTypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgrad2degree(const FloatTypeT rValue);
+#endif
 
 
 template <class FloatTypeT> inline
@@ -215,10 +318,21 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*                             Power 2 Functions                       */
 
 template <class TypeT> inline
+bool osgIsPower2(TypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class TypeT> inline
 bool osgispower2(TypeT rValue);
+#endif
+
 
 template <class TypeT> inline
+TypeT osgNextPower2(TypeT rValue);
+
+#ifdef OSG_1_COMPAT
+template <class TypeT> inline
 TypeT osgnextpower2(TypeT rValue);
+#endif
 
 /*---------------------------------------------------------------------*/
 /*                    Miscellaneous Functions                          */
@@ -235,10 +349,22 @@ Char8 *getenv(Char8* string);
 #endif
 
 inline
+void osgSleep(UInt32 millisecs);
+
+#ifdef OSG_1_COMPAT
+inline
 void osgsleep(UInt32 millisecs);
+#endif
+
 
 inline
+Real32 osgRand(void);
+
+#ifdef OSG_1_COMPAT
+inline
 Real32 osgrand(void);
+#endif
+
 
 #if defined(WIN32) && defined(_MSC_VER) 
 #if _MSC_VER <= 1200  // VC6
@@ -255,6 +381,30 @@ std::ostream &operator<<(std::ostream &os, Int64  v);
 
 inline
 bool osgIsBigEndian(void);
+
+template <class TypeT>
+inline TypeT
+osgHostToBigEndian(TypeT src);
+
+template <class TypeT>
+inline TypeT
+osgHostToLittleEndian(TypeT src);
+
+template <class TypeT>
+inline TypeT
+osgBigEndianToHost(TypeT src);
+
+template <class TypeT>
+inline TypeT
+osgLittleEndianToHost(TypeT src);
+
+template <class TypeT>
+inline TypeT
+osgHostToNet(const TypeT src);
+
+template <class TypeT>
+inline TypeT
+osgNetToHost(const TypeT src);
 
 // host to network
 
@@ -300,23 +450,57 @@ Real128 osgntohd(Real128 src);
 /*                   Case String Runtime Functions                     */
 
 inline
-void  stringDup    (const TChar *szInput,       TChar *&szOutput            );
+void  osgStringDup    (const TChar *szInput,       TChar *&szOutput            );
 
+#ifdef OSG_1_COMPAT
 inline
-void  stringcpy    (const Char8 *szInput,       Char8 *szOutput             );
-
-inline
-Int32 stringncmp   (const Char8 *string1, const Char8 *string2, size_t count);
-
-inline
-Int32 stringlen    (const Char8 *string1                                    );
+void  stringDup       (const TChar *szInput,       TChar *&szOutput            );
+#endif
 
 
 inline
-Int32 stringcmp    (const Char8 *string1, const Char8 *string2              );
+void  osgStringCopy   (const Char8 *szInput,       Char8 *szOutput             );
 
+#ifdef OSG_1_COMPAT
+inline
+void  stringcpy       (const Char8 *szInput,       Char8 *szOutput             );
+#endif
+
+
+inline
+Int32 osgStringNCmp   (const Char8 *string1, const Char8 *string2, size_t count);
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 stringncmp      (const Char8 *string1, const Char8 *string2, size_t count);
+#endif
+
+
+inline
+Int32 osgStringLen    (const Char8 *string1                                    );
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 stringlen       (const Char8 *string1                                    );
+#endif
+
+
+inline
+Int32 osgStringCmp    (const Char8 *string1, const Char8 *string2              );
+
+#ifdef OSG_1_COMPAT
+inline
+Int32 stringcmp       (const Char8 *string1, const Char8 *string2              );
+#endif
+
+
+inline
+Int32 osgStringCaseCmp(const Char8 *string1, const Char8 *string2              );
+
+#ifdef OSG_1_COMPAT
 inline
 Int32 stringcasecmp(const Char8 *string1, const Char8 *string2              );
+#endif
 
 /*! String less than compare functor used for a STL weak ordering
     \ingroup GrpBaseSTLHelpers

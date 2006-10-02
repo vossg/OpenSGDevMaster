@@ -2824,7 +2824,7 @@ yyreturn:
 
 void setName (char *&szName, const char *szVal)
 {
-    stringDup(szVal, szName);
+    osgStringDup(szVal, szName);
 }
 
 void freeName(char *&szName)

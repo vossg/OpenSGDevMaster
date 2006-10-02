@@ -461,7 +461,7 @@ const TextVectorGlyph::Normals &TextVectorGlyph::getNormals(UInt32 level) const
             Vec2f nextEdgeNormal = computeEdgeNormal(outline.coords[index], outline.coords[nextIndex], (*oriIt) == CW);
             Vec2f meanEdgeNormal = prevEdgeNormal + nextEdgeNormal;
             meanEdgeNormal.normalize();
-            Real32 edgeAngle = osgacos(osgabs(prevEdgeNormal.dot(nextEdgeNormal)));
+            Real32 edgeAngle = osgACos(osgAbs(prevEdgeNormal.dot(nextEdgeNormal)));
             normals.push_back(VertexNormal(nextEdgeNormal, meanEdgeNormal, edgeAngle));
 
             //the outgoing edge of this vertex is the incoming of the next vertex

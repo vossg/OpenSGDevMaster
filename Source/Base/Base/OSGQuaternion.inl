@@ -200,16 +200,16 @@ void QuaternionBase<ValueTypeT>::setValueAsAxisRad(const ValueTypeT x,
                                                    const ValueTypeT z,
                                                    const ValueTypeT w)
 {
-    ValueTypeT rTmp = osgsqrt(x * x + y * y + z * z);
+    ValueTypeT rTmp = osgSqrt(x * x + y * y + z * z);
 
     if(rTmp > Eps)
     {
-        rTmp = osgsin(w / 2.0f) / rTmp;
+        rTmp = osgSin(w / 2.0f) / rTmp;
 
         _quat[0] = x * rTmp;
         _quat[1] = y * rTmp;
         _quat[2] = z * rTmp;
-        _quat[3] = osgcos(w / 2.0f);
+        _quat[3] = osgCos(w / 2.0f);
     }
     else
     {
@@ -227,7 +227,7 @@ void QuaternionBase<ValueTypeT>::setValueAsAxisDeg(const ValueTypeT x,
                                                    const ValueTypeT z,
                                                    const ValueTypeT w)
 {
-    setValueAsAxisRad(x,y,z,osgdegree2rad(w));
+    setValueAsAxisRad(x,y,z,osgDegree2Rad(w));
 }
 
 /*! \brief Sets value of rotation from 4 individual components interpreted as
@@ -265,7 +265,7 @@ void QuaternionBase<ValueTypeT>::setValue(const MatrixType &matrix)
 
     if(tr > 0.0)
     {
-        s = osgsqrt(tr + 1.0);
+        s = osgSqrt(tr + 1.0);
 
         _quat[3] = ValueTypeT(s * 0.5);
 
@@ -287,7 +287,7 @@ void QuaternionBase<ValueTypeT>::setValue(const MatrixType &matrix)
         j = nxt[i];
         k = nxt[j];
 
-        s = osgsqrt(matrix[i][i] - (matrix[j][j] + matrix[k][k]) + 1.0 );
+        s = osgSqrt(matrix[i][i] - (matrix[j][j] + matrix[k][k]) + 1.0 );
 
         qt[i] = s * 0.5;
         s     = 0.5 / s;
@@ -398,7 +398,7 @@ void QuaternionBase<ValueTypeT>::setValue(const VectorType &rotateFrom,
     // use half-angle formulae
     // sin^2 t = ( 1 - cos (2t) ) / 2
 
-    axis *= ValueTypeT(osgsqrt(0.5 * (1.0 - cost)));
+    axis *= ValueTypeT(osgSqrt(0.5 * (1.0 - cost)));
 
     // scale the axis by the sine of half the rotation angle to get
     // the normalized quaternion
@@ -410,7 +410,7 @@ void QuaternionBase<ValueTypeT>::setValue(const VectorType &rotateFrom,
     // cos^2 t = ( 1 + cos (2t) ) / 2
     // w part is cosine of half the rotation angle
 
-    _quat[3] = ValueTypeT(osgsqrt(0.5 * (1.0 + cost)));
+    _quat[3] = ValueTypeT(osgSqrt(0.5 * (1.0 + cost)));
 }
 
 
@@ -423,10 +423,10 @@ void QuaternionBase<ValueTypeT>::setValueAsAxisRad(const Char8 *str)
 {
     setValueAsQuat(str);
 
-    if(osgfinite(_quat[0]) == 0 ||
-       osgfinite(_quat[1]) == 0 ||
-       osgfinite(_quat[2]) == 0 ||
-       osgfinite(_quat[3]) == 0   )
+    if(osgFinite(_quat[0]) == 0 ||
+       osgFinite(_quat[1]) == 0 ||
+       osgFinite(_quat[2]) == 0 ||
+       osgFinite(_quat[3]) == 0   )
     {
         setIdentity();
     }
@@ -445,10 +445,10 @@ void QuaternionBase<ValueTypeT>::setValueAsAxisDeg(const Char8 *str)
 {
     setValueAsQuat(str);
 
-    if(osgfinite(_quat[0]) == 0 ||
-       osgfinite(_quat[1]) == 0 ||
-       osgfinite(_quat[2]) == 0 ||
-       osgfinite(_quat[3]) == 0   )
+    if(osgFinite(_quat[0]) == 0 ||
+       osgFinite(_quat[1]) == 0 ||
+       osgFinite(_quat[2]) == 0 ||
+       osgFinite(_quat[3]) == 0   )
     {
         setIdentity();
     }
@@ -533,14 +533,14 @@ void QuaternionBase<ValueTypeT>::setValue(const ValueTypeT alpha,
                                           const ValueTypeT beta,
                                           const ValueTypeT gamma)
 {
-    ValueTypeT sx = osgsin(alpha * 0.5f);
-    ValueTypeT cx = osgcos(alpha * 0.5f);
+    ValueTypeT sx = osgSin(alpha * 0.5f);
+    ValueTypeT cx = osgCos(alpha * 0.5f);
 
-    ValueTypeT sy = osgsin(beta  * 0.5f);
-    ValueTypeT cy = osgcos(beta  * 0.5f);
+    ValueTypeT sy = osgSin(beta  * 0.5f);
+    ValueTypeT cy = osgCos(beta  * 0.5f);
 
-    ValueTypeT sz = osgsin(gamma * 0.5f);
-    ValueTypeT cz = osgcos(gamma * 0.5f);
+    ValueTypeT sz = osgSin(gamma * 0.5f);
+    ValueTypeT cz = osgCos(gamma * 0.5f);
 
     _quat[0] = (sx * cy * cz) - (cx * sy * sz);
     _quat[1] = (cx * sy * cz) + (sx * cy * sz);
@@ -597,7 +597,7 @@ void QuaternionBase<ValueTypeT>::getValueAsAxisRad(ValueTypeT &x,
 {
     getValueAsAxisDeg(x, y, z, w);
 
-    w = osgdegree2rad(w);
+    w = osgDegree2Rad(w);
 }
 
 /*! \brief Returns 4 individual components of rotation quaternion as axis and
@@ -624,7 +624,7 @@ void QuaternionBase<ValueTypeT>::getValueAsAxisDeg(ValueTypeT &x,
         y  = q[1];
         z  = q[2];
 
-        w = osgrad2degree(2.0f * osgacos(_quat[3]));
+        w = osgRad2Degree(2.0f * osgACos(_quat[3]));
     }
     else
     {
@@ -762,7 +762,7 @@ ValueTypeT QuaternionBase<ValueTypeT>::w(void) const
 template <class ValueTypeT> inline
 ValueTypeT QuaternionBase<ValueTypeT>::length(void) const
 {
-    return osgsqrt(_quat[0] * _quat[0] +
+    return osgSqrt(_quat[0] * _quat[0] +
                    _quat[1] * _quat[1] +
                    _quat[2] * _quat[2] +
                    _quat[3] * _quat[3]);
@@ -775,7 +775,7 @@ void QuaternionBase<ValueTypeT>::normalize(void)
 {
     ValueTypeT rLength = length();
 
-    if(osgabs(rLength) < Eps)
+    if(osgAbs(rLength) < Eps)
     {
         rLength =  TypeTraits<ValueTypeT>::getOneElement();
     }
@@ -1011,10 +1011,10 @@ void QuaternionBase<ValueTypeT>::slerp(const QuaternionBase &rot0,
     if ((1.0 - cosom) > 0.00001)
     {
         // standard case
-        omega = osgacos(cosom);
-        sinom = osgsin(omega);
-        scalerot0 = osgsin((1.0 - t) * omega) / sinom;
-        scalerot1 = osgsin(t * omega) / sinom;
+        omega = osgACos(cosom);
+        sinom = osgSin(omega);
+        scalerot0 = osgSin((1.0 - t) * omega) / sinom;
+        scalerot1 = osgSin(t * omega) / sinom;
     }
     else
     {

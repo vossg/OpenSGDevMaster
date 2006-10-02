@@ -123,8 +123,8 @@ void Trackball::updateRotation(Real32 rLastX,    Real32 rLastY,
     Vec3f  gDiff;
     Real32 rTmp;
 
-    if( (osgabs(rLastX - rCurrentX) > Eps) ||
-        (osgabs(rLastY - rCurrentY) > Eps))
+    if( (osgAbs(rLastX - rCurrentX) > Eps) ||
+        (osgAbs(rLastY - rCurrentY) > Eps))
     {
         /*
          * First, figure out z-coordinates for projection of P1 and P2 to
@@ -167,9 +167,9 @@ void Trackball::updateRotation(Real32 rLastX,    Real32 rLastY,
             rTmp = -1.0;
 
         if(_gMode == OSGObject)
-            rPhi = (Real32) -2.0 * osgasin(rTmp);
+            rPhi = (Real32) -2.0 * osgASin(rTmp);
         else
-            rPhi = (Real32)  2.0 * osgasin(rTmp);
+            rPhi = (Real32)  2.0 * osgASin(rTmp);
 
     }
 

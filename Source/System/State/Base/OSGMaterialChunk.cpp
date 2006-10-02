@@ -262,7 +262,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
                           _sfEmission.getValue().getValuesRGBA());
 
         // adjust shininess only if it differs enough
-        if(osgabs(_sfShininess.getValue() - old->getShininess()) > 1e-4f)
+        if(osgAbs(_sfShininess.getValue() - old->getShininess()) > 1e-4f)
             GLP::glMaterialf(target, GL_SHININESS, 
                              _sfShininess.getValue());
     }
@@ -459,7 +459,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
         glMaterialfv(target, GL_EMISSION,
                       _sfEmission.getValue().getValuesRGBA());
         // adjust shininess only if it differs enough
-        if(osgabs(_sfShininess.getValue() - old->getShininess()) > 1e-4)
+        if(osgAbs(_sfShininess.getValue() - old->getShininess()) > 1e-4)
             glMaterialf( target, GL_SHININESS, _sfShininess.getValue());
         
         if(getBackMaterial())
@@ -473,7 +473,7 @@ void MaterialChunk::changeFrom(DrawEnv    *,
             glMaterialfv(GL_BACK, GL_EMISSION,
                           _sfBackEmission.getValue().getValuesRGBA());
             // adjust shininess only if it differs enough
-            if(osgabs(_sfBackShininess.getValue() - 
+            if(osgAbs(_sfBackShininess.getValue() - 
                       old->getBackShininess()
                      ) > 1e-4)
                 glMaterialf( GL_BACK, GL_SHININESS, _sfBackShininess.getValue());

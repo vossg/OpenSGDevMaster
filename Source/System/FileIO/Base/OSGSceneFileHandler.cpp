@@ -922,7 +922,7 @@ void SceneFileHandlerBase::readProgress(void * OSG_CHECK_ARG(data))
 
         if(the->_useProgressThread)
         {
-            osgsleep(100);
+            osgSleep(100);
         }
         else
         {

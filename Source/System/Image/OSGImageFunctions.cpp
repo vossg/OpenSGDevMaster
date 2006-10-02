@@ -481,11 +481,11 @@ bool createNormalVolume ( ImagePtr inImage,
         
         // calc ThetaPhi
         if (calcThetaPhi) {
-          v = OSG::osgacos(normal[2]) / OSG::Pi;
-          u = OSG::osgsqrt(normal[0]*normal[0] + normal[1]*normal[1]);
+          v = OSG::osgACos(normal[2]) / OSG::Pi;
+          u = OSG::osgSqrt(normal[0]*normal[0] + normal[1]*normal[1]);
           
           if (u) u = normal[0] / u;
-          u = OSG::osgacos(u);
+          u = OSG::osgACos(u);
           if (normal[1]<0) u = TwoPi - u;
           u /= TwoPi;
           
@@ -746,7 +746,7 @@ bool blendImage ( ImagePtr canvas,
 
   //select slice for volume brush
   if ((bD > 1) && (depth == 1)) {
-    z = int(OSG::osgabs(paintZ) * (bD - 1)) % bD;
+    z = int(OSG::osgAbs(paintZ) * (bD - 1)) % bD;
     src += bW * bH * bBpp * z;    
     zbMin = 0;
   }
@@ -903,14 +903,14 @@ bool createPhongVolume ( ImagePtr image,
 	for (dPhi=0; dPhi<360; dPhi+=incr) {
       for (theta1=0; theta1<180; theta1+=incr) {
         for (theta2=0; theta2<180; theta2+=incr) {
-			OSG::Real32 t1 = OSG::osgdegree2rad(theta1),
-						t2 = OSG::osgdegree2rad(theta2),
-						dp = OSG::osgdegree2rad(dPhi);
-			NdotL = OSG::osgsin(t1)*OSG::osgsin(t2)*OSG::osgcos(dp) +
-					OSG::osgcos(t1)*OSG::osgcos(t2);
+			OSG::Real32 t1 = OSG::osgDegree2Rad(theta1),
+						t2 = OSG::osgDegree2Rad(theta2),
+						dp = OSG::osgDegree2Rad(dPhi);
+			NdotL = OSG::osgSin(t1)*OSG::osgSin(t2)*OSG::osgCos(dp) +
+					OSG::osgCos(t1)*OSG::osgCos(t2);
 			NdotL = (NdotL >= 0) ? NdotL : 0;
 			color = diffuse * (NdotL + Const) +
-					specular * OSG::osgpow(NdotL, Shi);
+					specular * OSG::osgPow(NdotL, Shi);
 
 			for (int i=0; i<3; i++) {
 				if (min>color[i]) min=color[i];
@@ -957,7 +957,7 @@ bool createNormalizationCubeMap(std::vector<ImagePtr> imageVec,
     unsigned char *data = NULL;
     Vec3f n;
     
-    size = osgnextpower2(size);
+    size = osgNextPower2(size);
     
     float size2 = size / 2.0f;
     float offset = 0.5f;
@@ -1523,7 +1523,7 @@ bool createVignette(ImagePtr pImg,
         for(UInt32 x = 0; x < width; x++) 
         {
             Real32 radius = 
-                osgsqrt((x - width  / 2) * (x - width  / 2) + 
+                osgSqrt((x - width  / 2) * (x - width  / 2) + 
                         (y - height / 2) * (y - height / 2));
 
             if(radius > r0) 
@@ -1534,8 +1534,8 @@ bool createVignette(ImagePtr pImg,
                     Real32 a = t * 2 - 1;
                     float reduce = 
                         (0.25 * Pi         + 
-                         0.5  * osgasin(a) + 
-                         0.5  * a * osgsqrt(1 - a * a)) / (0.5 * Pi);
+                         0.5  * osgASin(a) + 
+                         0.5  * a * osgSqrt(1 - a * a)) / (0.5 * Pi);
 
                     pDst[y * width + x] = reduce;
                 } 

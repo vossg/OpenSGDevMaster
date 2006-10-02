@@ -438,7 +438,7 @@ bool LockPool::init(void)
 #endif
         sprintf(pTmp, "%s%u\n", _szName, i);
 
-        stringDup(pTmp, _pLocks[i]._szName);
+        osgStringDup(pTmp, _pLocks[i]._szName);
 
         returnValue &= _pLocks[i].init();
     }

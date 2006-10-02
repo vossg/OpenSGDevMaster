@@ -310,7 +310,7 @@ namespace Directory
                         
                         if(pDirEntry != NULL)
                         {
-                            stringDup(pDirEntry->d_name, szEntryName);
+                            osgStringDup(pDirEntry->d_name, szEntryName);
                             
                             if(szPattern != NULL)
                             {
@@ -369,7 +369,7 @@ namespace Directory
                     
                     do
                     {
-                        stringDup(pDirEntry.cFileName, szEntryName);
+                        osgStringDup(pDirEntry.cFileName, szEntryName);
                         
                         returnValue->push_back(szEntryName);
                         szEntryName = NULL;

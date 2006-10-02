@@ -708,8 +708,8 @@ void TextureObjChunk::handleTexture(Window *win,
         {
             // do we have usable mipmaps ?
             if(img->getMipMapCount() == img->calcMipmapLevelCount() &&
-                 osgispower2(width) && osgispower2(height) &&
-                 osgispower2(depth)
+                 osgIsPower2(width) && osgIsPower2(height) &&
+                 osgIsPower2(depth)
               )
             {
                 for(UInt16 i = 0; i < img->getMipMapCount(); i++)
@@ -810,9 +810,9 @@ void TextureObjChunk::handleTexture(Window *win,
                     void *data = NULL;
 
                     // can we use it directly?
-                    if(! osgispower2(width) ||
-                         ! osgispower2(height) ||
-                         ! osgispower2(depth)
+                    if(! osgIsPower2(width) ||
+                         ! osgIsPower2(height) ||
+                         ! osgIsPower2(depth)
                       )
                     {
                         // scale is only implemented for 2D
@@ -824,8 +824,8 @@ void TextureObjChunk::handleTexture(Window *win,
                         }
                         else
                         {
-                            UInt32 outw = osgnextpower2(width);
-                            UInt32 outh = osgnextpower2(height);
+                            UInt32 outw = osgNextPower2(width);
+                            UInt32 outh = osgNextPower2(height);
 
                             data = malloc(outw * outh * img->getBpp());
 
@@ -936,7 +936,7 @@ void TextureObjChunk::handleTexture(Window *win,
             // Do we need to massage the texture or can we just use it?
             if(imgtarget != GL_TEXTURE_RECTANGLE_ARB &&
                !win->hasExtension(_arbTextureNonPowerOfTwo) &&
-               (!osgispower2(width) || !osgispower2(height) || !osgispower2(depth))
+               (!osgIsPower2(width) || !osgIsPower2(height) || !osgIsPower2(depth))
               )
             {
                 // No, need to scale or cut
@@ -960,8 +960,8 @@ void TextureObjChunk::handleTexture(Window *win,
                     }
                     else
                     {
-                        UInt32 outw = osgnextpower2(width);
-                        UInt32 outh = osgnextpower2(height);
+                        UInt32 outw = osgNextPower2(width);
+                        UInt32 outh = osgNextPower2(height);
 
                         data = malloc(outw * outh * img->getBpp());
                         datasize = outw * outh * img->getBpp();
@@ -995,7 +995,7 @@ void TextureObjChunk::handleTexture(Window *win,
                        {
                        case GL_TEXTURE_1D:
                            CompressedTexImage1D(GL_TEXTURE_1D, 0, internalFormat,
-                                           osgnextpower2(width), 0, 0, NULL);
+                                           osgNextPower2(width), 0, 0, NULL);
                            CompressedTexSubImage1D(GL_TEXTURE_1D, 0, 0, width,
                                            externalFormat, 
                                            img->getFrameSize(), 
@@ -1003,8 +1003,8 @@ void TextureObjChunk::handleTexture(Window *win,
                            break;
                        case GL_TEXTURE_2D:
                            CompressedTexImage2D(imgtarget, 0, internalFormat,
-                                           osgnextpower2(width),
-                                           osgnextpower2(height), 0,
+                                           osgNextPower2(width),
+                                           osgNextPower2(height), 0,
                                            0, NULL);
                            CompressedTexSubImage2D(imgtarget, 0, 0, 0, width, height,
                                            externalFormat,
@@ -1018,8 +1018,8 @@ void TextureObjChunk::handleTexture(Window *win,
                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                            CompressedTexImage2D(imgtarget, 0, internalFormat,
-                                           osgnextpower2(width),
-                                           osgnextpower2(height), 0,
+                                           osgNextPower2(width),
+                                           osgNextPower2(height), 0,
                                            0, NULL);
                            CompressedTexSubImage2D(imgtarget, 0, 0, 0, width, height,
                                            externalFormat,
@@ -1035,9 +1035,9 @@ void TextureObjChunk::handleTexture(Window *win,
                            break;
                        case GL_TEXTURE_3D:
                            CompressedTexImage3D(GL_TEXTURE_3D, 0, internalFormat,
-                                           osgnextpower2(width),
-                                           osgnextpower2(height),
-                                           osgnextpower2(depth),
+                                           osgNextPower2(width),
+                                           osgNextPower2(height),
+                                           osgNextPower2(depth),
                                            0, 0, NULL);
                            CompressedTexSubImage3D(GL_TEXTURE_3D, 0,  0, 0, 0,
                                            width, height, depth,
@@ -1056,7 +1056,7 @@ void TextureObjChunk::handleTexture(Window *win,
                        {
                        case GL_TEXTURE_1D:
                            glTexImage1D(GL_TEXTURE_1D, 0, internalFormat,
-                                           osgnextpower2(width), 0,
+                                           osgNextPower2(width), 0,
                                            externalFormat, type,
                                            NULL);
                            glTexSubImage1D(GL_TEXTURE_1D, 0, 0, width,
@@ -1071,8 +1071,8 @@ void TextureObjChunk::handleTexture(Window *win,
                        case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                            glTexImage2D(imgtarget, 0, internalFormat,
-                                           osgnextpower2(width),
-                                           osgnextpower2(height), 0,
+                                           osgNextPower2(width),
+                                           osgNextPower2(height), 0,
                                            externalFormat, type,
                                            NULL);
                            glTexSubImage2D(imgtarget, 0, 0, 0, width, height,
@@ -1087,9 +1087,9 @@ void TextureObjChunk::handleTexture(Window *win,
                            break;
                        case GL_TEXTURE_3D:
                              TexImage3D(GL_TEXTURE_3D, 0, internalFormat,
-                                           osgnextpower2(width),
-                                           osgnextpower2(height),
-                                           osgnextpower2(depth),
+                                           osgNextPower2(width),
+                                           osgNextPower2(height),
+                                           osgNextPower2(depth),
                                            0, externalFormat, type, NULL);
                              TexSubImage3D(GL_TEXTURE_3D, 0,  0, 0, 0,
                                            width, height, depth,
@@ -1265,9 +1265,9 @@ void TextureObjChunk::handleTexture(Window *win,
 
         if(!getScale() || imgtarget == GL_TEXTURE_RECTANGLE_ARB
                        || win->hasExtension(_arbTextureNonPowerOfTwo) 
-                       ||  (osgispower2(img->getWidth() ) &&
-                            osgispower2(img->getHeight()) &&
-                            osgispower2(img->getDepth() )
+                       ||  (osgIsPower2(img->getWidth() ) &&
+                            osgIsPower2(img->getHeight()) &&
+                            osgIsPower2(img->getDepth() )
           )                )
         {
             // activate the texture

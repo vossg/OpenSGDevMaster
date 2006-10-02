@@ -214,7 +214,7 @@ bool Line::intersect(const SphereVolume &sphere,
     if(d < 0.f)
         return false;
 
-    d  = osgsqrt(d);
+    d  = osgSqrt(d);
     t1 = b - d;
 
 //    if (t1 > 1)
@@ -298,7 +298,7 @@ bool Line::intersect(const CylinderVolume &cyl,
     {
         n.normalize();
 
-        dl    = osgabs(RC.dot(n));        //shortest distance
+        dl    = osgAbs(RC.dot(n));        //shortest distance
         isect = (dl <= radius);
 
         if(isect)
@@ -313,8 +313,8 @@ bool Line::intersect(const CylinderVolume &cyl,
 
             O.normalize();
 
-            s = osgabs (
-                (osgsqrt ((radius * radius) - (dl * dl))) / (_dir.dot(O)));
+            s = osgAbs (
+                (osgSqrt ((radius * radius) - (dl * dl))) / (_dir.dot(O)));
 
             exit = t + s;
 

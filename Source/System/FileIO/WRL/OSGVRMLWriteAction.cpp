@@ -114,7 +114,7 @@ VRMLWriteAction::FCInfo::FCInfo(const FCInfo &source) :
 {
     if(_bOwnName == true)
     {
-        stringDup(source._szName, _szName);
+        osgStringDup(source._szName, _szName);
     }
 }
 
@@ -165,7 +165,7 @@ void VRMLWriteAction::FCInfo::convertName(Char8 *&szName)
 
 void VRMLWriteAction::FCInfo::setName(const Char8 *szName)
 {
-    stringDup(szName, _szName);
+    osgStringDup(szName, _szName);
     convertName(_szName);
     _bOwnName = true;
 }
@@ -1250,15 +1250,15 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
 
     Real32 rAmbient = 0.f;
 
-    if(osgabs(mChunk->getDiffuse()[0]) > Eps)
+    if(osgAbs(mChunk->getDiffuse()[0]) > Eps)
     {
         rAmbient = mChunk->getAmbient()[0] / mChunk->getDiffuse()[0];
     }
-    else if(osgabs(mChunk->getDiffuse()[1]) > Eps)
+    else if(osgAbs(mChunk->getDiffuse()[1]) > Eps)
     {
         rAmbient = mChunk->getAmbient()[1] / mChunk->getDiffuse()[1];
     }
-    else if(osgabs(mChunk->getDiffuse()[2]) > Eps)
+    else if(osgAbs(mChunk->getDiffuse()[2]) > Eps)
     {
         rAmbient = mChunk->getAmbient()[2] / mChunk->getDiffuse()[2];
     }

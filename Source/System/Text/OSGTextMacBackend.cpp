@@ -712,9 +712,9 @@ void TextMacVectorFace::layout(const wstring &text, const TextLayoutParam &param
 
     // Determine text bounds / line bounds
     if (param.horizontal == true)
-        layoutResult.textBounds[0] = osgabs(currPos.x());
+        layoutResult.textBounds[0] = osgAbs(currPos.x());
     else
-        layoutResult.textBounds[1] = osgabs(currPos.y());
+        layoutResult.textBounds[1] = osgAbs(currPos.y());
     assert(layoutResult.lineBounds.empty() == false);
     layoutResult.lineBounds.front() = layoutResult.textBounds;
 }
@@ -1155,9 +1155,9 @@ void TextMacPixmapFace::layout(const wstring &text, const TextLayoutParam &param
 
     // Determine text bounds / line bounds
     if (param.horizontal == true)
-        layoutResult.textBounds[0] = osgabs(currPos.x());
+        layoutResult.textBounds[0] = osgAbs(currPos.x());
     else
-        layoutResult.textBounds[1] = osgabs(currPos.y());
+        layoutResult.textBounds[1] = osgAbs(currPos.y());
     assert(layoutResult.lineBounds.empty() == false);
     layoutResult.lineBounds.front() = layoutResult.textBounds;
 }

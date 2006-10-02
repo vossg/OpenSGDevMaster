@@ -176,16 +176,16 @@ bool Plane::intersect(const Plane &pl, Line &is) const
     /* Determine intersection point with the best suited coordinate plane. */
 
     Real   abs;
-    Real   maxabs = osgabs(dir[0]);
+    Real   maxabs = osgAbs(dir[0]);
     UInt16 index  = 0;
 
-    if((abs = osgabs(dir[1])) > maxabs) 
+    if((abs = osgAbs(dir[1])) > maxabs) 
     { 
         maxabs = abs;
         index  = 1; 
     }
 
-    if((abs = osgabs(dir[2])) > maxabs)
+    if((abs = osgAbs(dir[2])) > maxabs)
     {
         maxabs = abs; 
         index  = 2;

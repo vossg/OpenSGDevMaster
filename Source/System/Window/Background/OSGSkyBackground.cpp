@@ -227,14 +227,14 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     Real32 da = 2 * Pi / (sr - 1);    
     for(i = 0; i < sr; ++i)
     {
-        cosval[i] = osgcos(i * da);
-        sinval[i] = osgsin(i * da);     
+        cosval[i] = osgCos(i * da);
+        sinval[i] = osgSin(i * da);     
     }
     
     if(_mfSkyAngle.size() > 0)
     {
-        vcos1 = osgcos(_mfSkyAngle[0]);
-        vsin1 = osgsin(_mfSkyAngle[0]);
+        vcos1 = osgCos(_mfSkyAngle[0]);
+        vsin1 = osgSin(_mfSkyAngle[0]);
 
         glBegin(GL_TRIANGLE_FAN);
         glColor4fv((GLfloat*) _mfSkyColor[0].getValuesRGBA());
@@ -256,10 +256,10 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
             c1 = _mfSkyColor[j+1];
             c2 = _mfSkyColor[j+2];
 
-            vcos1 = osgcos(_mfSkyAngle[j  ]);
-            vsin1 = osgsin(_mfSkyAngle[j  ]);
-            vcos2 = osgcos(_mfSkyAngle[j+1]);
-            vsin2 = osgsin(_mfSkyAngle[j+1]);
+            vcos1 = osgCos(_mfSkyAngle[j  ]);
+            vsin1 = osgSin(_mfSkyAngle[j  ]);
+            vcos2 = osgCos(_mfSkyAngle[j+1]);
+            vsin2 = osgSin(_mfSkyAngle[j+1]);
 
             glBegin(GL_TRIANGLE_STRIP);
 
@@ -273,13 +273,13 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
             glEnd();
         }
 
-        if(osgabs(_mfSkyAngle[j] - Pi) > Eps)
+        if(osgAbs(_mfSkyAngle[j] - Pi) > Eps)
         {
             glBegin(GL_TRIANGLE_FAN);
             glColor4fv((GLfloat*) _mfSkyColor[j+1].getValuesRGBA());
             glVertex3f(0, -1, 0);
-            vcos1 = osgcos(_mfSkyAngle[j]);
-            vsin1 = osgsin(_mfSkyAngle[j]);
+            vcos1 = osgCos(_mfSkyAngle[j]);
+            vsin1 = osgSin(_mfSkyAngle[j]);
 
             for(i = 0; i < sr; ++i)
             {
@@ -308,8 +308,8 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 
     if(_mfGroundAngle.size() > 0)
     {    
-        vcos1 = -osgcos(_mfGroundAngle[0]);
-        vsin1 =  osgsin(_mfGroundAngle[0]);
+        vcos1 = -osgCos(_mfGroundAngle[0]);
+        vsin1 =  osgSin(_mfGroundAngle[0]);
 
         glBegin(GL_TRIANGLE_FAN);
         glColor4fv((GLfloat*) _mfGroundColor[0].getValuesRGBA());
@@ -331,10 +331,10 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
             c1 = _mfGroundColor[j+1];
             c2 = _mfGroundColor[j+2];
 
-            vcos1 = -osgcos(_mfGroundAngle[j  ]);
-            vsin1 =  osgsin(_mfGroundAngle[j  ]);
-            vcos2 = -osgcos(_mfGroundAngle[j+1]);
-            vsin2 =  osgsin(_mfGroundAngle[j+1]);
+            vcos1 = -osgCos(_mfGroundAngle[j  ]);
+            vsin1 =  osgSin(_mfGroundAngle[j  ]);
+            vcos2 = -osgCos(_mfGroundAngle[j+1]);
+            vsin2 =  osgSin(_mfGroundAngle[j+1]);
 
             glBegin(GL_TRIANGLE_STRIP);
 

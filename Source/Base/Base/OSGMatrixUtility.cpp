@@ -126,7 +126,7 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(Matrixr &result,
                                            Real     rNear,
                                            Real     rFar)
 {
-    Real ct    = osgtan(rFovy);
+    Real ct    = osgTan(rFovy);
     bool error = false;
 
     if(rNear > rFar)
@@ -145,7 +145,7 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(Matrixr &result,
         error = true;
     }
 
-    if(osgabs(rNear - rFar) < Eps)
+    if(osgAbs(rNear - rFar) < Eps)
     {
         SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
                  << "!\n" << std::endl;
@@ -217,7 +217,7 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(Matrixr &projection,
         error = true;
     }
 
-    if(osgabs(rNear - rFar) < Eps)
+    if(osgAbs(rNear - rFar) < Eps)
     {
         SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
                  << "!\n" << std::endl;
@@ -251,11 +251,11 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(Matrixr &projection,
     }
 
     /* Calculate upper and lower clipping planes */
-    rTop    = osgtan(rFovy / 2.0f) * rNear; 
+    rTop    = osgTan(rFovy / 2.0f) * rNear; 
     rBottom = -rTop;
 
     /* Calculate left and right clipping planes */
-    gltan  = osgtan(rFovy / 2.0f) * rAspect;  
+    gltan  = osgTan(rFovy / 2.0f) * rAspect;  
 
     rLeft  = (-gltan + rEye / rZeroparallax) * rNear;
     rRight = ( gltan + rEye / rZeroparallax) * rNear;

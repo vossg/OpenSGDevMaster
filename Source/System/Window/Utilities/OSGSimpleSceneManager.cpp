@@ -604,7 +604,7 @@ void SimpleSceneManager::showAll(void)
         d = max - min;
     }
 
-    Real32 dist = osgMax(d[0],d[1]) / (2 * osgtan(_camera->getFov() / 2.f));
+    Real32 dist = osgMax(d[0],d[1]) / (2 * osgTan(_camera->getFov() / 2.f));
 
     Vec3f up(0,1,0);
     Pnt3f at((min[0] + max[0]) * .5f,(min[1] + max[1]) * .5f,(min[2] + max[2]) * .5f);

@@ -402,7 +402,7 @@ void ParticleBSPTree::build(Particles *core)
     
     // reserve mem for tree
     
-    _tree.resize(osgnextpower2(order.size()) * 2);
+    _tree.resize(osgNextPower2(order.size()) * 2);
     
     // 2. recursively build the tree
     

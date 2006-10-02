@@ -564,8 +564,8 @@ Real dist3D_Segment_to_Segment(const Pnt3r& s1p,
     }
 
     // finally do the division to get sc and tc
-    sc = (osgabs(sN) < SMALL_NUM ? 0.0f : sN / sD);
-    tc = (osgabs(tN) < SMALL_NUM ? 0.0f : tN / tD);
+    sc = (osgAbs(sN) < SMALL_NUM ? 0.0f : sN / sD);
+    tc = (osgAbs(tN) < SMALL_NUM ? 0.0f : tN / tD);
 
     // get the difference of the two closest points
     Vec3r dP = w + (sc * u) - (tc * v);  // = S1(sc) - S2(tc)

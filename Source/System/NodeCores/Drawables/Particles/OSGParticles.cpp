@@ -1505,7 +1505,7 @@ struct drawLines : public ParticlesDrawer
 
         glEnd();
     
-        if(osgabs(s-lw)>Eps)
+        if(osgAbs(s-lw)>Eps)
             glLineWidth(lw);
     }
 
@@ -1569,7 +1569,7 @@ struct drawLines : public ParticlesDrawer
 
         glEnd();
     
-        if(osgabs(s-lw)>Eps)
+        if(osgAbs(s-lw)>Eps)
             glLineWidth(lw);
     }
 };
@@ -1623,7 +1623,7 @@ struct drawPoints : public ParticlesDrawer
 
         glEnd();
     
-        if(osgabs(s-ps)>Eps)
+        if(osgAbs(s-ps)>Eps)
             glPointSize(ps);
     }
 
@@ -1672,7 +1672,7 @@ struct drawPoints : public ParticlesDrawer
 
         glEnd();
     
-        if(osgabs(s-ps)>Eps)
+        if(osgAbs(s-ps)>Eps)
             glPointSize(ps);
     }
 };

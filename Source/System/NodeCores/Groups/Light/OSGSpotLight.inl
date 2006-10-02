@@ -49,13 +49,13 @@ void SpotLight::setSpotCutOffDeg(Real angle)
 {
     editSField(SpotCutOffFieldMask);
 
-    _sfSpotCutOff.setValue(osgdegree2rad(angle));
+    _sfSpotCutOff.setValue(osgDegree2Rad(angle));
 }
 
 inline
 Real SpotLight::getSpotCutOffDeg(void)
 {
-    return osgrad2degree(_sfSpotCutOff.getValue());
+    return osgRad2Degree(_sfSpotCutOff.getValue());
 }
 
 OSG_END_NAMESPACE

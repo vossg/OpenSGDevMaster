@@ -2315,9 +2315,9 @@ bool Image::scale(Int32    width,
 
 bool Image::scaleNextPower2(ImagePtr destination)
 {
-  return scale(osgnextpower2(getWidth ()),
-               osgnextpower2(getHeight()),
-               osgnextpower2(getDepth ()),
+  return scale(osgNextPower2(getWidth ()),
+               osgNextPower2(getHeight()),
+               osgNextPower2(getDepth ()),
                destination              );
 }
 

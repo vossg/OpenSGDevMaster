@@ -558,7 +558,7 @@ void GroupMCastConnection::initialize()
     char          hostname[256];
     UInt32        index;
     UInt32        len;
-    UInt32        ackNum = (UInt32) osgsqrt(_sockets.size());
+    UInt32        ackNum = (UInt32) osgSqrt(_sockets.size());
     UInt32        numSource;
     UInt32        sendTo;
     BinaryMessage message;

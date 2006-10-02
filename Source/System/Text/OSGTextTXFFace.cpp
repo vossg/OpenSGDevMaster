@@ -754,9 +754,9 @@ void TextTXFFace::layout(const wstring &text,
 
     // Determine text bounds / line bounds
     if (param.horizontal == true)
-        result.textBounds.setValues(osgabs(currPos.x()), _horiAscent - _horiDescent);
+        result.textBounds.setValues(osgAbs(currPos.x()), _horiAscent - _horiDescent);
     else
-        result.textBounds.setValues(_vertDescent - _vertAscent, osgabs(currPos.y()));
+        result.textBounds.setValues(_vertDescent - _vertAscent, osgAbs(currPos.y()));
     result.lineBounds.push_back(result.textBounds);
 }
 
@@ -817,7 +817,7 @@ void TextTXFFace::prepareTexture(const TextTXFParam &param)
     maxWidth += param.gap << 1;
     if (textureSize < maxWidth)
         textureSize = maxWidth;
-    UInt32 textureWidth = osgnextpower2(textureSize);
+    UInt32 textureWidth = osgNextPower2(textureSize);
 
     // Calculate the positions of the glyphs in the texture
     HeightMap::iterator hmIt = heightMap.begin();
@@ -863,7 +863,7 @@ void TextTXFFace::prepareTexture(const TextTXFParam &param)
     ypos += heightOfRow;
 
     // Calculate the height of the texture
-    UInt32 textureHeight = osgnextpower2(static_cast<UInt32>(ypos));
+    UInt32 textureHeight = osgNextPower2(static_cast<UInt32>(ypos));
 
     // Create the texture
     _texture = Image::create();

@@ -957,7 +957,7 @@ typename PointInterface<ValueTypeT,
 PointInterface<ValueTypeT, StorageInterfaceT>::dist(const PointInterface &vec) 
     const
 {
-    return osgsqrt(dist2(vec));
+    return osgSqrt(dist2(vec));
 }
 
 //! Returns the distance between the two points, squared
@@ -1561,7 +1561,7 @@ template <class ValueTypeT,
 typename VectorInterface<ValueTypeT, StorageInterfaceT>::RealReturnType
     VectorInterface<ValueTypeT, StorageInterfaceT>::length(void) const
 {
-    return osgsqrt(Self::squareLength());
+    return osgSqrt(Self::squareLength());
 }
 
 
@@ -1573,7 +1573,7 @@ void VectorInterface<ValueTypeT, StorageInterfaceT>::normalize(void)
 {
     ValueTypeT rLength = ValueTypeT(length());
 
-    if(osgabs(rLength) < Eps)
+    if(osgAbs(rLength) < Eps)
     {
         rLength = TypeTraits<ValueTypeT>::getOneElement();
     }
@@ -1749,7 +1749,7 @@ typename VectorInterface<ValueTypeT, StorageInterfaceT>::RealReturnType
         }
         else
         {
-            returnValue = osgacos(returnValue);
+            returnValue = osgACos(returnValue);
         }
     }
 
@@ -1769,7 +1769,7 @@ typename VectorInterface<ValueTypeT, StorageInterfaceT>::RealReturnType
     {
         rDot /= rSquareDot;
 
-        if(osgabs(rDot) > Eps)
+        if(osgAbs(rDot) > Eps)
         {
             *this  = toVec;
             *this *= ValueTypeT(rDot);

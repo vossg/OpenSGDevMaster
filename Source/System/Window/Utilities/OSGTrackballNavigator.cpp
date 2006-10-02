@@ -245,7 +245,7 @@ void TrackballNavigator::rotate(Real32 fromX, Real32 fromY, Real32 toX, Real32 t
 
     Real32 rTmp;
 
-    if(osgabs(fromX - toX) > Eps || osgabs(fromY - toY) > Eps)
+    if(osgAbs(fromX - toX) > Eps || osgAbs(fromY - toY) > Eps)
     {
         vP1.setValues(fromX, fromY, projectToSphere(_rRadius, fromX, fromY));
         vP2.setValues(toX, toY, projectToSphere(_rRadius, toX, toY));
@@ -258,7 +258,7 @@ void TrackballNavigator::rotate(Real32 fromX, Real32 fromY, Real32 toX, Real32 t
 
         rTmp = osgClamp(-1.0f, vDiff.length() / (2.0f * _rRadius), 1.0f);
 
-        rPhi = 2.0f * osgasin(rTmp);
+        rPhi = 2.0f * osgASin(rTmp);
         qCurrVal.setValueAsAxisRad(vAxis, rPhi);
 
         Matrix temp;

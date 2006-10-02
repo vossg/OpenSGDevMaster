@@ -325,7 +325,7 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
     Real32 delta = 2.f * Pi / sides;
     Real32 beta, x, z;
     Real32 incl = (botradius - topradius) / height;
-    Real32 nlen = 1.f / osgsqrt(1 + incl * incl);
+    Real32 nlen = 1.f / osgSqrt(1 + incl * incl);
     
     // vertices
 
@@ -348,8 +348,8 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
         for(j = 0; j <= sides; j++)
         {
             beta = j * delta;
-            x    =  osgsin(beta);
-            z    = -osgcos(beta);         
+            x    =  osgSin(beta);
+            z    = -osgCos(beta);         
 
             p->push_back(Pnt3f(x * topradius, height/2, z * topradius));
             n->push_back(Vec3f(x/nlen, incl/nlen, z/nlen));
@@ -359,8 +359,8 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
         for(j = 0; j <= sides; j++)
         {
             beta = j * delta;
-            x    =  osgsin(beta);
-            z    = -osgcos(beta);         
+            x    =  osgSin(beta);
+            z    = -osgCos(beta);         
 
             p->push_back(Pnt3f(x * botradius, -height/2, z * botradius));
             n->push_back(Vec3f(x/nlen, incl/nlen, z/nlen));
@@ -386,8 +386,8 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
         for(j = sides - 1; j >= 0; j--)
         {
             beta = j * delta;
-            x    =  topradius * osgsin(beta);
-            z    = -topradius * osgcos(beta);        
+            x    =  topradius * osgSin(beta);
+            z    = -topradius * osgCos(beta);        
 
             p->push_back(Pnt3f(x, height/2, z));
             n->push_back(Vec3f(0, 1, 0));
@@ -412,8 +412,8 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
         for(j = sides - 1; j >= 0; j--)
         {
             beta = j * delta;
-            x    =  botradius * osgsin(beta);
-            z    = -botradius * osgcos(beta);      
+            x    =  botradius * osgSin(beta);
+            z    = -botradius * osgCos(beta);      
 
             p->push_back(Pnt3f(x, -height/2, z));
             n->push_back(Vec3f(0, -1, 0));
@@ -507,15 +507,15 @@ GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
 
     for(a = 0, theta = 0.0; a <= rings; a++, theta += ringDelta) 
     {
-        cosTheta = osgcos(theta);
-        sinTheta = osgsin(theta);
+        cosTheta = osgCos(theta);
+        sinTheta = osgSin(theta);
 
         for(b = 0, phi = 0; b <= sides; b++, phi += sideDelta) 
         {
             GLfloat cosPhi, sinPhi, dist;
 
-            cosPhi = osgcos(phi);
-            sinPhi = osgsin(phi);
+            cosPhi = osgCos(phi);
+            sinPhi = osgSin(phi);
             dist   = outerRadius + innerRadius * cosPhi;
 
             n->push_back(Vec3f(cosTheta * cosPhi, 
@@ -584,7 +584,7 @@ Real32 calcTexS(Vec3f &n, Real32 theta)
     const Real32 TwoPi  = 6.283185307179586;
     const Real32 HalfPi = 1.570796326794897;
     
-    Real32 phi = osgatan2(-n[2], n[0]) - HalfPi;
+    Real32 phi = osgATan2(-n[2], n[0]) - HalfPi;
 
     if (phi <= -Eps)
         phi += TwoPi;
@@ -609,7 +609,7 @@ void addPoint(Pnt3f v, UInt32 index, Real32 radius,
     Vec2f texCoord;
 
     // Theta -> v
-    texCoord[1] = (Pi - osgacos(norm[1])) / Pi;
+    texCoord[1] = (Pi - osgACos(norm[1])) / Pi;
 
     texCoord[0] = calcTexS(norm, texCoord[1]);
 
@@ -722,7 +722,7 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
                             Vec3f( Z, -X, 0.),
                             Vec3f(-Z, -X, 0.)  };
 
-    Quaternion q(Vec3f(0,1,0), osgacos(Z) + HalfPi);
+    Quaternion q(Vec3f(0,1,0), osgACos(Z) + HalfPi);
     Matrix mat;
 
     mat.setTransform(q);
@@ -743,7 +743,7 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
     GeoUInt32Property::StoredFieldType *tci = tcindex->editFieldPtr();
 
     // initial sizing to prevent reallocation halfway through
-    UInt32 estimatedSize = UInt32(osgpow(4.f, (Real32) depth) * 20.f);
+    UInt32 estimatedSize = UInt32(osgPow(4.f, (Real32) depth) * 20.f);
 
     p->reserve (estimatedSize);
     n->reserve (estimatedSize);
@@ -766,7 +766,7 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
         Vec2f texCoord;
 
         // Theta -> v
-        texCoord[1] = (Pi - osgacos(norm[1])) / Pi;
+        texCoord[1] = (Pi - osgACos(norm[1])) / Pi;
 
         // Phi -> u
         texCoord[0] = calcTexS(norm, texCoord[1]);
@@ -811,15 +811,15 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
         q[1] = ti.getNormal(1);
         q[2] = ti.getNormal(2);
 
-        if  ( (osgabs(q[0][0]) <= 0.01 && q[0][2] >= Eps) ||
-              (osgabs(q[1][0]) <= 0.01 && q[1][2] >= Eps) ||
-              (osgabs(q[2][0]) <= 0.01 && q[2][2] >= Eps) )
+        if  ( (osgAbs(q[0][0]) <= 0.01 && q[0][2] >= Eps) ||
+              (osgAbs(q[1][0]) <= 0.01 && q[1][2] >= Eps) ||
+              (osgAbs(q[2][0]) <= 0.01 && q[2][2] >= Eps) )
         {
             for (UInt16 i=0; i<3; i++)
             {
                 Vec3f norm(q[i]);
 
-                if (osgabs(norm[0]) <= Eps && norm[2] <= Eps)
+                if (osgAbs(norm[0]) <= Eps && norm[2] <= Eps)
                 {
                     Real32 theta = ti.getTexCoords(i).y();
                    
@@ -829,7 +829,7 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
                     {
                         Vec2f texCoord(1, theta);
 
-                        if(osgabs(osgabs(norm[1]) - 1) <= Eps)
+                        if(osgAbs(osgAbs(norm[1]) - 1) <= Eps)
                             texCoord[0] = 0.5;
     
                         tex->push_back(texCoord);
@@ -840,7 +840,7 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
                     {
                         Vec2f texCoord(0, theta);
 
-                        if (osgabs(osgabs(norm[1]) - 1) <= Eps)
+                        if (osgAbs(osgAbs(norm[1]) - 1) <= Eps)
                             texCoord[0] = 0.5;
     
                         tex->push_back(texCoord);
@@ -921,15 +921,15 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
 
     for(a = 0, theta = -Pi / 2; a <= latres; a++, theta += latDelta) 
     {
-        cosTheta = osgcos(theta);
-        sinTheta = osgsin(theta);
+        cosTheta = osgCos(theta);
+        sinTheta = osgSin(theta);
 
         for(b = 0, phi = -Pi; b <= longres; b++, phi += longDelta) 
         {
             GLfloat cosPhi, sinPhi;
 
-            cosPhi = osgcos(phi);
-            sinPhi = osgsin(phi);
+            cosPhi = osgCos(phi);
+            sinPhi = osgSin(phi);
  
             n->push_back(Vec3f( cosTheta * sinPhi, 
                                sinTheta,
@@ -1491,8 +1491,8 @@ check_for_cusp( int tot_vert, Pnt3f vert[], Vec3f norm[] )
 	
 	for ( count = 0, i = tot_vert ; i-- ; ) {
 		/* check if vertex is at cusp */
-		if ( osgabs(vert[i][0]) < 0.0001  &&
-			 osgabs(vert[i][1]) < 0.0001 ) {
+		if ( osgAbs(vert[i][0]) < 0.0001  &&
+			 osgAbs(vert[i][1]) < 0.0001 ) {
 			count++ ;
 			nv = i ;
 		}

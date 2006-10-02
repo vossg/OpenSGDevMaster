@@ -55,7 +55,7 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
 
     ra->top_matrix().mult(getCenter(), objpos);
         
-    Real32 dist = osgsqrt((eyepos[0] - objpos[0])*(eyepos[0] - objpos[0]) +
+    Real32 dist = osgSqrt((eyepos[0] - objpos[0])*(eyepos[0] - objpos[0]) +
                           (eyepos[1] - objpos[1])*(eyepos[1] - objpos[1]) +
                           (eyepos[2] - objpos[2])*(eyepos[2] - objpos[2]));
     

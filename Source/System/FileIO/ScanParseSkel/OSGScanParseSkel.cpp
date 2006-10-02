@@ -186,7 +186,7 @@ bool ScanParseSkel::verifyHeader(const Char8 *szHeader)
     {
         if(strncmp(szHeader,
                    _szReferenceHeader,
-                   stringlen(_szReferenceHeader)) != 0)
+                   osgStringLen(_szReferenceHeader)) != 0)
         {
             SLOG << "Error : Header [" << szHeader << "] does not "
                     << "match reference [" << _szReferenceHeader << "]"
@@ -406,7 +406,7 @@ void ScanParseSkel::setMapTypeIds(bool bVal)
 
 void ScanParseSkel::setReferenceHeader(const Char8 *szReferenceHeader)
 {
-    stringDup(szReferenceHeader, _szReferenceHeader);
+    osgStringDup(szReferenceHeader, _szReferenceHeader);
 }
 
 
@@ -423,6 +423,6 @@ void ScanParseSkel::setReferenceHeader(const Char8 *szReferenceHeader)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSCANPARSESKEL_HEADER_CVSID;
 }

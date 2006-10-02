@@ -417,7 +417,7 @@ void Navigator::moveTo(Int16 x, Int16 y)
         case TRANSLATING_Z: {
                             Real32 distance = osgSgn(toY-fromY)*
                                               100.f * 
-                                              osgpow(osgabs(toY-fromY),2.f);
+                                              osgPow(osgAbs(toY-fromY),2.f);
                             _trackball.translateZ(distance * _rMotionFactor);
                             }
                             break;

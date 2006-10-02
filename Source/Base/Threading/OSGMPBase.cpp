@@ -347,7 +347,7 @@ MPBase::MPBase(const Char8 *szName) :
     
     _szName   (NULL)
 {
-    stringDup(szName, _szName);
+    osgStringDup(szName, _szName);
 }
 
 

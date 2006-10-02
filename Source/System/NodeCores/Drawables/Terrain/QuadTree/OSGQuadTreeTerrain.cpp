@@ -723,16 +723,16 @@ Real32 QuadTreeTerrain::calcD2Value (Int32 centerX,
         cast_dynamic<GeoPnt3fPropertyPtr>(getHeightVertices())->getField(); 
     
     //--- north, east, south, west errors -------------------------------------
-    Real32 nErr = osgabs( v[n][1] -  (v[nw][1] + v[ne][1]) / 2.0f);
-    Real32 eErr = osgabs( v[e][1] -  (v[ne][1] + v[se][1]) / 2.0f);
-    Real32 sErr = osgabs( v[s][1] -  (v[se][1] + v[sw][1]) / 2.0f);
-    Real32 wErr = osgabs( v[w][1] -  (v[sw][1] + v[nw][1]) / 2.0f);
+    Real32 nErr = osgAbs( v[n][1] -  (v[nw][1] + v[ne][1]) / 2.0f);
+    Real32 eErr = osgAbs( v[e][1] -  (v[ne][1] + v[se][1]) / 2.0f);
+    Real32 sErr = osgAbs( v[s][1] -  (v[se][1] + v[sw][1]) / 2.0f);
+    Real32 wErr = osgAbs( v[w][1] -  (v[sw][1] + v[nw][1]) / 2.0f);
     
     
     //--- 1. and 2. diagonal error --------------------------------------------
     
-    Real32 d1Err = osgabs( v[c][1] -  (v[nw][1] + v[se][1]) / 2.0f);
-    Real32 d2Err = osgabs( v[c][1] -  (v[ne][1] + v[sw][1]) / 2.0f);
+    Real32 d1Err = osgAbs( v[c][1] -  (v[nw][1] + v[se][1]) / 2.0f);
+    Real32 d2Err = osgAbs( v[c][1] -  (v[ne][1] + v[sw][1]) / 2.0f);
     
     //--- determine max of the 6 errors ---------------------------------------
     
@@ -859,9 +859,9 @@ Real32 QuadTreeTerrain::calcSubDiv(Int32 nodeIndex, Int32 width)
    const Pnt3f& v = getVertex(nodeIndex);
 
    Real32 eyeDist = 
-       osgabs(v[0] - getEyePoint()[0]) +
-       osgabs(getEyeHeight()) +
-       osgabs(v[2] - getEyePoint()[2]);
+       osgAbs(v[0] - getEyePoint()[0]) +
+       osgAbs(getEyeHeight()) +
+       osgAbs(v[2] - getEyePoint()[2]);
    
    //--- calc subdiv value ---------------------------------------------------
    return 
@@ -1775,7 +1775,7 @@ void QuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
         {
             setWidth(getHeightData()->getWidth());
             assert(getHeightData()->getHeight() == getWidth());
-            setLevel((UInt32)(osglog ((getWidth() - 1.0f)) / osglog(2.0f)));
+            setLevel((UInt32)(osgLog ((getWidth() - 1.0f)) / osgLog(2.0f)));
             
             SLOG << "found data width=" 
                  << getWidth() 

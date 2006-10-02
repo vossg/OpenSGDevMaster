@@ -534,7 +534,7 @@ void Log::setLogType(LogType logType, bool force)
         {               
             for(i = 0; typenames[i]; i++)
             {
-                if(!stringcasecmp(et, typenames[i]))
+                if(!osgStringCaseCmp(et, typenames[i]))
                 {
                     _logType = types[i];
                     break;
@@ -624,7 +624,7 @@ void Log::setLogLevel(LogLevel logLevel, bool force)
         {
             for(i = 0; levelnames[i]; i++)
             {
-                if(!stringcasecmp(el, levelnames[i]))
+                if(!osgStringCaseCmp(el, levelnames[i]))
                 {
                     _logLevel = levels[i];
                     break;

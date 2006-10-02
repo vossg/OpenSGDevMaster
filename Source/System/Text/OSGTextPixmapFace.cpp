@@ -134,8 +134,8 @@ ImagePtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, Vec2f &
 
     ImagePtr imagePtr = Image::create();
 
-    UInt32 width = static_cast<UInt32>(osgceil(upperRight.x() - lowerLeft.x()));
-    UInt32 height = static_cast<UInt32>(osgceil(upperRight.y() - lowerLeft.y()));
+    UInt32 width = static_cast<UInt32>(osgCeil(upperRight.x() - lowerLeft.x()));
+    UInt32 height = static_cast<UInt32>(osgCeil(upperRight.y() - lowerLeft.y()));
     imagePtr->set(Image::OSG_I_PF, width, height);
     imagePtr->clear();
     UInt8 *buffer = imagePtr->editData();
