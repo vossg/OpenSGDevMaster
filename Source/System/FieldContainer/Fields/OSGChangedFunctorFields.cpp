@@ -36,43 +36,63 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCHANGEDFUNCTORSFIELDS_H_
-#define _OSGCHANGEDFUNCTORSFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
-#include "OSGSField.h"
-#include "OSGChangedFunctorFieldTraits.h"
+#include<OSGSystemDef.h>
+#include<OSGFieldDescriptionBase.h>
+#include<OSGChangedFunctorSFields.h>
+#include<OSGChangedFunctorMFields.h>
 
 OSG_BEGIN_NAMESPACE
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
-
-typedef SField<ChangedFunctor> SFChangedFunctorCallback;
-
-#endif
-
+#if 1
 template<> 
-OSG_SYSTEM_DLLMAPPING
+OSG_DLL_EXPORT
 void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
                       SingleField                        >::cloneValues(
     const Field                     *pSrc,
           ConstFieldMaskArg          whichField,
     const StringVector              &share,
-          FieldContainerPtrConstArg  pDst      ) const;
+          FieldContainerPtrConstArg  pDst      ) const
+{
+    FWARNING(("clone values ni called for sf changed functors\n"));
+}
+
 
 template<> 
-OSG_SYSTEM_DLLMAPPING
+OSG_DLL_EXPORT
 void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
                       SingleField                        >::shareValues(
     const Field                     *pSrc,
           ConstFieldMaskArg          whichField,
-          FieldContainerPtrConstArg  pDst      ) const;
+          FieldContainerPtrConstArg  pDst      ) const
+{
+    FWARNING(("share values ni called for sf changed functors\n"));
+}
+
+template<> 
+OSG_DLL_EXPORT
+void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
+                      MultiField                          >::cloneValues(
+    const Field                     *pSrc,
+          ConstFieldMaskArg          whichField,
+    const StringVector              &share,
+          FieldContainerPtrConstArg  pDst      ) const
+{
+    FWARNING(("clone values ni called for mf changed functors\n"));
+}
+
+template<> 
+OSG_DLL_EXPORT
+void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
+                      MultiField                          >::shareValues(
+    const Field                     *pSrc,
+          ConstFieldMaskArg          whichField,
+          FieldContainerPtrConstArg  pDst      ) const
+{
+    FWARNING(("share values ni called for mf changed functors\n"));
+}
+#endif
 
 OSG_END_NAMESPACE
-
-#define OSGCHANGEDFUNCTORSFIELDS_HEADER_CVSID "@(#)$Id$"
-
-#endif /* _OSGCHANGEDFUNCTORSFIELDS_H_ */

@@ -61,6 +61,23 @@ bool MField<ChangedFunctorCallback, 0>::operator ==(
     return false;
 }
 
+template<> 
+OSG_SYSTEM_DLLMAPPING
+void FieldDescription<FieldTraits<ChangedFunctorCallback, 0>, 
+                      MultiField                            >::cloneValues(
+    const Field                     *pSrc,
+          ConstFieldMaskArg          whichField,
+    const StringVector              &share,
+          FieldContainerPtrConstArg  pDst      ) const;
+
+template<> 
+OSG_SYSTEM_DLLMAPPING
+void FieldDescription<FieldTraits<ChangedFunctorCallback, 0>, 
+                      MultiField                            >::shareValues(
+    const Field                     *pSrc,
+          ConstFieldMaskArg          whichField,
+          FieldContainerPtrConstArg  pDst      ) const;
+
 OSG_END_NAMESPACE
 
 #define OSGCHANGEDFUNCTORMFIELDS_HEADER_CVSID "@(#)$Id$"
