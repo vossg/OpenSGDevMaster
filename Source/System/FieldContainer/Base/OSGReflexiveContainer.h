@@ -344,10 +344,11 @@ typedef const Field *(ReflexiveContainer::*FieldGetMethod )(void) const;
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
-
+public:
     OSG_SYSTEM_DLLMAPPING 
     virtual ~ReflexiveContainer(void);
 
+protected:
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
