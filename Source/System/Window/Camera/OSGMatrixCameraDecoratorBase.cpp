@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -114,6 +115,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "preViewing", 
+        "	The matrix to multiply to the right of the viewing matrix, i.e. \n        applied before the viewing matrix.\n",
         PreViewingFieldId, PreViewingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -135,6 +137,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "postViewing", 
+        "	The matrix to multiply to the left of the viewing matrix, i.e. \n        applied after the viewing matrix.\n",
         PostViewingFieldId, PostViewingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -156,6 +159,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "preProjectionTranslation", 
+        "	The matrix to multiply to the right of the projectionTranslation matrix, i.e. \n        applied before the projectionTranslation matrix.\n",
         PreProjectionTranslationFieldId, PreProjectionTranslationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -177,6 +181,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "postProjectionTranslation", 
+        "	The matrix to multiply to the left of the projectionTranslation matrix, i.e. \n        applied before the projectionTranslation matrix.\n    \n",
         PostProjectionTranslationFieldId, PostProjectionTranslationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -198,6 +203,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "preProjection", 
+        "	The matrix to multiply to the right of the projection matrix, i.e. \n        applied before the projection matrix.\n",
         PreProjectionFieldId, PreProjectionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -219,6 +225,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "postProjection", 
+        "	The matrix to multiply to the left of the projection matrix, i.e. \n        applied before the projection matrix.\n",
         PostProjectionFieldId, PostProjectionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -241,7 +248,89 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(true,
     (PrototypeCreateF) &MatrixCameraDecoratorBase::createEmpty,
     MatrixCameraDecorator::initMethod,
     (InitalInsertDescFunc) &MatrixCameraDecoratorBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"MatrixCameraDecorator\"\n"
+"	parent=\"CameraDecorator\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The decorator to modify the Camera matrices simply by matrices.\n"
+"	<Field\n"
+"		name=\"preViewing\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The matrix to multiply to the right of the viewing matrix, i.e. \n"
+"        applied before the viewing matrix.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"postViewing\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The matrix to multiply to the left of the viewing matrix, i.e. \n"
+"        applied after the viewing matrix.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"preProjectionTranslation\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The matrix to multiply to the right of the projectionTranslation matrix, i.e. \n"
+"        applied before the projectionTranslation matrix.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"postProjectionTranslation\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The matrix to multiply to the left of the projectionTranslation matrix, i.e. \n"
+"        applied before the projectionTranslation matrix.\n"
+"	</Field>\n"
+"    <Field\n"
+"		name=\"preProjection\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The matrix to multiply to the right of the projection matrix, i.e. \n"
+"        applied before the projection matrix.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"postProjection\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The matrix to multiply to the left of the projection matrix, i.e. \n"
+"        applied before the projection matrix.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The decorator to modify the Camera matrices simply by matrices.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

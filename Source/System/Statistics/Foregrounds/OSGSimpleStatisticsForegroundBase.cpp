@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -95,6 +96,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFString::Description(
         MFString::getClassType(), 
         "formats", 
+        "	The format strings for the given StatElemDesc IDs. If not set, name and value are used.\n",
         FormatsFieldId, FormatsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -116,6 +118,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "size", 
+        "	Height of a single line, in  pixel.\n",
         SizeFieldId, SizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -137,6 +140,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(), 
         "color", 
+        "	Color of the text.\n",
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -159,7 +163,53 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     (PrototypeCreateF) &SimpleStatisticsForegroundBase::createEmpty,
     SimpleStatisticsForeground::initMethod,
     (InitalInsertDescFunc) &SimpleStatisticsForegroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SimpleStatisticsForeground\"\n"
+"	parent=\"StatisticsForeground\"\n"
+"	library=\"Util\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"Simpe Statistics display. Just print all the selected elements in the upper right corner of the screen.\n"
+"	<Field\n"
+"		name=\"formats\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The format strings for the given StatElemDesc IDs. If not set, name and value are used.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"size\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"25\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Height of a single line, in  pixel.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"color\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,1,1,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Color of the text.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Simpe Statistics display. Just print all the selected elements in the upper right corner of the screen.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

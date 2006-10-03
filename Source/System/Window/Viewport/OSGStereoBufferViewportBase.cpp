@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "leftBuffer", 
+        "        Defines whether the left buffer is written to.\n",
         LeftBufferFieldId, LeftBufferFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,6 +114,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "rightBuffer", 
+        "        Defines whether the right buffer is written to.\n",
         RightBufferFieldId, RightBufferFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,7 +137,44 @@ StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(true,
     (PrototypeCreateF) &StereoBufferViewportBase::createEmpty,
     StereoBufferViewport::initMethod,
     (InitalInsertDescFunc) &StereoBufferViewportBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"StereoBufferViewport\"\n"
+"	parent=\"Viewport\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"A Viewport for rendering to quad-buffered visuals.\n"
+"	<Field\n"
+"		name=\"leftBuffer\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Defines whether the left buffer is written to.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"rightBuffer\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Defines whether the right buffer is written to.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A Viewport for rendering to quad-buffered visuals.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

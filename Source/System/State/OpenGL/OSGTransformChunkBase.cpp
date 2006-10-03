@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -86,6 +87,7 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "matrix", 
+        "",
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -108,7 +110,29 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(true,
     (PrototypeCreateF) &TransformChunkBase::createEmpty,
     TransformChunk::initMethod,
     (InitalInsertDescFunc) &TransformChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TransformChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"matrix\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

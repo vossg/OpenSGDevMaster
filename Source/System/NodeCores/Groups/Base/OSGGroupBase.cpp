@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -75,7 +76,27 @@ GroupBase::TypeObject GroupBase::_type(true,
     (PrototypeCreateF) &GroupBase::createEmpty,
     Group::initMethod,
     NULL,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Group\"\n"
+"	parent=\"NodeCore\"\n"
+"	library=\"System\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"Group is the simplest form of a NodeCore. A group\n"
+"carries no predefined data and most actions will only traverse the\n"
+"children list. So usually the group does nothing.\n"
+"\n"
+"</FieldContainer>\n"
+,
+    "Group is the simplest form of a NodeCore. A group\ncarries no predefined data and most actions will only traverse the\nchildren list. So usually the group does nothing.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

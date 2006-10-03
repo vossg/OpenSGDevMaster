@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -101,6 +102,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "width", 
+        "        The line's width, in pixel.\n",
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -122,6 +124,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "stippleRepeat", 
+        "        Repetition factor for sitppling.\n",
         StippleRepeatFieldId, StippleRepeatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -143,6 +146,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "stipplePattern", 
+        "	Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, \n        starting with the most significant bit.\n",
         StipplePatternFieldId, StipplePatternFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -164,6 +168,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "smooth", 
+        "	Defines if line antialiasing is used.\n",
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -186,7 +191,65 @@ LineChunkBase::TypeObject LineChunkBase::_type(true,
     (PrototypeCreateF) &LineChunkBase::createEmpty,
     LineChunk::initMethod,
     (InitalInsertDescFunc) &LineChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"LineChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The line chunk contains the parameters that are specific set for lines.\n"
+"	<Field\n"
+"		name=\"width\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        The line's width, in pixel.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"stippleRepeat\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Repetition factor for sitppling.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"stipplePattern\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0xffff\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, \n"
+"        starting with the most significant bit.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"smooth\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FALSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines if line antialiasing is used.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The line chunk contains the parameters that are specific set for lines.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

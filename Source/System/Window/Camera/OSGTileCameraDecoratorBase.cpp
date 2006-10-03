@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -107,6 +108,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "left", 
+        "	The left border of the selected tile.\n",
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -128,6 +130,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "right", 
+        "	The right border of the selected tile.\n",
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -149,6 +152,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "bottom", 
+        "	The bottom border of the selected tile.\n",
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -170,6 +174,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "top", 
+        "	The top border of the selected tile.\n",
         TopFieldId, TopFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -191,6 +196,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "fullWidth", 
+        "	The width of the full image this is a tile of.\n",
         FullWidthFieldId, FullWidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -212,6 +218,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "fullHeight", 
+        "	The height of the full image this is a tile of.\n",
         FullHeightFieldId, FullHeightFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -234,7 +241,83 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(true,
     (PrototypeCreateF) &TileCameraDecoratorBase::createEmpty,
     TileCameraDecorator::initMethod,
     (InitalInsertDescFunc) &TileCameraDecoratorBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TileCameraDecorator\"\n"
+"	parent=\"CameraDecorator\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The decorator to select a rectangular part of the image.\n"
+"	<Field\n"
+"		name=\"left\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The left border of the selected tile.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"right\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The right border of the selected tile.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"bottom\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The bottom border of the selected tile.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"top\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The top border of the selected tile.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"fullWidth\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The width of the full image this is a tile of.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"fullHeight\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The height of the full image this is a tile of.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The decorator to select a rectangular part of the image.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

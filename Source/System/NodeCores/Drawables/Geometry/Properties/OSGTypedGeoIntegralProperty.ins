@@ -53,6 +53,7 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::classDescInserter(
     pDesc = new SFDesc(
         StoredFieldType::getClassType(),
         "values",
+        std::string("undocumented"),
         OSG_RC_FIELD_DESC(Self::GeoPropData),
         false,
         Field::MFDefaultFlags,
@@ -62,21 +63,21 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::classDescInserter(
 #else
         reinterpret_cast<FieldGetMethodSig >(&Self::getFieldPtr ));
 #endif
-        
+
     oType.addInitialDesc(pDesc);
 }
 
-          
-template <class GeoPropertyDesc> 
-typename TypedGeoIntegralProperty<GeoPropertyDesc>::TypeObject 
+
+template <class GeoPropertyDesc>
+typename TypedGeoIntegralProperty<GeoPropertyDesc>::TypeObject
     TypedGeoIntegralProperty<GeoPropertyDesc>::_type(true,
         Desc     ::getTypeName (),
         Inherited::getClassname(),
         Desc     ::getGroupName(),
         0,
-        (PrototypeCreateF) &Self::createEmpty,              
+        (PrototypeCreateF) &Self::createEmpty,
         &Self::initMethod,
-        (InitalInsertDescFunc) &Self::classDescInserter, 
-        false);                                 
+        (InitalInsertDescFunc) &Self::classDescInserter,
+        false);
 
 OSG_END_NAMESPACE

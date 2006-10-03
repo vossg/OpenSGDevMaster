@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -87,6 +88,7 @@ void ShaderParameterStringBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(), 
         "value", 
+        "	parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -109,7 +111,33 @@ ShaderParameterStringBase::TypeObject ShaderParameterStringBase::_type(true,
     (PrototypeCreateF) &ShaderParameterStringBase::createEmpty,
     ShaderParameterString::initMethod,
     (InitalInsertDescFunc) &ShaderParameterStringBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ShaderParameterString\"\n"
+"	parent=\"ShaderParameter\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"value\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	parameter value\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

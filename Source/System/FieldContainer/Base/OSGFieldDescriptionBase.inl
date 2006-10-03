@@ -54,6 +54,12 @@ const IDString &FieldDescriptionBase::getName(void) const
 }
 
 inline
+std::string  FieldDescriptionBase::getDocumentation (void) const
+{
+    return _documentation;
+}
+
+inline
 UInt32 FieldDescriptionBase::getTypeId(void) const
 {
     return _fieldType.getId();

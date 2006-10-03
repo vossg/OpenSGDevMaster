@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "zeroParallaxDistance", 
+        "	The distance to the zero parallax plane.\n",
         ZeroParallaxDistanceFieldId, ZeroParallaxDistanceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,6 +114,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "overlap", 
+        "	The overlap between left and right eye.\n",
         OverlapFieldId, OverlapFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,7 +137,44 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     (PrototypeCreateF) &ShearedStereoCameraDecoratorBase::createEmpty,
     ShearedStereoCameraDecorator::initMethod,
     (InitalInsertDescFunc) &ShearedStereoCameraDecoratorBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ShearedStereoCameraDecorator\"\n"
+"	parent=\"StereoCameraDecorator\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"The base class for stereo decorators.\n"
+"	<Field\n"
+"		name=\"zeroParallaxDistance\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The distance to the zero parallax plane.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"overlap\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The overlap between left and right eye.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The base class for stereo decorators.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -75,7 +76,23 @@ DrawableBase::TypeObject DrawableBase::_type(true,
     NULL, 
     Drawable::initMethod,
     NULL,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Drawable\"\n"
+"	parent=\"NodeCore\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

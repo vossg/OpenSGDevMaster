@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -75,7 +76,24 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(true,
     (PrototypeCreateF) &TwoSidedLightingChunkBase::createEmpty,
     TwoSidedLightingChunk::initMethod,
     NULL,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TwoSidedLightingChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

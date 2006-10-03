@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -98,6 +99,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMaterialPtr::Description(
         SFMaterialPtr::getClassType(), 
         "material", 
+        "	The material used to display.\n",
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -115,6 +117,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFPnt2f::Description(
         MFPnt2f::getClassType(), 
         "positions", 
+        "	The vertices of the geometry to display.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -136,6 +139,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(), 
         "texCoords", 
+        "	The texture coordinates of the geometry to display.\n",
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -157,6 +161,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "normalizedX", 
+        "	Define whether the x coordinates are normalized (0-1) or pixel-based .\n",
         NormalizedXFieldId, NormalizedXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -178,6 +183,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "normalizedY", 
+        "	Define whether the y coordinates are normalized (0-1) or pixel-based .\n",
         NormalizedYFieldId, NormalizedYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -200,7 +206,72 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(true,
     (PrototypeCreateF) &PolygonForegroundBase::createEmpty,
     PolygonForeground::initMethod,
     (InitalInsertDescFunc) &PolygonForegroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"PolygonForeground\"\n"
+"	parent=\"Foreground\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"A Foreground that renders a single polygon used the specified material. The main use of this Foreground is rendering a simple texture above the viewport, but it's general enough to be used for other things. There have to be as many vertices as texture coordinates.\n"
+"	<Field\n"
+"		name=\"material\"\n"
+"		type=\"MaterialPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The material used to display.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"positions\"\n"
+"		type=\"Pnt2f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The vertices of the geometry to display.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"texCoords\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The texture coordinates of the geometry to display.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"normalizedX\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Define whether the x coordinates are normalized (0-1) or pixel-based .\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"normalizedY\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Define whether the y coordinates are normalized (0-1) or pixel-based .\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A Foreground that renders a single polygon used the specified material. The main use of this Foreground is rendering a simple texture above the viewport, but it's general enough to be used for other things. There have to be as many vertices as texture coordinates.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -86,6 +87,7 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec3r::Description(
         SFVec3r::getClassType(), 
         "direction", 
+        "",
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -108,7 +110,31 @@ DirectionalLightBase::TypeObject DirectionalLightBase::_type(true,
     (PrototypeCreateF) &DirectionalLightBase::createEmpty,
     DirectionalLight::initMethod,
     (InitalInsertDescFunc) &DirectionalLightBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"DirectionalLight\"\n"
+"	parent=\"Light\"\n"
+"	library=\"Group\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"direction\"\n"
+"		type=\"Vec3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"                defaultValue=\"0.f,0.f,1.f\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -81,6 +82,7 @@ void StageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFFrameBufferObjectPtr::Description(
         SFFrameBufferObjectPtr::getClassType(), 
         "renderTarget", 
+        "",
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -99,7 +101,34 @@ StageBase::TypeObject StageBase::_type(true,
     (PrototypeCreateF) &StageBase::createEmpty,
     Stage::initMethod,
     (InitalInsertDescFunc) &StageBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Stage\"\n"
+"	parent=\"Group\"\n"
+"	library=\"Group\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"renderTarget\"\n"
+"		type=\"FrameBufferObjectPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

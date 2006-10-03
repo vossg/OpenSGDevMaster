@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -117,6 +118,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "root", 
+        "",
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -128,6 +130,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFNodePtr::Description(
         MFNodePtr::getClassType(), 
         "geoRoots", 
+        "",
         GeoRootsFieldId, GeoRootsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -139,6 +142,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGeometryPtr::Description(
         MFGeometryPtr::getClassType(), 
         "geometries", 
+        "",
         GeometriesFieldId, GeometriesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -150,6 +154,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFChunkMaterialPtr::Description(
         MFChunkMaterialPtr::getClassType(), 
         "materials", 
+        "",
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -161,6 +166,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFMaterialChunkPtr::Description(
         MFMaterialChunkPtr::getClassType(), 
         "materialChunks", 
+        "",
         MaterialChunksFieldId, MaterialChunksFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -172,6 +178,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGeoPnt3fPropertyPtr::Description(
         MFGeoPnt3fPropertyPtr::getClassType(), 
         "positions", 
+        "",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -183,6 +190,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGeoUInt32PropertyPtr::Description(
         MFGeoUInt32PropertyPtr::getClassType(), 
         "length", 
+        "",
         LengthFieldId, LengthFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -194,6 +202,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGeoUInt8PropertyPtr::Description(
         MFGeoUInt8PropertyPtr::getClassType(), 
         "types", 
+        "",
         TypesFieldId, TypesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -205,6 +214,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGeoColor4fPropertyPtr::Description(
         MFGeoColor4fPropertyPtr::getClassType(), 
         "Colors", 
+        "",
         ColorsFieldId, ColorsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -216,6 +226,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGeoVec3fPropertyPtr::Description(
         MFGeoVec3fPropertyPtr::getClassType(), 
         "normals", 
+        "",
         NormalsFieldId, NormalsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -234,7 +245,103 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(true,
     (PrototypeCreateF) &VTKMapperBase::createEmpty,
     VTKMapper::initMethod,
     (InitalInsertDescFunc) &VTKMapperBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"VTKMapper\"\n"
+"	parent=\"Group\"\n"
+"	library=\"Contrib\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"root\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"geoRoots\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"geometries\"\n"
+"		type=\"GeometryPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"materials\"\n"
+"		type=\"ChunkMaterialPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"materialChunks\"\n"
+"		type=\"MaterialChunkPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"positions\"\n"
+"		type=\"GeoPnt3fPropertyPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"length\"\n"
+"		type=\"GeoUInt32PropertyPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"types\"\n"
+"		type=\"GeoUInt8PropertyPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"Colors\"\n"
+"		type=\"GeoColor4fPropertyPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"normals\"\n"
+"		type=\"GeoVec3fPropertyPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

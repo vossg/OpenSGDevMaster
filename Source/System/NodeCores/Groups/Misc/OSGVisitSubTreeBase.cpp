@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -81,6 +82,7 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "subTreeRoot", 
+        "",
         SubTreeRootFieldId, SubTreeRootFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -99,7 +101,34 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(true,
     (PrototypeCreateF) &VisitSubTreeBase::createEmpty,
     VisitSubTree::initMethod,
     (InitalInsertDescFunc) &VisitSubTreeBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"VisitSubTree\"\n"
+"	parent=\"Group\"\n"
+"	library=\"Group\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"subTreeRoot\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

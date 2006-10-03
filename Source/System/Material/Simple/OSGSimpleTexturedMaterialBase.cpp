@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -101,6 +102,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFImagePtr::Description(
         SFImagePtr::getClassType(), 
         "image", 
+        "	Defines the texture image.\n",
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -118,6 +120,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "minFilter", 
+        "	Defines the minification filter, see glTexParameter for details.          Default: GL_LINEAR_MIPMAP_LINEAR.\n",
         MinFilterFieldId, MinFilterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -139,6 +142,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "magFilter", 
+        "	Defines the magnification filter, see glTexParameter for details.          Default: GL_LINEAR\n",
         MagFilterFieldId, MagFilterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -160,6 +164,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "envMode", 
+        "	Sets the environment mode, defining how texture and lighting color interact.         Default: GL_REPLACE.\n",
         EnvModeFieldId, EnvModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -181,6 +186,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "envMap", 
+        "	Defines whether to use the texture as a spherical environment map.\n",
         EnvMapFieldId, EnvMapFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -203,7 +209,76 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(true,
     (PrototypeCreateF) &SimpleTexturedMaterialBase::createEmpty,
     SimpleTexturedMaterial::initMethod,
     (InitalInsertDescFunc) &SimpleTexturedMaterialBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SimpleTexturedMaterial\"\n"
+"	parent=\"SimpleMaterial\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"A SimpleMaterial with an added texture. It doesn't expose all features of the texture, just the ones needed most often.\n"
+"	<Field\n"
+"		name=\"image\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines the texture image.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"minFilter\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines the minification filter, see glTexParameter for details.          Default: GL_LINEAR_MIPMAP_LINEAR.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"magFilter\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_LINEAR\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines the magnification filter, see glTexParameter for details.          Default: GL_LINEAR\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"envMode\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_REPLACE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Sets the environment mode, defining how texture and lighting color interact.         Default: GL_REPLACE.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"envMap\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines whether to use the texture as a spherical environment map.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A SimpleMaterial with an added texture. It doesn't expose all features of the texture, just the ones needed most often.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

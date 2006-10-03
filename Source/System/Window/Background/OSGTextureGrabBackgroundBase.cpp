@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -97,6 +98,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "texture", 
+        "	The texture to grab into.\n",
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -114,6 +116,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "autoResize", 
+        "        Automatically resize the texture when the viewport size changes.\n       	\n",
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -135,6 +138,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "bindTarget", 
+        "        Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.\n       	\n",
         BindTargetFieldId, BindTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -156,6 +160,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "copyTarget", 
+        "        Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.\n        Mainly useful to grab into the different parts of a CubeTexture.\n",
         CopyTargetFieldId, CopyTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -178,7 +183,63 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(true,
     (PrototypeCreateF) &TextureGrabBackgroundBase::createEmpty,
     TextureGrabBackground::initMethod,
     (InitalInsertDescFunc) &TextureGrabBackgroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TextureGrabBackground\"\n"
+"	parent=\"SolidBackground\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"texture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The texture to grab into.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"autoResize\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Automatically resize the texture when the viewport size changes.\n"
+"	</Field>\n"
+"       	<Field\n"
+"		name=\"bindTarget\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.\n"
+"	</Field>\n"
+"       	<Field\n"
+"		name=\"copyTarget\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.\n"
+"        Mainly useful to grab into the different parts of a CubeTexture.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

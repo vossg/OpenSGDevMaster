@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -174,6 +175,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFImagePtr::Description(
         SFImagePtr::getClassType(), 
         "heightData", 
+        "	Terrain height as image\n",
         HeightDataFieldId, HeightDataFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -191,6 +193,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "heightScale", 
+        "	Scale factor for terrain height\n",
         HeightScaleFieldId, HeightScaleFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -212,6 +215,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(), 
         "heightError", 
+        "	Error values\n",
         HeightErrorFieldId, HeightErrorFieldMask,
         true,
         Field::MFDefaultFlags,
@@ -233,6 +237,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(), 
         "heightQuad", 
+        "	Vertex indices used in current tesselation (encoding terrain quadtree)\n",
         HeightQuadFieldId, HeightQuadFieldMask,
         true,
         Field::MFDefaultFlags,
@@ -254,6 +259,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "width", 
+        "	width and height of dataset\n",
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -275,6 +281,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "level", 
+        "	levels of terrain quadtree\n",
         LevelFieldId, LevelFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -296,6 +303,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "detail", 
+        "	Detail of terrain tesselation\n",
         DetailFieldId, DetailFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -317,6 +325,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "borderDetail", 
+        "	Detail for borders (0: determined by height data, positive: borders at level borderDetail)\n",
         BorderDetailFieldId, BorderDetailFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -338,6 +347,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "vertexSpacing", 
+        "	Spacing to horizontal and vertical neighbour vertices\n",
         VertexSpacingFieldId, VertexSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -353,6 +363,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGeoVectorPropertyPtr::Description(
         SFGeoVectorPropertyPtr::getClassType(), 
         "heightVertices", 
+        "	Precomputed terrain vertices\n",
         HeightVerticesFieldId, HeightVerticesFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -370,6 +381,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "geoMorphing", 
+        "",
         GeoMorphingFieldId, GeoMorphingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -391,6 +403,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFPnt3f::Description(
         SFPnt3f::getClassType(), 
         "boundMin", 
+        "	Min vertex of AABB\n",
         BoundMinFieldId, BoundMinFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -412,6 +425,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFPnt3f::Description(
         SFPnt3f::getClassType(), 
         "boundMax", 
+        "	Max vertex of AABB\n",
         BoundMaxFieldId, BoundMaxFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -433,6 +447,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFPnt3f::Description(
         SFPnt3f::getClassType(), 
         "eyePoint", 
+        "	Eye point of this frame\n",
         EyePointFieldId, EyePointFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -454,6 +469,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "eyeHeight", 
+        "	Height of eye point above terrain\n",
         EyeHeightFieldId, EyeHeightFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -475,6 +491,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "eyePointValid", 
+        "	Eye point set externally, otherwise it is computed internally\n",
         EyePointValidFieldId, EyePointValidFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -496,6 +513,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "originX", 
+        "	X-component of terrain lower left point\n",
         OriginXFieldId, OriginXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -517,6 +535,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "originY", 
+        "	Y-component of terrain lower left point\n",
         OriginYFieldId, OriginYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -538,6 +557,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "originTexX", 
+        "	texture X-component of terrain lower left point\n",
         OriginTexXFieldId, OriginTexXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -559,6 +579,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "originTexY", 
+        "	texture Y-component of terrain lower left point\n",
         OriginTexYFieldId, OriginTexYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -580,6 +601,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "texSpacing", 
+        "	Spacing of texture coordinates for horizontal (and vertical) neighbour vertices\n",
         TexSpacingFieldId, TexSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -601,6 +623,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "texYSpacing", 
+        "	Spacing of texture coordinates for vertical neighbour vertices\n",
         TexYSpacingFieldId, TexYSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -622,6 +645,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "updateTerrain", 
+        "	update terrain in next frame\n",
         UpdateTerrainFieldId, UpdateTerrainFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -643,6 +667,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "perPixelLighting", 
+        "	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals\n",
         PerPixelLightingFieldId, PerPixelLightingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -665,7 +690,257 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(true,
     (PrototypeCreateF) &QuadTreeTerrainBase::createEmpty,
     QuadTreeTerrain::initMethod,
     (InitalInsertDescFunc) &QuadTreeTerrainBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"QuadTreeTerrain\"\n"
+"	parent=\"Geometry\"\n"
+"	library=\"Drawable\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"Terrain node core\n"
+"	<Field\n"
+"		name=\"heightData\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Terrain height as image\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"heightScale\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Scale factor for terrain height\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"heightError\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Error values\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"heightQuad\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Vertex indices used in current tesselation (encoding terrain quadtree)\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"width\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	width and height of dataset\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"level\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	levels of terrain quadtree\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"detail\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"22.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Detail of terrain tesselation\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"borderDetail\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Detail for borders (0: determined by height data, positive: borders at level borderDetail)\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"vertexSpacing\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.1f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Spacing to horizontal and vertical neighbour vertices\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"heightVertices\"\n"
+"		type=\"GeoVectorPropertyPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	Precomputed terrain vertices\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"geoMorphing\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"boundMin\"\n"
+"		type=\"Pnt3f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	Min vertex of AABB\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"boundMax\"\n"
+"		type=\"Pnt3f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	Max vertex of AABB\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"eyePoint\"\n"
+"		type=\"Pnt3f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Eye point of this frame\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"eyeHeight\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0.0f\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	Height of eye point above terrain\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"eyePointValid\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Eye point set externally, otherwise it is computed internally\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"originX\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	X-component of terrain lower left point\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"originY\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Y-component of terrain lower left point\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"originTexX\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	texture X-component of terrain lower left point\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"originTexY\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	texture Y-component of terrain lower left point\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"texSpacing\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Spacing of texture coordinates for horizontal (and vertical) neighbour vertices\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"texYSpacing\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Spacing of texture coordinates for vertical neighbour vertices\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"updateTerrain\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	update terrain in next frame\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"perPixelLighting\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Terrain node core\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

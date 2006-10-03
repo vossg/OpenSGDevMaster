@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -87,6 +88,7 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "GLId", 
+        "	glid\n",
         GLIdFieldId, GLIdFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -109,7 +111,33 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(true,
     (PrototypeCreateF) &TextureObjRefChunkBase::createEmpty,
     TextureObjRefChunk::initMethod,
     (InitalInsertDescFunc) &TextureObjRefChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TextureObjRefChunk\"\n"
+"	parent=\"TextureBaseChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"GLId\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"		defaultValue=\"0\"\n"
+"	>\n"
+"	glid\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

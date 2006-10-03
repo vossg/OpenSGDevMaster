@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "beacon", 
+        "	The object that define's the camera's coordinate system. The camera is positioned\n	at the origin of the system and looks doen the negative z-axis (OpenGL-style).\n",
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -108,6 +110,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "near", 
+        "	The near distance of the camera.\n",
         NearFieldId, NearFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -129,6 +132,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "far", 
+        "	The far distance of the camera.\n",
         FarFieldId, FarFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -151,7 +155,49 @@ CameraBase::TypeObject CameraBase::_type(true,
     NULL, 
     Camera::initMethod,
     (InitalInsertDescFunc) &CameraBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Camera\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	structure=\"abstract\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"true\"\n"
+">\n"
+"The base class for the camera.\n"
+"	<Field\n"
+"		name=\"beacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The object that define's the camera's coordinate system. The camera is positioned\n"
+"	at the origin of the system and looks doen the negative z-axis (OpenGL-style).\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"near\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The near distance of the camera.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"far\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The far distance of the camera.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The base class for the camera.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

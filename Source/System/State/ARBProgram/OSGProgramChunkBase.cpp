@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -99,6 +100,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(), 
         "program", 
+        "	The program source code.\n",
         ProgramFieldId, ProgramFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -120,6 +122,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec4f::Description(
         MFVec4f::getClassType(), 
         "paramValues", 
+        "	Program Parameters\n",
         ParamValuesFieldId, ParamValuesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -141,6 +144,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFString::Description(
         MFString::getClassType(), 
         "paramNames", 
+        "	Symbolic names for the program parameters.\n",
         ParamNamesFieldId, ParamNamesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -162,6 +166,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "GLId", 
+        "	The OpenGL ID of the program.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -184,7 +189,62 @@ ProgramChunkBase::TypeObject ProgramChunkBase::_type(true,
     NULL, 
     ProgramChunk::initMethod,
     (InitalInsertDescFunc) &ProgramChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ProgramChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived VertexProgramChunk and FragmentProgramChunk.\n"
+"	<Field\n"
+"		name=\"program\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The program source code.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"paramValues\"\n"
+"		type=\"Vec4f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Program Parameters\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"paramNames\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Symbolic names for the program parameters.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"GLId\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+" 		defaultValue=\"0\"\n"
+"        fieldFlags=\"FClusterLocal\"\n"
+"	>\n"
+"	The OpenGL ID of the program.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived VertexProgramChunk and FragmentProgramChunk.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

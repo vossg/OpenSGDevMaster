@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -166,6 +167,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFColor4f::Description(
         MFColor4f::getClassType(), 
         "skyColor", 
+        "	The colors for the sky gradient bands. Corresponds to the skyAngle         angles.  The first value is for the apex (i.e. straight up), which         doesn't need an angle, thus there  should be one more color than         angles. If no angles are given color[0] is used, or black if none are         given.\n",
         SkyColorFieldId, SkyColorFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -187,6 +189,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(), 
         "skyAngle", 
+        "	The angles for the sky gradient bands. Corresponds to the skyColor colors,          with the exception of the apex. Values should be between 0 and PI.\n",
         SkyAngleFieldId, SkyAngleFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -208,6 +211,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFColor4f::Description(
         MFColor4f::getClassType(), 
         "groundColor", 
+        "	The colors of the ground sphere-part. Interpretation is similar to the sky.\n",
         GroundColorFieldId, GroundColorFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -229,6 +233,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(), 
         "groundAngle", 
+        "	The angles of the ground sphere-part. Interpretation is similar to the sky, with          0 being straight down.\n",
         GroundAngleFieldId, GroundAngleFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -250,6 +255,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "sphereRes", 
+        "	The polygonal resolution of the sky/ground sphere.\n",
         SphereResFieldId, SphereResFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -265,6 +271,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "backTexture", 
+        "	Texture for the back (+Z) side of the sky cube.\n",
         BackTextureFieldId, BackTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -276,6 +283,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "bottomTexture", 
+        "	Texture for the bottom (-Y) side of the sky cube.\n",
         BottomTextureFieldId, BottomTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -287,6 +295,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "frontTexture", 
+        "	Texture for the front (-Z) side of the sky cube.\n",
         FrontTextureFieldId, FrontTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -298,6 +307,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "leftTexture", 
+        "	Texture for the left (-X) side of the sky cube.\n",
         LeftTextureFieldId, LeftTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -309,6 +319,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "rightTexture", 
+        "	Texture for the right (+X) side of the sky cube.\n",
         RightTextureFieldId, RightTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -320,6 +331,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "topTexture", 
+        "	Texture for the top (+Y) side of the sky cube.\n",
         TopTextureFieldId, TopTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -337,6 +349,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "boxInside", 
+        "	flag to draw the box inside or outside of the sphere\n",
         BoxInsideFieldId, BoxInsideFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -358,6 +371,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(), 
         "topTexCoord", 
+        "	Texture coordinates for the top face\n",
         TopTexCoordFieldId, TopTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -379,6 +393,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(), 
         "bottomTexCoord", 
+        "	Bottom texture coordinates\n",
         BottomTexCoordFieldId, BottomTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -400,6 +415,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(), 
         "rightTexCoord", 
+        "	right texture coordinates\n",
         RightTexCoordFieldId, RightTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -421,6 +437,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(), 
         "leftTexCoord", 
+        "	left texture coordinates\n",
         LeftTexCoordFieldId, LeftTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -442,6 +459,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(), 
         "frontTexCoord", 
+        "	front texture coordinates\n",
         FrontTexCoordFieldId, FrontTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -463,6 +481,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(), 
         "backTexCoord", 
+        "	back texture coordinates\n",
         BackTexCoordFieldId, BackTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -478,6 +497,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "beacon", 
+        "	The object that defines the orientation of the background.\n",
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -496,7 +516,204 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     (PrototypeCreateF) &SkyBackgroundBase::createEmpty,
     SkyBackground::initMethod,
     (InitalInsertDescFunc) &SkyBackgroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SkyBackground\"\n"
+"	parent=\"Background\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"multi\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"A sky-sphere background showing a color gradient. The colors and angles correspond to each other, they should have the same number of elements.\n"
+"	<Field\n"
+"		name=\"skyColor\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The colors for the sky gradient bands. Corresponds to the skyAngle         angles.  The first value is for the apex (i.e. straight up), which         doesn't need an angle, thus there  should be one more color than         angles. If no angles are given color[0] is used, or black if none are         given.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"skyAngle\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The angles for the sky gradient bands. Corresponds to the skyColor colors,          with the exception of the apex. Values should be between 0 and PI.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"groundColor\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The colors of the ground sphere-part. Interpretation is similar to the sky.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"groundAngle\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The angles of the ground sphere-part. Interpretation is similar to the sky, with          0 being straight down.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sphereRes\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"8\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The polygonal resolution of the sky/ground sphere.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backTexture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture for the back (+Z) side of the sky cube.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"bottomTexture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture for the bottom (-Y) side of the sky cube.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"frontTexture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture for the front (-Z) side of the sky cube.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"leftTexture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture for the left (-X) side of the sky cube.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"rightTexture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture for the right (+X) side of the sky cube.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"topTexture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture for the top (+Y) side of the sky cube.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"boxInside\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	flag to draw the box inside or outside of the sphere\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"topTexCoord\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture coordinates for the top face\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"bottomTexCoord\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Bottom texture coordinates\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"rightTexCoord\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	right texture coordinates\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"leftTexCoord\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	left texture coordinates\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"frontTexCoord\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	front texture coordinates\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backTexCoord\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	back texture coordinates\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"beacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The object that defines the orientation of the background.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A sky-sphere background showing a color gradient. The colors and angles correspond to each other, they should have the same number of elements.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

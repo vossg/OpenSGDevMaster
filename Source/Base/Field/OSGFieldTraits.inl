@@ -39,18 +39,18 @@
 OSG_BEGIN_NAMESPACE
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::SFieldFunctions::pushValueFromCString(
-    const Char8        *str, 
+    const Char8        *str,
           HandledField *pField)
 {
     pField->setValueFromCString(str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::SFieldFunctions::pushValueToCString(
-                          const HandledField *pField, 
+                          const HandledField *pField,
                                 Char8        *str   )
 {
     std::string tmpVal;
@@ -61,18 +61,18 @@ void FieldDescription<DescT,
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::SFieldFunctions::pushValueFromString(
-                          const std::string  &in, 
+                          const std::string  &in,
                                 HandledField *pField)
 {
     pField->setValueFromCString(in.c_str());
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::SFieldFunctions::pushValueToString(
-                          const HandledField *pField, 
+                          const HandledField *pField,
                                 std::string  &out   )
 {
     pField->pushValueToString(out);
@@ -80,27 +80,27 @@ void FieldDescription<DescT,
 
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
-                      eFieldCard>::SFieldFunctions::pushValueFromStream(  
-                          std::istream &str, 
+void FieldDescription<DescT,
+                      eFieldCard>::SFieldFunctions::pushValueFromStream(
+                          std::istream &str,
                           HandledField *pField )
 {
     pField->pushValueFromStream(str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::SFieldFunctions::pushValueToStream(
-                          const HandledField *pField, 
+                          const HandledField *pField,
                                 OutStream    &str    )
 {
     pField->pushValueToStream(str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::SFieldFunctions::pushSizeToStream(
-                          const HandledField *pField, 
+                          const HandledField *pField,
                                 OutStream    &str    )
 {
     pField->pushSizeToStream(str);
@@ -109,7 +109,7 @@ void FieldDescription<DescT,
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::SFieldFunctions::copyValues(
-    const HandledField *pSrc, 
+    const HandledField *pSrc,
           HandledField *pDst)
 {
     pDst->setValue(*pSrc);
@@ -117,18 +117,18 @@ void FieldDescription<DescT, eFieldCard>::SFieldFunctions::copyValues(
 
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::MFieldFunctions::pushValueFromCString(
-    const Char8        *str, 
+    const Char8        *str,
           HandledField *pField)
 {
     pField->addValueFromCString(str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::MFieldFunctions::pushValueToCString(
-                          const HandledField *pField, 
+                          const HandledField *pField,
                                 Char8        *str   )
 {
     std::string tmpVal;
@@ -139,18 +139,18 @@ void FieldDescription<DescT,
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::MFieldFunctions::pushValueFromString(
-                          const std::string  &in, 
+                          const std::string  &in,
                                 HandledField *pField)
 {
     pField->addValueFromCString(in.c_str());
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::MFieldFunctions::pushValueToString(
-                          const HandledField *pField, 
+                          const HandledField *pField,
                                 std::string  &out   )
 {
     pField->pushValuesToString(out);
@@ -158,27 +158,27 @@ void FieldDescription<DescT,
 
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
-                      eFieldCard>::MFieldFunctions::pushValueFromStream(  
-                          std::istream &str, 
+void FieldDescription<DescT,
+                      eFieldCard>::MFieldFunctions::pushValueFromStream(
+                          std::istream &str,
                           HandledField *pField )
 {
     pField->pushValuesFromStream(str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::MFieldFunctions::pushValueToStream(
-                          const HandledField *pField, 
+                          const HandledField *pField,
                           OutStream          &str    )
 {
     pField->pushValuesToStream(str);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, 
+void FieldDescription<DescT,
                       eFieldCard>::MFieldFunctions::pushSizeToStream(
-                          const HandledField *pField, 
+                          const HandledField *pField,
                           OutStream          &str    )
 {
     pField->pushSizeToStream(str);
@@ -187,7 +187,7 @@ void FieldDescription<DescT,
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::MFieldFunctions::copyValues(
-    const HandledField *pSrc, 
+    const HandledField *pSrc,
           HandledField *pDst  )
 {
     pDst->setValues(*pSrc);
@@ -218,46 +218,50 @@ template<class DescT, enum FieldCardinality eFieldCard> inline
 FieldDescription<DescT, eFieldCard>::FieldDescription(
     const FieldType       &elementType,
     const Char8           *szName,
+    std::string            documentation,
     const UInt32           uiFieldId,
     const BitVector        vFieldMask,
     const bool             bInternal,
     const UInt32           uiFieldFlags,
           FieldEditMethod  fEditMethod,
           FieldGetMethod   fGetMethod,
-    const Char8           *defaultValue) : 
+    const Char8           *defaultValue) :
 
-    Inherited(elementType, 
-              szName, 
-              uiFieldId, 
-              vFieldMask, 
+    Inherited(elementType,
+              szName,
+              documentation,
+              uiFieldId,
+              vFieldMask,
               bInternal,
               uiFieldFlags,
-              fEditMethod, 
-              fGetMethod, 
+              fEditMethod,
+              fGetMethod,
               defaultValue)
 {
 }
- 
+
 template<class DescT, enum FieldCardinality eFieldCard> inline
 FieldDescription<DescT, eFieldCard>::FieldDescription(
     const FieldType            &elementType,
     const Char8                *szName,
+    std::string                 documentation,
     const UInt32                uiFieldId,
     const BitVector             vFieldMask,
           FieldIndexEditMethod  fIndexedEditMethod,
           FieldIndexGetMethod   fIndexedGetMethod,
     const bool                  bInternal,
     const UInt32                uiFieldFlags,
-    const Char8                *defaultValue      ) : 
-    
-    Inherited(elementType, 
-              szName, 
-              uiFieldId, 
-              vFieldMask, 
+    const Char8                *defaultValue      ) :
+
+    Inherited(elementType,
+              szName,
+              documentation,
+              uiFieldId,
+              vFieldMask,
               bInternal,
               uiFieldFlags,
-              fIndexedEditMethod, 
-              fIndexedGetMethod, 
+              fIndexedEditMethod,
+              fIndexedGetMethod,
               defaultValue)
 {
 }
@@ -265,7 +269,7 @@ FieldDescription<DescT, eFieldCard>::FieldDescription(
 template<class DescT, enum FieldCardinality eFieldCard> inline
 FieldDescription<DescT, eFieldCard>::FieldDescription(
     const FieldDescription &source) :
-    
+
     Inherited(source)
 {
 }
@@ -291,7 +295,7 @@ const typename FieldDescription<DescT, eFieldCard>::HandledField *
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushValueFromCString(
-    const Char8 *str, 
+    const Char8 *str,
           Field *pField) const
 {
     HandledField *pConcreteField = dcast(pField);
@@ -305,7 +309,7 @@ void FieldDescription<DescT, eFieldCard>::pushValueFromCString(
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushValueToCString(
-    const Field *pField, 
+    const Field *pField,
           Char8 *str) const
 {
     const HandledField *pConcreteField = dcast_const(pField);
@@ -318,7 +322,7 @@ void FieldDescription<DescT, eFieldCard>::pushValueToCString(
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushValueFromString(
-    const std::string &in, 
+    const std::string &in,
           Field       *pField) const
 {
     HandledField *pConcreteField = dcast(pField);
@@ -333,7 +337,7 @@ void FieldDescription<DescT, eFieldCard>::pushValueFromString(
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushValueToString(
-    const Field       *pField, 
+    const Field       *pField,
           std::string &out   ) const
 {
     const HandledField *pConcreteField = dcast_const(pField);
@@ -346,7 +350,7 @@ void FieldDescription<DescT, eFieldCard>::pushValueToString(
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushValueFromStream(
-    std::istream &in, 
+    std::istream &in,
     Field        *pField) const
 {
     HandledField *pConcreteField = dcast(pField);
@@ -359,7 +363,7 @@ void FieldDescription<DescT, eFieldCard>::pushValueFromStream(
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushValueToStream(
-    const Field        *pField, 
+    const Field        *pField,
           OutStream    &out   ) const
 {
     const HandledField *pConcreteField = dcast_const(pField);
@@ -372,7 +376,7 @@ void FieldDescription<DescT, eFieldCard>::pushValueToStream(
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushSizeToStream(
-    const Field        *pField, 
+    const Field        *pField,
           OutStream    &out   ) const
 {
     const HandledField *pConcreteField = dcast_const(pField);
@@ -386,7 +390,7 @@ void FieldDescription<DescT, eFieldCard>::pushSizeToStream(
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::copyValues(
-    const Field *pSrc, 
+    const Field *pSrc,
           Field *pDst) const
 {
     const HandledField *pSrcField = dcast_const(pSrc);
@@ -418,7 +422,7 @@ void FieldDescription<DescT, eFieldCard>::shareValuesV(
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
-bool FieldDescription<DescT, eFieldCard>::equal(const Field *lhs, 
+bool FieldDescription<DescT, eFieldCard>::equal(const Field *lhs,
                                                 const Field *rhs) const
 {
     const HandledField *lhsField = dcast_const(lhs);

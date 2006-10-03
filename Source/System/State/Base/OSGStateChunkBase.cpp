@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -75,7 +76,22 @@ StateChunkBase::TypeObject StateChunkBase::_type(true,
     NULL, 
     StateChunk::initMethod,
     NULL,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"StateChunk\"\n"
+"	parent=\"FieldContainerAttachment\"\n"
+"	library=\"System\"\n"
+"	structure=\"abstract\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

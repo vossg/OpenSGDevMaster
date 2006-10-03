@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -84,6 +85,7 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new MFMaterialPtr::Description(
         MFMaterialPtr::getClassType(), 
         "materials", 
+        "",
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -101,6 +103,7 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "choice", 
+        "",
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -123,7 +126,40 @@ SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(true,
     (PrototypeCreateF) &SwitchMaterialBase::createEmpty,
     SwitchMaterial::initMethod,
     (InitalInsertDescFunc) &SwitchMaterialBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SwitchMaterial\"\n"
+"	parent=\"Material\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"materials\"\n"
+"		type=\"MaterialPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"choice\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

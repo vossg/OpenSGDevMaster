@@ -165,26 +165,26 @@ struct FieldTraitsPODTemplateBase : public FieldTraitsTemplateBase<ValueT,
         return sizeof(ValueT) * uiNumObjects;
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
+    static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            &oObject)
     {
         pMem.putValue(oObject);
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
+    static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            *pObjectStore,
                                 UInt32             uiNumObjects)
     {
         pMem.putValues(&(pObjectStore[0]), uiNumObjects);
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
+    static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            &oObject)
     {
         pMem.getValue(oObject);
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
+    static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            *pObjectStore,
                             UInt32             uiNumObjects)
     {
@@ -225,26 +225,26 @@ struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
         return sizeof(SingleValueT) * _uiSize * uiNumObjects;
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
+    static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            &oObject)
     {
         pMem.putValues(&(oObject[0]), _uiSize);
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
+    static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            *pObjectStore,
                                 UInt32             uiNumObjects)
     {
         pMem.putValues(&(pObjectStore[0][0]), uiNumObjects * _uiSize);
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
+    static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            &oObject)
     {
         pMem.getValues(&(oObject[0]), _uiSize);
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
+    static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            *pObjectStore,
                             UInt32             uiNumObjects)
     {
@@ -253,7 +253,7 @@ struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
 };
 
 template<class ValueT, Int32 iNamespace = 0>
-struct FieldTraitsPtrToStringTemplateBase : 
+struct FieldTraitsPtrToStringTemplateBase :
     public FieldTraitsTemplateBase<ValueT, iNamespace>
 {
     // Binary
@@ -287,19 +287,19 @@ struct FieldTraitsPtrToStringTemplateBase :
         return size;
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
+    static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            &oObject)
     {
         typedef FieldTraits<ValueT, iNamespace> MappedTrait;
-        
+
         std::string value;
 
         MappedTrait::putToString(oObject, value);
 
-    	pMem.putValue(value);
+        pMem.putValue(value);
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
+    static void copyToBin(      BinaryDataHandler &pMem,
                           const ValueT            *pObjectStore,
                                 UInt32             uiNumObjects)
     {
@@ -312,7 +312,7 @@ struct FieldTraitsPtrToStringTemplateBase :
         }
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
+    static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            &oObject)
     {
         typedef FieldTraits<ValueT, iNamespace> MappedTrait;
@@ -328,7 +328,7 @@ struct FieldTraitsPtrToStringTemplateBase :
         MappedTrait::getFromCString(oObject, c);
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
+    static void copyFromBin(BinaryDataHandler &pMem,
                             ValueT            *pObjectStore,
                             UInt32             uiNumObjects)
     {
@@ -349,7 +349,7 @@ struct FieldTraitsPtrToStringTemplateBase :
 #endif
 
 template<class ValueT, Int32 iNamespace = 0>
-struct FieldTraitsVec1TemplateBase : 
+struct FieldTraitsVec1TemplateBase :
     public FieldTraitsVecTemplateBase<ValueT,
                                       iNamespace>
 {
@@ -359,7 +359,7 @@ struct FieldTraitsVec1TemplateBase :
         typedef typename ValueT::ValueType     ValueType;
 
         typedef          TypeTraits<ValueType> TypeTrait;
-        
+
         TypeTrait::putToStream(val[0], str);
     }
 };
@@ -371,7 +371,7 @@ struct FieldTraitsVec1TemplateBase :
 #endif
 
 template<class ValueT, Int32 iNamespace = 0>
-struct FieldTraitsVec2TemplateBase : 
+struct FieldTraitsVec2TemplateBase :
     public FieldTraitsVecTemplateBase<ValueT,
                                       iNamespace>
 {
@@ -381,9 +381,9 @@ struct FieldTraitsVec2TemplateBase :
         typedef typename ValueT::ValueType     ValueType;
 
         typedef          TypeTraits<ValueType> TypeTrait;
-        
+
         TypeTrait::putToStream(val[0], str);
-        
+
         str << " ";
 
         TypeTrait::putToStream(val[1], str);
@@ -398,7 +398,7 @@ struct FieldTraitsVec2TemplateBase :
 #endif
 
 template<class ValueT, Int32 iNamespace = 0>
-struct FieldTraitsVec3TemplateBase : 
+struct FieldTraitsVec3TemplateBase :
     public FieldTraitsVecTemplateBase<ValueT,
                                       iNamespace>
 {
@@ -408,9 +408,9 @@ struct FieldTraitsVec3TemplateBase :
         typedef typename ValueT::ValueType     ValueType;
 
         typedef          TypeTraits<ValueType> TypeTrait;
-        
+
         TypeTrait::putToStream(val[0], str);
-        
+
         str << " ";
 
         TypeTrait::putToStream(val[1], str);
@@ -429,7 +429,7 @@ struct FieldTraitsVec3TemplateBase :
 #endif
 
 template<class ValueT, Int32 iNamespace = 0>
-struct FieldTraitsVec4TemplateBase : 
+struct FieldTraitsVec4TemplateBase :
     public FieldTraitsVecTemplateBase<ValueT,
                                       iNamespace>
 {
@@ -439,9 +439,9 @@ struct FieldTraitsVec4TemplateBase :
         typedef typename ValueT::ValueType     ValueType;
 
         typedef          TypeTraits<ValueType> TypeTrait;
-        
+
         TypeTrait::putToStream(val[0], str);
-        
+
         str << " ";
 
         TypeTrait::putToStream(val[1], str);
@@ -478,74 +478,74 @@ class FieldDescription : public DescT::FieldDescParent
     typedef typename DescT::FieldDescParent       Inherited;
     typedef typename Inherited::StringVector      StringVector;
 
-    typedef typename 
+    typedef typename
         osgIF<(eFieldCard == SingleField),
-               SField<typename DescT::ValueType, 
+               SField<typename DescT::ValueType,
                                DescT::iNamespace>,
                MField<typename DescT::ValueType,
                                DescT::iNamespace> >::_IRet HandledField;
 
     struct SFieldFunctions
     {
-        static void pushValueFromCString(const Char8        *str, 
+        static void pushValueFromCString(const Char8        *str,
                                                HandledField *pField);
 
-        static void pushValueToCString  (const HandledField *pField, 
+        static void pushValueToCString  (const HandledField *pField,
                                                Char8        *str   );
 
 
-        static void pushValueFromString (const std::string  &in, 
+        static void pushValueFromString (const std::string  &in,
                                                HandledField *pField);
 
-        static void pushValueToString   (const HandledField *pField, 
+        static void pushValueToString   (const HandledField *pField,
                                                std::string  &out   );
 
 
-        static void pushValueFromStream(      std::istream &str, 
+        static void pushValueFromStream(      std::istream &str,
                                               HandledField *pField );
 
-        static void pushValueToStream  (const HandledField *pField, 
+        static void pushValueToStream  (const HandledField *pField,
                                               OutStream    &str    );
 
-        static void pushSizeToStream   (const HandledField *pField, 
+        static void pushSizeToStream   (const HandledField *pField,
                                               OutStream    &str    );
 
 
-        static void copyValues         (const HandledField *pSrc, 
+        static void copyValues         (const HandledField *pSrc,
                                               HandledField *pDst   );
     };
 
     struct MFieldFunctions
     {
-        static void pushValueFromCString(const Char8        *str, 
+        static void pushValueFromCString(const Char8        *str,
                                                HandledField *pField);
 
-        static void pushValueToCString  (const HandledField *pField, 
+        static void pushValueToCString  (const HandledField *pField,
                                                Char8        *str   );
 
 
-        static void pushValueFromString (const std::string   &in, 
+        static void pushValueFromString (const std::string   &in,
                                                HandledField *pField);
 
-        static void pushValueToString   (const HandledField *pField, 
+        static void pushValueToString   (const HandledField *pField,
                                                std::string  &out   );
 
 
-        static void pushValueFromStream(      std::istream &str, 
+        static void pushValueFromStream(      std::istream &str,
                                               HandledField *pField );
 
-        static void pushValueToStream  (const HandledField *pField, 
+        static void pushValueToStream  (const HandledField *pField,
                                               OutStream    &str    );
 
-        static void pushSizeToStream   (const HandledField *pField, 
+        static void pushSizeToStream   (const HandledField *pField,
                                               OutStream    &str    );
 
 
-        static void copyValues         (const HandledField *pSrc, 
+        static void copyValues         (const HandledField *pSrc,
                                               HandledField *pDst  );
     };
-    
-    typedef typename 
+
+    typedef typename
         osgIF<(eFieldCard == SingleField),
                SFieldFunctions,
                MFieldFunctions>::_IRet FieldFunctions;
@@ -568,6 +568,7 @@ class FieldDescription : public DescT::FieldDescParent
 
     FieldDescription(const FieldType        &elementType,
                      const Char8            *szName,
+                     std::string             documentation,
                      const UInt32            uiFieldId,
                      const BitVector         vFieldMask,
                      const bool              bInternal,
@@ -578,6 +579,7 @@ class FieldDescription : public DescT::FieldDescParent
 
     FieldDescription(const FieldType            &elementType,
                      const Char8                *szName,
+                     std::string                 documentation,
                      const UInt32                uiFieldId,
                      const BitVector             vFieldMask,
                            FieldIndexEditMethod  fIndexedEditMethod,
@@ -594,31 +596,31 @@ class FieldDescription : public DescT::FieldDescParent
     const HandledField *dcast_const (const Field *pField) const;
 
 
-    virtual void pushValueFromCString(const Char8        *str, 
+    virtual void pushValueFromCString(const Char8        *str,
                                            Field         *pField) const;
 
-    virtual void pushValueToCString  (const Field        *pField, 
+    virtual void pushValueToCString  (const Field        *pField,
                                             Char8        *str) const;
 
 
-    virtual void pushValueFromString (const std::string  &in, 
+    virtual void pushValueFromString (const std::string  &in,
                                             Field        *pField) const;
 
-    virtual void pushValueToString   (const Field        *pField, 
+    virtual void pushValueToString   (const Field        *pField,
                                             std::string  &out   ) const;
 
 
-    virtual void pushValueFromStream (      std::istream &str, 
+    virtual void pushValueFromStream (      std::istream &str,
                                             Field        *pField) const;
 
-    virtual void pushValueToStream   (const Field        *pField, 
+    virtual void pushValueToStream   (const Field        *pField,
                                             OutStream    &str   ) const;
 
-    virtual void pushSizeToStream    (const Field        *pField, 
+    virtual void pushSizeToStream    (const Field        *pField,
                                             OutStream    &str   ) const;
 
 
-    virtual void copyValues         (const Field *pSrc, 
+    virtual void copyValues         (const Field *pSrc,
                                            Field *pDst  ) const;
 
     virtual void cloneValuesV(const Field                     *pSrc,
@@ -630,7 +632,7 @@ class FieldDescription : public DescT::FieldDescParent
                                     ConstFieldMaskArg          whichField,
                                     FieldContainerPtrConstArg  pDst) const;
 
-    virtual bool equal(const Field *lhs, 
+    virtual bool equal(const Field *lhs,
                        const Field *rhs) const;
 
     virtual Field                *createField(void) const;
@@ -644,14 +646,14 @@ struct StreamConversionError
     static void getFromStream(      T            &,
                                     std::istream &)
     {
-        SLOG << "Error from stream conversion not available for " 
+        SLOG << "Error from stream conversion not available for "
              << FieldTraits<T, iNamespace>::getType().getCName() << std::endl;
     }
 
     static void putToStream(const T         &,
                                   OutStream &)
     {
-        SLOG << "Error to stream conversion not available for " 
+        SLOG << "Error to stream conversion not available for "
              << FieldTraits<T, iNamespace>::getType().getCName() << std::endl;
     }
 };
@@ -662,14 +664,14 @@ struct StringConversionError
     static void getFromCString(      T      &,
                                const Char8 *&)
     {
-        SLOG << "Error from string conversion not available for " 
+        SLOG << "Error from string conversion not available for "
              << FieldTraits<T, iNamespace>::getType().getCName() << std::endl;
     }
 
     static void putToString(const T           &,
                                   std::string &)
     {
-        SLOG << "Error to string conversion not available for " 
+        SLOG << "Error to string conversion not available for "
              << FieldTraits<T, iNamespace>::getType().getCName() << std::endl;
     }
 };

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -112,6 +113,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "GLId", 
+        "        The OpenGL texture id for this frame buffer object.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -127,6 +129,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new MFFrameBufferAttachmentPtr::Description(
         MFFrameBufferAttachmentPtr::getClassType(), 
         "colorAttachments", 
+        "        GL_COLOR_ATTACHMENTX_EXT slots, position defines X\n",
         ColorAttachmentsFieldId, ColorAttachmentsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -144,6 +147,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "drawBuffers", 
+        "        The OpenGL texture id for this frame buffer object.\n",
         DrawBuffersFieldId, DrawBuffersFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -159,6 +163,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFFrameBufferAttachmentPtr::Description(
         SFFrameBufferAttachmentPtr::getClassType(), 
         "depthAttachment", 
+        "        GL_DEPTH_ATTACHMENT_EXT slot\n",
         DepthAttachmentFieldId, DepthAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -170,6 +175,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFFrameBufferAttachmentPtr::Description(
         SFFrameBufferAttachmentPtr::getClassType(), 
         "stencilAttachment", 
+        "        GL_STENCIL_ATTACHMENT_EXT slot\n",
         StencilAttachmentFieldId, StencilAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -187,6 +193,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "width", 
+        "",
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -208,6 +215,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "height", 
+        "",
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -230,7 +238,88 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(true,
     (PrototypeCreateF) &FrameBufferObjectBase::createEmpty,
     FrameBufferObject::initMethod,
     (InitalInsertDescFunc) &FrameBufferObjectBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"FrameBufferObject\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"Framebuffer object\n"
+"	<Field\n"
+"		name=\"GLId\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"		defaultValue=\"0\"\n"
+"        fieldFlags=\"FClusterLocal\"\n"
+"	>\n"
+"        The OpenGL texture id for this frame buffer object.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"colorAttachments\"\n"
+"		type=\"FrameBufferAttachmentPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        GL_COLOR_ATTACHMENTX_EXT slots, position defines X\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"drawBuffers\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"		defaultValue=\"0\"\n"
+"	>\n"
+"        The OpenGL texture id for this frame buffer object.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"depthAttachment\"\n"
+"		type=\"FrameBufferAttachmentPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        GL_DEPTH_ATTACHMENT_EXT slot\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"stencilAttachment\"\n"
+"		type=\"FrameBufferAttachmentPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        GL_STENCIL_ATTACHMENT_EXT slot\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"width\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"height\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Framebuffer object\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

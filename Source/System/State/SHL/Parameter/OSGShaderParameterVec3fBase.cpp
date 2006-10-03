@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -87,6 +88,7 @@ void ShaderParameterVec3fBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec3f::Description(
         SFVec3f::getClassType(), 
         "value", 
+        "	parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -109,7 +111,33 @@ ShaderParameterVec3fBase::TypeObject ShaderParameterVec3fBase::_type(true,
     (PrototypeCreateF) &ShaderParameterVec3fBase::createEmpty,
     ShaderParameterVec3f::initMethod,
     (InitalInsertDescFunc) &ShaderParameterVec3fBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ShaderParameterVec3f\"\n"
+"	parent=\"ShaderParameter\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"value\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	parameter value\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -75,7 +76,24 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(true,
     NULL, 
     GeoVectorProperty::initMethod,
     NULL,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"GeoVectorProperty\"\n"
+"	parent=\"GeoProperty\"\n"
+"	library=\"Drawable\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"Abstract base class for all vector-valued GeoProperties\n"
+"</FieldContainer>\n"
+,
+    "Abstract base class for all vector-valued GeoProperties\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -93,6 +94,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "cgFrontEnd", 
+        "",
         CgFrontEndFieldId, CgFrontEndFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -114,6 +116,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "pointSize", 
+        "        Flag to set whether the shader can change the point size.\n",
         PointSizeFieldId, PointSizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -135,6 +138,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "GLId", 
+        "",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -157,7 +161,52 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(true,
     (PrototypeCreateF) &SHLChunkBase::createEmpty,
     SHLChunk::initMethod,
     (InitalInsertDescFunc) &SHLChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SHLChunk\"\n"
+"	parent=\"ShaderChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"cgFrontEnd\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"pointSize\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Flag to set whether the shader can change the point size.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"GLId\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"        fieldFlags=\"FClusterLocal\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

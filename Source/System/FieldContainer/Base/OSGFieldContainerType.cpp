@@ -58,6 +58,9 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
+/*! Constructor for a new field container type.
+*
+*/
 FieldContainerType::FieldContainerType(bool foo,
     const Char8                *szName,
     const Char8                *szParentName,
@@ -66,7 +69,9 @@ FieldContainerType::FieldContainerType(bool foo,
           PrototypeCreateF      fPrototypeCreate,
           InitContainerF        fInitMethod,
           InitalInsertDescFunc  descInsertFunc,
-          bool                  bDescsAddable) :
+          bool                  bDescsAddable,
+          std::string           fcdXML,
+          std::string           typeDoc) :
 
      Inherited       (foo, szName,
                       szParentName,
@@ -74,12 +79,14 @@ FieldContainerType::FieldContainerType(bool foo,
                       uiNameSpace,
                       descInsertFunc,
                       bDescsAddable    ),
-    
+
 
     _baseType        (IsFieldContainer ),
     _pPrototype      (NullFC           ),
     _fPrototypeCreate(fPrototypeCreate ),
-    _fInitMethod     (fInitMethod      )
+    _fInitMethod     (fInitMethod      ),
+    _fcdXML          (fcdXML),
+    _typeDoc         (typeDoc)
 {
     registerType();
 
@@ -93,7 +100,9 @@ FieldContainerType::FieldContainerType(const FieldContainerType &source) :
 
     _baseType        (source._baseType        ),
     _pPrototype      (source._pPrototype      ),
-    _fPrototypeCreate(source._fPrototypeCreate)
+    _fPrototypeCreate(source._fPrototypeCreate),
+    _fcdXML          (source._fcdXML),
+    _typeDoc         (source._typeDoc)
 {
     if(_pPrototype != NullFC)
         addRef(_pPrototype);
@@ -210,6 +219,18 @@ void FieldContainerType::registerType(void)
         _szGroupName.str() != NULL ? _szGroupName.str() : _szName.str());
 }
 
+/*! Return a string with the XML representation of the original contents of the fcd file. */
+std::string FieldContainerType::getFcdXML() const
+{
+   return _fcdXML;
+}
+
+/*! Return the documentation for this type. */
+std::string FieldContainerType::getDocumentation() const
+{
+   return _typeDoc;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                                Dump                                     */
 
@@ -218,11 +239,11 @@ void FieldContainerType::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 {
     SLOG << "FieldContainerType: "
          << getCName()
-         << ", Id: "       
+         << ", Id: "
          << getId()
-         << ", parentP: " 
+         << ", parentP: "
          << (_pParentType ? _pParentType->getCName() : "NONE")
-         << ", groupId: "  
+         << ", groupId: "
          << _uiGroupId
          << ", abstract: "
          << ((_pPrototype != NullFC) ? "false" : "true")

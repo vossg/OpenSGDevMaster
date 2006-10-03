@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -120,6 +121,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "enabled", 
+        "",
         EnabledFieldId, EnabledFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -141,6 +143,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(), 
         "url", 
+        "",
         UrlFieldId, UrlFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -156,6 +159,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "root", 
+        "",
         RootFieldId, RootFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -173,6 +177,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "state", 
+        "",
         StateFieldId, StateFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -194,6 +199,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "concurrentLoad", 
+        "",
         ConcurrentLoadFieldId, ConcurrentLoadFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -215,6 +221,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFDynamicVolume::Description(
         SFDynamicVolume::getClassType(), 
         "volume", 
+        "",
         VolumeFieldId, VolumeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -236,6 +243,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "indices", 
+        "",
         IndicesFieldId, IndicesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -257,6 +265,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "triangles", 
+        "",
         TrianglesFieldId, TrianglesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -278,6 +287,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "positions", 
+        "",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -299,6 +309,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "geometries", 
+        "",
         GeometriesFieldId, GeometriesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -320,6 +331,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(), 
         "absoluteUrl", 
+        "",
         AbsoluteUrlFieldId, AbsoluteUrlFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -341,6 +353,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(), 
         "inline", 
+        "",
         InlineFieldId, InlineFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -363,7 +376,127 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(true,
     (PrototypeCreateF) &ProxyGroupBase::createEmpty,
     ProxyGroup::initMethod,
     (InitalInsertDescFunc) &ProxyGroupBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ProxyGroup\"\n"
+"	parent=\"Group\"\n"
+"	library=\"Group\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"enabled\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"url\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"root\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"state\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"concurrentLoad\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"volume\"\n"
+"		type=\"DynamicVolume\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"indices\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"triangles\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"positions\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"geometries\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"absoluteUrl\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"inline\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

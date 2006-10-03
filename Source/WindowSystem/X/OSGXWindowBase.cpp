@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -92,6 +93,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFDisplayP::Description(
         SFDisplayP::getClassType(), 
         "display", 
+        "",
         DisplayFieldId, DisplayFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -113,6 +115,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFX11Window::Description(
         SFX11Window::getClassType(), 
         "window", 
+        "",
         WindowFieldId, WindowFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -134,6 +137,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLXContext::Description(
         SFGLXContext::getClassType(), 
         "context", 
+        "",
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -156,7 +160,51 @@ XWindowBase::TypeObject XWindowBase::_type(true,
     (PrototypeCreateF) &XWindowBase::createEmpty,
     XWindow::initMethod,
     (InitalInsertDescFunc) &XWindowBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"XWindow\"\n"
+"	parent=\"Window\"\n"
+"	library=\"WindowX\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The class windows on X.\n"
+"	<Field\n"
+"		name=\"display\"\n"
+"		type=\"DisplayP\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"NULL\"\n"
+"		header=\"OSGXWindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"window\"\n"
+"		type=\"X11Window\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		header=\"OSGXWindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"context\"\n"
+"		type=\"GLXContext\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		header=\"OSGXWindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The class windows on X.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

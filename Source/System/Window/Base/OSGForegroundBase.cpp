@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -87,6 +88,7 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "active", 
+        "	Activate the grabber.\n",
         ActiveFieldId, ActiveFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -109,7 +111,33 @@ ForegroundBase::TypeObject ForegroundBase::_type(true,
     NULL, 
     Foreground::initMethod,
     (InitalInsertDescFunc) &ForegroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Foreground\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"Background is the base class for all background clearing. \n"
+"	<Field\n"
+"		name=\"active\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Activate the grabber.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Background is the base class for all background clearing. \n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

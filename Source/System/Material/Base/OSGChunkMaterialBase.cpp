@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -84,6 +85,7 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new MFStateChunkPtr::Description(
         MFStateChunkPtr::getClassType(), 
         "chunks", 
+        "",
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -101,6 +103,7 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new MFInt32::Description(
         MFInt32::getClassType(), 
         "slots", 
+        "",
         SlotsFieldId, SlotsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -123,7 +126,37 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(true,
     (PrototypeCreateF) &ChunkMaterialBase::createEmpty,
     ChunkMaterial::initMethod,
     (InitalInsertDescFunc) &ChunkMaterialBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ChunkMaterial\"\n"
+"	parent=\"Material\"\n"
+"	library=\"System\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"chunks\"\n"
+"		type=\"StateChunkPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"        clearField=\"clearChunks\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"slots\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

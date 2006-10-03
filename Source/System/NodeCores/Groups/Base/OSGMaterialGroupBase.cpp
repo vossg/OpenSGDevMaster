@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -81,6 +82,7 @@ void MaterialGroupBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMaterialPtr::Description(
         SFMaterialPtr::getClassType(), 
         "material", 
+        "",
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -99,7 +101,32 @@ MaterialGroupBase::TypeObject MaterialGroupBase::_type(true,
     (PrototypeCreateF) &MaterialGroupBase::createEmpty,
     MaterialGroup::initMethod,
     (InitalInsertDescFunc) &MaterialGroupBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"MaterialGroup\"\n"
+"	parent=\"Group\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"material\"\n"
+"		type=\"MaterialPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		header=\"OSGMaterial.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -82,6 +83,7 @@ void FBOViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFFrameBufferObjectPtr::Description(
         SFFrameBufferObjectPtr::getClassType(), 
         "frameBufferObject", 
+        "        FramebufferObject to be written to\n",
         FrameBufferObjectFieldId, FrameBufferObjectFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -100,7 +102,33 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(true,
     (PrototypeCreateF) &FBOViewportBase::createEmpty,
     FBOViewport::initMethod,
     (InitalInsertDescFunc) &FBOViewportBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"FBOViewport\"\n"
+"	parent=\"Viewport\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"A viewport using a framebuffer object for output.\n"
+"	<Field\n"
+"		name=\"frameBufferObject\"\n"
+"		type=\"FrameBufferObjectPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        FramebufferObject to be written to\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A viewport using a framebuffer object for output.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

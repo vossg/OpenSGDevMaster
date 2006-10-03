@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -108,6 +109,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(), 
         "ambient", 
+        "",
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -129,6 +131,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(), 
         "diffuse", 
+        "",
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -150,6 +153,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(), 
         "specular", 
+        "",
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -171,6 +175,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "shininess", 
+        "",
         ShininessFieldId, ShininessFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -192,6 +197,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(), 
         "emission", 
+        "",
         EmissionFieldId, EmissionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -213,6 +219,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "transparency", 
+        "",
         TransparencyFieldId, TransparencyFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -234,6 +241,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "lit", 
+        "",
         LitFieldId, LitFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -255,6 +263,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "colorMaterial", 
+        "",
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -277,7 +286,89 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
     (PrototypeCreateF) &SimpleMaterialBase::createEmpty,
     SimpleMaterial::initMethod,
     (InitalInsertDescFunc) &SimpleMaterialBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SimpleMaterial\"\n"
+"	parent=\"ChunkMaterial\"\n"
+"	library=\"System\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"ambient\"\n"
+"		type=\"Color3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f,0.f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"diffuse\"\n"
+"		type=\"Color3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f,0.f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"specular\"\n"
+"		type=\"Color3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f,0.f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"shininess\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"emission\"\n"
+"		type=\"Color3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f,0.f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"transparency\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"lit\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"colorMaterial\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_DIFFUSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+"\n"
+"\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

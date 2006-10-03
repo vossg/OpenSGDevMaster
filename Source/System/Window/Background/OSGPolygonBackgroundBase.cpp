@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -106,6 +107,7 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMaterialPtr::Description(
         SFMaterialPtr::getClassType(), 
         "material", 
+        "	The material used to display.\n",
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -123,6 +125,7 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(), 
         "texCoords", 
+        "	The texture coordinates of the geometry to display.\n",
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -144,6 +147,7 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFPnt2f::Description(
         MFPnt2f::getClassType(), 
         "positions", 
+        "	The positions of the geometry to display.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -165,6 +169,7 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "normalizedX", 
+        "	Define whether the x coordinates are normalized (0-1) or pixel-based .\n",
         NormalizedXFieldId, NormalizedXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -186,6 +191,7 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "normalizedY", 
+        "	Define whether the y coordinates are normalized (0-1) or pixel-based .\n",
         NormalizedYFieldId, NormalizedYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -207,6 +213,7 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "aspectHeight", 
+        "	Useful for keeping aspect ratio when rendering things like images.\n",
         AspectHeightFieldId, AspectHeightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -228,6 +235,7 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "aspectWidth", 
+        "	Useful for keeping aspect ratio when rendering things like images.\n",
         AspectWidthFieldId, AspectWidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -250,7 +258,92 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(true,
     (PrototypeCreateF) &PolygonBackgroundBase::createEmpty,
     PolygonBackground::initMethod,
     (InitalInsertDescFunc) &PolygonBackgroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"PolygonBackground\"\n"
+"	parent=\"Background\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"A Background that renders a single polygon using the specified material.\n"
+"	<Field\n"
+"		name=\"material\"\n"
+"		type=\"MaterialPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The material used to display.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"texCoords\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The texture coordinates of the geometry to display.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"positions\"\n"
+"		type=\"Pnt2f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The positions of the geometry to display.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"normalizedX\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Define whether the x coordinates are normalized (0-1) or pixel-based .\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"normalizedY\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Define whether the y coordinates are normalized (0-1) or pixel-based .\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"aspectHeight\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Useful for keeping aspect ratio when rendering things like images.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"aspectWidth\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Useful for keeping aspect ratio when rendering things like images.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A Background that renders a single polygon using the specified material.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

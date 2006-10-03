@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -137,6 +138,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "cullFace", 
+        "	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything.\n",
         CullFaceFieldId, CullFaceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -158,6 +160,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "frontFace", 
+        "	Defines which side of the polygon is considered the front side, \n        defaults to GL_CCW.\n",
         FrontFaceFieldId, FrontFaceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -179,6 +182,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "frontMode", 
+        "	Defines if polygon front sides are rendered filled (default), outlined or as points.\n",
         FrontModeFieldId, FrontModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -200,6 +204,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "backMode", 
+        "	Defines if polygon front sides are rendered filled (default), outlined or as points.\n",
         BackModeFieldId, BackModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -221,6 +226,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "smooth", 
+        "	Defines if polygon antialiasing is used.\n",
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -242,6 +248,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "offsetFactor", 
+        "	Defines the offset factor.\n",
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -263,6 +270,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "offsetBias", 
+        "	Defines the offset bias.\n",
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -284,6 +292,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "offsetPoint", 
+        "	Enables offsetting for points.\n",
         OffsetPointFieldId, OffsetPointFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -305,6 +314,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "offsetLine", 
+        "	Enables offsetting for lines.\n",
         OffsetLineFieldId, OffsetLineFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -326,6 +336,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "offsetFill", 
+        "	Enables offsetting for polygons.\n",
         OffsetFillFieldId, OffsetFillFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -347,6 +358,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFInt32::Description(
         MFInt32::getClassType(), 
         "stipple", 
+        "	Defines the stipple pattern. Is only valid and used if it contains \n        32 elements.\n",
         StippleFieldId, StippleFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -369,7 +381,133 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
     (PrototypeCreateF) &PolygonChunkBase::createEmpty,
     PolygonChunk::initMethod,
     (InitalInsertDescFunc) &PolygonChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"PolygonChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The polygon chunk contains the parameter that is specific set for filled surfaces, \n"
+"i.e. polygons.\n"
+"	<Field\n"
+"		name=\"cullFace\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"frontFace\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_CCW\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	Defines which side of the polygon is considered the front side, \n"
+"        defaults to GL_CCW.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"frontMode\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FILL\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	Defines if polygon front sides are rendered filled (default), outlined or as points.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backMode\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FILL\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	Defines if polygon front sides are rendered filled (default), outlined or as points.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"smooth\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FALSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	Defines if polygon antialiasing is used.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"offsetFactor\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"	>\n"
+"	Defines the offset factor.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"offsetBias\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"	>\n"
+"	Defines the offset bias.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"offsetPoint\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FALSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	Enables offsetting for points.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"offsetLine\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FALSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	Enables offsetting for lines.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"offsetFill\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FALSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"	Enables offsetting for polygons.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"stipple\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"\"\n"
+"	>\n"
+"	Defines the stipple pattern. Is only valid and used if it contains \n"
+"        32 elements.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The polygon chunk contains the parameter that is specific set for filled surfaces, \ni.e. polygons.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

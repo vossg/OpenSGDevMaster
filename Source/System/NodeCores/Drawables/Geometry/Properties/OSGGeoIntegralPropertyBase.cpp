@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -75,7 +76,28 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(true,
     NULL, 
     GeoIntegralProperty::initMethod,
     NULL,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"GeoIntegralProperty\"\n"
+"	parent=\"GeoProperty\"\n"
+"	library=\"Drawable\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"Patent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
+"\n"
+"The main reason for this class is as a parent class for indices, lengths and \n"
+"types for the Geometry.\n"
+"\n"
+"</FieldContainer>\n"
+,
+    "Patent class for integral (i.e. one dimensional unsigned integer typed) properties.\nThe main reason for this class is as a parent class for indices, lengths and \ntypes for the Geometry.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

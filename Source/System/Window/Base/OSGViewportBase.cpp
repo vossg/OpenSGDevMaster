@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -140,6 +141,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "left", 
+        "	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.\n",
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -161,6 +163,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "right", 
+        "	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.\n",
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -182,6 +185,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "bottom", 
+        "	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.\n",
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -203,6 +207,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "top", 
+        "	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.\n",
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -218,6 +223,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFParentFieldContainerPtr::Description(
         SFParentFieldContainerPtr::getClassType(), 
         "parent", 
+        "	The Window this viewport is contained in.\n",
         ParentFieldId, ParentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -229,6 +235,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFCameraPtr::Description(
         SFCameraPtr::getClassType(), 
         "camera", 
+        "	The Camera used to render the viewport.\n",
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -240,6 +247,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "root", 
+        "	The root of the tree that is displayed in this viewport.\n",
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -251,6 +259,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBackgroundPtr::Description(
         SFBackgroundPtr::getClassType(), 
         "background", 
+        "	The background used to clear this viewport.\n",
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -262,6 +271,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new MFForegroundPtr::Description(
         MFForegroundPtr::getClassType(), 
         "foregrounds", 
+        "	The foreground additions to the rendered image.\n",
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -279,6 +289,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "travMask", 
+        "	The foreground additions to the rendered image.\n",
         TravMaskFieldId, TravMaskFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -300,6 +311,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "drawTime", 
+        "	Drawtime of the last frame using this viewport.\n",
         DrawTimeFieldId, DrawTimeFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -322,7 +334,127 @@ ViewportBase::TypeObject ViewportBase::_type(true,
     (PrototypeCreateF) &ViewportBase::createEmpty,
     Viewport::initMethod,
     (InitalInsertDescFunc) &ViewportBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Viewport\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"A Viewport is a part of the Window it is attached to used for rendering. Every Window can hold an arbitrary number of viewports.\n"
+"	<Field\n"
+"		name=\"left\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"right\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"bottom\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"top\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"parent\"\n"
+"		type=\"ParentFieldContainerPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        doRefCount=\"false\"\n"
+"        passFieldMask=\"true\"\n"
+"	>\n"
+"	The Window this viewport is contained in.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"camera\"\n"
+"		type=\"CameraPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The Camera used to render the viewport.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"root\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The root of the tree that is displayed in this viewport.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"background\"\n"
+"		type=\"BackgroundPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The background used to clear this viewport.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"foregrounds\"\n"
+"		type=\"ForegroundPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        pushToFieldAs=\"addForeground\"\n"
+"	>\n"
+"	The foreground additions to the rendered image.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"travMask\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        defaultValue=\"TypeTraits&lt;UInt32&gt;::getMax()\"\n"
+"	>\n"
+"	The foreground additions to the rendered image.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"drawTime\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"        defaultValue=\"0.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Drawtime of the last frame using this viewport.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A Viewport is a part of the Window it is attached to used for rendering. Every Window can hold an arbitrary number of viewports.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

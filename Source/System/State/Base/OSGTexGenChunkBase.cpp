@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -127,6 +128,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "genFuncS", 
+        "",
         GenFuncSFieldId, GenFuncSFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -148,6 +150,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "genFuncT", 
+        "",
         GenFuncTFieldId, GenFuncTFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -169,6 +172,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "genFuncR", 
+        "",
         GenFuncRFieldId, GenFuncRFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -190,6 +194,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "genFuncQ", 
+        "",
         GenFuncQFieldId, GenFuncQFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -211,6 +216,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec4f::Description(
         SFVec4f::getClassType(), 
         "genFuncSPlane", 
+        "",
         GenFuncSPlaneFieldId, GenFuncSPlaneFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -232,6 +238,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec4f::Description(
         SFVec4f::getClassType(), 
         "genFuncTPlane", 
+        "",
         GenFuncTPlaneFieldId, GenFuncTPlaneFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -253,6 +260,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec4f::Description(
         SFVec4f::getClassType(), 
         "genFuncRPlane", 
+        "",
         GenFuncRPlaneFieldId, GenFuncRPlaneFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -274,6 +282,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec4f::Description(
         SFVec4f::getClassType(), 
         "genFuncQPlane", 
+        "",
         GenFuncQPlaneFieldId, GenFuncQPlaneFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -289,6 +298,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "sBeacon", 
+        "",
         SBeaconFieldId, SBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -300,6 +310,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "tBeacon", 
+        "",
         TBeaconFieldId, TBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -311,6 +322,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "rBeacon", 
+        "",
         RBeaconFieldId, RBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -322,6 +334,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "qBeacon", 
+        "",
         QBeaconFieldId, QBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -340,7 +353,133 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(true,
     (PrototypeCreateF) &TexGenChunkBase::createEmpty,
     TexGenChunk::initMethod,
     (InitalInsertDescFunc) &TexGenChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TexGenChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"Chunk for texture coordinate generation functions.\n"
+"	<Field\n"
+"		name=\"genFuncS\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"genFuncT\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"genFuncR\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"genFuncQ\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"genFuncSPlane\"\n"
+"		type=\"Vec4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,0,0,0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"genFuncTPlane\"\n"
+"		type=\"Vec4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0,1,0,0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"genFuncRPlane\"\n"
+"		type=\"Vec4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0,0,1,0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"genFuncQPlane\"\n"
+"		type=\"Vec4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0,0,0,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sBeacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"tBeacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"rBeacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"qBeacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Chunk for texture coordinate generation functions.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

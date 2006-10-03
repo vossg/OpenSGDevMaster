@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -82,6 +83,7 @@ void ShaderParameterChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFShaderParameterPtr::Description(
         MFShaderParameterPtr::getClassType(), 
         "parameters", 
+        "	parameter list\n",
         ParametersFieldId, ParametersFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -100,7 +102,41 @@ ShaderParameterChunkBase::TypeObject ShaderParameterChunkBase::_type(true,
     NULL, 
     ShaderParameterChunk::initMethod,
     (InitalInsertDescFunc) &ShaderParameterChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ShaderParameterChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"parameters\"\n"
+"		type=\"ShaderParameterPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"\n"
+"        pushToFieldAs=\"addParameter\"\n"
+"        insertIntoMFieldAs=\"insertParameter\"\n"
+"        replaceInMFieldIndexAs=\"replaceParameter\"\n"
+"        replaceInMFieldObjectAs=\"replaceParameterBy\"\n"
+"        removeFromMFieldIndexAs=\"subParameter\"\n"
+"        removeFromMFieldObjectAs=\"subParameter\"\n"
+"        clearFieldAs=\"clearParameters\"        \n"
+"	>\n"
+"	parameter list\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

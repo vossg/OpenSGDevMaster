@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -80,6 +81,7 @@ void CameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFCameraPtr::Description(
         SFCameraPtr::getClassType(), 
         "decoratee",
+        "undocumented decoratee",
         DecorateeFieldId, DecorateeFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -98,7 +100,49 @@ CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(true,
     NULL, 
     CameraDecorator::initMethod,
     (InitalInsertDescFunc) &CameraDecoratorBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Camera\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	structure=\"abstract\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"true\"\n"
+">\n"
+"The base class for the camera.\n"
+"	<Field\n"
+"		name=\"beacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The object that define's the camera's coordinate system. The camera is positioned\n"
+"	at the origin of the system and looks doen the negative z-axis (OpenGL-style).\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"near\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The near distance of the camera.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"far\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The far distance of the camera.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The base class for the camera.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

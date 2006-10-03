@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -96,6 +97,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "useVBO", 
+        "	The id used to register with the Window, 0 if not set up yet.\n",
         UseVBOFieldId, UseVBOFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -117,6 +119,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "GLId", 
+        "	The id used to register with the Window, 0 if not set up yet.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -138,6 +141,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "usage", 
+        "	The usage pattern, only valid for VBO use.\n",
         UsageFieldId, UsageFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -160,7 +164,54 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(true,
     NULL, 
     GeoProperty::initMethod,
     (InitalInsertDescFunc) &GeoPropertyBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"GeoProperty\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"Drawable\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"useVBO\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The id used to register with the Window, 0 if not set up yet.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"GLId\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The id used to register with the Window, 0 if not set up yet.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"usage\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"GL_STATIC_DRAW_ARB\"\n"
+"                defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The usage pattern, only valid for VBO use.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -82,6 +83,7 @@ void MaterialDrawableBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMaterialPtr::Description(
         SFMaterialPtr::getClassType(), 
         "material", 
+        "	The material used to render the Drawable.\n",
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -100,7 +102,32 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(true,
     NULL, 
     MaterialDrawable::initMethod,
     (InitalInsertDescFunc) &MaterialDrawableBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"MaterialDrawable\"\n"
+"	parent=\"Drawable\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"material\"\n"
+"		type=\"MaterialPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The material used to render the Drawable.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

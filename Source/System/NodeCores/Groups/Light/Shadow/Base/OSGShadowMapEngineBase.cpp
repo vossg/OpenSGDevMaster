@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -99,6 +100,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFFrameBufferObjectPtr::Description(
         SFFrameBufferObjectPtr::getClassType(), 
         "renderTarget", 
+        "",
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -116,6 +118,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "width", 
+        "",
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -137,6 +140,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "height", 
+        "",
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -158,6 +162,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(), 
         "shadowColor", 
+        "",
         ShadowColorFieldId, ShadowColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -179,6 +184,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "offsetBias", 
+        "",
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -200,6 +206,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "offsetFactor", 
+        "",
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -221,6 +228,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "updateMode", 
+        "",
         UpdateModeFieldId, UpdateModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -243,7 +251,86 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(true,
     NULL, 
     ShadowMapEngine::initMethod,
     (InitalInsertDescFunc) &ShadowMapEngineBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ShadowMapEngine\"\n"
+"	parent=\"LightEngine\"\n"
+"	library=\"RenderTrav\"\n"
+"	structure=\"abstract\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"renderTarget\"\n"
+"		type=\"FrameBufferObjectPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"width\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"512\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"height\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"512\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"shadowColor\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"Color4f(0.f, 0.f, 0.f, 1.f)\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"offsetBias\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"4.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"offsetFactor\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"10.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"updateMode\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

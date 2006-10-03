@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "fov", 
+        "	The vertical field of view, in radians.\n",
         FovFieldId, FovFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,6 +114,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "aspect", 
+        "	The aspect ratio (i.e. width / height) of a pixel.\n",
         AspectFieldId, AspectFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,7 +137,40 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(true,
     (PrototypeCreateF) &PerspectiveCameraBase::createEmpty,
     PerspectiveCamera::initMethod,
     (InitalInsertDescFunc) &PerspectiveCameraBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"PerspectiveCamera\"\n"
+"	parent=\"Camera\"\n"
+"	library=\"Window\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"A perspective camera with a symmetric frustum.\n"
+"	<Field\n"
+"		name=\"fov\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The vertical field of view, in radians.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"aspect\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"                defaultValue=\"1\"\n"
+"	>\n"
+"	The aspect ratio (i.e. width / height) of a pixel.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A perspective camera with a symmetric frustum.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

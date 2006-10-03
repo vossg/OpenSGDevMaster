@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -99,6 +100,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "red", 
+        "        Define whether the red color channel is written to.\n",
         RedFieldId, RedFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -120,6 +122,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "blue", 
+        "        Define whether the green color channel is written to.\n",
         BlueFieldId, BlueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -141,6 +144,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "green", 
+        "        Define whether the blue color channel is written to.\n",
         GreenFieldId, GreenFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -162,6 +166,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "alpha", 
+        "        Define whether the alpha color channel is written to.\n",
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -184,7 +189,64 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(true,
     (PrototypeCreateF) &ColorBufferViewportBase::createEmpty,
     ColorBufferViewport::initMethod,
     (InitalInsertDescFunc) &ColorBufferViewportBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ColorBufferViewport\"\n"
+"	parent=\"Viewport\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"A viewport used to restrict rendering to specific color channels.\n"
+"	<Field\n"
+"		name=\"red\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_TRUE\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Define whether the red color channel is written to.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"blue\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_TRUE\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Define whether the green color channel is written to.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"green\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_TRUE\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Define whether the blue color channel is written to.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"alpha\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_TRUE\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Define whether the alpha color channel is written to.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A viewport used to restrict rendering to specific color channels.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

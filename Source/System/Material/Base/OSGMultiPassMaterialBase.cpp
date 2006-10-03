@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -81,6 +82,7 @@ void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new MFMaterialPtr::Description(
         MFMaterialPtr::getClassType(), 
         "materials", 
+        "",
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -99,7 +101,33 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(true,
     (PrototypeCreateF) &MultiPassMaterialBase::createEmpty,
     MultiPassMaterial::initMethod,
     (InitalInsertDescFunc) &MultiPassMaterialBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"MultiPassMaterial\"\n"
+"	parent=\"Material\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"materials\"\n"
+"		type=\"MaterialPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        pushToFieldAs=\"addMaterial\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

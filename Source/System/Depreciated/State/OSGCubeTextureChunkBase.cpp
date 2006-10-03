@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -105,6 +106,7 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFImagePtr::Description(
         SFImagePtr::getClassType(), 
         "posZImage", 
+        "	The image for the positive Z direction for the cube tetxure.\n",
         PosZImageFieldId, PosZImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -116,6 +118,7 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFImagePtr::Description(
         SFImagePtr::getClassType(), 
         "posXImage", 
+        "	The image for the positive X direction for the cube tetxure.\n",
         PosXImageFieldId, PosXImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -127,6 +130,7 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFImagePtr::Description(
         SFImagePtr::getClassType(), 
         "negXImage", 
+        "	The image for the negative X direction for the cube tetxure.\n",
         NegXImageFieldId, NegXImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -138,6 +142,7 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFImagePtr::Description(
         SFImagePtr::getClassType(), 
         "posYImage", 
+        "	The image for the positive Y direction for the cube tetxure.\n",
         PosYImageFieldId, PosYImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -149,6 +154,7 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFImagePtr::Description(
         SFImagePtr::getClassType(), 
         "negYImage", 
+        "	The image for the negative Y direction for the cube tetxure.\n",
         NegYImageFieldId, NegYImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -166,6 +172,7 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "isReflectionMap", 
+        "",
         IsReflectionMapFieldId, IsReflectionMapFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -188,7 +195,77 @@ CubeTextureChunkBase::TypeObject CubeTextureChunkBase::_type(true,
     (PrototypeCreateF) &CubeTextureChunkBase::createEmpty,
     CubeTextureChunk::initMethod,
     (InitalInsertDescFunc) &CubeTextureChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"CubeTextureChunk\"\n"
+"	parent=\"TextureChunk\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"posZImage\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The image for the positive Z direction for the cube tetxure.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"posXImage\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The image for the positive X direction for the cube tetxure.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"negXImage\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The image for the negative X direction for the cube tetxure.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"posYImage\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The image for the positive Y direction for the cube tetxure.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"negYImage\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The image for the negative Y direction for the cube tetxure.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"isReflectionMap\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

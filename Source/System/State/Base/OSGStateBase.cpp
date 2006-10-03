@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -81,6 +82,7 @@ void StateBase::classDescInserter(TypeObject &oType)
     pDesc = new MFStateChunkPtr::Description(
         MFStateChunkPtr::getClassType(), 
         "chunks", 
+        "",
         ChunksFieldId, ChunksFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -99,7 +101,40 @@ StateBase::TypeObject StateBase::_type(true,
     (PrototypeCreateF) &StateBase::createEmpty,
     State::initMethod,
     (InitalInsertDescFunc) &StateBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"State\"\n"
+"	parent=\"FieldContainer\"\n"
+"	library=\"System\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"chunks\"\n"
+"		type=\"StateChunkPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"        checkNilPtr=\"false\"\n"
+"        linkParent=\"false\"\n"
+"        removeTo=\"NullFC\"\n"
+"        clearMField=\"true\"\n"
+"        pushToField=\"\"\n"
+"        insertIntoMField=\"\"\n"
+"        replaceInMFieldIndex=\"\"\n"
+"        replaceInMFieldObject=\"\"\n"
+"        removeFromMFieldIndex=\"\"\n"
+"        removeFromMFieldObject=\"\"\n"
+"        clearField=\"\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

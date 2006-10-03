@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -89,6 +90,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "ProjectionMatrix", 
+        "",
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -110,6 +112,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "ModelviewMatrix", 
+        "",
         ModelviewMatrixFieldId, ModelviewMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -132,7 +135,39 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(true,
     (PrototypeCreateF) &MatrixCameraBase::createEmpty,
     MatrixCamera::initMethod,
     (InitalInsertDescFunc) &MatrixCameraBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"MatrixCamera\"\n"
+"	parent=\"Camera\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"A perspective camera with a symmetric frustum. 	\n"
+"	<Field\n"
+"		name=\"ProjectionMatrix\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"ModelviewMatrix\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A perspective camera with a symmetric frustum. 	\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

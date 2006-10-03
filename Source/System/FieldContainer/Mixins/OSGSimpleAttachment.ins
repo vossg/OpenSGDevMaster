@@ -48,6 +48,7 @@ void SimpleAttachment<AttachmentDescT>::classDescInserter(TypeObject &oType)
     pDesc = new SFDesc(
         StoredFieldType::getClassType(),
         Desc::getFieldName(),
+        "",
         OSG_RC_FIELD_DESC(Self::Simple),
         false,
         Field::MFDefaultFlags,

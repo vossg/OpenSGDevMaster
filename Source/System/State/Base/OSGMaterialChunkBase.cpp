@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -135,6 +136,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "diffuse", 
+        "",
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -156,6 +158,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "ambient", 
+        "",
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -177,6 +180,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "specular", 
+        "",
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -198,6 +202,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "emission", 
+        "",
         EmissionFieldId, EmissionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -219,6 +224,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "shininess", 
+        "",
         ShininessFieldId, ShininessFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -240,6 +246,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "lit", 
+        "        Switch for using this material in lighting calculation. \n        If not set the diffuse color is used as is.\n",
         LitFieldId, LitFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -261,6 +268,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "colorMaterial", 
+        "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n",
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -282,6 +290,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "backMaterial", 
+        "        Switch for using separate material properties for front- and back-facing\n        polygons. If set to false the standard parameters will be used for front- and \n        backfaces.\n",
         BackMaterialFieldId, BackMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -303,6 +312,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "backDiffuse", 
+        "",
         BackDiffuseFieldId, BackDiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -324,6 +334,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "backAmbient", 
+        "",
         BackAmbientFieldId, BackAmbientFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -345,6 +356,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "backSpecular", 
+        "",
         BackSpecularFieldId, BackSpecularFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -366,6 +378,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "backEmission", 
+        "",
         BackEmissionFieldId, BackEmissionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -387,6 +400,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "backShininess", 
+        "",
         BackShininessFieldId, BackShininessFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -408,6 +422,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "backColorMaterial", 
+        "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n       \n",
         BackColorMaterialFieldId, BackColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -430,7 +445,143 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(true,
     (PrototypeCreateF) &MaterialChunkBase::createEmpty,
     MaterialChunk::initMethod,
     (InitalInsertDescFunc) &MaterialChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"MaterialChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"System\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"diffuse\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.f,1.f,1.f,1.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"ambient\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\".2f,.2f,.2f,1.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"specular\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\".5f,.5f,.5f,1.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"emission\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f,0.f,0.f,1.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"shininess\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"10.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"lit\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"	>\n"
+"        Switch for using this material in lighting calculation. \n"
+"        If not set the diffuse color is used as is.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"colorMaterial\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_DIFFUSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backMaterial\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"	>\n"
+"        Switch for using separate material properties for front- and back-facing\n"
+"        polygons. If set to false the standard parameters will be used for front- and \n"
+"        backfaces.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backDiffuse\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.f,1.f,1.f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backAmbient\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\".2f,.2f,.2f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backSpecular\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\".5f,.5f,.5f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backEmission\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f,0.f,0.f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backShininess\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"10.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backColorMaterial\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_DIFFUSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"	>\n"
+"        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
+"	</Field>       \n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -135,6 +136,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "statistic", 
+        "",
         StatisticFieldId, StatisticFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -156,6 +158,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "polygonMode", 
+        "",
         PolygonModeFieldId, PolygonModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -177,6 +180,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "twoSidedLighting", 
+        "",
         TwoSidedLightingFieldId, TwoSidedLightingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -198,6 +202,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "specTexLighting", 
+        "",
         SpecTexLightingFieldId, SpecTexLightingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -219,6 +224,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "sortTrans", 
+        "",
         SortTransFieldId, SortTransFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -240,6 +246,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "zWriteTrans", 
+        "",
         ZWriteTransFieldId, ZWriteTransFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -261,6 +268,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "localLights", 
+        "",
         LocalLightsFieldId, LocalLightsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -282,6 +290,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "correctTwoSidedLighting", 
+        "",
         CorrectTwoSidedLightingFieldId, CorrectTwoSidedLightingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -303,6 +312,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "occlusionCulling", 
+        "",
         OcclusionCullingFieldId, OcclusionCullingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -324,6 +334,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "antialiasing", 
+        "",
         AntialiasingFieldId, AntialiasingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -345,6 +356,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "antialiasingDistance", 
+        "",
         AntialiasingDistanceFieldId, AntialiasingDistanceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -366,6 +378,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "antialiasingScale", 
+        "",
         AntialiasingScaleFieldId, AntialiasingScaleFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -387,6 +400,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "antialiasingTrigger", 
+        "",
         AntialiasingTriggerFieldId, AntialiasingTriggerFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -408,6 +422,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "backfaceCulling", 
+        "",
         BackfaceCullingFieldId, BackfaceCullingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -429,6 +444,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "smallFeatureCulling", 
+        "",
         SmallFeatureCullingFieldId, SmallFeatureCullingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -450,6 +466,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "smallFeaturePixels", 
+        "",
         SmallFeaturePixelsFieldId, SmallFeaturePixelsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -471,6 +488,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "smallFeatureThreshold", 
+        "",
         SmallFeatureThresholdFieldId, SmallFeatureThresholdFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -493,7 +511,175 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(true,
     (PrototypeCreateF) &RenderOptionsBase::createEmpty,
     RenderOptions::initMethod,
     (InitalInsertDescFunc) &RenderOptionsBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"RenderOptions\"\n"
+"	parent=\"FieldContainerAttachment\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"statistic\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"polygonMode\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FILL\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"twoSidedLighting\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"specTexLighting\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sortTrans\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"zWriteTrans\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"localLights\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"correctTwoSidedLighting\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"occlusionCulling\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"antialiasing\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"antialiasingDistance\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.2\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"antialiasingScale\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"2.0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"antialiasingTrigger\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"backfaceCulling\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"smallFeatureCulling\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"smallFeaturePixels\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"smallFeatureThreshold\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

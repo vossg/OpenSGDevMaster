@@ -47,9 +47,10 @@ void AttachmentMixin<ParentT>::classDescInserter(TypeObject &oType)
 
     typedef typename ParentField::Description SFDesc;
 
-	pDesc = new SFDesc(
+    pDesc = new SFDesc(
         ParentField::getClassType(),
         "parents",
+        "",
         OSG_RC_FIELD_DESC(Self::Parents),
         true,
         Field::MFDefaultFlags,
@@ -60,16 +61,17 @@ void AttachmentMixin<ParentT>::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 
-	pDesc = new SFBool::Description(
+    pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "internal",
+        "",
         OSG_RC_FIELD_DESC(Self::Internal),
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&Self::editSFInternal),
         reinterpret_cast<FieldGetMethodSig >(&Self::getSFInternal),
         NULL);
- 
+
     oType.addInitialDesc(pDesc);
 }
 
@@ -87,7 +89,7 @@ AttachmentMixin<ParentT>::AttachmentMixin(void) :
 template <class ParentT> inline
 AttachmentMixin<ParentT>::AttachmentMixin(
     const AttachmentMixin &source) :
-    
+
      Inherited(source             ),
     _mfParents(source._mfParents  ),
     _sfInternal(source._sfInternal)

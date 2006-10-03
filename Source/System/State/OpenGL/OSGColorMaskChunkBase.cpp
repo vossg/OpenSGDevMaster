@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -99,6 +100,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "maskR", 
+        "	Used to mask the writing of the R value to the color   buffer.\n",
         MaskRFieldId, MaskRFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -120,6 +122,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "maskG", 
+        "	Used to mask the writing of the G value to the color   buffer.\n",
         MaskGFieldId, MaskGFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -141,6 +144,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "maskB", 
+        "	Used to mask the writing of the B value to the color   buffer.\n",
         MaskBFieldId, MaskBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -162,6 +166,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "maskA", 
+        "	Used to mask the writing of the A value to the color   buffer.\n",
         MaskAFieldId, MaskAFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -184,7 +189,65 @@ ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(true,
     (PrototypeCreateF) &ColorMaskChunkBase::createEmpty,
     ColorMaskChunk::initMethod,
     (InitalInsertDescFunc) &ColorMaskChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ColorMaskChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"The color mask chunk contains the parameters that are specific for color write.\n"
+"	<Field\n"
+"		name=\"maskR\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Used to mask the writing of the R value to the color   buffer.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"maskG\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Used to mask the writing of the G value to the color   buffer.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"maskB\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Used to mask the writing of the B value to the color   buffer.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"maskA\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Used to mask the writing of the A value to the color   buffer.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The color mask chunk contains the parameters that are specific for color write.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

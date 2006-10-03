@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -94,6 +95,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec3r::Description(
         SFVec3r::getClassType(), 
         "direction", 
+        "",
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -115,6 +117,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "spotExponent", 
+        "	The drop-off exponent of the spotlight.\n",
         SpotExponentFieldId, SpotExponentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -136,6 +139,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "spotCutOff", 
+        "	The cut-off angle of the spotlight (in radians, not degrees!).\n",
         SpotCutOffFieldId, SpotCutOffFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -158,7 +162,49 @@ SpotLightBase::TypeObject SpotLightBase::_type(true,
     (PrototypeCreateF) &SpotLightBase::createEmpty,
     SpotLight::initMethod,
     (InitalInsertDescFunc) &SpotLightBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SpotLight\"\n"
+"	parent=\"PointLight\"\n"
+"	library=\"Group\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"direction\"\n"
+"		type=\"Vec3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"        defaultValue=\"0.f,0.f,1.f\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"spotExponent\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"        defaultValue=\"0.f\"\n"
+"	>\n"
+"	The drop-off exponent of the spotlight.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"spotCutOff\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"        defaultValue=\"0.f\"\n"
+"	>\n"
+"	The cut-off angle of the spotlight (in radians, not degrees!).\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

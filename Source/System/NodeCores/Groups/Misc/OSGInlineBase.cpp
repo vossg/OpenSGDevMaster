@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -89,6 +90,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
     pDesc = new MFString::Description(
         MFString::getClassType(), 
         "url", 
+        "",
         UrlFieldId, UrlFieldMask,
         true,
         Field::MFDefaultFlags,
@@ -110,6 +112,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "loaded", 
+        "",
         LoadedFieldId, LoadedFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -132,7 +135,40 @@ InlineBase::TypeObject InlineBase::_type(true,
     (PrototypeCreateF) &InlineBase::createEmpty,
     Inline::initMethod,
     (InitalInsertDescFunc) &InlineBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Inline\"\n"
+"	parent=\"NodeCore\"\n"
+"	library=\"Group\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"url\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"loaded\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"		defaultValue=\"true\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

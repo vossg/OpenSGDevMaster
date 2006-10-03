@@ -55,7 +55,6 @@ OSG_USING_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
-
 ReflexiveContainerType::ReflexiveContainerType(bool foo,
     const Char8                *szName,
     const Char8                *szParentName,
@@ -64,8 +63,8 @@ ReflexiveContainerType::ReflexiveContainerType(bool foo,
           InitalInsertDescFunc  descInsertFunc,
           bool                  bDescsAddable) :
 
-      Inherited    (        szName, 
-                      szParentName, 
+      Inherited    (        szName,
+                      szParentName,
                        uiNameSpace),
 
     _uiGroupId     (             0),
@@ -74,7 +73,7 @@ ReflexiveContainerType::ReflexiveContainerType(bool foo,
 
     _vInitialDescs (              ),
 
-	_mDescMap      (              ),
+    _mDescMap      (              ),
     _vDescVec      (              ),
 
     _descInsertFunc(descInsertFunc)
@@ -91,7 +90,7 @@ ReflexiveContainerType::ReflexiveContainerType(
 
     _vInitialDescs (                      ),
 
-	_mDescMap      (                      ),
+    _mDescMap      (                      ),
     _vDescVec      (                      ),
 
     _descInsertFunc(source._descInsertFunc)
@@ -124,7 +123,7 @@ bool ReflexiveContainerType::initialize(void)
     }
 
     _bInitialized = initParentFields();
-    
+
     if(_bInitialized == false)
         return false;
 
@@ -135,14 +134,14 @@ bool ReflexiveContainerType::initialize(void)
 
 
     FDEBUG(("init ContainerType %s (%d)\n",
-            getCName(), 
+            getCName(),
             int(_bInitialized)));
 
     if(_vDescVec.size() > sizeof(BitVector) * 8)
     {
-        FWARNING(("FCType %s has %d (>%d) fields!\n", 
+        FWARNING(("FCType %s has %d (>%d) fields!\n",
                    getCName(),
-                  _vDescVec.size(), 
+                  _vDescVec.size(),
                    sizeof(BitVector) * 8));
     }
 
@@ -166,27 +165,27 @@ bool ReflexiveContainerType::initFields(void)
 {
     bool      returnValue = true;
     UInt32    i;
-	DescMapIt descIt;
+    DescMapIt descIt;
 
-    for(i = 0; i < _vInitialDescs.size(); i++) 
+    for(i = 0; i < _vInitialDescs.size(); i++)
     {
-        if(_vInitialDescs[i]->isValid()) 
+        if(_vInitialDescs[i]->isValid())
         {
-            descIt = 
+            descIt =
                 _mDescMap.find(IDStringLink(_vInitialDescs[i]->getCName()));
 
             if(descIt == _mDescMap.end())
             {
-                _mDescMap[IDStringLink(_vInitialDescs[i]->getCName())] = 
+                _mDescMap[IDStringLink(_vInitialDescs[i]->getCName())] =
                     _vInitialDescs[i];
 
-                _vDescVec.push_back(_vInitialDescs[i]); 
+                _vDescVec.push_back(_vInitialDescs[i]);
             }
             else
             {
-                SWARNING << "ERROR: Double field description " 
-                         << "in " << _szName.str() << "from " 
-                         << _vInitialDescs[i]->getCName() 
+                SWARNING << "ERROR: Double field description "
+                         << "in " << _szName.str() << "from "
+                         << _vInitialDescs[i]->getCName()
                          << _vInitialDescs[i]->getTypeId() << std::endl;
 
                 returnValue = false;
@@ -194,10 +193,10 @@ bool ReflexiveContainerType::initFields(void)
         }
         else
         {
-            SWARNING << "ERROR: Invalid field description " 
-                     << "in " << _szName.str() << "from " 
+            SWARNING << "ERROR: Invalid field description "
+                     << "in " << _szName.str() << "from "
                      << _vInitialDescs[i]->getTypeId() << std::endl;
-            
+
             returnValue = false;
         }
 
@@ -211,18 +210,18 @@ bool ReflexiveContainerType::initFields(void)
 bool ReflexiveContainerType::initParentFields(void)
 {
     bool      returnValue = true;
-	DescMapIt dPIt;
+    DescMapIt dPIt;
 
-    ReflexiveContainerType *pReflexParent = 
+    ReflexiveContainerType *pReflexParent =
         dynamic_cast<ReflexiveContainerType *>(_pParentType);
 
-    if(pReflexParent != NULL) 
+    if(pReflexParent != NULL)
     {
         if(pReflexParent->isInitialized() == true)
         {
             for(  dPIt  = pReflexParent->_mDescMap.begin();
-                  dPIt != pReflexParent->_mDescMap.end  (); 
-                ++dPIt) 
+                  dPIt != pReflexParent->_mDescMap.end  ();
+                ++dPIt)
             {
                 if(_mDescMap.find((*dPIt).first) == _mDescMap.end())
                 {
@@ -231,22 +230,22 @@ bool ReflexiveContainerType::initParentFields(void)
                 else
                 {
                     SWARNING << "ERROR: Can't add field "
-                             << "description a second time: " 
-                             << (*dPIt).first.str() << std::endl; 
+                             << "description a second time: "
+                             << (*dPIt).first.str() << std::endl;
                 }
-            } 				
-            
+            }
+
             _vDescVec.insert(_vDescVec.end(),
                               pReflexParent->_vDescVec.begin(),
                               pReflexParent->_vDescVec.end  ());
-            
+
         }
-        else 
+        else
         {
             SWARNING << "ERROR: parent not initialized "
-                     << "name " << _szParentName.str() 
+                     << "name " << _szParentName.str()
                      << std::endl;
-            
+
             returnValue = false;
         }
     }

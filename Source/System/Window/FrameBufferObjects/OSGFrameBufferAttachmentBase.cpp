@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -89,6 +90,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "width", 
+        "",
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -110,6 +112,7 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "height", 
+        "",
         HeightFieldId, HeightFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -132,7 +135,40 @@ FrameBufferAttachmentBase::TypeObject FrameBufferAttachmentBase::_type(true,
     NULL, 
     FrameBufferAttachment::initMethod,
     (InitalInsertDescFunc) &FrameBufferAttachmentBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"FrameBufferAttachment\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"FramebufferAttachment base class\n"
+"	<Field\n"
+"		name=\"width\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"height\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "FramebufferAttachment base class\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

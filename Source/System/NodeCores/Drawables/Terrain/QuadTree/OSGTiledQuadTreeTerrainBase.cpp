@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -130,6 +131,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new MFImagePtr::Description(
         MFImagePtr::getClassType(), 
         "heightTiles", 
+        "	Terrain tile array\n",
         HeightTilesFieldId, HeightTilesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -141,6 +143,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new MFMaterialPtr::Description(
         MFMaterialPtr::getClassType(), 
         "heightTextures", 
+        "	Terrain textures\n",
         HeightTexturesFieldId, HeightTexturesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -158,6 +161,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "sizeX", 
+        "	x-size of 2-dimensional tile array\n",
         SizeXFieldId, SizeXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -179,6 +183,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "sizeY", 
+        "	y-size of 2-dimensional tile array\n",
         SizeYFieldId, SizeYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -200,6 +205,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "heightScale", 
+        "",
         HeightScaleFieldId, HeightScaleFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -221,6 +227,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "vertexSpacing", 
+        "",
         VertexSpacingFieldId, VertexSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -242,6 +249,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "geoMorphing", 
+        "",
         GeoMorphingFieldId, GeoMorphingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -263,6 +271,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "detail", 
+        "	detail of terrain tesselation\n",
         DetailFieldId, DetailFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -284,6 +293,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "currentX", 
+        "",
         CurrentXFieldId, CurrentXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -305,6 +315,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "currentY", 
+        "",
         CurrentYFieldId, CurrentYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -326,6 +337,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "sizeROI", 
+        "	number of tiles (0, 1, 2, 3) around current eye point\n",
         SizeROIFieldId, SizeROIFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -347,6 +359,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "update", 
+        "	perform any updates (tiling, terrain tiles)\n",
         UpdateFieldId, UpdateFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -368,6 +381,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "updateTerrain", 
+        "	update terrain tiles in the next frame\n",
         UpdateTerrainFieldId, UpdateTerrainFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -389,6 +403,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "perPixelLighting", 
+        "	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals\n",
         PerPixelLightingFieldId, PerPixelLightingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -411,7 +426,158 @@ TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(true,
     (PrototypeCreateF) &TiledQuadTreeTerrainBase::createEmpty,
     TiledQuadTreeTerrain::initMethod,
     (InitalInsertDescFunc) &TiledQuadTreeTerrainBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TiledQuadTreeTerrain\"\n"
+"	parent=\"MaterialGroup\"\n"
+"	library=\"Drawable\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"Tiled terrain node core\n"
+"	<Field\n"
+"		name=\"heightTiles\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Terrain tile array\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"heightTextures\"\n"
+"		type=\"MaterialPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Terrain textures\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sizeX\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	x-size of 2-dimensional tile array\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sizeY\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	y-size of 2-dimensional tile array\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"heightScale\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"vertexSpacing\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.1f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"geoMorphing\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"detail\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"22.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	detail of terrain tesselation\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"currentX\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"currentY\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sizeROI\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	number of tiles (0, 1, 2, 3) around current eye point\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"update\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	perform any updates (tiling, terrain tiles)\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"updateTerrain\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	update terrain tiles in the next frame\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"perPixelLighting\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Tiled terrain node core\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -87,6 +88,7 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFAlgorithmPtr::Description(
         SFAlgorithmPtr::getClassType(), 
         "algorithm", 
+        "",
         AlgorithmFieldId, AlgorithmFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -104,6 +106,7 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "projectionMode", 
+        "",
         ProjectionModeFieldId, ProjectionModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -125,6 +128,7 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrix::Description(
         SFMatrix::getClassType(), 
         "projectionMatrix", 
+        "",
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -147,7 +151,52 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(true,
     (PrototypeCreateF) &AlgorithmStageBase::createEmpty,
     AlgorithmStage::initMethod,
     (InitalInsertDescFunc) &AlgorithmStageBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"AlgorithmStage\"\n"
+"	parent=\"Stage\"\n"
+"	library=\"Group\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"algorithm\"\n"
+"		type=\"AlgorithmPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"projectionMode\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0x0001\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"projectionMatrix\"\n"
+"		type=\"Matrix\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

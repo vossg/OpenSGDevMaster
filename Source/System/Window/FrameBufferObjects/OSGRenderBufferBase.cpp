@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -90,6 +91,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "GLId", 
+        "        The OpenGL texture id for this buffer object.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -111,6 +113,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "internalFormat", 
+        "",
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -133,7 +136,44 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(true,
     (PrototypeCreateF) &RenderBufferBase::createEmpty,
     RenderBuffer::initMethod,
     (InitalInsertDescFunc) &RenderBufferBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"RenderBuffer\"\n"
+"	parent=\"FrameBufferAttachment\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"Render buffer\n"
+"	<Field\n"
+"		name=\"GLId\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"		defaultValue=\"0\"\n"
+"        fieldFlags=\"FClusterLocal\"\n"
+"	>\n"
+"        The OpenGL texture id for this buffer object.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"internalFormat\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Render buffer\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

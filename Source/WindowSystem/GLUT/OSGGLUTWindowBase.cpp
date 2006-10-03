@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -86,6 +87,7 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "id", 
+        "",
         IdFieldId, IdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -108,7 +110,33 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(true,
     (PrototypeCreateF) &GLUTWindowBase::createEmpty,
     GLUTWindow::initMethod,
     (InitalInsertDescFunc) &GLUTWindowBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"GLUTWindow\"\n"
+"	parent=\"Window\"\n"
+"	library=\"WindowGLUT\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The class for GLUT-based windows.\n"
+"	<Field\n"
+"		name=\"id\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		header=\"\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The class for GLUT-based windows.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

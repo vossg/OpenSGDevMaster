@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -109,6 +110,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "width", 
+        "",
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -130,6 +132,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "height", 
+        "",
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -145,6 +148,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new MFViewportPtr::Description(
         MFViewportPtr::getClassType(), 
         "port", 
+        "",
         PortFieldId, PortFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -162,6 +166,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "resizePending", 
+        "",
         ResizePendingFieldId, ResizePendingFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -183,6 +188,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "glObjectEventCounter", 
+        "	Counter for GL object events. Needed for multi-aspect updates.\n        Is used in glObjectLastRefresh and glObjectLastReinitialize.\n",
         GlObjectEventCounterFieldId, GlObjectEventCounterFieldMask,
         true,
         (Field::FClusterLocal),
@@ -204,6 +210,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt32::Description(
         MFUInt32::getClassType(), 
         "glObjectLastRefresh", 
+        "	indicates the last refresh for the GL object\n",
         GlObjectLastRefreshFieldId, GlObjectLastRefreshFieldMask,
         true,
         (Field::FClusterLocal),
@@ -225,6 +232,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt32::Description(
         MFUInt32::getClassType(), 
         "glObjectLastReinitialize", 
+        "	indicates the last reinit for the GL object\n",
         GlObjectLastReinitializeFieldId, GlObjectLastReinitializeFieldMask,
         true,
         (Field::FClusterLocal),
@@ -247,7 +255,99 @@ WindowBase::TypeObject WindowBase::_type(true,
     NULL, 
     Window::initMethod,
     (InitalInsertDescFunc) &WindowBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Window\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The base class for all windows.\n"
+"	<Field\n"
+"		name=\"width\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"height\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"port\"\n"
+"		type=\"ViewportPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"\n"
+"        pushToFieldAs=\"addPort\"\n"
+"        insertIntoMFieldAs=\"insertPort\"\n"
+"        replaceInMFieldIndexAs=\"replacePort\"\n"
+"        replaceInMFieldObjectAs=\"replacePortyBy\"\n"
+"        removeFromMFieldIndexAs=\"subPort\"\n"
+"        removeFromMFieldObjectAs=\"subPort\"\n"
+"        clearFieldAs=\"clearPorts\"        \n"
+"        \n"
+"        linkSParent=\"true\"\n"
+"\n"
+"        checkNilPtr=\"true\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"resizePending\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"glObjectEventCounter\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"protected\"\n"
+"        fieldFlags=\"FClusterLocal\"\n"
+"	>\n"
+"	Counter for GL object events. Needed for multi-aspect updates.\n"
+"        Is used in glObjectLastRefresh and glObjectLastReinitialize.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"glObjectLastRefresh\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"        fieldFlags=\"FClusterLocal\"\n"
+"	>\n"
+"	indicates the last refresh for the GL object\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"glObjectLastReinitialize\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"        fieldFlags=\"FClusterLocal\"\n"
+"	>\n"
+"	indicates the last reinit for the GL object\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The base class for all windows.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

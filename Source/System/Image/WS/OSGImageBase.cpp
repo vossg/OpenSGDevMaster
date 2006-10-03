@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -154,6 +155,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new MFParentFieldContainerPtr::Description(
         MFParentFieldContainerPtr::getClassType(), 
         "parents", 
+        "",
         ParentsFieldId, ParentsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -171,6 +173,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "dimension", 
+        "	image dimension, 0 for invalid, 1 for 1D, 2 for 2D and     3 for 3D data.\n",
         DimensionFieldId, DimensionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -192,6 +195,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "width", 
+        "",
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -213,6 +217,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "height", 
+        "",
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -234,6 +239,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "depth", 
+        "",
         DepthFieldId, DepthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -255,6 +261,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "bpp", 
+        "",
         BppFieldId, BppFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -276,6 +283,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "mipMapCount", 
+        "",
         MipMapCountFieldId, MipMapCountFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -297,6 +305,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "frameCount", 
+        "",
         FrameCountFieldId, FrameCountFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -318,6 +327,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTime::Description(
         SFTime::getClassType(), 
         "frameDelay", 
+        "",
         FrameDelayFieldId, FrameDelayFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -339,6 +349,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "pixelFormat", 
+        "",
         PixelFormatFieldId, PixelFormatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -360,6 +371,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(), 
         "pixel", 
+        "",
         PixelFieldId, PixelFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -381,6 +393,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "frameSize", 
+        "",
         FrameSizeFieldId, FrameSizeFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -402,6 +415,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(), 
         "name", 
+        "	Texture file path\n",
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -423,6 +437,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "dataType", 
+        "	Type of image data\n",
         DataTypeFieldId, DataTypeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -444,6 +459,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "componentSize", 
+        "	Size (in byte) of a single component of the image. Necessary         for High Dynamic Range and other higher-level image types.\n",
         ComponentSizeFieldId, ComponentSizeFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -465,6 +481,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "sideCount", 
+        "",
         SideCountFieldId, SideCountFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -486,6 +503,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "sideSize", 
+        "",
         SideSizeFieldId, SideSizeFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -507,6 +525,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "forceCompressedData", 
+        "        Set to true if using the image to keep unknown data for textures.\n        Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceCompressedDataFieldId, ForceCompressedDataFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -528,6 +547,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "forceAlphaChannel", 
+        "        Set to true if using the image to keep unknown data for textures.\n        Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceAlphaChannelFieldId, ForceAlphaChannelFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -549,6 +569,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "forceColorChannel", 
+        "        Set to true if using the image to keep unknown data for textures.\n        Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceColorChannelFieldId, ForceColorChannelFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -570,6 +591,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "forceAlphaBinary", 
+        "        Set to true if using the image to prevent depth sorting for \n        SimpleTexturedMaterials using this Image.\n",
         ForceAlphaBinaryFieldId, ForceAlphaBinaryFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -592,7 +614,224 @@ ImageBase::TypeObject ImageBase::_type(true,
     (PrototypeCreateF) &ImageBase::createEmpty,
     Image::initMethod,
     (InitalInsertDescFunc) &ImageBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Image\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"1D/2D/3D Image with various pixel types data, can also optional hold mipMap and simple multi-frame data.\n"
+"	<Field\n"
+"		name=\"parents\"\n"
+"		type=\"ParentFieldContainerPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"dimension\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	image dimension, 0 for invalid, 1 for 1D, 2 for 2D and     3 for 3D data.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"width\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"height\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"depth\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"bpp\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"mipMapCount\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"frameCount\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"frameDelay\"\n"
+"		type=\"Time\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"pixelFormat\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"Image::OSG_INVALID_PF\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"pixel\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"frameSize\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"name\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture file path\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"dataType\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_UNSIGNED_BYTE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Type of image data\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"componentSize\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	Size (in byte) of a single component of the image. Necessary         for High Dynamic Range and other higher-level image types.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sideCount\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sideSize\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"forceCompressedData\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Set to true if using the image to keep unknown data for textures.\n"
+"        Generally used in conjunction with TextureChunk::externalFormat.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"forceAlphaChannel\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Set to true if using the image to keep unknown data for textures.\n"
+"        Generally used in conjunction with TextureChunk::externalFormat.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"forceColorChannel\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Set to true if using the image to keep unknown data for textures.\n"
+"        Generally used in conjunction with TextureChunk::externalFormat.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"forceAlphaBinary\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        Set to true if using the image to prevent depth sorting for \n"
+"        SimpleTexturedMaterials using this Image.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "1D/2D/3D Image with various pixel types data, can also optional hold mipMap and simple multi-frame data.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

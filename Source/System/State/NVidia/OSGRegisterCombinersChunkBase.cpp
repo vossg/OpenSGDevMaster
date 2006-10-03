@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -177,6 +178,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(), 
         "color0", 
+        "",
         Color0FieldId, Color0FieldMask,
         false,
         Field::SFDefaultFlags,
@@ -198,6 +200,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(), 
         "color1", 
+        "",
         Color1FieldId, Color1FieldMask,
         false,
         Field::SFDefaultFlags,
@@ -219,6 +222,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "colorSumClamp", 
+        "",
         ColorSumClampFieldId, ColorSumClampFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -240,6 +244,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableArgb", 
+        "	input,mapping,component Usage triples for variable A, RGB part\n",
         VariableArgbFieldId, VariableArgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -261,6 +266,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableBrgb", 
+        "",
         VariableBrgbFieldId, VariableBrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -282,6 +288,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableCrgb", 
+        "",
         VariableCrgbFieldId, VariableCrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -303,6 +310,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableDrgb", 
+        "",
         VariableDrgbFieldId, VariableDrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -324,6 +332,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableAalpha", 
+        "",
         VariableAalphaFieldId, VariableAalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -345,6 +354,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableBalpha", 
+        "",
         VariableBalphaFieldId, VariableBalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -366,6 +376,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableCalpha", 
+        "",
         VariableCalphaFieldId, VariableCalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -387,6 +398,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableDalpha", 
+        "",
         VariableDalphaFieldId, VariableDalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -408,6 +420,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "outputABrgb", 
+        "",
         OutputABrgbFieldId, OutputABrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -429,6 +442,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "outputCDrgb", 
+        "",
         OutputCDrgbFieldId, OutputCDrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -450,6 +464,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "outputSumrgb", 
+        "",
         OutputSumrgbFieldId, OutputSumrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -471,6 +486,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "scalergb", 
+        "",
         ScalergbFieldId, ScalergbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -492,6 +508,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "biasrgb", 
+        "",
         BiasrgbFieldId, BiasrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -513,6 +530,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "outputABalpha", 
+        "",
         OutputABalphaFieldId, OutputABalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -534,6 +552,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "outputCDalpha", 
+        "",
         OutputCDalphaFieldId, OutputCDalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -555,6 +574,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "outputSumalpha", 
+        "",
         OutputSumalphaFieldId, OutputSumalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -576,6 +596,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(), 
         "dotABrgb", 
+        "",
         DotABrgbFieldId, DotABrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -597,6 +618,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(), 
         "dotCDrgb", 
+        "",
         DotCDrgbFieldId, DotCDrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -618,6 +640,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(), 
         "muxSumrgb", 
+        "",
         MuxSumrgbFieldId, MuxSumrgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -639,6 +662,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "scalealpha", 
+        "",
         ScalealphaFieldId, ScalealphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -660,6 +684,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "biasalpha", 
+        "",
         BiasalphaFieldId, BiasalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -681,6 +706,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(), 
         "muxSumalpha", 
+        "",
         MuxSumalphaFieldId, MuxSumalphaFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -702,6 +728,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableE", 
+        "",
         VariableEFieldId, VariableEFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -723,6 +750,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableF", 
+        "",
         VariableFFieldId, VariableFFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -744,6 +772,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "variableG", 
+        "",
         VariableGFieldId, VariableGFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -765,6 +794,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFColor4f::Description(
         MFColor4f::getClassType(), 
         "combinerColor0", 
+        "",
         CombinerColor0FieldId, CombinerColor0FieldMask,
         false,
         Field::MFDefaultFlags,
@@ -786,6 +816,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFColor4f::Description(
         MFColor4f::getClassType(), 
         "combinerColor1", 
+        "",
         CombinerColor1FieldId, CombinerColor1FieldMask,
         false,
         Field::MFDefaultFlags,
@@ -807,6 +838,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt8::Description(
         SFUInt8::getClassType(), 
         "perStageConstants", 
+        "",
         PerStageConstantsFieldId, PerStageConstantsFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -829,7 +861,273 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(true,
     (PrototypeCreateF) &RegisterCombinersChunkBase::createEmpty,
     RegisterCombinersChunk::initMethod,
     (InitalInsertDescFunc) &RegisterCombinersChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"RegisterCombinersChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"color0\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"color1\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"colorSumClamp\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableArgb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	input,mapping,component Usage triples for variable A, RGB part\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableBrgb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableCrgb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableDrgb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableAalpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableBalpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableCalpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableDalpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"outputABrgb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"outputCDrgb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"outputSumrgb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"scalergb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"biasrgb\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"outputABalpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"outputCDalpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"outputSumalpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"dotABrgb\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"dotCDrgb\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"muxSumrgb\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"scalealpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"biasalpha\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"muxSumalpha\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableE\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableF\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"variableG\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"combinerColor0\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"combinerColor1\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"perStageConstants\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

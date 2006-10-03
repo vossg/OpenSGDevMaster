@@ -104,7 +104,7 @@ typedef const Field *(ReflexiveContainer::*FieldIndexGetMethod )(UInt32) const;
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
-class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase 
+class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -128,6 +128,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 
     FieldDescriptionBase(const FieldType       &elementType,
                          const Char8           *szName,
+                         const std::string      fieldDocumentation,
                          const UInt32           uiFieldId,
                          const BitVector        vFieldMask,
                          const bool             bInternal,
@@ -138,6 +139,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 
     FieldDescriptionBase(const FieldType           &elementType,
                          const Char8               *szName,
+                         const std::string          fieldDocumentation,
                          const UInt32               uiFieldId,
                          const BitVector            vFieldMask,
                                FieldIndexEditMethod fIndexedEditMethod,
@@ -163,7 +165,9 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     const Char8     *getCName       (void                        ) const;
     const IDString  &getName        (void                        ) const;
 
-          UInt32     getTypeId      (void                        ) const;  
+        std::string  getDocumentation (void                      ) const;
+
+          UInt32     getTypeId      (void                        ) const;
 
           BitVector  getFieldMask   (void                        ) const;
           void       setFieldMask   (ConstFieldMaskArg vFieldMask);
@@ -187,7 +191,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
-    
+
           Field *editField(      ReflexiveContainer &oContainer) const;
     const Field *getField (const ReflexiveContainer &oContainer) const;
 
@@ -196,27 +200,27 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*! \name                  Set from String                             */
     /*! \{                                                                 */
 
-    virtual void pushValueFromCString(const Char8        *str, 
+    virtual void pushValueFromCString(const Char8        *str,
                                             Field        *pField) const = 0;
 
-    virtual void pushValueToCString  (const Field        *pField, 
+    virtual void pushValueToCString  (const Field        *pField,
                                             Char8        *str   ) const = 0;
 
 
-    virtual void pushValueFromString (const std::string  &in, 
+    virtual void pushValueFromString (const std::string  &in,
                                             Field        *pField) const = 0;
 
-    virtual void pushValueToString   (const Field        *pField, 
+    virtual void pushValueToString   (const Field        *pField,
                                             std::string  &out   ) const = 0;
 
 
-    virtual void pushValueFromStream (      std::istream &str, 
+    virtual void pushValueFromStream (      std::istream &str,
                                             Field        *pField) const = 0;
 
-    virtual void pushValueToStream   (const Field        *pField, 
+    virtual void pushValueToStream   (const Field        *pField,
                                             OutStream    &str   ) const = 0;
 
-    virtual void pushSizeToStream    (const Field        *pField, 
+    virtual void pushSizeToStream    (const Field        *pField,
                                             OutStream    &str   ) const = 0;
 
 
@@ -227,7 +231,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*! \name                     Set from Field                           */
     /*! \{                                                                 */
 
-    virtual void copyValues  (const Field *pSrc, 
+    virtual void copyValues  (const Field *pSrc,
                                     Field *pDst  ) const = 0;
 
 
@@ -251,7 +255,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
-    
+
     virtual FieldDescriptionBase *clone(void) const = 0;
 
     /*! \}                                                                 */
@@ -259,7 +263,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual bool equal(const Field *lhs, 
+    virtual bool equal(const Field *lhs,
                        const Field *rhs) const = 0;
 
 
@@ -303,6 +307,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*! \{                                                                 */
 
           IDString              _szName;
+          std::string           _documentation;  /*!< Documentation for this field. */
 
     const FieldType            &_fieldType;
 
@@ -344,7 +349,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 };
 
 //---------------------------------------------------------------------------
-//   Class         
+//   Class
 //---------------------------------------------------------------------------
 
 /*! FieldDescriptionBase point less than
@@ -354,7 +359,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
 
 struct FieldDescriptionBasePLT
 {
-    bool operator()(const FieldDescriptionBase *pElemDesc1, 
+    bool operator()(const FieldDescriptionBase *pElemDesc1,
                     const FieldDescriptionBase *pElemDesc2) const;
 };
 

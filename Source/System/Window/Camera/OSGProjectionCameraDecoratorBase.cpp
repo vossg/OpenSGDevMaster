@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -106,6 +107,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "user", 
+        "	The coordinate system relative to the camera.\n",
         UserFieldId, UserFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -123,6 +125,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new MFPnt3f::Description(
         MFPnt3f::getClassType(), 
         "surface", 
+        "	4 points describing the rectangular projection surface, in the camera coordinate system. Counterclockwise, starting at lower left corner of the screen.\n",
         SurfaceFieldId, SurfaceFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -144,6 +147,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFPlane::Description(
         SFPlane::getClassType(), 
         "left", 
+        "	The left edge direction vector.\n",
         LeftFieldId, LeftFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -165,6 +169,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFPlane::Description(
         SFPlane::getClassType(), 
         "bottom", 
+        "	The bottom edge direction vector.\n",
         BottomFieldId, BottomFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -186,6 +191,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFPlane::Description(
         SFPlane::getClassType(), 
         "normal", 
+        "	The normal of the projection surface.\n",
         NormalFieldId, NormalFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -207,6 +213,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "width", 
+        "	The width of the projection screen.\n",
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -228,6 +235,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "height", 
+        "	The height of the projection screen.\n",
         HeightFieldId, HeightFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -250,7 +258,87 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(t
     (PrototypeCreateF) &ProjectionCameraDecoratorBase::createEmpty,
     ProjectionCameraDecorator::initMethod,
     (InitalInsertDescFunc) &ProjectionCameraDecoratorBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ProjectionCameraDecorator\"\n"
+"	parent=\"StereoCameraDecorator\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"The decorator for tracked projection screens.\n"
+"	<Field\n"
+"		name=\"user\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The coordinate system relative to the camera.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"surface\"\n"
+"		type=\"Pnt3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	4 points describing the rectangular projection surface, in the camera coordinate system. Counterclockwise, starting at lower left corner of the screen.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"left\"\n"
+"		type=\"Plane\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The left edge direction vector.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"bottom\"\n"
+"		type=\"Plane\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The bottom edge direction vector.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"normal\"\n"
+"		type=\"Plane\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The normal of the projection surface.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"width\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The width of the projection screen.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"height\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The height of the projection screen.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The decorator for tracked projection screens.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

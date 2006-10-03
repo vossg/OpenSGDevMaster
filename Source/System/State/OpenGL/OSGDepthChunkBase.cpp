@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -104,6 +105,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "enable", 
+        "	Whether the depth test should be enabled or not.\n",
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -125,6 +127,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "func", 
+        "	The depth function to use. If GL_NONE, it's not changed. The         default is LEQUAL.\n",
         FuncFieldId, FuncFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -146,6 +149,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "near", 
+        "	The near value for glDepthRange. Ignored if less than 0, defaults to -1.\n",
         NearFieldId, NearFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -167,6 +171,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "far", 
+        "	The far value for glDepthRange. Ignored if less than 0, defaults to -1.\n",
         FarFieldId, FarFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -188,6 +193,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "readOnly", 
+        "	Whether the depth buffer is enabled for writing or not.\n",
         ReadOnlyFieldId, ReadOnlyFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -210,7 +216,76 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(true,
     (PrototypeCreateF) &DepthChunkBase::createEmpty,
     DepthChunk::initMethod,
     (InitalInsertDescFunc) &DepthChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"DepthChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"The depth chunk contains the parameters that are specific for depth control.\n"
+"	<Field\n"
+"		name=\"enable\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Whether the depth test should be enabled or not.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"func\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_LEQUAL\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The depth function to use. If GL_NONE, it's not changed. The         default is LEQUAL.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"near\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"-1.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The near value for glDepthRange. Ignored if less than 0, defaults to -1.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"far\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"-1.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The far value for glDepthRange. Ignored if less than 0, defaults to -1.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"readOnly\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Whether the depth buffer is enabled for writing or not.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The depth chunk contains the parameters that are specific for depth control.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

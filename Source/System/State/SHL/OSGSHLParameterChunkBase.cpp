@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -81,6 +82,7 @@ void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFSHLChunkPtr::Description(
         SFSHLChunkPtr::getClassType(), 
         "SHLChunk", 
+        "",
         SHLChunkFieldId, SHLChunkFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -99,7 +101,33 @@ SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(true,
     (PrototypeCreateF) &SHLParameterChunkBase::createEmpty,
     SHLParameterChunk::initMethod,
     (InitalInsertDescFunc) &SHLParameterChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SHLParameterChunk\"\n"
+"	parent=\"ShaderParameterChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"SHLChunk\"\n"
+"		type=\"SHLChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

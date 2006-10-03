@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -87,6 +88,7 @@ void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "useCameraBeacon", 
+        "	If enabled it uses the camera beacon matrix (for cube textures)\n",
         UseCameraBeaconFieldId, UseCameraBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -109,7 +111,34 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(true,
     (PrototypeCreateF) &TextureTransformChunkBase::createEmpty,
     TextureTransformChunk::initMethod,
     (InitalInsertDescFunc) &TextureTransformChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TextureTransformChunk\"\n"
+"	parent=\"TransformChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"useCameraBeacon\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	If enabled it uses the camera beacon matrix (for cube textures)\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

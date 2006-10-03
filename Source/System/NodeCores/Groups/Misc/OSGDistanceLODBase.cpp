@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
     pDesc = new SFPnt3f::Description(
         SFPnt3f::getClassType(), 
         "center", 
+        "	The center for distance calculation.\n",
         CenterFieldId, CenterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,6 +114,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(), 
         "range", 
+        "	The range intervals.\n",
         RangeFieldId, RangeFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -134,7 +137,41 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(true,
     (PrototypeCreateF) &DistanceLODBase::createEmpty,
     DistanceLOD::initMethod,
     (InitalInsertDescFunc) &DistanceLODBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"DistanceLOD\"\n"
+"	parent=\"Group\"\n"
+"	library=\"Group\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"center\"\n"
+"		type=\"Pnt3f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The center for distance calculation.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"range\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The range intervals.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -92,6 +93,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFEGLDisplay::Description(
         SFEGLDisplay::getClassType(), 
         "display", 
+        "",
         DisplayFieldId, DisplayFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -113,6 +115,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFEGLSurface::Description(
         SFEGLSurface::getClassType(), 
         "window", 
+        "",
         WindowFieldId, WindowFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -134,6 +137,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFEGLContext::Description(
         SFEGLContext::getClassType(), 
         "context", 
+        "",
         ContextFieldId, ContextFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -156,7 +160,53 @@ EGLWindowBase::TypeObject EGLWindowBase::_type(true,
     (PrototypeCreateF) &EGLWindowBase::createEmpty,
     EGLWindow::initMethod,
     (InitalInsertDescFunc) &EGLWindowBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"EGLWindow\"\n"
+"	parent=\"Window\"\n"
+"	library=\"WindowEGL\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The class for EGL windows.\n"
+"	<Field\n"
+"		name=\"display\"\n"
+"		type=\"EGLDisplay\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		header=\"OSGEGLWindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"window\"\n"
+"		type=\"EGLSurface\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		header=\"OSGEGLWindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"context\"\n"
+"		type=\"EGLContext\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		header=\"OSGEGLWindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The class for EGL windows.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -92,6 +93,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFHWND::Description(
         SFHWND::getClassType(), 
         "hwnd", 
+        "",
         HwndFieldId, HwndFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -113,6 +115,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFHDC::Description(
         SFHDC::getClassType(), 
         "hdc", 
+        "",
         HdcFieldId, HdcFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -134,6 +137,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
     pDesc = new SFHGLRC::Description(
         SFHGLRC::getClassType(), 
         "hglrc", 
+        "",
         HglrcFieldId, HglrcFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -156,7 +160,53 @@ WIN32WindowBase::TypeObject WIN32WindowBase::_type(true,
     (PrototypeCreateF) &WIN32WindowBase::createEmpty,
     WIN32Window::initMethod,
     (InitalInsertDescFunc) &WIN32WindowBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"WIN32Window\"\n"
+"	parent=\"Window\"\n"
+"	library=\"WindowWIN32\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"The class for WIN32 windows.\n"
+"	<Field\n"
+"		name=\"hwnd\"\n"
+"		type=\"HWND\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		header=\"OSGWIN32WindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"hdc\"\n"
+"		type=\"HDC\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		header=\"OSGWIN32WindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"hglrc\"\n"
+"		type=\"HGLRC\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		header=\"OSGWIN32WindowDataFields.h\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The class for WIN32 windows.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

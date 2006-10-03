@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -87,6 +88,7 @@ void TransformBase::classDescInserter(TypeObject &oType)
     pDesc = new SFMatrixr::Description(
         SFMatrixr::getClassType(), 
         "matrix", 
+        "	The transformation matrix.\n",
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -109,7 +111,33 @@ TransformBase::TypeObject TransformBase::_type(true,
     (PrototypeCreateF) &TransformBase::createEmpty,
     Transform::initMethod,
     (InitalInsertDescFunc) &TransformBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Transform\"\n"
+"	parent=\"Group\"\n"
+"	library=\"Group\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"The basic Transformation class. Just keeps a single matrix. For more complex\n"
+"behaviour, see its descendents.\n"
+"	<Field\n"
+"		name=\"matrix\"\n"
+"		type=\"Matrixr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The transformation matrix.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The basic Transformation class. Just keeps a single matrix. For more complex\nbehaviour, see its descendents.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

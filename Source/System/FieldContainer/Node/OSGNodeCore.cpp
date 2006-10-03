@@ -56,6 +56,7 @@ void NodeCore::classDescInserter(TypeObject &oType)
     pDesc = new MFParentFieldContainerPtr::Description(
         MFParentFieldContainerPtr::getClassType(),
         "parents",
+        "A list of parents for this core.",
         OSG_RC_FIELD_DESC(NodeCore::Parents),
         true,
         Field::SFDefaultFlags,
@@ -73,7 +74,9 @@ NodeCore::TypeObject NodeCore::_type(true,
     NULL,
     NULL,
     (InitalInsertDescFunc) &NodeCore::classDescInserter,
-    false);
+    false,
+    "",
+    "Base type for all objects that can be cores for a Node.");
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
@@ -97,40 +100,40 @@ NodeCore::~NodeCore(void)
 {
 }
 
-void NodeCore::pushToField(      FieldContainerPtrConstArg pNewElement, 
+void NodeCore::pushToField(      FieldContainerPtrConstArg pNewElement,
                            const UInt32                    uiFieldId  )
 {
     Inherited::pushToField(pNewElement, uiFieldId);
 }
 
-void NodeCore::insertIntoMField(const UInt32                    uiIndex, 
-                                      FieldContainerPtrConstArg pNewElement, 
+void NodeCore::insertIntoMField(const UInt32                    uiIndex,
+                                      FieldContainerPtrConstArg pNewElement,
                                 const UInt32                    uiFieldId  )
 {
     Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
 }
 
 void NodeCore::replaceInMField(const UInt32                    uiIndex,
-                                     FieldContainerPtrConstArg pNewElement, 
+                                     FieldContainerPtrConstArg pNewElement,
                                const UInt32                    uiFieldId  )
 {
     Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
 }
 
 void NodeCore::replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                      FieldContainerPtrConstArg pNewElement, 
+                                      FieldContainerPtrConstArg pNewElement,
                                 const UInt32                    uiFieldId  )
 {
     Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
 }
 
-void NodeCore::removeFromMField(const UInt32 uiIndex, 
+void NodeCore::removeFromMField(const UInt32 uiIndex,
                                 const UInt32 uiFieldId)
 {
     Inherited::removeFromMField(uiIndex, uiFieldId);
 }
-    
-void NodeCore::removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+void NodeCore::removeFromMField(      FieldContainerPtrConstArg pElement,
                                 const UInt32                    uiFieldId)
 {
     Inherited::removeFromMField(pElement, uiFieldId);
@@ -152,7 +155,7 @@ UInt32 NodeCore::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfParents.getBinSize();
     }
-    
+
     return returnValue;
 }
 
@@ -219,8 +222,8 @@ void NodeCore::execSyncV(      FieldContainer    &oFrom,
                          const UInt32             uiSyncInfo,
                                UInt32             uiCopyOffset)
 {
-    this->execSync(static_cast<NodeCore *>(&oFrom), 
-                   whichField, 
+    this->execSync(static_cast<NodeCore *>(&oFrom),
+                   whichField,
                    syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
@@ -234,7 +237,7 @@ void NodeCore::execSyncV(      FieldContainer    &oFrom,
                                ConstFieldMaskArg  syncMode  ,
                          const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<NodeCore *>(&oFrom), 
+    this->execSync(static_cast<NodeCore *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -243,7 +246,7 @@ void NodeCore::execSyncV(      FieldContainer    &oFrom,
 #endif
 
 #if 0
-void NodeCore::execBeginEditV(ConstFieldMaskArg whichField, 
+void NodeCore::execBeginEditV(ConstFieldMaskArg whichField,
                               UInt32            uiAspect,
                               UInt32            uiContainerSize)
 {
@@ -266,7 +269,7 @@ void NodeCore::dump(      UInt32    uiIndent,
          << "("
          << std::dec
          << getContainerId(thisP)
-         << ") : " 
+         << ") : "
          << getType().getName()
          << " "
 //         << _attachmentMap.getValue().size()

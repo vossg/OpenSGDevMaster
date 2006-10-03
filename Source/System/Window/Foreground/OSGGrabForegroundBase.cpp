@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -86,6 +87,7 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFImagePtr::Description(
         SFImagePtr::getClassType(), 
         "image", 
+        "	The image to write to.\n",
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -103,6 +105,7 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "autoResize", 
+        "	Automatically resize the image when the viewport size changes.\n",
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -125,7 +128,44 @@ GrabForegroundBase::TypeObject GrabForegroundBase::_type(true,
     (PrototypeCreateF) &GrabForegroundBase::createEmpty,
     GrabForeground::initMethod,
     (InitalInsertDescFunc) &GrabForegroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"GrabForeground\"\n"
+"	parent=\"Foreground\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"Background is the base class for all background clearing.\n"
+"	<Field\n"
+"		name=\"image\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The image to write to.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"autoResize\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Automatically resize the image when the viewport size changes.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Background is the base class for all background clearing.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

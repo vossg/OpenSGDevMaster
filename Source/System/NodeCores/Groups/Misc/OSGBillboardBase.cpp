@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -98,6 +99,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec3f::Description(
         SFVec3f::getClassType(), 
         "axisOfRotation", 
+        "",
         AxisOfRotationFieldId, AxisOfRotationFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -119,6 +121,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "focusOnCamera", 
+        "",
         FocusOnCameraFieldId, FocusOnCameraFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -140,6 +143,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "alignToScreen", 
+        "",
         AlignToScreenFieldId, AlignToScreenFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -161,6 +165,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "minAngle", 
+        "",
         MinAngleFieldId, MinAngleFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -182,6 +187,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "maxAngle", 
+        "",
         MaxAngleFieldId, MaxAngleFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -204,7 +210,68 @@ BillboardBase::TypeObject BillboardBase::_type(true,
     (PrototypeCreateF) &BillboardBase::createEmpty,
     Billboard::initMethod,
     (InitalInsertDescFunc) &BillboardBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Billboard\"\n"
+"	parent=\"Group\"\n"
+"	library=\"Group\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"axisOfRotation\"\n"
+"		type=\"Vec3f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0.f, 1.f, 0.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"focusOnCamera\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"alignToScreen\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"minAngle\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"maxAngle\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"-1.0f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

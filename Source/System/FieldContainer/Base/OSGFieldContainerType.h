@@ -90,14 +90,16 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
                              PrototypeCreateF      fPrototypeCreate = NULL,
                              InitContainerF        fInitMethod      = NULL,
                              InitalInsertDescFunc  descInsertFunc   = NULL,
-                             bool                  bDescsAddable    = false);
+                             bool                  bDescsAddable    = false,
+                             std::string           fcdXML           = "",
+                             std::string           typeDoc          = "");
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~FieldContainerType(void); 
+    virtual ~FieldContainerType(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -117,6 +119,8 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
 
     FieldContainerPtr getPrototype(void                        ) const;
     //bool              setPrototype(FieldContainerPtr pPrototype);
+    std::string       getFcdXML() const;
+    std::string       getDocumentation() const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -160,7 +164,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -200,12 +204,15 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
 
     InitContainerF    _fInitMethod;
 
+    std::string       _fcdXML;   /*!< The raw xml text of the fcd describing this type. */
+    std::string       _typeDoc;  /*!< The documentation string for this type. */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-	virtual bool initialize(void);
+    virtual bool initialize(void);
     virtual void terminate (void);
 
     virtual bool initialize(InitPhase ePhase);

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -86,6 +87,7 @@ void PointLightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFPnt3r::Description(
         SFPnt3r::getClassType(), 
         "position", 
+        "",
         PositionFieldId, PositionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -108,7 +110,31 @@ PointLightBase::TypeObject PointLightBase::_type(true,
     (PrototypeCreateF) &PointLightBase::createEmpty,
     PointLight::initMethod,
     (InitalInsertDescFunc) &PointLightBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"PointLight\"\n"
+"	parent=\"Light\"\n"
+"	library=\"Group\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"position\"\n"
+"		type=\"Pnt3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"                defaultValue=\"0.f,0.f,0.f\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

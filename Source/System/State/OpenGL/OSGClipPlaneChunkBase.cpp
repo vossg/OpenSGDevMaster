@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -101,6 +102,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec4f::Description(
         SFVec4f::getClassType(), 
         "equation", 
+        "	Defines the equation of the clip plane. Standard format, if (a,b,c,d) is\n        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d \n>\n= 0.\n",
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -122,6 +124,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "enable", 
+        "	Defines activation state of the clip plane.\n",
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -137,6 +140,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "beacon", 
+        "        The object that defines the clip planes's coordinate system. The clip\n        plane is positioned relative to this system.\n",
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -155,7 +159,58 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(true,
     (PrototypeCreateF) &ClipPlaneChunkBase::createEmpty,
     ClipPlaneChunk::initMethod,
     (InitalInsertDescFunc) &ClipPlaneChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ClipPlaneChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"The clip plane chunk contains the parameter that are specific for a clip\n"
+"plane. See glClipPlane for details. 	\n"
+"	<Field\n"
+"		name=\"equation\"\n"
+"		type=\"Vec4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0, 0, 1, 0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines the equation of the clip plane. Standard format, if (a,b,c,d) is\n"
+"        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &gt;= 0.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"enable\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_TRUE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines activation state of the clip plane.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"beacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"NullFC\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        The object that defines the clip planes's coordinate system. The clip\n"
+"        plane is positioned relative to this system.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The clip plane chunk contains the parameter that are specific for a clip\nplane. See glClipPlane for details. 	\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -49,6 +49,7 @@ void AttachmentContainerMixin<ParentT>::classDescInserter(TypeObject &oType)
     pDesc = new SFDesc(
         SFAttachmentObjPtrMap::getClassType(),
         "attachments",
+        "List of attachments connected.",
         OSG_RC_FIELD_DESC(Self::Attachments),
         false,
         Field::SFDefaultFlags,
@@ -62,7 +63,7 @@ void AttachmentContainerMixin<ParentT>::classDescInserter(TypeObject &oType)
 
 template <class ParentT> inline
 void AttachmentContainerMixin<ParentT>::addAttachment(
-    const AttachmentObjPtr &pAttachment, 
+    const AttachmentObjPtr &pAttachment,
           UInt16            binding)
 {
     UInt32 key;
@@ -114,7 +115,7 @@ void AttachmentContainerMixin<ParentT>::subAttachment(
 
     if(fcI != _sfAttachments.getValue().end())
     {
-        
+
         (*fcI).second->subParent(Inherited::getPtr());
 
         subRef((*fcI).second);
@@ -124,7 +125,7 @@ void AttachmentContainerMixin<ParentT>::subAttachment(
 }
 
 template <class ParentT> inline
-typename AttachmentContainerMixin<ParentT>::AttachmentObjPtr 
+typename AttachmentContainerMixin<ParentT>::AttachmentObjPtr
     AttachmentContainerMixin<ParentT>::findAttachment(UInt32 groupId,
                                                       UInt16 binding)
 {
@@ -143,7 +144,7 @@ typename AttachmentContainerMixin<ParentT>::AttachmentObjPtr
 }
 
 template <class ParentT> inline
-typename AttachmentContainerMixin<ParentT>::AttachmentObjPtr 
+typename AttachmentContainerMixin<ParentT>::AttachmentObjPtr
     AttachmentContainerMixin<ParentT>::findAttachment(
         const FieldContainerType &type,
               UInt16              binding)
@@ -171,7 +172,7 @@ AttachmentContainerMixin<ParentT>::AttachmentContainerMixin(void) :
 template <class ParentT> inline
 AttachmentContainerMixin<ParentT>::AttachmentContainerMixin(
     const AttachmentContainerMixin &source) :
-    
+
      Inherited    (source               ),
     _sfAttachments(source._sfAttachments)
 {
@@ -183,7 +184,7 @@ AttachmentContainerMixin<ParentT>::~AttachmentContainerMixin(void)
 }
 
 template <class ParentT> inline
-void AttachmentContainerMixin<ParentT>::dump(      UInt32    uiIndent, 
+void AttachmentContainerMixin<ParentT>::dump(      UInt32    uiIndent,
                                              const BitVector bvFlags ) const
 {
     indentLog(uiIndent, PLOG);

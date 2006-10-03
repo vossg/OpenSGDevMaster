@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -75,7 +76,23 @@ BackgroundBase::TypeObject BackgroundBase::_type(true,
     NULL, 
     Background::initMethod,
     NULL,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Background\"\n"
+"	parent=\"AttachmentContainer\"\n"
+"	library=\"System\"\n"
+"	structure=\"abstract\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"Background is the base class for all background clearing.\n"
+"</FieldContainer>\n"
+,
+    "Background is the base class for all background clearing.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFColor3f::Description(
         MFColor3f::getClassType(), 
         "color", 
+        "	The colors of the gradient.\n",
         ColorFieldId, ColorFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -112,6 +114,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(), 
         "position", 
+        "	The positions of the gradient.\n",
         PositionFieldId, PositionFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -134,7 +137,42 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(true,
     (PrototypeCreateF) &GradientBackgroundBase::createEmpty,
     GradientBackground::initMethod,
     (InitalInsertDescFunc) &GradientBackgroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"GradientBackground\"\n"
+"	parent=\"Background\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"multi\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"A background showing a vertical color gradient. The colors and positions correspond to each other, so both have to have the same number of elements.\n"
+"	<Field\n"
+"		name=\"color\"\n"
+"		type=\"Color3f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The colors of the gradient.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"position\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The positions of the gradient.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A background showing a vertical color gradient. The colors and positions correspond to each other, so both have to have the same number of elements.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

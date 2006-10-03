@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "leftEye", 
+        "	Flag to distinguish between left and right eye views.\n",
         LeftEyeFieldId, LeftEyeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,6 +114,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "eyeSeparation", 
+        "	The distance between the two eyes.\n",
         EyeSeparationFieldId, EyeSeparationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,7 +137,42 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(true,
     NULL, 
     StereoCameraDecorator::initMethod,
     (InitalInsertDescFunc) &StereoCameraDecoratorBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"StereoCameraDecorator\"\n"
+"	parent=\"CameraDecorator\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"The base class for stereo decorators.\n"
+"	<Field\n"
+"		name=\"leftEye\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Flag to distinguish between left and right eye views.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"eyeSeparation\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The distance between the two eyes.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The base class for stereo decorators.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

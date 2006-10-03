@@ -59,6 +59,7 @@ void Node::classDescInserter(TypeObject &oType)
     pDesc = new SFDynamicVolume::Description(
         SFDynamicVolume::getClassType(),
         "volume",
+        "Bounding volume for the node.",
         OSG_RC_FIELD_DESC(Node::Volume),
         false,
         Field::SFDefaultFlags,
@@ -71,6 +72,7 @@ void Node::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
         "travMask",
+        "Traversal mask for the node.",
         OSG_RC_FIELD_DESC(Node::TravMask),
         false,
         Field::SFDefaultFlags,
@@ -83,6 +85,7 @@ void Node::classDescInserter(TypeObject &oType)
     pDesc = new SFParentNodePtr::Description(
         SFParentNodePtr::getClassType(),
         "parent",
+        "This node's parent.",
         OSG_RC_FIELD_DESC(Node::Parent),
         true,
         Field::SFDefaultFlags,
@@ -95,6 +98,7 @@ void Node::classDescInserter(TypeObject &oType)
     pDesc = new SFNodeCorePtr::Description(
         SFNodeCorePtr::getClassType(),
         "core",
+        "The core to use for this node.",
         OSG_RC_FIELD_DESC(Node::Core),
         false,
         Field::SFDefaultFlags,
@@ -107,6 +111,7 @@ void Node::classDescInserter(TypeObject &oType)
     pDesc = new MFNodePtr::Description(
         MFNodePtr::getClassType(),
         "children",
+        "A list of our children in the scene graph.",
         OSG_RC_FIELD_DESC(Node::Children),
         false,
         Field::MFDefaultFlags,

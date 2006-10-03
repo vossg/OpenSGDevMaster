@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -98,6 +99,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec3r::Description(
         SFVec3r::getClassType(), 
         "center", 
+        "",
         CenterFieldId, CenterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -119,6 +121,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
     pDesc = new SFQuaternionr::Description(
         SFQuaternionr::getClassType(), 
         "rotation", 
+        "",
         RotationFieldId, RotationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -140,6 +143,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec3r::Description(
         SFVec3r::getClassType(), 
         "scale", 
+        "",
         ScaleFieldId, ScaleFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -161,6 +165,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
     pDesc = new SFQuaternionr::Description(
         SFQuaternionr::getClassType(), 
         "scaleOrientation", 
+        "",
         ScaleOrientationFieldId, ScaleOrientationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -182,6 +187,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec3r::Description(
         SFVec3r::getClassType(), 
         "translation", 
+        "",
         TranslationFieldId, TranslationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -204,7 +210,58 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(true,
     (PrototypeCreateF) &ComponentTransformBase::createEmpty,
     ComponentTransform::initMethod,
     (InitalInsertDescFunc) &ComponentTransformBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ComponentTransform\"\n"
+"	parent=\"Transform\"\n"
+"	library=\"Group\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"center\"\n"
+"		type=\"Vec3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"rotation\"\n"
+"		type=\"Quaternionr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"scale\"\n"
+"		type=\"Vec3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"scaleOrientation\"\n"
+"		type=\"Quaternionr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"translation\"\n"
+"		type=\"Vec3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

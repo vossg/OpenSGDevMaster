@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -90,6 +91,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "texture", 
+        "",
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -107,6 +109,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "texTarget", 
+        "",
         TexTargetFieldId, TexTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -128,6 +131,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "level", 
+        "",
         LevelFieldId, LevelFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -149,6 +153,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "zoffset", 
+        "",
         ZoffsetFieldId, ZoffsetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -171,7 +176,59 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(true,
     (PrototypeCreateF) &TextureBufferBase::createEmpty,
     TextureBuffer::initMethod,
     (InitalInsertDescFunc) &TextureBufferBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TextureBuffer\"\n"
+"	parent=\"FrameBufferAttachment\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"Texture buffer\n"
+"	<Field\n"
+"		name=\"texture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"texTarget\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"		defaultValue=\"GL_NONE\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"level\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        defaultValue=\"0\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"zoffset\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        defaultValue=\"0\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Texture buffer\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -86,6 +87,7 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "forceTextureUnit", 
+        "",
         ForceTextureUnitFieldId, ForceTextureUnitFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -108,7 +110,32 @@ SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(true,
     (PrototypeCreateF) &SimpleShadowMapEngineBase::createEmpty,
     SimpleShadowMapEngine::initMethod,
     (InitalInsertDescFunc) &SimpleShadowMapEngineBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SimpleShadowMapEngine\"\n"
+"	parent=\"ShadowMapEngine\"\n"
+"	library=\"RenderTrav\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"forceTextureUnit\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"-1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

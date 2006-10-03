@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -92,6 +93,7 @@ void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "target", 
+        "        Texture target. Overwrite automatically determined texture target\n        based on the parameters of the assigned image if set to anything \n        else than GL_NONE. Used for nVidia's rectangle textures. Be careful\n        when using it!\n    \n",
         TargetFieldId, TargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -114,7 +116,38 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(true,
     NULL, 
     TextureBaseChunk::initMethod,
     (InitalInsertDescFunc) &TextureBaseChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TextureBaseChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"    <Field\n"
+"        name=\"target\"\n"
+"        type=\"GLenum\"\n"
+"        cardinality=\"single\"\n"
+"        visibility=\"external\"\n"
+"        defaultValue=\"GL_NONE\"\n"
+"        defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"        access=\"public\"\n"
+"    >\n"
+"        Texture target. Overwrite automatically determined texture target\n"
+"        based on the parameters of the assigned image if set to anything \n"
+"        else than GL_NONE. Used for nVidia's rectangle textures. Be careful\n"
+"        when using it!\n"
+"    </Field>\n"
+"</FieldContainer>\n"
+,
+    "    \n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

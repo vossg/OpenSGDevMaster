@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -87,6 +88,7 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(), 
         "color", 
+        "	The background color.\n",
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -109,7 +111,31 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(true,
     (PrototypeCreateF) &SolidBackgroundBase::createEmpty,
     SolidBackground::initMethod,
     (InitalInsertDescFunc) &SolidBackgroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\" ?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SolidBackground\"\n"
+"	parent=\"Background\"\n"
+"	library=\"Window\"\n"
+"	structure=\"concrete\"\n"
+"	pointerfieldtypes=\"single\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"A single colored background.\n"
+"	<Field\n"
+"		name=\"color\"\n"
+"		type=\"Color3r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"	>\n"
+"	The background color.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A single colored background.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -125,6 +126,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "size", 
+        "	The point's size in pixel.\n",
         SizeFieldId, SizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -146,6 +148,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "smooth", 
+        "	Defines if line antialiasing is used.\n",
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -167,6 +170,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "minSize", 
+        "	Minimum point size for attenuation, less than 0 for disabling it. See ARB_point_parameters extension.\n",
         MinSizeFieldId, MinSizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -188,6 +192,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "maxSize", 
+        "	Maximum point size for attenuation. See ARB_point_parameters extension.\n",
         MaxSizeFieldId, MaxSizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -209,6 +214,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "constantAttenuation", 
+        "	The point size's constant attenuation.\n",
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -230,6 +236,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "linearAttenuation", 
+        "	The point size's linear attenuation.\n",
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -251,6 +258,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "quadraticAttenuation", 
+        "	The point size's quadratic attenuation.\n",
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -272,6 +280,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "fadeThreshold", 
+        "	Minimum point size for attenuation. See ARB_point_parameters extension.\n",
         FadeThresholdFieldId, FadeThresholdFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -293,6 +302,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "sprite", 
+        "	Flag to enable point sprites, see NV_point_sprite for details.\n",
         SpriteFieldId, SpriteFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -314,6 +324,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "rMode", 
+        "",
         RModeFieldId, RModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -336,7 +347,126 @@ PointChunkBase::TypeObject PointChunkBase::_type(true,
     (PrototypeCreateF) &PointChunkBase::createEmpty,
     PointChunk::initMethod,
     (InitalInsertDescFunc) &PointChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"PointChunk\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"The point chunk contains the parameters that are specific set for points.\n"
+"	<Field\n"
+"		name=\"size\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The point's size in pixel.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"smooth\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FALSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Defines if line antialiasing is used.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"minSize\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"-1.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Minimum point size for attenuation, less than 0 for disabling it. See ARB_point_parameters extension.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"maxSize\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"-1.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Maximum point size for attenuation. See ARB_point_parameters extension.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"constantAttenuation\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The point size's constant attenuation.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"linearAttenuation\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The point size's linear attenuation.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"quadraticAttenuation\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The point size's quadratic attenuation.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"fadeThreshold\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Minimum point size for attenuation. See ARB_point_parameters extension.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"sprite\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_FALSE\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Flag to enable point sprites, see NV_point_sprite for details.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"rMode\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"GL_ZERO\"\n"
+"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "The point chunk contains the parameters that are specific set for points.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

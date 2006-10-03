@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(), 
         "iData", 
+        "	The data for the multi-properties.\n",
         IDataFieldId, IDataFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -112,6 +114,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "GLId", 
+        "	The internal GL object id for the VBO, if used.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -134,7 +137,42 @@ GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(true,
     (PrototypeCreateF) &GeoMultiPropertyDataBase::createEmpty,
     GeoMultiPropertyData::initMethod,
     (InitalInsertDescFunc) &GeoMultiPropertyDataBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"GeoMultiPropertyData\"\n"
+"	parent=\"StateChunk\"\n"
+"	library=\"Drawable\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"iData\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The data for the multi-properties.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"GLId\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		access=\"public\"\n"
+"                defaukt=\"0\"\n"
+"	>\n"
+"	The internal GL object id for the VBO, if used.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

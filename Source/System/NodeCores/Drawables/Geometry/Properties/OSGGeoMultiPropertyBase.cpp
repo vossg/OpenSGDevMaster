@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -108,6 +109,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGeoMultiPropertyDataPtr::Description(
         SFGeoMultiPropertyDataPtr::getClassType(), 
         "container", 
+        "	The data container to source off of.\n",
         ContainerFieldId, ContainerFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -125,6 +127,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "offset", 
+        "	The offset from the start of the container to the first element of this property.\n",
         OffsetFieldId, OffsetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -146,6 +149,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "iFormat", 
+        "	The OpenGL format for the data.\n",
         IFormatFieldId, IFormatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -167,6 +171,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "iDimension", 
+        "	The dimensionality of the data.\n",
         IDimensionFieldId, IDimensionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -188,6 +193,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "iSize", 
+        "	The number of elements in the data.\n",
         ISizeFieldId, ISizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -209,6 +215,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "iNormalize", 
+        "	Whether to normalize integer arguments to 0..1.\n",
         INormalizeFieldId, INormalizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -230,6 +237,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "iStride", 
+        "	The stride between elements (can be 0).\n        \nClass referencing data from a GeoMultiPropertyData container.\n",
         IStrideFieldId, IStrideFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -252,7 +260,95 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(true,
     (PrototypeCreateF) &GeoMultiPropertyBase::createEmpty,
     GeoMultiProperty::initMethod,
     (InitalInsertDescFunc) &GeoMultiPropertyBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"GeoMultiProperty\"\n"
+"	parent=\"GeoVectorProperty\"\n"
+"	library=\"Drawable\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"container\"\n"
+"		type=\"GeoMultiPropertyDataPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The data container to source off of.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"offset\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The offset from the start of the container to the first element of this property.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"iFormat\"\n"
+"		type=\"GLenum\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The OpenGL format for the data.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"iDimension\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The dimensionality of the data.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"iSize\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The number of elements in the data.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"iNormalize\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"false\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Whether to normalize integer arguments to 0..1.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"iStride\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The stride between elements (can be 0).\n"
+"	</Field>\n"
+"        \n"
+"\n"
+"Class referencing data from a GeoMultiPropertyData container.\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

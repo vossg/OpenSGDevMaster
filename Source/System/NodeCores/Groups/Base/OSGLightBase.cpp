@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -118,6 +119,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "ambient", 
+        "	The light's ambient component.\n",
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -139,6 +141,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "diffuse", 
+        "	The light's diffuse color.\n",
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -160,6 +163,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4r::Description(
         SFColor4r::getClassType(), 
         "specular", 
+        "	The light's specular color.\n",
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -175,6 +179,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "beacon", 
+        "",
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -192,6 +197,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "on", 
+        "",
         OnFieldId, OnFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -213,6 +219,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "constantAttenuation", 
+        "	The light's constant attenuation.\n",
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -234,6 +241,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "linearAttenuation", 
+        "	The light's linear attenuation.\n",
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -255,6 +263,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "quadraticAttenuation", 
+        "	The light's quadratic attenuation.\n",
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -270,6 +279,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     pDesc = new SFLightEnginePtr::Description(
         SFLightEnginePtr::getClassType(), 
         "lightEngine", 
+        "",
         LightEngineFieldId, LightEngineFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -288,7 +298,109 @@ LightBase::TypeObject LightBase::_type(true,
     NULL, 
     Light::initMethod,
     (InitalInsertDescFunc) &LightBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Light\"\n"
+"	parent=\"NodeCore\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"ambient\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f,0.f,0.f,1.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The light's ambient component.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"diffuse\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.f,1.f,1.f,1.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The light's diffuse color.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"specular\"\n"
+"		type=\"Color4r\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.f,1.f,1.f,1.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The light's specular color.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"beacon\"\n"
+"		type=\"NodePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        doRefCount=\"false\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"on\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"constantAttenuation\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The light's constant attenuation.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"linearAttenuation\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The light's linear attenuation.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"quadraticAttenuation\"\n"
+"		type=\"Real\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.f\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The light's quadratic attenuation.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"lightEngine\"\n"
+"		type=\"LightEnginePtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

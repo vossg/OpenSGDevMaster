@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -92,6 +93,7 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "choice", 
+        "	Texture selector\n",
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -107,6 +109,7 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFTextureBaseChunkPtr::Description(
         MFTextureBaseChunkPtr::getClassType(), 
         "textures", 
+        "	Texture chunks to choose from \n",
         TexturesFieldId, TexturesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -125,7 +128,42 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(true,
     (PrototypeCreateF) &TextureSelectChunkBase::createEmpty,
     TextureSelectChunk::initMethod,
     (InitalInsertDescFunc) &TextureSelectChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TextureSelectChunk\"\n"
+"	parent=\"TextureBaseChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"choice\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"		defaultValue=\"0\"\n"
+"	>\n"
+"	Texture selector\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"textures\"\n"
+"		type=\"TextureBaseChunkPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Texture chunks to choose from \n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

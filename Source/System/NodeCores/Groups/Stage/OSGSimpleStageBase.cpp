@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -122,6 +123,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "left", 
+        "	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.\n",
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -143,6 +145,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "right", 
+        "	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.\n",
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -164,6 +167,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "bottom", 
+        "	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.\n",
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -185,6 +189,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "top", 
+        "	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.\n",
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -200,6 +205,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFCameraPtr::Description(
         SFCameraPtr::getClassType(), 
         "camera", 
+        "	The Camera used to render the viewport.\n",
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -211,6 +217,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBackgroundPtr::Description(
         SFBackgroundPtr::getClassType(), 
         "background", 
+        "	The background used to clear this viewport.\n",
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -222,6 +229,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     pDesc = new MFForegroundPtr::Description(
         MFForegroundPtr::getClassType(), 
         "foregrounds", 
+        "	The foreground additions to the rendered image.\n",
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -240,7 +248,92 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(true,
     (PrototypeCreateF) &SimpleStageBase::createEmpty,
     SimpleStage::initMethod,
     (InitalInsertDescFunc) &SimpleStageBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"SimpleStage\"\n"
+"	parent=\"Stage\"\n"
+"	library=\"Group\"\n"
+"	pointerfieldtypes=\"none\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+"    isNodeCore=\"true\"\n"
+">\n"
+"	<Field\n"
+"		name=\"left\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        defaultValue=\"0.f\"\n"
+"	>\n"
+"	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"right\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        defaultValue=\"1.f\"\n"
+"	>\n"
+"	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"bottom\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        defaultValue=\"0.f\"\n"
+"	>\n"
+"	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"top\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        defaultValue=\"1.f\"\n"
+"	>\n"
+"	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"camera\"\n"
+"		type=\"CameraPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The Camera used to render the viewport.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"background\"\n"
+"		type=\"BackgroundPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The background used to clear this viewport.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"foregrounds\"\n"
+"		type=\"ForegroundPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The foreground additions to the rendered image.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -107,6 +108,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(), 
         "color", 
+        "",
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -122,6 +124,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "texture", 
+        "",
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -139,6 +142,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFPnt2f::Description(
         MFPnt2f::getClassType(), 
         "texCoords", 
+        "",
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -160,6 +164,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "radialDistortion", 
+        "",
         RadialDistortionFieldId, RadialDistortionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -181,6 +186,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFVec2f::Description(
         SFVec2f::getClassType(), 
         "centerOfDistortion", 
+        "",
         CenterOfDistortionFieldId, CenterOfDistortionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -202,6 +208,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "hor", 
+        "	horizontal subdivision\n",
         HorFieldId, HorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -223,6 +230,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "vert", 
+        "	vertical subdivision\n",
         VertFieldId, VertFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -245,7 +253,87 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(true,
     (PrototypeCreateF) &TextureBackgroundBase::createEmpty,
     TextureBackground::initMethod,
     (InitalInsertDescFunc) &TextureBackgroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"TextureBackground\"\n"
+"	parent=\"Background\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"single\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"A textured background e.g for distortion corrected fast live video from a camera with known intrinsic parameters.\n"
+"	<Field\n"
+"		name=\"color\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"texture\"\n"
+"		type=\"TextureObjChunkPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"texCoords\"\n"
+"		type=\"Pnt2f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"radialDistortion\"\n"
+"		type=\"Real32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"centerOfDistortion\"\n"
+"		type=\"Vec2f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0.5, 0.5\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"hor\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"2\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	horizontal subdivision\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"vert\"\n"
+"		type=\"UInt16\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"2\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	vertical subdivision\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "A textured background e.g for distortion corrected fast live video from a camera with known intrinsic parameters.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

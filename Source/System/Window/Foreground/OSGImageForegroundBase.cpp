@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -86,6 +87,7 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFImagePtr::Description(
         MFImagePtr::getClassType(), 
         "images", 
+        "	The images to display.\n",
         ImagesFieldId, ImagesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -103,6 +105,7 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFPnt2f::Description(
         MFPnt2f::getClassType(), 
         "positions", 
+        "	The positions of the images.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -125,7 +128,41 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(true,
     (PrototypeCreateF) &ImageForegroundBase::createEmpty,
     ImageForeground::initMethod,
     (InitalInsertDescFunc) &ImageForegroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ImageForeground\"\n"
+"	parent=\"Foreground\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+">\n"
+"Background is the base class for all background clearing. \n"
+"	<Field\n"
+"		name=\"images\"\n"
+"		type=\"ImagePtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The images to display.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"positions\"\n"
+"		type=\"Pnt2f\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The positions of the images.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Background is the base class for all background clearing. \n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

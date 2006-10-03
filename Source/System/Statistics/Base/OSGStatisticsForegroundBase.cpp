@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new MFInt32::Description(
         MFInt32::getClassType(), 
         "elementIDs", 
+        "	The StatElemDesc IDs to use. If not set, use all in the descriptor.\n",
         ElementIDsFieldId, ElementIDsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -112,6 +114,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFStatCollector::Description(
         SFStatCollector::getClassType(), 
         "collector", 
+        "        The OSG::StatisticsCollector that keeps the displayed statistics.\n",
         CollectorFieldId, CollectorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,7 +137,42 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     NULL, 
     StatisticsForeground::initMethod,
     (InitalInsertDescFunc) &StatisticsForegroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"StatisticsForeground\"\n"
+"	parent=\"Foreground\"\n"
+"	library=\"System\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"Background is the base class for all background clearing.\n"
+"	<Field\n"
+"		name=\"elementIDs\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The StatElemDesc IDs to use. If not set, use all in the descriptor.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"collector\"\n"
+"		type=\"StatCollector\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"        The OSG::StatisticsCollector that keeps the displayed statistics.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Background is the base class for all background clearing.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

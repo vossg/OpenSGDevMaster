@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -75,7 +76,24 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(true,
     (PrototypeCreateF) &FragmentProgramChunkBase::createEmpty,
     FragmentProgramChunk::initMethod,
     NULL,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"FragmentProgramChunk\"\n"
+"	parent=\"ProgramChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived FragmentProgramChunk and FragmentProgramChunk.\n"
+"</FieldContainer>\n"
+,
+    "The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived FragmentProgramChunk and FragmentProgramChunk.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -91,6 +92,7 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(), 
         "vertexProgram", 
+        "	vertex program source\n",
         VertexProgramFieldId, VertexProgramFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,6 +114,7 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(), 
         "fragmentProgram", 
+        "	fragment program source\n",
         FragmentProgramFieldId, FragmentProgramFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,7 +137,42 @@ ShaderChunkBase::TypeObject ShaderChunkBase::_type(true,
     NULL, 
     ShaderChunk::initMethod,
     (InitalInsertDescFunc) &ShaderChunkBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"ShaderChunk\"\n"
+"	parent=\"ShaderParameterChunk\"\n"
+"	library=\"State\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"abstract\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"vertexProgram\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	vertex program source\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"fragmentProgram\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	fragment program source\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

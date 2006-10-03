@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -95,6 +96,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFString::Description(
         SFString::getClassType(), 
         "name", 
+        "	The filename template. 0 is replaced by the frame number.\n",
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -116,6 +118,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "frame", 
+        "	The frame number to use.\n",
         FrameFieldId, FrameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -137,6 +140,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "increment", 
+        "	Flag to start/stop automatic frame increments after each grab.\n",
         IncrementFieldId, IncrementFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -159,7 +163,54 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(true,
     (PrototypeCreateF) &FileGrabForegroundBase::createEmpty,
     FileGrabForeground::initMethod,
     (InitalInsertDescFunc) &FileGrabForegroundBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"FileGrabForeground\"\n"
+"	parent=\"GrabForeground\"\n"
+"	library=\"Window\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+"	useLocalIncludes=\"false\"\n"
+">\n"
+"Background is the base class for all background clearing.\n"
+"	<Field\n"
+"		name=\"name\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The filename template. 0 is replaced by the frame number.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"frame\"\n"
+"		type=\"UInt32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The frame number to use.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"increment\"\n"
+"		type=\"bool\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"true\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Flag to start/stop automatic frame increments after each grab.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "Background is the base class for all background clearing.\n" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

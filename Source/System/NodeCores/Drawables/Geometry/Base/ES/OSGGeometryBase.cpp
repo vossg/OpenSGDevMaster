@@ -55,6 +55,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
 
@@ -110,6 +111,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGeoIntegralPropertyPtr::Description(
         SFGeoIntegralPropertyPtr::getClassType(), 
         "types", 
+        "        The types property contains the primitive's types. Legal values are \n        everything that can be passed to glBegin(). There have to be as many \n        types as lengths.\n",
         TypesFieldId, TypesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -121,6 +123,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGeoIntegralPropertyPtr::Description(
         SFGeoIntegralPropertyPtr::getClassType(), 
         "lengths", 
+        "        The lengths property contains the number of vertices to use for the \n        corresponding primitive. There have to be as many  lengths as types.\n",
         LengthsFieldId, LengthsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -132,6 +135,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGeoVectorPropertyPtr::Description(
         MFGeoVectorPropertyPtr::getClassType(), 
         "properties", 
+        "        The attributes used to render the geometry. The order is based on the \n        the one given in ARB_vertex_program.\n",
         PropertiesFieldId, PropertiesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -143,6 +147,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGeoIntegralPropertyPtr::Description(
         MFGeoIntegralPropertyPtr::getClassType(), 
         "propIndices", 
+        "        The indices property contains the index data. See \ref \n        PageSystemGeoIndexing for a description of the indexing options.\n",
         PropIndicesFieldId, PropIndicesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -160,6 +165,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "classicGLId", 
+        "	The dlist id for the classic rendering mode, if used.\n",
         ClassicGLIdFieldId, ClassicGLIdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -181,6 +187,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "attGLId", 
+        "	The dlist id for the attribute-based rendering mode, if used.\n",
         AttGLIdFieldId, AttGLIdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -203,7 +210,90 @@ GeometryBase::TypeObject GeometryBase::_type(true,
     (PrototypeCreateF) &GeometryBase::createEmpty,
     Geometry::initMethod,
     (InitalInsertDescFunc) &GeometryBase::classDescInserter,
-    false);
+    false,
+    "<?xml version=\"1.0\"?>\n"
+"\n"
+"<FieldContainer\n"
+"	name=\"Geometry\"\n"
+"	parent=\"MaterialDrawable\"\n"
+"	library=\"Drawable\"\n"
+"	pointerfieldtypes=\"both\"\n"
+"	structure=\"concrete\"\n"
+"	systemcomponent=\"true\"\n"
+"	parentsystemcomponent=\"true\"\n"
+"	decoratable=\"false\"\n"
+">\n"
+"	<Field\n"
+"		name=\"types\"\n"
+"		type=\"GeoIntegralPropertyPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        linkMParent=\"true\"\n"
+"	>\n"
+"        The types property contains the primitive's types. Legal values are \n"
+"        everything that can be passed to glBegin(). There have to be as many \n"
+"        types as lengths.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"lengths\"\n"
+"		type=\"GeoIntegralPropertyPtr\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        linkMParent=\"true\"\n"
+"	>\n"
+"        The lengths property contains the number of vertices to use for the \n"
+"        corresponding primitive. There have to be as many  lengths as types.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"properties\"\n"
+"		type=\"GeoVectorPropertyPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        linkMParent=\"true\"\n"
+"        checkNilPtr=\"false\"\n"
+"	>\n"
+"        The attributes used to render the geometry. The order is based on the \n"
+"        the one given in ARB_vertex_program.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"propIndices\"\n"
+"		type=\"GeoIntegralPropertyPtr\"\n"
+"		cardinality=\"multi\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"        linkMParent=\"true\"\n"
+"        checkNilPtr=\"false\"\n"
+"	>\n"
+"        The indices property contains the index data. See \ref \n"
+"        PageSystemGeoIndexing for a description of the indexing options.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"classicGLId\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The dlist id for the classic rendering mode, if used.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"attGLId\"\n"
+"		type=\"Int32\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"internal\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"protected\"\n"
+"	>\n"
+"	The dlist id for the attribute-based rendering mode, if used.\n"
+"	</Field>\n"
+"</FieldContainer>\n"
+,
+    "" 
+    );
 
 /*------------------------------ get -----------------------------------*/
 

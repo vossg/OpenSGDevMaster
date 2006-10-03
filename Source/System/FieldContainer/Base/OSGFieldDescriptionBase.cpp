@@ -57,6 +57,7 @@ OSG_USING_NAMESPACE
 FieldDescriptionBase::FieldDescriptionBase(
     const FieldType       &elementType,
     const Char8           *szName,
+    const std::string      fieldDocumentation,
     const UInt32           uiFieldId,
     const BitVector        vFieldMask,
     const bool             bInternal,
@@ -66,6 +67,7 @@ FieldDescriptionBase::FieldDescriptionBase(
     const Char8           *defaultValue) :
 
     _szName            (szName      ),
+    _documentation     (fieldDocumentation),
 
     _fieldType         (elementType ),
     _uiFieldId         (uiFieldId   ),
@@ -85,6 +87,7 @@ FieldDescriptionBase::FieldDescriptionBase(
 FieldDescriptionBase::FieldDescriptionBase(
     const FieldType            &elementType,
     const Char8                *szName,
+    const std::string           fieldDocumentation,
     const UInt32                uiFieldId,
     const BitVector             vFieldMask,
           FieldIndexEditMethod  fIndexedEditMethod,
@@ -94,6 +97,7 @@ FieldDescriptionBase::FieldDescriptionBase(
     const Char8                *defaultValue      ) :
 
     _szName            (szName            ),
+    _documentation     (fieldDocumentation),
 
     _fieldType         (elementType       ),
     _uiFieldId         (uiFieldId         ),
@@ -113,6 +117,7 @@ FieldDescriptionBase::FieldDescriptionBase(
 
 FieldDescriptionBase::FieldDescriptionBase(const FieldDescriptionBase &source):
     _szName            (source._szName            ),
+    _documentation     (source._documentation     ),
 
     _fieldType         (source._fieldType         ),
     _uiFieldId         (source._uiFieldId         ),

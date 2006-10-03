@@ -3,6 +3,7 @@
 use strict;
 
 my $gfc;
+my $gfcdXml = '';
 my $currElem;
 
 my $filePrefix    = "OSG";
@@ -397,6 +398,10 @@ sub finalize
     }
 
     $self->{Description} = $self->{description};
+    my $safe_desc = $self->{description};
+    $safe_desc =~ s/"/\\\\\\"/g;
+    $safe_desc =~ s/\n/\\\\n/g;
+    $self->{SafeDescription} = $safe_desc;
 
     $self->{SystemComponent} = $self->{systemcomponent};
 
@@ -918,6 +923,10 @@ sub finalize
 
 
     $self->{Fielddescription} = $self->{description};
+    my $safe_field_desc = $self->{description};
+    $safe_field_desc =~ s/"/\\\\\\"/g;
+    $safe_field_desc =~ s/\n/\\n/g;
+    $self->{SafeFielddescription} = $safe_field_desc;
 
     if($self->{CapsFieldtypeClean} =~ m/Ptr$/)
     {
@@ -1661,7 +1670,20 @@ my $parser = new XML::Parser( Handlers =>
 
 $parser->parsefile($inFile);
 
+open(FCD_XML_FILE, $inFile);
+my $line;
+while ( $line = <FCD_XML_FILE> )
+{
+    chomp($line);
+    # This triple backslash is to defeat post processing in
+    # OSGContainerWriter::init().
+    $line =~ s/"/\\\\\\"/g;
+    $gfcdXml .= "\"$line\\n\"\n";
+}
+close(FCD_XML_FILE);
+
 $gfc->finalize();
+$gfc->{Fcdxml} = $gfcdXml;
 
 if($verbose >= 1)
 {
