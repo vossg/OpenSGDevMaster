@@ -123,8 +123,7 @@ OSG_USING_NAMESPACE
 /*! \var UInt32 TextureChunkBase::_sfFrame
             Select the frame of the image to be used. See OSG::Image about details
         concerning multi-frame images.
-        \hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap
-        creation is slow right now. \endhint
+        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.
 
 */
 /*! \var GLenum TextureChunkBase::_sfMinFilter
@@ -445,7 +444,7 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "frame", 
-        "        Select the frame of the image to be used. See OSG::Image about details\n        concerning multi-frame images.\n        \hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap\n        creation is slow right now. \endhint\n",
+        "        Select the frame of the image to be used. See OSG::Image about details\n        concerning multi-frame images.\n        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n",
         FrameFieldId, FrameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -1594,8 +1593,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(true,
 "	>\n"
 "        Select the frame of the image to be used. See OSG::Image about details\n"
 "        concerning multi-frame images.\n"
-"        \hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap\n"
-"        creation is slow right now. \endhint\n"
+"        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"minFilter\"\n"
@@ -4116,7 +4114,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 120 2006-09-18 08:12:52Z vossg $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 219 2006-10-03 03:22:32Z allenb $";
     static Char8 cvsid_hpp       [] = OSGTEXTURECHUNKBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTURECHUNKBASE_INLINE_CVSID;
 
