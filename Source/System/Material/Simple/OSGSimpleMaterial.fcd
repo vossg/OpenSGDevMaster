@@ -9,6 +9,7 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+Wrapper around common "simple" material settings for glMaterial.
 	<Field
 		name="ambient"
 		type="Color3r"
@@ -16,6 +17,7 @@
 		visibility="external"
 		defaultValue="0.f,0.f,0.f"
 	>
+        The ambient color for the material.
 	</Field>
 	<Field
 		name="diffuse"
@@ -24,6 +26,7 @@
 		visibility="external"
 		defaultValue="0.f,0.f,0.f"
 	>
+        The diffuse color for the material.
 	</Field>
 	<Field
 		name="specular"
@@ -32,6 +35,7 @@
 		visibility="external"
 		defaultValue="0.f,0.f,0.f"
 	>
+        The color used for the specular highlight on the object.
 	</Field>
 	<Field
 		name="shininess"
@@ -39,7 +43,10 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="1.f"
+                min_value="0.0"
+                max_value="128.0"
 	>
+        The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.
 	</Field>
 	<Field
 		name="emission"
@@ -55,7 +62,10 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="0.f"
+                min_value="0.0"
+                max_value="1.0"
 	>
+        Defines how transparent objects are rendered with this material.
 	</Field>
 	<Field
 		name="lit"
@@ -72,7 +82,9 @@
 		visibility="external"
 		defaultValue="GL_DIFFUSE"
 		defaultHeader="&lt;OSGGL.h&gt;"
+                potential_values="GL_AMBIENT,GL_DIFFUSE,GL_SPECULAR,GL_AMBIENT_AND_DIFFUSE,GL_EMISSION"
 	>
+        Defines which color material mode this material affects.
 	</Field>
 </FieldContainer>
 

@@ -71,28 +71,34 @@ OSG_USING_NAMESPACE
 // Field descriptions
 
 /*! \var Color3r SimpleMaterialBase::_sfAmbient
-    
+            The ambient color for the material.
+
 */
 /*! \var Color3r SimpleMaterialBase::_sfDiffuse
-    
+            The diffuse color for the material.
+
 */
 /*! \var Color3r SimpleMaterialBase::_sfSpecular
-    
+            The color used for the specular highlight on the object.
+
 */
 /*! \var Real SimpleMaterialBase::_sfShininess
-    
+            The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.
+
 */
 /*! \var Color3r SimpleMaterialBase::_sfEmission
     
 */
 /*! \var Real SimpleMaterialBase::_sfTransparency
-    
+            Defines how transparent objects are rendered with this material.
+
 */
 /*! \var bool SimpleMaterialBase::_sfLit
     
 */
 /*! \var GLenum SimpleMaterialBase::_sfColorMaterial
-    
+            Defines which color material mode this material affects.
+
 */
 
 void SimpleMaterialBase::classDescInserter(TypeObject &oType)
@@ -109,7 +115,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(), 
         "ambient", 
-        "",
+        "        The ambient color for the material.\n",
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -131,7 +137,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(), 
         "diffuse", 
-        "",
+        "        The diffuse color for the material.\n",
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -153,7 +159,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFColor3r::Description(
         SFColor3r::getClassType(), 
         "specular", 
-        "",
+        "        The color used for the specular highlight on the object.\n",
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -175,7 +181,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "shininess", 
-        "",
+        "        The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.\n",
         ShininessFieldId, ShininessFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -219,7 +225,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal::Description(
         SFReal::getClassType(), 
         "transparency", 
-        "",
+        "        Defines how transparent objects are rendered with this material.\n",
         TransparencyFieldId, TransparencyFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -263,7 +269,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "colorMaterial", 
-        "",
+        "        Defines which color material mode this material affects.\n",
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -298,6 +304,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
 "	systemcomponent=\"true\"\n"
 "	parentsystemcomponent=\"true\"\n"
 ">\n"
+"Wrapper around common \"simple\" material settings for glMaterial.\n"
 "	<Field\n"
 "		name=\"ambient\"\n"
 "		type=\"Color3r\"\n"
@@ -305,6 +312,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"0.f,0.f,0.f\"\n"
 "	>\n"
+"        The ambient color for the material.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"diffuse\"\n"
@@ -313,6 +321,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"0.f,0.f,0.f\"\n"
 "	>\n"
+"        The diffuse color for the material.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"specular\"\n"
@@ -321,6 +330,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"0.f,0.f,0.f\"\n"
 "	>\n"
+"        The color used for the specular highlight on the object.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"shininess\"\n"
@@ -328,7 +338,10 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
 "		cardinality=\"single\"\n"
 "		visibility=\"external\"\n"
 "		defaultValue=\"1.f\"\n"
+"                min_value=\"0.0\"\n"
+"                max_value=\"128.0\"\n"
 "	>\n"
+"        The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"emission\"\n"
@@ -344,7 +357,10 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
 "		cardinality=\"single\"\n"
 "		visibility=\"external\"\n"
 "		defaultValue=\"0.f\"\n"
+"                min_value=\"0.0\"\n"
+"                max_value=\"1.0\"\n"
 "	>\n"
+"        Defines how transparent objects are rendered with this material.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"lit\"\n"
@@ -361,13 +377,15 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"GL_DIFFUSE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"                potential_values=\"GL_AMBIENT,GL_DIFFUSE,GL_SPECULAR,GL_AMBIENT_AND_DIFFUSE,GL_EMISSION\"\n"
 "	>\n"
+"        Defines which color material mode this material affects.\n"
 "	</Field>\n"
 "</FieldContainer>\n"
 "\n"
 "\n"
 ,
-    "" 
+    "Wrapper around common \"simple\" material settings for glMaterial.\n" 
     );
 
 /*------------------------------ get -----------------------------------*/
