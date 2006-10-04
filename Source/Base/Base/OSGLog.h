@@ -382,7 +382,7 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     std::fstream       _fileStream;
 
     LogBuf             _logBuf;
-    LogOStream        *_streamVec[6];
+    LogOStream        *_streamVec[7];
 
     UInt32             _headerElem;
     UInt32             _moduleHandling;
