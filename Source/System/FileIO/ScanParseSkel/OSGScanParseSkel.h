@@ -46,86 +46,96 @@
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGScanParseSkelParser.hpp"
-#include "OSGScanParseSkelBase.h"
+#include "OSGImage.h"
+
+// We have to prevent double inclusion of the scanner header file
+#ifndef TOK_HEADER
+#include "OSGScanParseSkelParser.hpp"
+#endif
+
+#include <string>
 
 #ifdef OSG_FLEX_USE_IOSTREAM_INPUT
 #include <iosfwd>
 #endif
 
 class OSGScanParseLexer;
+int OSGScanParseSkel_parse(void*);
 
 OSG_BEGIN_NAMESPACE
 
 //! Parser / Scanner Skeleton for VRML97 syntax based file formats
 //! \ingroup GrpSystemDrawablesGeometrymetryLoaderLib
 
-class OSG_SYSTEM_DLLMAPPING ScanParseSkel : public ScanParseSkelBase
+class OSG_SYSTEM_DLLMAPPING ScanParseSkel
 {
+  friend int ::OSGScanParseSkel_parse(void*);
+
     /*==========================  PUBLIC  =================================*/
   public:
 
     enum BuildInFieldType
     {
-        OSGsfBool      = TOK_SFBOOL,
-        OSGsfColor     = TOK_SFCOLOR,
-        OSGsfColorRGBA = TOK_SFCOLORRGBA,
-        OSGsfDouble    = TOK_SFDOUBLE,
-        OSGsfFloat     = TOK_SFFLOAT,
-        OSGsfImage     = TOK_SFIMAGE,
-        OSGsfInt32     = TOK_SFINT32,
-        OSGsfMatrix3d  = TOK_SFMATRIX3D,
-        OSGsfMatrix3f  = TOK_SFMATRIX3F,
-        OSGsfMatrix4d  = TOK_SFMATRIX4D,
-        OSGsfMatrix4f  = TOK_SFMATRIX4F,
-        OSGsfNode      = TOK_SFNODE,
-        OSGsfRotation  = TOK_SFROTATION,
-        OSGsfString    = TOK_SFSTRING,
-        OSGsfTime      = TOK_SFTIME,
-        OSGsfVec2d     = TOK_SFVEC2D,
-        OSGsfVec2f     = TOK_SFVEC2F,
-        OSGsfVec3d     = TOK_SFVEC3D,
-        OSGsfVec3f     = TOK_SFVEC3F,
-        OSGsfVec4d     = TOK_SFVEC4D,
-        OSGsfVec4f     = TOK_SFVEC4F,
-        OSGmfBool      = TOK_MFBOOL,
-        OSGmfColor     = TOK_MFCOLOR,
-        OSGmfColorRGBA = TOK_MFCOLORRGBA,
-        OSGmfDouble    = TOK_MFDOUBLE,
-        OSGmfFloat     = TOK_MFFLOAT,
-        OSGmfImage     = TOK_MFIMAGE,
-        OSGmfInt32     = TOK_MFINT32,
-        OSGmfMatrix3d  = TOK_MFMATRIX3D,
-        OSGmfMatrix3f  = TOK_MFMATRIX3F,
-        OSGmfMatrix4d  = TOK_MFMATRIX4D,
-        OSGmfMatrix4f  = TOK_MFMATRIX4F,
-        OSGmfNode      = TOK_MFNODE,
-        OSGmfRotation  = TOK_MFROTATION,
-        OSGmfString    = TOK_MFSTRING,
-        OSGmfTime      = TOK_MFTIME,
-        OSGmfVec2d     = TOK_MFVEC2D,
-        OSGmfVec2f     = TOK_MFVEC2F,
-        OSGmfVec3d     = TOK_MFVEC3D,
-        OSGmfVec3f     = TOK_MFVEC3F,
-        OSGmfVec4d     = TOK_MFVEC4D,
-        OSGmfVec4f     = TOK_MFVEC4F,
+        OSGsfBool      = TOK_SFBool,
+        OSGsfColor     = TOK_SFColor,
+        OSGsfColorRGBA = TOK_SFColorRGBA,
+        OSGsfDouble    = TOK_SFDouble,
+        OSGsfFloat     = TOK_SFFloat,
+        OSGsfImage     = TOK_SFImage,
+        OSGsfInt32     = TOK_SFInt32,
+        OSGsfMatrix3d  = TOK_SFMatrix3d,
+        OSGsfMatrix3f  = TOK_SFMatrix3f,
+        OSGsfMatrix4d  = TOK_SFMatrix4d,
+        OSGsfMatrix4f  = TOK_SFMatrix4f,
+        OSGsfNode      = TOK_SFNode,
+        OSGsfRotation  = TOK_SFRotation,
+        OSGsfString    = TOK_SFString,
+        OSGsfTime      = TOK_SFTime,
+        OSGsfVec2d     = TOK_SFVec2d,
+        OSGsfVec2f     = TOK_SFVec2f,
+        OSGsfVec3d     = TOK_SFVec3d,
+        OSGsfVec3f     = TOK_SFVec3f,
+        OSGsfVec4d     = TOK_SFVec4d,
+        OSGsfVec4f     = TOK_SFVec4f,
+        OSGmfBool      = TOK_MFBool,
+        OSGmfColor     = TOK_MFColor,
+        OSGmfColorRGBA = TOK_MFColorRGBA,
+        OSGmfDouble    = TOK_MFDouble,
+        OSGmfFloat     = TOK_MFFloat,
+        OSGmfImage     = TOK_MFImage,
+        OSGmfInt32     = TOK_MFInt32,
+        OSGmfMatrix3d  = TOK_MFMatrix3d,
+        OSGmfMatrix3f  = TOK_MFMatrix3f,
+        OSGmfMatrix4d  = TOK_MFMatrix4d,
+        OSGmfMatrix4f  = TOK_MFMatrix4f,
+        OSGmfNode      = TOK_MFNode,
+        OSGmfRotation  = TOK_MFRotation,
+        OSGmfString    = TOK_MFString,
+        OSGmfTime      = TOK_MFTime,
+        OSGmfVec2d     = TOK_MFVec2d,
+        OSGmfVec2f     = TOK_MFVec2f,
+        OSGmfVec3d     = TOK_MFVec3d,
+        OSGmfVec3f     = TOK_MFVec3f,
+        OSGmfVec4d     = TOK_MFVec4d,
+        OSGmfVec4f     = TOK_MFVec4f,
 
-        OSGmfColor4f   = TOK_MFCOLORRGBA,
-        OSGmfColor4i   = TOK_MFCOLOR4I,
-        OSGmfColor3f   = TOK_MFCOLOR,
-        OSGmfMatrix    = TOK_MFMATRIX4F,
-        OSGmfPnt2f     = TOK_MFPNT2F,
-        OSGmfPnt3f     = TOK_MFPNT3F,
-        OSGmfPnt4f     = TOK_MFPNT4F,
-        OSGmfPlane     = TOK_MFPLANE,
-        OSGsfColor4f   = TOK_SFCOLORRGBA,
-        OSGsfColor4i   = TOK_SFCOLOR4I,
-        OSGsfColor3f   = TOK_SFCOLOR,
-        OSGsfMatrix    = TOK_SFMATRIX4F,
-        OSGsfPnt2f     = TOK_SFPNT2F,
-        OSGsfPnt3f     = TOK_SFPNT3F,
-        OSGsfPnt4f     = TOK_SFPNT4F,
-        OSGsfPlane     = TOK_SFPLANE,
-        OSGsfVolume    = TOK_SFVOLUME
+        OSGmfColor4f   = TOK_MFColorRGBA,
+        OSGmfColor4i   = TOK_MFColor4i,
+        OSGmfColor3f   = TOK_MFColor,
+        OSGmfMatrix    = TOK_MFMatrix4f,
+        OSGmfPnt2f     = TOK_MFPnt2f,
+        OSGmfPnt3f     = TOK_MFPnt3f,
+        OSGmfPnt4f     = TOK_MFPnt4f,
+        OSGmfPlane     = TOK_MFPlane,
+        OSGsfColor4f   = TOK_SFColorRGBA,
+        OSGsfColor4i   = TOK_SFColor4i,
+        OSGsfColor3f   = TOK_SFColor,
+        OSGsfMatrix    = TOK_SFMatrix4f,
+        OSGsfPnt2f     = TOK_SFPnt2f,
+        OSGsfPnt3f     = TOK_SFPnt3f,
+        OSGsfPnt4f     = TOK_SFPnt4f,
+        OSGsfPlane     = TOK_SFPlane,
+        OSGsfVolume    = TOK_SFVolume
     };
 
     enum
@@ -152,16 +162,15 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel : public ScanParseSkelBase
     /*! \{                                                                 */
 
 #ifdef OSG_FLEX_USE_IOSTREAM_INPUT
-    virtual       void   scanStream (      std::istream &is         );
+    virtual       void   scanStream (      std::istream &is        );
 #endif
 
-    virtual       void   scanFile   (const Char8        *szFilename );
+    virtual       void   scanFile   (const Char8        *szFilename);
 
-    virtual       Int32  lex        (      void                     );
-    virtual const Char8 *getText    (      void                     );
-                  void   expectType (      Int32         iNextType  ); 
+    virtual       Int32  lex        (      YYSTYPE *lvalp          );
+    virtual const Char8 *getText    (      void                    );
 
-    virtual       void   handleError(const Char8        *szErrorText);
+    virtual       void   handleError(const Char8       *szErrorText);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -240,6 +249,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel : public ScanParseSkelBase
     virtual void endNode  (void);
 
     virtual void nullNode (void);
+
     virtual void use      (const Char8 *szName);
     virtual void is       (const Char8 *szName);
 
@@ -248,27 +258,82 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel : public ScanParseSkelBase
     /*! \name                     Misc                                     */
     /*! \{                                                                 */
 
-    virtual void addFieldValue    (const Char8 *szFieldVal     );
+    virtual void addFieldValue(const Char8 *szFieldVal);
 
-    virtual void addRoute         (const Char8 *szOutNodename,
-                                   const Char8 *szOutFieldname,
-                                   const Char8 *szInNodename,
-                                   const Char8 *szInFieldname  );
+    virtual void addBoolValue(bool b);
 
-    virtual void profileElement   (const Char8 *szProfileName  );
+    virtual void addColorValue(const Color3f &c);
+
+    virtual void addColorRGBAValue(const Color4f &c);
+
+    virtual void addDoubleValue(Real64 d);
+
+    virtual void addFloatValue(Real32 f);
+
+    virtual void addImageValue(ImagePtr &img);
+
+    virtual void addInt32Value(Int32 i);
+
+    virtual void addMatrix3dValue(Real64 m00, Real64 m10, Real64 m20,
+                                  Real64 m01, Real64 m11, Real64 m21,
+                                  Real64 m02, Real64 m12, Real64 m22);
+
+    virtual void addMatrix3fValue(Real32 m00, Real32 m10, Real32 m20,
+                                  Real32 m01, Real32 m11, Real32 m21,
+                                  Real32 m02, Real32 m12, Real32 m22);
+
+    virtual void addMatrix4dValue(const Matrix4d &m);
+
+    virtual void addMatrix4fValue(const Matrix4f &m);
+
+    virtual void addRotationValue(const Vec3f &axis, Real32 angle);
+
+    virtual void addStringValue(const std::string &s);
+
+    virtual void addTimeValue(Time t);
+
+    virtual void addVec2dValue(const Vec2d &v);
+
+    virtual void addVec2fValue(const Vec2f &v);
+
+    virtual void addVec3dValue(const Vec3d &v);
+
+    virtual void addVec3fValue(const Vec3f &v);
+
+    virtual void addVec4dValue(const Vec4d &v);
+
+    virtual void addVec4fValue(const Vec4f &v);
+
+    virtual void addColor4iValue(const Color4ub &c);
+
+    virtual void addPnt2fValue(const Pnt2f &p);
+
+    virtual void addPnt3fValue(const Pnt3f &p);
+
+    virtual void addPnt4fValue(const Pnt4f &p);
+
+    virtual void addPlaneValue(const Plane &p);
+
+    virtual void addVolumeValue(const DynamicVolume &v);
+
+    virtual void addRoute     (const Char8 *szOutNodename,
+                               const Char8 *szOutFieldname,
+                               const Char8 *szInNodename,
+                               const Char8 *szInFieldname);
+
+    virtual void profileElement   (const Char8 *szProfileName);
 
     virtual void componentElement (const Char8 *szComponentName);
 
     virtual void metaElement      (const Char8 *szMetaKey,
-                                   const Char8 *szMetaValue    );
+                                   const Char8 *szMetaValue);
 
     virtual void importElement    (const Char8 *szInlineName,
                                    const Char8 *szNodeName,
-                                   const Char8 *szImportAs     );
+                                   const Char8 *szImportAs   );
 
     virtual void exportElement    (const Char8 *szNodeName,
-                                   const Char8 *szExportAs     );
-
+                                   const Char8 *szExportAs   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -281,6 +346,8 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel : public ScanParseSkelBase
                                       const Int32  iFieldTypeId);
 
     virtual UInt32 getFieldType      (const Char8 *szFieldname);
+
+    OSGScanParseLexer *getLexer(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -308,6 +375,23 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel : public ScanParseSkelBase
     ScanParseSkel(const ScanParseSkel &source);
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const ScanParseSkel &source);
+
+    std::string _tmpString1, _tmpString2, _tmpString3;
+    Real32 _tmpFloat1, _tmpFloat2, _tmpFloat3, _tmpFloat4;
+
+    void beginValue();
+
+    void appendValue();
+
+    void beginImage(Int32 width, Int32 height, Int32 components);
+
+    void addImagePixel(Int32 pixel);
+
+    void endImage();
+
+    ImagePtr _image;
+
+    UInt8 *_imageDataPtr;
 };
 
 //---------------------------------------------------------------------------
@@ -319,4 +403,3 @@ OSG_END_NAMESPACE
 #define OSGSCANPARSESKEL_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSCANPARSESKEL_H_ */
-

@@ -45,13 +45,6 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "OSGConfig.h"
-
-#include <iostream>
-
 #include "OSGScanParseLexer.h"
 
 OSG_USING_NAMESPACE
@@ -102,21 +95,14 @@ OSG_USING_NAMESPACE
 
 /*------------- constructors & destructors --------------------------------*/
 
-OSGScanParseLexer::OSGScanParseLexer(OSG::ScanParseSkelBase *pSkelBase,
-                                     std::istream           *arg_yyin, 
+OSGScanParseLexer::OSGScanParseLexer(std::istream           *arg_yyin,
                                      std::ostream           *arg_yyout) :
-     Inherited       (arg_yyin, 
+     Inherited       (arg_yyin,
                       arg_yyout),
 
-    _pSkelBase       (pSkelBase),
-
-    expectToken      (        0),        
-    parsing_mf       (        0),     
-    imageIntsExpected(        0),
-    imageIntsParsed  (        0),
-
-    iCommentDepth    (        0),
-    iLastState       (        0)
+    lvalp            (        0),
+    expectToken      (        0),
+    imageIntsExpected(        0)
 {
 }
 
@@ -125,11 +111,6 @@ OSGScanParseLexer::~OSGScanParseLexer(void)
 }
 
 /*------------------------------ access -----------------------------------*/
-
-void OSGScanParseLexer::expectType(OSG::Int32 iType)
-{
-    expectToken = iType;
-}
 
 /*---------------------------- properties ---------------------------------*/
 
@@ -151,9 +132,8 @@ void OSGScanParseLexer::expectType(OSG::Int32 iType)
 #pragma warning( disable : 177 )
 #endif
 
-namespace 
+namespace
 {
     static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGSCANPARSELEXER_HEADER_CVSID;
 }
-

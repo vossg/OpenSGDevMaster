@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2006 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,6 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+/* Author: Patrick Daehne */
+
 %{
 
 #ifdef OSG_WIN32_ICL
@@ -44,12 +46,9 @@
 
 #define YY_NEVER_INTERACTIVE 1
 
-#include <OSGScanParseSkelParser.hpp>
-#include <OSGScanParseLexer.h>
-#include <OSGConfig.h>
-#include <OSGLog.h>
+#include "OSGScanParseLexer.h"
 
-OSG_USING_NAMESPACE
+//OSG_BEGIN_NAMESPACE
 
 #ifdef __sgi
 #pragma set woff 1174,1552,1110,1209
@@ -61,21 +60,20 @@ OSG_USING_NAMESPACE
 
 // This function removes leading and trailing quotes from strings
 // as well as the escape sequences \\ and \"
-static void removeEscapeSequences(char *s)
+static char *stripEscapes(char *s)
 {
-    char *src = s + 1; // strip leading quote
-    char *dst = s;
-    while (*src != '"')
+    char *src = s + 1, *dst = s;
+    while (true)
     {
-        if (*src == '\\')
-        {
-            ++src;
-            if ((*src != '"') && (*src != '\\'))
-                *dst++ = '\\';
-        }
-        *dst++ = *src++;
+        char c = *src++;
+        if ((c == '\\') && ((*src == '\\') || (*src == '"')))
+            c = *src++;
+        else if (c == '"')
+            break;
+        *dst++ = c;
     }
     *dst = '\0';
+    return s;
 }
 
 %}
@@ -84,1473 +82,171 @@ static void removeEscapeSequences(char *s)
 %option noyywrap
 %option yylineno
 
-%x NODE
+%s NODE
+%s HEADER
 
-
-%x sfboolValue     sfcolorValue    sfcolorrgbaValue sfdoubleValue   sffloatValue
-%x sfimageValue    sfint32Value    sfmatrix3dValue  sfmatrix3fValue sfmatrix4dValue
-%x sfmatrix4fValue sfrotationValue sfstringValue    sftimeValue     sfvec2dValue
-%x sfvec2fValue    sfvec3dValue    sfvec3fValue     sfvec4dValue    sfvec4fValue
-%x mfboolValue     mfcolorValue    mfcolorrgbaValue mfdoubleValue   mffloatValue
-%x mfimageValue    mfint32Value    mfmatrix3dValue  mfmatrix3fValue mfmatrix4dValue
-%x mfmatrix4fValue mfrotationValue mfstringValue    mftimeValue     mfvec2dValue
-%x mfvec2fValue    mfvec3dValue    mfvec3fValue     mfvec4dValue    mfvec4fValue
-%x IN_SFIMG IN_MFIMG
-
-
-%x sfpnt2fValue sfpnt3fValue sfpnt4fValue
-%x sfplaneValue sfvolumeValue sfcolor4iValue
-
-%x mfpnt2fValue mfpnt3fValue mfpnt4fValue
-%x mfplaneValue mfcolor4iValue
-
-%x EXTERROR
-
-/* float  ::= ([+/-]?((([0-9]+(\.)?)|([0-9]*\.[0-9]+))([eE][+\-]?[0-9]+)?)) */
-/* double ::= ([+/-]?((([0-9]+(\.)?)|([0-9]*\.[0-9]+))([eE][+\-]?[0-9]+)?)) */
-
-float ([+\-]?((([0-9]+(\.)?)|([0-9]*\.[0-9]+))([eE][+\-]?[0-9]+)?))
-
-/* int32 ::= ([+\-]?(([0-9]+)|(0[xX][0-9a-fA-F]+))) */
-
-int32 ([+\-]?(([0-9]+)|(0[xX][0-9a-fA-F]+)))
-
- /* dass an der betreffenden Stelle ein Zeilentrenner auftritt. */
-ws ([ \t\r\n,]|(#.*))+
-
- /* Gleiches Erkennungsmuster ohne Erkennung des Zeilentrenners */
-wsnnl ([ \t\r,]|(#.*))
-
-nl (\n)
-
-/*
-Id ::=
-     IdFirstChar |
-     IdFirstChar IdRestChars ;
-IdFirstChar ::=
-     Any ISO-10646 character encoded using UTF-8 except: 0x30-0x39,
-     0x0-0x20, 0x22, 0x23, 0x27, 0x2b, 0x2c, 0x2d, 0x2e, 0x5b, 0x5c, 0x5d,
-     0x7b, 0x7d, 0x7f ;
-IdRestChars ::=
-     Any number of ISO-10646 characters except: 0x0-0x20, 0x22, 0x23, 0x27,
-     0x2c, 0x2e, 0x5b, 0x5c, 0x5d, 0x7b, 0x7d, 0x7f ;
-*/
-
-IdFirstChar ([^\x30-\x39\x00-\x20\x22\x23\x27\x2b-\x2e\x5b-\x5d\x7b\x7d])
-IdRestChar  ([^\x00-\x20\x22\x23\x27\x2c\x2e\x5b-\x5d\x7b\x7d])
-
-header (#[^\n]*\n)
+hex         [+\-]?0[xX][0-9a-fA-F]+
+int32       [+\-]?[0-9]+
+double      [+\-]?((([0-9]+(\.)?)|([0-9]*\.[0-9]+))([eE][+\-]?[0-9]+)?)
+string      \"([^\\"]|(\\(.|\n)))*\"
+    /* Not VRML conformant */
+IdFirstChar [^\x00-\x19 "#'+,\-.0-9[\\\]{}\x7f]
+    /* Not VRML conformant */
+IdRestChar  [^\x00-\x19 "#',.[\\\]{}\x7f]
+Id          {IdFirstChar}{IdRestChar}*
+comment     #.*
+ws          [\r\n \t,]|{comment}
+utf8bom     \xef\xbb\xbf
 
 %%
 
 %{
-
- /*   In neuen Startzustand gehen, wenn der Parser */
- /*   erkannt hat, dass gerade ein Feldname gelesen */
- /*   wurde. Jetzt kann entweder der Wert eines */
- /*   Feldes oder ein "IS" gelesen werden. */
-
-//    FWARNING(("LEX--> Start State %d\n", expectToken));
-
-    if(expectToken != 0)
-    {   
-        switch(expectToken)
-        {
-            case TOK_SFBOOL:      BEGIN sfboolValue;         break;
-            case TOK_SFCOLOR:     BEGIN sfcolorValue;        break;
-            case TOK_SFCOLORRGBA: BEGIN sfcolorrgbaValue;    break;
-            case TOK_SFDOUBLE:    BEGIN sfdoubleValue;       break;
-            case TOK_SFFLOAT:     BEGIN sffloatValue;        break;
-            case TOK_SFIMAGE:     BEGIN sfimageValue;        break;
-            case TOK_SFINT32:     BEGIN sfint32Value;        break;
-            case TOK_SFMATRIX3D:  BEGIN sfmatrix3dValue;     break;
-            case TOK_SFMATRIX3F:  BEGIN sfmatrix3fValue;     break;
-            case TOK_SFMATRIX4D:  BEGIN sfmatrix4dValue;     break;
-            case TOK_SFMATRIX4F:  BEGIN sfmatrix4fValue;     break;
-            case TOK_SFROTATION:  BEGIN sfrotationValue;     break;
-            case TOK_SFSTRING:    BEGIN sfstringValue;       break;
-            case TOK_SFTIME:      BEGIN sftimeValue;         break;
-            case TOK_SFVEC2D:     BEGIN sfvec2dValue;        break;
-            case TOK_SFVEC2F:     BEGIN sfvec2fValue;        break;
-            case TOK_SFVEC3D:     BEGIN sfvec3dValue;        break;
-            case TOK_SFVEC3F:     BEGIN sfvec3fValue;        break;
-            case TOK_SFVEC4D:     BEGIN sfvec4dValue;        break;
-            case TOK_SFVEC4F:     BEGIN sfvec4fValue;        break;
-            case TOK_MFBOOL:      BEGIN mfboolValue;         break;
-            case TOK_MFCOLOR:     BEGIN mfcolorValue;        break;
-            case TOK_MFCOLORRGBA: BEGIN mfcolorrgbaValue;    break;
-            case TOK_MFDOUBLE:    BEGIN mfdoubleValue;       break;
-            case TOK_MFFLOAT:     BEGIN mffloatValue;        break;
-            case TOK_MFIMAGE:     BEGIN mfimageValue;        break;
-            case TOK_MFINT32:     BEGIN mfint32Value;        break;
-            case TOK_MFMATRIX3D:  BEGIN mfmatrix3dValue;     break;
-            case TOK_MFMATRIX3F:  BEGIN mfmatrix3fValue;     break;
-            case TOK_MFMATRIX4D:  BEGIN mfmatrix4dValue;     break;
-            case TOK_MFMATRIX4F:  BEGIN mfmatrix4fValue;     break;
-            case TOK_MFROTATION:  BEGIN mfrotationValue;     break;
-            case TOK_MFSTRING:    BEGIN mfstringValue;       break;
-            case TOK_MFTIME:      BEGIN mftimeValue;         break;
-            case TOK_MFVEC2D:     BEGIN mfvec2dValue;        break;
-            case TOK_MFVEC2F:     BEGIN mfvec2fValue;        break;
-            case TOK_MFVEC3D:     BEGIN mfvec3dValue;        break;
-            case TOK_MFVEC3F:     BEGIN mfvec3fValue;        break;
-            case TOK_MFVEC4D:     BEGIN mfvec4dValue;        break;
-            case TOK_MFVEC4F:     BEGIN mfvec4fValue;        break;
-
-                /*SFNode- und MFNode-Felder werden gesondert behandelt. */
-                /*Dabei wird dem Parser vom Lexer nur sogenannte Marker- */
-                /*Token zurueckgegeben, damit der Parser erkennt, um welchen */
-                /*Typ Feld es sich handelt. Im Gegensatz zu anderen Feldern */
-                /*werden SFNode- und MFNode-Felder im Parser behandelt. */
-
-            case TOK_MFNODE: expectToken = 0; return TOK_MFNODE;
-            case TOK_SFNODE: expectToken = 0; return TOK_SFNODE;
-
-                /* extended Field Types */
-
-            case TOK_MFCOLOR4I: BEGIN mfcolor4iValue; break;
-            case TOK_SFCOLOR4I: BEGIN sfcolor4iValue; break;
-            case TOK_MFPNT2F:   BEGIN mfpnt2fValue;   break;
-            case TOK_SFPNT2F:   BEGIN sfpnt2fValue;   break;
-            case TOK_MFPNT3F:   BEGIN mfpnt3fValue;   break;
-            case TOK_SFPNT3F:   BEGIN sfpnt3fValue;   break;
-            case TOK_MFPNT4F:   BEGIN mfpnt4fValue;   break;
-            case TOK_SFPNT4F:   BEGIN sfpnt4fValue;   break;
-            case TOK_MFPLANE:   BEGIN mfplaneValue;   break;
-            case TOK_SFPLANE:   BEGIN sfplaneValue;   break;
-            case TOK_SFVOLUME:  BEGIN sfvolumeValue;  break;
-
-            default: 
-                FWARNING(("ACK: Bad expectToken")); 
-                break;
-        }
+    if (expectToken != 0)
+    {
+        int tmp = expectToken;
+        expectToken = 0;
+        return tmp;
     }
 %}
 
- /* Detect optional UTF8 byte order mark */
-<INITIAL>^\xef\xbb\xbf { return UTF8BOM; }
-
- /* Header der VRML-Datei erkennen */
-<INITIAL>{header} { if(_pSkelBase != NULL)
-                    {
-                      if(_pSkelBase->verifyHeader(yytext) != true)
-                      {
-                          BEGIN EXTERROR;
-                      }
-                      else
-                      {
-                          BEGIN NODE; 
-                      }
-                    }
-                  }
-
-<*>"IS" { BEGIN NODE; expectToken = 0; return IS; }
-
- /* Der Lexer ist im Zustand NODE, wenn Knosten gelesen werden. */
- /* Hierbei gibt es drei Moeglichkeiten: Wurzelknoten im der */
- /* VRML-Datei, in einer Prototyp-Implementierung oder beim */
- /* Lesen des Inhaltes von SFNode- oder MFNode-Feldern. */
-
-<INITIAL,NODE>PROTO          { return PROTO;          }
-<INITIAL,NODE>EXTERNPROTO    { return EXTERNPROTO;    }
-<INITIAL,NODE>DEF            { return DEF;            }
-<INITIAL,NODE>USE            { return USE;            }
-<INITIAL,NODE>TO             { return TO;             }
-<INITIAL,NODE>ROUTE          { return ROUTE;          }
-<INITIAL,NODE>NULL           { return SFN_NULL;       }
-<INITIAL,NODE>Script         { return SCRIPT;         }
-<INITIAL,NODE>eventIn        { return EVENTIN;        }
-<INITIAL,NODE>inputOnly      { return EVENTIN;        }
-<INITIAL,NODE>eventOut       { return EVENTOUT;       }
-<INITIAL,NODE>outputOnly     { return EVENTOUT;       }
-<INITIAL,NODE>field          { return FIELD;          }
-<INITIAL,NODE>initializeOnly { return FIELD;          }
-<INITIAL,NODE>exposedField   { return EXPOSEDFIELD;   }
-<INITIAL,NODE>inputOutput    { return EXPOSEDFIELD;   }
-<INITIAL,NODE>EXPORT         { return EXPORT;         }
-<INITIAL,NODE>IMPORT         { return IMPORT;         }
-<INITIAL,NODE>PROFILE        { return PROFILE;        }
-<INITIAL,NODE>COMPONENT      { return COMPONENT;      }
-<INITIAL,NODE>META           { return OSG_META;       }
-<INITIAL,NODE>AS             { return AS;             }
-
-<INITIAL,NODE>MFBool         { return Tok_MFBool;      }
-<INITIAL,NODE>MFColor        { return Tok_MFColor;     }
-<INITIAL,NODE>MFColorRGBA    { return Tok_MFColorRGBA; }
-<INITIAL,NODE>MFDouble       { return Tok_MFDouble;    }
-<INITIAL,NODE>MFFloat        { return Tok_MFFloat;     }
-<INITIAL,NODE>MFImage        { return Tok_MFImage;     }
-<INITIAL,NODE>MFInt32        { return Tok_MFInt32;     }
-<INITIAL,NODE>MFMatrix3d     { return Tok_MFMatrix3d;  }
-<INITIAL,NODE>MFMatrix3f     { return Tok_MFMatrix3f;  }
-<INITIAL,NODE>MFMatrix4d     { return Tok_MFMatrix4d;  }
-<INITIAL,NODE>MFMatrix4f     { return Tok_MFMatrix4f;  }
-<INITIAL,NODE>MFNode         { return Tok_MFNode;      }
-<INITIAL,NODE>MFRotation     { return Tok_MFRotation;  }
-<INITIAL,NODE>MFString       { return Tok_MFString;    }
-<INITIAL,NODE>MFTime         { return Tok_MFTime;      }
-<INITIAL,NODE>MFVec2d        { return Tok_MFVec2d;     }
-<INITIAL,NODE>MFVec2f        { return Tok_MFVec2f;     }
-<INITIAL,NODE>MFVec3d        { return Tok_MFVec3d;     }
-<INITIAL,NODE>MFVec3f        { return Tok_MFVec3f;     }
-<INITIAL,NODE>MFVec4d        { return Tok_MFVec4d;     }
-<INITIAL,NODE>MFVec4f        { return Tok_MFVec4f;     }
-<INITIAL,NODE>SFBool         { return Tok_SFBool;      }
-<INITIAL,NODE>SFColor        { return Tok_SFColor;     }
-<INITIAL,NODE>SFColorRGBA    { return Tok_SFColorRGBA; }
-<INITIAL,NODE>SFDouble       { return Tok_SFDouble;    }
-<INITIAL,NODE>SFFloat        { return Tok_SFFloat;     }
-<INITIAL,NODE>SFImage        { return Tok_SFImage;     }
-<INITIAL,NODE>SFInt32        { return Tok_SFInt32;     }
-<INITIAL,NODE>SFMatrix3d     { return Tok_SFMatrix3d;  }
-<INITIAL,NODE>SFMatrix3f     { return Tok_SFMatrix3f;  }
-<INITIAL,NODE>SFMatrix4d     { return Tok_SFMatrix4d;  }
-<INITIAL,NODE>SFMatrix4f     { return Tok_SFMatrix4f;  }
-<INITIAL,NODE>SFNode         { return Tok_SFNode;      }
-<INITIAL,NODE>SFRotation     { return Tok_SFRotation;  }
-<INITIAL,NODE>SFString       { return Tok_SFString;    }
-<INITIAL,NODE>SFTime         { return Tok_SFTime;      }
-<INITIAL,NODE>SFVec2d        { return Tok_SFVec2d;     }
-<INITIAL,NODE>SFVec2f        { return Tok_SFVec2f;     }
-<INITIAL,NODE>SFVec3d        { return Tok_SFVec3d;     }
-<INITIAL,NODE>SFVec3f        { return Tok_SFVec3f;     }
-<INITIAL,NODE>SFVec4d        { return Tok_SFVec4d;     }
-<INITIAL,NODE>SFVec4f        { return Tok_SFVec4f;     }
-
-    /* extended types */
-
-<INITIAL,NODE>MFColor4f      { return Tok_MFColorRGBA; }
-<INITIAL,NODE>MFColor4i      { return Tok_MFColor4i;   }
-<INITIAL,NODE>MFColor3f      { return Tok_MFColor;     }
-<INITIAL,NODE>MFMatrix       { return Tok_MFMatrix4f;  }
-<INITIAL,NODE>MFPnt2f        { return Tok_MFPnt2f;     }
-<INITIAL,NODE>MFPnt3f        { return Tok_MFPnt3f;     }
-<INITIAL,NODE>MFPnt4f        { return Tok_MFPnt4f;     }
-<INITIAL,NODE>MFPlane        { return Tok_MFPlane;     }
-<INITIAL,NODE>SFColor4f      { return Tok_SFColorRGBA; }
-<INITIAL,NODE>SFColor4i      { return Tok_SFColor4i;   }
-<INITIAL,NODE>SFColor3f      { return Tok_SFColor;     }
-<INITIAL,NODE>SFMatrix       { return Tok_SFMatrix4f;  }
-<INITIAL,NODE>SFPnt2f        { return Tok_SFPnt2f;     }
-<INITIAL,NODE>SFPnt3f        { return Tok_SFPnt3f;     }
-<INITIAL,NODE>SFPnt4f        { return Tok_SFPnt4f;     }
-<INITIAL,NODE>SFPlane        { return Tok_SFPlane;     }
-<INITIAL,NODE>SFVolume       { return Tok_SFVolume;    }
-
-<INITIAL,NODE>{IdFirstChar}{IdRestChar}* { return ID; }
-
-<mfboolValue,mfcolorValue,mfcolorrgbaValue,mfdoubleValue,mffloatValue,mfimageValue,mfint32Value>\[ {
-
-    if(parsing_mf)
-        _pSkelBase->handleError("Syntaxfehler: Doppelte [");
-
-    parsing_mf = 1;
-}
-
-<mfmatrix3dValue,mfmatrix3fValue,mfmatrix4dValue,mfmatrix4fValue,mfrotationValue,mfstringValue>\[ {
-
-    if(parsing_mf)
-        _pSkelBase->handleError("Syntaxfehler: Doppelte [");
-
-    parsing_mf = 1;
-}
-
-
-<mftimeValue,mfvec2dValue,mfvec2fValue,mfvec3dValue,mfvec3fValue,mfvec4dValue,mfvec4fValue>\[ {
-
-    if(parsing_mf)
-        _pSkelBase->handleError("Syntaxfehler: Doppelte [");
-
-    parsing_mf = 1;
-}
-
-<mfboolValue,mfcolorValue,mfcolorrgbaValue,mfdoubleValue,mffloatValue,mfimageValue,mfint32Value>\] {
-
-    if(!parsing_mf) 
-        _pSkelBase->handleError("Ueberzaehlige ]");
-
-    int fieldType = expectToken;
-
-    BEGIN NODE;
-
-    parsing_mf  = 0;
-    expectToken = 0;
-
-    return fieldType;
-}
-
-<mfmatrix3dValue,mfmatrix3fValue,mfmatrix4dValue,mfmatrix4fValue,mfrotationValue,mfstringValue>\] {
-
-    if(!parsing_mf) 
-        _pSkelBase->handleError("Ueberzaehlige ]");
-
-    int fieldType = expectToken;
-
-    BEGIN NODE;
-
-    parsing_mf  = 0;
-    expectToken = 0;
-
-    return fieldType;
-}
-    
-<mftimeValue,mfvec2dValue,mfvec2fValue,mfvec3dValue,mfvec3fValue,mfvec4dValue,mfvec4fValue>\] {
-
-    if(!parsing_mf)
-        _pSkelBase->handleError("Ueberzaehlige ]");
-
-    int fieldType = expectToken;
-
-    BEGIN NODE;
-
-    parsing_mf  = 0;
-    expectToken = 0;
-
-    return fieldType;
-}
-     
-    /* sfboolValue ::= TRUE | FALSE; */
-
-<sfboolValue>(T|t)(R|r)(U|u)(E|e) {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue("TRUE");
-
-    return TOK_SFBOOL;
-}
-
-<sfboolValue>(F|f)(A|a)(L|l)(S|s)(E|e) {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue("FALSE");
-
-    return TOK_SFBOOL;
-}
-
- <sfboolValue>{IdFirstChar}{IdRestChar}* {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFBOOL;
-}
-
-    /* mfboolValue  ::= sfboolValue | [ ] | [ sfboolValues ];    */
-    /* sfboolValues ::= sfboolValue | sfboolValue sfboolValues; */
-
-<mfboolValue>(T|t)(R|r)(U|u)(E|e) {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue("TRUE");
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-        return TOK_MFBOOL;
-    }
-}
-
-<mfboolValue>(F|f)(A|a)(L|l)(S|s)(E|e) {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue("FALSE");
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-        return TOK_MFBOOL;
-    }
-}
-
-    /* sfcolorValue ::= float float float; */
-
-<sfcolorValue>({float}{ws}){2}{float} {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFCOLOR;
-}
-
-    /* mfcolorValue  ::= sfcolorValue | [ ] | [ sfcolorValues ];    */
-    /* sfcolorValues ::= sfcolorValue | sfcolorValue sfcolorValues; */
-
-<mfcolorValue>({float}{ws}){2}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }
-    else 
-    {
-        BEGIN NODE;
-        expectToken = 0;
-
-        return TOK_MFCOLOR;
-    }
-}
-
-    /* sfcolorrgbaValue ::= float float float float; */
-
-<sfcolorrgbaValue>({float}{ws}){3}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFCOLORRGBA;
-}
-
-    /* mfcolorrgbaValue  ::= sfcolorrgbaValue | [ ] | [ sfcolorrgbaValues ]; */
-    /* sfcolorrgbaValues ::= sfcolorrgbaValue | sfcolorrgbaValue sfcolorrgbaValues; */
-
-<mfcolorrgbaValue>({float}{ws}){3}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }
-    else 
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFCOLORRGBA;
-    }
-}
-
-    /* sfdoubleValue ::= float; */
-
-<sfdoubleValue>{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFDOUBLE;
-}
-
-    /* mfdoubleValue  ::= sfdoubleValue | [ ] | [ sfdoubleValues ];    */
-    /* sfdoubleValues ::= sfdoubleValue | sfdoubleValue sfdoubleValues; */
-
-<mfdoubleValue>{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-        return TOK_MFDOUBLE;
-    }
-}
-
-    /* sffloatValue ::= float; */
-
-<sffloatValue>{float} {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFFLOAT;
-}
-
-    /* mffloatValue  ::= sffloatValue | [ ] | [ sffloatValues ];    */
-    /* sffloatValues ::= sffloatValue | sffloatValue sffloatValues; */
-
-<mffloatValue>{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {   
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-        return TOK_MFFLOAT;
-    }
-}
-
-    /* sfint32Value ::= int32; */
-
-<sfint32Value>{int32} {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFINT32;
-}
-
-    /* mfint32Value  ::= sfint32Value | [ ] | [ sfint32Values ];    */
-    /* sfint32Values ::= sfint32Value | sfint32Value sfint32Values; */
-
-<mfint32Value>{int32} {
-
-   if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }  
-    else
-    {  
-        BEGIN NODE; 
-        expectToken = 0;
-        return TOK_MFINT32;
-    }
-}
-
-    /* sfimageValue ::=  int32 int32 int32 ... */
-
-<sfimageValue>{int32}{ws}{int32}{ws}{int32} {
-
-    int w, h, d;
-    sscanf(yytext, "%d %d %d", &w, &h, &d);
-
-    if(_pSkelBase != NULL)
-    {
-        _pSkelBase->addFieldValue(yytext);
-    }
-
-    imageIntsExpected = w * h;
-    imageIntsParsed   = 0;                          
-
-    if(imageIntsExpected != 0)
-    {
-        BEGIN IN_SFIMG;
-    }
-    else
-    {
-        expectToken = 0;
-
-        BEGIN NODE;
-
-        return TOK_SFIMAGE;
-    }
-}
-
-<IN_SFIMG>{int32} {
-
-    ++imageIntsParsed;
-
-    /* std extention: stop pixelread neg values */
-
-    if(*yytext == '-')
-    {
-        imageIntsParsed = imageIntsExpected;
-    }
-
-    if(_pSkelBase != NULL)
-    {
-        _pSkelBase->addFieldValue(yytext);
-    }
-        
-    if (imageIntsParsed == imageIntsExpected)
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_SFIMAGE;
-    }
-}
-
-    /* mfimageValue ::=  int32 int32 int32 ... */
-
-<mfimageValue>{int32}{ws}{int32}{ws}{int32} {
-
-    int w, h, d;
-    sscanf(yytext, "%d %d %d", &w, &h, &d);
-
-    if(_pSkelBase != NULL)
-    {
-        _pSkelBase->addFieldValue(yytext);
-    }
-
-    imageIntsExpected = w * h;
-    imageIntsParsed   = 0;
-
-    if(imageIntsExpected != 0)
-    {
-        BEGIN IN_MFIMG;
-    }
-    else
-    {
-        if (parsing_mf)
-        {
-        }
-        else
-        {
-            BEGIN NODE;
-
-            expectToken = 0;
-
-            return TOK_MFIMAGE;
-        }
-    }
-}
-
-<IN_MFIMG>{int32} {
-
-    ++imageIntsParsed;
-
-    /* std extention: stop pixelread neg values */
-
-    if(*yytext == '-')
-    {
-        imageIntsParsed = imageIntsExpected;
-    }
-
-    if(_pSkelBase != NULL)
-    {
-        _pSkelBase->addFieldValue(yytext);
-    }
-
-    if (imageIntsParsed == imageIntsExpected)
-    {
-        if (parsing_mf)
-        {
-        }
-        else
-        {
-            BEGIN NODE;
-
-            expectToken = 0;
-
-            return TOK_MFIMAGE;
-        }
-    }
-}
-
-    /* sfmatrix3dValue ::= float float float  */
-    /*                     float float float  */
-    /*                     float float float; */
-
-<sfmatrix3dValue>({float}{ws}){8}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFMATRIX3D;
-}
-
-    /* mfmatrix3dValue  ::= sfmatrix3dValue | [ ] | [ sfmatrix3dValues ];   */
-    /* sfmatrix3dValues ::= sfmatrix3dValue | sfmatrix3dValue sfmatrix3dValues; */
-
-<mfmatrix3dValue>({float}{ws}){8}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFMATRIX3D;
-    }
-}
-
-    /* sfmatrix3fValue ::= float float float  */
-    /*                     float float float  */
-    /*                     float float float; */
-
-<sfmatrix3fValue>({float}{ws}){8}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFMATRIX3F;
-}
-
-    /* mfmatrix3fValue  ::= sfmatrix3fValue | [ ] | [ sfmatrix3fValues ];   */
-    /* sfmatrix3fValues ::= sfmatrix3fValue | sfmatrix3fValue sfmatrix3fValues; */
-
-<mfmatrix3fValue>({float}{ws}){8}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFMATRIX3F;
-    }
-}
-
-    /* sfmatrix4dValue ::= float float float float  */
-    /*                     float float float float  */
-    /*                     float float float float  */
-    /*                     float float float float; */
-
-<sfmatrix4dValue>({float}{ws}){15}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFMATRIX4D;
-}
-
-    /* mfmatrix4dValue  ::= sfmatrix4dValue | [ ] | [ sfmatrix4dValues ];   */
-    /* sfmatrix4dValues ::= sfmatrix4dValue | sfmatrix4dValue sfmatrix4dValues; */
-
-<mfmatrix4dValue>({float}{ws}){15}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFMATRIX4D;
-    }
-}
-
-    /* sfmatrix4fValue ::= float float float float  */
-    /*                     float float float float  */
-    /*                     float float float float  */
-    /*                     float float float float; */
-
-<sfmatrix4fValue>({float}{ws}){15}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFMATRIX4F;
-}
-
-    /* mfmatrix4fValue  ::= sfmatrix4fValue | [ ] | [ sfmatrix4fValues ];  */
-    /* sfmatrix4fValues ::= sfmatrix4fValue | sfmatrix4fValue sfmatrix4fValues; */
-
-<mfmatrix4fValue>({float}{ws}){15}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFMATRIX4F;
-    }
-}
-
-    /* sfrotationValue ::= float float float float; */
-
-<sfrotationValue>({float}{ws}){3}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFROTATION;
-}
-
-    /* mfrotationValue  ::= sfrotationValue | [ ] | [ sfrotationValues ]; */
-    /* sfrotationValues ::= 
-            sfrotationValue | sfrotationValue sfrotationValues; */
-
-<mfrotationValue>({float}{ws}){3}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else 
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFCOLOR;
-    }
-}
-
-
-    /* sfstringValue ::= string;                                        */
-    /* string        ::=
-        ".*" ... double-quotes must be \", backslashes must be \\...    */
-
-    /* mfstringValue  ::= sfstringValue | [ ] | [ sfstringValues ];     */
-    /* sfstringValues ::= sfstringValue | sfstringValue sfstringValues; */
-
-    /* Parses quoted SFStrings */
-
-<sfstringValue>\"([^\\\"]*(\\(.|\n))*)*\"   {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    removeEscapeSequences(yytext);
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFSTRING;
-}
-
-    /* Parses unquoted SFStrings (??? - not VRML-conformant) */
-
-<sfstringValue>[^ \"\t\r\,\n]+ {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFSTRING;
-}
-
-    /* Parses quoted MFStrings */
-
-<mfstringValue>\"([^\\\"]*(\\(.|\n))*)*\"   {
-
-    removeEscapeSequences(yytext);
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }
-    else 
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFSTRING;
-    }
-}
-
-    /* Parses unquoted MFStrings (??? - not VRML-conformant) */
-
-<mfstringValue>[^ \[\]\"\t\r\,\n]+ {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_MFSTRING;
-}
-
-    /* sftimeValue ::= double; */
-
-<sftimeValue>{float} {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFTIME;
-}
-
-    /* mftimeValue  ::= sftimeValue | [ ] | [ sftimeValues ];   */
-    /* sftimeValues ::= sftimeValue | sftimeValue sftimeValues; */
-
-<mftimeValue>{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {   
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-
-        return TOK_MFFLOAT;
-    }
-}
-
-
-    /* sfvec2dValue ::= float float; */
-
-<sfvec2dValue>{float}{ws}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFVEC2D;
-}
-
-    /* mfvec2dValue  ::= sfvec2dValue | [ ] | [ sfvec2dValues];     */
-    /* sfvec2dValues ::= sfvec2dValue | sfvec2dValue sfvec2dValues; */
-
-<mfvec2dValue>{float}{ws}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFVEC2D;
-    }
-}
-
-
-    /* sfvec2fValue ::= float float; */
-
-<sfvec2fValue>{float}{ws}{float} {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFVEC2F;
-}
-
-    /* mfvec2fValue  ::= sfvec2fValue | [ ] | [ sfvec2fValues];     */
-    /* sfvec2fValues ::= sfvec2fValue | sfvec2fValue sfvec2fValues; */
-
-<mfvec2fValue>{float}{ws}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    { 
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFVEC2F;
-    }
-}
-
-    /* sfvec3fValue ::= float float float; */
-
-<sfvec3fValue>({float}{ws}){2}{float} { 
-
-    BEGIN NODE; 
-    expectToken = 0; 
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFVEC3F; 
-}
-
-
-    /* sfvec3dValue ::= float float float; */
-
-<sfvec3dValue>({float}{ws}){2}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFVEC3D;
-}
-
-    /* mfvec3dValue  ::= sfvec3dValue | [ ] | [ sfvec3dValues ];    */
-    /* sfvec3dValues ::= sfvec3dValue | sfvec3dValue sfvec3dValues; */
-
-<mfvec3dValue>({float}{ws}){2}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFVEC3D;
-    }
-}
-
-
-    /* mfvec3fValue  ::= sfvec3fValue | [ ] | [ sfvec3fValues ];    */
-    /* sfvec3fValues ::= sfvec3fValue | sfvec3fValue sfvec3fValues; */
-
-<mfvec3fValue>({float}{ws}){2}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFVEC3F;
-    }
-}
-
-    /* sfvec4dValue ::= float float float float; */
-
-<sfvec4dValue>({float}{ws}){3}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFVEC4D;
-}
-
-    /* mfvec4dValue  ::= sfvec4dValue | [ ] | [ sfvec4dValues ];    */
-    /* sfvec4dValues ::= sfvec4dValue | sfvec4dValue sfvec4dValues; */
-
-<mfvec4dValue>({float}{ws}){3}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFVEC4D;
-    }
-}
-
-    /* sfvec4fValue ::= float float float float; */
-
-<sfvec4fValue>({float}{ws}){3}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFVEC4F;
-}
-
-    /* mfvec4fValue  ::= sfvec4fValue | [ ] | [ sfvec4fValues ];    */
-    /* sfvec4fValues ::= sfvec4fValue | sfvec4fValue sfvec4fValues; */
-
-<mfvec4fValue>({float}{ws}){3}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-
-        expectToken = 0;
-
-        return TOK_MFVEC4F;
-    }
-}
-
-    /* extended types */
-
-<mfcolor4iValue,mfpnt2fValue>\[ {
-
-    if(parsing_mf)
-        _pSkelBase->handleError("Syntaxfehler: Doppelte [");
-
-    parsing_mf = 1;
-}
-
-<mfpnt3fValue,mfpnt4fValue,mfplaneValue>\[ {
-
-    if(parsing_mf)
-        _pSkelBase->handleError("Syntaxfehler: Doppelte [");
-
-    parsing_mf = 1;
-}
-
-<mfcolor4iValue,mfpnt2fValue>\] {
-
-    if(!parsing_mf)
-        _pSkelBase->handleError("Ueberzaehlige ]");
-
-    int fieldType = expectToken;
-
-    BEGIN NODE;
-
-    parsing_mf  = 0;
-    expectToken = 0;
-
-    return fieldType;
-}
-
-<mfpnt3fValue,mfpnt4fValue,mfplaneValue>\] {
-
-    if(!parsing_mf)
-        _pSkelBase->handleError("Ueberzaehlige ]");
-
-    int fieldType = expectToken;
-
-    BEGIN NODE;
-
-    parsing_mf  = 0;
-    expectToken = 0;
-
-    return fieldType;
-}
-
-    /* sfcolor4iValue ::= int int int int; */
-
-<sfcolor4iValue>({int32}{ws}){3}{int32} {
-
-    BEGIN NODE;
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFCOLOR4I;
-}
-
-
-    /* sfpnt2fValue ::= float float; */
-
-<sfpnt2fValue>{float}{ws}{float} {
-
-    BEGIN NODE;
-
-    expectToken = 0;
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFPNT2F;
-}
-
-    /* sfpnt3fValue ::= float float float; */
-
-<sfpnt3fValue>({float}{ws}){2}{float} { 
-
-    BEGIN NODE; 
-
-    expectToken = 0; 
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFPNT3F; 
-}
-
-    /* sfplaneValue ::= float float float float; */
-
-<sfplaneValue>({float}{ws}){3}{float} { 
-
-    BEGIN NODE; 
-
-    expectToken = 0; 
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFPLANE; 
-}
-
-    /* sfplaneValue ::= float float float float;
-                    |   float float float float float float; */
-
-<sfvolumeValue>({float}{ws}){4}(({float}{ws}){2})? { 
-
-    BEGIN NODE; 
-
-    expectToken = 0; 
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFPLANE; 
-}
-
-    /* sfpnt4fValue ::= float float float float; */
-
-<sfpnt4fValue>({float}{ws}){3}{float} { 
-
-    BEGIN NODE; 
-    expectToken = 0; 
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    return TOK_SFPNT4F; 
-}
-
-
-    /* mfcolor4iValue  ::= sfcolor4iValue | [ ] | [ sfcolor4iValues ];      */
-    /* sfcolor4iValues ::= sfcolor4iValue | sfcolor4iValue sfcolor4iValues; */
-
-<mfcolor4iValue>({int32}{ws}){3}{int32} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if (parsing_mf)
-    {
-    }
-    else 
-    {
-        BEGIN NODE;
-        expectToken = 0;
-
-        return TOK_MFCOLOR4I;
-    }
-}
-
-    /* mfpnt2fValue  ::= sfpnt2fValue | [ ] | [ sfpnt2fValues];     */
-    /* sfpnt2fValues ::= sfpnt2fValue | sfpntfValue sfpnt2fValues; */
-
-<mfpnt2fValue>{float}{ws}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    { 
-        BEGIN NODE;
-        expectToken = 0;
-
-        return TOK_MFPNT2F;
-    }
-}
-
-    /* mfpnt3fValue  ::= sfpnt3fValue | [ ] | [ sfpnt3fValues ];    */
-    /* sfpnt3fValues ::= sfpnt3fValue | sfpnt3fValue sfpnt3fValues; */
-
-<mfpnt3fValue>({float}{ws}){2}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-
-        return TOK_MFPNT3F;
-    }
-}
-
-    /* mfplaneValue  ::= sfplaneValue | [ ] | [ sfplaneValues ];    */
-    /* sfplaneValues ::= sfplaneValue | sfplaneValue sfplaneValues; */
-
-<mfplaneValue>({float}{ws}){3}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-
-        return TOK_MFPLANE;
-    }
-}
-
-
-    /* mfpnt4fValue  ::= sfpnt4fValue | [ ] | [ sfpnt4fValues ];    */
-    /* sfpnt4fValues ::= sfpnt4fValue | sfpnt4fValue sfpnt4fValues; */
-
-<mfpnt4fValue>({float}{ws}){3}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-
-        return TOK_MFPNT4F;
-    }
-}
-
-    /* mfvec4fValue  ::= sfvec4fValue | [ ] | [ sfvec4fValues ];    */
-    /* sfvec4fValues ::= sfvec4fValue | sfvec4fValue sfvec4fValues; */
-
-<mfvec4fValue>({float}{ws}){3}{float} {
-
-    if(_pSkelBase != NULL)
-        _pSkelBase->addFieldValue(yytext);
-
-    if(parsing_mf)
-    {
-    }
-    else
-    {
-        BEGIN NODE;
-        expectToken = 0;
-
-        return TOK_MFVEC4F;
-    }
-}
-
-<EXTERROR>. { return 0; }
-
-
-<*>"{"  { return OPENBRACE;    }
-<*>"}"  { return CLOSEBRACE;   }
-<*>"["  { return OPENBRACKET;  }
-<*>"]"  { return CLOSEBRACKET; }
-<*>"."  { return PERIOD;       }
-
- /* Diese Regel erkennt Whitespace oder ansonsten nicht */
- /* erkannte Token in allen Startzustaenden */
- /* <*>{wsnnl}+ */
-
- /* Diese Regel erkennt Whitespace, wobei aber Zeilentrenner */
- /* beachtet werden, damit die Zeilenangabe bei eventuellen */
- /* Fehlermeldungen richtig ist. */
-
-<*>{wsnnl}* {                 }
-
-<*>{nl}     {                 }
-
-<*>.        { BEGIN EXTERROR; }
+<INITIAL>{utf8bom} BEGIN(HEADER);
+<INITIAL,HEADER>[\r\n \t]+ BEGIN(HEADER);
+<INITIAL,HEADER>{comment} BEGIN(NODE); lvalp->stringVal = yytext; return TOK_HEADER;
+
+PROFILE   BEGIN(NODE); return TOK_PROFILE;
+COMPONENT BEGIN(NODE); return TOK_COMPONENT;
+META      BEGIN(NODE); return TOK_META;
+
+PROTO       BEGIN(NODE); return TOK_PROTO;
+EXTERNPROTO BEGIN(NODE); return TOK_EXTERNPROTO;
+IS          BEGIN(NODE); return TOK_IS;
+
+DEF BEGIN(NODE); return TOK_DEF;
+USE BEGIN(NODE); return TOK_USE;
+
+ROUTE BEGIN(NODE); return TOK_ROUTE;
+TO    BEGIN(NODE); return TOK_TO;
+
+IMPORT BEGIN(NODE); return TOK_IMPORT;
+EXPORT BEGIN(NODE); return TOK_EXPORT;
+AS     BEGIN(NODE); return TOK_AS;
+
+eventIn        BEGIN(NODE); return TOK_eventIn;
+inputOnly      BEGIN(NODE); return TOK_eventIn;
+eventOut       BEGIN(NODE); return TOK_eventOut;
+outputOnly     BEGIN(NODE); return TOK_eventOut;
+exposedField   BEGIN(NODE); return TOK_exposedField;
+inputOutput    BEGIN(NODE); return TOK_exposedField;
+field          BEGIN(NODE); return TOK_field;
+initializeOnly BEGIN(NODE); return TOK_field;
+
+MFBool      BEGIN(NODE); lvalp->intVal = TOK_MFBool; return TOK_MFBool;
+MFColor     BEGIN(NODE); lvalp->intVal = TOK_MFColor; return TOK_MFColor;
+MFColorRGBA BEGIN(NODE); lvalp->intVal = TOK_MFColorRGBA; return TOK_MFColorRGBA;
+MFDouble    BEGIN(NODE); lvalp->intVal = TOK_MFDouble; return TOK_MFDouble;
+MFFloat     BEGIN(NODE); lvalp->intVal = TOK_MFFloat; return TOK_MFFloat;
+MFImage     BEGIN(NODE); lvalp->intVal = TOK_MFImage; return TOK_MFImage;
+MFInt32     BEGIN(NODE); lvalp->intVal = TOK_MFInt32; return TOK_MFInt32;
+MFMatrix3d  BEGIN(NODE); lvalp->intVal = TOK_MFMatrix3d; return TOK_MFMatrix3d;
+MFMatrix3f  BEGIN(NODE); lvalp->intVal = TOK_MFMatrix3f; return TOK_MFMatrix3f;
+MFMatrix4d  BEGIN(NODE); lvalp->intVal = TOK_MFMatrix4d; return TOK_MFMatrix4d;
+MFMatrix4f  BEGIN(NODE); lvalp->intVal = TOK_MFMatrix4f; return TOK_MFMatrix4f;
+MFNode      BEGIN(NODE); lvalp->intVal = TOK_MFNode; return TOK_MFNode;
+MFRotation  BEGIN(NODE); lvalp->intVal = TOK_MFRotation; return TOK_MFRotation;
+MFString    BEGIN(NODE); lvalp->intVal = TOK_MFString; return TOK_MFString;
+MFTime      BEGIN(NODE); lvalp->intVal = TOK_MFTime; return TOK_MFTime;
+MFVec2d     BEGIN(NODE); lvalp->intVal = TOK_MFVec2d; return TOK_MFVec2d;
+MFVec2f     BEGIN(NODE); lvalp->intVal = TOK_MFVec2f; return TOK_MFVec2f;
+MFVec3d     BEGIN(NODE); lvalp->intVal = TOK_MFVec3d; return TOK_MFVec3d;
+MFVec3f     BEGIN(NODE); lvalp->intVal = TOK_MFVec3f; return TOK_MFVec3f;
+MFVec4d     BEGIN(NODE); lvalp->intVal = TOK_MFVec4d; return TOK_MFVec4d;
+MFVec4f     BEGIN(NODE); lvalp->intVal = TOK_MFVec4f; return TOK_MFVec4f;
+SFBool      BEGIN(NODE); lvalp->intVal = TOK_SFBool; return TOK_SFBool;
+SFColor     BEGIN(NODE); lvalp->intVal = TOK_SFColor; return TOK_SFColor;
+SFColorRGBA BEGIN(NODE); lvalp->intVal = TOK_SFColorRGBA; return TOK_SFColorRGBA;
+SFDouble    BEGIN(NODE); lvalp->intVal = TOK_SFDouble; return TOK_SFDouble;
+SFFloat     BEGIN(NODE); lvalp->intVal = TOK_SFFloat; return TOK_SFFloat;
+SFImage     BEGIN(NODE); lvalp->intVal = TOK_SFImage; return TOK_SFImage;
+SFInt32     BEGIN(NODE); lvalp->intVal = TOK_SFInt32; return TOK_SFInt32;
+SFMatrix3d  BEGIN(NODE); lvalp->intVal = TOK_SFMatrix3d; return TOK_SFMatrix3d;
+SFMatrix3f  BEGIN(NODE); lvalp->intVal = TOK_SFMatrix3f; return TOK_SFMatrix3f;
+SFMatrix4d  BEGIN(NODE); lvalp->intVal = TOK_SFMatrix4d; return TOK_SFMatrix4d;
+SFMatrix4f  BEGIN(NODE); lvalp->intVal = TOK_SFMatrix4f; return TOK_SFMatrix4f;
+SFNode      BEGIN(NODE); lvalp->intVal = TOK_SFNode; return TOK_SFNode;
+SFRotation  BEGIN(NODE); lvalp->intVal = TOK_SFRotation; return TOK_SFRotation;
+SFString    BEGIN(NODE); lvalp->intVal = TOK_SFString; return TOK_SFString;
+SFTime      BEGIN(NODE); lvalp->intVal = TOK_SFTime; return TOK_SFTime;
+SFVec2d     BEGIN(NODE); lvalp->intVal = TOK_SFVec2d; return TOK_SFVec2d;
+SFVec2f     BEGIN(NODE); lvalp->intVal = TOK_SFVec2f; return TOK_SFVec2f;
+SFVec3d     BEGIN(NODE); lvalp->intVal = TOK_SFVec3d; return TOK_SFVec3d;
+SFVec3f     BEGIN(NODE); lvalp->intVal = TOK_SFVec3f; return TOK_SFVec3f;
+SFVec4d     BEGIN(NODE); lvalp->intVal = TOK_SFVec4d; return TOK_SFVec4d;
+SFVec4f     BEGIN(NODE); lvalp->intVal = TOK_SFVec4f; return TOK_SFVec4f;
+    /* The following types are not VRML conformant */
+MFColor4f   BEGIN(NODE); lvalp->intVal = TOK_MFColorRGBA; return TOK_MFColorRGBA;
+MFColor4i   BEGIN(NODE); lvalp->intVal = TOK_MFColor4i; return TOK_MFColor4i;
+MFColor3f   BEGIN(NODE); lvalp->intVal = TOK_MFColor; return TOK_MFColor;
+MFMatrix    BEGIN(NODE); lvalp->intVal = TOK_MFMatrix4f; return TOK_MFMatrix4f;
+MFPnt2f     BEGIN(NODE); lvalp->intVal = TOK_MFPnt2f; return TOK_MFPnt2f;
+MFPnt3f     BEGIN(NODE); lvalp->intVal = TOK_MFPnt3f; return TOK_MFPnt3f;
+MFPnt4f     BEGIN(NODE); lvalp->intVal = TOK_MFPnt4f; return TOK_MFPnt4f;
+MFPlane     BEGIN(NODE); lvalp->intVal = TOK_MFPlane; return TOK_MFPlane;
+SFColor4f   BEGIN(NODE); lvalp->intVal = TOK_SFColorRGBA; return TOK_SFColorRGBA;
+SFColor4i   BEGIN(NODE); lvalp->intVal = TOK_SFColor4i; return TOK_SFColor4i;
+SFColor3f   BEGIN(NODE); lvalp->intVal = TOK_SFColor; return TOK_SFColor;
+SFMatrix    BEGIN(NODE); lvalp->intVal = TOK_SFMatrix4f; return TOK_SFMatrix4f;
+SFPnt2f     BEGIN(NODE); lvalp->intVal = TOK_SFPnt2f; return TOK_SFPnt2f;
+SFPnt3f     BEGIN(NODE); lvalp->intVal = TOK_SFPnt3f; return TOK_SFPnt3f;
+SFPnt4f     BEGIN(NODE); lvalp->intVal = TOK_SFPnt4f; return TOK_SFPnt4f;
+SFPlane     BEGIN(NODE); lvalp->intVal = TOK_SFPlane; return TOK_SFPlane;
+SFVolume    BEGIN(NODE); lvalp->intVal = TOK_SFVolume; return TOK_SFVolume;
+
+{hex}                {
+                         BEGIN(NODE);
+                         lvalp->intVal = strtoul(yytext, 0, 0);
+                         if (imageIntsExpected > 0)
+                             if ((--imageIntsExpected == 0) || (*yytext == '-')) /* Not VRML conformant */
+                             {
+                                 imageIntsExpected = 0;
+                                 expectToken = TOK_ImageFinished;
+                             }
+                         return TOK_hex;
+                     }
+{int32}              {
+                         BEGIN(NODE);
+                         lvalp->intVal = strtoul(yytext, 0, 0);
+                         if (imageIntsExpected > 0)
+                             if ((--imageIntsExpected == 0) || (*yytext == '-')) /* Not VRML conformant */
+                             {
+                                 imageIntsExpected = 0;
+                                 expectToken = TOK_ImageFinished;
+                             }
+                         return TOK_int32;
+                     }
+{double}             BEGIN(NODE); lvalp->doubleVal = strtod(yytext, 0); return TOK_double;
+{string}             BEGIN(NODE); lvalp->stringVal = stripEscapes(yytext); return TOK_string;
+    /* Not VRML conformant */
+[Tt][Rr][Uu][Ee]     BEGIN(NODE); lvalp->boolVal = true; return TOK_bool;
+    /* Not VRML conformant */
+[Ff][Aa][Ll][Ss][Ee] BEGIN(NODE); lvalp->boolVal = false; return TOK_bool;
+NULL                 BEGIN(NODE); return TOK_NULL;
+{Id}                 BEGIN(NODE); lvalp->stringVal = yytext; return TOK_Id;
+
+"{" BEGIN(NODE); return '{';
+"}" BEGIN(NODE); return '}';
+"[" BEGIN(NODE); return '[';
+"]" BEGIN(NODE); return ']';
+"." BEGIN(NODE); return '.';
+    /*":" BEGIN(NODE); return ':';*/
+
+<NODE>{ws}+
+
+. return TOK_Error;
 
 %%
+
+//OSG_END_NAMESPACE
 
 #ifdef OSG_WIN32_ICL
 #pragma warning (default : 111 810)
 #endif
-
