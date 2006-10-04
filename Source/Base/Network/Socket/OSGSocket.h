@@ -142,7 +142,7 @@ class OSG_BASE_DLLMAPPING Socket
     /*! Socket length type. Used to hide the different interface 
         implementations
      **/
-#if defined __linux || defined(__APPLE__)
+#if defined(__linux) || defined(__APPLE__)
     typedef socklen_t SocketLenT;
 #else
     typedef int       SocketLenT;
