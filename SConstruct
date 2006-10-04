@@ -198,22 +198,12 @@ if ARGUMENTS.has_key("buildbot_slave"):
    build_slave_filename = "buildbot.options"
    if ARGUMENTS["buildbot_slave"] not in ["true", "1", "yes"]:
       build_slave_filename = ARGUMENTS["buildbot_slave"]
-   buildbot_options_file = os.path.join(os.getcwd(), "..", "..", build_slave_filename)
+   buildbot_options_file = os.path.abspath(os.path.join(os.getcwd(), "..", "..", build_slave_filename))
    if os.path.exists(buildbot_options_file):
       print "Buildbot slave:"
       print "      found options file: %s" % str(buildbot_options_file)
-      print "      processing options:"
-      lines = open(buildbot_options_file).readlines()
-      for line in lines:
-         line.strip()
-         if line.find('='):
-            name, val = line.split('=', 1)
-            ARGUMENTS[name]=val
-            print "%s : %s" % (name, val)
-         else:
-            name = line
-            ARGUMENTS[name]=""
-            print "%s" % name
+      execfile(buildbot_options_file, ARGUMENTS)
+      print "      finished processing options"
    else:
       print "Buildbot slave: Options file not found.. will continue with defaults"
 
