@@ -198,7 +198,7 @@ if ARGUMENTS.has_key("buildbot_slave"):
    build_slave_filename = "buildbot.options"
    if ARGUMENTS["buildbot_slave"] not in ["true", "1", "yes"]:
       build_slave_filename = ARGUMENTS["buildbot_slave"]
-   buildbot_options_file = os.path.join(os.getcwd(), "../..", build_slave_filename)
+   buildbot_options_file = os.path.join(os.getcwd(), "..", "..", build_slave_filename)
    if os.path.exists(buildbot_options_file):
       print "Buildbot slave:"
       print "      found options file: %s" % str(buildbot_options_file)
