@@ -498,8 +498,8 @@ void SharedObjectHandler::dump(void)
 
     while(soIt != soEnd)
     {
-        FLOG(("%s: %s | %p\n", __func__, 
-            soIt->first.c_str(), soIt->second));
+        FLOG(("SharedObjectHandler::dump: %s | %p\n",
+              soIt->first.c_str(), soIt->second));
 
         soIt->second->dump();
         ++soIt;
