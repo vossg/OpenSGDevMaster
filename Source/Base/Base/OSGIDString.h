@@ -49,8 +49,14 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseBase
- */
+/*!
+* An id in the system.
+*
+* This is a helper class that provides an interface to help in the handling
+* and use of string identifiers.
+*
+* \ingroup GrpBaseBase
+*/
 
 class OSG_BASE_DLLMAPPING IDString
 {
@@ -73,9 +79,9 @@ class OSG_BASE_DLLMAPPING IDString
 
     explicit IDString(      UInt32    size    = 0   );
 
-    explicit IDString(const Char8    *str,  
+    explicit IDString(const Char8    *str,
                             MemType   memType = COPY);
-             IDString(const IDString &obj,  
+             IDString(const IDString &obj,
                             MemType   memType = COPY);
 
     /*! \}                                                                 */
@@ -93,9 +99,9 @@ class OSG_BASE_DLLMAPPING IDString
     const Char8 *str      (      void                      ) const;
 
           bool   isEmpty  (      void                      ) const;
-                                       
 
-          void   set      (const Char8 *str, 
+
+          void   set      (const Char8 *str,
                                  MemType     memType = COPY);
 
           void   toUpper  (      void                      );
@@ -147,11 +153,11 @@ class OSG_BASE_DLLMAPPING IDString
 };
 
 
-OSG_BASE_DLLMAPPING 
+OSG_BASE_DLLMAPPING
 std::ostream &operator <<(      std::ostream  &os,
                           const IDString      &obj);
 
-OSG_BASE_DLLMAPPING 
+OSG_BASE_DLLMAPPING
 OutStream &operator <<(      OutStream  &os,
                        const IDString   &obj);
 
