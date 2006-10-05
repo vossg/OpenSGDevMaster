@@ -61,6 +61,16 @@ void AttachmentContainerMixin<ParentT>::classDescInserter(TypeObject &oType)
 }
 
 
+/**
+ * Add an attachment at the binding point.
+ *
+ * \param pAttachment  The FCPtr to attach
+ * \param binding      id that is combined with the groupId of the attachment
+ *                     to determine the slot in the attachment map.
+ * If the derived key (binding | group) matches an existing key this will
+ * replace the old entry in the map.
+ * The attachment will have this node set as it's parent.
+ */
 template <class ParentT> inline
 void AttachmentContainerMixin<ParentT>::addAttachment(
     const AttachmentObjPtr &pAttachment,
@@ -95,6 +105,16 @@ void AttachmentContainerMixin<ParentT>::addAttachment(
     }
 }
 
+/**
+ * Erase the attachment at the binding point.
+ *
+ * \param pAttachment  The FCPtr to detach (needed to get groupId())
+ * \param binding      id that is combined with the groupId of the attachment
+ *                     to determine the slot in the attachment map.
+ *
+ * Attempt to find attachment in map using key (binding|groupId).
+ * If found, remove it.
+ */
 template <class ParentT> inline
 void AttachmentContainerMixin<ParentT>::subAttachment(
     const AttachmentObjPtr &pAttachment,
@@ -124,6 +144,16 @@ void AttachmentContainerMixin<ParentT>::subAttachment(
     }
 }
 
+/**
+ * Find an attachment at the binding point.
+ *
+ * \param groupId  The Group id to search for
+ * \param binding  id that is combined with the groupId of the attachment
+ *                 to determine the slot in the attachment map.
+ *
+ * Attempt to find attachment in map using key (binding|groupId).
+ * If found, return it, else return NullFC
+ */
 template <class ParentT> inline
 typename AttachmentContainerMixin<ParentT>::AttachmentObjPtr
     AttachmentContainerMixin<ParentT>::findAttachment(UInt32 groupId,
@@ -143,6 +173,16 @@ typename AttachmentContainerMixin<ParentT>::AttachmentObjPtr
     }
 }
 
+/**
+ * Find an attachment at the binding point.
+ *
+ * \param type     FCType used to get groupId
+ * \param binding  id that is combined with the groupId of the attachment
+ *                 to determine the slot in the attachment map.
+ *
+ * Attempt to find attachment in map using key (binding|groupId).
+ * If found, return it, else return NullFC
+ */
 template <class ParentT> inline
 typename AttachmentContainerMixin<ParentT>::AttachmentObjPtr
     AttachmentContainerMixin<ParentT>::findAttachment(

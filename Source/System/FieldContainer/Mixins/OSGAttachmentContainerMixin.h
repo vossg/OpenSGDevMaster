@@ -48,9 +48,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
-
+/*! Mixin for creating AttachmentContainer.
+* \ingroup baselib
+* \param ParentT  The type to derive from for mixing.
+*/
 template <class ParentT>
 class AttachmentContainerMixin  : public ParentT
 {
@@ -72,7 +73,7 @@ class AttachmentContainerMixin  : public ParentT
     typedef typename Desc::AttachmentObj               AttachmentObj;
     typedef typename Desc::SFAttachmentObjPtrMap       SFAttachmentObjPtrMap;
     typedef typename SFAttachmentObjPtrMap::StoredType AttachmentObjPtrMap;
-    
+
 
     typedef typename AttachmentObjPtrMap::iterator     AttachmentObjPtrMapIt;
 
@@ -141,7 +142,7 @@ class AttachmentContainerMixin  : public ParentT
     /*! \name                    Assignment                                */
     /*! \{                                                                 */
 
-    void             addAttachment (const AttachmentObjPtr   &attachmentP, 
+    void             addAttachment (const AttachmentObjPtr   &attachmentP,
                                           UInt16              binding    = 0);
 
     void             subAttachment (const AttachmentObjPtr   &attachmentP,
@@ -152,7 +153,7 @@ class AttachmentContainerMixin  : public ParentT
 
     AttachmentObjPtr findAttachment(const FieldContainerType &type,
                                           UInt16              binding    = 0);
- 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
@@ -165,7 +166,7 @@ class AttachmentContainerMixin  : public ParentT
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */

@@ -48,10 +48,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
-
-class OSG_SYSTEM_DLLMAPPING AttachmentContainer : 
+/**
+* An AttachmentContainer is a field container that can store attachments to other
+* FieldContainers.
+* \ingroup baselib
+*/
+class OSG_SYSTEM_DLLMAPPING AttachmentContainer :
     public ContainerAttachmentContainerParent
 {
     /*==========================  PUBLIC  =================================*/
@@ -204,20 +206,20 @@ typedef AttachmentContainer::ObjPtrConstArg AttachmentContainerPtrConstArg;
 typedef RefPtr<AttachmentContainerPtr>      AttachmentContainerRefPtr;
 
 OSG_SYSTEM_DLLMAPPING
-void deepCloneAttachments(      AttachmentContainerPtrConstArg src, 
+void deepCloneAttachments(      AttachmentContainerPtrConstArg src,
                                 AttachmentContainerPtrArg      dst,
                           const std::vector<std::string>      &share         );
 
 OSG_SYSTEM_DLLMAPPING
-void deepCloneAttachments(      AttachmentContainerPtrConstArg src, 
+void deepCloneAttachments(      AttachmentContainerPtrConstArg src,
                                 AttachmentContainerPtrArg      dst,
                           const std::vector<UInt16>           &shareGroupIds );
 
 OSG_SYSTEM_DLLMAPPING
-void deepCloneAttachments(      AttachmentContainerPtrConstArg src, 
+void deepCloneAttachments(      AttachmentContainerPtrConstArg src,
                                 AttachmentContainerPtrArg      dst,
                           const std::string                   &shareString="");
-                      
+
 
 
 OSG_END_NAMESPACE

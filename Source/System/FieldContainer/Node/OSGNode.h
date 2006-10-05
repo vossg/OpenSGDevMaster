@@ -57,9 +57,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
-
+/**
+ * A Node in OpenSG is a node in the graph.
+ *
+ * Nodes are responsible for holding children nodes and a link to their parent node.
+ *
+ * \ingroup baselib
+ */
 class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 {
     /*==========================  PUBLIC  =================================*/
@@ -79,11 +83,11 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     typedef PointerBuilder<Node>::ObjConstPtrArg   ObjConstPtrArg;
 
     typedef Inherited::TypeObject                  TypeObject;
-    
+
     typedef Node                                   Self;
 
     OSG_RC_FIRST_FIELD_DECL(Volume            );
-    
+
     OSG_RC_FIELD_DECL      (TravMask, Volume  );
     OSG_RC_FIELD_DECL      (Parent,   TravMask);
     OSG_RC_FIELD_DECL      (Core,     Parent  );
@@ -133,16 +137,16 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \{                                                                 */
 
     UInt32  getNChildren  (void                      ) const;
-    
+
     void    addChild      (NodePtrConstArg childP    );
 
-    void    insertChild   (UInt32          childIndex, 
+    void    insertChild   (UInt32          childIndex,
                            NodePtrConstArg childP    );
 
-    void    replaceChild  (UInt32          childIndex,    
+    void    replaceChild  (UInt32          childIndex,
                            NodePtrConstArg childP    );
 
-    bool    replaceChildBy(NodePtrConstArg childP, 
+    bool    replaceChildBy(NodePtrConstArg childP,
                            NodePtrConstArg newChildP );
 
     Int32   findChild     (NodePtrConstArg childP    ) const;
@@ -170,25 +174,25 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    whichField );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    whichField );
 
     virtual void clearField      (const UInt32                    whichField );
@@ -220,7 +224,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \{                                                                 */
 
     Matrixr getToWorld(void           );
-    
+
     void    getToWorld(Matrixr &result);
 
 
@@ -234,11 +238,11 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
 #endif
 
             DynamicVolume &editVolume      (bool update = false  );
-    
+
     const   DynamicVolume &getVolume       (void                 ) const;
-    
+
             void           getWorldVolume  (DynamicVolume &result);
-     
+
             void           updateVolume    (void                 );
 
     virtual void           invalidateVolume(void                 );
@@ -248,7 +252,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -256,7 +260,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -294,9 +298,9 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \{                                                                 */
 
     SFDynamicVolume _sfVolume;
-    
+
     SFUInt32        _sfTravMask;
-    
+
     SFNodePtr       _sfParent;
     MFNodePtr       _mfChildren;
 
@@ -349,14 +353,14 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
                                  UInt32             uiCopyOffset);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
     virtual void execSyncV(      FieldContainer    &oFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
             void execSync (      Node              *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
@@ -370,11 +374,11 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif
@@ -431,10 +435,10 @@ OSG_SYSTEM_DLLMAPPING
 NodePtr deepCloneTree(      NodePtrConstArg           src,
                       const std::string              &shareString = "");
 
-template <class Core> inline 
+template <class Core> inline
 NodePtr makeCoredNode(typename Core::ObjPtr *coreP = NULL);
 
-template <class CorePtr> inline 
+template <class CorePtr> inline
 NodePtr makeNodeFor(CorePtr core);
 
 OSG_END_NAMESPACE

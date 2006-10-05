@@ -49,11 +49,18 @@ OSG_BEGIN_NAMESPACE
 
 struct ContainerAttachmentContainerDesc;
 
-typedef AttachmentContainerMixin< 
+/** Base class type for AttachmentContainers.
+ * This type pulls in the mixins needed to create an AttachmentContainer.
+ */
+typedef AttachmentContainerMixin<
           ContainerMixinHead     <
-              ContainerAttachmentContainerDesc > > 
+              ContainerAttachmentContainerDesc > >
                   ContainerAttachmentContainerParent;
 
+/**
+ * Traits class use for creating AttachmentContainer using ContainerMixinHead
+ * and AttachmentContainerMixin.
+ */
 struct ContainerAttachmentContainerDesc
 {
     typedef FieldContainer                          ParentT;

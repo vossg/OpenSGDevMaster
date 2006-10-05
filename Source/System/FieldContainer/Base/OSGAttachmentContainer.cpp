@@ -93,9 +93,9 @@ OSG_ABSTR_FIELD_CONTAINER_DEF(AttachmentContainer)
 /*                             Comparison                                  */
 
 
-// deep clone of attachements.
+/** Deep clone of attachements. */
 void OSG::deepCloneAttachments(
-          AttachmentContainerPtrConstArg  src, 
+          AttachmentContainerPtrConstArg  src,
           AttachmentContainerPtrArg       dst,
     const std::vector<std::string>       &share)
 {
@@ -111,7 +111,7 @@ void OSG::deepCloneAttachments(
 }
 
 void OSG::deepCloneAttachments(
-          AttachmentContainerPtrConstArg  src, 
+          AttachmentContainerPtrConstArg  src,
           AttachmentContainerPtrArg       dst,
     const std::vector<UInt16>            &shareGroupIds)
 {
@@ -124,18 +124,18 @@ void OSG::deepCloneAttachments(
 
 // shareString is a comma separated FieldContainer type list
 // e.g. "Material, Geometry"
-void OSG::deepCloneAttachments(      
-          AttachmentContainerPtrConstArg  src, 
+void OSG::deepCloneAttachments(
+          AttachmentContainerPtrConstArg  src,
           AttachmentContainerPtrArg       dst,
     const std::string                    &shareString)
 {
     std::vector<std::string> share;
-    
+
     splitShareString(shareString, share);
-  
+
     OSG::deepCloneAttachments(src, dst, share);
 }
- 
+
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

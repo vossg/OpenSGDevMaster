@@ -136,7 +136,10 @@ OSG_FIELD_CONTAINER_DEF(Node)
 
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */
-
+/** Set the core for this node.
+* If core is NullFC, then clears the node core.
+* @param core The new node core to use
+*/
 void Node::setCore(NodeCorePtrConstArg core)
 {
     editSField(CoreFieldMask);
