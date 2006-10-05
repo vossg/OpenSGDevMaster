@@ -95,7 +95,7 @@ OSG_USING_NAMESPACE
 
 TypeBase::TypeBase(const TypeBase &source) :
     _uiTypeId    (source._uiTypeId    ),
-    _uiTypeRootId(source._uiTypeRootId),
+    //_uiTypeRootId(source._uiTypeRootId),
     _uiNameSpace (source._uiNameSpace ),
 
     _pParentType (source._pParentType ),
@@ -114,13 +114,13 @@ bool TypeBase::initialize(void)
 
     if(_szParentName.isEmpty() == false)
     {
-        _pParentType = 
+        _pParentType =
             TypeFactory::the()->findType(_szParentName.str(), _uiNameSpace);
 
         if(_pParentType == NULL)
         {
-            _pParentType = 
-                TypeFactory::the()->findType(_szParentName.str(), 
+            _pParentType =
+                TypeFactory::the()->findType(_szParentName.str(),
                                               GlobalNamespace);
         }
 
@@ -142,8 +142,8 @@ bool TypeBase::initialize(void)
         _bInitialized = true;
     }
 
-    PNOTICE << "Initialized Type " 
-            << _szName.str() 
+    PNOTICE << "Initialized Type "
+            << _szName.str()
             << " | "
             << _bInitialized
             << std::endl;
@@ -165,7 +165,7 @@ TypeBase::TypeBase(const Char8 *szName,
                    const Char8 *szParentName,
                    const UInt32 uiNameSpace) :
     _uiTypeId    (           0),
-    _uiTypeRootId(           0),
+    //_uiTypeRootId(           0),
     _uiNameSpace (uiNameSpace ),
 
     _pParentType (NULL        ),
@@ -192,12 +192,12 @@ TypeBase::~TypeBase(void)
 /** \brief Get method for attribute Id
  */
 
-UInt32 TypeBase::getId(void) const 
+UInt32 TypeBase::getId(void) const
 {
-    return _uiTypeId; 
+    return _uiTypeId;
 }
 
-/** \brief Get method for attribute name 
+/** \brief Get method for attribute name
  */
 
 const IDString &TypeBase::getName(void) const
@@ -208,11 +208,15 @@ const IDString &TypeBase::getName(void) const
 /** \brief Get method for name as c string
  */
 
-const Char8 *TypeBase::getCName(void) const 
+const Char8 *TypeBase::getCName(void) const
 {
-    return _szName.str(); 
+    return _szName.str();
 }
 
+const TypeBase &TypeBase::getParent(void) const
+{
+   return (*_pParentType);
+}
 const IDString &TypeBase::getParentName (void) const
 {
     return _szParentName;
@@ -276,7 +280,7 @@ bool TypeBase::operator !=(const TypeBase &other) const
 
 /*------------------------- comparison ----------------------------------*/
 
-void TypeBase::dump(      UInt32    uiIndent, 
+void TypeBase::dump(      UInt32    uiIndent,
                     const BitVector         ) const
 {
     indentLog(uiIndent, PLOG);
@@ -296,7 +300,7 @@ void TypeBase::dump(      UInt32    uiIndent,
 #endif
 
 
-namespace 
+namespace
 {
     static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGTYPEBASE_HEADER_CVSID;

@@ -63,21 +63,35 @@ OSG_BEGIN_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseTypeSystem
- */
 
+/*!
+* Base for all types in the type system.
+*
+* A type is uniquely defined by:
+*  - Name: The name of our type.
+*  - Namespace id: The namespace we belong to
+*
+* The type also tracks the name of the the parent type, but this
+* does not influence the unique identify of a type.
+* This class uses the TypeFactory to allocate and register types
+* for the running system.
+*
+* \ingroup GrpBaseBaseTypeSystem
+*
+* \see TypeFactory
+*/
 class OSG_BASE_DLLMAPPING TypeBase
 {
   public:
 
     //-----------------------------------------------------------------------
-    //   constants                                                           
+    //   constants
     //-----------------------------------------------------------------------
 
     static const UInt32 GlobalNamespace = 0;
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     enum InitPhase
@@ -89,81 +103,81 @@ class OSG_BASE_DLLMAPPING TypeBase
     };
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
 
   private:
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   friend classes                                                      
+    //   friend classes
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   friend functions                                                    
+    //   friend functions
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   class variables                                                     
+    //   class variables
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   instance variables                                                  
+    //   instance variables
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 
-    //! prohibit default function (move to 'public' if needed) 
+    //! prohibit default function (move to 'public' if needed)
     void operator =(const TypeBase &source);
 
   protected:
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   class variables                                                     
+    //   class variables
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   instance variables                                                  
+    //   instance variables
     //-----------------------------------------------------------------------
 
-    UInt32    _uiTypeId;
-    UInt32    _uiTypeRootId;
-    UInt32    _uiNameSpace;
+    UInt32    _uiTypeId;         /*!< Unique id of type in global type system. */
+    //UInt32    _uiTypeRootId;
+    UInt32    _uiNameSpace;      /*!< Namespace that the id belongs to. */
 
-    TypeBase *_pParentType;
+    TypeBase *_pParentType;      /*!< The type of the parent if one was registered. */
 
-    IDString  _szName;
-    IDString  _szParentName;
+    IDString  _szName;           /*!< The name of this type. */
+    IDString  _szParentName;     /*!< The name of the parent type. */
 
-    bool      _bInitialized;
+    bool      _bInitialized;     /*!< Set true once type has been initialized. */
 
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 
     TypeBase(const TypeBase &source);
@@ -174,18 +188,18 @@ class OSG_BASE_DLLMAPPING TypeBase
   public :
 
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 
-    TypeBase(const Char8  *szName, 
+    TypeBase(const Char8  *szName,
              const Char8  *szParentName,
              const UInt32  uiNamespace = GlobalNamespace);
 
-    virtual ~TypeBase(void); 
+    virtual ~TypeBase(void);
 
     /*----------------------------- id --------------------------------------*/
 
@@ -194,6 +208,7 @@ class OSG_BASE_DLLMAPPING TypeBase
     const IDString &getName       (void) const;
     const Char8    *getCName      (void) const;
 
+    const TypeBase &getParent     (void) const;
     const IDString &getParentName (void) const;
     const Char8    *getCParentName(void) const;
 
@@ -216,7 +231,7 @@ class OSG_BASE_DLLMAPPING TypeBase
 
     /*------------------------- comparison ----------------------------------*/
 
-    virtual void dump(      UInt32    uiIndent = 0, 
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 };
 
