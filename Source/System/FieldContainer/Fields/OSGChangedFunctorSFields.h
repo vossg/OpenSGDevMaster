@@ -54,6 +54,14 @@ typedef SField<ChangedFunctor> SFChangedFunctorCallback;
 
 #endif
 
+// there is no good way of comparing boost function objects
+template<> inline
+bool SField<ChangedFunctorCallback, 0>::operator ==(
+    const SField<ChangedFunctorCallback, 0> &source) const
+{
+    return false;
+}
+
 template<> 
 OSG_SYSTEM_DLLMAPPING
 void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
