@@ -244,7 +244,7 @@ opts = sca_opts.Options(files = [option_filename, 'options.custom'],
                                    args= ARGUMENTS)
 
 # Create option objects
-boost_options = sca_opts.Boost.Boost("boost","1.31.0",required=True)
+boost_options = sca_opts.Boost.Boost("boost","1.31.0",libs=['filesystem'],required=True)
 
 glut_libname = "glut"
 tiff_libname = "tiff"
