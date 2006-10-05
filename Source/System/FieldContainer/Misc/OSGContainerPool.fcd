@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="ContainerPool"
+	parent="FieldContainer"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+	<Field
+		name="containers"
+		type="FieldContainerPtr"
+		cardinality="multi"
+		visibility="external"
+	>
+	</Field>
+</FieldContainer>
