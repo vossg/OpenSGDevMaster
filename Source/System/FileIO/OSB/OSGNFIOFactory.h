@@ -93,6 +93,7 @@ private:
 
     /*! \}                                                                 */
 
+    /*! The registry. Maps from name to NFIOBase instance. */
     registryMap _registry;
 };
 

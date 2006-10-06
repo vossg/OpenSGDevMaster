@@ -1,39 +1,39 @@
 /*---------------------------------------------------------------------------*\
- *                                OpenSG                                     * 
- *                                                                           * 
- *                                                                           * 
- *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                * 
- *                                                                           * 
- *                            www.opensg.org                                 * 
- *                                                                           * 
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          * 
- *                                                                           * 
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
- *                                License                                    * 
- *                                                                           * 
- * This library is free software; you can redistribute it and/or modify it   * 
- * under the terms of the GNU Library General Public License as published    * 
- * by the Free Software Foundation, version 2.                               * 
- *                                                                           * 
- * This library is distributed in the hope that it will be useful, but       * 
- * WITHOUT ANY WARRANTY; without even the implied warranty of                * 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         * 
- * Library General Public License for more details.                          * 
- *                                                                           * 
- * You should have received a copy of the GNU Library General Public         * 
- * License along with this library; if not, write to the Free Software       * 
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 * 
- *                                                                           * 
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
- *                                Changes                                    * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 
 // Header format
@@ -82,22 +82,25 @@ NFIOOptions                     NFIOBase::_options;
 NFIOBase::BinaryReadHandler     *NFIOBase::_in = NULL;
 NFIOBase::BinaryWriteHandler    *NFIOBase::_out = NULL;
 
-UInt32                          NFIOBase::_id = 1;
+//UInt32                          NFIOBase::_id = 1;
 NFIOBase::fcMap                 NFIOBase::_fcMap;
 std::list<NFIOBase::fcInfo>     NFIOBase::_fieldList;
 
 std::list<FieldContainerPtr>    NFIOBase::_fcList;
 std::set<UInt32>                NFIOBase::_fcSet;
-NFIOBase::IdMap                 NFIOBase::_ids;
+//NFIOBase::IdMap                 NFIOBase::_ids;
 
 UInt16                          NFIOBase::_header_version = 0;
-        
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
 
 /*----------------------------- constructors  -----------------------------*/
 
+/*! Constructor.
+* Automatically registers this handler with the NFIOFactory.
+*/
 NFIOBase::NFIOBase(const char *name) :
     _version(200)
 {
@@ -111,17 +114,20 @@ NFIOBase::~NFIOBase()
     NFIOFactory::the().sub(this);
 }
 
+/*! Read nodes from an istream.
+* This is the main entry point for loading data with the osb loader.
+*/
 NodePtr NFIOBase::read(std::istream &is, const std::string &options)
 {
     _options.init(options);
 
     _in = new BinaryReadHandler(is);
-    
+
     NodePtr node = NullFC;
-    
+
     FieldContainerPtr fc = readFieldContainer();
     node = cast_dynamic<NodePtr>(fc);
-    
+
     delete _in;
 
     return node;
@@ -131,14 +137,14 @@ bool NFIOBase::write(const NodePtr &node, std::ostream &os,
                      const std::string &options)
 {
     _options.init(options);
-    
+
     _out = new BinaryWriteHandler(os);
 
     writeFieldContainer(node);
-    
+
     _out->flush();
     delete _out;
-    
+
     return true;
 }
 
@@ -185,19 +191,22 @@ void NFIOBase::terminate(void)
  *                            Reader                                       *
 \***************************************************************************/
 
+/*! Main reader method.
+* Reads an entire "file" of binary data from the current binary reader.
+*/
 FieldContainerPtr NFIOBase::readFieldContainer(void)
 {
     FDEBUG(("NFIOBase::readFieldContainer\n"));
 
     _fieldList.clear();
     _fcMap.clear();
-    
+
     // read header
     std::string hid;
     _in->getValue(hid);
-    
+
     _header_version = 0;
-    
+
     if(hid == OSGNFIOHEADERID1)
         _header_version = 100;
     else if (hid == OSGNFIOHEADERID2)
@@ -208,40 +217,42 @@ FieldContainerPtr NFIOBase::readFieldContainer(void)
                   "this is not a OpenSG binary file!\n"));
         return NullFC;
     }
-    
+
     initialiseAll();
 
+    // Read the rest of the header
     std::string hname;
-    _in->getValue(hname);
+    _in->getValue(hname);           // Name
     std::string hoptions;
-    _in->getValue(hoptions);
+    _in->getValue(hoptions);        // Options string
     UInt64 hsize;
-    _in->getValue(hsize);
+    _in->getValue(hsize);           // Size value
 
     std::string typeName;
     UInt32 id;
     FieldContainerPtr root = NullFC;
     FieldContainerPtr fc = NullFC;
-    
+
+    // Keep reading field containers until end of file
     while(true)
     {
-        // read fieldcontainer type.
+        // read fieldcontainer type name (string)
         _in->getValue(typeName);
-        
-        if(typeName.empty()) // check for eof.
+
+        if(typeName.empty()) // check for eof marker
             break;
-        
+
         // read fieldcontainer id
         _in->getValue(id);
 
         FDEBUG(("NFIOBase::readFieldContainer %s with id %u\n", typeName.c_str(), id));
-    
-        // get the reader.
+
+        // get the reader and read in field container
         fc = NFIOFactory::the().get(typeName)->readFC(typeName);
-        
+
         if(fc != NullFC)
             addReadFieldContainer(fc, id);
-        
+
         if(root == NullFC) // first fc is the root node.
         {
             root = fc;
@@ -289,6 +300,7 @@ FieldContainerPtr NFIOBase::readFieldContainer(void)
     return root;
 }
 
+/*! Remap the fcptr's in the field wrapped by info. */
 void NFIOBase::chargeFieldPtr(const fcInfo &info)
 {
     FieldContainerType  &fcType = info._fc->getType();
@@ -297,7 +309,7 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
     if(!info.isMultiField())
     {
         FieldContainerPtr fc = NullFC;
-        
+
         UInt32 id = info._id;
 
         if(id != 0)
@@ -320,7 +332,7 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
         // adds pointer fc to fieldcontainer info._fc in field info._fieldId
         info._fc->pushToField(fc, info._fieldId);
     }
-    else
+    else    // MField case
     {
         if(info._ids.empty())
             return;
@@ -350,17 +362,34 @@ void NFIOBase::chargeFieldPtr(const fcInfo &info)
     }
 }
 
+/*! Called for every fc added.
+* \param fc   The field container instantiated.
+* \param id   The id the fc used in the original file.
+*
+* Updates the _fcMap to allow fcptr remapping.
+*/
 void NFIOBase::addReadFieldContainer(const FieldContainerPtr &fc, UInt32 id)
 {
     _fcMap.insert(std::pair<UInt32, UInt32>(id, OSG::getContainerId(fc)));
 }
 
+/*!
+* Read a set of fields from the current in stream into fc.
+* \param fc  The field container to read into
+* \param exclude List of fieldnames to exclude while reading
+*                in the format of "'field_name' 'other_field'"
+* \param endMarkers List of end markers besides an empty string.
+*                in the format of "'marker' 'other_marker'"
+* \returns Name of last field read (or field marker).  This combined
+*          with endMarkers can allow for partial reading of fields.
+*/
 std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
                                    const std::string &exclude,
                                    const std::string &endMarkers)
 {
     FieldContainerType  &fcType = fc->getType();
 
+    // Read fields until end marker is found
     std::string fieldName;
     while(true)
     {
@@ -372,18 +401,20 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
             FDEBUG(("NFIOBase::readFCPtr: found fieldcontainer end marker.\n"));
             break;
         }
-        
+
         std::string fieldType;
         _in->getValue(fieldType);
         UInt32 size;
         _in->getValue(size);
-        
+
         FDEBUG(("NFIOBase::readFCPtr: field: '%s' '%s' %u\n",
                 fieldName.c_str(), fieldType.c_str(), size));
-        
+
+        // Get field and field description
         const Field *field = fc->getField(fieldName.c_str());
         FieldDescriptionBase *fDesc = fc->getFieldDescription(fieldName.c_str());
-        
+
+        // Lookup the mask and id for the field
         BitVector mask;
         UInt32 fieldId = 0;
         if(fDesc != NULL)
@@ -413,7 +444,7 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
             _in->skip(size);
             continue;
         }
-        
+
         if(!exclude.empty() && exclude.find("'" + fieldName + "'") != std::string::npos)
         {
             FDEBUG(("NFIOBase::readFCPtr: skipping field '%s'!\n",
@@ -421,7 +452,7 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
             _in->skip(size);
             continue;
         }
-        
+
         // need to test this before the Ptr's as
         // SFFieldContainerAttachmentPtrMap contains also the Ptr string!
         if(!strcmp(fieldName.c_str(), "attachments"))
@@ -447,9 +478,9 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
     return fieldName;
 }
 
-
+/*! Read entry for an SFField with a fc ptr. */
 void NFIOBase::readSFFieldContainerPtr(const FieldContainerPtr &fc,
-                                       UInt32 fieldId, 
+                                       UInt32 fieldId,
                                        const Field *field)
 {
     UInt32 id;
@@ -457,12 +488,12 @@ void NFIOBase::readSFFieldContainerPtr(const FieldContainerPtr &fc,
     _fieldList.push_back(fcInfo(fc, fieldId, id, field));
 }
 
-
+/*! Read entry for an MFField with fc ptrs. */
 void NFIOBase::readMFFieldContainerPtr(const FieldContainerPtr &fc,
                                        UInt32 fieldId,
                                        const Field *field)
 {
-    UInt32 noe;
+    UInt32 noe;            // number of entries
     _in->getValue(noe);
     _fieldList.push_back(fcInfo(fc, fieldId, field));
     fcInfo &info = _fieldList.back();
@@ -479,6 +510,7 @@ void NFIOBase::readMFFieldContainerPtr(const FieldContainerPtr &fc,
  *                            Writer                                       *
 \***************************************************************************/
 
+/*! Return a count of all the fc's that are going to be written. */
 void NFIOBase::getFCCount(const FieldContainerPtr &fc, UInt32 &count)
 {
     if(fc == NullFC)
@@ -491,7 +523,7 @@ void NFIOBase::getFCCount(const FieldContainerPtr &fc, UInt32 &count)
     ++count;
 
     FieldContainerType  &fcType = fc->getType();
-    
+
     //go through all fields
     for(UInt32 i = 1; i <= fcType.getNumFieldDescs(); ++i)
     {
@@ -507,7 +539,7 @@ void NFIOBase::getFCCount(const FieldContainerPtr &fc, UInt32 &count)
             {
                 continue;
             }
-            
+
             FDEBUG(("NFIOBase::getFCCount: field: '%s' '%s'\n",
                     fDesc->getCName(), fType.getCName()));
 
@@ -527,7 +559,7 @@ void NFIOBase::getFCCount(const FieldContainerPtr &fc, UInt32 &count)
                         getFCCount((*(mfield))[i], count);
                     }
                 }
-                
+
             }
             else if(!strcmp(fDesc->getCName(), "attachments"))
             {
@@ -547,10 +579,15 @@ void NFIOBase::getFCCount(const FieldContainerPtr &fc, UInt32 &count)
     }
 }
 
+/*! Main writer method.
+* \param fc   Field container to write.
+*
+* Writes contents of fc and all fc's reachable from fc.
+*/
 void NFIOBase::writeFieldContainer(const FieldContainerPtr &fc)
 {
     FDEBUG(("NFIOBase::writeFieldContainer\n"));
-    
+
     if(fc == NullFC)
         return;
 
@@ -568,31 +605,33 @@ void NFIOBase::writeFieldContainer(const FieldContainerPtr &fc)
     if(fcCount == 0)
         fcCount = 1;
 
-    _id = 1;
+    //_id = 1;
     _fcList.clear();
     _fcSet.clear();
-    _ids.clear();
+    //_ids.clear();
 
     initialiseAll();
 
     // write header
-    _out->putValue(std::string(OSGNFIOHEADERID2));
-    _out->putValue(std::string(""));
-    _out->putValue(std::string(""));
-    _out->putValue((UInt64) 0);
-    
+    _out->putValue(std::string(OSGNFIOHEADERID2));    // version
+    _out->putValue(std::string(""));                  // name
+    _out->putValue(std::string(""));                  // options
+    _out->putValue((UInt64) 0);                       // size
+
     std::string typeName = fc->getType().getCName();
-    
+
+    // Write the first field container
     _out->putValue(typeName);
-    //_out->putValue(fc.getFieldContainerId());
     _out->putValue(OSG::getContainerId(fc));
-    
+
     NFIOFactory::the().get(typeName)->writeFC(fc);
 
     SceneFileHandler::the()->updateWriteProgress((currentFCCount++ * 100) / fcCount);
 
     FDEBUG(("NFIOBase::writeFC: writing fclist\n"));
-    
+
+    // Write the rest of the fc's
+    // Note: list grows in reachability behind the scenes as side-effect of writeFC
     FieldContainerPtr lfc;
     for(std::list<FieldContainerPtr>::iterator i = _fcList.begin();
         i != _fcList.end(); ++i)
@@ -605,23 +644,28 @@ void NFIOBase::writeFieldContainer(const FieldContainerPtr &fc)
         NFIOFactory::the().get(lfc->getType().getCName())->writeFC(lfc);
         SceneFileHandler::the()->updateWriteProgress((currentFCCount++ * 100) / fcCount);
     }
-    
+
     // write eof marker
     writeEndMarker();
 
     _fcList.clear();
     _fcSet.clear();
-    
+
     terminateAll();
     SceneFileHandler::the()->updateWriteProgress(100);
 }
 
+/*! Write all fc fields to binary stream.
+* \param fc  The fc to write.
+* \param exclude   Fields to exclude from writing
+* \param endMarker Wether or not to write an end marker.
+*/
 void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
                              const std::string &exclude,
                              bool endMarker)
 {
     FieldContainerType  &fcType = fc->getType();
-    
+
     //go through all fields
     for(UInt32 i = 1; i <= fcType.getNumFieldDescs(); ++i)
     {
@@ -638,12 +682,12 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
             {
                 continue;
             }
-            
+
             FDEBUG(("NFIOBase::writeFCPtr: field: '%s' '%s'\n",
                     fDesc->getCName(), fType.getCName()));
             std::string fieldName = fDesc->getCName();
             std::string fieldType = fType.getCName();
-            
+
             if(!exclude.empty() && exclude.find("'" + fieldName + "'") != std::string::npos)
             {
                 FDEBUG(("NFIOBase::writeFields: skipping field: '%s'.\n",
@@ -671,11 +715,11 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
                         _out->putValue(fieldName);
                         _out->putValue(fieldType);
                         _out->putValue(size);
-                        
+
                         writeMFFieldContainerPtr(mfield);
                     }
                 }
-                
+
             }
             else if(!strcmp(fDesc->getCName(), "attachments"))
             {
@@ -697,10 +741,10 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
                 _out->putValue(fc->getBinSize(mask));
                 fc->copyToBin(*_out, mask);
             }
-            
+
         }
     }
-    
+
     if(endMarker)
     {
         // write fieldcontainer end marker
@@ -708,12 +752,13 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
     }
 }
 
+/*! Write the information for a single field ptr. */
 void NFIOBase::writeSFFieldContainerPtr(SFFieldContainerPtr *field)
 {
     writeFCId(field->getValue());
 }
 
-
+/*! Write the information for a mffield ptr. */
 void NFIOBase::writeMFFieldContainerPtr(MFFieldContainerPtr *field)
 {
     UInt32 noe = field->size();
@@ -724,13 +769,14 @@ void NFIOBase::writeMFFieldContainerPtr(MFFieldContainerPtr *field)
     }
 }
 
+/*! Write the pointers for an attachment map. */
 void NFIOBase::writeSFAttachmentMap(SFFieldContainerAttachmentPtrMap *amap)
 {
     //AttachmentMap::const_iterator   mapIt = amap->getValue().begin();
     //AttachmentMap::const_iterator   mapEnd = amap->getValue().end();
     FieldContainerAttachmentMap::const_iterator   mapIt = amap->getValue().begin();
     FieldContainerAttachmentMap::const_iterator   mapEnd = amap->getValue().end();
-    
+
     UInt32 noe = amap->getValue().size();
     _out->putValue(noe);
     for(; mapIt != mapEnd; ++mapIt)
@@ -749,7 +795,7 @@ void NFIOBase::readEndMarker(void)
 void NFIOBase::writeEndMarker(void)
 {
     // end marker a empty field or fieldcontainer type name.
-    _out->putValue(std::string("")); 
+    _out->putValue(std::string(""));
 }
 
 void NFIOBase::writeFCId(const FieldContainerPtr &fc)
@@ -759,10 +805,10 @@ void NFIOBase::writeFCId(const FieldContainerPtr &fc)
         _out->putValue((UInt32) 0);
         return;
     }
-    
+
     UInt32 id = OSG::getContainerId(fc); //fc.getFieldContainerId();
     _out->putValue(id);
-    
+
     if(_fcSet.count(id) == 0)
     {
         _fcSet.insert(id);
@@ -778,6 +824,7 @@ void NFIOBase::postProcessFC(const FieldContainerPtr &fc)
 {
 }
 
+/*! Helper method to skip to end of set of FC Fields. */
 void NFIOBase::skipFCFields(void)
 {
     // skip all fields
@@ -793,7 +840,7 @@ void NFIOBase::skipFCFields(void)
             FDEBUG(("NFIOBase::skipFCFields: found fieldcontainer end marker.\n"));
             break;
         }
-        
+
         _in->getValue(fieldType);
         _in->getValue(size);
 
@@ -804,6 +851,7 @@ void NFIOBase::skipFCFields(void)
 /*-------------------------------------------------------------------------*/
 /*                           fcInfo struct                                 */
 
+/*! Constructor for sfield. */
 NFIOBase::fcInfo::fcInfo(const FieldContainerPtr &fc,
                          UInt32 fieldId, UInt32 id, const Field *field) :
     _fc(fc),
@@ -814,6 +862,7 @@ NFIOBase::fcInfo::fcInfo(const FieldContainerPtr &fc,
 {
 }
 
+/*! Constructor for mfield. */
 NFIOBase::fcInfo::fcInfo(const FieldContainerPtr &fc,
                          UInt32 fieldId, const Field *field) :
     _fc(fc),
@@ -824,6 +873,7 @@ NFIOBase::fcInfo::fcInfo(const FieldContainerPtr &fc,
 {
 }
 
+/*! Return true if we are pointing to a multi-field. */
 bool NFIOBase::fcInfo::isMultiField(void) const
 {
     return (_id == 0);

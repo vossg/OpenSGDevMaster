@@ -58,7 +58,7 @@ OSG_USING_NAMESPACE
 /*! \class OSG::NFIOSceneFileType
     \ingroup GrpSystemFileIO
 
-    Binary file type
+    Loader for the binary file type. (.osb)
  */
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
@@ -92,7 +92,8 @@ NFIOSceneFileType::~NFIOSceneFileType(void)
 /*-------------------------------------------------------------------------*/
 /*                            read                                         */
 
-/*! read filename
+/*! read file stream.
+ * \see OSG::NFIOBase
  */
 NodePtr NFIOSceneFileType::read(std::istream &is, const Char8 *) const
 {
@@ -106,7 +107,8 @@ NodePtr NFIOSceneFileType::read(std::istream &is, const Char8 *) const
 /*-------------------------------------------------------------------------*/
 /*                            write                                        */
 
-/*! write node and its subtree to the given fileName
+/*! write node and its subtree to the given file stream.
+ * \see OSG::NFIOBase
  */
 bool NFIOSceneFileType::write(const NodePtr &node,
                              std::ostream &os, const Char8 *) const
@@ -118,6 +120,7 @@ bool NFIOSceneFileType::write(const NodePtr &node,
 /*                            Constructors                                 */
 
 /*! constructor
+ * \see SceneFileType::SceneFileType
  */
 NFIOSceneFileType::NFIOSceneFileType(const Char8 *suffixArray[],
                                      UInt16 suffixByteCount, bool override,
@@ -149,7 +152,7 @@ const Char8 *NFIOSceneFileType::getName(void) const
 const Char8 *    NFIOSceneFileType::_suffixA[] = { "osb" };
 NFIOSceneFileType NFIOSceneFileType:: _the(_suffixA,
                                          sizeof(_suffixA), false, 10,
-                                         OSG_READ_SUPPORTED | 
+                                         OSG_READ_SUPPORTED |
                                          OSG_WRITE_SUPPORTED);
 
 /*-------------------------------------------------------------------------*/

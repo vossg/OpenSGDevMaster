@@ -165,6 +165,7 @@ protected:
     /*! \name                 Binary Read/Write Handler                    */
     /*! \{                                                                 */
 
+    /*! Helper class to put BinaryDataHandler interface on an istream. */
     class BinaryReadHandler : public BinaryDataHandler
     {
       public:
@@ -183,6 +184,7 @@ protected:
         void operator =(const BinaryReadHandler &source);
     };
 
+    /*! Helper class to put BinaryDataHandler interface on an ostream. */
     class BinaryWriteHandler : public BinaryDataHandler
     {
       public:
@@ -223,6 +225,10 @@ protected:
 
     static FieldContainerPtr readFieldContainer(void);
 
+    /*! Wrap info about an fc.
+    * This class is used to store information about
+    * fc's that we need to revisit to fix up their ptrs.
+    */
     struct fcInfo
     {
         fcInfo(const FieldContainerPtr &fc,
@@ -232,11 +238,11 @@ protected:
 
         bool isMultiField(void) const;
 
-        FieldContainerPtr   _fc;
-        UInt32              _fieldId;
-        UInt32              _id;
-        const Field        *_field;
-        std::vector<UInt32>   _ids;
+        FieldContainerPtr   _fc;          /*!< The fc we reference. */
+        UInt32              _fieldId;     /*!< Id of the field that needs patched. */
+        UInt32              _id;          /*!< fcptr id, if 0, we wrap a mfield. */
+        const Field        *_field;       /*!< ptr to the field in the fc. */
+        std::vector<UInt32>   _ids;       /*!< If mfield, list of ids to replace. */
     };
 
     static void addReadFieldContainer  (const FieldContainerPtr &fc,
@@ -245,8 +251,8 @@ protected:
 
     typedef std::map<UInt32, UInt32> fcMap;
 
-    static fcMap                _fcMap;
-    static std::list<fcInfo>    _fieldList;
+    static fcMap                _fcMap;      /*!< Map file ptr id to instatiated ptr id. */
+    static std::list<fcInfo>    _fieldList;  /*!< List of fields that need ptr remapping. */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,11 +263,11 @@ protected:
     static void writeFieldContainer (const FieldContainerPtr &fc);
     static void writeFCId           (const FieldContainerPtr &fc);
 
-    static UInt32                        _id;
-    static std::list<FieldContainerPtr>  _fcList;
-    static std::set<UInt32>              _fcSet;
-    typedef std::map<FieldContainerPtr, UInt32> IdMap;
-    static IdMap                         _ids;
+    //static UInt32                        _id;
+    static std::list<FieldContainerPtr>  _fcList;        /*!< List of all fc's encountered. */
+    static std::set<UInt32>              _fcSet;         /*!< Set of all fc ids encountered. */
+    //typedef std::map<FieldContainerPtr, UInt32> IdMap;
+    //static IdMap                         _ids;
     static UInt16                        _header_version;
 
     static NFIOOptions _options;
