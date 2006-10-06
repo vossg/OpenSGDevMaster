@@ -124,9 +124,9 @@ struct OSG_BASE_DLLMAPPING LogOStream : public std::ostream
   public:
 
     LogOStream(std::streambuf *buf);
-    
+
     virtual ~LogOStream(void);
-    
+
     void setrdbuf(std::streambuf *buf);
 };
 
@@ -144,16 +144,16 @@ class OSG_BASE_DLLMAPPING LogBuf : public std::streambuf
 
   // only temporary until the functors work with all compiler
 
-    typedef void (*Callback)(const Char8 *data, 
+    typedef void (*Callback)(const Char8 *data,
                                    Int32  size,
                                    void  *clientData);
- 
+
     /*! \hideinhierarchy */
-    struct Chunk 
+    struct Chunk
     {
         Char8 *data;
         Int32  size;
-        
+
         Chunk(void);
         ~Chunk(void);
     };
@@ -161,69 +161,74 @@ class OSG_BASE_DLLMAPPING LogBuf : public std::streambuf
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
-    
+
     LogBuf(      UInt32  bufferSize = 1024);
     LogBuf(const LogBuf &                 );
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
     virtual ~LogBuf();
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
-   
-    bool getEnabled   (void             );    
+
+    bool getEnabled   (void             );
     void setEnabled   (bool value = true);
 
     void clearChunkBag(void             );
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Callback handling                          */
-    /*! \{                                                                 */  
+    /*! \{                                                                 */
 
-    void setCallback   (Callback  cb, 
+    void setCallback   (Callback  cb,
                         void     *clientData = 0,
                         bool      flushData  = false);
     void removeCallback(void                        );
-    
+
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
-    
+
     bool               _enabled;
-    
+
     std::list<Chunk*>  _chunkBag;
-    
+
     Callback           _callback;
-    void              *_clientData; 
-    
+    void              *_clientData;
+
     const LogBuf &operator=(const LogBuf          &);
-          void    write    (const Char8           *buffer, 
+          void    write    (const Char8           *buffer,
                                   std::streamsize  size  );
-    
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Callback handling                          */
     /*! \{                                                                 */
 
     virtual Int32           overflow(      Int32            c    );
     virtual Int32           sync    (      void                  );
-    virtual std::streamsize xsputn  (const Char8           *buffer, 
+    virtual std::streamsize xsputn  (const Char8           *buffer,
                                            std::streamsize  size);
-    
+
 };
 
 /*! \ingroup GrpBaseLog
  *  Message logger class, handles info,warning and error messages
+ *
+ * Logging is controlled by several environment variables.
+ *  - OSG_LOG_LEVEL: "log","fatal", "warning", "notice", "debug_gv","info", "debug"
+ *  - OSG_LOG_TYPE: "none","-","stdout", "stderr", "file", "buffer"
+ *  - OSG_LOG_FILE: Name of file to write log to.
+ *  - OSG_LOG_HEADER: ???
  */
-
 class OSG_BASE_DLLMAPPING Log : public std::ostream
 {
     /*==========================  PUBLIC  =================================*/
@@ -237,7 +242,7 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     Log(      LogType   logType  = LOG_STDERR,
               LogLevel  logLevel = LOG_NOTICE);
 
-    Log(const Char8    *fileName, 
+    Log(const Char8    *fileName,
               LogLevel  logLevel = LOG_NOTICE);
 
     /*! \}                                                                 */
@@ -260,20 +265,20 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     /*! \name                  Module Handling                             */
     /*! \{                                                                 */
 
-    virtual void setHeaderElem    (      UInt32             elemMask, 
+    virtual void setHeaderElem    (      UInt32             elemMask,
                                          bool               force    = false);
-    virtual void addHeaderElem    (      LogHeaderElem      elem, 
+    virtual void addHeaderElem    (      LogHeaderElem      elem,
                                          bool               force    = false);
-    virtual void delHeaderElem    (      LogHeaderElem      elem,     
+    virtual void delHeaderElem    (      LogHeaderElem      elem,
                                          bool               force    = false);
     virtual bool hasHeaderElem    (      LogHeaderElem      elem);
 
-    virtual void addModuleHandling(      LogModuleHandling  handling, 
+    virtual void addModuleHandling(      LogModuleHandling  handling,
                                          bool               force    = false);
-    virtual void delModuleHandling(      LogModuleHandling  handling, 
+    virtual void delModuleHandling(      LogModuleHandling  handling,
                                          bool               force    = false);
 
-    virtual void addModuleName    (const Char8             *module, 
+    virtual void addModuleName    (const Char8             *module,
                                          bool               isStatic = false);
     virtual void delModuleName    (const Char8             *module          );
 
@@ -328,7 +333,7 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     /*---------------------------------------------------------------------*/
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
-          
+
     void connect(void);
 
     static void terminate(void);
@@ -341,13 +346,13 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     typedef std::ostream Inherited;
 
     friend OSG_BASE_DLLMAPPING void doInitLog(void);
- 
+
     /*---------------------------------------------------------------------*/
     /*! \name                         Helper                               */
     /*! \{                                                                 */
 
     /*! \hideinhierarchy */
-    struct OSG_BASE_DLLMAPPING nilbuf : public std::streambuf 
+    struct OSG_BASE_DLLMAPPING nilbuf : public std::streambuf
     {
     };
 
@@ -391,21 +396,21 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     std::list<Module>  _moduleList;
 
     Time               _refTime;
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
     Log(const Log &source);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Operators                                  */
     /*! \{                                                                 */
-    
+
     void operator =(const Log &source);
-    
+
     /*! \}                                                                 */
 
     friend OSG_BASE_DLLMAPPING bool osgExit(void);
@@ -420,26 +425,26 @@ typedef Log *LogP;
 extern OSG_BASE_DLLMAPPING LogP osgLogP;
 
 
-OSG_BASE_DLLMAPPING 
+OSG_BASE_DLLMAPPING
 void          doInitLog  (      void                   );
 
-inline              
+inline
 void          initLog    (      void                   );
 
-inline              
+inline
 Log          &osgLog     (      void                   );
 
-inline         
+inline
 std::ostream &osgStartLog(      bool          logHeader,
                                 LogLevel      level,
                           const Char8        *module,
                           const Char8        *file,
                                 UInt32        line     );
 
-inline              
+inline
 std::ostream &endLog      (     std::ostream &strm     );
 
-inline              
+inline
 void          indentLog   (     UInt32        indent,
                                 std::ostream &stream   );
 
