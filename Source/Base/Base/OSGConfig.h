@@ -864,6 +864,10 @@
 #    endif
 #endif
 
+#ifdef _DEBUG
+#define OSG_DEBUG
+#endif
+
 #ifdef OSG_DEBUG
 #define OSG_DEBUG_LOCK_STAT
 #endif
