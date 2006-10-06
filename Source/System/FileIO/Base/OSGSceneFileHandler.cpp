@@ -621,7 +621,11 @@ void SceneFileHandlerBase::setDefaultGraphOp(GraphOpSeq *graphOpSeq)
     _defaultgraphOpSeq = graphOpSeq;
 }
 
-
+/*! Set the options for the loader of the given file type.
+* \param[in] suffix  A valid suffix for getFileType.
+* \param[in] options  The new set of options to use.
+* \see SceneFileType::setOptions
+*/
 bool SceneFileHandlerBase::setOptions(const Char8 *suffix,
                                       const Char8 *options)
 {
@@ -638,6 +642,9 @@ bool SceneFileHandlerBase::setOptions(const Char8 *suffix,
     return true;
 }
 
+/*! Return the current options for the loader of the given file type.
+* \param[in] suffix  A valid suffix for getFileType.
+*/
 const Char8 *SceneFileHandlerBase::getOptions(const Char8 *suffix)
 {
     if(suffix == NULL)

@@ -60,10 +60,22 @@ OSG_USING_NAMESPACE
 /*! \class OSG::SceneFileType
     \ingroup GrpSystemFileIO
 
+    Base class for all file loaders.
+
  */
 
 //---------------------------------------------------------
 
+/**
+ * Constructor for SceneFileType.
+ *
+ * \param suffixArray     Raw char buffer of supported suffix values.
+ * \param suffixByteCount Length of suffix strings to extract.
+ * \param override
+ * \param overridePriority Priority of this file handler in overload resolution.
+ * \param flags    Combination of OSG_READ_SUPPORTED and OSG_WRITE_SUPPORTED to say what
+ *                 this handler supports.
+ */
 SceneFileType::SceneFileType(const Char8  *suffixArray[],
                                    UInt16  suffixByteCount,
                                    bool    override,
@@ -112,12 +124,23 @@ SceneFileType::~SceneFileType(void)
 
 //---------------------------------------------------------
 
+/*! Set the options string.
+* \param[in] options  String of options.
+*
+* The meaning of the options flags are specific to each loader but
+* most loaders use a general syntax of:
+*
+*  "enable_option  param_option=value"
+*
+* where the options can be in any order and whitespace is ignored.
+*/
 void SceneFileType::setOptions(const Char8 *options)
 {
     _options = options;
 }
 
 //---------------------------------------------------------
+/*! Print supported suffixes to osgLog. */
 void SceneFileType::print(void)
 {
     std::list<IDString>::iterator sI;
@@ -139,7 +162,7 @@ void SceneFileType::print(void)
 }
 
 //---------------------------------------------------------
-
+/*! Return list of supported suffix strings. */
 std::list<IDString> &SceneFileType::suffixList(void)
 {
     return _suffixList;
@@ -168,6 +191,9 @@ UInt32 SceneFileType::getFlags(void)
 
 //---------------------------------------------------------
 
+/** Return the current options string for the loader.
+ * \see setOptions
+ */
 const Char8 *SceneFileType::getOptions(void)
 {
     return _options.c_str();

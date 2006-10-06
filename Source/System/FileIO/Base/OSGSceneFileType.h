@@ -75,13 +75,13 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType
     /*---------------------------------------------------------------------*/
     /*! \name                     Flags                                    */
     /*! \{                                                                 */
-  
+
     enum
     {
-        OSG_READ_SUPPORTED  = 1,
-        OSG_WRITE_SUPPORTED = 2
+        OSG_READ_SUPPORTED  = 1,  /**< The file type supports reading. */
+        OSG_WRITE_SUPPORTED = 2   /**< The file type supports writing. */
     };
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
@@ -93,10 +93,10 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType
     /*---------------------------------------------------------------------*/
     /*! \name                   Set                                        */
     /*! \{                                                                 */
-    
+
     void setOptions(const Char8 *options);
 
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Get                                        */
@@ -107,7 +107,7 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType
             bool                 doOverride         (void);
             UInt32               getOverridePriority(void);
             UInt32               getFlags           (void);
-    
+
             const Char8         *getOptions         (void);
 
     /*! \}                                                                 */
@@ -127,7 +127,7 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType
     /*! \name                   Write                                      */
     /*! \{                                                                 */
 
-    virtual bool write    (const NodePtr      &node, 
+    virtual bool write    (const NodePtr      &node,
                                  std::ostream &os,
                            const Char8        *fileNameOrExtension) const;
 
@@ -152,12 +152,13 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    std::list<IDString> _suffixList;
+    std::list<IDString> _suffixList;   /*! List of valid suffixes for this loader. */
 
-    bool                _override;
-    UInt32              _overridePriority;
-    UInt32              _flags;
-  
+    bool                _override;           /*! If true loader can override others. */
+    UInt32              _overridePriority;   /*! The priority for overriding. */
+    UInt32              _flags;              /*! Mask of supported modes. */
+
+    /*! String list of options to use with the loader. */
     std::string         _options;
 
     /*! \}                                                                 */
