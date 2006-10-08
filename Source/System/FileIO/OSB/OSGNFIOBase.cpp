@@ -398,7 +398,7 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
         if(fieldName.empty() || (!endMarkers.empty() &&
                                  endMarkers.find("'" + fieldName + "'") != std::string::npos))
         {
-            FDEBUG(("NFIOBase::readFCPtr: found fieldcontainer end marker.\n"));
+            FDEBUG(("NFIOBase::readFCFields: found fieldcontainer end marker.\n"));
             break;
         }
 
@@ -407,7 +407,7 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
         UInt32 size;
         _in->getValue(size);
 
-        FDEBUG(("NFIOBase::readFCPtr: field: '%s' '%s' %u\n",
+        FDEBUG(("NFIOBase::readFCFields: field: '%s' '%s' %u\n",
                 fieldName.c_str(), fieldType.c_str(), size));
 
         // Get field and field description
@@ -424,8 +424,8 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
             // but fDesc->isInternal() returns false BUG ????
             if(_header_version == 100 && fieldName == "internal" /*fDesc->isInternal()*/)
             {
-                FINFO(("NFIOBase::readFCPtr: skipping internal field '%s' with "
-                       "type '%s'!\n", fieldName.c_str(),
+                FINFO(("NFIOBase::readFCFields: skipping internal field '%s' "
+                       "with type '%s'!\n", fieldName.c_str(),
                        fieldType.c_str()));
                 _in->skip(size);
                 continue;
@@ -438,7 +438,7 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
         }
         else
         {
-            FWARNING(("NFIOBase::readFCPtr: skipping unknown field '%s' with "
+            FWARNING(("NFIOBase::readFCFields: skipping unknown field '%s' with "
                       "type '%s'!\n", fieldName.c_str(),
                       fieldType.c_str()));
             _in->skip(size);
@@ -447,7 +447,7 @@ std::string NFIOBase::readFCFields(const FieldContainerPtr &fc,
 
         if(!exclude.empty() && exclude.find("'" + fieldName + "'") != std::string::npos)
         {
-            FDEBUG(("NFIOBase::readFCPtr: skipping field '%s'!\n",
+            FDEBUG(("NFIOBase::readFCFields: skipping field '%s'!\n",
                     fieldName.c_str()));
             _in->skip(size);
             continue;
@@ -628,7 +628,7 @@ void NFIOBase::writeFieldContainer(const FieldContainerPtr &fc)
 
     SceneFileHandler::the()->updateWriteProgress((currentFCCount++ * 100) / fcCount);
 
-    FDEBUG(("NFIOBase::writeFC: writing fclist\n"));
+    FDEBUG(("NFIOBase::writeFieldContainer: writing fclist\n"));
 
     // Write the rest of the fc's
     // Note: list grows in reachability behind the scenes as side-effect of writeFC
@@ -683,14 +683,14 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
                 continue;
             }
 
-            FDEBUG(("NFIOBase::writeFCPtr: field: '%s' '%s'\n",
+            FDEBUG(("NFIOBase::writeFCFields: field: '%s' '%s'\n",
                     fDesc->getCName(), fType.getCName()));
             std::string fieldName = fDesc->getCName();
             std::string fieldType = fType.getCName();
 
             if(!exclude.empty() && exclude.find("'" + fieldName + "'") != std::string::npos)
             {
-                FDEBUG(("NFIOBase::writeFields: skipping field: '%s'.\n",
+                FDEBUG(("NFIOBase::writeFCFields: skipping field: '%s'.\n",
                         fieldName.c_str()));
                 continue;
             }
@@ -736,9 +736,13 @@ void NFIOBase::writeFCFields(const FieldContainerPtr &fc,
             }
             else
             {
+                UInt32 size = fc->getBinSize(mask);
+                
+                FDEBUG(("NFIOBase::writeFCFields: size: %d\n", size));
+                
                 _out->putValue(fieldName);
                 _out->putValue(fieldType);
-                _out->putValue(fc->getBinSize(mask));
+                _out->putValue(size);
                 fc->copyToBin(*_out, mask);
             }
 

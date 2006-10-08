@@ -107,20 +107,20 @@ NFIOGeneric::~NFIOGeneric(void)
 
 FieldContainerPtr NFIOGeneric::readFC(const std::string &typeName)
 {
-    FDEBUG(("NFIOGeneric::readFCPtr\n"));
+    FDEBUG(("NFIOGeneric::readFC\n"));
 
     UInt8 fcPtrType;
     _in->getValue(fcPtrType);
     _in->getValue(_version);
 
-    FDEBUG(("NFIOGeneric::readFCPtr: got: '%s' %u\n", typeName.c_str(),
+    FDEBUG(("NFIOGeneric::readFC: got: '%s' %u\n", typeName.c_str(),
             _version));
 
     FieldContainerPtr fc = FieldContainerFactory::the()
                            ->createContainer(typeName.c_str());
     if(fc == NullFC)
     {
-        FWARNING(("NFIOGeneric::readFCPtr: skipping unknown "
+        FWARNING(("NFIOGeneric::readFC: skipping unknown "
                   "field container '%s'.\n", typeName.c_str()));
         skipFCFields();
 
@@ -142,12 +142,11 @@ void NFIOGeneric::writeFC(const FieldContainerPtr &fc)
 {
     if(fc == NullFC)
     {
-        FWARNING(("NFIOGeneric::writeFCPtr: fc == NullFC\n"));
+        FWARNING(("NFIOGeneric::writeFC: fc == NullFC\n"));
         return;
     }
 
-    FDEBUG(("NFIOGeneric::writeFCPtr: writeFCPtr: %s\n",
-            fc->getType().getCName()));
+    FDEBUG(("NFIOGeneric::writeFC: %s\n", fc->getType().getCName()));
     // write field container header.
     _out->putValue(getFCPtrType(fc));
     _out->putValue(_version);

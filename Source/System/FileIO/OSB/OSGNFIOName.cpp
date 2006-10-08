@@ -140,7 +140,7 @@ void NFIOName::writeFC(const FieldContainerPtr &fc)
 {
     if(fc == NullFC)
     {
-        FWARNING(("NFIOGeneric::writeFCPtr: fc == NullFC\n"));
+        FWARNING(("NFIOName::writeFCPtr: fc == NullFC\n"));
         return;
     }
 
