@@ -248,7 +248,7 @@ std::streamsize LogBuf::xsputn(const Char8 *buffer, std::streamsize size)
 
 const Char8        *Log::_levelName[] = 
 {
-    "LOG", "FATAL", "WARNING", "NOTICE", "INFO", "DEBUG", 0
+    "LOG", "FATAL", "WARNING", "NOTICE", "DEBUG_GV", "INFO", "DEBUG", 0
 };
 
 const Char8        *Log::_levelColor[] = 
@@ -257,6 +257,7 @@ const Char8        *Log::_levelColor[] =
     "\x1b[31m", // FATAL
     "\x1b[33m", // WARNING
     0,          // NOTICE
+    0,          // DEBUG_GV
     0,          // INFO
     0,          // DEBUG
     0
