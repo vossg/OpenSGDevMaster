@@ -446,6 +446,8 @@ struct TypedNormGeoVectorPropertyDescBase
 
 #if !defined(OSG_DO_DOC)
 
+/*! Helper macro for auto building geo property header information.
+*/
 #define makeProp(typename, gltypename, gltype)                               \
 struct Geo##typename##PropertyDesc :                                      \
     public TypedGeoVectorPropertyDescBase                                 \
