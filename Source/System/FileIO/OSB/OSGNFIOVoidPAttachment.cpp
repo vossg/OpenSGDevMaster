@@ -128,6 +128,6 @@ void NFIOVoidPAttachment::writeFC(const FieldContainerPtr &)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGNFIOVoidPAttachment.cpp 107 2006-09-14 03:21:56Z dirk $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGNFIOVOIDPATTACHMENT_HEADER_CVSID;
 }

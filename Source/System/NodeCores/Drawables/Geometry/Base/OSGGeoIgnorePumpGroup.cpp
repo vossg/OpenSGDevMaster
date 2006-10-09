@@ -152,7 +152,7 @@ GeoPumpGroup::ExtIndexGeoPump GeoIgnorePumpGroup::getExtIndexGeoPump(
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: OSGGeoIgnorePumpGroup.cpp 106 2006-09-14 03:15:53Z dirk $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGGEOIGNOREPUMPGROUP_HEADER_CVSID;
 //    static Char8 cvsid_inl       [] = OSGGEOIgnorePUMPGROUP_INLINE_CVSID;
 }

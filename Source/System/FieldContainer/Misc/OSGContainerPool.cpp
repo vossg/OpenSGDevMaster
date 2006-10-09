@@ -149,7 +149,7 @@ bool ContainerPool::subContainer(FieldContainerPtr container)
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCTemplate_cpp.h 106 2006-09-14 03:15:53Z dirk $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGCONTAINERPOOLBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGCONTAINERPOOLBASE_INLINE_CVSID;
 
