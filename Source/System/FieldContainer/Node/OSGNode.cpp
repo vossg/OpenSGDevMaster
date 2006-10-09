@@ -882,8 +882,17 @@ void Node::resolveLinks(void)
 }
 
 /*-------------------------------------------------------------------------*/
-/*                             Comparison                                  */
+/*                             Cloning                                     */
 
+/*! Create a shallow clone of a tree.
+*
+* \param pRootNode  The root of the tree to clone.
+*
+* This method will create a "new" tree that is a clone of the one rooted at
+* pRootNode.  It does this by creating new nodes and connecting them
+* as they are in the original tree.  It then sets the new nodes
+* to point at the same node cores as the original tree.
+*/
 NodePtr OSG::cloneTree(NodePtrConstArg pRootNode)
 {
     NodePtr returnValue = NullFC;
