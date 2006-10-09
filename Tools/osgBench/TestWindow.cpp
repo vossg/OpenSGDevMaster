@@ -144,7 +144,13 @@ void TestWindow::setFov(OSG::Real32 fov)
 void TestWindow::redraw(void)
 {
 //    _ssm->redraw();
-    _window->render(dynamic_cast<OSG::RenderAction*>(_ssm->getAction()));
+
+    if(!_ssm->getUseTraversalAction())
+        _window->render(dynamic_cast<OSG::RenderAction*>(_ssm->getAction()));
+#ifdef OSG_CLEANED_RENDERACTION        
+    else
+        _window->render(_ssm->getRenderTraversalAction());
+#endif        
 }
 
 OSG::ImagePtr TestWindow::snapshot(void)
@@ -166,7 +172,7 @@ OSG::ImagePtr TestWindow::snapshot(void)
     _grabber->setImage(img);
     // OSG::endEditCP(_grabber);
     
-    _window->render(dynamic_cast<OSG::RenderAction*>(_ssm->getAction()));
+    redraw();
     
     // OSG::beginEditCP(port);
     port->removeFromForegrounds(port->getForegrounds().size()-1);
