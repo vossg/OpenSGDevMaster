@@ -210,7 +210,7 @@ void FieldDescription<DescT, eFieldCard>::shareValues(
           ConstFieldMaskArg          ,
           FieldContainerPtrConstArg  ) const
 {
-    FWARNING(("illegal clone values called for %s\n", this->getCName()));
+    FWARNING(("illegal share values called for %s\n", this->getCName()));
     OSG_ASSERT(false);
 }
 
@@ -258,10 +258,10 @@ FieldDescription<DescT, eFieldCard>::FieldDescription(
               documentation,
               uiFieldId,
               vFieldMask,
-              bInternal,
-              uiFieldFlags,
               fIndexedEditMethod,
               fIndexedGetMethod,
+              bInternal,
+              uiFieldFlags,
               defaultValue)
 {
 }
