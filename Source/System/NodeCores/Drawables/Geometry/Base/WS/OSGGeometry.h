@@ -63,7 +63,7 @@ class EdgeIterator;
 
 class DrawEnv;
 
-/*! \brief Geometry class. See \ref 
+/*! \brief Geometry class. See \ref
            PageWindowGLUTGeometry for a description.
 */
 
@@ -82,25 +82,28 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \{                                                                 */
 
     // Maximum number of possible attributes
-    static const UInt16 MaxAttribs = 16; 
+    static const UInt16 MaxAttribs = 16;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                IndexMapping Constants                        */
+    /*! \name                IndexMapping Constants
+      These are the constants used for mapping the excpliit get/set functions
+      to the generic attribute data buffers used by OpenGL.
+    */
     /*! \{                                                                 */
 
-    static const UInt16 PositionsIndex       = 0; 
-    static const UInt16 NormalsIndex         = 2; 
-    static const UInt16 ColorsIndex          = 3; 
-    static const UInt16 SecondaryColorsIndex = 4; 
-    static const UInt16 TexCoordsIndex       = 8; 
-    static const UInt16 TexCoords1Index      = 9; 
-    static const UInt16 TexCoords2Index      = 10; 
-    static const UInt16 TexCoords3Index      = 11; 
-    static const UInt16 TexCoords4Index      = 12; 
-    static const UInt16 TexCoords5Index      = 13; 
-    static const UInt16 TexCoords6Index      = 14; 
-    static const UInt16 TexCoords7Index      = 15; 
+    static const UInt16 PositionsIndex       = 0;
+    static const UInt16 NormalsIndex         = 2;
+    static const UInt16 ColorsIndex          = 3;
+    static const UInt16 SecondaryColorsIndex = 4;
+    static const UInt16 TexCoordsIndex       = 8;
+    static const UInt16 TexCoords1Index      = 9;
+    static const UInt16 TexCoords2Index      = 10;
+    static const UInt16 TexCoords3Index      = 11;
+    static const UInt16 TexCoords4Index      = 12;
+    static const UInt16 TexCoords5Index      = 13;
+    static const UInt16 TexCoords6Index      = 14;
+    static const UInt16 TexCoords7Index      = 15;
 
     static const UInt16 LastIndex            = 15;
 
@@ -123,7 +126,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     inline GeoVectorPropertyPtr   getTexCoords5     (void) const;
     inline GeoVectorPropertyPtr   getTexCoords6     (void) const;
     inline GeoVectorPropertyPtr   getTexCoords7     (void) const;
-   
+
 
     inline void setTypes          (GeoIntegralPropertyPtrConstArg value);
     inline void setLengths        (GeoIntegralPropertyPtrConstArg value);
@@ -139,13 +142,13 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     inline void setTexCoords5     (GeoVectorPropertyPtrConstArg   value);
     inline void setTexCoords6     (GeoVectorPropertyPtrConstArg   value);
     inline void setTexCoords7     (GeoVectorPropertyPtrConstArg   value);
-   
+
     void setMaterial       (const MaterialPtr               &value);
 
 
     inline void setProperty (GeoVectorPropertyPtrConstArg value, UInt16 index);
 
-    inline void setIndex     (GeoIntegralPropertyPtrConstArg value, 
+    inline void setIndex     (GeoIntegralPropertyPtrConstArg value,
                               UInt16 index);
 
     inline GeoVectorPropertyPtr   getProperty(UInt16 index) const;
@@ -164,15 +167,15 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     inline void resizePropIndices(size_t newsize);
     inline void reservePropIndices(size_t newsize);
-    
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name          Backwards Compatibility Helpers                     */
     /*! \{                                                                 */
 
-    inline void setIndices(GeoIntegralPropertyPtrConstArg value);  
-    
+    inline void setIndices(GeoIntegralPropertyPtrConstArg value);
+
     inline GeoIntegralPropertyPtr getIndices(void);
 
     /*! \}                                                                 */
@@ -225,7 +228,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -233,7 +236,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -241,20 +244,20 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                    Pump Handling                             */
     /*! \{                                                                 */
 
-//    GeoPumpGroup::PropertyCharacteristics 
+//    GeoPumpGroup::PropertyCharacteristics
 //                            calcPropertyCharacteristics(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name              Global Pump Group Handling                      */
     /*! \{                                                                 */
-    
-    
+
+
     typedef std::vector<GeoPumpGroup*> PumpGroupStorage;
-    
+
     static PumpGroupStorage &getPumpGroupStorage(void);
-    
-    /*! \}                                                                 */  
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
 
@@ -272,7 +275,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~Geometry(void); 
+    virtual ~Geometry(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -306,9 +309,9 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     static PumpGroupStorage _pumps;
 
-    inline 
+    inline
     void fixParents(FieldContainerAttachmentPtrConstArg oldvalue,
-                    FieldContainerAttachmentPtrConstArg newvalue, 
+                    FieldContainerAttachmentPtrConstArg newvalue,
                     FieldContainerPtr                   obj,
                     UInt32                              fieldId);
 

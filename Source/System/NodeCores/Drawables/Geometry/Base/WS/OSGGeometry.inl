@@ -48,7 +48,7 @@ OSG_BEGIN_NAMESPACE
  -  public                                                                 -
 \*-------------------------------------------------------------------------*/
 
-inline    
+inline
 void Geometry::invalidateDlistCache(void)
 {
     Window::refreshGLObject( getClassicGLId() );
@@ -59,9 +59,9 @@ void Geometry::invalidateDlistCache(void)
 
 // Helper function
 // This should go into Attachment...
-inline 
+inline
 void Geometry::fixParents(FieldContainerAttachmentPtrConstArg oldvalue,
-                          FieldContainerAttachmentPtrConstArg newvalue, 
+                          FieldContainerAttachmentPtrConstArg newvalue,
                           FieldContainerPtr                   obj,
                           UInt32                              fieldId)
 {
@@ -173,11 +173,11 @@ void Geometry::setTypes(GeoIntegralPropertyPtrConstArg value)
 {
     addRef(value);
 
-    fixParents(_sfTypes.getValue(), 
-               value, 
-               Inherited::constructPtr<Geometry>(this), 
+    fixParents(_sfTypes.getValue(),
+               value,
+               Inherited::constructPtr<Geometry>(this),
                TypesFieldId);
- 
+
     editSField(TypesFieldMask);
 
     _sfTypes.setValue(value);
@@ -188,11 +188,11 @@ void Geometry::setLengths(GeoIntegralPropertyPtrConstArg value)
 {
     addRef(value);
 
-    fixParents(_sfLengths.getValue(), 
-               value, 
-               Inherited::constructPtr<Geometry>(this), 
+    fixParents(_sfLengths.getValue(),
+               value,
+               Inherited::constructPtr<Geometry>(this),
                LengthsFieldId);
- 
+
     editSField(LengthsFieldMask);
 
     _sfLengths.setValue(value);
@@ -271,7 +271,10 @@ void Geometry::setTexCoords7(GeoVectorPropertyPtrConstArg value)
 }
 
 
-
+/*! Set the vertex properties at index.
+* \param value  The vertex attribute buffer to assign to index.
+* \param index  The index of the OpenGL vertex attribute to set.
+*/
 inline
 void Geometry::setProperty(GeoVectorPropertyPtrConstArg value, UInt16 index)
 {
@@ -283,24 +286,29 @@ void Geometry::setProperty(GeoVectorPropertyPtrConstArg value, UInt16 index)
     {
         _mfProperties.push_back(NullFC);
     }
-    
-    fixParents(_mfProperties[index], 
-                value, 
-                Inherited::constructPtr<Geometry>(this), 
+
+    fixParents(_mfProperties[index],
+                value,
+                Inherited::constructPtr<Geometry>(this),
                 PropertiesFieldId);
-   
+
     _mfProperties[index] = value;
 }
 
+/*! Return the vertext property data stored at index. */
 inline
 GeoVectorPropertyPtr Geometry::getProperty(UInt16 index) const
 {
     if(_mfProperties.size() <= index)
         return NullFC;
-   
+
     return _mfProperties[index];
 }
 
+/*! Add index array for the vertex data attribute at index.
+* \param valu    The list of indices to use.
+* \param index   The index of the vertex attribute data
+*/
 inline
 void Geometry::setIndex(GeoIntegralPropertyPtrConstArg value, UInt16 index)
 {
@@ -312,24 +320,27 @@ void Geometry::setIndex(GeoIntegralPropertyPtrConstArg value, UInt16 index)
     {
         _mfPropIndices.push_back(NullFC);
     }
-    
-    fixParents(_mfPropIndices[index], 
-                value, 
+
+    fixParents(_mfPropIndices[index],
+                value,
                 Inherited::constructPtr<Geometry>(this),
                 PropIndicesFieldId);
-   
+
     _mfPropIndices[index] = value;
 }
 
+/*! Return the list of indices currently being used for the vertex attributes
+* at index index.
+*/
 inline
 GeoIntegralPropertyPtr Geometry::getIndex(UInt16 index) const
 {
     if(_mfPropIndices.size() <= index)
         return NullFC;
-   
+
     GeoIntegralPropertyPtr p =
         cast_dynamic<GeoIntegralPropertyPtr>(_mfPropIndices[index]);
-        
+
     return p;
 }
 
@@ -352,41 +363,44 @@ inline Geometry::PumpGroupStorage &Geometry::getPumpGroupStorage(void)
 inline void Geometry::resizeProperties(size_t newsize)
 {
     editMField(PropertiesFieldMask, _mfProperties);
-    
+
     _mfProperties.resize(newsize);
 }
 
 inline void Geometry::reserveProperties(size_t newsize)
 {
     editMField(PropertiesFieldMask, _mfProperties);
-    
+
     _mfProperties.reserve(newsize);
 }
 
 inline void Geometry::resizePropIndices(size_t newsize)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
-    
+
     _mfPropIndices.resize(newsize, NullFC);
 }
 
 inline void Geometry::reservePropIndices(size_t newsize)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
-    
+
     _mfPropIndices.resize(newsize);
 }
 
 /*---------------- Backwards Compatibility Helpers ----------------*/
 
-/* Set all indices to the same value */
+/*! Set all indices to the same value for all vertex attributes.
+*/
 inline void Geometry::setIndices(GeoIntegralPropertyPtrConstArg value)
 {
     for(UInt16 i = 0; i < 16; ++i)
         setIndex(value, i);
 }
 
-/* Return the first index */
+/*! Return the indices of the first set of vertex attributes.
+* Use in combination with setIndices.
+*/
 inline GeoIntegralPropertyPtr Geometry::getIndices(void)
 {
     return getIndex(0);

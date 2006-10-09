@@ -154,11 +154,11 @@ void Geometry::freeParent(FieldContainerAttachmentPtr value,
 Geometry::~Geometry(void)
 {
     UInt16 i;
- 
+
     if(getClassicGLId() > 0)
-        Window::destroyGLObject(getClassicGLId(), 1);  
+        Window::destroyGLObject(getClassicGLId(), 1);
     if(getAttGLId() > 0)
-        Window::destroyGLObject(getAttGLId(), 1);  
+        Window::destroyGLObject(getAttGLId(), 1);
 }
 
 void Geometry::onCreate(const Geometry *)
@@ -193,7 +193,7 @@ void Geometry::adjustVolume(Volume & volume)
         return;                  // Node has no points, no volume
 
     Pnt3f p;
-    
+
     PrimitiveIterator it,end = this->endPrimitives();
 
     for(it = this->beginPrimitives(); it != end; ++it)
@@ -233,13 +233,13 @@ void Geometry::handleClassicGL(DrawEnv *pEnv, UInt32 idstatus)
         glNewList(glid, GL_COMPILE);
 
         GeoPumpGroup::PropertyCharacteristics prop;
-        
+
         prop = GeoPumpGroup::characterizeGeometry(this);
-        
+
         GeoPumpGroup::GeoPump pump;
 
         pump = GeoPumpGroup::findGeoPump(pEnv, prop);
-                
+
         if (pump)
         {
             pump(pEnv, this);
@@ -281,7 +281,7 @@ void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
 
     if(mode == Window::initialize || mode == Window::needrefresh ||
        mode == Window::reinitialize)
-    {       
+    {
         if(mode == Window::initialize)
         {
             glid = glGenLists(1);
@@ -295,14 +295,14 @@ void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
         glNewList(glid, GL_COMPILE);
 
         GeoPumpGroup::PropertyCharacteristics prop;
-        
+
         prop = GeoPumpGroup::characterizeGeometry(this);
         prop |= GeoPumpGroup::UsesShader;
-        
+
         GeoPumpGroup::GeoPump pump;
 
         pump = GeoPumpGroup::findGeoPump(pEnv, prop);
-                
+
         if (pump)
         {
             pump(pEnv, this);
@@ -337,8 +337,8 @@ void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
 Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
 {
     // !!! HACK this needs to be decided by the used material/state
-    bool usesShader = false;    
-    
+    bool usesShader = false;
+
     // store glColor.
     Color4f color;
 
@@ -348,7 +348,7 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
     if(getDlistCache() == true)
     {
         Int32 glid;
-    
+
         if(usesShader)
         {
             glid = getAttGLId();
@@ -364,15 +364,15 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
     else
     {
         GeoPumpGroup::PropertyCharacteristics prop;
-        
+
         prop = GeoPumpGroup::characterizeGeometry(this);
-        
+
         if(usesShader)
             prop |= GeoPumpGroup::UsesShader;
-        
+
         GeoPumpGroup::GeoPump pump;
         pump = GeoPumpGroup::findGeoPump(pEnv, prop);
-        
+
         if (pump)
         {
             pump(pEnv, this);
@@ -428,7 +428,9 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
     return Action::Continue;
 }
 
-
+/*! Complete intersection test.
+* \todo: Implement geometry intersection test.
+*/
 Action::ResultE Geometry::intersect(Action * action)
 {
 /*
@@ -504,7 +506,7 @@ void Geometry::changed(ConstFieldMaskArg whichField, UInt32 origin)
     Inherited::changed(whichField, origin);
 }
 
-void Geometry::dump(      UInt32    , 
+void Geometry::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump Geometry NI" << std::endl;
