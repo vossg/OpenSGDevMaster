@@ -57,7 +57,9 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::GeoVectorProperty
-Abstract base class for all vector-valued GeoProperties 
+Abstract base class for all vector-valued GeoProperties.
+Provides a uniform interface for accessing all vector data in geometry using
+automatic conversion methods.
 */
 
 /***************************************************************************\
@@ -102,14 +104,14 @@ const StateChunkClass *GeoVectorProperty::getClass(void) const
 GeoVectorProperty::GeoVectorProperty(void) :
     Inherited()
 {
-    _extSecondaryColor      = 
+    _extSecondaryColor      =
         Window::registerExtension("GL_EXT_secondary_color");
 
     _funcglSecondaryColorPointer  = Window::registerFunction(
                             OSG_DLSYM_UNDERSCORE"glSecondaryColorPointerEXT",
                             _extSecondaryColor);
 
-    _extMultitexture        = 
+    _extMultitexture        =
         Window::registerExtension("GL_ARB_multitexture");
     _funcglClientActiveTextureARB = Window::registerFunction(
                             OSG_DLSYM_UNDERSCORE"glClientActiveTextureARB",
@@ -127,20 +129,20 @@ GeoVectorProperty::~GeoVectorProperty(void)
 
 /*-------------------- Arbitrary Type Interface Methods ------------------*/
 
-void GeoVectorProperty::getValue(      Vec3f  &val, 
+void GeoVectorProperty::getValue(      Vec3f  &val,
                                     const UInt32  index ) const
 {
     MaxTypeT ival;
     getValue(ival, index);
-    GeoConvert::convertOut(val, ival, 1, 0);    
+    GeoConvert::convertOut(val, ival, 1, 0);
 }
 
-void GeoVectorProperty::setValue(const Vec3f  &val, 
+void GeoVectorProperty::setValue(const Vec3f  &val,
                                     const UInt32  index )
 {
     MaxTypeT ival;
-    GeoConvert::convertIn(ival, val, 1, 0);    
-    setValue(ival, index);    
+    GeoConvert::convertIn(ival, val, 1, 0);
+    setValue(ival, index);
 }
 
 
@@ -152,7 +154,7 @@ GLenum GeoVectorProperty::getBufferType(void)
     return GL_ARRAY_BUFFER_ARB;
 #else
     return GL_NONE;
-#endif 
+#endif
 }
 
 void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
@@ -161,14 +163,14 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
     Window *win = pEnv->getWindow();
     bool isGeneric = (slot >= 16);  // !!!HACK. needs to be replaced for 2.0
     slot &= 15;
-    
+
     if(win->hasExtension(_extVertexBufferObject) &&
        isGeneric)
     {
-        void (OSG_APIENTRY*_glVertexAttribPointerARB) 
+        void (OSG_APIENTRY*_glVertexAttribPointerARB)
             (GLuint index, GLint size, GLenum type, GLboolean normalized,
              GLsizei stride, const GLvoid *pointer)=
-        (void (OSG_APIENTRY*) (GLuint index, GLint size, GLenum type, 
+        (void (OSG_APIENTRY*) (GLuint index, GLint size, GLenum type,
              GLboolean normalized, GLsizei stride, const GLvoid *pointer))
             win->getFunction(_funcglVertexAttribPointerARB);
 
@@ -182,11 +184,11 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
                 (void (OSG_APIENTRY*)(GLenum target, GLuint buffer))
                 pEnv->getWindow()->getFunction(_funcBindBuffer);
 
-            _glBindBufferARB(GL_ARRAY_BUFFER_ARB, 
+            _glBindBufferARB(GL_ARRAY_BUFFER_ARB,
                              win->getGLObjectId(getGLId()));
 
-            _glVertexAttribPointerARB(slot, getDimension(), 
-                getFormat(), 
+            _glVertexAttribPointerARB(slot, getDimension(),
+                getFormat(),
                 getNormalize(),
                 getStride(), 0);
 
@@ -194,12 +196,12 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
         }
         else
         {
-            _glVertexAttribPointerARB(slot, getDimension(), 
+            _glVertexAttribPointerARB(slot, getDimension(),
                 getFormat(), getNormalize(),
                 getStride(), getData());
         }
 
-        void (OSG_APIENTRY*_glEnableVertexAttribArrayARB) 
+        void (OSG_APIENTRY*_glEnableVertexAttribArrayARB)
             (GLuint index)=
         (void (OSG_APIENTRY*) (GLuint index))
             win->getFunction(_funcglEnableVertexAttribArrayARB);
@@ -242,15 +244,15 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
                                     "has no Secondary Color extension\n"));
                     }
                     break;
-        case 8:  case 9: 
-        case 10: case 11: 
-        case 12: case 13: 
-        case 14: case 15: 
+        case 8:  case 9:
+        case 10: case 11:
+        case 12: case 13:
+        case 14: case 15:
                     {
-                    void (OSG_APIENTRY*_glClientActiveTextureARB) 
+                    void (OSG_APIENTRY*_glClientActiveTextureARB)
                         (GLenum type)= (void (OSG_APIENTRY*) (GLenum type))
                         win->getFunction(_funcglClientActiveTextureARB);
-                        
+
                     _glClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
                     glTexCoordPointer(getDimension(), getFormat(),
                                       getStride(), getData());
@@ -261,13 +263,13 @@ void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
                         " attribute nr. %d unknown!\n", slot));
                     break;
         }
-        
+
     }
 #endif
 }
 
-void GeoVectorProperty::changeFrom(DrawEnv    *pEnv, 
-                                   StateChunk *old, 
+void GeoVectorProperty::changeFrom(DrawEnv    *pEnv,
+                                   StateChunk *old,
                                    UInt32      slot)
 {
     // change from me to me?
@@ -291,7 +293,7 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
     if(win->hasExtension(_extVertexBufferObject) &&
        isGeneric)
     {
-        void (OSG_APIENTRY*_glDisableVertexAttribArrayARB) 
+        void (OSG_APIENTRY*_glDisableVertexAttribArrayARB)
             (GLuint index)=
         (void (OSG_APIENTRY*) (GLuint index))
             win->getFunction(_funcglDisableVertexAttribArrayARB);
@@ -310,12 +312,12 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
                     break;
         case 4:     glDisableClientState(GL_SECONDARY_COLOR_ARRAY_EXT);
                     break;
-        case 8:  case 9: 
-        case 10: case 11: 
-        case 12: case 13: 
-        case 14: case 15: 
+        case 8:  case 9:
+        case 10: case 11:
+        case 12: case 13:
+        case 14: case 15:
                     {
-                    void (OSG_APIENTRY*_glClientActiveTextureARB) 
+                    void (OSG_APIENTRY*_glClientActiveTextureARB)
                         (GLenum type)= (void (OSG_APIENTRY*) (GLenum type))
                         win->getFunction(_funcglClientActiveTextureARB);
                     _glClientActiveTextureARB(GL_TEXTURE0_ARB + slot - 8);
@@ -337,7 +339,7 @@ void GeoVectorProperty::changed(ConstFieldMaskArg whichField, UInt32 origin)
     Inherited::changed(whichField, origin);
 }
 
-void GeoVectorProperty::dump(      UInt32    , 
+void GeoVectorProperty::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump GeoVectorProperty NI" << std::endl;
