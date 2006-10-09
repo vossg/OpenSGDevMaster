@@ -62,6 +62,29 @@ OSG_USING_NAMESPACE
 
 */
 
+/*! \fn GeoProperty::
+
+/*! \fn UInt32  GeoProperty::getFormat    (void)
+*/
+
+/*! \fn UInt32  GeoProperty::getFormatSize(void)
+*/
+
+/*! \fn UInt32  GeoProperty::getStride    (void)
+*/
+
+/*! \fn UInt32  GeoProperty::getDimension (void)
+*/
+
+/*! \fn UInt32  GeoProperty::getSize      (void)
+*/
+
+/*! \fn UInt32  GeoProperty::size         (void)
+*/
+
+/*! \fn UInt8* GeoProperty::getData      (void)
+*/
+
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
