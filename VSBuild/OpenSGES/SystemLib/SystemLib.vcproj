@@ -341,6 +341,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGChangedFunctorFields.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGChangeList.cpp"
 					>
 				</File>
@@ -461,11 +465,19 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureChunk.cpp"
+					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunk.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureChunkBase.cpp"
+					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunkBase.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunk.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunkBase.cpp"
 					>
 				</File>
 			</Filter>
@@ -550,6 +562,22 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\Image\ES\OSGImageBase.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ScanParseSkel"
+				>
+			</Filter>
+			<Filter
+				Name="FileIOBase"
+				>
+				<File
+					RelativePath="..\..\..\Source\System\FileIO\Base\OSGSceneFileHandler.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FileIO\Base\OSGSceneFileType.cpp"
 					>
 				</File>
 			</Filter>
@@ -1049,6 +1077,18 @@
 							Outputs="..\include\OpenSG\$(InputFileName)"
 						/>
 					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGChangedFunctorFieldTraits.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGChangedFunctorMFields.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGChangedFunctorSFields.h"
+					>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGChangeList.h"
@@ -4385,114 +4425,44 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureChunk.h"
+					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunk.h"
 					>
-					<FileConfiguration
-						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureChunk.inl"
+					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunk.inl"
 					>
-					<FileConfiguration
-						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureChunkBase.h"
+					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunkBase.h"
 					>
-					<FileConfiguration
-						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureChunkBase.inl"
+					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunkBase.inl"
 					>
-					<FileConfiguration
-						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureChunkFields.h"
+					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunkFields.h"
 					>
-					<FileConfiguration
-						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-						>
-						<Tool
-							Name="VCCustomBuildTool"
-							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
-							Outputs="..\include\OpenSG\$(InputFileName)"
-						/>
-					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunk.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunk.inl"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunkBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunkBase.inl"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunkFields.h"
+					>
 				</File>
 			</Filter>
 			<Filter
@@ -5491,6 +5461,26 @@
 							Outputs="..\include\OpenSG\$(InputFileName)"
 						/>
 					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="FileIOBase"
+				>
+				<File
+					RelativePath="..\..\..\Source\System\FileIO\Base\OSGSceneFileHandler.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FileIO\Base\OSGSceneFileType.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FileIO\Base\OSGZStream.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FileIO\Base\OSGZStream.inl"
+					>
 				</File>
 			</Filter>
 		</Filter>
