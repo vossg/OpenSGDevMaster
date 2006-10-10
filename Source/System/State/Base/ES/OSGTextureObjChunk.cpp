@@ -55,7 +55,7 @@
 #include "OSGDrawActionBase.h"
 #include "OSGDrawEnv.h"
 
-#include "OSGTextureChunk.h"
+#include "OSGTextureObjChunk.h"
 
 //#define OSG_DUMP_TEX
 
@@ -66,10 +66,10 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::TextureChunk
+/*! \class OSG::TextureObjChunk
     \ingroup GrpSystemState
 
-See \ref PageSystemTextureChunk for a description.
+See \ref PageSystemTextureObjChunk for a description.
 
 This chunk wraps glTexImage[123]D (OSG::TextureChunk::_sfImage,
 OSG::TextureChunk::_sfInternalFormat, OSG::TextureChunk::_sfExternalFormat),
@@ -102,35 +102,35 @@ extension(s) are also available.
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass TextureChunk::_class("Texture", osgMaxTexImages);
+StateChunkClass TextureObjChunk::_class("TextureObj", osgMaxTexImages);
 
-UInt32 TextureChunk::_extTex3D                    = Window::invalidExtensionID;
-UInt32 TextureChunk::_arbMultiTex                 = Window::invalidExtensionID;
-UInt32 TextureChunk::_arbCubeTex                  = Window::invalidExtensionID;
-UInt32 TextureChunk::_nvPointSprite               = Window::invalidExtensionID;
-UInt32 TextureChunk::_nvTextureShader             = Window::invalidExtensionID;
-UInt32 TextureChunk::_nvTextureShader2            = Window::invalidExtensionID;
-UInt32 TextureChunk::_nvTextureShader3            = Window::invalidExtensionID;
-UInt32 TextureChunk::_sgisGenerateMipmap          = Window::invalidExtensionID;
-UInt32 TextureChunk::_extTextureLodBias           = Window::invalidExtensionID;
-UInt32 TextureChunk::_arbTextureCompression       = Window::invalidExtensionID;
-UInt32 TextureChunk::_arbTextureRectangle         = Window::invalidExtensionID;
-UInt32 TextureChunk::_arbTextureNonPowerOfTwo     = Window::invalidExtensionID;
-UInt32 TextureChunk::_extTextureFilterAnisotropic = Window::invalidExtensionID;
-UInt32 TextureChunk::_extShadow                   = Window::invalidExtensionID;
-UInt32 TextureChunk::_extDepthTexture             = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_extTex3D                    = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_arbMultiTex                 = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_arbCubeTex                  = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_nvPointSprite               = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_nvTextureShader             = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_nvTextureShader2            = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_nvTextureShader3            = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_sgisGenerateMipmap          = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_extTextureLodBias           = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_arbTextureCompression       = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_arbTextureRectangle         = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_arbTextureNonPowerOfTwo     = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_extTextureFilterAnisotropic = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_extShadow                   = Window::invalidExtensionID;
+UInt32 TextureObjChunk::_extDepthTexture             = Window::invalidExtensionID;
 
-UInt32 TextureChunk::_funcTexImage3D              = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcTexSubImage3D           = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcActiveTexture           = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcCompressedTexImage1D    = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcCompressedTexSubImage1D = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcCompressedTexImage2D    = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcCompressedTexSubImage2D = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcCompressedTexImage3D    = Window::invalidFunctionID;
-UInt32 TextureChunk::_funcCompressedTexSubImage3D = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcTexImage3D              = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcTexSubImage3D           = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcActiveTexture           = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcCompressedTexImage1D    = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcCompressedTexSubImage1D = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcCompressedTexImage2D    = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcCompressedTexSubImage2D = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcCompressedTexImage3D    = Window::invalidFunctionID;
+UInt32 TextureObjChunk::_funcCompressedTexSubImage3D = Window::invalidFunctionID;
 
-volatile UInt16 TextureChunk::_uiChunkCounter = 1;
+volatile UInt16 TextureObjChunk::_uiChunkCounter = 1;
 
 // define GL_TEXTURE_3D, if not defined yet
 #ifndef GL_VERSION_1_2
@@ -150,7 +150,7 @@ volatile UInt16 TextureChunk::_uiChunkCounter = 1;
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-void TextureChunk::initMethod(InitPhase ePhase)
+void TextureObjChunk::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -241,19 +241,19 @@ void TextureChunk::initMethod(InitPhase ePhase)
 
 /*------------- constructors & destructors --------------------------------*/
 
-TextureChunk::TextureChunk(void) :
+TextureObjChunk::TextureObjChunk(void) :
      Inherited( ),
     _uiChunkId(0)
 {
 }
 
-TextureChunk::TextureChunk(const TextureChunk &source) :
+TextureObjChunk::TextureObjChunk(const TextureObjChunk &source) :
      Inherited(source),
     _uiChunkId(     0)
 {
 }
 
-TextureChunk::~TextureChunk(void)
+TextureObjChunk::~TextureObjChunk(void)
 {
     if(getGLId() > 0)
         Window::destroyGLObject(getGLId(), 1);
@@ -261,12 +261,12 @@ TextureChunk::~TextureChunk(void)
 
 /*------------------------- Chunk Class Access ---------------------------*/
 
-const StateChunkClass *TextureChunk::getClass(void) const
+const StateChunkClass *TextureObjChunk::getClass(void) const
 {
     return &_class;
 }
 
-UInt16 TextureChunk::getChunkId(void)
+UInt16 TextureObjChunk::getChunkId(void)
 {
     return _uiChunkId;
 }
@@ -278,27 +278,27 @@ UInt16 TextureChunk::getChunkId(void)
     it consistent with the cubeTexture specifics
 */
 
-void TextureChunk::changed(BitVector whichField, UInt32 origin)
+void TextureObjChunk::changed(BitVector whichField, UInt32 origin)
 {
 #ifdef GV_CHECK
     if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
     {
         if(getGLId() == 0)
         {
-            TextureChunkPtr tmpPtr(*this);
+            TextureObjChunkPtr tmpPtr(*this);
 
-            beginEditCP(tmpPtr, TextureChunk::GLIdFieldMask);
+            beginEditCP(tmpPtr, TextureObjChunk::GLIdFieldMask);
             
             setGLId(
                 Window::registerGLObject(
-                    osgTypedMethodVoidFunctor2ObjCPtrPtr<TextureChunkPtr,
+                    osgTypedMethodVoidFunctor2ObjCPtrPtr<TextureObjChunkPtr,
                                                  Window ,
                                                  UInt32>(
                                                      tmpPtr,
-                                                     &TextureChunk::handleGL),
+                                                     &TextureObjChunk::handleGL),
                     1));
             
-            endEditCP(tmpPtr, TextureChunk::GLIdFieldMask);
+            endEditCP(tmpPtr, TextureObjChunk::GLIdFieldMask);
         }
     }
 #endif
@@ -355,7 +355,7 @@ void TextureChunk::changed(BitVector whichField, UInt32 origin)
     Inherited::changed(whichField, origin);
 }
 
-bool TextureChunk::isTransparent(void) const
+bool TextureObjChunk::isTransparent(void) const
 {
     // Even if the texture has alpha, the Blending is makes the sorting
     // important, thus textures per se are not transparent
@@ -365,7 +365,7 @@ bool TextureChunk::isTransparent(void) const
 
 /*----------------------------- onCreate --------------------------------*/
 
-void TextureChunk::onCreate(const TextureChunk *source)
+void TextureObjChunk::onCreate(const TextureObjChunk *source)
 {
     Inherited::onCreate(source);
 
@@ -376,10 +376,10 @@ void TextureChunk::onCreate(const TextureChunk *source)
     if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
     {
 #endif
-        TextureChunkPtr tmpPtr = Inherited::constructPtr<TextureChunk>(this);
+        TextureObjChunkPtr tmpPtr = Inherited::constructPtr<TextureObjChunk>(this);
         
         setGLId(Window::registerGLObject(
-                    boost::bind(&TextureChunk::handleGL, tmpPtr, _1, _2),
+                    boost::bind(&TextureObjChunk::handleGL, tmpPtr, _1, _2),
                     1));
 
 #ifdef GV_CHECK
@@ -389,8 +389,8 @@ void TextureChunk::onCreate(const TextureChunk *source)
     _uiChunkId = _uiChunkCounter++;
 }
 
-void TextureChunk::onCreateAspect(const TextureChunk *createAspect,
-                                  const TextureChunk *source      )
+void TextureObjChunk::onCreateAspect(const TextureObjChunk *createAspect,
+                                  const TextureObjChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
 
@@ -399,10 +399,10 @@ void TextureChunk::onCreateAspect(const TextureChunk *createAspect,
 
 /*------------------------------ Output ----------------------------------*/
 
-void TextureChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
+void TextureObjChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
                         const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
-    SLOG << "Dump TextureChunk NI" << std::endl;
+    SLOG << "Dump TextureObjChunk NI" << std::endl;
 }
 
 
@@ -412,7 +412,7 @@ void TextureChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
     Also used by derived CubeMap chunk.
 */
 
-void TextureChunk::handleTextureShader(Window *win, GLenum bindtarget)
+void TextureObjChunk::handleTextureShader(Window *win, GLenum bindtarget)
 {
 #ifndef OSG_WINCE
     if(!win->hasExtension(_nvTextureShader))
@@ -460,7 +460,7 @@ void TextureChunk::handleTextureShader(Window *win, GLenum bindtarget)
     }
     else if(getShaderOffsetMatrix().size() != 0)
     {
-        FWARNING(("TextureChunk::handleTextureShader: shaderOffsetMatrix has"
+        FWARNING(("TextureObjChunk::handleTextureShader: shaderOffsetMatrix has"
                     " to have 4 entries, not %d!\n",
                     getShaderOffsetMatrix().size() ));
     }
@@ -537,7 +537,7 @@ void TextureChunk::handleTextureShader(Window *win, GLenum bindtarget)
 #endif
 }
 
-void TextureChunk::handleTexture(Window *win, 
+void TextureObjChunk::handleTexture(Window *win, 
                                  UInt32 id,
                                  GLenum bindtarget,
                                  GLenum paramtarget,
@@ -741,7 +741,7 @@ void TextureChunk::handleTexture(Window *win,
         if(! img || ! img->getDimension()) // no image ?
             return;
 
-        glErr("TextureChunk::initialize precheck");
+        glErr("TextureObjChunk::initialize precheck");
 
         FDEBUG(("texture (re-)initialize\n"));
         
@@ -799,7 +799,7 @@ void TextureChunk::handleTexture(Window *win,
                                  getDepthMode());
              }
              
-            glErr("TextureChunk::initialize params");
+            glErr("TextureObjChunk::initialize params");
         }
 
         // set the image
@@ -868,7 +868,7 @@ void TextureChunk::handleTexture(Window *win,
         
         if(imgtarget == GL_TEXTURE_RECTANGLE_ARB && needMipmaps)
         {
-            SWARNING << "TextureChunk::initialize1: Can't do mipmaps"
+            SWARNING << "TextureObjChunk::initialize1: Can't do mipmaps"
                      << "with GL_TEXTURE_RECTANGLE_ARB target! Ignored"
                      << std::endl;
             needMipmaps= false;
@@ -922,7 +922,7 @@ void TextureChunk::handleTexture(Window *win,
                                             img->getData(i, frame, side));
                             break;
                        default:
-                                SFATAL << "TextureChunk::initialize1: unknown target "
+                                SFATAL << "TextureObjChunk::initialize1: unknown target "
                                        << imgtarget << "!!!" << std::endl;
                                 break;
                         }
@@ -956,7 +956,7 @@ void TextureChunk::handleTexture(Window *win,
                                             img->getData(i, frame, side));
                             break;
                        default:
-                                SFATAL << "TextureChunk::initialize1: unknown target "
+                                SFATAL << "TextureObjChunk::initialize1: unknown target "
                                        << imgtarget << "!!!" << std::endl;
                                 break;
                         }
@@ -972,7 +972,7 @@ void TextureChunk::handleTexture(Window *win,
                 {
                     if(paramtarget != GL_NONE)
                         glTexParameteri(paramtarget, GL_GENERATE_MIPMAP_SGIS, GL_TRUE);
-                    glErr("TextureChunk::activate generate_mipmaps");
+                    glErr("TextureObjChunk::activate generate_mipmaps");
                     needMipmaps = false; // automagic does it
                 }
                 else
@@ -989,7 +989,7 @@ void TextureChunk::handleTexture(Window *win,
                         // scale is only implemented for 2D
                         if(imgtarget != GL_TEXTURE_2D)
                         {
-                            SWARNING << "TextureChunk::initialize: can't mipmap "
+                            SWARNING << "TextureObjChunk::initialize: can't mipmap "
                                      << "non-2D textures that are not 2^x !!!"
                                      << std::endl;
                         }
@@ -1009,7 +1009,7 @@ void TextureChunk::handleTexture(Window *win,
 
                                 if(res)
                                 {
-                                    SWARNING << "TextureChunk::initialize: "
+                                    SWARNING << "TextureObjChunk::initialize: "
                                              << "gluScaleImage failed: "
                                              << gluErrorString(res) << "("
                                              << res << ")!"
@@ -1076,13 +1076,13 @@ void TextureChunk::handleTexture(Window *win,
                                                     width, height, depth,
                                                     externalFormat, type, data);
 #  else
-                                FWARNING(("TextureChunk::initialize: 3d textures "
+                                FWARNING(("TextureObjChunk::initialize: 3d textures "
                                           "supported, but GLU version < 1.3, thus "
                                           "gluBuild3DMipmaps not supported!\n"));
 #  endif
                                 break;
                         default:
-                                SFATAL << "TextureChunk::initialize2: unknown target "
+                                SFATAL << "TextureObjChunk::initialize2: unknown target "
                                        << imgtarget << "!!!" << std::endl;
                         }
 
@@ -1125,7 +1125,7 @@ void TextureChunk::handleTexture(Window *win,
                        imgtarget != GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB
                       )
                     {
-                        SWARNING << "TextureChunk::initialize: can't scale "
+                        SWARNING << "TextureObjChunk::initialize: can't scale "
                                  << "non-2D textures that are not 2^x !!!"
                                  << std::endl;
                     }
@@ -1144,7 +1144,7 @@ void TextureChunk::handleTexture(Window *win,
 
                         if(res)
                         {
-                            SWARNING << "TextureChunk::initialize: "
+                            SWARNING << "TextureObjChunk::initialize: "
                                      << "gluScaleImage failed: "
                                      << gluErrorString(res) << "("
                                      << res << ")!" << std::endl;
@@ -1217,7 +1217,7 @@ void TextureChunk::handleTexture(Window *win,
                                            img->getData(0, frame, side));
                            break;
                        default:
-                               SFATAL << "TextureChunk::initialize4: unknown target "
+                               SFATAL << "TextureObjChunk::initialize4: unknown target "
                                       << imgtarget << "!!!" << std::endl;
                        }
                    }
@@ -1268,7 +1268,7 @@ void TextureChunk::handleTexture(Window *win,
                                            img->getData(0, frame, side));
                            break;
                        default:
-                               SFATAL << "TextureChunk::initialize4: unknown target "
+                               SFATAL << "TextureObjChunk::initialize4: unknown target "
                                       << imgtarget << "!!!" << std::endl;
                        } // switch imgtarget
                    } // compressed data?
@@ -1323,7 +1323,7 @@ void TextureChunk::handleTexture(Window *win,
                                          datasize, data);
                          break;
                      default:
-                         SFATAL << "TextureChunk::initialize3: unknown target "
+                         SFATAL << "TextureObjChunk::initialize3: unknown target "
                                 << imgtarget << "!!!" << std::endl;
                      }
                  }
@@ -1362,7 +1362,7 @@ void TextureChunk::handleTexture(Window *win,
                                             data);
                             break;
                         default:
-                            SFATAL << "TextureChunk::initialize3: unknown target "
+                            SFATAL << "TextureObjChunk::initialize3: unknown target "
                                    << imgtarget << "!!!" << std::endl;
                         }
                     }
@@ -1373,7 +1373,7 @@ void TextureChunk::handleTexture(Window *win,
                 free(data);
         }
 
-        glErr("TextureChunk::initialize image");
+        glErr("TextureObjChunk::initialize image");
     }
     else if(mode == Window::needrefresh)
     {
@@ -1506,7 +1506,7 @@ void TextureChunk::handleTexture(Window *win,
                                     img->getData( 0, getFrame(), side ) );
                     break;
                 default:
-                        SFATAL << "TextureChunk::refresh: unknown target "
+                        SFATAL << "TextureObjChunk::refresh: unknown target "
                                << imgtarget << "!!!" << std::endl;
                 }
             }
@@ -1543,7 +1543,7 @@ void TextureChunk::handleTexture(Window *win,
                                     img->getData( 0, getFrame(), side ) );
                     break;
                 default:
-                        SFATAL << "TextureChunk::refresh: unknown target "
+                        SFATAL << "TextureObjChunk::refresh: unknown target "
                                << imgtarget << "!!!" << std::endl;
                 }
             }
@@ -1564,11 +1564,11 @@ void TextureChunk::handleTexture(Window *win,
         }
         else
         {
-            SWARNING << "TextureChunk::refresh: not implemented yet for "
+            SWARNING << "TextureObjChunk::refresh: not implemented yet for "
                      << "scaling!!!" << std::endl;
         }
 
-        glErr("TextureChunk::refresh image");
+        glErr("TextureObjChunk::refresh image");
     }
 
 #endif
@@ -1578,7 +1578,7 @@ void TextureChunk::handleTexture(Window *win,
 /*! GL object handler
     create the texture and destroy it
 */
-void TextureChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void TextureObjChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
 {
 #ifndef OSG_WINCE
     Window::GLObjectStatusE mode;
@@ -1629,7 +1629,7 @@ void TextureChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
                         else
                         {
                             FWARNING(
-                                ("TextureChunk::initialize: 3D textures not "
+                                ("TextureObjChunk::initialize: 3D textures not "
                                  "supported for this window!\n"));
                             return;
                         }
@@ -1686,13 +1686,13 @@ void TextureChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
     }
     else
     {
-        SWARNING << "TextureChunk(" << this << "::handleGL: Illegal mode: "
+        SWARNING << "TextureObjChunk(" << this << "::handleGL: Illegal mode: "
              << mode << " for id " << id << std::endl;
     }
 #endif
 }
 
-void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
+void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {    
 #ifndef OSG_WINCE
 #ifdef OSG_DUMP_TEX
@@ -1727,7 +1727,7 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
     if(idx >= static_cast<UInt32>(nteximages))
     {
 #ifdef OSG_DEBUG
-        FWARNING(("TextureChunk::activate: Trying to bind image unit %d,"
+        FWARNING(("TextureObjChunk::activate: Trying to bind image unit %d,"
                   " but Window %p only supports %d!\n",
                   idx, win, nteximages));
 #endif
@@ -1745,7 +1745,7 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
     if( img == NullFC || ! img->getDimension()) // no image ?
         return;
 
-    glErr("TextureChunk::activate precheck");
+    glErr("TextureObjChunk::activate precheck");
 
     if(img->getSideCount() == 1)
     {
@@ -1757,7 +1757,7 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
                     target = GL_TEXTURE_3D;
                 else
                 {
-                    FWARNING(("TextureChunk::activate: 3D textures not "
+                    FWARNING(("TextureObjChunk::activate: 3D textures not "
                               "supported for this window!\n"));
                     return;
                 }
@@ -1774,7 +1774,7 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
     }
 
 
-    FDEBUG(("TextureChunk::activate - %d\n", getGLId()));
+    FDEBUG(("TextureObjChunk::activate - %d\n", getGLId()));
 
     glBindTexture(target, win->getGLObjectId(getGLId()));
 
@@ -1844,12 +1844,12 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
         glEnable(target);
     }
     
-    glErr("TextureChunk::activate");
+    glErr("TextureObjChunk::activate");
 #endif
 }
 
 
-void TextureChunk::changeFrom(DrawEnv    *pEnv,
+void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
                               StateChunk *old   ,
                               UInt32      idx )
 {
@@ -1871,7 +1871,7 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
         return;
     }
 
-    TextureChunk *oldp      = dynamic_cast<TextureChunk *>(old);
+    TextureObjChunk *oldp      = dynamic_cast<TextureObjChunk *>(old);
 
 #ifdef OSG_DUMP_TEX
     fprintf(stderr, "Change %d %d\n", oldp->_uiChunkId, _uiChunkId);
@@ -1889,7 +1889,7 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
         return;
     }
 
-    glErr("TextureChunk::changeFrom precheck");
+    glErr("TextureObjChunk::changeFrom precheck");
 
     Window *win = pEnv->getWindow();   
 
@@ -1934,7 +1934,7 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
     if(idx >= nteximages)
     {
 #ifdef OSG_DEBUG
-        FWARNING(("TextureChunk::activate: Trying to bind image unit %d,"
+        FWARNING(("TextureObjChunk::activate: Trying to bind image unit %d,"
                   " but Window %p only supports %d!\n",
                   idx, win, nteximages));
 #endif
@@ -1951,7 +1951,7 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
                     target = GL_TEXTURE_3D;
                 else
                 {
-                    FWARNING(("TextureChunk::changeFrom: 3D textures not "
+                    FWARNING(("TextureObjChunk::changeFrom: 3D textures not "
                               "supported for this window!\n"));
                     oldp->deactivate(pEnv, idx);
                     return;
@@ -1976,7 +1976,7 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
                     oldtarget = GL_TEXTURE_3D;
                 else
                 {
-                    FWARNING(("TextureChunk::changeFrom: 3D textures not "
+                    FWARNING(("TextureObjChunk::changeFrom: 3D textures not "
                                 "supported for this window!\n"));
                     oldp->deactivate(pEnv, idx);
                     return;
@@ -2080,11 +2080,11 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
         }
     }
     
-    glErr("TextureChunk::changeFrom");
+    glErr("TextureObjChunk::changeFrom");
 #endif
 }
 
-void TextureChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
+void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
 #ifndef OSG_WINCE
 #ifdef OSG_DUMP_TEX
@@ -2118,7 +2118,7 @@ void TextureChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     if(idx >= static_cast<UInt32>(nteximages))
     {
 #ifdef OSG_DEBUG
-        FWARNING(("TextureChunk::deactivate: Trying to bind image unit %d,"
+        FWARNING(("TextureObjChunk::deactivate: Trying to bind image unit %d,"
                   " but Window %p only supports %d!\n",
                   idx, win, nteximages));
 #endif
@@ -2131,7 +2131,7 @@ void TextureChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     if(img == NullFC || ! img->getDimension())
       return;
 
-    glErr("TextureChunk::deactivate precheck");
+    glErr("TextureObjChunk::deactivate precheck");
 
     bool isActive = false;
 
@@ -2181,7 +2181,7 @@ void TextureChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
                     target = GL_TEXTURE_3D;
                 else
                 {
-                    FWARNING(("TextureChunk::deactivate: 3D textures not "
+                    FWARNING(("TextureObjChunk::deactivate: 3D textures not "
                               "supported for this window!\n"));
                     return;
                 }
@@ -2207,11 +2207,11 @@ void TextureChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
     glDisable(target);
 
-    glErr("TextureChunk::deactivate");
+    glErr("TextureObjChunk::deactivate");
 #endif
 }
 
-GLenum TextureChunk::determineTextureTarget(Window *pWindow) const
+GLenum TextureObjChunk::determineTextureTarget(Window *pWindow) const
 {
     GLenum target = GL_NONE;
 #ifndef OSG_WINCE
@@ -2231,7 +2231,7 @@ GLenum TextureChunk::determineTextureTarget(Window *pWindow) const
                 }
                 else
                 {
-                    FWARNING(("TextureChunk::initialize: 3D textures not "
+                    FWARNING(("TextureObjChunk::initialize: 3D textures not "
                               "supported for this window!\n"));
                     return target;
                 }
@@ -2253,19 +2253,19 @@ GLenum TextureChunk::determineTextureTarget(Window *pWindow) const
 
 /*-------------------------- Comparison -----------------------------------*/
 
-Real32 TextureChunk::switchCost(StateChunk *OSG_CHECK_ARG(chunk))
+Real32 TextureObjChunk::switchCost(StateChunk *OSG_CHECK_ARG(chunk))
 {
     return 0;
 }
 
-bool TextureChunk::operator < (const StateChunk &other) const
+bool TextureObjChunk::operator < (const StateChunk &other) const
 {
     return this < &other;
 }
 
-bool TextureChunk::operator == (const StateChunk &other) const
+bool TextureObjChunk::operator == (const StateChunk &other) const
 {
-    TextureChunk const *tother = dynamic_cast<TextureChunk const*>(&other);
+    TextureObjChunk const *tother = dynamic_cast<TextureObjChunk const*>(&other);
 
     if(!tother)
         return false;
@@ -2323,7 +2323,7 @@ bool TextureChunk::operator == (const StateChunk &other) const
     return returnValue;
 }
 
-bool TextureChunk::operator != (const StateChunk &other) const
+bool TextureObjChunk::operator != (const StateChunk &other) const
 {
     return ! (*this == other);
 }
@@ -2343,10 +2343,10 @@ bool TextureChunk::operator != (const StateChunk &other) const
 namespace
 {
     static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGTEXTURECHUNK_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGTEXTURECHUNK_INLINE_CVSID;
+    static Char8 cvsid_hpp       [] = OSGTEXTUREOBJCHUNK_HEADER_CVSID;
+    static Char8 cvsid_inl       [] = OSGTEXTUREOBJCHUNK_INLINE_CVSID;
 
-    static Char8 cvsid_fields_hpp[] = OSGTEXTURECHUNKFIELDS_HEADER_CVSID;
+    static Char8 cvsid_fields_hpp[] = OSGTEXTUREOBJCHUNKFIELDS_HEADER_CVSID;
 }
 
 #ifdef __sgi

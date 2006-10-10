@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTEXTURECHUNK_H_
-#define _OSGTEXTURECHUNK_H_
+#ifndef _OSGTEXTUREOBJCHUNK_H_
+#define _OSGTEXTUREOBJCHUNK_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -46,7 +46,7 @@
 #include "OSGGLEXT.h"
 #include "OSGWindow.h"
 #include "OSGImage.h"
-#include "OSGTextureChunkBase.h"
+#include "OSGTextureObjChunkBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -58,18 +58,18 @@ OSG_BEGIN_NAMESPACE
 #define GL_CONSTANT_EXT                     0x8576
 #endif
 
-/*! \brief State chunk for textures. See \ref PageSystemTextureChunk 
+/*! \brief State chunk for textures. See \ref PageSystemTextureObjChunk 
     for a description.
  */
 
-class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
+class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef PointerBuilder<TextureChunk>::ObjPtr       ObjPtr;
-    typedef PointerBuilder<TextureChunk>::ObjConstPtr  ObjConstPtr;
+    typedef PointerBuilder<TextureObjChunk>::ObjPtr       ObjPtr;
+    typedef PointerBuilder<TextureObjChunk>::ObjConstPtr  ObjConstPtr;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
@@ -178,24 +178,24 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
-    void onCreate      (const TextureChunk *source      = NULL);
-    void onCreateAspect(const TextureChunk *createAspect,
-                        const TextureChunk *source      = NULL);
+    void onCreate      (const TextureObjChunk *source      = NULL);
+    void onCreateAspect(const TextureObjChunk *createAspect,
+                        const TextureObjChunk *source      = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    TextureChunk(void);
-    TextureChunk(const TextureChunk &source);
+    TextureObjChunk(void);
+    TextureObjChunk(const TextureObjChunk &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureChunk(void);
+    virtual ~TextureObjChunk(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -261,9 +261,9 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
 
   private:
 
-    typedef TextureChunkBase Inherited;
+    typedef TextureObjChunkBase Inherited;
 
-    friend class TextureChunkBase;
+    friend class TextureObjChunkBase;
 
     template<class ContainerFactoryT>
     friend struct CPtrConstructionFunctions;
@@ -281,19 +281,19 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TextureChunk &source);
+    void operator =(const TextureObjChunk &source);
 };
 
-typedef TextureChunk *TextureChunkP;
+typedef TextureObjChunk *TextureObjChunkP;
 
-typedef TextureChunk::ObjPtr       TextureChunkPtr;
-typedef TextureChunk::ObjConstPtr  TextureChunkConstPtr;
+typedef TextureObjChunk::ObjPtr       TextureObjChunkPtr;
+typedef TextureObjChunk::ObjConstPtr  TextureObjChunkConstPtr;
 
 OSG_END_NAMESPACE
 
-#include "OSGTextureChunkBase.inl"
-#include "OSGTextureChunk.inl"
+#include "OSGTextureObjChunkBase.inl"
+#include "OSGTextureObjChunk.inl"
 
-#define OSGTEXTURECHUNK_HEADER_CVSID "@(#)$Id$"
+#define OSGTEXTUREOBJCHUNK_HEADER_CVSID "@(#)$Id$"
 
-#endif /* _OSGTEXTURECHUNK_H_ */
+#endif /* _OSGTEXTUREOBJCHUNK_H_ */

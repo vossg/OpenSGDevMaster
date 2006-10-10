@@ -69,7 +69,7 @@ void TextureBaseChunk::activeTexture(Window *win, UInt16 texture)
         (void (OSG_APIENTRY*)(GLenum target))
             win->getFunction(_funcActiveTexture);
 
-    ActiveTexture(GL_TEXTURE0_ARB + texture);
+    ActiveTexture(GL_TEXTURE0 + texture);
 }
 
 //! call glActiveTexture via the extension mechanism, if MultiTextures

@@ -38,13 +38,13 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-const StateChunkClass *TextureChunk::getStaticClass(void)
+const StateChunkClass *TextureObjChunk::getStaticClass(void)
 {
-    return &TextureChunk::_class;
+    return &TextureObjChunk::_class;
 }
 
 inline
-UInt32 TextureChunk::getStaticClassId(void)
+UInt32 TextureObjChunk::getStaticClassId(void)
 {
     return getStaticClass()->getId();
 }
@@ -56,7 +56,7 @@ UInt32 TextureChunk::getStaticClassId(void)
 */
 
 inline 
-void TextureChunk::imageContentChanged(Int32 minx, Int32 maxx, 
+void TextureObjChunk::imageContentChanged(Int32 minx, Int32 maxx, 
                                        Int32 miny, Int32 maxy,
                                        Int32 minz, Int32 maxz)
 {
@@ -70,14 +70,14 @@ void TextureChunk::imageContentChanged(Int32 minx, Int32 maxx,
 
 
 inline 
-bool TextureChunk::hasMultiTexture(Window *win)
+bool TextureObjChunk::hasMultiTexture(Window *win)
 {
     return win->hasExtension(_arbMultiTex);
 }
 
 //! call glActiveTexture via the extension mechanism
 inline 
-void TextureChunk::activeTexture(Window *win, UInt16 texture)
+void TextureObjChunk::activeTexture(Window *win, UInt16 texture)
 {
     void (OSG_APIENTRY *ActiveTexture)(GLenum target) = 
         (void (OSG_APIENTRY*)(GLenum target))
@@ -89,7 +89,7 @@ void TextureChunk::activeTexture(Window *win, UInt16 texture)
 //! call glActiveTexture via the extension mechanism, if MultiTextures
 //! are supported. Return false if successful, true if not.
 inline 
-bool TextureChunk::activateTexture(Window *win, UInt16 texture)
+bool TextureObjChunk::activateTexture(Window *win, UInt16 texture)
 {
     if(hasMultiTexture(win))
     {
@@ -100,7 +100,7 @@ bool TextureChunk::activateTexture(Window *win, UInt16 texture)
     {
         if(texture != 0)
         {
-            FWARNING(("TextureChunk::activateTexture: trying to activate "
+            FWARNING(("TextureObjChunk::activateTexture: trying to activate "
                 "texture %d, but Window %p doesn't support multi-textures!\n",
                 texture, win));
             return true;
@@ -111,7 +111,7 @@ bool TextureChunk::activateTexture(Window *win, UInt16 texture)
 }
 
 inline
-void TextureChunk::setShaderOffsetMatrix(Real32 m11, Real32 m12, 
+void TextureObjChunk::setShaderOffsetMatrix(Real32 m11, Real32 m12, 
                                          Real32 m21, Real32 m22)
 {
     editShaderOffsetMatrix().resize(4);
@@ -125,5 +125,5 @@ void TextureChunk::setShaderOffsetMatrix(Real32 m11, Real32 m12,
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTURECHUNK_INLINE_CVSID "@(#)$Id$"
+#define OSGTEXTUREOBJCHUNK_INLINE_CVSID "@(#)$Id$"
 

@@ -75,7 +75,7 @@ typedef void (*OSGGLUfuncptr)();
 
 #endif
 
-#ifdef OSG_DEBUG
+#if defined(OSG_DEBUG) && !defined(OSG_WINCE)
 #define glErr(text)                                 \
 {                                                   \
     GLenum glerr;                                   \

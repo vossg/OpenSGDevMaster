@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGTEXTURECHUNKFIELDS_H_
-#define _OSGTEXTURECHUNKFIELDS_H_
+#ifndef _OSGTEXTUREOBJCHUNKFIELDS_H_
+#define _OSGTEXTUREOBJCHUNKFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGStateChunkFields.h"
+#include "OSGTextureBaseChunkFields.h"
 
 #include "OSGSFieldAdaptor.h"
 #include "OSGMFieldAdaptor.h"
@@ -65,29 +65,29 @@
 
 OSG_BEGIN_NAMESPACE
 
-class TextureChunk;
+class TextureObjChunk;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TextureChunkPtr
+//! TextureObjChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr, 
-                          StateChunkConstPtr,
-                          TextureChunk>::ObjPtr         TextureChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
-                          StateChunkConstPtr,
-                          TextureChunk>::ObjPtrConst    TextureChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr, 
-                          StateChunkConstPtr,
-                          TextureChunk>::ObjConstPtr    TextureChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
-                          StateChunkConstPtr,
-                          TextureChunk>::ObjPtrArg      TextureChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
-                          StateChunkConstPtr,
-                          TextureChunk>::ObjConstPtrArg TextureChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
-                          StateChunkConstPtr,
-                          TextureChunk>::ObjPtrConstArg TextureChunkPtrConstArg;
+typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+                          TextureBaseChunkConstPtr,
+                          TextureObjChunk>::ObjPtr         TextureObjChunkPtr;
+typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+                          TextureBaseChunkConstPtr,
+                          TextureObjChunk>::ObjPtrConst    TextureObjChunkPtrConst;
+typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+                          TextureBaseChunkConstPtr,
+                          TextureObjChunk>::ObjConstPtr    TextureObjChunkConstPtr;
+typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+                          TextureBaseChunkConstPtr,
+                          TextureObjChunk>::ObjPtrArg      TextureObjChunkPtrArg;
+typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+                          TextureBaseChunkConstPtr,
+                          TextureObjChunk>::ObjConstPtrArg TextureObjChunkConstPtrArg;
+typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+                          TextureBaseChunkConstPtr,
+                          TextureObjChunk>::ObjPtrConstArg TextureObjChunkPtrConstArg;
 
 #endif
 
@@ -99,8 +99,8 @@ typedef PointerFwdBuilder<StateChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<TextureChunkPtr> : 
-    public FieldTraitsTemplateBase<TextureChunkPtr>
+struct FieldTraits<TextureObjChunkPtr> : 
+    public FieldTraitsTemplateBase<TextureObjChunkPtr>
 {
   private:
 
@@ -108,19 +108,19 @@ struct FieldTraits<TextureChunkPtr> :
 
   public:
 
-    typedef FieldTraits<TextureChunkPtr>  Self;
+    typedef FieldTraits<TextureObjChunkPtr>  Self;
 
     enum                        { StringConvertable = 0x00 };
 
     static OSG_SYSTEM_DLLMAPPING 
                      DataType &getType (void);
 
-    static const char *getSName(void) { return "SFTextureChunkPtr"; }
-    static const char *getMName(void) { return "MFTextureChunkPtr"; }
+    static const char *getSName(void) { return "SFTextureObjChunkPtr"; }
+    static const char *getMName(void) { return "MFTextureObjChunkPtr"; }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TextureChunkPtr, 0>
+/*! \class  FieldTraitsTemplateBase<TextureObjChunkPtr, 0>
     \hideinhierarchy
  */
 #endif
@@ -131,25 +131,25 @@ struct FieldTraits<TextureChunkPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<TextureChunkPtr, SFFieldContainerPtr> SFTextureChunkPtr;
+typedef SFieldAdaptor<TextureObjChunkPtr, SFFieldContainerPtr> SFTextureObjChunkPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTURECHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, TextureChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+#ifndef OSG_COMPILETEXTUREOBJCHUNKINST
+OSG_FIELD_DLLEXPORT_DECL1(SField, TextureObjChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<TextureChunkPtr, MFFieldContainerPtr> MFTextureChunkPtr;
+typedef MFieldAdaptor<TextureObjChunkPtr, MFFieldContainerPtr> MFTextureObjChunkPtr;
 #endif
 
-#ifndef OSG_COMPILETEXTURECHUNKINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, TextureChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+#ifndef OSG_COMPILETEXTUREOBJCHUNKINST
+OSG_FIELD_DLLEXPORT_DECL1(MField, TextureObjChunkPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTURECHUNKFIELDS_HEADER_CVSID "@(#)$Id$"
+#define OSGTEXTUREOBJCHUNKFIELDS_HEADER_CVSID "@(#)$Id$"
 
-#endif /* _OSGTEXTURECHUNKFIELDS_H_ */
+#endif /* _OSGTEXTUREOBJCHUNKFIELDS_H_ */

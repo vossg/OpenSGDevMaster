@@ -2265,6 +2265,7 @@ void Image::setAttachmentField(const std::string &key,
         pDesc = new SFString::Description(
             SFString::getClassType(),
             key.c_str(),
+            "",
             0, 
             0,
             true,

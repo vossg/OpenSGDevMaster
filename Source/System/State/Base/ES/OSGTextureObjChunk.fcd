@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="TextureChunk"
-	parent="StateChunk"
+	name="TextureObjChunk"
+	parent="TextureBaseChunk"
 	library="System"
 	pointerfieldtypes="both"
 	structure="concrete"
