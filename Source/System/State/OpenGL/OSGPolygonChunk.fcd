@@ -18,8 +18,9 @@ i.e. polygons.
 		visibility="external"
 		defaultValue="GL_NONE"
 		defaultHeader="&lt;OSGGL.h&gt;"
+                potential_values="GL_NONE,GL_FRONT,GL_BACK,GL_FRONT_AND_BACK"
 	>
-	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything.
+	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.
 	</Field>
 	<Field
 		name="frontFace"
@@ -28,9 +29,10 @@ i.e. polygons.
 		visibility="external"
 		defaultValue="GL_CCW"
 		defaultHeader="&lt;OSGGL.h&gt;"
+                potential_values="GL_CCW,GL_CW"
 	>
-	Defines which side of the polygon is considered the front side, 
-        defaults to GL_CCW.
+	Defines which side of the polygon is considered the front side base on vertex ordering
+        of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.
 	</Field>
 	<Field
 		name="frontMode"
@@ -39,8 +41,9 @@ i.e. polygons.
 		visibility="external"
 		defaultValue="GL_FILL"
 		defaultHeader="&lt;OSGGL.h&gt;"
+                potential_values="GL_FILL,GL_LINE,GL_POINT"
 	>
-	Defines if polygon front sides are rendered filled (default), outlined or as points.
+	Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.
 	</Field>
 	<Field
 		name="backMode"
@@ -49,8 +52,9 @@ i.e. polygons.
 		visibility="external"
 		defaultValue="GL_FILL"
 		defaultHeader="&lt;OSGGL.h&gt;"
+                potential_values="GL_FILL,GL_LINE,GL_POINT"                
 	>
-	Defines if polygon front sides are rendered filled (default), outlined or as points.
+	Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.
 	</Field>
 	<Field
 		name="smooth"
@@ -60,7 +64,7 @@ i.e. polygons.
 		defaultValue="GL_FALSE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 	>
-	Defines if polygon antialiasing is used.
+	Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.
 	</Field>
 	<Field
 		name="offsetFactor"
@@ -69,7 +73,7 @@ i.e. polygons.
 		visibility="external"
 		defaultValue="0"
 	>
-	Defines the offset factor.
+	Defines the offset factor.  See glPolygonOffset.
 	</Field>
 	<Field
 		name="offsetBias"
@@ -78,7 +82,7 @@ i.e. polygons.
 		visibility="external"
 		defaultValue="0"
 	>
-	Defines the offset bias.
+	Defines the offset bias.  See glPolygonOffset.
 	</Field>
 	<Field
 		name="offsetPoint"

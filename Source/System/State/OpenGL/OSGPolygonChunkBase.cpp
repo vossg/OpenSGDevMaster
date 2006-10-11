@@ -78,32 +78,32 @@ OSG_USING_NAMESPACE
 // Field descriptions
 
 /*! \var GLenum PolygonChunkBase::_sfCullFace
-    	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything.
+    	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.
 
 */
 /*! \var GLenum PolygonChunkBase::_sfFrontFace
-    	Defines which side of the polygon is considered the front side, 
-        defaults to GL_CCW.
+    	Defines which side of the polygon is considered the front side base on vertex ordering
+        of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.
 
 */
 /*! \var GLenum PolygonChunkBase::_sfFrontMode
-    	Defines if polygon front sides are rendered filled (default), outlined or as points.
+    	Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.
 
 */
 /*! \var GLenum PolygonChunkBase::_sfBackMode
-    	Defines if polygon front sides are rendered filled (default), outlined or as points.
+    	Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.
 
 */
 /*! \var bool PolygonChunkBase::_sfSmooth
-    	Defines if polygon antialiasing is used.
+    	Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.
 
 */
 /*! \var Real32 PolygonChunkBase::_sfOffsetFactor
-    	Defines the offset factor.
+    	Defines the offset factor.  See glPolygonOffset.
 
 */
 /*! \var Real32 PolygonChunkBase::_sfOffsetBias
-    	Defines the offset bias.
+    	Defines the offset bias.  See glPolygonOffset.
 
 */
 /*! \var bool PolygonChunkBase::_sfOffsetPoint
@@ -138,7 +138,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "cullFace", 
-        "	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything.\n",
+        "	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.\n",
         CullFaceFieldId, CullFaceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -160,7 +160,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "frontFace", 
-        "	Defines which side of the polygon is considered the front side, \n        defaults to GL_CCW.\n",
+        "	Defines which side of the polygon is considered the front side base on vertex ordering\n        of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.\n",
         FrontFaceFieldId, FrontFaceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -182,7 +182,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "frontMode", 
-        "	Defines if polygon front sides are rendered filled (default), outlined or as points.\n",
+        "	Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.\n",
         FrontModeFieldId, FrontModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -204,7 +204,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "backMode", 
-        "	Defines if polygon front sides are rendered filled (default), outlined or as points.\n",
+        "	Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.\n",
         BackModeFieldId, BackModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -226,7 +226,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFBool::Description(
         SFBool::getClassType(), 
         "smooth", 
-        "	Defines if polygon antialiasing is used.\n",
+        "	Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.\n",
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -248,7 +248,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "offsetFactor", 
-        "	Defines the offset factor.\n",
+        "	Defines the offset factor.  See glPolygonOffset.\n",
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -270,7 +270,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "offsetBias", 
-        "	Defines the offset bias.\n",
+        "	Defines the offset bias.  See glPolygonOffset.\n",
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -402,8 +402,9 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"GL_NONE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"                potential_values=\"GL_NONE,GL_FRONT,GL_BACK,GL_FRONT_AND_BACK\"\n"
 "	>\n"
-"	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything.\n"
+"	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"frontFace\"\n"
@@ -412,9 +413,10 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"GL_CCW\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"                potential_values=\"GL_CCW,GL_CW\"\n"
 "	>\n"
-"	Defines which side of the polygon is considered the front side, \n"
-"        defaults to GL_CCW.\n"
+"	Defines which side of the polygon is considered the front side base on vertex ordering\n"
+"        of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"frontMode\"\n"
@@ -423,8 +425,9 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"GL_FILL\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"                potential_values=\"GL_FILL,GL_LINE,GL_POINT\"\n"
 "	>\n"
-"	Defines if polygon front sides are rendered filled (default), outlined or as points.\n"
+"	Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"backMode\"\n"
@@ -433,8 +436,9 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"GL_FILL\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+"                potential_values=\"GL_FILL,GL_LINE,GL_POINT\"                \n"
 "	>\n"
-"	Defines if polygon front sides are rendered filled (default), outlined or as points.\n"
+"	Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"smooth\"\n"
@@ -444,7 +448,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
 "		defaultValue=\"GL_FALSE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "	>\n"
-"	Defines if polygon antialiasing is used.\n"
+"	Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"offsetFactor\"\n"
@@ -453,7 +457,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"0\"\n"
 "	>\n"
-"	Defines the offset factor.\n"
+"	Defines the offset factor.  See glPolygonOffset.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"offsetBias\"\n"
@@ -462,7 +466,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
 "		visibility=\"external\"\n"
 "		defaultValue=\"0\"\n"
 "	>\n"
-"	Defines the offset bias.\n"
+"	Defines the offset bias.  See glPolygonOffset.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"offsetPoint\"\n"
