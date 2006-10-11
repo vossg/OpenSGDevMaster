@@ -46,11 +46,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief GeoIntegralProperty class. See \ref 
+/*! \brief GeoIntegralProperty class. See \ref
            PageWindowGLUTGeoIntegralProperty for a description.
 */
 
-class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty : 
+class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
             public GeoIntegralPropertyBase
 {
   private:
@@ -66,7 +66,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     /*! \{                                                                 */
 
     typedef UInt64 MaxTypeT;
-    
+
     // MSVC 7.0 is a little weird about template member methods, that's why
     // the code has to be here...
 
@@ -77,7 +77,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
         getValue(ival, index);
         return ival;
     }
-    
+
     template <class ExternalType>
     void getValue (ExternalType &eval, const UInt32 index) const
     {
@@ -85,20 +85,20 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
         getValue(val, index);
         eval = val;
     }
-    
+
     template <class ExternalType>
     void setValue (const ExternalType &val, const UInt32 index)
     {
         MaxTypeT ival = val;
         setValue(ival, index);
     }
-    
+
     template <class ExternalType>
     void addValue (const ExternalType &val)
     {
         push_back(val);
     }
-    
+
     template <class ExternalType>
     void push_back(const ExternalType &val)
     {
@@ -106,16 +106,17 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
         setValue(val, size() - 1);
     }
 
-    virtual void clear(void) = 0;
-    virtual void resize(size_t newsize) = 0;
+    virtual void clear(void) {;} //= 0;
+    virtual void resize(size_t newsize) {;} //= 0;
 
-    virtual UInt32 size(void) const = 0;
+    virtual UInt32 size(void) const //= 0;
+    {return 0;}
 
     /*---------------------------------------------------------------------*/
 
     // A little fallback to simplify porting of old code
-    inline UInt32 getValue(const UInt32 index) const;  
-    
+    inline UInt32 getValue(const UInt32 index) const;
+
     // This is the fallback, it has to be implemented by the concrete Props!
     virtual void getValue(      MaxTypeT &val, const UInt32 index ) const = 0;
     virtual void setValue(const MaxTypeT &val, const UInt32 index )       = 0;
@@ -125,7 +126,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -133,7 +134,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -156,14 +157,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
-    virtual void activate      (DrawEnv    *pEnv, 
+    virtual void activate      (DrawEnv    *pEnv,
                                 UInt32      index = 0);
 
-    virtual void changeFrom    (DrawEnv    *pEnv, 
+    virtual void changeFrom    (DrawEnv    *pEnv,
                                 StateChunk *old,
                                 UInt32      index = 0);
 
-    virtual void deactivate    (DrawEnv    *pEnv, 
+    virtual void deactivate    (DrawEnv    *pEnv,
                                 UInt32      index = 0);
 
     virtual bool isInVBO       (DrawEnv    *pEnv);
@@ -186,13 +187,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoIntegralProperty(void); 
+    virtual ~GeoIntegralProperty(void);
 
     /*! \}                                                                 */
 
     virtual GLenum getBufferType(void); // buffer type for VBOs
     static void initMethod(InitPhase ePhase);
-    
+
     /*==========================  PRIVATE  ================================*/
 
   private:

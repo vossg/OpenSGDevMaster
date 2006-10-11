@@ -72,7 +72,7 @@ struct GeoConvert
                 dest[i] = StoredType::Null[i];
         }
     }
-    
+
     template <class ExternalType, class StoredType>
     inline static void convertOut(ExternalType& dest, const StoredType& src,
                                   Real64 scale = 1, Real64 offset = 0)
@@ -94,9 +94,9 @@ struct GeoConvert
     }
 
     template <class ExternalType, class StoredType>
-    inline static void convertCustomOut(      ExternalType &dest, 
+    inline static void convertCustomOut(      ExternalType &dest,
                                         const StoredType   &src,
-                                              Real64        scale = 1, 
+                                              Real64        scale = 1,
                                               Real64        offset = 0)
     {
         if(StoredType::_uiSize >= ExternalType::_uiSize)
@@ -104,7 +104,7 @@ struct GeoConvert
             UInt32 i;
             for(i = 0; i < ExternalType::_uiSize; ++i)
             {
-                dest[i] = 
+                dest[i] =
                     static_cast<typename ExternalType::ValueType>(
                         src[i].getValue());
             }
@@ -114,7 +114,7 @@ struct GeoConvert
             UInt32 i;
             for(i = 0; i < StoredType::_uiSize; ++i)
             {
-                dest[i] = 
+                dest[i] =
                     static_cast<typename ExternalType::ValueType>(
                         src[i].getValue());
             }
@@ -211,7 +211,7 @@ struct GeoConvertNormalize
                             StoredType::Null[i] * scale + offset);
          }
     }
-    
+
     template <class ExternalType, class StoredType>
     static void convertOut(ExternalType& dest, const StoredType& src,
                                  Real64 scale = 1, Real64 offset = 0)
@@ -236,11 +236,11 @@ struct GeoConvertNormalize
     }
 };
 
-/*! \brief GeoVectorProperty class. See \ref 
+/*! \brief GeoVectorProperty class. See \ref
            PageWindowGLUTGeoVectorProperty for a description.
 */
 
-class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty : 
+class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     public GeoVectorPropertyBase
 {
   private:
@@ -259,7 +259,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     typedef Vec4ld MaxTypeT;
 #else
     typedef Vec4f  MaxTypeT;
-#endif    
+#endif
     // MSVC 7.0 is a little weird about template member methods, that's why
     // the code has to be here...
 
@@ -269,62 +269,62 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
         ExternalType eval;
         MaxTypeT ival;
         getValue(ival, index);
-        if(getNormalize() && 
+        if(getNormalize() &&
             TypeTraits<typename  ExternalType::ValueType>::MathProp ==
             IntValue)
         {
-            GeoConvertNormalize::convertOut(eval, ival, 
-                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);   
+            GeoConvertNormalize::convertOut(eval, ival,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
         }
         else
         {
-            GeoConvert::convertOut(eval, ival);    
+            GeoConvert::convertOut(eval, ival);
         }
         return eval;
     }
-    
+
     template <class ExternalType>
     void getValue (ExternalType &eval, const UInt32 index) const
     {
         MaxTypeT ival;
         getValue(ival, index);
-        if(getNormalize() && 
+        if(getNormalize() &&
             TypeTraits<typename  ExternalType::ValueType>::MathProp ==
             IntValue)
         {
-            GeoConvertNormalize::convertOut(eval, ival, 
-                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);   
+            GeoConvertNormalize::convertOut(eval, ival,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
         }
         else
         {
-            GeoConvert::convertOut(eval, ival);    
+            GeoConvert::convertOut(eval, ival);
         }
     }
-    
+
     template <class ExternalType>
     void setValue (const ExternalType &val, const UInt32 index)
     {
         MaxTypeT ival;
-        if(getNormalize() && 
+        if(getNormalize() &&
             TypeTraits<typename  ExternalType::ValueType>::MathProp ==
             IntValue)
         {
-            GeoConvertNormalize::convertIn(ival, val, 
-                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);   
+            GeoConvertNormalize::convertIn(ival, val,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
         }
         else
         {
-            GeoConvert::convertIn(ival, val);    
+            GeoConvert::convertIn(ival, val);
         }
         setValue(ival, index);
     }
-    
+
     template <class ExternalType>
     void addValue (const ExternalType &val)
     {
          push_back(val);
     }
-    
+
     template <class ExternalType>
     void push_back(const ExternalType &val)
     {
@@ -332,11 +332,15 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
         setValue(val, size() - 1);
     }
 
-    virtual bool getNormalize(void) const = 0;
-    virtual void clear(void) = 0;
-    virtual void resize(size_t newsize) = 0;
+    virtual bool getNormalize(void) const //= 0;
+    {;}
+    virtual void clear(void) //= 0;
+    {;}
+    virtual void resize(size_t newsize) //= 0;
+    {;}
 
-    virtual UInt32 size(void) const = 0;
+    virtual UInt32 size(void) const //= 0;
+    { return 0; }
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -355,7 +359,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -363,7 +367,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -386,14 +390,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
-    virtual void activate      (DrawEnv    *pEnv, 
+    virtual void activate      (DrawEnv    *pEnv,
                                 UInt32      index = 0);
 
-    virtual void changeFrom    (DrawEnv    *pEnv, 
+    virtual void changeFrom    (DrawEnv    *pEnv,
                                 StateChunk *old,
                                 UInt32      index = 0);
 
-    virtual void deactivate    (DrawEnv    *pEnv, 
+    virtual void deactivate    (DrawEnv    *pEnv,
                                 UInt32      index = 0);
 
     /*! \}                                                                 */
@@ -415,7 +419,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoVectorProperty(void); 
+    virtual ~GeoVectorProperty(void);
 
     /*! \}                                                                 */
 
@@ -426,13 +430,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     // extension indices for used extensions;
     static UInt32 _extSecondaryColor;
     static UInt32 _extMultitexture;
-    
+
     // extension indices for used fucntions;
     static UInt32 _funcglSecondaryColorPointer;
     static UInt32 _funcglClientActiveTextureARB;
 
     static void initMethod(InitPhase ePhase);
-    
+
     /*==========================  PRIVATE  ================================*/
   private:
 
