@@ -75,11 +75,11 @@ class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
     /*! \name               calc the inverse matrix                        */
     /*! \{                                                                 */
 
-    void initMatrix(const Matrix         &mToWorld);
+    void initMatrix(const Matrixr        &mToWorld);
 
     void calcMatrix(      DrawActionBase *pAction,
-                    const Matrix         &mToWorld,
-                          Matrix         &mResult);
+                    const Matrixr        &mToWorld,
+                          Matrixr        &mResult);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -116,17 +116,19 @@ class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
     /*! \name                      NodeCore Specific                       */
     /*! \{                                                                 */
 
-            void adjustVolume    (Volume &volume);
+            void adjustVolume    (Volume  &volume);
 
-    virtual void accumulateMatrix(Matrix &result);
+    virtual void accumulateMatrix(Matrixr &result);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name              Draw & Intersect & Render                       */
     /*! \{                                                                 */
 
+#ifndef OSG_WINCE
     Action::ResultE intersectEnter(Action *action);
     Action::ResultE intersectLeave(Action *action);
+#endif
 
     Action::ResultE renderEnter   (Action *action);
     Action::ResultE renderLeave   (Action *action);
@@ -151,7 +153,7 @@ class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
 
     friend class InverseTransformBase;
 
-    Matrix _invWorld;
+    Matrixr _invWorld;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const InverseTransform &source);

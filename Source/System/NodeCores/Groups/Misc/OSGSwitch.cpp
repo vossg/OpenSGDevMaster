@@ -44,7 +44,9 @@
 #include "OSGSwitch.h"
 
 #include <OSGRenderAction.h>
+#ifndef OSG_WINCE
 #include <OSGIntersectAction.h>
+#endif
 
 OSG_USING_NAMESPACE
 
@@ -122,6 +124,7 @@ ActionBase::ResultE Switch::render(Action *action)
     return returnValue;
 }
 
+#ifndef OSG_WINCE
 ActionBase::ResultE Switch::intersect(Action *action)
 {
     ActionBase::ResultE  returnValue = ActionBase::Continue;
@@ -143,6 +146,7 @@ ActionBase::ResultE Switch::intersect(Action *action)
 
     return returnValue;
 }
+#endif
  
 /*-------------------------------------------------------------------------*/
 /*                                Init                                     */
@@ -157,9 +161,11 @@ void Switch::initMethod(InitPhase ePhase)
             getClassType(),
             reinterpret_cast<Action::Callback>(&Switch::render));
         
+#ifndef OSG_WINCE
         IntersectAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(&Switch::intersect));
+#endif
     }
 }
 

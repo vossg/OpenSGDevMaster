@@ -111,7 +111,9 @@ class OSG_GROUP_DLLMAPPING Switch : public SwitchBase
     /*! \name                 Intersect                                    */
     /*! \{                                                                 */
 
+#ifndef OSG_WINCE
     ActionBase::ResultE intersect(Action *action);
+#endif
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
