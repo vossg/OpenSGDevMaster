@@ -77,7 +77,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
     virtual void changed(ConstFieldMaskArg whichField, 
                          UInt32            origin    );
 
-    /*! \}
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
