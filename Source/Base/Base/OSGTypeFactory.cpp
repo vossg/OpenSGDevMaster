@@ -193,17 +193,17 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
 
     if(pType == NULL)
     {
-		SWARNING << "no data store given" << std::endl;
+        SWARNING << "no data store given" << endLog;
 
-		return returnValue;        
+        return returnValue;
     }
 
-	if(pType->getName().isEmpty() == true) 
+    if(pType->getName().isEmpty() == true) 
     {
-		SWARNING << "DataElementType without name" << std::endl;
+        SWARNING << "DataElementType without name" << endLog;
 
-		return returnValue;
-	}
+        return returnValue;
+    }
 
     UInt32 uiTypeId = findTypeId(pType->getCName    (), 
                                  pType->getNameSpace());
@@ -215,15 +215,14 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
             SWARNING << "ERROR: Can't add a second "
                      << "type with the name " << pType->getCName() 
                      << "(" << pType << ")"
-                     << std::endl;
+                     << endLog;
         }
         else
         {
             SWARNING << "Do not run ctr twice "
                      << "type with the name " << pType->getCName() 
                      << "(" << pType << ")"
-                     << std::endl;
-
+                     << endLog;
 
 //            findType(uiTypeId)->dump();
 
@@ -241,7 +240,7 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
     {
         _vTypeNameMaps.push_back(new TypeNameMap);
 
-        PINFO << "Added namespace : " << _vTypeNameMaps.size() << std::endl;
+        PINFO << "Added namespace : " << _vTypeNameMaps.size() << endLog;
     }
 
     (*(_vTypeNameMaps[pType->getNameSpace()]))
@@ -257,8 +256,8 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
 UInt32 TypeFactoryBase::findTypeId(const Char8 *szName,
                                    const UInt32 uiNameSpace)
 {
-	TypeNameMapConstIt typeIt;
-	UInt32             uiTypeId = 0;
+    TypeNameMapConstIt typeIt;
+    UInt32             uiTypeId = 0;
 
     if(szName == NULL)
         return uiTypeId;
@@ -272,7 +271,7 @@ UInt32 TypeFactoryBase::findTypeId(const Char8 *szName,
 
     uiTypeId = (typeIt == pMap->end()) ? 0 : (*typeIt).second;
 
-	return uiTypeId;
+    return uiTypeId;
 }
 
 TypeBase *TypeFactoryBase::findType(UInt32 uiTypeId)

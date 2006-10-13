@@ -63,23 +63,6 @@ OSG_BEGIN_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-
-/*!
-* Base for all types in the type system.
-*
-* A type is uniquely defined by:
-*  - Name: The name of our type.
-*  - Namespace id: The namespace we belong to
-*
-* The type also tracks the name of the the parent type, but this
-* does not influence the unique identify of a type.
-* This class uses the TypeFactory to allocate and register types
-* for the running system.
-*
-* \ingroup GrpBaseBaseTypeSystem
-*
-* \see TypeFactory
-*/
 class OSG_BASE_DLLMAPPING TypeBase
 {
   public:
