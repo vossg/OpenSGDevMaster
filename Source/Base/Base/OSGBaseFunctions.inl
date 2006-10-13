@@ -125,6 +125,8 @@ Fixed32 osgSqrt(const Fixed32 rValue)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgSqrt instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -246,6 +248,8 @@ Fixed32 osgCos(const Fixed32 rValue)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgCos instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -366,6 +370,8 @@ Fixed32 osgSin(const Fixed32 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+
+    \deprecated use osgSin instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -492,6 +498,8 @@ Fixed32 osgTan(const Fixed32 rValue)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgTan instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -609,6 +617,8 @@ Real128 osgACos(const Real128 rValue)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgACos instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -718,6 +728,8 @@ Real128 osgASin(const Real128 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+
+    \deprecated use osgASin instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -830,6 +842,8 @@ Real128 osgATan(const Real128 rValue)
     hence exhibits the respective error behavior.
 
     \sa osgATan2(const FloatTypeT,const FloatTypeT)
+
+    \deprecated use osgATan instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -951,6 +965,8 @@ Real128 osgATan2(const Real128 rValue1, const Real128 rValue2)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgATan2 instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -1063,6 +1079,8 @@ Real128 osgAbs(const Real128 rValue)
     \note For floating point arguments this function forwards to an
     appropriate C++ or C library function, hence exhibits the 
     respective error behavior.
+
+    \deprecated use osgAbs instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -1178,6 +1196,8 @@ Real128 osgPow(const Real128 rValue, const Real128 rExp)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgPow instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -1288,6 +1308,8 @@ Real128 osgLog(const Real128 rValue)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgLog instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -1394,6 +1416,8 @@ Real128 osgExp(const Real128 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+
+    \deprecated use osgExp instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -1518,6 +1542,8 @@ Real128 osgFloor(const Real128 rValue)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgFloor instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -1641,6 +1667,8 @@ Real128 osgCeil(const Real128 rValue)
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
 
+    \deprecated use osgCeil instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -1714,6 +1742,8 @@ UInt32 osgFinite(const FloatTypeT rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+
+    \deprecated use osgFinite instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -1809,6 +1839,9 @@ Int8 osgSgn(TypeT val)
     \param[in,out] rValue New value for lVal, is assigned the
     old value of rVal.
 
+    \note It is usually better to use std::swap instead, as it often has
+    special handling for standard library types.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class TypeT> inline
@@ -1871,6 +1904,8 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     \param[in] rValue Angle in degree to convert.
     \return Angle in radians.
+
+    \deprecated use osgDegree2Rad instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -1959,6 +1994,8 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     \param[in] rValue Angle in radians to convert.
     \return Angle in degrees.
 
+    \deprecated use osgRad2Degree instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 inline
@@ -1993,6 +2030,7 @@ osgrad2degree(const FloatTypeT rValue)
 }
 #endif // OSG_1_COMPAT
 
+#ifdef OSG_1_COMPAT
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
 /*! \name deg2rad / rad2deg                                            */
@@ -2002,6 +2040,8 @@ osgrad2degree(const FloatTypeT rValue)
 
     \param[in] rValue Angle in degree to convert.
     \return Angle in radians.
+
+    \deprecated use osgDegree2Rad instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -2017,6 +2057,8 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     \param[in] rValue Angle in radians to convert.
     \return Angle in degrees.
 
+    \deprecated use osgRad2Degree instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
@@ -2025,6 +2067,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 {
     return OSG::osgRad2Degree(rValue);
 }
+#endif // OSG_1_COMPAT
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
@@ -2067,6 +2110,8 @@ bool osgIsPower2<Int64>(const Int64 rValue)
 
     \param[in] rValue Number to test.
     \return true if rValue is a power of 2 or zero, false otherwise.
+
+    \deprecated use osgIsPower2 instead.
 
     \ingroup GrpBaseBaseMathFn
  */
@@ -2228,6 +2273,8 @@ size_t osgNextPower2<size_t>(size_t rValue)
     \return A power of 2 not less than \a rValue or 0 if there is no such value
     within \a rValue type's range.
 
+    \deprecated use osgNextPower2 instead.
+
     \ingroup GrpBaseBaseMathFn
  */
 template <> inline
@@ -2380,6 +2427,8 @@ void osgSleep(UInt32 millisecs)
 
     \param[in] millisecs Duration of the pause.
 
+    \deprecated use osgSleep instead.
+
     \ingroup GrpBaseBaseMiscFn
  */
 inline
@@ -2405,6 +2454,8 @@ Real32 osgRand(void)
 /*! Returns a uniformly distributed random Real32 between 0 and 1 inclusive.
 
     \return A random Real32 number between 0 and 1 inclusive.
+
+    \deprecated use osgRand instead.
 
     \ingroup GrpBaseBaseMiscFn
  */
@@ -2482,6 +2533,70 @@ bool osgIsBigEndian(void)
 
 #endif
 
+/*! Reverses the bytes pointed to by \a pData. This function is a helper
+    for the byte order conversion functions below, so \a pData is supposed to
+    point to a fundamental type like UInt32, Real64, etc.
+    There are specializations for the common type sizes of 2, 4, and 8 bytes.
+
+    \param[in] SizeV Size of the fundamental type pointed to by \a pData.
+    \param[in,out] pData Pointer to a fundamental type that gets its bytes 
+        reversed in place.
+
+    \ingroup GrpBaseBaseMiscFn
+ */
+template <UInt32 SizeV>
+inline void
+osgReverseBytes(UInt8* pData)
+{
+    std::reverse(pData, pData + SizeV);
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+template <>
+inline void
+osgReverseBytes<2>(UInt8* pData)
+{
+    UInt16* pCastData = reinterpret_cast<UInt16*>(pData);
+    
+    *pCastData = ((*pCastData >> 8) |
+                  (*pCastData << 8)  );
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+template <>
+inline void
+osgReverseBytes<4>(UInt8* pData)
+{
+    UInt32* pCastData = reinterpret_cast<UInt32*>(pData);
+    
+    *pCastData = (((*pCastData & 0x000000ff) << 24) |
+                  ((*pCastData & 0x0000ff00) << 8 ) |
+                  ((*pCastData & 0x00ff0000) >> 8 ) |
+                  ((*pCastData & 0xff000000) >> 24)  );
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+template <>
+inline void
+osgReverseBytes<8>(UInt8* pData)
+{
+    UInt64* pCastData = reinterpret_cast<UInt64*>(pData);
+    
+    *pCastData =
+            (((*pCastData & OSG_UINT64_LITERAL(0x00000000000000ff)) << 56) |
+             ((*pCastData & OSG_UINT64_LITERAL(0x000000000000ff00)) << 40) |
+             ((*pCastData & OSG_UINT64_LITERAL(0x0000000000ff0000)) << 24) |
+             ((*pCastData & OSG_UINT64_LITERAL(0x00000000ff000000)) << 8 ) |
+             ((*pCastData & OSG_UINT64_LITERAL(0x000000ff00000000)) >> 8 ) |
+             ((*pCastData & OSG_UINT64_LITERAL(0x0000ff0000000000)) >> 24) |
+             ((*pCastData & OSG_UINT64_LITERAL(0x00ff000000000000)) >> 40) |
+             ((*pCastData & OSG_UINT64_LITERAL(0xff00000000000000)) >> 56)  );
+}
+
+
 /*! Convert a value from host byte order to big endian byte order.
 
     \param[in] src Input value in host byte order.
@@ -2491,85 +2606,13 @@ bool osgIsBigEndian(void)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline UInt16
-osgHostToBigEndian<UInt16>(UInt16 src)
+template <class TypeT>
+inline TypeT
+osgHostToBigEndian(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
-    return (src >> 8) | (src << 8);
-#else
-    return src;
-#endif
-}
+    osgReverseBytes<sizeof(TypeT)>(reinterpret_cast<UInt8*>(&src));
 
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline UInt32
-osgHostToBigEndian<UInt32>(UInt32 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return (((src & 0x000000ff) << 24) |
-            ((src & 0x0000ff00) << 8 ) |
-            ((src & 0x00ff0000) >> 8 ) |
-            ((src & 0xff000000) >> 24)  );
-#else
-    return src;
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline UInt64
-osgHostToBigEndian<UInt64>(UInt64 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return (((src & OSG_UINT64_LITERAL(0x00000000000000ff)) << 56) |
-            ((src & OSG_UINT64_LITERAL(0x000000000000ff00)) << 40) |
-            ((src & OSG_UINT64_LITERAL(0x0000000000ff0000)) << 24) |
-            ((src & OSG_UINT64_LITERAL(0x00000000ff000000)) << 8 ) |
-            ((src & OSG_UINT64_LITERAL(0x000000ff00000000)) >> 8 ) |
-            ((src & OSG_UINT64_LITERAL(0x0000ff0000000000)) >> 24) |
-            ((src & OSG_UINT64_LITERAL(0x00ff000000000000)) >> 40) |
-            ((src & OSG_UINT64_LITERAL(0xff00000000000000)) >> 56)  );
-#else
-    return src;
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline Real32
-osgHostToBigEndian<Real32>(Real32 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
-
-    std::swap(p[0], p[3]);
-    std::swap(p[1], p[2]);
-    
-    return src;
-#else
-    return src;
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline Real64
-osgHostToBigEndian<Real64>(Real64 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
-
-    std::swap(p[0], p[7]);
-    std::swap(p[1], p[6]);
-    std::swap(p[2], p[5]);
-    std::swap(p[3], p[4]);
-    
     return src;
 #else
     return src;
@@ -2609,87 +2652,15 @@ osgHostToBigEndian<Real128>(Real128 src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline UInt16
-osgHostToLittleEndian<UInt16>(UInt16 src)
+template <class TypeT>
+inline TypeT
+osgHostToLittleEndian(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
 #else
-    return (src >> 8) | (src << 8);
-#endif
-}
+    osgReverseBytes<sizeof(TypeT)>(reinterpret_cast<UInt8*>(&src));
 
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline UInt32
-osgHostToLittleEndian<UInt32>(UInt32 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    return (((src & 0x000000ff) << 24) |
-            ((src & 0x0000ff00) << 8 ) |
-            ((src & 0x00ff0000) >> 8 ) |
-            ((src & 0xff000000) >> 24)  );
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline UInt64
-osgHostToLittleEndian<UInt64>(UInt64 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    return (((src & OSG_UINT64_LITERAL(0x00000000000000ff)) << 56) |
-            ((src & OSG_UINT64_LITERAL(0x000000000000ff00)) << 40) |
-            ((src & OSG_UINT64_LITERAL(0x0000000000ff0000)) << 24) |
-            ((src & OSG_UINT64_LITERAL(0x00000000ff000000)) << 8 ) |
-            ((src & OSG_UINT64_LITERAL(0x000000ff00000000)) >> 8 ) |
-            ((src & OSG_UINT64_LITERAL(0x0000ff0000000000)) >> 24) |
-            ((src & OSG_UINT64_LITERAL(0x00ff000000000000)) >> 40) |
-            ((src & OSG_UINT64_LITERAL(0xff00000000000000)) >> 56)  );
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline Real32
-osgHostToLittleEndian<Real32>(Real32 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
-
-    std::swap(p[0], p[3]);
-    std::swap(p[1], p[2]);
-    
-    return src;
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline Real64
-osgHostToLittleEndian<Real64>(Real64 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
-
-    std::swap(p[0], p[7]);
-    std::swap(p[1], p[6]);
-    std::swap(p[2], p[5]);
-    std::swap(p[3], p[4]);
-    
     return src;
 #endif
 }
@@ -2727,85 +2698,13 @@ osgHostToLittleEndian<Real128>(Real128 src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline UInt16
-osgBigEndianToHost<UInt16>(UInt16 src)
+template <class TypeT>
+inline TypeT
+osgBigEndianToHost(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
-    return (src >> 8) | (src << 8);
-#else
-    return src;
-#endif
-}
+    osgReverseBytes<sizeof(TypeT)>(reinterpret_cast<UInt8*>(&src));
 
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline UInt32
-osgBigEndianToHost<UInt32>(UInt32 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return (((src & 0x000000ff) << 24) |
-            ((src & 0x0000ff00) << 8 ) |
-            ((src & 0x00ff0000) >> 8 ) |
-            ((src & 0xff000000) >> 24)  );
-#else
-    return src;
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline UInt64
-osgBigEndianToHost<UInt64>(UInt64 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return (((src & OSG_UINT64_LITERAL(0x00000000000000ff)) << 56) |
-            ((src & OSG_UINT64_LITERAL(0x000000000000ff00)) << 40) |
-            ((src & OSG_UINT64_LITERAL(0x0000000000ff0000)) << 24) |
-            ((src & OSG_UINT64_LITERAL(0x00000000ff000000)) << 8 ) |
-            ((src & OSG_UINT64_LITERAL(0x000000ff00000000)) >> 8 ) |
-            ((src & OSG_UINT64_LITERAL(0x0000ff0000000000)) >> 24) |
-            ((src & OSG_UINT64_LITERAL(0x00ff000000000000)) >> 40) |
-            ((src & OSG_UINT64_LITERAL(0xff00000000000000)) >> 56)  );
-#else
-    return src;
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline Real32
-osgBigEndianToHost<Real32>(Real32 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
-
-    std::swap(p[0], p[3]);
-    std::swap(p[1], p[2]);
-    
-    return src;
-#else
-    return src;
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline Real64
-osgBigEndianToHost<Real64>(Real64 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
-
-    std::swap(p[0], p[7]);
-    std::swap(p[1], p[6]);
-    std::swap(p[2], p[5]);
-    std::swap(p[3], p[4]);
-    
     return src;
 #else
     return src;
@@ -2845,87 +2744,15 @@ osgBigEndianToHost<Real128>(Real128 src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline UInt16
-osgLittleEndianToHost<UInt16>(UInt16 src)
+template <class TypeT>
+inline TypeT
+osgLittleEndianToHost(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
 #else
-    return (src >> 8) | (src << 8);
-#endif
-}
+    osgReverseBytes<sizeof(TypeT)>(reinterpret_cast<UInt8*>(&src));
 
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline UInt32
-osgLittleEndianToHost<UInt32>(UInt32 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    return (((src & 0x000000ff) << 24) |
-            ((src & 0x0000ff00) << 8 ) |
-            ((src & 0x00ff0000) >> 8 ) |
-            ((src & 0xff000000) >> 24)  );
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline UInt64
-osgLittleEndianToHost<UInt64>(UInt64 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    return (((src & OSG_UINT64_LITERAL(0x00000000000000ff)) << 56) |
-            ((src & OSG_UINT64_LITERAL(0x000000000000ff00)) << 40) |
-            ((src & OSG_UINT64_LITERAL(0x0000000000ff0000)) << 24) |
-            ((src & OSG_UINT64_LITERAL(0x00000000ff000000)) << 8 ) |
-            ((src & OSG_UINT64_LITERAL(0x000000ff00000000)) >> 8 ) |
-            ((src & OSG_UINT64_LITERAL(0x0000ff0000000000)) >> 24) |
-            ((src & OSG_UINT64_LITERAL(0x00ff000000000000)) >> 40) |
-            ((src & OSG_UINT64_LITERAL(0xff00000000000000)) >> 56)  );
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline Real32
-osgLittleEndianToHost<Real32>(Real32 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
-
-    std::swap(p[0], p[3]);
-    std::swap(p[1], p[2]);
-    
-    return src;
-#endif
-}
-
-/*! \ingroup GrpBaseBaseMiscFn
- */
-template <>
-inline Real64
-osgLittleEndianToHost<Real64>(Real64 src)
-{
-#if BYTE_ORDER == LITTLE_ENDIAN
-    return src;
-#else
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
-
-    std::swap(p[0], p[7]);
-    std::swap(p[1], p[6]);
-    std::swap(p[2], p[5]);
-    std::swap(p[3], p[4]);
-    
     return src;
 #endif
 }
@@ -2998,6 +2825,8 @@ osgNetToHost(const TypeT src)
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
 
+    \deprecated use osgHostToNet instead.
+
     \ingroup GrpBaseBaseMiscFn
  */
 inline
@@ -3013,6 +2842,8 @@ UInt16 osghtons(UInt16 src)
 
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
+
+    \deprecated use osgHostToNet instead.
 
     \ingroup GrpBaseBaseMiscFn
  */
@@ -3030,6 +2861,8 @@ UInt32 osghtonl(UInt32 src)
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
 
+    \deprecated use osgHostToNet instead.
+
     \ingroup GrpBaseBaseMiscFn
  */
 inline
@@ -3045,6 +2878,8 @@ UInt64 osghtonll(UInt64 src)
 
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
+
+    \deprecated use osgHostToNet instead.
 
     \ingroup GrpBaseBaseMiscFn
  */
@@ -3062,6 +2897,8 @@ Real32 osghtonf(Real32 src)
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
 
+    \deprecated use osgHostToNet instead.
+
     \ingroup GrpBaseBaseMiscFn
  */
 inline
@@ -3077,6 +2914,8 @@ Real64 osghtond(Real64 src)
 
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
+
+    \deprecated use osgHostToNet instead.
 
     \ingroup GrpBaseBaseMiscFn
  */
@@ -3096,6 +2935,8 @@ Real128 osghtondd(Real128 src)
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
 
+    \deprecated use osgNetToHost instead.
+
     \ingroup GrpBaseBaseMiscFn
  */
 inline
@@ -3111,6 +2952,8 @@ UInt16 osgntohs(UInt16 src)
 
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
+
+    \deprecated use osgNetToHost instead.
 
     \ingroup GrpBaseBaseMiscFn
  */
@@ -3128,6 +2971,8 @@ UInt32 osgntohl(UInt32 src)
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
 
+    \deprecated use osgNetToHost instead.
+
     \ingroup GrpBaseBaseMiscFn
  */
 inline
@@ -3143,6 +2988,8 @@ UInt64 osgntohll(UInt64 src)
 
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
+
+    \deprecated use osgNetToHost instead.
 
     \ingroup GrpBaseBaseMiscFn
  */
@@ -3160,6 +3007,8 @@ Real32 osgntohf(Real32 src)
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
 
+    \deprecated use osgNetToHost instead.
+
     \ingroup GrpBaseBaseMiscFn
  */
 inline
@@ -3175,6 +3024,8 @@ Real64 osgntohd(Real64 src)
 
     \note Network byte order is big endian, so an actual conversion only
     happens on little endian architectures.
+
+    \deprecated use osgNetToHost instead.
 
     \ingroup GrpBaseBaseMiscFn
  */
@@ -3228,6 +3079,8 @@ void osgStringDup(const TChar *szInput, TChar *&szOutput)
     \param[in] szInput The C string to copy.
     \param[out] szOutput Set to point to the copy.
 
+    \deprecated use osgStringDup instead.
+
     \ingroup GrpBaseBaseStringFn
  */
 inline
@@ -3269,6 +3122,8 @@ void  osgStringCopy(const Char8 *szInput, Char8 *szOutput)
     \warning This function does not check the size of the destination buffer,
     hence it could overwrite other data if the buffer is not large enough !
 
+    \deprecated use osgStringCopy instead.
+
     \ingroup GrpBaseBaseStringFn
  */
 inline
@@ -3307,6 +3162,8 @@ Int32 osgStringNCmp(const Char8 *string1, const Char8 *string2, size_t count)
     \return 0 if the first \a count characters of both strings are equal,
     -1 if \a string1 is less than \a string2 and 1 otherwise.
 
+    \deprecated use osgStringNCmp instead.
+
     \ingroup GrpBaseBaseStringFn
  */
 inline
@@ -3336,6 +3193,8 @@ Int32 osgStringLen(const Char8 *string1)
 
     \param[in] string1 String whose length is determined.
     \return Length of the string.
+
+    \deprecated use osgStringLen instead.
 
     \ingroup GrpBaseBaseStringFn 
  */
@@ -3370,6 +3229,8 @@ Int32 osgStringCmp(const Char8 *string1, const Char8 *string2)
     \param[in] string2 Second string for comparison.
     \return 0 if both strings are equal, -1 if \a string1 is less than
     \a string2 and 1 otherwise.
+
+    \deprecated use osgStringCmp instead.
 
     \ingroup GrpBaseBaseStringFn
  */
@@ -3409,6 +3270,8 @@ Int32 osgStringCaseCmp(const Char8 *string1,
     \param[in] string2 Second string for comparison.
     \return 0 if both strings are equal, -1 if \a string1 is less than
     \a string2 and 1 otherwise.
+
+    \deprecated use osgStringCaseCmp instead.
 
     \ingroup GrpBaseBaseStringFn
  */

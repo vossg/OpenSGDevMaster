@@ -236,7 +236,7 @@ int DgramSocket::recvFrom(NetworkMessage &msg,SocketAddress &from)
 {
     NetworkMessage::Header hdr;
     peek(&hdr,sizeof(hdr));
-    msg.setSize(osgntohl(hdr.size));
+    msg.setSize(osgNetToHost(hdr.size));
     return recvFrom(msg.getBuffer(),msg.getSize(),from);
 }
 
@@ -287,7 +287,7 @@ int DgramSocket::sendTo(const void *buf,int size,const SocketAddress &to)
 int DgramSocket::sendTo(NetworkMessage &msg,const SocketAddress &to)
 {
     NetworkMessage::Header &hdr=msg.getHeader();
-    hdr.size=osghtonl(msg.getSize());
+    hdr.size=osgHostToNet(msg.getSize());
     return sendTo(msg.getBuffer(),msg.getSize(),to);
 }
 

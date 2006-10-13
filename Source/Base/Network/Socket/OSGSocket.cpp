@@ -76,18 +76,19 @@ OSG_USING_NAMESPACE
     \ingroup GrpBaseNetwork
     \brief Abstract network socket handler
 
-Socket baseclass. The Socket class wraps a socket descriptor. This
-class has no additional state variables. It is only h handle to the
-underlaying descriptor. Class createion and destruction has no
-influence to any descriptor. Use open to assign a descriptor and
+Socket base class. The Socket class wraps a socket descriptor. This
+class has no additional state variables. It is only a handle to the
+underlying descriptor. Class creation and destruction has no
+influence on the descriptor. Use open to assign a descriptor and
 close to remove it from the system. If this class is copied, then
-there are to classes which uses the same descriptor. This is
-ok until you call close for one of this classes.
+there are to classes which share the same descriptor. This is
+acceptable until you call close for one of these classes, then any other class
+sharing the same descriptor becomes practically unusable.
 One purpose of this implementation is to hide the differences between
 Windows and Unix sockets. Calls to this class should behave equally
-on all systems. As a result, some methods will not work as an 
-experienced Windows ore Unix programmer maight expect. Please refere
-to the function docu to get details about this.
+on all systems. As a result, some methods will not work the way an
+experienced Windows ore Unix programmer might expect. Please refer
+to the function documentation for details about this.
 
 */
 
@@ -99,7 +100,7 @@ int Socket::initialized=0;
 /*! Create a new Socket class. A valid socket descriptor will be assigned
     by calling open on a derived Socket class e.g. StreamSocket or
     DgramSocket. On Windows WSAStartup is called by the first socket
-    createn.
+    created.
  */
 Socket::Socket(void):
     _sd(-1)
@@ -126,8 +127,8 @@ Socket::Socket(const Socket &source):
 {
 }
 
-/*! Destructor. The Socket class is only a descriptor to the socket. By destruction
-    of this class, the socket remains open.
+/*! Destructor. The Socket class is only a descriptor to the socket.
+    Upon destruction of this class, the socket remains open.
  */
 Socket::~Socket()
 {
@@ -136,7 +137,7 @@ Socket::~Socket()
 /*-------------------------------------------------------------------------*/
 /*                        open, close, connect                             */
 
-/*! close socket
+/*! Close the assigned socket.
  */
 void Socket::close(void)
 {
@@ -150,12 +151,14 @@ void Socket::close(void)
 /*! Bind a socket to a given SocketAddress. It is possible to bind a 
     Socket to a special network interface ore to all availabel interfaces.
 
-    <PRE>
-    sock.bind(AnySocketAddress(23344));           Bind Socket to port 23344 
-    sock.bind(Address("123.223.112.33",0);  Bind to the given adapter
-    sock.bind(AnySocketAddress(0));               Bind to a free port      
-    port = sock.getAddress().getPort();     Get bound port
-    </PRE>
+    \param[in] address The address to bind to.
+
+    \code
+    sock.bind(AnySocketAddress(23344));     // Bind Socket to port 23344
+    sock.bind(Address("123.223.112.33",0);  // Bind to the given adapter
+    sock.bind(AnySocketAddress(0));         // Bind to a free port
+    port = sock.getAddress().getPort();     // Get bound port
+    \endcode
  */
 void Socket::bind(const SocketAddress &address)
 {
@@ -182,18 +185,22 @@ void Socket::bind(const SocketAddress &address)
     }
 }
 
-/*! Set queue length for incomming connection requests
+/*! Set queue length for incomming connection requests.
+
+    \param[in] maxPending Maximum number of simultaneous connection requests.
  */
 void Socket::listen(int maxPending)
 {
-    if(::listen(_sd,maxPending)<0)
+    if(::listen(_sd, maxPending) < 0)
     {
         throw SocketError("listen()");
     }
 }
 
 /*! Connect to the given address. After connect, all send data will be
-    transfered to the address. 
+    transfered to the address.
+
+    \param[in] address Address to connect to.
  */
 void Socket::connect(const SocketAddress &address)
 {
@@ -208,19 +215,24 @@ void Socket::connect(const SocketAddress &address)
 /*-------------------------------------------------------------------------*/
 /*                        read, write    nnect                             */
 
-/*! Read size bytes into the buffer. Wait until size Bytes are available
-    On Dgram sockets data maight be lossed, if size is smaller then the
+/*! Read \a size bytes into the buffer \a buf. This function waits until there
+    are size bytes available.
+    On Dgram sockets data might be lost, if size is smaller then the
     incomming package. This situation will not be treated as an error.
+
+    \param[in,out] buf Buffer that is large enough to hold \a size bytes.
+    \param[in] size Number of bytes to receive.
+
     \see recvAvailable recvFrom
  */
-int Socket::recv(void *buf,int size)
+int Socket::recv(void *buf, int size)
 {
     int readSize;
-    int pos=0;
+    int pos = 0;
 
     while(size)
     {
-        readSize=::recv(_sd,((char*)buf) + pos,size,0);
+        readSize = ::recv(_sd, static_cast<UInt8*>(buf) + pos, size, 0);
         if(readSize < 0)
         {
 #if defined WIN32
@@ -230,7 +242,7 @@ int Socket::recv(void *buf,int size)
             }
             if(getError() == WSAEMSGSIZE)
             {
-                readSize=size;
+                readSize = size;
             }
             else
 #endif
@@ -240,17 +252,21 @@ int Socket::recv(void *buf,int size)
         {
             return 0;
         }
-        size-=readSize;
-        pos +=readSize;
+        size -= readSize;
+        pos  += readSize;
     }
     return pos;
 }
 
-/*! Read the data from the in buffer to a maximun length of size.
-    don't wait until size bytes are available.
+/*! Read at most \a size bytes of availbale data into the buffer \a buf.
+    This function does not wait until enough bytes are available.
+
+    \param[in,out] buf Buffer that is large enough to hold \a size bytes.
+    \param[in] size Maximum number of bytes to receive.
+
     \see recv 
  */
-int Socket::recvAvailable(void *buf,int size)
+int Socket::recvAvailable(void *buf, int size)
 {
     int len;
 
@@ -258,13 +274,13 @@ int Socket::recvAvailable(void *buf,int size)
     do
     {
 #endif
-        len=::recv(_sd,(char*)buf,size,0);
+        len = ::recv(_sd, static_cast<UInt8*>(buf), size, 0);
 #ifndef WIN32
     } 
     while(len < 0 && errno == EAGAIN);
 #endif
 
-    if(len==-1)
+    if(len == -1)
     {
 #if defined WIN32
         switch(getError())
@@ -285,33 +301,41 @@ int Socket::recvAvailable(void *buf,int size)
     return len;
 }
 
-/*! Like recv, but buffer and size is taken from the NetworkMessage
+/*! Like recv, but buffer and size are taken from the NetworkMessage.
+
+    \param[in,out] msg NetworkMessage describing the buffer and size to receive.
+
     \see recv
  */
 int Socket::recv(NetworkMessage &msg)
 {
     NetworkMessage::Header hdr;
-    peek(&hdr,sizeof(hdr));
-    msg.setSize(osgntohl(hdr.size));
-    return recv(msg.getBuffer(),msg.getSize());
+    peek(&hdr, sizeof(hdr));
+    msg.setSize(osgNetToHost(hdr.size));
+    return recv(msg.getBuffer(), msg.getSize());
 }
 
-/*! Read size bytes into the buffer. Wait until size Bytes are available
-    On Dgram sockets data maight be lossed, if size is smaller then the
+/*! Read \a size bytes into the buffer \a buf. This function waits until there
+    are size bytes available. The read bytes will not be removed from the 
+    receive buffer and a subsequent call to recv or recvAvailable will
+    read the same data.
+    On Dgram sockets data might be lost, if size is smaller then the
     incomming package. This situation will not be treated as an error.
-    The read bytes will not be removed from the in buffer. A call to
-    recv after peek will result in the same data.
+
+    \param[in,out] buf Buffer that is large enough to hold \a size bytes.
+    \param[in] size Number of bytes to receive.
+
     \see recv recvAvailable
  */
-int Socket::peek(void *buf,int size)
+int Socket::peek(void *buf, int size)
 {
     int readSize;
-    int pos=0;
+    int pos = 0;
 
-    do
+    while(size)
     {
-        readSize=::recv(_sd,((char*)buf)+pos,size,MSG_PEEK);
-        if(readSize<0)
+        readSize = ::recv(_sd, static_cast<UInt8*>(buf) + pos, size, MSG_PEEK);
+        if(readSize < 0)
         {
 #if defined WIN32
             if(getError() == WSAECONNRESET)
@@ -320,7 +344,7 @@ int Socket::peek(void *buf,int size)
             }
             if(getError() == WSAEMSGSIZE)
             {
-                readSize=size;
+                readSize = size;
             }
             else
 #endif
@@ -330,24 +354,32 @@ int Socket::peek(void *buf,int size)
         {
             return 0;
         }
+        size -= readSize;
+        pos  += readSize;
     }
-    while(readSize != size);
-    return readSize;
+    return pos;
 }
 
-/*! Write size bytes to the socket. This method maight block, if the
+/*! Write size bytes to the socket. This method might block, if the
     output buffer is full.
+
+    \param[in] buf Pointer to a buffer with the data to send.
+    \param[in] size Number of bytes to send.
+    \return Number of bytes sent.
  */
-int Socket::send(const void *buf,int size)
+int Socket::send(const void *buf, int size)
 {
     int writeSize;
-    int pos=0;
+    int pos = 0;
+
     while(size)
     {
 #if defined(WIN32) && defined(MSG_NOSIGNAL)
-        writeSize=::send(_sd,((const char*)buf)+pos,size,MSG_NOSIGNAL);
+        writeSize = ::send(_sd, static_cast<const UInt8*>(buf) + pos,
+                           size, MSG_NOSIGNAL                        );
 #else
-        writeSize=::send(_sd,((const char*)buf)+pos,size,0);
+        writeSize = ::send(_sd, static_cast<const UInt8*>(buf) + pos,
+                           size, 0                                   );
 #endif
         if(writeSize == -1)
         {
@@ -357,78 +389,92 @@ int Socket::send(const void *buf,int size)
         {
             return 0;
         }
-        size-=writeSize;
-        pos+=writeSize;
+        size -= writeSize;
+        pos  += writeSize;
     }
     return pos;
 }
 
 /*! Like send, but buffer and size is taken from the NetworkMessage
+
+    \param[in] msg NetworkMessage with buffer and size to send.
+
     \see send
  */
 int Socket::send(NetworkMessage &msg)
 {
-    NetworkMessage::Header &hdr=msg.getHeader();
-    hdr.size=osghtonl(msg.getSize());
-    return send(msg.getBuffer(),msg.getSize());
+    NetworkMessage::Header &hdr = msg.getHeader();
+    hdr.size = osgHostToNet(msg.getSize());
+    return send(msg.getBuffer(), msg.getSize());
 }
 
 /*-------------------------------------------------------------------------*/
 /*                        socket state access                              */
 
-/*! Enable, disable reuse port behavior If reuse port is true, then
-    more then on process or thread is able to bind to the same port.
-    This makes sense for multicast or braodcast sockets. For StreamSockets
+/*! Enable or disable reuse port behavior. If reuse port is true, then
+    more then one process or thread is able to bind to the same port.
+    This makes sense for multicast or broadcast sockets. For StreamSockets
     this feature can be used to avoid the <EM>Socket in use</EM> message
-    on not propperly closed ports.
+    on not properly closed ports.
+
+    \param[in] value True to enable port reuse, false to disable it.
+
  */
 void Socket::setReusePort(bool value)
 {
-    int v=(int)value;
+    int v = static_cast<int>(value);
 #ifdef SO_REUSEPORT
-    ::setsockopt(_sd,SOL_SOCKET,SO_REUSEPORT,(SocketOptT*)&v,sizeof(v));
+    ::setsockopt(_sd, SOL_SOCKET, SO_REUSEPORT,
+                 static_cast<SocketOptT*>(&v), sizeof(v));
 #endif
-    ::setsockopt(_sd,SOL_SOCKET,SO_REUSEADDR,(SocketOptT*)&v,sizeof(v));
+    ::setsockopt(_sd, SOL_SOCKET, SO_REUSEADDR,
+                 static_cast<SocketOptT*>(&v), sizeof(v));
 }
 
-/*! By default all recv, send, accept calls will block until the executeion
-    is finished. This behavior can be swithed off bei setting blocking to
+/*! By default all recv, send, accept calls will block until the operation
+    is finished. This behavior can be switched off by setting blocking to
     false. This will lead to a more difficult programming. An easier 
     way to get non blocking behavior is to use SocketSelections or
     waitReadable, waitWritable. These methods provide a timeout
     for waiting.
+
+    \param[in] value True to enable blocking mode, false to disable it.
+
     \see Socket::waitReadable Socket::waitWritable SocketSelection
  */
 void Socket::setBlocking(bool value)
 {
 #ifndef WIN32
-    int val=0;
+    int val = 0;
     
-    if(value==false)
-        val=O_NDELAY;
-    if (fcntl(_sd, F_GETFL, &val) < 0) 
+    if(value == false)
+        val = O_NDELAY;
+    if(fcntl(_sd, F_GETFL, &val) < 0)
     {
         throw SocketError("fcntl()");
-    }    
-    val|=O_NDELAY;
+    }
+    val |= O_NDELAY;
     if(value)
     {
-        val^=O_NDELAY;
+        val ^= O_NDELAY;
     }
-    if (fcntl(_sd, F_SETFL, val) < 0) 
+    if(fcntl(_sd, F_SETFL, val) < 0) 
     {
         throw SocketError("fcntl()");
-    }    
+    }
 #else
     u_long ulVal = !value;
-    if( (ioctlsocket(_sd, FIONBIO, &ulVal)) != 0) 
+    if(ioctlsocket(_sd, FIONBIO, &ulVal) != 0)
     {
         throw SocketError("ioctlsocket()");
-    }    
+    }
 #endif
 }
 
-/*! Get bound SocketAddress
+/*! Get the SocketAddress this Socket is bound to.
+
+    \return The bound address of this Socket.
+
     \see SocketAddress 
  */
 SocketAddress Socket::getAddress()
@@ -444,82 +490,103 @@ SocketAddress Socket::getAddress()
     return result;
 }
 
-/*! Set the internal read buffer size
+/*! Set the internal read buffer size.
+
+    \param[in] size Number of bytes to use as internal read buffer.
+
     \see Socket::getReadBufferSize
  */
 void Socket::setReadBufferSize(int size)
 {
-    int v=(int)size;
-    ::setsockopt(_sd,SOL_SOCKET,SO_RCVBUF,(SocketOptT*)&v,sizeof(v));
+    ::setsockopt(_sd, SOL_SOCKET, SO_RCVBUF,
+                 static_cast<SocketOptT*>(&size), sizeof(size));
 }
 
-/*! Set the internal write buffer size
+/*! Set the internal write buffer size.
+
+    \param[in] size Number of bytes to use as internal write buffer.
+
     \see Socket::getWriteBufferSize
  */
 void Socket::setWriteBufferSize(int size)
 {
-    int v=(int)size;
-    ::setsockopt(_sd,SOL_SOCKET,SO_SNDBUF,(SocketOptT*)&v,sizeof(v));
+    ::setsockopt(_sd, SOL_SOCKET, SO_SNDBUF,
+                 static_cast<SocketOptT*>(&size), sizeof(size));
 }
 
-/*! Get internal read buffer size
+/*! Get internal read buffer size.
+
+    \return Number of bytes used for the internal read buffer.
+
     \see Socket::setReadBufferSize
  */
 int Socket::getReadBufferSize() 
 {
-    int v;
-    SocketLenT len=sizeof(v);
-    ::getsockopt(_sd,SOL_SOCKET,SO_RCVBUF,(SocketOptT*)&v,&len);
+    int        v;
+    SocketLenT len = sizeof(v);
+    ::getsockopt(_sd, SOL_SOCKET, SO_RCVBUF,
+                 static_cast<SocketOptT*>(&v), &len);
     return v;
 }
 
-/*! Get internal write buffer size
+/*! Get internal write buffer size.
+
+    \return Number of bytes used for the internal write buffer.
+
     \see Socket::setWriteBufferSize
  */
 int Socket::getWriteBufferSize() 
 {
-    int v;
-    SocketLenT len=sizeof(v);
-    ::getsockopt(_sd,SOL_SOCKET,SO_SNDBUF,(SocketOptT*)&v,&len);
+    int        v;
+    SocketLenT len = sizeof(v);
+    ::getsockopt(_sd, SOL_SOCKET, SO_SNDBUF,
+                 static_cast<SocketOptT*>(&v), &len);
     return v;
 }
 
-/*! Get number of bytes in the internal read buffer
+/*! Get number of bytes in the internal read buffer.
+
+    \return Number of bytes in the internal read buffer.
  */
 int Socket::getAvailable(void)
 {
 #ifndef WIN32
     int value;
-    if(::ioctl(_sd, FIONREAD, &value)<0)
-    {    
+    if(::ioctl(_sd, FIONREAD, &value) < 0)
+    {
         throw SocketError("ioctl()");
     }
     return value;
 #else
     u_long ulVal;
-    if( (ioctlsocket(_sd, FIONREAD, &ulVal)) != 0) 
-    {    
+    if(ioctlsocket(_sd, FIONREAD, &ulVal) != 0)
+    {
         throw SocketError("ioctlsocket()");
     }
-    return (int)ulVal;
+    return static_cast<int>(ulVal);
 #endif
 }
 
-/*! Wait until recv or accept will not block. True is returned if
-    data is available.
+/*! Wait until recv or accept will not block, but no longer than the given
+    duration.
+
+    \param[in] duration Maximum wait time in seconds.
+    \return True if data is available.
  */
 bool Socket::waitReadable(double duration)
 {
     SocketSelection selection;
     selection.setRead(*this);
-    if(selection.select(duration)==1)
+    if(selection.select(duration) == 1)
         return true;
     else
         return false;
 }
 
-/*! Wait until send will not block for the given duration. True
-    is returned if the next send will not block.
+/*! Wait until send will not block, but no longer than the given duration.
+
+    \param[in] duration Maximum wait time in seconds.
+    \return True if next send will not block.
  */
 bool Socket::waitWritable(double duration)
 {
@@ -531,18 +598,22 @@ bool Socket::waitWritable(double duration)
         return false;
 }
 
-/*! assignment
+/*! Assign another socket to this one. This results in both sockets sharing
+    a descriptor.
+
+    \warning Be very careful when sharing descriptors, to only open or close
+    them once and not use them after they where closed in one instance.
  */
 const Socket & Socket::operator =(const Socket &source)
 {
-    _sd=source._sd;
+    _sd = source._sd;
     return *this;
 }
 
 /*-------------------------------------------------------------------------*/
 /*                              error information                          */
 
-/*! Get last occured error
+/*! Get the last occured error.
  */
 int Socket::getError(void)
 {
@@ -553,7 +624,7 @@ int Socket::getError(void)
 #endif
 }
 
-/*! Get last host error
+/*! Get last host error.
  */
 int Socket::getHostError(void)
 {
@@ -564,11 +635,11 @@ int Socket::getHostError(void)
 #endif
 }
 
-/*! Get last occured error as string
+/*! Get last occured error as string.
  */
 std::string Socket::getErrorStr(void)
 {
-    const char *err=NULL;
+    const char *err = NULL;
 
 #ifdef WIN32
     switch(getError())
@@ -618,7 +689,7 @@ std::string Socket::getErrorStr(void)
         case WSANO_DATA: err= "WSANO_DATA"; break; 
     }
 #else
-    err=strerror(getError());
+    err = strerror(getError());
 #endif
     if(err)
         return std::string(err);

@@ -53,7 +53,7 @@ UInt32 Dgram::getCapacity(void) const
 inline
 UInt16 Dgram::getId(void) const
 {
-    return osgntohs(_buffer._id);
+    return osgNetToHost(_buffer._id);
 }
 
 inline
@@ -122,7 +122,7 @@ void Dgram::setResponseSize(void)
 inline 
 void Dgram::setId(UInt16 id)
 {
-    _buffer._id = osghtons(id);
+    _buffer._id = osgHostToNet(id);
 }
 
 inline
@@ -169,7 +169,7 @@ bool Dgram::operator <(const Dgram &other) const
 
 OSG_END_NAMESPACE
  
-#define OSG_DGRAMINLINE_CVSID "@(#)$Id:$"
+#define OSG_DGRAMINLINE_CVSID "@(#)$Id$"
 
 #endif
 

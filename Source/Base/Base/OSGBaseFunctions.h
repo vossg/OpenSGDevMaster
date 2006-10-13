@@ -304,15 +304,17 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     osgrad2degree(const FloatTypeT rValue);
 #endif
 
-
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     deg2rad(const FloatTypeT rValue);
+#endif
 
-
+#ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
     rad2deg(const FloatTypeT rValue);
+#endif
 
 /*---------------------------------------------------------------------*/
 /*                             Power 2 Functions                       */
@@ -381,6 +383,10 @@ std::ostream &operator<<(std::ostream &os, Int64  v);
 
 inline
 bool osgIsBigEndian(void);
+
+template <UInt32 SizeV>
+inline void
+osgReverseBytes(UInt8* pData);
 
 template <class TypeT>
 inline TypeT

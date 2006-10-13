@@ -72,7 +72,7 @@ void ExceptionBinaryDataHandler::putValue(const UInt8 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const UInt16 &value)
 {
-    UInt16 z = osghtons(value);
+    UInt16 z = osgHostToNet(value);
 
     put(&z, sizeof(UInt16));
 }
@@ -80,7 +80,7 @@ void ExceptionBinaryDataHandler::putValue(const UInt16 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const UInt32 &value)
 {
-    UInt32 z = osghtonl(value);
+    UInt32 z = osgHostToNet(value);
 
     put(&z, sizeof(UInt32));
 }
@@ -88,7 +88,7 @@ void ExceptionBinaryDataHandler::putValue(const UInt32 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const UInt64 &value)
 {
-    UInt64 z = osghtonll(value);
+    UInt64 z = osgHostToNet(value);
 
     put(&z, sizeof(UInt64));
 }
@@ -102,7 +102,7 @@ void ExceptionBinaryDataHandler::putValue(const Int8 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const Int16 &value)
 {
-    Int16 z = osghtons(value);
+    Int16 z = osgHostToNet(value);
 
     put(&z, sizeof(Int16));
 }
@@ -110,7 +110,7 @@ void ExceptionBinaryDataHandler::putValue(const Int16 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const Int32 &value)
 {
-    Int32 z = osghtonl(value);
+    Int32 z = osgHostToNet(value);
 
     put(&z, sizeof(Int32));
 }
@@ -118,7 +118,8 @@ void ExceptionBinaryDataHandler::putValue(const Int32 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const Int64 &value)
 {
-    Int64 z = osghtonll(value);
+    Int64 z = osgHostToNet(value);
+
     put(&z, sizeof(Int64));
 
 }
@@ -126,7 +127,7 @@ void ExceptionBinaryDataHandler::putValue(const Int64 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const Real16 &value)
 {
-    UInt16 v = osghtons(value.bits());
+    UInt16 v = osgHostToNet(value.bits());
 
     put(&v, sizeof(Real16));
 }
@@ -134,7 +135,7 @@ void ExceptionBinaryDataHandler::putValue(const Real16 &value)
 inline
 void ExceptionBinaryDataHandler::putValue(const Fixed32 &value)
 {
-    Int32 v = osghtonl(value.getValue());
+    Int32 v = osgHostToNet(value.getValue());
 
     put(&v, sizeof(Int32));
 }
@@ -142,7 +143,7 @@ void ExceptionBinaryDataHandler::putValue(const Fixed32 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const Real32 &value)
 {
-    UInt32 v = osghtonl( *((const UInt32 *)(&value)) );
+    Real32 v = osgHostToNet(value);
 
     put(&v, sizeof(Real32));
 }
@@ -150,7 +151,7 @@ void ExceptionBinaryDataHandler::putValue(const Real32 &value)
 inline 
 void ExceptionBinaryDataHandler::putValue(const Real64 &value)
 {
-    UInt64 v = osghtonll( *((const UInt64*)(&value)) );
+    Real64 v = osgHostToNet(value);
 
     put(&v, sizeof(Real64));
 }
@@ -158,22 +159,16 @@ void ExceptionBinaryDataHandler::putValue(const Real64 &value)
 inline
 void ExceptionBinaryDataHandler::putValue(const Real128 &value)
 {
-    UInt64 v = osghtonll( *( (const UInt64 *)(&value)) );
-    UInt64 w = osghtonll( *(((const UInt64 *)(&value)) + 1) );
- 
-#if BYTE_ORDER == LITTLE_ENDIAN
-    put(&w, sizeof(UInt64));
-    put(&v, sizeof(UInt64));
-#else
-    put(&v, sizeof(UInt64));
-    put(&w, sizeof(UInt64));
-#endif
+    Real128 v = osgHostToNet(value);
+    
+    // sizeof(Real128) != 16 on most arch - force it.
+    put(&v, 16);
 }
  
 inline 
 void ExceptionBinaryDataHandler::putValue(const std::string &value)
 {
-    UInt32 len = osgStringLen(value.c_str()) + 1;
+    UInt32 len = value.length() + 1;
 
     putValue(len);
 
@@ -410,7 +405,8 @@ void ExceptionBinaryDataHandler::putValues(const Real128 *value, UInt32 size)
     else
 #endif
     {
-        put(value, size * sizeof(Real128));
+        // sizeof(Real128) != 16 on most arch - force it.
+        put(value, size * 16);
     }
 }
 
@@ -420,7 +416,7 @@ void ExceptionBinaryDataHandler::putValues(const std::string *value,
 {
     for(UInt32 i = 0; i<size; ++i)
     {
-        putValue(value[i]);    
+        putValue(value[i]);
     }
 }
 
@@ -444,7 +440,7 @@ void ExceptionBinaryDataHandler::getValue(UInt16 &value) throw (ReadError)
 {
     get(&value, sizeof(UInt16));
 
-    value = osgntohs(value);
+    value = osgNetToHost(value);
 }
 
 inline 
@@ -452,7 +448,7 @@ void ExceptionBinaryDataHandler::getValue(UInt32 &value) throw (ReadError)
 {
     get(&value, sizeof(UInt32));
 
-    value = osgntohl(value);
+    value = osgNetToHost(value);
 }
 
 inline 
@@ -460,7 +456,7 @@ void ExceptionBinaryDataHandler::getValue(UInt64 &value) throw (ReadError)
 {
     get(&value, sizeof(UInt64));
 
-    value = osgntohll(value);
+    value = osgNetToHost(value);
 }
 
 inline 
@@ -474,7 +470,7 @@ void ExceptionBinaryDataHandler::getValue(Int16 &value) throw (ReadError)
 {
     get(&value, sizeof(Int16));
 
-    value = osgntohs(value);
+    value = osgNetToHost(value);
 }
 
 inline 
@@ -482,7 +478,7 @@ void ExceptionBinaryDataHandler::getValue(Int32 &value) throw (ReadError)
 {
     get(&value, sizeof(Int32));
 
-    value = osgntohl(value);
+    value = osgNetToHost(value);
 }
 
 inline 
@@ -490,7 +486,7 @@ void ExceptionBinaryDataHandler::getValue(Int64 &value) throw (ReadError)
 {
     get(&value, sizeof(Int64));
 
-    value = osgntohll(value);
+    value = osgNetToHost(value);
 }
 
 inline 
@@ -500,7 +496,7 @@ void ExceptionBinaryDataHandler::getValue(Real16 &value) throw (ReadError)
 
     get(&v, sizeof(Real16));
 
-    v     = osgntohs(v);
+    v     = osgNetToHost(v);
     value.setBits(v);
 }
 
@@ -511,7 +507,7 @@ void ExceptionBinaryDataHandler::getValue(Fixed32 &value) throw (ReadError)
 
     get(&v, sizeof(Int32));
 
-    v = osgntohl(v);
+    v = osgNetToHost(v);
 
     value.setValue(v);
 }
@@ -521,7 +517,7 @@ void ExceptionBinaryDataHandler::getValue(Real32 &value) throw (ReadError)
 {
      get(&value, sizeof(Real32));
 
-     value = osgntohf(value);
+     value = osgNetToHost(value);
 }
 
 inline
@@ -529,15 +525,16 @@ void ExceptionBinaryDataHandler::getValue(Real64 &value) throw (ReadError)
 {
      get(&value, sizeof(Real64));
 
-     value = osgntohd(value);
+     value = osgNetToHost(value);
 }
 
 inline
 void ExceptionBinaryDataHandler::getValue(Real128 &value) throw (ReadError)
 {
-     get(&value, sizeof(Real128));
+    // sizeof(Real128) != 16 on most arch - force it.
+     get(&value, 16);
 
-     value = osgntohdd(value);
+     value = osgNetToHost(value);
 }
 
 inline 
@@ -592,7 +589,7 @@ void ExceptionBinaryDataHandler::getValues(UInt16 *value,
     {
         for(UInt32 i = 0; i < size; ++i)
         {
-            value[i] = osgntohs(value[i]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif
@@ -609,7 +606,7 @@ void ExceptionBinaryDataHandler::getValues(UInt32 *value,
     {
         for(UInt32 i = 0; i < size; ++i)
         {
-            value[i] = osgntohl(value[i]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif
@@ -626,7 +623,7 @@ void ExceptionBinaryDataHandler::getValues(UInt64 *value,
     {
         for(UInt32 i = 0; i < size; ++i)
         {
-            value[i] = osgntohll(value[i]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif
@@ -650,7 +647,7 @@ void ExceptionBinaryDataHandler::getValues(Int16  *value,
     {
         for(UInt32 i = 0; i < size; ++i)
         {
-            value[i] = osgntohs(value[i]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif
@@ -667,7 +664,7 @@ void ExceptionBinaryDataHandler::getValues(Int32  *value,
     {
         for(UInt32 i = 0; i < size; ++i)
         {
-            value[i] = osgntohl(value[i]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif
@@ -684,7 +681,7 @@ void ExceptionBinaryDataHandler::getValues(Int64  *value,
     {
         for(UInt32 i = 0; i < size; ++i)
         {
-            value[i] = osgntohll(value[i]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif
@@ -703,7 +700,7 @@ void ExceptionBinaryDataHandler::getValues(Real16 *value,
 
         for(UInt32 i = 0; i < size; ++i)
         {
-            value[i].setBits(osgntohs(intValue[i]));
+            value[i].setBits(osgNetToHost(intValue[i]));
         }
     }
 #endif
@@ -722,7 +719,7 @@ void ExceptionBinaryDataHandler::getValues(Fixed32 *value,
 
         for(UInt32 i = 0; i < size; ++i)
         {
-            value[i].setValue(osgntohl(intValue[i]));
+            value[i].setValue(osgNetToHost(intValue[i]));
         }
     }
 #endif
@@ -737,11 +734,9 @@ void ExceptionBinaryDataHandler::getValues(Real32 *value,
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        UInt32 *intValue = reinterpret_cast<UInt32 *>(value);
-
         for(UInt32 i = 0; i < size; ++i)
         {
-            intValue[i] = osgntohl(intValue[i]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif
@@ -756,11 +751,9 @@ void ExceptionBinaryDataHandler::getValues(Real64 *value,
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        UInt64 *longValue = reinterpret_cast<UInt64 *>(value);
-
         for(UInt32 i = 0; i < size; ++i)
         {
-            longValue[i] = osgntohll(longValue[i]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif
@@ -771,17 +764,13 @@ void ExceptionBinaryDataHandler::getValues(Real128 *value,
                                            UInt32   size) throw (ReadError)
 {
     get(value, size * sizeof(UInt64) * 2);
- 
+
 #if BYTE_ORDER == LITTLE_ENDIAN
     if(_networkOrder == true)
     {
-        UInt64 *longValue = reinterpret_cast<UInt64 *>(value);
- 
-        for(UInt32 i = 0; i < size; i += 2)
+        for(UInt32 i = 0; i < size; ++i)
         {
-            UInt64 l = longValue[i];
-            longValue[i]     = osgntohll(longValue[i + 1]);
-            longValue[i + 1] = osgntohll(longValue[l    ]);
+            value[i] = osgNetToHost(value[i]);
         }
     }
 #endif

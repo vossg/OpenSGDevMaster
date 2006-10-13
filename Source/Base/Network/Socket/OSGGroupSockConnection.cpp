@@ -330,7 +330,7 @@ bool GroupSockConnection::wait(Time timeout) throw (ReadError)
                 if(result.isSetRead(_sockets[index]))
                 {
                     len = _sockets[index].recv(&tag,sizeof(tag));
-                    tag = osgntohl(tag);
+                    tag = osgNetToHost(tag);
                     if(len == 0)
                         throw ReadError("Channel closed");
                     selection.clearRead(_sockets[index]);
@@ -355,7 +355,7 @@ bool GroupSockConnection::wait(Time timeout) throw (ReadError)
  */
 void GroupSockConnection::signal(void) throw (WriteError)
 {
-    UInt32 tag = osghtonl(314156);
+    UInt32 tag = osgHostToNet(314156);
     UInt32 index;
 
     try
@@ -419,7 +419,7 @@ void GroupSockConnection::readBuffer() throw (ReadError)
     if(len==0)
         throw ReadError("Channel closed");
     // read remaining data
-    size=osgntohl(((SocketBufferHeader*)&_socketReadBuffer[0])->size);
+    size=osgNetToHost(((SocketBufferHeader*)&_socketReadBuffer[0])->size);
     len=_sockets[_readIndex].recv(&_socketReadBuffer[sizeof(SocketBufferHeader)],
                          size);
     if(len==0)
@@ -460,7 +460,7 @@ void GroupSockConnection::writeBuffer(void)
     Int32 index;
     UInt32 size = writeBufBegin()->getDataSize();
     // write size to header
-    ((SocketBufferHeader*)&_socketWriteBuffer[0])->size=osghtonl(size);
+    ((SocketBufferHeader*)&_socketWriteBuffer[0])->size = osgHostToNet(size);
     if(size)
     {
         // write data to all sockets

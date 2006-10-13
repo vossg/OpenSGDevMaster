@@ -337,7 +337,7 @@ void initAnimSetup(int argc, char **argv)
     PerspectiveCameraPtr cam = PerspectiveCamera::create();
 
     cam->setBeacon(b1n);
-    cam->setFov   (deg2rad(90));
+    cam->setFov   (osgDegree2Rad(90));
     cam->setNear  (0.1);
     cam->setFar   (100000);
 
@@ -521,7 +521,7 @@ void initPlaneSetup(void)
     PerspectiveCameraPtr cam = PerspectiveCamera::create();
 
     cam->setBeacon(b1n);
-    cam->setFov   (deg2rad(90));
+    cam->setFov   (osgDegree2Rad(90));
     cam->setNear  (0.1);
     cam->setFar   (100000);
 
