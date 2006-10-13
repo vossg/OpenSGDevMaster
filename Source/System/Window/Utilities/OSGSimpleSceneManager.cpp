@@ -510,7 +510,7 @@ void SimpleSceneManager::initialize(void)
     addRef(_camera);
 
     _camera->setBeacon(cartN);
-    _camera->setFov   (deg2rad(60.f));
+    _camera->setFov   (osgDegree2Rad(60.f));
     _camera->setNear  (0.1f);
     _camera->setFar   (10000.f);
 
