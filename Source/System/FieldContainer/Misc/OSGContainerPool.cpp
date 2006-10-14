@@ -106,7 +106,7 @@ void ContainerPool::changed(ConstFieldMaskArg whichField, UInt32 origin)
     Inherited::changed(whichField, origin);
 }
 
-void ContainerPool::dump(      UInt32    , 
+void ContainerPool::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump ContainerPool NI" << std::endl;
@@ -117,22 +117,25 @@ void ContainerPool::dump(      UInt32    ,
 */
 void ContainerPool::addContainer(FieldContainerPtr container)
 {
+   /*
    editMField(ContainersFieldMask, _mfContainers);
    _mfContainers.push_back(container);
    addRef(container);
+   */
+   pushToContainers(container);
 }
 
 /*! Remove a container if it is found.
 */
-bool ContainerPool::subContainer(FieldContainerPtr container)
+void ContainerPool::subContainer(FieldContainerPtr container)
 {
-   // If found in container
-   //   - edit the mf
-   //   - remove it
-   //   - return true
-   // else
-   //   - return false
-   return false;
+   removeFromContainers(container);
+}
+
+/*! Return the number of containers. */
+UInt32 ContainerPool::getNContainers()
+{
+   return _mfContainers.size();
 }
 
 

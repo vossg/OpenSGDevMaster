@@ -106,7 +106,7 @@ ContainerPoolBase::TypeObject ContainerPoolBase::_type(true,
 "\n"
 "<FieldContainer\n"
 "	name=\"ContainerPool\"\n"
-"	parent=\"FieldContainer\"\n"
+"	parent=\"AttachmentContainer\"\n"
 "	library=\"System\"\n"
 "	structure=\"concrete\"\n"
 "	pointerfieldtypes=\"both\"\n"
@@ -532,7 +532,7 @@ void ContainerPoolBase::resolveLinks(void)
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ContainerPoolPtr>::_type("ContainerPoolPtr", "FieldContainerPtr");
+DataType FieldTraits<ContainerPoolPtr>::_type("ContainerPoolPtr", "AttachmentContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ContainerPoolPtr)

@@ -46,7 +46,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief ContainerPool class. See \ref 
+/*! \brief ContainerPool class. See \ref
            PageSystemContainerPool for a description.
 */
 
@@ -74,7 +74,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -82,15 +82,16 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    void addContainer(FieldContainerPtr container);
-    bool subContainer(FieldContainerPtr container);
+    void   addContainer(FieldContainerPtr container);
+    void   subContainer(FieldContainerPtr container);
+    UInt32 getNContainers();
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -112,7 +113,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPool : public ContainerPoolBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ContainerPool(void); 
+    virtual ~ContainerPool(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGFieldContainer.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGFieldContainerFields.h" // Containers type
 
@@ -75,33 +75,33 @@ class ContainerPool;
 
 //! \brief ContainerPool Base Class.
 
-class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainer
+class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public AttachmentContainer
 {
   public:
 
-    typedef FieldContainer Inherited;
-    typedef FieldContainer ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                              AttachmentContainerConstPtr, 
                               ContainerPool>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                              AttachmentContainerConstPtr, 
                               ContainerPool>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr,
+    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                              AttachmentContainerConstPtr,
                               ContainerPool>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr,
+    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                              AttachmentContainerConstPtr,
                               ContainerPool>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr,
+    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                              AttachmentContainerConstPtr,
                               ContainerPool>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr,
+    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                              AttachmentContainerConstPtr,
                               ContainerPool>::ObjPtrConstArg ObjPtrConstArg;
 
     /*==========================  PUBLIC  =================================*/

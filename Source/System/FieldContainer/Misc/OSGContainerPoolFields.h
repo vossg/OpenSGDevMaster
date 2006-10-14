@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGFieldContainerFields.h"
+#include "OSGAttachmentContainerFields.h"
 
 #include "OSGSFieldAdaptor.h"
 #include "OSGMFieldAdaptor.h"
@@ -70,23 +70,23 @@ class ContainerPool;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ContainerPoolPtr
 
-typedef PointerFwdBuilder<FieldContainerPtr, 
-                          FieldContainerConstPtr,
+typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                          AttachmentContainerConstPtr,
                           ContainerPool>::ObjPtr         ContainerPoolPtr;
-typedef PointerFwdBuilder<FieldContainerPtr, 
-                          FieldContainerConstPtr,
+typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                          AttachmentContainerConstPtr,
                           ContainerPool>::ObjPtrConst    ContainerPoolPtrConst;
-typedef PointerFwdBuilder<FieldContainerPtr, 
-                          FieldContainerConstPtr,
+typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                          AttachmentContainerConstPtr,
                           ContainerPool>::ObjConstPtr    ContainerPoolConstPtr;
-typedef PointerFwdBuilder<FieldContainerPtr, 
-                          FieldContainerConstPtr,
+typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                          AttachmentContainerConstPtr,
                           ContainerPool>::ObjPtrArg      ContainerPoolPtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr, 
-                          FieldContainerConstPtr,
+typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                          AttachmentContainerConstPtr,
                           ContainerPool>::ObjConstPtrArg ContainerPoolConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr, 
-                          FieldContainerConstPtr,
+typedef PointerFwdBuilder<AttachmentContainerPtr, 
+                          AttachmentContainerConstPtr,
                           ContainerPool>::ObjPtrConstArg ContainerPoolPtrConstArg;
 
 #endif

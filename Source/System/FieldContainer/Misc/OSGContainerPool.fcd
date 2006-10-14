@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="ContainerPool"
-	parent="FieldContainer"
+	parent="AttachmentContainer"
 	library="System"
 	structure="concrete"
 	pointerfieldtypes="both"
