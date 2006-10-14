@@ -88,22 +88,26 @@ OSG_USING_NAMESPACE
     
 */
 /*! \var Int32 ImageBase::_sfBpp
-    
+            Bytes of data per pixel.
+
 */
 /*! \var Int32 ImageBase::_sfMipMapCount
     
 */
 /*! \var Int32 ImageBase::_sfFrameCount
-    
+            The number of frames in the data.
+
 */
 /*! \var Time ImageBase::_sfFrameDelay
-    
+            Time between frames.  Determines the frame rate.
+
 */
 /*! \var UInt32 ImageBase::_sfPixelFormat
     
 */
 /*! \var UInt8 ImageBase::_mfPixel
-    
+            The pixel data buffer.  This is where the data for the image is stored.
+
 */
 /*! \var Int32 ImageBase::_sfFrameSize
     
@@ -261,7 +265,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "bpp", 
-        "",
+        "        Bytes of data per pixel.\n",
         BppFieldId, BppFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -305,7 +309,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(), 
         "frameCount", 
-        "",
+        "        The number of frames in the data.\n",
         FrameCountFieldId, FrameCountFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -327,7 +331,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTime::Description(
         SFTime::getClassType(), 
         "frameDelay", 
-        "",
+        "        Time between frames.  Determines the frame rate.\n",
         FrameDelayFieldId, FrameDelayFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -371,7 +375,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
     pDesc = new MFUInt8::Description(
         MFUInt8::getClassType(), 
         "pixel", 
-        "",
+        "        The pixel data buffer.  This is where the data for the image is stored.\n",
         PixelFieldId, PixelFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -682,6 +686,7 @@ ImageBase::TypeObject ImageBase::_type(true,
 "		defaultValue=\"1\"\n"
 "		access=\"public\"\n"
 "	>\n"
+"        Bytes of data per pixel.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"mipMapCount\"\n"
@@ -700,6 +705,7 @@ ImageBase::TypeObject ImageBase::_type(true,
 "		defaultValue=\"1\"\n"
 "		access=\"public\"\n"
 "	>\n"
+"        The number of frames in the data.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"frameDelay\"\n"
@@ -709,6 +715,7 @@ ImageBase::TypeObject ImageBase::_type(true,
 "		defaultValue=\"0\"\n"
 "		access=\"public\"\n"
 "	>\n"
+"        Time between frames.  Determines the frame rate.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"pixelFormat\"\n"
@@ -726,6 +733,7 @@ ImageBase::TypeObject ImageBase::_type(true,
 "		visibility=\"external\"\n"
 "		access=\"public\"\n"
 "	>\n"
+"        The pixel data buffer.  This is where the data for the image is stored.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"frameSize\"\n"

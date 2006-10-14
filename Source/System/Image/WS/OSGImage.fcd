@@ -65,6 +65,7 @@
 		defaultValue="1"
 		access="public"
 	>
+        Bytes of data per pixel.
 	</Field>
 	<Field
 		name="mipMapCount"
@@ -83,6 +84,7 @@
 		defaultValue="1"
 		access="public"
 	>
+        The number of frames in the data.
 	</Field>
 	<Field
 		name="frameDelay"
@@ -92,6 +94,7 @@
 		defaultValue="0"
 		access="public"
 	>
+        Time between frames.  Determines the frame rate.
 	</Field>
 	<Field
 		name="pixelFormat"
@@ -109,6 +112,7 @@
 		visibility="external"
 		access="public"
 	>
+        The pixel data buffer.  This is where the data for the image is stored.
 	</Field>
 	<Field
 		name="frameSize"
