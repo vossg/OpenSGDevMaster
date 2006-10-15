@@ -63,8 +63,9 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGFieldContainerAttachment.h" // Parent
 
+#include "OSGStringFields.h" // Name type
 #include "OSGFieldContainerFields.h" // Containers type
 
 #include "OSGContainerPoolFields.h"
@@ -75,33 +76,33 @@ class ContainerPool;
 
 //! \brief ContainerPool Base Class.
 
-class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public AttachmentContainer
+class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef FieldContainerAttachment Inherited;
+    typedef FieldContainerAttachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                              FieldContainerAttachmentConstPtr, 
                               ContainerPool>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                              FieldContainerAttachmentConstPtr, 
                               ContainerPool>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr,
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                              FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr,
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                              FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr,
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                              FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr,
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                              FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjPtrConstArg ObjPtrConstArg;
 
     /*==========================  PUBLIC  =================================*/
@@ -110,10 +111,13 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public AttachmentContainer
 
     enum
     {
-        ContainersFieldId = Inherited::NextFieldId,
+        NameFieldId = Inherited::NextFieldId,
+        ContainersFieldId = NameFieldId + 1,
         NextFieldId = ContainersFieldId + 1
     };
 
+    static const OSG::BitVector NameFieldMask = 
+        (TypeTraits<BitVector>::One << NameFieldId);
     static const OSG::BitVector ContainersFieldMask = 
         (TypeTraits<BitVector>::One << ContainersFieldId);
     static const OSG::BitVector NextFieldMask = 
@@ -143,8 +147,20 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+#ifdef OSG_1_COMPAT
+           SFString *getSFName(void);
+#endif
+           SFString *editSFName(void);
+     const SFString *getSFName (void) const;
      const MFFieldContainerPtr *getMFContainers (void) const;
 
+
+#ifdef OSG_1_COMPAT
+           std::string &getName(void);
+#endif
+           std::string &editName(void);
+     const std::string &getName (void) const;
 
            FieldContainerPtrConst getContainers(const UInt32 index) const;
      const MFFieldContainerPtr &getContainers(void) const;
@@ -154,6 +170,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public AttachmentContainer
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+     void setName(const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -240,6 +257,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFString _sfName;
     MFFieldContainerPtr _mfContainers;
 
     /*! \}                                                                 */

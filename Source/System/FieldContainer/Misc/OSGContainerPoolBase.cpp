@@ -70,8 +70,13 @@ OSG_USING_NAMESPACE
 
 // Field descriptions
 
+/*! \var std::string ContainerPoolBase::_sfName
+    	The name of the container pool.  Can be used to identify pools.
+
+*/
 /*! \var FieldContainerPtr ContainerPoolBase::_mfContainers
-    
+            A list of containers held in the pool.
+
 */
 
 void ContainerPoolBase::classDescInserter(TypeObject &oType)
@@ -79,10 +84,32 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL; 
 
 
+#ifdef OSG_1_COMPAT
+    typedef const SFString *(ContainerPoolBase::*GetSFNameF)(void) const;
+
+    GetSFNameF GetSFName = &ContainerPoolBase::getSFName;
+#endif
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(), 
+        "name", 
+        "	The name of the container pool.  Can be used to identify pools.\n",
+        NameFieldId, NameFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&ContainerPoolBase::editSFName),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFName));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&ContainerPoolBase::getSFName));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new MFFieldContainerPtr::Description(
         MFFieldContainerPtr::getClassType(), 
         "containers", 
-        "",
+        "        A list of containers held in the pool.\n",
         ContainersFieldId, ContainersFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -106,7 +133,7 @@ ContainerPoolBase::TypeObject ContainerPoolBase::_type(true,
 "\n"
 "<FieldContainer\n"
 "	name=\"ContainerPool\"\n"
-"	parent=\"AttachmentContainer\"\n"
+"	parent=\"FieldContainerAttachment\"\n"
 "	library=\"System\"\n"
 "	structure=\"concrete\"\n"
 "	pointerfieldtypes=\"both\"\n"
@@ -114,11 +141,23 @@ ContainerPoolBase::TypeObject ContainerPoolBase::_type(true,
 "	parentsystemcomponent=\"true\"\n"
 ">\n"
 "	<Field\n"
+"		name=\"name\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The name of the container pool.  Can be used to identify pools.\n"
+"	</Field>\n"
+"\n"
+"	<Field\n"
 "		name=\"containers\"\n"
 "		type=\"FieldContainerPtr\"\n"
 "		cardinality=\"multi\"\n"
 "		visibility=\"external\"\n"
+"                access=\"public\"\n"
 "	>\n"
+"        A list of containers held in the pool.\n"
 "	</Field>\n"
 "</FieldContainer>\n"
 ,
@@ -144,6 +183,25 @@ UInt32 ContainerPoolBase::getContainerSize(void) const
 
 /*------------------------- decorator get ------------------------------*/
 
+
+SFString *ContainerPoolBase::editSFName(void)
+{
+    editSField(NameFieldMask);
+
+    return &_sfName;
+}
+
+const SFString *ContainerPoolBase::getSFName(void) const
+{
+    return &_sfName;
+}
+
+#ifdef OSG_1_COMPAT
+SFString *ContainerPoolBase::getSFName(void)
+{
+    return this->editSFName();
+}
+#endif
 
 //! Get the ContainerPool::_mfContainers field.
 const MFFieldContainerPtr *ContainerPoolBase::getMFContainers(void) const
@@ -368,6 +426,10 @@ UInt32 ContainerPoolBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+    {
+        returnValue += _sfName.getBinSize();
+    }
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
     {
         returnValue += _mfContainers.getBinSize();
@@ -381,6 +443,10 @@ void ContainerPoolBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+    {
+        _sfName.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
     {
         _mfContainers.copyToBin(pMem);
@@ -392,6 +458,10 @@ void ContainerPoolBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+    {
+        _sfName.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
     {
         _mfContainers.copyFromBin(pMem);
@@ -423,12 +493,14 @@ FieldContainerPtr ContainerPoolBase::shallowCopy(void) const
 
 ContainerPoolBase::ContainerPoolBase(void) :
     Inherited(),
+    _sfName(),
     _mfContainers()
 {
 }
 
 ContainerPoolBase::ContainerPoolBase(const ContainerPoolBase &source) :
     Inherited(source),
+    _sfName(source._sfName),
     _mfContainers()
 {
 }
@@ -532,7 +604,7 @@ void ContainerPoolBase::resolveLinks(void)
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ContainerPoolPtr>::_type("ContainerPoolPtr", "AttachmentContainerPtr");
+DataType FieldTraits<ContainerPoolPtr>::_type("ContainerPoolPtr", "FieldContainerAttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ContainerPoolPtr)

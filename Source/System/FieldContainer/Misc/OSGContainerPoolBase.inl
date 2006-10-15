@@ -73,6 +73,39 @@ OSG::UInt16 ContainerPoolBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the ContainerPool::_sfName field.
+
+inline
+std::string &ContainerPoolBase::editName(void)
+{
+    editSField(NameFieldMask);
+
+    return _sfName.getValue();
+}
+
+//! Get the value of the ContainerPool::_sfName field.
+inline
+const std::string &ContainerPoolBase::getName(void) const
+{
+    return _sfName.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+std::string &ContainerPoolBase::getName(void)
+{
+    return this->editName();
+}
+#endif
+
+//! Set the value of the ContainerPool::_sfName field.
+inline
+void ContainerPoolBase::setName(const std::string &value)
+{
+    editSField(NameFieldMask);
+
+    _sfName.setValue(value);
+}
 
 //! Get the value of the \a index element the ContainerPool::_mfContainers field.
 inline
@@ -113,6 +146,9 @@ void ContainerPoolBase::execSync(      ContainerPoolBase *pOther,
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+        _sfName.syncWith(pOther->_sfName);
+
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
         _mfContainers.syncWith(pOther->_mfContainers, 
                                 syncMode,
@@ -130,6 +166,9 @@ void ContainerPoolBase::execSync (      ContainerPoolBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+        _sfName.syncWith(pFrom->_sfName);
 
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
         _mfContainers.syncWith(pFrom->_mfContainers, 

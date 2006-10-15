@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGAttachmentContainerFields.h"
+#include "OSGFieldContainerAttachmentFields.h"
 
 #include "OSGSFieldAdaptor.h"
 #include "OSGMFieldAdaptor.h"
@@ -70,23 +70,23 @@ class ContainerPool;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ContainerPoolPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                          AttachmentContainerConstPtr,
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                          FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjPtr         ContainerPoolPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                          AttachmentContainerConstPtr,
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                          FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjPtrConst    ContainerPoolPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                          AttachmentContainerConstPtr,
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                          FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjConstPtr    ContainerPoolConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                          AttachmentContainerConstPtr,
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                          FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjPtrArg      ContainerPoolPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                          AttachmentContainerConstPtr,
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                          FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjConstPtrArg ContainerPoolConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                          AttachmentContainerConstPtr,
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+                          FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjPtrConstArg ContainerPoolPtrConstArg;
 
 #endif

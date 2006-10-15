@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="ContainerPool"
-	parent="AttachmentContainer"
+	parent="FieldContainerAttachment"
 	library="System"
 	structure="concrete"
 	pointerfieldtypes="both"
@@ -10,10 +10,22 @@
 	parentsystemcomponent="true"
 >
 	<Field
+		name="name"
+		type="std::string"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The name of the container pool.  Can be used to identify pools.
+	</Field>
+
+	<Field
 		name="containers"
 		type="FieldContainerPtr"
 		cardinality="multi"
 		visibility="external"
+                access="public"
 	>
+        A list of containers held in the pool.
 	</Field>
 </FieldContainer>
