@@ -27,6 +27,7 @@
 		defaultValue="GL_NONE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA"
 	>
 	The internal texture format.
 	</Field>
@@ -38,6 +39,7 @@
 		defaultValue="GL_NONE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_NONE,GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_RGBA, GL_BGR, GL_BGRA, GL_LUMINANCE, GL_LUMINANCE_ALPHA"
 	>
 	    The external texture format - overwrites 
         external format of image when set to a value not equal to 
@@ -77,6 +79,7 @@
 		defaultValue="GL_LINEAR_MIPMAP_LINEAR"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR"
 	>
         The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.
 	</Field>
@@ -88,6 +91,7 @@
 		defaultValue="GL_LINEAR"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_NEAREST, GL_LINEAR"
 	>
         The magnification filter, default GL_LINEAR.
 	</Field>
@@ -99,6 +103,7 @@
 		defaultValue="GL_REPEAT"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"
 	>
         Texture coordinate S wrapping, default GL_REPEAT.
 	</Field>
@@ -110,6 +115,7 @@
 		defaultValue="GL_REPEAT"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"                
 	>
         Texture coordinate T wrapping, default GL_REPEAT.
 	</Field>
@@ -121,6 +127,7 @@
 		defaultValue="GL_REPEAT"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"                
 	>
         Texture coordinate R wrapping, default GL_REPEAT.
 	</Field>
@@ -153,7 +160,7 @@
 		access="public"
 		defaultValue="1.f"
 	>
-        Priority of this texture, between 0 and 1, the default is 0.
+        Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)
 	</Field>
     <Field
         name="dirtyLeft"
@@ -267,6 +274,7 @@
 		defaultValue="GL_NONE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_NONE, GL_COMPARE_R_TO_TEXTURE"
 	>
 	</Field>
 	<Field
@@ -277,6 +285,7 @@
 		defaultValue="GL_LEQUAL"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_LEQUAL, GL_GEQUAL, GL_LESS, GL_GREATER, GL_EQUAL, GL_NOTEQUAL, GL_ALWAYS, GL_NEVER"
 	>
 	</Field>
 	<Field
@@ -287,6 +296,7 @@
 		defaultValue="GL_LUMINANCE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_LUMINANCE, GL_INTENSITY, GL_ALPHA"
 	>
 	</Field>
 </FieldContainer>

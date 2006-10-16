@@ -136,7 +136,7 @@ OSG_USING_NAMESPACE
 
 */
 /*! \var Real32 TextureObjChunkBase::_sfPriority
-            Priority of this texture, between 0 and 1, the default is 0.
+            Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)
     
 
 */
@@ -483,7 +483,7 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "priority", 
-        "        Priority of this texture, between 0 and 1, the default is 0.\n    \n",
+        "        Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)\n    \n",
         PriorityFieldId, PriorityFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -800,6 +800,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_NONE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA\"\n"
 "	>\n"
 "	The internal texture format.\n"
 "	</Field>\n"
@@ -811,6 +812,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_NONE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_NONE,GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_RGBA, GL_BGR, GL_BGRA, GL_LUMINANCE, GL_LUMINANCE_ALPHA\"\n"
 "	>\n"
 "	    The external texture format - overwrites \n"
 "        external format of image when set to a value not equal to \n"
@@ -850,6 +852,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR\"\n"
 "	>\n"
 "        The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.\n"
 "	</Field>\n"
@@ -861,6 +864,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_LINEAR\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_NEAREST, GL_LINEAR\"\n"
 "	>\n"
 "        The magnification filter, default GL_LINEAR.\n"
 "	</Field>\n"
@@ -872,6 +876,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_REPEAT\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"\n"
 "	>\n"
 "        Texture coordinate S wrapping, default GL_REPEAT.\n"
 "	</Field>\n"
@@ -883,6 +888,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_REPEAT\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"                \n"
 "	>\n"
 "        Texture coordinate T wrapping, default GL_REPEAT.\n"
 "	</Field>\n"
@@ -894,6 +900,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_REPEAT\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"                \n"
 "	>\n"
 "        Texture coordinate R wrapping, default GL_REPEAT.\n"
 "	</Field>\n"
@@ -926,7 +933,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		access=\"public\"\n"
 "		defaultValue=\"1.f\"\n"
 "	>\n"
-"        Priority of this texture, between 0 and 1, the default is 0.\n"
+"        Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)\n"
 "	</Field>\n"
 "    <Field\n"
 "        name=\"dirtyLeft\"\n"
@@ -1040,6 +1047,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_NONE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_NONE, GL_COMPARE_R_TO_TEXTURE\"\n"
 "	>\n"
 "	</Field>\n"
 "	<Field\n"
@@ -1050,6 +1058,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_LEQUAL\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_LEQUAL, GL_GEQUAL, GL_LESS, GL_GREATER, GL_EQUAL, GL_NOTEQUAL, GL_ALWAYS, GL_NEVER\"\n"
 "	>\n"
 "	</Field>\n"
 "	<Field\n"
@@ -1060,6 +1069,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
 "		defaultValue=\"GL_LUMINANCE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_LUMINANCE, GL_INTENSITY, GL_ALPHA\"\n"
 "	>\n"
 "	</Field>\n"
 "</FieldContainer>\n"
@@ -2132,7 +2142,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 219 2006-10-03 03:22:32Z allenb $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGTEXTUREOBJCHUNKBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTUREOBJCHUNKBASE_INLINE_CVSID;
 

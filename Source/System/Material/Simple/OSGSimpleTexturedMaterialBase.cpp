@@ -78,15 +78,18 @@ OSG_USING_NAMESPACE
 
 */
 /*! \var GLenum SimpleTexturedMaterialBase::_sfMinFilter
-    	Defines the minification filter, see glTexParameter for details.          Default: GL_LINEAR_MIPMAP_LINEAR.
+    	Defines the minification filter, see glTexParameter for details.          
+        Default: GL_LINEAR_MIPMAP_LINEAR.
 
 */
 /*! \var GLenum SimpleTexturedMaterialBase::_sfMagFilter
-    	Defines the magnification filter, see glTexParameter for details.          Default: GL_LINEAR
+    	Defines the magnification filter, see glTexParameter for details.          
+        Default: GL_LINEAR
 
 */
 /*! \var GLenum SimpleTexturedMaterialBase::_sfEnvMode
-    	Sets the environment mode, defining how texture and lighting color interact.         Default: GL_REPLACE.
+    	Sets the environment mode, defining how texture and lighting color interact.         
+        Default: GL_REPLACE.
 
 */
 /*! \var bool SimpleTexturedMaterialBase::_sfEnvMap
@@ -120,7 +123,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "minFilter", 
-        "	Defines the minification filter, see glTexParameter for details.          Default: GL_LINEAR_MIPMAP_LINEAR.\n",
+        "	Defines the minification filter, see glTexParameter for details.          \n        Default: GL_LINEAR_MIPMAP_LINEAR.\n",
         MinFilterFieldId, MinFilterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -142,7 +145,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "magFilter", 
-        "	Defines the magnification filter, see glTexParameter for details.          Default: GL_LINEAR\n",
+        "	Defines the magnification filter, see glTexParameter for details.          \n        Default: GL_LINEAR\n",
         MagFilterFieldId, MagFilterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -164,7 +167,7 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "envMode", 
-        "	Sets the environment mode, defining how texture and lighting color interact.         Default: GL_REPLACE.\n",
+        "	Sets the environment mode, defining how texture and lighting color interact.         \n        Default: GL_REPLACE.\n",
         EnvModeFieldId, EnvModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -222,7 +225,8 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(true,
 "	parentsystemcomponent=\"true\"\n"
 "	decoratable=\"false\"\n"
 ">\n"
-"A SimpleMaterial with an added texture. It doesn't expose all features of the texture, just the ones needed most often.\n"
+"A SimpleMaterial with an added texture. It doesn't expose all features of the texture, \n"
+"just the ones needed most often.\n"
 "	<Field\n"
 "		name=\"image\"\n"
 "		type=\"ImagePtr\"\n"
@@ -240,8 +244,10 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(true,
 "		defaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR\"                \n"
 "	>\n"
-"	Defines the minification filter, see glTexParameter for details.          Default: GL_LINEAR_MIPMAP_LINEAR.\n"
+"	Defines the minification filter, see glTexParameter for details.          \n"
+"        Default: GL_LINEAR_MIPMAP_LINEAR.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"magFilter\"\n"
@@ -251,8 +257,10 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(true,
 "		defaultValue=\"GL_LINEAR\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_NEAREST, GL_LINEAR\"\n"
 "	>\n"
-"	Defines the magnification filter, see glTexParameter for details.          Default: GL_LINEAR\n"
+"	Defines the magnification filter, see glTexParameter for details.          \n"
+"        Default: GL_LINEAR\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"envMode\"\n"
@@ -262,8 +270,10 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(true,
 "		defaultValue=\"GL_REPLACE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE\"\n"
 "	>\n"
-"	Sets the environment mode, defining how texture and lighting color interact.         Default: GL_REPLACE.\n"
+"	Sets the environment mode, defining how texture and lighting color interact.         \n"
+"        Default: GL_REPLACE.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"envMap\"\n"
@@ -277,7 +287,7 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(true,
 "	</Field>\n"
 "</FieldContainer>\n"
 ,
-    "A SimpleMaterial with an added texture. It doesn't expose all features of the texture, just the ones needed most often.\n" 
+    "A SimpleMaterial with an added texture. It doesn't expose all features of the texture, \njust the ones needed most often.\n" 
     );
 
 /*------------------------------ get -----------------------------------*/

@@ -19,6 +19,7 @@
 		defaultValue="GL_REPLACE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE"
 	>
         Texture environment mode, default GL_REPLACE
 	</Field>
@@ -40,6 +41,7 @@
 		defaultValue="GL_MODULATE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT, GL_DOT3_RGB, GL_DOT3_RGBA"
 	>
         Texture environment rgb combine mode, default GL_MODULATE
 	</Field>
@@ -51,6 +53,7 @@
 		defaultValue="GL_MODULATE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
+                potential_values="GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT"
 	>
         Texture environment alpha combine mode, default GL_MODULATE
 	</Field>
@@ -227,7 +230,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 	>
         Shader operation of this texture unit, default GL_NONE. If unit 0 uses
-        GL_NONE, shading is switched off.
+        GL_NONE, shading is switched off.  (GL_SHADER_OPERATION_NV)
 	</Field>
 	<Field
 		name="shaderInput"
@@ -238,7 +241,7 @@
 		defaultValue="GL_NONE"
 		defaultHeader="&lt;OSGGL.h&gt;"
 	>
-        Input texture unit for this shader's operation.
+        Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)
 	</Field>
 	<Field
 		name="shaderOffsetMatrix"
@@ -247,7 +250,7 @@
 		visibility="external"
 		access="public"
 	>
-        The 2x2 transformation matrix for offset textures.
+        The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)
 	</Field>
 	<Field
 		name="shaderOffsetScale"
@@ -257,7 +260,7 @@
 		access="public"
 		defaultValue="1.f"
 	>
-        The scaling factor for scaled offset textures.
+        The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)
 	</Field>
 	<Field
 		name="shaderOffsetBias"
@@ -267,7 +270,7 @@
 		access="public"
 		defaultValue="0.f"
 	>
-        The bias factor for scaled offset textures.
+        The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)
 	</Field>
 	<Field
 		name="shaderRGBADotProduct"

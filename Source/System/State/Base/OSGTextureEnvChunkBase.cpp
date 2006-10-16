@@ -166,23 +166,23 @@ OSG_USING_NAMESPACE
 */
 /*! \var GLenum TextureEnvChunkBase::_sfShaderOperation
             Shader operation of this texture unit, default GL_NONE. If unit 0 uses
-        GL_NONE, shading is switched off.
+        GL_NONE, shading is switched off.  (GL_SHADER_OPERATION_NV)
 
 */
 /*! \var GLenum TextureEnvChunkBase::_sfShaderInput
-            Input texture unit for this shader's operation.
+            Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)
 
 */
 /*! \var Real32 TextureEnvChunkBase::_mfShaderOffsetMatrix
-            The 2x2 transformation matrix for offset textures.
+            The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)
 
 */
 /*! \var Real32 TextureEnvChunkBase::_sfShaderOffsetScale
-            The scaling factor for scaled offset textures.
+            The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)
 
 */
 /*! \var Real32 TextureEnvChunkBase::_sfShaderOffsetBias
-            The bias factor for scaled offset textures.
+            The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)
 
 */
 /*! \var GLenum TextureEnvChunkBase::_sfShaderRGBADotProduct
@@ -639,7 +639,7 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "shaderOperation", 
-        "        Shader operation of this texture unit, default GL_NONE. If unit 0 uses\n        GL_NONE, shading is switched off.\n",
+        "        Shader operation of this texture unit, default GL_NONE. If unit 0 uses\n        GL_NONE, shading is switched off.  (GL_SHADER_OPERATION_NV)\n",
         ShaderOperationFieldId, ShaderOperationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -661,7 +661,7 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "shaderInput", 
-        "        Input texture unit for this shader's operation.\n",
+        "        Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)\n",
         ShaderInputFieldId, ShaderInputFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -683,7 +683,7 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new MFReal32::Description(
         MFReal32::getClassType(), 
         "shaderOffsetMatrix", 
-        "        The 2x2 transformation matrix for offset textures.\n",
+        "        The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)\n",
         ShaderOffsetMatrixFieldId, ShaderOffsetMatrixFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -705,7 +705,7 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "shaderOffsetScale", 
-        "        The scaling factor for scaled offset textures.\n",
+        "        The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)\n",
         ShaderOffsetScaleFieldId, ShaderOffsetScaleFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -727,7 +727,7 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
         "shaderOffsetBias", 
-        "        The bias factor for scaled offset textures.\n",
+        "        The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)\n",
         ShaderOffsetBiasFieldId, ShaderOffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -860,6 +860,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
 "		defaultValue=\"GL_REPLACE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE\"\n"
 "	>\n"
 "        Texture environment mode, default GL_REPLACE\n"
 "	</Field>\n"
@@ -881,6 +882,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
 "		defaultValue=\"GL_MODULATE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT, GL_DOT3_RGB, GL_DOT3_RGBA\"\n"
 "	>\n"
 "        Texture environment rgb combine mode, default GL_MODULATE\n"
 "	</Field>\n"
@@ -892,6 +894,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
 "		defaultValue=\"GL_MODULATE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "		access=\"public\"\n"
+"                potential_values=\"GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT\"\n"
 "	>\n"
 "        Texture environment alpha combine mode, default GL_MODULATE\n"
 "	</Field>\n"
@@ -1068,7 +1071,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "	>\n"
 "        Shader operation of this texture unit, default GL_NONE. If unit 0 uses\n"
-"        GL_NONE, shading is switched off.\n"
+"        GL_NONE, shading is switched off.  (GL_SHADER_OPERATION_NV)\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"shaderInput\"\n"
@@ -1079,7 +1082,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
 "		defaultValue=\"GL_NONE\"\n"
 "		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
 "	>\n"
-"        Input texture unit for this shader's operation.\n"
+"        Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"shaderOffsetMatrix\"\n"
@@ -1088,7 +1091,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
 "		visibility=\"external\"\n"
 "		access=\"public\"\n"
 "	>\n"
-"        The 2x2 transformation matrix for offset textures.\n"
+"        The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"shaderOffsetScale\"\n"
@@ -1098,7 +1101,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
 "		access=\"public\"\n"
 "		defaultValue=\"1.f\"\n"
 "	>\n"
-"        The scaling factor for scaled offset textures.\n"
+"        The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"shaderOffsetBias\"\n"
@@ -1108,7 +1111,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
 "		access=\"public\"\n"
 "		defaultValue=\"0.f\"\n"
 "	>\n"
-"        The bias factor for scaled offset textures.\n"
+"        The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"shaderRGBADotProduct\"\n"
@@ -2265,7 +2268,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 219 2006-10-03 03:22:32Z allenb $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGTEXTUREENVCHUNKBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTUREENVCHUNKBASE_INLINE_CVSID;
 
