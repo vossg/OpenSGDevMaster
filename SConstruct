@@ -525,7 +525,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 
                 "OSG_WITH_JPG":jpeg_option.isAvailable(),
                 "OSG_WITH_TIF":tiff_option.isAvailable(),
-                "OGG_WITH_PNG":png_option.isAvailable(),
+                "OSG_WITH_PNG":png_option.isAvailable(),
                 "OSG_WITH_GLUT":glut_option.isAvailable(),
                 "OSG_WITH_GIF":common_env["enable_gif"],
                 "OSG_WITH_ZLIB":zlib_option.isAvailable()
