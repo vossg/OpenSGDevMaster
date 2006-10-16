@@ -73,9 +73,9 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     virtual       UInt32  getFormat    (void) const = 0;
     virtual       UInt32  getFormatSize(void) const = 0;
     virtual       UInt32  getStride    (void) const = 0;
-    virtual       UInt32  getDimension (void) const {return 0;} //= 0;
+    virtual       UInt32  getDimension (void) const = 0;
     virtual       UInt32  getSize      (void) const;
-    virtual       UInt32  size         (void) const {return 0;} //= 0;
+    virtual       UInt32  size         (void) const = 0;
     virtual const UInt8  *getData      (void) const
     { return NULL;  }
 
