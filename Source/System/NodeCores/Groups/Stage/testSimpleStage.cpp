@@ -50,7 +50,7 @@
 
 using namespace OSG;
 
-//#define USE_DEPTH_TEXTURE 1
+#define USE_DEPTH_TEXTURE 1
 
 RenderAction          *renact     = NULL;
 RenderTraversalAction *rentravact = NULL;
@@ -448,11 +448,15 @@ void initPlaneSetup(void)
     tx1e->setEnvMode (GL_REPLACE);
 
 #ifdef USE_DEPTH_TEXTURE
-    txDepth->setImage (pImg);
+    ImagePtr dImg = Image::create();
+    dImg->set(Image::OSG_L_PF, 512, 512);
+
+    txDepth->setImage (dImg);
     txDepth->setMinFilter(GL_NEAREST );
     txDepth->setMagFilter(GL_LINEAR );
     txDepth->setWrapS    (GL_CLAMP_TO_EDGE );
     txDepth->setWrapT    (GL_CLAMP_TO_EDGE );
+    txDepth->setExternalFormat(GL_DEPTH_COMPONENT);
     txDepth->setInternalFormat(GL_DEPTH_COMPONENT32);
 #endif
 
