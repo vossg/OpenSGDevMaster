@@ -419,7 +419,8 @@ void initPlaneSetup(void)
     Thread::getCurrentChangeList()->commitChanges();
     plane_node->updateVolume();
     plane_node->dump();
-
+    plane_node->getVolume().getBounds(min, max);
+    std::cout << "Volume: from " << min << " to " << max << std::endl;
 
     // Setup the shared texture and texture environment
     // - You must set an image (even though it will be ignore)
@@ -437,8 +438,9 @@ void initPlaneSetup(void)
 
     tx1e->setEnvMode (GL_REPLACE);
 
-    // Create a material that will reference the texture and render
-    // it on the plane
+    // Material for plane
+    // - Create a material that will reference the texture and render
+    //     it on the plane
     SimpleMaterialPtr mat = SimpleMaterial::create();
 
     mat->setDiffuse(Color3f(1,1,1));
@@ -449,31 +451,7 @@ void initPlaneSetup(void)
     GeometryPtr pGeo = cast_dynamic<GeometryPtr>(plane_node->getCore());
     pGeo->setMaterial(mat);
 
-#if 0
-    char *outFileName = "/tmp/foo.osg";
-
-    OSG::FileOutStream outFileStream( outFileName );
-
-    if( !outFileStream )
-    {
-        std::cerr << "Can not open output stream to file: "
-                  << outFileName << std::endl;
-        return -1;
-    }
-
-    std::cerr << "STARTING PRINTOUT:" << std::endl;
-    OSGWriter writer( outFileStream, 4 );
-
-//    writer.write( file );
-
-    outFileStream.close();
-#endif
-
-
-    plane_node->getVolume().getBounds(min, max);
-
-    std::cout << "Volume: from " << min << " to " << max << std::endl;
-
+    // Finish connecting graph
     TransformPtr scene_trans = Transform::create();
     NodePtr      sceneTrN    = Node     ::create();
 
