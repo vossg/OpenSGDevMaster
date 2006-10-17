@@ -74,29 +74,44 @@ OSG_USING_NAMESPACE
 
 /*! \var GLenum FrameBufferObjectBase::_sfGLId
             The OpenGL texture id for this frame buffer object.
+        
+        
 
 */
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_mfColorAttachments
-            GL_COLOR_ATTACHMENTX_EXT slots, position defines X
+            GL_COLOR_ATTACHMENTX_EXT slots, position defines X.  This defines the target buffers
+        for color attachments.
+        
+        
 
 */
 /*! \var GLenum FrameBufferObjectBase::_mfDrawBuffers
-            The OpenGL texture id for this frame buffer object.
+            The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.  These are used to call DrawBuffers
+        to tell GL what targets to render into.
+        
+        
 
 */
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_sfDepthAttachment
-            GL_DEPTH_ATTACHMENT_EXT slot
+            GL_DEPTH_ATTACHMENT_EXT slot.  The target for depth values.
+        
+        
 
 */
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_sfStencilAttachment
             GL_STENCIL_ATTACHMENT_EXT slot
+        
+        
 
 */
 /*! \var UInt16 FrameBufferObjectBase::_sfWidth
-    
+            
+        
+
 */
 /*! \var UInt16 FrameBufferObjectBase::_sfHeight
-    
+            
+
 */
 
 void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
@@ -113,7 +128,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "GLId", 
-        "        The OpenGL texture id for this frame buffer object.\n",
+        "        The OpenGL texture id for this frame buffer object.\n        \n        \n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -129,7 +144,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new MFFrameBufferAttachmentPtr::Description(
         MFFrameBufferAttachmentPtr::getClassType(), 
         "colorAttachments", 
-        "        GL_COLOR_ATTACHMENTX_EXT slots, position defines X\n",
+        "        GL_COLOR_ATTACHMENTX_EXT slots, position defines X.  This defines the target buffers\n        for color attachments.\n        \n        \n",
         ColorAttachmentsFieldId, ColorAttachmentsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -147,7 +162,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new MFGLenum::Description(
         MFGLenum::getClassType(), 
         "drawBuffers", 
-        "        The OpenGL texture id for this frame buffer object.\n",
+        "        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.  These are used to call DrawBuffers\n        to tell GL what targets to render into.\n        \n        \n",
         DrawBuffersFieldId, DrawBuffersFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -163,7 +178,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFFrameBufferAttachmentPtr::Description(
         SFFrameBufferAttachmentPtr::getClassType(), 
         "depthAttachment", 
-        "        GL_DEPTH_ATTACHMENT_EXT slot\n",
+        "        GL_DEPTH_ATTACHMENT_EXT slot.  The target for depth values.\n        \n        \n",
         DepthAttachmentFieldId, DepthAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -175,7 +190,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFFrameBufferAttachmentPtr::Description(
         SFFrameBufferAttachmentPtr::getClassType(), 
         "stencilAttachment", 
-        "        GL_STENCIL_ATTACHMENT_EXT slot\n",
+        "        GL_STENCIL_ATTACHMENT_EXT slot\n        \n        \n",
         StencilAttachmentFieldId, StencilAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -193,7 +208,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "width", 
-        "",
+        "        \n        \n",
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -215,7 +230,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(), 
         "height", 
-        "",
+        "        \n",
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -242,83 +257,85 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(true,
     "<?xml version=\"1.0\"?>\n"
 "\n"
 "<FieldContainer\n"
-"	name=\"FrameBufferObject\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
+"        name=\"FrameBufferObject\"\n"
+"        parent=\"AttachmentContainer\"\n"
+"        library=\"System\"\n"
+"        pointerfieldtypes=\"both\"\n"
+"        structure=\"concrete\"\n"
+"        systemcomponent=\"true\"\n"
+"        parentsystemcomponent=\"true\"\n"
+"        decoratable=\"false\"\n"
 ">\n"
-"Framebuffer object\n"
-"	<Field\n"
-"		name=\"GLId\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0\"\n"
+"Framebuffer object.  Encapsulated FBOs as defined by the EXT_framebuffer_object OpenGL extension.\n"
+"        <Field\n"
+"                name=\"GLId\"\n"
+"                type=\"GLenum\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"internal\"\n"
+"                access=\"public\"\n"
+"                defaultValue=\"0\"\n"
 "        fieldFlags=\"FClusterLocal\"\n"
-"	>\n"
+"        >\n"
 "        The OpenGL texture id for this frame buffer object.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"colorAttachments\"\n"
-"		type=\"FrameBufferAttachmentPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        GL_COLOR_ATTACHMENTX_EXT slots, position defines X\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"drawBuffers\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0\"\n"
-"	>\n"
-"        The OpenGL texture id for this frame buffer object.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"depthAttachment\"\n"
-"		type=\"FrameBufferAttachmentPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        GL_DEPTH_ATTACHMENT_EXT slot\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"stencilAttachment\"\n"
-"		type=\"FrameBufferAttachmentPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"colorAttachments\"\n"
+"                type=\"FrameBufferAttachmentPtr\"\n"
+"                cardinality=\"multi\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"        >\n"
+"        GL_COLOR_ATTACHMENTX_EXT slots, position defines X.  This defines the target buffers\n"
+"        for color attachments.\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"drawBuffers\"\n"
+"                type=\"GLenum\"\n"
+"                cardinality=\"multi\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"                defaultValue=\"0\"\n"
+"        >\n"
+"        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.  These are used to call DrawBuffers\n"
+"        to tell GL what targets to render into.\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"depthAttachment\"\n"
+"                type=\"FrameBufferAttachmentPtr\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"        >\n"
+"        GL_DEPTH_ATTACHMENT_EXT slot.  The target for depth values.\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"stencilAttachment\"\n"
+"                type=\"FrameBufferAttachmentPtr\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"        >\n"
 "        GL_STENCIL_ATTACHMENT_EXT slot\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"width\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"height\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"width\"\n"
+"                type=\"UInt16\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"        >\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"height\"\n"
+"                type=\"UInt16\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"        >\n"
+"        </Field>\n"
 "</FieldContainer>\n"
 ,
-    "Framebuffer object\n" 
+    "Framebuffer object.  Encapsulated FBOs as defined by the EXT_framebuffer_object OpenGL extension.\n        \n" 
     );
 
 /*------------------------------ get -----------------------------------*/

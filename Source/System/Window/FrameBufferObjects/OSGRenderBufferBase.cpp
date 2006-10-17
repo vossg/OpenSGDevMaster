@@ -71,10 +71,13 @@ OSG_USING_NAMESPACE
 
 /*! \var GLenum RenderBufferBase::_sfGLId
             The OpenGL texture id for this buffer object.
+        
+        
 
 */
 /*! \var GLenum RenderBufferBase::_sfInternalFormat
-    
+            
+
 */
 
 void RenderBufferBase::classDescInserter(TypeObject &oType)
@@ -91,7 +94,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "GLId", 
-        "        The OpenGL texture id for this buffer object.\n",
+        "        The OpenGL texture id for this buffer object.\n        \n        \n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -113,7 +116,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "internalFormat", 
-        "",
+        "        \n",
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -140,39 +143,42 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(true,
     "<?xml version=\"1.0\"?>\n"
 "\n"
 "<FieldContainer\n"
-"	name=\"RenderBuffer\"\n"
-"	parent=\"FrameBufferAttachment\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
+"        name=\"RenderBuffer\"\n"
+"        parent=\"FrameBufferAttachment\"\n"
+"        library=\"System\"\n"
+"        pointerfieldtypes=\"both\"\n"
+"        structure=\"concrete\"\n"
+"        systemcomponent=\"true\"\n"
+"        parentsystemcomponent=\"true\"\n"
+"        decoratable=\"false\"\n"
 ">\n"
-"Render buffer\n"
-"	<Field\n"
-"		name=\"GLId\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0\"\n"
+"Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
+"A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"
+"\n"
+"@see TextureBuffer\n"
+"        <Field\n"
+"                name=\"GLId\"\n"
+"                type=\"GLenum\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"internal\"\n"
+"                access=\"public\"\n"
+"                defaultValue=\"0\"\n"
 "        fieldFlags=\"FClusterLocal\"\n"
-"	>\n"
+"        >\n"
 "        The OpenGL texture id for this buffer object.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"internalFormat\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"	>\n"
-"	</Field>\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"internalFormat\"\n"
+"                type=\"GLenum\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"                defaultValue=\"GL_NONE\"\n"
+"        >\n"
+"        </Field>\n"
 "</FieldContainer>\n"
 ,
-    "Render buffer\n" 
+    "Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\nA renderbuffer is a data storage object containing a single image of a renderable internal format.\n@see TextureBuffer\n        \n" 
     );
 
 /*------------------------------ get -----------------------------------*/

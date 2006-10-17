@@ -71,7 +71,10 @@ OSG_USING_NAMESPACE
 // Field descriptions
 
 /*! \var NodePtr VisitSubTreeBase::_sfSubTreeRoot
-    
+            Reference to the sub-graph to draw in place of this node.  Whatever node is pointed to
+        will be drawn here as if it was duplicated at this location.
+        
+
 */
 
 void VisitSubTreeBase::classDescInserter(TypeObject &oType)
@@ -82,7 +85,7 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
     pDesc = new SFNodePtr::Description(
         SFNodePtr::getClassType(), 
         "subTreeRoot", 
-        "",
+        "        Reference to the sub-graph to draw in place of this node.  Whatever node is pointed to\n        will be drawn here as if it was duplicated at this location.\n        \n",
         SubTreeRootFieldId, SubTreeRootFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -105,29 +108,34 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(true,
     "<?xml version=\"1.0\"?>\n"
 "\n"
 "<FieldContainer\n"
-"	name=\"VisitSubTree\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
+"        name=\"VisitSubTree\"\n"
+"        parent=\"Group\"\n"
+"        library=\"Group\"\n"
+"        pointerfieldtypes=\"none\"\n"
+"        structure=\"concrete\"\n"
+"        systemcomponent=\"true\"\n"
+"        parentsystemcomponent=\"true\"\n"
+"        decoratable=\"false\"\n"
+"        useLocalIncludes=\"false\"\n"
 "    isNodeCore=\"true\"\n"
 ">\n"
-"	<Field\n"
-"		name=\"subTreeRoot\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
+"VisitSubTree provides a way to point the renderer to another section of the scene graph for rendering.\n"
+"This is useful for multi-pass algorithms using OSG::Stage because it provides a way to render\n"
+"the same graph multiple times without duplicating the nodes.\n"
+"        <Field\n"
+"                name=\"subTreeRoot\"\n"
+"                type=\"NodePtr\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                defaultValue=\"NullFC\"\n"
+"                access=\"public\"\n"
+"        >\n"
+"        Reference to the sub-graph to draw in place of this node.  Whatever node is pointed to\n"
+"        will be drawn here as if it was duplicated at this location.\n"
+"        </Field>\n"
 "</FieldContainer>\n"
 ,
-    "" 
+    "VisitSubTree provides a way to point the renderer to another section of the scene graph for rendering.\nThis is useful for multi-pass algorithms using OSG::Stage because it provides a way to render\nthe same graph multiple times without duplicating the nodes.\n        \n" 
     );
 
 /*------------------------------ get -----------------------------------*/

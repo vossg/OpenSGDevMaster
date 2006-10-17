@@ -71,16 +71,28 @@ OSG_USING_NAMESPACE
 // Field descriptions
 
 /*! \var TextureObjChunkPtr TextureBufferBase::_sfTexture
-    
+            The texture object to target.
+        
+        
+
 */
 /*! \var GLenum TextureBufferBase::_sfTexTarget
-    
+            If specified, this is the target value for FramebufferTextureXDEXT.  If GL_NONE, automatically
+        determined.
+        
+        
+
 */
 /*! \var UInt32 TextureBufferBase::_sfLevel
-    
+            The mipmap level in the texture to target.
+        
+        
+
 */
 /*! \var UInt32 TextureBufferBase::_sfZoffset
-    
+            UNUSED.
+        
+
 */
 
 void TextureBufferBase::classDescInserter(TypeObject &oType)
@@ -91,7 +103,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFTextureObjChunkPtr::Description(
         SFTextureObjChunkPtr::getClassType(), 
         "texture", 
-        "",
+        "        The texture object to target.\n        \n        \n",
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -109,7 +121,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(), 
         "texTarget", 
-        "",
+        "        If specified, this is the target value for FramebufferTextureXDEXT.  If GL_NONE, automatically\n        determined.\n        \n        \n",
         TexTargetFieldId, TexTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -131,7 +143,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "level", 
-        "",
+        "        The mipmap level in the texture to target.\n        \n        \n",
         LevelFieldId, LevelFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -153,7 +165,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(), 
         "zoffset", 
-        "",
+        "        UNUSED.\n        \n",
         ZoffsetFieldId, ZoffsetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -180,54 +192,61 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(true,
     "<?xml version=\"1.0\"?>\n"
 "\n"
 "<FieldContainer\n"
-"	name=\"TextureBuffer\"\n"
-"	parent=\"FrameBufferAttachment\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
+"        name=\"TextureBuffer\"\n"
+"        parent=\"FrameBufferAttachment\"\n"
+"        library=\"System\"\n"
+"        pointerfieldtypes=\"both\"\n"
+"        structure=\"concrete\"\n"
+"        systemcomponent=\"true\"\n"
+"        parentsystemcomponent=\"true\"\n"
+"        decoratable=\"false\"\n"
 ">\n"
-"Texture buffer\n"
-"	<Field\n"
-"		name=\"texture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"texTarget\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"level\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
+"Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\n"
+"\n"
+"See FramebufferTexture1/2/3DEXT.\n"
+"        <Field\n"
+"                name=\"texture\"\n"
+"                type=\"TextureObjChunkPtr\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"        >\n"
+"        The texture object to target.\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"texTarget\"\n"
+"                type=\"GLenum\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
+"                defaultValue=\"GL_NONE\"\n"
+"        >\n"
+"        If specified, this is the target value for FramebufferTextureXDEXT.  If GL_NONE, automatically\n"
+"        determined.\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"level\"\n"
+"                type=\"UInt32\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
 "        defaultValue=\"0\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"zoffset\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
+"        >\n"
+"        The mipmap level in the texture to target.\n"
+"        </Field>\n"
+"        <Field\n"
+"                name=\"zoffset\"\n"
+"                type=\"UInt32\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                access=\"public\"\n"
 "        defaultValue=\"0\"\n"
-"	>\n"
-"	</Field>\n"
+"        >\n"
+"        UNUSED.\n"
+"        </Field>\n"
 "</FieldContainer>\n"
 ,
-    "Texture buffer\n" 
+    "Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\nSee FramebufferTexture1/2/3DEXT.\n        \n" 
     );
 
 /*------------------------------ get -----------------------------------*/

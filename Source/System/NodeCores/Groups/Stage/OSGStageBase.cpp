@@ -71,7 +71,9 @@ OSG_USING_NAMESPACE
 // Field descriptions
 
 /*! \var FrameBufferObjectPtr StageBase::_sfRenderTarget
-    
+            The FBO to target for rendering this subtree.
+        
+
 */
 
 void StageBase::classDescInserter(TypeObject &oType)
@@ -82,7 +84,7 @@ void StageBase::classDescInserter(TypeObject &oType)
     pDesc = new SFFrameBufferObjectPtr::Description(
         SFFrameBufferObjectPtr::getClassType(), 
         "renderTarget", 
-        "",
+        "        The FBO to target for rendering this subtree.\n        \n",
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -105,29 +107,31 @@ StageBase::TypeObject StageBase::_type(true,
     "<?xml version=\"1.0\"?>\n"
 "\n"
 "<FieldContainer\n"
-"	name=\"Stage\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
+"        name=\"Stage\"\n"
+"        parent=\"Group\"\n"
+"        library=\"Group\"\n"
+"        pointerfieldtypes=\"none\"\n"
+"        structure=\"concrete\"\n"
+"        systemcomponent=\"true\"\n"
+"        parentsystemcomponent=\"true\"\n"
+"        decoratable=\"false\"\n"
+"        useLocalIncludes=\"false\"\n"
 "    isNodeCore=\"true\"\n"
 ">\n"
-"	<Field\n"
-"		name=\"renderTarget\"\n"
-"		type=\"FrameBufferObjectPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
+"Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.\n"
+"        <Field\n"
+"                name=\"renderTarget\"\n"
+"                type=\"FrameBufferObjectPtr\"\n"
+"                cardinality=\"single\"\n"
+"                visibility=\"external\"\n"
+"                defaultValue=\"NullFC\"\n"
+"                access=\"public\"\n"
+"        >\n"
+"        The FBO to target for rendering this subtree.\n"
+"        </Field>\n"
 "</FieldContainer>\n"
 ,
-    "" 
+    "Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.\n        \n" 
     );
 
 /*------------------------------ get -----------------------------------*/

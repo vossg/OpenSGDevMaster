@@ -53,8 +53,8 @@ using namespace OSG;
 RenderAction          *renact     = NULL;
 RenderTraversalAction *rentravact = NULL;
 
-NodePtr  root;
-NodePtr  animRoot;
+NodePtr       planeRoot;
+GroupNodePtr  animRoot;
 
 NodePtr  file;
 
@@ -63,14 +63,14 @@ ViewportPtr    vpPlane;
 
 WindowPtr    win;
 
-Vec3f        sceneTrans;
-TransformPtr cam_transScene;
-TransformPtr scene_trans;
+Vec3f            sceneTrans;
+TransformNodePtr cam_transScene;    // Transofrmation of cam/light/stage
+TransformNodePtr sceneXform;        // Rotation of model we are viewing
 
 TransformPtr cam_transPlane;
 
-TextureObjChunkPtr tx1o;
-TextureEnvChunkPtr tx1e;
+TextureObjChunkPtr tx1o;       // Texture object to shared
+TextureEnvChunkPtr tx1e;       // Texture environment to share
 
 Trackball    tball;
 
@@ -79,6 +79,40 @@ Vec3f min,max;
 int mouseb = 0;
 int lastx  = 0;
 int lasty  = 0;
+
+
+// ----- Scene structure --- //
+/*
+         planeRoot:Group[gr1]
+      /           |          \  |
+dlight:dl b1   animRoot       t1n:Xform[cam_transPlane]
+      |                              |
+sceneTrN:Xform[scene_trans]   b1n:Group[b1]  cam/light beacon
+      |
+   plane_node
+
+
+                  animRoot:Group
+                  /              \    |
+dlight:DirLight:beacon      cam_transScene:Transform
+        |                                |
+sceneXform:Transform                beacon:Group
+        |
+      file:Node
+
+       animRoot
+          |
+pStage:SimpleStage --> pFBO, cam:b1n
+          |
+  pVisit:VisitSubTree
+          |
+        dlight
+
+FrameBufferObject: pFBO    --> pTexBuffer, pDepthBuffer
+TextureBuffer: pTexBuffer  --> tx1o
+RenderBuffer: pDepthBuffer
+*/
+
 
 void display(void)
 {
@@ -90,9 +124,9 @@ void display(void)
     q1.setValue(m3);
 
     m1.setRotate(q1);
-    
+
     m2.setTranslate( tball.getPosition() );
-    
+
     m1.mult( m2 );
 
     cam_transPlane->editSFMatrix()->setValue(m1);
@@ -101,7 +135,7 @@ void display(void)
     // Anim
 
     Real32 t = glutGet(GLUT_ELAPSED_TIME);
-    
+
     m1.setRotate(Quaternion(Vec3f(0,1,0), t / 1000.f));
 
 
@@ -109,7 +143,7 @@ void display(void)
     m1[3][1] = -sceneTrans[1];
     m1[3][2] = -sceneTrans[2];
 
-    scene_trans->editSFMatrix()->setValue(m1);
+    sceneXform->editSFMatrix()->setValue(m1);
 
     Thread::getCurrentChangeList()->commitChanges();
 
@@ -132,9 +166,9 @@ void animate(void)
 
 
 void motion(int x, int y)
-{   
+{
     Real32 w = win->getWidth(), h = win->getHeight();
-    
+
 
     Real32 a = -2. * ( lastx / w - .5 );
     Real32 b = -2. * ( .5 - lasty / h );
@@ -143,15 +177,15 @@ void motion(int x, int y)
 
     if(mouseb & (1 << GLUT_LEFT_BUTTON))
     {
-        tball.updateRotation(a, b, c, d);     
+        tball.updateRotation(a, b, c, d);
     }
     else if(mouseb & (1 << GLUT_MIDDLE_BUTTON))
     {
-        tball.updatePosition(a, b, c, d);     
+        tball.updatePosition(a, b, c, d);
     }
     else if(mouseb & (1 << GLUT_RIGHT_BUTTON))
     {
-        tball.updatePositionNeg(a, b, c, d);  
+        tball.updatePositionNeg(a, b, c, d);
     }
 
     lastx = x;
@@ -164,9 +198,9 @@ void mouse(int button, int state, int x, int y)
     {
         switch ( button )
         {
-            case GLUT_LEFT_BUTTON:  
+            case GLUT_LEFT_BUTTON:
                 break;
-            case GLUT_MIDDLE_BUTTON: 
+            case GLUT_MIDDLE_BUTTON:
                 tball.setAutoPosition(true);
                 break;
             case GLUT_RIGHT_BUTTON:
@@ -179,15 +213,15 @@ void mouse(int button, int state, int x, int y)
     {
         switch(button)
         {
-            case GLUT_LEFT_BUTTON:  
+            case GLUT_LEFT_BUTTON:
                 break;
             case GLUT_MIDDLE_BUTTON:
                 tball.setAutoPosition(false);
                 break;
-            case GLUT_RIGHT_BUTTON:     
+            case GLUT_RIGHT_BUTTON:
                 tball.setAutoPositionNeg(false);
                 break;
-        }       
+        }
         mouseb &= ~(1 << button);
     }
 
@@ -197,11 +231,11 @@ void mouse(int button, int state, int x, int y)
 
 void vis(int visible)
 {
-    if(visible == GLUT_VISIBLE) 
+    if(visible == GLUT_VISIBLE)
     {
         glutIdleFunc(animate);
-    } 
-    else 
+    }
+    else
     {
         glutIdleFunc(NULL);
     }
@@ -211,195 +245,138 @@ void key(unsigned char key, int x, int y)
 {
     switch(key)
     {
-        case 27:    
-            osgExit(); 
+        case 27:
+            osgExit();
             exit(0);
 
-        case 'a':   
+        case 'a':
             glDisable( GL_LIGHTING );
             std::cerr << "Lighting disabled." << std::endl;
             break;
-        case 's':   
+        case 's':
             glEnable( GL_LIGHTING );
             std::cerr << "Lighting enabled." << std::endl;
             break;
-        case 'z':   
+        case 'z':
             glPolygonMode( GL_FRONT_AND_BACK, GL_POINT);
             std::cerr << "PolygonMode: Point." << std::endl;
             break;
-        case 'x':   
+        case 'x':
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE);
             std::cerr << "PolygonMode: Line." << std::endl;
             break;
-        case 'c':   
+        case 'c':
             glPolygonMode( GL_FRONT_AND_BACK, GL_FILL);
             std::cerr << "PolygonMode: Fill." << std::endl;
             break;
     }
 }
 
+// Setup the part of the scene rooted at animRoot
+// This includes a file to animate, a beacon for a light,
+// and a staged core to render this subtree from the position
+// of the light.
 void initAnimSetup(int argc, char **argv)
 {
-    // beacon for camera and light  
-    NodePtr  b1n = Node ::create();
-    GroupPtr b1  = Group::create();
+    // beacon for light and stage camera
+    GroupNodePtr beacon = GroupNodePtr::create();
 
-    b1n->setCore(b1);
-
-    // transformation
-
-    NodePtr      t1n = Node     ::create();
-    TransformPtr t1  = Transform::create();
-
-    t1n->setCore (t1 );
-    t1n->addChild(b1n);
-
-    cam_transScene = t1;
+    // transformation for beacon
+    cam_transScene   = TransformNodePtr::create();
+    cam_transScene.node()->addChild(beacon);
 
     // light
-    
-    NodePtr             dlight = Node::create();
-    DirectionalLightPtr dl     = DirectionalLight::create();
+    DirectionalLightNodePtr dlight = DirectionalLightNodePtr::create();
 
-    dlight->setCore(dl);
-    
-    dl->setAmbient  (.3, .3, .3, 1);
-    dl->setDiffuse  ( 1,  1,  1, 1);
-    dl->setDirection( 0,  0,  1   );
-    dl->setBeacon   (b1n          );
+    dlight->setAmbient  (.3, .3, .3, 1);
+    dlight->setDiffuse  ( 1,  1,  1, 1);
+    dlight->setDirection( 0,  0,  1   );
+    dlight->setBeacon   (beacon       );
 
-    // root
-    NodePtr  root = Node::create();
-    GroupPtr gr1  = Group::create();
+    // animRoot
+    animRoot = GroupNodePtr::create();
+    animRoot.node()->addChild(cam_transScene   );
 
-    root->setCore (gr1   );
-
-    root->addChild(t1n   );
-//    root->addChild(dlight);
-
-    // Load the file
-
+    // Load the file and put it in the graph
+    // under the sceneXform node.
     NodePtr file = NullFC;
-    
+
     if(argc > 1)
-    {
-        file = SceneFileHandler::the()->read(argv[1]);
-    }
-        
+    { file = SceneFileHandler::the()->read(argv[1]); }
+
     if(file == NullFC)
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
-
         file = makeTorus(.5, 2, 16, 16);
     }
-    
+
     Thread::getCurrentChangeList()->commitChanges();
     file->updateVolume();
-
     file->dump();
-
-#if 0
-    char *outFileName = "/tmp/foo.osg";
-
-    OSG::FileOutStream outFileStream( outFileName );
-
-    if( !outFileStream )
-    {
-        std::cerr << "Can not open output stream to file: "
-                  << outFileName << std::endl;
-        return -1;
-    }
-
-    std::cerr << "STARTING PRINTOUT:" << std::endl;
-    OSGWriter writer( outFileStream, 4 );
-
-//    writer.write( file );
-
-    outFileStream.close();
-#endif
-
-
     file->getVolume().getBounds(min, max);
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
-
-             scene_trans = Transform::create();
-    NodePtr  sceneTrN    = Node     ::create();
-
-    sceneTrN->setCore (scene_trans);
-    sceneTrN->addChild(file       );
-
-    dlight->addChild(sceneTrN);
+    sceneTrans.setValues(min[0] + ((max[0] - min[0]) * 0.5),
+                         min[1] + ((max[1] - min[1]) * 0.5),
+                         max[2] + ( max[2] - min[2]) * 4.5 );
 
 
-    // Camera
-    
-    PerspectiveCameraPtr cam = PerspectiveCamera::create();
+    sceneXform = TransformNodePtr::create();
+    sceneXform.node()->addChild(file);
+    dlight.node()->addChild(sceneXform);
 
-    cam->setBeacon(b1n);
-    cam->setFov   (osgDegree2Rad(90));
-    cam->setNear  (0.1);
-    cam->setFar   (100000);
+
+    // ---- STAGE RENDERING SETUP --- //
+    // Camera: setup camera to point from beacon (light pos)
+    //   with a 90deg FOV to render the scene
+    PerspectiveCameraPtr stage_cam = PerspectiveCamera::create();
+
+    stage_cam->setBeacon(beacon);
+    stage_cam->setFov   (osgDegree2Rad(90));
+    stage_cam->setNear  (0.1);
+    stage_cam->setFar   (100000);
 
     // Background
     SolidBackgroundPtr bkgnd = SolidBackground::create();
-
     bkgnd->setColor(Color3f(0,1,0));
-    
-    // Viewport
 
-
-    FrameBufferObjectPtr pFBO = FrameBufferObject::create();
-
-
-    TextureBufferPtr pTexBuffer   = TextureBuffer::create();
-    RenderBufferPtr  pDepthBuffer = RenderBuffer ::create();
+    // FBO setup
+    FrameBufferObjectPtr pFBO         = FrameBufferObject::create();
+    TextureBufferPtr     pTexBuffer   = TextureBuffer::create();
+    RenderBufferPtr      pDepthBuffer = RenderBuffer ::create();
 
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
 
     pTexBuffer->setTexture(tx1o);
 
     pFBO->setSize(512, 512);
-    
     pFBO->setColorAttachment(pTexBuffer, 0);
     pFBO->setDepthAttachment(pDepthBuffer );
 
     pFBO->editMFDrawBuffers()->clear();
     pFBO->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
 
-    sceneTrans.setValues(min[0] + ((max[0] - min[0]) * 0.5), 
-                         min[1] + ((max[1] - min[1]) * 0.5), 
-                         max[2] + ( max[2] - min[2]) * 4.5 );
-    
 
-    animRoot = root;
-
-    NodePtr pStageNode = Node::create();
-
-    SimpleStagePtr pStage = SimpleStage::create();
-
-    pStageNode->setCore(pStage);
-
+    // Stage core setup
+    SimpleStageNodePtr pStage    = SimpleStageNodePtr::create();
     pStage->setRenderTarget(pFBO );
-    pStage->setCamera      (cam  );
+    pStage->setCamera      (stage_cam  );
     pStage->setBackground  (bkgnd);
 
-    VisitSubTreePtr pVisit     = VisitSubTree::create();
-    NodePtr         pVisitNode = Node::create();
+    // Setup sub-tree visitor
+    // - This will setup a graph that will render a subtree during traversal
+    VisitSubTreeNodePtr pVisit     = VisitSubTreeNodePtr::create();
+    pVisit->setSubTreeRoot(dlight);
 
-    pVisit    ->setSubTreeRoot(dlight);
-    pVisitNode->setCore       (pVisit);
-
-    pStageNode->addChild(pVisitNode);
-    
-    root->addChild(pStageNode);
-    root->addChild(dlight);
+    pStage.node()->addChild(pVisit);
+    animRoot.node()->addChild(pStage);
+    animRoot.node()->addChild(dlight);
 }
 
 
 void initPlaneSetup(void)
 {
-    // beacon for camera and light  
+    // beacon for camera and light
     NodePtr  b1n = Node ::create();
     GroupPtr b1  = Group::create();
 
@@ -407,59 +384,52 @@ void initPlaneSetup(void)
 
     // transformation
 
-    NodePtr      t1n = Node     ::create();
-    TransformPtr t1  = Transform::create();
+    NodePtr    t1n = Node::create();
+    cam_transPlane = Transform::create();
 
-    t1n->setCore (t1 );
+    t1n->setCore (cam_transPlane );
     t1n->addChild(b1n);
 
-    cam_transPlane = t1;
-
     // light
-    
+
     NodePtr             dlight = Node::create();
     DirectionalLightPtr dl     = DirectionalLight::create();
 
     dlight->setCore(dl);
-    
+
     dl->setAmbient  (.3, .3, .3, 1);
     dl->setDiffuse  ( 1,  1,  1, 1);
     dl->setDirection( 0,  0,  1   );
     dl->setBeacon   (b1n          );
 
-    // root
-    NodePtr  root = Node::create();
+    // planeRoot
+    planeRoot = Node::create();
     GroupPtr gr1  = Group::create();
 
-    root->setCore (gr1   );
+    planeRoot->setCore (gr1   );
 
-    root->addChild(t1n     );
-    root->addChild(animRoot);
-    root->addChild(dlight  );
+    planeRoot->addChild(t1n     );
+    planeRoot->addChild(animRoot);
+    planeRoot->addChild(dlight  );
 
-    // Load the file
+    // Create plane to project the staged render
+    NodePtr plane_node;
+    plane_node = makePlane(10, 10, 5, 5);
 
-    NodePtr file = NullFC;
-    
-    file = makePlane(10, 10, 5, 5);
-    
     Thread::getCurrentChangeList()->commitChanges();
-    file->updateVolume();
+    plane_node->updateVolume();
+    plane_node->dump();
 
-    file->dump();
 
-    GeometryPtr pGeo = cast_dynamic<GeometryPtr>(file->getCore());
-
-    UChar8 imgdata[] =
-    {  
-        64,64,64, 128,128,128, 192,192,192, 255,255,255 
-    };
-
+    // Setup the shared texture and texture environment
+    // - You must set an image (even though it will be ignore)
+    //   so the texture will be valid for use.
     ImagePtr pImg = Image::create();
-
+    UChar8 imgdata[] =
+    { 64,64,64, 128,128,128, 192,192,192, 255,255,255 };
     pImg->set(Image::OSG_RGB_PF, 512, 512);
 
-    tx1o->setImage    (pImg      ); 
+    tx1o->setImage    (pImg      );
     tx1o->setMinFilter(GL_LINEAR );
     tx1o->setMagFilter(GL_LINEAR );
     tx1o->setWrapS    (GL_REPEAT );
@@ -467,13 +437,16 @@ void initPlaneSetup(void)
 
     tx1e->setEnvMode (GL_REPLACE);
 
+    // Create a material that will reference the texture and render
+    // it on the plane
     SimpleMaterialPtr mat = SimpleMaterial::create();
-    
+
     mat->setDiffuse(Color3f(1,1,1));
     mat->setLit    (false         );
     mat->addChunk  (tx1o          );
     mat->addChunk  (tx1e          );
 
+    GeometryPtr pGeo = cast_dynamic<GeometryPtr>(plane_node->getCore());
     pGeo->setMaterial(mat);
 
 #if 0
@@ -497,7 +470,7 @@ void initPlaneSetup(void)
 #endif
 
 
-    file->getVolume().getBounds(min, max);
+    plane_node->getVolume().getBounds(min, max);
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
@@ -505,13 +478,12 @@ void initPlaneSetup(void)
     NodePtr      sceneTrN    = Node     ::create();
 
     sceneTrN->setCore (scene_trans);
-    sceneTrN->addChild(file       );
+    sceneTrN->addChild(plane_node );
 
     dlight->addChild(sceneTrN);
 
 
     // Camera
-    
     PerspectiveCameraPtr cam = PerspectiveCamera::create();
 
     cam->setBeacon(b1n);
@@ -523,21 +495,21 @@ void initPlaneSetup(void)
     SolidBackgroundPtr bkgnd = SolidBackground::create();
 
     bkgnd->setColor(Color3f(1, 0, 0));
-    
+
     // Viewport
 
     vpPlane = Viewport::create();
 
     vpPlane->setCamera    (cam       );
     vpPlane->setBackground(bkgnd     );
-    vpPlane->setRoot      (root      );
+    vpPlane->setRoot      (planeRoot );
     vpPlane->setSize      (0, 0, 1, 1);
 }
 
 int main (int argc, char **argv)
 {
     osgInit(argc,argv);
-    
+
     // GLUT init
 
     glutInit(&argc, argv);
@@ -546,14 +518,14 @@ int main (int argc, char **argv)
     glutKeyboardFunc(key);
     glutVisibilityFunc(vis);
     glutReshapeFunc(reshape);
-    glutDisplayFunc(display);       
-    glutMouseFunc(mouse);   
-    glutMotionFunc(motion); 
-    
-    glutIdleFunc(display);  
+    glutDisplayFunc(display);
+    glutMouseFunc(mouse);
+    glutMotionFunc(motion);
+
+    glutIdleFunc(display);
 
     // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-    
+
     glEnable( GL_DEPTH_TEST );
     glEnable( GL_LIGHTING );
     glEnable( GL_LIGHT0 );
@@ -596,7 +568,7 @@ int main (int argc, char **argv)
     win->init();
 
     // Action
-    
+
     renact = RenderAction::create();
 //    renact->setFrustumCulling(false);
 
@@ -605,10 +577,10 @@ int main (int argc, char **argv)
     // tball
 
     Vec3f pos;
-    pos.setValues(min[0] + ((max[0] - min[0]) * 0.5), 
-                  min[1] + ((max[1] - min[1]) * 0.5), 
+    pos.setValues(min[0] + ((max[0] - min[0]) * 0.5),
+                  min[1] + ((max[1] - min[1]) * 0.5),
                   max[2] + ( max[2] - min[2] ) * 1.5 );
-    
+
     float scale = (max[2] - min[2] + max[1] - min[1] + max[0] - min[0]) / 6;
 
     Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
@@ -623,9 +595,9 @@ int main (int argc, char **argv)
     tball.setRotationCenter(tCenter);
 
     // run...
-    
+
     glutMainLoop();
-    
+
     return 0;
 }
 
