@@ -468,7 +468,11 @@ void initPlaneSetup(void)
 
     mat->setDiffuse(Color3f(1,1,1));
     mat->setLit    (false         );
+#ifdef USE_DEPTH_TEXTURE
+    mat->addChunk(txDepth);
+#else
     mat->addChunk  (tx1o          );
+#endif
     mat->addChunk  (tx1e          );
 
     GeometryPtr pGeo = cast_dynamic<GeometryPtr>(plane_node->getCore());
