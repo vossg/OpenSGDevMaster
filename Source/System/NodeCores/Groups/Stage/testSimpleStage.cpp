@@ -423,11 +423,8 @@ void initPlaneSetup(void)
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
     // Setup the shared texture and texture environment
-    // - You must set an image (even though it will be ignore)
-    //   so the texture will be valid for use.
+    // - Create an empty image so texture can allocate size and memory
     ImagePtr pImg = Image::create();
-    UChar8 imgdata[] =
-    { 64,64,64, 128,128,128, 192,192,192, 255,255,255 };
     pImg->set(Image::OSG_RGB_PF, 512, 512);
 
     tx1o->setImage    (pImg      );
