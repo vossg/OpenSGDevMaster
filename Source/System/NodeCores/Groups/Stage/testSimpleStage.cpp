@@ -50,6 +50,8 @@
 
 using namespace OSG;
 
+//#define USE_DEPTH_TEXTURE 1
+
 RenderAction          *renact     = NULL;
 RenderTraversalAction *rentravact = NULL;
 
@@ -71,6 +73,10 @@ TransformPtr cam_transPlane;
 
 TextureObjChunkPtr tx1o;       // Texture object to shared
 TextureEnvChunkPtr tx1e;       // Texture environment to share
+
+#ifdef USE_DEPTH_TEXTURE
+TextureObjChunkPtr txDepth;    // Depth texture
+#endif
 
 Trackball    tball;
 
@@ -343,9 +349,15 @@ void initAnimSetup(int argc, char **argv)
     // FBO setup
     FrameBufferObjectPtr pFBO         = FrameBufferObject::create();
     TextureBufferPtr     pTexBuffer   = TextureBuffer::create();
-    RenderBufferPtr      pDepthBuffer = RenderBuffer ::create();
 
+#ifdef USE_DEPTH_TEXTURE
+    TextureBufferPtr     pDepthBuffer = TextureBuffer::create();
+    pDepthBuffer->setTexture(txDepth);
+#else
+    RenderBufferPtr      pDepthBuffer = RenderBuffer ::create();
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
+#endif
+
 
     pTexBuffer->setTexture(tx1o);
 
@@ -435,6 +447,16 @@ void initPlaneSetup(void)
 
     tx1e->setEnvMode (GL_REPLACE);
 
+#ifdef USE_DEPTH_TEXTURE
+    txDepth->setImage (pImg);
+    txDepth->setMinFilter(GL_NEAREST );
+    txDepth->setMagFilter(GL_LINEAR );
+    txDepth->setWrapS    (GL_CLAMP_TO_EDGE );
+    txDepth->setWrapT    (GL_CLAMP_TO_EDGE );
+    txDepth->setInternalFormat(GL_DEPTH_COMPONENT32);
+#endif
+
+
     // Material for plane
     // - Create a material that will reference the texture and render
     //     it on the plane
@@ -513,6 +535,9 @@ int main (int argc, char **argv)
 
     tx1o = TextureObjChunk::create();
     tx1e = TextureEnvChunk::create();
+#ifdef USE_DEPTH_TEXTURE
+    txDepth = TextureObjChunk::create();
+#endif
 
     // create the graph
 
