@@ -417,6 +417,8 @@ void SwitchMaterialBase::clearMaterials(void)
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 SwitchMaterialBase::getBinSize(ConstFieldMaskArg whichField)

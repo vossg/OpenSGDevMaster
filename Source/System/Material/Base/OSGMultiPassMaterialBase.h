@@ -199,6 +199,8 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     void removeFromMaterials(MaterialPtrConstArg value   );
     void clearMaterials            (void                          );
 
+ 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

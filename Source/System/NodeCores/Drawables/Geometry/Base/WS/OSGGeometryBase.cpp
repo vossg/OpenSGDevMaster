@@ -750,6 +750,8 @@ void GeometryBase::clearProperties(void)
     _mfProperties.clear();
 }
 
+
+
 void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
@@ -923,6 +925,8 @@ void GeometryBase::clearPropIndices(void)
 
     _mfPropIndices.clear();
 }
+
+
 
 
 

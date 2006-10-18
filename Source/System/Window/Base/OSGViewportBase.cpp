@@ -867,6 +867,8 @@ void ViewportBase::clearForegrounds(void)
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 ViewportBase::getBinSize(ConstFieldMaskArg whichField)

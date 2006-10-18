@@ -218,6 +218,22 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     void removeFromImages(ImagePtrConstArg value   );
     void clearImages            (void                          );
 
+ 
+
+
+    void pushToPositions           (const Pnt2f& value   );
+    void insertIntoPositions      (UInt32                uiIndex,
+                                    const Pnt2f& value   );
+    void replaceInPositions  (UInt32                uiIndex,
+                                    const Pnt2f& value   );
+    void replaceInPositions (const Pnt2f& pOldElem,
+                                    const Pnt2f& pNewElem);
+    void removeFromPositions (UInt32                uiIndex );
+    void removeFromPositions(const Pnt2f& value   );
+    void clearPositions            (void                          );
+
+
+ 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

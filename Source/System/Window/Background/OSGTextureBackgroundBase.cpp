@@ -536,6 +536,93 @@ void TextureBackgroundBase::clearField(const UInt32 uiFieldId)
     }
 }
 
+/*********************************** Non-ptr code ********************************/
+void TextureBackgroundBase::pushToTexCoords(const Pnt2f& value)
+{
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+    _mfTexCoords.push_back(value);
+}
+
+void TextureBackgroundBase::insertIntoTexCoords(UInt32                uiIndex,
+                                             const Pnt2f& value   )
+{
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+
+    MFPnt2f::iterator fieldIt = _mfTexCoords.begin();
+
+    fieldIt += uiIndex;
+
+    _mfTexCoords.insert(fieldIt, value);
+}
+
+void TextureBackgroundBase::replaceInTexCoords(UInt32                uiIndex,
+                                                 const Pnt2f& value   )
+{
+    if(uiIndex >= _mfTexCoords.size())
+        return;
+
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+
+    _mfTexCoords[uiIndex] = value;
+}
+
+void TextureBackgroundBase::replaceInTexCoords(const Pnt2f& pOldElem,
+                                                  const Pnt2f& pNewElem)
+{
+    Int32  elemIdx = _mfTexCoords.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(TexCoordsFieldMask, _mfTexCoords);
+
+        MFPnt2f::iterator fieldIt = _mfTexCoords.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void TextureBackgroundBase::removeFromTexCoords(UInt32 uiIndex)
+{
+    if(uiIndex < _mfTexCoords.size())
+    {
+        editMField(TexCoordsFieldMask, _mfTexCoords);
+
+        MFPnt2f::iterator fieldIt = _mfTexCoords.begin();
+
+        fieldIt += uiIndex;
+        _mfTexCoords.erase(fieldIt);
+    }
+}
+
+void TextureBackgroundBase::removeFromTexCoords(const Pnt2f& value)
+{
+    Int32 iElemIdx = _mfTexCoords.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(TexCoordsFieldMask, _mfTexCoords);
+
+        MFPnt2f::iterator fieldIt = _mfTexCoords.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfTexCoords.erase(fieldIt);
+    }
+}
+void TextureBackgroundBase::clearTexCoords(void)
+{
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+
+    _mfTexCoords.clear();
+}
+
+
+
+
+
+
 
 
 

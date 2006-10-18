@@ -442,5 +442,5 @@ typedef PointerBuilder<VTKMapper>::ObjPtrConstArg  VTKMapperPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGVTKMAPPERBASE_INLINE_CVSID "@(#)$Id: FCBaseTemplate_inl.h 106 2006-09-14 03:15:53Z dirk $"
+#define OSGVTKMAPPERBASE_INLINE_CVSID "@(#)$Id$"
 

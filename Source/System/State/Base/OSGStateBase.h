@@ -199,6 +199,8 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     void removeFromChunks(StateChunkPtrConstArg value   );
     void clearChunks            (void                          );
 
+ 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

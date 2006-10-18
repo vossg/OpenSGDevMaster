@@ -366,6 +366,8 @@ void MultiPassMaterialBase::clearMaterials(void)
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 MultiPassMaterialBase::getBinSize(ConstFieldMaskArg whichField)

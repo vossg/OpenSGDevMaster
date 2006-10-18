@@ -693,6 +693,8 @@ void SimpleStageBase::clearForegrounds(void)
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 SimpleStageBase::getBinSize(ConstFieldMaskArg whichField)

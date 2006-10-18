@@ -285,6 +285,22 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     void removeFromColorAttachments(FrameBufferAttachmentPtrConstArg value   );
     void clearColorAttachments            (void                          );
 
+ 
+
+
+    void pushToDrawBuffers           (const GLenum& value   );
+    void insertIntoDrawBuffers      (UInt32                uiIndex,
+                                    const GLenum& value   );
+    void replaceInDrawBuffers  (UInt32                uiIndex,
+                                    const GLenum& value   );
+    void replaceInDrawBuffers (const GLenum& pOldElem,
+                                    const GLenum& pNewElem);
+    void removeFromDrawBuffers (UInt32                uiIndex );
+    void removeFromDrawBuffers(const GLenum& value   );
+    void clearDrawBuffers            (void                          );
+
+
+ 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

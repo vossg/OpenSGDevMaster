@@ -334,6 +334,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     void removeFromForegrounds(ForegroundPtrConstArg value   );
     void clearForegrounds            (void                          );
 
+ 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -365,6 +365,20 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \{                                                                 */
 
 
+    void pushToInline           (const UInt8& value   );
+    void insertIntoInline      (UInt32                uiIndex,
+                                    const UInt8& value   );
+    void replaceInInline  (UInt32                uiIndex,
+                                    const UInt8& value   );
+    void replaceInInline (const UInt8& pOldElem,
+                                    const UInt8& pNewElem);
+    void removeFromInline (UInt32                uiIndex );
+    void removeFromInline(const UInt8& value   );
+    void clearInline            (void                          );
+
+
+ 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

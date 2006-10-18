@@ -748,6 +748,182 @@ void WindowBase::clearPorts(void)
 
 
 
+/*********************************** Non-ptr code ********************************/
+void WindowBase::pushToGlObjectLastRefresh(const UInt32& value)
+{
+    editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
+    _mfGlObjectLastRefresh.push_back(value);
+}
+
+void WindowBase::insertIntoGlObjectLastRefresh(UInt32                uiIndex,
+                                             const UInt32& value   )
+{
+    editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
+
+    MFUInt32::iterator fieldIt = _mfGlObjectLastRefresh.begin();
+
+    fieldIt += uiIndex;
+
+    _mfGlObjectLastRefresh.insert(fieldIt, value);
+}
+
+void WindowBase::replaceInGlObjectLastRefresh(UInt32                uiIndex,
+                                                 const UInt32& value   )
+{
+    if(uiIndex >= _mfGlObjectLastRefresh.size())
+        return;
+
+    editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
+
+    _mfGlObjectLastRefresh[uiIndex] = value;
+}
+
+void WindowBase::replaceInGlObjectLastRefresh(const UInt32& pOldElem,
+                                                  const UInt32& pNewElem)
+{
+    Int32  elemIdx = _mfGlObjectLastRefresh.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
+
+        MFUInt32::iterator fieldIt = _mfGlObjectLastRefresh.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void WindowBase::removeFromGlObjectLastRefresh(UInt32 uiIndex)
+{
+    if(uiIndex < _mfGlObjectLastRefresh.size())
+    {
+        editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
+
+        MFUInt32::iterator fieldIt = _mfGlObjectLastRefresh.begin();
+
+        fieldIt += uiIndex;
+        _mfGlObjectLastRefresh.erase(fieldIt);
+    }
+}
+
+void WindowBase::removeFromGlObjectLastRefresh(const UInt32& value)
+{
+    Int32 iElemIdx = _mfGlObjectLastRefresh.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
+
+        MFUInt32::iterator fieldIt = _mfGlObjectLastRefresh.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfGlObjectLastRefresh.erase(fieldIt);
+    }
+}
+void WindowBase::clearGlObjectLastRefresh(void)
+{
+    editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
+
+    _mfGlObjectLastRefresh.clear();
+}
+
+
+
+
+
+
+
+/*********************************** Non-ptr code ********************************/
+void WindowBase::pushToGlObjectLastReinitialize(const UInt32& value)
+{
+    editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
+    _mfGlObjectLastReinitialize.push_back(value);
+}
+
+void WindowBase::insertIntoGlObjectLastReinitialize(UInt32                uiIndex,
+                                             const UInt32& value   )
+{
+    editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
+
+    MFUInt32::iterator fieldIt = _mfGlObjectLastReinitialize.begin();
+
+    fieldIt += uiIndex;
+
+    _mfGlObjectLastReinitialize.insert(fieldIt, value);
+}
+
+void WindowBase::replaceInGlObjectLastReinitialize(UInt32                uiIndex,
+                                                 const UInt32& value   )
+{
+    if(uiIndex >= _mfGlObjectLastReinitialize.size())
+        return;
+
+    editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
+
+    _mfGlObjectLastReinitialize[uiIndex] = value;
+}
+
+void WindowBase::replaceInGlObjectLastReinitialize(const UInt32& pOldElem,
+                                                  const UInt32& pNewElem)
+{
+    Int32  elemIdx = _mfGlObjectLastReinitialize.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
+
+        MFUInt32::iterator fieldIt = _mfGlObjectLastReinitialize.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void WindowBase::removeFromGlObjectLastReinitialize(UInt32 uiIndex)
+{
+    if(uiIndex < _mfGlObjectLastReinitialize.size())
+    {
+        editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
+
+        MFUInt32::iterator fieldIt = _mfGlObjectLastReinitialize.begin();
+
+        fieldIt += uiIndex;
+        _mfGlObjectLastReinitialize.erase(fieldIt);
+    }
+}
+
+void WindowBase::removeFromGlObjectLastReinitialize(const UInt32& value)
+{
+    Int32 iElemIdx = _mfGlObjectLastReinitialize.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
+
+        MFUInt32::iterator fieldIt = _mfGlObjectLastReinitialize.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfGlObjectLastReinitialize.erase(fieldIt);
+    }
+}
+void WindowBase::clearGlObjectLastReinitialize(void)
+{
+    editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
+
+    _mfGlObjectLastReinitialize.clear();
+}
+
+
+
+
+
+
+
 
 
 /*------------------------------ access -----------------------------------*/

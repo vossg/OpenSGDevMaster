@@ -217,6 +217,22 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     void removeFromChunks (UInt32                uiIndex );
     void removeFromChunks(StateChunkPtrConstArg value   );
 
+ 
+
+
+    void pushToSlots           (const Int32& value   );
+    void insertIntoSlots      (UInt32                uiIndex,
+                                    const Int32& value   );
+    void replaceInSlots  (UInt32                uiIndex,
+                                    const Int32& value   );
+    void replaceInSlots (const Int32& pOldElem,
+                                    const Int32& pNewElem);
+    void removeFromSlots (UInt32                uiIndex );
+    void removeFromSlots(const Int32& value   );
+    void clearSlots            (void                          );
+
+
+ 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

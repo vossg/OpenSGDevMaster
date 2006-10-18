@@ -216,6 +216,8 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     void removeFromContainers(FieldContainerPtrConstArg value   );
     void clearContainers            (void                          );
 
+ 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

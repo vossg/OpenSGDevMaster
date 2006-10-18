@@ -3264,6 +3264,93 @@ void TextureObjChunkBase::clearField(const UInt32 uiFieldId)
     }
 }
 
+/*********************************** Non-ptr code ********************************/
+void TextureObjChunkBase::pushToShaderOffsetMatrix(const Real32& value)
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+    _mfShaderOffsetMatrix.push_back(value);
+}
+
+void TextureObjChunkBase::insertIntoShaderOffsetMatrix(UInt32                uiIndex,
+                                             const Real32& value   )
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+    fieldIt += uiIndex;
+
+    _mfShaderOffsetMatrix.insert(fieldIt, value);
+}
+
+void TextureObjChunkBase::replaceInShaderOffsetMatrix(UInt32                uiIndex,
+                                                 const Real32& value   )
+{
+    if(uiIndex >= _mfShaderOffsetMatrix.size())
+        return;
+
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    _mfShaderOffsetMatrix[uiIndex] = value;
+}
+
+void TextureObjChunkBase::replaceInShaderOffsetMatrix(const Real32& pOldElem,
+                                                  const Real32& pNewElem)
+{
+    Int32  elemIdx = _mfShaderOffsetMatrix.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void TextureObjChunkBase::removeFromShaderOffsetMatrix(UInt32 uiIndex)
+{
+    if(uiIndex < _mfShaderOffsetMatrix.size())
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += uiIndex;
+        _mfShaderOffsetMatrix.erase(fieldIt);
+    }
+}
+
+void TextureObjChunkBase::removeFromShaderOffsetMatrix(const Real32& value)
+{
+    Int32 iElemIdx = _mfShaderOffsetMatrix.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfShaderOffsetMatrix.erase(fieldIt);
+    }
+}
+void TextureObjChunkBase::clearShaderOffsetMatrix(void)
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    _mfShaderOffsetMatrix.clear();
+}
+
+
+
+
+
+
 
 
 

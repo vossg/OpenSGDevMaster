@@ -1458,6 +1458,95 @@ void ImageBase::clearParents(void)
 
 
 
+/*********************************** Non-ptr code ********************************/
+void ImageBase::pushToPixel(const UInt8& value)
+{
+    editMField(PixelFieldMask, _mfPixel);
+    _mfPixel.push_back(value);
+}
+
+void ImageBase::insertIntoPixel(UInt32                uiIndex,
+                                             const UInt8& value   )
+{
+    editMField(PixelFieldMask, _mfPixel);
+
+    MFUInt8::iterator fieldIt = _mfPixel.begin();
+
+    fieldIt += uiIndex;
+
+    _mfPixel.insert(fieldIt, value);
+}
+
+void ImageBase::replaceInPixel(UInt32                uiIndex,
+                                                 const UInt8& value   )
+{
+    if(uiIndex >= _mfPixel.size())
+        return;
+
+    editMField(PixelFieldMask, _mfPixel);
+
+    _mfPixel[uiIndex] = value;
+}
+
+void ImageBase::replaceInPixel(const UInt8& pOldElem,
+                                                  const UInt8& pNewElem)
+{
+    Int32  elemIdx = _mfPixel.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(PixelFieldMask, _mfPixel);
+
+        MFUInt8::iterator fieldIt = _mfPixel.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ImageBase::removeFromPixel(UInt32 uiIndex)
+{
+    if(uiIndex < _mfPixel.size())
+    {
+        editMField(PixelFieldMask, _mfPixel);
+
+        MFUInt8::iterator fieldIt = _mfPixel.begin();
+
+        fieldIt += uiIndex;
+        _mfPixel.erase(fieldIt);
+    }
+}
+
+void ImageBase::removeFromPixel(const UInt8& value)
+{
+    Int32 iElemIdx = _mfPixel.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(PixelFieldMask, _mfPixel);
+
+        MFUInt8::iterator fieldIt = _mfPixel.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfPixel.erase(fieldIt);
+    }
+}
+void ImageBase::clearPixel(void)
+{
+    editMField(PixelFieldMask, _mfPixel);
+
+    _mfPixel.clear();
+}
+
+
+
+
+
+
+
+
 
 /*------------------------------ access -----------------------------------*/
 

@@ -375,6 +375,8 @@ void ShaderParameterChunkBase::clearParameters(void)
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 ShaderParameterChunkBase::getBinSize(ConstFieldMaskArg whichField)

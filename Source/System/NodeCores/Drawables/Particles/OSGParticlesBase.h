@@ -359,7 +359,49 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
 
+    void pushToSizes           (const Vec3f& value   );
+    void insertIntoSizes      (UInt32                uiIndex,
+                                    const Vec3f& value   );
+    void replaceInSizes  (UInt32                uiIndex,
+                                    const Vec3f& value   );
+    void replaceInSizes (const Vec3f& pOldElem,
+                                    const Vec3f& pNewElem);
+    void removeFromSizes (UInt32                uiIndex );
+    void removeFromSizes(const Vec3f& value   );
+    void clearSizes            (void                          );
 
+
+ 
+
+
+    void pushToIndices           (const Int32& value   );
+    void insertIntoIndices      (UInt32                uiIndex,
+                                    const Int32& value   );
+    void replaceInIndices  (UInt32                uiIndex,
+                                    const Int32& value   );
+    void replaceInIndices (const Int32& pOldElem,
+                                    const Int32& pNewElem);
+    void removeFromIndices (UInt32                uiIndex );
+    void removeFromIndices(const Int32& value   );
+    void clearIndices            (void                          );
+
+
+ 
+
+
+    void pushToTextureZs           (const Real32& value   );
+    void insertIntoTextureZs      (UInt32                uiIndex,
+                                    const Real32& value   );
+    void replaceInTextureZs  (UInt32                uiIndex,
+                                    const Real32& value   );
+    void replaceInTextureZs (const Real32& pOldElem,
+                                    const Real32& pNewElem);
+    void removeFromTextureZs (UInt32                uiIndex );
+    void removeFromTextureZs(const Real32& value   );
+    void clearTextureZs            (void                          );
+
+
+ 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

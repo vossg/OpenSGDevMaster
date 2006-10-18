@@ -3199,6 +3199,93 @@ void TextureChunkBase::clearField(const UInt32 uiFieldId)
     }
 }
 
+/*********************************** Non-ptr code ********************************/
+void TextureChunkBase::pushToShaderOffsetMatrix(const Real32& value)
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+    _mfShaderOffsetMatrix.push_back(value);
+}
+
+void TextureChunkBase::insertIntoShaderOffsetMatrix(UInt32                uiIndex,
+                                             const Real32& value   )
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+    fieldIt += uiIndex;
+
+    _mfShaderOffsetMatrix.insert(fieldIt, value);
+}
+
+void TextureChunkBase::replaceInShaderOffsetMatrix(UInt32                uiIndex,
+                                                 const Real32& value   )
+{
+    if(uiIndex >= _mfShaderOffsetMatrix.size())
+        return;
+
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    _mfShaderOffsetMatrix[uiIndex] = value;
+}
+
+void TextureChunkBase::replaceInShaderOffsetMatrix(const Real32& pOldElem,
+                                                  const Real32& pNewElem)
+{
+    Int32  elemIdx = _mfShaderOffsetMatrix.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void TextureChunkBase::removeFromShaderOffsetMatrix(UInt32 uiIndex)
+{
+    if(uiIndex < _mfShaderOffsetMatrix.size())
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += uiIndex;
+        _mfShaderOffsetMatrix.erase(fieldIt);
+    }
+}
+
+void TextureChunkBase::removeFromShaderOffsetMatrix(const Real32& value)
+{
+    Int32 iElemIdx = _mfShaderOffsetMatrix.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfShaderOffsetMatrix.erase(fieldIt);
+    }
+}
+void TextureChunkBase::clearShaderOffsetMatrix(void)
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    _mfShaderOffsetMatrix.clear();
+}
+
+
+
+
+
+
 
 
 
@@ -4114,7 +4201,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 219 2006-10-03 03:22:32Z allenb $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGTEXTURECHUNKBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTURECHUNKBASE_INLINE_CVSID;
 

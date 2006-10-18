@@ -1094,5 +1094,5 @@ typedef PointerBuilder<QuadTreeTerrain>::ObjPtrConstArg  QuadTreeTerrainPtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGQUADTREETERRAINBASE_INLINE_CVSID "@(#)$Id: FCBaseTemplate_inl.h 106 2006-09-14 03:15:53Z dirk $"
+#define OSGQUADTREETERRAINBASE_INLINE_CVSID "@(#)$Id$"
 

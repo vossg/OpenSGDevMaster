@@ -372,6 +372,8 @@ void StateBase::clearChunks(void)
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 StateBase::getBinSize(ConstFieldMaskArg whichField)

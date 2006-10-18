@@ -216,6 +216,8 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
     void removeFromMaterials(MaterialPtrConstArg value   );
     void clearMaterials            (void                          );
 
+ 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

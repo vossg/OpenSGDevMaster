@@ -937,6 +937,8 @@ void VTKMapperBase::clearGeoRoots(void)
     _mfGeoRoots.clear();
 }
 
+
+
 void VTKMapperBase::pushToGeometries(GeometryPtrConstArg value)
 {
     if(value == NullFC)
@@ -1056,6 +1058,8 @@ void VTKMapperBase::clearGeometries(void)
 
     _mfGeometries.clear();
 }
+
+
 
 void VTKMapperBase::pushToMaterials(ChunkMaterialPtrConstArg value)
 {
@@ -1177,6 +1181,8 @@ void VTKMapperBase::clearMaterials(void)
     _mfMaterials.clear();
 }
 
+
+
 void VTKMapperBase::pushToMaterialChunks(MaterialChunkPtrConstArg value)
 {
     if(value == NullFC)
@@ -1296,6 +1302,8 @@ void VTKMapperBase::clearMaterialChunks(void)
 
     _mfMaterialChunks.clear();
 }
+
+
 
 void VTKMapperBase::pushToPositions(GeoPnt3fPropertyPtrConstArg value)
 {
@@ -1417,6 +1425,8 @@ void VTKMapperBase::clearPositions(void)
     _mfPositions.clear();
 }
 
+
+
 void VTKMapperBase::pushToLength(GeoUInt32PropertyPtrConstArg value)
 {
     if(value == NullFC)
@@ -1536,6 +1546,8 @@ void VTKMapperBase::clearLength(void)
 
     _mfLength.clear();
 }
+
+
 
 void VTKMapperBase::pushToTypes(GeoUInt8PropertyPtrConstArg value)
 {
@@ -1657,6 +1669,8 @@ void VTKMapperBase::clearTypes(void)
     _mfTypes.clear();
 }
 
+
+
 void VTKMapperBase::pushToColors(GeoColor4fPropertyPtrConstArg value)
 {
     if(value == NullFC)
@@ -1777,6 +1791,8 @@ void VTKMapperBase::clearColors(void)
     _mfColors.clear();
 }
 
+
+
 void VTKMapperBase::pushToNormals(GeoVec3fPropertyPtrConstArg value)
 {
     if(value == NullFC)
@@ -1896,6 +1912,8 @@ void VTKMapperBase::clearNormals(void)
 
     _mfNormals.clear();
 }
+
+
 
 
 
@@ -2335,7 +2353,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 219 2006-10-03 03:22:32Z allenb $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGVTKMAPPERBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGVTKMAPPERBASE_INLINE_CVSID;
 

@@ -436,6 +436,180 @@ void PolygonForegroundBase::clearField(const UInt32 uiFieldId)
     }
 }
 
+/*********************************** Non-ptr code ********************************/
+void PolygonForegroundBase::pushToPositions(const Pnt2f& value)
+{
+    editMField(PositionsFieldMask, _mfPositions);
+    _mfPositions.push_back(value);
+}
+
+void PolygonForegroundBase::insertIntoPositions(UInt32                uiIndex,
+                                             const Pnt2f& value   )
+{
+    editMField(PositionsFieldMask, _mfPositions);
+
+    MFPnt2f::iterator fieldIt = _mfPositions.begin();
+
+    fieldIt += uiIndex;
+
+    _mfPositions.insert(fieldIt, value);
+}
+
+void PolygonForegroundBase::replaceInPositions(UInt32                uiIndex,
+                                                 const Pnt2f& value   )
+{
+    if(uiIndex >= _mfPositions.size())
+        return;
+
+    editMField(PositionsFieldMask, _mfPositions);
+
+    _mfPositions[uiIndex] = value;
+}
+
+void PolygonForegroundBase::replaceInPositions(const Pnt2f& pOldElem,
+                                                  const Pnt2f& pNewElem)
+{
+    Int32  elemIdx = _mfPositions.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(PositionsFieldMask, _mfPositions);
+
+        MFPnt2f::iterator fieldIt = _mfPositions.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void PolygonForegroundBase::removeFromPositions(UInt32 uiIndex)
+{
+    if(uiIndex < _mfPositions.size())
+    {
+        editMField(PositionsFieldMask, _mfPositions);
+
+        MFPnt2f::iterator fieldIt = _mfPositions.begin();
+
+        fieldIt += uiIndex;
+        _mfPositions.erase(fieldIt);
+    }
+}
+
+void PolygonForegroundBase::removeFromPositions(const Pnt2f& value)
+{
+    Int32 iElemIdx = _mfPositions.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(PositionsFieldMask, _mfPositions);
+
+        MFPnt2f::iterator fieldIt = _mfPositions.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfPositions.erase(fieldIt);
+    }
+}
+void PolygonForegroundBase::clearPositions(void)
+{
+    editMField(PositionsFieldMask, _mfPositions);
+
+    _mfPositions.clear();
+}
+
+
+
+
+
+
+
+/*********************************** Non-ptr code ********************************/
+void PolygonForegroundBase::pushToTexCoords(const Vec3f& value)
+{
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+    _mfTexCoords.push_back(value);
+}
+
+void PolygonForegroundBase::insertIntoTexCoords(UInt32                uiIndex,
+                                             const Vec3f& value   )
+{
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+
+    MFVec3f::iterator fieldIt = _mfTexCoords.begin();
+
+    fieldIt += uiIndex;
+
+    _mfTexCoords.insert(fieldIt, value);
+}
+
+void PolygonForegroundBase::replaceInTexCoords(UInt32                uiIndex,
+                                                 const Vec3f& value   )
+{
+    if(uiIndex >= _mfTexCoords.size())
+        return;
+
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+
+    _mfTexCoords[uiIndex] = value;
+}
+
+void PolygonForegroundBase::replaceInTexCoords(const Vec3f& pOldElem,
+                                                  const Vec3f& pNewElem)
+{
+    Int32  elemIdx = _mfTexCoords.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(TexCoordsFieldMask, _mfTexCoords);
+
+        MFVec3f::iterator fieldIt = _mfTexCoords.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void PolygonForegroundBase::removeFromTexCoords(UInt32 uiIndex)
+{
+    if(uiIndex < _mfTexCoords.size())
+    {
+        editMField(TexCoordsFieldMask, _mfTexCoords);
+
+        MFVec3f::iterator fieldIt = _mfTexCoords.begin();
+
+        fieldIt += uiIndex;
+        _mfTexCoords.erase(fieldIt);
+    }
+}
+
+void PolygonForegroundBase::removeFromTexCoords(const Vec3f& value)
+{
+    Int32 iElemIdx = _mfTexCoords.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(TexCoordsFieldMask, _mfTexCoords);
+
+        MFVec3f::iterator fieldIt = _mfTexCoords.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfTexCoords.erase(fieldIt);
+    }
+}
+void PolygonForegroundBase::clearTexCoords(void)
+{
+    editMField(TexCoordsFieldMask, _mfTexCoords);
+
+    _mfTexCoords.clear();
+}
+
+
+
+
+
 
 
 

@@ -411,6 +411,8 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     void removeFromHeightTiles(ImagePtrConstArg value   );
     void clearHeightTiles            (void                          );
 
+ 
+
     void pushToHeightTextures           (MaterialPtrConstArg value   );
     void insertIntoHeightTextures      (UInt32                uiIndex,
                                     MaterialPtrConstArg value   );
@@ -421,6 +423,8 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     void removeFromHeightTextures (UInt32                uiIndex );
     void removeFromHeightTextures(MaterialPtrConstArg value   );
     void clearHeightTextures            (void                          );
+
+ 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -591,6 +595,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGTILEDQUADTREETERRAINBASE_HEADER_CVSID "@(#)$Id: FCBaseTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
+#define OSGTILEDQUADTREETERRAINBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTILEDQUADTREETERRAINBASE_H_ */

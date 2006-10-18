@@ -125,6 +125,6 @@ struct FieldTraits<AlgorithmStagePtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGALGORITHMSTAGEFIELDS_HEADER_CVSID "@(#)$Id: FCFieldsTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
+#define OSGALGORITHMSTAGEFIELDS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGALGORITHMSTAGEFIELDS_H_ */

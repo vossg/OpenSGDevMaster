@@ -857,6 +857,267 @@ void ParticlesBase::clearField(const UInt32 uiFieldId)
     }
 }
 
+/*********************************** Non-ptr code ********************************/
+void ParticlesBase::pushToSizes(const Vec3f& value)
+{
+    editMField(SizesFieldMask, _mfSizes);
+    _mfSizes.push_back(value);
+}
+
+void ParticlesBase::insertIntoSizes(UInt32                uiIndex,
+                                             const Vec3f& value   )
+{
+    editMField(SizesFieldMask, _mfSizes);
+
+    MFVec3f::iterator fieldIt = _mfSizes.begin();
+
+    fieldIt += uiIndex;
+
+    _mfSizes.insert(fieldIt, value);
+}
+
+void ParticlesBase::replaceInSizes(UInt32                uiIndex,
+                                                 const Vec3f& value   )
+{
+    if(uiIndex >= _mfSizes.size())
+        return;
+
+    editMField(SizesFieldMask, _mfSizes);
+
+    _mfSizes[uiIndex] = value;
+}
+
+void ParticlesBase::replaceInSizes(const Vec3f& pOldElem,
+                                                  const Vec3f& pNewElem)
+{
+    Int32  elemIdx = _mfSizes.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(SizesFieldMask, _mfSizes);
+
+        MFVec3f::iterator fieldIt = _mfSizes.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ParticlesBase::removeFromSizes(UInt32 uiIndex)
+{
+    if(uiIndex < _mfSizes.size())
+    {
+        editMField(SizesFieldMask, _mfSizes);
+
+        MFVec3f::iterator fieldIt = _mfSizes.begin();
+
+        fieldIt += uiIndex;
+        _mfSizes.erase(fieldIt);
+    }
+}
+
+void ParticlesBase::removeFromSizes(const Vec3f& value)
+{
+    Int32 iElemIdx = _mfSizes.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(SizesFieldMask, _mfSizes);
+
+        MFVec3f::iterator fieldIt = _mfSizes.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfSizes.erase(fieldIt);
+    }
+}
+void ParticlesBase::clearSizes(void)
+{
+    editMField(SizesFieldMask, _mfSizes);
+
+    _mfSizes.clear();
+}
+
+
+
+
+
+
+
+/*********************************** Non-ptr code ********************************/
+void ParticlesBase::pushToIndices(const Int32& value)
+{
+    editMField(IndicesFieldMask, _mfIndices);
+    _mfIndices.push_back(value);
+}
+
+void ParticlesBase::insertIntoIndices(UInt32                uiIndex,
+                                             const Int32& value   )
+{
+    editMField(IndicesFieldMask, _mfIndices);
+
+    MFInt32::iterator fieldIt = _mfIndices.begin();
+
+    fieldIt += uiIndex;
+
+    _mfIndices.insert(fieldIt, value);
+}
+
+void ParticlesBase::replaceInIndices(UInt32                uiIndex,
+                                                 const Int32& value   )
+{
+    if(uiIndex >= _mfIndices.size())
+        return;
+
+    editMField(IndicesFieldMask, _mfIndices);
+
+    _mfIndices[uiIndex] = value;
+}
+
+void ParticlesBase::replaceInIndices(const Int32& pOldElem,
+                                                  const Int32& pNewElem)
+{
+    Int32  elemIdx = _mfIndices.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(IndicesFieldMask, _mfIndices);
+
+        MFInt32::iterator fieldIt = _mfIndices.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ParticlesBase::removeFromIndices(UInt32 uiIndex)
+{
+    if(uiIndex < _mfIndices.size())
+    {
+        editMField(IndicesFieldMask, _mfIndices);
+
+        MFInt32::iterator fieldIt = _mfIndices.begin();
+
+        fieldIt += uiIndex;
+        _mfIndices.erase(fieldIt);
+    }
+}
+
+void ParticlesBase::removeFromIndices(const Int32& value)
+{
+    Int32 iElemIdx = _mfIndices.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(IndicesFieldMask, _mfIndices);
+
+        MFInt32::iterator fieldIt = _mfIndices.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfIndices.erase(fieldIt);
+    }
+}
+void ParticlesBase::clearIndices(void)
+{
+    editMField(IndicesFieldMask, _mfIndices);
+
+    _mfIndices.clear();
+}
+
+
+
+
+
+
+
+/*********************************** Non-ptr code ********************************/
+void ParticlesBase::pushToTextureZs(const Real32& value)
+{
+    editMField(TextureZsFieldMask, _mfTextureZs);
+    _mfTextureZs.push_back(value);
+}
+
+void ParticlesBase::insertIntoTextureZs(UInt32                uiIndex,
+                                             const Real32& value   )
+{
+    editMField(TextureZsFieldMask, _mfTextureZs);
+
+    MFReal32::iterator fieldIt = _mfTextureZs.begin();
+
+    fieldIt += uiIndex;
+
+    _mfTextureZs.insert(fieldIt, value);
+}
+
+void ParticlesBase::replaceInTextureZs(UInt32                uiIndex,
+                                                 const Real32& value   )
+{
+    if(uiIndex >= _mfTextureZs.size())
+        return;
+
+    editMField(TextureZsFieldMask, _mfTextureZs);
+
+    _mfTextureZs[uiIndex] = value;
+}
+
+void ParticlesBase::replaceInTextureZs(const Real32& pOldElem,
+                                                  const Real32& pNewElem)
+{
+    Int32  elemIdx = _mfTextureZs.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(TextureZsFieldMask, _mfTextureZs);
+
+        MFReal32::iterator fieldIt = _mfTextureZs.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ParticlesBase::removeFromTextureZs(UInt32 uiIndex)
+{
+    if(uiIndex < _mfTextureZs.size())
+    {
+        editMField(TextureZsFieldMask, _mfTextureZs);
+
+        MFReal32::iterator fieldIt = _mfTextureZs.begin();
+
+        fieldIt += uiIndex;
+        _mfTextureZs.erase(fieldIt);
+    }
+}
+
+void ParticlesBase::removeFromTextureZs(const Real32& value)
+{
+    Int32 iElemIdx = _mfTextureZs.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(TextureZsFieldMask, _mfTextureZs);
+
+        MFReal32::iterator fieldIt = _mfTextureZs.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfTextureZs.erase(fieldIt);
+    }
+}
+void ParticlesBase::clearTextureZs(void)
+{
+    editMField(TextureZsFieldMask, _mfTextureZs);
+
+    _mfTextureZs.clear();
+}
+
+
+
+
 
 
 

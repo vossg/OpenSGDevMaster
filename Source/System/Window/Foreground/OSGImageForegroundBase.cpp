@@ -420,6 +420,95 @@ void ImageForegroundBase::clearImages(void)
 
 
 
+/*********************************** Non-ptr code ********************************/
+void ImageForegroundBase::pushToPositions(const Pnt2f& value)
+{
+    editMField(PositionsFieldMask, _mfPositions);
+    _mfPositions.push_back(value);
+}
+
+void ImageForegroundBase::insertIntoPositions(UInt32                uiIndex,
+                                             const Pnt2f& value   )
+{
+    editMField(PositionsFieldMask, _mfPositions);
+
+    MFPnt2f::iterator fieldIt = _mfPositions.begin();
+
+    fieldIt += uiIndex;
+
+    _mfPositions.insert(fieldIt, value);
+}
+
+void ImageForegroundBase::replaceInPositions(UInt32                uiIndex,
+                                                 const Pnt2f& value   )
+{
+    if(uiIndex >= _mfPositions.size())
+        return;
+
+    editMField(PositionsFieldMask, _mfPositions);
+
+    _mfPositions[uiIndex] = value;
+}
+
+void ImageForegroundBase::replaceInPositions(const Pnt2f& pOldElem,
+                                                  const Pnt2f& pNewElem)
+{
+    Int32  elemIdx = _mfPositions.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(PositionsFieldMask, _mfPositions);
+
+        MFPnt2f::iterator fieldIt = _mfPositions.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ImageForegroundBase::removeFromPositions(UInt32 uiIndex)
+{
+    if(uiIndex < _mfPositions.size())
+    {
+        editMField(PositionsFieldMask, _mfPositions);
+
+        MFPnt2f::iterator fieldIt = _mfPositions.begin();
+
+        fieldIt += uiIndex;
+        _mfPositions.erase(fieldIt);
+    }
+}
+
+void ImageForegroundBase::removeFromPositions(const Pnt2f& value)
+{
+    Int32 iElemIdx = _mfPositions.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(PositionsFieldMask, _mfPositions);
+
+        MFPnt2f::iterator fieldIt = _mfPositions.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfPositions.erase(fieldIt);
+    }
+}
+void ImageForegroundBase::clearPositions(void)
+{
+    editMField(PositionsFieldMask, _mfPositions);
+
+    _mfPositions.clear();
+}
+
+
+
+
+
+
+
+
 
 /*------------------------------ access -----------------------------------*/
 

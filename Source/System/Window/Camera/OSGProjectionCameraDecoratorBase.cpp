@@ -541,6 +541,93 @@ void ProjectionCameraDecoratorBase::clearField(const UInt32 uiFieldId)
     }
 }
 
+/*********************************** Non-ptr code ********************************/
+void ProjectionCameraDecoratorBase::pushToSurface(const Pnt3f& value)
+{
+    editMField(SurfaceFieldMask, _mfSurface);
+    _mfSurface.push_back(value);
+}
+
+void ProjectionCameraDecoratorBase::insertIntoSurface(UInt32                uiIndex,
+                                             const Pnt3f& value   )
+{
+    editMField(SurfaceFieldMask, _mfSurface);
+
+    MFPnt3f::iterator fieldIt = _mfSurface.begin();
+
+    fieldIt += uiIndex;
+
+    _mfSurface.insert(fieldIt, value);
+}
+
+void ProjectionCameraDecoratorBase::replaceInSurface(UInt32                uiIndex,
+                                                 const Pnt3f& value   )
+{
+    if(uiIndex >= _mfSurface.size())
+        return;
+
+    editMField(SurfaceFieldMask, _mfSurface);
+
+    _mfSurface[uiIndex] = value;
+}
+
+void ProjectionCameraDecoratorBase::replaceInSurface(const Pnt3f& pOldElem,
+                                                  const Pnt3f& pNewElem)
+{
+    Int32  elemIdx = _mfSurface.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(SurfaceFieldMask, _mfSurface);
+
+        MFPnt3f::iterator fieldIt = _mfSurface.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ProjectionCameraDecoratorBase::removeFromSurface(UInt32 uiIndex)
+{
+    if(uiIndex < _mfSurface.size())
+    {
+        editMField(SurfaceFieldMask, _mfSurface);
+
+        MFPnt3f::iterator fieldIt = _mfSurface.begin();
+
+        fieldIt += uiIndex;
+        _mfSurface.erase(fieldIt);
+    }
+}
+
+void ProjectionCameraDecoratorBase::removeFromSurface(const Pnt3f& value)
+{
+    Int32 iElemIdx = _mfSurface.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(SurfaceFieldMask, _mfSurface);
+
+        MFPnt3f::iterator fieldIt = _mfSurface.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfSurface.erase(fieldIt);
+    }
+}
+void ProjectionCameraDecoratorBase::clearSurface(void)
+{
+    editMField(SurfaceFieldMask, _mfSurface);
+
+    _mfSurface.clear();
+}
+
+
+
+
+
+
 
 
 

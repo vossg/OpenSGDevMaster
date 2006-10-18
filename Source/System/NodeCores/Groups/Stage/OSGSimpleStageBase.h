@@ -283,6 +283,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     void removeFromForegrounds(ForegroundPtrConstArg value   );
     void clearForegrounds            (void                          );
 
+ 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

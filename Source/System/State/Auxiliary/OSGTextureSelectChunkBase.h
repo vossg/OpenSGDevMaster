@@ -216,6 +216,8 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     void removeFromTextures(TextureBaseChunkPtrConstArg value   );
     void clearTextures            (void                          );
 
+ 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -373,6 +375,6 @@ typedef osgIF<
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTURESELECTCHUNKBASE_HEADER_CVSID "@(#)$Id: FCBaseTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
+#define OSGTEXTURESELECTCHUNKBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGTEXTURESELECTCHUNKBASE_H_ */
