@@ -48,9 +48,14 @@
 
 #include "OSGTrackball.h"
 
+#include <OSGSimpleSceneManager.h>
+#include <OSGPassiveWindow.h>
+
 using namespace OSG;
 
-#define USE_DEPTH_TEXTURE 1
+//#define USE_DEPTH_TEXTURE 1
+
+SimpleSceneManager    *mgr(NULL);
 
 RenderAction          *renact     = NULL;
 RenderTraversalAction *rentravact = NULL;
@@ -153,13 +158,18 @@ void display(void)
 
     Thread::getCurrentChangeList()->commitChanges();
 
-    win->render(rentravact);
+    //win->render(rentravact);
+    mgr->redraw();
+
+    // all done, swap
+    glutSwapBuffers();
 }
 
 void reshape(int w, int h)
 {
     std::cerr << "Reshape: " << w << "," << h << std::endl;
-    win->resize( w, h );
+    //win->resize( w, h );
+    mgr->resize(w,h);
 }
 
 
@@ -173,78 +183,18 @@ void animate(void)
 
 void motion(int x, int y)
 {
-    Real32 w = win->getWidth(), h = win->getHeight();
-
-
-    Real32 a = -2. * ( lastx / w - .5 );
-    Real32 b = -2. * ( .5 - lasty / h );
-    Real32 c = -2. * ( x / w - .5 );
-    Real32 d = -2. * ( .5 - y / h );
-
-    if(mouseb & (1 << GLUT_LEFT_BUTTON))
-    {
-        tball.updateRotation(a, b, c, d);
-    }
-    else if(mouseb & (1 << GLUT_MIDDLE_BUTTON))
-    {
-        tball.updatePosition(a, b, c, d);
-    }
-    else if(mouseb & (1 << GLUT_RIGHT_BUTTON))
-    {
-        tball.updatePositionNeg(a, b, c, d);
-    }
-
-    lastx = x;
-    lasty = y;
+    mgr->mouseMove(x, y);
+    glutPostRedisplay();
 }
 
 void mouse(int button, int state, int x, int y)
 {
-    if(state == 0)
-    {
-        switch ( button )
-        {
-            case GLUT_LEFT_BUTTON:
-                break;
-            case GLUT_MIDDLE_BUTTON:
-                tball.setAutoPosition(true);
-                break;
-            case GLUT_RIGHT_BUTTON:
-                tball.setAutoPositionNeg(true);
-                break;
-        }
-        mouseb |= 1 << button;
-    }
-    else if(state == 1)
-    {
-        switch(button)
-        {
-            case GLUT_LEFT_BUTTON:
-                break;
-            case GLUT_MIDDLE_BUTTON:
-                tball.setAutoPosition(false);
-                break;
-            case GLUT_RIGHT_BUTTON:
-                tball.setAutoPositionNeg(false);
-                break;
-        }
-        mouseb &= ~(1 << button);
-    }
-
-    lastx = x;
-    lasty = y;
-}
-
-void vis(int visible)
-{
-    if(visible == GLUT_VISIBLE)
-    {
-        glutIdleFunc(animate);
-    }
+    if (state)
+        mgr->mouseButtonRelease(button, x, y);
     else
-    {
-        glutIdleFunc(NULL);
-    }
+        mgr->mouseButtonPress(button, x, y);
+
+    glutPostRedisplay();
 }
 
 void key(unsigned char key, int x, int y)
@@ -488,27 +438,7 @@ void initPlaneSetup(void)
     dlight->addChild(sceneTrN);
 
 
-    // Camera
-    PerspectiveCameraPtr cam = PerspectiveCamera::create();
-
-    cam->setBeacon(b1n);
-    cam->setFov   (osgDegree2Rad(90));
-    cam->setNear  (0.1);
-    cam->setFar   (100000);
-
-    // Background
-    SolidBackgroundPtr bkgnd = SolidBackground::create();
-
-    bkgnd->setColor(Color3f(1, 0, 0));
-
-    // Viewport
-
-    vpPlane = Viewport::create();
-
-    vpPlane->setCamera    (cam       );
-    vpPlane->setBackground(bkgnd     );
-    vpPlane->setRoot      (planeRoot );
-    vpPlane->setSize      (0, 0, 1, 1);
+    OSG::SceneFileHandler::the()->write(planeRoot, "/var/tmp/simple_stage_dump.osb");
 }
 
 int main (int argc, char **argv)
@@ -518,16 +448,16 @@ int main (int argc, char **argv)
     // GLUT init
 
     glutInit(&argc, argv);
-    glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE | GLUT_STENCIL);
-    int winid = glutCreateWindow("OpenSG");
+    glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
+    glutInitWindowSize(500,500);
+    int winid = glutCreateWindow("testSimpleStage");
     glutKeyboardFunc(key);
-    glutVisibilityFunc(vis);
+    //glutVisibilityFunc(vis);
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
+    glutIdleFunc(display);
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
-
-    glutIdleFunc(display);
 
     // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
@@ -536,7 +466,6 @@ int main (int argc, char **argv)
     glEnable( GL_LIGHT0 );
 
     // OSG
-
     SceneFileHandler::the()->print();
 
     // create shared texture
@@ -550,59 +479,25 @@ int main (int argc, char **argv)
     // create the graph
 
     initAnimSetup(argc, argv);
-
     initPlaneSetup();
 
+    PassiveWindowPtr pwin(PassiveWindow::create());
+    pwin->init();
 
-    // Window
-    std::cout << "GLUT winid: " << winid << std::endl;
+    // create the SimpleSceneManager helper
+    mgr = new SimpleSceneManager;
 
-    GLUTWindowPtr gwin;
+    // create the window and initial camera/viewport
+    mgr->setWindow(pwin );
+    // tell the manager what to manage
+    mgr->setRoot  (planeRoot);
 
-    GLint glvp[4];
+    Thread::getCurrentChangeList()->commitChanges();
 
-    glGetIntegerv(GL_VIEWPORT, glvp);
+    // show the whole scene
+    mgr->showAll();
 
-    gwin = GLUTWindow::create();
-
-    gwin->setId  (winid           );
-    gwin->setSize(glvp[2], glvp[3]);
-
-    win = gwin;
-
-//    win->addPort(vpScene);
-    win->addPort(vpPlane);
-
-    win->init();
-
-    // Action
-
-    renact = RenderAction::create();
-//    renact->setFrustumCulling(false);
-
-    rentravact = RenderTraversalAction::create();
-
-    // tball
-
-    Vec3f pos;
-    pos.setValues(min[0] + ((max[0] - min[0]) * 0.5),
-                  min[1] + ((max[1] - min[1]) * 0.5),
-                  max[2] + ( max[2] - min[2] ) * 1.5 );
-
-    float scale = (max[2] - min[2] + max[1] - min[1] + max[0] - min[0]) / 6;
-
-    Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
-                  min[1] + (max[1] - min[1]) / 2,
-                  min[2] + (max[2] - min[2]) / 2);
-
-    tball.setMode( Trackball::OSGObject );
-    tball.setStartPosition( pos, true );
-    tball.setSum( true );
-    tball.setTranslationMode( Trackball::OSGFree );
-    tball.setTranslationScale(scale);
-    tball.setRotationCenter(tCenter);
-
-    // run...
+    //mgr->setUseTraversalAction(true);
 
     glutMainLoop();
 
