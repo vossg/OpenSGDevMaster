@@ -93,23 +93,23 @@ std::vector<
 
 
 StatElemDesc<StatTimeElem> RenderTraversalAction::statDrawTime     (
-    "RT-DrawTime", 
+    "RT-DrawTime",
     "time for draw tree traversal");
 
 StatElemDesc<StatIntElem > RenderTraversalAction::statNStates      (
-    "RT-States", 
+    "RT-States",
     "number of material changes");
 StatElemDesc<StatIntElem > RenderTraversalAction::statNMatrices    (
-    "RT-NMatrices",  
+    "RT-NMatrices",
     "number of matrix changes");
 StatElemDesc<StatIntElem > RenderTraversalAction::statNGeometries  (
-    "RT-NGeometries", 
+    "RT-NGeometries",
     "number of Geometry nodes");
 StatElemDesc<StatIntElem > RenderTraversalAction::statNShaders     (
-    "RT-Shaders", 
+    "RT-Shaders",
     "number of shader changes");
 StatElemDesc<StatIntElem > RenderTraversalAction::statNShaderParams(
-    "RT-ShaderParams", 
+    "RT-ShaderParams",
     "number of shader params changes");
 
 /*
@@ -152,7 +152,7 @@ bool RenderTraversalAction::terminateLeave(void)
  */
 
 void RenderTraversalAction::registerEnterDefault(
-    const FieldContainerType &type, 
+    const FieldContainerType &type,
     const Action::Functor    &func)
 {
     if(_vDefaultEnterFunctors == NULL)
@@ -166,14 +166,14 @@ void RenderTraversalAction::registerEnterDefault(
     {
         _vDefaultEnterFunctors->push_back(&Action::_defaultEnterFunction);
     }
-    
+
     FDEBUG_GV(("Register rendertrav for %s\n", type.getCName()));
 
     (*_vDefaultEnterFunctors)[type.getId()] = func;
 }
 
 void RenderTraversalAction::registerLeaveDefault(
-    const FieldContainerType &type, 
+    const FieldContainerType &type,
     const Action::Functor    &func)
 {
     if(_vDefaultLeaveFunctors == NULL)
@@ -189,7 +189,7 @@ void RenderTraversalAction::registerLeaveDefault(
     }
 
     FDEBUG_GV(("Register rendertrav leave for %s\n", type.getCName()));
-    
+
     (*_vDefaultLeaveFunctors)[type.getId()] = func;
 }
 
@@ -260,11 +260,11 @@ RenderTraversalAction::RenderTraversalAction(void) :
     UInt32 uiSId = SHLChunk        ::getStaticClassId() & 0x000003FF;
     UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
     UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
-  
+
 //    _uiKeyGen = (uiTId | (uiMId << 10) | (State::Key1Mask << 20));
-  
+
     _uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
-    
+
 /*
     fprintf(stderr, "CreateKeyGen (RT) (%p) from %d %d %d -> %08x\n",
             this,
@@ -302,7 +302,7 @@ RenderTraversalAction::RenderTraversalAction(
 RenderTraversalAction *RenderTraversalAction::create(void)
 {
     RenderTraversalAction *returnValue;
-    
+
     if(_pPrototype)
     {
         returnValue = new RenderTraversalAction(*_pPrototype);
@@ -349,7 +349,7 @@ void RenderTraversalAction::setNumBuffers(UInt32 n)
                   "buffer!\n"));
         n = 1;
     }
-    
+
     if(n > _numBuffers)
     {
         for(UInt16 i = _numBuffers; i < n; ++i)
@@ -359,7 +359,7 @@ void RenderTraversalAction::setNumBuffers(UInt32 n)
             _pStatePools      .push_back(new StateOverridePool);
             _pStateSorterPools.push_back(new StateSorterPool);
         }
-        
+
     }
     else if(n < _numBuffers)
     {
@@ -407,20 +407,20 @@ ActionBase::ResultE RenderTraversalAction::recurceNoNodeCallbacks(
         return Continue;
 
     NodeCorePtr core = node->getCore();
-    
+
     if(core == NullFC)
     {
-        SWARNING << "recurse: core is Null,  don't know what to do!" 
+        SWARNING << "recurse: core is Null,  don't know what to do!"
                  << std::endl;
-        return Quit;                    
+        return Quit;
     }
-    
+
     Action::ResultE result;
-    
+
     _actList = NULL;
     _actNode = node;
 
-   
+
     if(! _newList.empty())
     {
         result = callNewList();
@@ -429,22 +429,22 @@ ActionBase::ResultE RenderTraversalAction::recurceNoNodeCallbacks(
     {
         std::vector<NodePtr>::const_iterator it;
 
-        for(  it  = node->getMFChildren()->begin(); 
-              it != node->getMFChildren()->end(); 
+        for(  it  = node->getMFChildren()->begin();
+              it != node->getMFChildren()->end();
             ++it)
         {
             result = recurse(*it);
-            
+
             if(result != Continue)
                 break;
         }
-    }   
-    
+    }
+
     _actNode = node;
 
     if(result == Skip)
         return Continue;
-        
+
     return result;
 }
 
@@ -452,7 +452,7 @@ Action::ResultE RenderTraversalAction::start(void)
 {
     Inherited::start();
 
-#if 0 // Not needed done by the partition setup anyway.
+#if 1 // Not needed done by the partition setup anyway.
     if(_pWindow != NULL && !_doCullOnly)
     {
         _pWindow->resizeGL();
@@ -484,7 +484,7 @@ Action::ResultE RenderTraversalAction::start(void)
     _pActivePartition->init();
 
     bool full = true;
-    
+
     if(_pViewport != NULL)
     {
         _pActivePartition->setViewport(_pViewport);
@@ -501,17 +501,17 @@ Action::ResultE RenderTraversalAction::start(void)
             Matrix m, t;
 
             // set the projection
-            _pCamera->getProjection          ( m, 
-                                              _pViewport->getPixelWidth (), 
+            _pCamera->getProjection          ( m,
+                                              _pViewport->getPixelWidth (),
                                               _pViewport->getPixelHeight());
 
-            _pCamera->getProjectionTranslation( t, 
-                                               _pViewport->getPixelWidth (), 
+            _pCamera->getProjectionTranslation( t,
+                                               _pViewport->getPixelWidth (),
                                                _pViewport->getPixelHeight());
 
             _pActivePartition->setupProjection(m, t);
 
-            _pCamera->getViewing( m, 
+            _pCamera->getViewing( m,
                                  _pViewport->getPixelWidth (),
                                  _pViewport->getPixelHeight());
 
@@ -541,7 +541,7 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
         drawBuffer(_currentBuffer);
 
         if(getVolumeDrawing())
-            drawVolume(_oFrustum);  
+            drawVolume(_oFrustum);
 
         UInt32 uiNMatrix      = 0;
         UInt32 uiNState       = 0;
@@ -550,7 +550,7 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
 
         for(Int32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
         {
-            uiNMatrix += 
+            uiNMatrix +=
                 _vRenderPartitions[_currentBuffer][i]->getNumMatrixChanges();
 
             uiNState  +=
@@ -568,7 +568,7 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
         getStatistics()->getElem(statNShaders     )->set(uiNShader     );
         getStatistics()->getElem(statNShaderParams)->set(uiNShaderParam);
     }
-    
+
     return Action::Continue;
 }
 
@@ -595,7 +595,7 @@ void RenderTraversalAction::drawBuffer(UInt32 buf)
     getStatistics()->getElem(statDrawTime)->stop();
 }
 
-void RenderTraversalAction::dropFunctor(Material::DrawFunctor &func, 
+void RenderTraversalAction::dropFunctor(Material::DrawFunctor &func,
                                         State                 *pState,
                                         UInt32                 uiSortKey)
 {
@@ -621,7 +621,7 @@ Int32 RenderTraversalAction::allocateLightIndex(void)
 {
     return _pActivePartition->allocateLightIndex();
 }
-   
+
 void  RenderTraversalAction::releaseLightIndex(void)
 {
     _pActivePartition->releaseLightIndex();
@@ -675,7 +675,7 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
 void RenderTraversalAction::popPartition(void)
 {
     _pActivePartition = _sRenderPartitionStack.top();
-    
+
     _sRenderPartitionStack.pop();
 }
 
@@ -688,7 +688,7 @@ bool RenderTraversalAction::isVisible(Node *node)
 {
     return _pActivePartition->isVisible(node);
 }
-    
+
 bool RenderTraversalAction::pushVisibility(void)
 {
     if(_pActivePartition->pushVisibility(getActNode()) == false)
@@ -720,7 +720,7 @@ void RenderTraversalAction::setFrustumCulling(bool val)
         _pActivePartition->setFrustumCulling(val);
     else
         Inherited::setFrustumCulling(val);
-        
+
 }
 
 // control frustum
@@ -759,7 +759,7 @@ Action::ResultE ShadingAction::start(void)
     _currMatrix.second.setIdentity();
 
     bool full = true;
-    
+
     if(_viewport != NULL)
     {
         GLint pl  = _viewport->getPixelLeft();
@@ -769,7 +769,7 @@ Action::ResultE ShadingAction::start(void)
 
         GLint pw  = pr - pl + 1;
         GLint ph  = pt - pb + 1;
-        
+
         full = _viewport->isFullWindow();
 
         glViewport(pl, pb, pw, ph);
@@ -785,8 +785,8 @@ Action::ResultE ShadingAction::start(void)
             _camera->setupProjection(this, *_viewport);
 
             // set the viewing
-            
-            _camera->getViewing(_currMatrix.second, 
+
+            _camera->getViewing(_currMatrix.second,
                                 _viewport->getPixelWidth (),
                                 _viewport->getPixelHeight());
 
@@ -875,7 +875,7 @@ Action::ResultE ShadingAction::stop(ResultE res)
     if(!_ownStat)
        getStatistics()->getElem(statDrawTime)->start();
 
-#if 0    
+#if 0
     UInt32 i;
 
 //    dump(_pRoot, 0);
@@ -883,7 +883,7 @@ Action::ResultE ShadingAction::stop(ResultE res)
 //    dump(_pTransMatRoot, 0);
 
 #if defined(OSG_OPT_DRAWTREE)
-    //    _pNodePool->printStat();    
+    //    _pNodePool->printStat();
 #endif
 
     for(i = 0; i < _vLights.size(); i++)
@@ -926,11 +926,11 @@ Action::ResultE ShadingAction::stop(ResultE res)
         getStatistics()->getElem(statNTransGeometries)->set(
             _uiNumTransGeometries);
     }
-    
+
 
 //    FINFO (("Material %d Matrix %d Geometry %d Transparent %d\r",
-//            _uiNumMaterialChanges, 
-//            _uiNumMatrixChanges, 
+//            _uiNumMaterialChanges,
+//            _uiNumMatrixChanges,
 //            _uiNumGeometries,
 //            _uiNumTransGeometries));
 #endif
