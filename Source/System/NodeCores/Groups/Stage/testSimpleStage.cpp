@@ -45,7 +45,7 @@ using namespace OSG;
 
 SimpleSceneManager    *mgr(NULL);
 
-NodePtr       planeRoot;
+GroupNodePtr  planeRoot;
 GroupNodePtr  animRoot;
 
 Vec3f            sceneTrans;
@@ -266,9 +266,8 @@ void initAnimSetup(int argc, char **argv)
     pFBO->setColorAttachment(pTexBuffer, 0);
     pFBO->setDepthAttachment(pDepthBuffer );
 
-    pFBO->editMFDrawBuffers()->clear();
-    pFBO->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
-
+    pFBO->clearDrawBuffers();
+    pFBO->pushToDrawBuffers(GL_COLOR_ATTACHMENT0_EXT);
 
     // Stage core setup
     SimpleStageNodePtr pStage    = SimpleStageNodePtr::create();
@@ -290,51 +289,29 @@ void initAnimSetup(int argc, char **argv)
 void initPlaneSetup(void)
 {
     // beacon for camera and light
-    NodePtr  b1n = Node ::create();
-    GroupPtr b1  = Group::create();
-
-    b1n->setCore(b1);
+    GroupNodePtr  beacon = GroupNodePtr::create();
 
     // transformation
-
-    NodePtr    t1n = Node::create();
-    TransformPtr cam_transPlane = Transform::create();
-
-    t1n->setCore (cam_transPlane );
-    t1n->addChild(b1n);
+    TransformNodePtr cam_transPlane = TransformNodePtr::create();
+    cam_transPlane.node()->addChild(beacon);
 
     // light
-
-    NodePtr             dlight = Node::create();
-    DirectionalLightPtr dl     = DirectionalLight::create();
-
-    dlight->setCore(dl);
+    DirectionalLightNodePtr dl = DirectionalLightNodePtr::create();
 
     dl->setAmbient  (.3, .3, .3, 1);
     dl->setDiffuse  ( 1,  1,  1, 1);
     dl->setDirection( 0,  0,  1   );
-    dl->setBeacon   (b1n          );
+    dl->setBeacon   (beacon          );
 
     // planeRoot
-    planeRoot = Node::create();
-    GroupPtr gr1  = Group::create();
+    planeRoot = GroupNodePtr::create();
 
-    planeRoot->setCore (gr1   );
-
-    planeRoot->addChild(t1n     );
-    planeRoot->addChild(animRoot);
-    planeRoot->addChild(dlight  );
+    planeRoot.node()->addChild(cam_transPlane);
+    planeRoot.node()->addChild(animRoot);
+    planeRoot.node()->addChild(dl);
 
     // Create plane to project the staged render
-    NodePtr plane_node;
-    plane_node = makePlane(10, 10, 5, 5);
-
-    Vec3f min,max;
-    OSG::commitChanges();
-    plane_node->updateVolume();
-    plane_node->dump();
-    plane_node->getVolume().getBounds(min, max);
-    std::cout << "Volume: from " << min << " to " << max << std::endl;
+    NodePtr plane_node = makePlane(10, 10, 5, 5);
 
     // Setup the shared texture and texture environment
     // - Create an empty image so texture can allocate size and memory
@@ -381,13 +358,10 @@ void initPlaneSetup(void)
     pGeo->setMaterial(mat);
 
     // Finish connecting graph
-    TransformPtr scene_trans = Transform::create();
-    NodePtr      sceneTrN    = Node     ::create();
+    TransformNodePtr scene_trans = TransformNodePtr::create();
+    scene_trans.node()->addChild(plane_node );
 
-    sceneTrN->setCore (scene_trans);
-    sceneTrN->addChild(plane_node );
-
-    dlight->addChild(sceneTrN);
+    dl.node()->addChild(scene_trans);
 
 }
 
