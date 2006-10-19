@@ -18,21 +18,30 @@
 
 OSG_USING_NAMESPACE
 
-SimpleSceneManager    *mgr;
+SimpleSceneManager    *mgr(NULL);
 RenderTraversalAction *tact = NULL;
 RenderAction          *act = NULL;
 
-StatCollector         *collector;
+PassiveWindowPtr              pwin;
+SimpleStatisticsForegroundPtr statfg;
+
+StatCollector         *collector(NULL);
 
 bool show = true;
 bool bGLFinish = false;
 
+// Enum to track which stat method we are using
+enum StatMethod
+{ USE_CUSTOM, USE_SIMPLE, USE_NONE };
+
+StatMethod gStatMethod(USE_CUSTOM);
+
 // redraw the window
 void display(void)
-{   
+{
     mgr->redraw();
 
-    // all done, swap    
+    // all done, swap
     glutSwapBuffers();
 }
 
@@ -50,7 +59,7 @@ void mouse(int button, int state, int x, int y)
         mgr->mouseButtonRelease(button, x, y);
     else
         mgr->mouseButtonPress(button, x, y);
-        
+
     glutPostRedisplay();
 }
 
@@ -69,38 +78,101 @@ void initElements(void)
 //    collector->getElem(Drawable::statNTriangles);
 }
 
+void setStatMethod(StatMethod method)
+{
+   // Disable old method
+   if (gStatMethod == USE_CUSTOM)
+   {
+      pwin->getPort(0)->removeFromForegrounds(statfg);
+   }
+   else if(gStatMethod == USE_SIMPLE)
+   {
+      mgr->setStatistics(false);
+   }
+
+
+   // Enable new method
+   if(method == USE_CUSTOM)
+   {
+      std::cerr << "Setting to custom stats.\n";
+      pwin->getPort(0)->addForeground(statfg);
+   }
+   else if(method == USE_SIMPLE)
+   {
+      std::cerr << "Setting to ssm stats.\n";
+      mgr->setStatistics(true);
+   }
+   else
+   {
+      std::cerr << "Setting to no stats.\n";
+   }
+   gStatMethod = method;
+}
+
 
 // react to keys
 void keyboard(unsigned char k, int, int)
 {
     switch(k)
     {
-        case 27:    
+        case 27:
         {
             osgExit();
             exit(0);
         }
-        
+
+        // Output help about the controls
+        // - If you add an option, please add it here too.
+       case '?':
+       case '/':
+       case 'h':
+       {
+          std::cerr << "\nControls:"
+                    << "v: Toggle drawing of volumes.\n"
+                    << "z: Toggle zwrite on rendering action.\n"
+                    << "r: switch to render action.\n"
+                    << "t: switch to traversal action.\n"
+                    << "n: toggle state sorting on action.\n"
+                    << "m: set keygen to 0.\n"
+                    << "s: set keygen for shaders.\n"
+                    << "g: toggle using gl finish.\n"
+                    << "x: toggle stat mode.\n"
+                    << std::endl;
+       }
+       break;
+
         case 'v':
         {
             mgr->getAction()->setVolumeDrawing(
                                     !mgr->getAction()->getVolumeDrawing());
-		    std::cerr << "Volume Drawing: " 
-                      << (mgr->getAction()->getVolumeDrawing()?"on":"off") 
+            std::cerr << "Volume Drawing: "
+                      << (mgr->getAction()->getVolumeDrawing()?"on":"off")
                       << std::endl;
         }
-        
+        break;
+
         case 'z':
         {
-            RenderAction *ract = 
+            RenderAction *ract =
                 dynamic_cast<RenderAction *>(mgr->getAction());
 
             ract->setZWriteTrans(!ract->getZWriteTrans());
 
-		    std::cerr << "Switch TransZWrite to " 
-                      << (ract->getZWriteTrans()?"on":"off") 
+            std::cerr << "Switch TransZWrite to "
+                      << (ract->getZWriteTrans()?"on":"off")
                       << std::endl;
-             
+
+        }
+        break;
+
+        case 'x':
+        {
+            if(USE_CUSTOM == gStatMethod)
+            { setStatMethod(USE_SIMPLE); }
+            else if(USE_SIMPLE == gStatMethod)
+            { setStatMethod(USE_NONE); }
+            else
+            { setStatMethod(USE_CUSTOM); }
         }
         break;
 
@@ -128,8 +200,8 @@ void keyboard(unsigned char k, int, int)
             UInt32 uiSId = SHLChunk        ::getStaticClassId() & 0x000003FF;
             UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
             UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
-            
-  
+
+
             UInt32 uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
 
             tact->setKeyGen(uiKeyGen);
@@ -140,6 +212,7 @@ void keyboard(unsigned char k, int, int)
             bGLFinish = !bGLFinish;
             tact->setUseGLFinish(bGLFinish);
             act->setUseGLFinish(bGLFinish);
+            std::cerr << "Set use gl finish to: " << bGLFinish << std::endl;
             break;
     }
 }
@@ -151,12 +224,12 @@ int main(int argc, char **argv)
 
     // GLUT init
     glutInit(&argc, argv);
-    
+
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 
     glutInitWindowSize(500, 500);
     glutCreateWindow("OpenSG");
-    
+
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
     glutIdleFunc(display);
@@ -164,26 +237,26 @@ int main(int argc, char **argv)
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
 
-    PassiveWindowPtr pwin=PassiveWindow::create();
+    pwin=PassiveWindow::create();
     pwin->init();
 
     // create the scene
     NodePtr scene;
-    
+
     if(argc > 1 && !strcmp(argv[1],"-s"))
     {
-        show = false;
+        gStatMethod = USE_NONE;
         argv++;
         argc--;
     }
-    
+
     if(argc > 1)
     {
         scene = Node::create();
         GroupPtr g = Group::create();
-        
+
         scene->setCore(g);
-        
+
         for(UInt16 i = 1; i < argc; ++i)
             scene->addChild(SceneFileHandler::the()->read(argv[i]));
     }
@@ -206,44 +279,43 @@ int main(int argc, char **argv)
     mgr->showAll();
 
     // add the statistics forground
-    
-    SimpleStatisticsForegroundPtr statfg = 
-        SimpleStatisticsForeground::create();
-    
+
+    statfg = SimpleStatisticsForeground::create();
+
     statfg->setSize(25);
     statfg->setColor(Color4f(0,1,0,0.7));
 #if 0
     statfg->addElement(RenderAction::statDrawTime, "Draw FPS: %r.3f");
     statfg->addElement(DrawActionBase::statTravTime, "TravTime: %.3f s");
     statfg->addElement(RenderAction::statDrawTime, "DrawTime: %.3f s");
-    statfg->addElement(DrawActionBase::statCullTestedNodes, 
+    statfg->addElement(DrawActionBase::statCullTestedNodes,
                        "%d Nodes culltested");
-    statfg->addElement(DrawActionBase::statCulledNodes, 
+    statfg->addElement(DrawActionBase::statCulledNodes,
                        "%d Nodes culled");
-    statfg->addElement(RenderAction::statNMaterials, 
+    statfg->addElement(RenderAction::statNMaterials,
                        "%d material changes");
-    statfg->addElement(RenderAction::statNMatrices, 
+    statfg->addElement(RenderAction::statNMatrices,
                        "%d matrix changes");
-    statfg->addElement(RenderAction::statNGeometries, 
+    statfg->addElement(RenderAction::statNGeometries,
                        "%d Nodes drawn");
-    statfg->addElement(RenderAction::statNTransGeometries, 
+    statfg->addElement(RenderAction::statNTransGeometries,
                        "%d transparent Nodes drawn");
-    statfg->addElement(Drawable::statNTriangles, 
+    statfg->addElement(Drawable::statNTriangles,
                        "%d triangles drawn");
-    statfg->addElement(Drawable::statNLines, 
+    statfg->addElement(Drawable::statNLines,
                        "%d lines drawn");
-    statfg->addElement(Drawable::statNPoints, 
+    statfg->addElement(Drawable::statNPoints,
                        "%d points drawn");
     statfg->addElement(Drawable::statNPrimitives,
                         "%d primitive groups drawn");
-    statfg->addElement(Drawable::statNVertices, 
+    statfg->addElement(Drawable::statNVertices,
                        "%d vertices transformed");
     statfg->addElement(RenderAction::statNTextures, "%d textures used");
     statfg->addElement(RenderAction::statNTexBytes, "%d bytes of texture used");
 #endif
-    
+
     collector = &statfg->editCollector();
-    
+
 
     mgr->setUseTraversalAction(true);
 
@@ -256,13 +328,12 @@ int main(int argc, char **argv)
     mgr->setAction(tact);
     mgr->setAction( act);
 
-    if(show)
-    {
-        pwin->getPort(0)->addForeground(statfg);
-    }
-    
+    setStatMethod(gStatMethod);
+
+
     // GLUT main loop
     glutMainLoop();
 
     return 0;
 }
+
