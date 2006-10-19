@@ -225,6 +225,10 @@ void key(unsigned char key, int x, int y)
             glPolygonMode( GL_FRONT_AND_BACK, GL_FILL);
             std::cerr << "PolygonMode: Fill." << std::endl;
             break;
+        case 'd':
+            std::cerr << "Wrote out scene file." << std::endl;
+            OSG::SceneFileHandler::the()->write(planeRoot, "simple_stage_dump.osb");
+            break;
     }
 }
 
@@ -437,8 +441,6 @@ void initPlaneSetup(void)
 
     dlight->addChild(sceneTrN);
 
-
-    OSG::SceneFileHandler::the()->write(planeRoot, "/var/tmp/simple_stage_dump.osb");
 }
 
 int main (int argc, char **argv)
@@ -497,7 +499,7 @@ int main (int argc, char **argv)
     // show the whole scene
     mgr->showAll();
 
-    //mgr->setUseTraversalAction(true);
+    mgr->setUseTraversalAction(true);
 
     glutMainLoop();
 
