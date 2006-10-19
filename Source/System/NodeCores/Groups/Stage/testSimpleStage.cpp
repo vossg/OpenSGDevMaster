@@ -4,13 +4,10 @@
 
 #include <OSGGLUT.h>
 
-#include <OSGFieldContainerFactory.h>
 #include <OSGVector.h>
 #include <OSGQuaternion.h>
 #include <OSGMatrix.h>
 #include <OSGMatrixUtility.h>
-#include <OSGBoxVolume.h>
-#include <OSGLine.h>
 #include <OSGNode.h>
 #include <OSGGroup.h>
 #include <OSGThread.h>
@@ -23,30 +20,21 @@
 
 #include <OSGDirectionalLight.h>
 
-#include "OSGViewport.h"
-
 #include "OSGFBOViewport.h"
 #include "OSGFrameBufferObject.h"
 #include "OSGRenderBuffer.h"
 #include "OSGTextureBuffer.h"
 
-#include "OSGCamera.h"
 #include "OSGWindow.h"
-#include "OSGGLUTWindow.h"
-#include "OSGCamera.h"
 #include "OSGPerspectiveCamera.h"
 #include "OSGSolidBackground.h"
-//#include "OSGUniformBackground.h"
-#include "OSGOSGWriter.h"
 #include "OSGChangeList.h"
-#include "OSGIOStream.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGTextureEnvChunk.h"
 #include "OSGSimpleMaterial.h"
 #include "OSGSimpleStage.h"
 #include "OSGVisitSubTree.h"
 
-#include "OSGTrackball.h"
 
 #include <OSGSimpleSceneManager.h>
 #include <OSGPassiveWindow.h>
@@ -57,24 +45,12 @@ using namespace OSG;
 
 SimpleSceneManager    *mgr(NULL);
 
-RenderAction          *renact     = NULL;
-RenderTraversalAction *rentravact = NULL;
-
 NodePtr       planeRoot;
 GroupNodePtr  animRoot;
-
-NodePtr  file;
-
-FBOViewportPtr vpScene;
-ViewportPtr    vpPlane;
-
-WindowPtr    win;
 
 Vec3f            sceneTrans;
 TransformNodePtr cam_transScene;    // Transofrmation of cam/light/stage
 TransformNodePtr sceneXform;        // Rotation of model we are viewing
-
-TransformPtr cam_transPlane;
 
 TextureObjChunkPtr tx1o;       // Texture object to shared
 TextureEnvChunkPtr tx1e;       // Texture environment to share
@@ -83,13 +59,6 @@ TextureEnvChunkPtr tx1e;       // Texture environment to share
 TextureObjChunkPtr txDepth;    // Depth texture
 #endif
 
-Trackball    tball;
-
-Vec3f min,max;
-
-int mouseb = 0;
-int lastx  = 0;
-int lasty  = 0;
 
 
 // ----- Scene structure --- //
@@ -109,7 +78,7 @@ dlight:DirLight:beacon      cam_transScene:Transform
         |                                |
 sceneXform:Transform                beacon:Group
         |
-      file:Node
+      fileNode:Node
 
        animRoot
           |
@@ -127,38 +96,15 @@ RenderBuffer: pDepthBuffer
 
 void display(void)
 {
-    Matrix m1, m2, m3;
-    Quaternion q1;
-
-    tball.getRotation().getValue(m3);
-
-    q1.setValue(m3);
-
-    m1.setRotate(q1);
-
-    m2.setTranslate( tball.getPosition() );
-
-    m1.mult( m2 );
-
-    cam_transPlane->editSFMatrix()->setValue(m1);
-
+    Matrix m1;
 
     // Anim
-
     Real32 t = glutGet(GLUT_ELAPSED_TIME);
+    m1.setTransform(-sceneTrans, Quaternion(Vec3f(0,1,0), t / 1000.f));
+    sceneXform->setMatrix(m1);
 
-    m1.setRotate(Quaternion(Vec3f(0,1,0), t / 1000.f));
+    OSG::commitChanges();
 
-
-    m1[3][0] = -sceneTrans[0];
-    m1[3][1] = -sceneTrans[1];
-    m1[3][2] = -sceneTrans[2];
-
-    sceneXform->editSFMatrix()->setValue(m1);
-
-    Thread::getCurrentChangeList()->commitChanges();
-
-    //win->render(rentravact);
     mgr->redraw();
 
     // all done, swap
@@ -168,8 +114,8 @@ void display(void)
 void reshape(int w, int h)
 {
     std::cerr << "Reshape: " << w << "," << h << std::endl;
-    //win->resize( w, h );
     mgr->resize(w,h);
+    glutPostRedisplay();
 }
 
 
@@ -270,7 +216,8 @@ void initAnimSetup(int argc, char **argv)
         file = makeTorus(.5, 2, 16, 16);
     }
 
-    Thread::getCurrentChangeList()->commitChanges();
+    Vec3f min,max;
+    OSG::commitChanges();
     file->updateVolume();
     file->dump();
     file->getVolume().getBounds(min, max);
@@ -351,7 +298,7 @@ void initPlaneSetup(void)
     // transformation
 
     NodePtr    t1n = Node::create();
-    cam_transPlane = Transform::create();
+    TransformPtr cam_transPlane = Transform::create();
 
     t1n->setCore (cam_transPlane );
     t1n->addChild(b1n);
@@ -382,7 +329,8 @@ void initPlaneSetup(void)
     NodePtr plane_node;
     plane_node = makePlane(10, 10, 5, 5);
 
-    Thread::getCurrentChangeList()->commitChanges();
+    Vec3f min,max;
+    OSG::commitChanges();
     plane_node->updateVolume();
     plane_node->dump();
     plane_node->getVolume().getBounds(min, max);
@@ -461,12 +409,6 @@ int main (int argc, char **argv)
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
 
-    // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-
-    glEnable( GL_DEPTH_TEST );
-    glEnable( GL_LIGHTING );
-    glEnable( GL_LIGHT0 );
-
     // OSG
     SceneFileHandler::the()->print();
 
@@ -494,7 +436,7 @@ int main (int argc, char **argv)
     // tell the manager what to manage
     mgr->setRoot  (planeRoot);
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::commitChanges();
 
     // show the whole scene
     mgr->showAll();
