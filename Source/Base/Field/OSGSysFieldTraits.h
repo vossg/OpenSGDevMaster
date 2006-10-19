@@ -576,6 +576,43 @@ struct FieldTraits<void *> : public FieldTraitsPODTemplateBase<void *>
     static Char8    *getMName     (void) { return "MFVoidP";           }
 
     static void     *getDefault   (void) { return NULL;                }
+    
+    // Binary
+    
+    // TODO Is it correct to just ignore these for binary ??
+    
+    static UInt32 getBinSize(void * const &)
+    {
+        return 0;
+    }
+
+    static UInt32 getBinSize(void* const*,
+                                   UInt32     )
+    {
+        return 0;
+    }
+
+    static void copyToBin(BinaryDataHandler &,
+                          void              * const & )
+    {
+    }
+
+    static void copyToBin(BinaryDataHandler &,
+                          void              * const *,
+                          UInt32                      )
+    {
+    }
+
+    static void copyFromBin(BinaryDataHandler &,
+                            void              * const & )
+    {
+    }
+
+    static void copyFromBin(BinaryDataHandler &,
+                            void              * const *,
+                            UInt32                      )
+    {
+    }
 };
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)

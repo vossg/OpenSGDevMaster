@@ -117,6 +117,29 @@ class AttachmentContainerMixin  : public ParentT
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void replaceInMField (const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
+                                        FieldContainerPtrConstArg pNewElement,
+                                  const UInt32                    uiFieldId  );
+
+    virtual void removeFromMField(const UInt32                    uiIndex,
+                                  const UInt32                    whichField );
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
+                                  const UInt32                    whichField );
+
+    virtual void clearField      (const UInt32                    whichField );
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */

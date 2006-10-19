@@ -145,6 +145,12 @@ class AttachmentMixin  : public ParentT
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
+    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_operators                             */

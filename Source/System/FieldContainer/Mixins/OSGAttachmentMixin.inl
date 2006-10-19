@@ -96,13 +96,16 @@ AttachmentMixin<ParentT>::AttachmentMixin(
 {
 }
 
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
 template <class ParentT> inline
 AttachmentMixin<ParentT>::~AttachmentMixin(void)
 {
 }
 
 /*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
+/*                                 Get                                     */
 
 template <class ParentT> inline
 SFBool &AttachmentMixin<ParentT>::editInternal(void)
@@ -147,7 +150,7 @@ const typename AttachmentMixin<ParentT>::ParentField *
 }
 
 /*-------------------------------------------------------------------------*/
-/*                             Assignment                                  */
+/*                               Set                                       */
 
 template <class ParentT> inline
 void AttachmentMixin<ParentT>::setInternal(bool bVal)
@@ -156,6 +159,9 @@ void AttachmentMixin<ParentT>::setInternal(bool bVal)
 
     _sfInternal.setValue(bVal);
 }
+
+/*-------------------------------------------------------------------------*/
+/*                          your_category                              */
 
 template <class ParentT> inline
 void AttachmentMixin<ParentT>::addParent(
@@ -186,7 +192,63 @@ void AttachmentMixin<ParentT>::subParent(ParentPtrConst &parent)
 }
 
 /*-------------------------------------------------------------------------*/
-/*                             Comparison                                  */
+/*                           Binary Access                                 */
+
+template <class ParentT>
+UInt32 
+AttachmentMixin<ParentT>::getBinSize(ConstFieldMaskArg whichField)
+{
+    UInt32 returnValue = Inherited::getBinSize(whichField);
+    
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        returnValue += _mfParents.getBinSize();
+    }
+    
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        returnValue += _sfInternal.getBinSize();
+    }
+    
+    return returnValue;
+}
+
+template <class ParentT>
+void
+AttachmentMixin<ParentT>::copyToBin(BinaryDataHandler &pMem,
+                                    ConstFieldMaskArg  whichField)
+{
+    Inherited::copyToBin(pMem, whichField);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyToBin(pMem);
+    }
+    
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        _sfInternal.copyToBin(pMem);
+    }
+}
+
+template <class ParentT>
+void
+AttachmentMixin<ParentT>::copyFromBin(BinaryDataHandler &pMem,
+                                      ConstFieldMaskArg  whichField)
+{
+    Inherited::copyFromBin(pMem, whichField);
+
+    if(FieldBits::NoField != (ParentsFieldMask & whichField))
+    {
+        _mfParents.copyFromBin(pMem);
+    }
+
+    if(FieldBits::NoField != (InternalFieldMask & whichField))
+    {
+        _sfInternal.copyFromBin(pMem);
+    }
+}
+
 
 OSG_END_NAMESPACE
 

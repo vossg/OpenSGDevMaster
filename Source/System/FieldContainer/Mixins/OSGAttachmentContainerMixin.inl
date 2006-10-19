@@ -60,6 +60,93 @@ void AttachmentContainerMixin<ParentT>::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 }
 
+/*-------------------------------------------------------------------------*/
+/*                                Set                                      */
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::pushToField(
+          FieldContainerPtrConstArg pNewElement,
+    const UInt32                    uiFieldId   )
+{
+    Inherited::pushToField(pNewElement, uiFieldId);
+
+    if(uiFieldId == AttachmentsFieldId)
+    {
+        addAttachment(cast_dynamic<AttachmentObjPtr>(pNewElement));
+    }
+}
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::insertIntoMField(
+    const UInt32                    uiIndex,
+          FieldContainerPtrConstArg pNewElement,
+    const UInt32                    uiFieldId   )
+{
+    Inherited::insertIntoMField(uiIndex, pNewElement, uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::insertIntoMField: NIY\n"));
+}
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::replaceInMField (
+    const UInt32                    uiIndex,
+          FieldContainerPtrConstArg pNewElement,
+    const UInt32                    uiFieldId   )
+{
+    Inherited::replaceInMField(uiIndex, pNewElement, uiFieldId);
+
+    FWARNING(("AttachmentContainerMixin::replaceInMField: NIY\n"));
+}
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::replaceInMField (
+          FieldContainerPtrConstArg pOldElement,
+          FieldContainerPtrConstArg pNewElement,
+    const UInt32                    uiFieldId  )
+{
+    Inherited::replaceInMField(pOldElement, pNewElement, uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::replaceInMField: NIY\n"));
+}
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::removeFromMField(
+    const UInt32                    uiIndex,
+    const UInt32                    uiFieldId )
+{
+    Inherited::removeFromMField(uiIndex, uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::removeFromMField: NIY\n"));
+}
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::removeFromMField(
+          FieldContainerPtrConstArg pElement,
+    const UInt32                    uiFieldId )
+{
+    Inherited::removeFromMField(pElement, uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::removeFromMField: NIY\n"));
+}
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::clearField(
+    const UInt32                    uiFieldId )
+{
+    Inherited::clearField(uiFieldId);
+    
+    FWARNING(("AttachmentContainerMixin::clearField: NIY\n"));
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Assignment                                  */
 
 /**
  * Add an attachment at the binding point.

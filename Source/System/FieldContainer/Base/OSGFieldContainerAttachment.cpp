@@ -49,6 +49,9 @@
 
 OSG_USING_NAMESPACE
 
+/*-------------------------------------------------------------------------*/
+/*                               Fields                                    */
+
 void FieldContainerAttachment::classDescInserter(TypeObject &oType)
 {
     Inherited::classDescInserter(oType);

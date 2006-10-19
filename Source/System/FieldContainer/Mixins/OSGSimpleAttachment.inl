@@ -194,7 +194,14 @@ template <class AttachmentDescT> inline
 UInt32 SimpleAttachment<AttachmentDescT>::getBinSize(
     ConstFieldMaskArg  whichField)
 {
-    return 0;
+    UInt32 returnValue = Inherited::getBinSize(whichField);
+    
+    if(FieldBits::NoField != (SimpleFieldMask & whichField))
+    {
+        returnValue += _field.getBinSize();
+    }
+
+    return returnValue;
 }
 
 
@@ -203,6 +210,12 @@ void SimpleAttachment<AttachmentDescT>::copyToBin(
     BinaryDataHandler &pMem, 
     ConstFieldMaskArg  whichField)
 {
+    Inherited::copyToBin(pMem, whichField);
+    
+    if(FieldBits::NoField != (SimpleFieldMask & whichField))
+    {
+        _field.copyToBin(pMem);
+    }
 }
 
 template <class AttachmentDescT> inline
@@ -210,6 +223,12 @@ void SimpleAttachment<AttachmentDescT>::copyFromBin(
     BinaryDataHandler &pMem, 
     ConstFieldMaskArg  whichField)
 {
+    Inherited::copyFromBin(pMem, whichField);
+    
+    if(FieldBits::NoField != (SimpleFieldMask & whichField))
+    {
+        _field.copyFromBin(pMem);
+    }
 }
 
 template <class AttachmentDescT> inline
