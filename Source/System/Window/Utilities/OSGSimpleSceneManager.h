@@ -64,7 +64,7 @@
 #include "OSGPerspectiveCamera.h"
 #include "OSGDirectionalLight.h"
 #include "OSGNavigator.h"
-//#include "OSGStatisticsForeground.h"
+#include "OSGStatisticsForeground.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -207,7 +207,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     NodePtr                      _root;
 
     ImageForegroundPtr           _foreground;
-    //StatisticsForegroundPtr      _statforeground;
+    StatisticsForegroundPtr      _statforeground;
     bool                         _statstate;
 
     //NodePtr                      _highlight;

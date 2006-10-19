@@ -49,7 +49,7 @@
 #include <OSGSolidBackground.h>
 #include <OSGViewport.h>
 #include <OSGLogoData.h>
-//#include <OSGSimpleStatisticsForeground.h>
+#include <OSGSimpleStatisticsForeground.h>
 //#include <OSGStatElemTypes.h>
 //#include <OSGStatCollector.h>
 #include <OSGDrawable.h>
@@ -72,7 +72,7 @@ OSG_USING_NAMESPACE
 
 /*! \class OSG::SimpleSceneManager
     \ingroup GrpSystemWindow
-    
+
     SimpleSceneManager manages the OpenSG components that are needed to do
     simple applications that just want to display some geometry. It takes the
     window to render into and the root node of the graph to display and takes
@@ -322,7 +322,7 @@ RenderTraversalAction *SimpleSceneManager::getRenderTraversalAction(void)
 }
 #endif
 
-/*! set the action used to render the scene. Use NULL to set to 
+/*! set the action used to render the scene. Use NULL to set to
     internally created action.
  */
 
@@ -341,7 +341,7 @@ void SimpleSceneManager::setAction(RenderAction *action)
     {
         _action = action;
     }
-    
+
     if(statstate)
         setStatistics(true);
 }
@@ -441,24 +441,19 @@ void SimpleSceneManager::setHighlight(NodePtr highlight)
  */
 void SimpleSceneManager::setStatistics(bool on)
 {
-#if 0 // amz
+#if 1 // amz
     if(_statforeground != NullFC && on != _statstate)
     {
         ViewportPtr vp = _win->getPort()[0];
 
         if(on)
         {
-            vp->getForegrounds().push_back(_statforeground);
-
-            _action->setStatistics(&_statforeground->getCollector());
+            vp->addForeground(_statforeground);
+            _action->setStatistics(&_statforeground->editCollector());
         }
         else
         {
-            MFForegroundPtr::iterator it;
-
-            it = vp->getForegrounds().find(_statforeground);
-            vp->getForegrounds().erase(it);
-
+            vp->removeFromForegrounds(_statforeground);
             _action->setStatistics(NULL);
         }
 
@@ -497,7 +492,7 @@ void SimpleSceneManager::initialize(void)
     _internalRoot->setCore(_headlight);
     _internalRoot->addChild(cartN);
 
-    
+
     _headlight->setAmbient  (.3, .3, .3, 1);
     _headlight->setDiffuse  ( 1,  1,  1, 1);
     _headlight->setSpecular ( 1,  1,  1, 1);
@@ -521,13 +516,13 @@ void SimpleSceneManager::initialize(void)
         // problems on Linux/nVidia
 
         SolidBackgroundPtr bg = SolidBackground::create();
-        
+
         bg->setColor(Color3f(0.2, 0.2, 0.2));
 
         _foreground = ImageForeground::create();
-        
-#if 0 // amz
-        
+
+#if 1 // amz
+
         SimpleStatisticsForegroundPtr sf = SimpleStatisticsForeground::create();
 
         sf->setSize(25);
@@ -560,10 +555,9 @@ void SimpleSceneManager::initialize(void)
         sf->addElement(Drawable::statNVertices,     "%d vertices transformed");
         sf->addElement(RenderAction::statNTextures, "%d textures used");
         sf->addElement(RenderAction::statNTexBytes, "%d bytes of texture used");
-        StatCollector *collector = &sf->getCollector();
 
         // add optional elements
-        collector->getElem(Drawable::statNTriangles);
+        sf->editCollector().getElem(Drawable::statNTriangles);
 
         _statforeground = sf;
 #endif
@@ -609,7 +603,7 @@ void SimpleSceneManager::showAll(void)
     Vec3f up(0,1,0);
     Pnt3f at((min[0] + max[0]) * .5f,(min[1] + max[1]) * .5f,(min[2] + max[2]) * .5f);
     Pnt3f from=at;
-    from[2]+=(dist+fabs(max[2]-min[2])*0.5f); 
+    from[2]+=(dist+fabs(max[2]-min[2])*0.5f);
 
     _navigator.set(from,at,up);
 
@@ -676,10 +670,10 @@ void SimpleSceneManager::redraw(void)
 
     if(!_traversalAction)
         _win->render(_action);
-#ifdef OSG_CLEANED_RENDERACTION        
+#ifdef OSG_CLEANED_RENDERACTION
     else
         _win->render(_taction);
-#endif        
+#endif
 }
 
 /*! Adjust the highlight to a changed object. Also initializes the highlight
@@ -864,7 +858,7 @@ void SimpleSceneManager::mouseButtonPress(UInt16 button, Int16 x, Int16 y)
     case MouseDown:    _navigator.buttonPress(Navigator::DOWN_MOUSE,x,y);
       break;
     }
-    
+
     _mousebuttons |= 1 << button;
     _lastx = x;
     _lasty = y;
