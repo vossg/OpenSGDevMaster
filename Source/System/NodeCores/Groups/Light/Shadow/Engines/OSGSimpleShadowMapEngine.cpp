@@ -816,6 +816,7 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
         {
             pAction->recurceNoNodeCallbacks(pAction->getActNode());
             
+            setupCamera    (pLight, eType, pAction, pEngineData);
             doFinalPass    (pLight,  pAction, pEngineData);
         }
 
@@ -830,7 +831,6 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
         {
             pAction->recurceNoNodeCallbacks(pAction->getActNode());
             
-            setupCamera    (pLight, eType, pAction, pEngineData);
             doLightPass    (pLight,        pAction, pEngineData);
         }
     }
