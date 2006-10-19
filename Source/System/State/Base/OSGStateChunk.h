@@ -107,7 +107,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
     {
         StateChunkClassInit(void) 
         { 
-            addPostFactoryInitFunction(&StateChunkClass::initialize); 
+            addPreFactoryInitFunction(&StateChunkClass::initialize); 
         }
     };
 

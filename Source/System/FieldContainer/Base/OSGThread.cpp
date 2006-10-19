@@ -56,6 +56,7 @@
 #include "OSGThreadManager.h"
 #endif
 #include "OSGLog.h"
+#include "OSGBaseInitFunctions.h"
 
 #if ! defined (OSG_USE_PTHREADS) && ! defined (OSG_USE_WINTHREADS)
 #include <sys/types.h>
@@ -537,6 +538,15 @@ Thread *Thread::create(const Char8 *szName, UInt32 uiId)
     return new Thread(szName, uiId);
 }
 
+static bool clearInitChanges(void)
+{
+//    OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+
+    OSG::Thread::getCurrentChangeList()->clear();
+
+    return true;
+}
+
 void Thread::initThreading(void)
 {
     FINFO(("Thread::initThreading\n"))
@@ -568,6 +578,8 @@ void Thread::initThreading(void)
 #endif
 
     ThreadManager::setAppThreadType("OSGThread");
+
+    addPostFactoryInitFunction(clearInitChanges);
 }
 
 /*-------------------------------------------------------------------------*/

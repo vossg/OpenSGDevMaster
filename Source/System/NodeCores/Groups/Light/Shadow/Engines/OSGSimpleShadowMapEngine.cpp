@@ -665,11 +665,13 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
     MatrixCameraPtr pCam = cast_dynamic<MatrixCameraPtr>(
         pEngineData->getCamera());
 
-    pCam->getProjection(projectionMatrix, 512, 512);
+    pCam->getProjection(projectionMatrix,
+                        this->getWidth (),
+                        this->getHeight());
     
     pCam->getViewing   (viewMatrix,
-                        512,
-                        512);
+                        this->getWidth (),
+                        this->getHeight());
 
     Matrix textureMatrix = biasMatrix;
     textureMatrix.mult(projectionMatrix);

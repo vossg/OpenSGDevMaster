@@ -126,6 +126,9 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
             pMatChunk->setColorMaterial(GL_NONE);
 
             _pLightPassMat->addChunk(pMatChunk);
+
+            _pLightPassMat->changed(FieldBits::AllFields,
+                                    ChangedOrigin::Commit);
         }
     }
 }
