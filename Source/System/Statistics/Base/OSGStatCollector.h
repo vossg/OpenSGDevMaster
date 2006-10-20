@@ -59,10 +59,10 @@ OSG_BEGIN_NAMESPACE
 class StatElem;
 class StatElemDescBase;
 
-/*! \brief Manager for Stat elements, see \ref PageSystemStatistics for 
+/*! \brief Manager for Stat elements, see \ref PageSystemStatistics for
     details.
 */
-class OSG_SYSTEM_DLLMAPPING StatCollector 
+class OSG_SYSTEM_DLLMAPPING StatCollector
 {
 
     /*==========================  PUBLIC  =================================*/
@@ -83,17 +83,17 @@ class OSG_SYSTEM_DLLMAPPING StatCollector
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructor                                 */
     /*! \{                                                                 */
-    
+
     StatElem *getElem(Int32             id           ) const;
 
-    StatElem *getElem(Int32             id, 
+    StatElem *getElem(Int32             id,
                       bool              create = true);
-    
-    StatElem *getElem(StatElemDescBase &desc, 
+
+    StatElem *getElem(StatElemDescBase &desc,
                       bool              create = true);
-    
-    template <class T> 
-    T        *getElem(StatElemDesc<T>  &desc, 
+
+    template <class T>
+    T        *getElem(StatElemDesc<T>  &desc,
                       bool              create = true);
 
     /*! \}                                                                 */
@@ -103,9 +103,9 @@ class OSG_SYSTEM_DLLMAPPING StatCollector
 
     void putToString   (      std::string  &outVal) const;
     bool getFromCString(const Char8       *&inVal );
-    bool getValue      (      std::string  &name, 
+    bool getValue      (      std::string  &name,
                               Real64       &val   );
-            
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructor                                 */
@@ -154,8 +154,11 @@ class OSG_SYSTEM_DLLMAPPING StatCollector
     /*==========================  PRIVATE  ================================*/
 
   private:
+    typedef std::vector<StatElem*>        StatElemStore;
+    typedef StatElemStore::iterator       StatElemStoreIt;
+    typedef StatElemStore::const_iterator StatElemStoreConstIt;
 
-    std::vector<StatElem*> _elemVec;
+    StatElemStore _elemVec;
 };
 
 typedef StatCollector *StatCollectorP;
@@ -170,13 +173,13 @@ typedef StatCollector *StatCollectorP;
 #endif
 
 template <>
-struct FieldTraits<StatCollector> : 
+struct FieldTraits<StatCollector> :
     public FieldTraitsTemplateBase<StatCollector>
 {
     static  DataType                   _type;
     typedef FieldTraits<StatCollector>  Self;
 
-    enum                  { Convertible = Self::ToStringConvertible  | 
+    enum                  { Convertible = Self::ToStringConvertible  |
                                           Self::FromStringConvertible };
 
     static DataType       &getType      (void) { return _type;          }
@@ -204,23 +207,23 @@ struct FieldTraits<StatCollector> :
         return 0;
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
+    static void copyToBin(      BinaryDataHandler &pMem,
                           const StatCollector     &oObject)
     {
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem, 
+    static void copyToBin(      BinaryDataHandler &pMem,
                           const StatCollector     *pObjectStore,
                                 UInt32             uiNumObjects)
     {
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
+    static void copyFromBin(BinaryDataHandler &pMem,
                             StatCollector     &oObject)
     {
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem, 
+    static void copyFromBin(BinaryDataHandler &pMem,
                             StatCollector     *pObjectStore,
                             UInt32             uiNumObjects)
     {
@@ -235,7 +238,7 @@ struct FieldTraits<StatCollector> :
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
 typedef SField<StatCollector> SFStatCollector;
@@ -249,6 +252,6 @@ OSG_END_NAMESPACE
 
 #include "OSGStatCollector.inl"
 
-#define OSGSTATCOLLECTOR_HEADER_CVSID "@(#)$Id:$"
+#define OSGSTATCOLLECTOR_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSTATCOLLECTOR_H_ */

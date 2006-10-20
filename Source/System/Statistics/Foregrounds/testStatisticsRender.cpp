@@ -80,33 +80,34 @@ void initElements(void)
 
 void setStatMethod(StatMethod method)
 {
-   // Disable old method
-   if (gStatMethod == USE_CUSTOM)
-   {
-      pwin->getPort(0)->removeFromForegrounds(statfg);
-   }
-   else if(gStatMethod == USE_SIMPLE)
-   {
-      mgr->setStatistics(false);
-   }
+    // Disable old method
+    if (gStatMethod == USE_CUSTOM)
+    {
+        pwin->getPort(0)->removeFromForegrounds(statfg);
+    }
+    else if(gStatMethod == USE_SIMPLE)
+    {
+        mgr->setStatistics(false);
+    }
 
-
-   // Enable new method
-   if(method == USE_CUSTOM)
-   {
-      std::cerr << "Setting to custom stats.\n";
-      pwin->getPort(0)->addForeground(statfg);
-   }
-   else if(method == USE_SIMPLE)
-   {
-      std::cerr << "Setting to ssm stats.\n";
-      mgr->setStatistics(true);
-   }
-   else
-   {
-      std::cerr << "Setting to no stats.\n";
-   }
-   gStatMethod = method;
+    // Enable new method
+    if(method == USE_CUSTOM)
+    {
+        std::cerr << "Setting to custom stats.\n";
+        pwin->getPort(0)->addForeground(statfg);
+        act->setStatistics(collector);
+        tact->setStatistics(collector);
+    }
+    else if(method == USE_SIMPLE)
+    {
+        std::cerr << "Setting to ssm stats.\n";
+        mgr->setStatistics(true);
+    }
+    else
+    {
+        std::cerr << "Setting to no stats.\n";
+    }
+    gStatMethod = method;
 }
 
 
@@ -281,9 +282,11 @@ int main(int argc, char **argv)
     // add the statistics forground
 
     statfg = SimpleStatisticsForeground::create();
+    addRef(statfg);
 
     statfg->setSize(25);
     statfg->setColor(Color4f(0,1,0,0.7));
+
 #if 0
     statfg->addElement(RenderAction::statDrawTime, "Draw FPS: %r.3f");
     statfg->addElement(DrawActionBase::statTravTime, "TravTime: %.3f s");
@@ -315,7 +318,6 @@ int main(int argc, char **argv)
 #endif
 
     collector = &statfg->editCollector();
-
 
     mgr->setUseTraversalAction(true);
 

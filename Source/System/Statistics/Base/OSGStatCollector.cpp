@@ -84,7 +84,7 @@ StatCollector::StatCollector(const StatCollector &source) :
     _elemVec()
 {
     _elemVec.resize(source._elemVec.size());
-    
+
     for(UInt32 i = 0; i < source._elemVec.size(); ++i)
     {
         if(source._elemVec[i])
@@ -105,46 +105,45 @@ StatCollector *StatCollector::create(void)
 
 StatCollector::~StatCollector(void)
 {
-	for(UInt32 i = 0; i < _elemVec.size(); ++i)
-		delete _elemVec[i];
+    for(UInt32 i = 0; i < _elemVec.size(); ++i)
+        delete _elemVec[i];
 }
 
 /*-------------------------- your_category---------------------------------*/
 
 /*! Increase the size of the StatCollector's data array. This is called during
-    construction and will only be needed later, when a new StatElem has been 
-    added after the StatCollector was instanced. This will very rarely be the 
+    construction and will only be needed later, when a new StatElem has been
+    added after the StatCollector was instanced. This will very rarely be the
     case.
  */
-
 void StatCollector::refitElemNum(void)
 {
-    unsigned eN = _elemVec.size(), dN = StatElemDescBase::getNumOfDescs();
-    
+    UInt32 eN = _elemVec.size();
+    UInt32 dN = StatElemDescBase::getNumOfDescs();
+
     if(eN != dN)
-    {
-        _elemVec.resize(dN,0);
-    }
+        _elemVec.resize(dN, 0);
 }
 
 /*! Convert the current contents into a string. This
     string can be used as a compact representation of the data, and as input
     for StatCollector::getFromString.
  */
-
 void StatCollector::putToString(std::string &str) const
 {
-    std::vector<StatElem*>::const_iterator it;
     bool first = true;
-     
+
     str = "{";
-    
-    for(it = _elemVec.begin(); it != _elemVec.end(); ++it)
+
+    StatElemStoreConstIt it    = _elemVec.begin();
+    StatElemStoreConstIt endIt = _elemVec.end();
+
+    for(; it != endIt; ++it)
     {
         if(*it != NULL)
         {
             std::string elem;
-            
+
             if(!first)
                 str.append("|");
 
@@ -157,46 +156,45 @@ void StatCollector::putToString(std::string &str) const
     }
     str.append("}");
 }
-     
+
 
 /*! Set the contents from a string. The string has to have the format that is
     used by StatCollector::putToString.
  */
-
 bool StatCollector::getFromCString(const Char8 *&inVal)
 {
     const Char8 *c = inVal;
-    
+
     if(*c++ != '{')
         return false;
 
     StatElemDescBase *desc;
     StatElem *elem;
-    
+
     clearElems();
-    
+
     while(*c && *c != '}')
     {
         const Char8 *end = c;
-        
+
         while(*end != 0 && *end != '=' && *end != '}' && *end != '|')
             end++;
-            
+
         if(*end == 0 || *end == '}' || *end == '|')
             return false;
-        
+
         std::string name(c, end - c);
         desc = StatElemDescBase::findDescByName(name.c_str());
-        
+
         if(!desc)
             return false;
-        
+
         elem = getElem(*desc);
 
-        c = end = end + 1;       
+        c = end = end + 1;
         while(*end != 0 && *end != '}' && *end != '|')
             end++;
-            
+
         if(*end == 0)
             return false;
 
@@ -204,7 +202,7 @@ bool StatCollector::getFromCString(const Char8 *&inVal)
         const Char8 *valp = val.c_str();
         if(!elem->getFromCString(valp))
             return false;
- 
+
         c = end + 1;
     }
     return true;
@@ -216,17 +214,17 @@ bool StatCollector::getFromCString(const Char8 *&inVal)
 bool StatCollector::getValue(std::string &name, Real64 &val)
 {
     StatElemDescBase *desc = StatElemDescBase::findDescByName(name.c_str());
-    
+
     if(!desc)
         return false;
-    
+
     StatElem *el = getElem(*desc, false);
-    
+
     if(!el)
         return false;
-    
+
     val = el->getValue();
-    
+
     return true;
 }
 
@@ -234,15 +232,16 @@ bool StatCollector::getValue(std::string &name, Real64 &val)
  */
 void StatCollector::clearElems(void)
 {
-    std::vector<StatElem*>::iterator i;
+    StatElemStoreIt      it    = _elemVec.begin();
+    StatElemStoreConstIt endIt = _elemVec.end();
 
-    for(i = _elemVec.begin(); i != _elemVec.end(); ++i)
+    for(; it != endIt; ++it)
     {
-        if(*i != NULL)
+        if(*it != NULL)
         {
-            delete *i;
-            
-            *i = NULL;
+            delete *it;
+
+            *it = NULL;
         }
     }
 }
@@ -251,13 +250,14 @@ void StatCollector::clearElems(void)
  */
 void StatCollector::reset(void)
 {
-    std::vector<StatElem*>::iterator i;
+    StatElemStoreIt      it    = _elemVec.begin();
+    StatElemStoreConstIt endIt = _elemVec.end();
 
-    for(i = _elemVec.begin(); i != _elemVec.end(); ++i)
+    for(; it != endIt; ++it)
     {
-        if(*i != NULL)
+        if(*it != NULL)
         {
-            (*i)->reset();
+            (*it)->reset();
         }
     }
 }
@@ -270,7 +270,7 @@ const StatCollector& StatCollector::operator = (const StatCollector &source)
         return *this;
 
     _elemVec = source._elemVec;
- 
+
     return *this;
 }
 
@@ -279,7 +279,6 @@ const StatCollector& StatCollector::operator = (const StatCollector &source)
 /*! The comparison is only done on the addresses, as a real comparison is not
     well defined on a StatCollector.
  */
-
 bool StatCollector::operator < (const StatCollector &other) const
 {
     return this < &other;
@@ -293,9 +292,9 @@ bool StatCollector::operator == (const StatCollector &rhs  ) const
 StatCollector StatCollector::operator + (const StatCollector &other)
 {
     StatCollector res(*this);
-    
+
     res += other;
-    
+
     return res;
 }
 
@@ -305,7 +304,7 @@ StatCollector &StatCollector::operator += (const StatCollector &other)
     {
         _elemVec.resize(other._elemVec.size());
     }
-    
+
     for(UInt32 i = 0; i < _elemVec.size(); ++i)
     {
         if(_elemVec[i])
@@ -313,7 +312,7 @@ StatCollector &StatCollector::operator += (const StatCollector &other)
             *_elemVec[i] += *other._elemVec[i];
         }
     }
-    
+
     return *this;
 }
 
@@ -338,7 +337,7 @@ OSG_BEGIN_NAMESPACE
 
 /*-------------------------- field instantiations -------------------------*/
 
-DataType FieldTraits<StatCollector>::_type("StatCollector", 
+DataType FieldTraits<StatCollector>::_type("StatCollector",
                                            "None");
 
 #endif

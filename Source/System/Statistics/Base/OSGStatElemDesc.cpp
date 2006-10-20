@@ -59,8 +59,8 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-std::vector<StatElemDescBase *> *StatElemDescBase::_descVec = NULL;
-  
+StatElemDescBase::DescStorage *StatElemDescBase::_descVec = NULL;
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -71,16 +71,22 @@ std::vector<StatElemDescBase *> *StatElemDescBase::_descVec = NULL;
  -  public                                                                 -
 \*-------------------------------------------------------------------------*/
 
+/*! Returns the descriptor with the given \a name, or NULL if no such
+    descriptor is found.
+
+    \param[i] name Name of the descriptor to return.
+    \return Descriptor with the given name, or NULL if it is not found.
+ */
 StatElemDescBase *StatElemDescBase::findDescByName(const Char8 *name)
 {
-    Int32             n = _descVec ? _descVec->size() : 0;
+    Int32             n    = _descVec ? _descVec->size() : 0;
     StatElemDescBase *desc = 0;
     
     if(name && *name && n)
     {
-        for(Int32 i = 0; i < n; i++)
+        for(Int32 i = 0; i < n; ++i)
         {
-            if (!strcmp(name,(*_descVec)[i]->_name.str())) 
+            if (!osgStringCmp(name, (*_descVec)[i]->_name.str()))
             {
                 desc = (*_descVec)[i];
                 break;
@@ -110,31 +116,37 @@ StatElemDescBase *StatElemDescBase::findDescByName(const Char8 *name)
 
 /*------------- constructors & destructors --------------------------------*/
 
-/** \brief Constructor
- */
+/*! \brief Constructor.
+    Creates a descriptor with the given name and description. The descriptor
+    is assigned a unique id, that can be obtained with getId().
+    It is an error to create two descriptors with the same name.
 
+    \param[in] name Name for the descriptor; must be unique.
+    \param[in] description Description of the purpose of the StatElem, this
+        descriptor belongs to.
+ */
 StatElemDescBase::StatElemDescBase(const Char8 *name, 
                                    const Char8 *description) :
-    _id         (         -1), 
-    _name       (       name), 
+    _id         (         -1),
+    _name       (       name),
     _description(description)
 {
     StatElemDescBase *desc = 0;
     
     if(_descVec) 
     {
-        desc = findDescByName (name);
+        desc = findDescByName(name);
     }
     else
     {
-        _descVec = new std::vector<StatElemDescBase *>;
+        _descVec = new DescStorage;
 
         addPostFactoryExitFunction(&StatElemDescBase::terminate);
     }
 
     if(desc) 
     {
-        FFATAL(("Try to register the StatElemDescBase name %s a second "
+        FFATAL(("Attempt to register the StatElemDescBase name %s a second "
                 "time\n", name));
     }
     else 
@@ -142,15 +154,19 @@ StatElemDescBase::StatElemDescBase(const Char8 *name,
         _id = _descVec->size();
         _descVec->push_back(this);
     }
-}  
+}
 
-/** \brief Destructor
+/*! \brief Destructor.
+    It destroys the descriptor object, but the name and id are still reserved,
+    so you still can not create a new descriptor with the same name.
  */
-
 StatElemDescBase::~StatElemDescBase(void)
 {
 }
 
+/*! Prints information about all registered descriptors, by calling their
+    print() method.
+ */
 void StatElemDescBase::printAll(void)
 {
     Int32 n = _descVec ? _descVec->size() : 0;
@@ -159,6 +175,8 @@ void StatElemDescBase::printAll(void)
         (*_descVec)[i]->print();
 }
 
+/*! Print information about this descriptor, i.e. its id, name and description.
+ */
 void StatElemDescBase::print(void)
 {
     FLOG(( "StatElemDescBase: ID/Name/Description: %d/%s/%s\n",
@@ -173,6 +191,9 @@ void StatElemDescBase::print(void)
 
 /*-------------------------- your_category---------------------------------*/
 
+/*! Destroys the storage for the registered descriptors.
+    \warning This is and should only be called during system shutdown.
+ */
 bool StatElemDescBase::terminate(void)
 {
     delete _descVec;
@@ -182,9 +203,9 @@ bool StatElemDescBase::terminate(void)
 
 /*-------------------------- assignment -----------------------------------*/
 
-/** \brief assignment
+/*! \brief Assignment.
+    This is a no-op.
  */
-
 StatElemDescBase& StatElemDescBase::operator = (const StatElemDescBase &source)
 {
     if (this == &source)
@@ -195,9 +216,9 @@ StatElemDescBase& StatElemDescBase::operator = (const StatElemDescBase &source)
 
 /*-------------------------- comparison -----------------------------------*/
 
-/** \brief assignment
+/*! \brief Less comparison.
+    Compares the address of this agains \a other.
  */
-
 bool StatElemDescBase::operator < (const StatElemDescBase &other) const
 {
     return this < &other;

@@ -61,10 +61,7 @@ class StatElem;
  
 class OSG_SYSTEM_DLLMAPPING StatElemDescBase
 {
-  friend class StatCollector;
-
     /*==========================  PUBLIC  =================================*/
-
   public:
 
    /*---------------------------------------------------------------------*/
@@ -114,20 +111,20 @@ class OSG_SYSTEM_DLLMAPPING StatElemDescBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-
   protected:
-
-    /*==========================  PRIVATE  ================================*/
-
     static bool terminate(void);
 
+    /*==========================  PRIVATE  ================================*/
   private:
-
-    static std::vector<StatElemDescBase*> *_descVec;
-
-           Int32                           _id;
-           IDString                        _name;
-           IDString                        _description;
+    friend class StatCollector;
+      
+    typedef std::vector<StatElemDescBase*> DescStorage;
+    
+    static DescStorage *_descVec;
+           
+           Int32         _id;
+           IDString      _name;
+           IDString      _description;
 
     // only called by OSGStatCollector friend
     virtual StatElem *createElem(void) = 0;
@@ -141,7 +138,6 @@ template <class Type>
 class StatElemDesc : public StatElemDescBase
 {
     /*==========================  PUBLIC  =================================*/
-
   public:
 
     /*---------------------------------------------------------------------*/
@@ -160,11 +156,9 @@ class StatElemDesc : public StatElemDescBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-
   protected:
 
     /*==========================  PRIVATE  ================================*/
-
   private:
 
     virtual StatElem* createElem(void);

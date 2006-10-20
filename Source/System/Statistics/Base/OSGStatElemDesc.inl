@@ -43,7 +43,7 @@ OSG_BEGIN_NAMESPACE
 inline 
 bool StatElemDescBase::isValidID(Int32 id)
 { 
-    return (_descVec && (id >= 0) && (id < Int32(_descVec->size()))); 
+    return (_descVec && (id >= 0) && (id < static_cast<Int32>(_descVec->size())));
 }
 
 /*-------------------------------------------------------------------------*/
@@ -51,7 +51,7 @@ bool StatElemDescBase::isValidID(Int32 id)
 inline
 StatElemDescBase *StatElemDescBase::getDesc(Int32 id)
 { 
-    return (*_descVec)[id]; 
+    return (*_descVec)[id];
 }
 
 /*-------------------------------------------------------------------------*/
@@ -59,7 +59,7 @@ StatElemDescBase *StatElemDescBase::getDesc(Int32 id)
 inline
 Int32 StatElemDescBase::getNumOfDescs(void)
 { 
-    return _descVec ? _descVec->size() : 0; 
+    return _descVec ? _descVec->size() : 0;
 }
 
 /*-------------------------------------------------------------------------*/
@@ -67,7 +67,7 @@ Int32 StatElemDescBase::getNumOfDescs(void)
 inline
 Int32 StatElemDescBase::getID(void) 
 { 
-    return _id; 
+    return _id;
 }
 
 /*-------------------------------------------------------------------------*/

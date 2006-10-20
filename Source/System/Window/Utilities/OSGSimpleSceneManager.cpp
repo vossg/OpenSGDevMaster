@@ -190,7 +190,7 @@ SimpleSceneManager::SimpleSceneManager(void) :
     _win            (NullFC),
     _root           (NullFC),
     _foreground     (NullFC),
-    /*_statforeground (NullFC),*/
+    _statforeground (NullFC),
     _statstate      (false),
 
     /*_highlight      (NullFC),
@@ -441,25 +441,25 @@ void SimpleSceneManager::setHighlight(NodePtr highlight)
  */
 void SimpleSceneManager::setStatistics(bool on)
 {
-#if 1 // amz
     if(_statforeground != NullFC && on != _statstate)
     {
-        ViewportPtr vp = _win->getPort()[0];
+        ViewportPtr vp = _win->getPort(0);
 
         if(on)
         {
             vp->addForeground(_statforeground);
             _action->setStatistics(&_statforeground->editCollector());
+            _taction->setStatistics(&_statforeground->editCollector());
         }
         else
         {
             vp->removeFromForegrounds(_statforeground);
             _action->setStatistics(NULL);
+            _taction->setStatistics(NULL);
         }
 
         _statstate = on;
     }
-#endif
 }
 
 /*-------------------------------------------------------------------------*/
@@ -521,12 +521,11 @@ void SimpleSceneManager::initialize(void)
 
         _foreground = ImageForeground::create();
 
-#if 1 // amz
-
         SimpleStatisticsForegroundPtr sf = SimpleStatisticsForeground::create();
 
         sf->setSize(25);
         sf->setColor(Color4f(0,1,0,0.7));
+#if 0
         sf->addElement(RenderAction::statDrawTime,      "Draw FPS: %r.3f");
         sf->addElement(RenderAction::statTravTime,      "Trav FPS: %r.3f");
         sf->addElement(DrawActionBase::statCullTestedNodes,
@@ -558,9 +557,10 @@ void SimpleSceneManager::initialize(void)
 
         // add optional elements
         sf->editCollector().getElem(Drawable::statNTriangles);
+#endif
 
         _statforeground = sf;
-#endif
+        addRef(_statforeground);
 
         ViewportPtr vp = Viewport::create();
 
