@@ -452,7 +452,7 @@ Action::ResultE RenderTraversalAction::start(void)
 {
     Inherited::start();
 
-#if 1 // Not needed done by the partition setup anyway.
+#if 0 // Not needed done by the partition setup anyway.
     if(_pWindow != NULL && !_doCullOnly)
     {
         _pWindow->resizeGL();
@@ -578,11 +578,18 @@ void RenderTraversalAction::drawBuffer(UInt32 buf)
 
     _vRenderPartitions[buf][0]->setupExecution();
 
+
+    // Quick fix, have to check GV
+    glPushAttrib(GL_VIEWPORT_BIT);
+
     for(Int32 i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
     {
         _vRenderPartitions[buf][i]->execute();
         _vRenderPartitions[buf][i]->exit();
     }
+
+    // Quick fix, have to check GV
+     glPopAttrib();
 
     _vRenderPartitions[buf][0]->doExecution();
     _vRenderPartitions[buf][0]->exit();
