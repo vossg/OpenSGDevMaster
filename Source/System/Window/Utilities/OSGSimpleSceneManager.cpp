@@ -585,6 +585,8 @@ void SimpleSceneManager::showAll(void)
     if(_root == NullFC)
         return;
 
+    OSG::commitChanges();      // Commit the changes so the volumes are up to date.
+
     _root->updateVolume();
 
     Vec3f min,max;
