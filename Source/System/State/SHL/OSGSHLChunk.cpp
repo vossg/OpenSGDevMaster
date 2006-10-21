@@ -737,7 +737,7 @@ void SHLChunk::updateParameters(Window *win,
                 }
                 else
                 {
-                    FWARNING(("Unknown parameter '%s'!\n",
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
                 }
             }
@@ -760,7 +760,7 @@ void SHLChunk::updateParameters(Window *win,
                 }
                 else
                 {
-                    FWARNING(("Unknown parameter '%s'!\n",
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
                 }
             }
@@ -783,7 +783,7 @@ void SHLChunk::updateParameters(Window *win,
                 }
                 else
                 {
-                    FWARNING(("Unknown parameter '%s'!\n",
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
                 }
             }
@@ -809,7 +809,7 @@ void SHLChunk::updateParameters(Window *win,
                 }
                 else
                 {
-                    FWARNING(("Unknown parameter '%s'!\n",
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
                 }
             }
@@ -835,7 +835,7 @@ void SHLChunk::updateParameters(Window *win,
                 }
                 else
                 {
-                    FWARNING(("Unknown parameter '%s'!\n",
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
                 }
             }
@@ -861,7 +861,7 @@ void SHLChunk::updateParameters(Window *win,
                 }
                 else
                 {
-                    FWARNING(("Unknown parameter '%s'!\n",
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
                 }
             }
@@ -888,7 +888,7 @@ void SHLChunk::updateParameters(Window *win,
                 }
                 else
                 {
-                    FWARNING(("Unknown parameter '%s'!\n",
+                    FWARNING(("Parameter '%s' not found in active uniform variables of the shader!\n",
                               p->getName().c_str()));
                 }
             }
