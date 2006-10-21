@@ -1,0 +1,14 @@
+Root directory for OpenSG documentation
+=======================================
+
+To generate the standalone docs, run doxygen standalone.doxy. For the docs
+that go on Trac use doxygen trac.doxy.
+
+They both use some extensions that haven't been accepted for the doxygen main
+branch yet. You need to download the sources and apply the aliasdiff patch in
+this directory in doxygen/src to make it work. Without this the aliases to link
+into the Wiki won't work, the rest will be fine.
+
+See http://opensg.vrsource.org/trac/wiki/Dev/CodingStandard for information
+about how to add documentation to your favorite white spot on the OpenSG
+documentation map.

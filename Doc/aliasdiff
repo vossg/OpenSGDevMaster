@@ -1,0 +1,132 @@
+Index: commentcnv.l
+===================================================================
+RCS file: /cvsroot/doxygen/src/commentcnv.l,v
+retrieving revision 1.32
+diff -u -3 -p -r1.32 commentcnv.l
+--- commentcnv.l	16 Jul 2006 20:10:06 -0000	1.32
++++ commentcnv.l	29 Sep 2006 21:45:49 -0000
+@@ -225,7 +225,7 @@ static QCString handleCondCmdInAliases(c
+  */
+ static void replaceAliases(const char *s,int len)
+ {
+-  static QRegExp cmd("[@\\\\][a-z_A-Z][a-z_A-Z0-9]*");
++  static QRegExp cmd("[@\\\\][a-z_A-Z][a-z_A-Z0-9(),]*");
+   QCString in=s;
+   int p=0,i,l;
+   while ((i=cmd.match(in,p,&l))!=-1)
+@@ -507,16 +507,107 @@ CHARLIT   (("'"\\[0-7]{1,3}"'")|("'"\\."
+ 				     if (*yytext=='\n') g_lineNr++;
+ 				     BEGIN(g_condCtx);
+   				   }
+-<CComment,ReadLine>[\\@][a-z_A-Z][a-z_A-Z0-9]*   { // expand alias
+-  				      QCString *pValue=Doxygen::aliasDict[yytext+1];
+-				      if (pValue)
+-				      {    
+-					QCString val = handleCondCmdInAliases(*pValue);
+-					copyToOutput(val.data(),val.length());
++<CComment,ReadLine>[\\@][a-z_A-Z][a-z_A-Z0-9(),\\]*   { // expand alias
++
++      	      	      	      	      QCString com(yytext+1);
++				      int ind;
++				      ind = com.find('(');
++				      if(ind < 0) // command with no args?
++				      {
++  					QCString *pValue=Doxygen::aliasDict[yytext+1];
++					if (pValue)
++					{    
++					  QCString val = handleCondCmdInAliases(*pValue);
++					  copyToOutput(val.data(),val.length());
++					}
++					else
++					{
++					  copyToOutput(yytext,yyleng);
++					}
+ 				      }
+-				      else
++				      else // args!
+ 				      {
+-					copyToOutput(yytext,yyleng);
++				      	QCString rawcom(com.data(), ind);
++					
++					QCString *pValue=Doxygen::aliasDict[rawcom];
++					if (pValue)
++					{
++					  // Split args
++					  // This should probably be put into the scanner,
++					  // but this is simpler for now.
++					  const unsigned int MAXARGS = 20;
++					  QCString args[MAXARGS];
++					  unsigned nargs = 0;
++					  QCString argval;
++					  bool esc = false;
++					  for(unsigned int i = ind + 1; i < com.length(); ++i)
++					  {
++					    char c = com[i];
++					    if(c == '\\')
++					    {
++					      esc = true;
++					      continue;
++					    }
++					    if((c == ',' || c == ')') && !esc)
++					    {
++					      args[nargs++] = argval;
++					      argval = "";
++					      if(nargs == MAXARGS)
++					      {
++					      	warn(g_fileName,g_lineNr,"Too many arguments in alias");
++					      	break;
++					      }
++					      continue;
++					    }
++					    char dum[2];
++					    dum[0] = c;
++					    dum[1] = 0;
++					    argval.append(dum);
++					    esc = false;
++					  }
++					  
++					  // Replace args in alias
++					  QCString fullalias;
++					  int ind = -1, lastind = 0;
++					  
++					  while((ind = pValue->find('^', lastind)) > 0)
++					  {
++					    QCString copy(pValue->data() + lastind, ind - lastind);
++					    lastind = ind;
++					    fullalias.append(copy);
++					    
++					    int nextind = pValue->find('^', ind + 1);
++					    if(nextind < 0)
++					      break;
++					    QCString index(&(*pValue)[ind+1], nextind - ind - 1);
++					    bool ok;
++					    unsigned short argi = index.toUShort(&ok) - 1;
++					    if(!ok)
++					    {
++					      lastind = ind + 1;
++					      continue;
++					    }
++					    if(argi >= nargs)
++					    {
++					      	warn(g_fileName,g_lineNr,"Not enough arguments in alias call!");
++					      	fullalias.append("*Illegal Argument*");
++					    }
++					    else
++					    {
++					      fullalias.append(args[argi]);
++					    }
++					    lastind = nextind + 1;
++					  }
++					  fullalias.append(pValue->data() + lastind);
++					  
++					  QCString val = handleCondCmdInAliases(fullalias);
++					  copyToOutput(val.data(),val.length());
++					}
++					else
++					{
++					  // Not alias, but args? This is wrong...
++					  copyToOutput(yytext,yyleng);
++					}
+ 				      }
+   				   }
+ <ReadLine>.			   {

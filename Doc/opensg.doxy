@@ -30,7 +30,7 @@ PROJECT_NUMBER         = 2.0
 # If a relative path is entered, it will be relative to the location 
 # where doxygen was started. If left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = html
+OUTPUT_DIRECTORY       = docs
 
 # If the CREATE_SUBDIRS tag is set to YES, then doxygen will create 
 # 4096 sub-directories (in 2 levels) under the output directory of each output 
@@ -201,7 +201,10 @@ ALIASES                = "hint=<em>Hint! " \
                          "dev=\if dev\n<em>Dev:</em> " \
                          enddev=\n\endif \
                          "ext=\if ext\n<b>Ext:</b> " \
-                         endext=\n\endif
+                         endext=\n\endif \
+                         guide="<A HREF='http://opensg.vrsource.org/trac/wiki/DevGuide/^1^'>^1^</A>" \
+                         wiki="<A HREF='http://opensg.vrsource.org/trac/wiki/^1^'>^1^</A>" \                        
+                         
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C 
 # sources only. Doxygen will then generate output that is more tailored for C. 
@@ -475,8 +478,9 @@ INPUT                  = ../Source/
 # *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc *.m *.mm
 
 FILE_PATTERNS          = OSG*.cpp \
-                         OSG*.h \
-                         OSG*.inl
+                         OSG*.h   \
+                         OSG*.inl \
+                         OSG*.ins
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
@@ -505,7 +509,8 @@ EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = */ScanParseSkel/* \
                          */OSGReal16* \
                          */OSGStatisticsDefaultFont* \
-                         */OSGGraphicStatisticsFont*
+                         */OSGGraphicStatisticsFont* \
+                         */.svn/*
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or 
 # directories that contain example code fragments that are included (see 
@@ -682,7 +687,7 @@ HTML_ALIGN_MEMBERS     = YES
 # Microsoft HTML help workshop to generate a compressed HTML help file (.chm) 
 # of the generated HTML documentation.
 
-GENERATE_HTMLHELP      = NO
+GENERATE_HTMLHELP      = YES
 
 # If the GENERATE_HTMLHELP tag is set to YES, the CHM_FILE tag can 
 # be used to specify the file name of the resulting .chm file. You 
@@ -708,7 +713,7 @@ GENERATE_CHI           = NO
 # controls whether a binary table of contents is generated (YES) or a 
 # normal table of contents (NO) in the .chm file.
 
-BINARY_TOC             = NO
+BINARY_TOC             = YES
 
 # The TOC_EXPAND flag can be set to YES to add extra items for group members 
 # to the contents of the HTML help documentation and to the tree view.

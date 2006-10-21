@@ -367,7 +367,7 @@ PointInterface<ValueTypeT, StorageInterfaceT>::PointInterface(void) :
 
 /*! \brief Constructor which takes a const value array.
   
-    Be shure the array size at least as large as the vector size.
+    \warning Make sure the array size is at least as large as the vector size.
 */
 
 template <class ValueTypeT,

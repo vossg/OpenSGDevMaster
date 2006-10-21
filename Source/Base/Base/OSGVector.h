@@ -65,7 +65,7 @@ class VectorInterface;
 //---------------------------------------------------------------------------
 
 /*! Vector storage holding 1 elements, for details about how vectors,
-    points and matrices are actually build see \ref PageBaseMath.
+    points and matrices are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
  */
 
@@ -125,7 +125,7 @@ class VecStorage1
 //---------------------------------------------------------------------------
 
 /*! Vector storage holding 2 elements, for details about how vectors,
-    points and matrices are actually build see \ref PageBaseMath.
+    points and matrices are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
  */
 
@@ -190,7 +190,7 @@ class VecStorage2
 //---------------------------------------------------------------------------
 
 /*! Vector storage holding 3 elements, for details about how vectors,
-    points and matrices are actually build see \ref PageBaseMath.
+    points and matrices are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
  */
 
@@ -258,7 +258,7 @@ class VecStorage3
 //---------------------------------------------------------------------------
 
 /*! Vector storage holding 4 elements, for details about how vectors,
-    points and matrices are actually build see \ref PageBaseMath.
+    points and matrices are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
  */
 
@@ -329,7 +329,7 @@ class VecStorage4
 //---------------------------------------------------------------------------
 
 /*! Point Interface, for details about how vectors, points and matrices
-    are actually build see \ref PageBaseMath.
+    are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
  */
 
@@ -574,7 +574,7 @@ std::ostream &operator <<(        std::ostream                 &os,
 //---------------------------------------------------------------------------
 
 /*! Vector Interface, for details about how vectors, points and matrices
-    are actually build see \ref PageBaseMath.
+    are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
  */
 
