@@ -61,17 +61,16 @@ OSG_USING_NAMESPACE
 
 See \ref PageSystemPolygonChunk for details.
 
-The parameters of the following functions are wrapped here: glCullFace()
-(OSG::PolygonChunk::_sfCullFace), glFrontFace()
-(OSG::PolygonChunk::_sfFrontFace), glPolygonMode() 
-(OSG::PolygonChunk::_sfFrontMode, OSG::PolygonChunk::_sfBackMode),
-glEnable(GL_POLYGON_SMOOTH) (OSG::PolygonChunk::_sfSmooth), glPolygonOffset()
-(OSG::PolygonChunk::_sfOffsetFactor, OSG::PolygonChunk::_sfOffsetBias),
-glEnable(GL_POLYGON_OFFSET_POINT) (OSG::PolygonChunk::_sfOffsetPoint),
-glEnable(GL_POLYGON_OFFSET_LINE) (OSG::PolygonChunk::_sfOffsetLine),
-glEnable(GL_POLYGON_OFFSET_FILL) (OSG::PolygonChunk::_sfOffsetFill),
-glStipplePattern() and glEnable(GL_POLYGON_STIPPLE)
-(OSG::PolygonChunk::_sfStipple).
+The parameters of the following functions are wrapped here:
+  - glCullFace() (OSG::PolygonChunk::_sfCullFace),
+  - glFrontFace()(OSG::PolygonChunk::_sfFrontFace),
+  - glPolygonMode() (OSG::PolygonChunk::_sfFrontMode, OSG::PolygonChunk::_sfBackMode),
+  - glEnable(GL_POLYGON_SMOOTH) (OSG::PolygonChunk::_sfSmooth),
+  - glPolygonOffset() (OSG::PolygonChunk::_sfOffsetFactor, OSG::PolygonChunk::_sfOffsetBias),
+  - glEnable(GL_POLYGON_OFFSET_POINT) (OSG::PolygonChunk::_sfOffsetPoint),
+  - glEnable(GL_POLYGON_OFFSET_LINE) (OSG::PolygonChunk::_sfOffsetLine),
+  - glEnable(GL_POLYGON_OFFSET_FILL) (OSG::PolygonChunk::_sfOffsetFill),
+  - glStipplePattern() and glEnable(GL_POLYGON_STIPPLE) (OSG::PolygonChunk::_sfStipple).
 */
 
 /***************************************************************************\
@@ -156,7 +155,7 @@ void PolygonChunk::activate(DrawEnv *, UInt32)
 
 // smooth
 
-    if(_sfSmooth.getValue()) 
+    if(_sfSmooth.getValue())
         glEnable(GL_POLYGON_SMOOTH);
 
 // mode
@@ -168,17 +167,17 @@ void PolygonChunk::activate(DrawEnv *, UInt32)
         glPolygonMode(GL_BACK, _sfBackMode.getValue());
 
 // offset
-   
-    if(_sfOffsetFactor.getValue() != 0.f || _sfOffsetBias.getValue() != 0.f)    
+
+    if(_sfOffsetFactor.getValue() != 0.f || _sfOffsetBias.getValue() != 0.f)
         glPolygonOffset(_sfOffsetFactor.getValue(), _sfOffsetBias.getValue());
 
-    if(_sfOffsetPoint.getValue())    
+    if(_sfOffsetPoint.getValue())
         glEnable(GL_POLYGON_OFFSET_POINT);
 
-    if(_sfOffsetLine.getValue()) 
+    if(_sfOffsetLine.getValue())
         glEnable(GL_POLYGON_OFFSET_LINE);
 
-    if(_sfOffsetFill.getValue()) 
+    if(_sfOffsetFill.getValue())
         glEnable(GL_POLYGON_OFFSET_FILL);
 
 // stipple
@@ -209,7 +208,7 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
             glCullFace(_sfCullFace.getValue());
             glEnable(GL_CULL_FACE);
         }
-        else  
+        else
         {
             glDisable(GL_CULL_FACE);
         }
@@ -226,7 +225,7 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
 
     if(_sfSmooth.getValue() != old->_sfSmooth.getValue())
     {
-        if(_sfSmooth.getValue())   
+        if(_sfSmooth.getValue())
         {
             glEnable(GL_POLYGON_SMOOTH);
         }
@@ -254,11 +253,11 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
 
     if(_sfOffsetPoint.getValue() != old->_sfOffsetPoint.getValue())
     {
-        if(_sfOffsetPoint.getValue())  
+        if(_sfOffsetPoint.getValue())
         {
             glEnable(GL_POLYGON_OFFSET_POINT);
         }
-        else                            
+        else
         {
             glDisable(GL_POLYGON_OFFSET_POINT);
         }
@@ -266,11 +265,11 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
 
     if(_sfOffsetLine.getValue() != old->_sfOffsetLine.getValue())
     {
-        if(_sfOffsetLine.getValue())  
+        if(_sfOffsetLine.getValue())
         {
             glEnable(GL_POLYGON_OFFSET_LINE);
         }
-        else                            
+        else
         {
             glDisable(GL_POLYGON_OFFSET_LINE);
         }
@@ -278,11 +277,11 @@ void PolygonChunk::changeFrom(DrawEnv *, StateChunk *old_chunk, UInt32)
 
     if(_sfOffsetFill.getValue() != old->_sfOffsetFill.getValue())
     {
-        if(_sfOffsetFill.getValue())  
+        if(_sfOffsetFill.getValue())
         {
             glEnable(GL_POLYGON_OFFSET_FILL);
         }
-        else                            
+        else
         {
             glDisable(GL_POLYGON_OFFSET_FILL);
         }
@@ -385,9 +384,9 @@ bool PolygonChunk::operator ==(const StateChunk &other) const
 
     // would need to compare the whole stipple data
     // cheap trick: if != 0 take as different
-    
+
     if(        getStipple().size() != 0 ||
-       tother->getStipple().size() != 0 
+       tother->getStipple().size() != 0
       )
         return false;
 
