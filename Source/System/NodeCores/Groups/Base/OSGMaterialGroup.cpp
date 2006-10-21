@@ -47,6 +47,11 @@
 OSG_USING_NAMESPACE
 
 /*! \class osg::MaterialGroup
+*
+* MaterialGroup is a standard group node that allows for a material to be set
+* that will override all materials in the entire subtree.  This can be useful
+* if you want to disable materials in a subtree or if a large group of geometry
+* nodes should have the same material applied.
 */
 
 /*-------------------------------------------------------------------------*/
@@ -60,7 +65,7 @@ void MaterialGroup::changed(ConstFieldMaskArg whichField, UInt32 origin)
 /*-------------------------------------------------------------------------*/
 /*                                Dump                                     */
 
-void MaterialGroup::dump(      UInt32    uiIndent, 
+void MaterialGroup::dump(      UInt32    uiIndent,
                          const BitVector bvFlags) const
 {
     Inherited::dump(uiIndent, bvFlags);
@@ -93,7 +98,7 @@ ActionBase::ResultE MaterialGroup::renderEnter(Action *action)
 {
     RenderAction *da = dynamic_cast<RenderAction *>(action);
 
-    if( da                    != NULL && 
+    if( da                    != NULL &&
        _sfMaterial.getValue() != NullFC &&
         da->getMaterial()     == NULL)
     {
@@ -117,7 +122,7 @@ ActionBase::ResultE MaterialGroup::renderLeave(Action *action)
 
 /*-------------------------------------------------------------------------*/
 /*                                Init                                     */
- 
+
 void MaterialGroup::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -125,11 +130,11 @@ void MaterialGroup::initMethod(InitPhase ePhase)
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            getClassType(), 
+            getClassType(),
             reinterpret_cast<Action::Callback>(&MaterialGroup::renderEnter));
 
         RenderAction::registerLeaveDefault(
-            getClassType(), 
+            getClassType(),
             reinterpret_cast<Action::Callback>(&MaterialGroup::renderLeave));
     }
 }
@@ -148,7 +153,7 @@ void MaterialGroup::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGMATERIALGROUP_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGMATERIALGROUP_INLINE_CVSID;
 }
