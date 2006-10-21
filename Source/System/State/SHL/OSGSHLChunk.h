@@ -53,10 +53,8 @@ OSG_BEGIN_NAMESPACE
 class Window;
 class DrawActionBase;
 
-/*! \brief SHLChunk class. See \ref
-    PageKernelSHLChunk for a description.
+/*! \brief SHLChunk class.
 */
-
 class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 {
   private:
@@ -67,11 +65,11 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     typedef SHLChunkBase Inherited;
 
-    typedef GLint (OSG_APIENTRY *GetUniformLocProc)(      GLuint  programObj, 
+    typedef GLint (OSG_APIENTRY *GetUniformLocProc)(      GLuint  programObj,
                                                     const Char8  *name);
 
     typedef void (*paramtercbfp) (GetUniformLocProc  getUniformLocation,
-                                  DrawEnv           *pEnv, 
+                                  DrawEnv           *pEnv,
                                   GLuint             program);
 
     /*---------------------------------------------------------------------*/
@@ -116,9 +114,9 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \name                       Paramerters                            */
     /*! \{                                                                 */
 
-    void updateParameters(      Window               *win, 
+    void updateParameters(      Window               *win,
                           const MFShaderParameterPtr &parameters,
-                                bool                 useProgram       = true, 
+                                bool                 useProgram       = true,
                                 bool                 force            = false,
                                 bool                 keepProgramActive=false);
 
@@ -127,14 +125,14 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \name                       State                                  */
     /*! \{                                                                 */
 
-    virtual void activate  (DrawEnv    *pEnv, 
+    virtual void activate  (DrawEnv    *pEnv,
                             UInt32      index = 0);
 
-    virtual void changeFrom(DrawEnv    *pEnv, 
+    virtual void changeFrom(DrawEnv    *pEnv,
                             StateChunk *old,
                             UInt32      index = 0);
 
-    virtual void deactivate(DrawEnv    *action, 
+    virtual void deactivate(DrawEnv    *action,
                             UInt32      index = 0);
 
     /*! \}                                                                 */
@@ -260,7 +258,7 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     static UInt32 _funcUniform2iv;
     static UInt32 _funcUniform3iv;
     static UInt32 _funcUniform4iv;
-    
+
     static UInt32 _funcUniform1f;
     static UInt32 _funcUniform2fv;
     static UInt32 _funcUniform3fv;
@@ -285,12 +283,12 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     void updateProgram      (Window         *win    );
     void checkOSGParameters (void                   );
-    void updateOSGParameters(DrawEnv        *pEnv, 
+    void updateOSGParameters(DrawEnv        *pEnv,
                              GLuint          program);
 
 
     static void updateCameraOrientation(GetUniformLocProc  getUniformLocation,
-                                        DrawEnv           *pEnv, 
+                                        DrawEnv           *pEnv,
                                         GLuint             program           );
 
     static void updateCameraPosition   (GetUniformLocProc  getUniformLocation,
@@ -298,15 +296,15 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                                         GLuint             program           );
 
     static void updateViewMatrix       (GetUniformLocProc  getUniformLocation,
-                                        DrawEnv           *pEnv, 
+                                        DrawEnv           *pEnv,
                                         GLuint             program           );
 
     static void updateInvViewMatrix    (GetUniformLocProc  getUniformLocation,
-                                        DrawEnv           *pEnv, 
+                                        DrawEnv           *pEnv,
                                         GLuint             program           );
 
     static void updateStereoLeftEye    (GetUniformLocProc  getUniformLocation,
-                                        DrawEnv           *pEnv, 
+                                        DrawEnv           *pEnv,
                                         GLuint             program           );
 
     static void updateClusterId        (GetUniformLocProc  getUniformLocation,
@@ -318,11 +316,11 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                                         GLuint             program           );
 
     static void updateLight0Active     (GetUniformLocProc  getUniformLocation,
-                                        DrawEnv           *pEnv, 
+                                        DrawEnv           *pEnv,
                                         GLuint             program           );
 
     static void updateLight1Active     (GetUniformLocProc  getUniformLocation,
-                                        DrawEnv           *pEnv, 
+                                        DrawEnv           *pEnv,
                                         GLuint             program           );
 
     static void updateLight2Active     (GetUniformLocProc  getUniformLocation,
@@ -346,7 +344,7 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                                         GLuint             program           );
 
     static void updateLight7Active     (GetUniformLocProc  getUniformLocation,
-                                        DrawEnv           *pEnv, 
+                                        DrawEnv           *pEnv,
                                         GLuint             program           );
 
 
