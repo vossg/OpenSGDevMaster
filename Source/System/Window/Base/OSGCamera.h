@@ -55,7 +55,7 @@ class DrawActionBase;
 class FrustumVolume;
 class Line;
 
-/*! \brief Camera base class. See \ref PageSystemWindowCamera for a 
+/*! \brief Camera base class. See \ref PageSystemWindowCamera for a
     description.
 */
 
@@ -93,29 +93,44 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \name                  Access Parameters                           */
     /*! \{                                                                 */
 
-    virtual void getProjection           (      Matrixr       &result, 
-                                                UInt32         width, 
+    virtual void getProjection           (      Matrixr       &result,
+                                                UInt32         width,
                                                 UInt32         height);
 
-    virtual void getProjectionTranslation(      Matrixr       &result, 
-                                                UInt32         width, 
+    virtual void getProjectionTranslation(      Matrixr       &result,
+                                                UInt32         width,
                                                 UInt32         height);
 
-    virtual void getViewing              (      Matrixr       &result, 
-                                                UInt32         width, 
+    virtual void getViewing              (      Matrixr       &result,
+                                                UInt32         width,
                                                 UInt32         height);
 
     virtual void getFrustum              (      FrustumVolume &result,
                                           const Viewport      &port  );
-     
-    virtual void getWorldToScreen        (      Matrixr       &result, 
+
+    virtual void getWorldToScreen        (      Matrixr       &result,
                                           const Viewport      &port  );
+
+    // Getters
+    virtual Matrixr getProjectionVal        (   UInt32         width,
+                                                UInt32         height);
+
+    virtual Matrixr getProjectionTranslationVal(   UInt32         width,
+                                                UInt32         height);
+
+    virtual Matrixr getViewingVal              (   UInt32         width,
+                                                UInt32         height);
+
+    virtual FrustumVolume getFrustumVal        (  const Viewport      &port  );
+
+    virtual Matrixr getWorldToScreenVal        ( const Viewport      &port  );
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Intersection Helper                          */
     /*! \{                                                                 */
-    
+
 #ifndef OSG_WINCE
     bool calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port);
 #endif
@@ -124,8 +139,8 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*---------------------------------------------------------------------*/
     /*! \name                    dump                                      */
     /*! \{                                                                 */
-    
-    virtual void dump(      UInt32    uiIndent = 0, 
+
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -139,14 +154,14 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
 
     Camera(void);
     Camera(const Camera &source);
-   
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~Camera(void); 
-    
+    virtual ~Camera(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
@@ -158,7 +173,7 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*==========================  PRIVATE  ================================*/
 
  private:
- 
+
     friend class CameraBase;
 
     template<class ContainerFactoryT>

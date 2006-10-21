@@ -102,7 +102,7 @@ void Camera::changed(ConstFieldMaskArg whichField, UInt32 origin)
 {
     Inherited::changed(whichField, origin);
 }
-    
+
 
 /*-------------------------- your_category---------------------------------*/
 
@@ -110,7 +110,7 @@ void Camera::changed(ConstFieldMaskArg whichField, UInt32 origin)
     rendering with this camera.
  */
 
-void Camera::setup(      DrawActionBase *OSG_CHECK_ARG(action), 
+void Camera::setup(      DrawActionBase *OSG_CHECK_ARG(action),
                    const Viewport       &port                 )
 {
     Matrixr m, t;
@@ -132,7 +132,7 @@ void Camera::setup(      DrawActionBase *OSG_CHECK_ARG(action),
     getViewing(m, port.getPixelWidth(), port.getPixelHeight());
 
     //SDEBUG << "Viewing matrix: " << m << std::endl;
-    
+
     glMatrixMode (GL_MODELVIEW );
     GLP::glLoadMatrixf(m.getValues());
 }
@@ -158,12 +158,12 @@ void Camera::setupProjection(      DrawActionBase *OSG_CHECK_ARG(action),
     GLP::glLoadMatrixf(m.getValues());
 }
 
-/*! Draw the camera's geometry (if any). Usually there is none. 
+/*! Draw the camera's geometry (if any). Usually there is none.
  */
 
 
 
-/*! Get/calculate the projection matrix for this camera. 
+/*! Get/calculate the projection matrix for this camera.
  */
 
 void Camera::getProjection(Matrixr &OSG_CHECK_ARG(result),
@@ -177,8 +177,8 @@ void Camera::getProjection(Matrixr &OSG_CHECK_ARG(result),
     default is identity.
  */
 
-void Camera::getProjectionTranslation(Matrixr &result, 
-                                      UInt32   OSG_CHECK_ARG(width ), 
+void Camera::getProjectionTranslation(Matrixr &result,
+                                      UInt32   OSG_CHECK_ARG(width ),
                                       UInt32   OSG_CHECK_ARG(height))
 {
     result.setIdentity();
@@ -188,7 +188,7 @@ void Camera::getProjectionTranslation(Matrixr &result,
     of the beacon's toWorld transformation.
  */
 
-void Camera::getViewing(Matrixr &result, 
+void Camera::getViewing(Matrixr &result,
                         UInt32   OSG_CHECK_ARG(width ),
                         UInt32   OSG_CHECK_ARG(height))
 {
@@ -196,37 +196,37 @@ void Camera::getViewing(Matrixr &result,
     {
         SWARNING << "Camera::setup: no beacon!" << std::endl;
         return;
-    }   
+    }
 
-    getBeacon()->getToWorld(result);  
+    getBeacon()->getToWorld(result);
     result.invert();
 }
 
-/*! Calculate the frustum of this camera's visible area. 
+/*! Calculate the frustum of this camera's visible area.
  */
 
 void Camera::getFrustum(FrustumVolume& result, const Viewport& p)
 {
     Matrixr mv,prt,pr;
-    
+
     getProjection           (pr , p.getPixelWidth(), p.getPixelHeight());
     getProjectionTranslation(prt, p.getPixelWidth(), p.getPixelHeight());
     getViewing              (mv , p.getPixelWidth(), p.getPixelHeight());
 
     pr.mult(prt);
     pr.mult(mv );
-    
+
     result.setPlanes(pr);
 }
 
 /*! Calculate the matrix that transforms world coordinates into the screen
-    coordinate system for this camera. 
+    coordinate system for this camera.
  */
 
 void Camera::getWorldToScreen(Matrixr &result, const Viewport& p)
 {
     Matrixr mv,prt,pr;
-    
+
     getProjection           (result, p.getPixelWidth(), p.getPixelHeight());
     getProjectionTranslation(prt   , p.getPixelWidth(), p.getPixelHeight());
     getViewing              (mv    , p.getPixelWidth(), p.getPixelHeight());
@@ -235,10 +235,49 @@ void Camera::getWorldToScreen(Matrixr &result, const Viewport& p)
     result.mult(mv );
 }
 
+Matrixr Camera::getProjectionVal           (   UInt32         width,
+                                          UInt32         height)
+{
+   Matrixr temp_mat;
+   this->getProjection(temp_mat, width,height);
+   return temp_mat;
+}
+
+Matrixr Camera::getProjectionTranslationVal(   UInt32         width,
+                                          UInt32         height)
+{
+   Matrixr temp_mat;
+   this->getProjectionTranslation(temp_mat, width, height);
+   return temp_mat;
+}
+
+Matrixr Camera::getViewingVal              ( UInt32         width,
+                                          UInt32         height)
+{
+   Matrixr temp_mat;
+   this->getViewing(temp_mat, width, height);
+   return temp_mat;
+}
+
+FrustumVolume Camera::getFrustumVal        (  const Viewport      &port  )
+{
+   FrustumVolume vol;
+   this->getFrustum(vol, port);
+   return vol;
+}
+
+Matrixr Camera::getWorldToScreenVal        ( const Viewport      &port  )
+{
+   Matrixr temp_mat;
+   this->getWorldToScreen(temp_mat, port);
+   return temp_mat;
+}
+
+
 #ifndef OSG_WINCE
 /*! Calculate a ray that starts at the camera position and goes through the
   pixel \a x, \a y in the viewport \a port. \a x and \a y are relative to the
-  viewport's upper left corner. 
+  viewport's upper left corner.
 */
 
 bool Camera::calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port)
@@ -247,21 +286,21 @@ bool Camera::calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port)
     {
         return false;
     }
-    
+
     Matrix proj, projtrans, view;
 
-    getProjection(proj, 
-                  port.getPixelWidth(), 
+    getProjection(proj,
+                  port.getPixelWidth(),
                   port.getPixelHeight());
 
-    getProjectionTranslation(projtrans, 
-                             port.getPixelWidth(), 
+    getProjectionTranslation(projtrans,
+                             port.getPixelWidth(),
                              port.getPixelHeight());
 
-    getViewing(view, 
-               port.getPixelWidth(), 
+    getViewing(view,
+               port.getPixelWidth(),
                port.getPixelHeight());
-    
+
     Matrix wctocc = proj;
 
     wctocc.mult(projtrans);
@@ -270,29 +309,29 @@ bool Camera::calcViewRay(Line &line, Int32 x, Int32 y, const Viewport &port)
     Matrix cctowc;
 
     cctowc.invertFrom(wctocc);
-       
-    Real32  rx = 
-        (x - port.getPixelLeft()) / 
+
+    Real32  rx =
+        (x - port.getPixelLeft()) /
         (Real32) port.getPixelWidth() * 2.f - 1.f;
 
     Real32 ry = 1.f - (
-        ( y - (port.getParent()->getHeight() - port.getPixelTop()) ) / 
+        ( y - (port.getParent()->getHeight() - port.getPixelTop()) ) /
         (Real32) port.getPixelHeight()) * 2.f;
-    
+
     Pnt3f from, at;
 
     cctowc.multFullMatrixPnt(Pnt3f(rx, ry, -1), from);
     cctowc.multFullMatrixPnt(Pnt3f(rx, ry,  1), at);
-    
+
     line.setValue(from, at-from);
-    
+
     return true;
 }
 #endif
 
 /*------------------------------- dump ----------------------------------*/
 
-void Camera::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
+void Camera::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
                   const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
     SLOG << "Dump Camera NI" << std::endl;
