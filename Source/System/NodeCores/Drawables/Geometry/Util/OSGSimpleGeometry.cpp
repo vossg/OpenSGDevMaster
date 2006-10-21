@@ -65,21 +65,27 @@ OSG_BEGIN_NAMESPACE
 
 // The Simple Geometry creation functions
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makePlane creates a plane in the x/y plane. It spans the [-\a xsize /2,\a
-    xsize /2]x [-\a ysize /2,\a ysize/2] area and is subdivided into \a hor * 
+/*! Creates a plane in the x/y plane. It spans the [-\a xsize /2,\a
+    xsize /2] x [-\a ysize /2,\a ysize/2] area and is subdivided into \a hor *
     \a vert quads.
-*/
 
+    \param[in] xsize Length of plane edge in x direction.
+    \param[in] ysize Length of plane edge in y direction.
+    \param[in] hor Number of quads in x direction.
+    \param[in] vert Number of quads in y direction.
+    \return NodePtr to a newly created Node with a Geometry core.
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
 NodePtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
 {
     GeometryPtr pGeo = makePlaneGeo(xsize, ysize, hor, vert);
- 
+
     if(pGeo == NullFC)
     {
         return NullFC;
     }
-    
+
     NodePtr node = Node::create();
 
     node->setCore(pGeo);
@@ -87,11 +93,19 @@ NodePtr makePlane(Real32 xsize, Real32 ysize, UInt16 hor, UInt16 vert)
     return node;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makePlane. 
-*/
+/*! Create the Geometry core used by OSG::makePlane.
 
-GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize, 
+    \param[in] xsize Length of plane edge in x direction.
+    \param[in] ysize Length of plane edge in y direction.
+    \param[in] hor Number of quads in x direction.
+    \param[in] vert Number of quads in y direction.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makePlane
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
                          UInt16 hor,   UInt16 vert)
 {
     if(! hor || ! vert)
@@ -100,14 +114,14 @@ GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
                  << vert << std::endl;
         return NullFC;
     }
-    
+
     GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
     GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
     GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();   
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();  
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();     
-    
+    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+
     UInt16 x,y;
     Real32 xstep,ystep;
     xstep=xsize / hor;
@@ -119,7 +133,6 @@ GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
     GeoVec3fProperty::StoredFieldType *n  = norms->editFieldPtr();
     GeoVec2fProperty::StoredFieldType *tx = tex ->editFieldPtr();
 
-    
     for(y = 0; y <= vert; y++)
     {
         for(x = 0; x <= hor; x++)
@@ -131,7 +144,7 @@ GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
     }
 
     // create the faces
-    
+
     GeoUInt32Property::StoredFieldType *i = index->editFieldPtr();
     GeoUInt32Property::StoredFieldType *l = lens ->editFieldPtr();
     GeoUInt8Property::StoredFieldType  *t = types->editFieldPtr();
@@ -140,7 +153,7 @@ GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
     {
         t->push_back(GL_TRIANGLE_STRIP);
         l->push_back(2 * (hor + 1));
-        
+
         for(x = 0; x <= hor; x++)
         {
             i->push_back((y + 1) * (hor + 1) + x);
@@ -148,9 +161,8 @@ GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
         }
     }
 
-   
     // create the geometry
-    
+
     GeometryPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
@@ -160,131 +172,172 @@ GeometryPtr makePlaneGeo(Real32 xsize, Real32 ysize,
     geo->setIndices(index);
     geo->setTypes(types);
     geo->setLengths(lens);
-    
+
     return geo;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makeCone creates a cone. It's center sits in the origin of the x/z plane. 
-    It's radius is \a radius and the base is subdivided into \a sides parts.
+/*! Creates a cone. It's center is in the origin and the bottom is parallel to
+    the x/y plane.
+    It's radius is \a botradius and the base is subdivided into \a sides parts.
 
     Each part of the cone (bottom cap, sides) can be enabled or disabled.
 
-*/
+    \param[in] height Height of the cone.
+    \param[in] botradius Radius if the bottom.
+    \param[in] sides Number of sides the base is subdivided into.
+    \param[in] doSide If true side faces are created.
+    \param[in] doBttom If true bottom faces are created.
+    \return NodePtr to a newly created Node with a Geometry core.
 
-NodePtr makeCone(Real32 height, 
-                 Real32 botradius, 
-                 UInt16 sides, 
-                 bool   doSide, 
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+*/
+NodePtr makeCone(Real32 height,
+                 Real32 botradius,
+                 UInt16 sides,
+                 bool   doSide,
                  bool   doBottom)
 {
-    return makeConicalFrustum(height, 
-                              0, 
-                              botradius, 
-                              sides, 
-                              doSide, 
-                              false, 
+    return makeConicalFrustum(height,
+                              0,
+                              botradius,
+                              sides,
+                              doSide,
+                              false,
                               doBottom);
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makeCone. 
-*/
+/*! Create the Geometry Core used by OSG::makeCone.
 
-GeometryPtr makeConeGeo(Real32 height, 
-                        Real32 botradius, 
-                        UInt16 sides, 
-                        bool   doSide, 
+    \param[in] height Height of the cone.
+    \param[in] botradius Radius if the bottom.
+    \param[in] sides Number of sides the base is subdivided into.
+    \param[in] doSide If true side faces are created.
+    \param[in] doBttom If true bottom faces are created.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeCone
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+*/
+GeometryPtr makeConeGeo(Real32 height,
+                        Real32 botradius,
+                        UInt16 sides,
+                        bool   doSide,
                         bool   doBottom)
 {
-    return makeConicalFrustumGeo(height, 
-                                 0, 
-                                 botradius, 
-                                 sides, 
-                                 doSide, 
-                                 false, 
+    return makeConicalFrustumGeo(height,
+                                 0,
+                                 botradius,
+                                 sides,
+                                 doSide,
+                                 false,
                                  doBottom);
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makeCylinder creates a cylinder. It's center sits in the origin of the 
-    x/z plane. It's radius is \a radius and the base is subdivided into \a
-    sides parts.
+/*! Creates a cylinder. It's center is in the origin with top and bottom
+    parallel to the x/y plane. It's radius is \a radius and the base is
+    subdivided into \a sides parts.
 
     Each part of the cylinder (top cap, bottom cap, sides) can be enabled or
     disabled.
 
-*/
+    \param[in] height Height of the cylinder.
+    \param[in] radius Radius of the cylinder.
+    \param[in] sides Number of sides the base is subdivided into.
+    \param[in] doSide If true, side faces are created.
+    \param[in] doTop If true, top cap faces are created.
+    \param[in] doBttom If true, bottom cap faces are created.
+    \return NodePtr to a newly created Node with a Geometry core.
 
-NodePtr makeCylinder(Real32 height, 
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+*/
+NodePtr makeCylinder(Real32 height,
                      Real32 radius,
-                     UInt16 sides, 
-                     bool   doSide, 
-                     bool   doTop, 
+                     UInt16 sides,
+                     bool   doSide,
+                     bool   doTop,
                      bool   doBottom)
 {
-    return makeConicalFrustum(height, 
-                              radius, 
-                              radius, 
-                              sides, 
-                              doSide, 
-                              doTop, 
+    return makeConicalFrustum(height,
+                              radius,
+                              radius,
+                              sides,
+                              doSide,
+                              doTop,
                               doBottom);
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makeCylinder. 
-*/
+/*! Create the Geometry Core used by OSG::makeCylinder.
 
-GeometryPtr makeCylinderGeo(Real32 height, 
+    \param[in] height Height of the cylinder.
+    \param[in] radius Radius of the cylinder.
+    \param[in] sides Number of sides the base is subdivided into.
+    \param[in] doSide If true, side faces are created.
+    \param[in] doTop If true, top cap faces are created.
+    \param[in] doBttom If true, bottom cap faces are created.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeCylinder
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+*/
+GeometryPtr makeCylinderGeo(Real32 height,
                             Real32 radius,
-                            UInt16 sides, 
-                            bool   doSide, 
-                            bool   doTop, 
+                            UInt16 sides,
+                            bool   doSide,
+                            bool   doTop,
                             bool   doBottom)
 {
-    return makeConicalFrustumGeo(height, 
-                                 radius, 
-                                 radius, 
-                                 sides, 
-                                 doSide, 
-                                 doTop, 
+    return makeConicalFrustumGeo(height,
+                                 radius,
+                                 radius,
+                                 sides,
+                                 doSide,
+                                 doTop,
                                  doBottom);
 }
 
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makeConicalFrustum creates a conical frustum. It's center sits in the
-    origin of the x/z plane.  It's height is \a height and the base is
-    subdivided into \a sides parts. The top radius is \a topradius, the bottom
-    radius \a botradius.
+/*! Creates a conical frustum. It's center is in the origin with top and bottom
+    parallel to the x/y plane. The height is \a height and the base is
+    subdivided into \a sides parts. The top radius is \a topradius, while the
+    bottom radius is \a botradius.
 
     Each part of the frustum (top cap, bottom cap, sides) can be enabled or
-    disabled. Caps forradius 0 are automatically disabled.
+    disabled. Caps for radii 0 are automatically disabled.
 
-*/
+    \param[in] height Height of the conical frustum.
+    \param[in] topradius Radius at the top of the conical frustum.
+    \param[in] botradius Radius at the bottom of the conical frustum.
+    \param[in] sides Number of sides the base is subdivided into.
+    \param[in] doSide If true, side faces are created.
+    \param[in] doTop If true, top cap faces are created.
+    \param[in] doBttom If true, bottom cap faces are created.
+    \return NodePtr to a newly created Node with a Geometry core.
 
-NodePtr makeConicalFrustum(Real32 height, 
-                           Real32 topradius, 
-                           Real32 botradius, 
-                           UInt16 sides, 
-                           bool   doSide, 
-                           bool   doTop, 
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+NodePtr makeConicalFrustum(Real32 height,
+                           Real32 topradius,
+                           Real32 botradius,
+                           UInt16 sides,
+                           bool   doSide,
+                           bool   doTop,
                            bool   doBottom)
 {
-    GeometryPtr pGeo = makeConicalFrustumGeo(height, 
-                                             topradius, 
+    GeometryPtr pGeo = makeConicalFrustumGeo(height,
+                                             topradius,
                                              botradius,
-                                             sides, 
-                                             doSide, 
-                                             doTop, 
+                                             sides,
+                                             doSide,
+                                             doTop,
                                              doBottom);
 
     if(pGeo == NullFC)
     {
         return NullFC;
     }
-    
+
     NodePtr node = Node::create();
 
     node->setCore(pGeo);
@@ -292,41 +345,50 @@ NodePtr makeConicalFrustum(Real32 height,
     return node;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makeConicalFrustum. 
-*/
+/*! Create the Geometry Core used by OSG::makeConicalFrustum.
 
-GeometryPtr makeConicalFrustumGeo(Real32 height, 
-                                  Real32 topradius, 
-                                  Real32 botradius, 
-                                  UInt16 sides, 
-                                  bool   doSide, 
-                                  bool   doTop, 
+    \param[in] height Height of the conical frustum.
+    \param[in] topradius Radius at the top of the conical frustum.
+    \param[in] botradius Radius at the bottom of the conical frustum.
+    \param[in] sides Number of sides the base is subdivided into.
+    \param[in] doSide If true, side faces are created.
+    \param[in] doTop If true, top cap faces are created.
+    \param[in] doBttom If true, bottom cap faces are created.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+GeometryPtr makeConicalFrustumGeo(Real32 height,
+                                  Real32 topradius,
+                                  Real32 botradius,
+                                  UInt16 sides,
+                                  bool   doSide,
+                                  bool   doTop,
                                   bool   doBottom)
 {
     if(height <= 0 || topradius < 0 || botradius < 0 || sides < 3)
     {
-        SWARNING << "makeConicalFrustum: illegal parameters height=" << height 
-                 << ", topradius=" << topradius 
-                 << ", botradius=" << botradius 
-                 << ", sides=" << sides 
+        SWARNING << "makeConicalFrustum: illegal parameters height=" << height
+                 << ", topradius=" << topradius
+                 << ", botradius=" << botradius
+                 << ", sides=" << sides
                  << std::endl;
         return NullFC;
     }
-    
+
     GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
     GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
     GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();   
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();  
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();     
-    
+    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+
     Int16  j;
     Real32 delta = 2.f * Pi / sides;
     Real32 beta, x, z;
     Real32 incl = (botradius - topradius) / height;
     Real32 nlen = 1.f / osgSqrt(1 + incl * incl);
-    
+
     // vertices
 
     GeoPnt3fProperty::StoredFieldType  *p  = pnts ->editFieldPtr();
@@ -334,33 +396,31 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
     GeoVec2fProperty::StoredFieldType  *tx = tex  ->editFieldPtr();
 
     // faces
-    
+
     GeoUInt32Property::StoredFieldType *i  = index->editFieldPtr();
     GeoUInt32Property::StoredFieldType *l  = lens ->editFieldPtr();
     GeoUInt8Property::StoredFieldType  *t  = types->editFieldPtr();
 
-    // 
-    
     if(doSide)
     {
         UInt32 baseindex = p->size();
-        
+
         for(j = 0; j <= sides; j++)
         {
             beta = j * delta;
             x    =  osgSin(beta);
-            z    = -osgCos(beta);         
+            z    = -osgCos(beta);
 
             p->push_back(Pnt3f(x * topradius, height/2, z * topradius));
             n->push_back(Vec3f(x/nlen, incl/nlen, z/nlen));
             tx->push_back(Vec2f(1.f - j / (Real32) sides, 1));
         }
-        
+
         for(j = 0; j <= sides; j++)
         {
             beta = j * delta;
             x    =  osgSin(beta);
-            z    = -osgCos(beta);         
+            z    = -osgCos(beta);
 
             p->push_back(Pnt3f(x * botradius, -height/2, z * botradius));
             n->push_back(Vec3f(x/nlen, incl/nlen, z/nlen));
@@ -370,24 +430,24 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
         t->push_back(GL_TRIANGLE_STRIP);
         l->push_back(2 * (sides + 1));
 
-        for(j = 0; j <= sides; j++) 
+        for(j = 0; j <= sides; j++)
         {
                 i->push_back(baseindex + sides + 1 + j);
                 i->push_back(baseindex + j);
         }
     }
-    
+
     if(doTop && topradius > 0)
     {
         UInt32 baseindex = p->size();
-        
+
         // need to duplicate the points fornow, as we don't have multi-index geo yet
-        
+
         for(j = sides - 1; j >= 0; j--)
         {
             beta = j * delta;
             x    =  topradius * osgSin(beta);
-            z    = -topradius * osgCos(beta);        
+            z    = -topradius * osgCos(beta);
 
             p->push_back(Pnt3f(x, height/2, z));
             n->push_back(Vec3f(0, 1, 0));
@@ -397,23 +457,23 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
         t->push_back(GL_POLYGON);
         l->push_back(sides);
 
-        for(j = 0; j < sides; j++) 
+        for(j = 0; j < sides; j++)
         {
             i->push_back(baseindex + j);
         }
     }
-    
+
     if(doBottom && botradius > 0 )
     {
         UInt32 baseindex = p->size();
-        
+
         // need to duplicate the points fornow, as we don't have multi-index geo yet
-        
+
         for(j = sides - 1; j >= 0; j--)
         {
             beta = j * delta;
             x    =  botradius * osgSin(beta);
-            z    = -botradius * osgCos(beta);      
+            z    = -botradius * osgCos(beta);
 
             p->push_back(Pnt3f(x, -height/2, z));
             n->push_back(Vec3f(0, -1, 0));
@@ -423,14 +483,14 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
         t->push_back(GL_POLYGON);
         l->push_back(sides);
 
-        for(j = 0; j < sides; j++) 
+        for(j = 0; j < sides; j++)
         {
             i->push_back(baseindex + sides - 1 - j);
         }
     }
-    
+
     // create the geometry
-    
+
     GeometryPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
@@ -444,22 +504,27 @@ GeometryPtr makeConicalFrustumGeo(Real32 height,
     return geo;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makeTorus creates a torus in the x/y plane. Sides are the number of
-    subdivisions forthe inner radius, rings forthe outer.
+/*! Creates a torus in the x/y plane. The number of subdivisions for
+    the inner radius is \a sides, for the outer radius it is \a rings.
 
-*/
+    \param[in] innerRadius Inner radius of the torus.
+    \param[in] outerRadius Outer radius of the torus.
+    \param[in] sides Number of subdivisions along the inner radius.
+    \param[in] rings Number of subdivisions along the outer radius.
+    \return NodePtr to a newly created Node with a Geometry core.
 
-NodePtr makeTorus(Real32 innerRadius, Real32 outerRadius, UInt16 sides, 
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+NodePtr makeTorus(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
                   UInt16 rings)
 {
     GeometryPtr pGeo = makeTorusGeo(innerRadius, outerRadius, sides, rings);
- 
+
     if(pGeo == NullFC)
     {
         return NullFC;
     }
-    
+
     NodePtr node = Node::create();
 
     node->setCore(pGeo);
@@ -467,30 +532,38 @@ NodePtr makeTorus(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
     return node;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makeTorus. 
-*/
+/*! Create the Geometry Core used by OSG::makeTorus.
 
-GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides, 
+    \param[in] innerRadius Inner radius of the torus.
+    \param[in] outerRadius Outer radius of the torus.
+    \param[in] sides Number of subdivisions along the inner radius.
+    \param[in] rings Number of subdivisions along the outer radius.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeTorus
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
                          UInt16 rings)
 {
     if(innerRadius <= 0 || outerRadius <= 0 || sides < 3 || rings < 3)
     {
-        SWARNING << "makeTorus: illegal parameters innerRadius=" << innerRadius 
-                 << ", outerRadius=" << outerRadius 
-                 << ", sides=" << sides 
-                 << ", rings=" << rings 
+        SWARNING << "makeTorus: illegal parameters innerRadius=" << innerRadius
+                 << ", outerRadius=" << outerRadius
+                 << ", sides=" << sides
+                 << ", rings=" << rings
                  << std::endl;
         return NullFC;
     }
-    
+
     GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
     GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
     GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();   
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();  
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();     
-    
+    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+
     UInt16 a, b;
     Real32 theta, phi;
     Real32 cosTheta, sinTheta;
@@ -505,12 +578,12 @@ GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
     ringDelta = 2.f * Pi / rings;
     sideDelta = 2.f * Pi / sides;
 
-    for(a = 0, theta = 0.0; a <= rings; a++, theta += ringDelta) 
+    for(a = 0, theta = 0.0; a <= rings; a++, theta += ringDelta)
     {
         cosTheta = osgCos(theta);
         sinTheta = osgSin(theta);
 
-        for(b = 0, phi = 0; b <= sides; b++, phi += sideDelta) 
+        for(b = 0, phi = 0; b <= sides; b++, phi += sideDelta)
         {
             GLfloat cosPhi, sinPhi, dist;
 
@@ -518,27 +591,27 @@ GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
             sinPhi = osgSin(phi);
             dist   = outerRadius + innerRadius * cosPhi;
 
-            n->push_back(Vec3f(cosTheta * cosPhi, 
-                              -sinTheta * cosPhi, 
+            n->push_back(Vec3f(cosTheta * cosPhi,
+                              -sinTheta * cosPhi,
                               sinPhi));
-            p->push_back(Pnt3f(cosTheta * dist, 
-                              -sinTheta * dist, 
+            p->push_back(Pnt3f(cosTheta * dist,
+                              -sinTheta * dist,
                               innerRadius * sinPhi));
             tx->push_back(Vec2f(- a / (Real32) rings, b / (Real32)sides));
         }
-    }   
+    }
 
     // create the faces
-    
+
     GeoUInt32Property::StoredFieldType *i  = index->editFieldPtr();
     GeoUInt32Property::StoredFieldType *l  = lens ->editFieldPtr();
     GeoUInt8Property::StoredFieldType  *t  = types->editFieldPtr();
 
-    for(a = 0; a < sides; a++) 
+    for(a = 0; a < sides; a++)
     {
         t->push_back(GL_TRIANGLE_STRIP);
         l->push_back((rings + 1) * 2);
-        
+
         for(b = 0; b <= rings; b++)
         {
             i->push_back(b * (sides+1) + a);
@@ -547,7 +620,7 @@ GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
     }
 
     // create the geometry
-    
+
     GeometryPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
@@ -557,25 +630,32 @@ GeometryPtr makeTorusGeo(Real32 innerRadius, Real32 outerRadius, UInt16 sides,
     geo->setIndices(index);
     geo->setTypes(types);
     geo->setLengths(lens);
-    
+
     return geo;
 }
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-Real32 setVecLen(Vec3f &vec, Real32 length) 
+/*! Scale the vector \a vec to the given \a length. If \a vec is degenerate,
+    i.e. has length 0 it is not changed.
+
+    \param[in,out] vec The vector to scale.
+    \param[in] length Length to scale \a vec to.
+    \return The \a length argument.
+ */
+Real32 setVecLen(Vec3f &vec, Real32 length)
 {
     Real32 len = vec.length();
-    if(len == 0.0) 
+    if(len == 0.0)
     {
         len = 1;
-    } 
-    else 
+    }
+    else
     {
         len = length / len;
     }
     vec *= len;
-    
+
     return length;
 }
 
@@ -583,13 +663,13 @@ Real32 calcTexS(Vec3f &n, Real32 theta)
 {
     const Real32 TwoPi  = 6.283185307179586;
     const Real32 HalfPi = 1.570796326794897;
-    
+
     Real32 phi = osgATan2(-n[2], n[0]) - HalfPi;
 
     if (phi <= -Eps)
         phi += TwoPi;
     phi /= TwoPi;
-    
+
     return phi;
 }
 
@@ -616,18 +696,18 @@ void addPoint(Pnt3f v, UInt32 index, Real32 radius,
     tx->push_back(texCoord);
 }
 
-void subdivideTriangle( UInt32 i1, 
-                        UInt32 i2, 
+void subdivideTriangle( UInt32 i1,
+                        UInt32 i2,
                         UInt32 i3,
-                        Int32 depth, 
+                        Int32 depth,
                         GeoPnt3fProperty::StoredFieldType  *p,
                         GeoVec3fProperty::StoredFieldType  *n,
                         GeoVec2fProperty::StoredFieldType  *tx,
                         GeoUInt32Property::StoredFieldType *i,
                         GeoUInt32Property::StoredFieldType *tci,
-                        UInt32& z, Real32 radius ) 
-{   
-    if (depth == 0) 
+                        UInt32& z, Real32 radius )
+{
+    if (depth == 0)
     {
         i->push_back(i1);
         tci->push_back(i1);
@@ -635,8 +715,8 @@ void subdivideTriangle( UInt32 i1,
         tci->push_back(i2);
         i->push_back(i3);
         tci->push_back(i3);
-                            
-        return;         
+
+        return;
     }
 
     Pnt3f v1 = (*p)[i1],
@@ -647,17 +727,17 @@ void subdivideTriangle( UInt32 i1,
     v12 = v1 + (v2 - v1) * .5f;
     v23 = v2 + (v3 - v2) * .5f;
     v31 = v3 + (v1 - v3) * .5f;
-    
+
     v12 /= 2.0f;
     v23 /= 2.0f;
     v31 /= 2.0f;
-    
+
     UInt32 i12 = z++, i23 = z++, i31 = z++;
 
     addPoint(v12,i12,radius,p,n,tx);
     addPoint(v23,i23,radius,p,n,tx);
     addPoint(v31,i31,radius,p,n,tx);
-    
+
     subdivideTriangle( i1, i12, i31, depth - 1, p,n,tx,i,tci, z, radius);
     subdivideTriangle( i2, i23, i12, depth - 1, p,n,tx,i,tci, z, radius);
     subdivideTriangle( i3, i31, i23, depth - 1, p,n,tx,i,tci, z, radius);
@@ -666,15 +746,18 @@ void subdivideTriangle( UInt32 i1,
 
 #endif            // exclude from doc
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makeSphere creates a sphere centered in the origin. It is created by
+/*! Creates a sphere centered in the origin. It is created by
     recursive subdivision of an icosahedron, with \a depth giving the number
     of subdivisions and \a radius being the radius.
 
-*/
+    \param[in] depth Number of recursive subdivisions to perform.
+    \param[in] radius Radius of sphere.
+    \return NodePtr to a newly created Node with a Geometry core.
 
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
 NodePtr makeSphere(UInt16 depth, Real32 radius)
-{   
+{
     GeometryPtr pGeo = makeSphereGeo(depth, radius);
 
     if(pGeo == NullFC)
@@ -685,14 +768,20 @@ NodePtr makeSphere(UInt16 depth, Real32 radius)
     NodePtr node = Node::create();
 
     node->setCore(pGeo);
-        
+
     return node;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makeSphere. 
-*/
+/*! Create the Geometry Core for used by OSG::makeSphere.
 
+    \param[in] depth Number of recursive subdivisions to perform.
+    \param[in] radius Radius of sphere.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeSphere
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
 GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
 {
     const Real32 X = .525731112119133606;
@@ -702,13 +791,13 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
     GeoPnt3fPropertyPtr  pnts    = GeoPnt3fProperty ::create();
     GeoVec3fPropertyPtr  norms   = GeoVec3fProperty ::create();
     GeoVec2fPropertyPtr  tex     = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index   = GeoUInt32Property::create();   
-    GeoUInt32PropertyPtr tcindex = GeoUInt32Property::create();   
-    GeoUInt32PropertyPtr lens    = GeoUInt32Property::create();  
-    GeoUInt8PropertyPtr  types   = GeoUInt8Property ::create();     
+    GeoUInt32PropertyPtr index   = GeoUInt32Property::create();
+    GeoUInt32PropertyPtr tcindex = GeoUInt32Property::create();
+    GeoUInt32PropertyPtr lens    = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr  types   = GeoUInt8Property ::create();
 
     UInt32              j,z;
-   
+
     static Vec3f v[12] = {  Vec3f(-X, 0.,  Z),
                             Vec3f( X, 0.,  Z),
                             Vec3f(-X, 0., -Z),
@@ -729,12 +818,12 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
 
     for (j=0; j<12; j++)
         mat.mult(v[j]);
-                
+
     Int32 tr[20][3] = { {1,4,0},  {4,9,0},  {4,5,9},  {8,5,4},  {1,8,4},
                         {1,10,8}, {10,3,8}, {8,3,5},  {3,2,5},  {3,7,2},
                         {3,10,7}, {10,6,7}, {6,11,7}, {6,0,11}, {6,1,0},
-                        {10,1,6}, {11,0,9}, {2,11,9}, {5,2,9},  {11,2,7} };                  
-                
+                        {10,1,6}, {11,0,9}, {2,11,9}, {5,2,9},  {11,2,7} };
+
     GeoPnt3fProperty::StoredFieldType  *p  = pnts ->editFieldPtr();
     GeoVec3fProperty::StoredFieldType  *n  = norms->editFieldPtr();
     GeoVec2fProperty::StoredFieldType  *tx = tex  ->editFieldPtr();
@@ -750,16 +839,16 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
     tx->reserve(estimatedSize);
     i->reserve (estimatedSize);
     tci->reserve (estimatedSize);
-   
-    // add the initial points to the fields     
-    for (j=0; j<12; j++) 
+
+    // add the initial points to the fields
+    for (j=0; j<12; j++)
     {
         Vec3f pnt = v[j];
         Vec3f norm = v[j];
-        
+
         setVecLen(pnt, radius);
         norm.normalize();
-        
+
         p->push_back(pnt.addToZero());
         n->push_back(norm);
 
@@ -773,22 +862,21 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
 
         tx->push_back(texCoord);
     }
-    
+
     // subdivide the triangles
     z=12;
-    for(j=0; j<20; j++) 
+    for(j=0; j<20; j++)
     {
-        subdivideTriangle(tr[j][0], tr[j][1], tr[j][2], 
+        subdivideTriangle(tr[j][0], tr[j][1], tr[j][2],
                           depth, p, n, tx, i, tci, z, radius);
     }
 
     types->push_back(GL_TRIANGLES);
     lens->push_back(i->size());
-    
+
     // create the geometry
     GeometryPtr geo = Geometry::create();
 
-   
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
     geo->setNormals(norms);
@@ -822,18 +910,18 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
                 if (osgAbs(norm[0]) <= Eps && norm[2] <= Eps)
                 {
                     Real32 theta = ti.getTexCoords(i).y();
-                   
-                    if( !(q[0][0] <= -Eps || 
-                          q[1][0] <= -Eps || 
+
+                    if( !(q[0][0] <= -Eps ||
+                          q[1][0] <= -Eps ||
                           q[2][0] <= -Eps  ) )
                     {
                         Vec2f texCoord(1, theta);
 
                         if(osgAbs(osgAbs(norm[1]) - 1) <= Eps)
                             texCoord[0] = 0.5;
-    
+
                         tex->push_back(texCoord);
-    
+
                         tcindex->setValue( tex->size() - 1, ti.getTexCoordsIndex(i));
                     }
                     else
@@ -842,38 +930,42 @@ GeometryPtr makeSphereGeo(UInt16 depth, Real32 radius)
 
                         if (osgAbs(osgAbs(norm[1]) - 1) <= Eps)
                             texCoord[0] = 0.5;
-    
+
                         tex->push_back(texCoord);
-    
+
                         index->setValue( tex->size() - 1, ti.getTexCoordsIndex(i));
                     }
                 }
             }
         }
     }
-    
+
     endEditCP(geo);
 #endif
 
     return geo;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makeLatLongSphere creates a sphere in the origin and divided in latitude
-    and longitude. \a radius is the radius of the sphere, \a latres and \a
-    longres are the number of subdivisions along the latitudes and longitudes.
+/*! Creates a sphere centered in the origin and divided in latitude
+    and longitude. \a radius is the radius of the sphere, \a latres and
+    \a longres are the number of subdivisions along the latitudes and longitudes.
 
-*/
+    \param[in] latres Number of subdivisions along latitudes.
+    \param[in] longres Number of subdivisions along longitudes.
+    \param[in] radius Radius of sphere.
+    \return NodePtr to a newly created Node with a Geometry core.
 
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
 NodePtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
 {
     GeometryPtr pGeo = makeLatLongSphereGeo(latres, longres, radius);
- 
+
     if(pGeo == NullFC)
     {
         return NullFC;
     }
-    
+
     NodePtr node = Node::create();
 
     node->setCore(pGeo);
@@ -881,30 +973,37 @@ NodePtr makeLatLongSphere(UInt16 latres, UInt16 longres, Real32 radius)
     return node;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makeLatLongSphere. 
-*/
+/*! Create the Geometry Core used by OSG::makeLatLongSphere.
 
+    \param[in] latres Number of subdivisions along latitudes.
+    \param[in] longres Number of subdivisions along longitudes.
+    \param[in] radius Radius of sphere.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeLatLongSphere
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
 GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
                                       Real32 radius)
 {
     if(radius <= 0 || latres < 4 || longres < 4)
     {
         SWARNING << "makeLatLongSphere: illegal parameters "
-                 << "latres=" << latres 
-                 << ", longres=" << longres 
-                 << ", radius=" << radius 
+                 << "latres=" << latres
+                 << ", longres=" << longres
+                 << ", radius=" << radius
                  << std::endl;
         return NullFC;
     }
-    
+
     GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
     GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
     GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();   
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();  
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();     
-    
+    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+
     UInt16 a, b;
     Real32 theta, phi;
     Real32 cosTheta, sinTheta;
@@ -919,40 +1018,40 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
     latDelta  =       Pi / latres;
     longDelta = 2.f * Pi / longres;
 
-    for(a = 0, theta = -Pi / 2; a <= latres; a++, theta += latDelta) 
+    for(a = 0, theta = -Pi / 2; a <= latres; a++, theta += latDelta)
     {
         cosTheta = osgCos(theta);
         sinTheta = osgSin(theta);
 
-        for(b = 0, phi = -Pi; b <= longres; b++, phi += longDelta) 
+        for(b = 0, phi = -Pi; b <= longres; b++, phi += longDelta)
         {
             GLfloat cosPhi, sinPhi;
 
             cosPhi = osgCos(phi);
             sinPhi = osgSin(phi);
- 
-            n->push_back(Vec3f( cosTheta * sinPhi, 
+
+            n->push_back(Vec3f( cosTheta * sinPhi,
                                sinTheta,
                                cosTheta * cosPhi));
-            p->push_back(Pnt3f( cosTheta * sinPhi * radius, 
-                               sinTheta          * radius, 
+            p->push_back(Pnt3f( cosTheta * sinPhi * radius,
+                               sinTheta          * radius,
                                cosTheta * cosPhi * radius));
-            tx->push_back(Vec2f(b / (Real32)longres, 
+            tx->push_back(Vec2f(b / (Real32)longres,
                                a / (Real32)latres));
         }
-    }   
+    }
 
     // create the faces
-    
+
     GeoUInt32Property::StoredFieldType *i  = index->editFieldPtr();
     GeoUInt32Property::StoredFieldType *l  = lens ->editFieldPtr();
     GeoUInt8Property::StoredFieldType  *t  = types->editFieldPtr();
 
-    for(a = 0; a < longres; a++) 
+    for(a = 0; a < longres; a++)
     {
         t->push_back(GL_TRIANGLE_STRIP);
         l->push_back((latres + 1) * 2);
-        
+
         for(b = 0; b <= latres; b++)
         {
             i->push_back(b * (longres+1) + a);
@@ -961,7 +1060,7 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
     }
 
     // create the geometry
-    
+
     GeometryPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
@@ -971,18 +1070,25 @@ GeometryPtr makeLatLongSphereGeo(UInt16 latres, UInt16 longres,
     geo->setIndices(index);
     geo->setTypes(types);
     geo->setLengths(lens);
-    
+
     return geo;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makeBox creates a box around the origin. It spans the [-\a xsize /2,\a
-    xsize /2]x [-\a ysize /2,\a ysize/2]x[-\a zsize /2,\a zsize/2] volume and
-    is subdivided into \a hor * \a vert * \a depth quads.
+/*! Creates a box around the origin. It spans the [-\a xsize /2,\a
+    xsize /2] x [-\a ysize /2, \a ysize/2] x [-\a zsize /2,\a zsize/2] volume
+    and is subdivided into \a hor * \a vert * \a depth quads.
 
-*/
+    \param[in] xsize Length of edge along the x axis.
+    \param[in] ysize Length of edge along the y axis.
+    \param[in] zsize Length of edge along the z axis.
+    \param[in] hor Number of quads along the x axis.
+    \param[in] vert Number of quads along the y axis.
+    \param[in] depth Number of quads along the z axis.
+    \return NodePtr to a newly created Node with a Geometry core.
 
-NodePtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize, 
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+NodePtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
                      UInt16 hor  , UInt16 vert , UInt16 depth)
 {
     GeometryPtr pGeo = makeBoxGeo(xsize, ysize, zsize, hor, vert, depth);
@@ -995,15 +1101,25 @@ NodePtr makeBox(Real32 xsize, Real32 ysize, Real32 zsize,
     NodePtr node = Node::create();
 
     node->setCore(pGeo);
-    
+
     return node;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makeBox. 
-*/
+/*! Create the Geometry Core used by OSG::makeBox.
 
-GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize, 
+    \param[in] xsize Length of edge along the x axis.
+    \param[in] ysize Length of edge along the y axis.
+    \param[in] zsize Length of edge along the z axis.
+    \param[in] hor Number of quads along the x axis.
+    \param[in] vert Number of quads along the y axis.
+    \param[in] depth Number of quads along the z axis.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeBox
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
+GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
                        UInt16 hor  , UInt16 vert , UInt16 depth)
 {
     if(! hor || ! vert || ! depth)
@@ -1012,14 +1128,14 @@ GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
                  << vert << ", depth=" << depth << std::endl;
         return NullFC;
     }
-    
+
     GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
     GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
     GeoVec2fPropertyPtr  tex   = GeoVec2fProperty ::create();
-    GeoUInt32PropertyPtr index = GeoUInt32Property::create();   
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();  
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();     
-    
+    GeoUInt32PropertyPtr index = GeoUInt32Property::create();
+    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
+
     UInt16 x,y,pl;
     Vec3f size(xsize,  ysize,  zsize);
     Vec3f step(xsize / hor, ysize / vert, zsize / depth);
@@ -1030,66 +1146,65 @@ GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
     GeoPnt3fProperty::StoredFieldType  *p  = pnts ->editFieldPtr();
     GeoVec3fProperty::StoredFieldType  *n  = norms->editFieldPtr();
     GeoVec2fProperty::StoredFieldType  *tx = tex  ->editFieldPtr();
-   
+
     static int inds[6][2] =  { {0,1}, {0,1}, {2,1}, {2,1}, {0,2}, {0,2} };
     static int signs[6][2] = { {1,1}, {-1,1}, {-1,1}, {1,1}, {1,-1}, {1,1} };
     static int asigns[6] = { 1, -1, 1, -1, 1, -1 };
-    
+
     for(pl = 0; pl < 6; pl++)
     {
         UInt16 axis = 3 - inds[pl][0] - inds[pl][1];
-        
+
         for(y = 0; y <= res[inds[pl][1]] ; y++)
         {
             for(x = 0; x <= res[inds[pl][0]]; x++)
-            {                       
+            {
                 Pnt3f pnt;
-                pnt[ inds[pl][0] ] = (x * step[inds[pl][0]] - size[inds[pl][0]] / 2) * 
+                pnt[ inds[pl][0] ] = (x * step[inds[pl][0]] - size[inds[pl][0]] / 2) *
                                         signs[pl][0];
-                pnt[ inds[pl][1] ] = (y * step[inds[pl][1]] - size[inds[pl][1]] / 2) * 
+                pnt[ inds[pl][1] ] = (y * step[inds[pl][1]] - size[inds[pl][1]] / 2) *
                                         signs[pl][1];
                 pnt[ axis ] = size[ axis ] * asigns[ pl ] / 2;
                 p->push_back(pnt);
-                
+
                 Vec3f norm(0, 0, 0);
                 norm[ axis ] = Real32(asigns[ pl ]);
                 n->push_back(norm);
-                tx->push_back(Vec2f(x / (Real32) res[inds[pl][0]], 
+                tx->push_back(Vec2f(x / (Real32) res[inds[pl][0]],
                                     y / (Real32) res[inds[pl][1]]));
             }
         }
     }
-    
+
     // create the faces
-    
+
     GeoUInt32Property::StoredFieldType *i  = index->editFieldPtr();
     GeoUInt32Property::StoredFieldType *l  = lens ->editFieldPtr();
     GeoUInt8Property::StoredFieldType  *t  = types->editFieldPtr();
 
     UInt32 basepoint = 0;
-    
+
     for(pl = 0; pl < 6; pl++)
     {
         for(y = 0; y < res[inds[pl][1]]; y++)
         {
             UInt16 h = UInt16(res[inds[pl][0]]);
-            
+
             t->push_back(GL_TRIANGLE_STRIP);
             l->push_back(2 * (h + 1));
-            
+
             for(x = 0; x <= h; x++)
             {
                 i->push_back(basepoint + (y + 1) * (h + 1) + x);
                 i->push_back(basepoint +  y      * (h + 1) + x);
             }
         }
-        basepoint += UInt32((res[inds[pl][0]] + 1.f) * 
+        basepoint += UInt32((res[inds[pl][0]] + 1.f) *
                             (res[inds[pl][1]] + 1.f) );
     }
-    
-   
+
     // create the geometry
-    
+
     GeometryPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
@@ -1103,20 +1218,23 @@ GeometryPtr makeBoxGeo(Real32 xsize, Real32 ysize, Real32 zsize,
     return geo;
 }
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    makeTeapot create a model of the famous Utah teapot, based on Eric
-    Haines' SPD code.
-*/
+/*! Create a model of the famous Utah teapot, based on Eric Haines' SPD code
+    (http://www1.acm.org/tog/resources/SPD).
 
+    \param[in] depth Subdivision depth.
+    \return NodePtr to a newly created Node with a Geometry core.
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
 NodePtr makeTeapot(UInt16 depth)
 {
     GeometryPtr pGeo = makeTeapotGeo(depth);
- 
+
     if(pGeo == NullFC)
     {
         return NullFC;
     }
-    
+
     NodePtr node = Node::create();
 
     node->setCore(pGeo);
@@ -1124,12 +1242,13 @@ NodePtr makeTeapot(UInt16 depth)
     return node;
 }
 
+namespace {
 
 // Teapot data and helper functions
 
-/* Teapot function. Taken from Eric Haines' SPD package 
+/* Teapot function. Taken from Eric Haines' SPD package
    (http://www1.acm.org/tog/resources/SPD)
-   
+
    Slightly C++-ized for OpenSG
  */
 
@@ -1138,14 +1257,13 @@ NodePtr makeTeapot(UInt16 depth)
  */
 #define BOTTOM
 
-#ifdef	BOTTOM
-#define	NUM_PATCHES	32
+#ifdef BOTTOM
+#define NUM_PATCHES 32
 #else
-#define	NUM_PATCHES	28
+#define NUM_PATCHES 28
 #endif
 
-
-static	int	Patches[32][4][4] = {
+static int Patches[32][4][4] = {
 /* rim */
 {{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}, {12, 13, 14, 15}},
 {{3, 16, 17, 18}, {7, 19, 20, 21}, {11, 22, 23, 24}, {15, 25, 26, 27}},
@@ -1184,301 +1302,300 @@ static	int	Patches[32][4][4] = {
 {{265, 265, 265, 265}, {269, 274, 275, 276}, {273, 277, 278, 279}, {113, 112, 111, 104}},
 {{265, 265, 265, 265}, {276, 280, 281, 282}, {279, 283, 284, 285}, {104, 103, 102, 95}},
 {{265, 265, 265, 265}, {282, 286, 287, 266}, {285, 288, 289, 270}, {95, 94, 93, 92}}
-} ;
+};
 
-static	Vec3f	Verts[290] = {
- Vec3f(1.4, 0, 2.4),
- Vec3f(1.4, -0.784, 2.4),
- Vec3f(0.784, -1.4, 2.4),
- Vec3f(0, -1.4, 2.4),
- Vec3f(1.3375, 0, 2.53125),
- Vec3f(1.3375, -0.749, 2.53125),
- Vec3f(0.749, -1.3375, 2.53125),
- Vec3f(0, -1.3375, 2.53125),
- Vec3f(1.4375, 0, 2.53125),
- Vec3f(1.4375, -0.805, 2.53125),
- Vec3f(0.805, -1.4375, 2.53125),
- Vec3f(0, -1.4375, 2.53125),
- Vec3f(1.5, 0, 2.4),
- Vec3f(1.5, -0.84, 2.4),
- Vec3f(0.84, -1.5, 2.4),
- Vec3f(0, -1.5, 2.4),
- Vec3f(-0.784, -1.4, 2.4),
- Vec3f(-1.4, -0.784, 2.4),
- Vec3f(-1.4, 0, 2.4),
- Vec3f(-0.749, -1.3375, 2.53125),
- Vec3f(-1.3375, -0.749, 2.53125),
- Vec3f(-1.3375, 0, 2.53125),
- Vec3f(-0.805, -1.4375, 2.53125),
- Vec3f(-1.4375, -0.805, 2.53125),
- Vec3f(-1.4375, 0, 2.53125),
- Vec3f(-0.84, -1.5, 2.4),
- Vec3f(-1.5, -0.84, 2.4),
- Vec3f(-1.5, 0, 2.4),
- Vec3f(-1.4, 0.784, 2.4),
- Vec3f(-0.784, 1.4, 2.4),
- Vec3f(0, 1.4, 2.4),
- Vec3f(-1.3375, 0.749, 2.53125),
- Vec3f(-0.749, 1.3375, 2.53125),
- Vec3f(0, 1.3375, 2.53125),
- Vec3f(-1.4375, 0.805, 2.53125),
- Vec3f(-0.805, 1.4375, 2.53125),
- Vec3f(0, 1.4375, 2.53125),
- Vec3f(-1.5, 0.84, 2.4),
- Vec3f(-0.84, 1.5, 2.4),
- Vec3f(0, 1.5, 2.4),
- Vec3f(0.784, 1.4, 2.4),
- Vec3f(1.4, 0.784, 2.4),
- Vec3f(0.749, 1.3375, 2.53125),
- Vec3f(1.3375, 0.749, 2.53125),
- Vec3f(0.805, 1.4375, 2.53125),
- Vec3f(1.4375, 0.805, 2.53125),
- Vec3f(0.84, 1.5, 2.4),
- Vec3f(1.5, 0.84, 2.4),
- Vec3f(1.75, 0, 1.875),
- Vec3f(1.75, -0.98, 1.875),
- Vec3f(0.98, -1.75, 1.875),
- Vec3f(0, -1.75, 1.875),
- Vec3f(2, 0, 1.35),
- Vec3f(2, -1.12, 1.35),
- Vec3f(1.12, -2, 1.35),
- Vec3f(0, -2, 1.35),
- Vec3f(2, 0, 0.9),
- Vec3f(2, -1.12, 0.9),
- Vec3f(1.12, -2, 0.9),
- Vec3f(0, -2, 0.9),
- Vec3f(-0.98, -1.75, 1.875),
- Vec3f(-1.75, -0.98, 1.875),
- Vec3f(-1.75, 0, 1.875),
- Vec3f(-1.12, -2, 1.35),
- Vec3f(-2, -1.12, 1.35),
- Vec3f(-2, 0, 1.35),
- Vec3f(-1.12, -2, 0.9),
- Vec3f(-2, -1.12, 0.9),
- Vec3f(-2, 0, 0.9),
- Vec3f(-1.75, 0.98, 1.875),
- Vec3f(-0.98, 1.75, 1.875),
- Vec3f(0, 1.75, 1.875),
- Vec3f(-2, 1.12, 1.35),
- Vec3f(-1.12, 2, 1.35),
- Vec3f(0, 2, 1.35),
- Vec3f(-2, 1.12, 0.9),
- Vec3f(-1.12, 2, 0.9),
- Vec3f(0, 2, 0.9),
- Vec3f(0.98, 1.75, 1.875),
- Vec3f(1.75, 0.98, 1.875),
- Vec3f(1.12, 2, 1.35),
- Vec3f(2, 1.12, 1.35),
- Vec3f(1.12, 2, 0.9),
- Vec3f(2, 1.12, 0.9),
- Vec3f(2, 0, 0.45),
- Vec3f(2, -1.12, 0.45),
- Vec3f(1.12, -2, 0.45),
- Vec3f(0, -2, 0.45),
- Vec3f(1.5, 0, 0.225),
- Vec3f(1.5, -0.84, 0.225),
- Vec3f(0.84, -1.5, 0.225),
- Vec3f(0, -1.5, 0.225),
- Vec3f(1.5, 0, 0.15),
- Vec3f(1.5, -0.84, 0.15),
- Vec3f(0.84, -1.5, 0.15),
- Vec3f(0, -1.5, 0.15),
- Vec3f(-1.12, -2, 0.45),
- Vec3f(-2, -1.12, 0.45),
- Vec3f(-2, 0, 0.45),
- Vec3f(-0.84, -1.5, 0.225),
- Vec3f(-1.5, -0.84, 0.225),
- Vec3f(-1.5, 0, 0.225),
- Vec3f(-0.84, -1.5, 0.15),
- Vec3f(-1.5, -0.84, 0.15),
- Vec3f(-1.5, 0, 0.15),
- Vec3f(-2, 1.12, 0.45),
- Vec3f(-1.12, 2, 0.45),
- Vec3f(0, 2, 0.45),
- Vec3f(-1.5, 0.84, 0.225),
- Vec3f(-0.84, 1.5, 0.225),
- Vec3f(0, 1.5, 0.225),
- Vec3f(-1.5, 0.84, 0.15),
- Vec3f(-0.84, 1.5, 0.15),
- Vec3f(0, 1.5, 0.15),
- Vec3f(1.12, 2, 0.45),
- Vec3f(2, 1.12, 0.45),
- Vec3f(0.84, 1.5, 0.225),
- Vec3f(1.5, 0.84, 0.225),
- Vec3f(0.84, 1.5, 0.15),
- Vec3f(1.5, 0.84, 0.15),
- Vec3f(-1.6, 0, 2.025),
- Vec3f(-1.6, -0.3, 2.025),
- Vec3f(-1.5, -0.3, 2.25),
- Vec3f(-1.5, 0, 2.25),
- Vec3f(-2.3, 0, 2.025),
- Vec3f(-2.3, -0.3, 2.025),
- Vec3f(-2.5, -0.3, 2.25),
- Vec3f(-2.5, 0, 2.25),
- Vec3f(-2.7, 0, 2.025),
- Vec3f(-2.7, -0.3, 2.025),
- Vec3f(-3, -0.3, 2.25),
- Vec3f(-3, 0, 2.25),
- Vec3f(-2.7, 0, 1.8),
- Vec3f(-2.7, -0.3, 1.8),
- Vec3f(-3, -0.3, 1.8),
- Vec3f(-3, 0, 1.8),
- Vec3f(-1.5, 0.3, 2.25),
- Vec3f(-1.6, 0.3, 2.025),
- Vec3f(-2.5, 0.3, 2.25),
- Vec3f(-2.3, 0.3, 2.025),
- Vec3f(-3, 0.3, 2.25),
- Vec3f(-2.7, 0.3, 2.025),
- Vec3f(-3, 0.3, 1.8),
- Vec3f(-2.7, 0.3, 1.8),
- Vec3f(-2.7, 0, 1.575),
- Vec3f(-2.7, -0.3, 1.575),
- Vec3f(-3, -0.3, 1.35),
- Vec3f(-3, 0, 1.35),
- Vec3f(-2.5, 0, 1.125),
- Vec3f(-2.5, -0.3, 1.125),
- Vec3f(-2.65, -0.3, 0.9375),
- Vec3f(-2.65, 0, 0.9375),
- Vec3f(-2, -0.3, 0.9),
- Vec3f(-1.9, -0.3, 0.6),
- Vec3f(-1.9, 0, 0.6),
- Vec3f(-3, 0.3, 1.35),
- Vec3f(-2.7, 0.3, 1.575),
- Vec3f(-2.65, 0.3, 0.9375),
- Vec3f(-2.5, 0.3, 1.125),
- Vec3f(-1.9, 0.3, 0.6),
- Vec3f(-2, 0.3, 0.9),
- Vec3f(1.7, 0, 1.425),
- Vec3f(1.7, -0.66, 1.425),
- Vec3f(1.7, -0.66, 0.6),
- Vec3f(1.7, 0, 0.6),
- Vec3f(2.6, 0, 1.425),
- Vec3f(2.6, -0.66, 1.425),
- Vec3f(3.1, -0.66, 0.825),
- Vec3f(3.1, 0, 0.825),
- Vec3f(2.3, 0, 2.1),
- Vec3f(2.3, -0.25, 2.1),
- Vec3f(2.4, -0.25, 2.025),
- Vec3f(2.4, 0, 2.025),
- Vec3f(2.7, 0, 2.4),
- Vec3f(2.7, -0.25, 2.4),
- Vec3f(3.3, -0.25, 2.4),
- Vec3f(3.3, 0, 2.4),
- Vec3f(1.7, 0.66, 0.6),
- Vec3f(1.7, 0.66, 1.425),
- Vec3f(3.1, 0.66, 0.825),
- Vec3f(2.6, 0.66, 1.425),
- Vec3f(2.4, 0.25, 2.025),
- Vec3f(2.3, 0.25, 2.1),
- Vec3f(3.3, 0.25, 2.4),
- Vec3f(2.7, 0.25, 2.4),
- Vec3f(2.8, 0, 2.475),
- Vec3f(2.8, -0.25, 2.475),
- Vec3f(3.525, -0.25, 2.49375),
- Vec3f(3.525, 0, 2.49375),
- Vec3f(2.9, 0, 2.475),
- Vec3f(2.9, -0.15, 2.475),
- Vec3f(3.45, -0.15, 2.5125),
- Vec3f(3.45, 0, 2.5125),
- Vec3f(2.8, 0, 2.4),
- Vec3f(2.8, -0.15, 2.4),
- Vec3f(3.2, -0.15, 2.4),
- Vec3f(3.2, 0, 2.4),
- Vec3f(3.525, 0.25, 2.49375),
- Vec3f(2.8, 0.25, 2.475),
- Vec3f(3.45, 0.15, 2.5125),
- Vec3f(2.9, 0.15, 2.475),
- Vec3f(3.2, 0.15, 2.4),
- Vec3f(2.8, 0.15, 2.4),
- Vec3f(0, 0, 3.15),
- Vec3f(0.8, 0, 3.15),
- Vec3f(0.8, -0.45, 3.15),
- Vec3f(0.45, -0.8, 3.15),
- Vec3f(0, -0.8, 3.15),
- Vec3f(0, 0, 2.85),
- Vec3f(0.2, 0, 2.7),
- Vec3f(0.2, -0.112, 2.7),
- Vec3f(0.112, -0.2, 2.7),
- Vec3f(0, -0.2, 2.7),
- Vec3f(-0.45, -0.8, 3.15),
- Vec3f(-0.8, -0.45, 3.15),
- Vec3f(-0.8, 0, 3.15),
- Vec3f(-0.112, -0.2, 2.7),
- Vec3f(-0.2, -0.112, 2.7),
- Vec3f(-0.2, 0, 2.7),
- Vec3f(-0.8, 0.45, 3.15),
- Vec3f(-0.45, 0.8, 3.15),
- Vec3f(0, 0.8, 3.15),
- Vec3f(-0.2, 0.112, 2.7),
- Vec3f(-0.112, 0.2, 2.7),
- Vec3f(0, 0.2, 2.7),
- Vec3f(0.45, 0.8, 3.15),
- Vec3f(0.8, 0.45, 3.15),
- Vec3f(0.112, 0.2, 2.7),
- Vec3f(0.2, 0.112, 2.7),
- Vec3f(0.4, 0, 2.55),
- Vec3f(0.4, -0.224, 2.55),
- Vec3f(0.224, -0.4, 2.55),
- Vec3f(0, -0.4, 2.55),
- Vec3f(1.3, 0, 2.55),
- Vec3f(1.3, -0.728, 2.55),
- Vec3f(0.728, -1.3, 2.55),
- Vec3f(0, -1.3, 2.55),
- Vec3f(1.3, 0, 2.4),
- Vec3f(1.3, -0.728, 2.4),
- Vec3f(0.728, -1.3, 2.4),
- Vec3f(0, -1.3, 2.4),
- Vec3f(-0.224, -0.4, 2.55),
- Vec3f(-0.4, -0.224, 2.55),
- Vec3f(-0.4, 0, 2.55),
- Vec3f(-0.728, -1.3, 2.55),
- Vec3f(-1.3, -0.728, 2.55),
- Vec3f(-1.3, 0, 2.55),
- Vec3f(-0.728, -1.3, 2.4),
- Vec3f(-1.3, -0.728, 2.4),
- Vec3f(-1.3, 0, 2.4),
- Vec3f(-0.4, 0.224, 2.55),
- Vec3f(-0.224, 0.4, 2.55),
- Vec3f(0, 0.4, 2.55),
- Vec3f(-1.3, 0.728, 2.55),
- Vec3f(-0.728, 1.3, 2.55),
- Vec3f(0, 1.3, 2.55),
- Vec3f(-1.3, 0.728, 2.4),
- Vec3f(-0.728, 1.3, 2.4),
- Vec3f(0, 1.3, 2.4),
- Vec3f(0.224, 0.4, 2.55),
- Vec3f(0.4, 0.224, 2.55),
- Vec3f(0.728, 1.3, 2.55),
- Vec3f(1.3, 0.728, 2.55),
- Vec3f(0.728, 1.3, 2.4),
- Vec3f(1.3, 0.728, 2.4),
- Vec3f(0, 0, 0),
- Vec3f(1.425, 0, 0),
- Vec3f(1.425, 0.798, 0),
- Vec3f(0.798, 1.425, 0),
- Vec3f(0, 1.425, 0),
- Vec3f(1.5, 0, 0.075),
- Vec3f(1.5, 0.84, 0.075),
- Vec3f(0.84, 1.5, 0.075),
- Vec3f(0, 1.5, 0.075),
- Vec3f(-0.798, 1.425, 0),
- Vec3f(-1.425, 0.798, 0),
- Vec3f(-1.425, 0, 0),
- Vec3f(-0.84, 1.5, 0.075),
- Vec3f(-1.5, 0.84, 0.075),
- Vec3f(-1.5, 0, 0.075),
- Vec3f(-1.425, -0.798, 0),
- Vec3f(-0.798, -1.425, 0),
- Vec3f(0, -1.425, 0),
- Vec3f(-1.5, -0.84, 0.075),
- Vec3f(-0.84, -1.5, 0.075),
- Vec3f(0, -1.5, 0.075),
- Vec3f(0.798, -1.425, 0),
- Vec3f(1.425, -0.798, 0),
- Vec3f(0.84, -1.5, 0.075),
- Vec3f(1.5, -0.84, 0.075)
-} ;
-
+static Vec3f Verts[290] = {
+    Vec3f(1.4, 0, 2.4),
+    Vec3f(1.4, -0.784, 2.4),
+    Vec3f(0.784, -1.4, 2.4),
+    Vec3f(0, -1.4, 2.4),
+    Vec3f(1.3375, 0, 2.53125),
+    Vec3f(1.3375, -0.749, 2.53125),
+    Vec3f(0.749, -1.3375, 2.53125),
+    Vec3f(0, -1.3375, 2.53125),
+    Vec3f(1.4375, 0, 2.53125),
+    Vec3f(1.4375, -0.805, 2.53125),
+    Vec3f(0.805, -1.4375, 2.53125),
+    Vec3f(0, -1.4375, 2.53125),
+    Vec3f(1.5, 0, 2.4),
+    Vec3f(1.5, -0.84, 2.4),
+    Vec3f(0.84, -1.5, 2.4),
+    Vec3f(0, -1.5, 2.4),
+    Vec3f(-0.784, -1.4, 2.4),
+    Vec3f(-1.4, -0.784, 2.4),
+    Vec3f(-1.4, 0, 2.4),
+    Vec3f(-0.749, -1.3375, 2.53125),
+    Vec3f(-1.3375, -0.749, 2.53125),
+    Vec3f(-1.3375, 0, 2.53125),
+    Vec3f(-0.805, -1.4375, 2.53125),
+    Vec3f(-1.4375, -0.805, 2.53125),
+    Vec3f(-1.4375, 0, 2.53125),
+    Vec3f(-0.84, -1.5, 2.4),
+    Vec3f(-1.5, -0.84, 2.4),
+    Vec3f(-1.5, 0, 2.4),
+    Vec3f(-1.4, 0.784, 2.4),
+    Vec3f(-0.784, 1.4, 2.4),
+    Vec3f(0, 1.4, 2.4),
+    Vec3f(-1.3375, 0.749, 2.53125),
+    Vec3f(-0.749, 1.3375, 2.53125),
+    Vec3f(0, 1.3375, 2.53125),
+    Vec3f(-1.4375, 0.805, 2.53125),
+    Vec3f(-0.805, 1.4375, 2.53125),
+    Vec3f(0, 1.4375, 2.53125),
+    Vec3f(-1.5, 0.84, 2.4),
+    Vec3f(-0.84, 1.5, 2.4),
+    Vec3f(0, 1.5, 2.4),
+    Vec3f(0.784, 1.4, 2.4),
+    Vec3f(1.4, 0.784, 2.4),
+    Vec3f(0.749, 1.3375, 2.53125),
+    Vec3f(1.3375, 0.749, 2.53125),
+    Vec3f(0.805, 1.4375, 2.53125),
+    Vec3f(1.4375, 0.805, 2.53125),
+    Vec3f(0.84, 1.5, 2.4),
+    Vec3f(1.5, 0.84, 2.4),
+    Vec3f(1.75, 0, 1.875),
+    Vec3f(1.75, -0.98, 1.875),
+    Vec3f(0.98, -1.75, 1.875),
+    Vec3f(0, -1.75, 1.875),
+    Vec3f(2, 0, 1.35),
+    Vec3f(2, -1.12, 1.35),
+    Vec3f(1.12, -2, 1.35),
+    Vec3f(0, -2, 1.35),
+    Vec3f(2, 0, 0.9),
+    Vec3f(2, -1.12, 0.9),
+    Vec3f(1.12, -2, 0.9),
+    Vec3f(0, -2, 0.9),
+    Vec3f(-0.98, -1.75, 1.875),
+    Vec3f(-1.75, -0.98, 1.875),
+    Vec3f(-1.75, 0, 1.875),
+    Vec3f(-1.12, -2, 1.35),
+    Vec3f(-2, -1.12, 1.35),
+    Vec3f(-2, 0, 1.35),
+    Vec3f(-1.12, -2, 0.9),
+    Vec3f(-2, -1.12, 0.9),
+    Vec3f(-2, 0, 0.9),
+    Vec3f(-1.75, 0.98, 1.875),
+    Vec3f(-0.98, 1.75, 1.875),
+    Vec3f(0, 1.75, 1.875),
+    Vec3f(-2, 1.12, 1.35),
+    Vec3f(-1.12, 2, 1.35),
+    Vec3f(0, 2, 1.35),
+    Vec3f(-2, 1.12, 0.9),
+    Vec3f(-1.12, 2, 0.9),
+    Vec3f(0, 2, 0.9),
+    Vec3f(0.98, 1.75, 1.875),
+    Vec3f(1.75, 0.98, 1.875),
+    Vec3f(1.12, 2, 1.35),
+    Vec3f(2, 1.12, 1.35),
+    Vec3f(1.12, 2, 0.9),
+    Vec3f(2, 1.12, 0.9),
+    Vec3f(2, 0, 0.45),
+    Vec3f(2, -1.12, 0.45),
+    Vec3f(1.12, -2, 0.45),
+    Vec3f(0, -2, 0.45),
+    Vec3f(1.5, 0, 0.225),
+    Vec3f(1.5, -0.84, 0.225),
+    Vec3f(0.84, -1.5, 0.225),
+    Vec3f(0, -1.5, 0.225),
+    Vec3f(1.5, 0, 0.15),
+    Vec3f(1.5, -0.84, 0.15),
+    Vec3f(0.84, -1.5, 0.15),
+    Vec3f(0, -1.5, 0.15),
+    Vec3f(-1.12, -2, 0.45),
+    Vec3f(-2, -1.12, 0.45),
+    Vec3f(-2, 0, 0.45),
+    Vec3f(-0.84, -1.5, 0.225),
+    Vec3f(-1.5, -0.84, 0.225),
+    Vec3f(-1.5, 0, 0.225),
+    Vec3f(-0.84, -1.5, 0.15),
+    Vec3f(-1.5, -0.84, 0.15),
+    Vec3f(-1.5, 0, 0.15),
+    Vec3f(-2, 1.12, 0.45),
+    Vec3f(-1.12, 2, 0.45),
+    Vec3f(0, 2, 0.45),
+    Vec3f(-1.5, 0.84, 0.225),
+    Vec3f(-0.84, 1.5, 0.225),
+    Vec3f(0, 1.5, 0.225),
+    Vec3f(-1.5, 0.84, 0.15),
+    Vec3f(-0.84, 1.5, 0.15),
+    Vec3f(0, 1.5, 0.15),
+    Vec3f(1.12, 2, 0.45),
+    Vec3f(2, 1.12, 0.45),
+    Vec3f(0.84, 1.5, 0.225),
+    Vec3f(1.5, 0.84, 0.225),
+    Vec3f(0.84, 1.5, 0.15),
+    Vec3f(1.5, 0.84, 0.15),
+    Vec3f(-1.6, 0, 2.025),
+    Vec3f(-1.6, -0.3, 2.025),
+    Vec3f(-1.5, -0.3, 2.25),
+    Vec3f(-1.5, 0, 2.25),
+    Vec3f(-2.3, 0, 2.025),
+    Vec3f(-2.3, -0.3, 2.025),
+    Vec3f(-2.5, -0.3, 2.25),
+    Vec3f(-2.5, 0, 2.25),
+    Vec3f(-2.7, 0, 2.025),
+    Vec3f(-2.7, -0.3, 2.025),
+    Vec3f(-3, -0.3, 2.25),
+    Vec3f(-3, 0, 2.25),
+    Vec3f(-2.7, 0, 1.8),
+    Vec3f(-2.7, -0.3, 1.8),
+    Vec3f(-3, -0.3, 1.8),
+    Vec3f(-3, 0, 1.8),
+    Vec3f(-1.5, 0.3, 2.25),
+    Vec3f(-1.6, 0.3, 2.025),
+    Vec3f(-2.5, 0.3, 2.25),
+    Vec3f(-2.3, 0.3, 2.025),
+    Vec3f(-3, 0.3, 2.25),
+    Vec3f(-2.7, 0.3, 2.025),
+    Vec3f(-3, 0.3, 1.8),
+    Vec3f(-2.7, 0.3, 1.8),
+    Vec3f(-2.7, 0, 1.575),
+    Vec3f(-2.7, -0.3, 1.575),
+    Vec3f(-3, -0.3, 1.35),
+    Vec3f(-3, 0, 1.35),
+    Vec3f(-2.5, 0, 1.125),
+    Vec3f(-2.5, -0.3, 1.125),
+    Vec3f(-2.65, -0.3, 0.9375),
+    Vec3f(-2.65, 0, 0.9375),
+    Vec3f(-2, -0.3, 0.9),
+    Vec3f(-1.9, -0.3, 0.6),
+    Vec3f(-1.9, 0, 0.6),
+    Vec3f(-3, 0.3, 1.35),
+    Vec3f(-2.7, 0.3, 1.575),
+    Vec3f(-2.65, 0.3, 0.9375),
+    Vec3f(-2.5, 0.3, 1.125),
+    Vec3f(-1.9, 0.3, 0.6),
+    Vec3f(-2, 0.3, 0.9),
+    Vec3f(1.7, 0, 1.425),
+    Vec3f(1.7, -0.66, 1.425),
+    Vec3f(1.7, -0.66, 0.6),
+    Vec3f(1.7, 0, 0.6),
+    Vec3f(2.6, 0, 1.425),
+    Vec3f(2.6, -0.66, 1.425),
+    Vec3f(3.1, -0.66, 0.825),
+    Vec3f(3.1, 0, 0.825),
+    Vec3f(2.3, 0, 2.1),
+    Vec3f(2.3, -0.25, 2.1),
+    Vec3f(2.4, -0.25, 2.025),
+    Vec3f(2.4, 0, 2.025),
+    Vec3f(2.7, 0, 2.4),
+    Vec3f(2.7, -0.25, 2.4),
+    Vec3f(3.3, -0.25, 2.4),
+    Vec3f(3.3, 0, 2.4),
+    Vec3f(1.7, 0.66, 0.6),
+    Vec3f(1.7, 0.66, 1.425),
+    Vec3f(3.1, 0.66, 0.825),
+    Vec3f(2.6, 0.66, 1.425),
+    Vec3f(2.4, 0.25, 2.025),
+    Vec3f(2.3, 0.25, 2.1),
+    Vec3f(3.3, 0.25, 2.4),
+    Vec3f(2.7, 0.25, 2.4),
+    Vec3f(2.8, 0, 2.475),
+    Vec3f(2.8, -0.25, 2.475),
+    Vec3f(3.525, -0.25, 2.49375),
+    Vec3f(3.525, 0, 2.49375),
+    Vec3f(2.9, 0, 2.475),
+    Vec3f(2.9, -0.15, 2.475),
+    Vec3f(3.45, -0.15, 2.5125),
+    Vec3f(3.45, 0, 2.5125),
+    Vec3f(2.8, 0, 2.4),
+    Vec3f(2.8, -0.15, 2.4),
+    Vec3f(3.2, -0.15, 2.4),
+    Vec3f(3.2, 0, 2.4),
+    Vec3f(3.525, 0.25, 2.49375),
+    Vec3f(2.8, 0.25, 2.475),
+    Vec3f(3.45, 0.15, 2.5125),
+    Vec3f(2.9, 0.15, 2.475),
+    Vec3f(3.2, 0.15, 2.4),
+    Vec3f(2.8, 0.15, 2.4),
+    Vec3f(0, 0, 3.15),
+    Vec3f(0.8, 0, 3.15),
+    Vec3f(0.8, -0.45, 3.15),
+    Vec3f(0.45, -0.8, 3.15),
+    Vec3f(0, -0.8, 3.15),
+    Vec3f(0, 0, 2.85),
+    Vec3f(0.2, 0, 2.7),
+    Vec3f(0.2, -0.112, 2.7),
+    Vec3f(0.112, -0.2, 2.7),
+    Vec3f(0, -0.2, 2.7),
+    Vec3f(-0.45, -0.8, 3.15),
+    Vec3f(-0.8, -0.45, 3.15),
+    Vec3f(-0.8, 0, 3.15),
+    Vec3f(-0.112, -0.2, 2.7),
+    Vec3f(-0.2, -0.112, 2.7),
+    Vec3f(-0.2, 0, 2.7),
+    Vec3f(-0.8, 0.45, 3.15),
+    Vec3f(-0.45, 0.8, 3.15),
+    Vec3f(0, 0.8, 3.15),
+    Vec3f(-0.2, 0.112, 2.7),
+    Vec3f(-0.112, 0.2, 2.7),
+    Vec3f(0, 0.2, 2.7),
+    Vec3f(0.45, 0.8, 3.15),
+    Vec3f(0.8, 0.45, 3.15),
+    Vec3f(0.112, 0.2, 2.7),
+    Vec3f(0.2, 0.112, 2.7),
+    Vec3f(0.4, 0, 2.55),
+    Vec3f(0.4, -0.224, 2.55),
+    Vec3f(0.224, -0.4, 2.55),
+    Vec3f(0, -0.4, 2.55),
+    Vec3f(1.3, 0, 2.55),
+    Vec3f(1.3, -0.728, 2.55),
+    Vec3f(0.728, -1.3, 2.55),
+    Vec3f(0, -1.3, 2.55),
+    Vec3f(1.3, 0, 2.4),
+    Vec3f(1.3, -0.728, 2.4),
+    Vec3f(0.728, -1.3, 2.4),
+    Vec3f(0, -1.3, 2.4),
+    Vec3f(-0.224, -0.4, 2.55),
+    Vec3f(-0.4, -0.224, 2.55),
+    Vec3f(-0.4, 0, 2.55),
+    Vec3f(-0.728, -1.3, 2.55),
+    Vec3f(-1.3, -0.728, 2.55),
+    Vec3f(-1.3, 0, 2.55),
+    Vec3f(-0.728, -1.3, 2.4),
+    Vec3f(-1.3, -0.728, 2.4),
+    Vec3f(-1.3, 0, 2.4),
+    Vec3f(-0.4, 0.224, 2.55),
+    Vec3f(-0.224, 0.4, 2.55),
+    Vec3f(0, 0.4, 2.55),
+    Vec3f(-1.3, 0.728, 2.55),
+    Vec3f(-0.728, 1.3, 2.55),
+    Vec3f(0, 1.3, 2.55),
+    Vec3f(-1.3, 0.728, 2.4),
+    Vec3f(-0.728, 1.3, 2.4),
+    Vec3f(0, 1.3, 2.4),
+    Vec3f(0.224, 0.4, 2.55),
+    Vec3f(0.4, 0.224, 2.55),
+    Vec3f(0.728, 1.3, 2.55),
+    Vec3f(1.3, 0.728, 2.55),
+    Vec3f(0.728, 1.3, 2.4),
+    Vec3f(1.3, 0.728, 2.4),
+    Vec3f(0, 0, 0),
+    Vec3f(1.425, 0, 0),
+    Vec3f(1.425, 0.798, 0),
+    Vec3f(0.798, 1.425, 0),
+    Vec3f(0, 1.425, 0),
+    Vec3f(1.5, 0, 0.075),
+    Vec3f(1.5, 0.84, 0.075),
+    Vec3f(0.84, 1.5, 0.075),
+    Vec3f(0, 1.5, 0.075),
+    Vec3f(-0.798, 1.425, 0),
+    Vec3f(-1.425, 0.798, 0),
+    Vec3f(-1.425, 0, 0),
+    Vec3f(-0.84, 1.5, 0.075),
+    Vec3f(-1.5, 0.84, 0.075),
+    Vec3f(-1.5, 0, 0.075),
+    Vec3f(-1.425, -0.798, 0),
+    Vec3f(-0.798, -1.425, 0),
+    Vec3f(0, -1.425, 0),
+    Vec3f(-1.5, -0.84, 0.075),
+    Vec3f(-0.84, -1.5, 0.075),
+    Vec3f(0, -1.5, 0.075),
+    Vec3f(0.798, -1.425, 0),
+    Vec3f(1.425, -0.798, 0),
+    Vec3f(0.84, -1.5, 0.075),
+    Vec3f(1.5, -0.84, 0.075)
+};
 
 /* at the center of the lid's handle and at bottom are cusp points -
  * check if normal is (0 0 0), if so, check that polygon is not degenerate.
@@ -1487,98 +1604,115 @@ static	Vec3f	Verts[290] = {
 static bool
 check_for_cusp( int tot_vert, Pnt3f vert[], Vec3f norm[] )
 {
-	int	count, i, nv ;
-	
-	for ( count = 0, i = tot_vert ; i-- ; ) {
-		/* check if vertex is at cusp */
-		if ( osgAbs(vert[i][0]) < 0.0001  &&
-			 osgAbs(vert[i][1]) < 0.0001 ) {
-			count++ ;
-			nv = i ;
-		}
-	}
-	
-	if ( count > 1 ) {
-		/* degenerate */
-		return( false ) ;
-	}
-	if ( count == 1 ) {
-		/* check if point is somewhere above the middle of the teapot */
-		if ( vert[nv][2] > 1.5 ) {
-			/* cusp at lid */
-			norm[nv].setValues(0.0, 0.0, 1.0) ;
-		} else {
-			/* cusp at bottom */
-			norm[nv].setValues(0.0, 0.0, -1.0 ) ;
-		}
-	}
-	return( true ) ;
+    int count, i, nv ;
+
+    for(count = 0, i = tot_vert; i--; )
+    {
+        /* check if vertex is at cusp */
+        if(osgAbs(vert[i][0]) < 0.0001 &&
+           osgAbs(vert[i][1]) < 0.0001    )
+        {
+            count++;
+            nv = i;
+        }
+    }
+
+    if(count > 1)
+    {
+        /* degenerate */
+        return  false;
+    }
+    if(count == 1)
+    {
+        /* check if point is somewhere above the middle of the teapot */
+        if(vert[nv][2] > 1.5)
+        {
+            /* cusp at lid */
+            norm[nv].setValues(0.0, 0.0, 1.0);
+        }
+        else
+        {
+            /* cusp at bottom */
+            norm[nv].setValues(0.0, 0.0, -1.0);
+        }
+    }
+    return true;
 }
 
 static void
-points_from_basis(int tot_vert, Real64 s[], Real64 t[], Matrix mgm[3], 
+points_from_basis(int tot_vert, Real64 s[], Real64 t[], Matrix mgm[3],
     Pnt3f vert[], Vec3f norm[] )
 {
-	int	i, num_vert, p ;
-	double	sval, tval, dsval, dtval, sxyz, txyz ;
-	Vec3f	sdir, tdir ;
-	Vec4f	sp, tp, dsp, dtp, tcoord ;
-	
-	for ( num_vert = 0 ; num_vert < tot_vert ; num_vert++ ) {
-		
-		sxyz = s[num_vert] ;
-		txyz = t[num_vert] ;
-		
-		/* get power vectors and their derivatives */
-		for ( p = 4, sval = tval = 1.0 ; p-- ; ) {
-			sp[p] = sval ;
-			tp[p] = tval ;
-			sval *= sxyz ;
-			tval *= txyz ;
-			
-			if ( p == 3 ) {
-				dsp[p] = dtp[p] = 0.0 ;
-				dsval = dtval = 1.0 ;
-			} else {
-				dsp[p] = dsval * (double)(3-p) ;
-				dtp[p] = dtval * (double)(3-p) ;
-				dsval *= sxyz ;
-				dtval *= txyz ;
-			}
-		}
-		
-		/* do for x,y,z */
-		for ( i = 0 ; i < 3 ; i++ ) {
-			/* multiply power vectors times matrix to get value */
+    int    i, num_vert, p;
+    double sval, tval, dsval, dtval, sxyz, txyz;
+    Vec3f  sdir, tdir;
+    Vec4f  sp, tp, dsp, dtp, tcoord;
+
+    for(num_vert = 0; num_vert < tot_vert; num_vert++)
+    {
+        sxyz = s[num_vert] ;
+        txyz = t[num_vert] ;
+
+        /* get power vectors and their derivatives */
+        for(p = 4, sval = tval = 1.0; p--; )
+        {
+            sp[p] = sval;
+            tp[p] = tval;
+            sval *= sxyz;
+            tval *= txyz;
+
+            if(p == 3)
+            {
+                dsp[p] = dtp[p] = 0.0;
+                dsval  = dtval  = 1.0;
+            }
+            else
+            {
+                dsp[p] = dsval * static_cast<double>(3 - p);
+                dtp[p] = dtval * static_cast<double>(3 - p);
+                dsval *= sxyz;
+                dtval *= txyz;
+            }
+        }
+
+        /* do for x,y,z */
+        for(i = 0; i < 3; ++i)
+        {
+            /* multiply power vectors times matrix to get value */
             mgm[i].multMatrixVec(sp, tcoord);
- 			vert[num_vert][i] = tcoord.dot(tp) ;
-			
-			/* get s and t tangent vectors */
+            vert[num_vert][i] = tcoord.dot(tp);
+
+            /* get s and t tangent vectors */
             mgm[i].multMatrixVec(dsp, tcoord);
-			sdir[i] = tcoord.dot(tp) ;
-			
+            sdir[i] = tcoord.dot(tp);
+
             mgm[i].multMatrixVec(sp, tcoord);
-			tdir[i] = tcoord.dot(dtp) ;
-		}
-		
-		/* find normal */
-		norm[num_vert] = tdir.cross(sdir);
-        norm[num_vert].normalize(); 
-	}
+            tdir[i] = tcoord.dot(dtp);
+        }
+
+        /* find normal */
+        norm[num_vert] = tdir.cross(sdir);
+        norm[num_vert].normalize();
+    }
 }
 
+} // namespace
 
-/*! \ingroup GrpSystemDrawablesGeometrySimpleGeometry
-    Create the Geometry Core for used by OSG::makeTeapot. 
-*/
+/*! Create the Geometry Core used by OSG::makeTeapot.
 
+    \param[in] depth Subdivision depth.
+    \return GeometryPtr to a newly created Geometry core.
+
+    \sa OSG::makeTeapot
+
+    \ingroup GrpSystemDrawablesGeometrySimpleGeometry
+ */
 GeometryPtr makeTeapotGeo(UInt16 depth)
 {
-    
     GeoPnt3fPropertyPtr  pnts  = GeoPnt3fProperty ::create();
     GeoVec3fPropertyPtr  norms = GeoVec3fProperty ::create();
-    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();  
-    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();     
+    GeoUInt32PropertyPtr lens  = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr  types = GeoUInt8Property ::create();
 
     // calc the triangles
 
@@ -1589,55 +1723,60 @@ GeometryPtr makeTeapotGeo(UInt16 depth)
 
     /* bezier form */
     static Matrix ms( -1.0,  3.0, -3.0,  1.0,
-		          3.0, -6.0,  3.0,  0.0,
-		         -3.0,  3.0,  0.0,  0.0,
-		          1.0,  0.0,  0.0,  0.0 );
-    int	surf, i, r, c, sstep, tstep, num_tri, num_vert, num_tri_vert ;
-    double	s[3], t[3] ;
-    Pnt3f	vert[4];
-    Vec3f norm[4] ;
-    Matrix	mst, g, mgm[3], tmtx ;
+                       3.0, -6.0,  3.0,  0.0,
+                      -3.0,  3.0,  0.0,  0.0,
+                       1.0,  0.0,  0.0,  0.0 );
+    int    surf, i, r, c, sstep, tstep, num_tri, num_vert, num_tri_vert;
+    double s[3], t[3];
+    Pnt3f  vert[4];
+    Vec3f  norm[4];
+    Matrix mst, g, mgm[3], tmtx;
 
     mst.transposeFrom(ms);
 
-    for ( surf = 0 ; surf < NUM_PATCHES ; surf++ ) 
+    for(surf = 0; surf < NUM_PATCHES; ++surf)
     {
-
-	    /* get M * G * M matrix for x,y,z */
-	    for ( i = 0 ; i < 3 ; i++ ) {
-		    /* get control patches */
-		    for ( r = 0 ; r < 4 ; r++ ) {
-			    for ( c = 0 ; c < 4 ; c++ ) {
-				    g[r][c] = Verts[Patches[surf][r][c]][i] ;
-			    }
-		    }
+        /* get M * G * M matrix for x,y,z */
+        for(i = 0; i < 3; ++i)
+        {
+            /* get control patches */
+            for(r = 0; r < 4 ; ++r)
+            {
+                for(c = 0; c < 4; ++c)
+                {
+                    g[r][c] = Verts[Patches[surf][r][c]][i];
+                }
+            }
 
             tmtx = ms;
             tmtx.mult(g);
             tmtx.mult(mst);
             mgm[i] = tmtx;
-	    }
+        }
 
-	    /* step along, get points, and output */
-	    for ( sstep = 0 ; sstep < depth ; sstep++ ) 
+        /* step along, get points, and output */
+        for(sstep = 0; sstep < depth; ++sstep)
         {
-		    for ( tstep = 0 ; tstep < depth ; tstep++ ) 
+            for(tstep = 0; tstep < depth; ++tstep)
             {
-			    for ( num_tri = 0 ; num_tri < 2 ; num_tri++ ) 
+                for(num_tri = 0; num_tri < 2; ++num_tri)
                 {
-				    for ( num_vert = 0 ; num_vert < 3 ; num_vert++ ) 
+                    for(num_vert = 0; num_vert < 3; ++num_vert)
                     {
-					    num_tri_vert = ( num_vert + num_tri * 2 ) % 4 ;
-					    /* trickiness: add 1 to sstep if 1 or 2 */
-					    s[num_vert] = (double)(sstep + (num_tri_vert/2 ? 1:0) )
-						    / (double)depth ;
-					    /* trickiness: add 1 to tstep if 2 or 3 */
-					    t[num_vert] = (double)(tstep + (num_tri_vert%3 ? 1:0) )
-						    / (double)depth ;
-				    }
-				    points_from_basis( 3, s, t, mgm, vert, norm ) ;
-				    /* don't output degenerate polygons */
-				    if ( check_for_cusp( 3, vert, norm ) ) 
+                        num_tri_vert = (num_vert + num_tri * 2) % 4;
+                        /* trickiness: add 1 to sstep if 1 or 2 */
+                        s[num_vert] = static_cast<double>(
+                                        sstep + (num_tri_vert / 2 ? 1 : 0)) /
+                                            static_cast<double>(depth);
+
+                        /* trickiness: add 1 to tstep if 2 or 3 */
+                        t[num_vert] = static_cast<double>(
+                                        tstep + (num_tri_vert % 3 ? 1 : 0)) /
+                                            static_cast<double>(depth);
+                    }
+                    points_from_basis(3, s, t, mgm, vert, norm);
+                    /* don't output degenerate polygons */
+                    if(check_for_cusp( 3, vert, norm))
                     {
                         p->push_back(vert[0]);
                         p->push_back(vert[1]);
@@ -1646,22 +1785,19 @@ GeometryPtr makeTeapotGeo(UInt16 depth)
                         n->push_back(norm[0]);
                         n->push_back(norm[1]);
                         n->push_back(norm[2]);
-                        
+
                         vcount += 3;
-				    }
-			    }
-		    }
-	    }
+                    }
+                }
+            }
+        }
     }
 
-
-
     types->push_back(GL_TRIANGLES);
-    
-    lens->push_back(vcount);
-   
+    lens ->push_back(vcount);
+
     // create the geometry
-    
+
     GeometryPtr geo = Geometry::create();
 
     geo->setMaterial(getDefaultMaterial());
@@ -1669,7 +1805,7 @@ GeometryPtr makeTeapotGeo(UInt16 depth)
     geo->setNormals(norms);
     geo->setTypes(types);
     geo->setLengths(lens);
-    
+
     return geo;
 }
 
