@@ -211,6 +211,52 @@ ActionBase::ResultE GroupRenderLeave(const NodeCorePtr &pCore,
     return ActionBase::Continue;
 }
 
+ActionBase::ResultE SwitchRenderEnter(const NodeCorePtr &pCore,
+                                            Action      *action)
+{
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Enter Switch %p\n", &(*pCore)));
+#endif
+
+    Action::ResultE        returnValue = Action::Continue;
+    SwitchPtr              pThis       = cast_dynamic<SwitchPtr>(pCore);
+    RenderTraversalAction *pAction     =
+        dynamic_cast<RenderTraversalAction*>(action);
+    
+    if((pThis->getChoice()                      >= 0                   ) &&
+       (static_cast<UInt32>(pThis->getChoice()) <  pAction->getNNodes())    )
+    {
+        pAction->useNodeList();
+        
+        if(pAction->isVisible(getCPtr(pAction->getNode(pThis->getChoice()))))
+        {
+            pAction->addNode(pAction->getNode(pThis->getChoice()));
+        }
+        
+        returnValue = GroupRenderEnter(pCore, action);
+    }
+    else if(pThis->getChoice() == Switch::ALL)
+    {
+        returnValue = GroupRenderEnter(pCore, action);
+    }
+    else
+    {
+        returnValue = Action::Skip;
+    }
+    
+    return returnValue;
+}
+
+Action::ResultE SwitchRenderLeave(const NodeCorePtr &pCore,
+                                        Action      *action)
+{
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Leave Switch %p\n", &(*pCore)));
+#endif
+    
+    return GroupRenderLeave(pCore, action);
+}
+
 ActionBase::ResultE TransformRenderEnter(const NodeCorePtr &pCore,
                                                Action      *action)
 {
@@ -1030,7 +1076,14 @@ bool RenderTraversalActionInitialize(void)
             Action               *>(&ShadingCallbacks::billboardRenderLeave));
 #endif
 
-
+    RenderTraversalAction::registerEnterDefault(
+        Switch::getClassType(),
+        SwitchRenderEnter);
+    
+    RenderTraversalAction::registerLeaveDefault(
+        Switch::getClassType(),
+        SwitchRenderLeave);
+    
     RenderTraversalAction::registerEnterDefault(
         ComponentTransform::getClassType(), 
         TransformRenderEnter);
