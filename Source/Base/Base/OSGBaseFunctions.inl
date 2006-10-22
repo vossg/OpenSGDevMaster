@@ -60,7 +60,7 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgSqrt(const FloatTypeT rValue)
 {
     typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
@@ -130,7 +130,7 @@ Fixed32 osgSqrt(const Fixed32 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
 osgsqrt(const FloatTypeT rValue)
 {
     return OSG::osgSqrt(rValue);
@@ -185,7 +185,7 @@ Fixed32 osgsqrt(const Fixed32 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgCos(const FloatTypeT rValue)
 {
     typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
@@ -253,7 +253,7 @@ Fixed32 osgCos(const Fixed32 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
 osgcos(const FloatTypeT rValue)
 {
     return OSG::osgCos(rValue);
@@ -308,7 +308,7 @@ Fixed32 osgcos(const Fixed32 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgSin(const FloatTypeT rValue)
 {
     typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
@@ -376,7 +376,7 @@ Fixed32 osgSin(const Fixed32 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
 osgsin(const FloatTypeT rValue)
 {
     OSG::osgSin(rValue);
@@ -560,7 +560,7 @@ Fixed32 osgtan(const Fixed32 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgACos(const FloatTypeT rValue)
 {
     typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
@@ -622,7 +622,7 @@ Real128 osgACos(const Real128 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
 osgacos(const FloatTypeT rValue)
 {
     return OSG::osgACos(rValue);
@@ -785,7 +785,7 @@ Real128 osgasin(const Real128 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgATan(const FloatTypeT rValue)
 {
     typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
@@ -848,7 +848,7 @@ Real128 osgATan(const Real128 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
 osgatan(const FloatTypeT rValue)
 {
     return OSG::osgATan(rValue);
@@ -899,7 +899,7 @@ Real128 osgatan(const Real128 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgATan2(const FloatTypeT rValue1,
              const FloatTypeT rValue2)
 {
@@ -970,7 +970,7 @@ Real128 osgATan2(const Real128 rValue1, const Real128 rValue2)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
 osgatan2(const FloatTypeT rValue1,
          const FloatTypeT rValue2)
 {
@@ -1013,7 +1013,7 @@ Real128 osgatan2(const Real128 rValue1, const Real128 rValue2)
     \return Absolute value of \a rValue.
 
     \note For floating point arguments this function forwards to an
-    appropriate C++ or C library function, hence exhibits the 
+    appropriate C++ or C library function, hence exhibits the
     respective error behavior.
 
     \ingroup GrpBaseBaseMathFn
@@ -1077,7 +1077,7 @@ Real128 osgAbs(const Real128 rValue)
     \return Absolute value of \a rValue.
 
     \note For floating point arguments this function forwards to an
-    appropriate C++ or C library function, hence exhibits the 
+    appropriate C++ or C library function, hence exhibits the
     respective error behavior.
 
     \deprecated use osgAbs instead.
@@ -1820,10 +1820,10 @@ Int8 osgSgn(TypeT val)
 {
     if(val < 0)
         return -1;
-        
+
     if(val > 0)
         return  1;
-    
+
     return 0;
 }
 
@@ -1834,7 +1834,7 @@ Int8 osgSgn(TypeT val)
 
 /*! Exchanges the values of the arguments.
 
-    \param[in,out] lVal New value for \a rValue, is assigned the 
+    \param[in,out] lVal New value for \a rValue, is assigned the
     old value of \a rValue.
     \param[in,out] rValue New value for lVal, is assigned the
     old value of rVal.
@@ -1891,7 +1891,7 @@ Fixed32 osgDegree2Rad(const Fixed32 rValue)
  */
 
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
     osgDegree2Rad(const FloatTypeT rValue)
 {
     typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
@@ -1935,7 +1935,7 @@ Fixed32 osgdegree2rad(const Fixed32 rValue)
  */
 
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
 osgdegree2rad(const FloatTypeT rValue)
 {
     return OSG::osgDegree2Rad(rValue);
@@ -2062,7 +2062,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-typename TypeTraits<FloatTypeT>::RealReturnType 
+typename TypeTraits<FloatTypeT>::RealReturnType
     rad2deg(const FloatTypeT rValue)
 {
     return OSG::osgRad2Degree(rValue);
@@ -2159,7 +2159,7 @@ UInt32 osgNextPower2<UInt32>(UInt32 rValue)
 {
     if(rValue == 0)
         return TypeTraits<UInt32>::getOneElement();
-    
+
     --rValue;
     rValue |= rValue >> 1;
     rValue |= rValue >> 2;
@@ -2167,7 +2167,7 @@ UInt32 osgNextPower2<UInt32>(UInt32 rValue)
     rValue |= rValue >> 8;
     rValue |= rValue >> 16;
     ++rValue;
-    
+
     return rValue;
 }
 
@@ -2177,14 +2177,14 @@ template <> inline
 Int32 osgNextPower2<Int32>(Int32 rValue)
 {
     const Int32 maxPower2 = TypeTraits<Int32>::getOneElement() << 30;
-    
+
     if(rValue <= 0)
         return TypeTraits<Int32>::getOneElement();
-    
+
     // signed overflow invokes undefined behavior, avoid it.
     if(rValue > maxPower2)
         return TypeTraits<Int32>::getZeroElement();
-    
+
     --rValue;
     rValue |= rValue >> 1;
     rValue |= rValue >> 2;
@@ -2192,7 +2192,7 @@ Int32 osgNextPower2<Int32>(Int32 rValue)
     rValue |= rValue >> 8;
     rValue |= rValue >> 16;
     ++rValue;
-    
+
     return rValue;
 }
 
@@ -2203,7 +2203,7 @@ UInt64 osgNextPower2<UInt64>(UInt64 rValue)
 {
     if(rValue == 0)
         return TypeTraits<UInt64>::getOneElement();
-    
+
     --rValue;
     rValue |= rValue >> 1;
     rValue |= rValue >> 2;
@@ -2212,7 +2212,7 @@ UInt64 osgNextPower2<UInt64>(UInt64 rValue)
     rValue |= rValue >> 16;
     rValue |= rValue >> 32;
     ++rValue;
-    
+
     return rValue;
 }
 
@@ -2222,14 +2222,14 @@ template <> inline
 Int64 osgNextPower2<Int64>(Int64 rValue)
 {
     const Int64 maxPower2 = TypeTraits<Int64>::getOneElement() << 62;
-    
+
     if(rValue <= 0)
         return TypeTraits<Int64>::getOneElement();
-    
+
     // signed overflow invokes undefined behavior, avoid it.
     if(rValue > maxPower2)
         return TypeTraits<Int64>::getZeroElement();
-    
+
     --rValue;
     rValue |= rValue >> 1;
     rValue |= rValue >> 2;
@@ -2238,7 +2238,7 @@ Int64 osgNextPower2<Int64>(Int64 rValue)
     rValue |= rValue >> 16;
     rValue |= rValue >> 32;
     ++rValue;
-    
+
     return rValue;
 }
 
@@ -2251,7 +2251,7 @@ size_t osgNextPower2<size_t>(size_t rValue)
 {
     if(rValue == 0)
         return TypeTraits<size_t>::getOneElement();
-    
+
     --rValue;
     rValue |= rValue >> 1;
     rValue |= rValue >> 2;
@@ -2260,7 +2260,7 @@ size_t osgNextPower2<size_t>(size_t rValue)
     rValue |= rValue >> 16;
     rValue |= rValue >> 32;
     ++rValue;
-    
+
     return rValue;
 }
 #endif
@@ -2336,9 +2336,9 @@ size_t osgnextpower2<size_t>(size_t rValue)
 template<class VecPntT> inline
 UInt32 getMaxIndexAbs3(const VecPntT &v)
 {
-    return 
+    return
         osgAbs(v[0]) > osgAbs(v[1]) ?
-            (osgAbs(v[0]) > osgAbs(v[2]) ? 0 : 2) : 
+            (osgAbs(v[0]) > osgAbs(v[2]) ? 0 : 2) :
             (osgAbs(v[1]) > osgAbs(v[2]) ? 1 : 2);
 }
 
@@ -2400,15 +2400,15 @@ void osgSleep(UInt32 millisecs)
     {
         ::usleep(millisecs * 1000);
     }
-    
+
 #else
 
     struct timespec req;
     int ns;
-    
+
     req.tv_sec  = static_cast<long> (millisecs / 1000);
     req.tv_nsec = static_cast<long>((millisecs % 1000) * 1000);
-    
+
     while((req.tv_sec > 0 || req.tv_nsec > 0) &&
           (ns = nanosleep(&req, &req)) < 0)
     {
@@ -2417,7 +2417,7 @@ void osgSleep(UInt32 millisecs)
             break;
         }
     }
-        
+
 #endif
 #endif
 }
@@ -2466,7 +2466,7 @@ Real32 osgrand(void)
 }
 #endif // OSG_1_COMPAT
 
-#if defined(WIN32) && defined(_MSC_VER) 
+#if defined(WIN32) && defined(_MSC_VER)
 #if _MSC_VER <= 1200  // VC6
 /*! Write a UInt64 value to the given stream.
 
@@ -2533,69 +2533,104 @@ bool osgIsBigEndian(void)
 
 #endif
 
-/*! Reverses the bytes pointed to by \a pData. This function is a helper
-    for the byte order conversion functions below, so \a pData is supposed to
-    point to a fundamental type like UInt32, Real64, etc.
-    There are specializations for the common type sizes of 2, 4, and 8 bytes.
+/*! Reverses the bytes of the value \a src . This function is a helper
+    for the byte order conversion functions below.
 
-    \param[in] SizeV Size of the fundamental type pointed to by \a pData.
-    \param[in,out] pData Pointer to a fundamental type that gets its bytes 
-        reversed in place.
+    \param[in] src Value to be swapped.
+    \return Value with it's byte order reversed.
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <UInt32 SizeV>
-inline void
-osgReverseBytes(UInt8* pData)
+template <>
+inline UInt16
+osgSwapBytes<UInt16>(UInt16 src)
 {
-    std::reverse(pData, pData + SizeV);
+    return (((src & 0x00ff) << 8) |
+            ((src & 0xff00) >> 8)  );
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
 template <>
-inline void
-osgReverseBytes<2>(UInt8* pData)
+inline Int16
+osgSwapBytes<Int16>(Int16 src)
 {
-    UInt16* pCastData = reinterpret_cast<UInt16*>(pData);
-    
-    *pCastData = ((*pCastData >> 8) |
-                  (*pCastData << 8)  );
+    return static_cast<Int16>(osgSwapBytes(static_cast<UInt16>(src)));
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
 template <>
-inline void
-osgReverseBytes<4>(UInt8* pData)
+inline UInt32
+osgSwapBytes<UInt32>(UInt32 src)
 {
-    UInt32* pCastData = reinterpret_cast<UInt32*>(pData);
-    
-    *pCastData = (((*pCastData & 0x000000ff) << 24) |
-                  ((*pCastData & 0x0000ff00) << 8 ) |
-                  ((*pCastData & 0x00ff0000) >> 8 ) |
-                  ((*pCastData & 0xff000000) >> 24)  );
+    return (((src & 0x000000ff) << 24) |
+            ((src & 0x0000ff00) <<  8) |
+            ((src & 0x00ff0000) >>  8) |
+            ((src & 0xff000000) >> 24)  );
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
 template <>
-inline void
-osgReverseBytes<8>(UInt8* pData)
+inline Int32
+osgSwapBytes<Int32>(Int32 src)
 {
-    UInt64* pCastData = reinterpret_cast<UInt64*>(pData);
-    
-    *pCastData =
-            (((*pCastData & OSG_UINT64_LITERAL(0x00000000000000ff)) << 56) |
-             ((*pCastData & OSG_UINT64_LITERAL(0x000000000000ff00)) << 40) |
-             ((*pCastData & OSG_UINT64_LITERAL(0x0000000000ff0000)) << 24) |
-             ((*pCastData & OSG_UINT64_LITERAL(0x00000000ff000000)) << 8 ) |
-             ((*pCastData & OSG_UINT64_LITERAL(0x000000ff00000000)) >> 8 ) |
-             ((*pCastData & OSG_UINT64_LITERAL(0x0000ff0000000000)) >> 24) |
-             ((*pCastData & OSG_UINT64_LITERAL(0x00ff000000000000)) >> 40) |
-             ((*pCastData & OSG_UINT64_LITERAL(0xff00000000000000)) >> 56)  );
+    return static_cast<Int32>(osgSwapBytes(static_cast<UInt32>(src)));
 }
 
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+template <>
+inline UInt64
+osgSwapBytes<UInt64>(UInt64 src)
+{
+    return (((src & OSG_UINT64_LITERAL(0x00000000000000ff)) << 56) |
+            ((src & OSG_UINT64_LITERAL(0x000000000000ff00)) << 40) |
+            ((src & OSG_UINT64_LITERAL(0x0000000000ff0000)) << 24) |
+            ((src & OSG_UINT64_LITERAL(0x00000000ff000000)) <<  8) |
+            ((src & OSG_UINT64_LITERAL(0x000000ff00000000)) >>  8) |
+            ((src & OSG_UINT64_LITERAL(0x0000ff0000000000)) >> 24) |
+            ((src & OSG_UINT64_LITERAL(0x00ff000000000000)) >> 40) |
+            ((src & OSG_UINT64_LITERAL(0xff00000000000000)) >> 56)  );
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+template <>
+inline Int64
+osgSwapBytes<Int64>(Int64 src)
+{
+    return static_cast<Int64>(osgSwapBytes(static_cast<UInt64>(src)));
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+template <>
+inline Real32
+osgSwapBytes<Real32>(Real32 src)
+{
+    UInt8* pStart = reinterpret_cast<UInt8*>(&src);
+    UInt8* pEnd   = reinterpret_cast<UInt8*>(&src) + sizeof(Real32);
+
+    std::reverse(pStart, pEnd);
+
+    return src;
+}
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+template <>
+inline Real64
+osgSwapBytes<Real64>(Real64 src)
+{
+    UInt8* pStart = reinterpret_cast<UInt8*>(&src);
+    UInt8* pEnd   = reinterpret_cast<UInt8*>(&src) + sizeof(Real64);
+
+    std::reverse(pStart, pEnd);
+
+    return src;
+}
 
 /*! Convert a value from host byte order to big endian byte order.
 
@@ -2611,9 +2646,7 @@ inline TypeT
 osgHostToBigEndian(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
-    osgReverseBytes<sizeof(TypeT)>(reinterpret_cast<UInt8*>(&src));
-
-    return src;
+    return osgSwapBytes(src);
 #else
     return src;
 #endif
@@ -2626,7 +2659,7 @@ inline Real128
 osgHostToBigEndian<Real128>(Real128 src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
+    char *p = reinterpret_cast<char*>(&src);
 
     std::swap(p[0], p[15]);
     std::swap(p[1], p[14]);
@@ -2636,7 +2669,7 @@ osgHostToBigEndian<Real128>(Real128 src)
     std::swap(p[5], p[10]);
     std::swap(p[6], p[9]);
     std::swap(p[7], p[8]);
-    
+
     return src;
 #else
     return src;
@@ -2659,9 +2692,7 @@ osgHostToLittleEndian(TypeT src)
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
 #else
-    osgReverseBytes<sizeof(TypeT)>(reinterpret_cast<UInt8*>(&src));
-
-    return src;
+    return osgSwapBytes(src);
 #endif
 }
 
@@ -2674,7 +2705,7 @@ osgHostToLittleEndian<Real128>(Real128 src)
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
 #else
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
+    char *p = reinterpret_cast<char*>(&src);
 
     std::swap(p[0], p[15]);
     std::swap(p[1], p[14]);
@@ -2684,7 +2715,7 @@ osgHostToLittleEndian<Real128>(Real128 src)
     std::swap(p[5], p[10]);
     std::swap(p[6], p[9]);
     std::swap(p[7], p[8]);
-    
+
     return src;
 #endif
 }
@@ -2703,9 +2734,7 @@ inline TypeT
 osgBigEndianToHost(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
-    osgReverseBytes<sizeof(TypeT)>(reinterpret_cast<UInt8*>(&src));
-
-    return src;
+    return osgSwapBytes(src);
 #else
     return src;
 #endif
@@ -2718,7 +2747,7 @@ inline Real128
 osgBigEndianToHost<Real128>(Real128 src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
+    char *p = reinterpret_cast<char*>(&src);
 
     std::swap(p[0], p[15]);
     std::swap(p[1], p[14]);
@@ -2728,7 +2757,7 @@ osgBigEndianToHost<Real128>(Real128 src)
     std::swap(p[5], p[10]);
     std::swap(p[6], p[9]);
     std::swap(p[7], p[8]);
-    
+
     return src;
 #else
     return src;
@@ -2751,9 +2780,7 @@ osgLittleEndianToHost(TypeT src)
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
 #else
-    osgReverseBytes<sizeof(TypeT)>(reinterpret_cast<UInt8*>(&src));
-
-    return src;
+    return osgSwapBytes(src);
 #endif
 }
 
@@ -2766,7 +2793,7 @@ osgLittleEndianToHost<Real128>(Real128 src)
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
 #else
-    UInt8 *p = reinterpret_cast<UInt8*>(&src);
+    char *p = reinterpret_cast<char*>(&src);
 
     std::swap(p[0], p[15]);
     std::swap(p[1], p[14]);
@@ -2776,7 +2803,7 @@ osgLittleEndianToHost<Real128>(Real128 src)
     std::swap(p[5], p[10]);
     std::swap(p[6], p[9]);
     std::swap(p[7], p[8]);
-    
+
     return src;
 #endif
 }
@@ -3060,7 +3087,7 @@ void osgStringDup(const TChar *szInput, TChar *&szOutput)
 
     if(szInput != NULL)
     {
-#if defined(_UNICODE) 
+#if defined(_UNICODE)
         szOutput = new TChar[::wcslen(szInput) + 1];
         ::wcscpy(szOutput, szInput);
 #else
@@ -3179,7 +3206,7 @@ Int32 stringncmp(const Char8 *string1, const Char8 *string2, size_t count)
     \param[in] string1 String whose length is determined.
     \return Length of the string.
 
-    \ingroup GrpBaseBaseStringFn 
+    \ingroup GrpBaseBaseStringFn
  */
 inline
 Int32 osgStringLen(const Char8 *string1)
@@ -3196,7 +3223,7 @@ Int32 osgStringLen(const Char8 *string1)
 
     \deprecated use osgStringLen instead.
 
-    \ingroup GrpBaseBaseStringFn 
+    \ingroup GrpBaseBaseStringFn
  */
 inline
 Int32 stringlen(const Char8 *string1)
@@ -3290,7 +3317,7 @@ template <class ContentT, class IndexT>
 indirector<ContentT, IndexT>::indirector(ContentT cont) : _cont(cont)
 {
 }
-        
+
 template <class ContentT, class IndexT>
 bool indirector<ContentT, IndexT>::operator()(IndexT a, IndexT b)
 {

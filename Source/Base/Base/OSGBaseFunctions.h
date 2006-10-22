@@ -384,9 +384,9 @@ std::ostream &operator<<(std::ostream &os, Int64  v);
 inline
 bool osgIsBigEndian(void);
 
-template <UInt32 SizeV>
-inline void
-osgReverseBytes(UInt8* pData);
+template <class ValueTypeT>
+inline ValueTypeT
+osgSwapBytes(ValueTypeT src);
 
 template <class TypeT>
 inline TypeT
