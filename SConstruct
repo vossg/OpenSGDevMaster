@@ -185,7 +185,6 @@ SourceSignatures('MD5')
 SConsignFile('.sconsign.'+GetPlatform())
 opensg_version_string = file("VERSION").readline().strip()
 
-# Figure out what version of CppDom we're using
 print "Building OpenSG ", opensg_version_string
 
 platform = sca_util.GetPlatform()
@@ -193,19 +192,14 @@ unspecified_prefix = "use-instlinks"
 buildDir = "build." + platform      
 option_filename = "option.cache." + platform
 
-if ARGUMENTS.has_key("buildbot_slave"):
-   print "Buildbot slave build initiated"
-   build_slave_filename = "buildbot.options"
-   if ARGUMENTS["buildbot_slave"] not in ["true", "1", "yes"]:
-      build_slave_filename = ARGUMENTS["buildbot_slave"]
-   buildbot_options_file = os.path.abspath(os.path.join(os.getcwd(), "..", "..", build_slave_filename))
-   if os.path.exists(buildbot_options_file):
-      print "Buildbot slave:"
-      print "      found options file: %s" % str(buildbot_options_file)
-      execfile(buildbot_options_file, ARGUMENTS)
-      print "      finished processing options"
+if ARGUMENTS.has_key("options_file"):
+   opt_file = ARGUMENTS["options_file"]
+   if os.path.exists(opt_file):
+      print "Reading options from: %s" % str(opt_file)
+      option_filename = opt_file
    else:
-      print "Buildbot slave: Options file not found.. will continue with defaults"
+      print "Options file '%s' not found.. will continue with default '%s'" % \
+      (opt_file, option_filename)
 
 # Create base environment to use for option processing
 if GetPlatform() == "win32":
@@ -244,7 +238,7 @@ opts = sca_opts.Options(files = [option_filename, 'options.custom'],
                                    args= ARGUMENTS)
 
 # Create option objects
-boost_options = sca_opts.Boost.Boost("boost","1.31.0",libs=['filesystem'],required=True)
+boost_options = sca_opts.Boost.Boost("boost","1.31.0",required=True)
 
 glut_libname = "glut"
 tiff_libname = "tiff"
