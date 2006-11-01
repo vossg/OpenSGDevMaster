@@ -70,6 +70,7 @@
 #include <vector>
 #include <string>
 #include <iterator>
+#include <algorithm>
 
 #ifdef OSG_USE_STDMATH
 #endif
