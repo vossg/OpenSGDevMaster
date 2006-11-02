@@ -316,7 +316,8 @@ Help(help_text)
 # If we are running the build
 if not SConsAddons.Util.hasHelpFlag():
    try:                                   # Try to save the options if possible
-      opts.Save(option_filename, common_env)
+      if not ARGUMENTS.has_key("options_file"):
+         opts.Save(option_filename, common_env)
    except LookupError, le:
       pass
   
