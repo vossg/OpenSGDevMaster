@@ -1,0 +1,4 @@
+#!/usr/bin/python
+
+stop_traversal = True
+
