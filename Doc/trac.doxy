@@ -14,4 +14,4 @@ OUTPUT_DIRECTORY       = tracdocs
 
 
 # Small set for testing...
-INPUT                  = ../Source/Base
+#INPUT                  = ../Source/Base
