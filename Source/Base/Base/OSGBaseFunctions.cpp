@@ -42,13 +42,7 @@
 
 #include "OSGConfig.h"
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-
-#include <string.h>
-
-
+#include <string>
 #include <vector>
 
 #include "OSGBaseFunctions.h"
@@ -155,7 +149,18 @@ string_token_iterator string_token_iterator::operator++(int)
  */
 std::string string_token_iterator::operator*() const
 {
-    return std::string(*_str, _start, _end - _start);
+    std::string returnValue;
+
+    if(_end == std::string::npos)
+    {
+        returnValue = _str->substr(_start);
+    }
+    else
+    {
+        returnValue = _str->substr(_start, _end - _start);
+    }
+
+    return returnValue;
 }
 
 /*! Compares \c this to another string_token_iterator \a rhs for equality. They
