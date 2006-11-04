@@ -87,8 +87,23 @@ for (lib_name, library) in lib_map.iteritems():
 
          # Run the Test once the program is built
          def runTest(target, source, env):
-            print "Running ", os.path.basename(str(target[0]))
-            os.system(str(target[0]))
+            path = ""
+            for i in env["LIBPATH"]:
+                path += i + os.pathsep
+            path = path[:-1]
+            
+            ev = os.environ
+            if GetPlatform() == "win32":
+                key = "PATH"
+            else:
+                key = "LD_LIBRARY_PATH"
+                
+            if ev.has_key(key):
+                ev[key] = os.pathsep + path + ev[key]
+            else:
+                ev[key] = path
+            
+            os.spawnle(os.P_WAIT, str(target[0]), ev)
 
          AddPostAction(runner, runTest)
 
