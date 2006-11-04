@@ -79,6 +79,12 @@ static std::vector<ExitFuncF>    *osgPostMPExitFunctions      = NULL;
 
 static std::vector<tstring  >    *osgPreloadSharedObject      = NULL;
 
+
+/*! Version string that is composed of each library's version 
+    contributions
+*/
+static std::vector<std::string>   osgLibraryVersions;
+
 /*! \ingroup GrpBaseBaseInitExit
  */
 
@@ -275,6 +281,16 @@ void preloadSharedObject(const TChar *szName)
     osgPreloadSharedObject->push_back(tmpString);
 }
 
+/*! Add a string to the version output. 
+    Mainly used by the libraries to publicise the svn revision they were
+    built from.
+*/
+OSG_BASE_DLLMAPPING
+void addLibraryVersion(const Char8 *szName)
+{
+    osgLibraryVersions.push_back(szName);
+}
+
 /*! Initializes the system and performs startup tasks registered with
     \c addPreMPInitFunction, \c addPreFactoryInitFunction and 
     \c addPostFactoryInitFunction functions. The arguments can be used to
@@ -389,6 +405,12 @@ bool osgInit(Int32, Char8 **)
     }
 #endif
 
+    FNOTICE(("osgInit: Main Version:        %s\n", OSG_VERSION_STRING));
+    for(UInt16 i = 0; i < osgLibraryVersions.size(); ++i)
+    {
+        FNOTICE(("osgInit: %s\n", osgLibraryVersions[i].c_str()));
+    }
+    
     //SharedObjectHandler::the()->dump();
 
     if(returnValue == false)

@@ -55,4 +55,5 @@
 #define OSG_BASE_EXPIMP_TMPL
 #endif
 
+
 #endif /* _OSGBASEDEF_H_ */

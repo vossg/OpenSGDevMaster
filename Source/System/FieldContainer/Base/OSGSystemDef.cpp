@@ -44,13 +44,13 @@
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGBaseInitFunctions.h>
 
-#define SVN_REVISION "382"
+#define SVN_REVISION "384"
 
 /*! Append our version to the library versions string 
 */
 static bool versionAdder(void)
 {
-    OSG::addLibraryVersion("OSGBase:             " OSG_VERSION_STRING 
+    OSG::addLibraryVersion("OSGSystem:           " OSG_VERSION_STRING 
                            "\tRev: "               SVN_REVISION );    
     return true;
 }

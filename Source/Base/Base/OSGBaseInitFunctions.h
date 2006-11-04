@@ -129,6 +129,9 @@ void addPostMPExitFunction     (ExitFuncF exitFunc);
 OSG_BASE_DLLMAPPING
 void preloadSharedObject(const TChar *szName);
 
+OSG_BASE_DLLMAPPING
+void addLibraryVersion(const Char8 *szName);
+
 OSG_BASE_DLLMAPPING 
 bool osgInit(Int32 argc, Char8 **argv);
 
