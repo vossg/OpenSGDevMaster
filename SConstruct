@@ -32,10 +32,16 @@ from SConsAddons.EnvironmentBuilder import EnvironmentBuilder
 from LibraryUtils import *
 from sets import Set
 
+# If we have pysvn, load it
+try:
+   import pysvn
+   have_pysvn = True
+except:
+   have_pysvn = False
+
 # Aliases
 GetPlatform = sca_util.GetPlatform
 Export('GetPlatform')
-pj = os.path.join
 verbose_build = False
 
 # Build TODO
@@ -279,6 +285,7 @@ opts.AddOption(sca_opts.BoolOption("osg_deprecated_props","Enable deprecated pro
 opts.Add("build_suffix", "Suffix to append to build directory.  Useful for compiling multiple variations on same platform.", "")                                    
 opts.AddOption(sca_opts.BoolOption("enable_fcdprocess","If true, enable support for fcdProcess in the build.",False))
 opts.AddOption(sca_opts.BoolOption("enable_unittests","If true, enable unit tests in the build.",True))
+opts.AddOption(sca_opts.BoolOption("enable_revision","If true, update OSG*Def.cpp with current revision numbers.",False))
 opts.Add("icc_gnu_compat","<GCC Verion> to make the icc resultbinary compatible to the given gcc version. (unsupported)")
 if "win32" == platform:
    opts.AddOption(sca_opts.BoolOption("win_localstorage", "Use local storage instead of __declspec to get thread local storage on windows",
@@ -532,11 +539,12 @@ if not SConsAddons.Util.hasHelpFlag():
    
    common_env.DefineBuilder(pj(paths["include"],"OpenSG","OSGConfigured.h"),Value(definemap), 
                             definemap=definemap)
+
+   # common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
    
    # Unit Testing framework
    # - Build the framework
    if common_env["enable_unittests"]:      
-      # common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
       # Until they have the SConstruct in their svn, let's just copy it over
       SConscript(pj("Tools", "unittest-cpp.SConstruct"))   
    
@@ -547,7 +555,50 @@ if not SConsAddons.Util.hasHelpFlag():
       unittest_runner = pj(os.getcwd(),"Tools","UnitTestRunner.cpp");
       Export('unittest_inc', 'unittest_lib', 'unittest_libpath', 'unittest_runner')
    
-      
+   # Revision tracking
+   # For each library, find its Def.cpp file(s) and set the revision to the highest one found
+   # in the source tree. Recommended before building anyhting that's distributed (dailybuild, release etc.)
+   # This could go into scons-addons at some point...
+   if common_env["enable_revision"]:
+      if not have_pysvn:
+         raise "Need pysvn to update revisions!"
+
+      for (name,lib) in lib_map.iteritems():      
+         have_modifed = False
+         high_rev = 0         
+         svn_client = pysvn.Client()
+         
+         for f in lib.source_files + lib.header_files:
+            file_name = pj('Source', f)
+            file_info   = svn_client.info  (file_name)
+            file_status = svn_client.status(file_name)
+            
+            # Ignore unversioned files
+            if pysvn.wc_status_kind.unversioned != file_status[0].text_status:
+               if high_rev < file_info.revision.number:
+                  high_rev = file_info.revision.number
+            
+            # Flag modified files, if they're not Def.cpp files
+            if pysvn.wc_status_kind.modified == file_status[0].text_status and \
+               file_name[-7:] != 'Def.cpp':
+               print "%s: file %s is modifed!" % (name, file_name)
+               have_modifed = True
+   
+         if have_modifed:
+            print "%s: Some files are modified, revision might be inaccurate!" % name
+         print "%s: Highest Revision %d" % (name, high_rev)
+         
+         # Update the *Def.cpp file(s)
+         for f in lib.source_files + lib.header_files:
+            if f[-7:] == 'Def.cpp':
+               fname = pj('Source', f)
+               contents = open(fname).readlines()
+               for i in range(len(contents)):
+                  if contents[i][:22] == '#define SVN_REVISION "':
+                     contents[i] = '#define SVN_REVISION "%d"\n' % high_rev
+                     break
+               open(fname,'w').writelines(contents)
+     
    # ---- FOR EACH VARIANT ----- #   
    # This is the core of the build.
    if verbose_build:
