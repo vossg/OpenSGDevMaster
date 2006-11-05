@@ -233,6 +233,33 @@ base_bldr = EnvironmentBuilder()
 # --------------- #
 # --- OPTIONS --- #
 # --------------- #
+
+
+class SimpleAppendOption(sca_opts.SimpleOption):
+   """
+   Variant of the simple option wrapper that appends a value to the environment instead 
+   of replacing it.
+   """
+   def __init__(self, name, key, help):
+      """
+      Create an option
+      name - the name of the commandline option
+      key - the name of the key in the environment to append to
+      help - Help text about the option object
+      """
+      sca_opts.SimpleOption.__init__(self, name, name, help + " (Use ':' to separate multiple)", \
+                                     None, None, None, None);
+      self.key = key
+
+   """ 
+   We want these options to be applied before all others, to have them have effect on e.g.
+   StandardPackageOption tests, so override completeProcess instead of apply.
+   """
+   def completeProcess(self, env):
+      if self.value:
+         for i in self.value.split(':'):
+            exec("env.Append(%s = [i])" % self.key)
+
 # Find all build.info files that may have options
 #build_info_files = []
 #for root, dirs, files in os.walk(pj(os.getcwd(),'Source')):
@@ -262,11 +289,22 @@ glut_option = sca_opts.StandardPackageOption("glut","GLUT library location",
                                              library=glut_libname, header="GL/glut.h", required=False)
 zlib_option = sca_opts.StandardPackageOption("zlib","zlib library location",
                                              library="z", header="zlib.h", required=False)                                             
-
 format_options = [jpeg_option,tiff_option,png_option,zlib_option]
+
+
+add_incdir_option = SimpleAppendOption('add_incdir', 'CPPPATH', 'Additional include dir') 
+add_libdir_option = SimpleAppendOption('add_libdir', 'LIBPATH', 'Additional library dir') 
+add_lib_option    = SimpleAppendOption('add_lib',    'LIBS',    'Additional library') 
+
+add_options = [add_incdir_option, add_libdir_option, add_lib_option]
+
 # Setup options
 opts.AddOption(sca_opts.SeparatorOption("\nStandard settings"))
 opts.Add('prefix', 'Installation prefix', unspecified_prefix)
+
+for o in add_options:
+   opts.AddOption(o)
+
 opts.AddOption(sca_opts.SeparatorOption("\nPackage Options"))
 opts.AddOption( boost_options )
 opts.AddOption( glut_option )
@@ -293,10 +331,10 @@ if "win32" == platform:
 if "win32" != platform:
    opts.AddOption(sca_opts.BoolOption("pthread_elf_tls", "Enable elf thread local storage with pthreads.",
                                       ("linux"==platform)))
-                                      
                                     
 base_bldr.addOptions(opts)             # Add environment builder options
 variant_helper.addOptions(opts)        # Add variant building options
+
 
 try:
    opts.Process(common_env)               # Process the options
