@@ -53,6 +53,7 @@
 #include <OSGComponentTransform.h>
 #include <OSGPrimitiveIterator.h>
 #include <OSGGeometry.h>
+#include <OSGGraphOpFactory.h>
 
 OSG_USING_NAMESPACE
 
@@ -66,6 +67,15 @@ OSG_USING_NAMESPACE
 A class used to optimize geometries a bit.
 
 */
+
+
+//! Register the GraphOp with the factory
+static bool registerOp(void)
+{
+    GraphOpFactory::the().registerOp(new SplitGraphOp);
+    return true;
+}
+static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 /***************************************************************************\
  *                           Instance methods                              *

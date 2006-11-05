@@ -44,6 +44,7 @@
 #include <sstream>
 
 #include "OSGMaterialMergeGraphOp.h"
+#include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE
 
@@ -56,6 +57,15 @@ OSG_USING_NAMESPACE
     
 Merges equivalent materials in a scene.
 */
+
+//! Register the GraphOp with the factory
+static bool registerOp(void)
+{
+    GraphOpFactory::the().registerOp(new MaterialMergeGraphOp);
+    return true;
+}
+static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+
 
 MaterialMergeGraphOp::MaterialMergeGraphOp(const char* name)
     : GraphOp(name)

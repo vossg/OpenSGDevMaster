@@ -125,14 +125,4 @@ GraphOpFactory::iterator GraphOpFactory::end()
 
 GraphOpFactory::GraphOpFactory()
 {
-    registerOp(new GeoTypeGraphOp);
-    registerOp(new MakeTransparentGraphOp);
-    registerOp(new MaterialMergeGraphOp);
-    registerOp(new MergeGraphOp);
-    registerOp(new PruneGraphOp);
-    registerOp(new SharePtrGraphOp);
-    registerOp(new SplitGraphOp);
-    registerOp(new StripeGraphOp);
-    registerOp(new VerifyGeoGraphOp);
-    registerOp(new VerifyGraphOp);
 }

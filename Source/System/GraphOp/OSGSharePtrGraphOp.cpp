@@ -40,8 +40,6 @@
 *                             Includes                                    *
 \***************************************************************************/
 
-#include "OSGSharePtrGraphOp.h"
-
 #include <functional>
 #include <algorithm>
 #include <sstream>
@@ -50,6 +48,9 @@
 #include <OSGGeometry.h>
 #include <OSGGeoFunctions.h>
 #include <OSGVector.h>
+
+#include "OSGSharePtrGraphOp.h"
+#include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE
 
@@ -63,6 +64,15 @@ OSG_USING_NAMESPACE
 A class used to create indexed geometries.
 
 */
+
+//! Register the GraphOp with the factory
+static bool registerOp(void)
+{
+    GraphOpFactory::the().registerOp(new SharePtrGraphOp);
+    return true;
+}
+static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+
 
 /***************************************************************************\
  *                           Class variables                               *

@@ -44,6 +44,7 @@
 #include "OSGTypedGeoIntegralProperty.h"
 
 #include "OSGVerifyGeoGraphOp.h"
+#include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE
 
@@ -57,6 +58,14 @@ OSG_USING_NAMESPACE
 A base class used to traverse geometries.
 
 */
+
+//! Register the GraphOp with the factory
+static bool registerOp(void)
+{
+    GraphOpFactory::the().registerOp(new VerifyGeoGraphOp);
+    return true;
+}
+static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 /***************************************************************************\
  *                           Instance methods                              *

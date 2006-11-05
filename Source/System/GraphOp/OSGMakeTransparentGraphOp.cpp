@@ -41,8 +41,17 @@
 #include <OSGMakeTransparentGraphOp.h>
 #include <OSGPolygonChunk.h>
 #include <OSGSimpleMaterial.h>
+#include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE
+
+//! Register the GraphOp with the factory
+static bool registerOp(void)
+{
+    GraphOpFactory::the().registerOp(new MakeTransparentGraphOp);
+    return true;
+}
+static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 MakeTransparentGraphOp::MakeTransparentGraphOp(const char* name)
     : GraphOp(name),

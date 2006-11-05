@@ -39,10 +39,20 @@
 #include <OSGBaseTypes.h>
 #include <OSGGeoTypeGraphOp.h>
 #include <OSGLog.h>
+#include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE
 
     
+//! Register the GraphOp with the factory
+static bool registerOp(void)
+{
+    GraphOpFactory::the().registerOp(new GeoTypeGraphOp);
+    return true;
+}
+static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
+
+
 GeoTypeGraphOp::GeoTypeGraphOp(const char* name)
     : SingleTypeGraphOp<Geometry>(name),
     _filter(TypeTraits<OSG::BitVector>::getMax())
