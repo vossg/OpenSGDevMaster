@@ -72,6 +72,7 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     enum PixelFormat 
     {   
         OSG_INVALID_PF = 0,
+        OSG_A_PF       = GL_ALPHA,
 #if !defined(OSG_WINCE) || OSG_GL_ES_VERSION > 100
         OSG_I_PF       = GL_INTENSITY,
 #endif
