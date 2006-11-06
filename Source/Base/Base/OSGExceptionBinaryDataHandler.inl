@@ -178,6 +178,7 @@ void ExceptionBinaryDataHandler::putValue(const std::string &value)
     }
 }
 
+#ifdef __APPLE__
 inline 
 void ExceptionBinaryDataHandler::putValue(const GLenum &value)
 {
@@ -185,7 +186,7 @@ void ExceptionBinaryDataHandler::putValue(const GLenum &value)
 
     put(&z, sizeof(UInt32));
 }
-
+#endif
 
 inline 
 void ExceptionBinaryDataHandler::putValues(const bool *value, UInt32 size)
@@ -428,6 +429,7 @@ void ExceptionBinaryDataHandler::putValues(const std::string *value,
     }
 }
 
+#ifdef __APPLE__
 inline 
 void ExceptionBinaryDataHandler::putValues(const GLenum *value, UInt32 size)
 {
@@ -445,6 +447,7 @@ void ExceptionBinaryDataHandler::putValues(const GLenum *value, UInt32 size)
         put(value, size * sizeof(UInt32));
     }
 }
+#endif
 
 inline 
 void ExceptionBinaryDataHandler::getValue(bool &value) throw (ReadError)
@@ -589,13 +592,15 @@ void ExceptionBinaryDataHandler::getValue(std::string &value) throw (ReadError)
     }
 }
 
-inline 
+#ifdef __APPLE__
+inline
 void ExceptionBinaryDataHandler::getValue(GLenum &value) throw (ReadError)
 {
     get(&value, sizeof(UInt32));
 
     value = osgNetToHost(value);
 }
+#endif
 
 inline 
 void ExceptionBinaryDataHandler::getValues(bool   *value, 
@@ -821,6 +826,7 @@ void
     }
 }
 
+#ifdef __APPLE__
 inline 
 void ExceptionBinaryDataHandler::getValues(GLenum *value, 
                                            UInt32  size ) throw (ReadError)
@@ -837,6 +843,7 @@ void ExceptionBinaryDataHandler::getValues(GLenum *value,
     }
 #endif
 }
+#endif
 
 inline
 ExceptionBinaryDataHandler::MemoryBlock::MemoryBlock(MemoryHandle m,
