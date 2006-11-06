@@ -240,7 +240,7 @@ namespace GLP
     static inline
     void glClearColor(GLclampf r, GLclampf g, GLclampf b, GLclampf a)
     {
-        ::glClearColor(r, b, g, a);
+        ::glClearColor(r, g, b, a);
     }
 
     static inline
