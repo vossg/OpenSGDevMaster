@@ -108,7 +108,7 @@
 #include <pthread.h>
 #elif defined(__sun)
 #include <arpa/nameser_compat.h>
-#elif defined(APPLE)
+#elif defined(__APPLE__)
 #include <machine/endian.h>
 #elif defined(__linux)
 #include <endian.h>

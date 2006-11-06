@@ -54,6 +54,10 @@
 #        define MYLAST  _M_finish
 #        define MYEND   _M_end_of_storage
 #    endif
+#elif defined(__APPLE__)
+#    define MYFIRST _M_impl._M_start
+#    define MYLAST  _M_impl._M_finish
+#    define MYEND   _M_impl._M_end_of_storage
 #else
 #    define MYFIRST _Myfirst
 #    define MYLAST  _Mylast
@@ -62,7 +66,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if defined(__sgi) || defined(__linux) || defined(darwin) || \
+#if defined(__sgi) || defined(__linux) || defined(__APPLE__) || \
     defined(__sun) || defined(__hpux)
 
 template <class Tp, class Alloc> inline

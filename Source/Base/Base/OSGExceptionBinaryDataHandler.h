@@ -115,6 +115,7 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void putValue  (const Real64       &value              );
     void putValue  (const Real128      &value              );
     void putValue  (const std::string  &value              );
+    void putValue  (const GLenum       &value              );
 
     void putValues (const bool         *value, UInt32 size);
     void putValues (const UInt8        *value, UInt32 size);
@@ -131,6 +132,7 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void putValues (const Real64       *value, UInt32 size);
     void putValues (const Real128      *value, UInt32 size);
     void putValues (const std::string  *value, UInt32 size);
+    void putValues (const GLenum       *value, UInt32 size);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -155,6 +157,7 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void getValue   (Real64       &value             ) throw (ReadError);
     void getValue   (Real128      &value             ) throw (ReadError);
     void getValue   (std::string  &value             ) throw (ReadError);
+    void getValue   (GLenum       &value             ) throw (ReadError);
     
     void getValues  (bool         *value, UInt32 size) throw (ReadError);
     void getValues  (UInt8        *value, UInt32 size) throw (ReadError);
@@ -171,6 +174,7 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
     void getValues  (Real64       *value, UInt32 size) throw (ReadError);
     void getValues  (Real128      *value, UInt32 size) throw (ReadError);
     void getValues  (std::string  *value, UInt32 size) throw (ReadError);
+    void getValues  (GLenum       *value, UInt32 size) throw (ReadError);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

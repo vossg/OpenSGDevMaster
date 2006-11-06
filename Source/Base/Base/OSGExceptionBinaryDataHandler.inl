@@ -178,6 +178,14 @@ void ExceptionBinaryDataHandler::putValue(const std::string &value)
     }
 }
 
+inline 
+void ExceptionBinaryDataHandler::putValue(const GLenum &value)
+{
+    UInt32 z = osgHostToNet(value);
+
+    put(&z, sizeof(UInt32));
+}
+
 
 inline 
 void ExceptionBinaryDataHandler::putValues(const bool *value, UInt32 size)
@@ -421,6 +429,24 @@ void ExceptionBinaryDataHandler::putValues(const std::string *value,
 }
 
 inline 
+void ExceptionBinaryDataHandler::putValues(const GLenum *value, UInt32 size)
+{
+#if BYTE_ORDER == LITTLE_ENDIAN
+    if(_networkOrder == true)
+    {
+        for(UInt32 i = 0; i < size; ++i)
+        {
+            putValue(value[i]);
+        }
+    }
+    else
+#endif
+    {
+        put(value, size * sizeof(UInt32));
+    }
+}
+
+inline 
 void ExceptionBinaryDataHandler::getValue(bool &value) throw (ReadError)
 {
     //get(&value, sizeof(bool));
@@ -561,6 +587,14 @@ void ExceptionBinaryDataHandler::getValue(std::string &value) throw (ReadError)
     {
         value.erase();
     }
+}
+
+inline 
+void ExceptionBinaryDataHandler::getValue(GLenum &value) throw (ReadError)
+{
+    get(&value, sizeof(UInt32));
+
+    value = osgNetToHost(value);
 }
 
 inline 
@@ -785,6 +819,23 @@ void
     {
         getValue(value[i]);
     }
+}
+
+inline 
+void ExceptionBinaryDataHandler::getValues(GLenum *value, 
+                                           UInt32  size ) throw (ReadError)
+{
+    get(value, size * sizeof(UInt32));
+
+#if BYTE_ORDER == LITTLE_ENDIAN
+    if(_networkOrder == true)
+    {
+        for(UInt32 i = 0; i < size; ++i)
+        {
+            value[i] = osgNetToHost(value[i]);
+        }
+    }
+#endif
 }
 
 inline

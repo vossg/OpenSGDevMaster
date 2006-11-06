@@ -32,3 +32,7 @@ else:
             test_cpppath.append(option.incDir)
          if option.libDir:
             test_libpath.append(option.libDir)
+
+   if "darwin" == platform:
+      frameworks = ['OpenGL']
+      frameworkpath = []

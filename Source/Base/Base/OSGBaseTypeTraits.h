@@ -1357,7 +1357,7 @@ struct TypeTraits<GLenum> : public TypeTraitsTemplateBase<GLenum>
     {
         if(pData != NULL)
         {
-            return GLenum(strtoul(pData, pDataEnd, 0));
+            return GLenum(strtoul(pData, reinterpret_cast<char**>(pDataEnd), 0));
         }
         else
         {

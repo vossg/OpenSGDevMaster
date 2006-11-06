@@ -45,7 +45,7 @@ const UInt32 OSGDIRFLAG   = IFDIR;
 const UInt32 OSGREADFLAG  = IREAD;
 const UInt32 OSGWRITEFLAG = IWRITE;
 
-#elif defined(__linux) || defined(darwin) || defined(__hpux) || defined(__sun)
+#elif defined(__linux) || defined(__APPLE__) || defined(__hpux) || defined(__sun)
 
 const UInt32 OSGDIRFLAG   = S_IFDIR;
 const UInt32 OSGREADFLAG  = S_IRUSR;

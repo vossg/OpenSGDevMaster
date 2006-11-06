@@ -1474,7 +1474,6 @@ void TextMacTXFFace::createGlyphs(ATSUStyle horiFontStyle, ATSUStyle vertFontSty
     assert(_texture->getSize() == static_cast<UInt32>(_texture->getWidth() * _texture->getHeight()));
 
     // Create the texture
-    beginEditCP(_texture);
     for (j = 0; j < numRecords - 1; ++j)
     {
         wchar_t c = param.getCharacters()[j];
@@ -1485,11 +1484,10 @@ void TextMacTXFFace::createGlyphs(ATSUStyle horiFontStyle, ATSUStyle vertFontSty
         ATSUTextMeasurement yPos = FloatToFixed(horiMetrics[j].topLeft.y);
         UInt32 width = glyph->getPixmapWidth();
         UInt32 height = glyph->getPixmapHeight();
-        UInt8 *dst = _texture->getData() + glyph->getX() + glyph->getY() * _texture->getWidth();
+        UInt8 *dst = _texture->editData() + glyph->getX() + glyph->getY() * _texture->getWidth();
         UInt32 pitch = _texture->getWidth() - width;
         drawGlyph(horiTextLayout, layoutRecords[j], xPos, yPos, width, height, dst, pitch);
     }
-    endEditCP(_texture);
 
     // Cleanup
     ATSUDirectReleaseLayoutDataArrayPtr(0, kATSUDirectDataLayoutRecordATSLayoutRecordCurrent, (void**)&layoutRecords);

@@ -8,6 +8,9 @@ else:
    if "win32" == platform:
       libs = ['opengl32',"glu32","gdi32","user32", "kernel32", "winmm", "wsock32", "oldnames"]
       cpppath = []
+   elif "darwin" == platform:
+      libs = []
+      cpppath = []
    else:
       libs = ["GL","GLU","pthread","dl","m"]
       cpppath = []

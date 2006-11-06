@@ -65,7 +65,7 @@ class OSG_BASE_DLLMAPPING SocketAddress
 
 #if   defined(WIN32)
     typedef          char       SocketAddrT;
-#elif defined(darwin) || defined(__hpux) || defined(__sun)
+#elif defined(__APPLE__) || defined(__hpux) || defined(__sun)
     typedef          const char SocketAddrT;
 #else
     typedef struct socketaddr SocketAddrT;

@@ -1,6 +1,6 @@
 #!python
 #
-if "win32" == platform:   
+if platform in ("win32", "darwin"):
     stop_traversal = True      
 else:
     if option_pass:

@@ -415,8 +415,10 @@ if not SConsAddons.Util.hasHelpFlag():
    #      - Dependencies
    #         osg_dep_libs: Name of OpenSG libraries that we depend upon (need for link)
    #         libs: Name of non-OpenSG libraries we depend upon
+   #         frameworks: Name of frameworks we depend upon
    #         cpppath: Additional cpp paths that we should set for building
    #         libpath: Additional library paths that we should set
+   #         frameworkpath: Additional framework paths that we should set
    #      - Tests
    #         osg_test_libs: OpenSG libraries that we need when building tests
    #         other_test_libs: Other libraries we need when building tests
@@ -441,7 +443,7 @@ if not SConsAddons.Util.hasHelpFlag():
       have_build_info = os.path.exists(pj(full_dir,"build.info"))
       cur_lib = None          # The current library we are adding to
 
-      lib_attrib_names = ["osg_dep_libs","libs","cpppath","libpath",
+      lib_attrib_names = ["osg_dep_libs","libs","frameworks","cpppath","libpath","frameworkpath",
                           "osg_test_libs","other_test_libs","test_cpppath", "test_libpath"]
       # If we have a build info file
       # - Setup namespace and evaluate it
@@ -574,6 +576,8 @@ if not SConsAddons.Util.hasHelpFlag():
       definemap.update( {"OSG_WIN32_ASPECT_USE_LOCALSTORAGE": common_env["win_localstorage"],} )
    else:
       definemap.update( {"OSG_PTHREAD_ELF_TLS":(common_env["pthread_elf_tls"],"Use elf tls with pthreads."),} )
+   if "darwin" == platform:
+      definemap.update( {"OSG_WITH_GLUT":True,} )
    
    common_env.DefineBuilder(pj(paths["include"],"OpenSG","OSGConfigured.h"),Value(definemap), 
                             definemap=definemap)

@@ -12,6 +12,8 @@ class LibraryInfo(object):
       self.osg_dep_libs = []         # Names of OpenSG libraries we depend on
       self.libs = []                 # Names of other libraries we depend on
       self.libpath = []              # Paths to dependent libs
+      self.frameworks = []           # Names of other frameworks we depend on
+      self.frameworkpath = []        # Paths to dependent frameworks
       self.cpppath = []              # List of extra paths we need to compile
       self.osg_test_libs = []        # Names of OSG libraries the tests depend on
       self.other_test_libs = []      # Names of non-OSG libraries the tests depend on
@@ -37,7 +39,7 @@ class LibraryInfo(object):
       """ Merge our library information with another library info object. """
       # Merge the lists but only merge in new unique entries
       for a in ["source_files","header_files","test_files","osg_dep_libs",
-                "libs","libpath","cpppath",
+                "libs","libpath","frameworks","frameworkpath","cpppath",
                 "osg_test_libs","other_test_libs","test_cpppath","test_libpath","unittest_files"]:
          getattr(self,a).extend([i for i in getattr(other,a) if not i in getattr(self,a)])
  
@@ -124,5 +126,9 @@ class ConfigInfoAdapter(object):
       return self.merged_lib.libpath
    def getLibPathStr(self):
       return " ".join(["%s%s"%(self.libpathprefix,p) for p in self.merged_lib.libpath])
+   def getFrameworks(self):
+      return self.merged_lib.frameworks
+   def getFrameworkPath(self):
+      return self.merged_lib.frameworkpath
  
 

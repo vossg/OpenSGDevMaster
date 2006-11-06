@@ -47,7 +47,7 @@
 
 #include <OSGGLU.h>
 
-#if !defined(WIN32) && !defined(darwin)
+#if !defined(WIN32) && !defined(__APPLE__)
 #include <GL/glx.h>
 #endif
 
@@ -55,11 +55,11 @@
 #include <gles/egl.h>
 #endif
 
-#if defined(__sgi) || defined(darwin) || defined(__linux)
+#if defined(__sgi) || defined(__APPLE__) || defined(__linux)
 #include <dlfcn.h>
 #endif
 
-#if defined(darwin)
+#if defined(__APPLE__)
 #include <mach-o/dyld.h>
 #endif
 
@@ -1404,7 +1404,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
 {
     GLExtensionFunction retval = NULL;
 
-#if defined(darwin)
+#if defined(__APPLE__)
 
     if (NSIsSymbolNameDefined(s))
     {
@@ -1421,7 +1421,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
 
     retval = (void(__cdecl*)(void)) wglGetProcAddress(s);
     
-#elif defined(__sgi)   || defined(darwin) || defined(__hpux) || \
+#elif defined(__sgi)   || defined(__hpux) || \
       defined(__linux) || defined(__sun)
 
     /* Workaround for multiple nVidia/Linux installation bugs, based on 

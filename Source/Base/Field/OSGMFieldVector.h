@@ -55,14 +55,14 @@ OSG_BEGIN_NAMESPACE
  */
 #endif
 
-#if defined(__sgi) || defined(__linux) || defined(darwin) || \
+#if defined(__sgi) || defined(__linux) || defined(__APPLE__) || \
     defined(__sun) || defined(__hpux)
 
 #if defined(__sgi)
 #pragma set woff 1375
 #endif
 
-#if defined(__linux) || defined(__hpux) || defined(darwin) || defined(__sun)
+#if defined(__linux) || defined(__hpux) || defined(__APPLE__) || defined(__sun)
 #    if defined(__GNUC__)
 #        if __GNUC__ >= 3
 #            define OSG_STL_DEFAULT_ALLOCATOR(TP) = std::allocator<TP>
