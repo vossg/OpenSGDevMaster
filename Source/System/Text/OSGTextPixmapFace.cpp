@@ -126,16 +126,16 @@ const TextPixmapGlyph &TextPixmapFace::getPixmapGlyph(TextGlyph::Index glyphInde
 // Creates a texture image with the result of a layout operation
 // Author: pdaehne
 //----------------------------------------------------------------------
-ImagePtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, Vec2f &offset)
+ImagePtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, Vec2f &offset, UInt32 border)
 {
     Vec2f lowerLeft, upperRight;
     calculateBoundingBox(layoutResult, lowerLeft, upperRight);
-    offset.setValues(lowerLeft.x(), upperRight.y());
+    offset.setValues(lowerLeft.x() - border, upperRight.y() + border);
 
     ImagePtr imagePtr = Image::create();
 
-    UInt32 width = static_cast<UInt32>(osgCeil(upperRight.x() - lowerLeft.x()));
-    UInt32 height = static_cast<UInt32>(osgCeil(upperRight.y() - lowerLeft.y()));
+    UInt32 width = static_cast<UInt32>(osgCeil(upperRight.x() - lowerLeft.x())) + (border << 1);
+    UInt32 height = static_cast<UInt32>(osgCeil(upperRight.y() - lowerLeft.y())) + (border << 1);
     imagePtr->set(Image::OSG_A_PF, width, height);
     imagePtr->clear();
     UInt8 *buffer = imagePtr->editData();
@@ -146,8 +146,8 @@ ImagePtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, Vec2f &
     {
         const TextPixmapGlyph &glyph = getPixmapGlyph(layoutResult.indices[i]);
         const Vec2f &pos = layoutResult.positions[i];
-        Int32 x = static_cast<Int32>(pos.x() - lowerLeft.x() + 0.5f);
-        Int32 y = static_cast<Int32>(pos.y() - lowerLeft.y() + 0.5f);
+        Int32 x = static_cast<Int32>(pos.x() - lowerLeft.x() + 0.5f) + border;
+        Int32 y = static_cast<Int32>(pos.y() - lowerLeft.y() + 0.5f) + border;
         glyph.putPixmap(x, y, buffer, width, height);
     }
 

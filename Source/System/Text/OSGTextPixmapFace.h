@@ -141,9 +141,10 @@ class OSG_TEXT_DLLMAPPING TextPixmapFace: public TextFace
      * @param layoutResult The result of a layout operation.
      * @param offset Gets filled with the offset of the upper left
      * corner of the image from the coordinate origin.
+     * @param border The number of clear pixels around the text
      * @return The image filled with the text.
      */
-    ImagePtr makeImage(const TextLayoutResult &layoutResult, Vec2f &offset);
+    ImagePtr makeImage(const TextLayoutResult &layoutResult, Vec2f &offset, UInt32 border = 1);
 
     /**
      * Tries to create a pixmap face.
