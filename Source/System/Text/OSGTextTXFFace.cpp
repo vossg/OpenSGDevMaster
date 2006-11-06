@@ -498,7 +498,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
     face->_texture = Image::create();
     OSG::addRef(face->_texture);
 
-    face->_texture->set(Image::OSG_I_PF, textureWidth, textureHeight);
+    face->_texture->set(Image::OSG_A_PF, textureWidth, textureHeight);
     face->_texture->clear();
 
     // Parse texture
@@ -869,7 +869,7 @@ void TextTXFFace::prepareTexture(const TextTXFParam &param)
     _texture = Image::create();
     OSG::addRef(_texture);
 
-    _texture->set(Image::OSG_I_PF, textureWidth, textureHeight);
+    _texture->set(Image::OSG_A_PF, textureWidth, textureHeight);
     _texture->clear();
 
     // Calculate the coordinates of all glyphs
