@@ -133,7 +133,8 @@ void ContainerChangeEntry::commitChanges(void)
 
         pTmp->changed      (uncommitedChanges, ChangedOrigin::Commit);
 
-        pTmp->callChangedFunctors(uncommitedChanges);
+        // moved to FieldContainer::changed()
+        // pTmp->callChangedFunctors(uncommitedChanges);
 
         whichField        |= uncommitedChanges;
         uncommitedChanges  = TypeTraits<BitVector>::BitsClear;
@@ -551,14 +552,23 @@ void ChangeList::doClear(void)
 
 void ChangeList::swap(ChangeList &pOther)
 {
+    FFATAL(("**************************************\n"
+            "ChangeList::swap: Not implemented yet!\n"
+            "**************************************\n"));
 }
 
 void ChangeList::merge(ChangeList &other)
 {
+    FFATAL(("***************************************\n"
+            "ChangeList::merge: Not implemented yet!\n"
+            "***************************************\n"));
 }
 
 void ChangeList::copy(ChangeList &other)
 {
+    FFATAL(("**************************************\n"
+            "ChangeList::copy: Not implemented yet!\n"
+            "**************************************\n"));
 }
 
 #ifdef OSG_1_COMPAT

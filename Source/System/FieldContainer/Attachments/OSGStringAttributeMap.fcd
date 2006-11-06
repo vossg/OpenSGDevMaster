@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="StringAttributeMap"
+	parent="FieldContainerAttachment"
+	library="System"
+	pointerfieldtypes="single"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+An attachment that stores a string-to-string mapping of keys to values. User code can store any key and value pair and interpret the string value in whatever ways are appropriate.
+	<Field
+		name="keys"
+		type="std::string"
+		cardinality="multi"
+		visibility="external"
+		access="protected"
+	>
+	</Field>
+	<Field
+		name="values"
+		type="std::string"
+		cardinality="multi"
+		visibility="external"
+		access="protected"
+	>
+	</Field>
+</FieldContainer>

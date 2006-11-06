@@ -55,7 +55,8 @@ OSG_BEGIN_NAMESPACE
 //Helper
 
 //! \ingroup GrpSystemDrawablesGeometryFunctions
-//! Multi/Single index dictionary
+//! Multi/Single index dictionary. Only useful for normal calculation
+//! {
 struct  IndexDic
 {
     typedef std::vector<Int32>  Int32Vec;
@@ -113,10 +114,23 @@ UInt32 IndexDic::entryCount(void) const
 {
     return _indexVec.size();
 }
+//! }
 
 
 //------------------------------------------------------------
 
+/*! \ingroup GrpSystemDrawablesGeometryFunctions
+
+Calculate vertex normals for the given geometry. 
+
+It just averages all normals that use a given vertex (as indicated by its
+index). It is smart enough to only change the normals that are used by this
+Geometry, and tries to reuse indices if they're not shared on other
+properties.
+
+\warning This doesn't do anything for nonindexed geometries!
+
+*/
 void calcVertexNormals(GeometryPtrArg geo)
 {
     typedef std::set<UInt32> IndexSet;
@@ -130,8 +144,11 @@ void calcVertexNormals(GeometryPtrArg geo)
     posIndex = geo->getIndex(Geometry::PositionsIndex);
 
     if(posIndex == NullFC)
+    {
+        FWARNING(("calcVertexNormals: Geometry is not indexed, ignored!\n"));
         return;
-
+    }
+    
     norms = geo->getNormals();
 
     if(norms == NullFC)
@@ -170,8 +187,7 @@ void calcVertexNormals(GeometryPtrArg geo)
             posIndex->getValue(val, i);
             normsIndex->addValue(val);
         }
-    }
-        
+    }     
 
     // problem: not all of the points of the property might be used by this
     // geometry. If the property has more than 1 users, be careful.
@@ -234,6 +250,15 @@ void calcVertexNormals(GeometryPtrArg geo)
 }
 
 
+/*! \ingroup GrpSystemDrawablesGeometryFunctions
+
+Calculate vertex normals for the given geometry. Only vertices whose
+triangles have an angle less than \a creaseAngle radians to each other are
+merged.
+
+\warning This doesn't do anything for nonindexed geometries!
+
+*/
 void calcVertexNormals(GeometryPtrArg geo,
                        Real32         creaseAngle)
 {
@@ -2111,6 +2136,12 @@ Int32 createSingleIndex(GeometryPtrArg  geo)
     return -1;
 }
 
+
+/*! \ingroup GrpSystemDrawablesGeometryFunctions
+
+Calculate some basic statistics of the Geometry. 
+
+*/
 UInt32 calcPrimitiveCount(GeometryPtrArg  geo,
                           UInt32         &triangle,
                           UInt32         &line,
@@ -2143,22 +2174,7 @@ UInt32 calcPrimitiveCount(GeometryPtrArg  geo,
     {
         return 0;
     }
-    
-/*
-    typeI = geoTypePtr->getField().begin();
 
-    if(lN != 0)
-    {
-        if(lens32Ptr != NullFC)
-            len32I = lens32Ptr->getField().begin();
-        else
-            len16I = lens16Ptr->getField().begin();
-    }
-    
-    endTypeI = geoTypePtr->getField().end();
- */
-
-    //while(typeI != endTypeI)
     for(UInt32 i = 0; i < geoTypePtr->size(); ++i)
     {
         geoTypePtr->getValue(type, i);
@@ -2223,6 +2239,15 @@ UInt32 calcPrimitiveCount(GeometryPtrArg  geo,
     return triangle + line + point;
 }
 
+/*! \ingroup GrpSystemDrawablesGeometryFunctions
+
+Create a geometry of the vertex normals of the object. Useful for Visualizing
+the normals. 
+
+\warning It does not check whether the normals are actually vertex normals,
+it just uses them as if.
+
+*/
 NodePtr calcVertexNormalsGeo(GeometryPtrArg  geo, 
                              Real32          length)
 {
@@ -2278,6 +2303,15 @@ NodePtr calcVertexNormalsGeo(GeometryPtrArg  geo,
     return makeNodeFor(g);
 }
 
+/*! \ingroup GrpSystemDrawablesGeometryFunctions
+
+Create a geometry of the face normals of the object. Useful for Visualizing
+the normals. 
+
+\warning It does not check whether the normals are actually face normals,
+it just uses them as if.
+
+*/
 NodePtr calcFaceNormalsGeo(GeometryPtrArg  geo, 
                            Real32          length)
 {
@@ -2344,16 +2378,19 @@ NodePtr calcFaceNormalsGeo(GeometryPtrArg  geo,
 }
 
 
+OSG_DRAWABLE_DLLMAPPING 
 void    separateProperties      (GeometryPtrArg  geo)
 {
+    FFATAL(("separateProperties: not implemented yet!\n"));
 }
 
 
+OSG_DRAWABLE_DLLMAPPING 
 void mergeGeometries(std::vector<NodePtr> &nodes,
                      std::vector<NodePtr> &results)
 {
+    FFATAL(("mergeGeometries: not implemented yet!\n"));
 }
-
 
 OSG_END_NAMESPACE
 

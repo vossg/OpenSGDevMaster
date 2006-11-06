@@ -116,6 +116,7 @@ class TestWindow
     OSG::GrabForegroundPtr _grabber;
     
     bool _open;
+    int  _winid;
 };
 
 #include "TestWindow.inl"

@@ -107,6 +107,8 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
     const Matrixr  &getObjectToWorld        (void         ) const;
 
+    const Matrixr  &getWorldToScreen        (void         ) const;
+
           Real      getCameraNear           (void         ) const;
           Real      getCameraFar            (void         ) const;
 
@@ -175,6 +177,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     Matrixr        _cameraViewing;
     Matrixr        _cameraToWorld;
     Matrixr        _objectToWorld;
+    Matrixr        _worldToScreen;
 
     Real           _cameraNear;
     Real           _cameraFar;

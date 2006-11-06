@@ -135,10 +135,18 @@ Action::ResultE MaterialDrawableRenderEnter(const NodeCorePtr &pCore,
                 m->getSortKey(),
                 getCPtr(m->getState(uiPass)));
  */
+            StatePtr st = m->getState(uiPass);
 
-            a->dropFunctor(func, 
-                           getCPtr(m->getState(uiPass)), 
-                           m->getSortKey() + uiPass);
+            if(st != NullFC)
+            {
+                a->dropFunctor(func, 
+                               getCPtr(st), 
+                               m->getSortKey() + uiPass);
+            }
+            else
+            {
+                FINFO(("%s: hit material with NullFC state!\n", __func__));
+            }
         }
     }
 

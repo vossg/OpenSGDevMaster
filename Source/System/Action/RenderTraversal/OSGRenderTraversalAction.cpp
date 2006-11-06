@@ -61,6 +61,7 @@
 #include "OSGSHLChunk.h"
 
 #include "OSGVolumeDraw.h"
+#include "OSGTreeBuilderBase.h"
 
 OSG_USING_NAMESPACE
 
@@ -111,6 +112,9 @@ StatElemDesc<StatIntElem > RenderTraversalAction::statNShaders     (
 StatElemDesc<StatIntElem > RenderTraversalAction::statNShaderParams(
     "RT-ShaderParams",
     "number of shader params changes");
+StatElemDesc<StatIntElem > RenderTraversalAction::statNTriangles   (
+    "RT-Triangles", 
+    "number of triangles");
 
 /*
 StatElemDesc<StatIntElem > RenderTraversalAction::statNTransGeometries(
@@ -239,14 +243,27 @@ RenderTraversalAction::RenderTraversalAction(void) :
     _pPartitionPools      (),
     _pNodePools           (),
     _pStatePools          (),
-    _pStateSorterPools    (),
+    _pTreeBuilderPools    (),
 
     _pActivePartition     (NULL),
 
     _vRenderPartitions    (    ),
     _sRenderPartitionStack(    ),
     _bvPassMask           (    ),
-    _bUseGLFinish         (false)
+    _bUseGLFinish         (false),
+    _occlusionCulling     (false),
+    _occlusionCullingDebug(false),
+    _occDMTested          (0xffffffff), 
+    _occDMCulled          (0xffffffff), 
+    _occDMVisible         (0xffffffff),
+    _occMinFeatureSize    (0),
+    _occVisibilityThreshold(0),
+    _occCoveredThreshold  (0.7f),
+    _occQueryBufferSize   (1000),
+    _occMinimumTriangleCount(500),
+    _scrlodCoverageThreshold(0.01),
+    _scrlodNumLODsToUse(0),
+    _scrlodDegradationFactor(1.0)
 {
     if(_vDefaultEnterFunctors != NULL)
         _enterFunctors = *_vDefaultEnterFunctors;
@@ -287,14 +304,27 @@ RenderTraversalAction::RenderTraversalAction(
     _pPartitionPools      (),
     _pNodePools           (),
     _pStatePools          (),
-    _pStateSorterPools    (),
+    _pTreeBuilderPools    (),
 
     _pActivePartition     (NULL),
 
     _vRenderPartitions    (    ),
     _sRenderPartitionStack(    ),
     _bvPassMask           (source._bvPassMask),
-    _bUseGLFinish         (source._bUseGLFinish)
+    _bUseGLFinish         (source._bUseGLFinish),
+    _occlusionCulling     (source._occlusionCulling),
+    _occlusionCullingDebug(source._occlusionCullingDebug),
+    _occDMTested          (source._occDMTested), 
+    _occDMCulled          (source._occDMCulled), 
+    _occDMVisible         (source._occDMVisible),
+    _occMinFeatureSize    (source._occMinFeatureSize),
+    _occVisibilityThreshold(source._occVisibilityThreshold),
+    _occCoveredThreshold  (source._occCoveredThreshold),
+    _occQueryBufferSize   (source._occQueryBufferSize),
+    _occMinimumTriangleCount(source._occMinimumTriangleCount),
+    _scrlodCoverageThreshold(source._scrlodCoverageThreshold),
+    _scrlodNumLODsToUse(source._scrlodNumLODsToUse),
+    _scrlodDegradationFactor(source._scrlodDegradationFactor)
 {
     setNumBuffers(source._numBuffers);
 }
@@ -323,7 +353,7 @@ RenderTraversalAction::~RenderTraversalAction(void)
         delete _pPartitionPools[i];
         delete _pNodePools[i];
         delete _pStatePools[i];
-        delete _pStateSorterPools[i];
+        delete _pTreeBuilderPools[i];
     }
 }
 
@@ -357,7 +387,7 @@ void RenderTraversalAction::setNumBuffers(UInt32 n)
             _pPartitionPools  .push_back(new RenderPartitionPool);
             _pNodePools       .push_back(new RenderTreeNodePool);
             _pStatePools      .push_back(new StateOverridePool);
-            _pStateSorterPools.push_back(new StateSorterPool);
+            _pTreeBuilderPools.push_back(new TreeBuilderPool);
         }
 
     }
@@ -368,12 +398,12 @@ void RenderTraversalAction::setNumBuffers(UInt32 n)
             delete _pPartitionPools[i];
             delete _pNodePools[i];
             delete _pStatePools[i];
-            delete _pStateSorterPools[i];
+            delete _pTreeBuilderPools[i];
         }
         _pPartitionPools  .resize(n);
         _pNodePools       .resize(n);
         _pStatePools      .resize(n);
-        _pStateSorterPools.resize(n);
+        _pTreeBuilderPools.resize(n);
     }
     _numBuffers = n;
     _vRenderPartitions.resize(n);
@@ -464,7 +494,7 @@ Action::ResultE RenderTraversalAction::start(void)
     _pPartitionPools  [_currentBuffer]->freeAll();
     _pNodePools       [_currentBuffer]->freeAll();
     _pStatePools      [_currentBuffer]->freeAll();
-    _pStateSorterPools[_currentBuffer]->freeAll();
+    _pTreeBuilderPools[_currentBuffer]->freeAll();
 
     _pActivePartition = _pPartitionPools[_currentBuffer]->create();
 
@@ -474,7 +504,7 @@ Action::ResultE RenderTraversalAction::start(void)
     _pActivePartition->setAction         ( this                             );
     _pActivePartition->setNodePool       (_pNodePools       [_currentBuffer]);
     _pActivePartition->setStatePool      (_pStatePools      [_currentBuffer]);
-    _pActivePartition->setStateSorterPool(_pStateSorterPools[_currentBuffer]);
+    _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
 
     _pActivePartition->setFrustum        (_oFrustum        );
 
@@ -547,6 +577,7 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
         UInt32 uiNState       = 0;
         UInt32 uiNShader      = 0;
         UInt32 uiNShaderParam = 0;
+        UInt32 uiNTriangles   = 0;
 
         for(Int32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
         {
@@ -561,12 +592,16 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
 
             uiNShaderParam +=
                 _vRenderPartitions[_currentBuffer][i]->getNumShaderParamChanges();
+
+            uiNTriangles +=
+                _vRenderPartitions[_currentBuffer][i]->getNumTriangles();
         }
 
         getStatistics()->getElem(statNMatrices    )->set(uiNMatrix     );
         getStatistics()->getElem(statNStates      )->set(uiNState      );
         getStatistics()->getElem(statNShaders     )->set(uiNShader     );
         getStatistics()->getElem(statNShaderParams)->set(uiNShaderParam);
+        getStatistics()->getElem(statNTriangles   )->set(uiNTriangles);
     }
 
     return Action::Continue;
@@ -673,7 +708,7 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
     _pActivePartition->setAction         ( this                             );
     _pActivePartition->setNodePool       (_pNodePools       [_currentBuffer]);
     _pActivePartition->setStatePool      (_pStatePools      [_currentBuffer]);
-    _pActivePartition->setStateSorterPool(_pStateSorterPools[_currentBuffer]);
+    _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
 
     _pActivePartition->initFrom(_sRenderPartitionStack.top(),
                                  uiCopyOnPush               );
@@ -947,6 +982,132 @@ Action::ResultE ShadingAction::stop(ResultE res)
 }
 
 #endif
+
+
+
+/*------------------------ Occlusion Culling -----------------------------*/
+
+void RenderTraversalAction::setOcclusionCulling(const bool val)
+{
+    _occlusionCulling = val;
+}
+
+bool RenderTraversalAction::getOcclusionCulling(void)
+{
+    return _occlusionCulling;
+}
+
+void RenderTraversalAction::setOcclusionCullingDebug(const bool val)
+{
+    _occlusionCullingDebug = val;
+}
+
+bool RenderTraversalAction::getOcclusionCullingDebug(void)
+{
+    return _occlusionCullingDebug;
+}
+
+void RenderTraversalAction::setOcclusionDebugMasks(const UInt32 tested, const UInt32 culled, const UInt32 visible)
+{
+    _occDMTested  = tested;
+    _occDMCulled  = culled;
+    _occDMVisible = visible;
+}
+
+UInt32 RenderTraversalAction::getOcclusionTestedDebugMask(void)
+{
+    return _occDMTested;
+}
+
+UInt32 RenderTraversalAction::getOcclusionCulledDebugMask(void)
+{
+    return _occDMCulled;
+}
+
+UInt32 RenderTraversalAction::getOcclusionVisibleDebugMask(void)
+{
+    return _occDMVisible;
+}
+
+void RenderTraversalAction::setOcclusionCullingMinimumFeatureSize(const UInt32 pixels)
+{
+    _occMinFeatureSize = pixels;
+}
+
+UInt32 RenderTraversalAction::getOcclusionCullingMinimumFeatureSize(void)
+{
+    return _occMinFeatureSize;
+}
+
+void RenderTraversalAction::setOcclusionCullingVisibilityThreshold(const UInt32 pixels)
+{
+    _occVisibilityThreshold = pixels;
+}
+
+UInt32 RenderTraversalAction::getOcclusionCullingVisibilityThreshold(void)
+{
+    return _occVisibilityThreshold;
+}
+
+void RenderTraversalAction::setOcclusionCullingCoveredThreshold(const Real32 percent)
+{
+    _occCoveredThreshold = percent;
+}
+
+Real32 RenderTraversalAction::getOcclusionCullingCoveredThreshold(void)
+{
+    return _occCoveredThreshold;
+}
+
+void RenderTraversalAction::setOcclusionCullingQueryBufferSize(const UInt32 size)
+{
+    _occQueryBufferSize = size;
+}
+
+UInt32 RenderTraversalAction::getOcclusionCullingQueryBufferSize(void)
+{
+    return _occQueryBufferSize;
+}
+
+void RenderTraversalAction::setOcclusionCullingMinimumTriangleCount(const UInt32 count)
+{
+    _occMinimumTriangleCount = count;
+}
+
+UInt32 RenderTraversalAction::getOcclusionCullingMinimumTriangleCount(void)
+{
+    return _occMinimumTriangleCount;
+}
+
+void RenderTraversalAction::setScreenLODCoverageThreshold(const Real32 percent)
+{
+    _scrlodCoverageThreshold = percent;
+}
+
+Real32 RenderTraversalAction::getScreenLODCoverageThreshold(void)
+{
+    return _scrlodCoverageThreshold;
+}
+
+void RenderTraversalAction::setScreenLODNumLevels(const UInt32 levels)
+{
+    _scrlodNumLODsToUse = levels;
+}
+
+UInt32 RenderTraversalAction::getScreenLODNumLevels(void)
+{
+    return _scrlodNumLODsToUse;
+}
+
+void RenderTraversalAction::setScreenLODDegradationFactor(const Real32 percent)
+{
+    _scrlodDegradationFactor = percent;
+}
+
+Real32 RenderTraversalAction::getScreenLODDegradationFactor(void)
+{
+    return _scrlodDegradationFactor;
+}
 
 /*-------------------------- assignment -----------------------------------*/
 

@@ -89,8 +89,7 @@ class OSG_RENDERTRAV_DLLMAPPING StateSorter
     enum SortMode
     {
         StateKey  = 0x0001,
-        ScalarKey = 0x0002,
-        TransKey  = 0x0003
+        ScalarKey = 0x0002
     };
 
     //-----------------------------------------------------------------------

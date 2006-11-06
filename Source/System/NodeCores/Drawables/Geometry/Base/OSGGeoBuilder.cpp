@@ -85,20 +85,35 @@ char* GeoBuilder::_defaultPropTypes[Geometry::MaxAttribs] =
     "GeoVec2fProperty",  // TexCoords7Index      = 15 
 };
 
-GeoBuilder::GeoBuilder(void)
-: _geo(),
-  _actLen(0),
-  _actType(-1)
+GeoBuilder::GeoBuilder(void) :
+    _geo()
 {
+    reset();
+}
+
+GeoBuilder::~GeoBuilder()
+{
+    if(_geo != NullFC)
+        subRef(_geo);
+}
+
+void GeoBuilder::reset(void)
+{
+    if(_geo != NullFC)
+        subRef(_geo);
+        
     _geo = Geometry::create();
+    addRef(_geo);
     
     MaterialPtr mat = getDefaultMaterial();
 
     _geo->setMaterial(mat);
+
+    _actLen = 0;
+    _actType = -1; 
 }
 
 // Property Helper
-    
 GeoVectorPropertyPtr GeoBuilder::getProperty(UInt32 index)
 {
     GeoVectorPropertyPtr att;
@@ -144,7 +159,7 @@ UInt32 GeoBuilder::finishVertex(void)
         }
     }
     
-    // Are we in a begin/end loop? Then add current vertex TO index
+    // Are we in a begin/end loop? Then add current vertex to index
     if(_actType != -1)
         addIndex(possize - 1);
     
@@ -202,6 +217,26 @@ void GeoBuilder::end(void)
 
     _actLen = 0;
     _actType = -1;   
+}
+
+void GeoBuilder::tri(UInt32 start)
+{
+    addType(GL_QUADS);
+    addLength(3);
+
+    addIndex(start    );
+    addIndex(start + 1);
+    addIndex(start + 2);
+}
+
+void GeoBuilder::tri(UInt32 i1, UInt32 i2, UInt32 i3)
+{
+    addType(GL_TRIANGLES);
+    addLength(3);
+
+    addIndex(i1);
+    addIndex(i2);
+    addIndex(i3);
 }
 
 void GeoBuilder::quad(UInt32 start)

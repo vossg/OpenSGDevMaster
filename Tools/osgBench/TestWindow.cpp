@@ -53,12 +53,15 @@ static jmp_buf jump;
 TestWindow::TestWindow(void) :
     _width(-1), _height(-1), _scene(OSG::NullFC), _window(OSG::NullFC), _ssm(NULL),
     _open(false), _left(0), _right(1), _top(1), _bottom(0),
-    _near(0.1), _far(100), _fov(1), _beacon(OSG::NullFC)
+    _near(0.1), _far(100), _fov(1), _beacon(OSG::NullFC),
+    _winid(-1)
 {
 }
 
 TestWindow::~TestWindow()
 {
+    if(_winid != -1)
+        glutDestroyWindow(_winid);
     if(_window != OSG::NullFC)
         OSG::subRef(_window);
     if(_ssm != NULL)
@@ -238,7 +241,7 @@ void TestWindow::open(void)
     if(_width > 0)
         glutInitWindowSize(_width, _height);
    
-    int winid = glutCreateWindow("OpenSG Benchmark");
+    _winid = glutCreateWindow("OpenSG Benchmark");
 
     if(_width < 0)
     {
@@ -252,7 +255,7 @@ void TestWindow::open(void)
     
     update();
     
-    _window->setId(winid);
+    _window->setId(_winid);
     _window->init();
     
     if(!setjmp(jump))

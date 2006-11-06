@@ -6,9 +6,21 @@ else:
    library = "OSGRenderTraversal"
    osg_dep_libs = ['OSGBase','OSGSystem','OSGGroup','OSGState','OSGDrawable', 'OSGWindow']
 
+   # This is only need in test, but I don't know how to add opt libs to test
+   nvperfsdk_option = opts.GetOption("NVPerfSDK")
+   
+   for option in [nvperfsdk_option]:
+      if option.isAvailable():
+         libs.append(option.library)
+         if option.incDir:
+            cpppath.append(option.incDir)
+         if option.libDir:
+            libpath.append(option.libDir)
+   
    # Tests' dependencies
 
    osg_test_libs =  ['OSGGroup', 'OSGDrawable', 'OSGState', 'OSGFileIO', 
-                     'OSGWindowX', 'OSGUtil','OSGText']
+                     'OSGWindowX', 'OSGUtil','OSGText', 'OSGWindowGLUT']
+   
    test_cpppath = []
    test_libpath = []

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ScreenLOD"
+	parent="Group"
+	library="Group"
+	pointerfieldtypes="none"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+    isNodeCore="true"
+>
+</FieldContainer>

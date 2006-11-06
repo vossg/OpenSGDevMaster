@@ -8,9 +8,9 @@ test.setWindow(t)
 test.setHeadlight(1)
 test.setNFrames(100)
 
-nc=1
+nc=3
 
-res=64
+res=2
 scene=Group()
 for i in range(-nc,nc):
     for j in range(-nc,nc):
@@ -21,7 +21,7 @@ for i in range(-nc,nc):
             scene.addChild(geo)
 addRef(scene)
 
-scene.save("few_high_cubes.osb")
+scene.save("some_cubes.osb")
 
 test=Test()
 test.setWindow(t)

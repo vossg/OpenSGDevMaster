@@ -87,6 +87,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     static StatElemDesc<StatIntElem > statNMatrices;
     static StatElemDesc<StatIntElem > statNGeometries;
 //    static StatElemDesc<StatIntElem > statNTransGeometries;
+    static StatElemDesc<StatIntElem > statNTriangles;
     static StatElemDesc<StatIntElem > statNShaders;
     static StatElemDesc<StatIntElem > statNShaderParams;
 
@@ -226,6 +227,45 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     void setUseGLFinish(bool bVal);
     bool getUseGLFinish(void     );
 
+    /*------------------ Occlusion Culling control --------------------------*/
+
+    void setOcclusionCulling(const bool bVal);
+    bool getOcclusionCulling(void     );
+
+    void setOcclusionCullingDebug(const bool bVal);
+    bool getOcclusionCullingDebug(void     );
+
+    void setOcclusionDebugMasks(const UInt32 tested, const UInt32 culled, const UInt32 visible);
+    UInt32 getOcclusionTestedDebugMask(void);
+    UInt32 getOcclusionCulledDebugMask(void);
+    UInt32 getOcclusionVisibleDebugMask(void);
+
+    void setOcclusionCullingMinimumFeatureSize(const UInt32 pixels);
+    UInt32 getOcclusionCullingMinimumFeatureSize(void);
+
+    void setOcclusionCullingVisibilityThreshold(const UInt32 pixels);
+    UInt32 getOcclusionCullingVisibilityThreshold(void);
+
+    void setOcclusionCullingCoveredThreshold(const Real32 percent);
+    Real32 getOcclusionCullingCoveredThreshold(void);
+
+    void setOcclusionCullingQueryBufferSize(const UInt32 size);
+    UInt32 getOcclusionCullingQueryBufferSize(void);
+
+    void setOcclusionCullingMinimumTriangleCount(const UInt32 count);
+    UInt32 getOcclusionCullingMinimumTriangleCount(void);
+
+    /*------------------- ScreenLOD Control -------------------------------*/
+    void setScreenLODCoverageThreshold(const Real32 percent);
+    Real32 getScreenLODCoverageThreshold(void);
+
+    void setScreenLODNumLevels(const UInt32 levels);
+    UInt32 getScreenLODNumLevels(void);
+
+    void setScreenLODDegradationFactor(const Real32 percent);
+    Real32 getScreenLODDegradationFactor(void);
+
+
   protected:
 
     //-----------------------------------------------------------------------
@@ -269,7 +309,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     std::vector<RenderPartitionPool *> _pPartitionPools;
     std::vector<RenderTreeNodePool  *> _pNodePools;
     std::vector<StateOverridePool   *> _pStatePools;
-    std::vector<StateSorterPool     *> _pStateSorterPools;
+    std::vector<TreeBuilderPool     *> _pTreeBuilderPools;
     
     std::vector<RenderPartitionStore > _vRenderPartitions;
 
@@ -279,6 +319,21 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
 
     BitVector               _bvPassMask;
     bool                    _bUseGLFinish;
+
+    // Occlusion Culling
+    
+    bool                    _occlusionCulling;
+    bool                    _occlusionCullingDebug;
+    UInt32                  _occDMTested, _occDMCulled, _occDMVisible;
+    UInt32                  _occMinFeatureSize, _occVisibilityThreshold;
+    Real32                  _occCoveredThreshold;
+    UInt32                  _occQueryBufferSize;
+    UInt32                  _occMinimumTriangleCount;
+
+    // Screen LOD
+    Real32 _scrlodCoverageThreshold;
+    UInt32 _scrlodNumLODsToUse;
+    Real32 _scrlodDegradationFactor;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  

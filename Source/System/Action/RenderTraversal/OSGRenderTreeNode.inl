@@ -194,6 +194,43 @@ Real32 RenderTreeNode::getScalar(void)
 }
 
 inline
+void RenderTreeNode::setVol(DynamicVolume vol)
+{
+    _dVol = vol;
+}
+
+inline
+DynamicVolume RenderTreeNode::getVol(void)
+{
+    return _dVol;
+}
+
+inline
+void  RenderTreeNode::setResultNum(UInt32 uiResNum)
+{
+    _resultNum = uiResNum;
+}
+
+inline
+UInt32 RenderTreeNode::getResultNum(void)
+{
+    return _resultNum;
+}
+
+inline
+void  RenderTreeNode::setIsRendered(bool bRendered)
+{
+    _isRendered = bRendered;
+}
+
+inline
+bool RenderTreeNode::getIsRendered(void)
+{
+    return _isRendered;
+}
+
+
+inline
 void RenderTreeNode::setLightsState(UInt64 state)
 {
     _lightsState = state;
@@ -203,6 +240,18 @@ inline
 UInt64 RenderTreeNode::getLightsState(void)
 {
     return _lightsState;
+}
+
+inline
+void RenderTreeNode::setNode(Node *pNode)
+{
+    _node = pNode;
+}
+
+inline
+Node *RenderTreeNode::getNode(void)
+{
+    return _node;
 }
 
 inline

@@ -60,6 +60,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     
     GeoBuilder(void);
     
+    ~GeoBuilder();
+    
+    void reset(void);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name               Property Access                               */
@@ -85,6 +89,23 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
         getProperty(Geometry::ColorsIndex)->addValue(data);
     }
     
+    template <class Type>
+    void texcoord(UInt16 unit, Type data)
+    {
+        getProperty(Geometry::TexCoordsIndex + unit)->addValue(data);
+    }
+    
+    template <class Type>
+    UInt32 prop(UInt16 index, Type data)
+    {
+        getProperty(index)->addValue(data);
+        
+        if(index == 0)
+            return finishVertex();
+        else
+            return 0;
+    }
+    
     template <class VType, class NType>
     UInt32 fullVertex(VType vert, NType norm)
     {
@@ -100,6 +121,15 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
         return vertex(vert);
     }
     
+    template <class VType, class NType, class CType, class TType>
+    UInt32 fullVertex(VType vert, NType norm, CType col, TType tc)
+    {
+        color(col);
+        normal(norm);
+        texcoord(0, tc);
+        return vertex(vert);
+    }
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Face Creation                               */
@@ -108,6 +138,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     void begin(UInt32 type);
     
     void end(void);
+    
+    void tri(UInt32 start);
+    
+    void tri(UInt32 i1, UInt32 i2, UInt32 i3);
     
     void quad(UInt32 start);
     

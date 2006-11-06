@@ -130,9 +130,9 @@ void RenderPartition::setStatePool(StateOverridePool *pStatePool)
 }
 
 inline 
-void RenderPartition::setStateSorterPool(StateSorterPool *pStateSorterPool)
+void RenderPartition::setTreeBuilderPool(TreeBuilderPool *pTreeBuilderPool)
 {
-    _pStateSorterPool = pStateSorterPool;
+    _pTreeBuilderPool = pTreeBuilderPool;
 }
 
 inline
@@ -336,6 +336,12 @@ inline
 UInt32 RenderPartition::getNumShaderParamChanges(void)
 {
     return _oDrawEnv.getNumShaderParamChanges();
+}
+
+inline
+UInt32 RenderPartition::getNumTriangles(void)
+{
+    return _uiNumTriangles;
 }
 
 /*-------------------------- your_category---------------------------------*/

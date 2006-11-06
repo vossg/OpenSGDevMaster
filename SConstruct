@@ -289,7 +289,8 @@ glut_option = sca_opts.StandardPackageOption("glut","GLUT library location",
                                              library=glut_libname, header="GL/glut.h", required=False)
 zlib_option = sca_opts.StandardPackageOption("zlib","zlib library location",
                                              library="z", header="zlib.h", required=False)                                             
-format_options = [jpeg_option,tiff_option,png_option,zlib_option]
+nvperfsdk_option = sca_opts.StandardPackageOption("NVPerfSDK", "NVPerfSDK library location", header="NVPerfSDK.h",
+                                             library="NVPerfSDK", required=False)
 
 
 add_incdir_option = SimpleAppendOption('add_incdir', 'CPPPATH', 'Additional include dir') 
@@ -297,6 +298,8 @@ add_libdir_option = SimpleAppendOption('add_libdir', 'LIBPATH', 'Additional libr
 add_lib_option    = SimpleAppendOption('add_lib',    'LIBS',    'Additional library') 
 
 add_options = [add_incdir_option, add_libdir_option, add_lib_option]
+
+format_options = [jpeg_option,tiff_option,png_option,zlib_option,nvperfsdk_option]
 
 # Setup options
 opts.AddOption(sca_opts.SeparatorOption("\nStandard settings"))
@@ -324,7 +327,8 @@ opts.Add("build_suffix", "Suffix to append to build directory.  Useful for compi
 opts.AddOption(sca_opts.BoolOption("enable_fcdprocess","If true, enable support for fcdProcess in the build.",False))
 opts.AddOption(sca_opts.BoolOption("enable_unittests","If true, enable unit tests in the build.",True))
 opts.AddOption(sca_opts.BoolOption("enable_revision","If true, update OSG*Def.cpp with current revision numbers.",False))
-opts.Add("icc_gnu_compat","<GCC Verion> to make the icc resultbinary compatible to the given gcc version. (unsupported)")
+opts.Add("icc_gnu_compat","<GCC Version> to make the icc resultbinary compatible to the given gcc version. (unsupported)")
+
 if "win32" == platform:
    opts.AddOption(sca_opts.BoolOption("win_localstorage", "Use local storage instead of __declspec to get thread local storage on windows",
                                       True))
@@ -570,7 +574,8 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_WITH_PNG":png_option.isAvailable(),
                 "OSG_WITH_GLUT":glut_option.isAvailable(),
                 "OSG_WITH_GIF":common_env["enable_gif"],
-                "OSG_WITH_ZLIB":zlib_option.isAvailable()
+                "OSG_WITH_ZLIB":zlib_option.isAvailable(),
+                "OSG_WITH_NVPERFSDK":nvperfsdk_option.isAvailable()
                }
    if "win32" == platform:   # Win32 specific defines
       definemap.update( {"OSG_WIN32_ASPECT_USE_LOCALSTORAGE": common_env["win_localstorage"],} )
@@ -686,6 +691,12 @@ if not SConsAddons.Util.hasHelpFlag():
          lib_map_build_list = []
          for (name,lib) in lib_map.iteritems():
             lib_map_build_list.append(lib.dump())
+            
+            # Add an alias just for this lib and its unittests
+            Alias(name[3:], [ pj(full_build_dir, "Source", "lib" + name + common_env["SHLIBSUFFIX"]), \
+                              pj(full_build_dir, "unittest", "run" + name)\
+                            ])
+
          lib_map_str = pprint.pformat(lib_map_build_list)
 
          submap = {'@LIB_MAP_STR@':lib_map_str,

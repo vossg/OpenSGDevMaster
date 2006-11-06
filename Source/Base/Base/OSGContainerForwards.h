@@ -246,6 +246,8 @@ struct PointerBuilder<FieldContainer>
 };
 
 typedef PointerBuilder<FieldContainer>::ObjPtrArg FieldContainerPtrArg;
+typedef PointerBuilder<FieldContainer>::ObjConstPtrArg 
+                                                  FieldContainerConstPtrArg;
 
 template<>
 struct PointerBuilder<FieldContainerAttachment>

@@ -100,8 +100,20 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTreeNode
     void            setScalar       (Real32             rScalar       );
     Real32          getScalar       (void                             );
 
+    void            setVol       (DynamicVolume             vol       );
+    DynamicVolume   getVol       (void                             );
+
+    void            setIsRendered   (bool       bRendered           );                 
+    bool            getIsRendered   (void                          );                 
+
+    void            setResultNum    (UInt32     uiResNum        );
+    UInt32          getResultNum    (void        );
+
     void            setLightsState  (UInt64             state         );
     UInt64          getLightsState  (void                             );
+    
+    void            setNode         (Node              *pNode         );
+    Node           *getNode         (void                             );
 
     void            reset           (void                             );
 
@@ -127,9 +139,18 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTreeNode
     
     MatrixStore     _oMatrixStore;        
 
-    Real32          _rScalarVal;
+    //! Scalar value for sorting. Expected to be in 0..1
+    Real32          _rScalarVal;    
+
+    DynamicVolume   _dVol;
+
+    bool            _isRendered;
+
+    UInt32          _resultNum;
 
     UInt64          _lightsState;
+    
+    Node           *_node;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

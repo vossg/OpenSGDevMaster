@@ -80,7 +80,8 @@ class RenderTraversalAction;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \brief RenderPartition class
+/*! \brief RenderPartition is the core class for keeping track of the actions 
+            necessary to draw a scene. 
  */
 
 class OSG_RENDERTRAV_DLLMAPPING RenderPartition 
@@ -91,7 +92,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //   constants                                                             
     //-----------------------------------------------------------------------
 
-    static StatElemDesc<StatIntElem>  statCullTestedNodes;
+    /*! Number of nodes tested for culling */
+    static StatElemDesc<StatIntElem>  statCullTestedNodes; 
+
+    /*! Number of nodes culled */
     static StatElemDesc<StatIntElem>  statCulledNodes;
 
     //-----------------------------------------------------------------------
@@ -123,7 +127,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     {
         StateSorting     = 0x0001,
         TransformSorting = 0x0002,
-        SimpleCallback   = 0x0003
+        SimpleCallback   = 0x0003,
+        OcclusionCulling = 0x0004
     };
 
     enum SetupMode
@@ -139,24 +144,44 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //   types                                                               
     //-----------------------------------------------------------------------
 
-    typedef std::pair<UInt32, Matrix>  MatrixStore;
-    typedef Material::DrawFunctor      DrawFunctor;
+    /*! MatrixStore is stored internally to keep track of the current matrix.
+        The UInt32 is used to quickly identify the same matrix without having
+        to compare actual matrix elements.
+    */
+    typedef std::pair<UInt32, Matrix>               MatrixStore;
+    
+    /*! DrawFunctor is the signature for the methods that are called 
+        from within the draw tree
+    */
+    typedef Material::DrawFunctor                   DrawFunctor;
 
-    typedef std::map<Int32, 
-                     StateSorter *> SortKeyMap;
+    /*! SimpleDrawCallback is the type of functions that are used for simple
+        partitions (i.e. the ones that only call one function and do not draw
+        Nodes
+    */
+    typedef boost::function<void (DrawEnv *)>       SimpleDrawCallback;
 
+    /*! BuildKeyMap is used to index from the material's sortKey to the 
+        StateSorter that keeps the tree for that sort key
+     */
     typedef std::map<Int32, 
-                     StateSorter *>::iterator       SortKeyMapIt;
+                     TreeBuilderBase *> BuildKeyMap;
     typedef std::map<Int32, 
-                     StateSorter *>::const_iterator SortKeyMapConstIt;
+                     TreeBuilderBase *>::iterator       BuildKeyMapIt;
+    typedef std::map<Int32, 
+                     TreeBuilderBase *>::const_iterator BuildKeyMapConstIt;
 
+    /*! VisibilityStack keeps track of the planes of the current frustum that
+        need to be tested. If a bounding volume is inside all
+        planes, none need to be tested for its children.
+    */
     typedef std::vector<FrustumVolume::PlaneSet>    VisibilityStack;
 
+    /*! OverrideStack keeps track of active StateOverrides during traversal */
     typedef std::stack<StateOverride *>             OverrideStack;
 
+    /*! MatrixStack keeps track of matrices during traversal */
     typedef std::vector<MatrixStore>                MatrixStack;
-
-    typedef boost::function<void (DrawEnv *)>       SimpleDrawCallback;
 
     //-----------------------------------------------------------------------
     //   class functions                                                     
@@ -176,7 +201,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     void setNodePool       (RenderTreeNodePool    *pNodePool       );
     void setStatePool      (StateOverridePool     *pStatePool      );
-    void setStateSorterPool(StateSorterPool       *pStateSorterPool);
+    void setTreeBuilderPool(TreeBuilderPool       *pTreeBuilderPool);
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -244,7 +269,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     void dropFunctor(DrawFunctor &func, 
                      State       *pState,
-                     Int32        uiSortKey);
+                     Int32        uiBuildKey);
 
     void dropFunctor(SimpleDrawCallback &oFunc);
 
@@ -302,6 +327,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     UInt32 getNumStateChanges      (void);
     UInt32 getNumShaderChanges     (void);
     UInt32 getNumShaderParamChanges(void);
+    UInt32 getNumTriangles         (void);
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -318,9 +344,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //   types                                                               
     //-----------------------------------------------------------------------
 
-    typedef      NamedPool<Int32            > DataSlotIdPool;
-    typedef std::vector   <void            *> DataSlot;
-    typedef std::vector   <RenderPartition *> SubPartitions;
+    // !!! Unused, needed?
+    //typedef      NamedPool<Int32            > DataSlotIdPool;
+    //typedef std::vector   <void            *> DataSlot;
+    //typedef std::vector   <RenderPartition *> SubPartitions;
 
     //-----------------------------------------------------------------------
     //   class variables                                                     
@@ -329,6 +356,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     Mode                _eMode;
     SetupMode           _eSetupMode;
     DrawEnv             _oDrawEnv;
+
+    SimpleDrawCallback  _oSimpleDrawCallback;
 
     Background         *_pBackground;
 
@@ -345,8 +374,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     RenderTreeNodePool *_pNodePool;
 
-    SortKeyMap          _mMatRoots;
-    SortKeyMap          _mTransMatRoots;
+    BuildKeyMap          _mMatRoots;
+    BuildKeyMap          _mTransMatRoots;
 
     // What to do
 
@@ -357,18 +386,20 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     // Active Elements
 
     UInt32              _uiActiveMatrix;
+    
     // State
 
     StateOverridePool  *_pStatePool;
     
     OverrideStack       _sStateOverrides;
 
-    StateSorterPool    *_pStateSorterPool;
+    TreeBuilderPool    *_pTreeBuilderPool;
 
     // State
 
     Int32               _iNextLightIndex;
     UInt32              _uiKeyGen;
+    
     // Material Override
 
     Material           *_pMaterial;
@@ -389,8 +420,9 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     StatCollector       _oStatistics;
     UInt32              _uiNumMatrixChanges;
+    UInt32              _uiNumTriangles;
 
-    //Culling
+    // Culling
 
     VisibilityStack     _visibilityStack;
 
@@ -398,8 +430,6 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     bool                _bVolumeDrawing;
     bool                _bAutoFrustum;
     FrustumVolume       _oFrustum;
-
-    SimpleDrawCallback  _oSimpleDrawCallback;
 
     //-----------------------------------------------------------------------
     //   class functions                                                     
@@ -421,16 +451,6 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     void reset(Mode eMode = StateSorting);
 
     void updateTopMatrix(void);
-
-    void dropTransparent   (DrawFunctor &func, 
-                            State       *pState,
-                            Int32        iSortKey);
-
-    void dropNonTransparent(DrawFunctor &func, 
-                            State       *pState,
-                            Int32        iSortKey);
-
-    void draw(RenderTreeNode *pRoot);
 
 
     // Roots
@@ -454,6 +474,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     friend class SimplePool<RenderPartition>;
     friend class RenderTraversalAction;
+    friend class TreeBuilderBase;
+    friend class OcclusionCullingTreeBuilder;
 
     //-----------------------------------------------------------------------
     //   friend functions                                                    

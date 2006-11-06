@@ -78,8 +78,10 @@ inline
 void DrawEnv::setupViewing(const Matrixr &matrix)
 {
     _cameraViewing = matrix;
-    
     _cameraToWorld.invertFrom(matrix);
+    _worldToScreen.setValue(_cameraProjection);
+    _worldToScreen.mult(_cameraProjectionTrans);
+    _worldToScreen.mult(_cameraViewing);
 }
 
 inline
@@ -105,6 +107,12 @@ void DrawEnv::setActiveTexTarget(UInt32    uiSlot,
                                  GLenum    uiTarget)
 {
     _aActiveTexTargets[uiSlot] = uiTarget;
+}
+
+inline
+const Matrixr &DrawEnv::getWorldToScreen(void) const
+{
+    return _worldToScreen;
 }
 
 inline

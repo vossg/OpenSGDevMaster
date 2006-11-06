@@ -7,6 +7,8 @@
 
 OSG_USING_NAMESPACE
 
+SUITE(Vector)
+{
 
 TEST(InstantiateAllVectorTypes)
 {
@@ -38,3 +40,4 @@ TEST(InstantiateAllPointTypes)
     CHECK(true);
 }
 
+} // SUITE

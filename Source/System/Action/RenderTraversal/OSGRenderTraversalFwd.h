@@ -44,22 +44,25 @@
 
 #include "OSGConfig.h"
 
+#include "OSGMultiPool.h"
+
 OSG_BEGIN_NAMESPACE
 
 template <class ValueT> 
 class SimplePool;
+
 
 class RenderTraversalAction;
 
 class RenderTreeNode;
 class StateOverride;
 class RenderPartition;
-class StateSorter;
+class TreeBuilderBase;
 
 typedef SimplePool<RenderTreeNode > RenderTreeNodePool;
 typedef SimplePool<RenderPartition> RenderPartitionPool;
 typedef SimplePool<StateOverride  > StateOverridePool;
-typedef SimplePool<StateSorter    > StateSorterPool;
+typedef MultiPool <TreeBuilderBase> TreeBuilderPool;
 
 OSG_END_NAMESPACE
 

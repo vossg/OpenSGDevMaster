@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="GeoStatsAttachment"
+	parent="StatsAttachment"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+>
+	<Field
+		name="vertices"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+        The number of vertices in the subtree.
+	</Field>
+	<Field
+		name="points"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+        The number of points in the subtree.
+	</Field>
+	<Field
+		name="lines"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+        The number of lines in the subtree.
+	</Field>
+	<Field
+		name="triangles"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+        The number of triangles in the subtree.
+	</Field>
+	<Field
+		name="processedAttributeBytes"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+        The number of bytes in vertex attribute data that are processed while rendering.
+	</Field>
+	<Field
+		name="storedAttributeBytes"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+        The number of bytes in vertex attribute data that are stored.
+	</Field>
+	<Field
+		name="valid"
+		type="bool"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+                defaultValue="false"
+	>
+        Flags whether the data is valid or needs to be updated.
+	</Field>
+The base class for geometry statistics.
+</FieldContainer>

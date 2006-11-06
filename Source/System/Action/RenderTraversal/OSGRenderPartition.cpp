@@ -51,7 +51,7 @@
 #include "OSGRenderTreeNodePool.h"
 #include "OSGRenderTraversalAction.h"
 #include "OSGStateOverridePool.h"
-#include "OSGStateSorter.h"
+#include "OSGTreeBuilderBase.h"
 #include "OSGBackground.h"
 #include "OSGFrameBufferObject.h"
 #include "OSGVolumeDraw.h"
@@ -59,11 +59,27 @@
 #include "OSGCamera.h"
 #include "OSGFrameBufferAttachment.h"
 
+#include "OSGStateSortTreeBuilder.h"
+#include "OSGScalarSortTreeBuilder.h"
+#include "OSGOcclusionCullingTreeBuilder.h"
+
+#include "OSGGeoStatsAttachment.h"
+
 OSG_USING_NAMESPACE
 
 /***************************************************************************\
  *                            Description                                  *
 \***************************************************************************/
+
+/*! \class RenderPartition
+
+In many ways it is equivalent to a drawing pass. For simple cases there will
+be only one, and it will take care of everything. For cases involving shadow
+map shadows there will be one partition that creates the shadow map and one
+that draws the scene and shadows etc.
+
+
+*/
 
 /***************************************************************************\
  *                               Types                                     *
@@ -72,7 +88,6 @@ OSG_USING_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
-
 
 StatElemDesc<StatIntElem>  
     RenderPartition::statCullTestedNodes("Partition::cullTestedNodes", 
@@ -143,7 +158,7 @@ RenderPartition::RenderPartition(Mode eMode) :
     _pStatePool              (  NULL),   
     _sStateOverrides         (      ),
 
-    _pStateSorterPool        (  NULL),
+    _pTreeBuilderPool        (  NULL),
 
     _iNextLightIndex         (     0),
     _uiKeyGen                (     0),
@@ -160,6 +175,7 @@ RenderPartition::RenderPartition(Mode eMode) :
 
     _oStatistics             (      ),
     _uiNumMatrixChanges      (     0),
+    _uiNumTriangles          (     0),
     _visibilityStack         (      ),
 
     _bFrustumCulling          (  true),
@@ -180,7 +196,7 @@ OSG_BEGIN_NAMESPACE
 
 struct ResetSecond
 {
-    void operator() (std::pair<const Int32, StateSorter *> &oPair)
+    void operator() (std::pair<const Int32, TreeBuilderBase *> &oPair)
     {
         oPair.second = NULL;
     }
@@ -269,6 +285,7 @@ void RenderPartition::reset(Mode eMode)
         _oSimpleDrawCallback = NULL;
     }
 
+    _uiNumTriangles = 0;
 /*
     static FrustumVolume empty;
 
@@ -367,40 +384,39 @@ void RenderPartition::doExecution   (void)
     }
     else
     {
-        SortKeyMapIt      mapIt  = _mMatRoots.begin();
-        SortKeyMapConstIt mapEnd = _mMatRoots.end  ();
+        BuildKeyMapIt      mapIt  = _mMatRoots.begin();
+        BuildKeyMapConstIt mapEnd = _mMatRoots.end  ();
         
         _uiNumMatrixChanges = 0;
-
+ 
         while(mapIt != mapEnd)
         {
             if(mapIt->second != NULL)
             {
-                draw(mapIt->second->getRoot());
+                mapIt->second->draw(_oDrawEnv, this);
             }
             
             ++mapIt;
-        }
-        
+        }    
         
         mapIt  = _mTransMatRoots.begin();
         mapEnd = _mTransMatRoots.end  ();
         
+        if(!_bZWriteTrans)
+            glDepthMask(false);
+ 
         while(mapIt != mapEnd)
         {
             if(mapIt->second != NULL)
-            {
-                if(!_bZWriteTrans)
-                    glDepthMask(false);
-                
-                draw(mapIt->second->getRoot());
-                
-                if(!_bZWriteTrans)
-                    glDepthMask(true);
+            {               
+                mapIt->second->draw(_oDrawEnv, this);       
             }
             
             ++mapIt;
         }
+        
+        if(!_bZWriteTrans)
+            glDepthMask(true);
         
         if(_bFull == false)
         {
@@ -428,50 +444,66 @@ void RenderPartition::execute(void)
 
 /*---------------------------- properties ---------------------------------*/
 
-void RenderPartition::dropTransparent(DrawFunctor &func, 
-                                      State       *pState,
-                                      Int32        iSortKey)
-{
-}
-
 void RenderPartition::dropFunctor(DrawFunctor &func, 
                                   State       *pState,
                                   Int32        iSortKey)
 {
     if(_eMode == SimpleCallback)
         return;
+        
+    RenderTraversalAction *rt = dynamic_cast<RenderTraversalAction *>(_oDrawEnv.getRTAction());
 
+    NodePtr actNode = rt->getActNode();
+    
+    // Add Stats
+    GeoStatsAttachmentPtr st;
+    st = GeoStatsAttachment::get(actNode);
+    if(st == NullFC)
+    {
+        GeoStatsAttachment::addTo(actNode);
+        
+        st = GeoStatsAttachment::get(actNode);
+    }
+
+    st->validate();
+
+    _oStatistics.getElem(RenderTraversalAction::statNTriangles)->
+        add(st->getTriangles());
+    _uiNumTriangles += st->getTriangles();
+
+    
+    
     if(_bSortTrans == true && pState->isTransparent() == true)
     {
-        SortKeyMapIt mapIt = _mTransMatRoots.lower_bound(iSortKey);
+        BuildKeyMapIt mapIt = _mTransMatRoots.lower_bound(iSortKey);
         
         if(mapIt == _mTransMatRoots.end() || mapIt->first != iSortKey)
         {
-            StateSorter *pSorter = _pStateSorterPool->create();
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create(ScalarSortTreeBuilder::Proto);
             
-            pSorter->setNodePool(_pNodePool             );
-            pSorter->setSortMode( StateSorter::ScalarKey);
+            pBuilder->setNodePool(_pNodePool);
             
             mapIt = _mTransMatRoots.insert(mapIt, 
-                                           std::make_pair(iSortKey, pSorter));
+                                           std::make_pair(iSortKey, pBuilder));
         }
         
         if(mapIt->second == NULL)
         {
-            mapIt->second = _pStateSorterPool->create();
+            mapIt->second = _pTreeBuilderPool->create(ScalarSortTreeBuilder::Proto);
             
             mapIt->second->setNodePool(_pNodePool             );
-            mapIt->second->setSortMode( StateSorter::ScalarKey);
         }
         
         RenderTreeNode *pNewElem = _pNodePool->create();
         
         Pnt3f         objPos;
         
-        _oDrawEnv.getRTAction()->getActNode()->getVolume().getCenter(objPos);
+        actNode->getVolume().getCenter(objPos);
         
         _currMatrix.second.mult(objPos);
         
+        pNewElem->setNode       (&*actNode);
         pNewElem->setFunctor    ( func      );
         pNewElem->setMatrixStore(_currMatrix);
         pNewElem->setState      ( pState    );
@@ -482,28 +514,108 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             pNewElem->setStateOverride(_sStateOverrides.top());
         }
 
-        mapIt->second->add(pNewElem,
+        mapIt->second->add(_oDrawEnv,
+                           this,
+                           pNewElem,
+                           NULL,
+                           NULL,
+                           0);
+    }
+    else if(rt && rt->getOcclusionCulling())
+    {
+        BuildKeyMapIt mapIt = _mMatRoots.lower_bound(iSortKey);
+        
+        if(mapIt == _mMatRoots.end() || mapIt->first != iSortKey)
+        {
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create(OcclusionCullingTreeBuilder::Proto);
+            
+            pBuilder->setNodePool(_pNodePool);
+            
+            mapIt = _mMatRoots.insert(mapIt, 
+                                           std::make_pair(iSortKey, pBuilder));
+        }
+        
+        if(mapIt->second == NULL)
+        {
+            mapIt->second = _pTreeBuilderPool->create(OcclusionCullingTreeBuilder::Proto);
+            
+            mapIt->second->setNodePool(_pNodePool             );
+        }
+        
+        RenderTreeNode *pNewElem = _pNodePool->create();
+        
+        Pnt3f         objPos;
+        
+        //_oDrawEnv.getRTAction()->getActNode()->getVolume().getCenter(objPos);
+        
+        //_currMatrix.second.mult(objPos);
+
+        DynamicVolume     objVol;
+        objVol = actNode->getVolume();
+        Pnt3r min,max;
+        objVol.getBounds(min,max);
+        Pnt3r p[8];
+        p[0].setValues(min[0],min[1],min[2]);
+        p[1].setValues(max[0],min[1],min[2]);
+        p[2].setValues(min[0],max[1],min[2]);
+        p[3].setValues(min[0],min[1],max[2]);
+        p[4].setValues(max[0],max[1],min[2]);
+        p[5].setValues(max[0],min[1],max[2]);
+        p[6].setValues(min[0],max[1],max[2]);
+        p[7].setValues(max[0],max[1],max[2]);
+        for(UInt32 i = 0; i<8;i++)
+        {
+            _currMatrix.second.mult(p[i]);
+        }
+        objPos = p[0];
+        for(UInt32 i = 1; i<8; i++)
+        {
+            if(p[0][2] < objPos[2])
+                objPos[2] = p[0][2];
+        }
+        
+        //std::cout << objPos[2] << std::endl;
+
+        pNewElem->setVol        ( objVol );
+        pNewElem->setNode       (&*actNode);
+
+        pNewElem->setFunctor    ( func      );
+        pNewElem->setMatrixStore(_currMatrix);
+        pNewElem->setState      ( pState    );
+        // Normalize scalar to 0..1 for bucket sorting
+        pNewElem->setScalar     ( (-objPos[2] - getNear()) / 
+                                  (getFar()   - getNear()) ); 
+        
+        if(_sStateOverrides.top()->empty() == false)
+        {
+            pNewElem->setStateOverride(_sStateOverrides.top());
+        }
+        mapIt->second->add(_oDrawEnv,
+                           this,
+                           pNewElem,
                            NULL,
                            NULL,
                            0);
     }
     else
     {    
-        SortKeyMapIt mapIt = _mMatRoots.lower_bound(iSortKey);
+        BuildKeyMapIt mapIt = _mMatRoots.lower_bound(iSortKey);
 
         if(mapIt == _mMatRoots.end() || mapIt->first != iSortKey)
         {
-            StateSorter *pSorter = _pStateSorterPool->create();
+            TreeBuilderBase *pBuilder =
+                _pTreeBuilderPool->create(StateSortTreeBuilder::Proto);
             
-            pSorter->setNodePool(_pNodePool);
-
+            pBuilder->setNodePool(_pNodePool);
+            
             mapIt = _mMatRoots.insert(mapIt, 
-                                      std::make_pair(iSortKey, pSorter));
+                                           std::make_pair(iSortKey, pBuilder));
         }
 
         if(mapIt->second == NULL)
         {
-            mapIt->second = _pStateSorterPool->create();
+            mapIt->second = _pTreeBuilderPool->create(StateSortTreeBuilder::Proto);
 
             mapIt->second->setNodePool(_pNodePool);
         }
@@ -511,6 +623,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         RenderTreeNode *pNewElem  = _pNodePool->create();
         StateOverride  *pOverride = NULL;
 
+        pNewElem->setNode       (&*actNode);
         pNewElem->setFunctor    (func        );
         pNewElem->setMatrixStore(_currMatrix );
                
@@ -519,7 +632,9 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             pOverride = _sStateOverrides.top();
         }
 
-        mapIt->second->add( pNewElem,
+        mapIt->second->add(_oDrawEnv,
+                            this,
+                            pNewElem,
                             pState,
                             pOverride,
                            _uiKeyGen );
@@ -574,7 +689,8 @@ bool RenderPartition::isVisible(Node *pNode)
     if(getFrustumCulling() == false)
         return true;
       
-    _oStatistics.getElem(statCullTestedNodes)->inc();
+    _oStatistics.getElem(statCullTestedNodes)->inc(); 
+    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
     
     DynamicVolume vol;
 
@@ -591,6 +707,7 @@ bool RenderPartition::isVisible(Node *pNode)
     }
     
     _oStatistics.getElem(statCulledNodes)->inc();
+    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCulledNodes)->inc();
 
 // fprintf(stderr,"%p: node 0x%p invis\n", Thread::getCurrent(), node);
 // _frustum.dump();
@@ -631,6 +748,7 @@ bool RenderPartition::pushVisibility(NodePtrConstArg pNode)
 #endif
 
     _oStatistics.getElem(statCullTestedNodes)->inc();
+    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
 
     if(intersect(frustum, vol, inplanes) == false)
     {
@@ -639,6 +757,7 @@ bool RenderPartition::pushVisibility(NodePtrConstArg pNode)
          col.setValuesRGB(1,0,0);
 
         _oStatistics.getElem(statCulledNodes)->inc();
+        _oDrawEnv.getRTAction()->getStatistics()->getElem(statCulledNodes)->inc();
 
 //        fprintf(stderr,"node 0x%p invis %0xp\n", &(*pNode), this);
     }
@@ -757,65 +876,6 @@ void RenderPartition::exit(void)
     _oDrawEnv.deactivateState();
 }
 
-void RenderPartition::draw(RenderTreeNode *pRoot)
-{
-    while(pRoot != NULL)
-    {
-        UInt32 uiNextMatrix = pRoot->getMatrixStore().first;
-
-        if(uiNextMatrix != 0 && uiNextMatrix != _uiActiveMatrix)
-        {
-            glLoadMatrixf(pRoot->getMatrixStore().second.getValues());
-
-            _uiActiveMatrix = uiNextMatrix;
-
-            _currMatrix.second = pRoot->getMatrixStore().second;
-
-            updateTopMatrix();
-            
-            _oDrawEnv.setObjectToWorld(_accMatrix);
-
-            ++_uiNumMatrixChanges;
-
-            // Negative scaled matrices in conjunction with double sided 
-            // lighting
-            // gives wrong render results cause the lighting itselfs gets 
-            // inverted. This corrects this behavior.
-
-            if(_bCorrectTwoSidedLighting)
-            {
-                const Matrix &m = _currMatrix.second;
-
-                // test for a "flipped" matrix
-                // glFrontFace can give conflicts with the polygon chunk ...
-
-                if(m[0].cross(m[1]).dot(m[2]) < 0.0)
-                {
-                    glFrontFace(GL_CW);
-                }
-                else
-                {
-                    glFrontFace(GL_CCW);
-                }
-            }
-        }
-         
-        State         *pNewState         = pRoot->getState();
-        StateOverride *pNewStateOverride = pRoot->getStateOverride();
-
-        _oDrawEnv.activateState(pNewState, pNewStateOverride);
-
-        if(pRoot->hasFunctor() == true)
-            pRoot->getFunctor()(&_oDrawEnv);
-
-        if(pRoot->getFirstChild() != NULL)
-        {
-            draw(pRoot->getFirstChild());
-        }
-        
-        pRoot = pRoot->getBrother();
-    }
-}
 
 void RenderPartition::updateTopMatrix(void)
 {

@@ -65,7 +65,10 @@ RenderTreeNode::RenderTreeNode(void) :
     _hasFunctor    (false),
     _oMatrixStore  (     ),
     _rScalarVal    (0.f  ),
-    _lightsState   (0    )
+    _isRendered    (false),
+    _resultNum     (0),
+    _lightsState   (0    ),
+    _node          (NULL )
 {
     _oMatrixStore.first = 0;
 }

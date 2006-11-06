@@ -63,6 +63,7 @@ inline
 void FieldContainer::changed(ConstFieldMaskArg whichField, 
                              UInt32            origin    )
 {
+    callChangedFunctors(whichField);
 }
 
 inline

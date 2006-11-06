@@ -44,6 +44,7 @@
 #include "OSGDrawableDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGGeometry.h"
+#include "OSGGeoStatsAttachment.h"
 
 OSG_BEGIN_NAMESPACE
 

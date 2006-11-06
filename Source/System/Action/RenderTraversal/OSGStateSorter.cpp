@@ -162,7 +162,7 @@ void StateSorter::add(RenderTreeNode *pNode,
             pNode->setStateOverride(pStateOverride);
         }
     }
-    else
+    else if(_eSortMode == ScalarKey)
     {
         if(_pRoot->getFirstChild() == NULL)
         {
@@ -206,6 +206,10 @@ void StateSorter::add(RenderTreeNode *pNode,
                 _pRoot->addChild(pNode);
             }
         }
+    }
+    else
+    {
+        FFATAL(("StateSorter::add: unknown sort mode: %d!\n", _eSortMode));
     }
 }
 
