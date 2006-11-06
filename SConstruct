@@ -634,10 +634,14 @@ if not SConsAddons.Util.hasHelpFlag():
          for f in lib.source_files + lib.header_files:
             if f[-7:] == 'Def.cpp':
                fname = pj('Source', f)
+               
+               file_info = svn_client.info(fname)
+               repo_path = file_info.url[len(file_info.repos):-len(fname)-1]
+               
                contents = open(fname).readlines()
                for i in range(len(contents)):
                   if contents[i][:22] == '#define SVN_REVISION "':
-                     contents[i] = '#define SVN_REVISION "%d"\n' % high_rev
+                     contents[i] = '#define SVN_REVISION "%d  (%s)"\n' % (high_rev,repo_path)
                      break
                open(fname,'w').writelines(contents)
      
