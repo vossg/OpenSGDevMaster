@@ -568,7 +568,7 @@ NodePtr TextVectorFace::makeNode(const TextLayoutResult &layoutResult, Real32 sc
 // Author: pdaehne
 //----------------------------------------------------------------------
 TextVectorFace *TextVectorFace::create(const std::string &family, Style style)
-{ return TextFaceFactory::the().createVectorFace(family, style); }
+{ return TextFaceFactory::the()->createVectorFace(family, style); }
 
 
 OSG_END_NAMESPACE

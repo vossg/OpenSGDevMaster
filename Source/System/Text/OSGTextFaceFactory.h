@@ -47,6 +47,7 @@
 #include "OSGConfig.h"
 #include "OSGTextDef.h"
 #include "OSGBaseTypes.h"
+#include "OSGSingletonHolder.h"
 
 #include "OSGTextFace.h"
 #include "OSGTextTXFParam.h"
@@ -75,13 +76,10 @@ class TextTXFFace;
  * instead you use the create method of the TextFace classes.
  * @author Patrick D&auml;hne
  */
-class OSG_TEXT_DLLMAPPING TextFaceFactory
+class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
 {
     /*==========================  PUBLIC  =================================*/
   public:
-
-    /** Destroys the %TextFaceFactory object. */
-    ~TextFaceFactory();
 
     /**
      * Tries to create a vector face.
@@ -125,26 +123,23 @@ class OSG_TEXT_DLLMAPPING TextFaceFactory
      */
     void getFontFamilies(std::vector<std::string> &families) const;
 
-    /**
-     * Returns the single instance of the %FaceFactory singleton.
-     * @return The single instance.
-     */
-    static inline TextFaceFactory &the();
-
     /*==========================  PRIVATE  ================================*/
   private:
 
+    template <class SingletonT>
+    friend class SingletonHolder;
+
     /** Default Constructor */
-    TextFaceFactory();
+    TextFaceFactoryBase();
 
     /** Copy constructor (not implemented!) */
-    TextFaceFactory(const TextFaceFactory &);
+    TextFaceFactoryBase(const TextFaceFactoryBase &);
+
+    /** Destroys the %TextFaceFactoryBase object. */
+    ~TextFaceFactoryBase();
 
     /** Copy operator (not implemented!) */
-    const TextFaceFactory &operator=(const TextFaceFactory &);
-
-    /** The single instance of the %TextFaceFactory singleton */
-    static TextFaceFactory _the;
+    const TextFaceFactoryBase &operator=(const TextFaceFactoryBase &);
 
     /** The backend that creates all faces */
     TextBackend *_backend;
@@ -167,6 +162,15 @@ class OSG_TEXT_DLLMAPPING TextFaceFactory
     /** The map of TXF faces currently instantiated (face cache) */
     TXFFaceMap _txfFaceMap;
 };
+
+#if defined(WIN32)
+#    if !defined(OSG_COMPILETEXTLIB)
+OSG_SYSTEM_EXPIMP_TMPL 
+template class OSG_SYSTEM_DLLMAPPING SingletonHolder<TextFaceFactoryBase>;
+#    endif
+#endif
+
+typedef SingletonHolder<TextFaceFactoryBase> TextFaceFactory;
 
 
 OSG_END_NAMESPACE

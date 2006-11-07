@@ -59,6 +59,7 @@
 #include FT_FREETYPE_H
 #include <string>
 
+
 OSG_BEGIN_NAMESPACE
 
 

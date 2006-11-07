@@ -49,6 +49,8 @@
 #include "OSGTextMacBackend.h"
 #include "OSGTextFT2Backend.h"
 
+#include "OSGSingletonHolder.ins"
+
 #ifdef __sgi
 # include <assert.h>
 #else
@@ -62,18 +64,16 @@ using namespace std;
 OSG_BEGIN_NAMESPACE
 
 
-//----------------------------------------------------------------------
-// Static Class Variable implementations
-// Author: pdaehne
-//----------------------------------------------------------------------
-TextFaceFactory TextFaceFactory::_the;
+OSG_SINGLETON_INST(TextFaceFactoryBase)
+
+template class SingletonHolder<TextFaceFactoryBase>;
 
 
 //----------------------------------------------------------------------
 // Constructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextFaceFactory::TextFaceFactory()
+TextFaceFactoryBase::TextFaceFactoryBase()
 : _backend(), _vectorFaceMap(), _pixmapFaceMap(), _txfFaceMap()
 {
 #if defined(_WIN32)
@@ -93,7 +93,7 @@ TextFaceFactory::TextFaceFactory()
 // Destructor
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextFaceFactory::~TextFaceFactory()
+TextFaceFactoryBase::~TextFaceFactoryBase()
 {
     clearCache();
     delete _backend;
@@ -104,7 +104,7 @@ TextFaceFactory::~TextFaceFactory()
 // Returns a vector face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextVectorFace *TextFaceFactory::createVectorFace(const string &family,
+TextVectorFace *TextFaceFactoryBase::createVectorFace(const string &family,
                                                  TextFace::Style style)
 {
     // Try to find the face in the cache
@@ -133,7 +133,7 @@ TextVectorFace *TextFaceFactory::createVectorFace(const string &family,
 // Returns a pixmap face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextPixmapFace *TextFaceFactory::createPixmapFace(const string &family,
+TextPixmapFace *TextFaceFactoryBase::createPixmapFace(const string &family,
                                                   TextFace::Style style,
                                                   UInt32 size)
 {
@@ -163,7 +163,7 @@ TextPixmapFace *TextFaceFactory::createPixmapFace(const string &family,
 // Returns a TXF face
 // Author: pdaehne
 //----------------------------------------------------------------------
-TextTXFFace *TextFaceFactory::createTXFFace(const string &family,
+TextTXFFace *TextFaceFactoryBase::createTXFFace(const string &family,
                                             TextFace::Style style,
                                             const TextTXFParam &param)
 {
@@ -193,7 +193,7 @@ TextTXFFace *TextFaceFactory::createTXFFace(const string &family,
 // Removes all faces from the face cache
 // Author: pdaehne
 //----------------------------------------------------------------------
-void TextFaceFactory::clearCache()
+void TextFaceFactoryBase::clearCache()
 {
     // Vector faces
     VectorFaceMap::iterator vIt;
@@ -228,7 +228,7 @@ void TextFaceFactory::clearCache()
 // Returns the names of all font families available
 // Author: pdaehne
 //----------------------------------------------------------------------
-void TextFaceFactory::getFontFamilies(vector<string> &families) const
+void TextFaceFactoryBase::getFontFamilies(vector<string> &families) const
 {
     families.clear();
     if (_backend != 0)

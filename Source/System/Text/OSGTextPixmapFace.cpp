@@ -160,7 +160,7 @@ ImagePtr TextPixmapFace::makeImage(const TextLayoutResult &layoutResult, Vec2f &
 // Author: pdaehne
 //----------------------------------------------------------------------
 TextPixmapFace *TextPixmapFace::create(const std::string &family, Style style, UInt32 size)
-{ return TextFaceFactory::the().createPixmapFace(family, style, size); }
+{ return TextFaceFactory::the()->createPixmapFace(family, style, size); }
 
 
 OSG_END_NAMESPACE

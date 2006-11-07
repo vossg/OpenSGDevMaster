@@ -40,9 +40,6 @@
 OSG_BEGIN_NAMESPACE
 
 
-inline TextFaceFactory &TextFaceFactory::the() { return _the; } 
-
-
 OSG_END_NAMESPACE
 
 

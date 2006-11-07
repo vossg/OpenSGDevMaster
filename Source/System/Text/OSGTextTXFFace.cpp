@@ -346,7 +346,7 @@ NodePtr TextTXFFace::makeNode(const TextLayoutResult &layoutResult, Real32 scale
 // Author: pdaehne
 //----------------------------------------------------------------------
 TextTXFFace *TextTXFFace::create(const string &family, Style style, const TextTXFParam &param)
-{ return TextFaceFactory::the().createTXFFace(family, style, param); }
+{ return TextFaceFactory::the()->createTXFFace(family, style, param); }
 
 
 //----------------------------------------------------------------------
