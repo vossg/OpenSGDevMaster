@@ -208,23 +208,22 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     if (_face == 0)
         initText(""/*getFamily()*/, getSize()); // TODO
 
+    if (!getCollector().getNumOfElems() && !getElementIDs().size())
+        return; // nothing to do
+
     Real32  pw = Real32(pPort->getPixelWidth ());
     Real32  ph = Real32(pPort->getPixelHeight());
 
     if(pw < 1 || ph < 1)
         return;
 
-    GLboolean    light = glIsEnabled(GL_LIGHTING);
+    glPushAttrib(GL_LIGHTING_BIT | GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-    GLint   fill[2];
-    glGetIntegerv(GL_POLYGON_MODE, fill);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-    GLboolean    depth = glIsEnabled(GL_DEPTH_TEST);
     glDisable(GL_DEPTH_TEST);
-
-    GLboolean    colmat = glIsEnabled(GL_COLOR_MATERIAL);
     glDisable(GL_COLOR_MATERIAL);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -234,17 +233,13 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     glPushMatrix();
     glLoadIdentity();
 
-    Real32  aspect = pw / ph;
-    Real32  size = getSize();
+    // Set viewport. We want to map one unit to one pixel on the
+    // screen. Some sources in the internet say that we should
+    // add an offset of -0.375 to prevent rounding errors. Don't
+    // know if that is true, but it seems to work.
+    glOrtho(0 - 0.375, pw - 0.375, 0 - 0.375, ph - 0.375, 0, 1);
 
-    glOrtho(-0.5, -0.5 + ph / size * aspect, 0.5 - ph / size, 0.5, 0, 1);
-
-    glAlphaFunc(GL_NOTEQUAL, 0);
-    glEnable(GL_ALPHA_TEST);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-
-    // draw text
+    // retrieve text
     std::vector < std::string > stat;
 
     StatCollector *col = &(this->editCollector());
@@ -292,15 +287,28 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     }
 
     TextLayoutParam layoutParam;
+    layoutParam.spacing = 1.1;
     layoutParam.majorAlignment = TextLayoutParam::ALIGN_BEGIN;
     layoutParam.minorAlignment = TextLayoutParam::ALIGN_BEGIN;
+
     TextLayoutResult layoutResult;
     _face->layout(stat, layoutParam, layoutResult);
+
+    Real32 scale = 1 / _face->getScale();
+    Real32 size = _face->getParam().size;
+    Real32 textWidth = layoutResult.textBounds.x() * scale + size;
+    Real32 textHeight = layoutResult.textBounds.y() * scale + size;
+
+    glTranslatef(0.0, ph, 0.0);
+
+    // draw text
+    glTranslatef(0.5 * size, -0.5 * size, 0.0);
 
     _texchunk   ->activate(pEnv);
     _texenvchunk->activate(pEnv);
 
     glColor4fv((GLfloat *) getColor().getValuesRGBA());
+    glScalef(scale, scale, 1);
 
     glBegin(GL_QUADS);
     UInt32 i, numGlyphs = layoutResult.getNumGlyphs();
@@ -345,23 +353,13 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     _texchunk   ->deactivate(pEnv);
     _texenvchunk->deactivate(pEnv);
 
-    glDisable(GL_ALPHA_TEST);
-    glDisable(GL_BLEND);
-
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
 
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
 
-    if(depth == GL_TRUE)
-        glEnable(GL_DEPTH_TEST);
-    if(light == GL_TRUE)
-        glEnable(GL_LIGHTING);
-    if(colmat == GL_TRUE)
-        glEnable(GL_COLOR_MATERIAL);
-
-    glPolygonMode(GL_FRONT_AND_BACK, fill[0]);
+    glPopAttrib();
 }
 
 /*-------------------------------------------------------------------------*/
