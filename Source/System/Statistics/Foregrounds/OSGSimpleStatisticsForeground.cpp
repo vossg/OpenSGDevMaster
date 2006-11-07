@@ -85,30 +85,40 @@ the size and color used for all lines in _sfSize and _sfColor.
 See \ref PageSystemWindowForegroundStatisticsSimple
 */
 
-/* static vars */
-TextTXFFace *SimpleStatisticsForeground::       _face = 0;
-
-TextureObjChunkPtr SimpleStatisticsForeground:: _texchunk;
-TextureEnvChunkPtr SimpleStatisticsForeground:: _texenvchunk;
-
 /*----------------------- constructors & destructors ----------------------*/
 
 SimpleStatisticsForeground::SimpleStatisticsForeground(void) :
-    Inherited()
+    Inherited(), _face(0), _texchunk(NullFC), _texenvchunk(NullFC)
 {
+    _texenvchunk = TextureEnvChunk::create();
+    addRef(_texenvchunk);
+    _texenvchunk->setEnvMode(GL_MODULATE);
 }
 
 /* */
 SimpleStatisticsForeground::SimpleStatisticsForeground(
     const SimpleStatisticsForeground &source) :
 
-    Inherited(source)
+    Inherited(source), _face(source._face),
+    _texchunk(source._texchunk), _texenvchunk(source._texenvchunk)
 {
+    if (_face != 0)
+        addRefP(_face);
+    if (_texchunk != NullFC)
+        addRef(_texchunk);
+    if (_texenvchunk != NullFC)
+        addRef(_texenvchunk);
 }
 
 /* */
 SimpleStatisticsForeground::~SimpleStatisticsForeground(void)
 {
+    if (_face != 0)
+        subRefP(_face);
+    if (_texchunk != NullFC)
+        subRef(_texchunk);
+    if (_texenvchunk != NullFC)
+        subRef(_texenvchunk);
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -153,28 +163,42 @@ void SimpleStatisticsForeground::addElement(Int32 id, const char *format)
 */
 
 
-void SimpleStatisticsForeground::initText(void)
+void SimpleStatisticsForeground::initText(const std::string &family, Real32 size)
 {
-    // create the text needed
-#ifdef OSG_HAS_SSTREAM
-    std::istringstream stream(StatisticsDefaultFontString,
-                              std::istringstream::in |
-                              std::istringstream::out);
-#else
-    std::istrstream stream((char *) StatisticsDefaultFontData,
-                           StatisticsDefaultFontDataSize);
-#endif
-    _face = TextTXFFace::createFromStream(stream);
+    // Cleanup
+    if (_face != 0)
+        subRefP(_face);
+    if (_texchunk != NullFC)
+        subRef(_texchunk);
+
+    // Create the font
+    if (family.empty() == false)
+    {
+        TextTXFParam param;
+        param.size = static_cast<UInt32>(size);
+        _face = TextTXFFace::create(family, TextFace::STYLE_PLAIN, param);
+        if (_face != 0)
+        {
+            _texchunk = TextureObjChunk::create();
+            ImagePtr texture = _face->getTexture();
+            _texchunk->setImage(texture);
+            _texchunk->setWrapS(GL_CLAMP);
+            _texchunk->setWrapT(GL_CLAMP);
+            _texchunk->setMinFilter(GL_NEAREST);
+            _texchunk->setMagFilter(GL_NEAREST);
+        }
+    }
+
+    // We failed to create the font - fallback to the default font
+    if (_face == 0)
+    {
+        _face = StatisticsDefaultFont::the()->getFace();
+        _texchunk = StatisticsDefaultFont::the()->getTexture();
+    }
+
+    // Increment reference counters
     addRefP(_face);
-
-    ImagePtr texture = _face->getTexture();
-    _texchunk    = TextureObjChunk::create();
-    _texenvchunk = TextureEnvChunk::create();
-
-    _texchunk   ->setImage(texture);
-    _texchunk   ->setWrapS(GL_CLAMP);
-    _texchunk   ->setWrapT(GL_CLAMP);
-    _texenvchunk->setEnvMode(GL_MODULATE);
+    addRef(_texchunk);
 }
 
 /*! Draw the statistics lines.
@@ -182,7 +206,7 @@ void SimpleStatisticsForeground::initText(void)
 void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 {
     if (_face == 0)
-        initText();
+        initText(""/*getFamily()*/, getSize()); // TODO
 
     Real32  pw = Real32(pPort->getPixelWidth ());
     Real32  ph = Real32(pPort->getPixelHeight());

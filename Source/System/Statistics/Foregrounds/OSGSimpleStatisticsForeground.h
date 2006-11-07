@@ -123,10 +123,10 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
 
   private:
 
-    static TextTXFFace*    _face;
+    TextTXFFace*    _face;
 
-    static TextureObjChunkPtr _texchunk;
-    static TextureEnvChunkPtr _texenvchunk;
+    TextureObjChunkPtr _texchunk;
+    TextureEnvChunkPtr _texenvchunk;
 
     friend class SimpleStatisticsForegroundBase;
 
@@ -137,7 +137,7 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
     friend struct PtrConstructionFunctions;
 
 
-    static void initText(void);
+    void initText(const std::string &family, Real32 size);
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleStatisticsForeground &source);

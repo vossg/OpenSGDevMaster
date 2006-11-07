@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                     Copyright 2000-2002 by OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,72 +34,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-
-#ifndef _OSGSTATISTICSDEFAULTFONT_H_
-#define _OSGSTATISTICSDEFAULTFONT_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGBaseTypes.h"
-#include "OSGUtilDef.h"
-#include "OSGTextureObjChunk.h"
-#include "OSGSingletonHolder.h"
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
 OSG_BEGIN_NAMESPACE
 
-class TextTXFFace;
-
-class OSG_UTIL_DLLMAPPING StatisticsDefaultFontBase
+TextTXFFace *StatisticsDefaultFontBase::getFace() const
 {
-    /*==========================  PUBLIC  =================================*/
-  public:
+    return _face;
+}
 
-    /** Returns the default face. */
-    inline TextTXFFace *getFace() const;
-
-    /**
-     * Returns the texture object chunk that keeps the texture for the
-	 * default font.
-     */
-    inline TextureObjChunkPtr getTexture() const;
-
-    /*==========================  PRIVATE  ================================*/
-  private:
-
-    template <class SingletonT>
-    friend class SingletonHolder;
-
-    /** Default Constructor */
-    StatisticsDefaultFontBase();
-
-    /** Copy constructor (not implemented!) */
-    StatisticsDefaultFontBase(const StatisticsDefaultFontBase &);
-
-    /** Destroys the StatisticsDefaultFontBase object. */
-    ~StatisticsDefaultFontBase();
-
-    /** Copy operator (not implemented!) */
-    const StatisticsDefaultFontBase &operator=(const StatisticsDefaultFontBase &);
-
-    /** The default face used for statistics */
-    TextTXFFace *_face;
-
-    /** Texture object chunk that keeps the texture for the default font */
-    TextureObjChunkPtr _texObjChunk;
-};
-
-#if defined(WIN32)
-#    if !defined(OSG_COMPILEUTILLIB)
-OSG_SYSTEM_EXPIMP_TMPL 
-template class OSG_SYSTEM_DLLMAPPING SingletonHolder<StatisticsDefaultFontBase>;
-#    endif
-#endif
-
-typedef SingletonHolder<StatisticsDefaultFontBase> StatisticsDefaultFont;
+TextureObjChunkPtr StatisticsDefaultFontBase::getTexture() const
+{
+    return _texObjChunk;
+}
 
 OSG_END_NAMESPACE
 
-#include "OSGStatisticsDefaultFont.inl"
-
-#endif /* _OSGSTATISTICSDEFAULTFONT_H_ */
+#define OSGSTATISTICSDEFAULTFONT_INLINE_CVSID "@(#)$Id: OSGStatisticsDefaultFont.inl 106 2006-09-14 03:15:53Z dirk $"
