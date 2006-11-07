@@ -611,7 +611,7 @@ if not SConsAddons.Util.hasHelpFlag():
          raise "Need pysvn to update revisions!"
 
       for (name,lib) in lib_map.iteritems():      
-         have_modifed = False
+         have_modified = ""
          high_rev = 0         
          svn_client = pysvn.Client()
          
@@ -629,9 +629,9 @@ if not SConsAddons.Util.hasHelpFlag():
             if pysvn.wc_status_kind.modified == file_status[0].text_status and \
                file_name[-7:] != 'Def.cpp':
                print "%s: file %s is modifed!" % (name, file_name)
-               have_modifed = True
+               have_modified = " !Modified!"
    
-         if have_modifed:
+         if have_modified != "":
             print "%s: Some files are modified, revision might be inaccurate!" % name
          print "%s: Highest Revision %d" % (name, high_rev)
          
@@ -646,7 +646,7 @@ if not SConsAddons.Util.hasHelpFlag():
                contents = open(fname).readlines()
                for i in range(len(contents)):
                   if contents[i][:22] == '#define SVN_REVISION "':
-                     contents[i] = '#define SVN_REVISION "%d  (%s)"\n' % (high_rev,repo_path)
+                     contents[i] = '#define SVN_REVISION "%d  (%s)%s"\n' % (high_rev, repo_path, have_modified)
                      break
                open(fname,'w').writelines(contents)
      
