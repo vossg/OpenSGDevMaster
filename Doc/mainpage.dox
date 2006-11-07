@@ -1,0 +1,46 @@
+
+/*!
+
+\mainpage OpenSG - The Open Source Scenegraph
+
+Welcome to OpenSG.
+
+OpenSG is a scenegraph system for realtime rendering, e.g. for Virtual Reality
+applications. It is just a library, not a full application.
+
+This documentation contains descriptions of the internal classes and concepts,
+as well as a tutorial that explains how to use the system.
+
+The classes are easiest to find via the Class Hierarchy at the top of the
+page. This is a pretty long list, so be warned...
+
+
+\ext
+
+This documentation contains information about extending the system, i.e.
+what to do when adding new classes to the system to make sure they are
+registered in all the right places and integrate themselves seamlessly.
+
+\endext
+
+\dev
+
+It also contains additional information that explains the internals and
+how things work inside the library itself, for those who really need to know.
+
+\enddev
+
+While we tried to make this documentation easy to understand and without
+mistakes and errors, we're very interested in getting feedback on omissions,
+improvement ideas or simply typos. Send them to dirk@users.sf.net.
+
+Dirk Reiners\n
+Technical Coordinator\n
+dirk@users.sf.net
+
+
+This documentation was generated for OpenSG
+version 2.0.0-pre1 r398 (/trunk) !Modified!
+.
+
+*/

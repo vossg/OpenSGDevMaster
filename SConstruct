@@ -609,25 +609,42 @@ if not SConsAddons.Util.hasHelpFlag():
    if common_env["enable_revision"]:
       if not have_pysvn:
          raise "Need pysvn to update revisions!"
+         
+      global_high_rev = 0
+      svn_client = pysvn.Client()
 
+      def getSVNInfo(file_name):
+         """
+            Get the svn info for the given file. 
+            Returns a version, modified tuple.
+         """
+         file_info   = svn_client.info  (file_name)
+         file_status = svn_client.status(file_name)
+
+         rev = 0
+         mod = False
+         
+         # Ignore unversioned files
+         if pysvn.wc_status_kind.unversioned != file_status[0].text_status:
+            rev = file_info.revision.number
+            
+            mod = pysvn.wc_status_kind.modified == file_status[0].text_status
+
+         return rev, mod
+     
       for (name,lib) in lib_map.iteritems():      
          have_modified = ""
          high_rev = 0         
-         svn_client = pysvn.Client()
          
          for f in lib.source_files + lib.header_files:
             file_name = pj('Source', f)
-            file_info   = svn_client.info  (file_name)
-            file_status = svn_client.status(file_name)
             
-            # Ignore unversioned files
-            if pysvn.wc_status_kind.unversioned != file_status[0].text_status:
-               if high_rev < file_info.revision.number:
-                  high_rev = file_info.revision.number
+            rev, mod = getSVNInfo(file_name)
             
-            # Flag modified files, if they're not Def.cpp files
-            if pysvn.wc_status_kind.modified == file_status[0].text_status and \
-               file_name[-7:] != 'Def.cpp':
+            if high_rev < rev:
+               high_rev = rev
+            
+            if mod and file_name[-7:] != 'Def.cpp':
                print "%s: file %s is modifed!" % (name, file_name)
                have_modified = " !Modified!"
    
@@ -635,6 +652,9 @@ if not SConsAddons.Util.hasHelpFlag():
             print "%s: Some files are modified, revision might be inaccurate!" % name
          print "%s: Highest Revision %d" % (name, high_rev)
          
+         if global_high_rev < high_rev:
+            global_high_rev = high_rev
+            
          # Update the *Def.cpp file(s)
          for f in lib.source_files + lib.header_files:
             if f[-7:] == 'Def.cpp':
@@ -649,6 +669,24 @@ if not SConsAddons.Util.hasHelpFlag():
                      contents[i] = '#define SVN_REVISION "%d  (%s)%s"\n' % (high_rev, repo_path, have_modified)
                      break
                open(fname,'w').writelines(contents)
+         
+      # Update the documentation mainfile
+      # Find the high version for stuff in Doc/, too
+      have_modified = ""
+      for f in glob.glob("Doc/*"):
+         rev, mod = getSVNInfo(f)
+         if global_high_rev < rev:
+            global_high_rev = rev
+         if mod:
+            have_modified = " !Modified!"
+
+      fname = "Doc/mainpage.dox"
+      contents = open(fname).readlines()
+      for i in range(len(contents)):
+         if contents[i][:7] == 'version':
+            contents[i] = 'version %s r%d (%s)%s\n' % (opensg_version_string, global_high_rev, repo_path, have_modified)
+            break
+      open(fname,'w').writelines(contents)
      
    # ---- FOR EACH VARIANT ----- #   
    # This is the core of the build.
