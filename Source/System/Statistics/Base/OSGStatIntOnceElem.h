@@ -89,17 +89,17 @@ class OSG_SYSTEM_DLLMAPPING StatIntOnceElem : public StatElem
     /*! \name                    instance                                  */
     /*! \{                                                                 */
 
-    virtual void  reset(void     );
+    virtual void  reset(void                );
 
-            void  add  (UInt32 id, 
-                         Int32 v );
-            void  sub  (UInt32 id, 
-                         Int32 v );
+            void  add  (UInt32 contributorId, 
+                         Int32 v            );
+            void  sub  (UInt32 contributorId, 
+                         Int32 v            );
 
-            void  inc  (UInt32 id);
-            void  dec  (UInt32 id);
+            void  inc  (UInt32 contributorId);
+            void  dec  (UInt32 contributorId);
 
-            Int32 get  (void     ) const;
+            Int32 get  (void                ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

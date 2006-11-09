@@ -40,42 +40,42 @@ OSG_BEGIN_NAMESPACE
 
 
 inline 
-void StatIntOnceElem::add(UInt32 id, Int32 v)
+void StatIntOnceElem::add(UInt32 contributorId, Int32 v)
 {
-    if(_ids.find(id) == _ids.end())
+    if(_ids.find(contributorId) == _ids.end())
     {
         _value += v;
-        _ids.insert(id);
+        _ids.insert(contributorId);
     }
 }
 
 inline 
-void StatIntOnceElem::sub(UInt32 id, Int32 v)
+void StatIntOnceElem::sub(UInt32 contributorId, Int32 v)
 {
-    if(_ids.find(id) == _ids.end())
+    if(_ids.find(contributorId) == _ids.end())
     {
         _value -= v;
-        _ids.insert(id);
+        _ids.insert(contributorId);
     }
 }
 
 inline 
-void StatIntOnceElem::inc(UInt32 id)
+void StatIntOnceElem::inc(UInt32 contributorId)
 {
-    if(_ids.find(id) == _ids.end())
+    if(_ids.find(contributorId) == _ids.end())
     {
         _value ++;
-        _ids.insert(id);
+        _ids.insert(contributorId);
     }
 }
 
 inline 
-void StatIntOnceElem::dec(UInt32 id)
+void StatIntOnceElem::dec(UInt32 contributorId)
 {
-    if(_ids.find(id) == _ids.end())
+    if(_ids.find(contributorId) == _ids.end())
     {
         _value --;
-        _ids.insert(id);
+        _ids.insert(contributorId);
     }
 }
 

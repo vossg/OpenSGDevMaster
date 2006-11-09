@@ -66,9 +66,9 @@ UInt32 StatCollector::getNumOfElems(void) const
     this collector, only if there can be one.
  */
 inline
-bool StatCollector::isValidID(Int32 id) const
+bool StatCollector::isValidID(Int32 elemId) const
 {
-    return (id >= 0) && (id < static_cast<Int32>(_elemVec.size()));
+    return (elemId >= 0) && (elemId < static_cast<Int32>(_elemVec.size()));
 }
 
 /*-------------------------------------------------------------------------*/
@@ -82,28 +82,28 @@ bool StatCollector::isValidID(Int32 id) const
     you can set it to false and speed up the whole function a bit.
 */
 inline
-StatElem *StatCollector::getElem(Int32 id, bool create)
+StatElem *StatCollector::getElem(Int32 elemId, bool create)
 {
     if(create == true)
     {
         // This only happens when dynamically adding StatElems
         // but it's really nasty if it happens.
 
-        if(id >= static_cast<Int32>(_elemVec.size()))
+        if(elemId >= static_cast<Int32>(_elemVec.size()))
             refitElemNum();
 
-        StatElem *elem = _elemVec[id];
+        StatElem *elem = _elemVec[elemId];
 
         if(elem == NULL)
         {
-            StatElemDescBase    *desc = StatElemDescBase::getDesc(id);
-            elem = _elemVec[id] = desc->createElem();
+            StatElemDescBase    *desc = StatElemDescBase::getDesc(elemId);
+            elem = _elemVec[elemId] = desc->createElem();
         }
 
         return elem;
     }
 
-    return isValidID(id) ? _elemVec[id] : NULL;
+    return isValidID(elemId) ? _elemVec[elemId] : NULL;
 }
 
 
@@ -113,9 +113,9 @@ StatElem *StatCollector::getElem(Int32 id, bool create)
     \param[in] id Id of the StatElem to return.
     \return StatElem with given id, or NULL if it does not exist.
 */
-inline StatElem *StatCollector::getElem(Int32 id) const
+inline StatElem *StatCollector::getElem(Int32 elemId) const
 {
-    return isValidID(id) ? _elemVec[id] : NULL;
+    return isValidID(elemId) ? _elemVec[elemId] : NULL;
 }
 
 /*-------------------------------------------------------------------------*/

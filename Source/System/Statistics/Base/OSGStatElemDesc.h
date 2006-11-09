@@ -68,13 +68,13 @@ class OSG_SYSTEM_DLLMAPPING StatElemDescBase
    /*! \name                      Class                                   */
    /*! \{                                                                 */
 
-    static bool              isValidID     (      Int32  id  );
+    static bool              isValidID     (      Int32  descId);
 
-    static StatElemDescBase *getDesc       (      Int32  id  );
-    static StatElemDescBase *findDescByName(const Char8 *name);
-    static Int32             getNumOfDescs (      void       );
+    static StatElemDescBase *getDesc       (      Int32  descId);
+    static StatElemDescBase *findDescByName(const Char8 *name  );
+    static Int32             getNumOfDescs (      void         );
 
-    static void              printAll      (      void       );
+    static void              printAll      (      void         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

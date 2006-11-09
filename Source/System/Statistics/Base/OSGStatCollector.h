@@ -73,20 +73,20 @@ class OSG_SYSTEM_DLLMAPPING StatCollector
     /*! \name                     Instance                                 */
     /*! \{                                                                 */
 
-    UInt32 getNumOfElems(void    ) const;
-    void   refitElemNum (void    );
-    void   clearElems   (void    );
-    bool   isValidID    (Int32 id) const;
-    void   reset        (void    );
+    UInt32 getNumOfElems(void        ) const;
+    void   refitElemNum (void        );
+    void   clearElems   (void        );
+    bool   isValidID    (Int32 elemId) const;
+    void   reset        (void        );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructor                                 */
     /*! \{                                                                 */
 
-    StatElem *getElem(Int32             id           ) const;
+    StatElem *getElem(Int32             elemId       ) const;
 
-    StatElem *getElem(Int32             id,
+    StatElem *getElem(Int32             elemId,
                       bool              create = true);
 
     StatElem *getElem(StatElemDescBase &desc,
