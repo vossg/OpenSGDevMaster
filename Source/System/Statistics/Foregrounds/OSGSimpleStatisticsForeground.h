@@ -63,6 +63,14 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
     typedef SimpleStatisticsForegroundBase                    Inherited;
 
     /*---------------------------------------------------------------------*/
+    /*! \name                     Modes                                    */
+    /*! \{                                                                 */
+
+    enum { Left=0, Middle, Right } HorizontalAlignE;
+    enum { Top=0, Center, Bottom } VerticalAlignE;
+       
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
@@ -125,7 +133,7 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
 
   private:
 
-    TextTXFFace*    _face;
+    TextTXFFace *_face;
 
     TextureObjChunkPtr _texchunk;
     TextureEnvChunkPtr _texenvchunk;

@@ -72,6 +72,8 @@
 #include "OSGColor4fFields.h" // BgColor type
 #include "OSGStringFields.h" // Family type
 #include "OSGVec2fFields.h" // ShadowOffset type
+#include "OSGUInt8Fields.h" // HorizontalAlign type
+#include "OSGUInt8Fields.h" // VerticalAlign type
 
 #include "OSGSimpleStatisticsForegroundFields.h"
 
@@ -123,7 +125,9 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
         BgColorFieldId = ShadowColorFieldId + 1,
         FamilyFieldId = BgColorFieldId + 1,
         ShadowOffsetFieldId = FamilyFieldId + 1,
-        NextFieldId = ShadowOffsetFieldId + 1
+        HorizontalAlignFieldId = ShadowOffsetFieldId + 1,
+        VerticalAlignFieldId = HorizontalAlignFieldId + 1,
+        NextFieldId = VerticalAlignFieldId + 1
     };
 
     static const OSG::BitVector FormatsFieldMask = 
@@ -140,6 +144,10 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
         (TypeTraits<BitVector>::One << FamilyFieldId);
     static const OSG::BitVector ShadowOffsetFieldMask = 
         (TypeTraits<BitVector>::One << ShadowOffsetFieldId);
+    static const OSG::BitVector HorizontalAlignFieldMask = 
+        (TypeTraits<BitVector>::One << HorizontalAlignFieldId);
+    static const OSG::BitVector VerticalAlignFieldMask = 
+        (TypeTraits<BitVector>::One << VerticalAlignFieldId);
     static const OSG::BitVector NextFieldMask = 
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -210,6 +218,18 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
            SFVec2f *editSFShadowOffset(void);
      const SFVec2f *getSFShadowOffset (void) const;
 
+#ifdef OSG_1_COMPAT
+           SFUInt8 *getSFHorizontalAlign(void);
+#endif
+           SFUInt8 *editSFHorizontalAlign(void);
+     const SFUInt8 *getSFHorizontalAlign (void) const;
+
+#ifdef OSG_1_COMPAT
+           SFUInt8 *getSFVerticalAlign(void);
+#endif
+           SFUInt8 *editSFVerticalAlign(void);
+     const SFUInt8 *getSFVerticalAlign (void) const;
+
 
 #ifdef OSG_1_COMPAT
            std::string &getFormats(const UInt32 index);
@@ -256,6 +276,18 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
            Vec2f &editShadowOffset(void);
      const Vec2f &getShadowOffset (void) const;
 
+#ifdef OSG_1_COMPAT
+           UInt8 &getHorizontalAlign(void);
+#endif
+           UInt8 &editHorizontalAlign(void);
+     const UInt8 &getHorizontalAlign (void) const;
+
+#ifdef OSG_1_COMPAT
+           UInt8 &getVerticalAlign(void);
+#endif
+           UInt8 &editVerticalAlign(void);
+     const UInt8 &getVerticalAlign (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -267,6 +299,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
      void setBgColor(const Color4f &value);
      void setFamily(const std::string &value);
      void setShadowOffset(const Vec2f &value);
+     void setHorizontalAlign(const UInt8 &value);
+     void setVerticalAlign(const UInt8 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -317,6 +351,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     SFColor4f _sfBgColor;
     SFString _sfFamily;
     SFVec2f _sfShadowOffset;
+    SFUInt8 _sfHorizontalAlign;
+    SFUInt8 _sfVerticalAlign;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

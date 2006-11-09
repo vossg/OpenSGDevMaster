@@ -43,12 +43,6 @@
 
 #include <OSGConfig.h>
 
-#ifdef OSG_HAS_SSTREAM
-#include <sstream>
-#else
-#include <strstream>
-#endif
-
 #include <OSGImage.h>
 
 #include <OSGViewport.h>
@@ -300,7 +294,36 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     Real32 textWidth = layoutResult.textBounds.x() * scale + size;
     Real32 textHeight = layoutResult.textBounds.y() * scale + size;
 
-    glTranslatef(0.0, ph, 0.0);
+    // Let's do some simple form of layout management
+    Real32 orthoX = 0, orthoY = ph;
+
+    switch ( getHorizontalAlign() )
+    {
+        case Right:
+            orthoX = pw - textWidth;
+            break;
+        case Middle:
+            orthoX = (pw - textWidth) * 0.5;
+            break;
+        case Left:
+        default:
+            break;
+    }
+
+    switch ( getVerticalAlign() )
+    {
+        case Bottom:
+            orthoY = textHeight;
+            break;
+        case Center:
+            orthoY = (ph - textHeight) * 0.5 + textHeight;
+            break;
+        case Top:
+        default:
+            break;
+    }
+
+    glTranslatef(orthoX, orthoY, 0.0);
 
     // draw background
     glColor4fv((GLfloat*)getBgColor().getValuesRGBA());

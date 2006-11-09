@@ -97,6 +97,14 @@ OSG_BEGIN_NAMESPACE
     	Offset of the shadow, in pixels.
 
 */
+/*! \var UInt8 SimpleStatisticsForegroundBase::_sfHorizontalAlign
+    	Simple form of layout management, 0 defaults to left.
+
+*/
+/*! \var UInt8 SimpleStatisticsForegroundBase::_sfVerticalAlign
+    	Simple form of layout management, 0 defaults to top.
+
+*/
 
 void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -256,6 +264,50 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt8 *(SimpleStatisticsForegroundBase::*GetSFHorizontalAlignF)(void) const;
+
+    GetSFHorizontalAlignF GetSFHorizontalAlign = &SimpleStatisticsForegroundBase::getSFHorizontalAlign;
+#endif
+
+    pDesc = new SFUInt8::Description(
+        SFUInt8::getClassType(), 
+        "horizontalAlign", 
+        "	Simple form of layout management, 0 defaults to left.\n",
+        HorizontalAlignFieldId, HorizontalAlignFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFHorizontalAlign),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFHorizontalAlign));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFHorizontalAlign));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt8 *(SimpleStatisticsForegroundBase::*GetSFVerticalAlignF)(void) const;
+
+    GetSFVerticalAlignF GetSFVerticalAlign = &SimpleStatisticsForegroundBase::getSFVerticalAlign;
+#endif
+
+    pDesc = new SFUInt8::Description(
+        SFUInt8::getClassType(), 
+        "verticalAlign", 
+        "	Simple form of layout management, 0 defaults to top.\n",
+        VerticalAlignFieldId, VerticalAlignFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFVerticalAlign),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFVerticalAlign));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFVerticalAlign));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -348,6 +400,26 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
 "		access=\"public\"\n"
 "	>\n"
 "	Offset of the shadow, in pixels.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"horizontalAlign\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Simple form of layout management, 0 defaults to left.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"verticalAlign\"\n"
+"		type=\"UInt8\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Simple form of layout management, 0 defaults to top.\n"
 "	</Field>\n"
 "</FieldContainer>\n"
 ,
@@ -507,6 +579,44 @@ SFVec2f *SimpleStatisticsForegroundBase::getSFShadowOffset(void)
 }
 #endif
 
+SFUInt8 *SimpleStatisticsForegroundBase::editSFHorizontalAlign(void)
+{
+    editSField(HorizontalAlignFieldMask);
+
+    return &_sfHorizontalAlign;
+}
+
+const SFUInt8 *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void) const
+{
+    return &_sfHorizontalAlign;
+}
+
+#ifdef OSG_1_COMPAT
+SFUInt8 *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void)
+{
+    return this->editSFHorizontalAlign();
+}
+#endif
+
+SFUInt8 *SimpleStatisticsForegroundBase::editSFVerticalAlign(void)
+{
+    editSField(VerticalAlignFieldMask);
+
+    return &_sfVerticalAlign;
+}
+
+const SFUInt8 *SimpleStatisticsForegroundBase::getSFVerticalAlign(void) const
+{
+    return &_sfVerticalAlign;
+}
+
+#ifdef OSG_1_COMPAT
+SFUInt8 *SimpleStatisticsForegroundBase::getSFVerticalAlign(void)
+{
+    return this->editSFVerticalAlign();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -542,6 +652,14 @@ UInt32 SimpleStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
     {
         returnValue += _sfShadowOffset.getBinSize();
+    }
+    if(FieldBits::NoField != (HorizontalAlignFieldMask & whichField))
+    {
+        returnValue += _sfHorizontalAlign.getBinSize();
+    }
+    if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
+    {
+        returnValue += _sfVerticalAlign.getBinSize();
     }
 
     return returnValue;
@@ -580,6 +698,14 @@ void SimpleStatisticsForegroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfShadowOffset.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (HorizontalAlignFieldMask & whichField))
+    {
+        _sfHorizontalAlign.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
+    {
+        _sfVerticalAlign.copyToBin(pMem);
+    }
 }
 
 void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -615,6 +741,14 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfShadowOffset.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (HorizontalAlignFieldMask & whichField))
+    {
+        _sfHorizontalAlign.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
+    {
+        _sfVerticalAlign.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -648,7 +782,9 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(void) :
     _sfShadowColor(Color4f(0,0,0,1)),
     _sfBgColor(Color4f(0,0,0,0)),
     _sfFamily(),
-    _sfShadowOffset(Vec2f(1,-1))
+    _sfShadowOffset(Vec2f(1,-1)),
+    _sfHorizontalAlign(UInt8(0)),
+    _sfVerticalAlign(UInt8(0))
 {
 }
 
@@ -660,7 +796,9 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(const SimpleStati
     _sfShadowColor(source._sfShadowColor),
     _sfBgColor(source._sfBgColor),
     _sfFamily(source._sfFamily),
-    _sfShadowOffset(source._sfShadowOffset)
+    _sfShadowOffset(source._sfShadowOffset),
+    _sfHorizontalAlign(source._sfHorizontalAlign),
+    _sfVerticalAlign(source._sfVerticalAlign)
 {
 }
 

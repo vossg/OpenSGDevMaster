@@ -271,6 +271,72 @@ void SimpleStatisticsForegroundBase::setShadowOffset(const Vec2f &value)
 
     _sfShadowOffset.setValue(value);
 }
+//! Get the value of the SimpleStatisticsForeground::_sfHorizontalAlign field.
+
+inline
+UInt8 &SimpleStatisticsForegroundBase::editHorizontalAlign(void)
+{
+    editSField(HorizontalAlignFieldMask);
+
+    return _sfHorizontalAlign.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfHorizontalAlign field.
+inline
+const UInt8 &SimpleStatisticsForegroundBase::getHorizontalAlign(void) const
+{
+    return _sfHorizontalAlign.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &SimpleStatisticsForegroundBase::getHorizontalAlign(void)
+{
+    return this->editHorizontalAlign();
+}
+#endif
+
+//! Set the value of the SimpleStatisticsForeground::_sfHorizontalAlign field.
+inline
+void SimpleStatisticsForegroundBase::setHorizontalAlign(const UInt8 &value)
+{
+    editSField(HorizontalAlignFieldMask);
+
+    _sfHorizontalAlign.setValue(value);
+}
+//! Get the value of the SimpleStatisticsForeground::_sfVerticalAlign field.
+
+inline
+UInt8 &SimpleStatisticsForegroundBase::editVerticalAlign(void)
+{
+    editSField(VerticalAlignFieldMask);
+
+    return _sfVerticalAlign.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfVerticalAlign field.
+inline
+const UInt8 &SimpleStatisticsForegroundBase::getVerticalAlign(void) const
+{
+    return _sfVerticalAlign.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt8 &SimpleStatisticsForegroundBase::getVerticalAlign(void)
+{
+    return this->editVerticalAlign();
+}
+#endif
+
+//! Set the value of the SimpleStatisticsForeground::_sfVerticalAlign field.
+inline
+void SimpleStatisticsForegroundBase::setVerticalAlign(const UInt8 &value)
+{
+    editSField(VerticalAlignFieldMask);
+
+    _sfVerticalAlign.setValue(value);
+}
 
 //! Get the value of the \a index element the SimpleStatisticsForeground::_mfFormats field.
 inline
@@ -367,6 +433,12 @@ void SimpleStatisticsForegroundBase::execSync(      SimpleStatisticsForegroundBa
 
     if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
         _sfShadowOffset.syncWith(pOther->_sfShadowOffset);
+
+    if(FieldBits::NoField != (HorizontalAlignFieldMask & whichField))
+        _sfHorizontalAlign.syncWith(pOther->_sfHorizontalAlign);
+
+    if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
+        _sfVerticalAlign.syncWith(pOther->_sfVerticalAlign);
 }
 #endif
 
@@ -403,6 +475,12 @@ void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundB
 
     if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
         _sfShadowOffset.syncWith(pFrom->_sfShadowOffset);
+
+    if(FieldBits::NoField != (HorizontalAlignFieldMask & whichField))
+        _sfHorizontalAlign.syncWith(pFrom->_sfHorizontalAlign);
+
+    if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
+        _sfVerticalAlign.syncWith(pFrom->_sfVerticalAlign);
 }
 #endif
 
