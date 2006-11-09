@@ -63,7 +63,7 @@ char *FCTemplate_cpp[]={
 "",
 "#include \"OSG@!Classname!@.h\"",
 "",
-"OSG_USING_NAMESPACE",
+"OSG_BEGIN_NAMESPACE",
 "",
 "/***************************************************************************\\",
 " *                            Description                                  *",
@@ -153,4 +153,5 @@ char *FCTemplate_cpp[]={
 "#pragma reset woff 1174",
 "#endif",
 "",
+"OSG_END_NAMESPACE",
 NULL};
