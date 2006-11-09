@@ -207,6 +207,36 @@ DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os)
                                                BUFFERSIZE);
 }
 
+struct osg_jpeg_error_mgr
+{
+    struct jpeg_error_mgr pub;
+    jmp_buf setjmp_buffer;
+};
+
+static void osg_jpeg_error_exit(j_common_ptr cinfo)
+{
+    /* Always display the message */
+    (*cinfo->err->output_message) (cinfo);
+
+    /* Let the memory manager delete any temp files before we die */
+    jpeg_destroy(cinfo);
+
+    /* Return control to the setjmp point */
+    struct osg_jpeg_error_mgr *osgerr = (struct osg_jpeg_error_mgr *)cinfo->err;
+    longjmp(osgerr->setjmp_buffer, 1);
+}
+
+static void osg_jpeg_output_message(j_common_ptr cinfo)
+{
+    char buffer[JMSG_LENGTH_MAX];
+
+    /* Create the message */
+    (*cinfo->err->format_message) (cinfo, buffer);
+
+    /* Send it to the OSG logger, adding a newline */
+    FFATAL (("JPG: %s\n", buffer));
+}
+
 struct jpeg_mem
 {
     struct jpeg_destination_mgr dest;
@@ -341,21 +371,14 @@ bool JPGImageFileType::read(      ImagePtrArg   OSG_JPG_ARG(pImage  ),
 {
 #ifdef OSG_WITH_JPG
 
-    struct local_error_mgr
-    {
-        struct jpeg_error_mgr pub;
-        jmp_buf setjmp_buffer;
-    } jerr;
-
+    struct osg_jpeg_error_mgr jerr;
     struct jpeg_decompress_struct cinfo;
 
     cinfo.err = jpeg_std_error(&jerr.pub);
-
     if (setjmp(jerr.setjmp_buffer))
-    {
-        jpeg_destroy_decompress(&cinfo);
         return false;
-    }
+    cinfo.err->error_exit = osg_jpeg_error_exit;
+    cinfo.err->output_message = osg_jpeg_output_message;
 
     jpeg_create_decompress(&cinfo);
 
@@ -444,21 +467,15 @@ bool JPGImageFileType::write(      ImageConstPtrArg  OSG_JPG_ARG(pImage  ),
         return false;
     }
 
-    struct local_error_mgr
-    {
-        struct jpeg_error_mgr pub;
-        jmp_buf setjmp_buffer;
-    } jerr;
-
+    struct osg_jpeg_error_mgr jerr;
     struct jpeg_compress_struct cinfo;
 
     cinfo.err = jpeg_std_error(&jerr.pub);
 
     if (setjmp(jerr.setjmp_buffer))
-    {
-        jpeg_destroy_compress(&cinfo);
         return false;
-    }
+    cinfo.err->error_exit = osg_jpeg_error_exit;
+    cinfo.err->output_message = osg_jpeg_output_message;
 
     jpeg_create_compress(&cinfo);
 
