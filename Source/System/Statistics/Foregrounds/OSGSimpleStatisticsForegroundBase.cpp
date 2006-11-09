@@ -105,6 +105,10 @@ OSG_BEGIN_NAMESPACE
     	Simple form of layout management, 0 defaults to top.
 
 */
+/*! \var Vec2f SimpleStatisticsForegroundBase::_sfTextMargin
+    	Text margin in pixels.
+
+*/
 
 void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -308,6 +312,28 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFVec2f *(SimpleStatisticsForegroundBase::*GetSFTextMarginF)(void) const;
+
+    GetSFTextMarginF GetSFTextMargin = &SimpleStatisticsForegroundBase::getSFTextMargin;
+#endif
+
+    pDesc = new SFVec2f::Description(
+        SFVec2f::getClassType(), 
+        "textMargin", 
+        "	Text margin in pixels.\n",
+        TextMarginFieldId, TextMarginFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFTextMargin),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFTextMargin));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFTextMargin));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -420,6 +446,16 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
 "		access=\"public\"\n"
 "	>\n"
 "	Simple form of layout management, 0 defaults to top.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"textMargin\"\n"
+"		type=\"Vec2f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0,0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Text margin in pixels.\n"
 "	</Field>\n"
 "</FieldContainer>\n"
 ,
@@ -617,6 +653,25 @@ SFUInt8 *SimpleStatisticsForegroundBase::getSFVerticalAlign(void)
 }
 #endif
 
+SFVec2f *SimpleStatisticsForegroundBase::editSFTextMargin(void)
+{
+    editSField(TextMarginFieldMask);
+
+    return &_sfTextMargin;
+}
+
+const SFVec2f *SimpleStatisticsForegroundBase::getSFTextMargin(void) const
+{
+    return &_sfTextMargin;
+}
+
+#ifdef OSG_1_COMPAT
+SFVec2f *SimpleStatisticsForegroundBase::getSFTextMargin(void)
+{
+    return this->editSFTextMargin();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -660,6 +715,10 @@ UInt32 SimpleStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
     {
         returnValue += _sfVerticalAlign.getBinSize();
+    }
+    if(FieldBits::NoField != (TextMarginFieldMask & whichField))
+    {
+        returnValue += _sfTextMargin.getBinSize();
     }
 
     return returnValue;
@@ -706,6 +765,10 @@ void SimpleStatisticsForegroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfVerticalAlign.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (TextMarginFieldMask & whichField))
+    {
+        _sfTextMargin.copyToBin(pMem);
+    }
 }
 
 void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -749,6 +812,10 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfVerticalAlign.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (TextMarginFieldMask & whichField))
+    {
+        _sfTextMargin.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -784,7 +851,8 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(void) :
     _sfFamily(),
     _sfShadowOffset(Vec2f(1,-1)),
     _sfHorizontalAlign(UInt8(0)),
-    _sfVerticalAlign(UInt8(0))
+    _sfVerticalAlign(UInt8(0)),
+    _sfTextMargin(Vec2f(0,0))
 {
 }
 
@@ -798,7 +866,8 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(const SimpleStati
     _sfFamily(source._sfFamily),
     _sfShadowOffset(source._sfShadowOffset),
     _sfHorizontalAlign(source._sfHorizontalAlign),
-    _sfVerticalAlign(source._sfVerticalAlign)
+    _sfVerticalAlign(source._sfVerticalAlign),
+    _sfTextMargin(source._sfTextMargin)
 {
 }
 

@@ -337,6 +337,39 @@ void SimpleStatisticsForegroundBase::setVerticalAlign(const UInt8 &value)
 
     _sfVerticalAlign.setValue(value);
 }
+//! Get the value of the SimpleStatisticsForeground::_sfTextMargin field.
+
+inline
+Vec2f &SimpleStatisticsForegroundBase::editTextMargin(void)
+{
+    editSField(TextMarginFieldMask);
+
+    return _sfTextMargin.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfTextMargin field.
+inline
+const Vec2f &SimpleStatisticsForegroundBase::getTextMargin(void) const
+{
+    return _sfTextMargin.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Vec2f &SimpleStatisticsForegroundBase::getTextMargin(void)
+{
+    return this->editTextMargin();
+}
+#endif
+
+//! Set the value of the SimpleStatisticsForeground::_sfTextMargin field.
+inline
+void SimpleStatisticsForegroundBase::setTextMargin(const Vec2f &value)
+{
+    editSField(TextMarginFieldMask);
+
+    _sfTextMargin.setValue(value);
+}
 
 //! Get the value of the \a index element the SimpleStatisticsForeground::_mfFormats field.
 inline
@@ -439,6 +472,9 @@ void SimpleStatisticsForegroundBase::execSync(      SimpleStatisticsForegroundBa
 
     if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
         _sfVerticalAlign.syncWith(pOther->_sfVerticalAlign);
+
+    if(FieldBits::NoField != (TextMarginFieldMask & whichField))
+        _sfTextMargin.syncWith(pOther->_sfTextMargin);
 }
 #endif
 
@@ -481,6 +517,9 @@ void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundB
 
     if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
         _sfVerticalAlign.syncWith(pFrom->_sfVerticalAlign);
+
+    if(FieldBits::NoField != (TextMarginFieldMask & whichField))
+        _sfTextMargin.syncWith(pFrom->_sfTextMargin);
 }
 #endif
 

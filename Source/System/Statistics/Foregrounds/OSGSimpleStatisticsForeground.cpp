@@ -291,8 +291,8 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 
     Real32 scale = 1 / _face->getScale();
     Real32 size = _face->getParam().size;
-    Real32 textWidth = layoutResult.textBounds.x() * scale + size;
-    Real32 textHeight = layoutResult.textBounds.y() * scale + size;
+    Real32 textWidth = layoutResult.textBounds.x() * scale + size + getTextMargin().x() * 2.0f;
+    Real32 textHeight = layoutResult.textBounds.y() * scale + size + getTextMargin().y() * 2.0f;
 
     // Let's do some simple form of layout management
     Real32 orthoX = 0, orthoY = ph;
@@ -334,7 +334,7 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         glVertex2f(0, 0);
     glEnd();
 
-    glTranslatef(0.5 * size, -0.5 * size, 0.0);
+    glTranslatef(0.5 * size + getTextMargin().x(), -0.5 * size - getTextMargin().y(), 0.0);
 
     _texchunk   ->activate(pEnv);
     _texenvchunk->activate(pEnv);

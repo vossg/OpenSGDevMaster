@@ -99,4 +99,14 @@ Simple Statistics display. Just print all the selected elements in the upper lef
 	>
 	Simple form of layout management, 0 defaults to top.
 	</Field>
+	<Field
+		name="textMargin"
+		type="Vec2f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0,0"
+		access="public"
+	>
+	Text margin in pixels.
+	</Field>
 </FieldContainer>
