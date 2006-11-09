@@ -105,6 +105,14 @@ OSG_BEGIN_NAMESPACE
     	Simple form of layout management, 0 defaults to top.
 
 */
+/*! \var Color4f SimpleStatisticsForegroundBase::_sfBorderColor
+    	Color of the border.
+
+*/
+/*! \var Vec2f SimpleStatisticsForegroundBase::_sfBorderOffset
+    	Offset of the border in pixels.
+
+*/
 /*! \var Vec2f SimpleStatisticsForegroundBase::_sfTextMargin
     	Text margin in pixels.
 
@@ -314,6 +322,50 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 #ifdef OSG_1_COMPAT
+    typedef const SFColor4f *(SimpleStatisticsForegroundBase::*GetSFBorderColorF)(void) const;
+
+    GetSFBorderColorF GetSFBorderColor = &SimpleStatisticsForegroundBase::getSFBorderColor;
+#endif
+
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(), 
+        "borderColor", 
+        "	Color of the border.\n",
+        BorderColorFieldId, BorderColorFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFBorderColor),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFBorderColor));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFBorderColor));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFVec2f *(SimpleStatisticsForegroundBase::*GetSFBorderOffsetF)(void) const;
+
+    GetSFBorderOffsetF GetSFBorderOffset = &SimpleStatisticsForegroundBase::getSFBorderOffset;
+#endif
+
+    pDesc = new SFVec2f::Description(
+        SFVec2f::getClassType(), 
+        "borderOffset", 
+        "	Offset of the border in pixels.\n",
+        BorderOffsetFieldId, BorderOffsetFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFBorderOffset),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFBorderOffset));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFBorderOffset));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
     typedef const SFVec2f *(SimpleStatisticsForegroundBase::*GetSFTextMarginF)(void) const;
 
     GetSFTextMarginF GetSFTextMargin = &SimpleStatisticsForegroundBase::getSFTextMargin;
@@ -446,6 +498,26 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
 "		access=\"public\"\n"
 "	>\n"
 "	Simple form of layout management, 0 defaults to top.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"borderColor\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0,0,0,0\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Color of the border.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"borderOffset\"\n"
+"		type=\"Vec2f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"4,4\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Offset of the border in pixels.\n"
 "	</Field>\n"
 "	<Field\n"
 "		name=\"textMargin\"\n"
@@ -653,6 +725,44 @@ SFUInt8 *SimpleStatisticsForegroundBase::getSFVerticalAlign(void)
 }
 #endif
 
+SFColor4f *SimpleStatisticsForegroundBase::editSFBorderColor(void)
+{
+    editSField(BorderColorFieldMask);
+
+    return &_sfBorderColor;
+}
+
+const SFColor4f *SimpleStatisticsForegroundBase::getSFBorderColor(void) const
+{
+    return &_sfBorderColor;
+}
+
+#ifdef OSG_1_COMPAT
+SFColor4f *SimpleStatisticsForegroundBase::getSFBorderColor(void)
+{
+    return this->editSFBorderColor();
+}
+#endif
+
+SFVec2f *SimpleStatisticsForegroundBase::editSFBorderOffset(void)
+{
+    editSField(BorderOffsetFieldMask);
+
+    return &_sfBorderOffset;
+}
+
+const SFVec2f *SimpleStatisticsForegroundBase::getSFBorderOffset(void) const
+{
+    return &_sfBorderOffset;
+}
+
+#ifdef OSG_1_COMPAT
+SFVec2f *SimpleStatisticsForegroundBase::getSFBorderOffset(void)
+{
+    return this->editSFBorderOffset();
+}
+#endif
+
 SFVec2f *SimpleStatisticsForegroundBase::editSFTextMargin(void)
 {
     editSField(TextMarginFieldMask);
@@ -716,6 +826,14 @@ UInt32 SimpleStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfVerticalAlign.getBinSize();
     }
+    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
+    {
+        returnValue += _sfBorderColor.getBinSize();
+    }
+    if(FieldBits::NoField != (BorderOffsetFieldMask & whichField))
+    {
+        returnValue += _sfBorderOffset.getBinSize();
+    }
     if(FieldBits::NoField != (TextMarginFieldMask & whichField))
     {
         returnValue += _sfTextMargin.getBinSize();
@@ -765,6 +883,14 @@ void SimpleStatisticsForegroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfVerticalAlign.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
+    {
+        _sfBorderColor.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (BorderOffsetFieldMask & whichField))
+    {
+        _sfBorderOffset.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (TextMarginFieldMask & whichField))
     {
         _sfTextMargin.copyToBin(pMem);
@@ -812,6 +938,14 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfVerticalAlign.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
+    {
+        _sfBorderColor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (BorderOffsetFieldMask & whichField))
+    {
+        _sfBorderOffset.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (TextMarginFieldMask & whichField))
     {
         _sfTextMargin.copyFromBin(pMem);
@@ -852,6 +986,8 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(void) :
     _sfShadowOffset(Vec2f(1,-1)),
     _sfHorizontalAlign(UInt8(0)),
     _sfVerticalAlign(UInt8(0)),
+    _sfBorderColor(Color4f(0,0,0,0)),
+    _sfBorderOffset(Vec2f(4,4)),
     _sfTextMargin(Vec2f(0,0))
 {
 }
@@ -867,6 +1003,8 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(const SimpleStati
     _sfShadowOffset(source._sfShadowOffset),
     _sfHorizontalAlign(source._sfHorizontalAlign),
     _sfVerticalAlign(source._sfVerticalAlign),
+    _sfBorderColor(source._sfBorderColor),
+    _sfBorderOffset(source._sfBorderOffset),
     _sfTextMargin(source._sfTextMargin)
 {
 }

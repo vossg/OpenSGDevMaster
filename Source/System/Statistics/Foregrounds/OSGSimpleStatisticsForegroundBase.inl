@@ -337,6 +337,72 @@ void SimpleStatisticsForegroundBase::setVerticalAlign(const UInt8 &value)
 
     _sfVerticalAlign.setValue(value);
 }
+//! Get the value of the SimpleStatisticsForeground::_sfBorderColor field.
+
+inline
+Color4f &SimpleStatisticsForegroundBase::editBorderColor(void)
+{
+    editSField(BorderColorFieldMask);
+
+    return _sfBorderColor.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfBorderColor field.
+inline
+const Color4f &SimpleStatisticsForegroundBase::getBorderColor(void) const
+{
+    return _sfBorderColor.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Color4f &SimpleStatisticsForegroundBase::getBorderColor(void)
+{
+    return this->editBorderColor();
+}
+#endif
+
+//! Set the value of the SimpleStatisticsForeground::_sfBorderColor field.
+inline
+void SimpleStatisticsForegroundBase::setBorderColor(const Color4f &value)
+{
+    editSField(BorderColorFieldMask);
+
+    _sfBorderColor.setValue(value);
+}
+//! Get the value of the SimpleStatisticsForeground::_sfBorderOffset field.
+
+inline
+Vec2f &SimpleStatisticsForegroundBase::editBorderOffset(void)
+{
+    editSField(BorderOffsetFieldMask);
+
+    return _sfBorderOffset.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfBorderOffset field.
+inline
+const Vec2f &SimpleStatisticsForegroundBase::getBorderOffset(void) const
+{
+    return _sfBorderOffset.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Vec2f &SimpleStatisticsForegroundBase::getBorderOffset(void)
+{
+    return this->editBorderOffset();
+}
+#endif
+
+//! Set the value of the SimpleStatisticsForeground::_sfBorderOffset field.
+inline
+void SimpleStatisticsForegroundBase::setBorderOffset(const Vec2f &value)
+{
+    editSField(BorderOffsetFieldMask);
+
+    _sfBorderOffset.setValue(value);
+}
 //! Get the value of the SimpleStatisticsForeground::_sfTextMargin field.
 
 inline
@@ -473,6 +539,12 @@ void SimpleStatisticsForegroundBase::execSync(      SimpleStatisticsForegroundBa
     if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
         _sfVerticalAlign.syncWith(pOther->_sfVerticalAlign);
 
+    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
+        _sfBorderColor.syncWith(pOther->_sfBorderColor);
+
+    if(FieldBits::NoField != (BorderOffsetFieldMask & whichField))
+        _sfBorderOffset.syncWith(pOther->_sfBorderOffset);
+
     if(FieldBits::NoField != (TextMarginFieldMask & whichField))
         _sfTextMargin.syncWith(pOther->_sfTextMargin);
 }
@@ -517,6 +589,12 @@ void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundB
 
     if(FieldBits::NoField != (VerticalAlignFieldMask & whichField))
         _sfVerticalAlign.syncWith(pFrom->_sfVerticalAlign);
+
+    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
+        _sfBorderColor.syncWith(pFrom->_sfBorderColor);
+
+    if(FieldBits::NoField != (BorderOffsetFieldMask & whichField))
+        _sfBorderOffset.syncWith(pFrom->_sfBorderOffset);
 
     if(FieldBits::NoField != (TextMarginFieldMask & whichField))
         _sfTextMargin.syncWith(pFrom->_sfTextMargin);

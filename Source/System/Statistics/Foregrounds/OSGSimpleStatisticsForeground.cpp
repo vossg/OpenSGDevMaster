@@ -334,6 +334,18 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         glVertex2f(0, 0);
     glEnd();
 
+    // draw border
+    if(getBorderColor().alpha() >= 0.0f)
+    {
+        glColor4fv((GLfloat*)getBorderColor().getValuesRGBA());
+        glBegin(GL_LINE_LOOP);
+            glVertex2f(getBorderOffset().x(), -textHeight + 1 + getBorderOffset().y());
+            glVertex2f(textWidth - 1 - getBorderOffset().x(), -textHeight + 1 + getBorderOffset().y());
+            glVertex2f(textWidth - 1 - getBorderOffset().x(), -1 - getBorderOffset().y());
+            glVertex2f(getBorderOffset().x(), -1 - getBorderOffset().y());
+        glEnd();
+    }
+
     glTranslatef(0.5 * size + getTextMargin().x(), -0.5 * size - getTextMargin().y(), 0.0);
 
     _texchunk   ->activate(pEnv);

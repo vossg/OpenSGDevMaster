@@ -74,6 +74,8 @@
 #include "OSGVec2fFields.h" // ShadowOffset type
 #include "OSGUInt8Fields.h" // HorizontalAlign type
 #include "OSGUInt8Fields.h" // VerticalAlign type
+#include "OSGColor4fFields.h" // BorderColor type
+#include "OSGVec2fFields.h" // BorderOffset type
 #include "OSGVec2fFields.h" // TextMargin type
 
 #include "OSGSimpleStatisticsForegroundFields.h"
@@ -128,7 +130,9 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
         ShadowOffsetFieldId = FamilyFieldId + 1,
         HorizontalAlignFieldId = ShadowOffsetFieldId + 1,
         VerticalAlignFieldId = HorizontalAlignFieldId + 1,
-        TextMarginFieldId = VerticalAlignFieldId + 1,
+        BorderColorFieldId = VerticalAlignFieldId + 1,
+        BorderOffsetFieldId = BorderColorFieldId + 1,
+        TextMarginFieldId = BorderOffsetFieldId + 1,
         NextFieldId = TextMarginFieldId + 1
     };
 
@@ -150,6 +154,10 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
         (TypeTraits<BitVector>::One << HorizontalAlignFieldId);
     static const OSG::BitVector VerticalAlignFieldMask = 
         (TypeTraits<BitVector>::One << VerticalAlignFieldId);
+    static const OSG::BitVector BorderColorFieldMask = 
+        (TypeTraits<BitVector>::One << BorderColorFieldId);
+    static const OSG::BitVector BorderOffsetFieldMask = 
+        (TypeTraits<BitVector>::One << BorderOffsetFieldId);
     static const OSG::BitVector TextMarginFieldMask = 
         (TypeTraits<BitVector>::One << TextMarginFieldId);
     static const OSG::BitVector NextFieldMask = 
@@ -235,6 +243,18 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
      const SFUInt8 *getSFVerticalAlign (void) const;
 
 #ifdef OSG_1_COMPAT
+           SFColor4f *getSFBorderColor(void);
+#endif
+           SFColor4f *editSFBorderColor(void);
+     const SFColor4f *getSFBorderColor (void) const;
+
+#ifdef OSG_1_COMPAT
+           SFVec2f *getSFBorderOffset(void);
+#endif
+           SFVec2f *editSFBorderOffset(void);
+     const SFVec2f *getSFBorderOffset (void) const;
+
+#ifdef OSG_1_COMPAT
            SFVec2f *getSFTextMargin(void);
 #endif
            SFVec2f *editSFTextMargin(void);
@@ -299,6 +319,18 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
      const UInt8 &getVerticalAlign (void) const;
 
 #ifdef OSG_1_COMPAT
+           Color4f &getBorderColor(void);
+#endif
+           Color4f &editBorderColor(void);
+     const Color4f &getBorderColor (void) const;
+
+#ifdef OSG_1_COMPAT
+           Vec2f &getBorderOffset(void);
+#endif
+           Vec2f &editBorderOffset(void);
+     const Vec2f &getBorderOffset (void) const;
+
+#ifdef OSG_1_COMPAT
            Vec2f &getTextMargin(void);
 #endif
            Vec2f &editTextMargin(void);
@@ -317,6 +349,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
      void setShadowOffset(const Vec2f &value);
      void setHorizontalAlign(const UInt8 &value);
      void setVerticalAlign(const UInt8 &value);
+     void setBorderColor(const Color4f &value);
+     void setBorderOffset(const Vec2f &value);
      void setTextMargin(const Vec2f &value);
 
     /*! \}                                                                 */
@@ -370,6 +404,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     SFVec2f _sfShadowOffset;
     SFUInt8 _sfHorizontalAlign;
     SFUInt8 _sfVerticalAlign;
+    SFColor4f _sfBorderColor;
+    SFVec2f _sfBorderOffset;
     SFVec2f _sfTextMargin;
 
     /*! \}                                                                 */
