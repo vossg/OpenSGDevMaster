@@ -41,6 +41,16 @@ Simple Statistics display. Just print all the selected elements in the upper lef
 	Color of the text.
 	</Field>
 	<Field
+		name="shadowColor"
+		type="Color4f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0,0,0,1"
+		access="public"
+	>
+	Color of the shadow.
+	</Field>
+	<Field
 		name="bgColor"
 		type="Color4f"
 		cardinality="single"
@@ -58,5 +68,15 @@ Simple Statistics display. Just print all the selected elements in the upper lef
 		access="public"
 	>
 	The font family to be used, e.g. "SANS", default if unset.
+	</Field>
+	<Field
+		name="shadowOffset"
+		type="Vec2f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1,-1"
+		access="public"
+	>
+	Offset of the shadow, in pixels.
 	</Field>
 </FieldContainer>

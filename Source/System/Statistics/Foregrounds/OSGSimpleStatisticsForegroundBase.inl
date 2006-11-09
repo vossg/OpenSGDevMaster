@@ -90,6 +90,13 @@ const Real32 &SimpleStatisticsForegroundBase::getSize(void) const
     return _sfSize.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32 &SimpleStatisticsForegroundBase::getSize(void)
+{
+    return this->editSize();
+}
+#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfSize field.
 inline
@@ -116,6 +123,13 @@ const Color4f &SimpleStatisticsForegroundBase::getColor(void) const
     return _sfColor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &SimpleStatisticsForegroundBase::getColor(void)
+{
+    return this->editColor();
+}
+#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfColor field.
 inline
@@ -124,6 +138,39 @@ void SimpleStatisticsForegroundBase::setColor(const Color4f &value)
     editSField(ColorFieldMask);
 
     _sfColor.setValue(value);
+}
+//! Get the value of the SimpleStatisticsForeground::_sfShadowColor field.
+
+inline
+Color4f &SimpleStatisticsForegroundBase::editShadowColor(void)
+{
+    editSField(ShadowColorFieldMask);
+
+    return _sfShadowColor.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfShadowColor field.
+inline
+const Color4f &SimpleStatisticsForegroundBase::getShadowColor(void) const
+{
+    return _sfShadowColor.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Color4f &SimpleStatisticsForegroundBase::getShadowColor(void)
+{
+    return this->editShadowColor();
+}
+#endif
+
+//! Set the value of the SimpleStatisticsForeground::_sfShadowColor field.
+inline
+void SimpleStatisticsForegroundBase::setShadowColor(const Color4f &value)
+{
+    editSField(ShadowColorFieldMask);
+
+    _sfShadowColor.setValue(value);
 }
 //! Get the value of the SimpleStatisticsForeground::_sfBgColor field.
 
@@ -142,6 +189,13 @@ const Color4f &SimpleStatisticsForegroundBase::getBgColor(void) const
     return _sfBgColor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f &SimpleStatisticsForegroundBase::getBgColor(void)
+{
+    return this->editBgColor();
+}
+#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfBgColor field.
 inline
@@ -168,6 +222,13 @@ const std::string &SimpleStatisticsForegroundBase::getFamily(void) const
     return _sfFamily.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+std::string &SimpleStatisticsForegroundBase::getFamily(void)
+{
+    return this->editFamily();
+}
+#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfFamily field.
 inline
@@ -176,6 +237,39 @@ void SimpleStatisticsForegroundBase::setFamily(const std::string &value)
     editSField(FamilyFieldMask);
 
     _sfFamily.setValue(value);
+}
+//! Get the value of the SimpleStatisticsForeground::_sfShadowOffset field.
+
+inline
+Vec2f &SimpleStatisticsForegroundBase::editShadowOffset(void)
+{
+    editSField(ShadowOffsetFieldMask);
+
+    return _sfShadowOffset.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfShadowOffset field.
+inline
+const Vec2f &SimpleStatisticsForegroundBase::getShadowOffset(void) const
+{
+    return _sfShadowOffset.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Vec2f &SimpleStatisticsForegroundBase::getShadowOffset(void)
+{
+    return this->editShadowOffset();
+}
+#endif
+
+//! Set the value of the SimpleStatisticsForeground::_sfShadowOffset field.
+inline
+void SimpleStatisticsForegroundBase::setShadowOffset(const Vec2f &value)
+{
+    editSField(ShadowOffsetFieldMask);
+
+    _sfShadowOffset.setValue(value);
 }
 
 //! Get the value of the \a index element the SimpleStatisticsForeground::_mfFormats field.
@@ -202,6 +296,20 @@ MFString &SimpleStatisticsForegroundBase::editFormats(void)
     return _mfFormats;
 }
 
+#ifdef OSG_1_COMPAT
+inline
+std::string &SimpleStatisticsForegroundBase::getFormats(const UInt32 index)
+{
+    return this->editFormats(index);
+}
+
+inline
+MFString &SimpleStatisticsForegroundBase::getFormats(void)
+{
+    return this->editFormats();
+}
+
+#endif
 
 
 //! Get the SimpleStatisticsForeground::_mfFormats field.
@@ -248,11 +356,17 @@ void SimpleStatisticsForegroundBase::execSync(      SimpleStatisticsForegroundBa
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pOther->_sfColor);
 
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+        _sfShadowColor.syncWith(pOther->_sfShadowColor);
+
     if(FieldBits::NoField != (BgColorFieldMask & whichField))
         _sfBgColor.syncWith(pOther->_sfBgColor);
 
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
         _sfFamily.syncWith(pOther->_sfFamily);
+
+    if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
+        _sfShadowOffset.syncWith(pOther->_sfShadowOffset);
 }
 #endif
 
@@ -278,11 +392,17 @@ void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundB
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pFrom->_sfColor);
 
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+        _sfShadowColor.syncWith(pFrom->_sfShadowColor);
+
     if(FieldBits::NoField != (BgColorFieldMask & whichField))
         _sfBgColor.syncWith(pFrom->_sfBgColor);
 
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
         _sfFamily.syncWith(pFrom->_sfFamily);
+
+    if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
+        _sfShadowOffset.syncWith(pFrom->_sfShadowOffset);
 }
 #endif
 

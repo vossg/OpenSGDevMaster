@@ -56,6 +56,7 @@
 #include "OSGSimpleStatisticsForeground.h"
 #include "OSGStatisticsDefaultFont.h"
 
+#include "OSGTextTXFFace.h"
 #include "OSGTextLayoutParam.h"
 #include "OSGTextLayoutResult.h"
 #include "OSGTextTXFGlyph.h"
@@ -310,16 +311,40 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         glVertex2f(0, 0);
     glEnd();
 
-    // draw text
     glTranslatef(0.5 * size, -0.5 * size, 0.0);
 
     _texchunk   ->activate(pEnv);
     _texenvchunk->activate(pEnv);
 
-    glColor4fv((GLfloat *) getColor().getValuesRGBA());
+    // draw text shadow
+    glColor4fv((GLfloat*)getShadowColor().getValuesRGBA());
+    glPushMatrix();
+    glTranslatef(getShadowOffset().x(), getShadowOffset().y(), 0);
     glScalef(scale, scale, 1);
+    drawCharacters(layoutResult);
 
+    // draw text
+    glColor4fv((GLfloat *) getColor().getValuesRGBA());
+    glPopMatrix();
+    glScalef(scale, scale, 1);
+    drawCharacters(layoutResult);
+
+    _texchunk   ->deactivate(pEnv);
+    _texenvchunk->deactivate(pEnv);
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+
+    glPopAttrib();
+}
+
+void SimpleStatisticsForeground::drawCharacters(const TextLayoutResult &layoutResult) const
+{
     glBegin(GL_QUADS);
+
     UInt32 i, numGlyphs = layoutResult.getNumGlyphs();
     for(i = 0; i < numGlyphs; ++i)
     {
@@ -357,18 +382,8 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         glTexCoord2f(texCoordLeft, texCoordTop);
         glVertex2f(posLeft, posTop);
     }
+
     glEnd();
-
-    _texchunk   ->deactivate(pEnv);
-    _texenvchunk->deactivate(pEnv);
-
-    glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
-
-    glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
-
-    glPopAttrib();
 }
 
 /*-------------------------------------------------------------------------*/

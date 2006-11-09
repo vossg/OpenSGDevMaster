@@ -81,6 +81,10 @@ OSG_BEGIN_NAMESPACE
     	Color of the text.
 
 */
+/*! \var Color4f SimpleStatisticsForegroundBase::_sfShadowColor
+    	Color of the shadow.
+
+*/
 /*! \var Color4f SimpleStatisticsForegroundBase::_sfBgColor
     	Color of the background.
 
@@ -89,11 +93,21 @@ OSG_BEGIN_NAMESPACE
     	The font family to be used, e.g. "SANS", default if unset.
 
 */
+/*! \var Vec2f SimpleStatisticsForegroundBase::_sfShadowOffset
+    	Offset of the shadow, in pixels.
+
+*/
 
 void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL; 
 
+
+#ifdef OSG_1_COMPAT
+    typedef const MFString *(SimpleStatisticsForegroundBase::*GetMFFormatsF)(void) const;
+
+    GetMFFormatsF GetMFFormats = &SimpleStatisticsForegroundBase::getMFFormats;
+#endif
 
     pDesc = new MFString::Description(
         MFString::getClassType(), 
@@ -103,9 +117,19 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editMFFormats),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetMFFormats));
+#else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getMFFormats));
+#endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFReal32 *(SimpleStatisticsForegroundBase::*GetSFSizeF)(void) const;
+
+    GetSFSizeF GetSFSize = &SimpleStatisticsForegroundBase::getSFSize;
+#endif
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(), 
@@ -115,9 +139,19 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFSize),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFSize));
+#else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFSize));
+#endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFColor4f *(SimpleStatisticsForegroundBase::*GetSFColorF)(void) const;
+
+    GetSFColorF GetSFColor = &SimpleStatisticsForegroundBase::getSFColor;
+#endif
 
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(), 
@@ -127,9 +161,41 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFColor),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFColor));
+#else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFColor));
+#endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFColor4f *(SimpleStatisticsForegroundBase::*GetSFShadowColorF)(void) const;
+
+    GetSFShadowColorF GetSFShadowColor = &SimpleStatisticsForegroundBase::getSFShadowColor;
+#endif
+
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(), 
+        "shadowColor", 
+        "	Color of the shadow.\n",
+        ShadowColorFieldId, ShadowColorFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFShadowColor),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFShadowColor));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFShadowColor));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFColor4f *(SimpleStatisticsForegroundBase::*GetSFBgColorF)(void) const;
+
+    GetSFBgColorF GetSFBgColor = &SimpleStatisticsForegroundBase::getSFBgColor;
+#endif
 
     pDesc = new SFColor4f::Description(
         SFColor4f::getClassType(), 
@@ -139,9 +205,19 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFBgColor),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFBgColor));
+#else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFBgColor));
+#endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFString *(SimpleStatisticsForegroundBase::*GetSFFamilyF)(void) const;
+
+    GetSFFamilyF GetSFFamily = &SimpleStatisticsForegroundBase::getSFFamily;
+#endif
 
     pDesc = new SFString::Description(
         SFString::getClassType(), 
@@ -151,7 +227,33 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFFamily),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFFamily));
+#else
         reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFFamily));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFVec2f *(SimpleStatisticsForegroundBase::*GetSFShadowOffsetF)(void) const;
+
+    GetSFShadowOffsetF GetSFShadowOffset = &SimpleStatisticsForegroundBase::getSFShadowOffset;
+#endif
+
+    pDesc = new SFVec2f::Description(
+        SFVec2f::getClassType(), 
+        "shadowOffset", 
+        "	Offset of the shadow, in pixels.\n",
+        ShadowOffsetFieldId, ShadowOffsetFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFShadowOffset),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFShadowOffset));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFShadowOffset));
+#endif
 
     oType.addInitialDesc(pDesc);
 }
@@ -209,6 +311,16 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
 "	Color of the text.\n"
 "	</Field>\n"
 "	<Field\n"
+"		name=\"shadowColor\"\n"
+"		type=\"Color4f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"0,0,0,1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Color of the shadow.\n"
+"	</Field>\n"
+"	<Field\n"
 "		name=\"bgColor\"\n"
 "		type=\"Color4f\"\n"
 "		cardinality=\"single\"\n"
@@ -226,6 +338,16 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
 "		access=\"public\"\n"
 "	>\n"
 "	The font family to be used, e.g. \"SANS\", default if unset.\n"
+"	</Field>\n"
+"	<Field\n"
+"		name=\"shadowOffset\"\n"
+"		type=\"Vec2f\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		defaultValue=\"1,-1\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	Offset of the shadow, in pixels.\n"
 "	</Field>\n"
 "</FieldContainer>\n"
 ,
@@ -264,6 +386,12 @@ const MFString *SimpleStatisticsForegroundBase::getMFFormats(void) const
     return &_mfFormats;
 }
 
+#ifdef OSG_1_COMPAT
+MFString *SimpleStatisticsForegroundBase::getMFFormats(void)
+{
+    return this->editMFFormats();
+}
+#endif
 
 SFReal32 *SimpleStatisticsForegroundBase::editSFSize(void)
 {
@@ -277,6 +405,12 @@ const SFReal32 *SimpleStatisticsForegroundBase::getSFSize(void) const
     return &_sfSize;
 }
 
+#ifdef OSG_1_COMPAT
+SFReal32 *SimpleStatisticsForegroundBase::getSFSize(void)
+{
+    return this->editSFSize();
+}
+#endif
 
 SFColor4f *SimpleStatisticsForegroundBase::editSFColor(void)
 {
@@ -290,6 +424,31 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void) const
     return &_sfColor;
 }
 
+#ifdef OSG_1_COMPAT
+SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void)
+{
+    return this->editSFColor();
+}
+#endif
+
+SFColor4f *SimpleStatisticsForegroundBase::editSFShadowColor(void)
+{
+    editSField(ShadowColorFieldMask);
+
+    return &_sfShadowColor;
+}
+
+const SFColor4f *SimpleStatisticsForegroundBase::getSFShadowColor(void) const
+{
+    return &_sfShadowColor;
+}
+
+#ifdef OSG_1_COMPAT
+SFColor4f *SimpleStatisticsForegroundBase::getSFShadowColor(void)
+{
+    return this->editSFShadowColor();
+}
+#endif
 
 SFColor4f *SimpleStatisticsForegroundBase::editSFBgColor(void)
 {
@@ -303,6 +462,12 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFBgColor(void) const
     return &_sfBgColor;
 }
 
+#ifdef OSG_1_COMPAT
+SFColor4f *SimpleStatisticsForegroundBase::getSFBgColor(void)
+{
+    return this->editSFBgColor();
+}
+#endif
 
 SFString *SimpleStatisticsForegroundBase::editSFFamily(void)
 {
@@ -316,6 +481,31 @@ const SFString *SimpleStatisticsForegroundBase::getSFFamily(void) const
     return &_sfFamily;
 }
 
+#ifdef OSG_1_COMPAT
+SFString *SimpleStatisticsForegroundBase::getSFFamily(void)
+{
+    return this->editSFFamily();
+}
+#endif
+
+SFVec2f *SimpleStatisticsForegroundBase::editSFShadowOffset(void)
+{
+    editSField(ShadowOffsetFieldMask);
+
+    return &_sfShadowOffset;
+}
+
+const SFVec2f *SimpleStatisticsForegroundBase::getSFShadowOffset(void) const
+{
+    return &_sfShadowOffset;
+}
+
+#ifdef OSG_1_COMPAT
+SFVec2f *SimpleStatisticsForegroundBase::getSFShadowOffset(void)
+{
+    return this->editSFShadowOffset();
+}
+#endif
 
 
 
@@ -337,6 +527,10 @@ UInt32 SimpleStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfColor.getBinSize();
     }
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+    {
+        returnValue += _sfShadowColor.getBinSize();
+    }
     if(FieldBits::NoField != (BgColorFieldMask & whichField))
     {
         returnValue += _sfBgColor.getBinSize();
@@ -344,6 +538,10 @@ UInt32 SimpleStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
     {
         returnValue += _sfFamily.getBinSize();
+    }
+    if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
+    {
+        returnValue += _sfShadowOffset.getBinSize();
     }
 
     return returnValue;
@@ -366,6 +564,10 @@ void SimpleStatisticsForegroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfColor.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+    {
+        _sfShadowColor.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (BgColorFieldMask & whichField))
     {
         _sfBgColor.copyToBin(pMem);
@@ -373,6 +575,10 @@ void SimpleStatisticsForegroundBase::copyToBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
     {
         _sfFamily.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
+    {
+        _sfShadowOffset.copyToBin(pMem);
     }
 }
 
@@ -393,6 +599,10 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfColor.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+    {
+        _sfShadowColor.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (BgColorFieldMask & whichField))
     {
         _sfBgColor.copyFromBin(pMem);
@@ -400,6 +610,10 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
     {
         _sfFamily.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ShadowOffsetFieldMask & whichField))
+    {
+        _sfShadowOffset.copyFromBin(pMem);
     }
 }
 
@@ -431,8 +645,10 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(void) :
     _mfFormats(),
     _sfSize(Real32(16)),
     _sfColor(Color4f(1,1,1,1)),
+    _sfShadowColor(Color4f(0,0,0,1)),
     _sfBgColor(Color4f(0,0,0,0)),
-    _sfFamily()
+    _sfFamily(),
+    _sfShadowOffset(Vec2f(1,-1))
 {
 }
 
@@ -441,8 +657,10 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(const SimpleStati
     _mfFormats(source._mfFormats),
     _sfSize(source._sfSize),
     _sfColor(source._sfColor),
+    _sfShadowColor(source._sfShadowColor),
     _sfBgColor(source._sfBgColor),
-    _sfFamily(source._sfFamily)
+    _sfFamily(source._sfFamily),
+    _sfShadowOffset(source._sfShadowOffset)
 {
 }
 

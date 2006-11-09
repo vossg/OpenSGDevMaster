@@ -43,11 +43,13 @@
 #endif
 
 #include "OSGSimpleStatisticsForegroundBase.h"
-#include "OSGTextTXFFace.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGTextureEnvChunk.h"
 
 OSG_BEGIN_NAMESPACE
+
+class TextTXFFace;
+class TextLayoutResult;
 
 /*! \brief Simple Statistics Foreground class. See \ref
     PageSystemWindowForegroundStatisticsSimple for a description.
@@ -136,8 +138,9 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
     template<class ContainerFactoryT>
     friend struct PtrConstructionFunctions;
 
-
     void initText(const std::string &family, Real32 size);
+
+    void drawCharacters(const TextLayoutResult &layoutResult) const;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleStatisticsForeground &source);
