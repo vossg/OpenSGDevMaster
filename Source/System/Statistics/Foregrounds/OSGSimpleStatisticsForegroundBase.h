@@ -68,6 +68,7 @@
 #include "OSGStringFields.h" // Formats type
 #include "OSGReal32Fields.h" // Size type
 #include "OSGColor4fFields.h" // Color type
+#include "OSGColor4fFields.h" // BgColor type
 #include "OSGStringFields.h" // Family type
 
 #include "OSGSimpleStatisticsForegroundFields.h"
@@ -116,7 +117,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
         FormatsFieldId = Inherited::NextFieldId,
         SizeFieldId = FormatsFieldId + 1,
         ColorFieldId = SizeFieldId + 1,
-        FamilyFieldId = ColorFieldId + 1,
+        BgColorFieldId = ColorFieldId + 1,
+        FamilyFieldId = BgColorFieldId + 1,
         NextFieldId = FamilyFieldId + 1
     };
 
@@ -126,6 +128,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
         (TypeTraits<BitVector>::One << SizeFieldId);
     static const OSG::BitVector ColorFieldMask = 
         (TypeTraits<BitVector>::One << ColorFieldId);
+    static const OSG::BitVector BgColorFieldMask = 
+        (TypeTraits<BitVector>::One << BgColorFieldId);
     static const OSG::BitVector FamilyFieldMask = 
         (TypeTraits<BitVector>::One << FamilyFieldId);
     static const OSG::BitVector NextFieldMask = 
@@ -156,55 +160,36 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
-           MFString *getMFFormats(void);
-#endif
            MFString *editMFFormats(void);
      const MFString *getMFFormats (void) const;
 
-#ifdef OSG_1_COMPAT
-           SFReal32 *getSFSize(void);
-#endif
            SFReal32 *editSFSize(void);
      const SFReal32 *getSFSize (void) const;
 
-#ifdef OSG_1_COMPAT
-           SFColor4f *getSFColor(void);
-#endif
            SFColor4f *editSFColor(void);
      const SFColor4f *getSFColor (void) const;
 
-#ifdef OSG_1_COMPAT
-           SFString *getSFFamily(void);
-#endif
+           SFColor4f *editSFBgColor(void);
+     const SFColor4f *getSFBgColor (void) const;
+
            SFString *editSFFamily(void);
      const SFString *getSFFamily (void) const;
 
 
-#ifdef OSG_1_COMPAT
-           std::string &getFormats(const UInt32 index);
-           MFString &getFormats(void);
-#endif
            std::string &editFormats(const UInt32 index);
      const std::string &getFormats (const UInt32 index) const;
            MFString &editFormats(void);
      const MFString &getFormats(void) const;
 
-#ifdef OSG_1_COMPAT
-           Real32 &getSize(void);
-#endif
            Real32 &editSize(void);
      const Real32 &getSize (void) const;
 
-#ifdef OSG_1_COMPAT
-           Color4f &getColor(void);
-#endif
            Color4f &editColor(void);
      const Color4f &getColor (void) const;
 
-#ifdef OSG_1_COMPAT
-           std::string &getFamily(void);
-#endif
+           Color4f &editBgColor(void);
+     const Color4f &getBgColor (void) const;
+
            std::string &editFamily(void);
      const std::string &getFamily (void) const;
 
@@ -215,6 +200,7 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
 
      void setSize(const Real32 &value);
      void setColor(const Color4f &value);
+     void setBgColor(const Color4f &value);
      void setFamily(const std::string &value);
 
     /*! \}                                                                 */
@@ -262,6 +248,7 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForegroundBase : public StatisticsFore
     MFString _mfFormats;
     SFReal32 _sfSize;
     SFColor4f _sfColor;
+    SFColor4f _sfBgColor;
     SFString _sfFamily;
 
     /*! \}                                                                 */

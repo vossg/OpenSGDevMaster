@@ -301,6 +301,15 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 
     glTranslatef(0.0, ph, 0.0);
 
+    // draw background
+    glColor4fv((GLfloat*)getBgColor().getValuesRGBA());
+    glBegin(GL_QUADS);
+        glVertex2f(0, -textHeight);
+        glVertex2f(textWidth, -textHeight);
+        glVertex2f(textWidth, 0);
+        glVertex2f(0, 0);
+    glEnd();
+
     // draw text
     glTranslatef(0.5 * size, -0.5 * size, 0.0);
 

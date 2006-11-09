@@ -90,13 +90,6 @@ const Real32 &SimpleStatisticsForegroundBase::getSize(void) const
     return _sfSize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
-inline
-Real32 &SimpleStatisticsForegroundBase::getSize(void)
-{
-    return this->editSize();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfSize field.
 inline
@@ -123,13 +116,6 @@ const Color4f &SimpleStatisticsForegroundBase::getColor(void) const
     return _sfColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
-inline
-Color4f &SimpleStatisticsForegroundBase::getColor(void)
-{
-    return this->editColor();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfColor field.
 inline
@@ -138,6 +124,32 @@ void SimpleStatisticsForegroundBase::setColor(const Color4f &value)
     editSField(ColorFieldMask);
 
     _sfColor.setValue(value);
+}
+//! Get the value of the SimpleStatisticsForeground::_sfBgColor field.
+
+inline
+Color4f &SimpleStatisticsForegroundBase::editBgColor(void)
+{
+    editSField(BgColorFieldMask);
+
+    return _sfBgColor.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfBgColor field.
+inline
+const Color4f &SimpleStatisticsForegroundBase::getBgColor(void) const
+{
+    return _sfBgColor.getValue();
+}
+
+
+//! Set the value of the SimpleStatisticsForeground::_sfBgColor field.
+inline
+void SimpleStatisticsForegroundBase::setBgColor(const Color4f &value)
+{
+    editSField(BgColorFieldMask);
+
+    _sfBgColor.setValue(value);
 }
 //! Get the value of the SimpleStatisticsForeground::_sfFamily field.
 
@@ -156,13 +168,6 @@ const std::string &SimpleStatisticsForegroundBase::getFamily(void) const
     return _sfFamily.getValue();
 }
 
-#ifdef OSG_1_COMPAT
-inline
-std::string &SimpleStatisticsForegroundBase::getFamily(void)
-{
-    return this->editFamily();
-}
-#endif
 
 //! Set the value of the SimpleStatisticsForeground::_sfFamily field.
 inline
@@ -197,20 +202,6 @@ MFString &SimpleStatisticsForegroundBase::editFormats(void)
     return _mfFormats;
 }
 
-#ifdef OSG_1_COMPAT
-inline
-std::string &SimpleStatisticsForegroundBase::getFormats(const UInt32 index)
-{
-    return this->editFormats(index);
-}
-
-inline
-MFString &SimpleStatisticsForegroundBase::getFormats(void)
-{
-    return this->editFormats();
-}
-
-#endif
 
 
 //! Get the SimpleStatisticsForeground::_mfFormats field.
@@ -257,6 +248,9 @@ void SimpleStatisticsForegroundBase::execSync(      SimpleStatisticsForegroundBa
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pOther->_sfColor);
 
+    if(FieldBits::NoField != (BgColorFieldMask & whichField))
+        _sfBgColor.syncWith(pOther->_sfBgColor);
+
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
         _sfFamily.syncWith(pOther->_sfFamily);
 }
@@ -283,6 +277,9 @@ void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundB
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pFrom->_sfColor);
+
+    if(FieldBits::NoField != (BgColorFieldMask & whichField))
+        _sfBgColor.syncWith(pFrom->_sfBgColor);
 
     if(FieldBits::NoField != (FamilyFieldMask & whichField))
         _sfFamily.syncWith(pFrom->_sfFamily);

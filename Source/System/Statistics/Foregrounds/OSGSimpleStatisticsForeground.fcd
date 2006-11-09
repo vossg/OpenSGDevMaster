@@ -41,6 +41,16 @@ Simple Statistics display. Just print all the selected elements in the upper lef
 	Color of the text.
 	</Field>
 	<Field
+		name="bgColor"
+		type="Color4f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0,0,0,0"
+		access="public"
+	>
+	Color of the background.
+	</Field>
+	<Field
 		name="family"
 		type="std::string"
 		cardinality="single"
