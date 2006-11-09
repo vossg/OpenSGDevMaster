@@ -244,6 +244,7 @@ void StatCollector::clearElems(void)
             *it = NULL;
         }
     }
+    _elemVec.clear();
 }
 
 /*! Reset all elements to the start value.
