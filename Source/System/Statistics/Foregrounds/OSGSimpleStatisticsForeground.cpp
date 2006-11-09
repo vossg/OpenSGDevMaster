@@ -206,7 +206,7 @@ void SimpleStatisticsForeground::initText(const std::string &family, Real32 size
 void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 {
     if (_face == 0)
-        initText(""/*getFamily()*/, getSize()); // TODO
+        initText(getFamily(), getSize());
 
     if (!getCollector().getNumOfElems() && !getElementIDs().size())
         return; // nothing to do

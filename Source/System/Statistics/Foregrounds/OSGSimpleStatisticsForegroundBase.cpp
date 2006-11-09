@@ -65,7 +65,7 @@
 #include "OSGSimpleStatisticsForegroundBase.h"
 #include "OSGSimpleStatisticsForeground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 // Field descriptions
 
@@ -79,6 +79,10 @@ OSG_USING_NAMESPACE
 */
 /*! \var Color4f SimpleStatisticsForegroundBase::_sfColor
     	Color of the text.
+
+*/
+/*! \var std::string SimpleStatisticsForegroundBase::_sfFamily
+    	The font family to be used, e.g. "SANS", default if unset.
 
 */
 
@@ -152,6 +156,28 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFString *(SimpleStatisticsForegroundBase::*GetSFFamilyF)(void) const;
+
+    GetSFFamilyF GetSFFamily = &SimpleStatisticsForegroundBase::getSFFamily;
+#endif
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(), 
+        "family", 
+        "	The font family to be used, e.g. \\\"SANS\\\", default if unset.\n",
+        FamilyFieldId, FamilyFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SimpleStatisticsForegroundBase::editSFFamily),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFFamily));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SimpleStatisticsForegroundBase::getSFFamily));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -176,7 +202,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
 "	parentsystemcomponent=\"true\"\n"
 "	decoratable=\"false\"\n"
 ">\n"
-"Simpe Statistics display. Just print all the selected elements in the upper right corner of the screen.\n"
+"Simple Statistics display. Just print all the selected elements in the upper left corner of the screen.\n"
 "	<Field\n"
 "		name=\"formats\"\n"
 "		type=\"std::string\"\n"
@@ -191,7 +217,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
 "		type=\"Real32\"\n"
 "		cardinality=\"single\"\n"
 "		visibility=\"external\"\n"
-"		defaultValue=\"25\"\n"
+"		defaultValue=\"16\"\n"
 "		access=\"public\"\n"
 "	>\n"
 "	Height of a single line, in  pixel.\n"
@@ -206,9 +232,18 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
 "	>\n"
 "	Color of the text.\n"
 "	</Field>\n"
+"	<Field\n"
+"		name=\"family\"\n"
+"		type=\"std::string\"\n"
+"		cardinality=\"single\"\n"
+"		visibility=\"external\"\n"
+"		access=\"public\"\n"
+"	>\n"
+"	The font family to be used, e.g. \"SANS\", default if unset.\n"
+"	</Field>\n"
 "</FieldContainer>\n"
 ,
-    "Simpe Statistics display. Just print all the selected elements in the upper right corner of the screen.\n" 
+    "Simple Statistics display. Just print all the selected elements in the upper left corner of the screen.\n" 
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -288,6 +323,25 @@ SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void)
 }
 #endif
 
+SFString *SimpleStatisticsForegroundBase::editSFFamily(void)
+{
+    editSField(FamilyFieldMask);
+
+    return &_sfFamily;
+}
+
+const SFString *SimpleStatisticsForegroundBase::getSFFamily(void) const
+{
+    return &_sfFamily;
+}
+
+#ifdef OSG_1_COMPAT
+SFString *SimpleStatisticsForegroundBase::getSFFamily(void)
+{
+    return this->editSFFamily();
+}
+#endif
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -307,6 +361,10 @@ UInt32 SimpleStatisticsForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
         returnValue += _sfColor.getBinSize();
+    }
+    if(FieldBits::NoField != (FamilyFieldMask & whichField))
+    {
+        returnValue += _sfFamily.getBinSize();
     }
 
     return returnValue;
@@ -329,6 +387,10 @@ void SimpleStatisticsForegroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfColor.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (FamilyFieldMask & whichField))
+    {
+        _sfFamily.copyToBin(pMem);
+    }
 }
 
 void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -347,6 +409,10 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
         _sfColor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FamilyFieldMask & whichField))
+    {
+        _sfFamily.copyFromBin(pMem);
     }
 }
 
@@ -376,8 +442,9 @@ FieldContainerPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
 SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(void) :
     Inherited(),
     _mfFormats(),
-    _sfSize(Real32(25)),
-    _sfColor(Color4f(1,1,1,1))
+    _sfSize(Real32(16)),
+    _sfColor(Color4f(1,1,1,1)),
+    _sfFamily()
 {
 }
 
@@ -385,7 +452,8 @@ SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(const SimpleStati
     Inherited(source),
     _mfFormats(source._mfFormats),
     _sfSize(source._sfSize),
-    _sfColor(source._sfColor)
+    _sfColor(source._sfColor),
+    _sfFamily(source._sfFamily)
 {
 }
 
@@ -453,6 +521,8 @@ void SimpleStatisticsForegroundBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -474,8 +544,6 @@ OSG_FIELDTRAITS_GETTYPE(SimpleStatisticsForegroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, SimpleStatisticsForegroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, SimpleStatisticsForegroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -496,3 +564,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSIMPLESTATISTICSFOREGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

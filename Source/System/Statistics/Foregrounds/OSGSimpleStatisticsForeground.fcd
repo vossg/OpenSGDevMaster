@@ -10,7 +10,7 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-Simpe Statistics display. Just print all the selected elements in the upper right corner of the screen.
+Simple Statistics display. Just print all the selected elements in the upper left corner of the screen.
 	<Field
 		name="formats"
 		type="std::string"
@@ -25,7 +25,7 @@ Simpe Statistics display. Just print all the selected elements in the upper righ
 		type="Real32"
 		cardinality="single"
 		visibility="external"
-		defaultValue="25"
+		defaultValue="16"
 		access="public"
 	>
 	Height of a single line, in  pixel.
@@ -39,5 +39,14 @@ Simpe Statistics display. Just print all the selected elements in the upper righ
 		access="public"
 	>
 	Color of the text.
+	</Field>
+	<Field
+		name="family"
+		type="std::string"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	The font family to be used, e.g. "SANS", default if unset.
 	</Field>
 </FieldContainer>

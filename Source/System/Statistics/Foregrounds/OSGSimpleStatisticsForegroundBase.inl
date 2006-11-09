@@ -139,6 +139,39 @@ void SimpleStatisticsForegroundBase::setColor(const Color4f &value)
 
     _sfColor.setValue(value);
 }
+//! Get the value of the SimpleStatisticsForeground::_sfFamily field.
+
+inline
+std::string &SimpleStatisticsForegroundBase::editFamily(void)
+{
+    editSField(FamilyFieldMask);
+
+    return _sfFamily.getValue();
+}
+
+//! Get the value of the SimpleStatisticsForeground::_sfFamily field.
+inline
+const std::string &SimpleStatisticsForegroundBase::getFamily(void) const
+{
+    return _sfFamily.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+std::string &SimpleStatisticsForegroundBase::getFamily(void)
+{
+    return this->editFamily();
+}
+#endif
+
+//! Set the value of the SimpleStatisticsForeground::_sfFamily field.
+inline
+void SimpleStatisticsForegroundBase::setFamily(const std::string &value)
+{
+    editSField(FamilyFieldMask);
+
+    _sfFamily.setValue(value);
+}
 
 //! Get the value of the \a index element the SimpleStatisticsForeground::_mfFormats field.
 inline
@@ -223,6 +256,9 @@ void SimpleStatisticsForegroundBase::execSync(      SimpleStatisticsForegroundBa
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pOther->_sfColor);
+
+    if(FieldBits::NoField != (FamilyFieldMask & whichField))
+        _sfFamily.syncWith(pOther->_sfFamily);
 }
 #endif
 
@@ -247,6 +283,9 @@ void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundB
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pFrom->_sfColor);
+
+    if(FieldBits::NoField != (FamilyFieldMask & whichField))
+        _sfFamily.syncWith(pFrom->_sfFamily);
 }
 #endif
 
