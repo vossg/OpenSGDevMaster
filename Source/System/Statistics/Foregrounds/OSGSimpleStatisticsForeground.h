@@ -99,6 +99,8 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
 
     void addElement(StatElemDescBase &desc, const Char8 *format = NULL);
     void addElement(Int32            id,    const Char8 *format = NULL);
+    void addText   (const char *text);
+    void clearElems(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

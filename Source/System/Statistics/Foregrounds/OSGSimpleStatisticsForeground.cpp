@@ -153,11 +153,25 @@ void SimpleStatisticsForeground::addElement(Int32 id, const char *format)
     editFormats().push_back(format ? format : "");
 }
 
+/*! Convenience function to add a line of text.
+*/
+void SimpleStatisticsForeground::addText(const char *text)
+{
+    addElement( -1, text );
+}
+
+/*! Convenience function to clear all elements.
+*/
+void SimpleStatisticsForeground::clearElems(void)
+{
+    editElementIDs().clear();
+    editFormats().clear();
+    editCollector().clearElems();
+}
+
 /*! Initialize the text used. It is compiled into the library as
     StatisticsDefaultFontData and used as a TXF font.
 */
-
-
 void SimpleStatisticsForeground::initText(const std::string &family, Real32 size)
 {
     // Cleanup
