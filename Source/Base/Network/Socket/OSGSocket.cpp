@@ -232,7 +232,7 @@ int Socket::recv(void *buf, int size)
 
     while(size)
     {
-        readSize = ::recv(_sd, static_cast<UInt8*>(buf) + pos, size, 0);
+        readSize = ::recv(_sd, static_cast<char *>(buf) + pos, size, 0);
         if(readSize < 0)
         {
 #if defined WIN32
@@ -274,7 +274,7 @@ int Socket::recvAvailable(void *buf, int size)
     do
     {
 #endif
-        len = ::recv(_sd, static_cast<UInt8*>(buf), size, 0);
+        len = ::recv(_sd, static_cast<char *>(buf), size, 0);
 #ifndef WIN32
     } 
     while(len < 0 && errno == EAGAIN);
@@ -334,7 +334,7 @@ int Socket::peek(void *buf, int size)
 
     while(size)
     {
-        readSize = ::recv(_sd, static_cast<UInt8*>(buf) + pos, size, MSG_PEEK);
+        readSize = ::recv(_sd, static_cast<char *>(buf) + pos, size, MSG_PEEK);
         if(readSize < 0)
         {
 #if defined WIN32
@@ -375,10 +375,10 @@ int Socket::send(const void *buf, int size)
     while(size)
     {
 #if defined(WIN32) && defined(MSG_NOSIGNAL)
-        writeSize = ::send(_sd, static_cast<const UInt8*>(buf) + pos,
+        writeSize = ::send(_sd, static_cast<const char *>(buf) + pos,
                            size, MSG_NOSIGNAL                        );
 #else
-        writeSize = ::send(_sd, static_cast<const UInt8*>(buf) + pos,
+        writeSize = ::send(_sd, static_cast<const char *>(buf) + pos,
                            size, 0                                   );
 #endif
         if(writeSize == -1)
@@ -425,10 +425,10 @@ void Socket::setReusePort(bool value)
     int v = static_cast<int>(value);
 #ifdef SO_REUSEPORT
     ::setsockopt(_sd, SOL_SOCKET, SO_REUSEPORT,
-                 static_cast<SocketOptT*>(&v), sizeof(v));
+                 reinterpret_cast<SocketOptT*>(&v), sizeof(v));
 #endif
     ::setsockopt(_sd, SOL_SOCKET, SO_REUSEADDR,
-                 static_cast<SocketOptT*>(&v), sizeof(v));
+                 reinterpret_cast<SocketOptT*>(&v), sizeof(v));
 }
 
 /*! By default all recv, send, accept calls will block until the operation
@@ -499,7 +499,7 @@ SocketAddress Socket::getAddress()
 void Socket::setReadBufferSize(int size)
 {
     ::setsockopt(_sd, SOL_SOCKET, SO_RCVBUF,
-                 static_cast<SocketOptT*>(&size), sizeof(size));
+                 reinterpret_cast<SocketOptT*>(&size), sizeof(size));
 }
 
 /*! Set the internal write buffer size.
@@ -511,7 +511,7 @@ void Socket::setReadBufferSize(int size)
 void Socket::setWriteBufferSize(int size)
 {
     ::setsockopt(_sd, SOL_SOCKET, SO_SNDBUF,
-                 static_cast<SocketOptT*>(&size), sizeof(size));
+                 reinterpret_cast<SocketOptT*>(&size), sizeof(size));
 }
 
 /*! Get internal read buffer size.
@@ -525,7 +525,7 @@ int Socket::getReadBufferSize()
     int        v;
     SocketLenT len = sizeof(v);
     ::getsockopt(_sd, SOL_SOCKET, SO_RCVBUF,
-                 static_cast<SocketOptT*>(&v), &len);
+                 reinterpret_cast<SocketOptT*>(&v), &len);
     return v;
 }
 
@@ -540,7 +540,7 @@ int Socket::getWriteBufferSize()
     int        v;
     SocketLenT len = sizeof(v);
     ::getsockopt(_sd, SOL_SOCKET, SO_SNDBUF,
-                 static_cast<SocketOptT*>(&v), &len);
+                 reinterpret_cast<SocketOptT*>(&v), &len);
     return v;
 }
 

@@ -99,11 +99,14 @@ SocketAddress::SocketAddress(SocketAddress::Type type,int port)
     _sockaddr.sin_family = AF_INET;
     switch(type)
     {
-        case ANY:       _sockaddr.sin_addr.s_addr = osgHostToNet(INADDR_ANY);
+        case ANY:       _sockaddr.sin_addr.s_addr = osgHostToNet(
+                            static_cast<UInt32>(INADDR_ANY));
                         break;
-        case BROADCAST: _sockaddr.sin_addr.s_addr = osgHostToNet(INADDR_BROADCAST);
+        case BROADCAST: _sockaddr.sin_addr.s_addr = osgHostToNet(
+                            static_cast<UInt32>(INADDR_BROADCAST));
                         break;
-        default:        _sockaddr.sin_addr.s_addr = osgHostToNet(INADDR_ANY);
+        default:        _sockaddr.sin_addr.s_addr = osgHostToNet(
+                            static_cast<UInt32>(INADDR_ANY));
     }
     setPort(port);
 }
@@ -195,7 +198,7 @@ std::string SocketAddress::getHostByName() const
  */ 
 bool SocketAddress::isMulticast(void)
 {
-    UInt32 addr = osgNetToHost(_sockaddr.sin_addr.s_addr);
+    UInt32 addr = osgNetToHost(static_cast<UInt32>(_sockaddr.sin_addr.s_addr));
     return addr & 0xC0000;
 }
 
