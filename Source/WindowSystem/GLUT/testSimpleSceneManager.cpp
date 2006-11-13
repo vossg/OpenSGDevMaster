@@ -144,6 +144,13 @@ void keyboard(unsigned char k, int , int )
         case 'w':
             mgr->setStatistics(false);
         break;
+        case 'r':
+        {
+            bool useTrav = !mgr->getUseTraversalAction();
+            mgr->setUseTraversalAction(useTrav);
+            printf("Using %s action.\n", useTrav ? "render traversal" : "render");
+        }
+        break;
     }
 }
 
