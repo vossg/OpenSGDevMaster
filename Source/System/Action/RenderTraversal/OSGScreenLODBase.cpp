@@ -82,7 +82,7 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(true,
 "<FieldContainer\n"
 "	name=\"ScreenLOD\"\n"
 "	parent=\"Group\"\n"
-"	library=\"Group\"\n"
+"	library=\"RenderTrav\"\n"
 "	pointerfieldtypes=\"none\"\n"
 "	structure=\"concrete\"\n"
 "	systemcomponent=\"true\"\n"

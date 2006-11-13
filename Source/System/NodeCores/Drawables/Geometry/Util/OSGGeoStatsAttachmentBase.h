@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -81,7 +81,7 @@ class GeoStatsAttachment;
 
 //! \brief GeoStatsAttachment Base Class.
 
-class OSG_SYSTEM_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
+class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
 {
   public:
 

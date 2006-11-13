@@ -145,7 +145,11 @@ Action::ResultE MaterialDrawableRenderEnter(const NodeCorePtr &pCore,
             }
             else
             {
+#ifndef WIN32
                 FINFO(("%s: hit material with NullFC state!\n", __func__));
+#else
+                FINFO(("Hit material with NullFC state!\n"));
+#endif
             }
         }
     }

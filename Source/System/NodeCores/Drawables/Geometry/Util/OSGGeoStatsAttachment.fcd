@@ -3,7 +3,7 @@
 <FieldContainer
 	name="GeoStatsAttachment"
 	parent="StatsAttachment"
-	library="System"
+	library="Drawable"
 	pointerfieldtypes="both"
 	structure="concrete"
 	systemcomponent="true"

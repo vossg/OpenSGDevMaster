@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class StatsAttachment;
 
 //! \brief StatsAttachment Base Class.
 
-class OSG_SYSTEM_DLLMAPPING StatsAttachmentBase : public FieldContainerAttachment
+class OSG_DRAWABLE_DLLMAPPING StatsAttachmentBase : public FieldContainerAttachment
 {
   public:
 

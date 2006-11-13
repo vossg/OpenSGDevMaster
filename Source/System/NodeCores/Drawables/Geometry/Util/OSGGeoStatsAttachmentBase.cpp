@@ -274,7 +274,7 @@ GeoStatsAttachmentBase::TypeObject GeoStatsAttachmentBase::_type(true,
 "<FieldContainer\n"
 "	name=\"GeoStatsAttachment\"\n"
 "	parent=\"StatsAttachment\"\n"
-"	library=\"System\"\n"
+"	library=\"Drawable\"\n"
 "	pointerfieldtypes=\"both\"\n"
 "	structure=\"concrete\"\n"
 "	systemcomponent=\"true\"\n"

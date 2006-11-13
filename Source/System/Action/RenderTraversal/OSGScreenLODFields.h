@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGRenderTravDef.h"
 
 #include "OSGGroupFields.h"
 

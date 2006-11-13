@@ -56,7 +56,7 @@ OSG_BEGIN_NAMESPACE
            PageGroupScreenLOD for a description.
 */
 
-class OSG_GROUP_DLLMAPPING ScreenLOD : public ScreenLODBase
+class OSG_RENDERTRAV_DLLMAPPING ScreenLOD : public ScreenLODBase
 {
   protected:
 

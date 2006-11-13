@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGDrawableDef.h"
 
 #include "OSGStatsAttachmentFields.h"
 
@@ -112,7 +112,7 @@ struct FieldTraits<GeoStatsAttachmentPtr> :
 
     enum                        { StringConvertable = 0x00 };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_DRAWABLE_DLLMAPPING 
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFGeoStatsAttachmentPtr"; }

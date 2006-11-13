@@ -603,7 +603,7 @@ StatisticsDefaultFontBase::StatisticsDefaultFontBase():
 #ifdef OSG_HAS_SSTREAM
     std::istringstream is(std::string(statisticsDefaultFontData, dataSize));
 #else
-    std::istrstream is(statisticsDefaultFontData, dataSize));
+    std::istrstream is(statisticsDefaultFontData);
 #endif
     _face = TextTXFFace::createFromStream(is, "Bitstream Vera Sans Mono", TextFace::STYLE_PLAIN);
     addRefP(_face);

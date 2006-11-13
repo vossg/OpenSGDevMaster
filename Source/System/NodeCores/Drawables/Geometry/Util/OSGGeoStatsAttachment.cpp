@@ -409,8 +409,8 @@ void GeoStatsAttachment::validate(void)
     setValid(true); // Done!
 }
 
-void GeoStatsAttachment::invalidateFunctor(FieldContainerPtrArg obj, 
-    ConstFieldMaskArg mask)
+void GeoStatsAttachment::invalidateFunctor(FieldContainerPtr obj,
+    BitVector mask)
 {
     invalidate(obj);
 }

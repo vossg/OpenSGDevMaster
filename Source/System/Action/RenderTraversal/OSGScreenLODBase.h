@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGRenderTravDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class ScreenLOD;
 
 //! \brief ScreenLOD Base Class.
 
-class OSG_GROUP_DLLMAPPING ScreenLODBase : public Group
+class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
 {
   public:
 

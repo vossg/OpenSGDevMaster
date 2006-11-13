@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemStatsAttachment for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING StatsAttachment : public StatsAttachmentBase
+class OSG_DRAWABLE_DLLMAPPING StatsAttachment : public StatsAttachmentBase
 {
   protected:
 

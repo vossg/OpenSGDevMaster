@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemGeoStatsAttachment for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
+class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
 {
   protected:
 
@@ -160,8 +160,8 @@ class OSG_SYSTEM_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
     /*! \name                  Update Helper                               */
     /*! \{                                                                 */
     
-    static void invalidateFunctor(FieldContainerPtrArg obj,
-                                  ConstFieldMaskArg mask);
+    static void invalidateFunctor(FieldContainerPtr obj,
+                                  BitVector mask);
     
     static void invalidate(FieldContainerPtrArg obj);
 

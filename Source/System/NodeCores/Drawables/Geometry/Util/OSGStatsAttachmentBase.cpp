@@ -82,7 +82,7 @@ StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(true,
 "<FieldContainer\n"
 "	name=\"StatsAttachment\"\n"
 "	parent=\"FieldContainerAttachment\"\n"
-"	library=\"System\"\n"
+"	library=\"Drawable\"\n"
 "	pointerfieldtypes=\"both\"\n"
 "	structure=\"abstract\"\n"
 "	systemcomponent=\"true\"\n"

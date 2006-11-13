@@ -3,7 +3,7 @@
 <FieldContainer
 	name="ScreenLOD"
 	parent="Group"
-	library="Group"
+	library="RenderTrav"
 	pointerfieldtypes="none"
 	structure="concrete"
 	systemcomponent="true"
