@@ -85,6 +85,7 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMap : public StringAttributeMapBase
     virtual void dump(      UInt32     uiIndent = 0, 
                       const BitVector  bvFlags  = 0) const;
 
+
     /*! \}                                                                 */
 
     inline const MFString& getKeys() const;
@@ -98,6 +99,7 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMap : public StringAttributeMapBase
     inline const std::string getAttribute(const std::string& key) const;
 
     inline std::string& operator[](const std::string& key);
+
 
     /*=========================  PROTECTED  ===============================*/
 
@@ -126,6 +128,7 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMap : public StringAttributeMapBase
 
     static void initMethod(InitPhase ePhase);
 
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
@@ -153,6 +156,12 @@ typedef StringAttributeMap::ObjConstPtrConst StringAttributeMapConstPtrConst;
 
 typedef StringAttributeMap::ObjPtrArg        StringAttributeMapPtrArg;
 typedef StringAttributeMap::ObjPtrConstArg   StringAttributeMapPtrConstArg;
+
+/*---------------------------------------------------------------------*/
+/*! \name              StringAttributeMap Util                         */
+/*! \{                                                                 */
+StringAttributeMapPtr stringAttributeMap(AttachmentContainerPtr container);
+/*! \}                                                                 */
 
 OSG_END_NAMESPACE
 
