@@ -40,26 +40,26 @@ class FCDContentHandler(xml.sax.handler.ContentHandler):
         
         for i, attrName in enumerate(attr.getNames()):
             self.m_log.debug("%s attr: %d - %s - %s", name, i, attrName, attr[attrName]);
-            self.m_elemStack.top().setFCDEntry(attrName, attr[attrName]);
+            self.m_elemStack.top().setFCD(attrName, attr[attrName]);
         
     def endElement(self, name):
         self.m_log.debug("endElement: %s", name);
         
-        desc = self.m_elemStack.top().getFCDEntry("description");
+        desc = self.m_elemStack.top().getFCD("description");
         if  desc != None:
-            self.m_elemStack.top().setFCDEntry("description", desc.strip());
+            self.m_elemStack.top().setFCD("description", desc.strip());
         
         self.m_elemStack.pop();
     
     def characters(self, content):
         self.m_log.debug("characters: |%s|", content);
         
-        currDesc = self.m_elemStack.top().getFCDEntry("description");
+        currDesc = self.m_elemStack.top().getFCD("description");
         if currDesc == None:
-            self.m_elemStack.top().setFCDEntry("description", content);
+            self.m_elemStack.top().setFCD("description", content.lstrip());
         else:
-            currDesc = currDesc + content;
-            self.m_elemStack.top().setFCDEntry("description", currDesc);
+            currDesc = currDesc + content.lstrip();
+            self.m_elemStack.top().setFCD("description", currDesc);
         
 
 class FCDReader:
@@ -80,14 +80,7 @@ class FCDReader:
         fcdContents = fcdFile.readlines();
         fcdFile.close();
         
-        for i, line in enumerate(fcdContents):
-            line = line.replace("\\", "\\\\");
-            line = line.replace("\n", "\\n");
-            line = line.replace("\"", "\\\"");
-            line = "\"" + line + "\"";
-            fcdContents[i] = line;
-        
-        self.m_container["Fcdxml"] = "\n".join(fcdContents);
+        self.m_container.setFCDContents(fcdContents);
     
     def setFieldContainer(self, fc):
         self.m_container = fc;

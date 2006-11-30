@@ -80,6 +80,14 @@
 
 OSG_BEGIN_NAMESPACE
 
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::@!Classname!@
+    @!Description!@
+ */
+
 @@if hasFields
 // Field descriptions
 
@@ -129,7 +137,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     pDesc = new @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@::Description(
         @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@::getClassType(),
         "@!field.DescName!@",
-        "@!field.SafeDescription!@",
+        @!field.SafeDescription!@,
         @!field.Name!@FieldId, @!field.Name!@FieldMask,
         @!field.Visibility!@,
         @!field.Flags!@,
@@ -177,7 +185,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 @@endif
     false,
     @!Fcdxml!@,
-    "@!SafeDescription!@"
+    @!SafeDescription!@
     );
 
 /*------------------------------ get -----------------------------------*/

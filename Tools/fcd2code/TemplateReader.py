@@ -26,3 +26,4 @@ class TemplateReader:
         fileObj.close();
         
         return self.m_lines[:];
+    

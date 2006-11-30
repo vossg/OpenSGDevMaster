@@ -100,7 +100,7 @@ class FCDProcess:
         fcdFile   = OptionHandler.getOptionArg("fcdFile");
                 
         fcdReader.read(fcdFile);
-        fcdReader.getFieldContainer().dumpValues();
+        fcdReader.getFieldContainer()._dumpValues();
         
         fieldContainer = fcdReader.getFieldContainer();
         lookupDicts.append(fieldContainer);

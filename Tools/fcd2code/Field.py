@@ -2,98 +2,62 @@
 import re;
 import logging;
 
-class Field:
-    """Represents all information read from a .fcd file for a Field.
-       The data from the .fcd file is stored in the m_fcdDict dictionary via
-       setFCDEntry/getFCDEntry and during finalization the actual data used by
-       the templates is filled into m_dict, which can be accessed via the []
-       operator.
-    """
+from FCDElement import FCDElement;
 
+class Field(FCDElement):
+    """Represents a <Field/> element from a .fcd file.
+    """
+    
     def __init__(self):
-        self.m_log = logging.getLogger("Field");
+        super(Field, self).__init__();
+        self.m_log            = logging.getLogger("Field");
         self.m_fieldContainer = None;
-        self.m_fcdDict        = {};
-        self.m_dict           = {};
         
         self.initFCDDict();
     
     def initFCDDict(self):
         """Sets the fcd dictionary to default values.
         """
-        self.m_fcdDict = dict([ ("name",                     None),
-                                ("type",                     None),
-                                ("typeNamespace",            ""),
-                                ("cardinality",              None),
-                                ("visibility",               "external"),
-                                ("flags",                    ""),
-                                ("defaultValue",             None),
-                                ("access",                   "public"),
-                                ("defaultHeader",            None),
-                                ("header",                   "(AUTO)"),
-                                ("description",              ""),
-                                ("checkNilPtr",              "true"),
-                                ("linkSParent",              "false"),
-                                ("linkMParent",              "false"),
-                                ("doRefCount",               "true"),
-                                ("passFieldMask",            "false"),
-                                ("removeTo",                 ""),
-                                ("removeToSet",              "false"),
-                                ("clearMField",              "true"),
-                                ("pushToField",              ""),
-                                ("insertIntoMField",         ""),
-                                ("replaceInMFieldIndex",     ""),
-                                ("replaceInMFieldObject",    ""),
-                                ("removeFromMFieldIndex",    ""),
-                                ("removeFromMFieldObject",   ""),
-                                ("clearField",               ""),
-                                ("pushToFieldAs",            ""),
-                                ("insertIntoMFieldAs",       ""),
-                                ("replaceInMFieldIndexAs",   ""),
-                                ("replaceInMFieldObjectAs",  ""),
-                                ("removeFromMFieldIndexAs",  ""),
-                                ("removeFromMFieldObjectAs", ""),
-                                ("clearFieldAs",             ""),
-                                ("needClassInclude",         "true") ]);
+        self.setFCD("name",                     "");
+        self.setFCD("type",                     "");
+        self.setFCD("typeNamespace",            "");
+        self.setFCD("cardinality",              "");
+        self.setFCD("visibility",               "external");
+        self.setFCD("fieldFlags",               "");
+        self.setFCD("defaultValue",             "");
+        self.setFCD("access",                   "public");
+        self.setFCD("defaultHeader",            "");
+        self.setFCD("header",                   "(AUTO)");
+        self.setFCD("description",              "");
+        self.setFCD("checkNilPtr",              "true");
+        self.setFCD("linkSParent",              "false");
+        self.setFCD("linkMParent",              "false");
+        self.setFCD("doRefCount",               "true");
+        self.setFCD("passFieldMask",            "false");
+        self.setFCD("removeTo",                 "");
+        self.setFCD("removeToSet",              "false");
+        self.setFCD("clearMField",              "true");
+        self.setFCD("pushToField",              "");
+        self.setFCD("insertIntoMField",         "");
+        self.setFCD("replaceInMFieldIndex",     "");
+        self.setFCD("replaceInMFieldObject",    "");
+        self.setFCD("removeFromMFieldIndex",    "");
+        self.setFCD("removeFromMFieldObject",   "");
+        self.setFCD("clearField",               "");
+        self.setFCD("pushToFieldAs",            "");
+        self.setFCD("insertIntoMFieldAs",       "");
+        self.setFCD("replaceInMFieldIndexAs",   "");
+        self.setFCD("replaceInMFieldObjectAs",  "");
+        self.setFCD("removeFromMFieldIndexAs",  "");
+        self.setFCD("removeFromMFieldObjectAs", "");
+        self.setFCD("clearFieldAs",             "");
+        self.setFCD("needClassInclude",         "true");
     
     def setFieldContainer(self, container):
         self.m_fieldContainer = container;
     
     def getFieldContainer(self):
         return self.m_fieldContainer;
-    
-    #
-    # Modify the input (fcd) dictionary
-    
-    def setFCDEntry(self, fcdName, fcdValue):
-        self.m_fcdDict[fcdName] = fcdValue;
-    
-    def getFCDEntry(self, fcdName):
-        return self.m_fcdDict.get(fcdName, None);
-    
-    #
-    # Modify the output dictionary
-    
-    def setEntry(self, name, value):
-        self.m_dict[name] = value;
-    
-    def getEntry(self, name):
-        return self.m_dict.get(name, None);
-    
-    #
-    # Emulate a mapping type - gives access to the output dictionary
-    
-    def __getitem__(self, key):
-        return self.getEntry(key);
-    
-    def __setitem__(self, key, value):
-        self.setEntry(key, value);
-    
-    def has_key(self, key):
-        return self.m_dict.has_key(key);
-    
-    def __contains__(self, key):
-        return (key in self.m_dict);
     
     #
     # Common tests
@@ -120,9 +84,9 @@ class Field:
     # Fill out dictionary from in (fcd) dictionary
     
     def finalize(self):
-        fullType  = self.getFCDEntry("type");
-        typeName  = self.getFCDEntry("type");
-        namespace = self.getFCDEntry("typeNamespace");
+        fullType  = self.getFCD("type");
+        typeName  = self.getFCD("type");
+        namespace = self.getFCD("typeNamespace");
         
         if namespace != None and namespace != "":
             if namespace.endswith("::"):
@@ -146,82 +110,79 @@ class Field:
         self["TypeCaps"]      = typeName[0].upper() + typeName[1:];
         self["TypeNamespace"] = namespace;
         
-        self["Name"]          = self.getFCDEntry("name")[0].upper() + self.getFCDEntry("name")[1:];
-        self["DescName"]      = self.getFCDEntry("name");
+        self["Name"]          = self.getFCD("name")[0].upper() + self.getFCD("name")[1:];
+        self["DescName"]      = self.getFCD("name");
         
         self["isPrivate"]   = False;
         self["isProtected"] = False;
         self["isPublic"]    = False;
         
-        if self.getFCDEntry("access") == "private":
+        if self.getFCD("access") == "private":
             self["isPrivate"] = True;
-        elif self.getFCDEntry("access") == "protected":
+        elif self.getFCD("access") == "protected":
             self["isProtected"] = True;
-        elif self.getFCDEntry("access") == "public":
+        elif self.getFCD("access") == "public":
             self["isPublic"] = True;
         else:
             self.m_log.warning("finalize: \"access\" has invalid value: %s", 
-                self.getFCDEntry("access"));
+                self.getFCD("access"));
         
         self["isSField"] = False;
         self["isMField"] = False;
         
-        if self.getFCDEntry("cardinality") == "single":
+        if self.getFCD("cardinality") == "single":
             self["isSField"] = True;
             self["CARD"]     = "SF";
             self["VarName"]  = "sf" + self["Name"];
-        elif self.getFCDEntry("cardinality") == "multi":
+        elif self.getFCD("cardinality") == "multi":
             self["isMField"] = True;
             self["CARD"]     = "MF";
             self["VarName"]  = "mf" + self["Name"];
         else:
             self.m_log.warning("finalize: \"cardinality\" has invalid value: %s",
-                self.getFCDEntry("cardinality"));
+                self.getFCD("cardinality"));
         
         if self["Type"].endswith("Ptr"):
             self["isPtrField"] = True;
         else:
             self["isPtrField"] = False;
         
-        # escape character sequences not allowed in a C string.
-        safeDesc = self.getFCDEntry("description");
-        safeDesc = safeDesc.replace("\\", "\\\\");
-        safeDesc = safeDesc.replace("\t", "\\t");
-        safeDesc = safeDesc.replace("\n", "\\n");
-        safeDesc = safeDesc.replace("\"", "\\\"");
+        if self.getFCD("description") == "":
+            self["Description"]     = "";
+            self["SafeDescription"] = "";
+        else:
+            self["Description"]     = self._formatString    (self.getFCD("description"), 4)
+            self["SafeDescription"] = self._formatSafeString(self.getFCD("description"), 8)
         
-        self["Description"]     = self.getFCDEntry("description");
-        self["SafeDescription"] = safeDesc;
-        
-        if self.getFCDEntry("doRefCount") == "true":
+        if self.getFCD("doRefCount") == "true":
             self["doRefCount"] = True;
         else:
             self["doRefCount"] = False;
         
-        if self.getFCDEntry("linkSParent") == "true":
+        if self.getFCD("linkSParent") == "true":
             self["linkSParent"] = True;
         else:
             self["linkSParent"] = False;
         
-        if self.getFCDEntry("linkMParent") == "true":
+        if self.getFCD("linkMParent") == "true":
             self["linkMParent"] = True;
         else:
             self["linkMParent"] = False;
         
-        if self.getFCDEntry("checkNilPtr") == "true":
+        if self.getFCD("checkNilPtr") == "true":
             self["checkNilPtr"] = True;
         else:
             self["checkNilPtr"] = False;
         
-        if self.getFCDEntry("passFieldMask") == "true":
+        if self.getFCD("passFieldMask") == "true":
             self["PassFieldMask"] = True;
         else:
             self["PassFieldMask"] = False;
         
         typeInclude = "";
         
-        if ((self.getFCDEntry("header") == "")      or
-            (self.getFCDEntry("header") == "(AUTO)")  ):
+        if ((self.getFCD("header") == "")      or
+            (self.getFCD("header") == "(AUTO)")  ):
             if self.getFieldContainer().isSystemComponent():
                 typeInclude = "OSG";
             else:
@@ -236,7 +197,7 @@ class Field:
             typeInclude = typeInclude + "Fields.h";
             
         else:
-            typeInclude = self.getFCDEntry("header");
+            typeInclude = self.getFCD("header");
         
         self["TypeInclude"] = typeInclude;
         
@@ -245,53 +206,49 @@ class Field:
         else:
             self["MethodType"] = "";
         
-        if ((self.getFCDEntry("defaultHeader") != None) and
-            (self.getFCDEntry("defaultHeader") != ""  )    ):
+        if self.getFCD("defaultHeader") != "":
             self["hasDefaultHeader"] = True;
             
-            if ((self.getFCDEntry("defaultHeader").find("\"") == -1) and
-                (self.getFCDEntry("defaultHeader").find("<")  == -1)    ):
-                self["DefaultHeader"] = "\"" + self.getFCDEntry("defaultHeader") + "\"";
+            if ((self.getFCD("defaultHeader").find("\"") == -1) and
+                (self.getFCD("defaultHeader").find("<")  == -1)    ):
+                self["DefaultHeader"] = "\"" + self.getFCD("defaultHeader") + "\"";
             else:
-                self["DefaultHeader"] = self.getFCDEntry("defaultHeader");
+                self["DefaultHeader"] = self.getFCD("defaultHeader");
         else:
             self["hasDefaultHeader"] = False;
         
-        if ((self.getFCDEntry("defaultValue") != None) and
-            (self.getFCDEntry("defaultValue") != ""  )    ):
+        if self.getFCD("defaultValue") != "":
             self["TypedDefault"] = \
                 self["TypeNamespace"] + self["Type"] + "(" + \
-                self.getFCDEntry("defaultValue") + ")";
+                self.getFCD("defaultValue") + ")";
         else:
             self["TypedDefault"] = "";
         
-        if self.getFCDEntry("visibility") == "external":
+        if self.getFCD("visibility") == "external":
             self["Visibility"] = "false";
-        elif self.getFCDEntry("visibility") == "internal":
+        elif self.getFCD("visibility") == "internal":
             self["Visibility"] = "true";
         else:
             self.m_log.warning("finalize: \"visibility\" has invalid value: %s",
-                self.getFCDEntry("visibility"));
+                self.getFCD("visibility"));
         
         fieldFlagsOverride = False;
         flags              = None,
         
         if self.isSField():
-            if ((self.getFCDEntry("fieldFlags") != None) and
-                (self.getFCDEntry("fieldFlags") != ""  )    ):
+            if self.getFCD("fieldFlags") != "":
                 fieldFlagsOverride = True;
             else:
                 flags = "Field::SFDefaultFlags";
             
         elif self.isMField():
-            if ((self.getFCDEntry("fieldFlags") != None) and
-                (self.getFCDEntry("fieldFlags") != ""  )    ):
+            if self.getFCD("fieldFlags") != "":
                 fieldFlagsOverride = True;
             else:
                 flags = "Field::MFDefaultFlags";
         
         if fieldFlagsOverride:
-            flagsFCD = self.getFCDEntry("fieldFlags").split(",");
+            flagsFCD = self.getFCD("fieldFlags").split(",");
             numFlags = len(flagsFCD);
             
             flags = "(";
@@ -317,7 +274,7 @@ class Field:
             
             flags = flags + ")";
         
-        self["Flags"]           = flags;
+        self["Flags"] = flags;
         
         self["writePushToField"]            = False;
         self["writeInsertIntoMField"]       = False;
@@ -327,78 +284,78 @@ class Field:
         self["writeRemoveFromMFieldObject"] = False;
         self["writeClearField"]             = False;
         
-        if self.getFCDEntry("pushToField") == "":
+        if self.getFCD("pushToField") == "":
             self["writePushToField"] = True;
-            if self.getFCDEntry("pushToFieldAs") == "":
+            if self.getFCD("pushToFieldAs") == "":
                 self["PushToField"] = "pushTo" + self["Name"];
             else:
-                self["PushToField"] = self.getFCDEntry("pushToFieldAs");
+                self["PushToField"] = self.getFCD("pushToFieldAs");
         else:
-            self["PushToField"] = self.getFCDEntry("pushToField");
+            self["PushToField"] = self.getFCD("pushToField");
         
-        if self.getFCDEntry("insertIntoMField") == "":
+        if self.getFCD("insertIntoMField") == "":
             self["writeInsertIntoMField"] = True;
-            if self.getFCDEntry("insertIntoMFieldAs") == "":
+            if self.getFCD("insertIntoMFieldAs") == "":
                 self["InsertIntoMField"] = "insertInto" + self["Name"];
             else:
-                self["InsertIntoMField"] = self.getFCDEntry("insertIntoMFieldAs");
+                self["InsertIntoMField"] = self.getFCD("insertIntoMFieldAs");
         else:
-            self["InsertIntoMField"] = self.getFCDEntry("insertIntoMField");
+            self["InsertIntoMField"] = self.getFCD("insertIntoMField");
         
-        if self.getFCDEntry("replaceInMFieldIndex") == "":
+        if self.getFCD("replaceInMFieldIndex") == "":
             self["writeReplaceInMFieldIndex"] = True;
-            if self.getFCDEntry("replaceInMFieldIndexAs") == "":
+            if self.getFCD("replaceInMFieldIndexAs") == "":
                 self["ReplaceInMFieldIndex"] = "replaceIn" + self["Name"];
             else:
-                self["ReplaceInMFieldIndex"] = self.getFCDEntry("replaceInMFieldIndexAs");
+                self["ReplaceInMFieldIndex"] = self.getFCD("replaceInMFieldIndexAs");
         else:
-            self["ReplaceInMFieldIndex"] = self.getFCDEntry("replaceInMFieldIndex");
+            self["ReplaceInMFieldIndex"] = self.getFCD("replaceInMFieldIndex");
         
-        if self.getFCDEntry("replaceInMFieldObject") == "":
+        if self.getFCD("replaceInMFieldObject") == "":
             self["writeReplaceInMFieldObject"] = True;
-            if self.getFCDEntry("replaceInMFieldObjectAs") == "":
+            if self.getFCD("replaceInMFieldObjectAs") == "":
                 self["ReplaceInMFieldObject"] = "replaceIn" + self["Name"];
             else:
-                self["ReplaceInMFieldObject"] = self.getFCDEntry("replaceInMFieldObjectAs");
+                self["ReplaceInMFieldObject"] = self.getFCD("replaceInMFieldObjectAs");
         else:
-            self["ReplaceInMFieldObject"] = self.getFCDEntry("replaceInMFieldObject");
+            self["ReplaceInMFieldObject"] = self.getFCD("replaceInMFieldObject");
         
-        if self.getFCDEntry("removeFromMFieldIndex") == "":
+        if self.getFCD("removeFromMFieldIndex") == "":
             self["writeRemoveFromMFieldIndex"] = True;
-            if self.getFCDEntry("removeFromMFieldIndexAs") == "":
+            if self.getFCD("removeFromMFieldIndexAs") == "":
                 self["RemoveFromMFieldIndex"] = "removeFrom" + self["Name"];
             else:
-                self["RemoveFromMFieldIndex"] = self.getFCDEntry("removeFromMFieldIndexAs");
+                self["RemoveFromMFieldIndex"] = self.getFCD("removeFromMFieldIndexAs");
         else:
-            self["RemoveFromMFieldIndex"] = self.getFCDEntry("removeFromMFieldIndex");
+            self["RemoveFromMFieldIndex"] = self.getFCD("removeFromMFieldIndex");
         
-        if self.getFCDEntry("removeFromMFieldObject") == "":
+        if self.getFCD("removeFromMFieldObject") == "":
             self["writeRemoveFromMFieldObject"] = True;
-            if self.getFCDEntry("removeFromMFieldObjectAs") == "":
+            if self.getFCD("removeFromMFieldObjectAs") == "":
                 self["RemoveFromMFieldObject"] = "removeFrom" + self["Name"];
             else:
-                self["RemoveFromMFieldObject"] = self.getFCDEntry("removeFromMFieldObjectAs");
+                self["RemoveFromMFieldObject"] = self.getFCD("removeFromMFieldObjectAs");
         else:
-            self["RemoveFromMFieldObject"] = self.getFCDEntry("removeFromMFieldObject");
+            self["RemoveFromMFieldObject"] = self.getFCD("removeFromMFieldObject");
         
-        if self.getFCDEntry("clearField") == "":
+        if self.getFCD("clearField") == "":
             self["writeClearField"] = True;
-            if self.getFCDEntry("clearFieldAs") == "":
+            if self.getFCD("clearFieldAs") == "":
                 self["ClearField"] = "clear" + self["Name"];
             else:
-                self["ClearField"] = self.getFCDEntry("clearFieldAs");
+                self["ClearField"] = self.getFCD("clearFieldAs");
         else:
-            self["ClearField"] = self.getFCDEntry("clearField");
+            self["ClearField"] = self.getFCD("clearField");
         
-        if self.getFCDEntry("removeTo") != "":
-            self.setFCDEntry("removeToSet", True);
+        if self.getFCD("removeTo") != "":
+            self.setFCD("removeToSet", True);
             self["isRemoveToSet"]         = True;
-            self["RemoveTo"]              = self.getFCDEntry("removeTo");
+            self["RemoveTo"]              = self.getFCD("removeTo");
         else:
-            self.setFCDEntry("removeToSet", False);
+            self.setFCD("removeToSet", False);
             self["isRemoveToSet"]         = False;
         
-        if self.getFCDEntry("clearMField") == "true":
+        if self.getFCD("clearMField") == "true":
             self["doClearMField"] = True;
         else:
             self["doClearMField"] = False;
@@ -422,12 +379,7 @@ class Field:
             self["ClassInclude"]     = classInclude;
             self["needClassInclude"] = True;
         
-    def dumpValues(self):
-        self.m_log.info("Field dumpValues: fcdDict:");
-        for key, value in self.m_fcdDict.iteritems():
-            self.m_log.info(key + "   >" + str(value) + "<");
-        
-        self.m_log.info("  Field dumpValues: Dict:");
-        for key, value in self.m_dict.iteritems():
-            self.m_log.info("  " + key + "   >"+ str(value) + "<");
-            
+    def _dumpValues(self):
+        self.m_log.info("Field dumpValues:");
+        super(Field, self)._dumpValues(self.m_log);
+    

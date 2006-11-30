@@ -24,3 +24,4 @@ class TemplateWriter:
         
         self.m_log.debug("write: closing file.");
         fileObj.close();
+    

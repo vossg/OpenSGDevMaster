@@ -33,3 +33,4 @@ class ListStack:
         """Removes all elements from the stack.
         """
         self.m_stack = [];
+    
