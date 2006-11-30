@@ -1,0 +1,97 @@
+
+import xml.sax.handler;
+import logging;
+
+from ListStack import ListStack;
+from FieldContainer import FieldContainer;
+from Field import Field;
+
+class FCDContentHandler(xml.sax.handler.ContentHandler):
+    """A SAX-parser content handler class for .fcd files
+    """
+    
+    def __init__(self, reader):
+        self.m_log       = logging.getLogger("FCDContentHandler");
+        self.m_reader    = reader;
+        self.m_container = None;
+        self.m_elemStack = ListStack();
+    
+    def startDocument(self):
+        self.m_log.debug("startDocument");
+    
+    def endDocument(self):
+        self.m_log.debug("endDocument");
+        self.m_container.finalize();
+        self.m_reader.setFieldContainer(self.m_container);
+    
+    def startElement(self, name, attr):
+        self.m_log.debug("startElement: %s", name);
+        if name == "FieldContainer":
+            container = FieldContainer();
+            self.m_container = container;
+            self.m_elemStack.push(container);
+        elif name == "Field":
+            field = Field();
+            self.m_elemStack.top().addField(field);
+            self.m_elemStack.push(field);
+        else:
+            self.m_log.error("startElement: unknown element: %s", name);
+            return;
+        
+        for i, attrName in enumerate(attr.getNames()):
+            self.m_log.debug("%s attr: %d - %s - %s", name, i, attrName, attr[attrName]);
+            self.m_elemStack.top().setFCDEntry(attrName, attr[attrName]);
+        
+    def endElement(self, name):
+        self.m_log.debug("endElement: %s", name);
+        
+        desc = self.m_elemStack.top().getFCDEntry("description");
+        if  desc != None:
+            self.m_elemStack.top().setFCDEntry("description", desc.strip());
+        
+        self.m_elemStack.pop();
+    
+    def characters(self, content):
+        self.m_log.debug("characters: |%s|", content);
+        
+        currDesc = self.m_elemStack.top().getFCDEntry("description");
+        if currDesc == None:
+            self.m_elemStack.top().setFCDEntry("description", content);
+        else:
+            currDesc = currDesc + content;
+            self.m_elemStack.top().setFCDEntry("description", currDesc);
+        
+
+class FCDReader:
+    """Reader for .fcd files - calls a SAX parser with the FCDContentHandler
+    """
+    
+    def read(self, fileName):
+        
+        self.m_container = None;
+        
+        self.m_fcdCH = FCDContentHandler(self);
+        self.m_parser = xml.sax.make_parser();
+        self.m_parser.setContentHandler(self.m_fcdCH);
+        
+        self.m_parser.parse(fileName);
+        
+        fcdFile     = open(fileName, "r");
+        fcdContents = fcdFile.readlines();
+        fcdFile.close();
+        
+        for i, line in enumerate(fcdContents):
+            line = line.replace("\\", "\\\\");
+            line = line.replace("\n", "\\n");
+            line = line.replace("\"", "\\\"");
+            line = "\"" + line + "\"";
+            fcdContents[i] = line;
+        
+        self.m_container["Fcdxml"] = "\n".join(fcdContents);
+    
+    def setFieldContainer(self, fc):
+        self.m_container = fc;
+    
+    def getFieldContainer(self):
+        return self.m_container;
+    

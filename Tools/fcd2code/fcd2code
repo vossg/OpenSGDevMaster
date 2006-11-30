@@ -1,0 +1,274 @@
+#! /usr/bin/python
+
+import sys;
+import xml.sax;
+import os;
+import os.path;
+
+import logging;
+
+from OptionHandler import OptionHandler;
+from FCDReader import FCDReader;
+
+from TemplateReader import TemplateReader;
+from TemplateWriter import TemplateWriter;
+from TemplateFiller import TemplateFiller;
+
+class FCDProcess:
+    """Class containing the main functionality of fcd2code.
+    """
+    
+    def __init__(self):
+        self.m_log = logging.getLogger("FCDProcess");
+        
+        self.m_decBaseTemplateName    = "TemplateFieldContainerBase_h.txt";
+        self.m_inlBaseTemplateName    = "TemplateFieldContainerBase_inl.txt";
+        self.m_impBaseTemplateName    = "TemplateFieldContainerBase_cpp.txt";
+        
+        self.m_fieldsBaseTemplateName = "TemplateFieldContainerFields_h.txt";
+        
+        self.m_decTemplateName        = "TemplateFieldContainer_h.txt";
+        self.m_inlTemplateName        = "TemplateFieldContainer_inl.txt";
+        self.m_impTemplateName        = "TemplateFieldContainer_cpp.txt";
+        
+        self.m_filePrefix    = "OSG";
+        self.m_decFileSuffix = ".h";
+        self.m_inlFileSuffix = ".inl";
+        self.m_impFileSuffix = ".cpp";
+    
+    def run(self):
+        """Handles the complete program invocation.
+        """
+        
+        # parse the commandline options
+        args = sys.argv[:];
+        
+        if len(args) <= 1:
+            args.append("-h");
+        
+        OptionHandler.setup();
+        OptionHandler.parse(args);
+        
+        lookupDicts = [];
+        outPath     = ".";
+        rootPath    = "";
+        tmplPath    = ".";
+        
+        # setup logging - depends on the verbose command line option.
+        if OptionHandler.getOptionActive("verbose"):
+            logging.basicConfig(level=logging.DEBUG,
+                                format="%(levelname)s %(name)s %(message)s");
+            self.m_log.info("Enabling verbose output");
+        else:
+            logging.basicConfig(level=logging.WARNING,
+                                format="%(levelname)s %(name)s %(message)s");
+        
+        # special case for missing .fcd file - print usage info
+        if not OptionHandler.getOptionActive("fcdFile"):
+            self.m_log.error("No fcd file given.");
+            OptionHandler.parse(["-h"]);
+            return;
+        
+        # setup output path
+        if OptionHandler.getOptionActive("outPath"):
+            outPath = OptionHandler.getOptionArg("outPath");
+            self.m_log.info("Setting outPath \"%s\"", outPath);
+        
+        # setup root path
+        if OptionHandler.getOptionActive("rootPath"):
+            rootPath = OptionHandler.getOptionArg("rootPath");
+            self.m_log.info("Setting rootPath \"%s\"", rootPath);
+        
+        if rootPath == "":
+            if os.environ.has_key("OSG_ROOT"):
+                rootPath = os.environ["OSG_ROOT"];
+            else:
+                rootPath = os.getcwd();
+                rootPath = rootPath.replace("/Tools/fcd2code", "");
+        
+        if rootPath != "":
+            tmplPath = os.path.join(rootPath, "Tools/fcd2code");
+            self.m_log.info("Setting tmplPath \"%s\"", tmplPath);
+        
+        # setup compatibility mode
+        if OptionHandler.getOptionActive("compatMode"):
+            self.m_log.info("Enabling compatMode");
+            lookupDicts.append(dict([("CompatOneSix", True)]));
+        
+        # read the .fcd file
+        fcdReader = FCDReader();
+        fcdFile   = OptionHandler.getOptionArg("fcdFile");
+                
+        fcdReader.read(fcdFile);
+        fcdReader.getFieldContainer().dumpValues();
+        
+        fieldContainer = fcdReader.getFieldContainer();
+        lookupDicts.append(fieldContainer);
+        
+        # write out base files
+        if OptionHandler.getOptionActive("writeBase"):
+            nameBaseCPP = os.path.join(tmplPath, self.m_impBaseTemplateName);
+            nameBaseINL = os.path.join(tmplPath, self.m_inlBaseTemplateName);
+            nameBaseH   = os.path.join(tmplPath, self.m_decBaseTemplateName);
+            nameFieldsH = os.path.join(tmplPath, self.m_fieldsBaseTemplateName);
+            
+            if self._verifyFile(nameBaseCPP):
+                tmplBaseCPP = TemplateReader(nameBaseCPP).read();
+            else:
+                return;
+            
+            if self._verifyFile(nameBaseINL):
+                tmplBaseINL = TemplateReader(nameBaseINL).read();
+            else:
+                return;
+            
+            if self._verifyFile(nameBaseH):
+                tmplBaseH   = TemplateReader(nameBaseH).read();
+            else:
+                return;
+            
+            if self._verifyFile(nameFieldsH):
+                tmplFieldsH = TemplateReader(nameFieldsH).read();
+            else:
+                return;
+            
+            fieldContainer.setupFieldContainer();
+            impBaseName = os.path.join(outPath,
+                self.m_filePrefix + fieldContainer["Classname"] +
+                "Base" + self.m_impFileSuffix);
+            inlBaseName = os.path.join(outPath,
+                self.m_filePrefix + fieldContainer["Classname"] +
+                "Base" + self.m_inlFileSuffix);
+            decBaseName = os.path.join(outPath,
+                self.m_filePrefix + fieldContainer["Classname"] +
+                "Base" + self.m_decFileSuffix);
+            fieldsBaseName = os.path.join(outPath,
+                self.m_filePrefix + fieldContainer["Classname"] +
+                "Fields" + self.m_decFileSuffix);
+            
+            self.m_log.info("filling template for file: %s", impBaseName);
+            outLines = TemplateFiller(tmplBaseCPP).fill(lookupDicts);
+            TemplateWriter(impBaseName, outLines).write();
+            
+            self.m_log.info("filling template for file: %s", inlBaseName);
+            outLines = TemplateFiller(tmplBaseINL).fill(lookupDicts);
+            TemplateWriter(inlBaseName, outLines).write();
+            
+            self.m_log.info("filling template for file: %s", decBaseName);
+            outLines = TemplateFiller(tmplBaseH).fill(lookupDicts);
+            TemplateWriter(decBaseName, outLines).write();
+            
+            self.m_log.info("filling template for file: %s", fieldsBaseName);
+            outLines = TemplateFiller(tmplFieldsH).fill(lookupDicts);
+            TemplateWriter(fieldsBaseName, outLines).write();
+            
+            # for a decoratable container Foo also write FooDecorator classes.
+            if fieldContainer["isDecoratable"] == True:
+                fieldContainer.setupDecorator();
+                impBaseName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["Classname"] +
+                    "Base" + self.m_impFileSuffix);
+                inlBaseName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["Classname"] +
+                    "Base" + self.m_inlFileSuffix);
+                decBaseName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["Classname"] +
+                    "Base" + self.m_decFileSuffix);
+                fieldsBaseName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["Classname"] +
+                    "Fields" + self.m_decFileSuffix);
+                
+                self.m_log.info("filling template for file: %s", impBaseName);
+                outLines = TemplateFiller(tmplBaseCPP).fill(lookupDicts);
+                TemplateWriter(impBaseName, outLines).write();
+                
+                self.m_log.info("filling template for file: %s", inlBaseName);
+                outLines = TemplateFiller(tmplBaseINL).fill(lookupDicts);
+                TemplateWriter(inlBaseName, outLines).write();
+                
+                self.m_log.info("filling template for file: %s", decBaseName);
+                outLines = TemplateFiller(tmplBaseH).fill(lookupDicts);
+                TemplateWriter(decBaseName, outLines).write();
+                
+                self.m_log.info("filling template for file: %s", fieldsBaseName);
+                outLines = TemplateFiller(tmplFieldsH).fill(lookupDicts);
+                TemplateWriter(fieldsBaseName, outLines).write();
+        
+        # write out FC files
+        if OptionHandler.getOptionActive("writeFC"):
+            nameCPP = os.path.join(tmplPath, self.m_impTemplateName);
+            nameINL = os.path.join(tmplPath, self.m_inlTemplateName);
+            nameH   = os.path.join(tmplPath, self.m_decTemplateName);
+            
+            if self._verifyFile(nameCPP):
+                tmplCPP = TemplateReader(nameCPP).read();
+            else:
+                return;
+            
+            if self._verifyFile(nameINL):
+                tmplINL = TemplateReader(nameINL).read();
+            else:
+                return;
+            
+            if self._verifyFile(nameH):
+                tmplH   = TemplateReader(nameH).read();
+            else:
+                return;
+            
+            fieldContainer.setupFieldContainer();
+            impName = os.path.join(outPath,
+                self.m_filePrefix + fieldContainer["Classname"] + self.m_impFileSuffix);
+            inlName = os.path.join(outPath,
+                self.m_filePrefix + fieldContainer["Classname"] + self.m_inlFileSuffix);
+            decName = os.path.join(outPath,
+                self.m_filePrefix + fieldContainer["Classname"] + self.m_decFileSuffix);
+            
+            self.m_log.info("filling template for file: %s", impName);
+            outLines = TemplateFiller(tmplCPP).fill(lookupDicts);
+            TemplateWriter(impName, outLines).write();
+        
+            self.m_log.info("filling template for file: %s", inlName);
+            outLines = TemplateFiller(tmplINL).fill(lookupDicts);
+            TemplateWriter(inlName, outLines).write();
+            
+            self.m_log.info("filling template for file: %s", decName);
+            outLines = TemplateFiller(tmplH).fill(lookupDicts);
+            TemplateWriter(decName, outLines).write();
+            
+            # for a decoratable container Foo also write FooDecorator classes.
+            if fieldContainer["isDecoratable"] == True:
+                fieldContainer.setupDecorator();
+                impName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["Classname"] + self.m_impFileSuffix);
+                inlName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["Classname"] + self.m_inlFileSuffix);
+                decName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["Classname"] + self.m_decFileSuffix);
+                
+                self.m_log.info("filling template for file: %s", impName);
+                outLines = TemplateFiller(tmplCPP).fill(lookupDicts);
+                TemplateWriter(impName, outLines).write();
+            
+                self.m_log.info("filling template for file: %s", inlName);
+                outLines = TemplateFiller(tmplINL).fill(lookupDicts);
+                TemplateWriter(inlName, outLines).write();
+                
+                self.m_log.info("filling template for file: %s", decName);
+                outLines = TemplateFiller(tmplH).fill(lookupDicts);
+                TemplateWriter(decName, outLines).write();
+        return;
+    
+    def _verifyFile(self, name):
+        if not os.path.exists(name) or not os.path.isfile(name):
+            self.m_log.error("Can not find template file: \"%s\"", name);
+            self.m_log.errir("Did you specify a correct root path ?");
+            return False;
+        else:
+            return True;
+
+#
+# MAIN
+#
+
+fcdProcess = FCDProcess();
+fcdProcess.run();
