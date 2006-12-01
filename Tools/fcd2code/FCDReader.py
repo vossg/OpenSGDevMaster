@@ -46,8 +46,8 @@ class FCDContentHandler(xml.sax.handler.ContentHandler):
         self.m_log.debug("endElement: %s", name);
         
         desc = self.m_elemStack.top().getFCD("description");
-        if  desc != None:
-            self.m_elemStack.top().setFCD("description", desc.strip());
+        if desc != None:
+            self.m_elemStack.top().setFCD("description", desc.lstrip());
         
         self.m_elemStack.pop();
     
@@ -56,9 +56,9 @@ class FCDContentHandler(xml.sax.handler.ContentHandler):
         
         currDesc = self.m_elemStack.top().getFCD("description");
         if currDesc == None:
-            self.m_elemStack.top().setFCD("description", content.lstrip());
+            self.m_elemStack.top().setFCD("description", content.lstrip(" \t"));
         else:
-            currDesc = currDesc + content.lstrip();
+            currDesc = currDesc + content.lstrip(" \t");
             self.m_elemStack.top().setFCD("description", currDesc);
         
 

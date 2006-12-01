@@ -89,7 +89,9 @@ OSG_BEGIN_NAMESPACE
  */
 
 @@if hasFields
-// Field descriptions
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 @@if isDecorator
 /*! \var @!Parent!@Ptr @!Classname!@Base::_sfDecoratee

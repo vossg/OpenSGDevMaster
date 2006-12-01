@@ -149,7 +149,7 @@ class Field(FCDElement):
         
         if self.getFCD("description") == "":
             self["Description"]     = "";
-            self["SafeDescription"] = "";
+            self["SafeDescription"] = "\"\"";
         else:
             self["Description"]     = self._formatString    (self.getFCD("description"), 4)
             self["SafeDescription"] = self._formatSafeString(self.getFCD("description"), 8)

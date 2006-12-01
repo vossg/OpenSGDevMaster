@@ -81,11 +81,12 @@ class FCDElement(object):
         """
         wrapper = textwrap.TextWrapper();
         wrapper.break_long_words  = False;
-        wrapper.width             = 79 - indent;
+        wrapper.width             = 79 - 3 - indent;
         
         text = text.replace("\\", "\\\\");
         text = text.replace("\t", "\\t");
-        text = text.replace("\n", "\\n");
+        text = text.replace(" \n", " ");
+        text = text.replace("\n", " ");
         text = text.replace("\"", "\\\"");
         
         lines     = wrapper.wrap(text);
