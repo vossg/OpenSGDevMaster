@@ -147,7 +147,7 @@ class Field(FCDElement):
         else:
             self["isPtrField"] = False;
         
-        if self.getFCD("description") == "":
+        if self.getFCD("description").strip() == "":
             self["Description"]     = "";
             self["SafeDescription"] = "\"\"";
         else:

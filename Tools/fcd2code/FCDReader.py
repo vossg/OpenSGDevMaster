@@ -18,6 +18,7 @@ class FCDContentHandler(xml.sax.handler.ContentHandler):
     
     def startDocument(self):
         self.m_log.debug("startDocument");
+        self.m_elemStack.clear();
     
     def endDocument(self):
         self.m_log.debug("endDocument");
@@ -44,10 +45,6 @@ class FCDContentHandler(xml.sax.handler.ContentHandler):
         
     def endElement(self, name):
         self.m_log.debug("endElement: %s", name);
-        
-        desc = self.m_elemStack.top().getFCD("description");
-        if desc != None:
-            self.m_elemStack.top().setFCD("description", desc.lstrip());
         
         self.m_elemStack.pop();
     

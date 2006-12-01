@@ -209,7 +209,7 @@ class @!Classname!@Base : public @!Parent!@
 @@if field.isSField
 
 @@if field.isPtrField
-    @!field.MethodType:7!@       @!field.Type:19!@Const get@!field.Name:15!@(void) const;
+    @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
 @@else
 @@if CompatOneSix
 #ifdef OSG_1_COMPAT
@@ -222,7 +222,7 @@ class @!Classname!@Base : public @!Parent!@
 @@else
 
 @@if field.isPtrField
-    @!field.MethodType:7!@       @!field.Type:19!@Const get@!field.Name:15!@(const UInt32 index) const;
+    @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
 @@else
 @@if CompatOneSix
 #ifdef OSG_1_COMPAT
@@ -304,15 +304,15 @@ class @!Classname!@Base : public @!Parent!@
 @@endif
 @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                    @!field.Type!@ConstArg value   );
+                                          @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                    @!field.Type!@ConstArg value   );
+                                          @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject!@ (@!field.Type!@ConstArg pOldElem,
-                                    @!field.Type!@ConstArg pNewElem);
+                                          @!field.Type!@ConstArg pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
@@ -331,15 +331,15 @@ class @!Classname!@Base : public @!Parent!@
 @@endif
 @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                    const @!field.Type!@& value   );
+                                          const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                    const @!field.Type!@& value   );
+                                          const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject!@ (const @!field.Type!@& pOldElem,
-                                    const @!field.Type!@& pNewElem);
+                                          const @!field.Type!@& pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
@@ -466,7 +466,7 @@ class @!Classname!@Base : public @!Parent!@
 @@if field.isSField
 
 @@if field.isPtrField
-    @!field.MethodType:7!@       @!field.Type:19!@Const get@!field.Name:15!@(void) const;
+    @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
 @@else
 @@if CompatOneSix
 #ifdef OSG_1_COMPAT
@@ -479,7 +479,7 @@ class @!Classname!@Base : public @!Parent!@
 @@else
 
 @@if field.isPtrField
-    @!field.MethodType:7!@       @!field.Type:19!@Const get@!field.Name:15!@(const UInt32 index) const;
+    @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
 @@else
 @@if CompatOneSix
 #ifdef OSG_1_COMPAT
@@ -524,15 +524,15 @@ class @!Classname!@Base : public @!Parent!@
 @@endif
 @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                    @!field.Type!@ConstArg value   );
+                                          @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                    @!field.Type!@ConstArg value   );
+                                          @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject!@ (@!field.Type!@ConstArg pOldElem,
-                                    @!field.Type!@ConstArg pNewElem);
+                                          @!field.Type!@ConstArg pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
@@ -551,15 +551,15 @@ class @!Classname!@Base : public @!Parent!@
 @@endif
 @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                    const @!field.Type!@& value   );
+                                          const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                    const @!field.Type!@& value   );
+                                          const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject!@ (const @!field.Type!@& pOldElem,
-                                    const @!field.Type!@& pNewElem);
+                                          const @!field.Type!@& pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
@@ -691,7 +691,7 @@ class @!Classname!@Base : public @!Parent!@
 @@if field.isSField
 
 @@if field.isPtrField
-    @!field.MethodType:7!@       @!field.Type:19!@Const get@!field.Name:15!@(void) const;
+    @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
 @@else
 @@if CompatOneSix
 #ifdef OSG_1_COMPAT
@@ -704,7 +704,7 @@ class @!Classname!@Base : public @!Parent!@
 @@else
 
 @@if field.isPtrField
-    @!field.MethodType:7!@       @!field.Type:19!@Const get@!field.Name:15!@(const UInt32 index) const;
+    @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
 @@else
 @@if CompatOneSix
 #ifdef OSG_1_COMPAT
@@ -750,15 +750,15 @@ class @!Classname!@Base : public @!Parent!@
 @@endif
 @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                    @!field.Type!@ConstArg value   );
+                                          @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                    @!field.Type!@ConstArg value   );
+                                          @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject!@ (@!field.Type!@ConstArg pOldElem,
-                                    @!field.Type!@ConstArg pNewElem);
+                                          @!field.Type!@ConstArg pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
@@ -777,15 +777,15 @@ class @!Classname!@Base : public @!Parent!@
 @@endif
 @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                    const @!field.Type!@& value   );
+                                          const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                    const @!field.Type!@& value   );
+                                          const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject!@ (const @!field.Type!@& pOldElem,
-                                    const @!field.Type!@& pNewElem);
+                                          const @!field.Type!@& pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );

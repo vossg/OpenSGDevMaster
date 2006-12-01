@@ -55,6 +55,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+// Documentation for this class is emited in the
+// OSG@!Classname!@Base.cpp file.
+// To modify it, please change the .fcd file (OSG@!Classname!@.fcd) and
+// regenerate the base file.
+
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/

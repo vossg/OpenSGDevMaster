@@ -121,7 +121,7 @@ class FieldContainer(FCDElement):
         else:
             self["HeaderPrefix"] = "";
         
-        if self.getFCD("description") == "":
+        if self.getFCD("description").strip() == "":
             self["Description"]     = "";
             self["SafeDescription"] = "\"\"";
         else:

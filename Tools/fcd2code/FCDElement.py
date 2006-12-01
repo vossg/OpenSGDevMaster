@@ -1,4 +1,6 @@
 
+import logging;
+import re;
 import textwrap;
 
 class FCDElement(object):
@@ -12,6 +14,7 @@ class FCDElement(object):
     def __init__(self):
         """Create new instance of FCDElement and initialize both dictionaries.
         """
+        self.m_log      = logging.getLogger("FCDElement");
         self.m_fcdDict  = {};
         self.m_tmplDict = {};
     
@@ -65,45 +68,84 @@ class FCDElement(object):
         """
         return key in self.m_tmplDict;
     
-    def _formatString(self, text, indent):
+    def _extractParagraphs(self, descText):
+        """Splits descText into a list of paragraphs.
+        """
+        start     = 0;
+        end       = 0;
+        paraList  = [];
+        paraEndRE = re.compile(r"\n[ \t]*\n");
+         
+        for paraEndMatch in paraEndRE.finditer(descText):
+            end   = paraEndMatch.start();
+            para  = descText[start:end];
+            start = paraEndMatch.end();
+            
+            # ignore empty paragraphs.
+            if para.strip() != "":
+                paraList.append(para);
+        
+        if (len(paraList) == 0) and (descText.strip != ""):
+            paraList.append(descText);
+        
+        return paraList;
+    
+    def _formatString(self, descText, indent):
         """Formats the description string.
         """
+        paraList    = self._extractParagraphs(descText);
+        paraListLen = len(paraList);
+        self.m_log.debug("paraList: %s", str(paraList));
+        
+        # reformat the paragraphs
         wrapper = textwrap.TextWrapper();
-        wrapper.initial_indent    = "";
+        wrapper.width             = 79 - indent;
+        wrapper.initial_indent    = " " * indent;
         wrapper.subsequent_indent = " " * indent;
         wrapper.break_long_words  = False;
-        wrapper.width             = 79 - indent;
         
-        return wrapper.fill(text);
+        for paraNum, paraText in enumerate(paraList):
+            paraList[paraNum] = wrapper.fill(paraText);
+            
+            if paraNum == 0:
+                paraList[paraNum] = paraList[paraNum].lstrip();
+        
+        self.m_log.debug("paraList reformatted: %s", str(paraList));
+        return "\n\n".join(paraList);
     
-    def _formatSafeString(self, text, indent):
+    def _formatSafeString(self, descText, indent):
         """Formats the safe description string.
         """
-        wrapper = textwrap.TextWrapper();
-        wrapper.break_long_words  = False;
-        wrapper.width             = 79 - 3 - indent;
+        indentStr   = " " * indent;
+        skipLines   = 0;
+        lineList    = descText.split("\n");
+        lineListLen = len(lineList);
+        self.m_log.debug("lineList: %s", str(lineList));
         
-        text = text.replace("\\", "\\\\");
-        text = text.replace("\t", "\\t");
-        text = text.replace(" \n", " ");
-        text = text.replace("\n", " ");
-        text = text.replace("\"", "\\\"");
-        
-        lines     = wrapper.wrap(text);
-        indentStr = " " * indent;
-        numLines  = len(lines);
-        text      = "";
-        
-        for i, line in enumerate(lines):
-            if i == 0:
-                lines[i] = "\"" + line + "\\n\"";
-            else:
-                lines[i] = indentStr + "\"" + line + "\\n\"";
+        for lineNum, lineText in enumerate(lineList):
+            if lineText.strip() == "":
+                skipLines = skipLines + 1;
+                continue;
             
-            if i < numLines - 1:
-                lines[i] = lines[i] + "\n";
+            lineText = lineText.replace("\\",  "\\\\");
+            lineText = lineText.replace("\t",  "\\t");
+            lineText = lineText.replace("\n",  "\\n");
+            lineText = lineText.replace("\"",  "\\\"");
+            
+            if lineNum - skipLines == 0:
+                lineText = "\"" + lineText + "\\n\"\n";
+            else:
+                lineText = indentStr + "\"" + lineText + "\\n\"\n";
+            
+            lineList[lineNum - skipLines] = lineText;
         
-        return "".join(lines);
+        lastLine = lineListLen - skipLines - 1;
+        
+        if lineList[lastLine].endswith("\n"):
+            lineList[lastLine] = lineList[lastLine][:-1];
+        
+        self.m_log.debug("lineList reformatted: %s", str(lineList));
+        return "".join(lineList[:(lineListLen - skipLines)]);
     
     def _formatXML(self, lines, indent):
         """Formats the .fcd XML contents.
@@ -113,10 +155,10 @@ class FCDElement(object):
         output    = [];
         
         for i, line in enumerate(lines):
-            line = line.replace("\\", "\\\\");
-            line = line.replace("\t", "\\t");
-            line = line.replace("\n", "");
-            line = line.replace("\"", "\\\"");
+            line = line.replace("\\",  "\\\\");
+            line = line.replace("\t",  "\\t");
+            line = line.replace("\n",  "");
+            line = line.replace("\"",  "\\\"");
             
             if i == 0:
                 output.append("\"" + line + "\\n\"");
