@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ClipPlaneChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ClipPlaneChunkBase::getClassTypeId(void) 
+OSG::UInt32 ClipPlaneChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ClipPlaneChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Vec4f &ClipPlaneChunkBase::getEquation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec4f &ClipPlaneChunkBase::getEquation(void)
+Vec4f               &ClipPlaneChunkBase::getEquation       (void)
 {
-    return this->editEquation();
+    return this->editEquation       ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const bool &ClipPlaneChunkBase::getEnable(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ClipPlaneChunkBase::getEnable(void)
+bool                &ClipPlaneChunkBase::getEnable         (void)
 {
-    return this->editEnable();
+    return this->editEnable         ();
 }
 #endif
 
@@ -159,24 +159,24 @@ void ClipPlaneChunkBase::setBeacon(NodePtrConstArg value)
 
 //! create a new instance of the class
 inline
-ClipPlaneChunkPtr ClipPlaneChunkBase::create(void) 
+ClipPlaneChunkPtr ClipPlaneChunkBase::create(void)
 {
-    ClipPlaneChunkPtr fc; 
+    ClipPlaneChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ClipPlaneChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ClipPlaneChunkBase::execSync(      ClipPlaneChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -198,7 +198,7 @@ inline
 void ClipPlaneChunkBase::execSync (      ClipPlaneChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -242,4 +242,3 @@ typedef PointerBuilder<ClipPlaneChunk>::ObjPtrConstArg  ClipPlaneChunkPtrConstAr
 OSG_END_NAMESPACE
 
 #define OSGCLIPPLANECHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

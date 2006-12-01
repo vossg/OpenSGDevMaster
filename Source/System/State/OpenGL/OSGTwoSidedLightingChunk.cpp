@@ -50,6 +50,11 @@
 
 OSG_USING_NAMESPACE
 
+// Documentation for this class is emited in the
+// OSGTwoSidedLightingChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGTwoSidedLightingChunk.fcd) and
+// regenerate the base file.
+
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/

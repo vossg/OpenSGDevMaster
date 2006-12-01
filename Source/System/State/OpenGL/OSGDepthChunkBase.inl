@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &DepthChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 DepthChunkBase::getClassTypeId(void) 
+OSG::UInt32 DepthChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 DepthChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &DepthChunkBase::getEnable(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &DepthChunkBase::getEnable(void)
+bool                &DepthChunkBase::getEnable         (void)
 {
-    return this->editEnable();
+    return this->editEnable         ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const GLenum &DepthChunkBase::getFunc(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &DepthChunkBase::getFunc(void)
+GLenum              &DepthChunkBase::getFunc           (void)
 {
-    return this->editFunc();
+    return this->editFunc           ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Real32 &DepthChunkBase::getNear(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &DepthChunkBase::getNear(void)
+Real32              &DepthChunkBase::getNear           (void)
 {
-    return this->editNear();
+    return this->editNear           ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Real32 &DepthChunkBase::getFar(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &DepthChunkBase::getFar(void)
+Real32              &DepthChunkBase::getFar            (void)
 {
-    return this->editFar();
+    return this->editFar            ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const bool &DepthChunkBase::getReadOnly(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &DepthChunkBase::getReadOnly(void)
+bool                &DepthChunkBase::getReadOnly       (void)
 {
-    return this->editReadOnly();
+    return this->editReadOnly       ();
 }
 #endif
 
@@ -241,24 +241,24 @@ void DepthChunkBase::setReadOnly(const bool &value)
 
 //! create a new instance of the class
 inline
-DepthChunkPtr DepthChunkBase::create(void) 
+DepthChunkPtr DepthChunkBase::create(void)
 {
-    DepthChunkPtr fc; 
+    DepthChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<DepthChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void DepthChunkBase::execSync(      DepthChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -286,7 +286,7 @@ inline
 void DepthChunkBase::execSync (      DepthChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -336,4 +336,3 @@ typedef PointerBuilder<DepthChunk>::ObjPtrConstArg  DepthChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGDEPTHCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

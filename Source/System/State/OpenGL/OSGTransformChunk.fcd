@@ -9,6 +9,11 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+\ingroup GrpSystemState
+
+See \ref PageSystemTransformChunk for a description.
+
+This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.
 	<Field
 		name="matrix"
 		type="Matrix"

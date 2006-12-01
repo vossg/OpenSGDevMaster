@@ -65,18 +65,32 @@
 #include "OSGTextureTransformChunkBase.h"
 #include "OSGTextureTransformChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool TextureTransformChunkBase::_sfUseCameraBeacon
-    	If enabled it uses the camera beacon matrix (for cube textures)
+/*! \class OSG::TextureTransformChunk
+    \ingroup GrpSystemState
 
+    See \ref PageSystemTextureTransformChunk for a description.
+
+    This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is
+    derived from the OSG::TransformChunk and uses its matrix.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            TextureTransformChunkBase::_sfUseCameraBeacon
+    If enabled it uses the camera beacon matrix (for cube textures)
 */
 
 void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +100,9 @@ void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "useCameraBeacon", 
-        "	If enabled it uses the camera beacon matrix (for cube textures)\n",
+        SFBool::getClassType(),
+        "useCameraBeacon",
+        "If enabled it uses the camera beacon matrix (for cube textures)\n",
         UseCameraBeaconFieldId, UseCameraBeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,48 +127,56 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(true,
     (InitalInsertDescFunc) &TextureTransformChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TextureTransformChunk\"\n"
-"	parent=\"TransformChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"useCameraBeacon\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	If enabled it uses the camera beacon matrix (for cube textures)\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TextureTransformChunk\"\n"
+    "\tparent=\"TransformChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemTextureTransformChunk for a description.\n"
+    "\n"
+    "This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is derived\n"
+    "from the OSG::TransformChunk and uses its matrix.\n"
+    "\t<Field\n"
+    "\t\tname=\"useCameraBeacon\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tIf enabled it uses the camera beacon matrix (for cube textures)\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemTextureTransformChunk for a description.\n"
+    "This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is derived\n"
+    "from the OSG::TransformChunk and uses its matrix.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureTransformChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureTransformChunkBase::getType(void) const 
+FieldContainerType &TextureTransformChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureTransformChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureTransformChunk); 
+const FieldContainerType &TextureTransformChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureTransformChunkBase::getContainerSize(void) const
+{
+    return sizeof(TextureTransformChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -173,7 +195,7 @@ const SFBool *TextureTransformChunkBase::getSFUseCameraBeacon(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *TextureTransformChunkBase::getSFUseCameraBeacon(void)
+SFBool              *TextureTransformChunkBase::getSFUseCameraBeacon(void)
 {
     return this->editSFUseCameraBeacon();
 }
@@ -218,22 +240,22 @@ void TextureTransformChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureTransformChunkPtr TextureTransformChunkBase::createEmpty(void) 
-{ 
-    TextureTransformChunkPtr returnValue; 
-    
-    newPtr<TextureTransformChunk>(returnValue); 
+TextureTransformChunkPtr TextureTransformChunkBase::createEmpty(void)
+{
+    TextureTransformChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<TextureTransformChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TextureTransformChunkBase::shallowCopy(void) const 
-{ 
-    TextureTransformChunkPtr returnValue; 
+FieldContainerPtr TextureTransformChunkBase::shallowCopy(void) const
+{
+    TextureTransformChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TextureTransformChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TextureTransformChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -242,13 +264,13 @@ FieldContainerPtr TextureTransformChunkBase::shallowCopy(void) const
 
 TextureTransformChunkBase::TextureTransformChunkBase(void) :
     Inherited(),
-    _sfUseCameraBeacon(bool(false))
+    _sfUseCameraBeacon        (bool(false))
 {
 }
 
 TextureTransformChunkBase::TextureTransformChunkBase(const TextureTransformChunkBase &source) :
     Inherited(source),
-    _sfUseCameraBeacon(source._sfUseCameraBeacon)
+    _sfUseCameraBeacon        (source._sfUseCameraBeacon        )
 {
 }
 
@@ -262,13 +284,13 @@ TextureTransformChunkBase::~TextureTransformChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureTransformChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureTransformChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -278,10 +300,10 @@ void TextureTransformChunkBase::execSyncV(      FieldContainer    &oFrom,
 void TextureTransformChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureTransformChunkBase *>(&oFrom), 
+    this->execSync(static_cast<TextureTransformChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -301,12 +323,12 @@ void TextureTransformChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureTransformChunkBase::createAspectCopy(void) const
 {
-    TextureTransformChunkPtr returnValue; 
+    TextureTransformChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TextureTransformChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TextureTransformChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -315,6 +337,8 @@ void TextureTransformChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -337,8 +361,6 @@ OSG_FIELDTRAITS_GETTYPE(TextureTransformChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TextureTransformChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TextureTransformChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -359,3 +381,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTURETRANSFORMCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

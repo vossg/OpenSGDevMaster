@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &PointChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 PointChunkBase::getClassTypeId(void) 
+OSG::UInt32 PointChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 PointChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Real32 &PointChunkBase::getSize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PointChunkBase::getSize(void)
+Real32              &PointChunkBase::getSize           (void)
 {
-    return this->editSize();
+    return this->editSize           ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const bool &PointChunkBase::getSmooth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PointChunkBase::getSmooth(void)
+bool                &PointChunkBase::getSmooth         (void)
 {
-    return this->editSmooth();
+    return this->editSmooth         ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Real32 &PointChunkBase::getMinSize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PointChunkBase::getMinSize(void)
+Real32              &PointChunkBase::getMinSize        (void)
 {
-    return this->editMinSize();
+    return this->editMinSize        ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Real32 &PointChunkBase::getMaxSize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PointChunkBase::getMaxSize(void)
+Real32              &PointChunkBase::getMaxSize        (void)
 {
-    return this->editMaxSize();
+    return this->editMaxSize        ();
 }
 #endif
 
@@ -224,7 +224,7 @@ const Real32 &PointChunkBase::getConstantAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PointChunkBase::getConstantAttenuation(void)
+Real32              &PointChunkBase::getConstantAttenuation(void)
 {
     return this->editConstantAttenuation();
 }
@@ -257,7 +257,7 @@ const Real32 &PointChunkBase::getLinearAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PointChunkBase::getLinearAttenuation(void)
+Real32              &PointChunkBase::getLinearAttenuation(void)
 {
     return this->editLinearAttenuation();
 }
@@ -290,7 +290,7 @@ const Real32 &PointChunkBase::getQuadraticAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PointChunkBase::getQuadraticAttenuation(void)
+Real32              &PointChunkBase::getQuadraticAttenuation(void)
 {
     return this->editQuadraticAttenuation();
 }
@@ -323,9 +323,9 @@ const Real32 &PointChunkBase::getFadeThreshold(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PointChunkBase::getFadeThreshold(void)
+Real32              &PointChunkBase::getFadeThreshold  (void)
 {
-    return this->editFadeThreshold();
+    return this->editFadeThreshold  ();
 }
 #endif
 
@@ -356,9 +356,9 @@ const bool &PointChunkBase::getSprite(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PointChunkBase::getSprite(void)
+bool                &PointChunkBase::getSprite         (void)
 {
-    return this->editSprite();
+    return this->editSprite         ();
 }
 #endif
 
@@ -389,9 +389,9 @@ const GLenum &PointChunkBase::getRMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &PointChunkBase::getRMode(void)
+GLenum              &PointChunkBase::getRMode          (void)
 {
-    return this->editRMode();
+    return this->editRMode          ();
 }
 #endif
 
@@ -406,24 +406,24 @@ void PointChunkBase::setRMode(const GLenum &value)
 
 //! create a new instance of the class
 inline
-PointChunkPtr PointChunkBase::create(void) 
+PointChunkPtr PointChunkBase::create(void)
 {
-    PointChunkPtr fc; 
+    PointChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<PointChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void PointChunkBase::execSync(      PointChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -466,7 +466,7 @@ inline
 void PointChunkBase::execSync (      PointChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -531,4 +531,3 @@ typedef PointerBuilder<PointChunk>::ObjPtrConstArg  PointChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGPOINTCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

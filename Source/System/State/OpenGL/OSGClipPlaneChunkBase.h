@@ -87,22 +87,22 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               ClipPlaneChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               ClipPlaneChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ClipPlaneChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ClipPlaneChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ClipPlaneChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ClipPlaneChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -118,22 +118,21 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
         NextFieldId = BeaconFieldId + 1
     };
 
-    static const OSG::BitVector EquationFieldMask = 
+    static const OSG::BitVector EquationFieldMask =
         (TypeTraits<BitVector>::One << EquationFieldId);
-    static const OSG::BitVector EnableFieldMask = 
+    static const OSG::BitVector EnableFieldMask =
         (TypeTraits<BitVector>::One << EnableFieldId);
-    static const OSG::BitVector BeaconFieldMask = 
+    static const OSG::BitVector BeaconFieldMask =
         (TypeTraits<BitVector>::One << BeaconFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -141,8 +140,8 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -153,66 +152,66 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFVec4f *getSFEquation(void);
+                  SFVec4f             *getSFEquation        (void);
 #endif
-           SFVec4f *editSFEquation(void);
-     const SFVec4f *getSFEquation (void) const;
+                  SFVec4f             *editSFEquation       (void);
+            const SFVec4f             *getSFEquation        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFEnable(void);
+                  SFBool              *getSFEnable          (void);
 #endif
-           SFBool *editSFEnable(void);
-     const SFBool *getSFEnable (void) const;
-     const SFNodePtr *getSFBeacon (void) const;
+                  SFBool              *editSFEnable         (void);
+            const SFBool              *getSFEnable          (void) const;
+            const SFNodePtr           *getSFBeacon          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Vec4f &getEquation(void);
+                  Vec4f               &getEquation        (void);
 #endif
-           Vec4f &editEquation(void);
-     const Vec4f &getEquation (void) const;
+                  Vec4f               &editEquation       (void);
+            const Vec4f               &getEquation        (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getEnable(void);
+                  bool                &getEnable          (void);
 #endif
-           bool &editEnable(void);
-     const bool &getEnable (void) const;
+                  bool                &editEnable         (void);
+            const bool                &getEnable          (void) const;
 
-           NodePtrConst getBeacon(void) const;
+                  NodePtrConst getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setEquation(const Vec4f &value);
-     void setEnable(const bool &value);
-     void setBeacon(NodePtrConstArg value);
+            void setEquation       (const Vec4f &value);
+            void setEnable         (const bool &value);
+            void setBeacon         (NodePtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -239,15 +238,15 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ClipPlaneChunkPtr create     (void); 
-    static  ClipPlaneChunkPtr createEmpty(void); 
+    static  ClipPlaneChunkPtr create     (void);
+    static  ClipPlaneChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -263,9 +262,9 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFVec4f _sfEquation;
-    SFBool _sfEnable;
-    SFNodePtr _sfBeacon;
+    SFVec4f           _sfEquation;
+    SFBool            _sfEnable;
+    SFNodePtr         _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -280,7 +279,7 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ClipPlaneChunkBase(void); 
+    virtual ~ClipPlaneChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -327,11 +326,11 @@ class OSG_STATE_DLLMAPPING ClipPlaneChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

@@ -11,7 +11,7 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-The color mask chunk contains the parameters that are specific for color write.
+The color mask chunk contains the parameters that are specific for color writing.
 	<Field
 		name="maskR"
 		type="bool"
@@ -20,7 +20,7 @@ The color mask chunk contains the parameters that are specific for color write.
 		defaultValue="true"
 		access="public"
 	>
-	Used to mask the writing of the R value to the color   buffer.
+	Used to mask the writing of the R value to the color buffer.
 	</Field>
 	<Field
 		name="maskG"
@@ -30,7 +30,7 @@ The color mask chunk contains the parameters that are specific for color write.
 		defaultValue="true"
 		access="public"
 	>
-	Used to mask the writing of the G value to the color   buffer.
+	Used to mask the writing of the G value to the color buffer.
 	</Field>
 	<Field
 		name="maskB"
@@ -40,7 +40,7 @@ The color mask chunk contains the parameters that are specific for color write.
 		defaultValue="true"
 		access="public"
 	>
-	Used to mask the writing of the B value to the color   buffer.
+	Used to mask the writing of the B value to the color buffer.
 	</Field>
 	<Field
 		name="maskA"
@@ -50,6 +50,6 @@ The color mask chunk contains the parameters that are specific for color write.
 		defaultValue="true"
 		access="public"
 	>
-	Used to mask the writing of the A value to the color   buffer.
+	Used to mask the writing of the A value to the color buffer.
 	</Field>
 </FieldContainer>

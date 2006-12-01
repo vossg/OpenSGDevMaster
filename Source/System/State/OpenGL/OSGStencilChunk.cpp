@@ -54,14 +54,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::StencilChunk
-  The stencil chunk handles OpenGL stencil tests by wrapping 
-  glStencilFunc() and glStencilOp().
-*/
+// Documentation for this class is emited in the
+// OSGStencilChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGStencilChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

@@ -55,24 +55,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::CubeTextureObjChunk
-    \ingroup GrpSystemState
-
-See \ref PageSystemCubeTextureObjChunk for a description.
-
-The CubeTexture is defined by 6 separate texture images. As it is derived from 
-the standard texture chunk it already has an image, which is used for the 
-negative Z direction. The other 5 images are stored in variables that are named
-according to the direction they represent (osg::CubeTextureObjChunk::_sfPosZImage,
-osg::CubeTextureObjChunk::_sfNegYImage, osg::CubeTextureObjChunk::_sfPosYImage, 
-osg::CubeTextureObjChunk::_sfNegXImage, osg::CubeTextureObjChunk::_sfPosXImage).
-
-*/
-
+// Documentation for this class is emited in the
+// OSGCubeTextureObjChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGCubeTextureObjChunk.fcd) and
+// regenerate the base file.
 
 void CubeTextureObjChunk::initMethod(InitPhase ePhase)
 {
@@ -484,7 +470,7 @@ bool CubeTextureObjChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGCUBETEXTUREOBJCHUNK_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGCUBETEXTUREOBJCHUNK_INLINE_CVSID;
 }

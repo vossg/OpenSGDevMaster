@@ -88,22 +88,22 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               ColorMaskChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               ColorMaskChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ColorMaskChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ColorMaskChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ColorMaskChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ColorMaskChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -120,24 +120,23 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
         NextFieldId = MaskAFieldId + 1
     };
 
-    static const OSG::BitVector MaskRFieldMask = 
+    static const OSG::BitVector MaskRFieldMask =
         (TypeTraits<BitVector>::One << MaskRFieldId);
-    static const OSG::BitVector MaskGFieldMask = 
+    static const OSG::BitVector MaskGFieldMask =
         (TypeTraits<BitVector>::One << MaskGFieldId);
-    static const OSG::BitVector MaskBFieldMask = 
+    static const OSG::BitVector MaskBFieldMask =
         (TypeTraits<BitVector>::One << MaskBFieldId);
-    static const OSG::BitVector MaskAFieldMask = 
+    static const OSG::BitVector MaskAFieldMask =
         (TypeTraits<BitVector>::One << MaskAFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -145,8 +144,8 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -157,63 +156,63 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFMaskR(void);
+                  SFBool              *getSFMaskR           (void);
 #endif
-           SFBool *editSFMaskR(void);
-     const SFBool *getSFMaskR (void) const;
+                  SFBool              *editSFMaskR          (void);
+            const SFBool              *getSFMaskR           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFMaskG(void);
+                  SFBool              *getSFMaskG           (void);
 #endif
-           SFBool *editSFMaskG(void);
-     const SFBool *getSFMaskG (void) const;
+                  SFBool              *editSFMaskG          (void);
+            const SFBool              *getSFMaskG           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFMaskB(void);
+                  SFBool              *getSFMaskB           (void);
 #endif
-           SFBool *editSFMaskB(void);
-     const SFBool *getSFMaskB (void) const;
+                  SFBool              *editSFMaskB          (void);
+            const SFBool              *getSFMaskB           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFMaskA(void);
+                  SFBool              *getSFMaskA           (void);
 #endif
-           SFBool *editSFMaskA(void);
-     const SFBool *getSFMaskA (void) const;
+                  SFBool              *editSFMaskA          (void);
+            const SFBool              *getSFMaskA           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getMaskR(void);
+                  bool                &getMaskR           (void);
 #endif
-           bool &editMaskR(void);
-     const bool &getMaskR (void) const;
+                  bool                &editMaskR          (void);
+            const bool                &getMaskR           (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getMaskG(void);
+                  bool                &getMaskG           (void);
 #endif
-           bool &editMaskG(void);
-     const bool &getMaskG (void) const;
+                  bool                &editMaskG          (void);
+            const bool                &getMaskG           (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getMaskB(void);
+                  bool                &getMaskB           (void);
 #endif
-           bool &editMaskB(void);
-     const bool &getMaskB (void) const;
+                  bool                &editMaskB          (void);
+            const bool                &getMaskB           (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getMaskA(void);
+                  bool                &getMaskA           (void);
 #endif
-           bool &editMaskA(void);
-     const bool &getMaskA (void) const;
+                  bool                &editMaskA          (void);
+            const bool                &getMaskA           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setMaskR(const bool &value);
-     void setMaskG(const bool &value);
-     void setMaskB(const bool &value);
-     void setMaskA(const bool &value);
+            void setMaskR          (const bool &value);
+            void setMaskG          (const bool &value);
+            void setMaskB          (const bool &value);
+            void setMaskA          (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -233,15 +232,15 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ColorMaskChunkPtr create     (void); 
-    static  ColorMaskChunkPtr createEmpty(void); 
+    static  ColorMaskChunkPtr create     (void);
+    static  ColorMaskChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -257,10 +256,10 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfMaskR;
-    SFBool _sfMaskG;
-    SFBool _sfMaskB;
-    SFBool _sfMaskA;
+    SFBool            _sfMaskR;
+    SFBool            _sfMaskG;
+    SFBool            _sfMaskB;
+    SFBool            _sfMaskA;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,7 +274,7 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ColorMaskChunkBase(void); 
+    virtual ~ColorMaskChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -321,11 +320,11 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

@@ -9,7 +9,16 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-The line chunk contains the parameters that are specific set for lines.
+\ingroup GrpSystemState
+
+See \ref PageSystemLineChunk for a description.
+
+The line chunk contains the parameters that are specific to lines.
+
+The parameters of the following functions are wrapped here: glLineWidth
+(OSG::LineChunk::_sfWidth), glLineStipple (OSG::LineChunk::_sfStippleRepeat,
+OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)
+(OSG::LineChunk::_sfSmooth).
 	<Field
 		name="width"
 		type="Real32"
@@ -18,7 +27,7 @@ The line chunk contains the parameters that are specific set for lines.
 		defaultValue="1"
 		access="public"
 	>
-        The line's width, in pixel.
+        The line's width, in pixels.
 	</Field>
 	<Field
 		name="stippleRepeat"
@@ -28,7 +37,7 @@ The line chunk contains the parameters that are specific set for lines.
 		defaultValue="1"
 		access="public"
 	>
-        Repetition factor for sitppling.
+        Repetition factor for stippling.
 	</Field>
 	<Field
 		name="stipplePattern"

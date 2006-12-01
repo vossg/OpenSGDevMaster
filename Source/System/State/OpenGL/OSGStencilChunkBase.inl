@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &StencilChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 StencilChunkBase::getClassTypeId(void) 
+OSG::UInt32 StencilChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 StencilChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const GLenum &StencilChunkBase::getStencilFunc(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &StencilChunkBase::getStencilFunc(void)
+GLenum              &StencilChunkBase::getStencilFunc    (void)
 {
-    return this->editStencilFunc();
+    return this->editStencilFunc    ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Int32 &StencilChunkBase::getStencilValue(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &StencilChunkBase::getStencilValue(void)
+Int32               &StencilChunkBase::getStencilValue   (void)
 {
-    return this->editStencilValue();
+    return this->editStencilValue   ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const UInt32 &StencilChunkBase::getStencilMask(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &StencilChunkBase::getStencilMask(void)
+UInt32              &StencilChunkBase::getStencilMask    (void)
 {
-    return this->editStencilMask();
+    return this->editStencilMask    ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const GLenum &StencilChunkBase::getStencilOpFail(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &StencilChunkBase::getStencilOpFail(void)
+GLenum              &StencilChunkBase::getStencilOpFail  (void)
 {
-    return this->editStencilOpFail();
+    return this->editStencilOpFail  ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const GLenum &StencilChunkBase::getStencilOpZFail(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &StencilChunkBase::getStencilOpZFail(void)
+GLenum              &StencilChunkBase::getStencilOpZFail (void)
 {
-    return this->editStencilOpZFail();
+    return this->editStencilOpZFail ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const GLenum &StencilChunkBase::getStencilOpZPass(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &StencilChunkBase::getStencilOpZPass(void)
+GLenum              &StencilChunkBase::getStencilOpZPass (void)
 {
-    return this->editStencilOpZPass();
+    return this->editStencilOpZPass ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const Int32 &StencilChunkBase::getClearBuffer(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &StencilChunkBase::getClearBuffer(void)
+Int32               &StencilChunkBase::getClearBuffer    (void)
 {
-    return this->editClearBuffer();
+    return this->editClearBuffer    ();
 }
 #endif
 
@@ -307,24 +307,24 @@ void StencilChunkBase::setClearBuffer(const Int32 &value)
 
 //! create a new instance of the class
 inline
-StencilChunkPtr StencilChunkBase::create(void) 
+StencilChunkPtr StencilChunkBase::create(void)
 {
-    StencilChunkPtr fc; 
+    StencilChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<StencilChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void StencilChunkBase::execSync(      StencilChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -358,7 +358,7 @@ inline
 void StencilChunkBase::execSync (      StencilChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -414,4 +414,3 @@ typedef PointerBuilder<StencilChunk>::ObjPtrConstArg  StencilChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSTENCILCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -65,17 +65,31 @@
 #include "OSGTransformChunkBase.h"
 #include "OSGTransformChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Matrix TransformChunkBase::_sfMatrix
+/*! \class OSG::TransformChunk
+    \ingroup GrpSystemState
+
+    See \ref PageSystemTransformChunk for a description.
+
+    This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Matrix          TransformChunkBase::_sfMatrix
     
 */
 
 void TransformChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -85,8 +99,8 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "matrix", 
+        SFMatrix::getClassType(),
+        "matrix",
         "",
         MatrixFieldId, MatrixFieldMask,
         false,
@@ -112,43 +126,49 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(true,
     (InitalInsertDescFunc) &TransformChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TransformChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"matrix\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TransformChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemTransformChunk for a description.\n"
+    "\n"
+    "This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.\n"
+    "\t<Field\n"
+    "\t\tname=\"matrix\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemTransformChunk for a description.\n"
+    "This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TransformChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TransformChunkBase::getType(void) const 
+FieldContainerType &TransformChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TransformChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(TransformChunk); 
+const FieldContainerType &TransformChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TransformChunkBase::getContainerSize(void) const
+{
+    return sizeof(TransformChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -167,9 +187,9 @@ const SFMatrix *TransformChunkBase::getSFMatrix(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *TransformChunkBase::getSFMatrix(void)
+SFMatrix            *TransformChunkBase::getSFMatrix         (void)
 {
-    return this->editSFMatrix();
+    return this->editSFMatrix         ();
 }
 #endif
 
@@ -212,22 +232,22 @@ void TransformChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TransformChunkPtr TransformChunkBase::createEmpty(void) 
-{ 
-    TransformChunkPtr returnValue; 
-    
-    newPtr<TransformChunk>(returnValue); 
+TransformChunkPtr TransformChunkBase::createEmpty(void)
+{
+    TransformChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<TransformChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TransformChunkBase::shallowCopy(void) const 
-{ 
-    TransformChunkPtr returnValue; 
+FieldContainerPtr TransformChunkBase::shallowCopy(void) const
+{
+    TransformChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TransformChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TransformChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -236,13 +256,13 @@ FieldContainerPtr TransformChunkBase::shallowCopy(void) const
 
 TransformChunkBase::TransformChunkBase(void) :
     Inherited(),
-    _sfMatrix()
+    _sfMatrix                 ()
 {
 }
 
 TransformChunkBase::TransformChunkBase(const TransformChunkBase &source) :
     Inherited(source),
-    _sfMatrix(source._sfMatrix)
+    _sfMatrix                 (source._sfMatrix                 )
 {
 }
 
@@ -256,13 +276,13 @@ TransformChunkBase::~TransformChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TransformChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TransformChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -272,10 +292,10 @@ void TransformChunkBase::execSyncV(      FieldContainer    &oFrom,
 void TransformChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TransformChunkBase *>(&oFrom), 
+    this->execSync(static_cast<TransformChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -295,12 +315,12 @@ void TransformChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TransformChunkBase::createAspectCopy(void) const
 {
-    TransformChunkPtr returnValue; 
+    TransformChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TransformChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TransformChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -309,6 +329,8 @@ void TransformChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -331,8 +353,6 @@ OSG_FIELDTRAITS_GETTYPE(TransformChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TransformChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TransformChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -353,3 +373,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTRANSFORMCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

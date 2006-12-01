@@ -54,22 +54,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::PointChunk
-    \ingroup GrpSystemState
-
-  See \ref PageSystemPointChunk for a description. 
-
-  This chunk wraps glPointSize() (OSG::PointChunk::_sfSize) and
-  glEnable(GL_POINT_SMOOTH) (OSG::PointChunk::_sfSmooth). It encompasses the
-  ARB_point_parameters extension (OSG::PointChunk::_sfMinSize, 
-  OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, 
-  OSG::PointChunk::_sfConstantAttenuation, 
-  OSG::PointChunk::_sfLinearAttenuation,
-  OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
-  (OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).
-
-*/
-
+// Documentation for this class is emited in the
+// OSGPointChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGPointChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

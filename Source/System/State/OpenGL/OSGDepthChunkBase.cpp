@@ -60,40 +60,54 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // Func default header
+#include <OSGGL.h>                        // Func default header
 
 
 #include "OSGDepthChunkBase.h"
 #include "OSGDepthChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool DepthChunkBase::_sfEnable
-    	Whether the depth test should be enabled or not.
+/*! \class OSG::DepthChunk
+    The depth chunk contains the parameters that are specific for depth
+    control.
 
+    The parameters of the following functions are wrapped here: glDepthFunc
+    (OSG::DepthChunk::_sfFunc), glDepthRange (OSG::DepthChunk::_sfNear,
+    OSG::DepthChunk::_sfFar), glEnable(GL_DEPTH_TEST)
+    (OSG::DepthChunk::_sfEnable).
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            DepthChunkBase::_sfEnable
+    Whether the depth test should be enabled or not.
 */
-/*! \var GLenum DepthChunkBase::_sfFunc
-    	The depth function to use. If GL_NONE, it's not changed. The         default is LEQUAL.
-
+/*! \var GLenum          DepthChunkBase::_sfFunc
+    The depth function to use. If GL_NONE, it's not changed. The default
+    is GL_LEQUAL.
 */
-/*! \var Real32 DepthChunkBase::_sfNear
-    	The near value for glDepthRange. Ignored if less than 0, defaults to -1.
-
+/*! \var Real32          DepthChunkBase::_sfNear
+    The near value for glDepthRange. Ignored if less than 0, defaults to
+    -1.
 */
-/*! \var Real32 DepthChunkBase::_sfFar
-    	The far value for glDepthRange. Ignored if less than 0, defaults to -1.
-
+/*! \var Real32          DepthChunkBase::_sfFar
+    The far value for glDepthRange. Ignored if less than 0, defaults to
+    -1.
 */
-/*! \var bool DepthChunkBase::_sfReadOnly
-    	Whether the depth buffer is enabled for writing or not.
-
+/*! \var bool            DepthChunkBase::_sfReadOnly
+    Whether the depth buffer is enabled for writing or not.
 */
 
 void DepthChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -103,9 +117,9 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "enable", 
-        "	Whether the depth test should be enabled or not.\n",
+        SFBool::getClassType(),
+        "enable",
+        "Whether the depth test should be enabled or not.\n",
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -125,9 +139,9 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "func", 
-        "	The depth function to use. If GL_NONE, it's not changed. The         default is LEQUAL.\n",
+        SFGLenum::getClassType(),
+        "func",
+        "The depth function to use. If GL_NONE, it's not changed. The default is GL_LEQUAL.\n",
         FuncFieldId, FuncFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -147,9 +161,9 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "near", 
-        "	The near value for glDepthRange. Ignored if less than 0, defaults to -1.\n",
+        SFReal32::getClassType(),
+        "near",
+        "The near value for glDepthRange. Ignored if less than 0, defaults to -1.\n",
         NearFieldId, NearFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -169,9 +183,9 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "far", 
-        "	The far value for glDepthRange. Ignored if less than 0, defaults to -1.\n",
+        SFReal32::getClassType(),
+        "far",
+        "The far value for glDepthRange. Ignored if less than 0, defaults to -1.\n",
         FarFieldId, FarFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -191,9 +205,9 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "readOnly", 
-        "	Whether the depth buffer is enabled for writing or not.\n",
+        SFBool::getClassType(),
+        "readOnly",
+        "Whether the depth buffer is enabled for writing or not.\n",
         ReadOnlyFieldId, ReadOnlyFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -218,90 +232,98 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(true,
     (InitalInsertDescFunc) &DepthChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"DepthChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"The depth chunk contains the parameters that are specific for depth control.\n"
-"	<Field\n"
-"		name=\"enable\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Whether the depth test should be enabled or not.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"func\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_LEQUAL\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The depth function to use. If GL_NONE, it's not changed. The         default is LEQUAL.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"near\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"-1.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The near value for glDepthRange. Ignored if less than 0, defaults to -1.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"far\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"-1.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The far value for glDepthRange. Ignored if less than 0, defaults to -1.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"readOnly\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Whether the depth buffer is enabled for writing or not.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The depth chunk contains the parameters that are specific for depth control.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"DepthChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "The depth chunk contains the parameters that are specific for depth control.\n"
+    "\n"
+    "The parameters of the following functions are wrapped here: glDepthFunc\n"
+    "(OSG::DepthChunk::_sfFunc), glDepthRange (OSG::DepthChunk::_sfNear,\n"
+    "OSG::DepthChunk::_sfFar), glEnable(GL_DEPTH_TEST)\n"
+    "(OSG::DepthChunk::_sfEnable).\n"
+    "\t<Field\n"
+    "\t\tname=\"enable\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tWhether the depth test should be enabled or not.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"func\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_LEQUAL\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe depth function to use. If GL_NONE, it's not changed. The default is GL_LEQUAL.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"near\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"-1.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe near value for glDepthRange. Ignored if less than 0, defaults to -1.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"far\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"-1.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe far value for glDepthRange. Ignored if less than 0, defaults to -1.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"readOnly\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tWhether the depth buffer is enabled for writing or not.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "The depth chunk contains the parameters that are specific for depth control.\n"
+    "The parameters of the following functions are wrapped here: glDepthFunc\n"
+    "(OSG::DepthChunk::_sfFunc), glDepthRange (OSG::DepthChunk::_sfNear,\n"
+    "OSG::DepthChunk::_sfFar), glEnable(GL_DEPTH_TEST)\n"
+    "(OSG::DepthChunk::_sfEnable).\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &DepthChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &DepthChunkBase::getType(void) const 
+FieldContainerType &DepthChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 DepthChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(DepthChunk); 
+const FieldContainerType &DepthChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 DepthChunkBase::getContainerSize(void) const
+{
+    return sizeof(DepthChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -320,9 +342,9 @@ const SFBool *DepthChunkBase::getSFEnable(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *DepthChunkBase::getSFEnable(void)
+SFBool              *DepthChunkBase::getSFEnable         (void)
 {
-    return this->editSFEnable();
+    return this->editSFEnable         ();
 }
 #endif
 
@@ -339,9 +361,9 @@ const SFGLenum *DepthChunkBase::getSFFunc(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *DepthChunkBase::getSFFunc(void)
+SFGLenum            *DepthChunkBase::getSFFunc           (void)
 {
-    return this->editSFFunc();
+    return this->editSFFunc           ();
 }
 #endif
 
@@ -358,9 +380,9 @@ const SFReal32 *DepthChunkBase::getSFNear(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *DepthChunkBase::getSFNear(void)
+SFReal32            *DepthChunkBase::getSFNear           (void)
 {
-    return this->editSFNear();
+    return this->editSFNear           ();
 }
 #endif
 
@@ -377,9 +399,9 @@ const SFReal32 *DepthChunkBase::getSFFar(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *DepthChunkBase::getSFFar(void)
+SFReal32            *DepthChunkBase::getSFFar            (void)
 {
-    return this->editSFFar();
+    return this->editSFFar            ();
 }
 #endif
 
@@ -396,9 +418,9 @@ const SFBool *DepthChunkBase::getSFReadOnly(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *DepthChunkBase::getSFReadOnly(void)
+SFBool              *DepthChunkBase::getSFReadOnly       (void)
 {
-    return this->editSFReadOnly();
+    return this->editSFReadOnly       ();
 }
 #endif
 
@@ -489,22 +511,22 @@ void DepthChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DepthChunkPtr DepthChunkBase::createEmpty(void) 
-{ 
-    DepthChunkPtr returnValue; 
-    
-    newPtr<DepthChunk>(returnValue); 
+DepthChunkPtr DepthChunkBase::createEmpty(void)
+{
+    DepthChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<DepthChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr DepthChunkBase::shallowCopy(void) const 
-{ 
-    DepthChunkPtr returnValue; 
+FieldContainerPtr DepthChunkBase::shallowCopy(void) const
+{
+    DepthChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const DepthChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const DepthChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -513,21 +535,21 @@ FieldContainerPtr DepthChunkBase::shallowCopy(void) const
 
 DepthChunkBase::DepthChunkBase(void) :
     Inherited(),
-    _sfEnable(bool(true)),
-    _sfFunc(GLenum(GL_LEQUAL)),
-    _sfNear(Real32(-1.f)),
-    _sfFar(Real32(-1.f)),
-    _sfReadOnly(bool(false))
+    _sfEnable                 (bool(true)),
+    _sfFunc                   (GLenum(GL_LEQUAL)),
+    _sfNear                   (Real32(-1.f)),
+    _sfFar                    (Real32(-1.f)),
+    _sfReadOnly               (bool(false))
 {
 }
 
 DepthChunkBase::DepthChunkBase(const DepthChunkBase &source) :
     Inherited(source),
-    _sfEnable(source._sfEnable),
-    _sfFunc(source._sfFunc),
-    _sfNear(source._sfNear),
-    _sfFar(source._sfFar),
-    _sfReadOnly(source._sfReadOnly)
+    _sfEnable                 (source._sfEnable                 ),
+    _sfFunc                   (source._sfFunc                   ),
+    _sfNear                   (source._sfNear                   ),
+    _sfFar                    (source._sfFar                    ),
+    _sfReadOnly               (source._sfReadOnly               )
 {
 }
 
@@ -541,13 +563,13 @@ DepthChunkBase::~DepthChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void DepthChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<DepthChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -557,10 +579,10 @@ void DepthChunkBase::execSyncV(      FieldContainer    &oFrom,
 void DepthChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DepthChunkBase *>(&oFrom), 
+    this->execSync(static_cast<DepthChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -580,12 +602,12 @@ void DepthChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr DepthChunkBase::createAspectCopy(void) const
 {
-    DepthChunkPtr returnValue; 
+    DepthChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const DepthChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const DepthChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -594,6 +616,8 @@ void DepthChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -616,8 +640,6 @@ OSG_FIELDTRAITS_GETTYPE(DepthChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, DepthChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, DepthChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -638,3 +660,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGDEPTHCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

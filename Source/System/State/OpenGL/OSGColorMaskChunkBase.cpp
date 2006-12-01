@@ -65,30 +65,37 @@
 #include "OSGColorMaskChunkBase.h"
 #include "OSGColorMaskChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool ColorMaskChunkBase::_sfMaskR
-    	Used to mask the writing of the R value to the color   buffer.
+/*! \class OSG::ColorMaskChunk
+    The color mask chunk contains the parameters that are specific for color
+    writing.
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            ColorMaskChunkBase::_sfMaskR
+    Used to mask the writing of the R value to the color buffer.
 */
-/*! \var bool ColorMaskChunkBase::_sfMaskG
-    	Used to mask the writing of the G value to the color   buffer.
-
+/*! \var bool            ColorMaskChunkBase::_sfMaskG
+    Used to mask the writing of the G value to the color buffer.
 */
-/*! \var bool ColorMaskChunkBase::_sfMaskB
-    	Used to mask the writing of the B value to the color   buffer.
-
+/*! \var bool            ColorMaskChunkBase::_sfMaskB
+    Used to mask the writing of the B value to the color buffer.
 */
-/*! \var bool ColorMaskChunkBase::_sfMaskA
-    	Used to mask the writing of the A value to the color   buffer.
-
+/*! \var bool            ColorMaskChunkBase::_sfMaskA
+    Used to mask the writing of the A value to the color buffer.
 */
 
 void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -98,9 +105,9 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "maskR", 
-        "	Used to mask the writing of the R value to the color   buffer.\n",
+        SFBool::getClassType(),
+        "maskR",
+        "Used to mask the writing of the R value to the color buffer.\n",
         MaskRFieldId, MaskRFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -120,9 +127,9 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "maskG", 
-        "	Used to mask the writing of the G value to the color   buffer.\n",
+        SFBool::getClassType(),
+        "maskG",
+        "Used to mask the writing of the G value to the color buffer.\n",
         MaskGFieldId, MaskGFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -142,9 +149,9 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "maskB", 
-        "	Used to mask the writing of the B value to the color   buffer.\n",
+        SFBool::getClassType(),
+        "maskB",
+        "Used to mask the writing of the B value to the color buffer.\n",
         MaskBFieldId, MaskBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -164,9 +171,9 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "maskA", 
-        "	Used to mask the writing of the A value to the color   buffer.\n",
+        SFBool::getClassType(),
+        "maskA",
+        "Used to mask the writing of the A value to the color buffer.\n",
         MaskAFieldId, MaskAFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -191,79 +198,79 @@ ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(true,
     (InitalInsertDescFunc) &ColorMaskChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ColorMaskChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"The color mask chunk contains the parameters that are specific for color write.\n"
-"	<Field\n"
-"		name=\"maskR\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Used to mask the writing of the R value to the color   buffer.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"maskG\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Used to mask the writing of the G value to the color   buffer.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"maskB\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Used to mask the writing of the B value to the color   buffer.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"maskA\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Used to mask the writing of the A value to the color   buffer.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The color mask chunk contains the parameters that are specific for color write.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ColorMaskChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "The color mask chunk contains the parameters that are specific for color writing.\n"
+    "\t<Field\n"
+    "\t\tname=\"maskR\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUsed to mask the writing of the R value to the color buffer.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"maskG\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUsed to mask the writing of the G value to the color buffer.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"maskB\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUsed to mask the writing of the B value to the color buffer.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"maskA\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUsed to mask the writing of the A value to the color buffer.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "The color mask chunk contains the parameters that are specific for color\n"
+    "writing.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ColorMaskChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ColorMaskChunkBase::getType(void) const 
+FieldContainerType &ColorMaskChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ColorMaskChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(ColorMaskChunk); 
+const FieldContainerType &ColorMaskChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ColorMaskChunkBase::getContainerSize(void) const
+{
+    return sizeof(ColorMaskChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -282,9 +289,9 @@ const SFBool *ColorMaskChunkBase::getSFMaskR(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ColorMaskChunkBase::getSFMaskR(void)
+SFBool              *ColorMaskChunkBase::getSFMaskR          (void)
 {
-    return this->editSFMaskR();
+    return this->editSFMaskR          ();
 }
 #endif
 
@@ -301,9 +308,9 @@ const SFBool *ColorMaskChunkBase::getSFMaskG(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ColorMaskChunkBase::getSFMaskG(void)
+SFBool              *ColorMaskChunkBase::getSFMaskG          (void)
 {
-    return this->editSFMaskG();
+    return this->editSFMaskG          ();
 }
 #endif
 
@@ -320,9 +327,9 @@ const SFBool *ColorMaskChunkBase::getSFMaskB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ColorMaskChunkBase::getSFMaskB(void)
+SFBool              *ColorMaskChunkBase::getSFMaskB          (void)
 {
-    return this->editSFMaskB();
+    return this->editSFMaskB          ();
 }
 #endif
 
@@ -339,9 +346,9 @@ const SFBool *ColorMaskChunkBase::getSFMaskA(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ColorMaskChunkBase::getSFMaskA(void)
+SFBool              *ColorMaskChunkBase::getSFMaskA          (void)
 {
-    return this->editSFMaskA();
+    return this->editSFMaskA          ();
 }
 #endif
 
@@ -420,22 +427,22 @@ void ColorMaskChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ColorMaskChunkPtr ColorMaskChunkBase::createEmpty(void) 
-{ 
-    ColorMaskChunkPtr returnValue; 
-    
-    newPtr<ColorMaskChunk>(returnValue); 
+ColorMaskChunkPtr ColorMaskChunkBase::createEmpty(void)
+{
+    ColorMaskChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<ColorMaskChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ColorMaskChunkBase::shallowCopy(void) const 
-{ 
-    ColorMaskChunkPtr returnValue; 
+FieldContainerPtr ColorMaskChunkBase::shallowCopy(void) const
+{
+    ColorMaskChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ColorMaskChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ColorMaskChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -444,19 +451,19 @@ FieldContainerPtr ColorMaskChunkBase::shallowCopy(void) const
 
 ColorMaskChunkBase::ColorMaskChunkBase(void) :
     Inherited(),
-    _sfMaskR(bool(true)),
-    _sfMaskG(bool(true)),
-    _sfMaskB(bool(true)),
-    _sfMaskA(bool(true))
+    _sfMaskR                  (bool(true)),
+    _sfMaskG                  (bool(true)),
+    _sfMaskB                  (bool(true)),
+    _sfMaskA                  (bool(true))
 {
 }
 
 ColorMaskChunkBase::ColorMaskChunkBase(const ColorMaskChunkBase &source) :
     Inherited(source),
-    _sfMaskR(source._sfMaskR),
-    _sfMaskG(source._sfMaskG),
-    _sfMaskB(source._sfMaskB),
-    _sfMaskA(source._sfMaskA)
+    _sfMaskR                  (source._sfMaskR                  ),
+    _sfMaskG                  (source._sfMaskG                  ),
+    _sfMaskB                  (source._sfMaskB                  ),
+    _sfMaskA                  (source._sfMaskA                  )
 {
 }
 
@@ -470,13 +477,13 @@ ColorMaskChunkBase::~ColorMaskChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ColorMaskChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ColorMaskChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -486,10 +493,10 @@ void ColorMaskChunkBase::execSyncV(      FieldContainer    &oFrom,
 void ColorMaskChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ColorMaskChunkBase *>(&oFrom), 
+    this->execSync(static_cast<ColorMaskChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -509,12 +516,12 @@ void ColorMaskChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ColorMaskChunkBase::createAspectCopy(void) const
 {
-    ColorMaskChunkPtr returnValue; 
+    ColorMaskChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ColorMaskChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ColorMaskChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -523,6 +530,8 @@ void ColorMaskChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -545,8 +554,6 @@ OSG_FIELDTRAITS_GETTYPE(ColorMaskChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ColorMaskChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ColorMaskChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -567,3 +574,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGCOLORMASKCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -95,22 +95,22 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               PolygonChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               PolygonChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               PolygonChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               PolygonChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               PolygonChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               PolygonChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -134,38 +134,37 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
         NextFieldId = StippleFieldId + 1
     };
 
-    static const OSG::BitVector CullFaceFieldMask = 
+    static const OSG::BitVector CullFaceFieldMask =
         (TypeTraits<BitVector>::One << CullFaceFieldId);
-    static const OSG::BitVector FrontFaceFieldMask = 
+    static const OSG::BitVector FrontFaceFieldMask =
         (TypeTraits<BitVector>::One << FrontFaceFieldId);
-    static const OSG::BitVector FrontModeFieldMask = 
+    static const OSG::BitVector FrontModeFieldMask =
         (TypeTraits<BitVector>::One << FrontModeFieldId);
-    static const OSG::BitVector BackModeFieldMask = 
+    static const OSG::BitVector BackModeFieldMask =
         (TypeTraits<BitVector>::One << BackModeFieldId);
-    static const OSG::BitVector SmoothFieldMask = 
+    static const OSG::BitVector SmoothFieldMask =
         (TypeTraits<BitVector>::One << SmoothFieldId);
-    static const OSG::BitVector OffsetFactorFieldMask = 
+    static const OSG::BitVector OffsetFactorFieldMask =
         (TypeTraits<BitVector>::One << OffsetFactorFieldId);
-    static const OSG::BitVector OffsetBiasFieldMask = 
+    static const OSG::BitVector OffsetBiasFieldMask =
         (TypeTraits<BitVector>::One << OffsetBiasFieldId);
-    static const OSG::BitVector OffsetPointFieldMask = 
+    static const OSG::BitVector OffsetPointFieldMask =
         (TypeTraits<BitVector>::One << OffsetPointFieldId);
-    static const OSG::BitVector OffsetLineFieldMask = 
+    static const OSG::BitVector OffsetLineFieldMask =
         (TypeTraits<BitVector>::One << OffsetLineFieldId);
-    static const OSG::BitVector OffsetFillFieldMask = 
+    static const OSG::BitVector OffsetFillFieldMask =
         (TypeTraits<BitVector>::One << OffsetFillFieldId);
-    static const OSG::BitVector StippleFieldMask = 
+    static const OSG::BitVector StippleFieldMask =
         (TypeTraits<BitVector>::One << StippleFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -173,8 +172,8 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -185,156 +184,156 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFCullFace(void);
+                  SFGLenum            *getSFCullFace        (void);
 #endif
-           SFGLenum *editSFCullFace(void);
-     const SFGLenum *getSFCullFace (void) const;
+                  SFGLenum            *editSFCullFace       (void);
+            const SFGLenum            *getSFCullFace        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFFrontFace(void);
+                  SFGLenum            *getSFFrontFace       (void);
 #endif
-           SFGLenum *editSFFrontFace(void);
-     const SFGLenum *getSFFrontFace (void) const;
+                  SFGLenum            *editSFFrontFace      (void);
+            const SFGLenum            *getSFFrontFace       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFFrontMode(void);
+                  SFGLenum            *getSFFrontMode       (void);
 #endif
-           SFGLenum *editSFFrontMode(void);
-     const SFGLenum *getSFFrontMode (void) const;
+                  SFGLenum            *editSFFrontMode      (void);
+            const SFGLenum            *getSFFrontMode       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFBackMode(void);
+                  SFGLenum            *getSFBackMode        (void);
 #endif
-           SFGLenum *editSFBackMode(void);
-     const SFGLenum *getSFBackMode (void) const;
+                  SFGLenum            *editSFBackMode       (void);
+            const SFGLenum            *getSFBackMode        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFSmooth(void);
+                  SFBool              *getSFSmooth          (void);
 #endif
-           SFBool *editSFSmooth(void);
-     const SFBool *getSFSmooth (void) const;
+                  SFBool              *editSFSmooth         (void);
+            const SFBool              *getSFSmooth          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFOffsetFactor(void);
+                  SFReal32            *getSFOffsetFactor    (void);
 #endif
-           SFReal32 *editSFOffsetFactor(void);
-     const SFReal32 *getSFOffsetFactor (void) const;
+                  SFReal32            *editSFOffsetFactor   (void);
+            const SFReal32            *getSFOffsetFactor    (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFOffsetBias(void);
+                  SFReal32            *getSFOffsetBias      (void);
 #endif
-           SFReal32 *editSFOffsetBias(void);
-     const SFReal32 *getSFOffsetBias (void) const;
+                  SFReal32            *editSFOffsetBias     (void);
+            const SFReal32            *getSFOffsetBias      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFOffsetPoint(void);
+                  SFBool              *getSFOffsetPoint     (void);
 #endif
-           SFBool *editSFOffsetPoint(void);
-     const SFBool *getSFOffsetPoint (void) const;
+                  SFBool              *editSFOffsetPoint    (void);
+            const SFBool              *getSFOffsetPoint     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFOffsetLine(void);
+                  SFBool              *getSFOffsetLine      (void);
 #endif
-           SFBool *editSFOffsetLine(void);
-     const SFBool *getSFOffsetLine (void) const;
+                  SFBool              *editSFOffsetLine     (void);
+            const SFBool              *getSFOffsetLine      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFOffsetFill(void);
+                  SFBool              *getSFOffsetFill      (void);
 #endif
-           SFBool *editSFOffsetFill(void);
-     const SFBool *getSFOffsetFill (void) const;
+                  SFBool              *editSFOffsetFill     (void);
+            const SFBool              *getSFOffsetFill      (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFInt32 *getMFStipple(void);
+                  MFInt32             *getMFStipple         (void);
 #endif
-           MFInt32 *editMFStipple(void);
-     const MFInt32 *getMFStipple (void) const;
+                  MFInt32             *editMFStipple        (void);
+            const MFInt32             *getMFStipple         (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           GLenum &getCullFace(void);
+                  GLenum              &getCullFace        (void);
 #endif
-           GLenum &editCullFace(void);
-     const GLenum &getCullFace (void) const;
+                  GLenum              &editCullFace       (void);
+            const GLenum              &getCullFace        (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getFrontFace(void);
+                  GLenum              &getFrontFace       (void);
 #endif
-           GLenum &editFrontFace(void);
-     const GLenum &getFrontFace (void) const;
+                  GLenum              &editFrontFace      (void);
+            const GLenum              &getFrontFace       (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getFrontMode(void);
+                  GLenum              &getFrontMode       (void);
 #endif
-           GLenum &editFrontMode(void);
-     const GLenum &getFrontMode (void) const;
+                  GLenum              &editFrontMode      (void);
+            const GLenum              &getFrontMode       (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getBackMode(void);
+                  GLenum              &getBackMode        (void);
 #endif
-           GLenum &editBackMode(void);
-     const GLenum &getBackMode (void) const;
+                  GLenum              &editBackMode       (void);
+            const GLenum              &getBackMode        (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getSmooth(void);
+                  bool                &getSmooth          (void);
 #endif
-           bool &editSmooth(void);
-     const bool &getSmooth (void) const;
+                  bool                &editSmooth         (void);
+            const bool                &getSmooth          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getOffsetFactor(void);
+                  Real32              &getOffsetFactor    (void);
 #endif
-           Real32 &editOffsetFactor(void);
-     const Real32 &getOffsetFactor (void) const;
+                  Real32              &editOffsetFactor   (void);
+            const Real32              &getOffsetFactor    (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getOffsetBias(void);
+                  Real32              &getOffsetBias      (void);
 #endif
-           Real32 &editOffsetBias(void);
-     const Real32 &getOffsetBias (void) const;
+                  Real32              &editOffsetBias     (void);
+            const Real32              &getOffsetBias      (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getOffsetPoint(void);
+                  bool                &getOffsetPoint     (void);
 #endif
-           bool &editOffsetPoint(void);
-     const bool &getOffsetPoint (void) const;
+                  bool                &editOffsetPoint    (void);
+            const bool                &getOffsetPoint     (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getOffsetLine(void);
+                  bool                &getOffsetLine      (void);
 #endif
-           bool &editOffsetLine(void);
-     const bool &getOffsetLine (void) const;
+                  bool                &editOffsetLine     (void);
+            const bool                &getOffsetLine      (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getOffsetFill(void);
+                  bool                &getOffsetFill      (void);
 #endif
-           bool &editOffsetFill(void);
-     const bool &getOffsetFill (void) const;
+                  bool                &editOffsetFill     (void);
+            const bool                &getOffsetFill      (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getStipple(const UInt32 index);
-           MFInt32 &getStipple(void);
+                  Int32               &getStipple         (const UInt32 index);
+                  MFInt32             &getStipple        (void);
 #endif
-           Int32 &editStipple(const UInt32 index);
-     const Int32 &getStipple (const UInt32 index) const;
-           MFInt32 &editStipple(void);
-     const MFInt32 &getStipple(void) const;
+                  Int32               &editStipple        (const UInt32 index);
+            const Int32               &getStipple         (const UInt32 index) const;
+                  MFInt32             &editStipple        (void);
+            const MFInt32             &getStipple        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setCullFace(const GLenum &value);
-     void setFrontFace(const GLenum &value);
-     void setFrontMode(const GLenum &value);
-     void setBackMode(const GLenum &value);
-     void setSmooth(const bool &value);
-     void setOffsetFactor(const Real32 &value);
-     void setOffsetBias(const Real32 &value);
-     void setOffsetPoint(const bool &value);
-     void setOffsetLine(const bool &value);
-     void setOffsetFill(const bool &value);
+            void setCullFace       (const GLenum &value);
+            void setFrontFace      (const GLenum &value);
+            void setFrontMode      (const GLenum &value);
+            void setBackMode       (const GLenum &value);
+            void setSmooth         (const bool &value);
+            void setOffsetFactor   (const Real32 &value);
+            void setOffsetBias     (const Real32 &value);
+            void setOffsetPoint    (const bool &value);
+            void setOffsetLine     (const bool &value);
+            void setOffsetFill     (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -354,15 +353,15 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PolygonChunkPtr create     (void); 
-    static  PolygonChunkPtr createEmpty(void); 
+    static  PolygonChunkPtr create     (void);
+    static  PolygonChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -378,17 +377,17 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum _sfCullFace;
-    SFGLenum _sfFrontFace;
-    SFGLenum _sfFrontMode;
-    SFGLenum _sfBackMode;
-    SFBool _sfSmooth;
-    SFReal32 _sfOffsetFactor;
-    SFReal32 _sfOffsetBias;
-    SFBool _sfOffsetPoint;
-    SFBool _sfOffsetLine;
-    SFBool _sfOffsetFill;
-    MFInt32 _mfStipple;
+    SFGLenum          _sfCullFace;
+    SFGLenum          _sfFrontFace;
+    SFGLenum          _sfFrontMode;
+    SFGLenum          _sfBackMode;
+    SFBool            _sfSmooth;
+    SFReal32          _sfOffsetFactor;
+    SFReal32          _sfOffsetBias;
+    SFBool            _sfOffsetPoint;
+    SFBool            _sfOffsetLine;
+    SFBool            _sfOffsetFill;
+    MFInt32           _mfStipple;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -403,7 +402,7 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PolygonChunkBase(void); 
+    virtual ~PolygonChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -449,11 +448,11 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

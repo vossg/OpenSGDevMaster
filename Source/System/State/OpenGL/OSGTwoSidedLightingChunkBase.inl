@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TwoSidedLightingChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TwoSidedLightingChunkBase::getClassTypeId(void) 
+OSG::UInt32 TwoSidedLightingChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TwoSidedLightingChunkBase::getClassGroupId(void)
@@ -76,24 +76,24 @@ OSG::UInt16 TwoSidedLightingChunkBase::getClassGroupId(void)
 
 //! create a new instance of the class
 inline
-TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::create(void) 
+TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::create(void)
 {
-    TwoSidedLightingChunkPtr fc; 
+    TwoSidedLightingChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TwoSidedLightingChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TwoSidedLightingChunkBase::execSync(      TwoSidedLightingChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -106,7 +106,7 @@ inline
 void TwoSidedLightingChunkBase::execSync (      TwoSidedLightingChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -141,4 +141,3 @@ typedef PointerBuilder<TwoSidedLightingChunk>::ObjPtrConstArg  TwoSidedLightingC
 OSG_END_NAMESPACE
 
 #define OSGTWOSIDEDLIGHTINGCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

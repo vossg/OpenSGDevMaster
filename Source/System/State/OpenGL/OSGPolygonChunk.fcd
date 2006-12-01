@@ -8,9 +8,23 @@
 	pointerfieldtypes="both"
 	systemcomponent="true"
 	parentsystemcomponent="true"
->
-The polygon chunk contains the parameter that is specific set for filled surfaces, 
-i.e. polygons.
+><![CDATA[
+\ingroup GrpSystemState
+
+See \ref PageSystemPolygonChunk for details.
+
+The parameters of the following functions are wrapped here:
+<ul>
+<li>glCullFace() (OSG::PolygonChunk::_sfCullFace),</li>
+<li>glFrontFace()(OSG::PolygonChunk::_sfFrontFace),</li>
+<li>glPolygonMode() (OSG::PolygonChunk::_sfFrontMode, OSG::PolygonChunk::_sfBackMode),</li>
+<li>glEnable(GL_POLYGON_SMOOTH) (OSG::PolygonChunk::_sfSmooth),</li>
+<li>glPolygonOffset() (OSG::PolygonChunk::_sfOffsetFactor, OSG::PolygonChunk::_sfOffsetBias),</li>
+<li>glEnable(GL_POLYGON_OFFSET_POINT) (OSG::PolygonChunk::_sfOffsetPoint),</li>
+<li>glEnable(GL_POLYGON_OFFSET_LINE) (OSG::PolygonChunk::_sfOffsetLine),</li>
+<li>glEnable(GL_POLYGON_OFFSET_FILL) (OSG::PolygonChunk::_sfOffsetFill),</li>
+<li>glStipplePattern() and glEnable(GL_POLYGON_STIPPLE) (OSG::PolygonChunk::_sfStipple).</li>
+</ul>]]>
 	<Field
 		name="cullFace"
 		type="GLenum"

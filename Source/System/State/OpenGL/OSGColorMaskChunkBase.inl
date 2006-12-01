@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ColorMaskChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ColorMaskChunkBase::getClassTypeId(void) 
+OSG::UInt32 ColorMaskChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ColorMaskChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &ColorMaskChunkBase::getMaskR(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ColorMaskChunkBase::getMaskR(void)
+bool                &ColorMaskChunkBase::getMaskR          (void)
 {
-    return this->editMaskR();
+    return this->editMaskR          ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const bool &ColorMaskChunkBase::getMaskG(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ColorMaskChunkBase::getMaskG(void)
+bool                &ColorMaskChunkBase::getMaskG          (void)
 {
-    return this->editMaskG();
+    return this->editMaskG          ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const bool &ColorMaskChunkBase::getMaskB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ColorMaskChunkBase::getMaskB(void)
+bool                &ColorMaskChunkBase::getMaskB          (void)
 {
-    return this->editMaskB();
+    return this->editMaskB          ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const bool &ColorMaskChunkBase::getMaskA(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ColorMaskChunkBase::getMaskA(void)
+bool                &ColorMaskChunkBase::getMaskA          (void)
 {
-    return this->editMaskA();
+    return this->editMaskA          ();
 }
 #endif
 
@@ -208,24 +208,24 @@ void ColorMaskChunkBase::setMaskA(const bool &value)
 
 //! create a new instance of the class
 inline
-ColorMaskChunkPtr ColorMaskChunkBase::create(void) 
+ColorMaskChunkPtr ColorMaskChunkBase::create(void)
 {
-    ColorMaskChunkPtr fc; 
+    ColorMaskChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ColorMaskChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ColorMaskChunkBase::execSync(      ColorMaskChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -250,7 +250,7 @@ inline
 void ColorMaskChunkBase::execSync (      ColorMaskChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -297,4 +297,3 @@ typedef PointerBuilder<ColorMaskChunk>::ObjPtrConstArg  ColorMaskChunkPtrConstAr
 OSG_END_NAMESPACE
 
 #define OSGCOLORMASKCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

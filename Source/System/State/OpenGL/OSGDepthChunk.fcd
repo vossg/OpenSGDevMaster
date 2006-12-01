@@ -12,6 +12,11 @@
 	useLocalIncludes="false"
 >
 The depth chunk contains the parameters that are specific for depth control.
+
+The parameters of the following functions are wrapped here: glDepthFunc
+(OSG::DepthChunk::_sfFunc), glDepthRange (OSG::DepthChunk::_sfNear,
+OSG::DepthChunk::_sfFar), glEnable(GL_DEPTH_TEST)
+(OSG::DepthChunk::_sfEnable).
 	<Field
 		name="enable"
 		type="bool"
@@ -31,7 +36,7 @@ The depth chunk contains the parameters that are specific for depth control.
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-	The depth function to use. If GL_NONE, it's not changed. The         default is LEQUAL.
+	The depth function to use. If GL_NONE, it's not changed. The default is GL_LEQUAL.
 	</Field>
 	<Field
 		name="near"

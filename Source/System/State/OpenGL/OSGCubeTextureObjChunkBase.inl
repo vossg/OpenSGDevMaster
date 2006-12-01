@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &CubeTextureObjChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 CubeTextureObjChunkBase::getClassTypeId(void) 
+OSG::UInt32 CubeTextureObjChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 CubeTextureObjChunkBase::getClassGroupId(void)
@@ -177,7 +177,7 @@ const bool &CubeTextureObjChunkBase::getIsReflectionMap(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &CubeTextureObjChunkBase::getIsReflectionMap(void)
+bool                &CubeTextureObjChunkBase::getIsReflectionMap(void)
 {
     return this->editIsReflectionMap();
 }
@@ -194,24 +194,24 @@ void CubeTextureObjChunkBase::setIsReflectionMap(const bool &value)
 
 //! create a new instance of the class
 inline
-CubeTextureObjChunkPtr CubeTextureObjChunkBase::create(void) 
+CubeTextureObjChunkPtr CubeTextureObjChunkBase::create(void)
 {
-    CubeTextureObjChunkPtr fc; 
+    CubeTextureObjChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<CubeTextureObjChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void CubeTextureObjChunkBase::execSync(      CubeTextureObjChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -242,7 +242,7 @@ inline
 void CubeTextureObjChunkBase::execSync (      CubeTextureObjChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -295,4 +295,3 @@ typedef PointerBuilder<CubeTextureObjChunk>::ObjPtrConstArg  CubeTextureObjChunk
 OSG_END_NAMESPACE
 
 #define OSGCUBETEXTUREOBJCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

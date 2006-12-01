@@ -60,37 +60,49 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // Enable default header
+#include <OSGGL.h>                        // Enable default header
 
 #include <OSGNode.h> // Beacon Class
 
 #include "OSGClipPlaneChunkBase.h"
 #include "OSGClipPlaneChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Vec4f ClipPlaneChunkBase::_sfEquation
-    	Defines the equation of the clip plane. Standard format, if (a,b,c,d) is
-        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d 
->
-= 0.
+/*! \class OSG::ClipPlaneChunk
+    \ingroup GrpSystemState
 
+    See \ref PageSystemClipPlaneChunk for a description.
+
+    This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and
+    glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The
+    coordinate system the plane is in is defined by
+    OSG::ClipPlaneChunk::_sfBeacon.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Vec4f           ClipPlaneChunkBase::_sfEquation
+    Defines the equation of the clip plane. Standard format, if (a,b,c,d)
+    is the plane a point (x,y,z) is visible if a*x+b*y+c*z+d >= 0.
 */
-/*! \var bool ClipPlaneChunkBase::_sfEnable
-    	Defines activation state of the clip plane.
-
+/*! \var bool            ClipPlaneChunkBase::_sfEnable
+    Defines activation state of the clip plane.
 */
-/*! \var NodePtr ClipPlaneChunkBase::_sfBeacon
-            The object that defines the clip planes's coordinate system. The clip
-        plane is positioned relative to this system.
-
+/*! \var NodePtr         ClipPlaneChunkBase::_sfBeacon
+    The object that defines the clip planes's coordinate system. The clip
+    plane is positioned relative to this system.
 */
 
 void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -100,9 +112,10 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec4f::Description(
-        SFVec4f::getClassType(), 
-        "equation", 
-        "	Defines the equation of the clip plane. Standard format, if (a,b,c,d) is\n        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d \n>\n= 0.\n",
+        SFVec4f::getClassType(),
+        "equation",
+        "Defines the equation of the clip plane. Standard format, if (a,b,c,d) is\n"
+        "the plane a point (x,y,z) is visible if a*x+b*y+c*z+d >= 0.\n",
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -122,9 +135,9 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "enable", 
-        "	Defines activation state of the clip plane.\n",
+        SFBool::getClassType(),
+        "enable",
+        "Defines activation state of the clip plane.\n",
         EnableFieldId, EnableFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -138,9 +151,10 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "beacon", 
-        "        The object that defines the clip planes's coordinate system. The clip\n        plane is positioned relative to this system.\n",
+        SFNodePtr::getClassType(),
+        "beacon",
+        "The object that defines the clip planes's coordinate system. The clip\n"
+        "plane is positioned relative to this system.\n",
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -161,72 +175,80 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(true,
     (InitalInsertDescFunc) &ClipPlaneChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ClipPlaneChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"The clip plane chunk contains the parameter that are specific for a clip\n"
-"plane. See glClipPlane for details. 	\n"
-"	<Field\n"
-"		name=\"equation\"\n"
-"		type=\"Vec4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0, 0, 1, 0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Defines the equation of the clip plane. Standard format, if (a,b,c,d) is\n"
-"        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &gt;= 0.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"enable\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_TRUE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Defines activation state of the clip plane.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"beacon\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The object that defines the clip planes's coordinate system. The clip\n"
-"        plane is positioned relative to this system.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The clip plane chunk contains the parameter that are specific for a clip\nplane. See glClipPlane for details. 	\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ClipPlaneChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemClipPlaneChunk for a description.\n"
+    "\n"
+    "This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and\n"
+    "glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The coordinate\n"
+    "system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.\n"
+    "\t<Field\n"
+    "\t\tname=\"equation\"\n"
+    "\t\ttype=\"Vec4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0, 0, 1, 0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefines the equation of the clip plane. Standard format, if (a,b,c,d) is\n"
+    "        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &gt;= 0.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"enable\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_TRUE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefines activation state of the clip plane.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"beacon\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The object that defines the clip planes's coordinate system. The clip\n"
+    "        plane is positioned relative to this system.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemClipPlaneChunk for a description.\n"
+    "This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and\n"
+    "glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The coordinate\n"
+    "system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ClipPlaneChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ClipPlaneChunkBase::getType(void) const 
+FieldContainerType &ClipPlaneChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ClipPlaneChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(ClipPlaneChunk); 
+const FieldContainerType &ClipPlaneChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ClipPlaneChunkBase::getContainerSize(void) const
+{
+    return sizeof(ClipPlaneChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -245,9 +267,9 @@ const SFVec4f *ClipPlaneChunkBase::getSFEquation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec4f *ClipPlaneChunkBase::getSFEquation(void)
+SFVec4f             *ClipPlaneChunkBase::getSFEquation       (void)
 {
-    return this->editSFEquation();
+    return this->editSFEquation       ();
 }
 #endif
 
@@ -264,9 +286,9 @@ const SFBool *ClipPlaneChunkBase::getSFEnable(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ClipPlaneChunkBase::getSFEnable(void)
+SFBool              *ClipPlaneChunkBase::getSFEnable         (void)
 {
-    return this->editSFEnable();
+    return this->editSFEnable         ();
 }
 #endif
 
@@ -400,22 +422,22 @@ void ClipPlaneChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ClipPlaneChunkPtr ClipPlaneChunkBase::createEmpty(void) 
-{ 
-    ClipPlaneChunkPtr returnValue; 
-    
-    newPtr<ClipPlaneChunk>(returnValue); 
+ClipPlaneChunkPtr ClipPlaneChunkBase::createEmpty(void)
+{
+    ClipPlaneChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<ClipPlaneChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ClipPlaneChunkBase::shallowCopy(void) const 
-{ 
-    ClipPlaneChunkPtr returnValue; 
+FieldContainerPtr ClipPlaneChunkBase::shallowCopy(void) const
+{
+    ClipPlaneChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ClipPlaneChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ClipPlaneChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -424,17 +446,17 @@ FieldContainerPtr ClipPlaneChunkBase::shallowCopy(void) const
 
 ClipPlaneChunkBase::ClipPlaneChunkBase(void) :
     Inherited(),
-    _sfEquation(Vec4f(0, 0, 1, 0)),
-    _sfEnable(bool(GL_TRUE)),
-    _sfBeacon(NodePtr(NullFC))
+    _sfEquation               (Vec4f(0, 0, 1, 0)),
+    _sfEnable                 (bool(GL_TRUE)),
+    _sfBeacon                 (NodePtr(NullFC))
 {
 }
 
 ClipPlaneChunkBase::ClipPlaneChunkBase(const ClipPlaneChunkBase &source) :
     Inherited(source),
-    _sfEquation(source._sfEquation),
-    _sfEnable(source._sfEnable),
-    _sfBeacon()
+    _sfEquation               (source._sfEquation               ),
+    _sfEnable                 (source._sfEnable                 ),
+    _sfBeacon                 ()
 {
 }
 
@@ -458,13 +480,13 @@ void ClipPlaneChunkBase::onCreate(const ClipPlaneChunk *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ClipPlaneChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -474,10 +496,10 @@ void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
 void ClipPlaneChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ClipPlaneChunkBase *>(&oFrom), 
+    this->execSync(static_cast<ClipPlaneChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -497,12 +519,12 @@ void ClipPlaneChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ClipPlaneChunkBase::createAspectCopy(void) const
 {
-    ClipPlaneChunkPtr returnValue; 
+    ClipPlaneChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ClipPlaneChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ClipPlaneChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -513,6 +535,8 @@ void ClipPlaneChunkBase::resolveLinks(void)
     static_cast<ClipPlaneChunk *>(this)->setBeacon(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -535,8 +559,6 @@ OSG_FIELDTRAITS_GETTYPE(ClipPlaneChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ClipPlaneChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ClipPlaneChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -557,3 +579,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGCLIPPLANECHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

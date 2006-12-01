@@ -56,19 +56,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::TextureTransformChunk
-    \ingroup GrpSystemState
-
-See \ref PageSystemTextureTransformChunk for a description.
-
-This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is derived
-from the OSG::TransformChunk and uses its matrix.
-
-*/
+// Documentation for this class is emited in the
+// OSGTextureTransformChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGTextureTransformChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

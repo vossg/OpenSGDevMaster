@@ -54,21 +54,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::LineChunk
-    \ingroup GrpSystemState
-
-  See \ref PageSystemLineChunk for a decription.
-
-  The parameters of the following functions are wrapped here: glLineWidth
-  (OSG::LineChunk::_sfWidth), glLineStipple (OSG::LineChunk::_sfStippleRepeat,
-  OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)
-  (OSG::LineChunk::_sfSmooth).
-*/
-
+// Documentation for this class is emited in the
+// OSGLineChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGLineChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

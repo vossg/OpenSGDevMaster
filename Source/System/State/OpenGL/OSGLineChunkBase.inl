@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &LineChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 LineChunkBase::getClassTypeId(void) 
+OSG::UInt32 LineChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 LineChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Real32 &LineChunkBase::getWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &LineChunkBase::getWidth(void)
+Real32              &LineChunkBase::getWidth          (void)
 {
-    return this->editWidth();
+    return this->editWidth          ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Int32 &LineChunkBase::getStippleRepeat(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &LineChunkBase::getStippleRepeat(void)
+Int32               &LineChunkBase::getStippleRepeat  (void)
 {
-    return this->editStippleRepeat();
+    return this->editStippleRepeat  ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const UInt16 &LineChunkBase::getStipplePattern(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &LineChunkBase::getStipplePattern(void)
+UInt16              &LineChunkBase::getStipplePattern (void)
 {
-    return this->editStipplePattern();
+    return this->editStipplePattern ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const bool &LineChunkBase::getSmooth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &LineChunkBase::getSmooth(void)
+bool                &LineChunkBase::getSmooth         (void)
 {
-    return this->editSmooth();
+    return this->editSmooth         ();
 }
 #endif
 
@@ -208,24 +208,24 @@ void LineChunkBase::setSmooth(const bool &value)
 
 //! create a new instance of the class
 inline
-LineChunkPtr LineChunkBase::create(void) 
+LineChunkPtr LineChunkBase::create(void)
 {
-    LineChunkPtr fc; 
+    LineChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<LineChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void LineChunkBase::execSync(      LineChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -250,7 +250,7 @@ inline
 void LineChunkBase::execSync (      LineChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -297,4 +297,3 @@ typedef PointerBuilder<LineChunk>::ObjPtrConstArg  LineChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGLINECHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

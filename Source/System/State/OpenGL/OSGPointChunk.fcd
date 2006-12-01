@@ -10,7 +10,18 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-The point chunk contains the parameters that are specific set for points.
+\ingroup GrpSystemState
+
+See \ref PageSystemPointChunk for a description. 
+
+This chunk wraps glPointSize() (OSG::PointChunk::_sfSize) and
+glEnable(GL_POINT_SMOOTH) (OSG::PointChunk::_sfSmooth). It encompasses the
+ARB_point_parameters extension (OSG::PointChunk::_sfMinSize, 
+OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, 
+OSG::PointChunk::_sfConstantAttenuation, 
+OSG::PointChunk::_sfLinearAttenuation,
+OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
+(OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).
 	<Field
 		name="size"
 		type="Real32"
@@ -40,7 +51,7 @@ The point chunk contains the parameters that are specific set for points.
 		defaultValue="-1.f"
 		access="public"
 	>
-	Minimum point size for attenuation, less than 0 for disabling it. See ARB_point_parameters extension.
+	Minimum point size for attenuation, less than 0 to disable it. See ARB_point_parameters extension.
 	</Field>
 	<Field
 		name="maxSize"

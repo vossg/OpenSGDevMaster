@@ -21,7 +21,8 @@ The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and g
 		defaultHeader="OSGGL.h"
 		access="public"
 	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.          See glStencilFunc() for details. GL_NONE is used to disable stencil.
+	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+        See glStencilFunc() for details. GL_NONE is used to disable stencil.
 	</Field>
 	<Field
 		name="stencilValue"
@@ -31,7 +32,8 @@ The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and g
 		defaultValue="0"
 		access="public"
 	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.          See glStencilFunc() for details. GL_NONE is used to disable stencil.
+	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+        See glStencilFunc() for details. GL_NONE is used to disable stencil.
 	</Field>
 	<Field
 		name="stencilMask"
@@ -41,7 +43,8 @@ The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and g
 		defaultValue="0x1"
 		access="public"
 	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.          See glStencilFunc() for details. GL_NONE is used to disable stencil.
+	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+        See glStencilFunc() for details. GL_NONE is used to disable stencil.
 	</Field>
 	<Field
 		name="stencilOpFail"
@@ -52,7 +55,8 @@ The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and g
 		defaultHeader="OSGGL.h"
 		access="public"
 	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.          See glStencilFunc() for details. GL_NONE is used to disable stencil.
+	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+        See glStencilFunc() for details. GL_NONE is used to disable stencil.
 	</Field>
 	<Field
 		name="stencilOpZFail"
@@ -63,7 +67,8 @@ The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and g
 		defaultHeader="OSGGL.h"
 		access="public"
 	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.          See glStencilFunc() for details. GL_NONE is used to disable stencil.
+	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+        See glStencilFunc() for details. GL_NONE is used to disable stencil.
 	</Field>
 	<Field
 		name="stencilOpZPass"
@@ -74,7 +79,8 @@ The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and g
 		defaultHeader="OSGGL.h"
 		access="public"
 	>
-	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.          See glStencilFunc() for details. GL_NONE is used to disable stencil.
+	The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+        See glStencilFunc() for details. GL_NONE is used to disable stencil.
 	</Field>
 	<Field
 		name="clearBuffer"

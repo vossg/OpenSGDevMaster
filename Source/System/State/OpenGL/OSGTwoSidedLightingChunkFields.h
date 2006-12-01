@@ -70,22 +70,22 @@ class TwoSidedLightingChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TwoSidedLightingChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TwoSidedLightingChunk>::ObjPtr         TwoSidedLightingChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TwoSidedLightingChunk>::ObjPtrConst    TwoSidedLightingChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TwoSidedLightingChunk>::ObjConstPtr    TwoSidedLightingChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TwoSidedLightingChunk>::ObjPtrArg      TwoSidedLightingChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TwoSidedLightingChunk>::ObjConstPtrArg TwoSidedLightingChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TwoSidedLightingChunk>::ObjPtrConstArg TwoSidedLightingChunkPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<StateChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<TwoSidedLightingChunkPtr> : 
+struct FieldTraits<TwoSidedLightingChunkPtr> :
     public FieldTraitsTemplateBase<TwoSidedLightingChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TwoSidedLightingChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

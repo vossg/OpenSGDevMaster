@@ -10,8 +10,13 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-The clip plane chunk contains the parameter that are specific for a clip
-plane. See glClipPlane for details. 	
+\ingroup GrpSystemState
+
+See \ref PageSystemClipPlaneChunk for a description.
+
+This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and
+glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The coordinate
+system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
 	<Field
 		name="equation"
 		type="Vec4f"

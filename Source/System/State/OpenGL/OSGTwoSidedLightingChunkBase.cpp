@@ -65,7 +65,15 @@
 #include "OSGTwoSidedLightingChunkBase.h"
 #include "OSGTwoSidedLightingChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::TwoSidedLightingChunk
+    
+ */
 
 
 TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(true,
@@ -78,38 +86,37 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(true,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TwoSidedLightingChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TwoSidedLightingChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TwoSidedLightingChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TwoSidedLightingChunkBase::getType(void) const 
+FieldContainerType &TwoSidedLightingChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TwoSidedLightingChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(TwoSidedLightingChunk); 
+const FieldContainerType &TwoSidedLightingChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TwoSidedLightingChunkBase::getContainerSize(void) const
+{
+    return sizeof(TwoSidedLightingChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -142,22 +149,22 @@ void TwoSidedLightingChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmpty(void) 
-{ 
-    TwoSidedLightingChunkPtr returnValue; 
-    
-    newPtr<TwoSidedLightingChunk>(returnValue); 
+TwoSidedLightingChunkPtr TwoSidedLightingChunkBase::createEmpty(void)
+{
+    TwoSidedLightingChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<TwoSidedLightingChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TwoSidedLightingChunkBase::shallowCopy(void) const 
-{ 
-    TwoSidedLightingChunkPtr returnValue; 
+FieldContainerPtr TwoSidedLightingChunkBase::shallowCopy(void) const
+{
+    TwoSidedLightingChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TwoSidedLightingChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TwoSidedLightingChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -184,13 +191,13 @@ TwoSidedLightingChunkBase::~TwoSidedLightingChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TwoSidedLightingChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TwoSidedLightingChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -200,10 +207,10 @@ void TwoSidedLightingChunkBase::execSyncV(      FieldContainer    &oFrom,
 void TwoSidedLightingChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TwoSidedLightingChunkBase *>(&oFrom), 
+    this->execSync(static_cast<TwoSidedLightingChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -223,12 +230,12 @@ void TwoSidedLightingChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TwoSidedLightingChunkBase::createAspectCopy(void) const
 {
-    TwoSidedLightingChunkPtr returnValue; 
+    TwoSidedLightingChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TwoSidedLightingChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TwoSidedLightingChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -238,14 +245,10 @@ void TwoSidedLightingChunkBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<TwoSidedLightingChunkPtr>::_type("TwoSidedLightingChunkPtr", "StateChunkPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -267,3 +270,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTWOSIDEDLIGHTINGCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

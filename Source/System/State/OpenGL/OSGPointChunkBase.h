@@ -94,22 +94,22 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               PointChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               PointChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               PointChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               PointChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               PointChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               PointChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -132,36 +132,35 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
         NextFieldId = RModeFieldId + 1
     };
 
-    static const OSG::BitVector SizeFieldMask = 
+    static const OSG::BitVector SizeFieldMask =
         (TypeTraits<BitVector>::One << SizeFieldId);
-    static const OSG::BitVector SmoothFieldMask = 
+    static const OSG::BitVector SmoothFieldMask =
         (TypeTraits<BitVector>::One << SmoothFieldId);
-    static const OSG::BitVector MinSizeFieldMask = 
+    static const OSG::BitVector MinSizeFieldMask =
         (TypeTraits<BitVector>::One << MinSizeFieldId);
-    static const OSG::BitVector MaxSizeFieldMask = 
+    static const OSG::BitVector MaxSizeFieldMask =
         (TypeTraits<BitVector>::One << MaxSizeFieldId);
-    static const OSG::BitVector ConstantAttenuationFieldMask = 
+    static const OSG::BitVector ConstantAttenuationFieldMask =
         (TypeTraits<BitVector>::One << ConstantAttenuationFieldId);
-    static const OSG::BitVector LinearAttenuationFieldMask = 
+    static const OSG::BitVector LinearAttenuationFieldMask =
         (TypeTraits<BitVector>::One << LinearAttenuationFieldId);
-    static const OSG::BitVector QuadraticAttenuationFieldMask = 
+    static const OSG::BitVector QuadraticAttenuationFieldMask =
         (TypeTraits<BitVector>::One << QuadraticAttenuationFieldId);
-    static const OSG::BitVector FadeThresholdFieldMask = 
+    static const OSG::BitVector FadeThresholdFieldMask =
         (TypeTraits<BitVector>::One << FadeThresholdFieldId);
-    static const OSG::BitVector SpriteFieldMask = 
+    static const OSG::BitVector SpriteFieldMask =
         (TypeTraits<BitVector>::One << SpriteFieldId);
-    static const OSG::BitVector RModeFieldMask = 
+    static const OSG::BitVector RModeFieldMask =
         (TypeTraits<BitVector>::One << RModeFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -169,8 +168,8 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -181,141 +180,141 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFSize(void);
+                  SFReal32            *getSFSize            (void);
 #endif
-           SFReal32 *editSFSize(void);
-     const SFReal32 *getSFSize (void) const;
+                  SFReal32            *editSFSize           (void);
+            const SFReal32            *getSFSize            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFSmooth(void);
+                  SFBool              *getSFSmooth          (void);
 #endif
-           SFBool *editSFSmooth(void);
-     const SFBool *getSFSmooth (void) const;
+                  SFBool              *editSFSmooth         (void);
+            const SFBool              *getSFSmooth          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFMinSize(void);
+                  SFReal32            *getSFMinSize         (void);
 #endif
-           SFReal32 *editSFMinSize(void);
-     const SFReal32 *getSFMinSize (void) const;
+                  SFReal32            *editSFMinSize        (void);
+            const SFReal32            *getSFMinSize         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFMaxSize(void);
+                  SFReal32            *getSFMaxSize         (void);
 #endif
-           SFReal32 *editSFMaxSize(void);
-     const SFReal32 *getSFMaxSize (void) const;
+                  SFReal32            *editSFMaxSize        (void);
+            const SFReal32            *getSFMaxSize         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFConstantAttenuation(void);
+                  SFReal32            *getSFConstantAttenuation (void);
 #endif
-           SFReal32 *editSFConstantAttenuation(void);
-     const SFReal32 *getSFConstantAttenuation (void) const;
+                  SFReal32            *editSFConstantAttenuation(void);
+            const SFReal32            *getSFConstantAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFLinearAttenuation(void);
+                  SFReal32            *getSFLinearAttenuation (void);
 #endif
-           SFReal32 *editSFLinearAttenuation(void);
-     const SFReal32 *getSFLinearAttenuation (void) const;
+                  SFReal32            *editSFLinearAttenuation(void);
+            const SFReal32            *getSFLinearAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFQuadraticAttenuation(void);
+                  SFReal32            *getSFQuadraticAttenuation (void);
 #endif
-           SFReal32 *editSFQuadraticAttenuation(void);
-     const SFReal32 *getSFQuadraticAttenuation (void) const;
+                  SFReal32            *editSFQuadraticAttenuation(void);
+            const SFReal32            *getSFQuadraticAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFFadeThreshold(void);
+                  SFReal32            *getSFFadeThreshold   (void);
 #endif
-           SFReal32 *editSFFadeThreshold(void);
-     const SFReal32 *getSFFadeThreshold (void) const;
+                  SFReal32            *editSFFadeThreshold  (void);
+            const SFReal32            *getSFFadeThreshold   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFSprite(void);
+                  SFBool              *getSFSprite          (void);
 #endif
-           SFBool *editSFSprite(void);
-     const SFBool *getSFSprite (void) const;
+                  SFBool              *editSFSprite         (void);
+            const SFBool              *getSFSprite          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFRMode(void);
+                  SFGLenum            *getSFRMode           (void);
 #endif
-           SFGLenum *editSFRMode(void);
-     const SFGLenum *getSFRMode (void) const;
+                  SFGLenum            *editSFRMode          (void);
+            const SFGLenum            *getSFRMode           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Real32 &getSize(void);
+                  Real32              &getSize            (void);
 #endif
-           Real32 &editSize(void);
-     const Real32 &getSize (void) const;
+                  Real32              &editSize           (void);
+            const Real32              &getSize            (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getSmooth(void);
+                  bool                &getSmooth          (void);
 #endif
-           bool &editSmooth(void);
-     const bool &getSmooth (void) const;
+                  bool                &editSmooth         (void);
+            const bool                &getSmooth          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getMinSize(void);
+                  Real32              &getMinSize         (void);
 #endif
-           Real32 &editMinSize(void);
-     const Real32 &getMinSize (void) const;
+                  Real32              &editMinSize        (void);
+            const Real32              &getMinSize         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getMaxSize(void);
+                  Real32              &getMaxSize         (void);
 #endif
-           Real32 &editMaxSize(void);
-     const Real32 &getMaxSize (void) const;
+                  Real32              &editMaxSize        (void);
+            const Real32              &getMaxSize         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getConstantAttenuation(void);
+                  Real32              &getConstantAttenuation (void);
 #endif
-           Real32 &editConstantAttenuation(void);
-     const Real32 &getConstantAttenuation (void) const;
+                  Real32              &editConstantAttenuation(void);
+            const Real32              &getConstantAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getLinearAttenuation(void);
+                  Real32              &getLinearAttenuation (void);
 #endif
-           Real32 &editLinearAttenuation(void);
-     const Real32 &getLinearAttenuation (void) const;
+                  Real32              &editLinearAttenuation(void);
+            const Real32              &getLinearAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getQuadraticAttenuation(void);
+                  Real32              &getQuadraticAttenuation (void);
 #endif
-           Real32 &editQuadraticAttenuation(void);
-     const Real32 &getQuadraticAttenuation (void) const;
+                  Real32              &editQuadraticAttenuation(void);
+            const Real32              &getQuadraticAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getFadeThreshold(void);
+                  Real32              &getFadeThreshold   (void);
 #endif
-           Real32 &editFadeThreshold(void);
-     const Real32 &getFadeThreshold (void) const;
+                  Real32              &editFadeThreshold  (void);
+            const Real32              &getFadeThreshold   (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getSprite(void);
+                  bool                &getSprite          (void);
 #endif
-           bool &editSprite(void);
-     const bool &getSprite (void) const;
+                  bool                &editSprite         (void);
+            const bool                &getSprite          (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getRMode(void);
+                  GLenum              &getRMode           (void);
 #endif
-           GLenum &editRMode(void);
-     const GLenum &getRMode (void) const;
+                  GLenum              &editRMode          (void);
+            const GLenum              &getRMode           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setSize(const Real32 &value);
-     void setSmooth(const bool &value);
-     void setMinSize(const Real32 &value);
-     void setMaxSize(const Real32 &value);
-     void setConstantAttenuation(const Real32 &value);
-     void setLinearAttenuation(const Real32 &value);
-     void setQuadraticAttenuation(const Real32 &value);
-     void setFadeThreshold(const Real32 &value);
-     void setSprite(const bool &value);
-     void setRMode(const GLenum &value);
+            void setSize           (const Real32 &value);
+            void setSmooth         (const bool &value);
+            void setMinSize        (const Real32 &value);
+            void setMaxSize        (const Real32 &value);
+            void setConstantAttenuation(const Real32 &value);
+            void setLinearAttenuation(const Real32 &value);
+            void setQuadraticAttenuation(const Real32 &value);
+            void setFadeThreshold  (const Real32 &value);
+            void setSprite         (const bool &value);
+            void setRMode          (const GLenum &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -335,15 +334,15 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PointChunkPtr create     (void); 
-    static  PointChunkPtr createEmpty(void); 
+    static  PointChunkPtr create     (void);
+    static  PointChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -359,16 +358,16 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32 _sfSize;
-    SFBool _sfSmooth;
-    SFReal32 _sfMinSize;
-    SFReal32 _sfMaxSize;
-    SFReal32 _sfConstantAttenuation;
-    SFReal32 _sfLinearAttenuation;
-    SFReal32 _sfQuadraticAttenuation;
-    SFReal32 _sfFadeThreshold;
-    SFBool _sfSprite;
-    SFGLenum _sfRMode;
+    SFReal32          _sfSize;
+    SFBool            _sfSmooth;
+    SFReal32          _sfMinSize;
+    SFReal32          _sfMaxSize;
+    SFReal32          _sfConstantAttenuation;
+    SFReal32          _sfLinearAttenuation;
+    SFReal32          _sfQuadraticAttenuation;
+    SFReal32          _sfFadeThreshold;
+    SFBool            _sfSprite;
+    SFGLenum          _sfRMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -383,7 +382,7 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PointChunkBase(void); 
+    virtual ~PointChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -429,11 +428,11 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

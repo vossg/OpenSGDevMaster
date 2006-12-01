@@ -85,22 +85,22 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<TransformChunkPtr, 
-                              TransformChunkConstPtr, 
+    typedef PointerFwdBuilder<TransformChunkPtr,
+                              TransformChunkConstPtr,
                               TextureTransformChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<TransformChunkPtr, 
-                              TransformChunkConstPtr, 
+    typedef PointerFwdBuilder<TransformChunkPtr,
+                              TransformChunkConstPtr,
                               TextureTransformChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<TransformChunkPtr, 
+    typedef PointerFwdBuilder<TransformChunkPtr,
                               TransformChunkConstPtr,
                               TextureTransformChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<TransformChunkPtr, 
+    typedef PointerFwdBuilder<TransformChunkPtr,
                               TransformChunkConstPtr,
                               TextureTransformChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<TransformChunkPtr, 
+    typedef PointerFwdBuilder<TransformChunkPtr,
                               TransformChunkConstPtr,
                               TextureTransformChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<TransformChunkPtr, 
+    typedef PointerFwdBuilder<TransformChunkPtr,
                               TransformChunkConstPtr,
                               TextureTransformChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
         NextFieldId = UseCameraBeaconFieldId + 1
     };
 
-    static const OSG::BitVector UseCameraBeaconFieldMask = 
+    static const OSG::BitVector UseCameraBeaconFieldMask =
         (TypeTraits<BitVector>::One << UseCameraBeaconFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFUseCameraBeacon(void);
+                  SFBool              *getSFUseCameraBeacon (void);
 #endif
-           SFBool *editSFUseCameraBeacon(void);
-     const SFBool *getSFUseCameraBeacon (void) const;
+                  SFBool              *editSFUseCameraBeacon(void);
+            const SFBool              *getSFUseCameraBeacon (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getUseCameraBeacon(void);
+                  bool                &getUseCameraBeacon (void);
 #endif
-           bool &editUseCameraBeacon(void);
-     const bool &getUseCameraBeacon (void) const;
+                  bool                &editUseCameraBeacon(void);
+            const bool                &getUseCameraBeacon (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setUseCameraBeacon(const bool &value);
+            void setUseCameraBeacon(const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -182,15 +181,15 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureTransformChunkPtr create     (void); 
-    static  TextureTransformChunkPtr createEmpty(void); 
+    static  TextureTransformChunkPtr create     (void);
+    static  TextureTransformChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -206,7 +205,7 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfUseCameraBeacon;
+    SFBool            _sfUseCameraBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,7 +220,7 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureTransformChunkBase(void); 
+    virtual ~TextureTransformChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,11 +266,11 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

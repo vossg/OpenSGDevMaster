@@ -88,22 +88,22 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               LineChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               LineChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               LineChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               LineChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               LineChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               LineChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -120,24 +120,23 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
         NextFieldId = SmoothFieldId + 1
     };
 
-    static const OSG::BitVector WidthFieldMask = 
+    static const OSG::BitVector WidthFieldMask =
         (TypeTraits<BitVector>::One << WidthFieldId);
-    static const OSG::BitVector StippleRepeatFieldMask = 
+    static const OSG::BitVector StippleRepeatFieldMask =
         (TypeTraits<BitVector>::One << StippleRepeatFieldId);
-    static const OSG::BitVector StipplePatternFieldMask = 
+    static const OSG::BitVector StipplePatternFieldMask =
         (TypeTraits<BitVector>::One << StipplePatternFieldId);
-    static const OSG::BitVector SmoothFieldMask = 
+    static const OSG::BitVector SmoothFieldMask =
         (TypeTraits<BitVector>::One << SmoothFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -145,8 +144,8 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -157,63 +156,63 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFWidth(void);
+                  SFReal32            *getSFWidth           (void);
 #endif
-           SFReal32 *editSFWidth(void);
-     const SFReal32 *getSFWidth (void) const;
+                  SFReal32            *editSFWidth          (void);
+            const SFReal32            *getSFWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFStippleRepeat(void);
+                  SFInt32             *getSFStippleRepeat   (void);
 #endif
-           SFInt32 *editSFStippleRepeat(void);
-     const SFInt32 *getSFStippleRepeat (void) const;
+                  SFInt32             *editSFStippleRepeat  (void);
+            const SFInt32             *getSFStippleRepeat   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFStipplePattern(void);
+                  SFUInt16            *getSFStipplePattern  (void);
 #endif
-           SFUInt16 *editSFStipplePattern(void);
-     const SFUInt16 *getSFStipplePattern (void) const;
+                  SFUInt16            *editSFStipplePattern (void);
+            const SFUInt16            *getSFStipplePattern  (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFSmooth(void);
+                  SFBool              *getSFSmooth          (void);
 #endif
-           SFBool *editSFSmooth(void);
-     const SFBool *getSFSmooth (void) const;
+                  SFBool              *editSFSmooth         (void);
+            const SFBool              *getSFSmooth          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Real32 &getWidth(void);
+                  Real32              &getWidth           (void);
 #endif
-           Real32 &editWidth(void);
-     const Real32 &getWidth (void) const;
+                  Real32              &editWidth          (void);
+            const Real32              &getWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getStippleRepeat(void);
+                  Int32               &getStippleRepeat   (void);
 #endif
-           Int32 &editStippleRepeat(void);
-     const Int32 &getStippleRepeat (void) const;
+                  Int32               &editStippleRepeat  (void);
+            const Int32               &getStippleRepeat   (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getStipplePattern(void);
+                  UInt16              &getStipplePattern  (void);
 #endif
-           UInt16 &editStipplePattern(void);
-     const UInt16 &getStipplePattern (void) const;
+                  UInt16              &editStipplePattern (void);
+            const UInt16              &getStipplePattern  (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getSmooth(void);
+                  bool                &getSmooth          (void);
 #endif
-           bool &editSmooth(void);
-     const bool &getSmooth (void) const;
+                  bool                &editSmooth         (void);
+            const bool                &getSmooth          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setWidth(const Real32 &value);
-     void setStippleRepeat(const Int32 &value);
-     void setStipplePattern(const UInt16 &value);
-     void setSmooth(const bool &value);
+            void setWidth          (const Real32 &value);
+            void setStippleRepeat  (const Int32 &value);
+            void setStipplePattern (const UInt16 &value);
+            void setSmooth         (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -233,15 +232,15 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  LineChunkPtr create     (void); 
-    static  LineChunkPtr createEmpty(void); 
+    static  LineChunkPtr create     (void);
+    static  LineChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -257,10 +256,10 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32 _sfWidth;
-    SFInt32 _sfStippleRepeat;
-    SFUInt16 _sfStipplePattern;
-    SFBool _sfSmooth;
+    SFReal32          _sfWidth;
+    SFInt32           _sfStippleRepeat;
+    SFUInt16          _sfStipplePattern;
+    SFBool            _sfSmooth;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,7 +274,7 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~LineChunkBase(void); 
+    virtual ~LineChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -321,11 +320,11 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

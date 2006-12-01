@@ -89,22 +89,22 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               DepthChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               DepthChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               DepthChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               DepthChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               DepthChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               DepthChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -122,26 +122,25 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
         NextFieldId = ReadOnlyFieldId + 1
     };
 
-    static const OSG::BitVector EnableFieldMask = 
+    static const OSG::BitVector EnableFieldMask =
         (TypeTraits<BitVector>::One << EnableFieldId);
-    static const OSG::BitVector FuncFieldMask = 
+    static const OSG::BitVector FuncFieldMask =
         (TypeTraits<BitVector>::One << FuncFieldId);
-    static const OSG::BitVector NearFieldMask = 
+    static const OSG::BitVector NearFieldMask =
         (TypeTraits<BitVector>::One << NearFieldId);
-    static const OSG::BitVector FarFieldMask = 
+    static const OSG::BitVector FarFieldMask =
         (TypeTraits<BitVector>::One << FarFieldId);
-    static const OSG::BitVector ReadOnlyFieldMask = 
+    static const OSG::BitVector ReadOnlyFieldMask =
         (TypeTraits<BitVector>::One << ReadOnlyFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -149,8 +148,8 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -161,76 +160,76 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFEnable(void);
+                  SFBool              *getSFEnable          (void);
 #endif
-           SFBool *editSFEnable(void);
-     const SFBool *getSFEnable (void) const;
+                  SFBool              *editSFEnable         (void);
+            const SFBool              *getSFEnable          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFFunc(void);
+                  SFGLenum            *getSFFunc            (void);
 #endif
-           SFGLenum *editSFFunc(void);
-     const SFGLenum *getSFFunc (void) const;
+                  SFGLenum            *editSFFunc           (void);
+            const SFGLenum            *getSFFunc            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFNear(void);
+                  SFReal32            *getSFNear            (void);
 #endif
-           SFReal32 *editSFNear(void);
-     const SFReal32 *getSFNear (void) const;
+                  SFReal32            *editSFNear           (void);
+            const SFReal32            *getSFNear            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFFar(void);
+                  SFReal32            *getSFFar             (void);
 #endif
-           SFReal32 *editSFFar(void);
-     const SFReal32 *getSFFar (void) const;
+                  SFReal32            *editSFFar            (void);
+            const SFReal32            *getSFFar             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFReadOnly(void);
+                  SFBool              *getSFReadOnly        (void);
 #endif
-           SFBool *editSFReadOnly(void);
-     const SFBool *getSFReadOnly (void) const;
+                  SFBool              *editSFReadOnly       (void);
+            const SFBool              *getSFReadOnly        (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getEnable(void);
+                  bool                &getEnable          (void);
 #endif
-           bool &editEnable(void);
-     const bool &getEnable (void) const;
+                  bool                &editEnable         (void);
+            const bool                &getEnable          (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getFunc(void);
+                  GLenum              &getFunc            (void);
 #endif
-           GLenum &editFunc(void);
-     const GLenum &getFunc (void) const;
+                  GLenum              &editFunc           (void);
+            const GLenum              &getFunc            (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getNear(void);
+                  Real32              &getNear            (void);
 #endif
-           Real32 &editNear(void);
-     const Real32 &getNear (void) const;
+                  Real32              &editNear           (void);
+            const Real32              &getNear            (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getFar(void);
+                  Real32              &getFar             (void);
 #endif
-           Real32 &editFar(void);
-     const Real32 &getFar (void) const;
+                  Real32              &editFar            (void);
+            const Real32              &getFar             (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getReadOnly(void);
+                  bool                &getReadOnly        (void);
 #endif
-           bool &editReadOnly(void);
-     const bool &getReadOnly (void) const;
+                  bool                &editReadOnly       (void);
+            const bool                &getReadOnly        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setEnable(const bool &value);
-     void setFunc(const GLenum &value);
-     void setNear(const Real32 &value);
-     void setFar(const Real32 &value);
-     void setReadOnly(const bool &value);
+            void setEnable         (const bool &value);
+            void setFunc           (const GLenum &value);
+            void setNear           (const Real32 &value);
+            void setFar            (const Real32 &value);
+            void setReadOnly       (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -250,15 +249,15 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DepthChunkPtr create     (void); 
-    static  DepthChunkPtr createEmpty(void); 
+    static  DepthChunkPtr create     (void);
+    static  DepthChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -274,11 +273,11 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfEnable;
-    SFGLenum _sfFunc;
-    SFReal32 _sfNear;
-    SFReal32 _sfFar;
-    SFBool _sfReadOnly;
+    SFBool            _sfEnable;
+    SFGLenum          _sfFunc;
+    SFReal32          _sfNear;
+    SFReal32          _sfFar;
+    SFBool            _sfReadOnly;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -293,7 +292,7 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DepthChunkBase(void); 
+    virtual ~DepthChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -339,11 +338,11 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

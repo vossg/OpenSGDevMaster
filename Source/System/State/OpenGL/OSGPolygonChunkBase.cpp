@@ -60,73 +60,95 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // CullFace default header
-#include <OSGGL.h>   // FrontFace default header
-#include <OSGGL.h>   // FrontMode default header
-#include <OSGGL.h>   // BackMode default header
-#include <OSGGL.h>   // Smooth default header
-#include <OSGGL.h>   // OffsetPoint default header
-#include <OSGGL.h>   // OffsetLine default header
-#include <OSGGL.h>   // OffsetFill default header
+#include <OSGGL.h>                        // CullFace default header
+#include <OSGGL.h>                        // FrontFace default header
+#include <OSGGL.h>                        // FrontMode default header
+#include <OSGGL.h>                        // BackMode default header
+#include <OSGGL.h>                        // Smooth default header
+#include <OSGGL.h>                        // OffsetPoint default header
+#include <OSGGL.h>                        // OffsetLine default header
+#include <OSGGL.h>                        // OffsetFill default header
 
 
 #include "OSGPolygonChunkBase.h"
 #include "OSGPolygonChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var GLenum PolygonChunkBase::_sfCullFace
-    	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.
+/*! \class OSG::PolygonChunk
+    \ingroup GrpSystemState
 
+    See \ref PageSystemPolygonChunk for details.
+
+    The parameters of the following functions are wrapped here: <ul>
+    <li>glCullFace() (OSG::PolygonChunk::_sfCullFace),</li>
+    <li>glFrontFace()(OSG::PolygonChunk::_sfFrontFace),</li>
+    <li>glPolygonMode() (OSG::PolygonChunk::_sfFrontMode,
+    OSG::PolygonChunk::_sfBackMode),</li> <li>glEnable(GL_POLYGON_SMOOTH)
+    (OSG::PolygonChunk::_sfSmooth),</li> <li>glPolygonOffset()
+    (OSG::PolygonChunk::_sfOffsetFactor,
+    OSG::PolygonChunk::_sfOffsetBias),</li>
+    <li>glEnable(GL_POLYGON_OFFSET_POINT)
+    (OSG::PolygonChunk::_sfOffsetPoint),</li>
+    <li>glEnable(GL_POLYGON_OFFSET_LINE)
+    (OSG::PolygonChunk::_sfOffsetLine),</li>
+    <li>glEnable(GL_POLYGON_OFFSET_FILL)
+    (OSG::PolygonChunk::_sfOffsetFill),</li> <li>glStipplePattern() and
+    glEnable(GL_POLYGON_STIPPLE) (OSG::PolygonChunk::_sfStipple).</li>
+    </ul>
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var GLenum          PolygonChunkBase::_sfCullFace
+    Defines which side of the polygon is invisible. Set to GL_NONE to not
+    cull anything. See glCullFace.
 */
-/*! \var GLenum PolygonChunkBase::_sfFrontFace
-    	Defines which side of the polygon is considered the front side base on vertex ordering
-        of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.
-
+/*! \var GLenum          PolygonChunkBase::_sfFrontFace
+    Defines which side of the polygon is considered the front side base on
+    vertex ordering of clockwise (CW) of counter clockwise (CCW). defaults
+    to GL_CCW.  See glFrontFace.
 */
-/*! \var GLenum PolygonChunkBase::_sfFrontMode
-    	Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.
-
+/*! \var GLenum          PolygonChunkBase::_sfFrontMode
+    Defines if polygon front sides are rendered filled (default), outlined
+    or as points.  See glPolygonMode.
 */
-/*! \var GLenum PolygonChunkBase::_sfBackMode
-    	Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.
-
+/*! \var GLenum          PolygonChunkBase::_sfBackMode
+    Defines if polygon front sides are rendered filled (default), outlined
+    or as points. See glPolygonMode.
 */
-/*! \var bool PolygonChunkBase::_sfSmooth
-    	Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.
-
+/*! \var bool            PolygonChunkBase::_sfSmooth
+    Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.
 */
-/*! \var Real32 PolygonChunkBase::_sfOffsetFactor
-    	Defines the offset factor.  See glPolygonOffset.
-
+/*! \var Real32          PolygonChunkBase::_sfOffsetFactor
+    Defines the offset factor.  See glPolygonOffset.
 */
-/*! \var Real32 PolygonChunkBase::_sfOffsetBias
-    	Defines the offset bias.  See glPolygonOffset.
-
+/*! \var Real32          PolygonChunkBase::_sfOffsetBias
+    Defines the offset bias.  See glPolygonOffset.
 */
-/*! \var bool PolygonChunkBase::_sfOffsetPoint
-    	Enables offsetting for points.
-
+/*! \var bool            PolygonChunkBase::_sfOffsetPoint
+    Enables offsetting for points.
 */
-/*! \var bool PolygonChunkBase::_sfOffsetLine
-    	Enables offsetting for lines.
-
+/*! \var bool            PolygonChunkBase::_sfOffsetLine
+    Enables offsetting for lines.
 */
-/*! \var bool PolygonChunkBase::_sfOffsetFill
-    	Enables offsetting for polygons.
-
+/*! \var bool            PolygonChunkBase::_sfOffsetFill
+    Enables offsetting for polygons.
 */
-/*! \var Int32 PolygonChunkBase::_mfStipple
-    	Defines the stipple pattern. Is only valid and used if it contains 
-        32 elements.
-
+/*! \var Int32           PolygonChunkBase::_mfStipple
+    Defines the stipple pattern. Is only valid and used if it contains  32
+    elements.
 */
 
 void PolygonChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -136,9 +158,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "cullFace", 
-        "	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.\n",
+        SFGLenum::getClassType(),
+        "cullFace",
+        "Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.\n",
         CullFaceFieldId, CullFaceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -158,9 +180,10 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "frontFace", 
-        "	Defines which side of the polygon is considered the front side base on vertex ordering\n        of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.\n",
+        SFGLenum::getClassType(),
+        "frontFace",
+        "Defines which side of the polygon is considered the front side base on vertex ordering\n"
+        "of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.\n",
         FrontFaceFieldId, FrontFaceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -180,9 +203,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "frontMode", 
-        "	Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.\n",
+        SFGLenum::getClassType(),
+        "frontMode",
+        "Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.\n",
         FrontModeFieldId, FrontModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -202,9 +225,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "backMode", 
-        "	Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.\n",
+        SFGLenum::getClassType(),
+        "backMode",
+        "Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.\n",
         BackModeFieldId, BackModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -224,9 +247,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "smooth", 
-        "	Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.\n",
+        SFBool::getClassType(),
+        "smooth",
+        "Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.\n",
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -246,9 +269,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "offsetFactor", 
-        "	Defines the offset factor.  See glPolygonOffset.\n",
+        SFReal32::getClassType(),
+        "offsetFactor",
+        "Defines the offset factor.  See glPolygonOffset.\n",
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -268,9 +291,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "offsetBias", 
-        "	Defines the offset bias.  See glPolygonOffset.\n",
+        SFReal32::getClassType(),
+        "offsetBias",
+        "Defines the offset bias.  See glPolygonOffset.\n",
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -290,9 +313,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "offsetPoint", 
-        "	Enables offsetting for points.\n",
+        SFBool::getClassType(),
+        "offsetPoint",
+        "Enables offsetting for points.\n",
         OffsetPointFieldId, OffsetPointFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -312,9 +335,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "offsetLine", 
-        "	Enables offsetting for lines.\n",
+        SFBool::getClassType(),
+        "offsetLine",
+        "Enables offsetting for lines.\n",
         OffsetLineFieldId, OffsetLineFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -334,9 +357,9 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "offsetFill", 
-        "	Enables offsetting for polygons.\n",
+        SFBool::getClassType(),
+        "offsetFill",
+        "Enables offsetting for polygons.\n",
         OffsetFillFieldId, OffsetFillFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -356,9 +379,10 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFInt32::Description(
-        MFInt32::getClassType(), 
-        "stipple", 
-        "	Defines the stipple pattern. Is only valid and used if it contains \n        32 elements.\n",
+        MFInt32::getClassType(),
+        "stipple",
+        "Defines the stipple pattern. Is only valid and used if it contains \n"
+        "32 elements.\n",
         StippleFieldId, StippleFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -383,151 +407,177 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
     (InitalInsertDescFunc) &PolygonChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"PolygonChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The polygon chunk contains the parameter that is specific set for filled surfaces, \n"
-"i.e. polygons.\n"
-"	<Field\n"
-"		name=\"cullFace\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"                potential_values=\"GL_NONE,GL_FRONT,GL_BACK,GL_FRONT_AND_BACK\"\n"
-"	>\n"
-"	Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frontFace\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_CCW\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"                potential_values=\"GL_CCW,GL_CW\"\n"
-"	>\n"
-"	Defines which side of the polygon is considered the front side base on vertex ordering\n"
-"        of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frontMode\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_FILL\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"                potential_values=\"GL_FILL,GL_LINE,GL_POINT\"\n"
-"	>\n"
-"	Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backMode\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_FILL\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"                potential_values=\"GL_FILL,GL_LINE,GL_POINT\"                \n"
-"	>\n"
-"	Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"smooth\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_FALSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"	Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"offsetFactor\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"	>\n"
-"	Defines the offset factor.  See glPolygonOffset.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"offsetBias\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"	>\n"
-"	Defines the offset bias.  See glPolygonOffset.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"offsetPoint\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_FALSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"	Enables offsetting for points.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"offsetLine\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_FALSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"	Enables offsetting for lines.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"offsetFill\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_FALSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"	Enables offsetting for polygons.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"stipple\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"\"\n"
-"	>\n"
-"	Defines the stipple pattern. Is only valid and used if it contains \n"
-"        32 elements.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The polygon chunk contains the parameter that is specific set for filled surfaces, \ni.e. polygons.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"PolygonChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "><![CDATA[\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemPolygonChunk for details.\n"
+    "\n"
+    "The parameters of the following functions are wrapped here:\n"
+    "<ul>\n"
+    "<li>glCullFace() (OSG::PolygonChunk::_sfCullFace),</li>\n"
+    "<li>glFrontFace()(OSG::PolygonChunk::_sfFrontFace),</li>\n"
+    "<li>glPolygonMode() (OSG::PolygonChunk::_sfFrontMode, OSG::PolygonChunk::_sfBackMode),</li>\n"
+    "<li>glEnable(GL_POLYGON_SMOOTH) (OSG::PolygonChunk::_sfSmooth),</li>\n"
+    "<li>glPolygonOffset() (OSG::PolygonChunk::_sfOffsetFactor, OSG::PolygonChunk::_sfOffsetBias),</li>\n"
+    "<li>glEnable(GL_POLYGON_OFFSET_POINT) (OSG::PolygonChunk::_sfOffsetPoint),</li>\n"
+    "<li>glEnable(GL_POLYGON_OFFSET_LINE) (OSG::PolygonChunk::_sfOffsetLine),</li>\n"
+    "<li>glEnable(GL_POLYGON_OFFSET_FILL) (OSG::PolygonChunk::_sfOffsetFill),</li>\n"
+    "<li>glStipplePattern() and glEnable(GL_POLYGON_STIPPLE) (OSG::PolygonChunk::_sfStipple).</li>\n"
+    "</ul>]]>\n"
+    "\t<Field\n"
+    "\t\tname=\"cullFace\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "                potential_values=\"GL_NONE,GL_FRONT,GL_BACK,GL_FRONT_AND_BACK\"\n"
+    "\t>\n"
+    "\tDefines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frontFace\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_CCW\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "                potential_values=\"GL_CCW,GL_CW\"\n"
+    "\t>\n"
+    "\tDefines which side of the polygon is considered the front side base on vertex ordering\n"
+    "        of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frontMode\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_FILL\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "                potential_values=\"GL_FILL,GL_LINE,GL_POINT\"\n"
+    "\t>\n"
+    "\tDefines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backMode\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_FILL\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "                potential_values=\"GL_FILL,GL_LINE,GL_POINT\"                \n"
+    "\t>\n"
+    "\tDefines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"smooth\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_FALSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "\tDefines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"offsetFactor\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t>\n"
+    "\tDefines the offset factor.  See glPolygonOffset.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"offsetBias\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t>\n"
+    "\tDefines the offset bias.  See glPolygonOffset.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"offsetPoint\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_FALSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "\tEnables offsetting for points.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"offsetLine\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_FALSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "\tEnables offsetting for lines.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"offsetFill\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_FALSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "\tEnables offsetting for polygons.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"stipple\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"\"\n"
+    "\t>\n"
+    "\tDefines the stipple pattern. Is only valid and used if it contains \n"
+    "        32 elements.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemPolygonChunk for details.\n"
+    "The parameters of the following functions are wrapped here:\n"
+    "<ul>\n"
+    "<li>glCullFace() (OSG::PolygonChunk::_sfCullFace),</li>\n"
+    "<li>glFrontFace()(OSG::PolygonChunk::_sfFrontFace),</li>\n"
+    "<li>glPolygonMode() (OSG::PolygonChunk::_sfFrontMode, OSG::PolygonChunk::_sfBackMode),</li>\n"
+    "<li>glEnable(GL_POLYGON_SMOOTH) (OSG::PolygonChunk::_sfSmooth),</li>\n"
+    "<li>glPolygonOffset() (OSG::PolygonChunk::_sfOffsetFactor, OSG::PolygonChunk::_sfOffsetBias),</li>\n"
+    "<li>glEnable(GL_POLYGON_OFFSET_POINT) (OSG::PolygonChunk::_sfOffsetPoint),</li>\n"
+    "<li>glEnable(GL_POLYGON_OFFSET_LINE) (OSG::PolygonChunk::_sfOffsetLine),</li>\n"
+    "<li>glEnable(GL_POLYGON_OFFSET_FILL) (OSG::PolygonChunk::_sfOffsetFill),</li>\n"
+    "<li>glStipplePattern() and glEnable(GL_POLYGON_STIPPLE) (OSG::PolygonChunk::_sfStipple).</li>\n"
+    "</ul>\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &PolygonChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &PolygonChunkBase::getType(void) const 
+FieldContainerType &PolygonChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 PolygonChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(PolygonChunk); 
+const FieldContainerType &PolygonChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 PolygonChunkBase::getContainerSize(void) const
+{
+    return sizeof(PolygonChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -546,9 +596,9 @@ const SFGLenum *PolygonChunkBase::getSFCullFace(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *PolygonChunkBase::getSFCullFace(void)
+SFGLenum            *PolygonChunkBase::getSFCullFace       (void)
 {
-    return this->editSFCullFace();
+    return this->editSFCullFace       ();
 }
 #endif
 
@@ -565,9 +615,9 @@ const SFGLenum *PolygonChunkBase::getSFFrontFace(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *PolygonChunkBase::getSFFrontFace(void)
+SFGLenum            *PolygonChunkBase::getSFFrontFace      (void)
 {
-    return this->editSFFrontFace();
+    return this->editSFFrontFace      ();
 }
 #endif
 
@@ -584,9 +634,9 @@ const SFGLenum *PolygonChunkBase::getSFFrontMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *PolygonChunkBase::getSFFrontMode(void)
+SFGLenum            *PolygonChunkBase::getSFFrontMode      (void)
 {
-    return this->editSFFrontMode();
+    return this->editSFFrontMode      ();
 }
 #endif
 
@@ -603,9 +653,9 @@ const SFGLenum *PolygonChunkBase::getSFBackMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *PolygonChunkBase::getSFBackMode(void)
+SFGLenum            *PolygonChunkBase::getSFBackMode       (void)
 {
-    return this->editSFBackMode();
+    return this->editSFBackMode       ();
 }
 #endif
 
@@ -622,9 +672,9 @@ const SFBool *PolygonChunkBase::getSFSmooth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *PolygonChunkBase::getSFSmooth(void)
+SFBool              *PolygonChunkBase::getSFSmooth         (void)
 {
-    return this->editSFSmooth();
+    return this->editSFSmooth         ();
 }
 #endif
 
@@ -641,9 +691,9 @@ const SFReal32 *PolygonChunkBase::getSFOffsetFactor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *PolygonChunkBase::getSFOffsetFactor(void)
+SFReal32            *PolygonChunkBase::getSFOffsetFactor   (void)
 {
-    return this->editSFOffsetFactor();
+    return this->editSFOffsetFactor   ();
 }
 #endif
 
@@ -660,9 +710,9 @@ const SFReal32 *PolygonChunkBase::getSFOffsetBias(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *PolygonChunkBase::getSFOffsetBias(void)
+SFReal32            *PolygonChunkBase::getSFOffsetBias     (void)
 {
-    return this->editSFOffsetBias();
+    return this->editSFOffsetBias     ();
 }
 #endif
 
@@ -679,9 +729,9 @@ const SFBool *PolygonChunkBase::getSFOffsetPoint(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *PolygonChunkBase::getSFOffsetPoint(void)
+SFBool              *PolygonChunkBase::getSFOffsetPoint    (void)
 {
-    return this->editSFOffsetPoint();
+    return this->editSFOffsetPoint    ();
 }
 #endif
 
@@ -698,9 +748,9 @@ const SFBool *PolygonChunkBase::getSFOffsetLine(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *PolygonChunkBase::getSFOffsetLine(void)
+SFBool              *PolygonChunkBase::getSFOffsetLine     (void)
 {
-    return this->editSFOffsetLine();
+    return this->editSFOffsetLine     ();
 }
 #endif
 
@@ -717,9 +767,9 @@ const SFBool *PolygonChunkBase::getSFOffsetFill(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *PolygonChunkBase::getSFOffsetFill(void)
+SFBool              *PolygonChunkBase::getSFOffsetFill     (void)
 {
-    return this->editSFOffsetFill();
+    return this->editSFOffsetFill     ();
 }
 #endif
 
@@ -736,9 +786,9 @@ const MFInt32 *PolygonChunkBase::getMFStipple(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFInt32 *PolygonChunkBase::getMFStipple(void)
+MFInt32             *PolygonChunkBase::getMFStipple        (void)
 {
-    return this->editMFStipple();
+    return this->editMFStipple        ();
 }
 #endif
 
@@ -901,22 +951,22 @@ void PolygonChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PolygonChunkPtr PolygonChunkBase::createEmpty(void) 
-{ 
-    PolygonChunkPtr returnValue; 
-    
-    newPtr<PolygonChunk>(returnValue); 
+PolygonChunkPtr PolygonChunkBase::createEmpty(void)
+{
+    PolygonChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<PolygonChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr PolygonChunkBase::shallowCopy(void) const 
-{ 
-    PolygonChunkPtr returnValue; 
+FieldContainerPtr PolygonChunkBase::shallowCopy(void) const
+{
+    PolygonChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const PolygonChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const PolygonChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -925,33 +975,33 @@ FieldContainerPtr PolygonChunkBase::shallowCopy(void) const
 
 PolygonChunkBase::PolygonChunkBase(void) :
     Inherited(),
-    _sfCullFace(GLenum(GL_NONE)),
-    _sfFrontFace(GLenum(GL_CCW)),
-    _sfFrontMode(GLenum(GL_FILL)),
-    _sfBackMode(GLenum(GL_FILL)),
-    _sfSmooth(bool(GL_FALSE)),
-    _sfOffsetFactor(Real32(0)),
-    _sfOffsetBias(Real32(0)),
-    _sfOffsetPoint(bool(GL_FALSE)),
-    _sfOffsetLine(bool(GL_FALSE)),
-    _sfOffsetFill(bool(GL_FALSE)),
-    _mfStipple()
+    _sfCullFace               (GLenum(GL_NONE)),
+    _sfFrontFace              (GLenum(GL_CCW)),
+    _sfFrontMode              (GLenum(GL_FILL)),
+    _sfBackMode               (GLenum(GL_FILL)),
+    _sfSmooth                 (bool(GL_FALSE)),
+    _sfOffsetFactor           (Real32(0)),
+    _sfOffsetBias             (Real32(0)),
+    _sfOffsetPoint            (bool(GL_FALSE)),
+    _sfOffsetLine             (bool(GL_FALSE)),
+    _sfOffsetFill             (bool(GL_FALSE)),
+    _mfStipple                ()
 {
 }
 
 PolygonChunkBase::PolygonChunkBase(const PolygonChunkBase &source) :
     Inherited(source),
-    _sfCullFace(source._sfCullFace),
-    _sfFrontFace(source._sfFrontFace),
-    _sfFrontMode(source._sfFrontMode),
-    _sfBackMode(source._sfBackMode),
-    _sfSmooth(source._sfSmooth),
-    _sfOffsetFactor(source._sfOffsetFactor),
-    _sfOffsetBias(source._sfOffsetBias),
-    _sfOffsetPoint(source._sfOffsetPoint),
-    _sfOffsetLine(source._sfOffsetLine),
-    _sfOffsetFill(source._sfOffsetFill),
-    _mfStipple(source._mfStipple)
+    _sfCullFace               (source._sfCullFace               ),
+    _sfFrontFace              (source._sfFrontFace              ),
+    _sfFrontMode              (source._sfFrontMode              ),
+    _sfBackMode               (source._sfBackMode               ),
+    _sfSmooth                 (source._sfSmooth                 ),
+    _sfOffsetFactor           (source._sfOffsetFactor           ),
+    _sfOffsetBias             (source._sfOffsetBias             ),
+    _sfOffsetPoint            (source._sfOffsetPoint            ),
+    _sfOffsetLine             (source._sfOffsetLine             ),
+    _sfOffsetFill             (source._sfOffsetFill             ),
+    _mfStipple                (source._mfStipple                )
 {
 }
 
@@ -965,13 +1015,13 @@ PolygonChunkBase::~PolygonChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void PolygonChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<PolygonChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -981,10 +1031,10 @@ void PolygonChunkBase::execSyncV(      FieldContainer    &oFrom,
 void PolygonChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PolygonChunkBase *>(&oFrom), 
+    this->execSync(static_cast<PolygonChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1004,12 +1054,12 @@ void PolygonChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr PolygonChunkBase::createAspectCopy(void) const
 {
-    PolygonChunkPtr returnValue; 
+    PolygonChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const PolygonChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const PolygonChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1018,6 +1068,8 @@ void PolygonChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1040,8 +1092,6 @@ OSG_FIELDTRAITS_GETTYPE(PolygonChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, PolygonChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, PolygonChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1062,3 +1112,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPOLYGONCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

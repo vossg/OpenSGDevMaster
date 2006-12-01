@@ -60,37 +60,52 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // Smooth default header
+#include <OSGGL.h>                        // Smooth default header
 
 
 #include "OSGLineChunkBase.h"
 #include "OSGLineChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Real32 LineChunkBase::_sfWidth
-            The line's width, in pixel.
+/*! \class OSG::LineChunk
+    \ingroup GrpSystemState
 
+    See \ref PageSystemLineChunk for a description.
+
+    The line chunk contains the parameters that are specific to lines.
+
+    The parameters of the following functions are wrapped here: glLineWidth
+    (OSG::LineChunk::_sfWidth), glLineStipple
+    (OSG::LineChunk::_sfStippleRepeat, OSG::LineChunk::_sfStipplePattern),
+    glEnable(GL_LINE_SMOOTH) (OSG::LineChunk::_sfSmooth).
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Real32          LineChunkBase::_sfWidth
+    The line's width, in pixels.
 */
-/*! \var Int32 LineChunkBase::_sfStippleRepeat
-            Repetition factor for sitppling.
-
+/*! \var Int32           LineChunkBase::_sfStippleRepeat
+    Repetition factor for stippling.
 */
-/*! \var UInt16 LineChunkBase::_sfStipplePattern
-    	Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, 
-        starting with the most significant bit.
-
+/*! \var UInt16          LineChunkBase::_sfStipplePattern
+    Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored,
+    starting with the most significant bit.
 */
-/*! \var bool LineChunkBase::_sfSmooth
-    	Defines if line antialiasing is used.
-
+/*! \var bool            LineChunkBase::_sfSmooth
+    Defines if line antialiasing is used.
 */
 
 void LineChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -100,9 +115,9 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "width", 
-        "        The line's width, in pixel.\n",
+        SFReal32::getClassType(),
+        "width",
+        "The line's width, in pixels.\n",
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -122,9 +137,9 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "stippleRepeat", 
-        "        Repetition factor for sitppling.\n",
+        SFInt32::getClassType(),
+        "stippleRepeat",
+        "Repetition factor for stippling.\n",
         StippleRepeatFieldId, StippleRepeatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -144,9 +159,10 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "stipplePattern", 
-        "	Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, \n        starting with the most significant bit.\n",
+        SFUInt16::getClassType(),
+        "stipplePattern",
+        "Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, \n"
+        "starting with the most significant bit.\n",
         StipplePatternFieldId, StipplePatternFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -166,9 +182,9 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "smooth", 
-        "	Defines if line antialiasing is used.\n",
+        SFBool::getClassType(),
+        "smooth",
+        "Defines if line antialiasing is used.\n",
         SmoothFieldId, SmoothFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -193,79 +209,93 @@ LineChunkBase::TypeObject LineChunkBase::_type(true,
     (InitalInsertDescFunc) &LineChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"LineChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The line chunk contains the parameters that are specific set for lines.\n"
-"	<Field\n"
-"		name=\"width\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The line's width, in pixel.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"stippleRepeat\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Repetition factor for sitppling.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"stipplePattern\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0xffff\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, \n"
-"        starting with the most significant bit.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"smooth\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_FALSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Defines if line antialiasing is used.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The line chunk contains the parameters that are specific set for lines.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"LineChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemLineChunk for a description.\n"
+    "\n"
+    "The line chunk contains the parameters that are specific to lines.\n"
+    "\n"
+    "The parameters of the following functions are wrapped here: glLineWidth\n"
+    "(OSG::LineChunk::_sfWidth), glLineStipple (OSG::LineChunk::_sfStippleRepeat,\n"
+    "OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)\n"
+    "(OSG::LineChunk::_sfSmooth).\n"
+    "\t<Field\n"
+    "\t\tname=\"width\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The line's width, in pixels.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"stippleRepeat\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Repetition factor for stippling.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"stipplePattern\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0xffff\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefines the stipple pattern. 1 bits are drawn, 0 bits are ignored, \n"
+    "        starting with the most significant bit.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"smooth\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_FALSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefines if line antialiasing is used.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemLineChunk for a description.\n"
+    "The line chunk contains the parameters that are specific to lines.\n"
+    "The parameters of the following functions are wrapped here: glLineWidth\n"
+    "(OSG::LineChunk::_sfWidth), glLineStipple (OSG::LineChunk::_sfStippleRepeat,\n"
+    "OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)\n"
+    "(OSG::LineChunk::_sfSmooth).\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &LineChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &LineChunkBase::getType(void) const 
+FieldContainerType &LineChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 LineChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(LineChunk); 
+const FieldContainerType &LineChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 LineChunkBase::getContainerSize(void) const
+{
+    return sizeof(LineChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -284,9 +314,9 @@ const SFReal32 *LineChunkBase::getSFWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *LineChunkBase::getSFWidth(void)
+SFReal32            *LineChunkBase::getSFWidth          (void)
 {
-    return this->editSFWidth();
+    return this->editSFWidth          ();
 }
 #endif
 
@@ -303,9 +333,9 @@ const SFInt32 *LineChunkBase::getSFStippleRepeat(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *LineChunkBase::getSFStippleRepeat(void)
+SFInt32             *LineChunkBase::getSFStippleRepeat  (void)
 {
-    return this->editSFStippleRepeat();
+    return this->editSFStippleRepeat  ();
 }
 #endif
 
@@ -322,9 +352,9 @@ const SFUInt16 *LineChunkBase::getSFStipplePattern(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *LineChunkBase::getSFStipplePattern(void)
+SFUInt16            *LineChunkBase::getSFStipplePattern (void)
 {
-    return this->editSFStipplePattern();
+    return this->editSFStipplePattern ();
 }
 #endif
 
@@ -341,9 +371,9 @@ const SFBool *LineChunkBase::getSFSmooth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *LineChunkBase::getSFSmooth(void)
+SFBool              *LineChunkBase::getSFSmooth         (void)
 {
-    return this->editSFSmooth();
+    return this->editSFSmooth         ();
 }
 #endif
 
@@ -422,22 +452,22 @@ void LineChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-LineChunkPtr LineChunkBase::createEmpty(void) 
-{ 
-    LineChunkPtr returnValue; 
-    
-    newPtr<LineChunk>(returnValue); 
+LineChunkPtr LineChunkBase::createEmpty(void)
+{
+    LineChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<LineChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr LineChunkBase::shallowCopy(void) const 
-{ 
-    LineChunkPtr returnValue; 
+FieldContainerPtr LineChunkBase::shallowCopy(void) const
+{
+    LineChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const LineChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const LineChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -446,19 +476,19 @@ FieldContainerPtr LineChunkBase::shallowCopy(void) const
 
 LineChunkBase::LineChunkBase(void) :
     Inherited(),
-    _sfWidth(Real32(1)),
-    _sfStippleRepeat(Int32(1)),
-    _sfStipplePattern(UInt16(0xffff)),
-    _sfSmooth(bool(GL_FALSE))
+    _sfWidth                  (Real32(1)),
+    _sfStippleRepeat          (Int32(1)),
+    _sfStipplePattern         (UInt16(0xffff)),
+    _sfSmooth                 (bool(GL_FALSE))
 {
 }
 
 LineChunkBase::LineChunkBase(const LineChunkBase &source) :
     Inherited(source),
-    _sfWidth(source._sfWidth),
-    _sfStippleRepeat(source._sfStippleRepeat),
-    _sfStipplePattern(source._sfStipplePattern),
-    _sfSmooth(source._sfSmooth)
+    _sfWidth                  (source._sfWidth                  ),
+    _sfStippleRepeat          (source._sfStippleRepeat          ),
+    _sfStipplePattern         (source._sfStipplePattern         ),
+    _sfSmooth                 (source._sfSmooth                 )
 {
 }
 
@@ -472,13 +502,13 @@ LineChunkBase::~LineChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void LineChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<LineChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -488,10 +518,10 @@ void LineChunkBase::execSyncV(      FieldContainer    &oFrom,
 void LineChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<LineChunkBase *>(&oFrom), 
+    this->execSync(static_cast<LineChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -511,12 +541,12 @@ void LineChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr LineChunkBase::createAspectCopy(void) const
 {
-    LineChunkPtr returnValue; 
+    LineChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const LineChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const LineChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -525,6 +555,8 @@ void LineChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -547,8 +579,6 @@ OSG_FIELDTRAITS_GETTYPE(LineChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, LineChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, LineChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -569,3 +599,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGLINECHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

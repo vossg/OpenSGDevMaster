@@ -49,13 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ColorMaskChunk
-The color chunk contains the parameters that are specific for color write.
-*/
+// Documentation for this class is emited in the
+// OSGColorMaskChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGColorMaskChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

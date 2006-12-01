@@ -51,19 +51,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::TransformChunk
-    \ingroup GrpSystemState
-
-See \ref PageSystemTransformChunk for a description.
-
-This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.
-
-*/
+// Documentation for this class is emited in the
+// OSGTransformChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGTransformChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

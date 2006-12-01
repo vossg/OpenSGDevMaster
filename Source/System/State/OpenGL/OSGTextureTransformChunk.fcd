@@ -11,6 +11,12 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
+\ingroup GrpSystemState
+
+See \ref PageSystemTextureTransformChunk for a description.
+
+This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is derived
+from the OSG::TransformChunk and uses its matrix.
 	<Field
 		name="useCameraBeacon"
 		type="bool"

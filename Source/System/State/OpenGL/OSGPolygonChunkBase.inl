@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &PolygonChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 PolygonChunkBase::getClassTypeId(void) 
+OSG::UInt32 PolygonChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 PolygonChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const GLenum &PolygonChunkBase::getCullFace(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &PolygonChunkBase::getCullFace(void)
+GLenum              &PolygonChunkBase::getCullFace       (void)
 {
-    return this->editCullFace();
+    return this->editCullFace       ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const GLenum &PolygonChunkBase::getFrontFace(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &PolygonChunkBase::getFrontFace(void)
+GLenum              &PolygonChunkBase::getFrontFace      (void)
 {
-    return this->editFrontFace();
+    return this->editFrontFace      ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const GLenum &PolygonChunkBase::getFrontMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &PolygonChunkBase::getFrontMode(void)
+GLenum              &PolygonChunkBase::getFrontMode      (void)
 {
-    return this->editFrontMode();
+    return this->editFrontMode      ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const GLenum &PolygonChunkBase::getBackMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &PolygonChunkBase::getBackMode(void)
+GLenum              &PolygonChunkBase::getBackMode       (void)
 {
-    return this->editBackMode();
+    return this->editBackMode       ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const bool &PolygonChunkBase::getSmooth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PolygonChunkBase::getSmooth(void)
+bool                &PolygonChunkBase::getSmooth         (void)
 {
-    return this->editSmooth();
+    return this->editSmooth         ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Real32 &PolygonChunkBase::getOffsetFactor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PolygonChunkBase::getOffsetFactor(void)
+Real32              &PolygonChunkBase::getOffsetFactor   (void)
 {
-    return this->editOffsetFactor();
+    return this->editOffsetFactor   ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const Real32 &PolygonChunkBase::getOffsetBias(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &PolygonChunkBase::getOffsetBias(void)
+Real32              &PolygonChunkBase::getOffsetBias     (void)
 {
-    return this->editOffsetBias();
+    return this->editOffsetBias     ();
 }
 #endif
 
@@ -323,9 +323,9 @@ const bool &PolygonChunkBase::getOffsetPoint(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PolygonChunkBase::getOffsetPoint(void)
+bool                &PolygonChunkBase::getOffsetPoint    (void)
 {
-    return this->editOffsetPoint();
+    return this->editOffsetPoint    ();
 }
 #endif
 
@@ -356,9 +356,9 @@ const bool &PolygonChunkBase::getOffsetLine(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PolygonChunkBase::getOffsetLine(void)
+bool                &PolygonChunkBase::getOffsetLine     (void)
 {
-    return this->editOffsetLine();
+    return this->editOffsetLine     ();
 }
 #endif
 
@@ -389,9 +389,9 @@ const bool &PolygonChunkBase::getOffsetFill(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PolygonChunkBase::getOffsetFill(void)
+bool                &PolygonChunkBase::getOffsetFill     (void)
 {
-    return this->editOffsetFill();
+    return this->editOffsetFill     ();
 }
 #endif
 
@@ -430,15 +430,15 @@ MFInt32 &PolygonChunkBase::editStipple(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &PolygonChunkBase::getStipple(const UInt32 index)
+Int32               &PolygonChunkBase::getStipple        (const UInt32 index)
 {
-    return this->editStipple(index);
+    return this->editStipple        (index);
 }
 
 inline
-MFInt32 &PolygonChunkBase::getStipple(void)
+MFInt32             &PolygonChunkBase::getStipple        (void)
 {
-    return this->editStipple();
+    return this->editStipple        ();
 }
 
 #endif
@@ -453,24 +453,24 @@ const MFInt32 &PolygonChunkBase::getStipple(void) const
 
 //! create a new instance of the class
 inline
-PolygonChunkPtr PolygonChunkBase::create(void) 
+PolygonChunkPtr PolygonChunkBase::create(void)
 {
-    PolygonChunkPtr fc; 
+    PolygonChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<PolygonChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void PolygonChunkBase::execSync(      PolygonChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -507,7 +507,7 @@ void PolygonChunkBase::execSync(      PolygonChunkBase *pOther,
         _sfOffsetFill.syncWith(pOther->_sfOffsetFill);
 
     if(FieldBits::NoField != (StippleFieldMask & whichField))
-        _mfStipple.syncWith(pOther->_mfStipple, 
+        _mfStipple.syncWith(pOther->_mfStipple,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -519,7 +519,7 @@ inline
 void PolygonChunkBase::execSync (      PolygonChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -555,7 +555,7 @@ void PolygonChunkBase::execSync (      PolygonChunkBase *pFrom,
         _sfOffsetFill.syncWith(pFrom->_sfOffsetFill);
 
     if(FieldBits::NoField != (StippleFieldMask & whichField))
-        _mfStipple.syncWith(pFrom->_mfStipple, 
+        _mfStipple.syncWith(pFrom->_mfStipple,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -595,4 +595,3 @@ typedef PointerBuilder<PolygonChunk>::ObjPtrConstArg  PolygonChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGPOLYGONCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-
