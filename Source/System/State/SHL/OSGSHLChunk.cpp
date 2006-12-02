@@ -70,40 +70,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::SHLChunk
-
-This chunk provides support for GLSL.  It provides a wrapper for setting vertex
-and fragment programs.  Because it is derived from OSG::ShaderParameter it also
-allows setting uniform parameters for the shaders.
-
-The primary way to use this class is to:
-
-  - set/getVertexProgram
-  - set/getFragmentProgram
-  - setUniform
-
-
-To help with OpenSG application development this chunk provides support for
-derived uniform parameters.  The uniform parameters all start with the
-characters "OSG" and are derived from the internal state of OpenSG in some way.
-It is possible for users to make use of this system to add their own derived
-"OSG" parameters using a user callback.  (see addParameterCallback)
-
-To use these parameters, simply call setUniform() with the name of the parameter
-and set it to some default value of the correct type.  After that point OpenSG
-will ensure that the parameter is automatically updated each frame.
-
-The derived parameters supported by default are:
-   - OSGCameraOrientation: Camera orientation matrix in world coords.
-   - OSGCameraPosition: Camera position vec3 in world coordinates.
-   - OSGViewMatrix: Camera viewing matrix in world coordinates.
-   - OSGInvViewMatrix: Inverse camera viewing matrix in world coordinates.
-   - OSGStereoLeftEye: Integer: -1 mono, 1 left eye, 0 right eye
-   - OSGClusterId: The int id set with setClusterId()
-   - OSGActiveLightsMast: The active lights mast from the render action.
-   - OSGLight0Active ... OSGLight7Active: int/bool flag of wether the light is active.
-
-*/
+// Documentation for this class is emited in the
+// OSGSHLChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGSHLChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

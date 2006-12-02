@@ -85,22 +85,22 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
-                              ShaderParameterChunkConstPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
+                              ShaderParameterChunkConstPtr,
                               SHLParameterChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
-                              ShaderParameterChunkConstPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
+                              ShaderParameterChunkConstPtr,
                               SHLParameterChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                               ShaderParameterChunkConstPtr,
                               SHLParameterChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                               ShaderParameterChunkConstPtr,
                               SHLParameterChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                               ShaderParameterChunkConstPtr,
                               SHLParameterChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                               ShaderParameterChunkConstPtr,
                               SHLParameterChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
         NextFieldId = SHLChunkFieldId + 1
     };
 
-    static const OSG::BitVector SHLChunkFieldMask = 
+    static const OSG::BitVector SHLChunkFieldMask =
         (TypeTraits<BitVector>::One << SHLChunkFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -143,42 +142,42 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFSHLChunkPtr *getSFSHLChunk (void) const;
+            const SFSHLChunkPtr       *getSFSHLChunk        (void) const;
 
 
-           SHLChunkPtrConst getSHLChunk(void) const;
+                  SHLChunkPtrConst getSHLChunk       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setSHLChunk(SHLChunkPtrConstArg value);
+            void setSHLChunk       (SHLChunkPtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -205,15 +204,15 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SHLParameterChunkPtr create     (void); 
-    static  SHLParameterChunkPtr createEmpty(void); 
+    static  SHLParameterChunkPtr create     (void);
+    static  SHLParameterChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -229,7 +228,7 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFSHLChunkPtr _sfSHLChunk;
+    SFSHLChunkPtr     _sfSHLChunk;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -244,7 +243,7 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SHLParameterChunkBase(void); 
+    virtual ~SHLParameterChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -291,11 +290,11 @@ class OSG_STATE_DLLMAPPING SHLParameterChunkBase : public ShaderParameterChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

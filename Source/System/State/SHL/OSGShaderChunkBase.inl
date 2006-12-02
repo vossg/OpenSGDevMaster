@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ShaderChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ShaderChunkBase::getClassTypeId(void) 
+OSG::UInt32 ShaderChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ShaderChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const std::string &ShaderChunkBase::getVertexProgram(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ShaderChunkBase::getVertexProgram(void)
+std::string         &ShaderChunkBase::getVertexProgram  (void)
 {
-    return this->editVertexProgram();
+    return this->editVertexProgram  ();
 }
 #endif
 
@@ -125,7 +125,7 @@ const std::string &ShaderChunkBase::getFragmentProgram(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ShaderChunkBase::getFragmentProgram(void)
+std::string         &ShaderChunkBase::getFragmentProgram(void)
 {
     return this->editFragmentProgram();
 }
@@ -145,7 +145,7 @@ void ShaderChunkBase::setFragmentProgram(const std::string &value)
 inline
 void ShaderChunkBase::execSync(      ShaderChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -164,7 +164,7 @@ inline
 void ShaderChunkBase::execSync (      ShaderChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -205,4 +205,3 @@ typedef PointerBuilder<ShaderChunk>::ObjPtrConstArg  ShaderChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSHADERCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

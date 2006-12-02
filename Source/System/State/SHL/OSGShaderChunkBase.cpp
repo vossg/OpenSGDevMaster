@@ -65,22 +65,30 @@
 #include "OSGShaderChunkBase.h"
 #include "OSGShaderChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var std::string ShaderChunkBase::_sfVertexProgram
-    	vertex program source
+/*! \class OSG::ShaderChunk
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var std::string     ShaderChunkBase::_sfVertexProgram
+    vertex program source
 */
-/*! \var std::string ShaderChunkBase::_sfFragmentProgram
-    	fragment program source
-
+/*! \var std::string     ShaderChunkBase::_sfFragmentProgram
+    fragment program source
 */
 
 void ShaderChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +98,9 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "vertexProgram", 
-        "	vertex program source\n",
+        SFString::getClassType(),
+        "vertexProgram",
+        "vertex program source\n",
         VertexProgramFieldId, VertexProgramFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,9 +120,9 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "fragmentProgram", 
-        "	fragment program source\n",
+        SFString::getClassType(),
+        "fragmentProgram",
+        "fragment program source\n",
         FragmentProgramFieldId, FragmentProgramFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,61 +142,60 @@ ShaderChunkBase::TypeObject ShaderChunkBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     ShaderChunk::initMethod,
     (InitalInsertDescFunc) &ShaderChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ShaderChunk\"\n"
-"	parent=\"ShaderParameterChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"vertexProgram\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	vertex program source\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"fragmentProgram\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	fragment program source\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ShaderChunk\"\n"
+    "\tparent=\"ShaderParameterChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"vertexProgram\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tvertex program source\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"fragmentProgram\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tfragment program source\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ShaderChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ShaderChunkBase::getType(void) const 
+FieldContainerType &ShaderChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ShaderChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(ShaderChunk); 
+const FieldContainerType &ShaderChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ShaderChunkBase::getContainerSize(void) const
+{
+    return sizeof(ShaderChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -207,9 +214,9 @@ const SFString *ShaderChunkBase::getSFVertexProgram(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *ShaderChunkBase::getSFVertexProgram(void)
+SFString            *ShaderChunkBase::getSFVertexProgram  (void)
 {
-    return this->editSFVertexProgram();
+    return this->editSFVertexProgram  ();
 }
 #endif
 
@@ -226,7 +233,7 @@ const SFString *ShaderChunkBase::getSFFragmentProgram(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *ShaderChunkBase::getSFFragmentProgram(void)
+SFString            *ShaderChunkBase::getSFFragmentProgram(void)
 {
     return this->editSFFragmentProgram();
 }
@@ -288,15 +295,15 @@ void ShaderChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShaderChunkBase::ShaderChunkBase(void) :
     Inherited(),
-    _sfVertexProgram(),
-    _sfFragmentProgram()
+    _sfVertexProgram          (),
+    _sfFragmentProgram        ()
 {
 }
 
 ShaderChunkBase::ShaderChunkBase(const ShaderChunkBase &source) :
     Inherited(source),
-    _sfVertexProgram(source._sfVertexProgram),
-    _sfFragmentProgram(source._sfFragmentProgram)
+    _sfVertexProgram          (source._sfVertexProgram          ),
+    _sfFragmentProgram        (source._sfFragmentProgram        )
 {
 }
 
@@ -310,13 +317,13 @@ ShaderChunkBase::~ShaderChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShaderChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ShaderChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -326,10 +333,10 @@ void ShaderChunkBase::execSyncV(      FieldContainer    &oFrom,
 void ShaderChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderChunkBase *>(&oFrom), 
+    this->execSync(static_cast<ShaderChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -353,6 +360,8 @@ void ShaderChunkBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -374,8 +383,6 @@ OSG_FIELDTRAITS_GETTYPE(ShaderChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ShaderChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ShaderChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -396,3 +403,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHADERCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

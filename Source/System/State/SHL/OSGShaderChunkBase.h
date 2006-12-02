@@ -86,22 +86,22 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
-                              ShaderParameterChunkConstPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
+                              ShaderParameterChunkConstPtr,
                               ShaderChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
-                              ShaderParameterChunkConstPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
+                              ShaderParameterChunkConstPtr,
                               ShaderChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                               ShaderParameterChunkConstPtr,
                               ShaderChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                               ShaderParameterChunkConstPtr,
                               ShaderChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                               ShaderParameterChunkConstPtr,
                               ShaderChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+    typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                               ShaderParameterChunkConstPtr,
                               ShaderChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
         NextFieldId = FragmentProgramFieldId + 1
     };
 
-    static const OSG::BitVector VertexProgramFieldMask = 
+    static const OSG::BitVector VertexProgramFieldMask =
         (TypeTraits<BitVector>::One << VertexProgramFieldId);
-    static const OSG::BitVector FragmentProgramFieldMask = 
+    static const OSG::BitVector FragmentProgramFieldMask =
         (TypeTraits<BitVector>::One << FragmentProgramFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,37 +148,37 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFString *getSFVertexProgram(void);
+                  SFString            *getSFVertexProgram   (void);
 #endif
-           SFString *editSFVertexProgram(void);
-     const SFString *getSFVertexProgram (void) const;
+                  SFString            *editSFVertexProgram  (void);
+            const SFString            *getSFVertexProgram   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFString *getSFFragmentProgram(void);
+                  SFString            *getSFFragmentProgram (void);
 #endif
-           SFString *editSFFragmentProgram(void);
-     const SFString *getSFFragmentProgram (void) const;
+                  SFString            *editSFFragmentProgram(void);
+            const SFString            *getSFFragmentProgram (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           std::string &getVertexProgram(void);
+                  std::string         &getVertexProgram   (void);
 #endif
-           std::string &editVertexProgram(void);
-     const std::string &getVertexProgram (void) const;
+                  std::string         &editVertexProgram  (void);
+            const std::string         &getVertexProgram   (void) const;
 
 #ifdef OSG_1_COMPAT
-           std::string &getFragmentProgram(void);
+                  std::string         &getFragmentProgram (void);
 #endif
-           std::string &editFragmentProgram(void);
-     const std::string &getFragmentProgram (void) const;
+                  std::string         &editFragmentProgram(void);
+            const std::string         &getFragmentProgram (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setVertexProgram(const std::string &value);
-     void setFragmentProgram(const std::string &value);
+            void setVertexProgram  (const std::string &value);
+            void setFragmentProgram(const std::string &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -208,8 +207,8 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFString _sfVertexProgram;
-    SFString _sfFragmentProgram;
+    SFString          _sfVertexProgram;
+    SFString          _sfFragmentProgram;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -224,7 +223,7 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShaderChunkBase(void); 
+    virtual ~ShaderChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -270,11 +269,11 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

@@ -87,22 +87,22 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderChunkPtr, 
-                              ShaderChunkConstPtr, 
+    typedef PointerFwdBuilder<ShaderChunkPtr,
+                              ShaderChunkConstPtr,
                               SHLChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderChunkPtr, 
-                              ShaderChunkConstPtr, 
+    typedef PointerFwdBuilder<ShaderChunkPtr,
+                              ShaderChunkConstPtr,
                               SHLChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderChunkPtr, 
+    typedef PointerFwdBuilder<ShaderChunkPtr,
                               ShaderChunkConstPtr,
                               SHLChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderChunkPtr, 
+    typedef PointerFwdBuilder<ShaderChunkPtr,
                               ShaderChunkConstPtr,
                               SHLChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderChunkPtr, 
+    typedef PointerFwdBuilder<ShaderChunkPtr,
                               ShaderChunkConstPtr,
                               SHLChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderChunkPtr, 
+    typedef PointerFwdBuilder<ShaderChunkPtr,
                               ShaderChunkConstPtr,
                               SHLChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -118,22 +118,21 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
         NextFieldId = GLIdFieldId + 1
     };
 
-    static const OSG::BitVector CgFrontEndFieldMask = 
+    static const OSG::BitVector CgFrontEndFieldMask =
         (TypeTraits<BitVector>::One << CgFrontEndFieldId);
-    static const OSG::BitVector PointSizeFieldMask = 
+    static const OSG::BitVector PointSizeFieldMask =
         (TypeTraits<BitVector>::One << PointSizeFieldId);
-    static const OSG::BitVector GLIdFieldMask = 
+    static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -141,8 +140,8 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -153,50 +152,50 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFCgFrontEnd(void);
+                  SFBool              *getSFCgFrontEnd      (void);
 #endif
-           SFBool *editSFCgFrontEnd(void);
-     const SFBool *getSFCgFrontEnd (void) const;
+                  SFBool              *editSFCgFrontEnd     (void);
+            const SFBool              *getSFCgFrontEnd      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFPointSize(void);
+                  SFBool              *getSFPointSize       (void);
 #endif
-           SFBool *editSFPointSize(void);
-     const SFBool *getSFPointSize (void) const;
+                  SFBool              *editSFPointSize      (void);
+            const SFBool              *getSFPointSize       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFGLId(void);
+                  SFUInt32            *getSFGLId            (void);
 #endif
-           SFUInt32 *editSFGLId(void);
-     const SFUInt32 *getSFGLId (void) const;
+                  SFUInt32            *editSFGLId           (void);
+            const SFUInt32            *getSFGLId            (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getCgFrontEnd(void);
+                  bool                &getCgFrontEnd      (void);
 #endif
-           bool &editCgFrontEnd(void);
-     const bool &getCgFrontEnd (void) const;
+                  bool                &editCgFrontEnd     (void);
+            const bool                &getCgFrontEnd      (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getPointSize(void);
+                  bool                &getPointSize       (void);
 #endif
-           bool &editPointSize(void);
-     const bool &getPointSize (void) const;
+                  bool                &editPointSize      (void);
+            const bool                &getPointSize       (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getGLId(void);
+                  UInt32              &getGLId            (void);
 #endif
-           UInt32 &editGLId(void);
-     const UInt32 &getGLId (void) const;
+                  UInt32              &editGLId           (void);
+            const UInt32              &getGLId            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setCgFrontEnd(const bool &value);
-     void setPointSize(const bool &value);
-     void setGLId(const UInt32 &value);
+            void setCgFrontEnd     (const bool &value);
+            void setPointSize      (const bool &value);
+            void setGLId           (const UInt32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -216,15 +215,15 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SHLChunkPtr create     (void); 
-    static  SHLChunkPtr createEmpty(void); 
+    static  SHLChunkPtr create     (void);
+    static  SHLChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -240,9 +239,9 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfCgFrontEnd;
-    SFBool _sfPointSize;
-    SFUInt32 _sfGLId;
+    SFBool            _sfCgFrontEnd;
+    SFBool            _sfPointSize;
+    SFUInt32          _sfGLId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,7 +256,7 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SHLChunkBase(void); 
+    virtual ~SHLChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -303,11 +302,11 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

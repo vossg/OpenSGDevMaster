@@ -57,10 +57,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/*! \class OSG::SHLParameterChunk
-
-*/
+// Documentation for this class is emited in the
+// OSGSHLParameterChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGSHLParameterChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

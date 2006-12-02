@@ -66,22 +66,32 @@
 #include "OSGSHLParameterChunkBase.h"
 #include "OSGSHLParameterChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var SHLChunkPtr SHLParameterChunkBase::_sfSHLChunk
+/*! \class OSG::SHLParameterChunk
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var SHLChunkPtr     SHLParameterChunkBase::_sfSHLChunk
     
 */
 
 void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFSHLChunkPtr::Description(
-        SFSHLChunkPtr::getClassType(), 
-        "SHLChunk", 
+        SFSHLChunkPtr::getClassType(),
+        "SHLChunk",
         "",
         SHLChunkFieldId, SHLChunkFieldMask,
         false,
@@ -103,47 +113,46 @@ SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(true,
     (InitalInsertDescFunc) &SHLParameterChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SHLParameterChunk\"\n"
-"	parent=\"ShaderParameterChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"SHLChunk\"\n"
-"		type=\"SHLChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SHLParameterChunk\"\n"
+    "\tparent=\"ShaderParameterChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"SHLChunk\"\n"
+    "\t\ttype=\"SHLChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SHLParameterChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SHLParameterChunkBase::getType(void) const 
+FieldContainerType &SHLParameterChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SHLParameterChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(SHLParameterChunk); 
+const FieldContainerType &SHLParameterChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SHLParameterChunkBase::getContainerSize(void) const
+{
+    return sizeof(SHLParameterChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -255,22 +264,22 @@ void SHLParameterChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SHLParameterChunkPtr SHLParameterChunkBase::createEmpty(void) 
-{ 
-    SHLParameterChunkPtr returnValue; 
-    
-    newPtr<SHLParameterChunk>(returnValue); 
+SHLParameterChunkPtr SHLParameterChunkBase::createEmpty(void)
+{
+    SHLParameterChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<SHLParameterChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SHLParameterChunkBase::shallowCopy(void) const 
-{ 
-    SHLParameterChunkPtr returnValue; 
+FieldContainerPtr SHLParameterChunkBase::shallowCopy(void) const
+{
+    SHLParameterChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SHLParameterChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SHLParameterChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -279,13 +288,13 @@ FieldContainerPtr SHLParameterChunkBase::shallowCopy(void) const
 
 SHLParameterChunkBase::SHLParameterChunkBase(void) :
     Inherited(),
-    _sfSHLChunk(SHLChunkPtr(NullFC))
+    _sfSHLChunk               (SHLChunkPtr(NullFC))
 {
 }
 
 SHLParameterChunkBase::SHLParameterChunkBase(const SHLParameterChunkBase &source) :
     Inherited(source),
-    _sfSHLChunk()
+    _sfSHLChunk               ()
 {
 }
 
@@ -309,13 +318,13 @@ void SHLParameterChunkBase::onCreate(const SHLParameterChunk *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SHLParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SHLParameterChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -325,10 +334,10 @@ void SHLParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
 void SHLParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SHLParameterChunkBase *>(&oFrom), 
+    this->execSync(static_cast<SHLParameterChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -348,12 +357,12 @@ void SHLParameterChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SHLParameterChunkBase::createAspectCopy(void) const
 {
-    SHLParameterChunkPtr returnValue; 
+    SHLParameterChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SHLParameterChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SHLParameterChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -364,6 +373,8 @@ void SHLParameterChunkBase::resolveLinks(void)
     static_cast<SHLParameterChunk *>(this)->setSHLChunk(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -386,8 +397,6 @@ OSG_FIELDTRAITS_GETTYPE(SHLParameterChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, SHLParameterChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, SHLParameterChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -408,3 +417,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHLPARAMETERCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

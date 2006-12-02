@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SHLParameterChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SHLParameterChunkBase::getClassTypeId(void) 
+OSG::UInt32 SHLParameterChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SHLParameterChunkBase::getClassGroupId(void)
@@ -93,24 +93,24 @@ void SHLParameterChunkBase::setSHLChunk(SHLChunkPtrConstArg value)
 
 //! create a new instance of the class
 inline
-SHLParameterChunkPtr SHLParameterChunkBase::create(void) 
+SHLParameterChunkPtr SHLParameterChunkBase::create(void)
 {
-    SHLParameterChunkPtr fc; 
+    SHLParameterChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SHLParameterChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SHLParameterChunkBase::execSync(      SHLParameterChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -126,7 +126,7 @@ inline
 void SHLParameterChunkBase::execSync (      SHLParameterChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -164,4 +164,3 @@ typedef PointerBuilder<SHLParameterChunk>::ObjPtrConstArg  SHLParameterChunkPtrC
 OSG_END_NAMESPACE
 
 #define OSGSHLPARAMETERCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

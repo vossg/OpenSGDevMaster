@@ -66,24 +66,33 @@
 #include "OSGShaderParameterChunkBase.h"
 #include "OSGShaderParameterChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::ShaderParameterChunk
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var ShaderParameterPtr ShaderParameterChunkBase::_mfParameters
-    	parameter list
-
+    parameter list
 */
 
 void ShaderParameterChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new MFShaderParameterPtr::Description(
-        MFShaderParameterPtr::getClassType(), 
-        "parameters", 
-        "	parameter list\n",
+        MFShaderParameterPtr::getClassType(),
+        "parameters",
+        "parameter list\n",
         ParametersFieldId, ParametersFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -99,60 +108,59 @@ ShaderParameterChunkBase::TypeObject ShaderParameterChunkBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     ShaderParameterChunk::initMethod,
     (InitalInsertDescFunc) &ShaderParameterChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ShaderParameterChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"parameters\"\n"
-"		type=\"ShaderParameterPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"\n"
-"        pushToFieldAs=\"addParameter\"\n"
-"        insertIntoMFieldAs=\"insertParameter\"\n"
-"        replaceInMFieldIndexAs=\"replaceParameter\"\n"
-"        replaceInMFieldObjectAs=\"replaceParameterBy\"\n"
-"        removeFromMFieldIndexAs=\"subParameter\"\n"
-"        removeFromMFieldObjectAs=\"subParameter\"\n"
-"        clearFieldAs=\"clearParameters\"        \n"
-"	>\n"
-"	parameter list\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ShaderParameterChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"parameters\"\n"
+    "\t\ttype=\"ShaderParameterPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\n"
+    "        pushToFieldAs=\"addParameter\"\n"
+    "        insertIntoMFieldAs=\"insertParameter\"\n"
+    "        replaceInMFieldIndexAs=\"replaceParameter\"\n"
+    "        replaceInMFieldObjectAs=\"replaceParameterBy\"\n"
+    "        removeFromMFieldIndexAs=\"subParameter\"\n"
+    "        removeFromMFieldObjectAs=\"subParameter\"\n"
+    "        clearFieldAs=\"clearParameters\"        \n"
+    "\t>\n"
+    "\tparameter list\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ShaderParameterChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ShaderParameterChunkBase::getType(void) const 
+FieldContainerType &ShaderParameterChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ShaderParameterChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(ShaderParameterChunk); 
+const FieldContainerType &ShaderParameterChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ShaderParameterChunkBase::getContainerSize(void) const
+{
+    return sizeof(ShaderParameterChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -266,7 +274,7 @@ void ShaderParameterChunkBase::addParameter(ShaderParameterPtrConstArg value)
 }
 
 void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
-                                             ShaderParameterPtrConstArg value   )
+                                                   ShaderParameterPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -283,7 +291,7 @@ void ShaderParameterChunkBase::insertParameter(UInt32                uiIndex,
 }
 
 void ShaderParameterChunkBase::replaceParameter(UInt32                uiIndex,
-                                                 ShaderParameterPtrConstArg value   )
+                                                       ShaderParameterPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -301,7 +309,7 @@ void ShaderParameterChunkBase::replaceParameter(UInt32                uiIndex,
 }
 
 void ShaderParameterChunkBase::replaceParameterBy(ShaderParameterPtrConstArg pOldElem,
-                                                  ShaderParameterPtrConstArg pNewElem)
+                                                        ShaderParameterPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -375,8 +383,6 @@ void ShaderParameterChunkBase::clearParameters(void)
 
 
 
-
-
 /*------------------------------ access -----------------------------------*/
 
 UInt32 ShaderParameterChunkBase::getBinSize(ConstFieldMaskArg whichField)
@@ -419,13 +425,13 @@ void ShaderParameterChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShaderParameterChunkBase::ShaderParameterChunkBase(void) :
     Inherited(),
-    _mfParameters()
+    _mfParameters             ()
 {
 }
 
 ShaderParameterChunkBase::ShaderParameterChunkBase(const ShaderParameterChunkBase &source) :
     Inherited(source),
-    _mfParameters()
+    _mfParameters             ()
 {
 }
 
@@ -442,9 +448,9 @@ void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)
     if(source != NULL)
     {
 
-        MFShaderParameterPtr::const_iterator ParametersIt  = 
+        MFShaderParameterPtr::const_iterator ParametersIt  =
             source->_mfParameters.begin();
-        MFShaderParameterPtr::const_iterator ParametersEnd = 
+        MFShaderParameterPtr::const_iterator ParametersEnd =
             source->_mfParameters.end  ();
 
         while(ParametersIt != ParametersEnd)
@@ -459,13 +465,13 @@ void ShaderParameterChunkBase::onCreate(const ShaderParameterChunk *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShaderParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ShaderParameterChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -475,10 +481,10 @@ void ShaderParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
 void ShaderParameterChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderParameterChunkBase *>(&oFrom), 
+    this->execSync(static_cast<ShaderParameterChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -504,6 +510,8 @@ void ShaderParameterChunkBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -525,8 +533,6 @@ OSG_FIELDTRAITS_GETTYPE(ShaderParameterChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ShaderParameterChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ShaderParameterChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -547,3 +553,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHADERPARAMETERCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

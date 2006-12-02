@@ -49,13 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ShaderChunk
-
-*/
+// Documentation for this class is emited in the
+// OSGShaderChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGShaderChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

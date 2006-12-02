@@ -70,22 +70,22 @@ class SHLChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SHLChunkPtr
 
-typedef PointerFwdBuilder<ShaderChunkPtr, 
+typedef PointerFwdBuilder<ShaderChunkPtr,
                           ShaderChunkConstPtr,
                           SHLChunk>::ObjPtr         SHLChunkPtr;
-typedef PointerFwdBuilder<ShaderChunkPtr, 
+typedef PointerFwdBuilder<ShaderChunkPtr,
                           ShaderChunkConstPtr,
                           SHLChunk>::ObjPtrConst    SHLChunkPtrConst;
-typedef PointerFwdBuilder<ShaderChunkPtr, 
+typedef PointerFwdBuilder<ShaderChunkPtr,
                           ShaderChunkConstPtr,
                           SHLChunk>::ObjConstPtr    SHLChunkConstPtr;
-typedef PointerFwdBuilder<ShaderChunkPtr, 
+typedef PointerFwdBuilder<ShaderChunkPtr,
                           ShaderChunkConstPtr,
                           SHLChunk>::ObjPtrArg      SHLChunkPtrArg;
-typedef PointerFwdBuilder<ShaderChunkPtr, 
+typedef PointerFwdBuilder<ShaderChunkPtr,
                           ShaderChunkConstPtr,
                           SHLChunk>::ObjConstPtrArg SHLChunkConstPtrArg;
-typedef PointerFwdBuilder<ShaderChunkPtr, 
+typedef PointerFwdBuilder<ShaderChunkPtr,
                           ShaderChunkConstPtr,
                           SHLChunk>::ObjPtrConstArg SHLChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ShaderChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<SHLChunkPtr> : 
+struct FieldTraits<SHLChunkPtr> :
     public FieldTraitsTemplateBase<SHLChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SHLChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFSHLChunkPtr"; }

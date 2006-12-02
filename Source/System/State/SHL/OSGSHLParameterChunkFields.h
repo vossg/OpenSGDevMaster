@@ -70,22 +70,22 @@ class SHLParameterChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SHLParameterChunkPtr
 
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           SHLParameterChunk>::ObjPtr         SHLParameterChunkPtr;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           SHLParameterChunk>::ObjPtrConst    SHLParameterChunkPtrConst;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           SHLParameterChunk>::ObjConstPtr    SHLParameterChunkConstPtr;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           SHLParameterChunk>::ObjPtrArg      SHLParameterChunkPtrArg;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           SHLParameterChunk>::ObjConstPtrArg SHLParameterChunkConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           SHLParameterChunk>::ObjPtrConstArg SHLParameterChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ShaderParameterChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<SHLParameterChunkPtr> : 
+struct FieldTraits<SHLParameterChunkPtr> :
     public FieldTraitsTemplateBase<SHLParameterChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SHLParameterChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFSHLParameterChunkPtr"; }

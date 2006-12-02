@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ShaderParameterChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ShaderParameterChunkBase::getClassTypeId(void) 
+OSG::UInt32 ShaderParameterChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ShaderParameterChunkBase::getClassGroupId(void)
@@ -93,14 +93,14 @@ const MFShaderParameterPtr &ShaderParameterChunkBase::getParameters(void) const
 inline
 void ShaderParameterChunkBase::execSync(      ShaderParameterChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (ParametersFieldMask & whichField))
-        _mfParameters.syncWith(pOther->_mfParameters, 
+        _mfParameters.syncWith(pOther->_mfParameters,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -112,13 +112,13 @@ inline
 void ShaderParameterChunkBase::execSync (      ShaderParameterChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (ParametersFieldMask & whichField))
-        _mfParameters.syncWith(pFrom->_mfParameters, 
+        _mfParameters.syncWith(pFrom->_mfParameters,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -158,4 +158,3 @@ typedef PointerBuilder<ShaderParameterChunk>::ObjPtrConstArg  ShaderParameterChu
 OSG_END_NAMESPACE
 
 #define OSGSHADERPARAMETERCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

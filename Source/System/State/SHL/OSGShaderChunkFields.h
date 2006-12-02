@@ -70,22 +70,22 @@ class ShaderChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderChunkPtr
 
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           ShaderChunk>::ObjPtr         ShaderChunkPtr;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           ShaderChunk>::ObjPtrConst    ShaderChunkPtrConst;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           ShaderChunk>::ObjConstPtr    ShaderChunkConstPtr;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           ShaderChunk>::ObjPtrArg      ShaderChunkPtrArg;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           ShaderChunk>::ObjConstPtrArg ShaderChunkConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterChunkPtr, 
+typedef PointerFwdBuilder<ShaderParameterChunkPtr,
                           ShaderParameterChunkConstPtr,
                           ShaderChunk>::ObjPtrConstArg ShaderChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ShaderParameterChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<ShaderChunkPtr> : 
+struct FieldTraits<ShaderChunkPtr> :
     public FieldTraitsTemplateBase<ShaderChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ShaderChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFShaderChunkPtr"; }

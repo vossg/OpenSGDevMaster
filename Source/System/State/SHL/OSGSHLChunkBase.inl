@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SHLChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SHLChunkBase::getClassTypeId(void) 
+OSG::UInt32 SHLChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SHLChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &SHLChunkBase::getCgFrontEnd(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &SHLChunkBase::getCgFrontEnd(void)
+bool                &SHLChunkBase::getCgFrontEnd     (void)
 {
-    return this->editCgFrontEnd();
+    return this->editCgFrontEnd     ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const bool &SHLChunkBase::getPointSize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &SHLChunkBase::getPointSize(void)
+bool                &SHLChunkBase::getPointSize      (void)
 {
-    return this->editPointSize();
+    return this->editPointSize      ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const UInt32 &SHLChunkBase::getGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &SHLChunkBase::getGLId(void)
+UInt32              &SHLChunkBase::getGLId           (void)
 {
-    return this->editGLId();
+    return this->editGLId           ();
 }
 #endif
 
@@ -175,24 +175,24 @@ void SHLChunkBase::setGLId(const UInt32 &value)
 
 //! create a new instance of the class
 inline
-SHLChunkPtr SHLChunkBase::create(void) 
+SHLChunkPtr SHLChunkBase::create(void)
 {
-    SHLChunkPtr fc; 
+    SHLChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SHLChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SHLChunkBase::execSync(      SHLChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -214,7 +214,7 @@ inline
 void SHLChunkBase::execSync (      SHLChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -258,4 +258,3 @@ typedef PointerBuilder<SHLChunk>::ObjPtrConstArg  SHLChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSHLCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-
