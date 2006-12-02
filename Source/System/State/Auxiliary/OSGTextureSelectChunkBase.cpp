@@ -66,22 +66,30 @@
 #include "OSGTextureSelectChunkBase.h"
 #include "OSGTextureSelectChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var UInt32 TextureSelectChunkBase::_sfChoice
-    	Texture selector
+/*! \class OSG::TextureSelectChunk
+    \ingroup GrpSystemState
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var UInt32          TextureSelectChunkBase::_sfChoice
+    Texture selector
 */
 /*! \var TextureBaseChunkPtr TextureSelectChunkBase::_mfTextures
-    	Texture chunks to choose from 
-
+    Texture chunks to choose from
 */
 
 void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -91,9 +99,9 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "choice", 
-        "	Texture selector\n",
+        SFUInt32::getClassType(),
+        "choice",
+        "Texture selector\n",
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -107,9 +115,9 @@ void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFTextureBaseChunkPtr::Description(
-        MFTextureBaseChunkPtr::getClassType(), 
-        "textures", 
-        "	Texture chunks to choose from \n",
+        MFTextureBaseChunkPtr::getClassType(),
+        "textures",
+        "Texture chunks to choose from \n",
         TexturesFieldId, TexturesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -130,56 +138,56 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(true,
     (InitalInsertDescFunc) &TextureSelectChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TextureSelectChunk\"\n"
-"	parent=\"TextureBaseChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"choice\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0\"\n"
-"	>\n"
-"	Texture selector\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"textures\"\n"
-"		type=\"TextureBaseChunkPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture chunks to choose from \n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TextureSelectChunk\"\n"
+    "\tparent=\"TextureBaseChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\t<Field\n"
+    "\t\tname=\"choice\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t>\n"
+    "\tTexture selector\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"textures\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture chunks to choose from \n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureSelectChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureSelectChunkBase::getType(void) const 
+FieldContainerType &TextureSelectChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureSelectChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureSelectChunk); 
+const FieldContainerType &TextureSelectChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureSelectChunkBase::getContainerSize(void) const
+{
+    return sizeof(TextureSelectChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -198,9 +206,9 @@ const SFUInt32 *TextureSelectChunkBase::getSFChoice(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *TextureSelectChunkBase::getSFChoice(void)
+SFUInt32            *TextureSelectChunkBase::getSFChoice         (void)
 {
-    return this->editSFChoice();
+    return this->editSFChoice         ();
 }
 #endif
 
@@ -312,7 +320,7 @@ void TextureSelectChunkBase::pushToTextures(TextureBaseChunkPtrConstArg value)
 }
 
 void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
-                                             TextureBaseChunkPtrConstArg value   )
+                                                   TextureBaseChunkPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -329,7 +337,7 @@ void TextureSelectChunkBase::insertIntoTextures(UInt32                uiIndex,
 }
 
 void TextureSelectChunkBase::replaceInTextures(UInt32                uiIndex,
-                                                 TextureBaseChunkPtrConstArg value   )
+                                                       TextureBaseChunkPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -347,7 +355,7 @@ void TextureSelectChunkBase::replaceInTextures(UInt32                uiIndex,
 }
 
 void TextureSelectChunkBase::replaceInTextures(TextureBaseChunkPtrConstArg pOldElem,
-                                                  TextureBaseChunkPtrConstArg pNewElem)
+                                                        TextureBaseChunkPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -421,8 +429,6 @@ void TextureSelectChunkBase::clearTextures(void)
 
 
 
-
-
 /*------------------------------ access -----------------------------------*/
 
 UInt32 TextureSelectChunkBase::getBinSize(ConstFieldMaskArg whichField)
@@ -472,22 +478,22 @@ void TextureSelectChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureSelectChunkPtr TextureSelectChunkBase::createEmpty(void) 
-{ 
-    TextureSelectChunkPtr returnValue; 
-    
-    newPtr<TextureSelectChunk>(returnValue); 
+TextureSelectChunkPtr TextureSelectChunkBase::createEmpty(void)
+{
+    TextureSelectChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<TextureSelectChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TextureSelectChunkBase::shallowCopy(void) const 
-{ 
-    TextureSelectChunkPtr returnValue; 
+FieldContainerPtr TextureSelectChunkBase::shallowCopy(void) const
+{
+    TextureSelectChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TextureSelectChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TextureSelectChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -496,15 +502,15 @@ FieldContainerPtr TextureSelectChunkBase::shallowCopy(void) const
 
 TextureSelectChunkBase::TextureSelectChunkBase(void) :
     Inherited(),
-    _sfChoice(UInt32(0)),
-    _mfTextures()
+    _sfChoice                 (UInt32(0)),
+    _mfTextures               ()
 {
 }
 
 TextureSelectChunkBase::TextureSelectChunkBase(const TextureSelectChunkBase &source) :
     Inherited(source),
-    _sfChoice(source._sfChoice),
-    _mfTextures()
+    _sfChoice                 (source._sfChoice                 ),
+    _mfTextures               ()
 {
 }
 
@@ -521,9 +527,9 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
     if(source != NULL)
     {
 
-        MFTextureBaseChunkPtr::const_iterator TexturesIt  = 
+        MFTextureBaseChunkPtr::const_iterator TexturesIt  =
             source->_mfTextures.begin();
-        MFTextureBaseChunkPtr::const_iterator TexturesEnd = 
+        MFTextureBaseChunkPtr::const_iterator TexturesEnd =
             source->_mfTextures.end  ();
 
         while(TexturesIt != TexturesEnd)
@@ -538,13 +544,13 @@ void TextureSelectChunkBase::onCreate(const TextureSelectChunk *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureSelectChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureSelectChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -554,10 +560,10 @@ void TextureSelectChunkBase::execSyncV(      FieldContainer    &oFrom,
 void TextureSelectChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureSelectChunkBase *>(&oFrom), 
+    this->execSync(static_cast<TextureSelectChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -577,12 +583,12 @@ void TextureSelectChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureSelectChunkBase::createAspectCopy(void) const
 {
-    TextureSelectChunkPtr returnValue; 
+    TextureSelectChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TextureSelectChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TextureSelectChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -593,6 +599,8 @@ void TextureSelectChunkBase::resolveLinks(void)
     static_cast<TextureSelectChunk *>(this)->clearTextures();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -615,8 +623,6 @@ OSG_FIELDTRAITS_GETTYPE(TextureSelectChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TextureSelectChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TextureSelectChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -637,3 +643,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTURESELECTCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

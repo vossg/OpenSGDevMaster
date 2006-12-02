@@ -65,18 +65,27 @@
 #include "OSGTextureObjRefChunkBase.h"
 #include "OSGTextureObjRefChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var GLenum TextureObjRefChunkBase::_sfGLId
-    	glid
+/*! \class OSG::TextureObjRefChunk
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var GLenum          TextureObjRefChunkBase::_sfGLId
+    glid
 */
 
 void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +95,9 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "GLId", 
-        "	glid\n",
+        SFGLenum::getClassType(),
+        "GLId",
+        "glid\n",
         GLIdFieldId, GLIdFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,47 +122,46 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(true,
     (InitalInsertDescFunc) &TextureObjRefChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TextureObjRefChunk\"\n"
-"	parent=\"TextureBaseChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"GLId\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0\"\n"
-"	>\n"
-"	glid\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TextureObjRefChunk\"\n"
+    "\tparent=\"TextureBaseChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"GLId\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t>\n"
+    "\tglid\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureObjRefChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureObjRefChunkBase::getType(void) const 
+FieldContainerType &TextureObjRefChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureObjRefChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureObjRefChunk); 
+const FieldContainerType &TextureObjRefChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureObjRefChunkBase::getContainerSize(void) const
+{
+    return sizeof(TextureObjRefChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -172,9 +180,9 @@ const SFGLenum *TextureObjRefChunkBase::getSFGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjRefChunkBase::getSFGLId(void)
+SFGLenum            *TextureObjRefChunkBase::getSFGLId           (void)
 {
-    return this->editSFGLId();
+    return this->editSFGLId           ();
 }
 #endif
 
@@ -217,22 +225,22 @@ void TextureObjRefChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureObjRefChunkPtr TextureObjRefChunkBase::createEmpty(void) 
-{ 
-    TextureObjRefChunkPtr returnValue; 
-    
-    newPtr<TextureObjRefChunk>(returnValue); 
+TextureObjRefChunkPtr TextureObjRefChunkBase::createEmpty(void)
+{
+    TextureObjRefChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<TextureObjRefChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TextureObjRefChunkBase::shallowCopy(void) const 
-{ 
-    TextureObjRefChunkPtr returnValue; 
+FieldContainerPtr TextureObjRefChunkBase::shallowCopy(void) const
+{
+    TextureObjRefChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TextureObjRefChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TextureObjRefChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -241,13 +249,13 @@ FieldContainerPtr TextureObjRefChunkBase::shallowCopy(void) const
 
 TextureObjRefChunkBase::TextureObjRefChunkBase(void) :
     Inherited(),
-    _sfGLId(GLenum(0))
+    _sfGLId                   (GLenum(0))
 {
 }
 
 TextureObjRefChunkBase::TextureObjRefChunkBase(const TextureObjRefChunkBase &source) :
     Inherited(source),
-    _sfGLId(source._sfGLId)
+    _sfGLId                   (source._sfGLId                   )
 {
 }
 
@@ -261,13 +269,13 @@ TextureObjRefChunkBase::~TextureObjRefChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureObjRefChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureObjRefChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -277,10 +285,10 @@ void TextureObjRefChunkBase::execSyncV(      FieldContainer    &oFrom,
 void TextureObjRefChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureObjRefChunkBase *>(&oFrom), 
+    this->execSync(static_cast<TextureObjRefChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -300,12 +308,12 @@ void TextureObjRefChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureObjRefChunkBase::createAspectCopy(void) const
 {
-    TextureObjRefChunkPtr returnValue; 
+    TextureObjRefChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TextureObjRefChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TextureObjRefChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -314,6 +322,8 @@ void TextureObjRefChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -336,8 +346,6 @@ OSG_FIELDTRAITS_GETTYPE(TextureObjRefChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TextureObjRefChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TextureObjRefChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -358,3 +366,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTUREOBJREFCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -86,22 +86,22 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
-                              TextureBaseChunkConstPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
+                              TextureBaseChunkConstPtr,
                               TextureSelectChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
-                              TextureBaseChunkConstPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
+                              TextureBaseChunkConstPtr,
                               TextureSelectChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureSelectChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureSelectChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureSelectChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureSelectChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
         NextFieldId = TexturesFieldId + 1
     };
 
-    static const OSG::BitVector ChoiceFieldMask = 
+    static const OSG::BitVector ChoiceFieldMask =
         (TypeTraits<BitVector>::One << ChoiceFieldId);
-    static const OSG::BitVector TexturesFieldMask = 
+    static const OSG::BitVector TexturesFieldMask =
         (TypeTraits<BitVector>::One << TexturesFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,53 +148,53 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFChoice(void);
+                  SFUInt32            *getSFChoice          (void);
 #endif
-           SFUInt32 *editSFChoice(void);
-     const SFUInt32 *getSFChoice (void) const;
-     const MFTextureBaseChunkPtr *getMFTextures (void) const;
+                  SFUInt32            *editSFChoice         (void);
+            const SFUInt32            *getSFChoice          (void) const;
+            const MFTextureBaseChunkPtr *getMFTextures        (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getChoice(void);
+                  UInt32              &getChoice          (void);
 #endif
-           UInt32 &editChoice(void);
-     const UInt32 &getChoice (void) const;
+                  UInt32              &editChoice         (void);
+            const UInt32              &getChoice          (void) const;
 
-           TextureBaseChunkPtrConst getTextures(const UInt32 index) const;
-     const MFTextureBaseChunkPtr &getTextures(void) const;
+                  TextureBaseChunkPtrConst getTextures       (const UInt32 index) const;
+            const MFTextureBaseChunkPtr &getTextures       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setChoice(const UInt32 &value);
+            void setChoice         (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -205,18 +204,18 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToTextures           (TextureBaseChunkPtrConstArg value   );
+    void pushToTextures            (TextureBaseChunkPtrConstArg value   );
     void insertIntoTextures      (UInt32                uiIndex,
-                                    TextureBaseChunkPtrConstArg value   );
+                                             TextureBaseChunkPtrConstArg value   );
     void replaceInTextures  (UInt32                uiIndex,
-                                    TextureBaseChunkPtrConstArg value   );
+                                             TextureBaseChunkPtrConstArg value   );
     void replaceInTextures (TextureBaseChunkPtrConstArg pOldElem,
-                                    TextureBaseChunkPtrConstArg pNewElem);
+                                             TextureBaseChunkPtrConstArg pNewElem);
     void removeFromTextures (UInt32                uiIndex );
     void removeFromTextures(TextureBaseChunkPtrConstArg value   );
-    void clearTextures            (void                          );
+    void clearTextures              (void                          );
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,15 +234,15 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureSelectChunkPtr create     (void); 
-    static  TextureSelectChunkPtr createEmpty(void); 
+    static  TextureSelectChunkPtr create     (void);
+    static  TextureSelectChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -259,7 +258,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt32 _sfChoice;
+    SFUInt32          _sfChoice;
     MFTextureBaseChunkPtr _mfTextures;
 
     /*! \}                                                                 */
@@ -275,7 +274,7 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureSelectChunkBase(void); 
+    virtual ~TextureSelectChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -322,11 +321,11 @@ class OSG_STATE_DLLMAPPING TextureSelectChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

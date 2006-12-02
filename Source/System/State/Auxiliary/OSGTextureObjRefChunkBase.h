@@ -85,22 +85,22 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
-                              TextureBaseChunkConstPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
+                              TextureBaseChunkConstPtr,
                               TextureObjRefChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
-                              TextureBaseChunkConstPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
+                              TextureBaseChunkConstPtr,
                               TextureObjRefChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureObjRefChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureObjRefChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureObjRefChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureObjRefChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
         NextFieldId = GLIdFieldId + 1
     };
 
-    static const OSG::BitVector GLIdFieldMask = 
+    static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFGLId(void);
+                  SFGLenum            *getSFGLId            (void);
 #endif
-           SFGLenum *editSFGLId(void);
-     const SFGLenum *getSFGLId (void) const;
+                  SFGLenum            *editSFGLId           (void);
+            const SFGLenum            *getSFGLId            (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           GLenum &getGLId(void);
+                  GLenum              &getGLId            (void);
 #endif
-           GLenum &editGLId(void);
-     const GLenum &getGLId (void) const;
+                  GLenum              &editGLId           (void);
+            const GLenum              &getGLId            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setGLId(const GLenum &value);
+            void setGLId           (const GLenum &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -182,15 +181,15 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureObjRefChunkPtr create     (void); 
-    static  TextureObjRefChunkPtr createEmpty(void); 
+    static  TextureObjRefChunkPtr create     (void);
+    static  TextureObjRefChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -206,7 +205,7 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum _sfGLId;
+    SFGLenum          _sfGLId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,7 +220,7 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureObjRefChunkBase(void); 
+    virtual ~TextureObjRefChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,11 +266,11 @@ class OSG_STATE_DLLMAPPING TextureObjRefChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

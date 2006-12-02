@@ -70,22 +70,22 @@ class TextureObjRefChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureObjRefChunkPtr
 
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureObjRefChunk>::ObjPtr         TextureObjRefChunkPtr;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureObjRefChunk>::ObjPtrConst    TextureObjRefChunkPtrConst;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureObjRefChunk>::ObjConstPtr    TextureObjRefChunkConstPtr;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureObjRefChunk>::ObjPtrArg      TextureObjRefChunkPtrArg;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureObjRefChunk>::ObjConstPtrArg TextureObjRefChunkConstPtrArg;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureObjRefChunk>::ObjPtrConstArg TextureObjRefChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<TextureBaseChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<TextureObjRefChunkPtr> : 
+struct FieldTraits<TextureObjRefChunkPtr> :
     public FieldTraitsTemplateBase<TextureObjRefChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TextureObjRefChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFTextureObjRefChunkPtr"; }

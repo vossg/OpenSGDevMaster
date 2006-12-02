@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TextureSelectChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TextureSelectChunkBase::getClassTypeId(void) 
+OSG::UInt32 TextureSelectChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TextureSelectChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt32 &TextureSelectChunkBase::getChoice(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &TextureSelectChunkBase::getChoice(void)
+UInt32              &TextureSelectChunkBase::getChoice         (void)
 {
-    return this->editChoice();
+    return this->editChoice         ();
 }
 #endif
 
@@ -123,24 +123,24 @@ const MFTextureBaseChunkPtr &TextureSelectChunkBase::getTextures(void) const
 
 //! create a new instance of the class
 inline
-TextureSelectChunkPtr TextureSelectChunkBase::create(void) 
+TextureSelectChunkPtr TextureSelectChunkBase::create(void)
 {
-    TextureSelectChunkPtr fc; 
+    TextureSelectChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TextureSelectChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TextureSelectChunkBase::execSync(      TextureSelectChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -150,7 +150,7 @@ void TextureSelectChunkBase::execSync(      TextureSelectChunkBase *pOther,
         _sfChoice.syncWith(pOther->_sfChoice);
 
     if(FieldBits::NoField != (TexturesFieldMask & whichField))
-        _mfTextures.syncWith(pOther->_mfTextures, 
+        _mfTextures.syncWith(pOther->_mfTextures,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -162,7 +162,7 @@ inline
 void TextureSelectChunkBase::execSync (      TextureSelectChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -171,7 +171,7 @@ void TextureSelectChunkBase::execSync (      TextureSelectChunkBase *pFrom,
         _sfChoice.syncWith(pFrom->_sfChoice);
 
     if(FieldBits::NoField != (TexturesFieldMask & whichField))
-        _mfTextures.syncWith(pFrom->_mfTextures, 
+        _mfTextures.syncWith(pFrom->_mfTextures,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -211,4 +211,3 @@ typedef PointerBuilder<TextureSelectChunk>::ObjPtrConstArg  TextureSelectChunkPt
 OSG_END_NAMESPACE
 
 #define OSGTEXTURESELECTCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

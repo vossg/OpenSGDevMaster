@@ -63,15 +63,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::TextureObjRefChunk
-    \ingroup GrpSystemState
-
-*/
+// Documentation for this class is emited in the
+// OSGTextureObjRefChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGTextureObjRefChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -251,7 +246,7 @@ bool TextureObjRefChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGTEXTUREOBJREFCHUNK_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTUREOBJREFCHUNK_INLINE_CVSID;
 
