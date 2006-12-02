@@ -49,13 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ShaderParameterInt
-
-*/
+// Documentation for this class is emited in the
+// OSGShaderParameterIntBase.cpp file.
+// To modify it, please change the .fcd file (OSGShaderParameterInt.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

@@ -85,22 +85,22 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
-                              ShaderParameterConstPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
+                              ShaderParameterConstPtr,
                               ShaderParameterMatrix>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
-                              ShaderParameterConstPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
+                              ShaderParameterConstPtr,
                               ShaderParameterMatrix>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
                               ShaderParameterConstPtr,
                               ShaderParameterMatrix>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
                               ShaderParameterConstPtr,
                               ShaderParameterMatrix>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
                               ShaderParameterConstPtr,
                               ShaderParameterMatrix>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
                               ShaderParameterConstPtr,
                               ShaderParameterMatrix>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
         NextFieldId = ValueFieldId + 1
     };
 
-    static const OSG::BitVector ValueFieldMask = 
+    static const OSG::BitVector ValueFieldMask =
         (TypeTraits<BitVector>::One << ValueFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
 
 
 #ifdef OSG_1_COMPAT
-           SFMatrix *getSFValue(void);
+                  SFMatrix            *getSFValue           (void);
 #endif
-           SFMatrix *editSFValue(void);
-     const SFMatrix *getSFValue (void) const;
+                  SFMatrix            *editSFValue          (void);
+            const SFMatrix            *getSFValue           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Matrix &getValue(void);
+                  Matrix              &getValue           (void);
 #endif
-           Matrix &editValue(void);
-     const Matrix &getValue (void) const;
+                  Matrix              &editValue          (void);
+            const Matrix              &getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setValue(const Matrix &value);
+            void setValue          (const Matrix &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -182,15 +181,15 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterMatrixPtr create     (void); 
-    static  ShaderParameterMatrixPtr createEmpty(void); 
+    static  ShaderParameterMatrixPtr create     (void);
+    static  ShaderParameterMatrixPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -206,7 +205,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMatrix _sfValue;
+    SFMatrix          _sfValue;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,7 +220,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShaderParameterMatrixBase(void); 
+    virtual ~ShaderParameterMatrixBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,11 +266,11 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

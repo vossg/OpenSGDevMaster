@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ShaderParameterVec4fBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ShaderParameterVec4fBase::getClassTypeId(void) 
+OSG::UInt32 ShaderParameterVec4fBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ShaderParameterVec4fBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Vec4f &ShaderParameterVec4fBase::getValue(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec4f &ShaderParameterVec4fBase::getValue(void)
+Vec4f               &ShaderParameterVec4fBase::getValue          (void)
 {
-    return this->editValue();
+    return this->editValue          ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void ShaderParameterVec4fBase::setValue(const Vec4f &value)
 
 //! create a new instance of the class
 inline
-ShaderParameterVec4fPtr ShaderParameterVec4fBase::create(void) 
+ShaderParameterVec4fPtr ShaderParameterVec4fBase::create(void)
 {
-    ShaderParameterVec4fPtr fc; 
+    ShaderParameterVec4fPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ShaderParameterVec4f::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ShaderParameterVec4fBase::execSync(      ShaderParameterVec4fBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void ShaderParameterVec4fBase::execSync (      ShaderParameterVec4fBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<ShaderParameterVec4f>::ObjPtrConstArg  ShaderParameterVec
 OSG_END_NAMESPACE
 
 #define OSGSHADERPARAMETERVEC4FBASE_INLINE_CVSID "@(#)$Id$"
-

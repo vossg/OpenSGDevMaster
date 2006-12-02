@@ -70,22 +70,22 @@ class ShaderParameterString;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderParameterStringPtr
 
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterString>::ObjPtr         ShaderParameterStringPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterString>::ObjPtrConst    ShaderParameterStringPtrConst;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterString>::ObjConstPtr    ShaderParameterStringConstPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterString>::ObjPtrArg      ShaderParameterStringPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterString>::ObjConstPtrArg ShaderParameterStringConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterString>::ObjPtrConstArg ShaderParameterStringPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ShaderParameterPtr,
 #endif
 
 template <>
-struct FieldTraits<ShaderParameterStringPtr> : 
+struct FieldTraits<ShaderParameterStringPtr> :
     public FieldTraitsTemplateBase<ShaderParameterStringPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ShaderParameterStringPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFShaderParameterStringPtr"; }

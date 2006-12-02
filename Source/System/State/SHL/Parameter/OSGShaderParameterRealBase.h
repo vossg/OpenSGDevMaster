@@ -85,22 +85,22 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
-                              ShaderParameterConstPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
+                              ShaderParameterConstPtr,
                               ShaderParameterReal>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
-                              ShaderParameterConstPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
+                              ShaderParameterConstPtr,
                               ShaderParameterReal>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
                               ShaderParameterConstPtr,
                               ShaderParameterReal>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
                               ShaderParameterConstPtr,
                               ShaderParameterReal>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
                               ShaderParameterConstPtr,
                               ShaderParameterReal>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShaderParameterPtr, 
+    typedef PointerFwdBuilder<ShaderParameterPtr,
                               ShaderParameterConstPtr,
                               ShaderParameterReal>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
         NextFieldId = ValueFieldId + 1
     };
 
-    static const OSG::BitVector ValueFieldMask = 
+    static const OSG::BitVector ValueFieldMask =
         (TypeTraits<BitVector>::One << ValueFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
 
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFValue(void);
+                  SFReal32            *getSFValue           (void);
 #endif
-           SFReal32 *editSFValue(void);
-     const SFReal32 *getSFValue (void) const;
+                  SFReal32            *editSFValue          (void);
+            const SFReal32            *getSFValue           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Real32 &getValue(void);
+                  Real32              &getValue           (void);
 #endif
-           Real32 &editValue(void);
-     const Real32 &getValue (void) const;
+                  Real32              &editValue          (void);
+            const Real32              &getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setValue(const Real32 &value);
+            void setValue          (const Real32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -182,15 +181,15 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShaderParameterRealPtr create     (void); 
-    static  ShaderParameterRealPtr createEmpty(void); 
+    static  ShaderParameterRealPtr create     (void);
+    static  ShaderParameterRealPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -206,7 +205,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32 _sfValue;
+    SFReal32          _sfValue;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,7 +220,7 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShaderParameterRealBase(void); 
+    virtual ~ShaderParameterRealBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,11 +266,11 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

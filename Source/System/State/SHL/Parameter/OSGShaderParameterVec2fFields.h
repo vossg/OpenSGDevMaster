@@ -70,22 +70,22 @@ class ShaderParameterVec2f;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShaderParameterVec2fPtr
 
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterVec2f>::ObjPtr         ShaderParameterVec2fPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterVec2f>::ObjPtrConst    ShaderParameterVec2fPtrConst;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterVec2f>::ObjConstPtr    ShaderParameterVec2fConstPtr;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterVec2f>::ObjPtrArg      ShaderParameterVec2fPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterVec2f>::ObjConstPtrArg ShaderParameterVec2fConstPtrArg;
-typedef PointerFwdBuilder<ShaderParameterPtr, 
+typedef PointerFwdBuilder<ShaderParameterPtr,
                           ShaderParameterConstPtr,
                           ShaderParameterVec2f>::ObjPtrConstArg ShaderParameterVec2fPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ShaderParameterPtr,
 #endif
 
 template <>
-struct FieldTraits<ShaderParameterVec2fPtr> : 
+struct FieldTraits<ShaderParameterVec2fPtr> :
     public FieldTraitsTemplateBase<ShaderParameterVec2fPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ShaderParameterVec2fPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFShaderParameterVec2fPtr"; }

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ShaderParameterVec2fBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ShaderParameterVec2fBase::getClassTypeId(void) 
+OSG::UInt32 ShaderParameterVec2fBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ShaderParameterVec2fBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Vec2f &ShaderParameterVec2fBase::getValue(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec2f &ShaderParameterVec2fBase::getValue(void)
+Vec2f               &ShaderParameterVec2fBase::getValue          (void)
 {
-    return this->editValue();
+    return this->editValue          ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void ShaderParameterVec2fBase::setValue(const Vec2f &value)
 
 //! create a new instance of the class
 inline
-ShaderParameterVec2fPtr ShaderParameterVec2fBase::create(void) 
+ShaderParameterVec2fPtr ShaderParameterVec2fBase::create(void)
 {
-    ShaderParameterVec2fPtr fc; 
+    ShaderParameterVec2fPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ShaderParameterVec2f::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ShaderParameterVec2fBase::execSync(      ShaderParameterVec2fBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void ShaderParameterVec2fBase::execSync (      ShaderParameterVec2fBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<ShaderParameterVec2f>::ObjPtrConstArg  ShaderParameterVec
 OSG_END_NAMESPACE
 
 #define OSGSHADERPARAMETERVEC2FBASE_INLINE_CVSID "@(#)$Id$"
-

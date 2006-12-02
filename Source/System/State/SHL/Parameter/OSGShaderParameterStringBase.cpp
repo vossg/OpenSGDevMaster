@@ -65,18 +65,27 @@
 #include "OSGShaderParameterStringBase.h"
 #include "OSGShaderParameterString.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var std::string ShaderParameterStringBase::_sfValue
-    	parameter value
+/*! \class OSG::ShaderParameterString
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var std::string     ShaderParameterStringBase::_sfValue
+    parameter value
 */
 
 void ShaderParameterStringBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +95,9 @@ void ShaderParameterStringBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "value", 
-        "	parameter value\n",
+        SFString::getClassType(),
+        "value",
+        "parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,47 +122,46 @@ ShaderParameterStringBase::TypeObject ShaderParameterStringBase::_type(true,
     (InitalInsertDescFunc) &ShaderParameterStringBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ShaderParameterString\"\n"
-"	parent=\"ShaderParameter\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"value\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	parameter value\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ShaderParameterString\"\n"
+    "\tparent=\"ShaderParameter\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"value\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tparameter value\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ShaderParameterStringBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ShaderParameterStringBase::getType(void) const 
+FieldContainerType &ShaderParameterStringBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ShaderParameterStringBase::getContainerSize(void) const 
-{ 
-    return sizeof(ShaderParameterString); 
+const FieldContainerType &ShaderParameterStringBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ShaderParameterStringBase::getContainerSize(void) const
+{
+    return sizeof(ShaderParameterString);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -172,9 +180,9 @@ const SFString *ShaderParameterStringBase::getSFValue(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *ShaderParameterStringBase::getSFValue(void)
+SFString            *ShaderParameterStringBase::getSFValue          (void)
 {
-    return this->editSFValue();
+    return this->editSFValue          ();
 }
 #endif
 
@@ -217,22 +225,22 @@ void ShaderParameterStringBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShaderParameterStringPtr ShaderParameterStringBase::createEmpty(void) 
-{ 
-    ShaderParameterStringPtr returnValue; 
-    
-    newPtr<ShaderParameterString>(returnValue); 
+ShaderParameterStringPtr ShaderParameterStringBase::createEmpty(void)
+{
+    ShaderParameterStringPtr returnValue;
 
-    return returnValue; 
+    newPtr<ShaderParameterString>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ShaderParameterStringBase::shallowCopy(void) const 
-{ 
-    ShaderParameterStringPtr returnValue; 
+FieldContainerPtr ShaderParameterStringBase::shallowCopy(void) const
+{
+    ShaderParameterStringPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ShaderParameterString *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ShaderParameterString *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -241,13 +249,13 @@ FieldContainerPtr ShaderParameterStringBase::shallowCopy(void) const
 
 ShaderParameterStringBase::ShaderParameterStringBase(void) :
     Inherited(),
-    _sfValue()
+    _sfValue                  ()
 {
 }
 
 ShaderParameterStringBase::ShaderParameterStringBase(const ShaderParameterStringBase &source) :
     Inherited(source),
-    _sfValue(source._sfValue)
+    _sfValue                  (source._sfValue                  )
 {
 }
 
@@ -261,13 +269,13 @@ ShaderParameterStringBase::~ShaderParameterStringBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShaderParameterStringBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ShaderParameterStringBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -277,10 +285,10 @@ void ShaderParameterStringBase::execSyncV(      FieldContainer    &oFrom,
 void ShaderParameterStringBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderParameterStringBase *>(&oFrom), 
+    this->execSync(static_cast<ShaderParameterStringBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -300,12 +308,12 @@ void ShaderParameterStringBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ShaderParameterStringBase::createAspectCopy(void) const
 {
-    ShaderParameterStringPtr returnValue; 
+    ShaderParameterStringPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ShaderParameterString *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ShaderParameterString *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -314,6 +322,8 @@ void ShaderParameterStringBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -336,8 +346,6 @@ OSG_FIELDTRAITS_GETTYPE(ShaderParameterStringPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ShaderParameterStringPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ShaderParameterStringPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -358,3 +366,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHADERPARAMETERSTRINGFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

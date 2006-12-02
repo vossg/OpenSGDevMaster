@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ShaderParameterStringBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ShaderParameterStringBase::getClassTypeId(void) 
+OSG::UInt32 ShaderParameterStringBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ShaderParameterStringBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const std::string &ShaderParameterStringBase::getValue(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ShaderParameterStringBase::getValue(void)
+std::string         &ShaderParameterStringBase::getValue          (void)
 {
-    return this->editValue();
+    return this->editValue          ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void ShaderParameterStringBase::setValue(const std::string &value)
 
 //! create a new instance of the class
 inline
-ShaderParameterStringPtr ShaderParameterStringBase::create(void) 
+ShaderParameterStringPtr ShaderParameterStringBase::create(void)
 {
-    ShaderParameterStringPtr fc; 
+    ShaderParameterStringPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ShaderParameterString::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ShaderParameterStringBase::execSync(      ShaderParameterStringBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void ShaderParameterStringBase::execSync (      ShaderParameterStringBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<ShaderParameterString>::ObjPtrConstArg  ShaderParameterSt
 OSG_END_NAMESPACE
 
 #define OSGSHADERPARAMETERSTRINGBASE_INLINE_CVSID "@(#)$Id$"
-

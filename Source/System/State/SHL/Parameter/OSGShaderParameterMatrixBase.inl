@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ShaderParameterMatrixBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ShaderParameterMatrixBase::getClassTypeId(void) 
+OSG::UInt32 ShaderParameterMatrixBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ShaderParameterMatrixBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Matrix &ShaderParameterMatrixBase::getValue(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &ShaderParameterMatrixBase::getValue(void)
+Matrix              &ShaderParameterMatrixBase::getValue          (void)
 {
-    return this->editValue();
+    return this->editValue          ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void ShaderParameterMatrixBase::setValue(const Matrix &value)
 
 //! create a new instance of the class
 inline
-ShaderParameterMatrixPtr ShaderParameterMatrixBase::create(void) 
+ShaderParameterMatrixPtr ShaderParameterMatrixBase::create(void)
 {
-    ShaderParameterMatrixPtr fc; 
+    ShaderParameterMatrixPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ShaderParameterMatrix::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ShaderParameterMatrixBase::execSync(      ShaderParameterMatrixBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void ShaderParameterMatrixBase::execSync (      ShaderParameterMatrixBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<ShaderParameterMatrix>::ObjPtrConstArg  ShaderParameterMa
 OSG_END_NAMESPACE
 
 #define OSGSHADERPARAMETERMATRIXBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -65,18 +65,27 @@
 #include "OSGShaderParameterMatrixBase.h"
 #include "OSGShaderParameterMatrix.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Matrix ShaderParameterMatrixBase::_sfValue
-    	parameter value
+/*! \class OSG::ShaderParameterMatrix
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Matrix          ShaderParameterMatrixBase::_sfValue
+    parameter value
 */
 
 void ShaderParameterMatrixBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +95,9 @@ void ShaderParameterMatrixBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "value", 
-        "	parameter value\n",
+        SFMatrix::getClassType(),
+        "value",
+        "parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,47 +122,46 @@ ShaderParameterMatrixBase::TypeObject ShaderParameterMatrixBase::_type(true,
     (InitalInsertDescFunc) &ShaderParameterMatrixBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ShaderParameterMatrix\"\n"
-"	parent=\"ShaderParameter\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"value\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	parameter value\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ShaderParameterMatrix\"\n"
+    "\tparent=\"ShaderParameter\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"value\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tparameter value\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ShaderParameterMatrixBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ShaderParameterMatrixBase::getType(void) const 
+FieldContainerType &ShaderParameterMatrixBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ShaderParameterMatrixBase::getContainerSize(void) const 
-{ 
-    return sizeof(ShaderParameterMatrix); 
+const FieldContainerType &ShaderParameterMatrixBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ShaderParameterMatrixBase::getContainerSize(void) const
+{
+    return sizeof(ShaderParameterMatrix);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -172,9 +180,9 @@ const SFMatrix *ShaderParameterMatrixBase::getSFValue(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *ShaderParameterMatrixBase::getSFValue(void)
+SFMatrix            *ShaderParameterMatrixBase::getSFValue          (void)
 {
-    return this->editSFValue();
+    return this->editSFValue          ();
 }
 #endif
 
@@ -217,22 +225,22 @@ void ShaderParameterMatrixBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShaderParameterMatrixPtr ShaderParameterMatrixBase::createEmpty(void) 
-{ 
-    ShaderParameterMatrixPtr returnValue; 
-    
-    newPtr<ShaderParameterMatrix>(returnValue); 
+ShaderParameterMatrixPtr ShaderParameterMatrixBase::createEmpty(void)
+{
+    ShaderParameterMatrixPtr returnValue;
 
-    return returnValue; 
+    newPtr<ShaderParameterMatrix>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ShaderParameterMatrixBase::shallowCopy(void) const 
-{ 
-    ShaderParameterMatrixPtr returnValue; 
+FieldContainerPtr ShaderParameterMatrixBase::shallowCopy(void) const
+{
+    ShaderParameterMatrixPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ShaderParameterMatrix *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ShaderParameterMatrix *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -241,13 +249,13 @@ FieldContainerPtr ShaderParameterMatrixBase::shallowCopy(void) const
 
 ShaderParameterMatrixBase::ShaderParameterMatrixBase(void) :
     Inherited(),
-    _sfValue()
+    _sfValue                  ()
 {
 }
 
 ShaderParameterMatrixBase::ShaderParameterMatrixBase(const ShaderParameterMatrixBase &source) :
     Inherited(source),
-    _sfValue(source._sfValue)
+    _sfValue                  (source._sfValue                  )
 {
 }
 
@@ -261,13 +269,13 @@ ShaderParameterMatrixBase::~ShaderParameterMatrixBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShaderParameterMatrixBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ShaderParameterMatrixBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -277,10 +285,10 @@ void ShaderParameterMatrixBase::execSyncV(      FieldContainer    &oFrom,
 void ShaderParameterMatrixBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderParameterMatrixBase *>(&oFrom), 
+    this->execSync(static_cast<ShaderParameterMatrixBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -300,12 +308,12 @@ void ShaderParameterMatrixBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ShaderParameterMatrixBase::createAspectCopy(void) const
 {
-    ShaderParameterMatrixPtr returnValue; 
+    ShaderParameterMatrixPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ShaderParameterMatrix *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ShaderParameterMatrix *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -314,6 +322,8 @@ void ShaderParameterMatrixBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -336,8 +346,6 @@ OSG_FIELDTRAITS_GETTYPE(ShaderParameterMatrixPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ShaderParameterMatrixPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ShaderParameterMatrixPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -358,3 +366,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHADERPARAMETERMATRIXFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

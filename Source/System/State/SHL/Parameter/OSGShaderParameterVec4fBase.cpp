@@ -65,18 +65,27 @@
 #include "OSGShaderParameterVec4fBase.h"
 #include "OSGShaderParameterVec4f.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Vec4f ShaderParameterVec4fBase::_sfValue
-    	parameter value
+/*! \class OSG::ShaderParameterVec4f
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Vec4f           ShaderParameterVec4fBase::_sfValue
+    parameter value
 */
 
 void ShaderParameterVec4fBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +95,9 @@ void ShaderParameterVec4fBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec4f::Description(
-        SFVec4f::getClassType(), 
-        "value", 
-        "	parameter value\n",
+        SFVec4f::getClassType(),
+        "value",
+        "parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,47 +122,46 @@ ShaderParameterVec4fBase::TypeObject ShaderParameterVec4fBase::_type(true,
     (InitalInsertDescFunc) &ShaderParameterVec4fBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ShaderParameterVec4f\"\n"
-"	parent=\"ShaderParameter\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"value\"\n"
-"		type=\"Vec4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	parameter value\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ShaderParameterVec4f\"\n"
+    "\tparent=\"ShaderParameter\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"value\"\n"
+    "\t\ttype=\"Vec4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tparameter value\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ShaderParameterVec4fBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ShaderParameterVec4fBase::getType(void) const 
+FieldContainerType &ShaderParameterVec4fBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ShaderParameterVec4fBase::getContainerSize(void) const 
-{ 
-    return sizeof(ShaderParameterVec4f); 
+const FieldContainerType &ShaderParameterVec4fBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ShaderParameterVec4fBase::getContainerSize(void) const
+{
+    return sizeof(ShaderParameterVec4f);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -172,9 +180,9 @@ const SFVec4f *ShaderParameterVec4fBase::getSFValue(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec4f *ShaderParameterVec4fBase::getSFValue(void)
+SFVec4f             *ShaderParameterVec4fBase::getSFValue          (void)
 {
-    return this->editSFValue();
+    return this->editSFValue          ();
 }
 #endif
 
@@ -217,22 +225,22 @@ void ShaderParameterVec4fBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShaderParameterVec4fPtr ShaderParameterVec4fBase::createEmpty(void) 
-{ 
-    ShaderParameterVec4fPtr returnValue; 
-    
-    newPtr<ShaderParameterVec4f>(returnValue); 
+ShaderParameterVec4fPtr ShaderParameterVec4fBase::createEmpty(void)
+{
+    ShaderParameterVec4fPtr returnValue;
 
-    return returnValue; 
+    newPtr<ShaderParameterVec4f>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ShaderParameterVec4fBase::shallowCopy(void) const 
-{ 
-    ShaderParameterVec4fPtr returnValue; 
+FieldContainerPtr ShaderParameterVec4fBase::shallowCopy(void) const
+{
+    ShaderParameterVec4fPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ShaderParameterVec4f *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ShaderParameterVec4f *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -241,13 +249,13 @@ FieldContainerPtr ShaderParameterVec4fBase::shallowCopy(void) const
 
 ShaderParameterVec4fBase::ShaderParameterVec4fBase(void) :
     Inherited(),
-    _sfValue()
+    _sfValue                  ()
 {
 }
 
 ShaderParameterVec4fBase::ShaderParameterVec4fBase(const ShaderParameterVec4fBase &source) :
     Inherited(source),
-    _sfValue(source._sfValue)
+    _sfValue                  (source._sfValue                  )
 {
 }
 
@@ -261,13 +269,13 @@ ShaderParameterVec4fBase::~ShaderParameterVec4fBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShaderParameterVec4fBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ShaderParameterVec4fBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -277,10 +285,10 @@ void ShaderParameterVec4fBase::execSyncV(      FieldContainer    &oFrom,
 void ShaderParameterVec4fBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderParameterVec4fBase *>(&oFrom), 
+    this->execSync(static_cast<ShaderParameterVec4fBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -300,12 +308,12 @@ void ShaderParameterVec4fBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ShaderParameterVec4fBase::createAspectCopy(void) const
 {
-    ShaderParameterVec4fPtr returnValue; 
+    ShaderParameterVec4fPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ShaderParameterVec4f *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ShaderParameterVec4f *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -314,6 +322,8 @@ void ShaderParameterVec4fBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -336,8 +346,6 @@ OSG_FIELDTRAITS_GETTYPE(ShaderParameterVec4fPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ShaderParameterVec4fPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ShaderParameterVec4fPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -358,3 +366,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHADERPARAMETERVEC4FFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -49,13 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ShaderParameterVec3f
-
-*/
+// Documentation for this class is emited in the
+// OSGShaderParameterVec3fBase.cpp file.
+// To modify it, please change the .fcd file (OSGShaderParameterVec3f.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

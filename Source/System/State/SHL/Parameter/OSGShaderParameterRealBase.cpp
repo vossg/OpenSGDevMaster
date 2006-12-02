@@ -65,18 +65,27 @@
 #include "OSGShaderParameterRealBase.h"
 #include "OSGShaderParameterReal.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Real32 ShaderParameterRealBase::_sfValue
-    	parameter value
+/*! \class OSG::ShaderParameterReal
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Real32          ShaderParameterRealBase::_sfValue
+    parameter value
 */
 
 void ShaderParameterRealBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +95,9 @@ void ShaderParameterRealBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "value", 
-        "	parameter value\n",
+        SFReal32::getClassType(),
+        "value",
+        "parameter value\n",
         ValueFieldId, ValueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,47 +122,46 @@ ShaderParameterRealBase::TypeObject ShaderParameterRealBase::_type(true,
     (InitalInsertDescFunc) &ShaderParameterRealBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ShaderParameterReal\"\n"
-"	parent=\"ShaderParameter\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"value\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	parameter value\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ShaderParameterReal\"\n"
+    "\tparent=\"ShaderParameter\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"value\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tparameter value\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ShaderParameterRealBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ShaderParameterRealBase::getType(void) const 
+FieldContainerType &ShaderParameterRealBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ShaderParameterRealBase::getContainerSize(void) const 
-{ 
-    return sizeof(ShaderParameterReal); 
+const FieldContainerType &ShaderParameterRealBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ShaderParameterRealBase::getContainerSize(void) const
+{
+    return sizeof(ShaderParameterReal);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -172,9 +180,9 @@ const SFReal32 *ShaderParameterRealBase::getSFValue(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ShaderParameterRealBase::getSFValue(void)
+SFReal32            *ShaderParameterRealBase::getSFValue          (void)
 {
-    return this->editSFValue();
+    return this->editSFValue          ();
 }
 #endif
 
@@ -217,22 +225,22 @@ void ShaderParameterRealBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShaderParameterRealPtr ShaderParameterRealBase::createEmpty(void) 
-{ 
-    ShaderParameterRealPtr returnValue; 
-    
-    newPtr<ShaderParameterReal>(returnValue); 
+ShaderParameterRealPtr ShaderParameterRealBase::createEmpty(void)
+{
+    ShaderParameterRealPtr returnValue;
 
-    return returnValue; 
+    newPtr<ShaderParameterReal>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ShaderParameterRealBase::shallowCopy(void) const 
-{ 
-    ShaderParameterRealPtr returnValue; 
+FieldContainerPtr ShaderParameterRealBase::shallowCopy(void) const
+{
+    ShaderParameterRealPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ShaderParameterReal *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ShaderParameterReal *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -241,13 +249,13 @@ FieldContainerPtr ShaderParameterRealBase::shallowCopy(void) const
 
 ShaderParameterRealBase::ShaderParameterRealBase(void) :
     Inherited(),
-    _sfValue()
+    _sfValue                  ()
 {
 }
 
 ShaderParameterRealBase::ShaderParameterRealBase(const ShaderParameterRealBase &source) :
     Inherited(source),
-    _sfValue(source._sfValue)
+    _sfValue                  (source._sfValue                  )
 {
 }
 
@@ -261,13 +269,13 @@ ShaderParameterRealBase::~ShaderParameterRealBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShaderParameterRealBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ShaderParameterRealBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -277,10 +285,10 @@ void ShaderParameterRealBase::execSyncV(      FieldContainer    &oFrom,
 void ShaderParameterRealBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShaderParameterRealBase *>(&oFrom), 
+    this->execSync(static_cast<ShaderParameterRealBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -300,12 +308,12 @@ void ShaderParameterRealBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ShaderParameterRealBase::createAspectCopy(void) const
 {
-    ShaderParameterRealPtr returnValue; 
+    ShaderParameterRealPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ShaderParameterReal *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ShaderParameterReal *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -314,6 +322,8 @@ void ShaderParameterRealBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -336,8 +346,6 @@ OSG_FIELDTRAITS_GETTYPE(ShaderParameterRealPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ShaderParameterRealPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ShaderParameterRealPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -358,3 +366,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHADERPARAMETERREALFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE
