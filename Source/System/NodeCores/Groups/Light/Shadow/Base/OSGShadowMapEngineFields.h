@@ -70,22 +70,22 @@ class ShadowMapEngine;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShadowMapEnginePtr
 
-typedef PointerFwdBuilder<LightEnginePtr, 
+typedef PointerFwdBuilder<LightEnginePtr,
                           LightEngineConstPtr,
                           ShadowMapEngine>::ObjPtr         ShadowMapEnginePtr;
-typedef PointerFwdBuilder<LightEnginePtr, 
+typedef PointerFwdBuilder<LightEnginePtr,
                           LightEngineConstPtr,
                           ShadowMapEngine>::ObjPtrConst    ShadowMapEnginePtrConst;
-typedef PointerFwdBuilder<LightEnginePtr, 
+typedef PointerFwdBuilder<LightEnginePtr,
                           LightEngineConstPtr,
                           ShadowMapEngine>::ObjConstPtr    ShadowMapEngineConstPtr;
-typedef PointerFwdBuilder<LightEnginePtr, 
+typedef PointerFwdBuilder<LightEnginePtr,
                           LightEngineConstPtr,
                           ShadowMapEngine>::ObjPtrArg      ShadowMapEnginePtrArg;
-typedef PointerFwdBuilder<LightEnginePtr, 
+typedef PointerFwdBuilder<LightEnginePtr,
                           LightEngineConstPtr,
                           ShadowMapEngine>::ObjConstPtrArg ShadowMapEngineConstPtrArg;
-typedef PointerFwdBuilder<LightEnginePtr, 
+typedef PointerFwdBuilder<LightEnginePtr,
                           LightEngineConstPtr,
                           ShadowMapEngine>::ObjPtrConstArg ShadowMapEnginePtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<LightEnginePtr,
 #endif
 
 template <>
-struct FieldTraits<ShadowMapEnginePtr> : 
+struct FieldTraits<ShadowMapEnginePtr> :
     public FieldTraitsTemplateBase<ShadowMapEnginePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ShadowMapEnginePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_RENDERTRAV_DLLMAPPING 
+    static OSG_RENDERTRAV_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFShadowMapEnginePtr"; }

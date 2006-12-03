@@ -50,13 +50,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::PointLight
-    PointLight is a located lightsource. The position of the light source
-    (in the beacon's coordinate system) is defined by the \c position 
-    attribute. The influence of the light diminishes with distance, controlled
-    by the \c constantAttenuation, \c linearAttenuation and \c
-    quadraticAttenuation attributes.
-*/
+// Documentation for this class is emited in the
+// OSGPointLightBase.cpp file.
+// To modify it, please change the .fcd file (OSGPointLight.fcd) and
+// regenerate the base file.
 
 /*----------------------------- class variables ---------------------------*/
 

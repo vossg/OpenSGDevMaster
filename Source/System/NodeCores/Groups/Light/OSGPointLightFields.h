@@ -70,22 +70,22 @@ class PointLight;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PointLightPtr
 
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           PointLight>::ObjPtr         PointLightPtr;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           PointLight>::ObjPtrConst    PointLightPtrConst;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           PointLight>::ObjConstPtr    PointLightConstPtr;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           PointLight>::ObjPtrArg      PointLightPtrArg;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           PointLight>::ObjConstPtrArg PointLightConstPtrArg;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           PointLight>::ObjPtrConstArg PointLightPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<LightPtr,
 #endif
 
 template <>
-struct FieldTraits<PointLightPtr> : 
+struct FieldTraits<PointLightPtr> :
     public FieldTraitsTemplateBase<PointLightPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<PointLightPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

@@ -91,22 +91,22 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<LightEnginePtr, 
-                              LightEngineConstPtr, 
+    typedef PointerFwdBuilder<LightEnginePtr,
+                              LightEngineConstPtr,
                               ShadowMapEngine>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<LightEnginePtr, 
-                              LightEngineConstPtr, 
+    typedef PointerFwdBuilder<LightEnginePtr,
+                              LightEngineConstPtr,
                               ShadowMapEngine>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<LightEnginePtr, 
+    typedef PointerFwdBuilder<LightEnginePtr,
                               LightEngineConstPtr,
                               ShadowMapEngine>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<LightEnginePtr, 
+    typedef PointerFwdBuilder<LightEnginePtr,
                               LightEngineConstPtr,
                               ShadowMapEngine>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<LightEnginePtr, 
+    typedef PointerFwdBuilder<LightEnginePtr,
                               LightEngineConstPtr,
                               ShadowMapEngine>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<LightEnginePtr, 
+    typedef PointerFwdBuilder<LightEnginePtr,
                               LightEngineConstPtr,
                               ShadowMapEngine>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
         NextFieldId = UpdateModeFieldId + 1
     };
 
-    static const OSG::BitVector RenderTargetFieldMask = 
+    static const OSG::BitVector RenderTargetFieldMask =
         (TypeTraits<BitVector>::One << RenderTargetFieldId);
-    static const OSG::BitVector WidthFieldMask = 
+    static const OSG::BitVector WidthFieldMask =
         (TypeTraits<BitVector>::One << WidthFieldId);
-    static const OSG::BitVector HeightFieldMask = 
+    static const OSG::BitVector HeightFieldMask =
         (TypeTraits<BitVector>::One << HeightFieldId);
-    static const OSG::BitVector ShadowColorFieldMask = 
+    static const OSG::BitVector ShadowColorFieldMask =
         (TypeTraits<BitVector>::One << ShadowColorFieldId);
-    static const OSG::BitVector OffsetBiasFieldMask = 
+    static const OSG::BitVector OffsetBiasFieldMask =
         (TypeTraits<BitVector>::One << OffsetBiasFieldId);
-    static const OSG::BitVector OffsetFactorFieldMask = 
+    static const OSG::BitVector OffsetFactorFieldMask =
         (TypeTraits<BitVector>::One << OffsetFactorFieldId);
-    static const OSG::BitVector UpdateModeFieldMask = 
+    static const OSG::BitVector UpdateModeFieldMask =
         (TypeTraits<BitVector>::One << UpdateModeFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -167,120 +166,120 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFFrameBufferObjectPtr *getSFRenderTarget (void) const;
+            const SFFrameBufferObjectPtr *getSFRenderTarget    (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFWidth(void);
+                  SFInt32             *getSFWidth           (void);
 #endif
-           SFInt32 *editSFWidth(void);
-     const SFInt32 *getSFWidth (void) const;
+                  SFInt32             *editSFWidth          (void);
+            const SFInt32             *getSFWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFHeight(void);
+                  SFInt32             *getSFHeight          (void);
 #endif
-           SFInt32 *editSFHeight(void);
-     const SFInt32 *getSFHeight (void) const;
+                  SFInt32             *editSFHeight         (void);
+            const SFInt32             *getSFHeight          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4f *getSFShadowColor(void);
+                  SFColor4f           *getSFShadowColor     (void);
 #endif
-           SFColor4f *editSFShadowColor(void);
-     const SFColor4f *getSFShadowColor (void) const;
+                  SFColor4f           *editSFShadowColor    (void);
+            const SFColor4f           *getSFShadowColor     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFOffsetBias(void);
+                  SFReal32            *getSFOffsetBias      (void);
 #endif
-           SFReal32 *editSFOffsetBias(void);
-     const SFReal32 *getSFOffsetBias (void) const;
+                  SFReal32            *editSFOffsetBias     (void);
+            const SFReal32            *getSFOffsetBias      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFOffsetFactor(void);
+                  SFReal32            *getSFOffsetFactor    (void);
 #endif
-           SFReal32 *editSFOffsetFactor(void);
-     const SFReal32 *getSFOffsetFactor (void) const;
+                  SFReal32            *editSFOffsetFactor   (void);
+            const SFReal32            *getSFOffsetFactor    (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFUpdateMode(void);
+                  SFUInt32            *getSFUpdateMode      (void);
 #endif
-           SFUInt32 *editSFUpdateMode(void);
-     const SFUInt32 *getSFUpdateMode (void) const;
+                  SFUInt32            *editSFUpdateMode     (void);
+            const SFUInt32            *getSFUpdateMode      (void) const;
 
 
-           FrameBufferObjectPtrConst getRenderTarget(void) const;
+                  FrameBufferObjectPtrConst getRenderTarget   (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getWidth(void);
+                  Int32               &getWidth           (void);
 #endif
-           Int32 &editWidth(void);
-     const Int32 &getWidth (void) const;
+                  Int32               &editWidth          (void);
+            const Int32               &getWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getHeight(void);
+                  Int32               &getHeight          (void);
 #endif
-           Int32 &editHeight(void);
-     const Int32 &getHeight (void) const;
+                  Int32               &editHeight         (void);
+            const Int32               &getHeight          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4f &getShadowColor(void);
+                  Color4f             &getShadowColor     (void);
 #endif
-           Color4f &editShadowColor(void);
-     const Color4f &getShadowColor (void) const;
+                  Color4f             &editShadowColor    (void);
+            const Color4f             &getShadowColor     (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getOffsetBias(void);
+                  Real32              &getOffsetBias      (void);
 #endif
-           Real32 &editOffsetBias(void);
-     const Real32 &getOffsetBias (void) const;
+                  Real32              &editOffsetBias     (void);
+            const Real32              &getOffsetBias      (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getOffsetFactor(void);
+                  Real32              &getOffsetFactor    (void);
 #endif
-           Real32 &editOffsetFactor(void);
-     const Real32 &getOffsetFactor (void) const;
+                  Real32              &editOffsetFactor   (void);
+            const Real32              &getOffsetFactor    (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getUpdateMode(void);
+                  UInt32              &getUpdateMode      (void);
 #endif
-           UInt32 &editUpdateMode(void);
-     const UInt32 &getUpdateMode (void) const;
+                  UInt32              &editUpdateMode     (void);
+            const UInt32              &getUpdateMode      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setRenderTarget(FrameBufferObjectPtrConstArg value);
-     void setWidth(const Int32 &value);
-     void setHeight(const Int32 &value);
-     void setShadowColor(const Color4f &value);
-     void setOffsetBias(const Real32 &value);
-     void setOffsetFactor(const Real32 &value);
-     void setUpdateMode(const UInt32 &value);
+            void setRenderTarget   (FrameBufferObjectPtrConstArg value);
+            void setWidth          (const Int32 &value);
+            void setHeight         (const Int32 &value);
+            void setShadowColor    (const Color4f &value);
+            void setOffsetBias     (const Real32 &value);
+            void setOffsetFactor   (const Real32 &value);
+            void setUpdateMode     (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -317,12 +316,12 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
     /*! \{                                                                 */
 
     SFFrameBufferObjectPtr _sfRenderTarget;
-    SFInt32 _sfWidth;
-    SFInt32 _sfHeight;
-    SFColor4f _sfShadowColor;
-    SFReal32 _sfOffsetBias;
-    SFReal32 _sfOffsetFactor;
-    SFUInt32 _sfUpdateMode;
+    SFInt32           _sfWidth;
+    SFInt32           _sfHeight;
+    SFColor4f         _sfShadowColor;
+    SFReal32          _sfOffsetBias;
+    SFReal32          _sfOffsetFactor;
+    SFUInt32          _sfUpdateMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -337,7 +336,7 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShadowMapEngineBase(void); 
+    virtual ~ShadowMapEngineBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -384,11 +383,11 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

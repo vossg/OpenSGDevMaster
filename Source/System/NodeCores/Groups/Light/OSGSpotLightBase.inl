@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SpotLightBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SpotLightBase::getClassTypeId(void) 
+OSG::UInt32 SpotLightBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SpotLightBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Vec3r &SpotLightBase::getDirection(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3r &SpotLightBase::getDirection(void)
+Vec3r               &SpotLightBase::getDirection      (void)
 {
-    return this->editDirection();
+    return this->editDirection      ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Real &SpotLightBase::getSpotExponent(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &SpotLightBase::getSpotExponent(void)
+Real                &SpotLightBase::getSpotExponent   (void)
 {
-    return this->editSpotExponent();
+    return this->editSpotExponent   ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Real &SpotLightBase::getSpotCutOff(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &SpotLightBase::getSpotCutOff(void)
+Real                &SpotLightBase::getSpotCutOff     (void)
 {
-    return this->editSpotCutOff();
+    return this->editSpotCutOff     ();
 }
 #endif
 
@@ -175,24 +175,24 @@ void SpotLightBase::setSpotCutOff(const Real &value)
 
 //! create a new instance of the class
 inline
-SpotLightPtr SpotLightBase::create(void) 
+SpotLightPtr SpotLightBase::create(void)
 {
-    SpotLightPtr fc; 
+    SpotLightPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SpotLight::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SpotLightBase::execSync(      SpotLightBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -214,7 +214,7 @@ inline
 void SpotLightBase::execSync (      SpotLightBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -258,4 +258,3 @@ typedef PointerBuilder<SpotLight>::ObjPtrConstArg  SpotLightPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSPOTLIGHTBASE_INLINE_CVSID "@(#)$Id$"
-

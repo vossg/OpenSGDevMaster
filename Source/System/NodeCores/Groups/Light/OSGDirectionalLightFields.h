@@ -70,22 +70,22 @@ class DirectionalLight;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DirectionalLightPtr
 
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           DirectionalLight>::ObjPtr         DirectionalLightPtr;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           DirectionalLight>::ObjPtrConst    DirectionalLightPtrConst;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           DirectionalLight>::ObjConstPtr    DirectionalLightConstPtr;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           DirectionalLight>::ObjPtrArg      DirectionalLightPtrArg;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           DirectionalLight>::ObjConstPtrArg DirectionalLightConstPtrArg;
-typedef PointerFwdBuilder<LightPtr, 
+typedef PointerFwdBuilder<LightPtr,
                           LightConstPtr,
                           DirectionalLight>::ObjPtrConstArg DirectionalLightPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<LightPtr,
 #endif
 
 template <>
-struct FieldTraits<DirectionalLightPtr> : 
+struct FieldTraits<DirectionalLightPtr> :
     public FieldTraitsTemplateBase<DirectionalLightPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<DirectionalLightPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

@@ -50,17 +50,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::SpotLight
-    SpotLight is a located lightsource. The position of the light source
-    (in the beacon's coordinate system) is defined by the \c position 
-    attribute, its direction by the \c direction attribute. The spot has an 
-    exponential fallof, controlled by the \c spotExponent attribute and a 
-    maximum opening angle, defined by the \c spotCutOff attribute.
-    The influence of the light diminishes with distance, controlled
-    by the \c constantAttenuation, \c linearAttenuation and \c
-    quadraticAttenuation attributes. 
- */
-
+// Documentation for this class is emited in the
+// OSGSpotLightBase.cpp file.
+// To modify it, please change the .fcd file (OSGSpotLight.fcd) and
+// regenerate the base file.
 
 /*----------------------------- class variables ---------------------------*/
 

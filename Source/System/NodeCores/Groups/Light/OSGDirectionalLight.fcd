@@ -10,6 +10,8 @@
 	parentsystemcomponent="true"
     isNodeCore="true"
 >
+DirectionalLight is an infinitely distant lightsource. Its only
+attribute is the light's direction.
 	<Field
 		name="direction"
 		type="Vec3r"

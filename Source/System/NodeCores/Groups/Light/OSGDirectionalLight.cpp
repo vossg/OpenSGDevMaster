@@ -50,10 +50,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::DirectionalLight
- *  DirectionalLight is an infinitely distant lightsource. Its only
- *  attribute is the light's direction.
- */
+// Documentation for this class is emited in the
+// OSGDirectionalLightBase.cpp file.
+// To modify it, please change the .fcd file (OSGDirectionalLight.fcd) and
+// regenerate the base file.
 
 /*----------------------------- class variables ---------------------------*/
 

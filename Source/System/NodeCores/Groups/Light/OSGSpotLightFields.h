@@ -70,22 +70,22 @@ class SpotLight;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SpotLightPtr
 
-typedef PointerFwdBuilder<PointLightPtr, 
+typedef PointerFwdBuilder<PointLightPtr,
                           PointLightConstPtr,
                           SpotLight>::ObjPtr         SpotLightPtr;
-typedef PointerFwdBuilder<PointLightPtr, 
+typedef PointerFwdBuilder<PointLightPtr,
                           PointLightConstPtr,
                           SpotLight>::ObjPtrConst    SpotLightPtrConst;
-typedef PointerFwdBuilder<PointLightPtr, 
+typedef PointerFwdBuilder<PointLightPtr,
                           PointLightConstPtr,
                           SpotLight>::ObjConstPtr    SpotLightConstPtr;
-typedef PointerFwdBuilder<PointLightPtr, 
+typedef PointerFwdBuilder<PointLightPtr,
                           PointLightConstPtr,
                           SpotLight>::ObjPtrArg      SpotLightPtrArg;
-typedef PointerFwdBuilder<PointLightPtr, 
+typedef PointerFwdBuilder<PointLightPtr,
                           PointLightConstPtr,
                           SpotLight>::ObjConstPtrArg SpotLightConstPtrArg;
-typedef PointerFwdBuilder<PointLightPtr, 
+typedef PointerFwdBuilder<PointLightPtr,
                           PointLightConstPtr,
                           SpotLight>::ObjPtrConstArg SpotLightPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<PointLightPtr,
 #endif
 
 template <>
-struct FieldTraits<SpotLightPtr> : 
+struct FieldTraits<SpotLightPtr> :
     public FieldTraitsTemplateBase<SpotLightPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SpotLightPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

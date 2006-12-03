@@ -51,8 +51,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::ShadowMapEngine
-*/
+// Documentation for this class is emited in the
+// OSGShadowMapEngineBase.cpp file.
+// To modify it, please change the .fcd file (OSGShadowMapEngine.fcd) and
+// regenerate the base file.
 
 BitVector ShadowMapEngine::bvLightPassMask   = 0;
 BitVector ShadowMapEngine::bvAmbientPassMask = 0;

@@ -85,22 +85,22 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ShadowMapEnginePtr, 
-                              ShadowMapEngineConstPtr, 
+    typedef PointerFwdBuilder<ShadowMapEnginePtr,
+                              ShadowMapEngineConstPtr,
                               SimpleShadowMapEngine>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ShadowMapEnginePtr, 
-                              ShadowMapEngineConstPtr, 
+    typedef PointerFwdBuilder<ShadowMapEnginePtr,
+                              ShadowMapEngineConstPtr,
                               SimpleShadowMapEngine>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+    typedef PointerFwdBuilder<ShadowMapEnginePtr,
                               ShadowMapEngineConstPtr,
                               SimpleShadowMapEngine>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+    typedef PointerFwdBuilder<ShadowMapEnginePtr,
                               ShadowMapEngineConstPtr,
                               SimpleShadowMapEngine>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+    typedef PointerFwdBuilder<ShadowMapEnginePtr,
                               ShadowMapEngineConstPtr,
                               SimpleShadowMapEngine>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+    typedef PointerFwdBuilder<ShadowMapEnginePtr,
                               ShadowMapEngineConstPtr,
                               SimpleShadowMapEngine>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
         NextFieldId = ForceTextureUnitFieldId + 1
     };
 
-    static const OSG::BitVector ForceTextureUnitFieldMask = 
+    static const OSG::BitVector ForceTextureUnitFieldMask =
         (TypeTraits<BitVector>::One << ForceTextureUnitFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
 
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFForceTextureUnit(void);
+                  SFInt32             *getSFForceTextureUnit (void);
 #endif
-           SFInt32 *editSFForceTextureUnit(void);
-     const SFInt32 *getSFForceTextureUnit (void) const;
+                  SFInt32             *editSFForceTextureUnit(void);
+            const SFInt32             *getSFForceTextureUnit (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Int32 &getForceTextureUnit(void);
+                  Int32               &getForceTextureUnit (void);
 #endif
-           Int32 &editForceTextureUnit(void);
-     const Int32 &getForceTextureUnit (void) const;
+                  Int32               &editForceTextureUnit(void);
+            const Int32               &getForceTextureUnit (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setForceTextureUnit(const Int32 &value);
+            void setForceTextureUnit(const Int32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -182,15 +181,15 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleShadowMapEnginePtr create     (void); 
-    static  SimpleShadowMapEnginePtr createEmpty(void); 
+    static  SimpleShadowMapEnginePtr create     (void);
+    static  SimpleShadowMapEnginePtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -206,7 +205,7 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFInt32 _sfForceTextureUnit;
+    SFInt32           _sfForceTextureUnit;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,7 +220,7 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SimpleShadowMapEngineBase(void); 
+    virtual ~SimpleShadowMapEngineBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,11 +266,11 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

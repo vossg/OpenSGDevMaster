@@ -65,17 +65,31 @@
 #include "OSGPointLightBase.h"
 #include "OSGPointLight.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Pnt3r PointLightBase::_sfPosition
+/*! \class OSG::PointLight
+    PointLight is a located lightsource. The position of the light source
+    (in the beacon's coordinate system) is defined by the \c position
+    attribute. The influence of the light diminishes with distance,
+    controlled by the \c constantAttenuation, \c linearAttenuation and \c
+    quadraticAttenuation attributes.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Pnt3r           PointLightBase::_sfPosition
     
 */
 
 void PointLightBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -85,8 +99,8 @@ void PointLightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFPnt3r::Description(
-        SFPnt3r::getClassType(), 
-        "position", 
+        SFPnt3r::getClassType(),
+        "position",
         "",
         PositionFieldId, PositionFieldMask,
         false,
@@ -112,45 +126,53 @@ PointLightBase::TypeObject PointLightBase::_type(true,
     (InitalInsertDescFunc) &PointLightBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"PointLight\"\n"
-"	parent=\"Light\"\n"
-"	library=\"Group\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"position\"\n"
-"		type=\"Pnt3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"                defaultValue=\"0.f,0.f,0.f\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"PointLight\"\n"
+    "\tparent=\"Light\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "PointLight is a located lightsource. The position of the light source\n"
+    "(in the beacon's coordinate system) is defined by the \\c position\n"
+    "attribute. The influence of the light diminishes with distance, controlled\n"
+    "by the \\c constantAttenuation, \\c linearAttenuation and \\c\n"
+    "quadraticAttenuation attributes.\n"
+    "\t<Field\n"
+    "\t\tname=\"position\"\n"
+    "\t\ttype=\"Pnt3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "                defaultValue=\"0.f,0.f,0.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "PointLight is a located lightsource. The position of the light source\n"
+    "(in the beacon's coordinate system) is defined by the \\c position\n"
+    "attribute. The influence of the light diminishes with distance, controlled\n"
+    "by the \\c constantAttenuation, \\c linearAttenuation and \\c\n"
+    "quadraticAttenuation attributes.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &PointLightBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &PointLightBase::getType(void) const 
+FieldContainerType &PointLightBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 PointLightBase::getContainerSize(void) const 
-{ 
-    return sizeof(PointLight); 
+const FieldContainerType &PointLightBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 PointLightBase::getContainerSize(void) const
+{
+    return sizeof(PointLight);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -169,9 +191,9 @@ const SFPnt3r *PointLightBase::getSFPosition(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFPnt3r *PointLightBase::getSFPosition(void)
+SFPnt3r             *PointLightBase::getSFPosition       (void)
 {
-    return this->editSFPosition();
+    return this->editSFPosition       ();
 }
 #endif
 
@@ -214,22 +236,22 @@ void PointLightBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PointLightPtr PointLightBase::createEmpty(void) 
-{ 
-    PointLightPtr returnValue; 
-    
-    newPtr<PointLight>(returnValue); 
+PointLightPtr PointLightBase::createEmpty(void)
+{
+    PointLightPtr returnValue;
 
-    return returnValue; 
+    newPtr<PointLight>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr PointLightBase::shallowCopy(void) const 
-{ 
-    PointLightPtr returnValue; 
+FieldContainerPtr PointLightBase::shallowCopy(void) const
+{
+    PointLightPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const PointLight *>(this)); 
+    newPtr(returnValue, dynamic_cast<const PointLight *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -238,13 +260,13 @@ FieldContainerPtr PointLightBase::shallowCopy(void) const
 
 PointLightBase::PointLightBase(void) :
     Inherited(),
-    _sfPosition(Pnt3r(0.f,0.f,0.f))
+    _sfPosition               (Pnt3r(0.f,0.f,0.f))
 {
 }
 
 PointLightBase::PointLightBase(const PointLightBase &source) :
     Inherited(source),
-    _sfPosition(source._sfPosition)
+    _sfPosition               (source._sfPosition               )
 {
 }
 
@@ -258,13 +280,13 @@ PointLightBase::~PointLightBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void PointLightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<PointLightBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -274,10 +296,10 @@ void PointLightBase::execSyncV(      FieldContainer    &oFrom,
 void PointLightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PointLightBase *>(&oFrom), 
+    this->execSync(static_cast<PointLightBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -297,12 +319,12 @@ void PointLightBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr PointLightBase::createAspectCopy(void) const
 {
-    PointLightPtr returnValue; 
+    PointLightPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const PointLight *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const PointLight *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -312,14 +334,10 @@ void PointLightBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<PointLightPtr>::_type("PointLightPtr", "LightPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -341,3 +359,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPOINTLIGHTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

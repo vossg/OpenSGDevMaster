@@ -65,25 +65,40 @@
 #include "OSGSpotLightBase.h"
 #include "OSGSpotLight.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Vec3r SpotLightBase::_sfDirection
+/*! \class OSG::SpotLight
+    SpotLight is a located lightsource. The position of the light source
+    (in the beacon's coordinate system) is defined by the \c position
+    attribute, its direction by the \c direction attribute. The spot has an
+    exponential fallof, controlled by the \c spotExponent attribute and a
+    maximum opening angle, defined by the \c spotCutOff attribute. The
+    influence of the light diminishes with distance, controlled by the \c
+    constantAttenuation, \c linearAttenuation and \c quadraticAttenuation
+    attributes.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Vec3r           SpotLightBase::_sfDirection
     
 */
-/*! \var Real SpotLightBase::_sfSpotExponent
-    	The drop-off exponent of the spotlight.
-
+/*! \var Real            SpotLightBase::_sfSpotExponent
+    The drop-off exponent of the spotlight.
 */
-/*! \var Real SpotLightBase::_sfSpotCutOff
-    	The cut-off angle of the spotlight (in radians, not degrees!).
-
+/*! \var Real            SpotLightBase::_sfSpotCutOff
+    The cut-off angle of the spotlight (in radians, not degrees!).
 */
 
 void SpotLightBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -93,8 +108,8 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(), 
-        "direction", 
+        SFVec3r::getClassType(),
+        "direction",
         "",
         DirectionFieldId, DirectionFieldMask,
         false,
@@ -115,9 +130,9 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "spotExponent", 
-        "	The drop-off exponent of the spotlight.\n",
+        SFReal::getClassType(),
+        "spotExponent",
+        "The drop-off exponent of the spotlight.\n",
         SpotExponentFieldId, SpotExponentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -137,9 +152,9 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "spotCutOff", 
-        "	The cut-off angle of the spotlight (in radians, not degrees!).\n",
+        SFReal::getClassType(),
+        "spotCutOff",
+        "The cut-off angle of the spotlight (in radians, not degrees!).\n",
         SpotCutOffFieldId, SpotCutOffFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -164,63 +179,77 @@ SpotLightBase::TypeObject SpotLightBase::_type(true,
     (InitalInsertDescFunc) &SpotLightBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SpotLight\"\n"
-"	parent=\"PointLight\"\n"
-"	library=\"Group\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"direction\"\n"
-"		type=\"Vec3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"        defaultValue=\"0.f,0.f,1.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"spotExponent\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"        defaultValue=\"0.f\"\n"
-"	>\n"
-"	The drop-off exponent of the spotlight.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"spotCutOff\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"        defaultValue=\"0.f\"\n"
-"	>\n"
-"	The cut-off angle of the spotlight (in radians, not degrees!).\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SpotLight\"\n"
+    "\tparent=\"PointLight\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "SpotLight is a located lightsource. The position of the light source\n"
+    "(in the beacon's coordinate system) is defined by the \\c position\n"
+    "attribute, its direction by the \\c direction attribute. The spot has an\n"
+    "exponential fallof, controlled by the \\c spotExponent attribute and a\n"
+    "maximum opening angle, defined by the \\c spotCutOff attribute.\n"
+    "The influence of the light diminishes with distance, controlled\n"
+    "by the \\c constantAttenuation, \\c linearAttenuation and \\c\n"
+    "quadraticAttenuation attributes.\n"
+    "\t<Field\n"
+    "\t\tname=\"direction\"\n"
+    "\t\ttype=\"Vec3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"0.f,0.f,1.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"spotExponent\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"0.f\"\n"
+    "\t>\n"
+    "\tThe drop-off exponent of the spotlight.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"spotCutOff\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"0.f\"\n"
+    "\t>\n"
+    "\tThe cut-off angle of the spotlight (in radians, not degrees!).\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "SpotLight is a located lightsource. The position of the light source\n"
+    "(in the beacon's coordinate system) is defined by the \\c position\n"
+    "attribute, its direction by the \\c direction attribute. The spot has an\n"
+    "exponential fallof, controlled by the \\c spotExponent attribute and a\n"
+    "maximum opening angle, defined by the \\c spotCutOff attribute.\n"
+    "The influence of the light diminishes with distance, controlled\n"
+    "by the \\c constantAttenuation, \\c linearAttenuation and \\c\n"
+    "quadraticAttenuation attributes.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SpotLightBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SpotLightBase::getType(void) const 
+FieldContainerType &SpotLightBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SpotLightBase::getContainerSize(void) const 
-{ 
-    return sizeof(SpotLight); 
+const FieldContainerType &SpotLightBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SpotLightBase::getContainerSize(void) const
+{
+    return sizeof(SpotLight);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -239,9 +268,9 @@ const SFVec3r *SpotLightBase::getSFDirection(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec3r *SpotLightBase::getSFDirection(void)
+SFVec3r             *SpotLightBase::getSFDirection      (void)
 {
-    return this->editSFDirection();
+    return this->editSFDirection      ();
 }
 #endif
 
@@ -258,9 +287,9 @@ const SFReal *SpotLightBase::getSFSpotExponent(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *SpotLightBase::getSFSpotExponent(void)
+SFReal              *SpotLightBase::getSFSpotExponent   (void)
 {
-    return this->editSFSpotExponent();
+    return this->editSFSpotExponent   ();
 }
 #endif
 
@@ -277,9 +306,9 @@ const SFReal *SpotLightBase::getSFSpotCutOff(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *SpotLightBase::getSFSpotCutOff(void)
+SFReal              *SpotLightBase::getSFSpotCutOff     (void)
 {
-    return this->editSFSpotCutOff();
+    return this->editSFSpotCutOff     ();
 }
 #endif
 
@@ -346,22 +375,22 @@ void SpotLightBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SpotLightPtr SpotLightBase::createEmpty(void) 
-{ 
-    SpotLightPtr returnValue; 
-    
-    newPtr<SpotLight>(returnValue); 
+SpotLightPtr SpotLightBase::createEmpty(void)
+{
+    SpotLightPtr returnValue;
 
-    return returnValue; 
+    newPtr<SpotLight>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SpotLightBase::shallowCopy(void) const 
-{ 
-    SpotLightPtr returnValue; 
+FieldContainerPtr SpotLightBase::shallowCopy(void) const
+{
+    SpotLightPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SpotLight *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SpotLight *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -370,17 +399,17 @@ FieldContainerPtr SpotLightBase::shallowCopy(void) const
 
 SpotLightBase::SpotLightBase(void) :
     Inherited(),
-    _sfDirection(Vec3r(0.f,0.f,1.f)),
-    _sfSpotExponent(Real(0.f)),
-    _sfSpotCutOff(Real(0.f))
+    _sfDirection              (Vec3r(0.f,0.f,1.f)),
+    _sfSpotExponent           (Real(0.f)),
+    _sfSpotCutOff             (Real(0.f))
 {
 }
 
 SpotLightBase::SpotLightBase(const SpotLightBase &source) :
     Inherited(source),
-    _sfDirection(source._sfDirection),
-    _sfSpotExponent(source._sfSpotExponent),
-    _sfSpotCutOff(source._sfSpotCutOff)
+    _sfDirection              (source._sfDirection              ),
+    _sfSpotExponent           (source._sfSpotExponent           ),
+    _sfSpotCutOff             (source._sfSpotCutOff             )
 {
 }
 
@@ -394,13 +423,13 @@ SpotLightBase::~SpotLightBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SpotLightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SpotLightBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -410,10 +439,10 @@ void SpotLightBase::execSyncV(      FieldContainer    &oFrom,
 void SpotLightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SpotLightBase *>(&oFrom), 
+    this->execSync(static_cast<SpotLightBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -433,12 +462,12 @@ void SpotLightBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SpotLightBase::createAspectCopy(void) const
 {
-    SpotLightPtr returnValue; 
+    SpotLightPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SpotLight *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SpotLight *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -448,14 +477,10 @@ void SpotLightBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<SpotLightPtr>::_type("SpotLightPtr", "PointLightPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -477,3 +502,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSPOTLIGHTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -65,17 +65,28 @@
 #include "OSGDirectionalLightBase.h"
 #include "OSGDirectionalLight.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Vec3r DirectionalLightBase::_sfDirection
+/*! \class OSG::DirectionalLight
+    DirectionalLight is an infinitely distant lightsource. Its only
+    attribute is the light's direction.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Vec3r           DirectionalLightBase::_sfDirection
     
 */
 
 void DirectionalLightBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -85,8 +96,8 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(), 
-        "direction", 
+        SFVec3r::getClassType(),
+        "direction",
         "",
         DirectionFieldId, DirectionFieldMask,
         false,
@@ -112,45 +123,47 @@ DirectionalLightBase::TypeObject DirectionalLightBase::_type(true,
     (InitalInsertDescFunc) &DirectionalLightBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"DirectionalLight\"\n"
-"	parent=\"Light\"\n"
-"	library=\"Group\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"direction\"\n"
-"		type=\"Vec3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"                defaultValue=\"0.f,0.f,1.f\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"DirectionalLight\"\n"
+    "\tparent=\"Light\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "DirectionalLight is an infinitely distant lightsource. Its only\n"
+    "attribute is the light's direction.\n"
+    "\t<Field\n"
+    "\t\tname=\"direction\"\n"
+    "\t\ttype=\"Vec3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "                defaultValue=\"0.f,0.f,1.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "DirectionalLight is an infinitely distant lightsource. Its only\n"
+    "attribute is the light's direction.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &DirectionalLightBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &DirectionalLightBase::getType(void) const 
+FieldContainerType &DirectionalLightBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 DirectionalLightBase::getContainerSize(void) const 
-{ 
-    return sizeof(DirectionalLight); 
+const FieldContainerType &DirectionalLightBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 DirectionalLightBase::getContainerSize(void) const
+{
+    return sizeof(DirectionalLight);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -169,9 +182,9 @@ const SFVec3r *DirectionalLightBase::getSFDirection(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec3r *DirectionalLightBase::getSFDirection(void)
+SFVec3r             *DirectionalLightBase::getSFDirection      (void)
 {
-    return this->editSFDirection();
+    return this->editSFDirection      ();
 }
 #endif
 
@@ -214,22 +227,22 @@ void DirectionalLightBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DirectionalLightPtr DirectionalLightBase::createEmpty(void) 
-{ 
-    DirectionalLightPtr returnValue; 
-    
-    newPtr<DirectionalLight>(returnValue); 
+DirectionalLightPtr DirectionalLightBase::createEmpty(void)
+{
+    DirectionalLightPtr returnValue;
 
-    return returnValue; 
+    newPtr<DirectionalLight>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr DirectionalLightBase::shallowCopy(void) const 
-{ 
-    DirectionalLightPtr returnValue; 
+FieldContainerPtr DirectionalLightBase::shallowCopy(void) const
+{
+    DirectionalLightPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const DirectionalLight *>(this)); 
+    newPtr(returnValue, dynamic_cast<const DirectionalLight *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -238,13 +251,13 @@ FieldContainerPtr DirectionalLightBase::shallowCopy(void) const
 
 DirectionalLightBase::DirectionalLightBase(void) :
     Inherited(),
-    _sfDirection(Vec3r(0.f,0.f,1.f))
+    _sfDirection              (Vec3r(0.f,0.f,1.f))
 {
 }
 
 DirectionalLightBase::DirectionalLightBase(const DirectionalLightBase &source) :
     Inherited(source),
-    _sfDirection(source._sfDirection)
+    _sfDirection              (source._sfDirection              )
 {
 }
 
@@ -258,13 +271,13 @@ DirectionalLightBase::~DirectionalLightBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void DirectionalLightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<DirectionalLightBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -274,10 +287,10 @@ void DirectionalLightBase::execSyncV(      FieldContainer    &oFrom,
 void DirectionalLightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DirectionalLightBase *>(&oFrom), 
+    this->execSync(static_cast<DirectionalLightBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -297,12 +310,12 @@ void DirectionalLightBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr DirectionalLightBase::createAspectCopy(void) const
 {
-    DirectionalLightPtr returnValue; 
+    DirectionalLightPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const DirectionalLight *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const DirectionalLight *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -312,14 +325,10 @@ void DirectionalLightBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<DirectionalLightPtr>::_type("DirectionalLightPtr", "LightPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -341,3 +350,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGDIRECTIONALLIGHTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

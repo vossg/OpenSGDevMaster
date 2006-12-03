@@ -65,17 +65,27 @@
 #include "OSGSimpleShadowMapEngineBase.h"
 #include "OSGSimpleShadowMapEngine.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Int32 SimpleShadowMapEngineBase::_sfForceTextureUnit
+/*! \class OSG::SimpleShadowMapEngine
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Int32           SimpleShadowMapEngineBase::_sfForceTextureUnit
     
 */
 
 void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -85,8 +95,8 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "forceTextureUnit", 
+        SFInt32::getClassType(),
+        "forceTextureUnit",
         "",
         ForceTextureUnitFieldId, ForceTextureUnitFieldMask,
         false,
@@ -112,46 +122,45 @@ SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(true,
     (InitalInsertDescFunc) &SimpleShadowMapEngineBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SimpleShadowMapEngine\"\n"
-"	parent=\"ShadowMapEngine\"\n"
-"	library=\"RenderTrav\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"forceTextureUnit\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"-1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SimpleShadowMapEngine\"\n"
+    "\tparent=\"ShadowMapEngine\"\n"
+    "\tlibrary=\"RenderTrav\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"forceTextureUnit\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"-1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SimpleShadowMapEngineBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SimpleShadowMapEngineBase::getType(void) const 
+FieldContainerType &SimpleShadowMapEngineBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SimpleShadowMapEngineBase::getContainerSize(void) const 
-{ 
-    return sizeof(SimpleShadowMapEngine); 
+const FieldContainerType &SimpleShadowMapEngineBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SimpleShadowMapEngineBase::getContainerSize(void) const
+{
+    return sizeof(SimpleShadowMapEngine);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -170,7 +179,7 @@ const SFInt32 *SimpleShadowMapEngineBase::getSFForceTextureUnit(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *SimpleShadowMapEngineBase::getSFForceTextureUnit(void)
+SFInt32             *SimpleShadowMapEngineBase::getSFForceTextureUnit(void)
 {
     return this->editSFForceTextureUnit();
 }
@@ -215,22 +224,22 @@ void SimpleShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::createEmpty(void) 
-{ 
-    SimpleShadowMapEnginePtr returnValue; 
-    
-    newPtr<SimpleShadowMapEngine>(returnValue); 
+SimpleShadowMapEnginePtr SimpleShadowMapEngineBase::createEmpty(void)
+{
+    SimpleShadowMapEnginePtr returnValue;
 
-    return returnValue; 
+    newPtr<SimpleShadowMapEngine>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SimpleShadowMapEngineBase::shallowCopy(void) const 
-{ 
-    SimpleShadowMapEnginePtr returnValue; 
+FieldContainerPtr SimpleShadowMapEngineBase::shallowCopy(void) const
+{
+    SimpleShadowMapEnginePtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SimpleShadowMapEngine *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SimpleShadowMapEngine *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -239,13 +248,13 @@ FieldContainerPtr SimpleShadowMapEngineBase::shallowCopy(void) const
 
 SimpleShadowMapEngineBase::SimpleShadowMapEngineBase(void) :
     Inherited(),
-    _sfForceTextureUnit(Int32(-1))
+    _sfForceTextureUnit       (Int32(-1))
 {
 }
 
 SimpleShadowMapEngineBase::SimpleShadowMapEngineBase(const SimpleShadowMapEngineBase &source) :
     Inherited(source),
-    _sfForceTextureUnit(source._sfForceTextureUnit)
+    _sfForceTextureUnit       (source._sfForceTextureUnit       )
 {
 }
 
@@ -259,13 +268,13 @@ SimpleShadowMapEngineBase::~SimpleShadowMapEngineBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SimpleShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SimpleShadowMapEngineBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -275,10 +284,10 @@ void SimpleShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
 void SimpleShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SimpleShadowMapEngineBase *>(&oFrom), 
+    this->execSync(static_cast<SimpleShadowMapEngineBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -298,12 +307,12 @@ void SimpleShadowMapEngineBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SimpleShadowMapEngineBase::createAspectCopy(void) const
 {
-    SimpleShadowMapEnginePtr returnValue; 
+    SimpleShadowMapEnginePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SimpleShadowMapEngine *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleShadowMapEngine *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -312,6 +321,8 @@ void SimpleShadowMapEngineBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -334,8 +345,6 @@ OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEnginePtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, SimpleShadowMapEnginePtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, SimpleShadowMapEnginePtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -356,3 +365,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSIMPLESHADOWMAPENGINEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

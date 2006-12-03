@@ -85,22 +85,22 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<LightPtr, 
-                              LightConstPtr, 
+    typedef PointerFwdBuilder<LightPtr,
+                              LightConstPtr,
                               PointLight>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<LightPtr, 
-                              LightConstPtr, 
+    typedef PointerFwdBuilder<LightPtr,
+                              LightConstPtr,
                               PointLight>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<LightPtr, 
+    typedef PointerFwdBuilder<LightPtr,
                               LightConstPtr,
                               PointLight>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<LightPtr, 
+    typedef PointerFwdBuilder<LightPtr,
                               LightConstPtr,
                               PointLight>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<LightPtr, 
+    typedef PointerFwdBuilder<LightPtr,
                               LightConstPtr,
                               PointLight>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<LightPtr, 
+    typedef PointerFwdBuilder<LightPtr,
                               LightConstPtr,
                               PointLight>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
         NextFieldId = PositionFieldId + 1
     };
 
-    static const OSG::BitVector PositionFieldMask = 
+    static const OSG::BitVector PositionFieldMask =
         (TypeTraits<BitVector>::One << PositionFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
 
 
 #ifdef OSG_1_COMPAT
-           SFPnt3r *getSFPosition(void);
+                  SFPnt3r             *getSFPosition        (void);
 #endif
-           SFPnt3r *editSFPosition(void);
-     const SFPnt3r *getSFPosition (void) const;
+                  SFPnt3r             *editSFPosition       (void);
+            const SFPnt3r             *getSFPosition        (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Pnt3r &getPosition(void);
+                  Pnt3r               &getPosition        (void);
 #endif
-           Pnt3r &editPosition(void);
-     const Pnt3r &getPosition (void) const;
+                  Pnt3r               &editPosition       (void);
+            const Pnt3r               &getPosition        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setPosition(const Pnt3r &value);
+            void setPosition       (const Pnt3r &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -182,15 +181,15 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PointLightPtr create     (void); 
-    static  PointLightPtr createEmpty(void); 
+    static  PointLightPtr create     (void);
+    static  PointLightPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -206,7 +205,7 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFPnt3r _sfPosition;
+    SFPnt3r           _sfPosition;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,7 +220,7 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PointLightBase(void); 
+    virtual ~PointLightBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,11 +266,11 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

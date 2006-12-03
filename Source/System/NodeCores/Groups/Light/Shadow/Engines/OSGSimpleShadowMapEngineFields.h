@@ -70,22 +70,22 @@ class SimpleShadowMapEngine;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SimpleShadowMapEnginePtr
 
-typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+typedef PointerFwdBuilder<ShadowMapEnginePtr,
                           ShadowMapEngineConstPtr,
                           SimpleShadowMapEngine>::ObjPtr         SimpleShadowMapEnginePtr;
-typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+typedef PointerFwdBuilder<ShadowMapEnginePtr,
                           ShadowMapEngineConstPtr,
                           SimpleShadowMapEngine>::ObjPtrConst    SimpleShadowMapEnginePtrConst;
-typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+typedef PointerFwdBuilder<ShadowMapEnginePtr,
                           ShadowMapEngineConstPtr,
                           SimpleShadowMapEngine>::ObjConstPtr    SimpleShadowMapEngineConstPtr;
-typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+typedef PointerFwdBuilder<ShadowMapEnginePtr,
                           ShadowMapEngineConstPtr,
                           SimpleShadowMapEngine>::ObjPtrArg      SimpleShadowMapEnginePtrArg;
-typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+typedef PointerFwdBuilder<ShadowMapEnginePtr,
                           ShadowMapEngineConstPtr,
                           SimpleShadowMapEngine>::ObjConstPtrArg SimpleShadowMapEngineConstPtrArg;
-typedef PointerFwdBuilder<ShadowMapEnginePtr, 
+typedef PointerFwdBuilder<ShadowMapEnginePtr,
                           ShadowMapEngineConstPtr,
                           SimpleShadowMapEngine>::ObjPtrConstArg SimpleShadowMapEnginePtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ShadowMapEnginePtr,
 #endif
 
 template <>
-struct FieldTraits<SimpleShadowMapEnginePtr> : 
+struct FieldTraits<SimpleShadowMapEnginePtr> :
     public FieldTraitsTemplateBase<SimpleShadowMapEnginePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SimpleShadowMapEnginePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_RENDERTRAV_DLLMAPPING 
+    static OSG_RENDERTRAV_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFSimpleShadowMapEnginePtr"; }

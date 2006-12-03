@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &DirectionalLightBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 DirectionalLightBase::getClassTypeId(void) 
+OSG::UInt32 DirectionalLightBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 DirectionalLightBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Vec3r &DirectionalLightBase::getDirection(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3r &DirectionalLightBase::getDirection(void)
+Vec3r               &DirectionalLightBase::getDirection      (void)
 {
-    return this->editDirection();
+    return this->editDirection      ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void DirectionalLightBase::setDirection(const Vec3r &value)
 
 //! create a new instance of the class
 inline
-DirectionalLightPtr DirectionalLightBase::create(void) 
+DirectionalLightPtr DirectionalLightBase::create(void)
 {
-    DirectionalLightPtr fc; 
+    DirectionalLightPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<DirectionalLight::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void DirectionalLightBase::execSync(      DirectionalLightBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void DirectionalLightBase::execSync (      DirectionalLightBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<DirectionalLight>::ObjPtrConstArg  DirectionalLightPtrCon
 OSG_END_NAMESPACE
 
 #define OSGDIRECTIONALLIGHTBASE_INLINE_CVSID "@(#)$Id$"
-

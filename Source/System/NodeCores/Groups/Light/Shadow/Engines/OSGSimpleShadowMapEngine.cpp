@@ -58,6 +58,11 @@
 
 OSG_USING_NAMESPACE
 
+// Documentation for this class is emited in the
+// OSGSimpleShadowMapEngineBase.cpp file.
+// To modify it, please change the .fcd file (OSGSimpleShadowMapEngine.fcd) and
+// regenerate the base file.
+
 SimpleShadowMapEngine::EngineData::EngineData(void) :
      Inherited   (      ),
     _pCamera     (NullFC),

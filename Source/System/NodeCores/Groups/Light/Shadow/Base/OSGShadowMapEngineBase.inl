@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ShadowMapEngineBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ShadowMapEngineBase::getClassTypeId(void) 
+OSG::UInt32 ShadowMapEngineBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ShadowMapEngineBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const Int32 &ShadowMapEngineBase::getWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ShadowMapEngineBase::getWidth(void)
+Int32               &ShadowMapEngineBase::getWidth          (void)
 {
-    return this->editWidth();
+    return this->editWidth          ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const Int32 &ShadowMapEngineBase::getHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ShadowMapEngineBase::getHeight(void)
+Int32               &ShadowMapEngineBase::getHeight         (void)
 {
-    return this->editHeight();
+    return this->editHeight         ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const Color4f &ShadowMapEngineBase::getShadowColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &ShadowMapEngineBase::getShadowColor(void)
+Color4f             &ShadowMapEngineBase::getShadowColor    (void)
 {
-    return this->editShadowColor();
+    return this->editShadowColor    ();
 }
 #endif
 
@@ -208,9 +208,9 @@ const Real32 &ShadowMapEngineBase::getOffsetBias(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ShadowMapEngineBase::getOffsetBias(void)
+Real32              &ShadowMapEngineBase::getOffsetBias     (void)
 {
-    return this->editOffsetBias();
+    return this->editOffsetBias     ();
 }
 #endif
 
@@ -241,9 +241,9 @@ const Real32 &ShadowMapEngineBase::getOffsetFactor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ShadowMapEngineBase::getOffsetFactor(void)
+Real32              &ShadowMapEngineBase::getOffsetFactor   (void)
 {
-    return this->editOffsetFactor();
+    return this->editOffsetFactor   ();
 }
 #endif
 
@@ -274,9 +274,9 @@ const UInt32 &ShadowMapEngineBase::getUpdateMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ShadowMapEngineBase::getUpdateMode(void)
+UInt32              &ShadowMapEngineBase::getUpdateMode     (void)
 {
-    return this->editUpdateMode();
+    return this->editUpdateMode     ();
 }
 #endif
 
@@ -294,7 +294,7 @@ void ShadowMapEngineBase::setUpdateMode(const UInt32 &value)
 inline
 void ShadowMapEngineBase::execSync(      ShadowMapEngineBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -328,7 +328,7 @@ inline
 void ShadowMapEngineBase::execSync (      ShadowMapEngineBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -384,4 +384,3 @@ typedef PointerBuilder<ShadowMapEngine>::ObjPtrConstArg  ShadowMapEnginePtrConst
 OSG_END_NAMESPACE
 
 #define OSGSHADOWMAPENGINEBASE_INLINE_CVSID "@(#)$Id$"
-

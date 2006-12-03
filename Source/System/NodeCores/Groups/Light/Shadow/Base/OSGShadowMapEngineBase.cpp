@@ -66,40 +66,50 @@
 #include "OSGShadowMapEngineBase.h"
 #include "OSGShadowMapEngine.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::ShadowMapEngine
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var FrameBufferObjectPtr ShadowMapEngineBase::_sfRenderTarget
     
 */
-/*! \var Int32 ShadowMapEngineBase::_sfWidth
+/*! \var Int32           ShadowMapEngineBase::_sfWidth
     
 */
-/*! \var Int32 ShadowMapEngineBase::_sfHeight
+/*! \var Int32           ShadowMapEngineBase::_sfHeight
     
 */
-/*! \var Color4f ShadowMapEngineBase::_sfShadowColor
+/*! \var Color4f         ShadowMapEngineBase::_sfShadowColor
     
 */
-/*! \var Real32 ShadowMapEngineBase::_sfOffsetBias
+/*! \var Real32          ShadowMapEngineBase::_sfOffsetBias
     
 */
-/*! \var Real32 ShadowMapEngineBase::_sfOffsetFactor
+/*! \var Real32          ShadowMapEngineBase::_sfOffsetFactor
     
 */
-/*! \var UInt32 ShadowMapEngineBase::_sfUpdateMode
+/*! \var UInt32          ShadowMapEngineBase::_sfUpdateMode
     
 */
 
 void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFFrameBufferObjectPtr::Description(
-        SFFrameBufferObjectPtr::getClassType(), 
-        "renderTarget", 
+        SFFrameBufferObjectPtr::getClassType(),
+        "renderTarget",
         "",
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
@@ -116,8 +126,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "width", 
+        SFInt32::getClassType(),
+        "width",
         "",
         WidthFieldId, WidthFieldMask,
         false,
@@ -138,8 +148,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "height", 
+        SFInt32::getClassType(),
+        "height",
         "",
         HeightFieldId, HeightFieldMask,
         false,
@@ -160,8 +170,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "shadowColor", 
+        SFColor4f::getClassType(),
+        "shadowColor",
         "",
         ShadowColorFieldId, ShadowColorFieldMask,
         false,
@@ -182,8 +192,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "offsetBias", 
+        SFReal32::getClassType(),
+        "offsetBias",
         "",
         OffsetBiasFieldId, OffsetBiasFieldMask,
         false,
@@ -204,8 +214,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "offsetFactor", 
+        SFReal32::getClassType(),
+        "offsetFactor",
         "",
         OffsetFactorFieldId, OffsetFactorFieldMask,
         false,
@@ -226,8 +236,8 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "updateMode", 
+        SFUInt32::getClassType(),
+        "updateMode",
         "",
         UpdateModeFieldId, UpdateModeFieldMask,
         false,
@@ -248,105 +258,104 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     ShadowMapEngine::initMethod,
     (InitalInsertDescFunc) &ShadowMapEngineBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ShadowMapEngine\"\n"
-"	parent=\"LightEngine\"\n"
-"	library=\"RenderTrav\"\n"
-"	structure=\"abstract\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"renderTarget\"\n"
-"		type=\"FrameBufferObjectPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"width\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"512\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"height\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"512\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shadowColor\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"Color4f(0.f, 0.f, 0.f, 1.f)\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"offsetBias\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"4.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"offsetFactor\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"10.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"updateMode\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ShadowMapEngine\"\n"
+    "\tparent=\"LightEngine\"\n"
+    "\tlibrary=\"RenderTrav\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"renderTarget\"\n"
+    "\t\ttype=\"FrameBufferObjectPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"width\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"512\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"height\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"512\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shadowColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"Color4f(0.f, 0.f, 0.f, 1.f)\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"offsetBias\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"4.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"offsetFactor\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"10.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"updateMode\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ShadowMapEngineBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ShadowMapEngineBase::getType(void) const 
+FieldContainerType &ShadowMapEngineBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ShadowMapEngineBase::getContainerSize(void) const 
-{ 
-    return sizeof(ShadowMapEngine); 
+const FieldContainerType &ShadowMapEngineBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ShadowMapEngineBase::getContainerSize(void) const
+{
+    return sizeof(ShadowMapEngine);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -371,9 +380,9 @@ const SFInt32 *ShadowMapEngineBase::getSFWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ShadowMapEngineBase::getSFWidth(void)
+SFInt32             *ShadowMapEngineBase::getSFWidth          (void)
 {
-    return this->editSFWidth();
+    return this->editSFWidth          ();
 }
 #endif
 
@@ -390,9 +399,9 @@ const SFInt32 *ShadowMapEngineBase::getSFHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ShadowMapEngineBase::getSFHeight(void)
+SFInt32             *ShadowMapEngineBase::getSFHeight         (void)
 {
-    return this->editSFHeight();
+    return this->editSFHeight         ();
 }
 #endif
 
@@ -409,9 +418,9 @@ const SFColor4f *ShadowMapEngineBase::getSFShadowColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *ShadowMapEngineBase::getSFShadowColor(void)
+SFColor4f           *ShadowMapEngineBase::getSFShadowColor    (void)
 {
-    return this->editSFShadowColor();
+    return this->editSFShadowColor    ();
 }
 #endif
 
@@ -428,9 +437,9 @@ const SFReal32 *ShadowMapEngineBase::getSFOffsetBias(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ShadowMapEngineBase::getSFOffsetBias(void)
+SFReal32            *ShadowMapEngineBase::getSFOffsetBias     (void)
 {
-    return this->editSFOffsetBias();
+    return this->editSFOffsetBias     ();
 }
 #endif
 
@@ -447,9 +456,9 @@ const SFReal32 *ShadowMapEngineBase::getSFOffsetFactor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ShadowMapEngineBase::getSFOffsetFactor(void)
+SFReal32            *ShadowMapEngineBase::getSFOffsetFactor   (void)
 {
-    return this->editSFOffsetFactor();
+    return this->editSFOffsetFactor   ();
 }
 #endif
 
@@ -466,9 +475,9 @@ const SFUInt32 *ShadowMapEngineBase::getSFUpdateMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ShadowMapEngineBase::getSFUpdateMode(void)
+SFUInt32            *ShadowMapEngineBase::getSFUpdateMode     (void)
 {
-    return this->editSFUpdateMode();
+    return this->editSFUpdateMode     ();
 }
 #endif
 
@@ -649,25 +658,25 @@ void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShadowMapEngineBase::ShadowMapEngineBase(void) :
     Inherited(),
-    _sfRenderTarget(FrameBufferObjectPtr(NullFC)),
-    _sfWidth(Int32(512)),
-    _sfHeight(Int32(512)),
-    _sfShadowColor(Color4f(Color4f(0.f, 0.f, 0.f, 1.f))),
-    _sfOffsetBias(Real32(4.f)),
-    _sfOffsetFactor(Real32(10.f)),
-    _sfUpdateMode(UInt32(1))
+    _sfRenderTarget           (FrameBufferObjectPtr(NullFC)),
+    _sfWidth                  (Int32(512)),
+    _sfHeight                 (Int32(512)),
+    _sfShadowColor            (Color4f(Color4f(0.f, 0.f, 0.f, 1.f))),
+    _sfOffsetBias             (Real32(4.f)),
+    _sfOffsetFactor           (Real32(10.f)),
+    _sfUpdateMode             (UInt32(1))
 {
 }
 
 ShadowMapEngineBase::ShadowMapEngineBase(const ShadowMapEngineBase &source) :
     Inherited(source),
-    _sfRenderTarget(),
-    _sfWidth(source._sfWidth),
-    _sfHeight(source._sfHeight),
-    _sfShadowColor(source._sfShadowColor),
-    _sfOffsetBias(source._sfOffsetBias),
-    _sfOffsetFactor(source._sfOffsetFactor),
-    _sfUpdateMode(source._sfUpdateMode)
+    _sfRenderTarget           (),
+    _sfWidth                  (source._sfWidth                  ),
+    _sfHeight                 (source._sfHeight                 ),
+    _sfShadowColor            (source._sfShadowColor            ),
+    _sfOffsetBias             (source._sfOffsetBias             ),
+    _sfOffsetFactor           (source._sfOffsetFactor           ),
+    _sfUpdateMode             (source._sfUpdateMode             )
 {
 }
 
@@ -691,13 +700,13 @@ void ShadowMapEngineBase::onCreate(const ShadowMapEngine *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ShadowMapEngineBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -707,10 +716,10 @@ void ShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
 void ShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShadowMapEngineBase *>(&oFrom), 
+    this->execSync(static_cast<ShadowMapEngineBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -736,6 +745,8 @@ void ShadowMapEngineBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -757,8 +768,6 @@ OSG_FIELDTRAITS_GETTYPE(ShadowMapEnginePtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ShadowMapEnginePtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ShadowMapEnginePtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -779,3 +788,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHADOWMAPENGINEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE
