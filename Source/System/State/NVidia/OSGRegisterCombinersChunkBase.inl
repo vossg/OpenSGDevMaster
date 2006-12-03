@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &RegisterCombinersChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 RegisterCombinersChunkBase::getClassTypeId(void) 
+OSG::UInt32 RegisterCombinersChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 RegisterCombinersChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Color4f &RegisterCombinersChunkBase::getColor0(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &RegisterCombinersChunkBase::getColor0(void)
+Color4f             &RegisterCombinersChunkBase::getColor0         (void)
 {
-    return this->editColor0();
+    return this->editColor0         ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Color4f &RegisterCombinersChunkBase::getColor1(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &RegisterCombinersChunkBase::getColor1(void)
+Color4f             &RegisterCombinersChunkBase::getColor1         (void)
 {
-    return this->editColor1();
+    return this->editColor1         ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const bool &RegisterCombinersChunkBase::getColorSumClamp(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RegisterCombinersChunkBase::getColorSumClamp(void)
+bool                &RegisterCombinersChunkBase::getColorSumClamp  (void)
 {
-    return this->editColorSumClamp();
+    return this->editColorSumClamp  ();
 }
 #endif
 
@@ -191,7 +191,7 @@ const UInt8 &RegisterCombinersChunkBase::getPerStageConstants(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &RegisterCombinersChunkBase::getPerStageConstants(void)
+UInt8               &RegisterCombinersChunkBase::getPerStageConstants(void)
 {
     return this->editPerStageConstants();
 }
@@ -232,15 +232,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableArgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableArgb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableArgb   (const UInt32 index)
 {
-    return this->editVariableArgb(index);
+    return this->editVariableArgb   (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableArgb(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableArgb   (void)
 {
-    return this->editVariableArgb();
+    return this->editVariableArgb   ();
 }
 
 #endif
@@ -279,15 +279,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableBrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableBrgb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableBrgb   (const UInt32 index)
 {
-    return this->editVariableBrgb(index);
+    return this->editVariableBrgb   (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableBrgb(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableBrgb   (void)
 {
-    return this->editVariableBrgb();
+    return this->editVariableBrgb   ();
 }
 
 #endif
@@ -326,15 +326,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableCrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableCrgb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableCrgb   (const UInt32 index)
 {
-    return this->editVariableCrgb(index);
+    return this->editVariableCrgb   (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableCrgb(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableCrgb   (void)
 {
-    return this->editVariableCrgb();
+    return this->editVariableCrgb   ();
 }
 
 #endif
@@ -373,15 +373,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableDrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableDrgb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableDrgb   (const UInt32 index)
 {
-    return this->editVariableDrgb(index);
+    return this->editVariableDrgb   (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableDrgb(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableDrgb   (void)
 {
-    return this->editVariableDrgb();
+    return this->editVariableDrgb   ();
 }
 
 #endif
@@ -420,15 +420,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableAalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableAalpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableAalpha (const UInt32 index)
 {
-    return this->editVariableAalpha(index);
+    return this->editVariableAalpha (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableAalpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableAalpha (void)
 {
-    return this->editVariableAalpha();
+    return this->editVariableAalpha ();
 }
 
 #endif
@@ -467,15 +467,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableBalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableBalpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableBalpha (const UInt32 index)
 {
-    return this->editVariableBalpha(index);
+    return this->editVariableBalpha (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableBalpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableBalpha (void)
 {
-    return this->editVariableBalpha();
+    return this->editVariableBalpha ();
 }
 
 #endif
@@ -514,15 +514,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableCalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableCalpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableCalpha (const UInt32 index)
 {
-    return this->editVariableCalpha(index);
+    return this->editVariableCalpha (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableCalpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableCalpha (void)
 {
-    return this->editVariableCalpha();
+    return this->editVariableCalpha ();
 }
 
 #endif
@@ -561,15 +561,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableDalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableDalpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableDalpha (const UInt32 index)
 {
-    return this->editVariableDalpha(index);
+    return this->editVariableDalpha (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableDalpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableDalpha (void)
 {
-    return this->editVariableDalpha();
+    return this->editVariableDalpha ();
 }
 
 #endif
@@ -608,15 +608,15 @@ MFGLenum &RegisterCombinersChunkBase::editOutputABrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getOutputABrgb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getOutputABrgb    (const UInt32 index)
 {
-    return this->editOutputABrgb(index);
+    return this->editOutputABrgb    (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getOutputABrgb(void)
+MFGLenum            &RegisterCombinersChunkBase::getOutputABrgb    (void)
 {
-    return this->editOutputABrgb();
+    return this->editOutputABrgb    ();
 }
 
 #endif
@@ -655,15 +655,15 @@ MFGLenum &RegisterCombinersChunkBase::editOutputCDrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getOutputCDrgb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getOutputCDrgb    (const UInt32 index)
 {
-    return this->editOutputCDrgb(index);
+    return this->editOutputCDrgb    (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getOutputCDrgb(void)
+MFGLenum            &RegisterCombinersChunkBase::getOutputCDrgb    (void)
 {
-    return this->editOutputCDrgb();
+    return this->editOutputCDrgb    ();
 }
 
 #endif
@@ -702,15 +702,15 @@ MFGLenum &RegisterCombinersChunkBase::editOutputSumrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getOutputSumrgb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getOutputSumrgb   (const UInt32 index)
 {
-    return this->editOutputSumrgb(index);
+    return this->editOutputSumrgb   (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getOutputSumrgb(void)
+MFGLenum            &RegisterCombinersChunkBase::getOutputSumrgb   (void)
 {
-    return this->editOutputSumrgb();
+    return this->editOutputSumrgb   ();
 }
 
 #endif
@@ -749,15 +749,15 @@ MFGLenum &RegisterCombinersChunkBase::editScalergb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getScalergb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getScalergb       (const UInt32 index)
 {
-    return this->editScalergb(index);
+    return this->editScalergb       (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getScalergb(void)
+MFGLenum            &RegisterCombinersChunkBase::getScalergb       (void)
 {
-    return this->editScalergb();
+    return this->editScalergb       ();
 }
 
 #endif
@@ -796,15 +796,15 @@ MFGLenum &RegisterCombinersChunkBase::editBiasrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getBiasrgb(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getBiasrgb        (const UInt32 index)
 {
-    return this->editBiasrgb(index);
+    return this->editBiasrgb        (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getBiasrgb(void)
+MFGLenum            &RegisterCombinersChunkBase::getBiasrgb        (void)
 {
-    return this->editBiasrgb();
+    return this->editBiasrgb        ();
 }
 
 #endif
@@ -843,15 +843,15 @@ MFGLenum &RegisterCombinersChunkBase::editOutputABalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getOutputABalpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getOutputABalpha  (const UInt32 index)
 {
-    return this->editOutputABalpha(index);
+    return this->editOutputABalpha  (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getOutputABalpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getOutputABalpha  (void)
 {
-    return this->editOutputABalpha();
+    return this->editOutputABalpha  ();
 }
 
 #endif
@@ -890,15 +890,15 @@ MFGLenum &RegisterCombinersChunkBase::editOutputCDalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getOutputCDalpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getOutputCDalpha  (const UInt32 index)
 {
-    return this->editOutputCDalpha(index);
+    return this->editOutputCDalpha  (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getOutputCDalpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getOutputCDalpha  (void)
 {
-    return this->editOutputCDalpha();
+    return this->editOutputCDalpha  ();
 }
 
 #endif
@@ -937,15 +937,15 @@ MFGLenum &RegisterCombinersChunkBase::editOutputSumalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getOutputSumalpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getOutputSumalpha (const UInt32 index)
 {
-    return this->editOutputSumalpha(index);
+    return this->editOutputSumalpha (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getOutputSumalpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getOutputSumalpha (void)
 {
-    return this->editOutputSumalpha();
+    return this->editOutputSumalpha ();
 }
 
 #endif
@@ -984,15 +984,15 @@ MFUInt8 &RegisterCombinersChunkBase::editDotABrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &RegisterCombinersChunkBase::getDotABrgb(const UInt32 index)
+UInt8               &RegisterCombinersChunkBase::getDotABrgb       (const UInt32 index)
 {
-    return this->editDotABrgb(index);
+    return this->editDotABrgb       (index);
 }
 
 inline
-MFUInt8 &RegisterCombinersChunkBase::getDotABrgb(void)
+MFUInt8             &RegisterCombinersChunkBase::getDotABrgb       (void)
 {
-    return this->editDotABrgb();
+    return this->editDotABrgb       ();
 }
 
 #endif
@@ -1031,15 +1031,15 @@ MFUInt8 &RegisterCombinersChunkBase::editDotCDrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &RegisterCombinersChunkBase::getDotCDrgb(const UInt32 index)
+UInt8               &RegisterCombinersChunkBase::getDotCDrgb       (const UInt32 index)
 {
-    return this->editDotCDrgb(index);
+    return this->editDotCDrgb       (index);
 }
 
 inline
-MFUInt8 &RegisterCombinersChunkBase::getDotCDrgb(void)
+MFUInt8             &RegisterCombinersChunkBase::getDotCDrgb       (void)
 {
-    return this->editDotCDrgb();
+    return this->editDotCDrgb       ();
 }
 
 #endif
@@ -1078,15 +1078,15 @@ MFUInt8 &RegisterCombinersChunkBase::editMuxSumrgb(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &RegisterCombinersChunkBase::getMuxSumrgb(const UInt32 index)
+UInt8               &RegisterCombinersChunkBase::getMuxSumrgb      (const UInt32 index)
 {
-    return this->editMuxSumrgb(index);
+    return this->editMuxSumrgb      (index);
 }
 
 inline
-MFUInt8 &RegisterCombinersChunkBase::getMuxSumrgb(void)
+MFUInt8             &RegisterCombinersChunkBase::getMuxSumrgb      (void)
 {
-    return this->editMuxSumrgb();
+    return this->editMuxSumrgb      ();
 }
 
 #endif
@@ -1125,15 +1125,15 @@ MFGLenum &RegisterCombinersChunkBase::editScalealpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getScalealpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getScalealpha     (const UInt32 index)
 {
-    return this->editScalealpha(index);
+    return this->editScalealpha     (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getScalealpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getScalealpha     (void)
 {
-    return this->editScalealpha();
+    return this->editScalealpha     ();
 }
 
 #endif
@@ -1172,15 +1172,15 @@ MFGLenum &RegisterCombinersChunkBase::editBiasalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getBiasalpha(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getBiasalpha      (const UInt32 index)
 {
-    return this->editBiasalpha(index);
+    return this->editBiasalpha      (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getBiasalpha(void)
+MFGLenum            &RegisterCombinersChunkBase::getBiasalpha      (void)
 {
-    return this->editBiasalpha();
+    return this->editBiasalpha      ();
 }
 
 #endif
@@ -1219,15 +1219,15 @@ MFUInt8 &RegisterCombinersChunkBase::editMuxSumalpha(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &RegisterCombinersChunkBase::getMuxSumalpha(const UInt32 index)
+UInt8               &RegisterCombinersChunkBase::getMuxSumalpha    (const UInt32 index)
 {
-    return this->editMuxSumalpha(index);
+    return this->editMuxSumalpha    (index);
 }
 
 inline
-MFUInt8 &RegisterCombinersChunkBase::getMuxSumalpha(void)
+MFUInt8             &RegisterCombinersChunkBase::getMuxSumalpha    (void)
 {
-    return this->editMuxSumalpha();
+    return this->editMuxSumalpha    ();
 }
 
 #endif
@@ -1266,15 +1266,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableE(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableE(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableE      (const UInt32 index)
 {
-    return this->editVariableE(index);
+    return this->editVariableE      (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableE(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableE      (void)
 {
-    return this->editVariableE();
+    return this->editVariableE      ();
 }
 
 #endif
@@ -1313,15 +1313,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableF(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableF(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableF      (const UInt32 index)
 {
-    return this->editVariableF(index);
+    return this->editVariableF      (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableF(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableF      (void)
 {
-    return this->editVariableF();
+    return this->editVariableF      ();
 }
 
 #endif
@@ -1360,15 +1360,15 @@ MFGLenum &RegisterCombinersChunkBase::editVariableG(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RegisterCombinersChunkBase::getVariableG(const UInt32 index)
+GLenum              &RegisterCombinersChunkBase::getVariableG      (const UInt32 index)
 {
-    return this->editVariableG(index);
+    return this->editVariableG      (index);
 }
 
 inline
-MFGLenum &RegisterCombinersChunkBase::getVariableG(void)
+MFGLenum            &RegisterCombinersChunkBase::getVariableG      (void)
 {
-    return this->editVariableG();
+    return this->editVariableG      ();
 }
 
 #endif
@@ -1407,15 +1407,15 @@ MFColor4f &RegisterCombinersChunkBase::editCombinerColor0(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &RegisterCombinersChunkBase::getCombinerColor0(const UInt32 index)
+Color4f             &RegisterCombinersChunkBase::getCombinerColor0 (const UInt32 index)
 {
-    return this->editCombinerColor0(index);
+    return this->editCombinerColor0 (index);
 }
 
 inline
-MFColor4f &RegisterCombinersChunkBase::getCombinerColor0(void)
+MFColor4f           &RegisterCombinersChunkBase::getCombinerColor0 (void)
 {
-    return this->editCombinerColor0();
+    return this->editCombinerColor0 ();
 }
 
 #endif
@@ -1454,15 +1454,15 @@ MFColor4f &RegisterCombinersChunkBase::editCombinerColor1(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &RegisterCombinersChunkBase::getCombinerColor1(const UInt32 index)
+Color4f             &RegisterCombinersChunkBase::getCombinerColor1 (const UInt32 index)
 {
-    return this->editCombinerColor1(index);
+    return this->editCombinerColor1 (index);
 }
 
 inline
-MFColor4f &RegisterCombinersChunkBase::getCombinerColor1(void)
+MFColor4f           &RegisterCombinersChunkBase::getCombinerColor1 (void)
 {
-    return this->editCombinerColor1();
+    return this->editCombinerColor1 ();
 }
 
 #endif
@@ -1477,24 +1477,24 @@ const MFColor4f &RegisterCombinersChunkBase::getCombinerColor1(void) const
 
 //! create a new instance of the class
 inline
-RegisterCombinersChunkPtr RegisterCombinersChunkBase::create(void) 
+RegisterCombinersChunkPtr RegisterCombinersChunkBase::create(void)
 {
-    RegisterCombinersChunkPtr fc; 
+    RegisterCombinersChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<RegisterCombinersChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void RegisterCombinersChunkBase::execSync(      RegisterCombinersChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -1510,163 +1510,163 @@ void RegisterCombinersChunkBase::execSync(      RegisterCombinersChunkBase *pOth
         _sfColorSumClamp.syncWith(pOther->_sfColorSumClamp);
 
     if(FieldBits::NoField != (VariableArgbFieldMask & whichField))
-        _mfVariableArgb.syncWith(pOther->_mfVariableArgb, 
+        _mfVariableArgb.syncWith(pOther->_mfVariableArgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableBrgbFieldMask & whichField))
-        _mfVariableBrgb.syncWith(pOther->_mfVariableBrgb, 
+        _mfVariableBrgb.syncWith(pOther->_mfVariableBrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableCrgbFieldMask & whichField))
-        _mfVariableCrgb.syncWith(pOther->_mfVariableCrgb, 
+        _mfVariableCrgb.syncWith(pOther->_mfVariableCrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableDrgbFieldMask & whichField))
-        _mfVariableDrgb.syncWith(pOther->_mfVariableDrgb, 
+        _mfVariableDrgb.syncWith(pOther->_mfVariableDrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableAalphaFieldMask & whichField))
-        _mfVariableAalpha.syncWith(pOther->_mfVariableAalpha, 
+        _mfVariableAalpha.syncWith(pOther->_mfVariableAalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableBalphaFieldMask & whichField))
-        _mfVariableBalpha.syncWith(pOther->_mfVariableBalpha, 
+        _mfVariableBalpha.syncWith(pOther->_mfVariableBalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableCalphaFieldMask & whichField))
-        _mfVariableCalpha.syncWith(pOther->_mfVariableCalpha, 
+        _mfVariableCalpha.syncWith(pOther->_mfVariableCalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableDalphaFieldMask & whichField))
-        _mfVariableDalpha.syncWith(pOther->_mfVariableDalpha, 
+        _mfVariableDalpha.syncWith(pOther->_mfVariableDalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (OutputABrgbFieldMask & whichField))
-        _mfOutputABrgb.syncWith(pOther->_mfOutputABrgb, 
+        _mfOutputABrgb.syncWith(pOther->_mfOutputABrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (OutputCDrgbFieldMask & whichField))
-        _mfOutputCDrgb.syncWith(pOther->_mfOutputCDrgb, 
+        _mfOutputCDrgb.syncWith(pOther->_mfOutputCDrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (OutputSumrgbFieldMask & whichField))
-        _mfOutputSumrgb.syncWith(pOther->_mfOutputSumrgb, 
+        _mfOutputSumrgb.syncWith(pOther->_mfOutputSumrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (ScalergbFieldMask & whichField))
-        _mfScalergb.syncWith(pOther->_mfScalergb, 
+        _mfScalergb.syncWith(pOther->_mfScalergb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (BiasrgbFieldMask & whichField))
-        _mfBiasrgb.syncWith(pOther->_mfBiasrgb, 
+        _mfBiasrgb.syncWith(pOther->_mfBiasrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (OutputABalphaFieldMask & whichField))
-        _mfOutputABalpha.syncWith(pOther->_mfOutputABalpha, 
+        _mfOutputABalpha.syncWith(pOther->_mfOutputABalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (OutputCDalphaFieldMask & whichField))
-        _mfOutputCDalpha.syncWith(pOther->_mfOutputCDalpha, 
+        _mfOutputCDalpha.syncWith(pOther->_mfOutputCDalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (OutputSumalphaFieldMask & whichField))
-        _mfOutputSumalpha.syncWith(pOther->_mfOutputSumalpha, 
+        _mfOutputSumalpha.syncWith(pOther->_mfOutputSumalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (DotABrgbFieldMask & whichField))
-        _mfDotABrgb.syncWith(pOther->_mfDotABrgb, 
+        _mfDotABrgb.syncWith(pOther->_mfDotABrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (DotCDrgbFieldMask & whichField))
-        _mfDotCDrgb.syncWith(pOther->_mfDotCDrgb, 
+        _mfDotCDrgb.syncWith(pOther->_mfDotCDrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (MuxSumrgbFieldMask & whichField))
-        _mfMuxSumrgb.syncWith(pOther->_mfMuxSumrgb, 
+        _mfMuxSumrgb.syncWith(pOther->_mfMuxSumrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (ScalealphaFieldMask & whichField))
-        _mfScalealpha.syncWith(pOther->_mfScalealpha, 
+        _mfScalealpha.syncWith(pOther->_mfScalealpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (BiasalphaFieldMask & whichField))
-        _mfBiasalpha.syncWith(pOther->_mfBiasalpha, 
+        _mfBiasalpha.syncWith(pOther->_mfBiasalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (MuxSumalphaFieldMask & whichField))
-        _mfMuxSumalpha.syncWith(pOther->_mfMuxSumalpha, 
+        _mfMuxSumalpha.syncWith(pOther->_mfMuxSumalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableEFieldMask & whichField))
-        _mfVariableE.syncWith(pOther->_mfVariableE, 
+        _mfVariableE.syncWith(pOther->_mfVariableE,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableFFieldMask & whichField))
-        _mfVariableF.syncWith(pOther->_mfVariableF, 
+        _mfVariableF.syncWith(pOther->_mfVariableF,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (VariableGFieldMask & whichField))
-        _mfVariableG.syncWith(pOther->_mfVariableG, 
+        _mfVariableG.syncWith(pOther->_mfVariableG,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (CombinerColor0FieldMask & whichField))
-        _mfCombinerColor0.syncWith(pOther->_mfCombinerColor0, 
+        _mfCombinerColor0.syncWith(pOther->_mfCombinerColor0,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (CombinerColor1FieldMask & whichField))
-        _mfCombinerColor1.syncWith(pOther->_mfCombinerColor1, 
+        _mfCombinerColor1.syncWith(pOther->_mfCombinerColor1,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -1681,7 +1681,7 @@ inline
 void RegisterCombinersChunkBase::execSync (      RegisterCombinersChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -1696,163 +1696,163 @@ void RegisterCombinersChunkBase::execSync (      RegisterCombinersChunkBase *pFr
         _sfColorSumClamp.syncWith(pFrom->_sfColorSumClamp);
 
     if(FieldBits::NoField != (VariableArgbFieldMask & whichField))
-        _mfVariableArgb.syncWith(pFrom->_mfVariableArgb, 
+        _mfVariableArgb.syncWith(pFrom->_mfVariableArgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableBrgbFieldMask & whichField))
-        _mfVariableBrgb.syncWith(pFrom->_mfVariableBrgb, 
+        _mfVariableBrgb.syncWith(pFrom->_mfVariableBrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableCrgbFieldMask & whichField))
-        _mfVariableCrgb.syncWith(pFrom->_mfVariableCrgb, 
+        _mfVariableCrgb.syncWith(pFrom->_mfVariableCrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableDrgbFieldMask & whichField))
-        _mfVariableDrgb.syncWith(pFrom->_mfVariableDrgb, 
+        _mfVariableDrgb.syncWith(pFrom->_mfVariableDrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableAalphaFieldMask & whichField))
-        _mfVariableAalpha.syncWith(pFrom->_mfVariableAalpha, 
+        _mfVariableAalpha.syncWith(pFrom->_mfVariableAalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableBalphaFieldMask & whichField))
-        _mfVariableBalpha.syncWith(pFrom->_mfVariableBalpha, 
+        _mfVariableBalpha.syncWith(pFrom->_mfVariableBalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableCalphaFieldMask & whichField))
-        _mfVariableCalpha.syncWith(pFrom->_mfVariableCalpha, 
+        _mfVariableCalpha.syncWith(pFrom->_mfVariableCalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableDalphaFieldMask & whichField))
-        _mfVariableDalpha.syncWith(pFrom->_mfVariableDalpha, 
+        _mfVariableDalpha.syncWith(pFrom->_mfVariableDalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (OutputABrgbFieldMask & whichField))
-        _mfOutputABrgb.syncWith(pFrom->_mfOutputABrgb, 
+        _mfOutputABrgb.syncWith(pFrom->_mfOutputABrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (OutputCDrgbFieldMask & whichField))
-        _mfOutputCDrgb.syncWith(pFrom->_mfOutputCDrgb, 
+        _mfOutputCDrgb.syncWith(pFrom->_mfOutputCDrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (OutputSumrgbFieldMask & whichField))
-        _mfOutputSumrgb.syncWith(pFrom->_mfOutputSumrgb, 
+        _mfOutputSumrgb.syncWith(pFrom->_mfOutputSumrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (ScalergbFieldMask & whichField))
-        _mfScalergb.syncWith(pFrom->_mfScalergb, 
+        _mfScalergb.syncWith(pFrom->_mfScalergb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (BiasrgbFieldMask & whichField))
-        _mfBiasrgb.syncWith(pFrom->_mfBiasrgb, 
+        _mfBiasrgb.syncWith(pFrom->_mfBiasrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (OutputABalphaFieldMask & whichField))
-        _mfOutputABalpha.syncWith(pFrom->_mfOutputABalpha, 
+        _mfOutputABalpha.syncWith(pFrom->_mfOutputABalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (OutputCDalphaFieldMask & whichField))
-        _mfOutputCDalpha.syncWith(pFrom->_mfOutputCDalpha, 
+        _mfOutputCDalpha.syncWith(pFrom->_mfOutputCDalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (OutputSumalphaFieldMask & whichField))
-        _mfOutputSumalpha.syncWith(pFrom->_mfOutputSumalpha, 
+        _mfOutputSumalpha.syncWith(pFrom->_mfOutputSumalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (DotABrgbFieldMask & whichField))
-        _mfDotABrgb.syncWith(pFrom->_mfDotABrgb, 
+        _mfDotABrgb.syncWith(pFrom->_mfDotABrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (DotCDrgbFieldMask & whichField))
-        _mfDotCDrgb.syncWith(pFrom->_mfDotCDrgb, 
+        _mfDotCDrgb.syncWith(pFrom->_mfDotCDrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (MuxSumrgbFieldMask & whichField))
-        _mfMuxSumrgb.syncWith(pFrom->_mfMuxSumrgb, 
+        _mfMuxSumrgb.syncWith(pFrom->_mfMuxSumrgb,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (ScalealphaFieldMask & whichField))
-        _mfScalealpha.syncWith(pFrom->_mfScalealpha, 
+        _mfScalealpha.syncWith(pFrom->_mfScalealpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (BiasalphaFieldMask & whichField))
-        _mfBiasalpha.syncWith(pFrom->_mfBiasalpha, 
+        _mfBiasalpha.syncWith(pFrom->_mfBiasalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (MuxSumalphaFieldMask & whichField))
-        _mfMuxSumalpha.syncWith(pFrom->_mfMuxSumalpha, 
+        _mfMuxSumalpha.syncWith(pFrom->_mfMuxSumalpha,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableEFieldMask & whichField))
-        _mfVariableE.syncWith(pFrom->_mfVariableE, 
+        _mfVariableE.syncWith(pFrom->_mfVariableE,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableFFieldMask & whichField))
-        _mfVariableF.syncWith(pFrom->_mfVariableF, 
+        _mfVariableF.syncWith(pFrom->_mfVariableF,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (VariableGFieldMask & whichField))
-        _mfVariableG.syncWith(pFrom->_mfVariableG, 
+        _mfVariableG.syncWith(pFrom->_mfVariableG,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (CombinerColor0FieldMask & whichField))
-        _mfCombinerColor0.syncWith(pFrom->_mfCombinerColor0, 
+        _mfCombinerColor0.syncWith(pFrom->_mfCombinerColor0,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (CombinerColor1FieldMask & whichField))
-        _mfCombinerColor1.syncWith(pFrom->_mfCombinerColor1, 
+        _mfCombinerColor1.syncWith(pFrom->_mfCombinerColor1,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -2025,4 +2025,3 @@ typedef PointerBuilder<RegisterCombinersChunk>::ObjPtrConstArg  RegisterCombiner
 OSG_END_NAMESPACE
 
 #define OSGREGISTERCOMBINERSCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

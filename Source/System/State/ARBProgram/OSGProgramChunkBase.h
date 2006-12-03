@@ -88,22 +88,22 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               ProgramChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               ProgramChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ProgramChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ProgramChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ProgramChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               ProgramChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -120,24 +120,23 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
         NextFieldId = GLIdFieldId + 1
     };
 
-    static const OSG::BitVector ProgramFieldMask = 
+    static const OSG::BitVector ProgramFieldMask =
         (TypeTraits<BitVector>::One << ProgramFieldId);
-    static const OSG::BitVector ParamValuesFieldMask = 
+    static const OSG::BitVector ParamValuesFieldMask =
         (TypeTraits<BitVector>::One << ParamValuesFieldId);
-    static const OSG::BitVector ParamNamesFieldMask = 
+    static const OSG::BitVector ParamNamesFieldMask =
         (TypeTraits<BitVector>::One << ParamNamesFieldId);
-    static const OSG::BitVector GLIdFieldMask = 
+    static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -145,8 +144,8 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -157,54 +156,54 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFString *getSFProgram(void);
+                  SFString            *getSFProgram         (void);
 #endif
-           SFString *editSFProgram(void);
-     const SFString *getSFProgram (void) const;
+                  SFString            *editSFProgram        (void);
+            const SFString            *getSFProgram         (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec4f *getMFParamValues(void);
+                  MFVec4f             *getMFParamValues     (void);
 #endif
-           MFVec4f *editMFParamValues(void);
-     const MFVec4f *getMFParamValues (void) const;
+                  MFVec4f             *editMFParamValues    (void);
+            const MFVec4f             *getMFParamValues     (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFString *getMFParamNames(void);
+                  MFString            *getMFParamNames      (void);
 #endif
-           MFString *editMFParamNames(void);
-     const MFString *getMFParamNames (void) const;
+                  MFString            *editMFParamNames     (void);
+            const MFString            *getMFParamNames      (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           std::string &getProgram(void);
+                  std::string         &getProgram         (void);
 #endif
-           std::string &editProgram(void);
-     const std::string &getProgram (void) const;
+                  std::string         &editProgram        (void);
+            const std::string         &getProgram         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec4f &getParamValues(const UInt32 index);
-           MFVec4f &getParamValues(void);
+                  Vec4f               &getParamValues     (const UInt32 index);
+                  MFVec4f             &getParamValues    (void);
 #endif
-           Vec4f &editParamValues(const UInt32 index);
-     const Vec4f &getParamValues (const UInt32 index) const;
-           MFVec4f &editParamValues(void);
-     const MFVec4f &getParamValues(void) const;
+                  Vec4f               &editParamValues    (const UInt32 index);
+            const Vec4f               &getParamValues     (const UInt32 index) const;
+                  MFVec4f             &editParamValues    (void);
+            const MFVec4f             &getParamValues    (void) const;
 
 #ifdef OSG_1_COMPAT
-           std::string &getParamNames(const UInt32 index);
-           MFString &getParamNames(void);
+                  std::string         &getParamNames      (const UInt32 index);
+                  MFString            &getParamNames     (void);
 #endif
-           std::string &editParamNames(const UInt32 index);
-     const std::string &getParamNames (const UInt32 index) const;
-           MFString &editParamNames(void);
-     const MFString &getParamNames(void) const;
+                  std::string         &editParamNames     (const UInt32 index);
+            const std::string         &getParamNames      (const UInt32 index) const;
+                  MFString            &editParamNames     (void);
+            const MFString            &getParamNames     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setProgram(const std::string &value);
+            void setProgram        (const std::string &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -233,10 +232,10 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFString _sfProgram;
-    MFVec4f _mfParamValues;
-    MFString _mfParamNames;
-    SFUInt32 _sfGLId;
+    SFString          _sfProgram;
+    MFVec4f           _mfParamValues;
+    MFString          _mfParamNames;
+    SFUInt32          _sfGLId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -251,7 +250,7 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ProgramChunkBase(void); 
+    virtual ~ProgramChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -266,24 +265,24 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFGLId(void);
+                  SFUInt32            *getSFGLId            (void);
 #endif
-           SFUInt32 *editSFGLId(void);
-     const SFUInt32 *getSFGLId (void) const;
+                  SFUInt32            *editSFGLId           (void);
+            const SFUInt32            *getSFGLId            (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getGLId(void);
+                  UInt32              &getGLId            (void);
 #endif
-           UInt32 &editGLId(void);
-     const UInt32 &getGLId(void) const;
+                  UInt32              &editGLId           (void);
+            const UInt32              &getGLId            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setGLId(const UInt32 &value);
+            void setGLId           (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -331,11 +330,11 @@ class OSG_STATE_DLLMAPPING ProgramChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

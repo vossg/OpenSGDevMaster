@@ -70,22 +70,22 @@ class ProgramChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ProgramChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           ProgramChunk>::ObjPtr         ProgramChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           ProgramChunk>::ObjPtrConst    ProgramChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           ProgramChunk>::ObjConstPtr    ProgramChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           ProgramChunk>::ObjPtrArg      ProgramChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           ProgramChunk>::ObjConstPtrArg ProgramChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           ProgramChunk>::ObjPtrConstArg ProgramChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<StateChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<ProgramChunkPtr> : 
+struct FieldTraits<ProgramChunkPtr> :
     public FieldTraitsTemplateBase<ProgramChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ProgramChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFProgramChunkPtr"; }

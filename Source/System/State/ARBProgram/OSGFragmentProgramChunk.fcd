@@ -10,5 +10,11 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived FragmentProgramChunk and FragmentProgramChunk.
+\ingroup GrpSystemState
+
+See \ref PageSystemFragmentProgramChunk for a description.
+
+The FragmentProgramChunk implements Fragment Programs as specified in the
+GL_ARB_fragment_program extension. It is just a special version of the
+OSG::ProgramChunk, which contains the whole public interface.
 </FieldContainer>

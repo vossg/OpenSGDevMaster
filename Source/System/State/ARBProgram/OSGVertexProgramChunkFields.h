@@ -70,22 +70,22 @@ class VertexProgramChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! VertexProgramChunkPtr
 
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           VertexProgramChunk>::ObjPtr         VertexProgramChunkPtr;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           VertexProgramChunk>::ObjPtrConst    VertexProgramChunkPtrConst;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           VertexProgramChunk>::ObjConstPtr    VertexProgramChunkConstPtr;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           VertexProgramChunk>::ObjPtrArg      VertexProgramChunkPtrArg;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           VertexProgramChunk>::ObjConstPtrArg VertexProgramChunkConstPtrArg;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           VertexProgramChunk>::ObjPtrConstArg VertexProgramChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ProgramChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<VertexProgramChunkPtr> : 
+struct FieldTraits<VertexProgramChunkPtr> :
     public FieldTraitsTemplateBase<VertexProgramChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<VertexProgramChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFVertexProgramChunkPtr"; }

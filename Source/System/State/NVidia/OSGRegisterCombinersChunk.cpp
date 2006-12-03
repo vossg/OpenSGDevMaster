@@ -56,40 +56,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::RegisterCombinersChunk
-
-  See \ref PageSystemRegisterCombinersChunk for a description.
-
-  This chunk wraps nVidia's register combiners. The
-  OSG::RegisterCombinersChunk::setCombinerRGB and
-  OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions
-  should be used,
-  which set up all the parameters for a single combiner's RGB or alpha part.
-  OSG::RegisterCombinersChunk::setFinalCombiner sets all parameters for the
-  final combiner. The constants are set by
-  OSG::RegisterCombinersChunk::setConstantColors(Color4f &color0, Color4f
-  &color1) for the gloabl constants and 
-  OSG::RegisterCombinersChunk::setConstantColors(UInt16 which,  
-  Color4f &color0,
-  Color4f &color1) for the per-combiner constants (if supported). To reset a
-  combiner one or all of the combiners use
-  OSG::RegisterCombinersChunk::clearCombiners or 
-  OSG::RegisterCombinersChunk::clearCombiner. 
-  
-  Don't use the direct field access to set the register combiner's parameter
-  unlesss you really have to, as the internal representation is a bit
-  non-intuitive.
-  
-  \ext To reduce the number of fields there isn't a field for every parameter,
-  instead they are kept in blocks of three in the fields. RTFS for details. 
-  \endext
-  
-*/
+// Documentation for this class is emited in the
+// OSGRegisterCombinersChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGRegisterCombinersChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

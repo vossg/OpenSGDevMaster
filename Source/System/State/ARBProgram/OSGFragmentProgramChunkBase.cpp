@@ -65,7 +65,17 @@
 #include "OSGFragmentProgramChunkBase.h"
 #include "OSGFragmentProgramChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::FragmentProgramChunk
+    \ingroup GrpSystemState
+
+    See \ref PageSystemFragmentProgramChunk for a description.
+ */
 
 
 FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(true,
@@ -78,38 +88,47 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(true,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"FragmentProgramChunk\"\n"
-"	parent=\"ProgramChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived FragmentProgramChunk and FragmentProgramChunk.\n"
-"</FieldContainer>\n"
-,
-    "The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived FragmentProgramChunk and FragmentProgramChunk.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"FragmentProgramChunk\"\n"
+    "\tparent=\"ProgramChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemFragmentProgramChunk for a description.\n"
+    "\n"
+    "The FragmentProgramChunk implements Fragment Programs as specified in the\n"
+    "GL_ARB_fragment_program extension. It is just a special version of the\n"
+    "OSG::ProgramChunk, which contains the whole public interface.\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemFragmentProgramChunk for a description.\n"
+    "The FragmentProgramChunk implements Fragment Programs as specified in the\n"
+    "GL_ARB_fragment_program extension. It is just a special version of the\n"
+    "OSG::ProgramChunk, which contains the whole public interface.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &FragmentProgramChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &FragmentProgramChunkBase::getType(void) const 
+FieldContainerType &FragmentProgramChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 FragmentProgramChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(FragmentProgramChunk); 
+const FieldContainerType &FragmentProgramChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 FragmentProgramChunkBase::getContainerSize(void) const
+{
+    return sizeof(FragmentProgramChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -142,22 +161,22 @@ void FragmentProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FragmentProgramChunkPtr FragmentProgramChunkBase::createEmpty(void) 
-{ 
-    FragmentProgramChunkPtr returnValue; 
-    
-    newPtr<FragmentProgramChunk>(returnValue); 
+FragmentProgramChunkPtr FragmentProgramChunkBase::createEmpty(void)
+{
+    FragmentProgramChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<FragmentProgramChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr FragmentProgramChunkBase::shallowCopy(void) const 
-{ 
-    FragmentProgramChunkPtr returnValue; 
+FieldContainerPtr FragmentProgramChunkBase::shallowCopy(void) const
+{
+    FragmentProgramChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const FragmentProgramChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const FragmentProgramChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -184,13 +203,13 @@ FragmentProgramChunkBase::~FragmentProgramChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void FragmentProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<FragmentProgramChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -200,10 +219,10 @@ void FragmentProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
 void FragmentProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FragmentProgramChunkBase *>(&oFrom), 
+    this->execSync(static_cast<FragmentProgramChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -223,12 +242,12 @@ void FragmentProgramChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr FragmentProgramChunkBase::createAspectCopy(void) const
 {
-    FragmentProgramChunkPtr returnValue; 
+    FragmentProgramChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const FragmentProgramChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const FragmentProgramChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -237,6 +256,8 @@ void FragmentProgramChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -259,8 +280,6 @@ OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, FragmentProgramChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, FragmentProgramChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -281,3 +300,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGFRAGMENTPROGRAMCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

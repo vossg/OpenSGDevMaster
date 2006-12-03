@@ -65,30 +65,47 @@
 #include "OSGProgramChunkBase.h"
 #include "OSGProgramChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var std::string ProgramChunkBase::_sfProgram
-    	The program source code.
+/*! \class OSG::ProgramChunk
+    \ingroup GrpSystemState
 
+    The ProgramChunk is the base class for generic ASCII-based programs
+    inside OpenGL. For actual use see the derived VertexProgramChunk and
+    FragmentProgramChunk.
+
+    See \ref PageSystemProgramChunk for a description.
+
+    The ProgramChunk contains the source code of the program to use
+    (OSG::ProgramChunk::_sfProgram) and the local program parameters
+    (OSG::ProgramChunk::_mfParamValues). The parameters can have an
+    associated name (OSG::ProgramChunk::_mfParamNames).
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var std::string     ProgramChunkBase::_sfProgram
+    The program source code.
 */
-/*! \var Vec4f ProgramChunkBase::_mfParamValues
-    	Program Parameters
-
+/*! \var Vec4f           ProgramChunkBase::_mfParamValues
+    Program Parameters
 */
-/*! \var std::string ProgramChunkBase::_mfParamNames
-    	Symbolic names for the program parameters.
-
+/*! \var std::string     ProgramChunkBase::_mfParamNames
+    Symbolic names for the program parameters.
 */
-/*! \var UInt32 ProgramChunkBase::_sfGLId
-    	The OpenGL ID of the program.
-
+/*! \var UInt32          ProgramChunkBase::_sfGLId
+    The OpenGL ID of the program.
 */
 
 void ProgramChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -98,9 +115,9 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "program", 
-        "	The program source code.\n",
+        SFString::getClassType(),
+        "program",
+        "The program source code.\n",
         ProgramFieldId, ProgramFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -120,9 +137,9 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec4f::Description(
-        MFVec4f::getClassType(), 
-        "paramValues", 
-        "	Program Parameters\n",
+        MFVec4f::getClassType(),
+        "paramValues",
+        "Program Parameters\n",
         ParamValuesFieldId, ParamValuesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -142,9 +159,9 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFString::Description(
-        MFString::getClassType(), 
-        "paramNames", 
-        "	Symbolic names for the program parameters.\n",
+        MFString::getClassType(),
+        "paramNames",
+        "Symbolic names for the program parameters.\n",
         ParamNamesFieldId, ParamNamesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -164,9 +181,9 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "GLId", 
-        "	The OpenGL ID of the program.\n",
+        SFUInt32::getClassType(),
+        "GLId",
+        "The OpenGL ID of the program.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -186,81 +203,99 @@ ProgramChunkBase::TypeObject ProgramChunkBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     ProgramChunk::initMethod,
     (InitalInsertDescFunc) &ProgramChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ProgramChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived VertexProgramChunk and FragmentProgramChunk.\n"
-"	<Field\n"
-"		name=\"program\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The program source code.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"paramValues\"\n"
-"		type=\"Vec4f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Program Parameters\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"paramNames\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Symbolic names for the program parameters.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"GLId\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-" 		defaultValue=\"0\"\n"
-"        fieldFlags=\"FClusterLocal\"\n"
-"	>\n"
-"	The OpenGL ID of the program.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived VertexProgramChunk and FragmentProgramChunk.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ProgramChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "The ProgramChunk is the base class for generic ASCII-based programs\n"
+    "inside OpenGL. For actual use see the derived VertexProgramChunk and\n"
+    "FragmentProgramChunk.\n"
+    "\n"
+    "See \\ref PageSystemProgramChunk for a description.\n"
+    "\n"
+    "The ProgramChunk contains the source code of the program to use\n"
+    "(OSG::ProgramChunk::_sfProgram) and the local program parameters\n"
+    "(OSG::ProgramChunk::_mfParamValues). The parameters can have an associated\n"
+    "name (OSG::ProgramChunk::_mfParamNames).\n"
+    "\t<Field\n"
+    "\t\tname=\"program\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe program source code.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"paramValues\"\n"
+    "\t\ttype=\"Vec4f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tProgram Parameters\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"paramNames\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tSymbolic names for the program parameters.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"GLId\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    " \t\tdefaultValue=\"0\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "\t>\n"
+    "\tThe OpenGL ID of the program.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "The ProgramChunk is the base class for generic ASCII-based programs\n"
+    "inside OpenGL. For actual use see the derived VertexProgramChunk and\n"
+    "FragmentProgramChunk.\n"
+    "See \\ref PageSystemProgramChunk for a description.\n"
+    "The ProgramChunk contains the source code of the program to use\n"
+    "(OSG::ProgramChunk::_sfProgram) and the local program parameters\n"
+    "(OSG::ProgramChunk::_mfParamValues). The parameters can have an associated\n"
+    "name (OSG::ProgramChunk::_mfParamNames).\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ProgramChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ProgramChunkBase::getType(void) const 
+FieldContainerType &ProgramChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ProgramChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(ProgramChunk); 
+const FieldContainerType &ProgramChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ProgramChunkBase::getContainerSize(void) const
+{
+    return sizeof(ProgramChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -279,9 +314,9 @@ const SFString *ProgramChunkBase::getSFProgram(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *ProgramChunkBase::getSFProgram(void)
+SFString            *ProgramChunkBase::getSFProgram        (void)
 {
-    return this->editSFProgram();
+    return this->editSFProgram        ();
 }
 #endif
 
@@ -298,9 +333,9 @@ const MFVec4f *ProgramChunkBase::getMFParamValues(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec4f *ProgramChunkBase::getMFParamValues(void)
+MFVec4f             *ProgramChunkBase::getMFParamValues    (void)
 {
-    return this->editMFParamValues();
+    return this->editMFParamValues    ();
 }
 #endif
 
@@ -317,9 +352,9 @@ const MFString *ProgramChunkBase::getMFParamNames(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFString *ProgramChunkBase::getMFParamNames(void)
+MFString            *ProgramChunkBase::getMFParamNames     (void)
 {
-    return this->editMFParamNames();
+    return this->editMFParamNames     ();
 }
 #endif
 
@@ -336,9 +371,9 @@ const SFUInt32 *ProgramChunkBase::getSFGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ProgramChunkBase::getSFGLId(void)
+SFUInt32            *ProgramChunkBase::getSFGLId           (void)
 {
-    return this->editSFGLId();
+    return this->editSFGLId           ();
 }
 #endif
 
@@ -422,19 +457,19 @@ void ProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 ProgramChunkBase::ProgramChunkBase(void) :
     Inherited(),
-    _sfProgram(),
-    _mfParamValues(),
-    _mfParamNames(),
-    _sfGLId(UInt32(0))
+    _sfProgram                (),
+    _mfParamValues            (),
+    _mfParamNames             (),
+    _sfGLId                   (UInt32(0))
 {
 }
 
 ProgramChunkBase::ProgramChunkBase(const ProgramChunkBase &source) :
     Inherited(source),
-    _sfProgram(source._sfProgram),
-    _mfParamValues(source._mfParamValues),
-    _mfParamNames(source._mfParamNames),
-    _sfGLId(source._sfGLId)
+    _sfProgram                (source._sfProgram                ),
+    _mfParamValues            (source._mfParamValues            ),
+    _mfParamNames             (source._mfParamNames             ),
+    _sfGLId                   (source._sfGLId                   )
 {
 }
 
@@ -448,13 +483,13 @@ ProgramChunkBase::~ProgramChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ProgramChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -464,10 +499,10 @@ void ProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
 void ProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ProgramChunkBase *>(&oFrom), 
+    this->execSync(static_cast<ProgramChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -491,6 +526,8 @@ void ProgramChunkBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -512,8 +549,6 @@ OSG_FIELDTRAITS_GETTYPE(ProgramChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ProgramChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ProgramChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -534,3 +569,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPROGRAMCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

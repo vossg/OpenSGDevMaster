@@ -84,22 +84,22 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
-                              ProgramChunkConstPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
+                              ProgramChunkConstPtr,
                               FragmentProgramChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
-                              ProgramChunkConstPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
+                              ProgramChunkConstPtr,
                               FragmentProgramChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
                               ProgramChunkConstPtr,
                               FragmentProgramChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
                               ProgramChunkConstPtr,
                               FragmentProgramChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
                               ProgramChunkConstPtr,
                               FragmentProgramChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
                               ProgramChunkConstPtr,
                               FragmentProgramChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -144,15 +143,15 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FragmentProgramChunkPtr create     (void); 
-    static  FragmentProgramChunkPtr createEmpty(void); 
+    static  FragmentProgramChunkPtr create     (void);
+    static  FragmentProgramChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -176,7 +175,7 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~FragmentProgramChunkBase(void); 
+    virtual ~FragmentProgramChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,11 +221,11 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunkBase : public ProgramChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

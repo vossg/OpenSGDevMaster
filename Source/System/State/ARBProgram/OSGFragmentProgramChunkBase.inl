@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &FragmentProgramChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 FragmentProgramChunkBase::getClassTypeId(void) 
+OSG::UInt32 FragmentProgramChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 FragmentProgramChunkBase::getClassGroupId(void)
@@ -76,24 +76,24 @@ OSG::UInt16 FragmentProgramChunkBase::getClassGroupId(void)
 
 //! create a new instance of the class
 inline
-FragmentProgramChunkPtr FragmentProgramChunkBase::create(void) 
+FragmentProgramChunkPtr FragmentProgramChunkBase::create(void)
 {
-    FragmentProgramChunkPtr fc; 
+    FragmentProgramChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<FragmentProgramChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void FragmentProgramChunkBase::execSync(      FragmentProgramChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -106,7 +106,7 @@ inline
 void FragmentProgramChunkBase::execSync (      FragmentProgramChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -141,4 +141,3 @@ typedef PointerBuilder<FragmentProgramChunk>::ObjPtrConstArg  FragmentProgramChu
 OSG_END_NAMESPACE
 
 #define OSGFRAGMENTPROGRAMCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

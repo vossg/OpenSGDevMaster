@@ -84,22 +84,22 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
-                              ProgramChunkConstPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
+                              ProgramChunkConstPtr,
                               VertexProgramChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
-                              ProgramChunkConstPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
+                              ProgramChunkConstPtr,
                               VertexProgramChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
                               ProgramChunkConstPtr,
                               VertexProgramChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
                               ProgramChunkConstPtr,
                               VertexProgramChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
                               ProgramChunkConstPtr,
                               VertexProgramChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ProgramChunkPtr, 
+    typedef PointerFwdBuilder<ProgramChunkPtr,
                               ProgramChunkConstPtr,
                               VertexProgramChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -144,15 +143,15 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  VertexProgramChunkPtr create     (void); 
-    static  VertexProgramChunkPtr createEmpty(void); 
+    static  VertexProgramChunkPtr create     (void);
+    static  VertexProgramChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -176,7 +175,7 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~VertexProgramChunkBase(void); 
+    virtual ~VertexProgramChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,11 +221,11 @@ class OSG_STATE_DLLMAPPING VertexProgramChunkBase : public ProgramChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

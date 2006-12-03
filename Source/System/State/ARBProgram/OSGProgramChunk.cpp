@@ -59,19 +59,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ProgramChunk
-    \ingroup GrpSystemState
-
-  See \ref PageSystemProgramChunk for a description. The ProgramChunk contains
-  the source code of the program to use (OSG::ProgramChunk::_sfProgram) and
-  the local program parameters (OSG::ProgramChunk::_mfParamValues). The
-  parameters can have an associated name (OSG::ProgramChunk::_mfParamNames).
-
-*/
+// Documentation for this class is emited in the
+// OSGProgramChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGProgramChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

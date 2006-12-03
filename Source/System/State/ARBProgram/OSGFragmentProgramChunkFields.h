@@ -70,22 +70,22 @@ class FragmentProgramChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! FragmentProgramChunkPtr
 
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           FragmentProgramChunk>::ObjPtr         FragmentProgramChunkPtr;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           FragmentProgramChunk>::ObjPtrConst    FragmentProgramChunkPtrConst;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           FragmentProgramChunk>::ObjConstPtr    FragmentProgramChunkConstPtr;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           FragmentProgramChunk>::ObjPtrArg      FragmentProgramChunkPtrArg;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           FragmentProgramChunk>::ObjConstPtrArg FragmentProgramChunkConstPtrArg;
-typedef PointerFwdBuilder<ProgramChunkPtr, 
+typedef PointerFwdBuilder<ProgramChunkPtr,
                           ProgramChunkConstPtr,
                           FragmentProgramChunk>::ObjPtrConstArg FragmentProgramChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ProgramChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<FragmentProgramChunkPtr> : 
+struct FieldTraits<FragmentProgramChunkPtr> :
     public FieldTraitsTemplateBase<FragmentProgramChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<FragmentProgramChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFFragmentProgramChunkPtr"; }

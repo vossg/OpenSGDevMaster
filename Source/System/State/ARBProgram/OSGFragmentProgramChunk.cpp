@@ -56,15 +56,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::FragmentProgramChunk
-    \ingroup GrpSystemState
-
-  See \ref PageSystemFragmentProgramChunk for a description. The 
-  FragmentProgramChunk implements Fragment Programs as specified in the 
-  GL_ARB_fragment_program extension.
-  It is just a special version of the OSG::ProgramChunk, which contains the
-  whole public interface.
- */
+// Documentation for this class is emited in the
+// OSGFragmentProgramChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGFragmentProgramChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

@@ -65,108 +65,141 @@
 #include "OSGRegisterCombinersChunkBase.h"
 #include "OSGRegisterCombinersChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color4f RegisterCombinersChunkBase::_sfColor0
-    
-*/
-/*! \var Color4f RegisterCombinersChunkBase::_sfColor1
-    
-*/
-/*! \var bool RegisterCombinersChunkBase::_sfColorSumClamp
-    
-*/
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableArgb
-    	input,mapping,component Usage triples for variable A, RGB part
+/*! \class OSG::RegisterCombinersChunk
+    \ingroup GrpSystemState
 
-*/
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableBrgb
+    See \ref PageSystemRegisterCombinersChunk for a description.
+
+    This chunk wraps nVidia's register combiners. The
+    OSG::RegisterCombinersChunk::setCombinerRGB and
+    OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions
+    should be used, which set up all the parameters for a single combiner's
+    RGB or alpha part. OSG::RegisterCombinersChunk::setFinalCombiner sets
+    all parameters for the final combiner. The constants are set by
+    OSG::RegisterCombinersChunk::setConstantColors(Color4f &color0, Color4f
+    &color1) for the gloabl constants and
+    OSG::RegisterCombinersChunk::setConstantColors(UInt16 which,   Color4f
+    &color0, Color4f &color1) for the per-combiner constants (if
+    supported). To reset a combiner one or all of the combiners use
+    OSG::RegisterCombinersChunk::clearCombiners or
+    OSG::RegisterCombinersChunk::clearCombiner.
+
+    Don't use the direct field access to set the register combiner's
+    parameter unlesss you really have to, as the internal representation is
+    a bit non-intuitive.
+
+    \ext To reduce the number of fields there isn't a field for every
+    parameter, instead they are kept in blocks of three in the fields.
+    Please refer to the source code for details. \endext
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Color4f         RegisterCombinersChunkBase::_sfColor0
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableCrgb
+/*! \var Color4f         RegisterCombinersChunkBase::_sfColor1
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableDrgb
+/*! \var bool            RegisterCombinersChunkBase::_sfColorSumClamp
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableAalpha
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableArgb
+    input,mapping,component Usage triples for variable A, RGB part
+*/
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableBrgb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableBalpha
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableCrgb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableCalpha
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableDrgb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableDalpha
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableAalpha
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfOutputABrgb
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableBalpha
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfOutputCDrgb
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableCalpha
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfOutputSumrgb
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableDalpha
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfScalergb
+/*! \var GLenum          RegisterCombinersChunkBase::_mfOutputABrgb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfBiasrgb
+/*! \var GLenum          RegisterCombinersChunkBase::_mfOutputCDrgb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfOutputABalpha
+/*! \var GLenum          RegisterCombinersChunkBase::_mfOutputSumrgb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfOutputCDalpha
+/*! \var GLenum          RegisterCombinersChunkBase::_mfScalergb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfOutputSumalpha
+/*! \var GLenum          RegisterCombinersChunkBase::_mfBiasrgb
     
 */
-/*! \var UInt8 RegisterCombinersChunkBase::_mfDotABrgb
+/*! \var GLenum          RegisterCombinersChunkBase::_mfOutputABalpha
     
 */
-/*! \var UInt8 RegisterCombinersChunkBase::_mfDotCDrgb
+/*! \var GLenum          RegisterCombinersChunkBase::_mfOutputCDalpha
     
 */
-/*! \var UInt8 RegisterCombinersChunkBase::_mfMuxSumrgb
+/*! \var GLenum          RegisterCombinersChunkBase::_mfOutputSumalpha
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfScalealpha
+/*! \var UInt8           RegisterCombinersChunkBase::_mfDotABrgb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfBiasalpha
+/*! \var UInt8           RegisterCombinersChunkBase::_mfDotCDrgb
     
 */
-/*! \var UInt8 RegisterCombinersChunkBase::_mfMuxSumalpha
+/*! \var UInt8           RegisterCombinersChunkBase::_mfMuxSumrgb
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableE
+/*! \var GLenum          RegisterCombinersChunkBase::_mfScalealpha
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableF
+/*! \var GLenum          RegisterCombinersChunkBase::_mfBiasalpha
     
 */
-/*! \var GLenum RegisterCombinersChunkBase::_mfVariableG
+/*! \var UInt8           RegisterCombinersChunkBase::_mfMuxSumalpha
     
 */
-/*! \var Color4f RegisterCombinersChunkBase::_mfCombinerColor0
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableE
     
 */
-/*! \var Color4f RegisterCombinersChunkBase::_mfCombinerColor1
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableF
     
 */
-/*! \var UInt8 RegisterCombinersChunkBase::_sfPerStageConstants
+/*! \var GLenum          RegisterCombinersChunkBase::_mfVariableG
+    
+*/
+/*! \var Color4f         RegisterCombinersChunkBase::_mfCombinerColor0
+    
+*/
+/*! \var Color4f         RegisterCombinersChunkBase::_mfCombinerColor1
+    
+*/
+/*! \var UInt8           RegisterCombinersChunkBase::_sfPerStageConstants
     
 */
 
 void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -176,8 +209,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "color0", 
+        SFColor4f::getClassType(),
+        "color0",
         "",
         Color0FieldId, Color0FieldMask,
         false,
@@ -198,8 +231,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "color1", 
+        SFColor4f::getClassType(),
+        "color1",
         "",
         Color1FieldId, Color1FieldMask,
         false,
@@ -220,8 +253,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "colorSumClamp", 
+        SFBool::getClassType(),
+        "colorSumClamp",
         "",
         ColorSumClampFieldId, ColorSumClampFieldMask,
         false,
@@ -242,9 +275,9 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableArgb", 
-        "	input,mapping,component Usage triples for variable A, RGB part\n",
+        MFGLenum::getClassType(),
+        "variableArgb",
+        "input,mapping,component Usage triples for variable A, RGB part\n",
         VariableArgbFieldId, VariableArgbFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -264,8 +297,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableBrgb", 
+        MFGLenum::getClassType(),
+        "variableBrgb",
         "",
         VariableBrgbFieldId, VariableBrgbFieldMask,
         false,
@@ -286,8 +319,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableCrgb", 
+        MFGLenum::getClassType(),
+        "variableCrgb",
         "",
         VariableCrgbFieldId, VariableCrgbFieldMask,
         false,
@@ -308,8 +341,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableDrgb", 
+        MFGLenum::getClassType(),
+        "variableDrgb",
         "",
         VariableDrgbFieldId, VariableDrgbFieldMask,
         false,
@@ -330,8 +363,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableAalpha", 
+        MFGLenum::getClassType(),
+        "variableAalpha",
         "",
         VariableAalphaFieldId, VariableAalphaFieldMask,
         false,
@@ -352,8 +385,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableBalpha", 
+        MFGLenum::getClassType(),
+        "variableBalpha",
         "",
         VariableBalphaFieldId, VariableBalphaFieldMask,
         false,
@@ -374,8 +407,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableCalpha", 
+        MFGLenum::getClassType(),
+        "variableCalpha",
         "",
         VariableCalphaFieldId, VariableCalphaFieldMask,
         false,
@@ -396,8 +429,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableDalpha", 
+        MFGLenum::getClassType(),
+        "variableDalpha",
         "",
         VariableDalphaFieldId, VariableDalphaFieldMask,
         false,
@@ -418,8 +451,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "outputABrgb", 
+        MFGLenum::getClassType(),
+        "outputABrgb",
         "",
         OutputABrgbFieldId, OutputABrgbFieldMask,
         false,
@@ -440,8 +473,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "outputCDrgb", 
+        MFGLenum::getClassType(),
+        "outputCDrgb",
         "",
         OutputCDrgbFieldId, OutputCDrgbFieldMask,
         false,
@@ -462,8 +495,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "outputSumrgb", 
+        MFGLenum::getClassType(),
+        "outputSumrgb",
         "",
         OutputSumrgbFieldId, OutputSumrgbFieldMask,
         false,
@@ -484,8 +517,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "scalergb", 
+        MFGLenum::getClassType(),
+        "scalergb",
         "",
         ScalergbFieldId, ScalergbFieldMask,
         false,
@@ -506,8 +539,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "biasrgb", 
+        MFGLenum::getClassType(),
+        "biasrgb",
         "",
         BiasrgbFieldId, BiasrgbFieldMask,
         false,
@@ -528,8 +561,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "outputABalpha", 
+        MFGLenum::getClassType(),
+        "outputABalpha",
         "",
         OutputABalphaFieldId, OutputABalphaFieldMask,
         false,
@@ -550,8 +583,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "outputCDalpha", 
+        MFGLenum::getClassType(),
+        "outputCDalpha",
         "",
         OutputCDalphaFieldId, OutputCDalphaFieldMask,
         false,
@@ -572,8 +605,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "outputSumalpha", 
+        MFGLenum::getClassType(),
+        "outputSumalpha",
         "",
         OutputSumalphaFieldId, OutputSumalphaFieldMask,
         false,
@@ -594,8 +627,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt8::Description(
-        MFUInt8::getClassType(), 
-        "dotABrgb", 
+        MFUInt8::getClassType(),
+        "dotABrgb",
         "",
         DotABrgbFieldId, DotABrgbFieldMask,
         false,
@@ -616,8 +649,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt8::Description(
-        MFUInt8::getClassType(), 
-        "dotCDrgb", 
+        MFUInt8::getClassType(),
+        "dotCDrgb",
         "",
         DotCDrgbFieldId, DotCDrgbFieldMask,
         false,
@@ -638,8 +671,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt8::Description(
-        MFUInt8::getClassType(), 
-        "muxSumrgb", 
+        MFUInt8::getClassType(),
+        "muxSumrgb",
         "",
         MuxSumrgbFieldId, MuxSumrgbFieldMask,
         false,
@@ -660,8 +693,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "scalealpha", 
+        MFGLenum::getClassType(),
+        "scalealpha",
         "",
         ScalealphaFieldId, ScalealphaFieldMask,
         false,
@@ -682,8 +715,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "biasalpha", 
+        MFGLenum::getClassType(),
+        "biasalpha",
         "",
         BiasalphaFieldId, BiasalphaFieldMask,
         false,
@@ -704,8 +737,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt8::Description(
-        MFUInt8::getClassType(), 
-        "muxSumalpha", 
+        MFUInt8::getClassType(),
+        "muxSumalpha",
         "",
         MuxSumalphaFieldId, MuxSumalphaFieldMask,
         false,
@@ -726,8 +759,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableE", 
+        MFGLenum::getClassType(),
+        "variableE",
         "",
         VariableEFieldId, VariableEFieldMask,
         false,
@@ -748,8 +781,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableF", 
+        MFGLenum::getClassType(),
+        "variableF",
         "",
         VariableFFieldId, VariableFFieldMask,
         false,
@@ -770,8 +803,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "variableG", 
+        MFGLenum::getClassType(),
+        "variableG",
         "",
         VariableGFieldId, VariableGFieldMask,
         false,
@@ -792,8 +825,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFColor4f::Description(
-        MFColor4f::getClassType(), 
-        "combinerColor0", 
+        MFColor4f::getClassType(),
+        "combinerColor0",
         "",
         CombinerColor0FieldId, CombinerColor0FieldMask,
         false,
@@ -814,8 +847,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFColor4f::Description(
-        MFColor4f::getClassType(), 
-        "combinerColor1", 
+        MFColor4f::getClassType(),
+        "combinerColor1",
         "",
         CombinerColor1FieldId, CombinerColor1FieldMask,
         false,
@@ -836,8 +869,8 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt8::Description(
-        SFUInt8::getClassType(), 
-        "perStageConstants", 
+        SFUInt8::getClassType(),
+        "perStageConstants",
         "",
         PerStageConstantsFieldId, PerStageConstantsFieldMask,
         true,
@@ -863,287 +896,337 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(true,
     (InitalInsertDescFunc) &RegisterCombinersChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"RegisterCombinersChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"color0\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"color1\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"colorSumClamp\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableArgb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	input,mapping,component Usage triples for variable A, RGB part\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableBrgb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableCrgb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableDrgb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableAalpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableBalpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableCalpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableDalpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"outputABrgb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"outputCDrgb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"outputSumrgb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"scalergb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"biasrgb\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"outputABalpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"outputCDalpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"outputSumalpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"dotABrgb\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"dotCDrgb\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"muxSumrgb\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"scalealpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"biasalpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"muxSumalpha\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableE\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableF\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"variableG\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"combinerColor0\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"combinerColor1\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"perStageConstants\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"RegisterCombinersChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "><![CDATA[\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemRegisterCombinersChunk for a description.\n"
+    "\n"
+    "This chunk wraps nVidia's register combiners. The\n"
+    "OSG::RegisterCombinersChunk::setCombinerRGB and\n"
+    "OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions\n"
+    "should be used,\n"
+    "which set up all the parameters for a single combiner's RGB or alpha part.\n"
+    "OSG::RegisterCombinersChunk::setFinalCombiner sets all parameters for the\n"
+    "final combiner. The constants are set by\n"
+    "OSG::RegisterCombinersChunk::setConstantColors(Color4f &color0, Color4f\n"
+    "&color1) for the gloabl constants and \n"
+    "OSG::RegisterCombinersChunk::setConstantColors(UInt16 which,  \n"
+    "Color4f &color0,\n"
+    "Color4f &color1) for the per-combiner constants (if supported). To reset a\n"
+    "combiner one or all of the combiners use\n"
+    "OSG::RegisterCombinersChunk::clearCombiners or \n"
+    "OSG::RegisterCombinersChunk::clearCombiner. \n"
+    "\n"
+    "Don't use the direct field access to set the register combiner's parameter\n"
+    "unlesss you really have to, as the internal representation is a bit\n"
+    "non-intuitive.\n"
+    "\n"
+    "\\ext To reduce the number of fields there isn't a field for every parameter,\n"
+    "instead they are kept in blocks of three in the fields. Please refer to the\n"
+    "source code for details.\n"
+    "\\endext]]>\n"
+    "\t<Field\n"
+    "\t\tname=\"color0\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"color1\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"colorSumClamp\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableArgb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tinput,mapping,component Usage triples for variable A, RGB part\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableBrgb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableCrgb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableDrgb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableAalpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableBalpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableCalpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableDalpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"outputABrgb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"outputCDrgb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"outputSumrgb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"scalergb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"biasrgb\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"outputABalpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"outputCDalpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"outputSumalpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"dotABrgb\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"dotCDrgb\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"muxSumrgb\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"scalealpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"biasalpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"muxSumalpha\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableE\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableF\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"variableG\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"combinerColor0\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"combinerColor1\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"perStageConstants\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemRegisterCombinersChunk for a description.\n"
+    "This chunk wraps nVidia's register combiners. The\n"
+    "OSG::RegisterCombinersChunk::setCombinerRGB and\n"
+    "OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions\n"
+    "should be used,\n"
+    "which set up all the parameters for a single combiner's RGB or alpha part.\n"
+    "OSG::RegisterCombinersChunk::setFinalCombiner sets all parameters for the\n"
+    "final combiner. The constants are set by\n"
+    "OSG::RegisterCombinersChunk::setConstantColors(Color4f &color0, Color4f\n"
+    "&color1) for the gloabl constants and \n"
+    "OSG::RegisterCombinersChunk::setConstantColors(UInt16 which,  \n"
+    "Color4f &color0,\n"
+    "Color4f &color1) for the per-combiner constants (if supported). To reset a\n"
+    "combiner one or all of the combiners use\n"
+    "OSG::RegisterCombinersChunk::clearCombiners or \n"
+    "OSG::RegisterCombinersChunk::clearCombiner. \n"
+    "Don't use the direct field access to set the register combiner's parameter\n"
+    "unlesss you really have to, as the internal representation is a bit\n"
+    "non-intuitive.\n"
+    "\\ext To reduce the number of fields there isn't a field for every parameter,\n"
+    "instead they are kept in blocks of three in the fields. Please refer to the\n"
+    "source code for details.\n"
+    "\\endext\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &RegisterCombinersChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &RegisterCombinersChunkBase::getType(void) const 
+FieldContainerType &RegisterCombinersChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 RegisterCombinersChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(RegisterCombinersChunk); 
+const FieldContainerType &RegisterCombinersChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 RegisterCombinersChunkBase::getContainerSize(void) const
+{
+    return sizeof(RegisterCombinersChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -1162,9 +1245,9 @@ const SFColor4f *RegisterCombinersChunkBase::getSFColor0(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *RegisterCombinersChunkBase::getSFColor0(void)
+SFColor4f           *RegisterCombinersChunkBase::getSFColor0         (void)
 {
-    return this->editSFColor0();
+    return this->editSFColor0         ();
 }
 #endif
 
@@ -1181,9 +1264,9 @@ const SFColor4f *RegisterCombinersChunkBase::getSFColor1(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *RegisterCombinersChunkBase::getSFColor1(void)
+SFColor4f           *RegisterCombinersChunkBase::getSFColor1         (void)
 {
-    return this->editSFColor1();
+    return this->editSFColor1         ();
 }
 #endif
 
@@ -1200,9 +1283,9 @@ const SFBool *RegisterCombinersChunkBase::getSFColorSumClamp(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *RegisterCombinersChunkBase::getSFColorSumClamp(void)
+SFBool              *RegisterCombinersChunkBase::getSFColorSumClamp  (void)
 {
-    return this->editSFColorSumClamp();
+    return this->editSFColorSumClamp  ();
 }
 #endif
 
@@ -1219,9 +1302,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableArgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableArgb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableArgb   (void)
 {
-    return this->editMFVariableArgb();
+    return this->editMFVariableArgb   ();
 }
 #endif
 
@@ -1238,9 +1321,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableBrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableBrgb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableBrgb   (void)
 {
-    return this->editMFVariableBrgb();
+    return this->editMFVariableBrgb   ();
 }
 #endif
 
@@ -1257,9 +1340,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableCrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableCrgb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableCrgb   (void)
 {
-    return this->editMFVariableCrgb();
+    return this->editMFVariableCrgb   ();
 }
 #endif
 
@@ -1276,9 +1359,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableDrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableDrgb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableDrgb   (void)
 {
-    return this->editMFVariableDrgb();
+    return this->editMFVariableDrgb   ();
 }
 #endif
 
@@ -1295,9 +1378,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableAalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableAalpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableAalpha (void)
 {
-    return this->editMFVariableAalpha();
+    return this->editMFVariableAalpha ();
 }
 #endif
 
@@ -1314,9 +1397,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableBalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableBalpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableBalpha (void)
 {
-    return this->editMFVariableBalpha();
+    return this->editMFVariableBalpha ();
 }
 #endif
 
@@ -1333,9 +1416,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableCalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableCalpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableCalpha (void)
 {
-    return this->editMFVariableCalpha();
+    return this->editMFVariableCalpha ();
 }
 #endif
 
@@ -1352,9 +1435,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableDalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableDalpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableDalpha (void)
 {
-    return this->editMFVariableDalpha();
+    return this->editMFVariableDalpha ();
 }
 #endif
 
@@ -1371,9 +1454,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputABrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFOutputABrgb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFOutputABrgb    (void)
 {
-    return this->editMFOutputABrgb();
+    return this->editMFOutputABrgb    ();
 }
 #endif
 
@@ -1390,9 +1473,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputCDrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFOutputCDrgb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFOutputCDrgb    (void)
 {
-    return this->editMFOutputCDrgb();
+    return this->editMFOutputCDrgb    ();
 }
 #endif
 
@@ -1409,9 +1492,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputSumrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFOutputSumrgb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFOutputSumrgb   (void)
 {
-    return this->editMFOutputSumrgb();
+    return this->editMFOutputSumrgb   ();
 }
 #endif
 
@@ -1428,9 +1511,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFScalergb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFScalergb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFScalergb       (void)
 {
-    return this->editMFScalergb();
+    return this->editMFScalergb       ();
 }
 #endif
 
@@ -1447,9 +1530,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFBiasrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFBiasrgb(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFBiasrgb        (void)
 {
-    return this->editMFBiasrgb();
+    return this->editMFBiasrgb        ();
 }
 #endif
 
@@ -1466,9 +1549,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputABalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFOutputABalpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFOutputABalpha  (void)
 {
-    return this->editMFOutputABalpha();
+    return this->editMFOutputABalpha  ();
 }
 #endif
 
@@ -1485,9 +1568,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputCDalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFOutputCDalpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFOutputCDalpha  (void)
 {
-    return this->editMFOutputCDalpha();
+    return this->editMFOutputCDalpha  ();
 }
 #endif
 
@@ -1504,9 +1587,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFOutputSumalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFOutputSumalpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFOutputSumalpha (void)
 {
-    return this->editMFOutputSumalpha();
+    return this->editMFOutputSumalpha ();
 }
 #endif
 
@@ -1523,9 +1606,9 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFDotABrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt8 *RegisterCombinersChunkBase::getMFDotABrgb(void)
+MFUInt8             *RegisterCombinersChunkBase::getMFDotABrgb       (void)
 {
-    return this->editMFDotABrgb();
+    return this->editMFDotABrgb       ();
 }
 #endif
 
@@ -1542,9 +1625,9 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFDotCDrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt8 *RegisterCombinersChunkBase::getMFDotCDrgb(void)
+MFUInt8             *RegisterCombinersChunkBase::getMFDotCDrgb       (void)
 {
-    return this->editMFDotCDrgb();
+    return this->editMFDotCDrgb       ();
 }
 #endif
 
@@ -1561,9 +1644,9 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumrgb(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumrgb(void)
+MFUInt8             *RegisterCombinersChunkBase::getMFMuxSumrgb      (void)
 {
-    return this->editMFMuxSumrgb();
+    return this->editMFMuxSumrgb      ();
 }
 #endif
 
@@ -1580,9 +1663,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFScalealpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFScalealpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFScalealpha     (void)
 {
-    return this->editMFScalealpha();
+    return this->editMFScalealpha     ();
 }
 #endif
 
@@ -1599,9 +1682,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFBiasalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFBiasalpha(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFBiasalpha      (void)
 {
-    return this->editMFBiasalpha();
+    return this->editMFBiasalpha      ();
 }
 #endif
 
@@ -1618,9 +1701,9 @@ const MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumalpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt8 *RegisterCombinersChunkBase::getMFMuxSumalpha(void)
+MFUInt8             *RegisterCombinersChunkBase::getMFMuxSumalpha    (void)
 {
-    return this->editMFMuxSumalpha();
+    return this->editMFMuxSumalpha    ();
 }
 #endif
 
@@ -1637,9 +1720,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableE(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableE(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableE      (void)
 {
-    return this->editMFVariableE();
+    return this->editMFVariableE      ();
 }
 #endif
 
@@ -1656,9 +1739,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableF(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableF(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableF      (void)
 {
-    return this->editMFVariableF();
+    return this->editMFVariableF      ();
 }
 #endif
 
@@ -1675,9 +1758,9 @@ const MFGLenum *RegisterCombinersChunkBase::getMFVariableG(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *RegisterCombinersChunkBase::getMFVariableG(void)
+MFGLenum            *RegisterCombinersChunkBase::getMFVariableG      (void)
 {
-    return this->editMFVariableG();
+    return this->editMFVariableG      ();
 }
 #endif
 
@@ -1694,9 +1777,9 @@ const MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor0(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor0(void)
+MFColor4f           *RegisterCombinersChunkBase::getMFCombinerColor0 (void)
 {
-    return this->editMFCombinerColor0();
+    return this->editMFCombinerColor0 ();
 }
 #endif
 
@@ -1713,9 +1796,9 @@ const MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor1(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFColor4f *RegisterCombinersChunkBase::getMFCombinerColor1(void)
+MFColor4f           *RegisterCombinersChunkBase::getMFCombinerColor1 (void)
 {
-    return this->editMFCombinerColor1();
+    return this->editMFCombinerColor1 ();
 }
 #endif
 
@@ -1732,7 +1815,7 @@ const SFUInt8 *RegisterCombinersChunkBase::getSFPerStageConstants(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt8 *RegisterCombinersChunkBase::getSFPerStageConstants(void)
+SFUInt8             *RegisterCombinersChunkBase::getSFPerStageConstants(void)
 {
     return this->editSFPerStageConstants();
 }
@@ -2137,22 +2220,22 @@ void RegisterCombinersChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmpty(void) 
-{ 
-    RegisterCombinersChunkPtr returnValue; 
-    
-    newPtr<RegisterCombinersChunk>(returnValue); 
+RegisterCombinersChunkPtr RegisterCombinersChunkBase::createEmpty(void)
+{
+    RegisterCombinersChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<RegisterCombinersChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr RegisterCombinersChunkBase::shallowCopy(void) const 
-{ 
-    RegisterCombinersChunkPtr returnValue; 
+FieldContainerPtr RegisterCombinersChunkBase::shallowCopy(void) const
+{
+    RegisterCombinersChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const RegisterCombinersChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const RegisterCombinersChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -2161,73 +2244,73 @@ FieldContainerPtr RegisterCombinersChunkBase::shallowCopy(void) const
 
 RegisterCombinersChunkBase::RegisterCombinersChunkBase(void) :
     Inherited(),
-    _sfColor0(),
-    _sfColor1(),
-    _sfColorSumClamp(bool(false)),
-    _mfVariableArgb(),
-    _mfVariableBrgb(),
-    _mfVariableCrgb(),
-    _mfVariableDrgb(),
-    _mfVariableAalpha(),
-    _mfVariableBalpha(),
-    _mfVariableCalpha(),
-    _mfVariableDalpha(),
-    _mfOutputABrgb(),
-    _mfOutputCDrgb(),
-    _mfOutputSumrgb(),
-    _mfScalergb(),
-    _mfBiasrgb(),
-    _mfOutputABalpha(),
-    _mfOutputCDalpha(),
-    _mfOutputSumalpha(),
-    _mfDotABrgb(),
-    _mfDotCDrgb(),
-    _mfMuxSumrgb(),
-    _mfScalealpha(),
-    _mfBiasalpha(),
-    _mfMuxSumalpha(),
-    _mfVariableE(),
-    _mfVariableF(),
-    _mfVariableG(),
-    _mfCombinerColor0(),
-    _mfCombinerColor1(),
-    _sfPerStageConstants()
+    _sfColor0                 (),
+    _sfColor1                 (),
+    _sfColorSumClamp          (bool(false)),
+    _mfVariableArgb           (),
+    _mfVariableBrgb           (),
+    _mfVariableCrgb           (),
+    _mfVariableDrgb           (),
+    _mfVariableAalpha         (),
+    _mfVariableBalpha         (),
+    _mfVariableCalpha         (),
+    _mfVariableDalpha         (),
+    _mfOutputABrgb            (),
+    _mfOutputCDrgb            (),
+    _mfOutputSumrgb           (),
+    _mfScalergb               (),
+    _mfBiasrgb                (),
+    _mfOutputABalpha          (),
+    _mfOutputCDalpha          (),
+    _mfOutputSumalpha         (),
+    _mfDotABrgb               (),
+    _mfDotCDrgb               (),
+    _mfMuxSumrgb              (),
+    _mfScalealpha             (),
+    _mfBiasalpha              (),
+    _mfMuxSumalpha            (),
+    _mfVariableE              (),
+    _mfVariableF              (),
+    _mfVariableG              (),
+    _mfCombinerColor0         (),
+    _mfCombinerColor1         (),
+    _sfPerStageConstants      ()
 {
 }
 
 RegisterCombinersChunkBase::RegisterCombinersChunkBase(const RegisterCombinersChunkBase &source) :
     Inherited(source),
-    _sfColor0(source._sfColor0),
-    _sfColor1(source._sfColor1),
-    _sfColorSumClamp(source._sfColorSumClamp),
-    _mfVariableArgb(source._mfVariableArgb),
-    _mfVariableBrgb(source._mfVariableBrgb),
-    _mfVariableCrgb(source._mfVariableCrgb),
-    _mfVariableDrgb(source._mfVariableDrgb),
-    _mfVariableAalpha(source._mfVariableAalpha),
-    _mfVariableBalpha(source._mfVariableBalpha),
-    _mfVariableCalpha(source._mfVariableCalpha),
-    _mfVariableDalpha(source._mfVariableDalpha),
-    _mfOutputABrgb(source._mfOutputABrgb),
-    _mfOutputCDrgb(source._mfOutputCDrgb),
-    _mfOutputSumrgb(source._mfOutputSumrgb),
-    _mfScalergb(source._mfScalergb),
-    _mfBiasrgb(source._mfBiasrgb),
-    _mfOutputABalpha(source._mfOutputABalpha),
-    _mfOutputCDalpha(source._mfOutputCDalpha),
-    _mfOutputSumalpha(source._mfOutputSumalpha),
-    _mfDotABrgb(source._mfDotABrgb),
-    _mfDotCDrgb(source._mfDotCDrgb),
-    _mfMuxSumrgb(source._mfMuxSumrgb),
-    _mfScalealpha(source._mfScalealpha),
-    _mfBiasalpha(source._mfBiasalpha),
-    _mfMuxSumalpha(source._mfMuxSumalpha),
-    _mfVariableE(source._mfVariableE),
-    _mfVariableF(source._mfVariableF),
-    _mfVariableG(source._mfVariableG),
-    _mfCombinerColor0(source._mfCombinerColor0),
-    _mfCombinerColor1(source._mfCombinerColor1),
-    _sfPerStageConstants(source._sfPerStageConstants)
+    _sfColor0                 (source._sfColor0                 ),
+    _sfColor1                 (source._sfColor1                 ),
+    _sfColorSumClamp          (source._sfColorSumClamp          ),
+    _mfVariableArgb           (source._mfVariableArgb           ),
+    _mfVariableBrgb           (source._mfVariableBrgb           ),
+    _mfVariableCrgb           (source._mfVariableCrgb           ),
+    _mfVariableDrgb           (source._mfVariableDrgb           ),
+    _mfVariableAalpha         (source._mfVariableAalpha         ),
+    _mfVariableBalpha         (source._mfVariableBalpha         ),
+    _mfVariableCalpha         (source._mfVariableCalpha         ),
+    _mfVariableDalpha         (source._mfVariableDalpha         ),
+    _mfOutputABrgb            (source._mfOutputABrgb            ),
+    _mfOutputCDrgb            (source._mfOutputCDrgb            ),
+    _mfOutputSumrgb           (source._mfOutputSumrgb           ),
+    _mfScalergb               (source._mfScalergb               ),
+    _mfBiasrgb                (source._mfBiasrgb                ),
+    _mfOutputABalpha          (source._mfOutputABalpha          ),
+    _mfOutputCDalpha          (source._mfOutputCDalpha          ),
+    _mfOutputSumalpha         (source._mfOutputSumalpha         ),
+    _mfDotABrgb               (source._mfDotABrgb               ),
+    _mfDotCDrgb               (source._mfDotCDrgb               ),
+    _mfMuxSumrgb              (source._mfMuxSumrgb              ),
+    _mfScalealpha             (source._mfScalealpha             ),
+    _mfBiasalpha              (source._mfBiasalpha              ),
+    _mfMuxSumalpha            (source._mfMuxSumalpha            ),
+    _mfVariableE              (source._mfVariableE              ),
+    _mfVariableF              (source._mfVariableF              ),
+    _mfVariableG              (source._mfVariableG              ),
+    _mfCombinerColor0         (source._mfCombinerColor0         ),
+    _mfCombinerColor1         (source._mfCombinerColor1         ),
+    _sfPerStageConstants      (source._sfPerStageConstants      )
 {
 }
 
@@ -2241,13 +2324,13 @@ RegisterCombinersChunkBase::~RegisterCombinersChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void RegisterCombinersChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<RegisterCombinersChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -2257,10 +2340,10 @@ void RegisterCombinersChunkBase::execSyncV(      FieldContainer    &oFrom,
 void RegisterCombinersChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<RegisterCombinersChunkBase *>(&oFrom), 
+    this->execSync(static_cast<RegisterCombinersChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -2280,12 +2363,12 @@ void RegisterCombinersChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr RegisterCombinersChunkBase::createAspectCopy(void) const
 {
-    RegisterCombinersChunkPtr returnValue; 
+    RegisterCombinersChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const RegisterCombinersChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const RegisterCombinersChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -2294,6 +2377,8 @@ void RegisterCombinersChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -2316,8 +2401,6 @@ OSG_FIELDTRAITS_GETTYPE(RegisterCombinersChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, RegisterCombinersChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, RegisterCombinersChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -2338,3 +2421,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGREGISTERCOMBINERSCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

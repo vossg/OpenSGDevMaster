@@ -56,15 +56,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::VertexProgramChunk
-    \ingroup GrpSystemState
-
-See \ref PageSystemVertexProgramChunk for a description. The VertexProgramChunk
-implements Vertex Programs as specified in the GL_ARB_vertex_program extension.
-It is just a special version of the OSG::ProgramChunk, which contains the whole
-public interface.
-
-*/
+// Documentation for this class is emited in the
+// OSGVertexProgramChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGVertexProgramChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

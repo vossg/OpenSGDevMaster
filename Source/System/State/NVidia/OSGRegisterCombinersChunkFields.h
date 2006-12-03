@@ -70,22 +70,22 @@ class RegisterCombinersChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! RegisterCombinersChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           RegisterCombinersChunk>::ObjPtr         RegisterCombinersChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           RegisterCombinersChunk>::ObjPtrConst    RegisterCombinersChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           RegisterCombinersChunk>::ObjConstPtr    RegisterCombinersChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           RegisterCombinersChunk>::ObjPtrArg      RegisterCombinersChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           RegisterCombinersChunk>::ObjConstPtrArg RegisterCombinersChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           RegisterCombinersChunk>::ObjPtrConstArg RegisterCombinersChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<StateChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<RegisterCombinersChunkPtr> : 
+struct FieldTraits<RegisterCombinersChunkPtr> :
     public FieldTraitsTemplateBase<RegisterCombinersChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<RegisterCombinersChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING 
+    static OSG_STATE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFRegisterCombinersChunkPtr"; }

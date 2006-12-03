@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &VertexProgramChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 VertexProgramChunkBase::getClassTypeId(void) 
+OSG::UInt32 VertexProgramChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 VertexProgramChunkBase::getClassGroupId(void)
@@ -76,24 +76,24 @@ OSG::UInt16 VertexProgramChunkBase::getClassGroupId(void)
 
 //! create a new instance of the class
 inline
-VertexProgramChunkPtr VertexProgramChunkBase::create(void) 
+VertexProgramChunkPtr VertexProgramChunkBase::create(void)
 {
-    VertexProgramChunkPtr fc; 
+    VertexProgramChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<VertexProgramChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void VertexProgramChunkBase::execSync(      VertexProgramChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -106,7 +106,7 @@ inline
 void VertexProgramChunkBase::execSync (      VertexProgramChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -141,4 +141,3 @@ typedef PointerBuilder<VertexProgramChunk>::ObjPtrConstArg  VertexProgramChunkPt
 OSG_END_NAMESPACE
 
 #define OSGVERTEXPROGRAMCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

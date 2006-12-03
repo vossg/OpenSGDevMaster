@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ProgramChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ProgramChunkBase::getClassTypeId(void) 
+OSG::UInt32 ProgramChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ProgramChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const std::string &ProgramChunkBase::getProgram(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ProgramChunkBase::getProgram(void)
+std::string         &ProgramChunkBase::getProgram        (void)
 {
-    return this->editProgram();
+    return this->editProgram        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const UInt32 &ProgramChunkBase::getGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ProgramChunkBase::getGLId(void)
+UInt32              &ProgramChunkBase::getGLId           (void)
 {
-    return this->editGLId();
+    return this->editGLId           ();
 }
 #endif
 
@@ -166,15 +166,15 @@ MFVec4f &ProgramChunkBase::editParamValues(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec4f &ProgramChunkBase::getParamValues(const UInt32 index)
+Vec4f               &ProgramChunkBase::getParamValues    (const UInt32 index)
 {
-    return this->editParamValues(index);
+    return this->editParamValues    (index);
 }
 
 inline
-MFVec4f &ProgramChunkBase::getParamValues(void)
+MFVec4f             &ProgramChunkBase::getParamValues    (void)
 {
-    return this->editParamValues();
+    return this->editParamValues    ();
 }
 
 #endif
@@ -213,15 +213,15 @@ MFString &ProgramChunkBase::editParamNames(void)
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ProgramChunkBase::getParamNames(const UInt32 index)
+std::string         &ProgramChunkBase::getParamNames     (const UInt32 index)
 {
-    return this->editParamNames(index);
+    return this->editParamNames     (index);
 }
 
 inline
-MFString &ProgramChunkBase::getParamNames(void)
+MFString            &ProgramChunkBase::getParamNames     (void)
 {
-    return this->editParamNames();
+    return this->editParamNames     ();
 }
 
 #endif
@@ -239,7 +239,7 @@ const MFString &ProgramChunkBase::getParamNames(void) const
 inline
 void ProgramChunkBase::execSync(      ProgramChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -249,13 +249,13 @@ void ProgramChunkBase::execSync(      ProgramChunkBase *pOther,
         _sfProgram.syncWith(pOther->_sfProgram);
 
     if(FieldBits::NoField != (ParamValuesFieldMask & whichField))
-        _mfParamValues.syncWith(pOther->_mfParamValues, 
+        _mfParamValues.syncWith(pOther->_mfParamValues,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (ParamNamesFieldMask & whichField))
-        _mfParamNames.syncWith(pOther->_mfParamNames, 
+        _mfParamNames.syncWith(pOther->_mfParamNames,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -270,7 +270,7 @@ inline
 void ProgramChunkBase::execSync (      ProgramChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -279,13 +279,13 @@ void ProgramChunkBase::execSync (      ProgramChunkBase *pFrom,
         _sfProgram.syncWith(pFrom->_sfProgram);
 
     if(FieldBits::NoField != (ParamValuesFieldMask & whichField))
-        _mfParamValues.syncWith(pFrom->_mfParamValues, 
+        _mfParamValues.syncWith(pFrom->_mfParamValues,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (ParamNamesFieldMask & whichField))
-        _mfParamNames.syncWith(pFrom->_mfParamNames, 
+        _mfParamNames.syncWith(pFrom->_mfParamNames,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -333,4 +333,3 @@ typedef PointerBuilder<ProgramChunk>::ObjPtrConstArg  ProgramChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGPROGRAMCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

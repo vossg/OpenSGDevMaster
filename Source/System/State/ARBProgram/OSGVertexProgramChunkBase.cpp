@@ -65,7 +65,19 @@
 #include "OSGVertexProgramChunkBase.h"
 #include "OSGVertexProgramChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::VertexProgramChunk
+    \ingroup GrpSystemState
+
+    The ProgramChunk is the base class for generic ASCII-based programs
+    inside OpenGL. For actual use see the derived VertexProgramChunk and
+    FragmentProgramChunk.
+ */
 
 
 VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(true,
@@ -78,38 +90,53 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(true,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"VertexProgramChunk\"\n"
-"	parent=\"ProgramChunk\"\n"
-"	library=\"State\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived VertexProgramChunk and FragmentProgramChunk.\n"
-"</FieldContainer>\n"
-,
-    "The ProgramChunk is the base class for generic ASCII-based programs inside OpenGL. For actual use see the derived VertexProgramChunk and FragmentProgramChunk.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"VertexProgramChunk\"\n"
+    "\tparent=\"ProgramChunk\"\n"
+    "\tlibrary=\"State\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "The ProgramChunk is the base class for generic ASCII-based programs inside\n"
+    "OpenGL. For actual use see the derived VertexProgramChunk and\n"
+    "FragmentProgramChunk.\n"
+    "\n"
+    "See \\ref PageSystemVertexProgramChunk for a description. The VertexProgramChunk\n"
+    "implements Vertex Programs as specified in the GL_ARB_vertex_program extension.\n"
+    "It is just a special version of the OSG::ProgramChunk, which contains the whole\n"
+    "public interface.\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "The ProgramChunk is the base class for generic ASCII-based programs inside\n"
+    "OpenGL. For actual use see the derived VertexProgramChunk and\n"
+    "FragmentProgramChunk.\n"
+    "See \\ref PageSystemVertexProgramChunk for a description. The VertexProgramChunk\n"
+    "implements Vertex Programs as specified in the GL_ARB_vertex_program extension.\n"
+    "It is just a special version of the OSG::ProgramChunk, which contains the whole\n"
+    "public interface.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &VertexProgramChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &VertexProgramChunkBase::getType(void) const 
+FieldContainerType &VertexProgramChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 VertexProgramChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(VertexProgramChunk); 
+const FieldContainerType &VertexProgramChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 VertexProgramChunkBase::getContainerSize(void) const
+{
+    return sizeof(VertexProgramChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -142,22 +169,22 @@ void VertexProgramChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-VertexProgramChunkPtr VertexProgramChunkBase::createEmpty(void) 
-{ 
-    VertexProgramChunkPtr returnValue; 
-    
-    newPtr<VertexProgramChunk>(returnValue); 
+VertexProgramChunkPtr VertexProgramChunkBase::createEmpty(void)
+{
+    VertexProgramChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<VertexProgramChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr VertexProgramChunkBase::shallowCopy(void) const 
-{ 
-    VertexProgramChunkPtr returnValue; 
+FieldContainerPtr VertexProgramChunkBase::shallowCopy(void) const
+{
+    VertexProgramChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const VertexProgramChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const VertexProgramChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -184,13 +211,13 @@ VertexProgramChunkBase::~VertexProgramChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void VertexProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<VertexProgramChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -200,10 +227,10 @@ void VertexProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
 void VertexProgramChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<VertexProgramChunkBase *>(&oFrom), 
+    this->execSync(static_cast<VertexProgramChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -223,12 +250,12 @@ void VertexProgramChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr VertexProgramChunkBase::createAspectCopy(void) const
 {
-    VertexProgramChunkPtr returnValue; 
+    VertexProgramChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const VertexProgramChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const VertexProgramChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -237,6 +264,8 @@ void VertexProgramChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -259,8 +288,6 @@ OSG_FIELDTRAITS_GETTYPE(VertexProgramChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, VertexProgramChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, VertexProgramChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -281,3 +308,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGVERTEXPROGRAMCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE
