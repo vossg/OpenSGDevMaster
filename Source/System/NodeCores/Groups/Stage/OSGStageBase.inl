@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &StageBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 StageBase::getClassTypeId(void) 
+OSG::UInt32 StageBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 StageBase::getClassGroupId(void)
@@ -93,24 +93,24 @@ void StageBase::setRenderTarget(FrameBufferObjectPtrConstArg value)
 
 //! create a new instance of the class
 inline
-StagePtr StageBase::create(void) 
+StagePtr StageBase::create(void)
 {
-    StagePtr fc; 
+    StagePtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Stage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void StageBase::execSync(      StageBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -126,7 +126,7 @@ inline
 void StageBase::execSync (      StageBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -164,4 +164,3 @@ typedef PointerBuilder<Stage>::ObjPtrConstArg  StagePtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSTAGEBASE_INLINE_CVSID "@(#)$Id$"
-

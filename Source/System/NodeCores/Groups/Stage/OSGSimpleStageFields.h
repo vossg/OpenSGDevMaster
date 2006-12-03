@@ -70,22 +70,22 @@ class SimpleStage;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SimpleStagePtr
 
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           SimpleStage>::ObjPtr         SimpleStagePtr;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           SimpleStage>::ObjPtrConst    SimpleStagePtrConst;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           SimpleStage>::ObjConstPtr    SimpleStageConstPtr;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           SimpleStage>::ObjPtrArg      SimpleStagePtrArg;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           SimpleStage>::ObjConstPtrArg SimpleStageConstPtrArg;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           SimpleStage>::ObjPtrConstArg SimpleStagePtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<StagePtr,
 #endif
 
 template <>
-struct FieldTraits<SimpleStagePtr> : 
+struct FieldTraits<SimpleStagePtr> :
     public FieldTraitsTemplateBase<SimpleStagePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SimpleStagePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

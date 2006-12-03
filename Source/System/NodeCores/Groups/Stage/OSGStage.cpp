@@ -57,9 +57,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Stage
-
-*/
+// Documentation for this class is emited in the
+// OSGStageBase.cpp file.
+// To modify it, please change the .fcd file (OSGStage.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */

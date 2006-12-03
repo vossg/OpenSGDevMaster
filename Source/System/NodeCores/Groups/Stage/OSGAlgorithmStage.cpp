@@ -58,9 +58,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::AlgorithmStage
-
-*/
+// Documentation for this class is emited in the
+// OSGAlgorithmStageBase.cpp file.
+// To modify it, please change the .fcd file (OSGAlgorithmStage.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
@@ -141,7 +142,7 @@ void AlgorithmStage::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGALGORITHMSTAGE_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGALGORITHMSTAGE_INLINE_CVSID;
 }

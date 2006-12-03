@@ -70,22 +70,22 @@ class AlgorithmStage;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! AlgorithmStagePtr
 
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           AlgorithmStage>::ObjPtr         AlgorithmStagePtr;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           AlgorithmStage>::ObjPtrConst    AlgorithmStagePtrConst;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           AlgorithmStage>::ObjConstPtr    AlgorithmStageConstPtr;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           AlgorithmStage>::ObjPtrArg      AlgorithmStagePtrArg;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           AlgorithmStage>::ObjConstPtrArg AlgorithmStageConstPtrArg;
-typedef PointerFwdBuilder<StagePtr, 
+typedef PointerFwdBuilder<StagePtr,
                           StageConstPtr,
                           AlgorithmStage>::ObjPtrConstArg AlgorithmStagePtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<StagePtr,
 #endif
 
 template <>
-struct FieldTraits<AlgorithmStagePtr> : 
+struct FieldTraits<AlgorithmStagePtr> :
     public FieldTraitsTemplateBase<AlgorithmStagePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<AlgorithmStagePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

@@ -70,22 +70,22 @@ class Stage;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StagePtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Stage>::ObjPtr         StagePtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Stage>::ObjPtrConst    StagePtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Stage>::ObjConstPtr    StageConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Stage>::ObjPtrArg      StagePtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Stage>::ObjConstPtrArg StageConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Stage>::ObjPtrConstArg StagePtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<StagePtr> : 
+struct FieldTraits<StagePtr> :
     public FieldTraitsTemplateBase<StagePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<StagePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

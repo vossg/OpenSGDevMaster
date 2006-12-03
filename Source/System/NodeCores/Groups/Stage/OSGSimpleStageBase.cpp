@@ -68,63 +68,54 @@
 #include "OSGSimpleStageBase.h"
 #include "OSGSimpleStage.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Real32 SimpleStageBase::_sfLeft
-            The left edge of the viewport. Values between 0 and 1 are relative to the size of       the Window, values 
->
- 1 are absolute pixel coordinates, value == -1 means the         left border. All other values are illegal.
-        
-        
+/*! \class OSG::SimpleStage
+    Extension to the Stage core that provides for viewport support, a
+    camera, backgrounds, and foreground.
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Real32          SimpleStageBase::_sfLeft
+    The left edge of the viewport. Values between 0 and 1 are relative to
+    the size of the Window, values >1 are absolute pixel coordinates, value
+    == -1 means the left border. All other values are illegal.
 */
-/*! \var Real32 SimpleStageBase::_sfRight
-            The right edge of the viewport. Values between 0 and 1 are relative to the size of      the Window, values 
->
- 1 are absolute pixel coordinates, value == -1 means the         right border. All other values are illegal.
-        
-        
-
+/*! \var Real32          SimpleStageBase::_sfRight
+    The right edge of the viewport. Values between 0 and 1 are relative to
+    the size of the Window, values >1 are absolute pixel coordinates, value
+    == -1 means the right border. All other values are illegal.
 */
-/*! \var Real32 SimpleStageBase::_sfBottom
-            The bottom edge of the viewport. Values between 0 and 1 are relative to the size of     the Window, values 
->
- 1 are absolute pixel coordinates, value == -1 means the         bottom border. All other values are illegal.
-        
-        
-
+/*! \var Real32          SimpleStageBase::_sfBottom
+    The bottom edge of the viewport. Values between 0 and 1 are relative
+    to the size of the Window, values >1 are absolute pixel coordinates,
+    value == -1 means the bottom border. All other values are illegal.
 */
-/*! \var Real32 SimpleStageBase::_sfTop
-            The top edge of the viewport. Values between 0 and 1 are relative to the size of        the Window, values 
->
- 1 are absolute pixel coordinates, value == -1 means the         top border. All other values are illegal.
-        
-        
-
+/*! \var Real32          SimpleStageBase::_sfTop
+    The top edge of the viewport. Values between 0 and 1 are relative to
+    the size of the Window, values >1 are absolute pixel coordinates, value
+    == -1 means the top border. All other values are illegal.
 */
-/*! \var CameraPtr SimpleStageBase::_sfCamera
-            The Camera used to render the viewport.
-        
-        
-
+/*! \var CameraPtr       SimpleStageBase::_sfCamera
+    The Camera used to render the viewport.
 */
-/*! \var BackgroundPtr SimpleStageBase::_sfBackground
-            The background used to clear this viewport.
-        
-        
-
+/*! \var BackgroundPtr   SimpleStageBase::_sfBackground
+    The background used to clear this viewport.
 */
-/*! \var ForegroundPtr SimpleStageBase::_mfForegrounds
-            The foreground additions to the rendered image.
-        
-
+/*! \var ForegroundPtr   SimpleStageBase::_mfForegrounds
+    The foreground additions to the rendered image.
 */
 
 void SimpleStageBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -134,9 +125,11 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "left", 
-        "        The left edge of the viewport. Values between 0 and 1 are relative to the size of       the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the         left border. All other values are illegal.\n        \n        \n",
+        SFReal32::getClassType(),
+        "left",
+        "The left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "left border. All other values are illegal.\n",
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -156,9 +149,11 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "right", 
-        "        The right edge of the viewport. Values between 0 and 1 are relative to the size of      the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the         right border. All other values are illegal.\n        \n        \n",
+        SFReal32::getClassType(),
+        "right",
+        "The right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "right border. All other values are illegal.\n",
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -178,9 +173,11 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "bottom", 
-        "        The bottom edge of the viewport. Values between 0 and 1 are relative to the size of     the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the         bottom border. All other values are illegal.\n        \n        \n",
+        SFReal32::getClassType(),
+        "bottom",
+        "The bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "bottom border. All other values are illegal.\n",
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -200,9 +197,11 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "top", 
-        "        The top edge of the viewport. Values between 0 and 1 are relative to the size of        the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the         top border. All other values are illegal.\n        \n        \n",
+        SFReal32::getClassType(),
+        "top",
+        "The top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "top border. All other values are illegal.\n",
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -216,9 +215,9 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFCameraPtr::Description(
-        SFCameraPtr::getClassType(), 
-        "camera", 
-        "        The Camera used to render the viewport.\n        \n        \n",
+        SFCameraPtr::getClassType(),
+        "camera",
+        "The Camera used to render the viewport.\n",
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -228,9 +227,9 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFBackgroundPtr::Description(
-        SFBackgroundPtr::getClassType(), 
-        "background", 
-        "        The background used to clear this viewport.\n        \n        \n",
+        SFBackgroundPtr::getClassType(),
+        "background",
+        "The background used to clear this viewport.\n",
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -240,9 +239,9 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFForegroundPtr::Description(
-        MFForegroundPtr::getClassType(), 
-        "foregrounds", 
-        "        The foreground additions to the rendered image.\n        \n",
+        MFForegroundPtr::getClassType(),
+        "foregrounds",
+        "The foreground additions to the rendered image.\n",
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -263,108 +262,115 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(true,
     (InitalInsertDescFunc) &SimpleStageBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"        name=\"SimpleStage\"\n"
-"        parent=\"Stage\"\n"
-"        library=\"Group\"\n"
-"        pointerfieldtypes=\"none\"\n"
-"        structure=\"concrete\"\n"
-"        systemcomponent=\"true\"\n"
-"        parentsystemcomponent=\"true\"\n"
-"        decoratable=\"false\"\n"
-"        useLocalIncludes=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"Extension to the Stage core that provides for viewport support, a camera, backgrounds, and foreground.\n"
-"\n"
-"        <Field\n"
-"                name=\"left\"\n"
-"                type=\"Real32\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        defaultValue=\"0.f\"\n"
-"        >\n"
-"        The left edge of the viewport. Values between 0 and 1 are relative to the size of       the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the         left border. All other values are illegal.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"right\"\n"
-"                type=\"Real32\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        defaultValue=\"1.f\"\n"
-"        >\n"
-"        The right edge of the viewport. Values between 0 and 1 are relative to the size of      the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the         right border. All other values are illegal.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"bottom\"\n"
-"                type=\"Real32\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        defaultValue=\"0.f\"\n"
-"        >\n"
-"        The bottom edge of the viewport. Values between 0 and 1 are relative to the size of     the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the         bottom border. All other values are illegal.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"top\"\n"
-"                type=\"Real32\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        defaultValue=\"1.f\"\n"
-"        >\n"
-"        The top edge of the viewport. Values between 0 and 1 are relative to the size of        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the         top border. All other values are illegal.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"camera\"\n"
-"                type=\"CameraPtr\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        The Camera used to render the viewport.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"background\"\n"
-"                type=\"BackgroundPtr\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        The background used to clear this viewport.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"foregrounds\"\n"
-"                type=\"ForegroundPtr\"\n"
-"                cardinality=\"multi\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        The foreground additions to the rendered image.\n"
-"        </Field>\n"
-"</FieldContainer>\n"
-,
-    "Extension to the Stage core that provides for viewport support, a camera, backgrounds, and foreground.\n        \n" 
+    "\n"
+    "<FieldContainer\n"
+    "        name=\"SimpleStage\"\n"
+    "        parent=\"Stage\"\n"
+    "        library=\"Group\"\n"
+    "        pointerfieldtypes=\"none\"\n"
+    "        structure=\"concrete\"\n"
+    "        systemcomponent=\"true\"\n"
+    "        parentsystemcomponent=\"true\"\n"
+    "        decoratable=\"false\"\n"
+    "        useLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "Extension to the Stage core that provides for viewport support, a camera, backgrounds, and foreground.\n"
+    "\n"
+    "        <Field\n"
+    "                name=\"left\"\n"
+    "                type=\"Real32\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        defaultValue=\"0.f\"\n"
+    "        >\n"
+    "        The left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+    "        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        left border. All other values are illegal.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"right\"\n"
+    "                type=\"Real32\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        defaultValue=\"1.f\"\n"
+    "        >\n"
+    "        The right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+    "        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        right border. All other values are illegal.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"bottom\"\n"
+    "                type=\"Real32\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        defaultValue=\"0.f\"\n"
+    "        >\n"
+    "        The bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+    "        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        bottom border. All other values are illegal.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"top\"\n"
+    "                type=\"Real32\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        defaultValue=\"1.f\"\n"
+    "        >\n"
+    "        The top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+    "        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        top border. All other values are illegal.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"camera\"\n"
+    "                type=\"CameraPtr\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        The Camera used to render the viewport.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"background\"\n"
+    "                type=\"BackgroundPtr\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        The background used to clear this viewport.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"foregrounds\"\n"
+    "                type=\"ForegroundPtr\"\n"
+    "                cardinality=\"multi\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        The foreground additions to the rendered image.\n"
+    "        </Field>\n"
+    "</FieldContainer>\n",
+    "Extension to the Stage core that provides for viewport support, a camera, backgrounds, and foreground.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SimpleStageBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SimpleStageBase::getType(void) const 
+FieldContainerType &SimpleStageBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SimpleStageBase::getContainerSize(void) const 
-{ 
-    return sizeof(SimpleStage); 
+const FieldContainerType &SimpleStageBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SimpleStageBase::getContainerSize(void) const
+{
+    return sizeof(SimpleStage);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -383,9 +389,9 @@ const SFReal32 *SimpleStageBase::getSFLeft(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *SimpleStageBase::getSFLeft(void)
+SFReal32            *SimpleStageBase::getSFLeft           (void)
 {
-    return this->editSFLeft();
+    return this->editSFLeft           ();
 }
 #endif
 
@@ -402,9 +408,9 @@ const SFReal32 *SimpleStageBase::getSFRight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *SimpleStageBase::getSFRight(void)
+SFReal32            *SimpleStageBase::getSFRight          (void)
 {
-    return this->editSFRight();
+    return this->editSFRight          ();
 }
 #endif
 
@@ -421,9 +427,9 @@ const SFReal32 *SimpleStageBase::getSFBottom(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *SimpleStageBase::getSFBottom(void)
+SFReal32            *SimpleStageBase::getSFBottom         (void)
 {
-    return this->editSFBottom();
+    return this->editSFBottom         ();
 }
 #endif
 
@@ -440,9 +446,9 @@ const SFReal32 *SimpleStageBase::getSFTop(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *SimpleStageBase::getSFTop(void)
+SFReal32            *SimpleStageBase::getSFTop            (void)
 {
-    return this->editSFTop();
+    return this->editSFTop            ();
 }
 #endif
 
@@ -584,7 +590,7 @@ void SimpleStageBase::pushToForegrounds(ForegroundPtrConstArg value)
 }
 
 void SimpleStageBase::insertIntoForegrounds(UInt32                uiIndex,
-                                             ForegroundPtrConstArg value   )
+                                                   ForegroundPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -601,7 +607,7 @@ void SimpleStageBase::insertIntoForegrounds(UInt32                uiIndex,
 }
 
 void SimpleStageBase::replaceInForegrounds(UInt32                uiIndex,
-                                                 ForegroundPtrConstArg value   )
+                                                       ForegroundPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -619,7 +625,7 @@ void SimpleStageBase::replaceInForegrounds(UInt32                uiIndex,
 }
 
 void SimpleStageBase::replaceInForegrounds(ForegroundPtrConstArg pOldElem,
-                                                  ForegroundPtrConstArg pNewElem)
+                                                        ForegroundPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -690,8 +696,6 @@ void SimpleStageBase::clearForegrounds(void)
 
     _mfForegrounds.clear();
 }
-
-
 
 
 
@@ -804,22 +808,22 @@ void SimpleStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleStagePtr SimpleStageBase::createEmpty(void) 
-{ 
-    SimpleStagePtr returnValue; 
-    
-    newPtr<SimpleStage>(returnValue); 
+SimpleStagePtr SimpleStageBase::createEmpty(void)
+{
+    SimpleStagePtr returnValue;
 
-    return returnValue; 
+    newPtr<SimpleStage>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SimpleStageBase::shallowCopy(void) const 
-{ 
-    SimpleStagePtr returnValue; 
+FieldContainerPtr SimpleStageBase::shallowCopy(void) const
+{
+    SimpleStagePtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SimpleStage *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SimpleStage *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -828,25 +832,25 @@ FieldContainerPtr SimpleStageBase::shallowCopy(void) const
 
 SimpleStageBase::SimpleStageBase(void) :
     Inherited(),
-    _sfLeft(Real32(0.f)),
-    _sfRight(Real32(1.f)),
-    _sfBottom(Real32(0.f)),
-    _sfTop(Real32(1.f)),
-    _sfCamera(),
-    _sfBackground(),
-    _mfForegrounds()
+    _sfLeft                   (Real32(0.f)),
+    _sfRight                  (Real32(1.f)),
+    _sfBottom                 (Real32(0.f)),
+    _sfTop                    (Real32(1.f)),
+    _sfCamera                 (),
+    _sfBackground             (),
+    _mfForegrounds            ()
 {
 }
 
 SimpleStageBase::SimpleStageBase(const SimpleStageBase &source) :
     Inherited(source),
-    _sfLeft(source._sfLeft),
-    _sfRight(source._sfRight),
-    _sfBottom(source._sfBottom),
-    _sfTop(source._sfTop),
-    _sfCamera(),
-    _sfBackground(),
-    _mfForegrounds()
+    _sfLeft                   (source._sfLeft                   ),
+    _sfRight                  (source._sfRight                  ),
+    _sfBottom                 (source._sfBottom                 ),
+    _sfTop                    (source._sfTop                    ),
+    _sfCamera                 (),
+    _sfBackground             (),
+    _mfForegrounds            ()
 {
 }
 
@@ -867,9 +871,9 @@ void SimpleStageBase::onCreate(const SimpleStage *source)
 
         this->setBackground(source->getBackground());
 
-        MFForegroundPtr::const_iterator ForegroundsIt  = 
+        MFForegroundPtr::const_iterator ForegroundsIt  =
             source->_mfForegrounds.begin();
-        MFForegroundPtr::const_iterator ForegroundsEnd = 
+        MFForegroundPtr::const_iterator ForegroundsEnd =
             source->_mfForegrounds.end  ();
 
         while(ForegroundsIt != ForegroundsEnd)
@@ -884,13 +888,13 @@ void SimpleStageBase::onCreate(const SimpleStage *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SimpleStageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SimpleStageBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -900,10 +904,10 @@ void SimpleStageBase::execSyncV(      FieldContainer    &oFrom,
 void SimpleStageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SimpleStageBase *>(&oFrom), 
+    this->execSync(static_cast<SimpleStageBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -923,12 +927,12 @@ void SimpleStageBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SimpleStageBase::createAspectCopy(void) const
 {
-    SimpleStagePtr returnValue; 
+    SimpleStagePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SimpleStage *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleStage *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -944,14 +948,10 @@ void SimpleStageBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<SimpleStagePtr>::_type("SimpleStagePtr", "StagePtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -973,3 +973,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSIMPLESTAGEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

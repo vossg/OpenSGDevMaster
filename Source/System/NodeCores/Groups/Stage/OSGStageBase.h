@@ -85,22 +85,22 @@ class OSG_GROUP_DLLMAPPING StageBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               Stage>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               Stage>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               Stage>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               Stage>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               Stage>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               Stage>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_GROUP_DLLMAPPING StageBase : public Group
         NextFieldId = RenderTargetFieldId + 1
     };
 
-    static const OSG::BitVector RenderTargetFieldMask = 
+    static const OSG::BitVector RenderTargetFieldMask =
         (TypeTraits<BitVector>::One << RenderTargetFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_GROUP_DLLMAPPING StageBase : public Group
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -143,42 +142,42 @@ class OSG_GROUP_DLLMAPPING StageBase : public Group
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFFrameBufferObjectPtr *getSFRenderTarget (void) const;
+            const SFFrameBufferObjectPtr *getSFRenderTarget    (void) const;
 
 
-           FrameBufferObjectPtrConst getRenderTarget(void) const;
+                  FrameBufferObjectPtrConst getRenderTarget   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setRenderTarget(FrameBufferObjectPtrConstArg value);
+            void setRenderTarget   (FrameBufferObjectPtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -205,15 +204,15 @@ class OSG_GROUP_DLLMAPPING StageBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StagePtr create     (void); 
-    static  StagePtr createEmpty(void); 
+    static  StagePtr create     (void);
+    static  StagePtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -244,7 +243,7 @@ class OSG_GROUP_DLLMAPPING StageBase : public Group
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StageBase(void); 
+    virtual ~StageBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -291,11 +290,11 @@ class OSG_GROUP_DLLMAPPING StageBase : public Group
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

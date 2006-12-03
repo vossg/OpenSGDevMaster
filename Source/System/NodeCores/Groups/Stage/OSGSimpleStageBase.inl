@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SimpleStageBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SimpleStageBase::getClassTypeId(void) 
+OSG::UInt32 SimpleStageBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SimpleStageBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Real32 &SimpleStageBase::getLeft(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &SimpleStageBase::getLeft(void)
+Real32              &SimpleStageBase::getLeft           (void)
 {
-    return this->editLeft();
+    return this->editLeft           ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Real32 &SimpleStageBase::getRight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &SimpleStageBase::getRight(void)
+Real32              &SimpleStageBase::getRight          (void)
 {
-    return this->editRight();
+    return this->editRight          ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Real32 &SimpleStageBase::getBottom(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &SimpleStageBase::getBottom(void)
+Real32              &SimpleStageBase::getBottom         (void)
 {
-    return this->editBottom();
+    return this->editBottom         ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Real32 &SimpleStageBase::getTop(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &SimpleStageBase::getTop(void)
+Real32              &SimpleStageBase::getTop            (void)
 {
-    return this->editTop();
+    return this->editTop            ();
 }
 #endif
 
@@ -256,24 +256,24 @@ const MFForegroundPtr &SimpleStageBase::getForegrounds(void) const
 
 //! create a new instance of the class
 inline
-SimpleStagePtr SimpleStageBase::create(void) 
+SimpleStagePtr SimpleStageBase::create(void)
 {
-    SimpleStagePtr fc; 
+    SimpleStagePtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SimpleStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SimpleStageBase::execSync(      SimpleStageBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -298,7 +298,7 @@ void SimpleStageBase::execSync(      SimpleStageBase *pOther,
         _sfBackground.syncWith(pOther->_sfBackground);
 
     if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pOther->_mfForegrounds, 
+        _mfForegrounds.syncWith(pOther->_mfForegrounds,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -310,7 +310,7 @@ inline
 void SimpleStageBase::execSync (      SimpleStageBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -334,7 +334,7 @@ void SimpleStageBase::execSync (      SimpleStageBase *pFrom,
         _sfBackground.syncWith(pFrom->_sfBackground);
 
     if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pFrom->_mfForegrounds, 
+        _mfForegrounds.syncWith(pFrom->_mfForegrounds,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -374,4 +374,3 @@ typedef PointerBuilder<SimpleStage>::ObjPtrConstArg  SimpleStagePtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSIMPLESTAGEBASE_INLINE_CVSID "@(#)$Id$"
-

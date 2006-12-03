@@ -22,7 +22,9 @@ Extension to the Stage core that provides for viewport support, a camera, backgr
                 access="public"
         defaultValue="0.f"
         >
-        The left edge of the viewport. Values between 0 and 1 are relative to the size of       the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the         left border. All other values are illegal.
+        The left edge of the viewport. Values between 0 and 1 are relative to the size of
+        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the
+        left border. All other values are illegal.
         </Field>
         <Field
                 name="right"
@@ -32,7 +34,9 @@ Extension to the Stage core that provides for viewport support, a camera, backgr
                 access="public"
         defaultValue="1.f"
         >
-        The right edge of the viewport. Values between 0 and 1 are relative to the size of      the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the         right border. All other values are illegal.
+        The right edge of the viewport. Values between 0 and 1 are relative to the size of
+        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the
+        right border. All other values are illegal.
         </Field>
         <Field
                 name="bottom"
@@ -42,7 +46,9 @@ Extension to the Stage core that provides for viewport support, a camera, backgr
                 access="public"
         defaultValue="0.f"
         >
-        The bottom edge of the viewport. Values between 0 and 1 are relative to the size of     the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the         bottom border. All other values are illegal.
+        The bottom edge of the viewport. Values between 0 and 1 are relative to the size of
+        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the
+        bottom border. All other values are illegal.
         </Field>
         <Field
                 name="top"
@@ -52,7 +58,9 @@ Extension to the Stage core that provides for viewport support, a camera, backgr
                 access="public"
         defaultValue="1.f"
         >
-        The top edge of the viewport. Values between 0 and 1 are relative to the size of        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the         top border. All other values are illegal.
+        The top edge of the viewport. Values between 0 and 1 are relative to the size of
+        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the
+        top border. All other values are illegal.
         </Field>
         <Field
                 name="camera"

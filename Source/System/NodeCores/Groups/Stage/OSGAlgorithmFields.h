@@ -70,22 +70,22 @@ class Algorithm;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! AlgorithmPtr
 
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           Algorithm>::ObjPtr         AlgorithmPtr;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           Algorithm>::ObjPtrConst    AlgorithmPtrConst;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           Algorithm>::ObjConstPtr    AlgorithmConstPtr;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           Algorithm>::ObjPtrArg      AlgorithmPtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           Algorithm>::ObjConstPtrArg AlgorithmConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           Algorithm>::ObjPtrConstArg AlgorithmPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<FieldContainerPtr,
 #endif
 
 template <>
-struct FieldTraits<AlgorithmPtr> : 
+struct FieldTraits<AlgorithmPtr> :
     public FieldTraitsTemplateBase<AlgorithmPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<AlgorithmPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING 
+    static OSG_GROUP_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFAlgorithmPtr"; }

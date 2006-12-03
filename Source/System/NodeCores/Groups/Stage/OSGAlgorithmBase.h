@@ -84,22 +84,22 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
+                              FieldContainerConstPtr,
                               Algorithm>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
+                              FieldContainerConstPtr,
                               Algorithm>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
                               FieldContainerConstPtr,
                               Algorithm>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
                               FieldContainerConstPtr,
                               Algorithm>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
                               FieldContainerConstPtr,
                               Algorithm>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
                               FieldContainerConstPtr,
                               Algorithm>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -161,7 +160,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AlgorithmBase(void); 
+    virtual ~AlgorithmBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -207,11 +206,11 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public FieldContainer
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

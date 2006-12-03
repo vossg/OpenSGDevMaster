@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &AlgorithmStageBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 AlgorithmStageBase::getClassTypeId(void) 
+OSG::UInt32 AlgorithmStageBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 AlgorithmStageBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const UInt32 &AlgorithmStageBase::getProjectionMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &AlgorithmStageBase::getProjectionMode(void)
+UInt32              &AlgorithmStageBase::getProjectionMode (void)
 {
-    return this->editProjectionMode();
+    return this->editProjectionMode ();
 }
 #endif
 
@@ -142,7 +142,7 @@ const Matrix &AlgorithmStageBase::getProjectionMatrix(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &AlgorithmStageBase::getProjectionMatrix(void)
+Matrix              &AlgorithmStageBase::getProjectionMatrix(void)
 {
     return this->editProjectionMatrix();
 }
@@ -159,24 +159,24 @@ void AlgorithmStageBase::setProjectionMatrix(const Matrix &value)
 
 //! create a new instance of the class
 inline
-AlgorithmStagePtr AlgorithmStageBase::create(void) 
+AlgorithmStagePtr AlgorithmStageBase::create(void)
 {
-    AlgorithmStagePtr fc; 
+    AlgorithmStagePtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<AlgorithmStage::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void AlgorithmStageBase::execSync(      AlgorithmStageBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -198,7 +198,7 @@ inline
 void AlgorithmStageBase::execSync (      AlgorithmStageBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -242,4 +242,3 @@ typedef PointerBuilder<AlgorithmStage>::ObjPtrConstArg  AlgorithmStagePtrConstAr
 OSG_END_NAMESPACE
 
 #define OSGALGORITHMSTAGEBASE_INLINE_CVSID "@(#)$Id$"
-

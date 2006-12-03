@@ -66,25 +66,34 @@
 #include "OSGStageBase.h"
 #include "OSGStage.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::Stage
+    Base of a staged rendering.  Tells the renderer to target an FBO for
+    this subtree.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var FrameBufferObjectPtr StageBase::_sfRenderTarget
-            The FBO to target for rendering this subtree.
-        
-
+    The FBO to target for rendering this subtree.
 */
 
 void StageBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFFrameBufferObjectPtr::Description(
-        SFFrameBufferObjectPtr::getClassType(), 
-        "renderTarget", 
-        "        The FBO to target for rendering this subtree.\n        \n",
+        SFFrameBufferObjectPtr::getClassType(),
+        "renderTarget",
+        "The FBO to target for rendering this subtree.\n",
         RenderTargetFieldId, RenderTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -105,50 +114,49 @@ StageBase::TypeObject StageBase::_type(true,
     (InitalInsertDescFunc) &StageBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"        name=\"Stage\"\n"
-"        parent=\"Group\"\n"
-"        library=\"Group\"\n"
-"        pointerfieldtypes=\"none\"\n"
-"        structure=\"concrete\"\n"
-"        systemcomponent=\"true\"\n"
-"        parentsystemcomponent=\"true\"\n"
-"        decoratable=\"false\"\n"
-"        useLocalIncludes=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.\n"
-"        <Field\n"
-"                name=\"renderTarget\"\n"
-"                type=\"FrameBufferObjectPtr\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                defaultValue=\"NullFC\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        The FBO to target for rendering this subtree.\n"
-"        </Field>\n"
-"</FieldContainer>\n"
-,
-    "Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.\n        \n" 
+    "\n"
+    "<FieldContainer\n"
+    "        name=\"Stage\"\n"
+    "        parent=\"Group\"\n"
+    "        library=\"Group\"\n"
+    "        pointerfieldtypes=\"none\"\n"
+    "        structure=\"concrete\"\n"
+    "        systemcomponent=\"true\"\n"
+    "        parentsystemcomponent=\"true\"\n"
+    "        decoratable=\"false\"\n"
+    "        useLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.\n"
+    "        <Field\n"
+    "                name=\"renderTarget\"\n"
+    "                type=\"FrameBufferObjectPtr\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                defaultValue=\"NullFC\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        The FBO to target for rendering this subtree.\n"
+    "        </Field>\n"
+    "</FieldContainer>\n",
+    "Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &StageBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &StageBase::getType(void) const 
+FieldContainerType &StageBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 StageBase::getContainerSize(void) const 
-{ 
-    return sizeof(Stage); 
+const FieldContainerType &StageBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 StageBase::getContainerSize(void) const
+{
+    return sizeof(Stage);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -260,22 +268,22 @@ void StageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StagePtr StageBase::createEmpty(void) 
-{ 
-    StagePtr returnValue; 
-    
-    newPtr<Stage>(returnValue); 
+StagePtr StageBase::createEmpty(void)
+{
+    StagePtr returnValue;
 
-    return returnValue; 
+    newPtr<Stage>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr StageBase::shallowCopy(void) const 
-{ 
-    StagePtr returnValue; 
+FieldContainerPtr StageBase::shallowCopy(void) const
+{
+    StagePtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Stage *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Stage *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -284,13 +292,13 @@ FieldContainerPtr StageBase::shallowCopy(void) const
 
 StageBase::StageBase(void) :
     Inherited(),
-    _sfRenderTarget(FrameBufferObjectPtr(NullFC))
+    _sfRenderTarget           (FrameBufferObjectPtr(NullFC))
 {
 }
 
 StageBase::StageBase(const StageBase &source) :
     Inherited(source),
-    _sfRenderTarget()
+    _sfRenderTarget           ()
 {
 }
 
@@ -314,13 +322,13 @@ void StageBase::onCreate(const Stage *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void StageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<StageBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -330,10 +338,10 @@ void StageBase::execSyncV(      FieldContainer    &oFrom,
 void StageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StageBase *>(&oFrom), 
+    this->execSync(static_cast<StageBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -353,12 +361,12 @@ void StageBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr StageBase::createAspectCopy(void) const
 {
-    StagePtr returnValue; 
+    StagePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Stage *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Stage *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -370,14 +378,10 @@ void StageBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<StagePtr>::_type("StagePtr", "GroupPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -399,3 +403,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSTAGEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

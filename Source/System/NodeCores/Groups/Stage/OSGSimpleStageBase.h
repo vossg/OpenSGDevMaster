@@ -91,22 +91,22 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StagePtr, 
-                              StageConstPtr, 
+    typedef PointerFwdBuilder<StagePtr,
+                              StageConstPtr,
                               SimpleStage>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StagePtr, 
-                              StageConstPtr, 
+    typedef PointerFwdBuilder<StagePtr,
+                              StageConstPtr,
                               SimpleStage>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StagePtr, 
+    typedef PointerFwdBuilder<StagePtr,
                               StageConstPtr,
                               SimpleStage>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StagePtr, 
+    typedef PointerFwdBuilder<StagePtr,
                               StageConstPtr,
                               SimpleStage>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StagePtr, 
+    typedef PointerFwdBuilder<StagePtr,
                               StageConstPtr,
                               SimpleStage>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StagePtr, 
+    typedef PointerFwdBuilder<StagePtr,
                               StageConstPtr,
                               SimpleStage>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
         NextFieldId = ForegroundsFieldId + 1
     };
 
-    static const OSG::BitVector LeftFieldMask = 
+    static const OSG::BitVector LeftFieldMask =
         (TypeTraits<BitVector>::One << LeftFieldId);
-    static const OSG::BitVector RightFieldMask = 
+    static const OSG::BitVector RightFieldMask =
         (TypeTraits<BitVector>::One << RightFieldId);
-    static const OSG::BitVector BottomFieldMask = 
+    static const OSG::BitVector BottomFieldMask =
         (TypeTraits<BitVector>::One << BottomFieldId);
-    static const OSG::BitVector TopFieldMask = 
+    static const OSG::BitVector TopFieldMask =
         (TypeTraits<BitVector>::One << TopFieldId);
-    static const OSG::BitVector CameraFieldMask = 
+    static const OSG::BitVector CameraFieldMask =
         (TypeTraits<BitVector>::One << CameraFieldId);
-    static const OSG::BitVector BackgroundFieldMask = 
+    static const OSG::BitVector BackgroundFieldMask =
         (TypeTraits<BitVector>::One << BackgroundFieldId);
-    static const OSG::BitVector ForegroundsFieldMask = 
+    static const OSG::BitVector ForegroundsFieldMask =
         (TypeTraits<BitVector>::One << ForegroundsFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -169,100 +168,100 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
 
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFLeft(void);
+                  SFReal32            *getSFLeft            (void);
 #endif
-           SFReal32 *editSFLeft(void);
-     const SFReal32 *getSFLeft (void) const;
+                  SFReal32            *editSFLeft           (void);
+            const SFReal32            *getSFLeft            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFRight(void);
+                  SFReal32            *getSFRight           (void);
 #endif
-           SFReal32 *editSFRight(void);
-     const SFReal32 *getSFRight (void) const;
+                  SFReal32            *editSFRight          (void);
+            const SFReal32            *getSFRight           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFBottom(void);
+                  SFReal32            *getSFBottom          (void);
 #endif
-           SFReal32 *editSFBottom(void);
-     const SFReal32 *getSFBottom (void) const;
+                  SFReal32            *editSFBottom         (void);
+            const SFReal32            *getSFBottom          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFTop(void);
+                  SFReal32            *getSFTop             (void);
 #endif
-           SFReal32 *editSFTop(void);
-     const SFReal32 *getSFTop (void) const;
-     const SFCameraPtr *getSFCamera (void) const;
-     const SFBackgroundPtr *getSFBackground (void) const;
-     const MFForegroundPtr *getMFForegrounds (void) const;
+                  SFReal32            *editSFTop            (void);
+            const SFReal32            *getSFTop             (void) const;
+            const SFCameraPtr         *getSFCamera          (void) const;
+            const SFBackgroundPtr     *getSFBackground      (void) const;
+            const MFForegroundPtr     *getMFForegrounds     (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Real32 &getLeft(void);
+                  Real32              &getLeft            (void);
 #endif
-           Real32 &editLeft(void);
-     const Real32 &getLeft (void) const;
+                  Real32              &editLeft           (void);
+            const Real32              &getLeft            (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getRight(void);
+                  Real32              &getRight           (void);
 #endif
-           Real32 &editRight(void);
-     const Real32 &getRight (void) const;
+                  Real32              &editRight          (void);
+            const Real32              &getRight           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getBottom(void);
+                  Real32              &getBottom          (void);
 #endif
-           Real32 &editBottom(void);
-     const Real32 &getBottom (void) const;
+                  Real32              &editBottom         (void);
+            const Real32              &getBottom          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getTop(void);
+                  Real32              &getTop             (void);
 #endif
-           Real32 &editTop(void);
-     const Real32 &getTop (void) const;
+                  Real32              &editTop            (void);
+            const Real32              &getTop             (void) const;
 
-           CameraPtrConst getCamera(void) const;
+                  CameraPtrConst getCamera         (void) const;
 
-           BackgroundPtrConst getBackground(void) const;
+                  BackgroundPtrConst getBackground     (void) const;
 
-           ForegroundPtrConst getForegrounds(const UInt32 index) const;
-     const MFForegroundPtr &getForegrounds(void) const;
+                  ForegroundPtrConst getForegrounds    (const UInt32 index) const;
+            const MFForegroundPtr     &getForegrounds    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setLeft(const Real32 &value);
-     void setRight(const Real32 &value);
-     void setBottom(const Real32 &value);
-     void setTop(const Real32 &value);
-     void setCamera(CameraPtrConstArg value);
-     void setBackground(BackgroundPtrConstArg value);
+            void setLeft           (const Real32 &value);
+            void setRight          (const Real32 &value);
+            void setBottom         (const Real32 &value);
+            void setTop            (const Real32 &value);
+            void setCamera         (CameraPtrConstArg value);
+            void setBackground     (BackgroundPtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -274,16 +273,16 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
 
     void pushToForegrounds           (ForegroundPtrConstArg value   );
     void insertIntoForegrounds      (UInt32                uiIndex,
-                                    ForegroundPtrConstArg value   );
+                                             ForegroundPtrConstArg value   );
     void replaceInForegrounds  (UInt32                uiIndex,
-                                    ForegroundPtrConstArg value   );
+                                             ForegroundPtrConstArg value   );
     void replaceInForegrounds (ForegroundPtrConstArg pOldElem,
-                                    ForegroundPtrConstArg pNewElem);
+                                             ForegroundPtrConstArg pNewElem);
     void removeFromForegrounds (UInt32                uiIndex );
     void removeFromForegrounds(ForegroundPtrConstArg value   );
     void clearForegrounds            (void                          );
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -302,15 +301,15 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleStagePtr create     (void); 
-    static  SimpleStagePtr createEmpty(void); 
+    static  SimpleStagePtr create     (void);
+    static  SimpleStagePtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -326,13 +325,13 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32 _sfLeft;
-    SFReal32 _sfRight;
-    SFReal32 _sfBottom;
-    SFReal32 _sfTop;
-    SFCameraPtr _sfCamera;
-    SFBackgroundPtr _sfBackground;
-    MFForegroundPtr _mfForegrounds;
+    SFReal32          _sfLeft;
+    SFReal32          _sfRight;
+    SFReal32          _sfBottom;
+    SFReal32          _sfTop;
+    SFCameraPtr       _sfCamera;
+    SFBackgroundPtr   _sfBackground;
+    MFForegroundPtr   _mfForegrounds;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -347,7 +346,7 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SimpleStageBase(void); 
+    virtual ~SimpleStageBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -394,11 +393,11 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

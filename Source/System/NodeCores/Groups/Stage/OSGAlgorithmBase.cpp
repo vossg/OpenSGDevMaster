@@ -65,7 +65,15 @@
 #include "OSGAlgorithmBase.h"
 #include "OSGAlgorithm.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::Algorithm
+    
+ */
 
 
 AlgorithmBase::TypeObject AlgorithmBase::_type(true,
@@ -73,44 +81,43 @@ AlgorithmBase::TypeObject AlgorithmBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     Algorithm::initMethod,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Algorithm\"\n"
-"	parent=\"FieldContainer\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Algorithm\"\n"
+    "\tparent=\"FieldContainer\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &AlgorithmBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &AlgorithmBase::getType(void) const 
+FieldContainerType &AlgorithmBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 AlgorithmBase::getContainerSize(void) const 
-{ 
-    return sizeof(Algorithm); 
+const FieldContainerType &AlgorithmBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 AlgorithmBase::getContainerSize(void) const
+{
+    return sizeof(Algorithm);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -166,13 +173,13 @@ AlgorithmBase::~AlgorithmBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void AlgorithmBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<AlgorithmBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -182,10 +189,10 @@ void AlgorithmBase::execSyncV(      FieldContainer    &oFrom,
 void AlgorithmBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<AlgorithmBase *>(&oFrom), 
+    this->execSync(static_cast<AlgorithmBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -209,6 +216,8 @@ void AlgorithmBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -230,8 +239,6 @@ OSG_FIELDTRAITS_GETTYPE(AlgorithmPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, AlgorithmPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, AlgorithmPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -252,3 +259,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGALGORITHMFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

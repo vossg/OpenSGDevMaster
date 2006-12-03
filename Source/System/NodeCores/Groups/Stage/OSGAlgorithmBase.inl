@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &AlgorithmBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 AlgorithmBase::getClassTypeId(void) 
+OSG::UInt32 AlgorithmBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 AlgorithmBase::getClassGroupId(void)
@@ -79,7 +79,7 @@ OSG::UInt16 AlgorithmBase::getClassGroupId(void)
 inline
 void AlgorithmBase::execSync(      AlgorithmBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -92,7 +92,7 @@ inline
 void AlgorithmBase::execSync (      AlgorithmBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -127,4 +127,3 @@ typedef PointerBuilder<Algorithm>::ObjPtrConstArg  AlgorithmPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGALGORITHMBASE_INLINE_CVSID "@(#)$Id$"
-

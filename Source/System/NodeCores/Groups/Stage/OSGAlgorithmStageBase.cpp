@@ -66,28 +66,38 @@
 #include "OSGAlgorithmStageBase.h"
 #include "OSGAlgorithmStage.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var AlgorithmPtr AlgorithmStageBase::_sfAlgorithm
+/*! \class OSG::AlgorithmStage
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var AlgorithmPtr    AlgorithmStageBase::_sfAlgorithm
     
 */
-/*! \var UInt32 AlgorithmStageBase::_sfProjectionMode
+/*! \var UInt32          AlgorithmStageBase::_sfProjectionMode
     
 */
-/*! \var Matrix AlgorithmStageBase::_sfProjectionMatrix
+/*! \var Matrix          AlgorithmStageBase::_sfProjectionMatrix
     
 */
 
 void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFAlgorithmPtr::Description(
-        SFAlgorithmPtr::getClassType(), 
-        "algorithm", 
+        SFAlgorithmPtr::getClassType(),
+        "algorithm",
         "",
         AlgorithmFieldId, AlgorithmFieldMask,
         false,
@@ -104,8 +114,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "projectionMode", 
+        SFUInt32::getClassType(),
+        "projectionMode",
         "",
         ProjectionModeFieldId, ProjectionModeFieldMask,
         false,
@@ -126,8 +136,8 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "projectionMatrix", 
+        SFMatrix::getClassType(),
+        "projectionMatrix",
         "",
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
@@ -153,66 +163,65 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(true,
     (InitalInsertDescFunc) &AlgorithmStageBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"AlgorithmStage\"\n"
-"	parent=\"Stage\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"algorithm\"\n"
-"		type=\"AlgorithmPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"projectionMode\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0x0001\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"projectionMatrix\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"AlgorithmStage\"\n"
+    "\tparent=\"Stage\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"algorithm\"\n"
+    "\t\ttype=\"AlgorithmPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"projectionMode\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0x0001\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"projectionMatrix\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &AlgorithmStageBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &AlgorithmStageBase::getType(void) const 
+FieldContainerType &AlgorithmStageBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 AlgorithmStageBase::getContainerSize(void) const 
-{ 
-    return sizeof(AlgorithmStage); 
+const FieldContainerType &AlgorithmStageBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 AlgorithmStageBase::getContainerSize(void) const
+{
+    return sizeof(AlgorithmStage);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -237,9 +246,9 @@ const SFUInt32 *AlgorithmStageBase::getSFProjectionMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *AlgorithmStageBase::getSFProjectionMode(void)
+SFUInt32            *AlgorithmStageBase::getSFProjectionMode (void)
 {
-    return this->editSFProjectionMode();
+    return this->editSFProjectionMode ();
 }
 #endif
 
@@ -256,7 +265,7 @@ const SFMatrix *AlgorithmStageBase::getSFProjectionMatrix(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *AlgorithmStageBase::getSFProjectionMatrix(void)
+SFMatrix            *AlgorithmStageBase::getSFProjectionMatrix(void)
 {
     return this->editSFProjectionMatrix();
 }
@@ -386,22 +395,22 @@ void AlgorithmStageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-AlgorithmStagePtr AlgorithmStageBase::createEmpty(void) 
-{ 
-    AlgorithmStagePtr returnValue; 
-    
-    newPtr<AlgorithmStage>(returnValue); 
+AlgorithmStagePtr AlgorithmStageBase::createEmpty(void)
+{
+    AlgorithmStagePtr returnValue;
 
-    return returnValue; 
+    newPtr<AlgorithmStage>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr AlgorithmStageBase::shallowCopy(void) const 
-{ 
-    AlgorithmStagePtr returnValue; 
+FieldContainerPtr AlgorithmStageBase::shallowCopy(void) const
+{
+    AlgorithmStagePtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const AlgorithmStage *>(this)); 
+    newPtr(returnValue, dynamic_cast<const AlgorithmStage *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -410,17 +419,17 @@ FieldContainerPtr AlgorithmStageBase::shallowCopy(void) const
 
 AlgorithmStageBase::AlgorithmStageBase(void) :
     Inherited(),
-    _sfAlgorithm(AlgorithmPtr(NullFC)),
-    _sfProjectionMode(UInt32(0x0001)),
-    _sfProjectionMatrix()
+    _sfAlgorithm              (AlgorithmPtr(NullFC)),
+    _sfProjectionMode         (UInt32(0x0001)),
+    _sfProjectionMatrix       ()
 {
 }
 
 AlgorithmStageBase::AlgorithmStageBase(const AlgorithmStageBase &source) :
     Inherited(source),
-    _sfAlgorithm(),
-    _sfProjectionMode(source._sfProjectionMode),
-    _sfProjectionMatrix(source._sfProjectionMatrix)
+    _sfAlgorithm              (),
+    _sfProjectionMode         (source._sfProjectionMode         ),
+    _sfProjectionMatrix       (source._sfProjectionMatrix       )
 {
 }
 
@@ -444,13 +453,13 @@ void AlgorithmStageBase::onCreate(const AlgorithmStage *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<AlgorithmStageBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -460,10 +469,10 @@ void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
 void AlgorithmStageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<AlgorithmStageBase *>(&oFrom), 
+    this->execSync(static_cast<AlgorithmStageBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -483,12 +492,12 @@ void AlgorithmStageBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr AlgorithmStageBase::createAspectCopy(void) const
 {
-    AlgorithmStagePtr returnValue; 
+    AlgorithmStagePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const AlgorithmStage *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const AlgorithmStage *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -500,14 +509,10 @@ void AlgorithmStageBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<AlgorithmStagePtr>::_type("AlgorithmStagePtr", "StagePtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -529,3 +534,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGALGORITHMSTAGEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

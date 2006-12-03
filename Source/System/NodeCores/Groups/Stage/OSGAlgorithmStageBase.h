@@ -87,22 +87,22 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StagePtr, 
-                              StageConstPtr, 
+    typedef PointerFwdBuilder<StagePtr,
+                              StageConstPtr,
                               AlgorithmStage>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StagePtr, 
-                              StageConstPtr, 
+    typedef PointerFwdBuilder<StagePtr,
+                              StageConstPtr,
                               AlgorithmStage>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StagePtr, 
+    typedef PointerFwdBuilder<StagePtr,
                               StageConstPtr,
                               AlgorithmStage>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StagePtr, 
+    typedef PointerFwdBuilder<StagePtr,
                               StageConstPtr,
                               AlgorithmStage>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StagePtr, 
+    typedef PointerFwdBuilder<StagePtr,
                               StageConstPtr,
                               AlgorithmStage>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StagePtr, 
+    typedef PointerFwdBuilder<StagePtr,
                               StageConstPtr,
                               AlgorithmStage>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -118,22 +118,21 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
         NextFieldId = ProjectionMatrixFieldId + 1
     };
 
-    static const OSG::BitVector AlgorithmFieldMask = 
+    static const OSG::BitVector AlgorithmFieldMask =
         (TypeTraits<BitVector>::One << AlgorithmFieldId);
-    static const OSG::BitVector ProjectionModeFieldMask = 
+    static const OSG::BitVector ProjectionModeFieldMask =
         (TypeTraits<BitVector>::One << ProjectionModeFieldId);
-    static const OSG::BitVector ProjectionMatrixFieldMask = 
+    static const OSG::BitVector ProjectionMatrixFieldMask =
         (TypeTraits<BitVector>::One << ProjectionMatrixFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -141,8 +140,8 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -151,68 +150,68 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFAlgorithmPtr *getSFAlgorithm (void) const;
+            const SFAlgorithmPtr      *getSFAlgorithm       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFProjectionMode(void);
+                  SFUInt32            *getSFProjectionMode  (void);
 #endif
-           SFUInt32 *editSFProjectionMode(void);
-     const SFUInt32 *getSFProjectionMode (void) const;
+                  SFUInt32            *editSFProjectionMode (void);
+            const SFUInt32            *getSFProjectionMode  (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFMatrix *getSFProjectionMatrix(void);
+                  SFMatrix            *getSFProjectionMatrix (void);
 #endif
-           SFMatrix *editSFProjectionMatrix(void);
-     const SFMatrix *getSFProjectionMatrix (void) const;
+                  SFMatrix            *editSFProjectionMatrix(void);
+            const SFMatrix            *getSFProjectionMatrix (void) const;
 
 
-           AlgorithmPtrConst getAlgorithm(void) const;
+                  AlgorithmPtrConst getAlgorithm      (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getProjectionMode(void);
+                  UInt32              &getProjectionMode  (void);
 #endif
-           UInt32 &editProjectionMode(void);
-     const UInt32 &getProjectionMode (void) const;
+                  UInt32              &editProjectionMode (void);
+            const UInt32              &getProjectionMode  (void) const;
 
 #ifdef OSG_1_COMPAT
-           Matrix &getProjectionMatrix(void);
+                  Matrix              &getProjectionMatrix (void);
 #endif
-           Matrix &editProjectionMatrix(void);
-     const Matrix &getProjectionMatrix (void) const;
+                  Matrix              &editProjectionMatrix(void);
+            const Matrix              &getProjectionMatrix (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setAlgorithm(AlgorithmPtrConstArg value);
-     void setProjectionMode(const UInt32 &value);
-     void setProjectionMatrix(const Matrix &value);
+            void setAlgorithm      (AlgorithmPtrConstArg value);
+            void setProjectionMode (const UInt32 &value);
+            void setProjectionMatrix(const Matrix &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -239,15 +238,15 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  AlgorithmStagePtr create     (void); 
-    static  AlgorithmStagePtr createEmpty(void); 
+    static  AlgorithmStagePtr create     (void);
+    static  AlgorithmStagePtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -263,9 +262,9 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFAlgorithmPtr _sfAlgorithm;
-    SFUInt32 _sfProjectionMode;
-    SFMatrix _sfProjectionMatrix;
+    SFAlgorithmPtr    _sfAlgorithm;
+    SFUInt32          _sfProjectionMode;
+    SFMatrix          _sfProjectionMatrix;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -280,7 +279,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AlgorithmStageBase(void); 
+    virtual ~AlgorithmStageBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -327,11 +326,11 @@ class OSG_GROUP_DLLMAPPING AlgorithmStageBase : public Stage
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif
