@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &MaterialGroupBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 MaterialGroupBase::getClassTypeId(void) 
+OSG::UInt32 MaterialGroupBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 MaterialGroupBase::getClassGroupId(void)
@@ -93,24 +93,24 @@ void MaterialGroupBase::setMaterial(MaterialPtrConstArg value)
 
 //! create a new instance of the class
 inline
-MaterialGroupPtr MaterialGroupBase::create(void) 
+MaterialGroupPtr MaterialGroupBase::create(void)
 {
-    MaterialGroupPtr fc; 
+    MaterialGroupPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<MaterialGroup::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void MaterialGroupBase::execSync(      MaterialGroupBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -126,7 +126,7 @@ inline
 void MaterialGroupBase::execSync (      MaterialGroupBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -164,4 +164,3 @@ typedef PointerBuilder<MaterialGroup>::ObjPtrConstArg  MaterialGroupPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGMATERIALGROUPBASE_INLINE_CVSID "@(#)$Id$"
-

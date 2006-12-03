@@ -66,22 +66,35 @@
 #include "OSGMaterialGroupBase.h"
 #include "OSGMaterialGroup.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var MaterialPtr MaterialGroupBase::_sfMaterial
+/*! \class OSG::MaterialGroup
+    MaterialGroup is a standard group node that allows for a material to
+    be set that will override all materials in the entire subtree.  This
+    can be useful if you want to disable materials in a subtree or if a
+    large group of geometry nodes should have the same material applied.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var MaterialPtr     MaterialGroupBase::_sfMaterial
     
 */
 
 void MaterialGroupBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFMaterialPtr::Description(
-        SFMaterialPtr::getClassType(), 
-        "material", 
+        SFMaterialPtr::getClassType(),
+        "material",
         "",
         MaterialFieldId, MaterialFieldMask,
         false,
@@ -103,46 +116,52 @@ MaterialGroupBase::TypeObject MaterialGroupBase::_type(true,
     (InitalInsertDescFunc) &MaterialGroupBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"MaterialGroup\"\n"
-"	parent=\"Group\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"material\"\n"
-"		type=\"MaterialPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		header=\"OSGMaterial.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"MaterialGroup\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "MaterialGroup is a standard group node that allows for a material to be set\n"
+    "that will override all materials in the entire subtree.  This can be useful\n"
+    "if you want to disable materials in a subtree or if a large group of geometry\n"
+    "nodes should have the same material applied.\n"
+    "\t<Field\n"
+    "\t\tname=\"material\"\n"
+    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\theader=\"OSGMaterial.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "MaterialGroup is a standard group node that allows for a material to be set\n"
+    "that will override all materials in the entire subtree.  This can be useful\n"
+    "if you want to disable materials in a subtree or if a large group of geometry\n"
+    "nodes should have the same material applied.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &MaterialGroupBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &MaterialGroupBase::getType(void) const 
+FieldContainerType &MaterialGroupBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 MaterialGroupBase::getContainerSize(void) const 
-{ 
-    return sizeof(MaterialGroup); 
+const FieldContainerType &MaterialGroupBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 MaterialGroupBase::getContainerSize(void) const
+{
+    return sizeof(MaterialGroup);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -254,22 +273,22 @@ void MaterialGroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MaterialGroupPtr MaterialGroupBase::createEmpty(void) 
-{ 
-    MaterialGroupPtr returnValue; 
-    
-    newPtr<MaterialGroup>(returnValue); 
+MaterialGroupPtr MaterialGroupBase::createEmpty(void)
+{
+    MaterialGroupPtr returnValue;
 
-    return returnValue; 
+    newPtr<MaterialGroup>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr MaterialGroupBase::shallowCopy(void) const 
-{ 
-    MaterialGroupPtr returnValue; 
+FieldContainerPtr MaterialGroupBase::shallowCopy(void) const
+{
+    MaterialGroupPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const MaterialGroup *>(this)); 
+    newPtr(returnValue, dynamic_cast<const MaterialGroup *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -278,13 +297,13 @@ FieldContainerPtr MaterialGroupBase::shallowCopy(void) const
 
 MaterialGroupBase::MaterialGroupBase(void) :
     Inherited(),
-    _sfMaterial()
+    _sfMaterial               ()
 {
 }
 
 MaterialGroupBase::MaterialGroupBase(const MaterialGroupBase &source) :
     Inherited(source),
-    _sfMaterial()
+    _sfMaterial               ()
 {
 }
 
@@ -308,13 +327,13 @@ void MaterialGroupBase::onCreate(const MaterialGroup *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void MaterialGroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<MaterialGroupBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -324,10 +343,10 @@ void MaterialGroupBase::execSyncV(      FieldContainer    &oFrom,
 void MaterialGroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MaterialGroupBase *>(&oFrom), 
+    this->execSync(static_cast<MaterialGroupBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -347,12 +366,12 @@ void MaterialGroupBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr MaterialGroupBase::createAspectCopy(void) const
 {
-    MaterialGroupPtr returnValue; 
+    MaterialGroupPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const MaterialGroup *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const MaterialGroup *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -363,6 +382,8 @@ void MaterialGroupBase::resolveLinks(void)
     static_cast<MaterialGroup *>(this)->setMaterial(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -385,8 +406,6 @@ OSG_FIELDTRAITS_GETTYPE(MaterialGroupPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, MaterialGroupPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, MaterialGroupPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -407,3 +426,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGMATERIALGROUPFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

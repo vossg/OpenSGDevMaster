@@ -84,22 +84,22 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<NodeCorePtr, 
-                              NodeCoreConstPtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
+                              NodeCoreConstPtr,
                               Group>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<NodeCorePtr, 
-                              NodeCoreConstPtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
+                              NodeCoreConstPtr,
                               Group>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Group>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Group>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Group>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Group>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -144,15 +143,15 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GroupPtr create     (void); 
-    static  GroupPtr createEmpty(void); 
+    static  GroupPtr create     (void);
+    static  GroupPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -176,7 +175,7 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GroupBase(void); 
+    virtual ~GroupBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,11 +221,11 @@ class OSG_SYSTEM_DLLMAPPING GroupBase : public NodeCore
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

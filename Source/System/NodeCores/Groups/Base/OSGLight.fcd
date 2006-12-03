@@ -10,6 +10,13 @@
 	parentsystemcomponent="true"
     isNodeCore="true"
 >
+\ingroup GrpSystemNodeCoresLights
+
+Light is the base class for all the light source nodes.
+It contains the field for the general light source attributes
+(AmbientColor, DiffuseColor, SpecularColor, Beacon). The Beacon
+defines the reference coordinate system for the lightsource, while
+the position in the graph defines the objects that are lit.
 	<Field
 		name="ambient"
 		type="Color4r"

@@ -70,22 +70,22 @@ class MaterialGroup;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MaterialGroupPtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           MaterialGroup>::ObjPtr         MaterialGroupPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           MaterialGroup>::ObjPtrConst    MaterialGroupPtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           MaterialGroup>::ObjConstPtr    MaterialGroupConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           MaterialGroup>::ObjPtrArg      MaterialGroupPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           MaterialGroup>::ObjConstPtrArg MaterialGroupConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           MaterialGroup>::ObjPtrConstArg MaterialGroupPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<MaterialGroupPtr> : 
+struct FieldTraits<MaterialGroupPtr> :
     public FieldTraitsTemplateBase<MaterialGroupPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<MaterialGroupPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFMaterialGroupPtr"; }

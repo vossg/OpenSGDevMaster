@@ -65,17 +65,27 @@
 #include "OSGLightEngineBase.h"
 #include "OSGLightEngine.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool LightEngineBase::_sfEnabled
+/*! \class OSG::LightEngine
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            LightEngineBase::_sfEnabled
     
 */
 
 void LightEngineBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -85,8 +95,8 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "enabled", 
+        SFBool::getClassType(),
+        "enabled",
         "",
         EnabledFieldId, EnabledFieldMask,
         false,
@@ -107,51 +117,50 @@ LightEngineBase::TypeObject LightEngineBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     LightEngine::initMethod,
     (InitalInsertDescFunc) &LightEngineBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"LightEngine\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	structure=\"abstract\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"enabled\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"LightEngine\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"enabled\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &LightEngineBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &LightEngineBase::getType(void) const 
+FieldContainerType &LightEngineBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 LightEngineBase::getContainerSize(void) const 
-{ 
-    return sizeof(LightEngine); 
+const FieldContainerType &LightEngineBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 LightEngineBase::getContainerSize(void) const
+{
+    return sizeof(LightEngine);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -170,9 +179,9 @@ const SFBool *LightEngineBase::getSFEnabled(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *LightEngineBase::getSFEnabled(void)
+SFBool              *LightEngineBase::getSFEnabled        (void)
 {
-    return this->editSFEnabled();
+    return this->editSFEnabled        ();
 }
 #endif
 
@@ -220,13 +229,13 @@ void LightEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
 LightEngineBase::LightEngineBase(void) :
     Inherited(),
-    _sfEnabled(bool(true))
+    _sfEnabled                (bool(true))
 {
 }
 
 LightEngineBase::LightEngineBase(const LightEngineBase &source) :
     Inherited(source),
-    _sfEnabled(source._sfEnabled)
+    _sfEnabled                (source._sfEnabled                )
 {
 }
 
@@ -240,13 +249,13 @@ LightEngineBase::~LightEngineBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void LightEngineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<LightEngineBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -256,10 +265,10 @@ void LightEngineBase::execSyncV(      FieldContainer    &oFrom,
 void LightEngineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<LightEngineBase *>(&oFrom), 
+    this->execSync(static_cast<LightEngineBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -283,6 +292,8 @@ void LightEngineBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -304,8 +315,6 @@ OSG_FIELDTRAITS_GETTYPE(LightEnginePtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, LightEnginePtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, LightEnginePtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -326,3 +335,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGLIGHTENGINEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

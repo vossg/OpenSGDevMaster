@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &LightBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 LightBase::getClassTypeId(void) 
+OSG::UInt32 LightBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 LightBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Color4r &LightBase::getAmbient(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &LightBase::getAmbient(void)
+Color4r             &LightBase::getAmbient        (void)
 {
-    return this->editAmbient();
+    return this->editAmbient        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Color4r &LightBase::getDiffuse(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &LightBase::getDiffuse(void)
+Color4r             &LightBase::getDiffuse        (void)
 {
-    return this->editDiffuse();
+    return this->editDiffuse        ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Color4r &LightBase::getSpecular(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &LightBase::getSpecular(void)
+Color4r             &LightBase::getSpecular       (void)
 {
-    return this->editSpecular();
+    return this->editSpecular       ();
 }
 #endif
 
@@ -208,9 +208,9 @@ const bool &LightBase::getOn(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &LightBase::getOn(void)
+bool                &LightBase::getOn             (void)
 {
-    return this->editOn();
+    return this->editOn             ();
 }
 #endif
 
@@ -241,7 +241,7 @@ const Real &LightBase::getConstantAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &LightBase::getConstantAttenuation(void)
+Real                &LightBase::getConstantAttenuation(void)
 {
     return this->editConstantAttenuation();
 }
@@ -274,7 +274,7 @@ const Real &LightBase::getLinearAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &LightBase::getLinearAttenuation(void)
+Real                &LightBase::getLinearAttenuation(void)
 {
     return this->editLinearAttenuation();
 }
@@ -307,7 +307,7 @@ const Real &LightBase::getQuadraticAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &LightBase::getQuadraticAttenuation(void)
+Real                &LightBase::getQuadraticAttenuation(void)
 {
     return this->editQuadraticAttenuation();
 }
@@ -344,7 +344,7 @@ void LightBase::setLightEngine(LightEnginePtrConstArg value)
 inline
 void LightBase::execSync(      LightBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -384,7 +384,7 @@ inline
 void LightBase::execSync (      LightBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -446,4 +446,3 @@ typedef PointerBuilder<Light>::ObjPtrConstArg  LightPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGLIGHTBASE_INLINE_CVSID "@(#)$Id$"
-

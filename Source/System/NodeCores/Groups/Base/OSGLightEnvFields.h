@@ -70,22 +70,22 @@ class LightEnv;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! LightEnvPtr
 
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           LightEnv>::ObjPtr         LightEnvPtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           LightEnv>::ObjPtrConst    LightEnvPtrConst;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           LightEnv>::ObjConstPtr    LightEnvConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           LightEnv>::ObjPtrArg      LightEnvPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           LightEnv>::ObjConstPtrArg LightEnvConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           LightEnv>::ObjPtrConstArg LightEnvPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<NodeCorePtr,
 #endif
 
 template <>
-struct FieldTraits<LightEnvPtr> : 
+struct FieldTraits<LightEnvPtr> :
     public FieldTraitsTemplateBase<LightEnvPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<LightEnvPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

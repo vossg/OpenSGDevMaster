@@ -65,7 +65,17 @@
 #include "OSGGroupBase.h"
 #include "OSGGroup.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::Group
+    Group is the simplest form of a NodeCore. A group carries no
+    predefined data and most actions will only traverse the children list.
+    So usually the group does nothing.
+ */
 
 
 GroupBase::TypeObject GroupBase::_type(true,
@@ -78,41 +88,42 @@ GroupBase::TypeObject GroupBase::_type(true,
     NULL,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Group\"\n"
-"	parent=\"NodeCore\"\n"
-"	library=\"System\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"Group is the simplest form of a NodeCore. A group\n"
-"carries no predefined data and most actions will only traverse the\n"
-"children list. So usually the group does nothing.\n"
-"\n"
-"</FieldContainer>\n"
-,
-    "Group is the simplest form of a NodeCore. A group\ncarries no predefined data and most actions will only traverse the\nchildren list. So usually the group does nothing.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Group\"\n"
+    "\tparent=\"NodeCore\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "Group is the simplest form of a NodeCore. A group\n"
+    "carries no predefined data and most actions will only traverse the\n"
+    "children list. So usually the group does nothing.\n"
+    "\n"
+    "</FieldContainer>\n",
+    "Group is the simplest form of a NodeCore. A group\n"
+    "carries no predefined data and most actions will only traverse the\n"
+    "children list. So usually the group does nothing.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GroupBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GroupBase::getType(void) const 
+FieldContainerType &GroupBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GroupBase::getContainerSize(void) const 
-{ 
-    return sizeof(Group); 
+const FieldContainerType &GroupBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GroupBase::getContainerSize(void) const
+{
+    return sizeof(Group);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -145,22 +156,22 @@ void GroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GroupPtr GroupBase::createEmpty(void) 
-{ 
-    GroupPtr returnValue; 
-    
-    newPtr<Group>(returnValue); 
+GroupPtr GroupBase::createEmpty(void)
+{
+    GroupPtr returnValue;
 
-    return returnValue; 
+    newPtr<Group>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr GroupBase::shallowCopy(void) const 
-{ 
-    GroupPtr returnValue; 
+FieldContainerPtr GroupBase::shallowCopy(void) const
+{
+    GroupPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Group *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Group *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -187,13 +198,13 @@ GroupBase::~GroupBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GroupBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -203,10 +214,10 @@ void GroupBase::execSyncV(      FieldContainer    &oFrom,
 void GroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GroupBase *>(&oFrom), 
+    this->execSync(static_cast<GroupBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -226,12 +237,12 @@ void GroupBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr GroupBase::createAspectCopy(void) const
 {
-    GroupPtr returnValue; 
+    GroupPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Group *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Group *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -240,6 +251,8 @@ void GroupBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -262,8 +275,6 @@ OSG_FIELDTRAITS_GETTYPE(GroupPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GroupPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GroupPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -284,3 +295,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGROUPFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

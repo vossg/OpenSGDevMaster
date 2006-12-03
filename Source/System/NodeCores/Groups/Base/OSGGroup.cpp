@@ -50,13 +50,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Group
-
-  Group is the simplest form of a NodeCore. A group
-  carries no predefined data and most actions will only traverse the
-  children list. So usually the group does nothing.
-
-*/
+// Documentation for this class is emited in the
+// OSGGroupBase.cpp file.
+// To modify it, please change the .fcd file (OSGGroup.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */

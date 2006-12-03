@@ -70,22 +70,22 @@ class Group;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GroupPtr
 
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Group>::ObjPtr         GroupPtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Group>::ObjPtrConst    GroupPtrConst;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Group>::ObjConstPtr    GroupConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Group>::ObjPtrArg      GroupPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Group>::ObjConstPtrArg GroupConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Group>::ObjPtrConstArg GroupPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<NodeCorePtr,
 #endif
 
 template <>
-struct FieldTraits<GroupPtr> : 
+struct FieldTraits<GroupPtr> :
     public FieldTraitsTemplateBase<GroupPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<GroupPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFGroupPtr"; }

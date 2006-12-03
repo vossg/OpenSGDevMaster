@@ -70,22 +70,22 @@ class Light;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! LightPtr
 
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Light>::ObjPtr         LightPtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Light>::ObjPtrConst    LightPtrConst;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Light>::ObjConstPtr    LightConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Light>::ObjPtrArg      LightPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Light>::ObjConstPtrArg LightConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Light>::ObjPtrConstArg LightPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<NodeCorePtr,
 #endif
 
 template <>
-struct FieldTraits<LightPtr> : 
+struct FieldTraits<LightPtr> :
     public FieldTraitsTemplateBase<LightPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<LightPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

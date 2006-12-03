@@ -67,47 +67,57 @@
 #include "OSGLightBase.h"
 #include "OSGLight.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color4r LightBase::_sfAmbient
-    	The light's ambient component.
+/*! \class OSG::Light
+    \ingroup GrpSystemNodeCoresLights
 
+    Light is the base class for all the light source nodes. It contains the
+    field for the general light source attributes (AmbientColor,
+    DiffuseColor, SpecularColor, Beacon). The Beacon defines the reference
+    coordinate system for the lightsource, while the position in the graph
+    defines the objects that are lit.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Color4r         LightBase::_sfAmbient
+    The light's ambient component.
 */
-/*! \var Color4r LightBase::_sfDiffuse
-    	The light's diffuse color.
-
+/*! \var Color4r         LightBase::_sfDiffuse
+    The light's diffuse color.
 */
-/*! \var Color4r LightBase::_sfSpecular
-    	The light's specular color.
-
+/*! \var Color4r         LightBase::_sfSpecular
+    The light's specular color.
 */
-/*! \var NodePtr LightBase::_sfBeacon
+/*! \var NodePtr         LightBase::_sfBeacon
     
 */
-/*! \var bool LightBase::_sfOn
+/*! \var bool            LightBase::_sfOn
     
 */
-/*! \var Real LightBase::_sfConstantAttenuation
-    	The light's constant attenuation.
-
+/*! \var Real            LightBase::_sfConstantAttenuation
+    The light's constant attenuation.
 */
-/*! \var Real LightBase::_sfLinearAttenuation
-    	The light's linear attenuation.
-
+/*! \var Real            LightBase::_sfLinearAttenuation
+    The light's linear attenuation.
 */
-/*! \var Real LightBase::_sfQuadraticAttenuation
-    	The light's quadratic attenuation.
-
+/*! \var Real            LightBase::_sfQuadraticAttenuation
+    The light's quadratic attenuation.
 */
-/*! \var LightEnginePtr LightBase::_sfLightEngine
+/*! \var LightEnginePtr  LightBase::_sfLightEngine
     
 */
 
 void LightBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -117,9 +127,9 @@ void LightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "ambient", 
-        "	The light's ambient component.\n",
+        SFColor4r::getClassType(),
+        "ambient",
+        "The light's ambient component.\n",
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -139,9 +149,9 @@ void LightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "diffuse", 
-        "	The light's diffuse color.\n",
+        SFColor4r::getClassType(),
+        "diffuse",
+        "The light's diffuse color.\n",
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -161,9 +171,9 @@ void LightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "specular", 
-        "	The light's specular color.\n",
+        SFColor4r::getClassType(),
+        "specular",
+        "The light's specular color.\n",
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -177,8 +187,8 @@ void LightBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "beacon", 
+        SFNodePtr::getClassType(),
+        "beacon",
         "",
         BeaconFieldId, BeaconFieldMask,
         false,
@@ -195,8 +205,8 @@ void LightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "on", 
+        SFBool::getClassType(),
+        "on",
         "",
         OnFieldId, OnFieldMask,
         false,
@@ -217,9 +227,9 @@ void LightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "constantAttenuation", 
-        "	The light's constant attenuation.\n",
+        SFReal::getClassType(),
+        "constantAttenuation",
+        "The light's constant attenuation.\n",
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -239,9 +249,9 @@ void LightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "linearAttenuation", 
-        "	The light's linear attenuation.\n",
+        SFReal::getClassType(),
+        "linearAttenuation",
+        "The light's linear attenuation.\n",
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -261,9 +271,9 @@ void LightBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "quadraticAttenuation", 
-        "	The light's quadratic attenuation.\n",
+        SFReal::getClassType(),
+        "quadraticAttenuation",
+        "The light's quadratic attenuation.\n",
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -277,8 +287,8 @@ void LightBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFLightEnginePtr::Description(
-        SFLightEnginePtr::getClassType(), 
-        "lightEngine", 
+        SFLightEnginePtr::getClassType(),
+        "lightEngine",
         "",
         LightEngineFieldId, LightEngineFieldMask,
         false,
@@ -295,128 +305,139 @@ LightBase::TypeObject LightBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     Light::initMethod,
     (InitalInsertDescFunc) &LightBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Light\"\n"
-"	parent=\"NodeCore\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"ambient\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,0.f,0.f,1.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The light's ambient component.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"diffuse\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f,1.f,1.f,1.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The light's diffuse color.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"specular\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f,1.f,1.f,1.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The light's specular color.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"beacon\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        doRefCount=\"false\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"on\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"constantAttenuation\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The light's constant attenuation.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"linearAttenuation\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The light's linear attenuation.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"quadraticAttenuation\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The light's quadratic attenuation.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"lightEngine\"\n"
-"		type=\"LightEnginePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Light\"\n"
+    "\tparent=\"NodeCore\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemNodeCoresLights\n"
+    "\n"
+    "Light is the base class for all the light source nodes.\n"
+    "It contains the field for the general light source attributes\n"
+    "(AmbientColor, DiffuseColor, SpecularColor, Beacon). The Beacon\n"
+    "defines the reference coordinate system for the lightsource, while\n"
+    "the position in the graph defines the objects that are lit.\n"
+    "\t<Field\n"
+    "\t\tname=\"ambient\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,0.f,0.f,1.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe light's ambient component.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"diffuse\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f,1.f,1.f,1.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe light's diffuse color.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"specular\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f,1.f,1.f,1.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe light's specular color.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"beacon\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        doRefCount=\"false\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"on\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"constantAttenuation\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe light's constant attenuation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"linearAttenuation\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe light's linear attenuation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"quadraticAttenuation\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe light's quadratic attenuation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"lightEngine\"\n"
+    "\t\ttype=\"LightEnginePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemNodeCoresLights\n"
+    "Light is the base class for all the light source nodes.\n"
+    "It contains the field for the general light source attributes\n"
+    "(AmbientColor, DiffuseColor, SpecularColor, Beacon). The Beacon\n"
+    "defines the reference coordinate system for the lightsource, while\n"
+    "the position in the graph defines the objects that are lit.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &LightBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &LightBase::getType(void) const 
+FieldContainerType &LightBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 LightBase::getContainerSize(void) const 
-{ 
-    return sizeof(Light); 
+const FieldContainerType &LightBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 LightBase::getContainerSize(void) const
+{
+    return sizeof(Light);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -435,9 +456,9 @@ const SFColor4r *LightBase::getSFAmbient(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *LightBase::getSFAmbient(void)
+SFColor4r           *LightBase::getSFAmbient        (void)
 {
-    return this->editSFAmbient();
+    return this->editSFAmbient        ();
 }
 #endif
 
@@ -454,9 +475,9 @@ const SFColor4r *LightBase::getSFDiffuse(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *LightBase::getSFDiffuse(void)
+SFColor4r           *LightBase::getSFDiffuse        (void)
 {
-    return this->editSFDiffuse();
+    return this->editSFDiffuse        ();
 }
 #endif
 
@@ -473,9 +494,9 @@ const SFColor4r *LightBase::getSFSpecular(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *LightBase::getSFSpecular(void)
+SFColor4r           *LightBase::getSFSpecular       (void)
 {
-    return this->editSFSpecular();
+    return this->editSFSpecular       ();
 }
 #endif
 
@@ -498,9 +519,9 @@ const SFBool *LightBase::getSFOn(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *LightBase::getSFOn(void)
+SFBool              *LightBase::getSFOn             (void)
 {
-    return this->editSFOn();
+    return this->editSFOn             ();
 }
 #endif
 
@@ -517,7 +538,7 @@ const SFReal *LightBase::getSFConstantAttenuation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *LightBase::getSFConstantAttenuation(void)
+SFReal              *LightBase::getSFConstantAttenuation(void)
 {
     return this->editSFConstantAttenuation();
 }
@@ -536,7 +557,7 @@ const SFReal *LightBase::getSFLinearAttenuation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *LightBase::getSFLinearAttenuation(void)
+SFReal              *LightBase::getSFLinearAttenuation(void)
 {
     return this->editSFLinearAttenuation();
 }
@@ -555,7 +576,7 @@ const SFReal *LightBase::getSFQuadraticAttenuation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *LightBase::getSFQuadraticAttenuation(void)
+SFReal              *LightBase::getSFQuadraticAttenuation(void)
 {
     return this->editSFQuadraticAttenuation();
 }
@@ -777,29 +798,29 @@ void LightBase::copyFromBin(BinaryDataHandler &pMem,
 
 LightBase::LightBase(void) :
     Inherited(),
-    _sfAmbient(Color4r(0.f,0.f,0.f,1.f)),
-    _sfDiffuse(Color4r(1.f,1.f,1.f,1.f)),
-    _sfSpecular(Color4r(1.f,1.f,1.f,1.f)),
-    _sfBeacon(),
-    _sfOn(bool(true)),
-    _sfConstantAttenuation(Real(1.f)),
-    _sfLinearAttenuation(Real(0.f)),
-    _sfQuadraticAttenuation(Real(0.f)),
-    _sfLightEngine()
+    _sfAmbient                (Color4r(0.f,0.f,0.f,1.f)),
+    _sfDiffuse                (Color4r(1.f,1.f,1.f,1.f)),
+    _sfSpecular               (Color4r(1.f,1.f,1.f,1.f)),
+    _sfBeacon                 (),
+    _sfOn                     (bool(true)),
+    _sfConstantAttenuation    (Real(1.f)),
+    _sfLinearAttenuation      (Real(0.f)),
+    _sfQuadraticAttenuation   (Real(0.f)),
+    _sfLightEngine            ()
 {
 }
 
 LightBase::LightBase(const LightBase &source) :
     Inherited(source),
-    _sfAmbient(source._sfAmbient),
-    _sfDiffuse(source._sfDiffuse),
-    _sfSpecular(source._sfSpecular),
-    _sfBeacon(),
-    _sfOn(source._sfOn),
-    _sfConstantAttenuation(source._sfConstantAttenuation),
-    _sfLinearAttenuation(source._sfLinearAttenuation),
-    _sfQuadraticAttenuation(source._sfQuadraticAttenuation),
-    _sfLightEngine()
+    _sfAmbient                (source._sfAmbient                ),
+    _sfDiffuse                (source._sfDiffuse                ),
+    _sfSpecular               (source._sfSpecular               ),
+    _sfBeacon                 (),
+    _sfOn                     (source._sfOn                     ),
+    _sfConstantAttenuation    (source._sfConstantAttenuation    ),
+    _sfLinearAttenuation      (source._sfLinearAttenuation      ),
+    _sfQuadraticAttenuation   (source._sfQuadraticAttenuation   ),
+    _sfLightEngine            ()
 {
 }
 
@@ -825,13 +846,13 @@ void LightBase::onCreate(const Light *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void LightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<LightBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -841,10 +862,10 @@ void LightBase::execSyncV(      FieldContainer    &oFrom,
 void LightBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<LightBase *>(&oFrom), 
+    this->execSync(static_cast<LightBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -872,14 +893,10 @@ void LightBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<LightPtr>::_type("LightPtr", "NodeCorePtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -901,3 +918,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGLIGHTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

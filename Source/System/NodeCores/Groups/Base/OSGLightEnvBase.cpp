@@ -65,7 +65,15 @@
 #include "OSGLightEnvBase.h"
 #include "OSGLightEnv.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::LightEnv
+    
+ */
 
 
 LightEnvBase::TypeObject LightEnvBase::_type(true,
@@ -78,39 +86,38 @@ LightEnvBase::TypeObject LightEnvBase::_type(true,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"LightEnv\"\n"
-"	parent=\"NodeCore\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"LightEnv\"\n"
+    "\tparent=\"NodeCore\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &LightEnvBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &LightEnvBase::getType(void) const 
+FieldContainerType &LightEnvBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 LightEnvBase::getContainerSize(void) const 
-{ 
-    return sizeof(LightEnv); 
+const FieldContainerType &LightEnvBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 LightEnvBase::getContainerSize(void) const
+{
+    return sizeof(LightEnv);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -143,22 +150,22 @@ void LightEnvBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-LightEnvPtr LightEnvBase::createEmpty(void) 
-{ 
-    LightEnvPtr returnValue; 
-    
-    newPtr<LightEnv>(returnValue); 
+LightEnvPtr LightEnvBase::createEmpty(void)
+{
+    LightEnvPtr returnValue;
 
-    return returnValue; 
+    newPtr<LightEnv>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr LightEnvBase::shallowCopy(void) const 
-{ 
-    LightEnvPtr returnValue; 
+FieldContainerPtr LightEnvBase::shallowCopy(void) const
+{
+    LightEnvPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const LightEnv *>(this)); 
+    newPtr(returnValue, dynamic_cast<const LightEnv *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -185,13 +192,13 @@ LightEnvBase::~LightEnvBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void LightEnvBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<LightEnvBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -201,10 +208,10 @@ void LightEnvBase::execSyncV(      FieldContainer    &oFrom,
 void LightEnvBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<LightEnvBase *>(&oFrom), 
+    this->execSync(static_cast<LightEnvBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -224,12 +231,12 @@ void LightEnvBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr LightEnvBase::createAspectCopy(void) const
 {
-    LightEnvPtr returnValue; 
+    LightEnvPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const LightEnv *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const LightEnv *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -239,14 +246,10 @@ void LightEnvBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<LightEnvPtr>::_type("LightEnvPtr", "NodeCorePtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -268,3 +271,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGLIGHTENVFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

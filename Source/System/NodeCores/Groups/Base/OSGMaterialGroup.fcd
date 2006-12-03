@@ -10,6 +10,10 @@
 	parentsystemcomponent="true"
     isNodeCore="true"
 >
+MaterialGroup is a standard group node that allows for a material to be set
+that will override all materials in the entire subtree.  This can be useful
+if you want to disable materials in a subtree or if a large group of geometry
+nodes should have the same material applied.
 	<Field
 		name="material"
 		type="MaterialPtr"

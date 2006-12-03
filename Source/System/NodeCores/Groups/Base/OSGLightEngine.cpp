@@ -47,8 +47,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::LightEngine
-*/
+// Documentation for this class is emited in the
+// OSGLightEngineBase.cpp file.
+// To modify it, please change the .fcd file (OSGLightEngine.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */

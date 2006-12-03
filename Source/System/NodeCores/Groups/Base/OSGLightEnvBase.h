@@ -84,22 +84,22 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<NodeCorePtr, 
-                              NodeCoreConstPtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
+                              NodeCoreConstPtr,
                               LightEnv>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<NodeCorePtr, 
-                              NodeCoreConstPtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
+                              NodeCoreConstPtr,
                               LightEnv>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               LightEnv>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               LightEnv>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               LightEnv>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               LightEnv>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -144,15 +143,15 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  LightEnvPtr create     (void); 
-    static  LightEnvPtr createEmpty(void); 
+    static  LightEnvPtr create     (void);
+    static  LightEnvPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -176,7 +175,7 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~LightEnvBase(void); 
+    virtual ~LightEnvBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,11 +221,11 @@ class OSG_SYSTEM_DLLMAPPING LightEnvBase : public NodeCore
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

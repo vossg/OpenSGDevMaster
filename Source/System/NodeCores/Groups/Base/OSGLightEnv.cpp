@@ -48,6 +48,10 @@
 
 OSG_USING_NAMESPACE
 
+// Documentation for this class is emited in the
+// OSGLightEnvBase.cpp file.
+// To modify it, please change the .fcd file (OSGLightEnv.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                             Sync                                     */

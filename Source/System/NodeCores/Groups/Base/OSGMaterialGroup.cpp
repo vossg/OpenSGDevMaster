@@ -46,13 +46,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::MaterialGroup
-*
-* MaterialGroup is a standard group node that allows for a material to be set
-* that will override all materials in the entire subtree.  This can be useful
-* if you want to disable materials in a subtree or if a large group of geometry
-* nodes should have the same material applied.
-*/
+// Documentation for this class is emited in the
+// OSGMaterialGroupBase.cpp file.
+// To modify it, please change the .fcd file (OSGMaterialGroup.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                                Sync                                     */

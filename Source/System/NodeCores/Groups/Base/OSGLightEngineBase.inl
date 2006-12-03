@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &LightEngineBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 LightEngineBase::getClassTypeId(void) 
+OSG::UInt32 LightEngineBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 LightEngineBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &LightEngineBase::getEnabled(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &LightEngineBase::getEnabled(void)
+bool                &LightEngineBase::getEnabled        (void)
 {
-    return this->editEnabled();
+    return this->editEnabled        ();
 }
 #endif
 
@@ -112,7 +112,7 @@ void LightEngineBase::setEnabled(const bool &value)
 inline
 void LightEngineBase::execSync(      LightEngineBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -128,7 +128,7 @@ inline
 void LightEngineBase::execSync (      LightEngineBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -166,4 +166,3 @@ typedef PointerBuilder<LightEngine>::ObjPtrConstArg  LightEnginePtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGLIGHTENGINEBASE_INLINE_CVSID "@(#)$Id$"
-

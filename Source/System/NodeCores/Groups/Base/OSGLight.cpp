@@ -49,16 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Light
-    \ingroup GrpSystemNodeCoresLights
-    
-    Light is the base class for all the light source nodes.
-    It contains the field for the general light source attributes 
-    (AmbientColor, DiffuseColor, SpecularColor, Beacon). The Beacon 
-    defines the reference coordinate system for the lightsource, while 
-    the position in the graph defines the objects that are lit.
-*/
-
+// Documentation for this class is emited in the
+// OSGLightBase.cpp file.
+// To modify it, please change the .fcd file (OSGLight.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */

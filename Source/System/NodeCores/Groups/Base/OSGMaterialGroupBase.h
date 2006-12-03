@@ -85,22 +85,22 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               MaterialGroup>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               MaterialGroup>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               MaterialGroup>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               MaterialGroup>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               MaterialGroup>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               MaterialGroup>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
         NextFieldId = MaterialFieldId + 1
     };
 
-    static const OSG::BitVector MaterialFieldMask = 
+    static const OSG::BitVector MaterialFieldMask =
         (TypeTraits<BitVector>::One << MaterialFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -143,42 +142,42 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFMaterialPtr *getSFMaterial (void) const;
+            const SFMaterialPtr       *getSFMaterial        (void) const;
 
 
-           MaterialPtrConst getMaterial(void) const;
+                  MaterialPtrConst getMaterial       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setMaterial(MaterialPtrConstArg value);
+            void setMaterial       (MaterialPtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -205,15 +204,15 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MaterialGroupPtr create     (void); 
-    static  MaterialGroupPtr createEmpty(void); 
+    static  MaterialGroupPtr create     (void);
+    static  MaterialGroupPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -229,7 +228,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMaterialPtr _sfMaterial;
+    SFMaterialPtr     _sfMaterial;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -244,7 +243,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~MaterialGroupBase(void); 
+    virtual ~MaterialGroupBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -291,11 +290,11 @@ class OSG_SYSTEM_DLLMAPPING MaterialGroupBase : public Group
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif
