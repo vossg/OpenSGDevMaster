@@ -70,22 +70,22 @@ class DistanceLOD;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DistanceLODPtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           DistanceLOD>::ObjPtr         DistanceLODPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           DistanceLOD>::ObjPtrConst    DistanceLODPtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           DistanceLOD>::ObjConstPtr    DistanceLODConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           DistanceLOD>::ObjPtrArg      DistanceLODPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           DistanceLOD>::ObjConstPtrArg DistanceLODConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           DistanceLOD>::ObjPtrConstArg DistanceLODPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<DistanceLODPtr> : 
+struct FieldTraits<DistanceLODPtr> :
     public FieldTraitsTemplateBase<DistanceLODPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<DistanceLODPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

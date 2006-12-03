@@ -65,18 +65,28 @@
 #include "OSGTransformBase.h"
 #include "OSGTransform.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Matrixr TransformBase::_sfMatrix
-    	The transformation matrix.
+/*! \class OSG::Transform
+    The basic Transformation class. Just keeps a single matrix. For more
+    complex behaviour, see its descendents.
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Matrixr         TransformBase::_sfMatrix
+    The transformation matrix.
 */
 
 void TransformBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +96,9 @@ void TransformBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrixr::Description(
-        SFMatrixr::getClassType(), 
-        "matrix", 
-        "	The transformation matrix.\n",
+        SFMatrixr::getClassType(),
+        "matrix",
+        "The transformation matrix.\n",
         MatrixFieldId, MatrixFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,47 +123,47 @@ TransformBase::TypeObject TransformBase::_type(true,
     (InitalInsertDescFunc) &TransformBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Transform\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Group\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"The basic Transformation class. Just keeps a single matrix. For more complex\n"
-"behaviour, see its descendents.\n"
-"	<Field\n"
-"		name=\"matrix\"\n"
-"		type=\"Matrixr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	The transformation matrix.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The basic Transformation class. Just keeps a single matrix. For more complex\nbehaviour, see its descendents.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Transform\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "The basic Transformation class. Just keeps a single matrix. For more complex\n"
+    "behaviour, see its descendents.\n"
+    "\t<Field\n"
+    "\t\tname=\"matrix\"\n"
+    "\t\ttype=\"Matrixr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\tThe transformation matrix.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "The basic Transformation class. Just keeps a single matrix. For more complex\n"
+    "behaviour, see its descendents.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TransformBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TransformBase::getType(void) const 
+FieldContainerType &TransformBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TransformBase::getContainerSize(void) const 
-{ 
-    return sizeof(Transform); 
+const FieldContainerType &TransformBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TransformBase::getContainerSize(void) const
+{
+    return sizeof(Transform);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -172,9 +182,9 @@ const SFMatrixr *TransformBase::getSFMatrix(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrixr *TransformBase::getSFMatrix(void)
+SFMatrixr           *TransformBase::getSFMatrix         (void)
 {
-    return this->editSFMatrix();
+    return this->editSFMatrix         ();
 }
 #endif
 
@@ -217,22 +227,22 @@ void TransformBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TransformPtr TransformBase::createEmpty(void) 
-{ 
-    TransformPtr returnValue; 
-    
-    newPtr<Transform>(returnValue); 
+TransformPtr TransformBase::createEmpty(void)
+{
+    TransformPtr returnValue;
 
-    return returnValue; 
+    newPtr<Transform>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TransformBase::shallowCopy(void) const 
-{ 
-    TransformPtr returnValue; 
+FieldContainerPtr TransformBase::shallowCopy(void) const
+{
+    TransformPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Transform *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Transform *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -241,13 +251,13 @@ FieldContainerPtr TransformBase::shallowCopy(void) const
 
 TransformBase::TransformBase(void) :
     Inherited(),
-    _sfMatrix()
+    _sfMatrix                 ()
 {
 }
 
 TransformBase::TransformBase(const TransformBase &source) :
     Inherited(source),
-    _sfMatrix(source._sfMatrix)
+    _sfMatrix                 (source._sfMatrix                 )
 {
 }
 
@@ -261,13 +271,13 @@ TransformBase::~TransformBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TransformBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TransformBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -277,10 +287,10 @@ void TransformBase::execSyncV(      FieldContainer    &oFrom,
 void TransformBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TransformBase *>(&oFrom), 
+    this->execSync(static_cast<TransformBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -300,12 +310,12 @@ void TransformBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TransformBase::createAspectCopy(void) const
 {
-    TransformPtr returnValue; 
+    TransformPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Transform *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Transform *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -314,6 +324,8 @@ void TransformBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -336,8 +348,6 @@ OSG_FIELDTRAITS_GETTYPE(TransformPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TransformPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TransformPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -358,3 +368,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTRANSFORMFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

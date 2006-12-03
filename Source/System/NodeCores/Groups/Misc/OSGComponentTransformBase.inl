@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ComponentTransformBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ComponentTransformBase::getClassTypeId(void) 
+OSG::UInt32 ComponentTransformBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ComponentTransformBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Vec3r &ComponentTransformBase::getCenter(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3r &ComponentTransformBase::getCenter(void)
+Vec3r               &ComponentTransformBase::getCenter         (void)
 {
-    return this->editCenter();
+    return this->editCenter         ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Quaternionr &ComponentTransformBase::getRotation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Quaternionr &ComponentTransformBase::getRotation(void)
+Quaternionr         &ComponentTransformBase::getRotation       (void)
 {
-    return this->editRotation();
+    return this->editRotation       ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Vec3r &ComponentTransformBase::getScale(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3r &ComponentTransformBase::getScale(void)
+Vec3r               &ComponentTransformBase::getScale          (void)
 {
-    return this->editScale();
+    return this->editScale          ();
 }
 #endif
 
@@ -191,7 +191,7 @@ const Quaternionr &ComponentTransformBase::getScaleOrientation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Quaternionr &ComponentTransformBase::getScaleOrientation(void)
+Quaternionr         &ComponentTransformBase::getScaleOrientation(void)
 {
     return this->editScaleOrientation();
 }
@@ -224,9 +224,9 @@ const Vec3r &ComponentTransformBase::getTranslation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3r &ComponentTransformBase::getTranslation(void)
+Vec3r               &ComponentTransformBase::getTranslation    (void)
 {
-    return this->editTranslation();
+    return this->editTranslation    ();
 }
 #endif
 
@@ -241,24 +241,24 @@ void ComponentTransformBase::setTranslation(const Vec3r &value)
 
 //! create a new instance of the class
 inline
-ComponentTransformPtr ComponentTransformBase::create(void) 
+ComponentTransformPtr ComponentTransformBase::create(void)
 {
-    ComponentTransformPtr fc; 
+    ComponentTransformPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ComponentTransform::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ComponentTransformBase::execSync(      ComponentTransformBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -286,7 +286,7 @@ inline
 void ComponentTransformBase::execSync (      ComponentTransformBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -336,4 +336,3 @@ typedef PointerBuilder<ComponentTransform>::ObjPtrConstArg  ComponentTransformPt
 OSG_END_NAMESPACE
 
 #define OSGCOMPONENTTRANSFORMBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -65,22 +65,61 @@
 #include "OSGDistanceLODBase.h"
 #include "OSGDistanceLOD.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Pnt3f DistanceLODBase::_sfCenter
-    	The center for distance calculation.
+/*! \class OSG::DistanceLOD
+    This Node manages the different levels of detail available for a
+    Geometry and decides which one should be rendered, according to the
+    distance from the current camera. The details of the selection process
+    are taken from VRML97 standard.
 
+    The node chooses which child to render based on the range values in the
+    Range multi-field and the current distance of the camera from the
+    object.   The children should be ordered from the highest level of
+    detail to the  lowest level of detail. The range values specify the
+    distances at which to  switch between the different children.
+
+    The center field is a translation offset in the local coordinate system
+    that specifies the center of the object for distance calculations.  In
+    order to calculate which level to display, first the distance from the
+    viewpoint to the center point of the LOD node (with corresponding
+    transformations) is computed.  If the distance is less than the first
+    range value, then the first LOD is drawn. If it is between the first
+    and the second values, then the second LOD is drawn, and so on.
+
+    \example Setting up a OSG::DistanceLOD
+
+    Here is an example of setting up an lod core with a center and a range.
+    You would also need to add children for the 4 LODs.
+
+    \code DistanceLOD lod = DistanceLOD::create();
+
+    // this is supposed to be the center of the LOD model, // that is, this
+    is the point the distance is measured from lod->setCenter(12,1,5); //
+    now we add the distances when models will change
+    lod->editMFRange()->push_back(6.0);
+    lod->editMFRange()->push_back(12.0);
+    lod->editMFRange()->push_back(24.0); \endcode \endexample
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Pnt3f           DistanceLODBase::_sfCenter
+    The center for distance calculation.
 */
-/*! \var Real32 DistanceLODBase::_mfRange
-    	The range intervals.
-
+/*! \var Real32          DistanceLODBase::_mfRange
+    The range intervals.
 */
 
 void DistanceLODBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +129,9 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFPnt3f::Description(
-        SFPnt3f::getClassType(), 
-        "center", 
-        "	The center for distance calculation.\n",
+        SFPnt3f::getClassType(),
+        "center",
+        "The center for distance calculation.\n",
         CenterFieldId, CenterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,9 +151,9 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFReal32::Description(
-        MFReal32::getClassType(), 
-        "range", 
-        "	The range intervals.\n",
+        MFReal32::getClassType(),
+        "range",
+        "The range intervals.\n",
         RangeFieldId, RangeFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -139,55 +178,119 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(true,
     (InitalInsertDescFunc) &DistanceLODBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"DistanceLOD\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"center\"\n"
-"		type=\"Pnt3f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The center for distance calculation.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"range\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The range intervals.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"DistanceLOD\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    "><![CDATA[\n"
+    "This Node manages the different levels of detail available for a Geometry\n"
+    "and decides which one should be rendered, according to the distance from the\n"
+    "current camera. The details of the selection process are taken from VRML97\n"
+    "standard. \n"
+    "\n"
+    "The node chooses which child to render based on the range values in the Range\n"
+    "multi-field and the current distance of the camera from the object.  \n"
+    "The children should be ordered from the highest level of detail to the \n"
+    "lowest level of detail. The range values specify the distances at which to \n"
+    "switch between the different children.\n"
+    "\n"
+    "The center field is a translation offset in the local coordinate system that\n"
+    "specifies the center of the object for distance calculations.  In order to\n"
+    "calculate which level to display, first the distance from the \n"
+    "viewpoint to the center point of the LOD node (with corresponding \n"
+    "transformations) is computed.  If the distance is less than the first range\n"
+    "value, then the first LOD is drawn. If it is between the first and the second\n"
+    "values, then the second LOD is drawn, and so on.\n"
+    "\n"
+    "\\example Setting up a OSG::DistanceLOD\n"
+    "\n"
+    "Here is an example of setting up an lod core with a center and a range.\n"
+    "You would also need to add children for the 4 LODs.\n"
+    "\n"
+    "\\code\n"
+    "DistanceLOD lod = DistanceLOD::create();\n"
+    "\n"
+    "// this is supposed to be the center of the LOD model,\n"
+    "// that is, this is the point the distance is measured from\n"
+    "lod->setCenter(12,1,5);\n"
+    "// now we add the distances when models will change\n"
+    "lod->editMFRange()->push_back(6.0);\n"
+    "lod->editMFRange()->push_back(12.0);\n"
+    "lod->editMFRange()->push_back(24.0);\n"
+    "\\endcode\n"
+    "\\endexample]]>\n"
+    "\t<Field\n"
+    "\t\tname=\"center\"\n"
+    "\t\ttype=\"Pnt3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe center for distance calculation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"range\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe range intervals.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "This Node manages the different levels of detail available for a Geometry\n"
+    "and decides which one should be rendered, according to the distance from the\n"
+    "current camera. The details of the selection process are taken from VRML97\n"
+    "standard. \n"
+    "The node chooses which child to render based on the range values in the Range\n"
+    "multi-field and the current distance of the camera from the object.  \n"
+    "The children should be ordered from the highest level of detail to the \n"
+    "lowest level of detail. The range values specify the distances at which to \n"
+    "switch between the different children.\n"
+    "The center field is a translation offset in the local coordinate system that\n"
+    "specifies the center of the object for distance calculations.  In order to\n"
+    "calculate which level to display, first the distance from the \n"
+    "viewpoint to the center point of the LOD node (with corresponding \n"
+    "transformations) is computed.  If the distance is less than the first range\n"
+    "value, then the first LOD is drawn. If it is between the first and the second\n"
+    "values, then the second LOD is drawn, and so on.\n"
+    "\\example Setting up a OSG::DistanceLOD\n"
+    "Here is an example of setting up an lod core with a center and a range.\n"
+    "You would also need to add children for the 4 LODs.\n"
+    "\\code\n"
+    "DistanceLOD lod = DistanceLOD::create();\n"
+    "// this is supposed to be the center of the LOD model,\n"
+    "// that is, this is the point the distance is measured from\n"
+    "lod->setCenter(12,1,5);\n"
+    "// now we add the distances when models will change\n"
+    "lod->editMFRange()->push_back(6.0);\n"
+    "lod->editMFRange()->push_back(12.0);\n"
+    "lod->editMFRange()->push_back(24.0);\n"
+    "\\endcode\n"
+    "\\endexample\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &DistanceLODBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &DistanceLODBase::getType(void) const 
+FieldContainerType &DistanceLODBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 DistanceLODBase::getContainerSize(void) const 
-{ 
-    return sizeof(DistanceLOD); 
+const FieldContainerType &DistanceLODBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 DistanceLODBase::getContainerSize(void) const
+{
+    return sizeof(DistanceLOD);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -206,9 +309,9 @@ const SFPnt3f *DistanceLODBase::getSFCenter(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFPnt3f *DistanceLODBase::getSFCenter(void)
+SFPnt3f             *DistanceLODBase::getSFCenter         (void)
 {
-    return this->editSFCenter();
+    return this->editSFCenter         ();
 }
 #endif
 
@@ -225,9 +328,9 @@ const MFReal32 *DistanceLODBase::getMFRange(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFReal32 *DistanceLODBase::getMFRange(void)
+MFReal32            *DistanceLODBase::getMFRange          (void)
 {
-    return this->editMFRange();
+    return this->editMFRange          ();
 }
 #endif
 
@@ -282,22 +385,22 @@ void DistanceLODBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DistanceLODPtr DistanceLODBase::createEmpty(void) 
-{ 
-    DistanceLODPtr returnValue; 
-    
-    newPtr<DistanceLOD>(returnValue); 
+DistanceLODPtr DistanceLODBase::createEmpty(void)
+{
+    DistanceLODPtr returnValue;
 
-    return returnValue; 
+    newPtr<DistanceLOD>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr DistanceLODBase::shallowCopy(void) const 
-{ 
-    DistanceLODPtr returnValue; 
+FieldContainerPtr DistanceLODBase::shallowCopy(void) const
+{
+    DistanceLODPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const DistanceLOD *>(this)); 
+    newPtr(returnValue, dynamic_cast<const DistanceLOD *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -306,15 +409,15 @@ FieldContainerPtr DistanceLODBase::shallowCopy(void) const
 
 DistanceLODBase::DistanceLODBase(void) :
     Inherited(),
-    _sfCenter(),
-    _mfRange()
+    _sfCenter                 (),
+    _mfRange                  ()
 {
 }
 
 DistanceLODBase::DistanceLODBase(const DistanceLODBase &source) :
     Inherited(source),
-    _sfCenter(source._sfCenter),
-    _mfRange(source._mfRange)
+    _sfCenter                 (source._sfCenter                 ),
+    _mfRange                  (source._mfRange                  )
 {
 }
 
@@ -328,13 +431,13 @@ DistanceLODBase::~DistanceLODBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void DistanceLODBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<DistanceLODBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -344,10 +447,10 @@ void DistanceLODBase::execSyncV(      FieldContainer    &oFrom,
 void DistanceLODBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DistanceLODBase *>(&oFrom), 
+    this->execSync(static_cast<DistanceLODBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -367,12 +470,12 @@ void DistanceLODBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr DistanceLODBase::createAspectCopy(void) const
 {
-    DistanceLODPtr returnValue; 
+    DistanceLODPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const DistanceLOD *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const DistanceLOD *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -382,14 +485,10 @@ void DistanceLODBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<DistanceLODPtr>::_type("DistanceLODPtr", "GroupPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -411,3 +510,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGDISTANCELODFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &DistanceLODBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 DistanceLODBase::getClassTypeId(void) 
+OSG::UInt32 DistanceLODBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 DistanceLODBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Pnt3f &DistanceLODBase::getCenter(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt3f &DistanceLODBase::getCenter(void)
+Pnt3f               &DistanceLODBase::getCenter         (void)
 {
-    return this->editCenter();
+    return this->editCenter         ();
 }
 #endif
 
@@ -133,15 +133,15 @@ MFReal32 &DistanceLODBase::editRange(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &DistanceLODBase::getRange(const UInt32 index)
+Real32              &DistanceLODBase::getRange          (const UInt32 index)
 {
-    return this->editRange(index);
+    return this->editRange          (index);
 }
 
 inline
-MFReal32 &DistanceLODBase::getRange(void)
+MFReal32            &DistanceLODBase::getRange          (void)
 {
-    return this->editRange();
+    return this->editRange          ();
 }
 
 #endif
@@ -156,24 +156,24 @@ const MFReal32 &DistanceLODBase::getRange(void) const
 
 //! create a new instance of the class
 inline
-DistanceLODPtr DistanceLODBase::create(void) 
+DistanceLODPtr DistanceLODBase::create(void)
 {
-    DistanceLODPtr fc; 
+    DistanceLODPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<DistanceLOD::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void DistanceLODBase::execSync(      DistanceLODBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -183,7 +183,7 @@ void DistanceLODBase::execSync(      DistanceLODBase *pOther,
         _sfCenter.syncWith(pOther->_sfCenter);
 
     if(FieldBits::NoField != (RangeFieldMask & whichField))
-        _mfRange.syncWith(pOther->_mfRange, 
+        _mfRange.syncWith(pOther->_mfRange,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -195,7 +195,7 @@ inline
 void DistanceLODBase::execSync (      DistanceLODBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -204,7 +204,7 @@ void DistanceLODBase::execSync (      DistanceLODBase *pFrom,
         _sfCenter.syncWith(pFrom->_sfCenter);
 
     if(FieldBits::NoField != (RangeFieldMask & whichField))
-        _mfRange.syncWith(pFrom->_mfRange, 
+        _mfRange.syncWith(pFrom->_mfRange,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -244,4 +244,3 @@ typedef PointerBuilder<DistanceLOD>::ObjPtrConstArg  DistanceLODPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGDISTANCELODBASE_INLINE_CVSID "@(#)$Id$"
-

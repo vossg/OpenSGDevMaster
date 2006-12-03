@@ -50,8 +50,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Switch
-*/
+// Documentation for this class is emited in the
+// OSGSwitchBase.cpp file.
+// To modify it, please change the .fcd file (OSGSwitch.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                                Sync                                     */

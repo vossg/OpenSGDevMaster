@@ -53,46 +53,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::DistanceLOD
-
-  This Node manages the different levels of detail available for a Geometry
-  and decides which one should be rendered, according to the distance from the
-  current camera. The details of the selection process are taken from VRML97
-  standard. 
-
-  The node chooses which child to render based on the range values in the Range
-  multi-field and the current distance of the camera from the object.  
-  The children should be ordered from the highest level of detail to the 
-  lowest level of detail. The range values specify the distances at which to 
-  switch between the different children.
-  
-  The center field is a translation offset in the local coordinate system that
-  specified the center of the object for distance calculations.  In order to
-  calculate which level to display, first the distance is calculate from the 
-  viewpoint to the center point of the LOD node (which corresponding 
-  transformations).  If the distance is less than the first range value, then 
-  the first LOD is drawn. If it is between the first and the second values, 
-  then the second LOD is drawn, and so on.
-  
-  \example Setting up a OSG::DistanceLOD
-  
-  Here is an example of setting up an lod core with a center and a range.
-  You would also need to add children for the 4 LODs.
-  
-  \code
-  DistanceLOD lod = DistanceLOD::create();
-
-  // this is supposed to be the center of the LOD model,
-  // that is, this is the point the distance is measured from
-  lod->setCenter(12,1,5);
-  // now we add the distances when models will change
-  lod->editMFRange()->push_back(6.0);
-  lod->editMFRange()->push_back(12.0);
-  lod->editMFRange()->push_back(24.0);    
-  \endcode
-  
-  \endexample
- */
+// Documentation for this class is emited in the
+// OSGDistanceLODBase.cpp file.
+// To modify it, please change the .fcd file (OSGDistanceLOD.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */

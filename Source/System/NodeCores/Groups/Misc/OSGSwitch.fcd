@@ -11,6 +11,8 @@
 	decoratable="false"
     isNodeCore="true"
 >
+This core allows selection of different subtrees with the \c choice field.
+Depending on its value either all, none or only the specified child is enabled.
 	<Field
 		name="choice"
 		type="Int32"

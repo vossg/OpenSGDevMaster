@@ -54,16 +54,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::ProxyGroup
-
-  This group is used for delayed loading. If enabled the child
-  noads are loaded in a second thread. Until the load is finished
-  the child nodes of this group are rendered. This could be used
-  to show a proxy object. If concurrentLoad is false, then loading
-  is done during the first frame. This is the behaviour of a simple
-  inline.
-
-*/
+// Documentation for this class is emited in the
+// OSGProxyGroupBase.cpp file.
+// To modify it, please change the .fcd file (OSGProxyGroup.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */

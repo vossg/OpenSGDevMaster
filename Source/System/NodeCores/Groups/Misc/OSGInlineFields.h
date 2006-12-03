@@ -70,22 +70,22 @@ class Inline;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! InlinePtr
 
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Inline>::ObjPtr         InlinePtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Inline>::ObjPtrConst    InlinePtrConst;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Inline>::ObjConstPtr    InlineConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Inline>::ObjPtrArg      InlinePtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Inline>::ObjConstPtrArg InlineConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Inline>::ObjPtrConstArg InlinePtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<NodeCorePtr,
 #endif
 
 template <>
-struct FieldTraits<InlinePtr> : 
+struct FieldTraits<InlinePtr> :
     public FieldTraitsTemplateBase<InlinePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<InlinePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING 
+    static OSG_GROUP_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFInlinePtr"; }

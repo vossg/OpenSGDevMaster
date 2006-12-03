@@ -70,22 +70,22 @@ class ComponentTransform;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ComponentTransformPtr
 
-typedef PointerFwdBuilder<TransformPtr, 
+typedef PointerFwdBuilder<TransformPtr,
                           TransformConstPtr,
                           ComponentTransform>::ObjPtr         ComponentTransformPtr;
-typedef PointerFwdBuilder<TransformPtr, 
+typedef PointerFwdBuilder<TransformPtr,
                           TransformConstPtr,
                           ComponentTransform>::ObjPtrConst    ComponentTransformPtrConst;
-typedef PointerFwdBuilder<TransformPtr, 
+typedef PointerFwdBuilder<TransformPtr,
                           TransformConstPtr,
                           ComponentTransform>::ObjConstPtr    ComponentTransformConstPtr;
-typedef PointerFwdBuilder<TransformPtr, 
+typedef PointerFwdBuilder<TransformPtr,
                           TransformConstPtr,
                           ComponentTransform>::ObjPtrArg      ComponentTransformPtrArg;
-typedef PointerFwdBuilder<TransformPtr, 
+typedef PointerFwdBuilder<TransformPtr,
                           TransformConstPtr,
                           ComponentTransform>::ObjConstPtrArg ComponentTransformConstPtrArg;
-typedef PointerFwdBuilder<TransformPtr, 
+typedef PointerFwdBuilder<TransformPtr,
                           TransformConstPtr,
                           ComponentTransform>::ObjPtrConstArg ComponentTransformPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<TransformPtr,
 #endif
 
 template <>
-struct FieldTraits<ComponentTransformPtr> : 
+struct FieldTraits<ComponentTransformPtr> :
     public FieldTraitsTemplateBase<ComponentTransformPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ComponentTransformPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING 
+    static OSG_GROUP_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFComponentTransformPtr"; }

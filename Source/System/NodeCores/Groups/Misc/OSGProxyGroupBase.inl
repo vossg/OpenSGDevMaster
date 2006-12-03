@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ProxyGroupBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ProxyGroupBase::getClassTypeId(void) 
+OSG::UInt32 ProxyGroupBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ProxyGroupBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &ProxyGroupBase::getEnabled(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ProxyGroupBase::getEnabled(void)
+bool                &ProxyGroupBase::getEnabled        (void)
 {
-    return this->editEnabled();
+    return this->editEnabled        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const std::string &ProxyGroupBase::getUrl(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ProxyGroupBase::getUrl(void)
+std::string         &ProxyGroupBase::getUrl            (void)
 {
-    return this->editUrl();
+    return this->editUrl            ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const UInt32 &ProxyGroupBase::getState(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ProxyGroupBase::getState(void)
+UInt32              &ProxyGroupBase::getState          (void)
 {
-    return this->editState();
+    return this->editState          ();
 }
 #endif
 
@@ -208,9 +208,9 @@ const bool &ProxyGroupBase::getConcurrentLoad(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ProxyGroupBase::getConcurrentLoad(void)
+bool                &ProxyGroupBase::getConcurrentLoad (void)
 {
-    return this->editConcurrentLoad();
+    return this->editConcurrentLoad ();
 }
 #endif
 
@@ -241,9 +241,9 @@ const DynamicVolume &ProxyGroupBase::getVolume(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-DynamicVolume &ProxyGroupBase::getVolume(void)
+DynamicVolume       &ProxyGroupBase::getVolume         (void)
 {
-    return this->editVolume();
+    return this->editVolume         ();
 }
 #endif
 
@@ -274,9 +274,9 @@ const UInt32 &ProxyGroupBase::getIndices(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ProxyGroupBase::getIndices(void)
+UInt32              &ProxyGroupBase::getIndices        (void)
 {
-    return this->editIndices();
+    return this->editIndices        ();
 }
 #endif
 
@@ -307,9 +307,9 @@ const UInt32 &ProxyGroupBase::getTriangles(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ProxyGroupBase::getTriangles(void)
+UInt32              &ProxyGroupBase::getTriangles      (void)
 {
-    return this->editTriangles();
+    return this->editTriangles      ();
 }
 #endif
 
@@ -340,9 +340,9 @@ const UInt32 &ProxyGroupBase::getPositions(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ProxyGroupBase::getPositions(void)
+UInt32              &ProxyGroupBase::getPositions      (void)
 {
-    return this->editPositions();
+    return this->editPositions      ();
 }
 #endif
 
@@ -373,9 +373,9 @@ const UInt32 &ProxyGroupBase::getGeometries(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ProxyGroupBase::getGeometries(void)
+UInt32              &ProxyGroupBase::getGeometries     (void)
 {
-    return this->editGeometries();
+    return this->editGeometries     ();
 }
 #endif
 
@@ -406,9 +406,9 @@ const std::string &ProxyGroupBase::getAbsoluteUrl(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ProxyGroupBase::getAbsoluteUrl(void)
+std::string         &ProxyGroupBase::getAbsoluteUrl    (void)
 {
-    return this->editAbsoluteUrl();
+    return this->editAbsoluteUrl    ();
 }
 #endif
 
@@ -447,15 +447,15 @@ MFUInt8 &ProxyGroupBase::editInline(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &ProxyGroupBase::getInline(const UInt32 index)
+UInt8               &ProxyGroupBase::getInline         (const UInt32 index)
 {
-    return this->editInline(index);
+    return this->editInline         (index);
 }
 
 inline
-MFUInt8 &ProxyGroupBase::getInline(void)
+MFUInt8             &ProxyGroupBase::getInline         (void)
 {
-    return this->editInline();
+    return this->editInline         ();
 }
 
 #endif
@@ -470,24 +470,24 @@ const MFUInt8 &ProxyGroupBase::getInline(void) const
 
 //! create a new instance of the class
 inline
-ProxyGroupPtr ProxyGroupBase::create(void) 
+ProxyGroupPtr ProxyGroupBase::create(void)
 {
-    ProxyGroupPtr fc; 
+    ProxyGroupPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ProxyGroup::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ProxyGroupBase::execSync(      ProxyGroupBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -527,7 +527,7 @@ void ProxyGroupBase::execSync(      ProxyGroupBase *pOther,
         _sfAbsoluteUrl.syncWith(pOther->_sfAbsoluteUrl);
 
     if(FieldBits::NoField != (InlineFieldMask & whichField))
-        _mfInline.syncWith(pOther->_mfInline, 
+        _mfInline.syncWith(pOther->_mfInline,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -539,7 +539,7 @@ inline
 void ProxyGroupBase::execSync (      ProxyGroupBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -578,7 +578,7 @@ void ProxyGroupBase::execSync (      ProxyGroupBase *pFrom,
         _sfAbsoluteUrl.syncWith(pFrom->_sfAbsoluteUrl);
 
     if(FieldBits::NoField != (InlineFieldMask & whichField))
-        _mfInline.syncWith(pFrom->_mfInline, 
+        _mfInline.syncWith(pFrom->_mfInline,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -618,4 +618,3 @@ typedef PointerBuilder<ProxyGroup>::ObjPtrConstArg  ProxyGroupPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGPROXYGROUPBASE_INLINE_CVSID "@(#)$Id$"
-

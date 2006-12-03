@@ -70,22 +70,22 @@ class Switch;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SwitchPtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Switch>::ObjPtr         SwitchPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Switch>::ObjPtrConst    SwitchPtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Switch>::ObjConstPtr    SwitchConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Switch>::ObjPtrArg      SwitchPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Switch>::ObjConstPtrArg SwitchConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Switch>::ObjPtrConstArg SwitchPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<SwitchPtr> : 
+struct FieldTraits<SwitchPtr> :
     public FieldTraitsTemplateBase<SwitchPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SwitchPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING 
+    static OSG_GROUP_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFSwitchPtr"; }

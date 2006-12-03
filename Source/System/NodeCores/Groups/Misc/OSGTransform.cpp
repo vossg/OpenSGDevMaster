@@ -58,12 +58,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Transform
-
-  The basic Transformation class. Just keeps a single matrix. For more complex 
-  behaviour, see its descendents.     
-
-*/
+// Documentation for this class is emited in the
+// OSGTransformBase.cpp file.
+// To modify it, please change the .fcd file (OSGTransform.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */

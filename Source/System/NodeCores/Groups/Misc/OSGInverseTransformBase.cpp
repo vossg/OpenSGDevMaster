@@ -65,7 +65,15 @@
 #include "OSGInverseTransformBase.h"
 #include "OSGInverseTransform.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::InverseTransform
+    
+ */
 
 
 InverseTransformBase::TypeObject InverseTransformBase::_type(true,
@@ -78,39 +86,38 @@ InverseTransformBase::TypeObject InverseTransformBase::_type(true,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"InverseTransform\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"InverseTransform\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &InverseTransformBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &InverseTransformBase::getType(void) const 
+FieldContainerType &InverseTransformBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 InverseTransformBase::getContainerSize(void) const 
-{ 
-    return sizeof(InverseTransform); 
+const FieldContainerType &InverseTransformBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 InverseTransformBase::getContainerSize(void) const
+{
+    return sizeof(InverseTransform);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -143,22 +150,22 @@ void InverseTransformBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-InverseTransformPtr InverseTransformBase::createEmpty(void) 
-{ 
-    InverseTransformPtr returnValue; 
-    
-    newPtr<InverseTransform>(returnValue); 
+InverseTransformPtr InverseTransformBase::createEmpty(void)
+{
+    InverseTransformPtr returnValue;
 
-    return returnValue; 
+    newPtr<InverseTransform>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr InverseTransformBase::shallowCopy(void) const 
-{ 
-    InverseTransformPtr returnValue; 
+FieldContainerPtr InverseTransformBase::shallowCopy(void) const
+{
+    InverseTransformPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const InverseTransform *>(this)); 
+    newPtr(returnValue, dynamic_cast<const InverseTransform *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -185,13 +192,13 @@ InverseTransformBase::~InverseTransformBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void InverseTransformBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<InverseTransformBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -201,10 +208,10 @@ void InverseTransformBase::execSyncV(      FieldContainer    &oFrom,
 void InverseTransformBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<InverseTransformBase *>(&oFrom), 
+    this->execSync(static_cast<InverseTransformBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -224,12 +231,12 @@ void InverseTransformBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr InverseTransformBase::createAspectCopy(void) const
 {
-    InverseTransformPtr returnValue; 
+    InverseTransformPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const InverseTransform *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const InverseTransform *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -238,6 +245,8 @@ void InverseTransformBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -260,8 +269,6 @@ OSG_FIELDTRAITS_GETTYPE(InverseTransformPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, InverseTransformPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, InverseTransformPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -282,3 +289,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGINVERSETRANSFORMFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

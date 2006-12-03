@@ -66,26 +66,40 @@
 #include "OSGVisitSubTreeBase.h"
 #include "OSGVisitSubTree.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var NodePtr VisitSubTreeBase::_sfSubTreeRoot
-            Reference to the sub-graph to draw in place of this node.  Whatever node is pointed to
-        will be drawn here as if it was duplicated at this location.
-        
+/*! \class OSG::VisitSubTree
+    VisitSubTree provides a way to point the renderer to another section
+    of the scene graph for rendering. This is useful for multi-pass
+    algorithms using OSG::Stage because it provides a way to render the
+    same graph multiple times without duplicating the nodes.
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var NodePtr         VisitSubTreeBase::_sfSubTreeRoot
+    Reference to the sub-graph to draw in place of this node. Whatever
+    node is pointed to will be drawn here as if it was duplicated at this
+    location.
 */
 
 void VisitSubTreeBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "subTreeRoot", 
-        "        Reference to the sub-graph to draw in place of this node.  Whatever node is pointed to\n        will be drawn here as if it was duplicated at this location.\n        \n",
+        SFNodePtr::getClassType(),
+        "subTreeRoot",
+        "Reference to the sub-graph to draw in place of this node.\n"
+        "Whatever node is pointed to will be drawn here as if it was duplicated\n"
+        "at this location.\n",
         SubTreeRootFieldId, SubTreeRootFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -106,53 +120,57 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(true,
     (InitalInsertDescFunc) &VisitSubTreeBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"        name=\"VisitSubTree\"\n"
-"        parent=\"Group\"\n"
-"        library=\"Group\"\n"
-"        pointerfieldtypes=\"none\"\n"
-"        structure=\"concrete\"\n"
-"        systemcomponent=\"true\"\n"
-"        parentsystemcomponent=\"true\"\n"
-"        decoratable=\"false\"\n"
-"        useLocalIncludes=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"VisitSubTree provides a way to point the renderer to another section of the scene graph for rendering.\n"
-"This is useful for multi-pass algorithms using OSG::Stage because it provides a way to render\n"
-"the same graph multiple times without duplicating the nodes.\n"
-"        <Field\n"
-"                name=\"subTreeRoot\"\n"
-"                type=\"NodePtr\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                defaultValue=\"NullFC\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        Reference to the sub-graph to draw in place of this node.  Whatever node is pointed to\n"
-"        will be drawn here as if it was duplicated at this location.\n"
-"        </Field>\n"
-"</FieldContainer>\n"
-,
-    "VisitSubTree provides a way to point the renderer to another section of the scene graph for rendering.\nThis is useful for multi-pass algorithms using OSG::Stage because it provides a way to render\nthe same graph multiple times without duplicating the nodes.\n        \n" 
+    "\n"
+    "<FieldContainer\n"
+    "        name=\"VisitSubTree\"\n"
+    "        parent=\"Group\"\n"
+    "        library=\"Group\"\n"
+    "        pointerfieldtypes=\"none\"\n"
+    "        structure=\"concrete\"\n"
+    "        systemcomponent=\"true\"\n"
+    "        parentsystemcomponent=\"true\"\n"
+    "        decoratable=\"false\"\n"
+    "        useLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "VisitSubTree provides a way to point the renderer to another section of the\n"
+    "scene graph for rendering. This is useful for multi-pass algorithms using\n"
+    "OSG::Stage because it provides a way to render the same graph multiple times\n"
+    "without duplicating the nodes.\n"
+    "        <Field\n"
+    "                name=\"subTreeRoot\"\n"
+    "                type=\"NodePtr\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                defaultValue=\"NullFC\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        Reference to the sub-graph to draw in place of this node.\n"
+    "        Whatever node is pointed to will be drawn here as if it was duplicated\n"
+    "        at this location.\n"
+    "        </Field>\n"
+    "</FieldContainer>\n",
+    "VisitSubTree provides a way to point the renderer to another section of the\n"
+    "scene graph for rendering. This is useful for multi-pass algorithms using\n"
+    "OSG::Stage because it provides a way to render the same graph multiple times\n"
+    "without duplicating the nodes.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &VisitSubTreeBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &VisitSubTreeBase::getType(void) const 
+FieldContainerType &VisitSubTreeBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 VisitSubTreeBase::getContainerSize(void) const 
-{ 
-    return sizeof(VisitSubTree); 
+const FieldContainerType &VisitSubTreeBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 VisitSubTreeBase::getContainerSize(void) const
+{
+    return sizeof(VisitSubTree);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -264,22 +282,22 @@ void VisitSubTreeBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-VisitSubTreePtr VisitSubTreeBase::createEmpty(void) 
-{ 
-    VisitSubTreePtr returnValue; 
-    
-    newPtr<VisitSubTree>(returnValue); 
+VisitSubTreePtr VisitSubTreeBase::createEmpty(void)
+{
+    VisitSubTreePtr returnValue;
 
-    return returnValue; 
+    newPtr<VisitSubTree>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr VisitSubTreeBase::shallowCopy(void) const 
-{ 
-    VisitSubTreePtr returnValue; 
+FieldContainerPtr VisitSubTreeBase::shallowCopy(void) const
+{
+    VisitSubTreePtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const VisitSubTree *>(this)); 
+    newPtr(returnValue, dynamic_cast<const VisitSubTree *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -288,13 +306,13 @@ FieldContainerPtr VisitSubTreeBase::shallowCopy(void) const
 
 VisitSubTreeBase::VisitSubTreeBase(void) :
     Inherited(),
-    _sfSubTreeRoot(NodePtr(NullFC))
+    _sfSubTreeRoot            (NodePtr(NullFC))
 {
 }
 
 VisitSubTreeBase::VisitSubTreeBase(const VisitSubTreeBase &source) :
     Inherited(source),
-    _sfSubTreeRoot()
+    _sfSubTreeRoot            ()
 {
 }
 
@@ -318,13 +336,13 @@ void VisitSubTreeBase::onCreate(const VisitSubTree *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void VisitSubTreeBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<VisitSubTreeBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -334,10 +352,10 @@ void VisitSubTreeBase::execSyncV(      FieldContainer    &oFrom,
 void VisitSubTreeBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<VisitSubTreeBase *>(&oFrom), 
+    this->execSync(static_cast<VisitSubTreeBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -357,12 +375,12 @@ void VisitSubTreeBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr VisitSubTreeBase::createAspectCopy(void) const
 {
-    VisitSubTreePtr returnValue; 
+    VisitSubTreePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const VisitSubTree *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const VisitSubTree *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -374,14 +392,10 @@ void VisitSubTreeBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<VisitSubTreePtr>::_type("VisitSubTreePtr", "GroupPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -403,3 +417,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGVISITSUBTREEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

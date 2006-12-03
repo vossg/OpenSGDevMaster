@@ -86,22 +86,22 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               DistanceLOD>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               DistanceLOD>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               DistanceLOD>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               DistanceLOD>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               DistanceLOD>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               DistanceLOD>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
         NextFieldId = RangeFieldId + 1
     };
 
-    static const OSG::BitVector CenterFieldMask = 
+    static const OSG::BitVector CenterFieldMask =
         (TypeTraits<BitVector>::One << CenterFieldId);
-    static const OSG::BitVector RangeFieldMask = 
+    static const OSG::BitVector RangeFieldMask =
         (TypeTraits<BitVector>::One << RangeFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,39 +148,39 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
 
 
 #ifdef OSG_1_COMPAT
-           SFPnt3f *getSFCenter(void);
+                  SFPnt3f             *getSFCenter          (void);
 #endif
-           SFPnt3f *editSFCenter(void);
-     const SFPnt3f *getSFCenter (void) const;
+                  SFPnt3f             *editSFCenter         (void);
+            const SFPnt3f             *getSFCenter          (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFReal32 *getMFRange(void);
+                  MFReal32            *getMFRange           (void);
 #endif
-           MFReal32 *editMFRange(void);
-     const MFReal32 *getMFRange (void) const;
+                  MFReal32            *editMFRange          (void);
+            const MFReal32            *getMFRange           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Pnt3f &getCenter(void);
+                  Pnt3f               &getCenter          (void);
 #endif
-           Pnt3f &editCenter(void);
-     const Pnt3f &getCenter (void) const;
+                  Pnt3f               &editCenter         (void);
+            const Pnt3f               &getCenter          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getRange(const UInt32 index);
-           MFReal32 &getRange(void);
+                  Real32              &getRange           (const UInt32 index);
+                  MFReal32            &getRange          (void);
 #endif
-           Real32 &editRange(const UInt32 index);
-     const Real32 &getRange (const UInt32 index) const;
-           MFReal32 &editRange(void);
-     const MFReal32 &getRange(void) const;
+                  Real32              &editRange          (const UInt32 index);
+            const Real32              &getRange           (const UInt32 index) const;
+                  MFReal32            &editRange          (void);
+            const MFReal32            &getRange          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setCenter(const Pnt3f &value);
+            void setCenter         (const Pnt3f &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -201,15 +200,15 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DistanceLODPtr create     (void); 
-    static  DistanceLODPtr createEmpty(void); 
+    static  DistanceLODPtr create     (void);
+    static  DistanceLODPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -225,8 +224,8 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFPnt3f _sfCenter;
-    MFReal32 _mfRange;
+    SFPnt3f           _sfCenter;
+    MFReal32          _mfRange;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -241,7 +240,7 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DistanceLODBase(void); 
+    virtual ~DistanceLODBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -287,11 +286,11 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

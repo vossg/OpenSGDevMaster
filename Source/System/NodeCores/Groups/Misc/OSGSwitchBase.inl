@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SwitchBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SwitchBase::getClassTypeId(void) 
+OSG::UInt32 SwitchBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SwitchBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Int32 &SwitchBase::getChoice(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &SwitchBase::getChoice(void)
+Int32               &SwitchBase::getChoice         (void)
 {
-    return this->editChoice();
+    return this->editChoice         ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void SwitchBase::setChoice(const Int32 &value)
 
 //! create a new instance of the class
 inline
-SwitchPtr SwitchBase::create(void) 
+SwitchPtr SwitchBase::create(void)
 {
-    SwitchPtr fc; 
+    SwitchPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Switch::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SwitchBase::execSync(      SwitchBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void SwitchBase::execSync (      SwitchBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<Switch>::ObjPtrConstArg  SwitchPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSWITCHBASE_INLINE_CVSID "@(#)$Id$"
-

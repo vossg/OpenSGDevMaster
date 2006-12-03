@@ -65,20 +65,30 @@
 #include "OSGInlineBase.h"
 #include "OSGInline.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var std::string InlineBase::_mfUrl
+/*! \class OSG::Inline
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var std::string     InlineBase::_mfUrl
     
 */
-/*! \var bool InlineBase::_sfLoaded
+/*! \var bool            InlineBase::_sfLoaded
     
 */
 
 void InlineBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -88,8 +98,8 @@ void InlineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFString::Description(
-        MFString::getClassType(), 
-        "url", 
+        MFString::getClassType(),
+        "url",
         "",
         UrlFieldId, UrlFieldMask,
         true,
@@ -110,8 +120,8 @@ void InlineBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "loaded", 
+        SFBool::getClassType(),
+        "loaded",
         "",
         LoadedFieldId, LoadedFieldMask,
         true,
@@ -137,54 +147,53 @@ InlineBase::TypeObject InlineBase::_type(true,
     (InitalInsertDescFunc) &InlineBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Inline\"\n"
-"	parent=\"NodeCore\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"url\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"loaded\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"true\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Inline\"\n"
+    "\tparent=\"NodeCore\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"url\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"loaded\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &InlineBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &InlineBase::getType(void) const 
+FieldContainerType &InlineBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 InlineBase::getContainerSize(void) const 
-{ 
-    return sizeof(Inline); 
+const FieldContainerType &InlineBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 InlineBase::getContainerSize(void) const
+{
+    return sizeof(Inline);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -203,9 +212,9 @@ const MFString *InlineBase::getMFUrl(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFString *InlineBase::getMFUrl(void)
+MFString            *InlineBase::getMFUrl            (void)
 {
-    return this->editMFUrl();
+    return this->editMFUrl            ();
 }
 #endif
 
@@ -222,9 +231,9 @@ const SFBool *InlineBase::getSFLoaded(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *InlineBase::getSFLoaded(void)
+SFBool              *InlineBase::getSFLoaded         (void)
 {
-    return this->editSFLoaded();
+    return this->editSFLoaded         ();
 }
 #endif
 
@@ -279,22 +288,22 @@ void InlineBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-InlinePtr InlineBase::createEmpty(void) 
-{ 
-    InlinePtr returnValue; 
-    
-    newPtr<Inline>(returnValue); 
+InlinePtr InlineBase::createEmpty(void)
+{
+    InlinePtr returnValue;
 
-    return returnValue; 
+    newPtr<Inline>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr InlineBase::shallowCopy(void) const 
-{ 
-    InlinePtr returnValue; 
+FieldContainerPtr InlineBase::shallowCopy(void) const
+{
+    InlinePtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Inline *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Inline *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -303,15 +312,15 @@ FieldContainerPtr InlineBase::shallowCopy(void) const
 
 InlineBase::InlineBase(void) :
     Inherited(),
-    _mfUrl(),
-    _sfLoaded(bool(true))
+    _mfUrl                    (),
+    _sfLoaded                 (bool(true))
 {
 }
 
 InlineBase::InlineBase(const InlineBase &source) :
     Inherited(source),
-    _mfUrl(source._mfUrl),
-    _sfLoaded(source._sfLoaded)
+    _mfUrl                    (source._mfUrl                    ),
+    _sfLoaded                 (source._sfLoaded                 )
 {
 }
 
@@ -325,13 +334,13 @@ InlineBase::~InlineBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void InlineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<InlineBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -341,10 +350,10 @@ void InlineBase::execSyncV(      FieldContainer    &oFrom,
 void InlineBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<InlineBase *>(&oFrom), 
+    this->execSync(static_cast<InlineBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -364,12 +373,12 @@ void InlineBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr InlineBase::createAspectCopy(void) const
 {
-    InlinePtr returnValue; 
+    InlinePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Inline *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Inline *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -378,6 +387,8 @@ void InlineBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -400,8 +411,6 @@ OSG_FIELDTRAITS_GETTYPE(InlinePtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, InlinePtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, InlinePtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -422,3 +431,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGINLINEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

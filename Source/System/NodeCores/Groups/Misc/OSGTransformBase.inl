@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TransformBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TransformBase::getClassTypeId(void) 
+OSG::UInt32 TransformBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TransformBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Matrixr &TransformBase::getMatrix(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrixr &TransformBase::getMatrix(void)
+Matrixr             &TransformBase::getMatrix         (void)
 {
-    return this->editMatrix();
+    return this->editMatrix         ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void TransformBase::setMatrix(const Matrixr &value)
 
 //! create a new instance of the class
 inline
-TransformPtr TransformBase::create(void) 
+TransformPtr TransformBase::create(void)
 {
-    TransformPtr fc; 
+    TransformPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Transform::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TransformBase::execSync(      TransformBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void TransformBase::execSync (      TransformBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<Transform>::ObjPtrConstArg  TransformPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGTRANSFORMBASE_INLINE_CVSID "@(#)$Id$"
-

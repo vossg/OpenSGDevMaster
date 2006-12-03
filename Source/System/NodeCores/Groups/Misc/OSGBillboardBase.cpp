@@ -65,29 +65,39 @@
 #include "OSGBillboardBase.h"
 #include "OSGBillboard.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Vec3f BillboardBase::_sfAxisOfRotation
+/*! \class OSG::Billboard
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Vec3f           BillboardBase::_sfAxisOfRotation
     
 */
-/*! \var bool BillboardBase::_sfFocusOnCamera
+/*! \var bool            BillboardBase::_sfFocusOnCamera
     
 */
-/*! \var bool BillboardBase::_sfAlignToScreen
+/*! \var bool            BillboardBase::_sfAlignToScreen
     
 */
-/*! \var Real32 BillboardBase::_sfMinAngle
+/*! \var Real32          BillboardBase::_sfMinAngle
     
 */
-/*! \var Real32 BillboardBase::_sfMaxAngle
+/*! \var Real32          BillboardBase::_sfMaxAngle
     
 */
 
 void BillboardBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -97,8 +107,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec3f::Description(
-        SFVec3f::getClassType(), 
-        "axisOfRotation", 
+        SFVec3f::getClassType(),
+        "axisOfRotation",
         "",
         AxisOfRotationFieldId, AxisOfRotationFieldMask,
         true,
@@ -119,8 +129,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "focusOnCamera", 
+        SFBool::getClassType(),
+        "focusOnCamera",
         "",
         FocusOnCameraFieldId, FocusOnCameraFieldMask,
         true,
@@ -141,8 +151,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "alignToScreen", 
+        SFBool::getClassType(),
+        "alignToScreen",
         "",
         AlignToScreenFieldId, AlignToScreenFieldMask,
         true,
@@ -163,8 +173,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "minAngle", 
+        SFReal32::getClassType(),
+        "minAngle",
         "",
         MinAngleFieldId, MinAngleFieldMask,
         true,
@@ -185,8 +195,8 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "maxAngle", 
+        SFReal32::getClassType(),
+        "maxAngle",
         "",
         MaxAngleFieldId, MaxAngleFieldMask,
         true,
@@ -212,82 +222,81 @@ BillboardBase::TypeObject BillboardBase::_type(true,
     (InitalInsertDescFunc) &BillboardBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Billboard\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"axisOfRotation\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0.f, 1.f, 0.f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"focusOnCamera\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"alignToScreen\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"minAngle\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"maxAngle\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"-1.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Billboard\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"axisOfRotation\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0.f, 1.f, 0.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"focusOnCamera\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"alignToScreen\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"minAngle\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"maxAngle\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"-1.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &BillboardBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &BillboardBase::getType(void) const 
+FieldContainerType &BillboardBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 BillboardBase::getContainerSize(void) const 
-{ 
-    return sizeof(Billboard); 
+const FieldContainerType &BillboardBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 BillboardBase::getContainerSize(void) const
+{
+    return sizeof(Billboard);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -306,9 +315,9 @@ const SFVec3f *BillboardBase::getSFAxisOfRotation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec3f *BillboardBase::getSFAxisOfRotation(void)
+SFVec3f             *BillboardBase::getSFAxisOfRotation (void)
 {
-    return this->editSFAxisOfRotation();
+    return this->editSFAxisOfRotation ();
 }
 #endif
 
@@ -325,9 +334,9 @@ const SFBool *BillboardBase::getSFFocusOnCamera(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *BillboardBase::getSFFocusOnCamera(void)
+SFBool              *BillboardBase::getSFFocusOnCamera  (void)
 {
-    return this->editSFFocusOnCamera();
+    return this->editSFFocusOnCamera  ();
 }
 #endif
 
@@ -344,9 +353,9 @@ const SFBool *BillboardBase::getSFAlignToScreen(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *BillboardBase::getSFAlignToScreen(void)
+SFBool              *BillboardBase::getSFAlignToScreen  (void)
 {
-    return this->editSFAlignToScreen();
+    return this->editSFAlignToScreen  ();
 }
 #endif
 
@@ -363,9 +372,9 @@ const SFReal32 *BillboardBase::getSFMinAngle(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *BillboardBase::getSFMinAngle(void)
+SFReal32            *BillboardBase::getSFMinAngle       (void)
 {
-    return this->editSFMinAngle();
+    return this->editSFMinAngle       ();
 }
 #endif
 
@@ -382,9 +391,9 @@ const SFReal32 *BillboardBase::getSFMaxAngle(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *BillboardBase::getSFMaxAngle(void)
+SFReal32            *BillboardBase::getSFMaxAngle       (void)
 {
-    return this->editSFMaxAngle();
+    return this->editSFMaxAngle       ();
 }
 #endif
 
@@ -475,22 +484,22 @@ void BillboardBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-BillboardPtr BillboardBase::createEmpty(void) 
-{ 
-    BillboardPtr returnValue; 
-    
-    newPtr<Billboard>(returnValue); 
+BillboardPtr BillboardBase::createEmpty(void)
+{
+    BillboardPtr returnValue;
 
-    return returnValue; 
+    newPtr<Billboard>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr BillboardBase::shallowCopy(void) const 
-{ 
-    BillboardPtr returnValue; 
+FieldContainerPtr BillboardBase::shallowCopy(void) const
+{
+    BillboardPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Billboard *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Billboard *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -499,21 +508,21 @@ FieldContainerPtr BillboardBase::shallowCopy(void) const
 
 BillboardBase::BillboardBase(void) :
     Inherited(),
-    _sfAxisOfRotation(Vec3f(0.f, 1.f, 0.f)),
-    _sfFocusOnCamera(bool(true)),
-    _sfAlignToScreen(bool(false)),
-    _sfMinAngle(Real32(0.0f)),
-    _sfMaxAngle(Real32(-1.0f))
+    _sfAxisOfRotation         (Vec3f(0.f, 1.f, 0.f)),
+    _sfFocusOnCamera          (bool(true)),
+    _sfAlignToScreen          (bool(false)),
+    _sfMinAngle               (Real32(0.0f)),
+    _sfMaxAngle               (Real32(-1.0f))
 {
 }
 
 BillboardBase::BillboardBase(const BillboardBase &source) :
     Inherited(source),
-    _sfAxisOfRotation(source._sfAxisOfRotation),
-    _sfFocusOnCamera(source._sfFocusOnCamera),
-    _sfAlignToScreen(source._sfAlignToScreen),
-    _sfMinAngle(source._sfMinAngle),
-    _sfMaxAngle(source._sfMaxAngle)
+    _sfAxisOfRotation         (source._sfAxisOfRotation         ),
+    _sfFocusOnCamera          (source._sfFocusOnCamera          ),
+    _sfAlignToScreen          (source._sfAlignToScreen          ),
+    _sfMinAngle               (source._sfMinAngle               ),
+    _sfMaxAngle               (source._sfMaxAngle               )
 {
 }
 
@@ -527,13 +536,13 @@ BillboardBase::~BillboardBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void BillboardBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<BillboardBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -543,10 +552,10 @@ void BillboardBase::execSyncV(      FieldContainer    &oFrom,
 void BillboardBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<BillboardBase *>(&oFrom), 
+    this->execSync(static_cast<BillboardBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -566,12 +575,12 @@ void BillboardBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr BillboardBase::createAspectCopy(void) const
 {
-    BillboardPtr returnValue; 
+    BillboardPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Billboard *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Billboard *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -580,6 +589,8 @@ void BillboardBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -602,8 +613,6 @@ OSG_FIELDTRAITS_GETTYPE(BillboardPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, BillboardPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, BillboardPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -624,3 +633,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGBILLBOARDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

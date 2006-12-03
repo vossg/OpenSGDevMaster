@@ -53,9 +53,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::ComponentTransform
-*/
-
+// Documentation for this class is emited in the
+// OSGComponentTransformBase.cpp file.
+// To modify it, please change the .fcd file (OSGComponentTransform.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Changed                                   */

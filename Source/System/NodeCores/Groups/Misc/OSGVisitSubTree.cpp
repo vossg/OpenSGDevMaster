@@ -54,9 +54,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::VisitSubTree
-
-*/
+// Documentation for this class is emited in the
+// OSGVisitSubTreeBase.cpp file.
+// To modify it, please change the .fcd file (OSGVisitSubTree.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */

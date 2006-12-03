@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &VisitSubTreeBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 VisitSubTreeBase::getClassTypeId(void) 
+OSG::UInt32 VisitSubTreeBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 VisitSubTreeBase::getClassGroupId(void)
@@ -93,24 +93,24 @@ void VisitSubTreeBase::setSubTreeRoot(NodePtrConstArg value)
 
 //! create a new instance of the class
 inline
-VisitSubTreePtr VisitSubTreeBase::create(void) 
+VisitSubTreePtr VisitSubTreeBase::create(void)
 {
-    VisitSubTreePtr fc; 
+    VisitSubTreePtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<VisitSubTree::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void VisitSubTreeBase::execSync(      VisitSubTreeBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -126,7 +126,7 @@ inline
 void VisitSubTreeBase::execSync (      VisitSubTreeBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -164,4 +164,3 @@ typedef PointerBuilder<VisitSubTree>::ObjPtrConstArg  VisitSubTreePtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGVISITSUBTREEBASE_INLINE_CVSID "@(#)$Id$"
-

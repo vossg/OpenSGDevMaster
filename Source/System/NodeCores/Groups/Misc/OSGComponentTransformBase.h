@@ -89,22 +89,22 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<TransformPtr, 
-                              TransformConstPtr, 
+    typedef PointerFwdBuilder<TransformPtr,
+                              TransformConstPtr,
                               ComponentTransform>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<TransformPtr, 
-                              TransformConstPtr, 
+    typedef PointerFwdBuilder<TransformPtr,
+                              TransformConstPtr,
                               ComponentTransform>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<TransformPtr, 
+    typedef PointerFwdBuilder<TransformPtr,
                               TransformConstPtr,
                               ComponentTransform>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<TransformPtr, 
+    typedef PointerFwdBuilder<TransformPtr,
                               TransformConstPtr,
                               ComponentTransform>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<TransformPtr, 
+    typedef PointerFwdBuilder<TransformPtr,
                               TransformConstPtr,
                               ComponentTransform>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<TransformPtr, 
+    typedef PointerFwdBuilder<TransformPtr,
                               TransformConstPtr,
                               ComponentTransform>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -122,26 +122,25 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
         NextFieldId = TranslationFieldId + 1
     };
 
-    static const OSG::BitVector CenterFieldMask = 
+    static const OSG::BitVector CenterFieldMask =
         (TypeTraits<BitVector>::One << CenterFieldId);
-    static const OSG::BitVector RotationFieldMask = 
+    static const OSG::BitVector RotationFieldMask =
         (TypeTraits<BitVector>::One << RotationFieldId);
-    static const OSG::BitVector ScaleFieldMask = 
+    static const OSG::BitVector ScaleFieldMask =
         (TypeTraits<BitVector>::One << ScaleFieldId);
-    static const OSG::BitVector ScaleOrientationFieldMask = 
+    static const OSG::BitVector ScaleOrientationFieldMask =
         (TypeTraits<BitVector>::One << ScaleOrientationFieldId);
-    static const OSG::BitVector TranslationFieldMask = 
+    static const OSG::BitVector TranslationFieldMask =
         (TypeTraits<BitVector>::One << TranslationFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -149,8 +148,8 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -161,76 +160,76 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
 
 
 #ifdef OSG_1_COMPAT
-           SFVec3r *getSFCenter(void);
+                  SFVec3r             *getSFCenter          (void);
 #endif
-           SFVec3r *editSFCenter(void);
-     const SFVec3r *getSFCenter (void) const;
+                  SFVec3r             *editSFCenter         (void);
+            const SFVec3r             *getSFCenter          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFQuaternionr *getSFRotation(void);
+                  SFQuaternionr       *getSFRotation        (void);
 #endif
-           SFQuaternionr *editSFRotation(void);
-     const SFQuaternionr *getSFRotation (void) const;
+                  SFQuaternionr       *editSFRotation       (void);
+            const SFQuaternionr       *getSFRotation        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec3r *getSFScale(void);
+                  SFVec3r             *getSFScale           (void);
 #endif
-           SFVec3r *editSFScale(void);
-     const SFVec3r *getSFScale (void) const;
+                  SFVec3r             *editSFScale          (void);
+            const SFVec3r             *getSFScale           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFQuaternionr *getSFScaleOrientation(void);
+                  SFQuaternionr       *getSFScaleOrientation (void);
 #endif
-           SFQuaternionr *editSFScaleOrientation(void);
-     const SFQuaternionr *getSFScaleOrientation (void) const;
+                  SFQuaternionr       *editSFScaleOrientation(void);
+            const SFQuaternionr       *getSFScaleOrientation (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec3r *getSFTranslation(void);
+                  SFVec3r             *getSFTranslation     (void);
 #endif
-           SFVec3r *editSFTranslation(void);
-     const SFVec3r *getSFTranslation (void) const;
+                  SFVec3r             *editSFTranslation    (void);
+            const SFVec3r             *getSFTranslation     (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Vec3r &getCenter(void);
+                  Vec3r               &getCenter          (void);
 #endif
-           Vec3r &editCenter(void);
-     const Vec3r &getCenter (void) const;
+                  Vec3r               &editCenter         (void);
+            const Vec3r               &getCenter          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Quaternionr &getRotation(void);
+                  Quaternionr         &getRotation        (void);
 #endif
-           Quaternionr &editRotation(void);
-     const Quaternionr &getRotation (void) const;
+                  Quaternionr         &editRotation       (void);
+            const Quaternionr         &getRotation        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3r &getScale(void);
+                  Vec3r               &getScale           (void);
 #endif
-           Vec3r &editScale(void);
-     const Vec3r &getScale (void) const;
+                  Vec3r               &editScale          (void);
+            const Vec3r               &getScale           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Quaternionr &getScaleOrientation(void);
+                  Quaternionr         &getScaleOrientation (void);
 #endif
-           Quaternionr &editScaleOrientation(void);
-     const Quaternionr &getScaleOrientation (void) const;
+                  Quaternionr         &editScaleOrientation(void);
+            const Quaternionr         &getScaleOrientation (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3r &getTranslation(void);
+                  Vec3r               &getTranslation     (void);
 #endif
-           Vec3r &editTranslation(void);
-     const Vec3r &getTranslation (void) const;
+                  Vec3r               &editTranslation    (void);
+            const Vec3r               &getTranslation     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setCenter(const Vec3r &value);
-     void setRotation(const Quaternionr &value);
-     void setScale(const Vec3r &value);
-     void setScaleOrientation(const Quaternionr &value);
-     void setTranslation(const Vec3r &value);
+            void setCenter         (const Vec3r &value);
+            void setRotation       (const Quaternionr &value);
+            void setScale          (const Vec3r &value);
+            void setScaleOrientation(const Quaternionr &value);
+            void setTranslation    (const Vec3r &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -250,15 +249,15 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ComponentTransformPtr create     (void); 
-    static  ComponentTransformPtr createEmpty(void); 
+    static  ComponentTransformPtr create     (void);
+    static  ComponentTransformPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -274,11 +273,11 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFVec3r _sfCenter;
-    SFQuaternionr _sfRotation;
-    SFVec3r _sfScale;
-    SFQuaternionr _sfScaleOrientation;
-    SFVec3r _sfTranslation;
+    SFVec3r           _sfCenter;
+    SFQuaternionr     _sfRotation;
+    SFVec3r           _sfScale;
+    SFQuaternionr     _sfScaleOrientation;
+    SFVec3r           _sfTranslation;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -293,7 +292,7 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ComponentTransformBase(void); 
+    virtual ~ComponentTransformBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -339,11 +338,11 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

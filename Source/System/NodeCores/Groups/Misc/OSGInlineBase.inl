@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &InlineBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 InlineBase::getClassTypeId(void) 
+OSG::UInt32 InlineBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 InlineBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &InlineBase::getLoaded(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &InlineBase::getLoaded(void)
+bool                &InlineBase::getLoaded         (void)
 {
-    return this->editLoaded();
+    return this->editLoaded         ();
 }
 #endif
 
@@ -133,15 +133,15 @@ MFString &InlineBase::editUrl(void)
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &InlineBase::getUrl(const UInt32 index)
+std::string         &InlineBase::getUrl            (const UInt32 index)
 {
-    return this->editUrl(index);
+    return this->editUrl            (index);
 }
 
 inline
-MFString &InlineBase::getUrl(void)
+MFString            &InlineBase::getUrl            (void)
 {
-    return this->editUrl();
+    return this->editUrl            ();
 }
 
 #endif
@@ -156,31 +156,31 @@ const MFString &InlineBase::getUrl(void) const
 
 //! create a new instance of the class
 inline
-InlinePtr InlineBase::create(void) 
+InlinePtr InlineBase::create(void)
 {
-    InlinePtr fc; 
+    InlinePtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Inline::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void InlineBase::execSync(      InlineBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (UrlFieldMask & whichField))
-        _mfUrl.syncWith(pOther->_mfUrl, 
+        _mfUrl.syncWith(pOther->_mfUrl,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -195,13 +195,13 @@ inline
 void InlineBase::execSync (      InlineBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (UrlFieldMask & whichField))
-        _mfUrl.syncWith(pFrom->_mfUrl, 
+        _mfUrl.syncWith(pFrom->_mfUrl,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -244,4 +244,3 @@ typedef PointerBuilder<Inline>::ObjPtrConstArg  InlinePtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGINLINEBASE_INLINE_CVSID "@(#)$Id$"
-

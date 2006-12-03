@@ -65,29 +65,39 @@
 #include "OSGComponentTransformBase.h"
 #include "OSGComponentTransform.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Vec3r ComponentTransformBase::_sfCenter
+/*! \class OSG::ComponentTransform
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Vec3r           ComponentTransformBase::_sfCenter
     
 */
-/*! \var Quaternionr ComponentTransformBase::_sfRotation
+/*! \var Quaternionr     ComponentTransformBase::_sfRotation
     
 */
-/*! \var Vec3r ComponentTransformBase::_sfScale
+/*! \var Vec3r           ComponentTransformBase::_sfScale
     
 */
-/*! \var Quaternionr ComponentTransformBase::_sfScaleOrientation
+/*! \var Quaternionr     ComponentTransformBase::_sfScaleOrientation
     
 */
-/*! \var Vec3r ComponentTransformBase::_sfTranslation
+/*! \var Vec3r           ComponentTransformBase::_sfTranslation
     
 */
 
 void ComponentTransformBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -97,8 +107,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(), 
-        "center", 
+        SFVec3r::getClassType(),
+        "center",
         "",
         CenterFieldId, CenterFieldMask,
         false,
@@ -119,8 +129,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFQuaternionr::Description(
-        SFQuaternionr::getClassType(), 
-        "rotation", 
+        SFQuaternionr::getClassType(),
+        "rotation",
         "",
         RotationFieldId, RotationFieldMask,
         false,
@@ -141,8 +151,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(), 
-        "scale", 
+        SFVec3r::getClassType(),
+        "scale",
         "",
         ScaleFieldId, ScaleFieldMask,
         false,
@@ -163,8 +173,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFQuaternionr::Description(
-        SFQuaternionr::getClassType(), 
-        "scaleOrientation", 
+        SFQuaternionr::getClassType(),
+        "scaleOrientation",
         "",
         ScaleOrientationFieldId, ScaleOrientationFieldMask,
         false,
@@ -185,8 +195,8 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(), 
-        "translation", 
+        SFVec3r::getClassType(),
+        "translation",
         "",
         TranslationFieldId, TranslationFieldMask,
         false,
@@ -212,72 +222,71 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(true,
     (InitalInsertDescFunc) &ComponentTransformBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ComponentTransform\"\n"
-"	parent=\"Transform\"\n"
-"	library=\"Group\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"center\"\n"
-"		type=\"Vec3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"rotation\"\n"
-"		type=\"Quaternionr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"scale\"\n"
-"		type=\"Vec3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"scaleOrientation\"\n"
-"		type=\"Quaternionr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"translation\"\n"
-"		type=\"Vec3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ComponentTransform\"\n"
+    "\tparent=\"Transform\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"center\"\n"
+    "\t\ttype=\"Vec3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"rotation\"\n"
+    "\t\ttype=\"Quaternionr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"scale\"\n"
+    "\t\ttype=\"Vec3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"scaleOrientation\"\n"
+    "\t\ttype=\"Quaternionr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"translation\"\n"
+    "\t\ttype=\"Vec3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ComponentTransformBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ComponentTransformBase::getType(void) const 
+FieldContainerType &ComponentTransformBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ComponentTransformBase::getContainerSize(void) const 
-{ 
-    return sizeof(ComponentTransform); 
+const FieldContainerType &ComponentTransformBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ComponentTransformBase::getContainerSize(void) const
+{
+    return sizeof(ComponentTransform);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -296,9 +305,9 @@ const SFVec3r *ComponentTransformBase::getSFCenter(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec3r *ComponentTransformBase::getSFCenter(void)
+SFVec3r             *ComponentTransformBase::getSFCenter         (void)
 {
-    return this->editSFCenter();
+    return this->editSFCenter         ();
 }
 #endif
 
@@ -315,9 +324,9 @@ const SFQuaternionr *ComponentTransformBase::getSFRotation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFQuaternionr *ComponentTransformBase::getSFRotation(void)
+SFQuaternionr       *ComponentTransformBase::getSFRotation       (void)
 {
-    return this->editSFRotation();
+    return this->editSFRotation       ();
 }
 #endif
 
@@ -334,9 +343,9 @@ const SFVec3r *ComponentTransformBase::getSFScale(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec3r *ComponentTransformBase::getSFScale(void)
+SFVec3r             *ComponentTransformBase::getSFScale          (void)
 {
-    return this->editSFScale();
+    return this->editSFScale          ();
 }
 #endif
 
@@ -353,7 +362,7 @@ const SFQuaternionr *ComponentTransformBase::getSFScaleOrientation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFQuaternionr *ComponentTransformBase::getSFScaleOrientation(void)
+SFQuaternionr       *ComponentTransformBase::getSFScaleOrientation(void)
 {
     return this->editSFScaleOrientation();
 }
@@ -372,9 +381,9 @@ const SFVec3r *ComponentTransformBase::getSFTranslation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec3r *ComponentTransformBase::getSFTranslation(void)
+SFVec3r             *ComponentTransformBase::getSFTranslation    (void)
 {
-    return this->editSFTranslation();
+    return this->editSFTranslation    ();
 }
 #endif
 
@@ -465,22 +474,22 @@ void ComponentTransformBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ComponentTransformPtr ComponentTransformBase::createEmpty(void) 
-{ 
-    ComponentTransformPtr returnValue; 
-    
-    newPtr<ComponentTransform>(returnValue); 
+ComponentTransformPtr ComponentTransformBase::createEmpty(void)
+{
+    ComponentTransformPtr returnValue;
 
-    return returnValue; 
+    newPtr<ComponentTransform>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ComponentTransformBase::shallowCopy(void) const 
-{ 
-    ComponentTransformPtr returnValue; 
+FieldContainerPtr ComponentTransformBase::shallowCopy(void) const
+{
+    ComponentTransformPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ComponentTransform *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ComponentTransform *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -489,21 +498,21 @@ FieldContainerPtr ComponentTransformBase::shallowCopy(void) const
 
 ComponentTransformBase::ComponentTransformBase(void) :
     Inherited(),
-    _sfCenter(),
-    _sfRotation(),
-    _sfScale(),
-    _sfScaleOrientation(),
-    _sfTranslation()
+    _sfCenter                 (),
+    _sfRotation               (),
+    _sfScale                  (),
+    _sfScaleOrientation       (),
+    _sfTranslation            ()
 {
 }
 
 ComponentTransformBase::ComponentTransformBase(const ComponentTransformBase &source) :
     Inherited(source),
-    _sfCenter(source._sfCenter),
-    _sfRotation(source._sfRotation),
-    _sfScale(source._sfScale),
-    _sfScaleOrientation(source._sfScaleOrientation),
-    _sfTranslation(source._sfTranslation)
+    _sfCenter                 (source._sfCenter                 ),
+    _sfRotation               (source._sfRotation               ),
+    _sfScale                  (source._sfScale                  ),
+    _sfScaleOrientation       (source._sfScaleOrientation       ),
+    _sfTranslation            (source._sfTranslation            )
 {
 }
 
@@ -517,13 +526,13 @@ ComponentTransformBase::~ComponentTransformBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ComponentTransformBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ComponentTransformBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -533,10 +542,10 @@ void ComponentTransformBase::execSyncV(      FieldContainer    &oFrom,
 void ComponentTransformBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ComponentTransformBase *>(&oFrom), 
+    this->execSync(static_cast<ComponentTransformBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -556,12 +565,12 @@ void ComponentTransformBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ComponentTransformBase::createAspectCopy(void) const
 {
-    ComponentTransformPtr returnValue; 
+    ComponentTransformPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ComponentTransform *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ComponentTransform *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -570,6 +579,8 @@ void ComponentTransformBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -592,8 +603,6 @@ OSG_FIELDTRAITS_GETTYPE(ComponentTransformPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ComponentTransformPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ComponentTransformPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -614,3 +623,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGCOMPONENTTRANSFORMFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -96,22 +96,22 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               ProxyGroup>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               ProxyGroup>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               ProxyGroup>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               ProxyGroup>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               ProxyGroup>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               ProxyGroup>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -136,40 +136,39 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
         NextFieldId = InlineFieldId + 1
     };
 
-    static const OSG::BitVector EnabledFieldMask = 
+    static const OSG::BitVector EnabledFieldMask =
         (TypeTraits<BitVector>::One << EnabledFieldId);
-    static const OSG::BitVector UrlFieldMask = 
+    static const OSG::BitVector UrlFieldMask =
         (TypeTraits<BitVector>::One << UrlFieldId);
-    static const OSG::BitVector RootFieldMask = 
+    static const OSG::BitVector RootFieldMask =
         (TypeTraits<BitVector>::One << RootFieldId);
-    static const OSG::BitVector StateFieldMask = 
+    static const OSG::BitVector StateFieldMask =
         (TypeTraits<BitVector>::One << StateFieldId);
-    static const OSG::BitVector ConcurrentLoadFieldMask = 
+    static const OSG::BitVector ConcurrentLoadFieldMask =
         (TypeTraits<BitVector>::One << ConcurrentLoadFieldId);
-    static const OSG::BitVector VolumeFieldMask = 
+    static const OSG::BitVector VolumeFieldMask =
         (TypeTraits<BitVector>::One << VolumeFieldId);
-    static const OSG::BitVector IndicesFieldMask = 
+    static const OSG::BitVector IndicesFieldMask =
         (TypeTraits<BitVector>::One << IndicesFieldId);
-    static const OSG::BitVector TrianglesFieldMask = 
+    static const OSG::BitVector TrianglesFieldMask =
         (TypeTraits<BitVector>::One << TrianglesFieldId);
-    static const OSG::BitVector PositionsFieldMask = 
+    static const OSG::BitVector PositionsFieldMask =
         (TypeTraits<BitVector>::One << PositionsFieldId);
-    static const OSG::BitVector GeometriesFieldMask = 
+    static const OSG::BitVector GeometriesFieldMask =
         (TypeTraits<BitVector>::One << GeometriesFieldId);
-    static const OSG::BitVector AbsoluteUrlFieldMask = 
+    static const OSG::BitVector AbsoluteUrlFieldMask =
         (TypeTraits<BitVector>::One << AbsoluteUrlFieldId);
-    static const OSG::BitVector InlineFieldMask = 
+    static const OSG::BitVector InlineFieldMask =
         (TypeTraits<BitVector>::One << InlineFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -177,8 +176,8 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -189,172 +188,172 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFEnabled(void);
+                  SFBool              *getSFEnabled         (void);
 #endif
-           SFBool *editSFEnabled(void);
-     const SFBool *getSFEnabled (void) const;
+                  SFBool              *editSFEnabled        (void);
+            const SFBool              *getSFEnabled         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFString *getSFUrl(void);
+                  SFString            *getSFUrl             (void);
 #endif
-           SFString *editSFUrl(void);
-     const SFString *getSFUrl (void) const;
-     const SFNodePtr *getSFRoot (void) const;
+                  SFString            *editSFUrl            (void);
+            const SFString            *getSFUrl             (void) const;
+            const SFNodePtr           *getSFRoot            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFState(void);
+                  SFUInt32            *getSFState           (void);
 #endif
-           SFUInt32 *editSFState(void);
-     const SFUInt32 *getSFState (void) const;
+                  SFUInt32            *editSFState          (void);
+            const SFUInt32            *getSFState           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFConcurrentLoad(void);
+                  SFBool              *getSFConcurrentLoad  (void);
 #endif
-           SFBool *editSFConcurrentLoad(void);
-     const SFBool *getSFConcurrentLoad (void) const;
+                  SFBool              *editSFConcurrentLoad (void);
+            const SFBool              *getSFConcurrentLoad  (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFDynamicVolume *getSFVolume(void);
+                  SFDynamicVolume     *getSFVolume          (void);
 #endif
-           SFDynamicVolume *editSFVolume(void);
-     const SFDynamicVolume *getSFVolume (void) const;
+                  SFDynamicVolume     *editSFVolume         (void);
+            const SFDynamicVolume     *getSFVolume          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFIndices(void);
+                  SFUInt32            *getSFIndices         (void);
 #endif
-           SFUInt32 *editSFIndices(void);
-     const SFUInt32 *getSFIndices (void) const;
+                  SFUInt32            *editSFIndices        (void);
+            const SFUInt32            *getSFIndices         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFTriangles(void);
+                  SFUInt32            *getSFTriangles       (void);
 #endif
-           SFUInt32 *editSFTriangles(void);
-     const SFUInt32 *getSFTriangles (void) const;
+                  SFUInt32            *editSFTriangles      (void);
+            const SFUInt32            *getSFTriangles       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFPositions(void);
+                  SFUInt32            *getSFPositions       (void);
 #endif
-           SFUInt32 *editSFPositions(void);
-     const SFUInt32 *getSFPositions (void) const;
+                  SFUInt32            *editSFPositions      (void);
+            const SFUInt32            *getSFPositions       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFGeometries(void);
+                  SFUInt32            *getSFGeometries      (void);
 #endif
-           SFUInt32 *editSFGeometries(void);
-     const SFUInt32 *getSFGeometries (void) const;
+                  SFUInt32            *editSFGeometries     (void);
+            const SFUInt32            *getSFGeometries      (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFUInt8 *getMFInline(void);
+                  MFUInt8             *getMFInline          (void);
 #endif
-           MFUInt8 *editMFInline(void);
-     const MFUInt8 *getMFInline (void) const;
+                  MFUInt8             *editMFInline         (void);
+            const MFUInt8             *getMFInline          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getEnabled(void);
+                  bool                &getEnabled         (void);
 #endif
-           bool &editEnabled(void);
-     const bool &getEnabled (void) const;
+                  bool                &editEnabled        (void);
+            const bool                &getEnabled         (void) const;
 
 #ifdef OSG_1_COMPAT
-           std::string &getUrl(void);
+                  std::string         &getUrl             (void);
 #endif
-           std::string &editUrl(void);
-     const std::string &getUrl (void) const;
+                  std::string         &editUrl            (void);
+            const std::string         &getUrl             (void) const;
 
-           NodePtrConst getRoot(void) const;
-
-#ifdef OSG_1_COMPAT
-           UInt32 &getState(void);
-#endif
-           UInt32 &editState(void);
-     const UInt32 &getState (void) const;
+                  NodePtrConst getRoot           (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getConcurrentLoad(void);
+                  UInt32              &getState           (void);
 #endif
-           bool &editConcurrentLoad(void);
-     const bool &getConcurrentLoad (void) const;
+                  UInt32              &editState          (void);
+            const UInt32              &getState           (void) const;
 
 #ifdef OSG_1_COMPAT
-           DynamicVolume &getVolume(void);
+                  bool                &getConcurrentLoad  (void);
 #endif
-           DynamicVolume &editVolume(void);
-     const DynamicVolume &getVolume (void) const;
+                  bool                &editConcurrentLoad (void);
+            const bool                &getConcurrentLoad  (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getIndices(void);
+                  DynamicVolume       &getVolume          (void);
 #endif
-           UInt32 &editIndices(void);
-     const UInt32 &getIndices (void) const;
+                  DynamicVolume       &editVolume         (void);
+            const DynamicVolume       &getVolume          (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getTriangles(void);
+                  UInt32              &getIndices         (void);
 #endif
-           UInt32 &editTriangles(void);
-     const UInt32 &getTriangles (void) const;
+                  UInt32              &editIndices        (void);
+            const UInt32              &getIndices         (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getPositions(void);
+                  UInt32              &getTriangles       (void);
 #endif
-           UInt32 &editPositions(void);
-     const UInt32 &getPositions (void) const;
+                  UInt32              &editTriangles      (void);
+            const UInt32              &getTriangles       (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getGeometries(void);
+                  UInt32              &getPositions       (void);
 #endif
-           UInt32 &editGeometries(void);
-     const UInt32 &getGeometries (void) const;
+                  UInt32              &editPositions      (void);
+            const UInt32              &getPositions       (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt8 &getInline(const UInt32 index);
-           MFUInt8 &getInline(void);
+                  UInt32              &getGeometries      (void);
 #endif
-           UInt8 &editInline(const UInt32 index);
-     const UInt8 &getInline (const UInt32 index) const;
-           MFUInt8 &editInline(void);
-     const MFUInt8 &getInline(void) const;
+                  UInt32              &editGeometries     (void);
+            const UInt32              &getGeometries      (void) const;
+
+#ifdef OSG_1_COMPAT
+                  UInt8               &getInline          (const UInt32 index);
+                  MFUInt8             &getInline         (void);
+#endif
+                  UInt8               &editInline         (const UInt32 index);
+            const UInt8               &getInline          (const UInt32 index) const;
+                  MFUInt8             &editInline         (void);
+            const MFUInt8             &getInline         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setEnabled(const bool &value);
-     void setUrl(const std::string &value);
-     void setRoot(NodePtrConstArg value);
-     void setState(const UInt32 &value);
-     void setConcurrentLoad(const bool &value);
-     void setVolume(const DynamicVolume &value);
-     void setIndices(const UInt32 &value);
-     void setTriangles(const UInt32 &value);
-     void setPositions(const UInt32 &value);
-     void setGeometries(const UInt32 &value);
+            void setEnabled        (const bool &value);
+            void setUrl            (const std::string &value);
+            void setRoot           (NodePtrConstArg value);
+            void setState          (const UInt32 &value);
+            void setConcurrentLoad (const bool &value);
+            void setVolume         (const DynamicVolume &value);
+            void setIndices        (const UInt32 &value);
+            void setTriangles      (const UInt32 &value);
+            void setPositions      (const UInt32 &value);
+            void setGeometries     (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -365,19 +364,19 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \{                                                                 */
 
 
-    void pushToInline           (const UInt8& value   );
+    void pushToInline              (const UInt8& value   );
     void insertIntoInline      (UInt32                uiIndex,
-                                    const UInt8& value   );
+                                             const UInt8& value   );
     void replaceInInline  (UInt32                uiIndex,
-                                    const UInt8& value   );
+                                             const UInt8& value   );
     void replaceInInline (const UInt8& pOldElem,
-                                    const UInt8& pNewElem);
+                                             const UInt8& pNewElem);
     void removeFromInline (UInt32                uiIndex );
     void removeFromInline(const UInt8& value   );
-    void clearInline            (void                          );
+    void clearInline                (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -396,15 +395,15 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ProxyGroupPtr create     (void); 
-    static  ProxyGroupPtr createEmpty(void); 
+    static  ProxyGroupPtr create     (void);
+    static  ProxyGroupPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -420,18 +419,18 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfEnabled;
-    SFString _sfUrl;
-    SFNodePtr _sfRoot;
-    SFUInt32 _sfState;
-    SFBool _sfConcurrentLoad;
-    SFDynamicVolume _sfVolume;
-    SFUInt32 _sfIndices;
-    SFUInt32 _sfTriangles;
-    SFUInt32 _sfPositions;
-    SFUInt32 _sfGeometries;
-    SFString _sfAbsoluteUrl;
-    MFUInt8 _mfInline;
+    SFBool            _sfEnabled;
+    SFString          _sfUrl;
+    SFNodePtr         _sfRoot;
+    SFUInt32          _sfState;
+    SFBool            _sfConcurrentLoad;
+    SFDynamicVolume   _sfVolume;
+    SFUInt32          _sfIndices;
+    SFUInt32          _sfTriangles;
+    SFUInt32          _sfPositions;
+    SFUInt32          _sfGeometries;
+    SFString          _sfAbsoluteUrl;
+    MFUInt8           _mfInline;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -446,7 +445,7 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ProxyGroupBase(void); 
+    virtual ~ProxyGroupBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -462,24 +461,24 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
 
 
 #ifdef OSG_1_COMPAT
-           SFString *getSFAbsoluteUrl(void);
+                  SFString            *getSFAbsoluteUrl     (void);
 #endif
-           SFString *editSFAbsoluteUrl(void);
-     const SFString *getSFAbsoluteUrl (void) const;
+                  SFString            *editSFAbsoluteUrl    (void);
+            const SFString            *getSFAbsoluteUrl     (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           std::string &getAbsoluteUrl(void);
+                  std::string         &getAbsoluteUrl     (void);
 #endif
-           std::string &editAbsoluteUrl(void);
-     const std::string &getAbsoluteUrl(void) const;
+                  std::string         &editAbsoluteUrl    (void);
+            const std::string         &getAbsoluteUrl     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setAbsoluteUrl(const std::string &value);
+            void setAbsoluteUrl    (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -526,11 +525,11 @@ class OSG_GROUP_DLLMAPPING ProxyGroupBase : public Group
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

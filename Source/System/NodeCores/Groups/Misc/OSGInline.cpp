@@ -45,8 +45,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Inline
-*/
+// Documentation for this class is emited in the
+// OSGInlineBase.cpp file.
+// To modify it, please change the .fcd file (OSGInline.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */

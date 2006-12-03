@@ -70,22 +70,22 @@ class Billboard;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! BillboardPtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Billboard>::ObjPtr         BillboardPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Billboard>::ObjPtrConst    BillboardPtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Billboard>::ObjConstPtr    BillboardConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Billboard>::ObjPtrArg      BillboardPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Billboard>::ObjConstPtrArg BillboardConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           Billboard>::ObjPtrConstArg BillboardPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<BillboardPtr> : 
+struct FieldTraits<BillboardPtr> :
     public FieldTraitsTemplateBase<BillboardPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<BillboardPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING 
+    static OSG_GROUP_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFBillboardPtr"; }

@@ -12,6 +12,12 @@
 	useLocalIncludes="false"
     isNodeCore="true"
 >
+This group is used for delayed loading. If enabled the child
+nodes are loaded in a second thread. Until the load is finished
+the child nodes of this group are rendered. This could be used
+to show a proxy object. If concurrentLoad is false, then loading
+is done during the first frame. This is the behaviour of a simple
+inline.
 	<Field
 		name="enabled"
 		type="bool"

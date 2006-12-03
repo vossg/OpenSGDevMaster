@@ -66,50 +66,64 @@
 #include "OSGProxyGroupBase.h"
 #include "OSGProxyGroup.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool ProxyGroupBase::_sfEnabled
+/*! \class OSG::ProxyGroup
+    This group is used for delayed loading. If enabled the child nodes are
+    loaded in a second thread. Until the load is finished the child nodes
+    of this group are rendered. This could be used to show a proxy object.
+    If concurrentLoad is false, then loading is done during the first
+    frame. This is the behaviour of a simple inline.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            ProxyGroupBase::_sfEnabled
     
 */
-/*! \var std::string ProxyGroupBase::_sfUrl
+/*! \var std::string     ProxyGroupBase::_sfUrl
     
 */
-/*! \var NodePtr ProxyGroupBase::_sfRoot
+/*! \var NodePtr         ProxyGroupBase::_sfRoot
     
 */
-/*! \var UInt32 ProxyGroupBase::_sfState
+/*! \var UInt32          ProxyGroupBase::_sfState
     
 */
-/*! \var bool ProxyGroupBase::_sfConcurrentLoad
+/*! \var bool            ProxyGroupBase::_sfConcurrentLoad
     
 */
-/*! \var DynamicVolume ProxyGroupBase::_sfVolume
+/*! \var DynamicVolume   ProxyGroupBase::_sfVolume
     
 */
-/*! \var UInt32 ProxyGroupBase::_sfIndices
+/*! \var UInt32          ProxyGroupBase::_sfIndices
     
 */
-/*! \var UInt32 ProxyGroupBase::_sfTriangles
+/*! \var UInt32          ProxyGroupBase::_sfTriangles
     
 */
-/*! \var UInt32 ProxyGroupBase::_sfPositions
+/*! \var UInt32          ProxyGroupBase::_sfPositions
     
 */
-/*! \var UInt32 ProxyGroupBase::_sfGeometries
+/*! \var UInt32          ProxyGroupBase::_sfGeometries
     
 */
-/*! \var std::string ProxyGroupBase::_sfAbsoluteUrl
+/*! \var std::string     ProxyGroupBase::_sfAbsoluteUrl
     
 */
-/*! \var UInt8 ProxyGroupBase::_mfInline
+/*! \var UInt8           ProxyGroupBase::_mfInline
     
 */
 
 void ProxyGroupBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -119,8 +133,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "enabled", 
+        SFBool::getClassType(),
+        "enabled",
         "",
         EnabledFieldId, EnabledFieldMask,
         false,
@@ -141,8 +155,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "url", 
+        SFString::getClassType(),
+        "url",
         "",
         UrlFieldId, UrlFieldMask,
         false,
@@ -157,8 +171,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "root", 
+        SFNodePtr::getClassType(),
+        "root",
         "",
         RootFieldId, RootFieldMask,
         true,
@@ -175,8 +189,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "state", 
+        SFUInt32::getClassType(),
+        "state",
         "",
         StateFieldId, StateFieldMask,
         false,
@@ -197,8 +211,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "concurrentLoad", 
+        SFBool::getClassType(),
+        "concurrentLoad",
         "",
         ConcurrentLoadFieldId, ConcurrentLoadFieldMask,
         false,
@@ -219,8 +233,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFDynamicVolume::Description(
-        SFDynamicVolume::getClassType(), 
-        "volume", 
+        SFDynamicVolume::getClassType(),
+        "volume",
         "",
         VolumeFieldId, VolumeFieldMask,
         false,
@@ -241,8 +255,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "indices", 
+        SFUInt32::getClassType(),
+        "indices",
         "",
         IndicesFieldId, IndicesFieldMask,
         false,
@@ -263,8 +277,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "triangles", 
+        SFUInt32::getClassType(),
+        "triangles",
         "",
         TrianglesFieldId, TrianglesFieldMask,
         false,
@@ -285,8 +299,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "positions", 
+        SFUInt32::getClassType(),
+        "positions",
         "",
         PositionsFieldId, PositionsFieldMask,
         false,
@@ -307,8 +321,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "geometries", 
+        SFUInt32::getClassType(),
+        "geometries",
         "",
         GeometriesFieldId, GeometriesFieldMask,
         false,
@@ -329,8 +343,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "absoluteUrl", 
+        SFString::getClassType(),
+        "absoluteUrl",
         "",
         AbsoluteUrlFieldId, AbsoluteUrlFieldMask,
         true,
@@ -351,8 +365,8 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt8::Description(
-        MFUInt8::getClassType(), 
-        "inline", 
+        MFUInt8::getClassType(),
+        "inline",
         "",
         InlineFieldId, InlineFieldMask,
         false,
@@ -378,141 +392,151 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(true,
     (InitalInsertDescFunc) &ProxyGroupBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ProxyGroup\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"enabled\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"url\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"root\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"state\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"concurrentLoad\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"volume\"\n"
-"		type=\"DynamicVolume\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"indices\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"triangles\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"positions\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"geometries\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"absoluteUrl\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"inline\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ProxyGroup\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "This group is used for delayed loading. If enabled the child\n"
+    "nodes are loaded in a second thread. Until the load is finished\n"
+    "the child nodes of this group are rendered. This could be used\n"
+    "to show a proxy object. If concurrentLoad is false, then loading\n"
+    "is done during the first frame. This is the behaviour of a simple\n"
+    "inline.\n"
+    "\t<Field\n"
+    "\t\tname=\"enabled\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"url\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"root\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"state\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"concurrentLoad\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"volume\"\n"
+    "\t\ttype=\"DynamicVolume\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"indices\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"triangles\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"positions\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"geometries\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"absoluteUrl\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"inline\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "This group is used for delayed loading. If enabled the child\n"
+    "nodes are loaded in a second thread. Until the load is finished\n"
+    "the child nodes of this group are rendered. This could be used\n"
+    "to show a proxy object. If concurrentLoad is false, then loading\n"
+    "is done during the first frame. This is the behaviour of a simple\n"
+    "inline.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ProxyGroupBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ProxyGroupBase::getType(void) const 
+FieldContainerType &ProxyGroupBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ProxyGroupBase::getContainerSize(void) const 
-{ 
-    return sizeof(ProxyGroup); 
+const FieldContainerType &ProxyGroupBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ProxyGroupBase::getContainerSize(void) const
+{
+    return sizeof(ProxyGroup);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -531,9 +555,9 @@ const SFBool *ProxyGroupBase::getSFEnabled(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ProxyGroupBase::getSFEnabled(void)
+SFBool              *ProxyGroupBase::getSFEnabled        (void)
 {
-    return this->editSFEnabled();
+    return this->editSFEnabled        ();
 }
 #endif
 
@@ -550,9 +574,9 @@ const SFString *ProxyGroupBase::getSFUrl(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *ProxyGroupBase::getSFUrl(void)
+SFString            *ProxyGroupBase::getSFUrl            (void)
 {
-    return this->editSFUrl();
+    return this->editSFUrl            ();
 }
 #endif
 
@@ -575,9 +599,9 @@ const SFUInt32 *ProxyGroupBase::getSFState(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ProxyGroupBase::getSFState(void)
+SFUInt32            *ProxyGroupBase::getSFState          (void)
 {
-    return this->editSFState();
+    return this->editSFState          ();
 }
 #endif
 
@@ -594,9 +618,9 @@ const SFBool *ProxyGroupBase::getSFConcurrentLoad(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ProxyGroupBase::getSFConcurrentLoad(void)
+SFBool              *ProxyGroupBase::getSFConcurrentLoad (void)
 {
-    return this->editSFConcurrentLoad();
+    return this->editSFConcurrentLoad ();
 }
 #endif
 
@@ -613,9 +637,9 @@ const SFDynamicVolume *ProxyGroupBase::getSFVolume(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFDynamicVolume *ProxyGroupBase::getSFVolume(void)
+SFDynamicVolume     *ProxyGroupBase::getSFVolume         (void)
 {
-    return this->editSFVolume();
+    return this->editSFVolume         ();
 }
 #endif
 
@@ -632,9 +656,9 @@ const SFUInt32 *ProxyGroupBase::getSFIndices(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ProxyGroupBase::getSFIndices(void)
+SFUInt32            *ProxyGroupBase::getSFIndices        (void)
 {
-    return this->editSFIndices();
+    return this->editSFIndices        ();
 }
 #endif
 
@@ -651,9 +675,9 @@ const SFUInt32 *ProxyGroupBase::getSFTriangles(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ProxyGroupBase::getSFTriangles(void)
+SFUInt32            *ProxyGroupBase::getSFTriangles      (void)
 {
-    return this->editSFTriangles();
+    return this->editSFTriangles      ();
 }
 #endif
 
@@ -670,9 +694,9 @@ const SFUInt32 *ProxyGroupBase::getSFPositions(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ProxyGroupBase::getSFPositions(void)
+SFUInt32            *ProxyGroupBase::getSFPositions      (void)
 {
-    return this->editSFPositions();
+    return this->editSFPositions      ();
 }
 #endif
 
@@ -689,9 +713,9 @@ const SFUInt32 *ProxyGroupBase::getSFGeometries(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ProxyGroupBase::getSFGeometries(void)
+SFUInt32            *ProxyGroupBase::getSFGeometries     (void)
 {
-    return this->editSFGeometries();
+    return this->editSFGeometries     ();
 }
 #endif
 
@@ -708,9 +732,9 @@ const SFString *ProxyGroupBase::getSFAbsoluteUrl(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *ProxyGroupBase::getSFAbsoluteUrl(void)
+SFString            *ProxyGroupBase::getSFAbsoluteUrl    (void)
 {
-    return this->editSFAbsoluteUrl();
+    return this->editSFAbsoluteUrl    ();
 }
 #endif
 
@@ -727,9 +751,9 @@ const MFUInt8 *ProxyGroupBase::getMFInline(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt8 *ProxyGroupBase::getMFInline(void)
+MFUInt8             *ProxyGroupBase::getMFInline         (void)
 {
-    return this->editMFInline();
+    return this->editMFInline         ();
 }
 #endif
 
@@ -802,7 +826,7 @@ void ProxyGroupBase::pushToInline(const UInt8& value)
 }
 
 void ProxyGroupBase::insertIntoInline(UInt32                uiIndex,
-                                             const UInt8& value   )
+                                                   const UInt8& value   )
 {
     editMField(InlineFieldMask, _mfInline);
 
@@ -814,7 +838,7 @@ void ProxyGroupBase::insertIntoInline(UInt32                uiIndex,
 }
 
 void ProxyGroupBase::replaceInInline(UInt32                uiIndex,
-                                                 const UInt8& value   )
+                                                       const UInt8& value   )
 {
     if(uiIndex >= _mfInline.size())
         return;
@@ -825,7 +849,7 @@ void ProxyGroupBase::replaceInInline(UInt32                uiIndex,
 }
 
 void ProxyGroupBase::replaceInInline(const UInt8& pOldElem,
-                                                  const UInt8& pNewElem)
+                                                        const UInt8& pNewElem)
 {
     Int32  elemIdx = _mfInline.findIndex(pOldElem);
 
@@ -869,19 +893,13 @@ void ProxyGroupBase::removeFromInline(const UInt8& value)
         _mfInline.erase(fieldIt);
     }
 }
+
 void ProxyGroupBase::clearInline(void)
 {
     editMField(InlineFieldMask, _mfInline);
 
     _mfInline.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -1053,22 +1071,22 @@ void ProxyGroupBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ProxyGroupPtr ProxyGroupBase::createEmpty(void) 
-{ 
-    ProxyGroupPtr returnValue; 
-    
-    newPtr<ProxyGroup>(returnValue); 
+ProxyGroupPtr ProxyGroupBase::createEmpty(void)
+{
+    ProxyGroupPtr returnValue;
 
-    return returnValue; 
+    newPtr<ProxyGroup>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ProxyGroupBase::shallowCopy(void) const 
-{ 
-    ProxyGroupPtr returnValue; 
+FieldContainerPtr ProxyGroupBase::shallowCopy(void) const
+{
+    ProxyGroupPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ProxyGroup *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ProxyGroup *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -1077,35 +1095,35 @@ FieldContainerPtr ProxyGroupBase::shallowCopy(void) const
 
 ProxyGroupBase::ProxyGroupBase(void) :
     Inherited(),
-    _sfEnabled(bool(true)),
-    _sfUrl(),
-    _sfRoot(NodePtr(NullFC)),
-    _sfState(UInt32(0)),
-    _sfConcurrentLoad(bool(true)),
-    _sfVolume(),
-    _sfIndices(UInt32(0)),
-    _sfTriangles(UInt32(0)),
-    _sfPositions(),
-    _sfGeometries(),
-    _sfAbsoluteUrl(),
-    _mfInline()
+    _sfEnabled                (bool(true)),
+    _sfUrl                    (),
+    _sfRoot                   (NodePtr(NullFC)),
+    _sfState                  (UInt32(0)),
+    _sfConcurrentLoad         (bool(true)),
+    _sfVolume                 (),
+    _sfIndices                (UInt32(0)),
+    _sfTriangles              (UInt32(0)),
+    _sfPositions              (),
+    _sfGeometries             (),
+    _sfAbsoluteUrl            (),
+    _mfInline                 ()
 {
 }
 
 ProxyGroupBase::ProxyGroupBase(const ProxyGroupBase &source) :
     Inherited(source),
-    _sfEnabled(source._sfEnabled),
-    _sfUrl(source._sfUrl),
-    _sfRoot(),
-    _sfState(source._sfState),
-    _sfConcurrentLoad(source._sfConcurrentLoad),
-    _sfVolume(source._sfVolume),
-    _sfIndices(source._sfIndices),
-    _sfTriangles(source._sfTriangles),
-    _sfPositions(source._sfPositions),
-    _sfGeometries(source._sfGeometries),
-    _sfAbsoluteUrl(source._sfAbsoluteUrl),
-    _mfInline(source._mfInline)
+    _sfEnabled                (source._sfEnabled                ),
+    _sfUrl                    (source._sfUrl                    ),
+    _sfRoot                   (),
+    _sfState                  (source._sfState                  ),
+    _sfConcurrentLoad         (source._sfConcurrentLoad         ),
+    _sfVolume                 (source._sfVolume                 ),
+    _sfIndices                (source._sfIndices                ),
+    _sfTriangles              (source._sfTriangles              ),
+    _sfPositions              (source._sfPositions              ),
+    _sfGeometries             (source._sfGeometries             ),
+    _sfAbsoluteUrl            (source._sfAbsoluteUrl            ),
+    _mfInline                 (source._mfInline                 )
 {
 }
 
@@ -1129,13 +1147,13 @@ void ProxyGroupBase::onCreate(const ProxyGroup *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ProxyGroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ProxyGroupBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1145,10 +1163,10 @@ void ProxyGroupBase::execSyncV(      FieldContainer    &oFrom,
 void ProxyGroupBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ProxyGroupBase *>(&oFrom), 
+    this->execSync(static_cast<ProxyGroupBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1168,12 +1186,12 @@ void ProxyGroupBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ProxyGroupBase::createAspectCopy(void) const
 {
-    ProxyGroupPtr returnValue; 
+    ProxyGroupPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ProxyGroup *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ProxyGroup *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1185,14 +1203,10 @@ void ProxyGroupBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ProxyGroupPtr>::_type("ProxyGroupPtr", "GroupPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -1214,3 +1228,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPROXYGROUPFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

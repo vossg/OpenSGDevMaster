@@ -86,22 +86,22 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<NodeCorePtr, 
-                              NodeCoreConstPtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
+                              NodeCoreConstPtr,
                               Inline>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<NodeCorePtr, 
-                              NodeCoreConstPtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
+                              NodeCoreConstPtr,
                               Inline>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Inline>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Inline>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Inline>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Inline>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
         NextFieldId = LoadedFieldId + 1
     };
 
-    static const OSG::BitVector UrlFieldMask = 
+    static const OSG::BitVector UrlFieldMask =
         (TypeTraits<BitVector>::One << UrlFieldId);
-    static const OSG::BitVector LoadedFieldMask = 
+    static const OSG::BitVector LoadedFieldMask =
         (TypeTraits<BitVector>::One << LoadedFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,39 +148,39 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
 
 
 #ifdef OSG_1_COMPAT
-           MFString *getMFUrl(void);
+                  MFString            *getMFUrl             (void);
 #endif
-           MFString *editMFUrl(void);
-     const MFString *getMFUrl (void) const;
+                  MFString            *editMFUrl            (void);
+            const MFString            *getMFUrl             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFLoaded(void);
+                  SFBool              *getSFLoaded          (void);
 #endif
-           SFBool *editSFLoaded(void);
-     const SFBool *getSFLoaded (void) const;
+                  SFBool              *editSFLoaded         (void);
+            const SFBool              *getSFLoaded          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           std::string &getUrl(const UInt32 index);
-           MFString &getUrl(void);
+                  std::string         &getUrl             (const UInt32 index);
+                  MFString            &getUrl            (void);
 #endif
-           std::string &editUrl(const UInt32 index);
-     const std::string &getUrl (const UInt32 index) const;
-           MFString &editUrl(void);
-     const MFString &getUrl(void) const;
+                  std::string         &editUrl            (const UInt32 index);
+            const std::string         &getUrl             (const UInt32 index) const;
+                  MFString            &editUrl            (void);
+            const MFString            &getUrl            (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getLoaded(void);
+                  bool                &getLoaded          (void);
 #endif
-           bool &editLoaded(void);
-     const bool &getLoaded (void) const;
+                  bool                &editLoaded         (void);
+            const bool                &getLoaded          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setLoaded(const bool &value);
+            void setLoaded         (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -201,15 +200,15 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  InlinePtr create     (void); 
-    static  InlinePtr createEmpty(void); 
+    static  InlinePtr create     (void);
+    static  InlinePtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -225,8 +224,8 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFString _mfUrl;
-    SFBool _sfLoaded;
+    MFString          _mfUrl;
+    SFBool            _sfLoaded;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -241,7 +240,7 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~InlineBase(void); 
+    virtual ~InlineBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -287,11 +286,11 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

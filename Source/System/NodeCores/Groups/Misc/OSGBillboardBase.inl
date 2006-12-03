@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &BillboardBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 BillboardBase::getClassTypeId(void) 
+OSG::UInt32 BillboardBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 BillboardBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Vec3f &BillboardBase::getAxisOfRotation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &BillboardBase::getAxisOfRotation(void)
+Vec3f               &BillboardBase::getAxisOfRotation (void)
 {
-    return this->editAxisOfRotation();
+    return this->editAxisOfRotation ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const bool &BillboardBase::getFocusOnCamera(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &BillboardBase::getFocusOnCamera(void)
+bool                &BillboardBase::getFocusOnCamera  (void)
 {
-    return this->editFocusOnCamera();
+    return this->editFocusOnCamera  ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const bool &BillboardBase::getAlignToScreen(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &BillboardBase::getAlignToScreen(void)
+bool                &BillboardBase::getAlignToScreen  (void)
 {
-    return this->editAlignToScreen();
+    return this->editAlignToScreen  ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Real32 &BillboardBase::getMinAngle(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &BillboardBase::getMinAngle(void)
+Real32              &BillboardBase::getMinAngle       (void)
 {
-    return this->editMinAngle();
+    return this->editMinAngle       ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const Real32 &BillboardBase::getMaxAngle(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &BillboardBase::getMaxAngle(void)
+Real32              &BillboardBase::getMaxAngle       (void)
 {
-    return this->editMaxAngle();
+    return this->editMaxAngle       ();
 }
 #endif
 
@@ -241,24 +241,24 @@ void BillboardBase::setMaxAngle(const Real32 &value)
 
 //! create a new instance of the class
 inline
-BillboardPtr BillboardBase::create(void) 
+BillboardPtr BillboardBase::create(void)
 {
-    BillboardPtr fc; 
+    BillboardPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Billboard::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void BillboardBase::execSync(      BillboardBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -286,7 +286,7 @@ inline
 void BillboardBase::execSync (      BillboardBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -336,4 +336,3 @@ typedef PointerBuilder<Billboard>::ObjPtrConstArg  BillboardPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGBILLBOARDBASE_INLINE_CVSID "@(#)$Id$"
-

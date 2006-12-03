@@ -70,22 +70,22 @@ class InverseTransform;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! InverseTransformPtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           InverseTransform>::ObjPtr         InverseTransformPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           InverseTransform>::ObjPtrConst    InverseTransformPtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           InverseTransform>::ObjConstPtr    InverseTransformConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           InverseTransform>::ObjPtrArg      InverseTransformPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           InverseTransform>::ObjConstPtrArg InverseTransformConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           InverseTransform>::ObjPtrConstArg InverseTransformPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<InverseTransformPtr> : 
+struct FieldTraits<InverseTransformPtr> :
     public FieldTraitsTemplateBase<InverseTransformPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<InverseTransformPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING 
+    static OSG_GROUP_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFInverseTransformPtr"; }

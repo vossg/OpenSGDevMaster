@@ -57,9 +57,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Billboard
-
-*/
+// Documentation for this class is emited in the
+// OSGBillboardBase.cpp file.
+// To modify it, please change the .fcd file (OSGBillboard.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

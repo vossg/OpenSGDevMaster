@@ -70,22 +70,22 @@ class VisitSubTree;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! VisitSubTreePtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VisitSubTree>::ObjPtr         VisitSubTreePtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VisitSubTree>::ObjPtrConst    VisitSubTreePtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VisitSubTree>::ObjConstPtr    VisitSubTreeConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VisitSubTree>::ObjPtrArg      VisitSubTreePtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VisitSubTree>::ObjConstPtrArg VisitSubTreeConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VisitSubTree>::ObjPtrConstArg VisitSubTreePtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<VisitSubTreePtr> : 
+struct FieldTraits<VisitSubTreePtr> :
     public FieldTraitsTemplateBase<VisitSubTreePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<VisitSubTreePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

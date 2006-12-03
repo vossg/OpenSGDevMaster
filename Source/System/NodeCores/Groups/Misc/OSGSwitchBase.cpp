@@ -65,17 +65,29 @@
 #include "OSGSwitchBase.h"
 #include "OSGSwitch.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Int32 SwitchBase::_sfChoice
+/*! \class OSG::Switch
+    This core allows selection of different subtrees with the \c choice
+    field. Depending on its value either all, none or only the specified
+    child is enabled.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Int32           SwitchBase::_sfChoice
     
 */
 
 void SwitchBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -85,8 +97,8 @@ void SwitchBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "choice", 
+        SFInt32::getClassType(),
+        "choice",
         "",
         ChoiceFieldId, ChoiceFieldMask,
         false,
@@ -112,47 +124,49 @@ SwitchBase::TypeObject SwitchBase::_type(true,
     (InitalInsertDescFunc) &SwitchBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Switch\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Group\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"choice\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"-1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Switch\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"Group\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "    isNodeCore=\"true\"\n"
+    ">\n"
+    "This core allows selection of different subtrees with the \\c choice field.\n"
+    "Depending on its value either all, none or only the specified child is enabled.\n"
+    "\t<Field\n"
+    "\t\tname=\"choice\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"-1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "This core allows selection of different subtrees with the \\c choice field.\n"
+    "Depending on its value either all, none or only the specified child is enabled.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SwitchBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SwitchBase::getType(void) const 
+FieldContainerType &SwitchBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SwitchBase::getContainerSize(void) const 
-{ 
-    return sizeof(Switch); 
+const FieldContainerType &SwitchBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SwitchBase::getContainerSize(void) const
+{
+    return sizeof(Switch);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -171,9 +185,9 @@ const SFInt32 *SwitchBase::getSFChoice(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *SwitchBase::getSFChoice(void)
+SFInt32             *SwitchBase::getSFChoice         (void)
 {
-    return this->editSFChoice();
+    return this->editSFChoice         ();
 }
 #endif
 
@@ -216,22 +230,22 @@ void SwitchBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SwitchPtr SwitchBase::createEmpty(void) 
-{ 
-    SwitchPtr returnValue; 
-    
-    newPtr<Switch>(returnValue); 
+SwitchPtr SwitchBase::createEmpty(void)
+{
+    SwitchPtr returnValue;
 
-    return returnValue; 
+    newPtr<Switch>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SwitchBase::shallowCopy(void) const 
-{ 
-    SwitchPtr returnValue; 
+FieldContainerPtr SwitchBase::shallowCopy(void) const
+{
+    SwitchPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Switch *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Switch *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -240,13 +254,13 @@ FieldContainerPtr SwitchBase::shallowCopy(void) const
 
 SwitchBase::SwitchBase(void) :
     Inherited(),
-    _sfChoice(Int32(-1))
+    _sfChoice                 (Int32(-1))
 {
 }
 
 SwitchBase::SwitchBase(const SwitchBase &source) :
     Inherited(source),
-    _sfChoice(source._sfChoice)
+    _sfChoice                 (source._sfChoice                 )
 {
 }
 
@@ -260,13 +274,13 @@ SwitchBase::~SwitchBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SwitchBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SwitchBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -276,10 +290,10 @@ void SwitchBase::execSyncV(      FieldContainer    &oFrom,
 void SwitchBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SwitchBase *>(&oFrom), 
+    this->execSync(static_cast<SwitchBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -299,12 +313,12 @@ void SwitchBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SwitchBase::createAspectCopy(void) const
 {
-    SwitchPtr returnValue; 
+    SwitchPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Switch *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Switch *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -313,6 +327,8 @@ void SwitchBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -335,8 +351,6 @@ OSG_FIELDTRAITS_GETTYPE(SwitchPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, SwitchPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, SwitchPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -357,3 +371,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSWITCHFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -70,22 +70,22 @@ class ProxyGroup;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ProxyGroupPtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ProxyGroup>::ObjPtr         ProxyGroupPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ProxyGroup>::ObjPtrConst    ProxyGroupPtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ProxyGroup>::ObjConstPtr    ProxyGroupConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ProxyGroup>::ObjPtrArg      ProxyGroupPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ProxyGroup>::ObjConstPtrArg ProxyGroupConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ProxyGroup>::ObjPtrConstArg ProxyGroupPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<ProxyGroupPtr> : 
+struct FieldTraits<ProxyGroupPtr> :
     public FieldTraitsTemplateBase<ProxyGroupPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ProxyGroupPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

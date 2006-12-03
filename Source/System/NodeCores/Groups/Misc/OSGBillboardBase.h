@@ -89,22 +89,22 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               Billboard>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               Billboard>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               Billboard>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               Billboard>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               Billboard>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               Billboard>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -122,26 +122,25 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
         NextFieldId = MaxAngleFieldId + 1
     };
 
-    static const OSG::BitVector AxisOfRotationFieldMask = 
+    static const OSG::BitVector AxisOfRotationFieldMask =
         (TypeTraits<BitVector>::One << AxisOfRotationFieldId);
-    static const OSG::BitVector FocusOnCameraFieldMask = 
+    static const OSG::BitVector FocusOnCameraFieldMask =
         (TypeTraits<BitVector>::One << FocusOnCameraFieldId);
-    static const OSG::BitVector AlignToScreenFieldMask = 
+    static const OSG::BitVector AlignToScreenFieldMask =
         (TypeTraits<BitVector>::One << AlignToScreenFieldId);
-    static const OSG::BitVector MinAngleFieldMask = 
+    static const OSG::BitVector MinAngleFieldMask =
         (TypeTraits<BitVector>::One << MinAngleFieldId);
-    static const OSG::BitVector MaxAngleFieldMask = 
+    static const OSG::BitVector MaxAngleFieldMask =
         (TypeTraits<BitVector>::One << MaxAngleFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -149,8 +148,8 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -161,76 +160,76 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
 
 
 #ifdef OSG_1_COMPAT
-           SFVec3f *getSFAxisOfRotation(void);
+                  SFVec3f             *getSFAxisOfRotation  (void);
 #endif
-           SFVec3f *editSFAxisOfRotation(void);
-     const SFVec3f *getSFAxisOfRotation (void) const;
+                  SFVec3f             *editSFAxisOfRotation (void);
+            const SFVec3f             *getSFAxisOfRotation  (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFFocusOnCamera(void);
+                  SFBool              *getSFFocusOnCamera   (void);
 #endif
-           SFBool *editSFFocusOnCamera(void);
-     const SFBool *getSFFocusOnCamera (void) const;
+                  SFBool              *editSFFocusOnCamera  (void);
+            const SFBool              *getSFFocusOnCamera   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFAlignToScreen(void);
+                  SFBool              *getSFAlignToScreen   (void);
 #endif
-           SFBool *editSFAlignToScreen(void);
-     const SFBool *getSFAlignToScreen (void) const;
+                  SFBool              *editSFAlignToScreen  (void);
+            const SFBool              *getSFAlignToScreen   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFMinAngle(void);
+                  SFReal32            *getSFMinAngle        (void);
 #endif
-           SFReal32 *editSFMinAngle(void);
-     const SFReal32 *getSFMinAngle (void) const;
+                  SFReal32            *editSFMinAngle       (void);
+            const SFReal32            *getSFMinAngle        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFMaxAngle(void);
+                  SFReal32            *getSFMaxAngle        (void);
 #endif
-           SFReal32 *editSFMaxAngle(void);
-     const SFReal32 *getSFMaxAngle (void) const;
+                  SFReal32            *editSFMaxAngle       (void);
+            const SFReal32            *getSFMaxAngle        (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getAxisOfRotation(void);
+                  Vec3f               &getAxisOfRotation  (void);
 #endif
-           Vec3f &editAxisOfRotation(void);
-     const Vec3f &getAxisOfRotation (void) const;
+                  Vec3f               &editAxisOfRotation (void);
+            const Vec3f               &getAxisOfRotation  (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getFocusOnCamera(void);
+                  bool                &getFocusOnCamera   (void);
 #endif
-           bool &editFocusOnCamera(void);
-     const bool &getFocusOnCamera (void) const;
+                  bool                &editFocusOnCamera  (void);
+            const bool                &getFocusOnCamera   (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getAlignToScreen(void);
+                  bool                &getAlignToScreen   (void);
 #endif
-           bool &editAlignToScreen(void);
-     const bool &getAlignToScreen (void) const;
+                  bool                &editAlignToScreen  (void);
+            const bool                &getAlignToScreen   (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getMinAngle(void);
+                  Real32              &getMinAngle        (void);
 #endif
-           Real32 &editMinAngle(void);
-     const Real32 &getMinAngle (void) const;
+                  Real32              &editMinAngle       (void);
+            const Real32              &getMinAngle        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getMaxAngle(void);
+                  Real32              &getMaxAngle        (void);
 #endif
-           Real32 &editMaxAngle(void);
-     const Real32 &getMaxAngle (void) const;
+                  Real32              &editMaxAngle       (void);
+            const Real32              &getMaxAngle        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setAxisOfRotation(const Vec3f &value);
-     void setFocusOnCamera(const bool &value);
-     void setAlignToScreen(const bool &value);
-     void setMinAngle(const Real32 &value);
-     void setMaxAngle(const Real32 &value);
+            void setAxisOfRotation (const Vec3f &value);
+            void setFocusOnCamera  (const bool &value);
+            void setAlignToScreen  (const bool &value);
+            void setMinAngle       (const Real32 &value);
+            void setMaxAngle       (const Real32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -250,15 +249,15 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  BillboardPtr create     (void); 
-    static  BillboardPtr createEmpty(void); 
+    static  BillboardPtr create     (void);
+    static  BillboardPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -274,11 +273,11 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFVec3f _sfAxisOfRotation;
-    SFBool _sfFocusOnCamera;
-    SFBool _sfAlignToScreen;
-    SFReal32 _sfMinAngle;
-    SFReal32 _sfMaxAngle;
+    SFVec3f           _sfAxisOfRotation;
+    SFBool            _sfFocusOnCamera;
+    SFBool            _sfAlignToScreen;
+    SFReal32          _sfMinAngle;
+    SFReal32          _sfMaxAngle;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -293,7 +292,7 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~BillboardBase(void); 
+    virtual ~BillboardBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -339,11 +338,11 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif
