@@ -10,5 +10,7 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-Abstract base class for all vector-valued GeoProperties
+Abstract base class for all vector-valued GeoProperties.
+Provides a uniform interface for accessing all vector data in geometry using
+automatic conversion methods.
 </FieldContainer>

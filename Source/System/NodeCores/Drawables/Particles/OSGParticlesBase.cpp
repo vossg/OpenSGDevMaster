@@ -69,78 +69,79 @@
 #include "OSGParticlesBase.h"
 #include "OSGParticles.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var UInt32 ParticlesBase::_sfMode
-    	The particle mode, see OSG::Particles::modeE for options.
+/*! \class OSG::Particles
+    \ingroup GrpSystemNodeCoresDrawablesParticles
 
+    See \ref PageSystemParticles for details.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var UInt32          ParticlesBase::_sfMode
+    The particle mode, see OSG::Particles::modeE for options.
 */
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfPositions
-            The positions of the particles. This is the primary defining
-        information for a particle.
-
+    The positions of the particles. This is the primary defining
+    information for a particle.
 */
-/*! \var Vec3f ParticlesBase::_mfSizes
-            The particle sizes. If not set (1,1,1) will be used, if only one entry
-        is set, it will be used for all particles. If the number of sizes if
-        equal to the number of positions every particle will get its own size.
-        Most modes only use the X coordinate of the vector. Particles with 
-        size[0] == 0 are ignored.
-
+/*! \var Vec3f           ParticlesBase::_mfSizes
+    The particle sizes. If not set (1,1,1) will be used, if only one entry
+    is set, it will be used for all particles. If the number of sizes if
+    equal to the number of positions every particle will get its own size.
+    Most modes only use the X coordinate of the vector. Particles with
+    size[0] == 0 are ignored.
 */
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfSecPositions
-            The secondary position of the particle. This information is only used
-        by a few rendering modes, e.g. the streak mode. Usually it represents
-        the particle's last position.
-
+    The secondary position of the particle. This information is only used
+    by a few rendering modes, e.g. the streak mode. Usually it represents
+    the particle's last position.
 */
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfColors
-    	The particle colors (optional).
-
+    The particle colors (optional).
 */
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfNormals
-            Most particles will be automatically aligned to the view
-        direction. If normals are set they will be used to define the
-        direction the particles are facing.
-
+    Most particles will be automatically aligned to the view direction. If
+    normals are set they will be used to define the direction the particles
+    are facing.
 */
-/*! \var Int32 ParticlesBase::_mfIndices
-            Indices for the particles. Useful to select subsets of all particles for 
-        rendering.
-
+/*! \var Int32           ParticlesBase::_mfIndices
+    Indices for the particles. Useful to select subsets of all particles
+    for  rendering.
 */
-/*! \var Real32 ParticlesBase::_mfTextureZs
-            The texture z coordinate of the particles. Useful in conjunction with 3D 
-        textures to use different texture images on different particles.
-
+/*! \var Real32          ParticlesBase::_mfTextureZs
+    The texture z coordinate of the particles. Useful in conjunction with
+    3D  textures to use different texture images on different particles.
 */
-/*! \var UInt32 ParticlesBase::_sfDrawOrder
-            Define an optional sorting on the particles, see OSG::Particles::DrawOrderE
-        for variants. Default is unordered.
-
+/*! \var UInt32          ParticlesBase::_sfDrawOrder
+    Define an optional sorting on the particles, see
+    OSG::Particles::DrawOrderE for variants. Default is unordered.
 */
-/*! \var bool ParticlesBase::_sfDynamic
-            Hint to tell the system whether particles are expected to change position or
-        not. Is used to speed up sorting.
-
+/*! \var bool            ParticlesBase::_sfDynamic
+    Hint to tell the system whether particles are expected to change
+    position or not. Is used to speed up sorting.
 */
-/*! \var UInt32 ParticlesBase::_sfPump
+/*! \var UInt32          ParticlesBase::_sfPump
     
 */
 /*! \var ParticleBSPTree ParticlesBase::_sfBsp
     
 */
-/*! \var Int32 ParticlesBase::_sfNumParticles
-            Optional number of particles to use. If set to -1, all the particles in 
-        pos, or indices if set, will be used.
-
+/*! \var Int32           ParticlesBase::_sfNumParticles
+    Optional number of particles to use. If set to -1, all the particles
+    in  pos, or indices if set, will be used.
 */
 
 void ParticlesBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -150,9 +151,9 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "mode", 
-        "	The particle mode, see OSG::Particles::modeE for options.\n",
+        SFUInt32::getClassType(),
+        "mode",
+        "The particle mode, see OSG::Particles::modeE for options.\n",
         ModeFieldId, ModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -166,9 +167,10 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFGeoVectorPropertyPtr::Description(
-        SFGeoVectorPropertyPtr::getClassType(), 
-        "positions", 
-        "        The positions of the particles. This is the primary defining\n        information for a particle.\n",
+        SFGeoVectorPropertyPtr::getClassType(),
+        "positions",
+        "The positions of the particles. This is the primary defining\n"
+        "information for a particle.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -184,9 +186,13 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "sizes", 
-        "        The particle sizes. If not set (1,1,1) will be used, if only one entry\n        is set, it will be used for all particles. If the number of sizes if\n        equal to the number of positions every particle will get its own size.\n        Most modes only use the X coordinate of the vector. Particles with \n        size[0] == 0 are ignored.\n",
+        MFVec3f::getClassType(),
+        "sizes",
+        "The particle sizes. If not set (1,1,1) will be used, if only one entry\n"
+        "is set, it will be used for all particles. If the number of sizes if\n"
+        "equal to the number of positions every particle will get its own size.\n"
+        "Most modes only use the X coordinate of the vector. Particles with \n"
+        "size[0] == 0 are ignored.\n",
         SizesFieldId, SizesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -200,9 +206,11 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFGeoVectorPropertyPtr::Description(
-        SFGeoVectorPropertyPtr::getClassType(), 
-        "secPositions", 
-        "        The secondary position of the particle. This information is only used\n        by a few rendering modes, e.g. the streak mode. Usually it represents\n        the particle's last position.\n",
+        SFGeoVectorPropertyPtr::getClassType(),
+        "secPositions",
+        "The secondary position of the particle. This information is only used\n"
+        "by a few rendering modes, e.g. the streak mode. Usually it represents\n"
+        "the particle's last position.\n",
         SecPositionsFieldId, SecPositionsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -212,9 +220,9 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFGeoVectorPropertyPtr::Description(
-        SFGeoVectorPropertyPtr::getClassType(), 
-        "colors", 
-        "	The particle colors (optional).\n",
+        SFGeoVectorPropertyPtr::getClassType(),
+        "colors",
+        "The particle colors (optional).\n",
         ColorsFieldId, ColorsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -224,9 +232,11 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFGeoVectorPropertyPtr::Description(
-        SFGeoVectorPropertyPtr::getClassType(), 
-        "normals", 
-        "        Most particles will be automatically aligned to the view\n        direction. If normals are set they will be used to define the\n        direction the particles are facing.\n",
+        SFGeoVectorPropertyPtr::getClassType(),
+        "normals",
+        "Most particles will be automatically aligned to the view\n"
+        "direction. If normals are set they will be used to define the\n"
+        "direction the particles are facing.\n",
         NormalsFieldId, NormalsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -242,9 +252,10 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFInt32::Description(
-        MFInt32::getClassType(), 
-        "indices", 
-        "        Indices for the particles. Useful to select subsets of all particles for \n        rendering.\n",
+        MFInt32::getClassType(),
+        "indices",
+        "Indices for the particles. Useful to select subsets of all particles for \n"
+        "rendering.\n",
         IndicesFieldId, IndicesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -264,9 +275,10 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFReal32::Description(
-        MFReal32::getClassType(), 
-        "textureZs", 
-        "        The texture z coordinate of the particles. Useful in conjunction with 3D \n        textures to use different texture images on different particles.\n",
+        MFReal32::getClassType(),
+        "textureZs",
+        "The texture z coordinate of the particles. Useful in conjunction with 3D \n"
+        "textures to use different texture images on different particles.\n",
         TextureZsFieldId, TextureZsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -286,9 +298,10 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "drawOrder", 
-        "        Define an optional sorting on the particles, see OSG::Particles::DrawOrderE\n        for variants. Default is unordered.\n",
+        SFUInt32::getClassType(),
+        "drawOrder",
+        "Define an optional sorting on the particles, see OSG::Particles::DrawOrderE\n"
+        "for variants. Default is unordered.\n",
         DrawOrderFieldId, DrawOrderFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -308,9 +321,10 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "dynamic", 
-        "        Hint to tell the system whether particles are expected to change position or\n        not. Is used to speed up sorting.\n",
+        SFBool::getClassType(),
+        "dynamic",
+        "Hint to tell the system whether particles are expected to change position or\n"
+        "not. Is used to speed up sorting.\n",
         DynamicFieldId, DynamicFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -330,8 +344,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "pump", 
+        SFUInt32::getClassType(),
+        "pump",
         "",
         PumpFieldId, PumpFieldMask,
         true,
@@ -352,8 +366,8 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFParticleBSPTree::Description(
-        SFParticleBSPTree::getClassType(), 
-        "bsp", 
+        SFParticleBSPTree::getClassType(),
+        "bsp",
         "",
         BspFieldId, BspFieldMask,
         false,
@@ -374,9 +388,10 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "numParticles", 
-        "        Optional number of particles to use. If set to -1, all the particles in \n        pos, or indices if set, will be used.\n",
+        SFInt32::getClassType(),
+        "numParticles",
+        "Optional number of particles to use. If set to -1, all the particles in \n"
+        "pos, or indices if set, will be used.\n",
         NumParticlesFieldId, NumParticlesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -401,174 +416,177 @@ ParticlesBase::TypeObject ParticlesBase::_type(true,
     (InitalInsertDescFunc) &ParticlesBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Particles\"\n"
-"	parent=\"MaterialDrawable\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"mode\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"2\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The particle mode, see OSG::Particles::modeE for options.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"positions\"\n"
-"		type=\"GeoVectorPropertyPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        linkMParent=\"true\"\n"
-"	>\n"
-"        The positions of the particles. This is the primary defining\n"
-"        information for a particle.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"sizes\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The particle sizes. If not set (1,1,1) will be used, if only one entry\n"
-"        is set, it will be used for all particles. If the number of sizes if\n"
-"        equal to the number of positions every particle will get its own size.\n"
-"        Most modes only use the X coordinate of the vector. Particles with \n"
-"        size[0] == 0 are ignored.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"secPositions\"\n"
-"		type=\"GeoVectorPropertyPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        linkMParent=\"true\"\n"
-"	>\n"
-"        The secondary position of the particle. This information is only used\n"
-"        by a few rendering modes, e.g. the streak mode. Usually it represents\n"
-"        the particle's last position.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"colors\"\n"
-"		type=\"GeoVectorPropertyPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        linkMParent=\"true\"\n"
-"	>\n"
-"	The particle colors (optional).\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"normals\"\n"
-"		type=\"GeoVectorPropertyPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        linkMParent=\"true\"\n"
-"	>\n"
-"        Most particles will be automatically aligned to the view\n"
-"        direction. If normals are set they will be used to define the\n"
-"        direction the particles are facing.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"indices\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Indices for the particles. Useful to select subsets of all particles for \n"
-"        rendering.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"textureZs\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The texture z coordinate of the particles. Useful in conjunction with 3D \n"
-"        textures to use different texture images on different particles.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"drawOrder\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Define an optional sorting on the particles, see OSG::Particles::DrawOrderE\n"
-"        for variants. Default is unordered.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"dynamic\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Hint to tell the system whether particles are expected to change position or\n"
-"        not. Is used to speed up sorting.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"pump\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"private\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"bsp\"\n"
-"		type=\"ParticleBSPTree\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		header=\"OSGParticleBSP.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"numParticles\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"                defaultValue=\"-1\"\n"
-"	>\n"
-"        Optional number of particles to use. If set to -1, all the particles in \n"
-"        pos, or indices if set, will be used.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Particles\"\n"
+    "\tparent=\"MaterialDrawable\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemNodeCoresDrawablesParticles\n"
+    "\n"
+    "See \\ref PageSystemParticles for details.\n"
+    "\t<Field\n"
+    "\t\tname=\"mode\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"2\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe particle mode, see OSG::Particles::modeE for options.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"positions\"\n"
+    "\t\ttype=\"GeoVectorPropertyPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
+    "\t>\n"
+    "        The positions of the particles. This is the primary defining\n"
+    "        information for a particle.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sizes\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The particle sizes. If not set (1,1,1) will be used, if only one entry\n"
+    "        is set, it will be used for all particles. If the number of sizes if\n"
+    "        equal to the number of positions every particle will get its own size.\n"
+    "        Most modes only use the X coordinate of the vector. Particles with \n"
+    "        size[0] == 0 are ignored.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"secPositions\"\n"
+    "\t\ttype=\"GeoVectorPropertyPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
+    "\t>\n"
+    "        The secondary position of the particle. This information is only used\n"
+    "        by a few rendering modes, e.g. the streak mode. Usually it represents\n"
+    "        the particle's last position.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"colors\"\n"
+    "\t\ttype=\"GeoVectorPropertyPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
+    "\t>\n"
+    "\tThe particle colors (optional).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"normals\"\n"
+    "\t\ttype=\"GeoVectorPropertyPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
+    "\t>\n"
+    "        Most particles will be automatically aligned to the view\n"
+    "        direction. If normals are set they will be used to define the\n"
+    "        direction the particles are facing.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"indices\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Indices for the particles. Useful to select subsets of all particles for \n"
+    "        rendering.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"textureZs\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The texture z coordinate of the particles. Useful in conjunction with 3D \n"
+    "        textures to use different texture images on different particles.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"drawOrder\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Define an optional sorting on the particles, see OSG::Particles::DrawOrderE\n"
+    "        for variants. Default is unordered.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"dynamic\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Hint to tell the system whether particles are expected to change position or\n"
+    "        not. Is used to speed up sorting.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"pump\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"private\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bsp\"\n"
+    "\t\ttype=\"ParticleBSPTree\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\theader=\"OSGParticleBSP.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"numParticles\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "                defaultValue=\"-1\"\n"
+    "\t>\n"
+    "        Optional number of particles to use. If set to -1, all the particles in \n"
+    "        pos, or indices if set, will be used.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemNodeCoresDrawablesParticles\n"
+    "See \\ref PageSystemParticles for details.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ParticlesBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ParticlesBase::getType(void) const 
+FieldContainerType &ParticlesBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ParticlesBase::getContainerSize(void) const 
-{ 
-    return sizeof(Particles); 
+const FieldContainerType &ParticlesBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ParticlesBase::getContainerSize(void) const
+{
+    return sizeof(Particles);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -587,9 +605,9 @@ const SFUInt32 *ParticlesBase::getSFMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ParticlesBase::getSFMode(void)
+SFUInt32            *ParticlesBase::getSFMode           (void)
 {
-    return this->editSFMode();
+    return this->editSFMode           ();
 }
 #endif
 
@@ -612,9 +630,9 @@ const MFVec3f *ParticlesBase::getMFSizes(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *ParticlesBase::getMFSizes(void)
+MFVec3f             *ParticlesBase::getMFSizes          (void)
 {
-    return this->editMFSizes();
+    return this->editMFSizes          ();
 }
 #endif
 
@@ -649,9 +667,9 @@ const MFInt32 *ParticlesBase::getMFIndices(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFInt32 *ParticlesBase::getMFIndices(void)
+MFInt32             *ParticlesBase::getMFIndices        (void)
 {
-    return this->editMFIndices();
+    return this->editMFIndices        ();
 }
 #endif
 
@@ -668,9 +686,9 @@ const MFReal32 *ParticlesBase::getMFTextureZs(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFReal32 *ParticlesBase::getMFTextureZs(void)
+MFReal32            *ParticlesBase::getMFTextureZs      (void)
 {
-    return this->editMFTextureZs();
+    return this->editMFTextureZs      ();
 }
 #endif
 
@@ -687,9 +705,9 @@ const SFUInt32 *ParticlesBase::getSFDrawOrder(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ParticlesBase::getSFDrawOrder(void)
+SFUInt32            *ParticlesBase::getSFDrawOrder      (void)
 {
-    return this->editSFDrawOrder();
+    return this->editSFDrawOrder      ();
 }
 #endif
 
@@ -706,9 +724,9 @@ const SFBool *ParticlesBase::getSFDynamic(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ParticlesBase::getSFDynamic(void)
+SFBool              *ParticlesBase::getSFDynamic        (void)
 {
-    return this->editSFDynamic();
+    return this->editSFDynamic        ();
 }
 #endif
 
@@ -725,9 +743,9 @@ const SFUInt32 *ParticlesBase::getSFPump(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ParticlesBase::getSFPump(void)
+SFUInt32            *ParticlesBase::getSFPump           (void)
 {
-    return this->editSFPump();
+    return this->editSFPump           ();
 }
 #endif
 
@@ -744,9 +762,9 @@ const SFParticleBSPTree *ParticlesBase::getSFBsp(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFParticleBSPTree *ParticlesBase::getSFBsp(void)
+SFParticleBSPTree   *ParticlesBase::getSFBsp            (void)
 {
-    return this->editSFBsp();
+    return this->editSFBsp            ();
 }
 #endif
 
@@ -763,9 +781,9 @@ const SFInt32 *ParticlesBase::getSFNumParticles(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ParticlesBase::getSFNumParticles(void)
+SFInt32             *ParticlesBase::getSFNumParticles   (void)
 {
-    return this->editSFNumParticles();
+    return this->editSFNumParticles   ();
 }
 #endif
 
@@ -865,7 +883,7 @@ void ParticlesBase::pushToSizes(const Vec3f& value)
 }
 
 void ParticlesBase::insertIntoSizes(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(SizesFieldMask, _mfSizes);
 
@@ -877,7 +895,7 @@ void ParticlesBase::insertIntoSizes(UInt32                uiIndex,
 }
 
 void ParticlesBase::replaceInSizes(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfSizes.size())
         return;
@@ -888,7 +906,7 @@ void ParticlesBase::replaceInSizes(UInt32                uiIndex,
 }
 
 void ParticlesBase::replaceInSizes(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfSizes.findIndex(pOldElem);
 
@@ -932,19 +950,13 @@ void ParticlesBase::removeFromSizes(const Vec3f& value)
         _mfSizes.erase(fieldIt);
     }
 }
+
 void ParticlesBase::clearSizes(void)
 {
     editMField(SizesFieldMask, _mfSizes);
 
     _mfSizes.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void ParticlesBase::pushToIndices(const Int32& value)
 {
@@ -953,7 +965,7 @@ void ParticlesBase::pushToIndices(const Int32& value)
 }
 
 void ParticlesBase::insertIntoIndices(UInt32                uiIndex,
-                                             const Int32& value   )
+                                                   const Int32& value   )
 {
     editMField(IndicesFieldMask, _mfIndices);
 
@@ -965,7 +977,7 @@ void ParticlesBase::insertIntoIndices(UInt32                uiIndex,
 }
 
 void ParticlesBase::replaceInIndices(UInt32                uiIndex,
-                                                 const Int32& value   )
+                                                       const Int32& value   )
 {
     if(uiIndex >= _mfIndices.size())
         return;
@@ -976,7 +988,7 @@ void ParticlesBase::replaceInIndices(UInt32                uiIndex,
 }
 
 void ParticlesBase::replaceInIndices(const Int32& pOldElem,
-                                                  const Int32& pNewElem)
+                                                        const Int32& pNewElem)
 {
     Int32  elemIdx = _mfIndices.findIndex(pOldElem);
 
@@ -1020,19 +1032,13 @@ void ParticlesBase::removeFromIndices(const Int32& value)
         _mfIndices.erase(fieldIt);
     }
 }
+
 void ParticlesBase::clearIndices(void)
 {
     editMField(IndicesFieldMask, _mfIndices);
 
     _mfIndices.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void ParticlesBase::pushToTextureZs(const Real32& value)
 {
@@ -1041,7 +1047,7 @@ void ParticlesBase::pushToTextureZs(const Real32& value)
 }
 
 void ParticlesBase::insertIntoTextureZs(UInt32                uiIndex,
-                                             const Real32& value   )
+                                                   const Real32& value   )
 {
     editMField(TextureZsFieldMask, _mfTextureZs);
 
@@ -1053,7 +1059,7 @@ void ParticlesBase::insertIntoTextureZs(UInt32                uiIndex,
 }
 
 void ParticlesBase::replaceInTextureZs(UInt32                uiIndex,
-                                                 const Real32& value   )
+                                                       const Real32& value   )
 {
     if(uiIndex >= _mfTextureZs.size())
         return;
@@ -1064,7 +1070,7 @@ void ParticlesBase::replaceInTextureZs(UInt32                uiIndex,
 }
 
 void ParticlesBase::replaceInTextureZs(const Real32& pOldElem,
-                                                  const Real32& pNewElem)
+                                                        const Real32& pNewElem)
 {
     Int32  elemIdx = _mfTextureZs.findIndex(pOldElem);
 
@@ -1108,19 +1114,13 @@ void ParticlesBase::removeFromTextureZs(const Real32& value)
         _mfTextureZs.erase(fieldIt);
     }
 }
+
 void ParticlesBase::clearTextureZs(void)
 {
     editMField(TextureZsFieldMask, _mfTextureZs);
 
     _mfTextureZs.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -1304,22 +1304,22 @@ void ParticlesBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ParticlesPtr ParticlesBase::createEmpty(void) 
-{ 
-    ParticlesPtr returnValue; 
-    
-    newPtr<Particles>(returnValue); 
+ParticlesPtr ParticlesBase::createEmpty(void)
+{
+    ParticlesPtr returnValue;
 
-    return returnValue; 
+    newPtr<Particles>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ParticlesBase::shallowCopy(void) const 
-{ 
-    ParticlesPtr returnValue; 
+FieldContainerPtr ParticlesBase::shallowCopy(void) const
+{
+    ParticlesPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Particles *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Particles *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -1328,37 +1328,37 @@ FieldContainerPtr ParticlesBase::shallowCopy(void) const
 
 ParticlesBase::ParticlesBase(void) :
     Inherited(),
-    _sfMode(UInt32(2)),
-    _sfPositions(),
-    _mfSizes(),
-    _sfSecPositions(),
-    _sfColors(),
-    _sfNormals(),
-    _mfIndices(),
-    _mfTextureZs(),
-    _sfDrawOrder(UInt32(0)),
-    _sfDynamic(bool(true)),
-    _sfPump(),
-    _sfBsp(),
-    _sfNumParticles(Int32(-1))
+    _sfMode                   (UInt32(2)),
+    _sfPositions              (),
+    _mfSizes                  (),
+    _sfSecPositions           (),
+    _sfColors                 (),
+    _sfNormals                (),
+    _mfIndices                (),
+    _mfTextureZs              (),
+    _sfDrawOrder              (UInt32(0)),
+    _sfDynamic                (bool(true)),
+    _sfPump                   (),
+    _sfBsp                    (),
+    _sfNumParticles           (Int32(-1))
 {
 }
 
 ParticlesBase::ParticlesBase(const ParticlesBase &source) :
     Inherited(source),
-    _sfMode(source._sfMode),
-    _sfPositions(),
-    _mfSizes(source._mfSizes),
-    _sfSecPositions(),
-    _sfColors(),
-    _sfNormals(),
-    _mfIndices(source._mfIndices),
-    _mfTextureZs(source._mfTextureZs),
-    _sfDrawOrder(source._sfDrawOrder),
-    _sfDynamic(source._sfDynamic),
-    _sfPump(source._sfPump),
-    _sfBsp(source._sfBsp),
-    _sfNumParticles(source._sfNumParticles)
+    _sfMode                   (source._sfMode                   ),
+    _sfPositions              (),
+    _mfSizes                  (source._mfSizes                  ),
+    _sfSecPositions           (),
+    _sfColors                 (),
+    _sfNormals                (),
+    _mfIndices                (source._mfIndices                ),
+    _mfTextureZs              (source._mfTextureZs              ),
+    _sfDrawOrder              (source._sfDrawOrder              ),
+    _sfDynamic                (source._sfDynamic                ),
+    _sfPump                   (source._sfPump                   ),
+    _sfBsp                    (source._sfBsp                    ),
+    _sfNumParticles           (source._sfNumParticles           )
 {
 }
 
@@ -1388,13 +1388,13 @@ void ParticlesBase::onCreate(const Particles *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ParticlesBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ParticlesBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1404,10 +1404,10 @@ void ParticlesBase::execSyncV(      FieldContainer    &oFrom,
 void ParticlesBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ParticlesBase *>(&oFrom), 
+    this->execSync(static_cast<ParticlesBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1427,12 +1427,12 @@ void ParticlesBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ParticlesBase::createAspectCopy(void) const
 {
-    ParticlesPtr returnValue; 
+    ParticlesPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Particles *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Particles *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1449,6 +1449,8 @@ void ParticlesBase::resolveLinks(void)
     static_cast<Particles *>(this)->setNormals(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1471,8 +1473,6 @@ OSG_FIELDTRAITS_GETTYPE(ParticlesPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ParticlesPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ParticlesPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1493,3 +1493,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPARTICLESFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

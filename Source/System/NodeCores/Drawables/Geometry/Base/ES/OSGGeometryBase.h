@@ -90,22 +90,22 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
-                              MaterialDrawableConstPtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
+                              MaterialDrawableConstPtr,
                               Geometry>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
-                              MaterialDrawableConstPtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
+                              MaterialDrawableConstPtr,
                               Geometry>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
                               MaterialDrawableConstPtr,
                               Geometry>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
                               MaterialDrawableConstPtr,
                               Geometry>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
                               MaterialDrawableConstPtr,
                               Geometry>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
                               MaterialDrawableConstPtr,
                               Geometry>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -124,28 +124,27 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
         NextFieldId = AttGLIdFieldId + 1
     };
 
-    static const OSG::BitVector TypesFieldMask = 
+    static const OSG::BitVector TypesFieldMask =
         (TypeTraits<BitVector>::One << TypesFieldId);
-    static const OSG::BitVector LengthsFieldMask = 
+    static const OSG::BitVector LengthsFieldMask =
         (TypeTraits<BitVector>::One << LengthsFieldId);
-    static const OSG::BitVector PropertiesFieldMask = 
+    static const OSG::BitVector PropertiesFieldMask =
         (TypeTraits<BitVector>::One << PropertiesFieldId);
-    static const OSG::BitVector PropIndicesFieldMask = 
+    static const OSG::BitVector PropIndicesFieldMask =
         (TypeTraits<BitVector>::One << PropIndicesFieldId);
-    static const OSG::BitVector ClassicGLIdFieldMask = 
+    static const OSG::BitVector ClassicGLIdFieldMask =
         (TypeTraits<BitVector>::One << ClassicGLIdFieldId);
-    static const OSG::BitVector AttGLIdFieldMask = 
+    static const OSG::BitVector AttGLIdFieldMask =
         (TypeTraits<BitVector>::One << AttGLIdFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -153,8 +152,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -163,54 +162,54 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFGeoIntegralPropertyPtr *getSFTypes (void) const;
-     const SFGeoIntegralPropertyPtr *getSFLengths (void) const;
-     const MFGeoVectorPropertyPtr *getMFProperties (void) const;
-     const MFGeoIntegralPropertyPtr *getMFPropIndices (void) const;
+            const SFGeoIntegralPropertyPtr *getSFTypes           (void) const;
+            const SFGeoIntegralPropertyPtr *getSFLengths         (void) const;
+            const MFGeoVectorPropertyPtr *getMFProperties      (void) const;
+            const MFGeoIntegralPropertyPtr *getMFPropIndices     (void) const;
 
 
-           GeoIntegralPropertyPtrConst getTypes(void) const;
+                  GeoIntegralPropertyPtrConst getTypes          (void) const;
 
-           GeoIntegralPropertyPtrConst getLengths(void) const;
+                  GeoIntegralPropertyPtrConst getLengths        (void) const;
 
-           GeoVectorPropertyPtrConst getProperties(const UInt32 index) const;
-     const MFGeoVectorPropertyPtr &getProperties(void) const;
+                  GeoVectorPropertyPtrConst getProperties     (const UInt32 index) const;
+            const MFGeoVectorPropertyPtr &getProperties     (void) const;
 
-           GeoIntegralPropertyPtrConst getPropIndices(const UInt32 index) const;
-     const MFGeoIntegralPropertyPtr &getPropIndices(void) const;
+                  GeoIntegralPropertyPtrConst getPropIndices    (const UInt32 index) const;
+            const MFGeoIntegralPropertyPtr &getPropIndices    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setTypes(GeoIntegralPropertyPtrConstArg value);
-     void setLengths(GeoIntegralPropertyPtrConstArg value);
+            void setTypes          (GeoIntegralPropertyPtrConstArg value);
+            void setLengths        (GeoIntegralPropertyPtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -222,29 +221,29 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
     void pushToProperties           (GeoVectorPropertyPtrConstArg value   );
     void insertIntoProperties      (UInt32                uiIndex,
-                                    GeoVectorPropertyPtrConstArg value   );
+                                             GeoVectorPropertyPtrConstArg value   );
     void replaceInProperties  (UInt32                uiIndex,
-                                    GeoVectorPropertyPtrConstArg value   );
+                                             GeoVectorPropertyPtrConstArg value   );
     void replaceInProperties (GeoVectorPropertyPtrConstArg pOldElem,
-                                    GeoVectorPropertyPtrConstArg pNewElem);
+                                             GeoVectorPropertyPtrConstArg pNewElem);
     void removeFromProperties (UInt32                uiIndex );
     void removeFromProperties(GeoVectorPropertyPtrConstArg value   );
     void clearProperties            (void                          );
 
- 
+
 
     void pushToPropIndices           (GeoIntegralPropertyPtrConstArg value   );
     void insertIntoPropIndices      (UInt32                uiIndex,
-                                    GeoIntegralPropertyPtrConstArg value   );
+                                             GeoIntegralPropertyPtrConstArg value   );
     void replaceInPropIndices  (UInt32                uiIndex,
-                                    GeoIntegralPropertyPtrConstArg value   );
+                                             GeoIntegralPropertyPtrConstArg value   );
     void replaceInPropIndices (GeoIntegralPropertyPtrConstArg pOldElem,
-                                    GeoIntegralPropertyPtrConstArg pNewElem);
+                                             GeoIntegralPropertyPtrConstArg pNewElem);
     void removeFromPropIndices (UInt32                uiIndex );
     void removeFromPropIndices(GeoIntegralPropertyPtrConstArg value   );
     void clearPropIndices            (void                          );
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -263,15 +262,15 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeometryPtr create     (void); 
-    static  GeometryPtr createEmpty(void); 
+    static  GeometryPtr create     (void);
+    static  GeometryPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -291,8 +290,8 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     SFGeoIntegralPropertyPtr _sfLengths;
     MFGeoVectorPropertyPtr _mfProperties;
     MFGeoIntegralPropertyPtr _mfPropIndices;
-    SFInt32 _sfClassicGLId;
-    SFInt32 _sfAttGLId;
+    SFInt32           _sfClassicGLId;
+    SFInt32           _sfAttGLId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -307,7 +306,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeometryBase(void); 
+    virtual ~GeometryBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -323,37 +322,37 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFClassicGLId(void);
+                  SFInt32             *getSFClassicGLId     (void);
 #endif
-           SFInt32 *editSFClassicGLId(void);
-     const SFInt32 *getSFClassicGLId (void) const;
+                  SFInt32             *editSFClassicGLId    (void);
+            const SFInt32             *getSFClassicGLId     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFAttGLId(void);
+                  SFInt32             *getSFAttGLId         (void);
 #endif
-           SFInt32 *editSFAttGLId(void);
-     const SFInt32 *getSFAttGLId (void) const;
+                  SFInt32             *editSFAttGLId        (void);
+            const SFInt32             *getSFAttGLId         (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Int32 &getClassicGLId(void);
+                  Int32               &getClassicGLId     (void);
 #endif
-           Int32 &editClassicGLId(void);
-     const Int32 &getClassicGLId(void) const;
+                  Int32               &editClassicGLId    (void);
+            const Int32               &getClassicGLId     (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getAttGLId(void);
+                  Int32               &getAttGLId         (void);
 #endif
-           Int32 &editAttGLId(void);
-     const Int32 &getAttGLId(void) const;
+                  Int32               &editAttGLId        (void);
+            const Int32               &getAttGLId         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setClassicGLId(const Int32 &value);
-     void setAttGLId(const Int32 &value);
+            void setClassicGLId    (const Int32 &value);
+            void setAttGLId        (const Int32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -401,11 +400,11 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

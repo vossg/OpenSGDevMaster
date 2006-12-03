@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &GeoMultiPropertyDataBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GeoMultiPropertyDataBase::getClassTypeId(void) 
+OSG::UInt32 GeoMultiPropertyDataBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 GeoMultiPropertyDataBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt32 &GeoMultiPropertyDataBase::getGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &GeoMultiPropertyDataBase::getGLId(void)
+UInt32              &GeoMultiPropertyDataBase::getGLId           (void)
 {
-    return this->editGLId();
+    return this->editGLId           ();
 }
 #endif
 
@@ -133,15 +133,15 @@ MFUInt8 &GeoMultiPropertyDataBase::editIData(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &GeoMultiPropertyDataBase::getIData(const UInt32 index)
+UInt8               &GeoMultiPropertyDataBase::getIData          (const UInt32 index)
 {
-    return this->editIData(index);
+    return this->editIData          (index);
 }
 
 inline
-MFUInt8 &GeoMultiPropertyDataBase::getIData(void)
+MFUInt8             &GeoMultiPropertyDataBase::getIData          (void)
 {
-    return this->editIData();
+    return this->editIData          ();
 }
 
 #endif
@@ -156,31 +156,31 @@ const MFUInt8 &GeoMultiPropertyDataBase::getIData(void) const
 
 //! create a new instance of the class
 inline
-GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::create(void) 
+GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::create(void)
 {
-    GeoMultiPropertyDataPtr fc; 
+    GeoMultiPropertyDataPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<GeoMultiPropertyData::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void GeoMultiPropertyDataBase::execSync(      GeoMultiPropertyDataBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (IDataFieldMask & whichField))
-        _mfIData.syncWith(pOther->_mfIData, 
+        _mfIData.syncWith(pOther->_mfIData,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -195,13 +195,13 @@ inline
 void GeoMultiPropertyDataBase::execSync (      GeoMultiPropertyDataBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (IDataFieldMask & whichField))
-        _mfIData.syncWith(pFrom->_mfIData, 
+        _mfIData.syncWith(pFrom->_mfIData,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -244,4 +244,3 @@ typedef PointerBuilder<GeoMultiPropertyData>::ObjPtrConstArg  GeoMultiPropertyDa
 OSG_END_NAMESPACE
 
 #define OSGGEOMULTIPROPERTYDATABASE_INLINE_CVSID "@(#)$Id$"
-

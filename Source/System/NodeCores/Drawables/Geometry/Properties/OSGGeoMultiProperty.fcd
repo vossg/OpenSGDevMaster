@@ -10,6 +10,7 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
+Class referencing data from a GeoMultiPropertyData.
 	<Field
 		name="container"
 		type="GeoMultiPropertyDataPtr"

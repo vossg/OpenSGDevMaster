@@ -91,22 +91,22 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr, 
-                              GeoVectorPropertyConstPtr, 
+    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
+                              GeoVectorPropertyConstPtr,
                               GeoMultiProperty>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr, 
-                              GeoVectorPropertyConstPtr, 
+    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
+                              GeoVectorPropertyConstPtr,
                               GeoMultiProperty>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr, 
+    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
                               GeoVectorPropertyConstPtr,
                               GeoMultiProperty>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr, 
+    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
                               GeoVectorPropertyConstPtr,
                               GeoMultiProperty>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr, 
+    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
                               GeoVectorPropertyConstPtr,
                               GeoMultiProperty>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GeoVectorPropertyPtr, 
+    typedef PointerFwdBuilder<GeoVectorPropertyPtr,
                               GeoVectorPropertyConstPtr,
                               GeoMultiProperty>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
         NextFieldId = IStrideFieldId + 1
     };
 
-    static const OSG::BitVector ContainerFieldMask = 
+    static const OSG::BitVector ContainerFieldMask =
         (TypeTraits<BitVector>::One << ContainerFieldId);
-    static const OSG::BitVector OffsetFieldMask = 
+    static const OSG::BitVector OffsetFieldMask =
         (TypeTraits<BitVector>::One << OffsetFieldId);
-    static const OSG::BitVector IFormatFieldMask = 
+    static const OSG::BitVector IFormatFieldMask =
         (TypeTraits<BitVector>::One << IFormatFieldId);
-    static const OSG::BitVector IDimensionFieldMask = 
+    static const OSG::BitVector IDimensionFieldMask =
         (TypeTraits<BitVector>::One << IDimensionFieldId);
-    static const OSG::BitVector ISizeFieldMask = 
+    static const OSG::BitVector ISizeFieldMask =
         (TypeTraits<BitVector>::One << ISizeFieldId);
-    static const OSG::BitVector INormalizeFieldMask = 
+    static const OSG::BitVector INormalizeFieldMask =
         (TypeTraits<BitVector>::One << INormalizeFieldId);
-    static const OSG::BitVector IStrideFieldMask = 
+    static const OSG::BitVector IStrideFieldMask =
         (TypeTraits<BitVector>::One << IStrideFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -167,120 +166,120 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFGeoMultiPropertyDataPtr *getSFContainer (void) const;
+            const SFGeoMultiPropertyDataPtr *getSFContainer       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFOffset(void);
+                  SFUInt32            *getSFOffset          (void);
 #endif
-           SFUInt32 *editSFOffset(void);
-     const SFUInt32 *getSFOffset (void) const;
+                  SFUInt32            *editSFOffset         (void);
+            const SFUInt32            *getSFOffset          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFIFormat(void);
+                  SFGLenum            *getSFIFormat         (void);
 #endif
-           SFGLenum *editSFIFormat(void);
-     const SFGLenum *getSFIFormat (void) const;
+                  SFGLenum            *editSFIFormat        (void);
+            const SFGLenum            *getSFIFormat         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFIDimension(void);
+                  SFUInt32            *getSFIDimension      (void);
 #endif
-           SFUInt32 *editSFIDimension(void);
-     const SFUInt32 *getSFIDimension (void) const;
+                  SFUInt32            *editSFIDimension     (void);
+            const SFUInt32            *getSFIDimension      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFISize(void);
+                  SFUInt32            *getSFISize           (void);
 #endif
-           SFUInt32 *editSFISize(void);
-     const SFUInt32 *getSFISize (void) const;
+                  SFUInt32            *editSFISize          (void);
+            const SFUInt32            *getSFISize           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFINormalize(void);
+                  SFBool              *getSFINormalize      (void);
 #endif
-           SFBool *editSFINormalize(void);
-     const SFBool *getSFINormalize (void) const;
+                  SFBool              *editSFINormalize     (void);
+            const SFBool              *getSFINormalize      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFIStride(void);
+                  SFUInt32            *getSFIStride         (void);
 #endif
-           SFUInt32 *editSFIStride(void);
-     const SFUInt32 *getSFIStride (void) const;
+                  SFUInt32            *editSFIStride        (void);
+            const SFUInt32            *getSFIStride         (void) const;
 
 
-           GeoMultiPropertyDataPtrConst getContainer(void) const;
+                  GeoMultiPropertyDataPtrConst getContainer      (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getOffset(void);
+                  UInt32              &getOffset          (void);
 #endif
-           UInt32 &editOffset(void);
-     const UInt32 &getOffset (void) const;
+                  UInt32              &editOffset         (void);
+            const UInt32              &getOffset          (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getIFormat(void);
+                  GLenum              &getIFormat         (void);
 #endif
-           GLenum &editIFormat(void);
-     const GLenum &getIFormat (void) const;
+                  GLenum              &editIFormat        (void);
+            const GLenum              &getIFormat         (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getIDimension(void);
+                  UInt32              &getIDimension      (void);
 #endif
-           UInt32 &editIDimension(void);
-     const UInt32 &getIDimension (void) const;
+                  UInt32              &editIDimension     (void);
+            const UInt32              &getIDimension      (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getISize(void);
+                  UInt32              &getISize           (void);
 #endif
-           UInt32 &editISize(void);
-     const UInt32 &getISize (void) const;
+                  UInt32              &editISize          (void);
+            const UInt32              &getISize           (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getINormalize(void);
+                  bool                &getINormalize      (void);
 #endif
-           bool &editINormalize(void);
-     const bool &getINormalize (void) const;
+                  bool                &editINormalize     (void);
+            const bool                &getINormalize      (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getIStride(void);
+                  UInt32              &getIStride         (void);
 #endif
-           UInt32 &editIStride(void);
-     const UInt32 &getIStride (void) const;
+                  UInt32              &editIStride        (void);
+            const UInt32              &getIStride         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setContainer(GeoMultiPropertyDataPtrConstArg value);
-     void setOffset(const UInt32 &value);
-     void setIFormat(const GLenum &value);
-     void setIDimension(const UInt32 &value);
-     void setISize(const UInt32 &value);
-     void setINormalize(const bool &value);
-     void setIStride(const UInt32 &value);
+            void setContainer      (GeoMultiPropertyDataPtrConstArg value);
+            void setOffset         (const UInt32 &value);
+            void setIFormat        (const GLenum &value);
+            void setIDimension     (const UInt32 &value);
+            void setISize          (const UInt32 &value);
+            void setINormalize     (const bool &value);
+            void setIStride        (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -307,15 +306,15 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoMultiPropertyPtr create     (void); 
-    static  GeoMultiPropertyPtr createEmpty(void); 
+    static  GeoMultiPropertyPtr create     (void);
+    static  GeoMultiPropertyPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -332,12 +331,12 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \{                                                                 */
 
     SFGeoMultiPropertyDataPtr _sfContainer;
-    SFUInt32 _sfOffset;
-    SFGLenum _sfIFormat;
-    SFUInt32 _sfIDimension;
-    SFUInt32 _sfISize;
-    SFBool _sfINormalize;
-    SFUInt32 _sfIStride;
+    SFUInt32          _sfOffset;
+    SFGLenum          _sfIFormat;
+    SFUInt32          _sfIDimension;
+    SFUInt32          _sfISize;
+    SFBool            _sfINormalize;
+    SFUInt32          _sfIStride;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -352,7 +351,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoMultiPropertyBase(void); 
+    virtual ~GeoMultiPropertyBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -399,11 +398,11 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

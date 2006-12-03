@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ParticlesBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ParticlesBase::getClassTypeId(void) 
+OSG::UInt32 ParticlesBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ParticlesBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt32 &ParticlesBase::getMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ParticlesBase::getMode(void)
+UInt32              &ParticlesBase::getMode           (void)
 {
-    return this->editMode();
+    return this->editMode           ();
 }
 #endif
 
@@ -245,9 +245,9 @@ const UInt32 &ParticlesBase::getDrawOrder(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ParticlesBase::getDrawOrder(void)
+UInt32              &ParticlesBase::getDrawOrder      (void)
 {
-    return this->editDrawOrder();
+    return this->editDrawOrder      ();
 }
 #endif
 
@@ -278,9 +278,9 @@ const bool &ParticlesBase::getDynamic(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ParticlesBase::getDynamic(void)
+bool                &ParticlesBase::getDynamic        (void)
 {
-    return this->editDynamic();
+    return this->editDynamic        ();
 }
 #endif
 
@@ -311,9 +311,9 @@ const UInt32 &ParticlesBase::getPump(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ParticlesBase::getPump(void)
+UInt32              &ParticlesBase::getPump           (void)
 {
-    return this->editPump();
+    return this->editPump           ();
 }
 #endif
 
@@ -344,9 +344,9 @@ const ParticleBSPTree &ParticlesBase::getBsp(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-ParticleBSPTree &ParticlesBase::getBsp(void)
+ParticleBSPTree     &ParticlesBase::getBsp            (void)
 {
-    return this->editBsp();
+    return this->editBsp            ();
 }
 #endif
 
@@ -377,9 +377,9 @@ const Int32 &ParticlesBase::getNumParticles(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ParticlesBase::getNumParticles(void)
+Int32               &ParticlesBase::getNumParticles   (void)
 {
-    return this->editNumParticles();
+    return this->editNumParticles   ();
 }
 #endif
 
@@ -418,15 +418,15 @@ MFVec3f &ParticlesBase::editSizes(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &ParticlesBase::getSizes(const UInt32 index)
+Vec3f               &ParticlesBase::getSizes          (const UInt32 index)
 {
-    return this->editSizes(index);
+    return this->editSizes          (index);
 }
 
 inline
-MFVec3f &ParticlesBase::getSizes(void)
+MFVec3f             &ParticlesBase::getSizes          (void)
 {
-    return this->editSizes();
+    return this->editSizes          ();
 }
 
 #endif
@@ -465,15 +465,15 @@ MFInt32 &ParticlesBase::editIndices(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ParticlesBase::getIndices(const UInt32 index)
+Int32               &ParticlesBase::getIndices        (const UInt32 index)
 {
-    return this->editIndices(index);
+    return this->editIndices        (index);
 }
 
 inline
-MFInt32 &ParticlesBase::getIndices(void)
+MFInt32             &ParticlesBase::getIndices        (void)
 {
-    return this->editIndices();
+    return this->editIndices        ();
 }
 
 #endif
@@ -512,15 +512,15 @@ MFReal32 &ParticlesBase::editTextureZs(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ParticlesBase::getTextureZs(const UInt32 index)
+Real32              &ParticlesBase::getTextureZs      (const UInt32 index)
 {
-    return this->editTextureZs(index);
+    return this->editTextureZs      (index);
 }
 
 inline
-MFReal32 &ParticlesBase::getTextureZs(void)
+MFReal32            &ParticlesBase::getTextureZs      (void)
 {
-    return this->editTextureZs();
+    return this->editTextureZs      ();
 }
 
 #endif
@@ -535,24 +535,24 @@ const MFReal32 &ParticlesBase::getTextureZs(void) const
 
 //! create a new instance of the class
 inline
-ParticlesPtr ParticlesBase::create(void) 
+ParticlesPtr ParticlesBase::create(void)
 {
-    ParticlesPtr fc; 
+    ParticlesPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Particles::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ParticlesBase::execSync(      ParticlesBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -565,7 +565,7 @@ void ParticlesBase::execSync(      ParticlesBase *pOther,
         _sfPositions.syncWith(pOther->_sfPositions);
 
     if(FieldBits::NoField != (SizesFieldMask & whichField))
-        _mfSizes.syncWith(pOther->_mfSizes, 
+        _mfSizes.syncWith(pOther->_mfSizes,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -580,13 +580,13 @@ void ParticlesBase::execSync(      ParticlesBase *pOther,
         _sfNormals.syncWith(pOther->_sfNormals);
 
     if(FieldBits::NoField != (IndicesFieldMask & whichField))
-        _mfIndices.syncWith(pOther->_mfIndices, 
+        _mfIndices.syncWith(pOther->_mfIndices,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (TextureZsFieldMask & whichField))
-        _mfTextureZs.syncWith(pOther->_mfTextureZs, 
+        _mfTextureZs.syncWith(pOther->_mfTextureZs,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -613,7 +613,7 @@ inline
 void ParticlesBase::execSync (      ParticlesBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -625,7 +625,7 @@ void ParticlesBase::execSync (      ParticlesBase *pFrom,
         _sfPositions.syncWith(pFrom->_sfPositions);
 
     if(FieldBits::NoField != (SizesFieldMask & whichField))
-        _mfSizes.syncWith(pFrom->_mfSizes, 
+        _mfSizes.syncWith(pFrom->_mfSizes,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -640,13 +640,13 @@ void ParticlesBase::execSync (      ParticlesBase *pFrom,
         _sfNormals.syncWith(pFrom->_sfNormals);
 
     if(FieldBits::NoField != (IndicesFieldMask & whichField))
-        _mfIndices.syncWith(pFrom->_mfIndices, 
+        _mfIndices.syncWith(pFrom->_mfIndices,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (TextureZsFieldMask & whichField))
-        _mfTextureZs.syncWith(pFrom->_mfTextureZs, 
+        _mfTextureZs.syncWith(pFrom->_mfTextureZs,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -711,4 +711,3 @@ typedef PointerBuilder<Particles>::ObjPtrConstArg  ParticlesPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGPARTICLESBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -65,22 +65,30 @@
 #include "OSGGeoMultiPropertyDataBase.h"
 #include "OSGGeoMultiPropertyData.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var UInt8 GeoMultiPropertyDataBase::_mfIData
-    	The data for the multi-properties.
+/*! \class OSG::GeoMultiPropertyData
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var UInt8           GeoMultiPropertyDataBase::_mfIData
+    The data for the multi-properties.
 */
-/*! \var UInt32 GeoMultiPropertyDataBase::_sfGLId
-    	The internal GL object id for the VBO, if used.
-
+/*! \var UInt32          GeoMultiPropertyDataBase::_sfGLId
+    The internal GL object id for the VBO, if used.
 */
 
 void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +98,9 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt8::Description(
-        MFUInt8::getClassType(), 
-        "iData", 
-        "	The data for the multi-properties.\n",
+        MFUInt8::getClassType(),
+        "iData",
+        "The data for the multi-properties.\n",
         IDataFieldId, IDataFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -112,9 +120,9 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "GLId", 
-        "	The internal GL object id for the VBO, if used.\n",
+        SFUInt32::getClassType(),
+        "GLId",
+        "The internal GL object id for the VBO, if used.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -139,56 +147,55 @@ GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(true,
     (InitalInsertDescFunc) &GeoMultiPropertyDataBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GeoMultiPropertyData\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"iData\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The data for the multi-properties.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"GLId\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"                defaukt=\"0\"\n"
-"	>\n"
-"	The internal GL object id for the VBO, if used.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GeoMultiPropertyData\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"iData\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe data for the multi-properties.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"GLId\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "                defaukt=\"0\"\n"
+    "\t>\n"
+    "\tThe internal GL object id for the VBO, if used.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GeoMultiPropertyDataBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GeoMultiPropertyDataBase::getType(void) const 
+FieldContainerType &GeoMultiPropertyDataBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GeoMultiPropertyDataBase::getContainerSize(void) const 
-{ 
-    return sizeof(GeoMultiPropertyData); 
+const FieldContainerType &GeoMultiPropertyDataBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GeoMultiPropertyDataBase::getContainerSize(void) const
+{
+    return sizeof(GeoMultiPropertyData);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -207,9 +214,9 @@ const MFUInt8 *GeoMultiPropertyDataBase::getMFIData(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt8 *GeoMultiPropertyDataBase::getMFIData(void)
+MFUInt8             *GeoMultiPropertyDataBase::getMFIData          (void)
 {
-    return this->editMFIData();
+    return this->editMFIData          ();
 }
 #endif
 
@@ -226,9 +233,9 @@ const SFUInt32 *GeoMultiPropertyDataBase::getSFGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoMultiPropertyDataBase::getSFGLId(void)
+SFUInt32            *GeoMultiPropertyDataBase::getSFGLId           (void)
 {
-    return this->editSFGLId();
+    return this->editSFGLId           ();
 }
 #endif
 
@@ -283,22 +290,22 @@ void GeoMultiPropertyDataBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::createEmpty(void) 
-{ 
-    GeoMultiPropertyDataPtr returnValue; 
-    
-    newPtr<GeoMultiPropertyData>(returnValue); 
+GeoMultiPropertyDataPtr GeoMultiPropertyDataBase::createEmpty(void)
+{
+    GeoMultiPropertyDataPtr returnValue;
 
-    return returnValue; 
+    newPtr<GeoMultiPropertyData>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr GeoMultiPropertyDataBase::shallowCopy(void) const 
-{ 
-    GeoMultiPropertyDataPtr returnValue; 
+FieldContainerPtr GeoMultiPropertyDataBase::shallowCopy(void) const
+{
+    GeoMultiPropertyDataPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const GeoMultiPropertyData *>(this)); 
+    newPtr(returnValue, dynamic_cast<const GeoMultiPropertyData *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -307,15 +314,15 @@ FieldContainerPtr GeoMultiPropertyDataBase::shallowCopy(void) const
 
 GeoMultiPropertyDataBase::GeoMultiPropertyDataBase(void) :
     Inherited(),
-    _mfIData(),
-    _sfGLId()
+    _mfIData                  (),
+    _sfGLId                   ()
 {
 }
 
 GeoMultiPropertyDataBase::GeoMultiPropertyDataBase(const GeoMultiPropertyDataBase &source) :
     Inherited(source),
-    _mfIData(source._mfIData),
-    _sfGLId(source._sfGLId)
+    _mfIData                  (source._mfIData                  ),
+    _sfGLId                   (source._sfGLId                   )
 {
 }
 
@@ -329,13 +336,13 @@ GeoMultiPropertyDataBase::~GeoMultiPropertyDataBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GeoMultiPropertyDataBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GeoMultiPropertyDataBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -345,10 +352,10 @@ void GeoMultiPropertyDataBase::execSyncV(      FieldContainer    &oFrom,
 void GeoMultiPropertyDataBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoMultiPropertyDataBase *>(&oFrom), 
+    this->execSync(static_cast<GeoMultiPropertyDataBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -368,12 +375,12 @@ void GeoMultiPropertyDataBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr GeoMultiPropertyDataBase::createAspectCopy(void) const
 {
-    GeoMultiPropertyDataPtr returnValue; 
+    GeoMultiPropertyDataPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const GeoMultiPropertyData *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const GeoMultiPropertyData *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -382,6 +389,8 @@ void GeoMultiPropertyDataBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -404,8 +413,6 @@ OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyDataPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GeoMultiPropertyDataPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GeoMultiPropertyDataPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -426,3 +433,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGEOMULTIPROPERTYDATAFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &GeometryBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GeometryBase::getClassTypeId(void) 
+OSG::UInt32 GeometryBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 GeometryBase::getClassGroupId(void)
@@ -152,9 +152,9 @@ const Int32 &GeometryBase::getClassicGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &GeometryBase::getClassicGLId(void)
+Int32               &GeometryBase::getClassicGLId    (void)
 {
-    return this->editClassicGLId();
+    return this->editClassicGLId    ();
 }
 #endif
 
@@ -185,9 +185,9 @@ const Int32 &GeometryBase::getAttGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &GeometryBase::getAttGLId(void)
+Int32               &GeometryBase::getAttGLId        (void)
 {
-    return this->editAttGLId();
+    return this->editAttGLId        ();
 }
 #endif
 
@@ -230,24 +230,24 @@ const MFGeoIntegralPropertyPtr &GeometryBase::getPropIndices(void) const
 
 //! create a new instance of the class
 inline
-GeometryPtr GeometryBase::create(void) 
+GeometryPtr GeometryBase::create(void)
 {
-    GeometryPtr fc; 
+    GeometryPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Geometry::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void GeometryBase::execSync(      GeometryBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -260,13 +260,13 @@ void GeometryBase::execSync(      GeometryBase *pOther,
         _sfLengths.syncWith(pOther->_sfLengths);
 
     if(FieldBits::NoField != (PropertiesFieldMask & whichField))
-        _mfProperties.syncWith(pOther->_mfProperties, 
+        _mfProperties.syncWith(pOther->_mfProperties,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (PropIndicesFieldMask & whichField))
-        _mfPropIndices.syncWith(pOther->_mfPropIndices, 
+        _mfPropIndices.syncWith(pOther->_mfPropIndices,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -284,7 +284,7 @@ inline
 void GeometryBase::execSync (      GeometryBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -296,13 +296,13 @@ void GeometryBase::execSync (      GeometryBase *pFrom,
         _sfLengths.syncWith(pFrom->_sfLengths);
 
     if(FieldBits::NoField != (PropertiesFieldMask & whichField))
-        _mfProperties.syncWith(pFrom->_mfProperties, 
+        _mfProperties.syncWith(pFrom->_mfProperties,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (PropIndicesFieldMask & whichField))
-        _mfPropIndices.syncWith(pFrom->_mfPropIndices, 
+        _mfPropIndices.syncWith(pFrom->_mfPropIndices,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -353,4 +353,3 @@ typedef PointerBuilder<Geometry>::ObjPtrConstArg  GeometryPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGGEOMETRYBASE_INLINE_CVSID "@(#)$Id$"
-

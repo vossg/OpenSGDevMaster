@@ -84,22 +84,22 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralPropertyBase : public GeoProperty
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GeoPropertyPtr, 
-                              GeoPropertyConstPtr, 
+    typedef PointerFwdBuilder<GeoPropertyPtr,
+                              GeoPropertyConstPtr,
                               GeoIntegralProperty>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GeoPropertyPtr, 
-                              GeoPropertyConstPtr, 
+    typedef PointerFwdBuilder<GeoPropertyPtr,
+                              GeoPropertyConstPtr,
                               GeoIntegralProperty>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GeoPropertyPtr, 
+    typedef PointerFwdBuilder<GeoPropertyPtr,
                               GeoPropertyConstPtr,
                               GeoIntegralProperty>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GeoPropertyPtr, 
+    typedef PointerFwdBuilder<GeoPropertyPtr,
                               GeoPropertyConstPtr,
                               GeoIntegralProperty>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GeoPropertyPtr, 
+    typedef PointerFwdBuilder<GeoPropertyPtr,
                               GeoPropertyConstPtr,
                               GeoIntegralProperty>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GeoPropertyPtr, 
+    typedef PointerFwdBuilder<GeoPropertyPtr,
                               GeoPropertyConstPtr,
                               GeoIntegralProperty>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralPropertyBase : public GeoProperty
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralPropertyBase : public GeoProperty
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -161,7 +160,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralPropertyBase : public GeoProperty
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoIntegralPropertyBase(void); 
+    virtual ~GeoIntegralPropertyBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -207,11 +206,11 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralPropertyBase : public GeoProperty
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

@@ -70,22 +70,22 @@ class GeoMultiPropertyData;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoMultiPropertyDataPtr
 
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           GeoMultiPropertyData>::ObjPtr         GeoMultiPropertyDataPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           GeoMultiPropertyData>::ObjPtrConst    GeoMultiPropertyDataPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           GeoMultiPropertyData>::ObjConstPtr    GeoMultiPropertyDataConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           GeoMultiPropertyData>::ObjPtrArg      GeoMultiPropertyDataPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           GeoMultiPropertyData>::ObjConstPtrArg GeoMultiPropertyDataConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           GeoMultiPropertyData>::ObjPtrConstArg GeoMultiPropertyDataPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<StateChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<GeoMultiPropertyDataPtr> : 
+struct FieldTraits<GeoMultiPropertyDataPtr> :
     public FieldTraitsTemplateBase<GeoMultiPropertyDataPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<GeoMultiPropertyDataPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING 
+    static OSG_DRAWABLE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFGeoMultiPropertyDataPtr"; }

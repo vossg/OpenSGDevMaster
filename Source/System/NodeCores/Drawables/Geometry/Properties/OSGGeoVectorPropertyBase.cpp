@@ -65,7 +65,17 @@
 #include "OSGGeoVectorPropertyBase.h"
 #include "OSGGeoVectorProperty.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::GeoVectorProperty
+    Abstract base class for all vector-valued GeoProperties. Provides a
+    uniform interface for accessing all vector data in geometry using
+    automatic conversion methods.
+ */
 
 
 GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(true,
@@ -73,43 +83,46 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     GeoVectorProperty::initMethod,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GeoVectorProperty\"\n"
-"	parent=\"GeoProperty\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"Abstract base class for all vector-valued GeoProperties\n"
-"</FieldContainer>\n"
-,
-    "Abstract base class for all vector-valued GeoProperties\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GeoVectorProperty\"\n"
+    "\tparent=\"GeoProperty\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "Abstract base class for all vector-valued GeoProperties.\n"
+    "Provides a uniform interface for accessing all vector data in geometry using\n"
+    "automatic conversion methods.\n"
+    "</FieldContainer>\n",
+    "Abstract base class for all vector-valued GeoProperties.\n"
+    "Provides a uniform interface for accessing all vector data in geometry using\n"
+    "automatic conversion methods.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GeoVectorPropertyBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GeoVectorPropertyBase::getType(void) const 
+FieldContainerType &GeoVectorPropertyBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GeoVectorPropertyBase::getContainerSize(void) const 
-{ 
-    return sizeof(GeoVectorProperty); 
+const FieldContainerType &GeoVectorPropertyBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GeoVectorPropertyBase::getContainerSize(void) const
+{
+    return sizeof(GeoVectorProperty);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -165,13 +178,13 @@ GeoVectorPropertyBase::~GeoVectorPropertyBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GeoVectorPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GeoVectorPropertyBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -181,10 +194,10 @@ void GeoVectorPropertyBase::execSyncV(      FieldContainer    &oFrom,
 void GeoVectorPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoVectorPropertyBase *>(&oFrom), 
+    this->execSync(static_cast<GeoVectorPropertyBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -208,6 +221,8 @@ void GeoVectorPropertyBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -229,8 +244,6 @@ OSG_FIELDTRAITS_GETTYPE(GeoVectorPropertyPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GeoVectorPropertyPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GeoVectorPropertyPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -251,3 +264,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGEOVECTORPROPERTYFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

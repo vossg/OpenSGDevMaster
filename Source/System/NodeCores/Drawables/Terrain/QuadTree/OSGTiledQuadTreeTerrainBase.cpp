@@ -67,71 +67,73 @@
 #include "OSGTiledQuadTreeTerrainBase.h"
 #include "OSGTiledQuadTreeTerrain.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var ImagePtr TiledQuadTreeTerrainBase::_mfHeightTiles
-    	Terrain tile array
+/*! \class OSG::TiledQuadTreeTerrain
+    Tiled terrain node core.
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var ImagePtr        TiledQuadTreeTerrainBase::_mfHeightTiles
+    Terrain tile array.
 */
-/*! \var MaterialPtr TiledQuadTreeTerrainBase::_mfHeightTextures
-    	Terrain textures
-
+/*! \var MaterialPtr     TiledQuadTreeTerrainBase::_mfHeightTextures
+    Terrain textures.
 */
-/*! \var UInt32 TiledQuadTreeTerrainBase::_sfSizeX
-    	x-size of 2-dimensional tile array
-
+/*! \var UInt32          TiledQuadTreeTerrainBase::_sfSizeX
+    x-size of 2-dimensional tile array.
 */
-/*! \var UInt32 TiledQuadTreeTerrainBase::_sfSizeY
-    	y-size of 2-dimensional tile array
-
+/*! \var UInt32          TiledQuadTreeTerrainBase::_sfSizeY
+    y-size of 2-dimensional tile array.
 */
-/*! \var Real32 TiledQuadTreeTerrainBase::_sfHeightScale
+/*! \var Real32          TiledQuadTreeTerrainBase::_sfHeightScale
     
 */
-/*! \var Real32 TiledQuadTreeTerrainBase::_sfVertexSpacing
+/*! \var Real32          TiledQuadTreeTerrainBase::_sfVertexSpacing
     
 */
-/*! \var bool TiledQuadTreeTerrainBase::_sfGeoMorphing
+/*! \var bool            TiledQuadTreeTerrainBase::_sfGeoMorphing
     
 */
-/*! \var Real32 TiledQuadTreeTerrainBase::_sfDetail
-    	detail of terrain tesselation
-
+/*! \var Real32          TiledQuadTreeTerrainBase::_sfDetail
+    Detail of terrain tesselation.
 */
-/*! \var Int32 TiledQuadTreeTerrainBase::_sfCurrentX
+/*! \var Int32           TiledQuadTreeTerrainBase::_sfCurrentX
     
 */
-/*! \var Int32 TiledQuadTreeTerrainBase::_sfCurrentY
+/*! \var Int32           TiledQuadTreeTerrainBase::_sfCurrentY
     
 */
-/*! \var Int32 TiledQuadTreeTerrainBase::_sfSizeROI
-    	number of tiles (0, 1, 2, 3) around current eye point
-
+/*! \var Int32           TiledQuadTreeTerrainBase::_sfSizeROI
+    Number of tiles (0, 1, 2, 3) around current eye point.
 */
-/*! \var bool TiledQuadTreeTerrainBase::_sfUpdate
-    	perform any updates (tiling, terrain tiles)
-
+/*! \var bool            TiledQuadTreeTerrainBase::_sfUpdate
+    Perform any updates (tiling, terrain tiles).
 */
-/*! \var bool TiledQuadTreeTerrainBase::_sfUpdateTerrain
-    	update terrain tiles in the next frame
-
+/*! \var bool            TiledQuadTreeTerrainBase::_sfUpdateTerrain
+    Update terrain tiles in the next frame.
 */
-/*! \var bool TiledQuadTreeTerrainBase::_sfPerPixelLighting
-    	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals
-
+/*! \var bool            TiledQuadTreeTerrainBase::_sfPerPixelLighting
+    Do per-pixel lighting with normalmap; otherwise generate per-vertex
+    normals.
 */
 
 void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new MFImagePtr::Description(
-        MFImagePtr::getClassType(), 
-        "heightTiles", 
-        "	Terrain tile array\n",
+        MFImagePtr::getClassType(),
+        "heightTiles",
+        "Terrain tile array.\n",
         HeightTilesFieldId, HeightTilesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -141,9 +143,9 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFMaterialPtr::Description(
-        MFMaterialPtr::getClassType(), 
-        "heightTextures", 
-        "	Terrain textures\n",
+        MFMaterialPtr::getClassType(),
+        "heightTextures",
+        "Terrain textures.\n",
         HeightTexturesFieldId, HeightTexturesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -159,9 +161,9 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "sizeX", 
-        "	x-size of 2-dimensional tile array\n",
+        SFUInt32::getClassType(),
+        "sizeX",
+        "x-size of 2-dimensional tile array.\n",
         SizeXFieldId, SizeXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -181,9 +183,9 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "sizeY", 
-        "	y-size of 2-dimensional tile array\n",
+        SFUInt32::getClassType(),
+        "sizeY",
+        "y-size of 2-dimensional tile array.\n",
         SizeYFieldId, SizeYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -203,8 +205,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "heightScale", 
+        SFReal32::getClassType(),
+        "heightScale",
         "",
         HeightScaleFieldId, HeightScaleFieldMask,
         false,
@@ -225,8 +227,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "vertexSpacing", 
+        SFReal32::getClassType(),
+        "vertexSpacing",
         "",
         VertexSpacingFieldId, VertexSpacingFieldMask,
         false,
@@ -247,8 +249,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "geoMorphing", 
+        SFBool::getClassType(),
+        "geoMorphing",
         "",
         GeoMorphingFieldId, GeoMorphingFieldMask,
         false,
@@ -269,9 +271,9 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "detail", 
-        "	detail of terrain tesselation\n",
+        SFReal32::getClassType(),
+        "detail",
+        "Detail of terrain tesselation.\n",
         DetailFieldId, DetailFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -291,8 +293,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "currentX", 
+        SFInt32::getClassType(),
+        "currentX",
         "",
         CurrentXFieldId, CurrentXFieldMask,
         false,
@@ -313,8 +315,8 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "currentY", 
+        SFInt32::getClassType(),
+        "currentY",
         "",
         CurrentYFieldId, CurrentYFieldMask,
         false,
@@ -335,9 +337,9 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "sizeROI", 
-        "	number of tiles (0, 1, 2, 3) around current eye point\n",
+        SFInt32::getClassType(),
+        "sizeROI",
+        "Number of tiles (0, 1, 2, 3) around current eye point.\n",
         SizeROIFieldId, SizeROIFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -357,9 +359,9 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "update", 
-        "	perform any updates (tiling, terrain tiles)\n",
+        SFBool::getClassType(),
+        "update",
+        "Perform any updates (tiling, terrain tiles).\n",
         UpdateFieldId, UpdateFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -379,9 +381,9 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "updateTerrain", 
-        "	update terrain tiles in the next frame\n",
+        SFBool::getClassType(),
+        "updateTerrain",
+        "Update terrain tiles in the next frame.\n",
         UpdateTerrainFieldId, UpdateTerrainFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -401,9 +403,9 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "perPixelLighting", 
-        "	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals\n",
+        SFBool::getClassType(),
+        "perPixelLighting",
+        "Do per-pixel lighting with normalmap; otherwise generate per-vertex normals.\n",
         PerPixelLightingFieldId, PerPixelLightingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -428,172 +430,171 @@ TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(true,
     (InitalInsertDescFunc) &TiledQuadTreeTerrainBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TiledQuadTreeTerrain\"\n"
-"	parent=\"MaterialGroup\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"Tiled terrain node core\n"
-"	<Field\n"
-"		name=\"heightTiles\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Terrain tile array\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"heightTextures\"\n"
-"		type=\"MaterialPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Terrain textures\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"sizeX\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	x-size of 2-dimensional tile array\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"sizeY\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	y-size of 2-dimensional tile array\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"heightScale\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"vertexSpacing\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.1f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"geoMorphing\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"detail\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"22.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	detail of terrain tesselation\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"currentX\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"currentY\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"sizeROI\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	number of tiles (0, 1, 2, 3) around current eye point\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"update\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	perform any updates (tiling, terrain tiles)\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"updateTerrain\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	update terrain tiles in the next frame\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"perPixelLighting\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "Tiled terrain node core\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TiledQuadTreeTerrain\"\n"
+    "\tparent=\"MaterialGroup\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "Tiled terrain node core.\n"
+    "\t<Field\n"
+    "\t\tname=\"heightTiles\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTerrain tile array.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"heightTextures\"\n"
+    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTerrain textures.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sizeX\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tx-size of 2-dimensional tile array.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sizeY\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\ty-size of 2-dimensional tile array.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"heightScale\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"vertexSpacing\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.1f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"geoMorphing\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"detail\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"22.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDetail of terrain tesselation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"currentX\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"currentY\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sizeROI\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tNumber of tiles (0, 1, 2, 3) around current eye point.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"update\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tPerform any updates (tiling, terrain tiles).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"updateTerrain\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUpdate terrain tiles in the next frame.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"perPixelLighting\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDo per-pixel lighting with normalmap; otherwise generate per-vertex normals.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "Tiled terrain node core.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TiledQuadTreeTerrainBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TiledQuadTreeTerrainBase::getType(void) const 
+FieldContainerType &TiledQuadTreeTerrainBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TiledQuadTreeTerrainBase::getContainerSize(void) const 
-{ 
-    return sizeof(TiledQuadTreeTerrain); 
+const FieldContainerType &TiledQuadTreeTerrainBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TiledQuadTreeTerrainBase::getContainerSize(void) const
+{
+    return sizeof(TiledQuadTreeTerrain);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -624,9 +625,9 @@ const SFUInt32 *TiledQuadTreeTerrainBase::getSFSizeX(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *TiledQuadTreeTerrainBase::getSFSizeX(void)
+SFUInt32            *TiledQuadTreeTerrainBase::getSFSizeX          (void)
 {
-    return this->editSFSizeX();
+    return this->editSFSizeX          ();
 }
 #endif
 
@@ -643,9 +644,9 @@ const SFUInt32 *TiledQuadTreeTerrainBase::getSFSizeY(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *TiledQuadTreeTerrainBase::getSFSizeY(void)
+SFUInt32            *TiledQuadTreeTerrainBase::getSFSizeY          (void)
 {
-    return this->editSFSizeY();
+    return this->editSFSizeY          ();
 }
 #endif
 
@@ -662,9 +663,9 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFHeightScale(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TiledQuadTreeTerrainBase::getSFHeightScale(void)
+SFReal32            *TiledQuadTreeTerrainBase::getSFHeightScale    (void)
 {
-    return this->editSFHeightScale();
+    return this->editSFHeightScale    ();
 }
 #endif
 
@@ -681,9 +682,9 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFVertexSpacing(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TiledQuadTreeTerrainBase::getSFVertexSpacing(void)
+SFReal32            *TiledQuadTreeTerrainBase::getSFVertexSpacing  (void)
 {
-    return this->editSFVertexSpacing();
+    return this->editSFVertexSpacing  ();
 }
 #endif
 
@@ -700,9 +701,9 @@ const SFBool *TiledQuadTreeTerrainBase::getSFGeoMorphing(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *TiledQuadTreeTerrainBase::getSFGeoMorphing(void)
+SFBool              *TiledQuadTreeTerrainBase::getSFGeoMorphing    (void)
 {
-    return this->editSFGeoMorphing();
+    return this->editSFGeoMorphing    ();
 }
 #endif
 
@@ -719,9 +720,9 @@ const SFReal32 *TiledQuadTreeTerrainBase::getSFDetail(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TiledQuadTreeTerrainBase::getSFDetail(void)
+SFReal32            *TiledQuadTreeTerrainBase::getSFDetail         (void)
 {
-    return this->editSFDetail();
+    return this->editSFDetail         ();
 }
 #endif
 
@@ -738,9 +739,9 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFCurrentX(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TiledQuadTreeTerrainBase::getSFCurrentX(void)
+SFInt32             *TiledQuadTreeTerrainBase::getSFCurrentX       (void)
 {
-    return this->editSFCurrentX();
+    return this->editSFCurrentX       ();
 }
 #endif
 
@@ -757,9 +758,9 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFCurrentY(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TiledQuadTreeTerrainBase::getSFCurrentY(void)
+SFInt32             *TiledQuadTreeTerrainBase::getSFCurrentY       (void)
 {
-    return this->editSFCurrentY();
+    return this->editSFCurrentY       ();
 }
 #endif
 
@@ -776,9 +777,9 @@ const SFInt32 *TiledQuadTreeTerrainBase::getSFSizeROI(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TiledQuadTreeTerrainBase::getSFSizeROI(void)
+SFInt32             *TiledQuadTreeTerrainBase::getSFSizeROI        (void)
 {
-    return this->editSFSizeROI();
+    return this->editSFSizeROI        ();
 }
 #endif
 
@@ -795,9 +796,9 @@ const SFBool *TiledQuadTreeTerrainBase::getSFUpdate(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *TiledQuadTreeTerrainBase::getSFUpdate(void)
+SFBool              *TiledQuadTreeTerrainBase::getSFUpdate         (void)
 {
-    return this->editSFUpdate();
+    return this->editSFUpdate         ();
 }
 #endif
 
@@ -814,9 +815,9 @@ const SFBool *TiledQuadTreeTerrainBase::getSFUpdateTerrain(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *TiledQuadTreeTerrainBase::getSFUpdateTerrain(void)
+SFBool              *TiledQuadTreeTerrainBase::getSFUpdateTerrain  (void)
 {
-    return this->editSFUpdateTerrain();
+    return this->editSFUpdateTerrain  ();
 }
 #endif
 
@@ -833,7 +834,7 @@ const SFBool *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void)
+SFBool              *TiledQuadTreeTerrainBase::getSFPerPixelLighting(void)
 {
     return this->editSFPerPixelLighting();
 }
@@ -978,7 +979,7 @@ void TiledQuadTreeTerrainBase::pushToHeightTiles(ImagePtrConstArg value)
 }
 
 void TiledQuadTreeTerrainBase::insertIntoHeightTiles(UInt32                uiIndex,
-                                             ImagePtrConstArg value   )
+                                                   ImagePtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -995,7 +996,7 @@ void TiledQuadTreeTerrainBase::insertIntoHeightTiles(UInt32                uiInd
 }
 
 void TiledQuadTreeTerrainBase::replaceInHeightTiles(UInt32                uiIndex,
-                                                 ImagePtrConstArg value   )
+                                                       ImagePtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1013,7 +1014,7 @@ void TiledQuadTreeTerrainBase::replaceInHeightTiles(UInt32                uiInde
 }
 
 void TiledQuadTreeTerrainBase::replaceInHeightTiles(ImagePtrConstArg pOldElem,
-                                                  ImagePtrConstArg pNewElem)
+                                                        ImagePtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1085,8 +1086,6 @@ void TiledQuadTreeTerrainBase::clearHeightTiles(void)
     _mfHeightTiles.clear();
 }
 
-
-
 void TiledQuadTreeTerrainBase::pushToHeightTextures(MaterialPtrConstArg value)
 {
     if(value == NullFC)
@@ -1100,7 +1099,7 @@ void TiledQuadTreeTerrainBase::pushToHeightTextures(MaterialPtrConstArg value)
 }
 
 void TiledQuadTreeTerrainBase::insertIntoHeightTextures(UInt32                uiIndex,
-                                             MaterialPtrConstArg value   )
+                                                   MaterialPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1117,7 +1116,7 @@ void TiledQuadTreeTerrainBase::insertIntoHeightTextures(UInt32                ui
 }
 
 void TiledQuadTreeTerrainBase::replaceInHeightTextures(UInt32                uiIndex,
-                                                 MaterialPtrConstArg value   )
+                                                       MaterialPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1135,7 +1134,7 @@ void TiledQuadTreeTerrainBase::replaceInHeightTextures(UInt32                uiI
 }
 
 void TiledQuadTreeTerrainBase::replaceInHeightTextures(MaterialPtrConstArg pOldElem,
-                                                  MaterialPtrConstArg pNewElem)
+                                                        MaterialPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1206,8 +1205,6 @@ void TiledQuadTreeTerrainBase::clearHeightTextures(void)
 
     _mfHeightTextures.clear();
 }
-
-
 
 
 
@@ -1404,22 +1401,22 @@ void TiledQuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::createEmpty(void) 
-{ 
-    TiledQuadTreeTerrainPtr returnValue; 
-    
-    newPtr<TiledQuadTreeTerrain>(returnValue); 
+TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::createEmpty(void)
+{
+    TiledQuadTreeTerrainPtr returnValue;
 
-    return returnValue; 
+    newPtr<TiledQuadTreeTerrain>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TiledQuadTreeTerrainBase::shallowCopy(void) const 
-{ 
-    TiledQuadTreeTerrainPtr returnValue; 
+FieldContainerPtr TiledQuadTreeTerrainBase::shallowCopy(void) const
+{
+    TiledQuadTreeTerrainPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TiledQuadTreeTerrain *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TiledQuadTreeTerrain *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -1428,39 +1425,39 @@ FieldContainerPtr TiledQuadTreeTerrainBase::shallowCopy(void) const
 
 TiledQuadTreeTerrainBase::TiledQuadTreeTerrainBase(void) :
     Inherited(),
-    _mfHeightTiles(),
-    _mfHeightTextures(),
-    _sfSizeX(UInt32(1)),
-    _sfSizeY(UInt32(1)),
-    _sfHeightScale(Real32(1.0f)),
-    _sfVertexSpacing(Real32(0.1f)),
-    _sfGeoMorphing(bool(false)),
-    _sfDetail(Real32(22.0f)),
-    _sfCurrentX(Int32(0)),
-    _sfCurrentY(Int32(0)),
-    _sfSizeROI(Int32(1)),
-    _sfUpdate(bool(true)),
-    _sfUpdateTerrain(bool(false)),
-    _sfPerPixelLighting(bool(true))
+    _mfHeightTiles            (),
+    _mfHeightTextures         (),
+    _sfSizeX                  (UInt32(1)),
+    _sfSizeY                  (UInt32(1)),
+    _sfHeightScale            (Real32(1.0f)),
+    _sfVertexSpacing          (Real32(0.1f)),
+    _sfGeoMorphing            (bool(false)),
+    _sfDetail                 (Real32(22.0f)),
+    _sfCurrentX               (Int32(0)),
+    _sfCurrentY               (Int32(0)),
+    _sfSizeROI                (Int32(1)),
+    _sfUpdate                 (bool(true)),
+    _sfUpdateTerrain          (bool(false)),
+    _sfPerPixelLighting       (bool(true))
 {
 }
 
 TiledQuadTreeTerrainBase::TiledQuadTreeTerrainBase(const TiledQuadTreeTerrainBase &source) :
     Inherited(source),
-    _mfHeightTiles(),
-    _mfHeightTextures(),
-    _sfSizeX(source._sfSizeX),
-    _sfSizeY(source._sfSizeY),
-    _sfHeightScale(source._sfHeightScale),
-    _sfVertexSpacing(source._sfVertexSpacing),
-    _sfGeoMorphing(source._sfGeoMorphing),
-    _sfDetail(source._sfDetail),
-    _sfCurrentX(source._sfCurrentX),
-    _sfCurrentY(source._sfCurrentY),
-    _sfSizeROI(source._sfSizeROI),
-    _sfUpdate(source._sfUpdate),
-    _sfUpdateTerrain(source._sfUpdateTerrain),
-    _sfPerPixelLighting(source._sfPerPixelLighting)
+    _mfHeightTiles            (),
+    _mfHeightTextures         (),
+    _sfSizeX                  (source._sfSizeX                  ),
+    _sfSizeY                  (source._sfSizeY                  ),
+    _sfHeightScale            (source._sfHeightScale            ),
+    _sfVertexSpacing          (source._sfVertexSpacing          ),
+    _sfGeoMorphing            (source._sfGeoMorphing            ),
+    _sfDetail                 (source._sfDetail                 ),
+    _sfCurrentX               (source._sfCurrentX               ),
+    _sfCurrentY               (source._sfCurrentY               ),
+    _sfSizeROI                (source._sfSizeROI                ),
+    _sfUpdate                 (source._sfUpdate                 ),
+    _sfUpdateTerrain          (source._sfUpdateTerrain          ),
+    _sfPerPixelLighting       (source._sfPerPixelLighting       )
 {
 }
 
@@ -1477,9 +1474,9 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
     if(source != NULL)
     {
 
-        MFImagePtr::const_iterator HeightTilesIt  = 
+        MFImagePtr::const_iterator HeightTilesIt  =
             source->_mfHeightTiles.begin();
-        MFImagePtr::const_iterator HeightTilesEnd = 
+        MFImagePtr::const_iterator HeightTilesEnd =
             source->_mfHeightTiles.end  ();
 
         while(HeightTilesIt != HeightTilesEnd)
@@ -1489,9 +1486,9 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
             ++HeightTilesIt;
         }
 
-        MFMaterialPtr::const_iterator HeightTexturesIt  = 
+        MFMaterialPtr::const_iterator HeightTexturesIt  =
             source->_mfHeightTextures.begin();
-        MFMaterialPtr::const_iterator HeightTexturesEnd = 
+        MFMaterialPtr::const_iterator HeightTexturesEnd =
             source->_mfHeightTextures.end  ();
 
         while(HeightTexturesIt != HeightTexturesEnd)
@@ -1506,13 +1503,13 @@ void TiledQuadTreeTerrainBase::onCreate(const TiledQuadTreeTerrain *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TiledQuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TiledQuadTreeTerrainBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1522,10 +1519,10 @@ void TiledQuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
 void TiledQuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TiledQuadTreeTerrainBase *>(&oFrom), 
+    this->execSync(static_cast<TiledQuadTreeTerrainBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1545,12 +1542,12 @@ void TiledQuadTreeTerrainBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TiledQuadTreeTerrainBase::createAspectCopy(void) const
 {
-    TiledQuadTreeTerrainPtr returnValue; 
+    TiledQuadTreeTerrainPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TiledQuadTreeTerrain *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TiledQuadTreeTerrain *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1563,6 +1560,8 @@ void TiledQuadTreeTerrainBase::resolveLinks(void)
     static_cast<TiledQuadTreeTerrain *>(this)->clearHeightTextures();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1585,8 +1584,6 @@ OSG_FIELDTRAITS_GETTYPE(TiledQuadTreeTerrainPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TiledQuadTreeTerrainPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TiledQuadTreeTerrainPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1607,3 +1604,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTILEDQUADTREETERRAINFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

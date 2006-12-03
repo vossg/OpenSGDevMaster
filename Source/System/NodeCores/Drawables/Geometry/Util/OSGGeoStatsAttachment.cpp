@@ -50,29 +50,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::GeoStatsAttachment
-
-The GeoStatsAttachment keeps track of some core Geometry Characteristics like
-the number of vertices used, the number of points, lines or triangles created
-and some information about memory consumption.
-
-It is designed as an attachment so that it can be kept inside the graph. It
-can also be used to keep aggregated information about subtrees, by adding up
-the contributions of the underlying nodes. It can invalidate itself by using
-changed callbacks, so that no manual bookkeeping is necessary.
-
-\warning To use the automatic update you have to use the
-osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()
-methods! Otherwise the necessary callbacks are not set!
-
-\warning Before accessing the data osg::GeoStatsAttachment::validate() needs
-to be called to calculate and aggregate the results.
-
-*/
+// Documentation for this class is emited in the
+// OSGGeoStatsAttachmentBase.cpp file.
+// To modify it, please change the .fcd file (OSGGeoStatsAttachment.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

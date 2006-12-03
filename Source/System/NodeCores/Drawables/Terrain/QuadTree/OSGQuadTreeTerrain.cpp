@@ -84,13 +84,10 @@ static const UInt32
 // switch to share a single SHLChunk with several SHLParameterChunks
 //#define WITH_SINGLE_SHLCHUNK
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::QuadTreeTerrain
-Terrain node core
-*/
+// Documentation for this class is emited in the
+// OSGQuadTreeTerrainBase.cpp file.
+// To modify it, please change the .fcd file (OSGQuadTreeTerrain.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -1982,7 +1979,7 @@ void QuadTreeTerrain::dump(      UInt32    ,
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGQUADTREETERRAINBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGQUADTREETERRAINBASE_INLINE_CVSID;
 

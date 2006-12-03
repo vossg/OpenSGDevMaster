@@ -86,22 +86,22 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               GeoMultiPropertyData>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               GeoMultiPropertyData>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               GeoMultiPropertyData>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               GeoMultiPropertyData>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               GeoMultiPropertyData>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               GeoMultiPropertyData>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
         NextFieldId = GLIdFieldId + 1
     };
 
-    static const OSG::BitVector IDataFieldMask = 
+    static const OSG::BitVector IDataFieldMask =
         (TypeTraits<BitVector>::One << IDataFieldId);
-    static const OSG::BitVector GLIdFieldMask = 
+    static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,39 +148,39 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           MFUInt8 *getMFIData(void);
+                  MFUInt8             *getMFIData           (void);
 #endif
-           MFUInt8 *editMFIData(void);
-     const MFUInt8 *getMFIData (void) const;
+                  MFUInt8             *editMFIData          (void);
+            const MFUInt8             *getMFIData           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFGLId(void);
+                  SFUInt32            *getSFGLId            (void);
 #endif
-           SFUInt32 *editSFGLId(void);
-     const SFUInt32 *getSFGLId (void) const;
+                  SFUInt32            *editSFGLId           (void);
+            const SFUInt32            *getSFGLId            (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           UInt8 &getIData(const UInt32 index);
-           MFUInt8 &getIData(void);
+                  UInt8               &getIData           (const UInt32 index);
+                  MFUInt8             &getIData          (void);
 #endif
-           UInt8 &editIData(const UInt32 index);
-     const UInt8 &getIData (const UInt32 index) const;
-           MFUInt8 &editIData(void);
-     const MFUInt8 &getIData(void) const;
+                  UInt8               &editIData          (const UInt32 index);
+            const UInt8               &getIData           (const UInt32 index) const;
+                  MFUInt8             &editIData          (void);
+            const MFUInt8             &getIData          (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getGLId(void);
+                  UInt32              &getGLId            (void);
 #endif
-           UInt32 &editGLId(void);
-     const UInt32 &getGLId (void) const;
+                  UInt32              &editGLId           (void);
+            const UInt32              &getGLId            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setGLId(const UInt32 &value);
+            void setGLId           (const UInt32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -201,15 +200,15 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoMultiPropertyDataPtr create     (void); 
-    static  GeoMultiPropertyDataPtr createEmpty(void); 
+    static  GeoMultiPropertyDataPtr create     (void);
+    static  GeoMultiPropertyDataPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -225,8 +224,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUInt8 _mfIData;
-    SFUInt32 _sfGLId;
+    MFUInt8           _mfIData;
+    SFUInt32          _sfGLId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -241,7 +240,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoMultiPropertyDataBase(void); 
+    virtual ~GeoMultiPropertyDataBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -287,11 +286,11 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

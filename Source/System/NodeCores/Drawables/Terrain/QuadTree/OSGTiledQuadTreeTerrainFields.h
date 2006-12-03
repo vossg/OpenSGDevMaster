@@ -70,22 +70,22 @@ class TiledQuadTreeTerrain;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TiledQuadTreeTerrainPtr
 
-typedef PointerFwdBuilder<MaterialGroupPtr, 
+typedef PointerFwdBuilder<MaterialGroupPtr,
                           MaterialGroupConstPtr,
                           TiledQuadTreeTerrain>::ObjPtr         TiledQuadTreeTerrainPtr;
-typedef PointerFwdBuilder<MaterialGroupPtr, 
+typedef PointerFwdBuilder<MaterialGroupPtr,
                           MaterialGroupConstPtr,
                           TiledQuadTreeTerrain>::ObjPtrConst    TiledQuadTreeTerrainPtrConst;
-typedef PointerFwdBuilder<MaterialGroupPtr, 
+typedef PointerFwdBuilder<MaterialGroupPtr,
                           MaterialGroupConstPtr,
                           TiledQuadTreeTerrain>::ObjConstPtr    TiledQuadTreeTerrainConstPtr;
-typedef PointerFwdBuilder<MaterialGroupPtr, 
+typedef PointerFwdBuilder<MaterialGroupPtr,
                           MaterialGroupConstPtr,
                           TiledQuadTreeTerrain>::ObjPtrArg      TiledQuadTreeTerrainPtrArg;
-typedef PointerFwdBuilder<MaterialGroupPtr, 
+typedef PointerFwdBuilder<MaterialGroupPtr,
                           MaterialGroupConstPtr,
                           TiledQuadTreeTerrain>::ObjConstPtrArg TiledQuadTreeTerrainConstPtrArg;
-typedef PointerFwdBuilder<MaterialGroupPtr, 
+typedef PointerFwdBuilder<MaterialGroupPtr,
                           MaterialGroupConstPtr,
                           TiledQuadTreeTerrain>::ObjPtrConstArg TiledQuadTreeTerrainPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<MaterialGroupPtr,
 #endif
 
 template <>
-struct FieldTraits<TiledQuadTreeTerrainPtr> : 
+struct FieldTraits<TiledQuadTreeTerrainPtr> :
     public FieldTraitsTemplateBase<TiledQuadTreeTerrainPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TiledQuadTreeTerrainPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING 
+    static OSG_DRAWABLE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFTiledQuadTreeTerrainPtr"; }

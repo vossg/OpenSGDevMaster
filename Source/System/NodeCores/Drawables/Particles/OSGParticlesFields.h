@@ -70,22 +70,22 @@ class Particles;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ParticlesPtr
 
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Particles>::ObjPtr         ParticlesPtr;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Particles>::ObjPtrConst    ParticlesPtrConst;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Particles>::ObjConstPtr    ParticlesConstPtr;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Particles>::ObjPtrArg      ParticlesPtrArg;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Particles>::ObjConstPtrArg ParticlesConstPtrArg;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Particles>::ObjPtrConstArg ParticlesPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<MaterialDrawablePtr,
 #endif
 
 template <>
-struct FieldTraits<ParticlesPtr> : 
+struct FieldTraits<ParticlesPtr> :
     public FieldTraitsTemplateBase<ParticlesPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ParticlesPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING 
+    static OSG_DRAWABLE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFParticlesPtr"; }

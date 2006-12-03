@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &GeoPropertyBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GeoPropertyBase::getClassTypeId(void) 
+OSG::UInt32 GeoPropertyBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 GeoPropertyBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &GeoPropertyBase::getUseVBO(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &GeoPropertyBase::getUseVBO(void)
+bool                &GeoPropertyBase::getUseVBO         (void)
 {
-    return this->editUseVBO();
+    return this->editUseVBO         ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const UInt32 &GeoPropertyBase::getGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &GeoPropertyBase::getGLId(void)
+UInt32              &GeoPropertyBase::getGLId           (void)
 {
-    return this->editGLId();
+    return this->editGLId           ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Int32 &GeoPropertyBase::getUsage(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &GeoPropertyBase::getUsage(void)
+Int32               &GeoPropertyBase::getUsage          (void)
 {
-    return this->editUsage();
+    return this->editUsage          ();
 }
 #endif
 
@@ -178,7 +178,7 @@ void GeoPropertyBase::setUsage(const Int32 &value)
 inline
 void GeoPropertyBase::execSync(      GeoPropertyBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -200,7 +200,7 @@ inline
 void GeoPropertyBase::execSync (      GeoPropertyBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -244,4 +244,3 @@ typedef PointerBuilder<GeoProperty>::ObjPtrConstArg  GeoPropertyPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGGEOPROPERTYBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -70,22 +70,22 @@ class Geometry;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeometryPtr
 
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Geometry>::ObjPtr         GeometryPtr;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Geometry>::ObjPtrConst    GeometryPtrConst;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Geometry>::ObjConstPtr    GeometryConstPtr;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Geometry>::ObjPtrArg      GeometryPtrArg;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Geometry>::ObjConstPtrArg GeometryConstPtrArg;
-typedef PointerFwdBuilder<MaterialDrawablePtr, 
+typedef PointerFwdBuilder<MaterialDrawablePtr,
                           MaterialDrawableConstPtr,
                           Geometry>::ObjPtrConstArg GeometryPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<MaterialDrawablePtr,
 #endif
 
 template <>
-struct FieldTraits<GeometryPtr> : 
+struct FieldTraits<GeometryPtr> :
     public FieldTraitsTemplateBase<GeometryPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<GeometryPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING 
+    static OSG_DRAWABLE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFGeometryPtr"; }

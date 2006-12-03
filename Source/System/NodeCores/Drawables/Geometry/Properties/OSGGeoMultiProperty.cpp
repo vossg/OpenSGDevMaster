@@ -52,13 +52,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::GeoMultiProperty
-Class referencing data from a GeoMultiPropertyData. 
-*/
+// Documentation for this class is emited in the
+// OSGGeoMultiPropertyBase.cpp file.
+// To modify it, please change the .fcd file (OSGGeoMultiProperty.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

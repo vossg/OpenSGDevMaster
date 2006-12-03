@@ -66,24 +66,33 @@
 #include "OSGMaterialDrawableBase.h"
 #include "OSGMaterialDrawable.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var MaterialPtr MaterialDrawableBase::_sfMaterial
-    	The material used to render the Drawable.
+/*! \class OSG::MaterialDrawable
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var MaterialPtr     MaterialDrawableBase::_sfMaterial
+    The material used to render the Drawable.
 */
 
 void MaterialDrawableBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFMaterialPtr::Description(
-        SFMaterialPtr::getClassType(), 
-        "material", 
-        "	The material used to render the Drawable.\n",
+        SFMaterialPtr::getClassType(),
+        "material",
+        "The material used to render the Drawable.\n",
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -99,51 +108,50 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     MaterialDrawable::initMethod,
     (InitalInsertDescFunc) &MaterialDrawableBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"MaterialDrawable\"\n"
-"	parent=\"Drawable\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"material\"\n"
-"		type=\"MaterialPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The material used to render the Drawable.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"MaterialDrawable\"\n"
+    "\tparent=\"Drawable\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"material\"\n"
+    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe material used to render the Drawable.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &MaterialDrawableBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &MaterialDrawableBase::getType(void) const 
+FieldContainerType &MaterialDrawableBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 MaterialDrawableBase::getContainerSize(void) const 
-{ 
-    return sizeof(MaterialDrawable); 
+const FieldContainerType &MaterialDrawableBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 MaterialDrawableBase::getContainerSize(void) const
+{
+    return sizeof(MaterialDrawable);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -260,13 +268,13 @@ void MaterialDrawableBase::copyFromBin(BinaryDataHandler &pMem,
 
 MaterialDrawableBase::MaterialDrawableBase(void) :
     Inherited(),
-    _sfMaterial()
+    _sfMaterial               ()
 {
 }
 
 MaterialDrawableBase::MaterialDrawableBase(const MaterialDrawableBase &source) :
     Inherited(source),
-    _sfMaterial()
+    _sfMaterial               ()
 {
 }
 
@@ -290,13 +298,13 @@ void MaterialDrawableBase::onCreate(const MaterialDrawable *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void MaterialDrawableBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<MaterialDrawableBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -306,10 +314,10 @@ void MaterialDrawableBase::execSyncV(      FieldContainer    &oFrom,
 void MaterialDrawableBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MaterialDrawableBase *>(&oFrom), 
+    this->execSync(static_cast<MaterialDrawableBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -335,6 +343,8 @@ void MaterialDrawableBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -356,8 +366,6 @@ OSG_FIELDTRAITS_GETTYPE(MaterialDrawablePtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, MaterialDrawablePtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, MaterialDrawablePtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -378,3 +386,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGMATERIALDRAWABLEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

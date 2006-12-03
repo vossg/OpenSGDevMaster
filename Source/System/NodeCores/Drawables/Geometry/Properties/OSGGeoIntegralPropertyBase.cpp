@@ -65,7 +65,16 @@
 #include "OSGGeoIntegralPropertyBase.h"
 #include "OSGGeoIntegralProperty.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::GeoIntegralProperty
+    Parent class for integral (i.e. one dimensional unsigned integer
+    typed) properties.
+ */
 
 
 GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(true,
@@ -73,47 +82,47 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     GeoIntegralProperty::initMethod,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GeoIntegralProperty\"\n"
-"	parent=\"GeoProperty\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"Patent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
-"\n"
-"The main reason for this class is as a parent class for indices, lengths and \n"
-"types for the Geometry.\n"
-"\n"
-"</FieldContainer>\n"
-,
-    "Patent class for integral (i.e. one dimensional unsigned integer typed) properties.\nThe main reason for this class is as a parent class for indices, lengths and \ntypes for the Geometry.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GeoIntegralProperty\"\n"
+    "\tparent=\"GeoProperty\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "Parent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
+    "\n"
+    "The main use for this class is as a parent class for indices, lengths and \n"
+    "types for the Geometry.\n"
+    "</FieldContainer>\n",
+    "Parent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
+    "The main use for this class is as a parent class for indices, lengths and \n"
+    "types for the Geometry.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GeoIntegralPropertyBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GeoIntegralPropertyBase::getType(void) const 
+FieldContainerType &GeoIntegralPropertyBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GeoIntegralPropertyBase::getContainerSize(void) const 
-{ 
-    return sizeof(GeoIntegralProperty); 
+const FieldContainerType &GeoIntegralPropertyBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GeoIntegralPropertyBase::getContainerSize(void) const
+{
+    return sizeof(GeoIntegralProperty);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -169,13 +178,13 @@ GeoIntegralPropertyBase::~GeoIntegralPropertyBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GeoIntegralPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GeoIntegralPropertyBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -185,10 +194,10 @@ void GeoIntegralPropertyBase::execSyncV(      FieldContainer    &oFrom,
 void GeoIntegralPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoIntegralPropertyBase *>(&oFrom), 
+    this->execSync(static_cast<GeoIntegralPropertyBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -212,6 +221,8 @@ void GeoIntegralPropertyBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -233,8 +244,6 @@ OSG_FIELDTRAITS_GETTYPE(GeoIntegralPropertyPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GeoIntegralPropertyPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GeoIntegralPropertyPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -255,3 +264,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGEOINTEGRALPROPERTYFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

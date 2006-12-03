@@ -10,6 +10,23 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
+The base class for geometry statistics.
+
+The GeoStatsAttachment keeps track of some core Geometry Characteristics like
+the number of vertices used, the number of points, lines or triangles created
+and some information about memory consumption.
+
+It is designed as an attachment so that it can be kept inside the graph. It
+can also be used to keep aggregated information about subtrees, by adding up
+the contributions of the underlying nodes. It can invalidate itself by using
+changed callbacks, so that no manual bookkeeping is necessary.
+
+\warning To use the automatic update you have to use the
+osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()
+methods! Otherwise the necessary callbacks are not set!
+
+\warning Before accessing the data osg::GeoStatsAttachment::validate() needs
+to be called to calculate and aggregate the results.
 	<Field
 		name="vertices"
 		type="UInt32"
@@ -74,5 +91,4 @@
 	>
         Flags whether the data is valid or needs to be updated.
 	</Field>
-The base class for geometry statistics.
 </FieldContainer>

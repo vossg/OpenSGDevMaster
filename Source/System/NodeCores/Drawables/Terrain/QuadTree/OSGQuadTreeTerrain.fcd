@@ -11,7 +11,7 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-Terrain node core
+Terrain node core.
 	<Field
 		name="heightData"
 		type="ImagePtr"
@@ -19,7 +19,7 @@ Terrain node core
 		visibility="external"
 		access="public"
 	>
-	Terrain height as image
+	Terrain height as image.
 	</Field>
 	<Field
 		name="heightScale"
@@ -29,7 +29,7 @@ Terrain node core
 		defaultValue="1.0f"
 		access="public"
 	>
-	Scale factor for terrain height
+	Scale factor for terrain height.
 	</Field>
 	<Field
 		name="heightError"
@@ -38,7 +38,7 @@ Terrain node core
 		visibility="internal"
 		access="public"
 	>
-	Error values
+	Error values.
 	</Field>
 	<Field
 		name="heightQuad"
@@ -47,7 +47,7 @@ Terrain node core
 		visibility="internal"
 		access="public"
 	>
-	Vertex indices used in current tesselation (encoding terrain quadtree)
+	Vertex indices used in current tesselation (encoding terrain quadtree).
 	</Field>
 	<Field
 		name="width"
@@ -57,7 +57,7 @@ Terrain node core
 		defaultValue="0"
 		access="protected"
 	>
-	width and height of dataset
+	Width and height of dataset.
 	</Field>
 	<Field
 		name="level"
@@ -67,7 +67,7 @@ Terrain node core
 		defaultValue="1"
 		access="protected"
 	>
-	levels of terrain quadtree
+	Levels of terrain quadtree.
 	</Field>
 	<Field
 		name="detail"
@@ -77,7 +77,7 @@ Terrain node core
 		defaultValue="22.0f"
 		access="public"
 	>
-	Detail of terrain tesselation
+	Detail of terrain tesselation.
 	</Field>
 	<Field
 		name="borderDetail"
@@ -87,7 +87,7 @@ Terrain node core
 		defaultValue="0"
 		access="public"
 	>
-	Detail for borders (0: determined by height data, positive: borders at level borderDetail)
+	Detail for borders (0: determined by height data, positive: borders at level borderDetail).
 	</Field>
 	<Field
 		name="vertexSpacing"
@@ -97,7 +97,7 @@ Terrain node core
 		defaultValue="0.1f"
 		access="public"
 	>
-	Spacing to horizontal and vertical neighbour vertices
+	Spacing to horizontal and vertical neighbour vertices.
 	</Field>
 	<Field
 		name="heightVertices"
@@ -106,7 +106,7 @@ Terrain node core
 		visibility="internal"
 		access="protected"
 	>
-	Precomputed terrain vertices
+	Precomputed terrain vertices.
 	</Field>
 	<Field
 		name="geoMorphing"
@@ -124,7 +124,7 @@ Terrain node core
 		visibility="internal"
 		access="protected"
 	>
-	Min vertex of AABB
+	Min vertex of AABB.
 	</Field>
 	<Field
 		name="boundMax"
@@ -133,7 +133,7 @@ Terrain node core
 		visibility="internal"
 		access="protected"
 	>
-	Max vertex of AABB
+	Max vertex of AABB.
 	</Field>
 	<Field
 		name="eyePoint"
@@ -142,7 +142,7 @@ Terrain node core
 		visibility="external"
 		access="public"
 	>
-	Eye point of this frame
+	Eye point of this frame.
 	</Field>
 	<Field
 		name="eyeHeight"
@@ -152,7 +152,7 @@ Terrain node core
 		defaultValue="0.0f"
 		access="protected"
 	>
-	Height of eye point above terrain
+	Height of eye point above terrain.
 	</Field>
 	<Field
 		name="eyePointValid"
@@ -162,7 +162,7 @@ Terrain node core
 		defaultValue="false"
 		access="public"
 	>
-	Eye point set externally, otherwise it is computed internally
+	Eye point set externally, otherwise it is computed internally.
 	</Field>
 	<Field
 		name="originX"
@@ -172,7 +172,7 @@ Terrain node core
 		defaultValue="0.0f"
 		access="public"
 	>
-	X-component of terrain lower left point
+	X-component of terrain lower left point.
 	</Field>
 	<Field
 		name="originY"
@@ -182,7 +182,7 @@ Terrain node core
 		defaultValue="0.0f"
 		access="public"
 	>
-	Y-component of terrain lower left point
+	Y-component of terrain lower left point.
 	</Field>
 	<Field
 		name="originTexX"
@@ -192,7 +192,7 @@ Terrain node core
 		defaultValue="0.0f"
 		access="public"
 	>
-	texture X-component of terrain lower left point
+	Texture X-component of terrain lower left point.
 	</Field>
 	<Field
 		name="originTexY"
@@ -202,7 +202,7 @@ Terrain node core
 		defaultValue="0.0f"
 		access="public"
 	>
-	texture Y-component of terrain lower left point
+	Texture Y-component of terrain lower left point.
 	</Field>
 	<Field
 		name="texSpacing"
@@ -212,7 +212,7 @@ Terrain node core
 		defaultValue="1.0f"
 		access="public"
 	>
-	Spacing of texture coordinates for horizontal (and vertical) neighbour vertices
+	Spacing of texture coordinates for horizontal (and vertical) neighbour vertices.
 	</Field>
 	<Field
 		name="texYSpacing"
@@ -222,7 +222,7 @@ Terrain node core
 		defaultValue="1.0f"
 		access="public"
 	>
-	Spacing of texture coordinates for vertical neighbour vertices
+	Spacing of texture coordinates for vertical neighbour vertices.
 	</Field>
 	<Field
 		name="updateTerrain"
@@ -232,7 +232,7 @@ Terrain node core
 		defaultValue="true"
 		access="public"
 	>
-	update terrain in next frame
+	Update terrain in next frame.
 	</Field>
 	<Field
 		name="perPixelLighting"
@@ -242,6 +242,6 @@ Terrain node core
 		defaultValue="true"
 		access="public"
 	>
-	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals
+	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals.
 	</Field>
 </FieldContainer>

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &MaterialDrawableBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 MaterialDrawableBase::getClassTypeId(void) 
+OSG::UInt32 MaterialDrawableBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 MaterialDrawableBase::getClassGroupId(void)
@@ -96,7 +96,7 @@ void MaterialDrawableBase::setMaterial(MaterialPtrConstArg value)
 inline
 void MaterialDrawableBase::execSync(      MaterialDrawableBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -112,7 +112,7 @@ inline
 void MaterialDrawableBase::execSync (      MaterialDrawableBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -150,4 +150,3 @@ typedef PointerBuilder<MaterialDrawable>::ObjPtrConstArg  MaterialDrawablePtrCon
 OSG_END_NAMESPACE
 
 #define OSGMATERIALDRAWABLEBASE_INLINE_CVSID "@(#)$Id$"
-

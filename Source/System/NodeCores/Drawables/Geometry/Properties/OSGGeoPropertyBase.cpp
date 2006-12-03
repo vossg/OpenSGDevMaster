@@ -60,32 +60,39 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGLEXT.h>   // Usage default header
+#include <OSGGLEXT.h>                     // Usage default header
 
 
 #include "OSGGeoPropertyBase.h"
 #include "OSGGeoProperty.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool GeoPropertyBase::_sfUseVBO
-    	The id used to register with the Window, 0 if not set up yet.
+/*! \class OSG::GeoProperty
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            GeoPropertyBase::_sfUseVBO
+    The id used to register with the Window, 0 if not set up yet.
 */
-/*! \var UInt32 GeoPropertyBase::_sfGLId
-    	The id used to register with the Window, 0 if not set up yet.
-
+/*! \var UInt32          GeoPropertyBase::_sfGLId
+    The id used to register with the Window, 0 if not set up yet.
 */
-/*! \var Int32 GeoPropertyBase::_sfUsage
-    	The usage pattern, only valid for VBO use.
-
+/*! \var Int32           GeoPropertyBase::_sfUsage
+    The usage pattern, only valid for VBO use.
 */
 
 void GeoPropertyBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -95,9 +102,9 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "useVBO", 
-        "	The id used to register with the Window, 0 if not set up yet.\n",
+        SFBool::getClassType(),
+        "useVBO",
+        "The id used to register with the Window, 0 if not set up yet.\n",
         UseVBOFieldId, UseVBOFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -117,9 +124,9 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "GLId", 
-        "	The id used to register with the Window, 0 if not set up yet.\n",
+        SFUInt32::getClassType(),
+        "GLId",
+        "The id used to register with the Window, 0 if not set up yet.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -139,9 +146,9 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "usage", 
-        "	The usage pattern, only valid for VBO use.\n",
+        SFInt32::getClassType(),
+        "usage",
+        "The usage pattern, only valid for VBO use.\n",
         UsageFieldId, UsageFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -161,73 +168,72 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     GeoProperty::initMethod,
     (InitalInsertDescFunc) &GeoPropertyBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GeoProperty\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"useVBO\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The id used to register with the Window, 0 if not set up yet.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"GLId\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The id used to register with the Window, 0 if not set up yet.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"usage\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"GL_STATIC_DRAW_ARB\"\n"
-"                defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The usage pattern, only valid for VBO use.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GeoProperty\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"useVBO\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe id used to register with the Window, 0 if not set up yet.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"GLId\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe id used to register with the Window, 0 if not set up yet.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"usage\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"GL_STATIC_DRAW_ARB\"\n"
+    "                defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe usage pattern, only valid for VBO use.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GeoPropertyBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GeoPropertyBase::getType(void) const 
+FieldContainerType &GeoPropertyBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GeoPropertyBase::getContainerSize(void) const 
-{ 
-    return sizeof(GeoProperty); 
+const FieldContainerType &GeoPropertyBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GeoPropertyBase::getContainerSize(void) const
+{
+    return sizeof(GeoProperty);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -246,9 +252,9 @@ const SFBool *GeoPropertyBase::getSFUseVBO(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *GeoPropertyBase::getSFUseVBO(void)
+SFBool              *GeoPropertyBase::getSFUseVBO         (void)
 {
-    return this->editSFUseVBO();
+    return this->editSFUseVBO         ();
 }
 #endif
 
@@ -265,9 +271,9 @@ const SFUInt32 *GeoPropertyBase::getSFGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoPropertyBase::getSFGLId(void)
+SFUInt32            *GeoPropertyBase::getSFGLId           (void)
 {
-    return this->editSFGLId();
+    return this->editSFGLId           ();
 }
 #endif
 
@@ -284,9 +290,9 @@ const SFInt32 *GeoPropertyBase::getSFUsage(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *GeoPropertyBase::getSFUsage(void)
+SFInt32             *GeoPropertyBase::getSFUsage          (void)
 {
-    return this->editSFUsage();
+    return this->editSFUsage          ();
 }
 #endif
 
@@ -358,17 +364,17 @@ void GeoPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 
 GeoPropertyBase::GeoPropertyBase(void) :
     Inherited(),
-    _sfUseVBO(bool(false)),
-    _sfGLId(UInt32(0)),
-    _sfUsage(Int32(GL_STATIC_DRAW_ARB))
+    _sfUseVBO                 (bool(false)),
+    _sfGLId                   (UInt32(0)),
+    _sfUsage                  (Int32(GL_STATIC_DRAW_ARB))
 {
 }
 
 GeoPropertyBase::GeoPropertyBase(const GeoPropertyBase &source) :
     Inherited(source),
-    _sfUseVBO(source._sfUseVBO),
-    _sfGLId(source._sfGLId),
-    _sfUsage(source._sfUsage)
+    _sfUseVBO                 (source._sfUseVBO                 ),
+    _sfGLId                   (source._sfGLId                   ),
+    _sfUsage                  (source._sfUsage                  )
 {
 }
 
@@ -382,13 +388,13 @@ GeoPropertyBase::~GeoPropertyBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GeoPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GeoPropertyBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -398,10 +404,10 @@ void GeoPropertyBase::execSyncV(      FieldContainer    &oFrom,
 void GeoPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoPropertyBase *>(&oFrom), 
+    this->execSync(static_cast<GeoPropertyBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -425,6 +431,8 @@ void GeoPropertyBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -446,8 +454,6 @@ OSG_FIELDTRAITS_GETTYPE(GeoPropertyPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GeoPropertyPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GeoPropertyPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -468,3 +474,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGEOPROPERTYFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -70,22 +70,22 @@ class Drawable;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DrawablePtr
 
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Drawable>::ObjPtr         DrawablePtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Drawable>::ObjPtrConst    DrawablePtrConst;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Drawable>::ObjConstPtr    DrawableConstPtr;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Drawable>::ObjPtrArg      DrawablePtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Drawable>::ObjConstPtrArg DrawableConstPtrArg;
-typedef PointerFwdBuilder<NodeCorePtr, 
+typedef PointerFwdBuilder<NodeCorePtr,
                           NodeCoreConstPtr,
                           Drawable>::ObjPtrConstArg DrawablePtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<NodeCorePtr,
 #endif
 
 template <>
-struct FieldTraits<DrawablePtr> : 
+struct FieldTraits<DrawablePtr> :
     public FieldTraitsTemplateBase<DrawablePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<DrawablePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFDrawablePtr"; }

@@ -70,22 +70,22 @@ class MaterialDrawable;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MaterialDrawablePtr
 
-typedef PointerFwdBuilder<DrawablePtr, 
+typedef PointerFwdBuilder<DrawablePtr,
                           DrawableConstPtr,
                           MaterialDrawable>::ObjPtr         MaterialDrawablePtr;
-typedef PointerFwdBuilder<DrawablePtr, 
+typedef PointerFwdBuilder<DrawablePtr,
                           DrawableConstPtr,
                           MaterialDrawable>::ObjPtrConst    MaterialDrawablePtrConst;
-typedef PointerFwdBuilder<DrawablePtr, 
+typedef PointerFwdBuilder<DrawablePtr,
                           DrawableConstPtr,
                           MaterialDrawable>::ObjConstPtr    MaterialDrawableConstPtr;
-typedef PointerFwdBuilder<DrawablePtr, 
+typedef PointerFwdBuilder<DrawablePtr,
                           DrawableConstPtr,
                           MaterialDrawable>::ObjPtrArg      MaterialDrawablePtrArg;
-typedef PointerFwdBuilder<DrawablePtr, 
+typedef PointerFwdBuilder<DrawablePtr,
                           DrawableConstPtr,
                           MaterialDrawable>::ObjConstPtrArg MaterialDrawableConstPtrArg;
-typedef PointerFwdBuilder<DrawablePtr, 
+typedef PointerFwdBuilder<DrawablePtr,
                           DrawableConstPtr,
                           MaterialDrawable>::ObjPtrConstArg MaterialDrawablePtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<DrawablePtr,
 #endif
 
 template <>
-struct FieldTraits<MaterialDrawablePtr> : 
+struct FieldTraits<MaterialDrawablePtr> :
     public FieldTraitsTemplateBase<MaterialDrawablePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<MaterialDrawablePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFMaterialDrawablePtr"; }

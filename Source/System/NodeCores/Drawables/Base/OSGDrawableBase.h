@@ -84,22 +84,22 @@ class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<NodeCorePtr, 
-                              NodeCoreConstPtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
+                              NodeCoreConstPtr,
                               Drawable>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<NodeCorePtr, 
-                              NodeCoreConstPtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
+                              NodeCoreConstPtr,
                               Drawable>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Drawable>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Drawable>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Drawable>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<NodeCorePtr, 
+    typedef PointerFwdBuilder<NodeCorePtr,
                               NodeCoreConstPtr,
                               Drawable>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -161,7 +160,7 @@ class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DrawableBase(void); 
+    virtual ~DrawableBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -207,11 +206,11 @@ class OSG_SYSTEM_DLLMAPPING DrawableBase : public NodeCore
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

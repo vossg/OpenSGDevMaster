@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TiledQuadTreeTerrainBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TiledQuadTreeTerrainBase::getClassTypeId(void) 
+OSG::UInt32 TiledQuadTreeTerrainBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TiledQuadTreeTerrainBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt32 &TiledQuadTreeTerrainBase::getSizeX(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &TiledQuadTreeTerrainBase::getSizeX(void)
+UInt32              &TiledQuadTreeTerrainBase::getSizeX          (void)
 {
-    return this->editSizeX();
+    return this->editSizeX          ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const UInt32 &TiledQuadTreeTerrainBase::getSizeY(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &TiledQuadTreeTerrainBase::getSizeY(void)
+UInt32              &TiledQuadTreeTerrainBase::getSizeY          (void)
 {
-    return this->editSizeY();
+    return this->editSizeY          ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Real32 &TiledQuadTreeTerrainBase::getHeightScale(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TiledQuadTreeTerrainBase::getHeightScale(void)
+Real32              &TiledQuadTreeTerrainBase::getHeightScale    (void)
 {
-    return this->editHeightScale();
+    return this->editHeightScale    ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Real32 &TiledQuadTreeTerrainBase::getVertexSpacing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TiledQuadTreeTerrainBase::getVertexSpacing(void)
+Real32              &TiledQuadTreeTerrainBase::getVertexSpacing  (void)
 {
-    return this->editVertexSpacing();
+    return this->editVertexSpacing  ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const bool &TiledQuadTreeTerrainBase::getGeoMorphing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &TiledQuadTreeTerrainBase::getGeoMorphing(void)
+bool                &TiledQuadTreeTerrainBase::getGeoMorphing    (void)
 {
-    return this->editGeoMorphing();
+    return this->editGeoMorphing    ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Real32 &TiledQuadTreeTerrainBase::getDetail(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TiledQuadTreeTerrainBase::getDetail(void)
+Real32              &TiledQuadTreeTerrainBase::getDetail         (void)
 {
-    return this->editDetail();
+    return this->editDetail         ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const Int32 &TiledQuadTreeTerrainBase::getCurrentX(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TiledQuadTreeTerrainBase::getCurrentX(void)
+Int32               &TiledQuadTreeTerrainBase::getCurrentX       (void)
 {
-    return this->editCurrentX();
+    return this->editCurrentX       ();
 }
 #endif
 
@@ -323,9 +323,9 @@ const Int32 &TiledQuadTreeTerrainBase::getCurrentY(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TiledQuadTreeTerrainBase::getCurrentY(void)
+Int32               &TiledQuadTreeTerrainBase::getCurrentY       (void)
 {
-    return this->editCurrentY();
+    return this->editCurrentY       ();
 }
 #endif
 
@@ -356,9 +356,9 @@ const Int32 &TiledQuadTreeTerrainBase::getSizeROI(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TiledQuadTreeTerrainBase::getSizeROI(void)
+Int32               &TiledQuadTreeTerrainBase::getSizeROI        (void)
 {
-    return this->editSizeROI();
+    return this->editSizeROI        ();
 }
 #endif
 
@@ -389,9 +389,9 @@ const bool &TiledQuadTreeTerrainBase::getUpdate(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &TiledQuadTreeTerrainBase::getUpdate(void)
+bool                &TiledQuadTreeTerrainBase::getUpdate         (void)
 {
-    return this->editUpdate();
+    return this->editUpdate         ();
 }
 #endif
 
@@ -422,9 +422,9 @@ const bool &TiledQuadTreeTerrainBase::getUpdateTerrain(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &TiledQuadTreeTerrainBase::getUpdateTerrain(void)
+bool                &TiledQuadTreeTerrainBase::getUpdateTerrain  (void)
 {
-    return this->editUpdateTerrain();
+    return this->editUpdateTerrain  ();
 }
 #endif
 
@@ -455,7 +455,7 @@ const bool &TiledQuadTreeTerrainBase::getPerPixelLighting(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &TiledQuadTreeTerrainBase::getPerPixelLighting(void)
+bool                &TiledQuadTreeTerrainBase::getPerPixelLighting(void)
 {
     return this->editPerPixelLighting();
 }
@@ -500,37 +500,37 @@ const MFMaterialPtr &TiledQuadTreeTerrainBase::getHeightTextures(void) const
 
 //! create a new instance of the class
 inline
-TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::create(void) 
+TiledQuadTreeTerrainPtr TiledQuadTreeTerrainBase::create(void)
 {
-    TiledQuadTreeTerrainPtr fc; 
+    TiledQuadTreeTerrainPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TiledQuadTreeTerrain::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TiledQuadTreeTerrainBase::execSync(      TiledQuadTreeTerrainBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (HeightTilesFieldMask & whichField))
-        _mfHeightTiles.syncWith(pOther->_mfHeightTiles, 
+        _mfHeightTiles.syncWith(pOther->_mfHeightTiles,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (HeightTexturesFieldMask & whichField))
-        _mfHeightTextures.syncWith(pOther->_mfHeightTextures, 
+        _mfHeightTextures.syncWith(pOther->_mfHeightTextures,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -578,19 +578,19 @@ inline
 void TiledQuadTreeTerrainBase::execSync (      TiledQuadTreeTerrainBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (HeightTilesFieldMask & whichField))
-        _mfHeightTiles.syncWith(pFrom->_mfHeightTiles, 
+        _mfHeightTiles.syncWith(pFrom->_mfHeightTiles,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (HeightTexturesFieldMask & whichField))
-        _mfHeightTextures.syncWith(pFrom->_mfHeightTextures, 
+        _mfHeightTextures.syncWith(pFrom->_mfHeightTextures,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -671,4 +671,3 @@ typedef PointerBuilder<TiledQuadTreeTerrain>::ObjPtrConstArg  TiledQuadTreeTerra
 OSG_END_NAMESPACE
 
 #define OSGTILEDQUADTREETERRAINBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &GeoStatsAttachmentBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GeoStatsAttachmentBase::getClassTypeId(void) 
+OSG::UInt32 GeoStatsAttachmentBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 GeoStatsAttachmentBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt32 &GeoStatsAttachmentBase::getVertices(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &GeoStatsAttachmentBase::getVertices(void)
+UInt32              &GeoStatsAttachmentBase::getVertices       (void)
 {
-    return this->editVertices();
+    return this->editVertices       ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const UInt32 &GeoStatsAttachmentBase::getPoints(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &GeoStatsAttachmentBase::getPoints(void)
+UInt32              &GeoStatsAttachmentBase::getPoints         (void)
 {
-    return this->editPoints();
+    return this->editPoints         ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const UInt32 &GeoStatsAttachmentBase::getLines(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &GeoStatsAttachmentBase::getLines(void)
+UInt32              &GeoStatsAttachmentBase::getLines          (void)
 {
-    return this->editLines();
+    return this->editLines          ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const UInt32 &GeoStatsAttachmentBase::getTriangles(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &GeoStatsAttachmentBase::getTriangles(void)
+UInt32              &GeoStatsAttachmentBase::getTriangles      (void)
 {
-    return this->editTriangles();
+    return this->editTriangles      ();
 }
 #endif
 
@@ -224,7 +224,7 @@ const UInt32 &GeoStatsAttachmentBase::getProcessedAttributeBytes(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &GeoStatsAttachmentBase::getProcessedAttributeBytes(void)
+UInt32              &GeoStatsAttachmentBase::getProcessedAttributeBytes(void)
 {
     return this->editProcessedAttributeBytes();
 }
@@ -257,7 +257,7 @@ const UInt32 &GeoStatsAttachmentBase::getStoredAttributeBytes(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &GeoStatsAttachmentBase::getStoredAttributeBytes(void)
+UInt32              &GeoStatsAttachmentBase::getStoredAttributeBytes(void)
 {
     return this->editStoredAttributeBytes();
 }
@@ -290,9 +290,9 @@ const bool &GeoStatsAttachmentBase::getValid(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &GeoStatsAttachmentBase::getValid(void)
+bool                &GeoStatsAttachmentBase::getValid          (void)
 {
-    return this->editValid();
+    return this->editValid          ();
 }
 #endif
 
@@ -307,24 +307,24 @@ void GeoStatsAttachmentBase::setValid(const bool &value)
 
 //! create a new instance of the class
 inline
-GeoStatsAttachmentPtr GeoStatsAttachmentBase::create(void) 
+GeoStatsAttachmentPtr GeoStatsAttachmentBase::create(void)
 {
-    GeoStatsAttachmentPtr fc; 
+    GeoStatsAttachmentPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<GeoStatsAttachment::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void GeoStatsAttachmentBase::execSync(      GeoStatsAttachmentBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -358,7 +358,7 @@ inline
 void GeoStatsAttachmentBase::execSync (      GeoStatsAttachmentBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -414,4 +414,3 @@ typedef PointerBuilder<GeoStatsAttachment>::ObjPtrConstArg  GeoStatsAttachmentPt
 OSG_END_NAMESPACE
 
 #define OSGGEOSTATSATTACHMENTBASE_INLINE_CVSID "@(#)$Id$"
-

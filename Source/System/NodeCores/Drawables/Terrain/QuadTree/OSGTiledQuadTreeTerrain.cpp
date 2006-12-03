@@ -53,13 +53,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::TiledTerrain
-Tiled terrain node core
-*/
+// Documentation for this class is emited in the
+// OSGTiledQuadTreeTerrainBase.cpp file.
+// To modify it, please change the .fcd file (OSGTiledQuadTreeTerrain.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -1242,7 +1239,7 @@ void TiledQuadTreeTerrain::dump(      UInt32    ,
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGTILEDQUADTREETERRAINBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTILEDQUADTREETERRAINBASE_INLINE_CVSID;
 

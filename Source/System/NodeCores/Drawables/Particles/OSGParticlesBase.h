@@ -97,22 +97,22 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
-                              MaterialDrawableConstPtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
+                              MaterialDrawableConstPtr,
                               Particles>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
-                              MaterialDrawableConstPtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
+                              MaterialDrawableConstPtr,
                               Particles>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
                               MaterialDrawableConstPtr,
                               Particles>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
                               MaterialDrawableConstPtr,
                               Particles>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
                               MaterialDrawableConstPtr,
                               Particles>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialDrawablePtr, 
+    typedef PointerFwdBuilder<MaterialDrawablePtr,
                               MaterialDrawableConstPtr,
                               Particles>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -138,42 +138,41 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
         NextFieldId = NumParticlesFieldId + 1
     };
 
-    static const OSG::BitVector ModeFieldMask = 
+    static const OSG::BitVector ModeFieldMask =
         (TypeTraits<BitVector>::One << ModeFieldId);
-    static const OSG::BitVector PositionsFieldMask = 
+    static const OSG::BitVector PositionsFieldMask =
         (TypeTraits<BitVector>::One << PositionsFieldId);
-    static const OSG::BitVector SizesFieldMask = 
+    static const OSG::BitVector SizesFieldMask =
         (TypeTraits<BitVector>::One << SizesFieldId);
-    static const OSG::BitVector SecPositionsFieldMask = 
+    static const OSG::BitVector SecPositionsFieldMask =
         (TypeTraits<BitVector>::One << SecPositionsFieldId);
-    static const OSG::BitVector ColorsFieldMask = 
+    static const OSG::BitVector ColorsFieldMask =
         (TypeTraits<BitVector>::One << ColorsFieldId);
-    static const OSG::BitVector NormalsFieldMask = 
+    static const OSG::BitVector NormalsFieldMask =
         (TypeTraits<BitVector>::One << NormalsFieldId);
-    static const OSG::BitVector IndicesFieldMask = 
+    static const OSG::BitVector IndicesFieldMask =
         (TypeTraits<BitVector>::One << IndicesFieldId);
-    static const OSG::BitVector TextureZsFieldMask = 
+    static const OSG::BitVector TextureZsFieldMask =
         (TypeTraits<BitVector>::One << TextureZsFieldId);
-    static const OSG::BitVector DrawOrderFieldMask = 
+    static const OSG::BitVector DrawOrderFieldMask =
         (TypeTraits<BitVector>::One << DrawOrderFieldId);
-    static const OSG::BitVector DynamicFieldMask = 
+    static const OSG::BitVector DynamicFieldMask =
         (TypeTraits<BitVector>::One << DynamicFieldId);
-    static const OSG::BitVector PumpFieldMask = 
+    static const OSG::BitVector PumpFieldMask =
         (TypeTraits<BitVector>::One << PumpFieldId);
-    static const OSG::BitVector BspFieldMask = 
+    static const OSG::BitVector BspFieldMask =
         (TypeTraits<BitVector>::One << BspFieldId);
-    static const OSG::BitVector NumParticlesFieldMask = 
+    static const OSG::BitVector NumParticlesFieldMask =
         (TypeTraits<BitVector>::One << NumParticlesFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -181,8 +180,8 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -193,162 +192,162 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFMode(void);
+                  SFUInt32            *getSFMode            (void);
 #endif
-           SFUInt32 *editSFMode(void);
-     const SFUInt32 *getSFMode (void) const;
-     const SFGeoVectorPropertyPtr *getSFPositions (void) const;
+                  SFUInt32            *editSFMode           (void);
+            const SFUInt32            *getSFMode            (void) const;
+            const SFGeoVectorPropertyPtr *getSFPositions       (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec3f *getMFSizes(void);
+                  MFVec3f             *getMFSizes           (void);
 #endif
-           MFVec3f *editMFSizes(void);
-     const MFVec3f *getMFSizes (void) const;
-     const SFGeoVectorPropertyPtr *getSFSecPositions (void) const;
-     const SFGeoVectorPropertyPtr *getSFColors (void) const;
-     const SFGeoVectorPropertyPtr *getSFNormals (void) const;
+                  MFVec3f             *editMFSizes          (void);
+            const MFVec3f             *getMFSizes           (void) const;
+            const SFGeoVectorPropertyPtr *getSFSecPositions    (void) const;
+            const SFGeoVectorPropertyPtr *getSFColors          (void) const;
+            const SFGeoVectorPropertyPtr *getSFNormals         (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFInt32 *getMFIndices(void);
+                  MFInt32             *getMFIndices         (void);
 #endif
-           MFInt32 *editMFIndices(void);
-     const MFInt32 *getMFIndices (void) const;
+                  MFInt32             *editMFIndices        (void);
+            const MFInt32             *getMFIndices         (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFReal32 *getMFTextureZs(void);
+                  MFReal32            *getMFTextureZs       (void);
 #endif
-           MFReal32 *editMFTextureZs(void);
-     const MFReal32 *getMFTextureZs (void) const;
+                  MFReal32            *editMFTextureZs      (void);
+            const MFReal32            *getMFTextureZs       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFDrawOrder(void);
+                  SFUInt32            *getSFDrawOrder       (void);
 #endif
-           SFUInt32 *editSFDrawOrder(void);
-     const SFUInt32 *getSFDrawOrder (void) const;
+                  SFUInt32            *editSFDrawOrder      (void);
+            const SFUInt32            *getSFDrawOrder       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFDynamic(void);
+                  SFBool              *getSFDynamic         (void);
 #endif
-           SFBool *editSFDynamic(void);
-     const SFBool *getSFDynamic (void) const;
+                  SFBool              *editSFDynamic        (void);
+            const SFBool              *getSFDynamic         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFParticleBSPTree *getSFBsp(void);
+                  SFParticleBSPTree   *getSFBsp             (void);
 #endif
-           SFParticleBSPTree *editSFBsp(void);
-     const SFParticleBSPTree *getSFBsp (void) const;
+                  SFParticleBSPTree   *editSFBsp            (void);
+            const SFParticleBSPTree   *getSFBsp             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFNumParticles(void);
+                  SFInt32             *getSFNumParticles    (void);
 #endif
-           SFInt32 *editSFNumParticles(void);
-     const SFInt32 *getSFNumParticles (void) const;
+                  SFInt32             *editSFNumParticles   (void);
+            const SFInt32             *getSFNumParticles    (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getMode(void);
+                  UInt32              &getMode            (void);
 #endif
-           UInt32 &editMode(void);
-     const UInt32 &getMode (void) const;
+                  UInt32              &editMode           (void);
+            const UInt32              &getMode            (void) const;
 
-           GeoVectorPropertyPtrConst getPositions(void) const;
+                  GeoVectorPropertyPtrConst getPositions      (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getSizes(const UInt32 index);
-           MFVec3f &getSizes(void);
+                  Vec3f               &getSizes           (const UInt32 index);
+                  MFVec3f             &getSizes          (void);
 #endif
-           Vec3f &editSizes(const UInt32 index);
-     const Vec3f &getSizes (const UInt32 index) const;
-           MFVec3f &editSizes(void);
-     const MFVec3f &getSizes(void) const;
+                  Vec3f               &editSizes          (const UInt32 index);
+            const Vec3f               &getSizes           (const UInt32 index) const;
+                  MFVec3f             &editSizes          (void);
+            const MFVec3f             &getSizes          (void) const;
 
-           GeoVectorPropertyPtrConst getSecPositions(void) const;
+                  GeoVectorPropertyPtrConst getSecPositions   (void) const;
 
-           GeoVectorPropertyPtrConst getColors(void) const;
+                  GeoVectorPropertyPtrConst getColors         (void) const;
 
-           GeoVectorPropertyPtrConst getNormals(void) const;
+                  GeoVectorPropertyPtrConst getNormals        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getIndices(const UInt32 index);
-           MFInt32 &getIndices(void);
+                  Int32               &getIndices         (const UInt32 index);
+                  MFInt32             &getIndices        (void);
 #endif
-           Int32 &editIndices(const UInt32 index);
-     const Int32 &getIndices (const UInt32 index) const;
-           MFInt32 &editIndices(void);
-     const MFInt32 &getIndices(void) const;
+                  Int32               &editIndices        (const UInt32 index);
+            const Int32               &getIndices         (const UInt32 index) const;
+                  MFInt32             &editIndices        (void);
+            const MFInt32             &getIndices        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getTextureZs(const UInt32 index);
-           MFReal32 &getTextureZs(void);
+                  Real32              &getTextureZs       (const UInt32 index);
+                  MFReal32            &getTextureZs      (void);
 #endif
-           Real32 &editTextureZs(const UInt32 index);
-     const Real32 &getTextureZs (const UInt32 index) const;
-           MFReal32 &editTextureZs(void);
-     const MFReal32 &getTextureZs(void) const;
+                  Real32              &editTextureZs      (const UInt32 index);
+            const Real32              &getTextureZs       (const UInt32 index) const;
+                  MFReal32            &editTextureZs      (void);
+            const MFReal32            &getTextureZs      (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getDrawOrder(void);
+                  UInt32              &getDrawOrder       (void);
 #endif
-           UInt32 &editDrawOrder(void);
-     const UInt32 &getDrawOrder (void) const;
+                  UInt32              &editDrawOrder      (void);
+            const UInt32              &getDrawOrder       (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getDynamic(void);
+                  bool                &getDynamic         (void);
 #endif
-           bool &editDynamic(void);
-     const bool &getDynamic (void) const;
+                  bool                &editDynamic        (void);
+            const bool                &getDynamic         (void) const;
 
 #ifdef OSG_1_COMPAT
-           ParticleBSPTree &getBsp(void);
+                  ParticleBSPTree     &getBsp             (void);
 #endif
-           ParticleBSPTree &editBsp(void);
-     const ParticleBSPTree &getBsp (void) const;
+                  ParticleBSPTree     &editBsp            (void);
+            const ParticleBSPTree     &getBsp             (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getNumParticles(void);
+                  Int32               &getNumParticles    (void);
 #endif
-           Int32 &editNumParticles(void);
-     const Int32 &getNumParticles (void) const;
+                  Int32               &editNumParticles   (void);
+            const Int32               &getNumParticles    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setMode(const UInt32 &value);
-     void setPositions(GeoVectorPropertyPtrConstArg value);
-     void setSecPositions(GeoVectorPropertyPtrConstArg value);
-     void setColors(GeoVectorPropertyPtrConstArg value);
-     void setNormals(GeoVectorPropertyPtrConstArg value);
-     void setDrawOrder(const UInt32 &value);
-     void setDynamic(const bool &value);
-     void setBsp(const ParticleBSPTree &value);
-     void setNumParticles(const Int32 &value);
+            void setMode           (const UInt32 &value);
+            void setPositions      (GeoVectorPropertyPtrConstArg value);
+            void setSecPositions   (GeoVectorPropertyPtrConstArg value);
+            void setColors         (GeoVectorPropertyPtrConstArg value);
+            void setNormals        (GeoVectorPropertyPtrConstArg value);
+            void setDrawOrder      (const UInt32 &value);
+            void setDynamic        (const bool &value);
+            void setBsp            (const ParticleBSPTree &value);
+            void setNumParticles   (const Int32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -359,49 +358,49 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
 
-    void pushToSizes           (const Vec3f& value   );
+    void pushToSizes               (const Vec3f& value   );
     void insertIntoSizes      (UInt32                uiIndex,
-                                    const Vec3f& value   );
-    void replaceInSizes  (UInt32                uiIndex,
-                                    const Vec3f& value   );
-    void replaceInSizes (const Vec3f& pOldElem,
-                                    const Vec3f& pNewElem);
+                                             const Vec3f& value   );
+    void replaceInSizes   (UInt32                uiIndex,
+                                             const Vec3f& value   );
+    void replaceInSizes  (const Vec3f& pOldElem,
+                                             const Vec3f& pNewElem);
     void removeFromSizes (UInt32                uiIndex );
     void removeFromSizes(const Vec3f& value   );
-    void clearSizes            (void                          );
+    void clearSizes                 (void                          );
 
 
- 
 
 
-    void pushToIndices           (const Int32& value   );
+
+    void pushToIndices             (const Int32& value   );
     void insertIntoIndices      (UInt32                uiIndex,
-                                    const Int32& value   );
+                                             const Int32& value   );
     void replaceInIndices  (UInt32                uiIndex,
-                                    const Int32& value   );
+                                             const Int32& value   );
     void replaceInIndices (const Int32& pOldElem,
-                                    const Int32& pNewElem);
+                                             const Int32& pNewElem);
     void removeFromIndices (UInt32                uiIndex );
     void removeFromIndices(const Int32& value   );
-    void clearIndices            (void                          );
+    void clearIndices               (void                          );
 
 
- 
+
 
 
     void pushToTextureZs           (const Real32& value   );
     void insertIntoTextureZs      (UInt32                uiIndex,
-                                    const Real32& value   );
+                                             const Real32& value   );
     void replaceInTextureZs  (UInt32                uiIndex,
-                                    const Real32& value   );
+                                             const Real32& value   );
     void replaceInTextureZs (const Real32& pOldElem,
-                                    const Real32& pNewElem);
+                                             const Real32& pNewElem);
     void removeFromTextureZs (UInt32                uiIndex );
     void removeFromTextureZs(const Real32& value   );
-    void clearTextureZs            (void                          );
+    void clearTextureZs             (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -420,15 +419,15 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ParticlesPtr create     (void); 
-    static  ParticlesPtr createEmpty(void); 
+    static  ParticlesPtr create     (void);
+    static  ParticlesPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -444,18 +443,18 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt32 _sfMode;
+    SFUInt32          _sfMode;
     SFGeoVectorPropertyPtr _sfPositions;
-    MFVec3f _mfSizes;
+    MFVec3f           _mfSizes;
     SFGeoVectorPropertyPtr _sfSecPositions;
     SFGeoVectorPropertyPtr _sfColors;
     SFGeoVectorPropertyPtr _sfNormals;
-    MFInt32 _mfIndices;
-    MFReal32 _mfTextureZs;
-    SFUInt32 _sfDrawOrder;
-    SFBool _sfDynamic;
+    MFInt32           _mfIndices;
+    MFReal32          _mfTextureZs;
+    SFUInt32          _sfDrawOrder;
+    SFBool            _sfDynamic;
     SFParticleBSPTree _sfBsp;
-    SFInt32 _sfNumParticles;
+    SFInt32           _sfNumParticles;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -470,7 +469,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ParticlesBase(void); 
+    virtual ~ParticlesBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -517,11 +516,11 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif
@@ -555,7 +554,7 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt32 _sfPump;
+    SFUInt32          _sfPump;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -564,23 +563,23 @@ class OSG_DRAWABLE_DLLMAPPING ParticlesBase : public MaterialDrawable
 
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFPump(void);
+                  SFUInt32            *getSFPump            (void);
 #endif
-           SFUInt32 *editSFPump(void);
-     const SFUInt32 *getSFPump (void) const;
+                  SFUInt32            *editSFPump           (void);
+            const SFUInt32            *getSFPump            (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getPump(void);
+                  UInt32              &getPump           (void);
 #endif
-           UInt32 &editPump(void);
-     const UInt32 &getPump(void) const;
+                  UInt32              &editPump           (void);
+            const UInt32              &getPump           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setPump(const UInt32 &value);
+            void setPump           (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

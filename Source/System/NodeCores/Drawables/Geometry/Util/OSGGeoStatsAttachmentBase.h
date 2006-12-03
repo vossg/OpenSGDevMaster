@@ -91,22 +91,22 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StatsAttachmentPtr, 
-                              StatsAttachmentConstPtr, 
+    typedef PointerFwdBuilder<StatsAttachmentPtr,
+                              StatsAttachmentConstPtr,
                               GeoStatsAttachment>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StatsAttachmentPtr, 
-                              StatsAttachmentConstPtr, 
+    typedef PointerFwdBuilder<StatsAttachmentPtr,
+                              StatsAttachmentConstPtr,
                               GeoStatsAttachment>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StatsAttachmentPtr, 
+    typedef PointerFwdBuilder<StatsAttachmentPtr,
                               StatsAttachmentConstPtr,
                               GeoStatsAttachment>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StatsAttachmentPtr, 
+    typedef PointerFwdBuilder<StatsAttachmentPtr,
                               StatsAttachmentConstPtr,
                               GeoStatsAttachment>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StatsAttachmentPtr, 
+    typedef PointerFwdBuilder<StatsAttachmentPtr,
                               StatsAttachmentConstPtr,
                               GeoStatsAttachment>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StatsAttachmentPtr, 
+    typedef PointerFwdBuilder<StatsAttachmentPtr,
                               StatsAttachmentConstPtr,
                               GeoStatsAttachment>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
         NextFieldId = ValidFieldId + 1
     };
 
-    static const OSG::BitVector VerticesFieldMask = 
+    static const OSG::BitVector VerticesFieldMask =
         (TypeTraits<BitVector>::One << VerticesFieldId);
-    static const OSG::BitVector PointsFieldMask = 
+    static const OSG::BitVector PointsFieldMask =
         (TypeTraits<BitVector>::One << PointsFieldId);
-    static const OSG::BitVector LinesFieldMask = 
+    static const OSG::BitVector LinesFieldMask =
         (TypeTraits<BitVector>::One << LinesFieldId);
-    static const OSG::BitVector TrianglesFieldMask = 
+    static const OSG::BitVector TrianglesFieldMask =
         (TypeTraits<BitVector>::One << TrianglesFieldId);
-    static const OSG::BitVector ProcessedAttributeBytesFieldMask = 
+    static const OSG::BitVector ProcessedAttributeBytesFieldMask =
         (TypeTraits<BitVector>::One << ProcessedAttributeBytesFieldId);
-    static const OSG::BitVector StoredAttributeBytesFieldMask = 
+    static const OSG::BitVector StoredAttributeBytesFieldMask =
         (TypeTraits<BitVector>::One << StoredAttributeBytesFieldId);
-    static const OSG::BitVector ValidFieldMask = 
+    static const OSG::BitVector ValidFieldMask =
         (TypeTraits<BitVector>::One << ValidFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -169,102 +168,102 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
 
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFVertices(void);
+                  SFUInt32            *getSFVertices        (void);
 #endif
-           SFUInt32 *editSFVertices(void);
-     const SFUInt32 *getSFVertices (void) const;
+                  SFUInt32            *editSFVertices       (void);
+            const SFUInt32            *getSFVertices        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFPoints(void);
+                  SFUInt32            *getSFPoints          (void);
 #endif
-           SFUInt32 *editSFPoints(void);
-     const SFUInt32 *getSFPoints (void) const;
+                  SFUInt32            *editSFPoints         (void);
+            const SFUInt32            *getSFPoints          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFLines(void);
+                  SFUInt32            *getSFLines           (void);
 #endif
-           SFUInt32 *editSFLines(void);
-     const SFUInt32 *getSFLines (void) const;
+                  SFUInt32            *editSFLines          (void);
+            const SFUInt32            *getSFLines           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFTriangles(void);
+                  SFUInt32            *getSFTriangles       (void);
 #endif
-           SFUInt32 *editSFTriangles(void);
-     const SFUInt32 *getSFTriangles (void) const;
+                  SFUInt32            *editSFTriangles      (void);
+            const SFUInt32            *getSFTriangles       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFProcessedAttributeBytes(void);
+                  SFUInt32            *getSFProcessedAttributeBytes (void);
 #endif
-           SFUInt32 *editSFProcessedAttributeBytes(void);
-     const SFUInt32 *getSFProcessedAttributeBytes (void) const;
+                  SFUInt32            *editSFProcessedAttributeBytes(void);
+            const SFUInt32            *getSFProcessedAttributeBytes (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFStoredAttributeBytes(void);
+                  SFUInt32            *getSFStoredAttributeBytes (void);
 #endif
-           SFUInt32 *editSFStoredAttributeBytes(void);
-     const SFUInt32 *getSFStoredAttributeBytes (void) const;
+                  SFUInt32            *editSFStoredAttributeBytes(void);
+            const SFUInt32            *getSFStoredAttributeBytes (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFValid(void);
+                  SFBool              *getSFValid           (void);
 #endif
-           SFBool *editSFValid(void);
-     const SFBool *getSFValid (void) const;
+                  SFBool              *editSFValid          (void);
+            const SFBool              *getSFValid           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getVertices(void);
+                  UInt32              &getVertices        (void);
 #endif
-           UInt32 &editVertices(void);
-     const UInt32 &getVertices (void) const;
+                  UInt32              &editVertices       (void);
+            const UInt32              &getVertices        (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getPoints(void);
+                  UInt32              &getPoints          (void);
 #endif
-           UInt32 &editPoints(void);
-     const UInt32 &getPoints (void) const;
+                  UInt32              &editPoints         (void);
+            const UInt32              &getPoints          (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getLines(void);
+                  UInt32              &getLines           (void);
 #endif
-           UInt32 &editLines(void);
-     const UInt32 &getLines (void) const;
+                  UInt32              &editLines          (void);
+            const UInt32              &getLines           (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getTriangles(void);
+                  UInt32              &getTriangles       (void);
 #endif
-           UInt32 &editTriangles(void);
-     const UInt32 &getTriangles (void) const;
+                  UInt32              &editTriangles      (void);
+            const UInt32              &getTriangles       (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getProcessedAttributeBytes(void);
+                  UInt32              &getProcessedAttributeBytes (void);
 #endif
-           UInt32 &editProcessedAttributeBytes(void);
-     const UInt32 &getProcessedAttributeBytes (void) const;
+                  UInt32              &editProcessedAttributeBytes(void);
+            const UInt32              &getProcessedAttributeBytes (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getStoredAttributeBytes(void);
+                  UInt32              &getStoredAttributeBytes (void);
 #endif
-           UInt32 &editStoredAttributeBytes(void);
-     const UInt32 &getStoredAttributeBytes (void) const;
+                  UInt32              &editStoredAttributeBytes(void);
+            const UInt32              &getStoredAttributeBytes (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getValid(void);
+                  bool                &getValid           (void);
 #endif
-           bool &editValid(void);
-     const bool &getValid (void) const;
+                  bool                &editValid          (void);
+            const bool                &getValid           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setVertices(const UInt32 &value);
-     void setPoints(const UInt32 &value);
-     void setLines(const UInt32 &value);
-     void setTriangles(const UInt32 &value);
-     void setProcessedAttributeBytes(const UInt32 &value);
-     void setStoredAttributeBytes(const UInt32 &value);
-     void setValid(const bool &value);
+            void setVertices       (const UInt32 &value);
+            void setPoints         (const UInt32 &value);
+            void setLines          (const UInt32 &value);
+            void setTriangles      (const UInt32 &value);
+            void setProcessedAttributeBytes(const UInt32 &value);
+            void setStoredAttributeBytes(const UInt32 &value);
+            void setValid          (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -284,15 +283,15 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoStatsAttachmentPtr create     (void); 
-    static  GeoStatsAttachmentPtr createEmpty(void); 
+    static  GeoStatsAttachmentPtr create     (void);
+    static  GeoStatsAttachmentPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -308,13 +307,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt32 _sfVertices;
-    SFUInt32 _sfPoints;
-    SFUInt32 _sfLines;
-    SFUInt32 _sfTriangles;
-    SFUInt32 _sfProcessedAttributeBytes;
-    SFUInt32 _sfStoredAttributeBytes;
-    SFBool _sfValid;
+    SFUInt32          _sfVertices;
+    SFUInt32          _sfPoints;
+    SFUInt32          _sfLines;
+    SFUInt32          _sfTriangles;
+    SFUInt32          _sfProcessedAttributeBytes;
+    SFUInt32          _sfStoredAttributeBytes;
+    SFBool            _sfValid;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -329,7 +328,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoStatsAttachmentBase(void); 
+    virtual ~GeoStatsAttachmentBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -375,11 +374,11 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

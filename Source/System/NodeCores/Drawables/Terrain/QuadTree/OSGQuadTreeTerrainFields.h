@@ -70,22 +70,22 @@ class QuadTreeTerrain;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! QuadTreeTerrainPtr
 
-typedef PointerFwdBuilder<GeometryPtr, 
+typedef PointerFwdBuilder<GeometryPtr,
                           GeometryConstPtr,
                           QuadTreeTerrain>::ObjPtr         QuadTreeTerrainPtr;
-typedef PointerFwdBuilder<GeometryPtr, 
+typedef PointerFwdBuilder<GeometryPtr,
                           GeometryConstPtr,
                           QuadTreeTerrain>::ObjPtrConst    QuadTreeTerrainPtrConst;
-typedef PointerFwdBuilder<GeometryPtr, 
+typedef PointerFwdBuilder<GeometryPtr,
                           GeometryConstPtr,
                           QuadTreeTerrain>::ObjConstPtr    QuadTreeTerrainConstPtr;
-typedef PointerFwdBuilder<GeometryPtr, 
+typedef PointerFwdBuilder<GeometryPtr,
                           GeometryConstPtr,
                           QuadTreeTerrain>::ObjPtrArg      QuadTreeTerrainPtrArg;
-typedef PointerFwdBuilder<GeometryPtr, 
+typedef PointerFwdBuilder<GeometryPtr,
                           GeometryConstPtr,
                           QuadTreeTerrain>::ObjConstPtrArg QuadTreeTerrainConstPtrArg;
-typedef PointerFwdBuilder<GeometryPtr, 
+typedef PointerFwdBuilder<GeometryPtr,
                           GeometryConstPtr,
                           QuadTreeTerrain>::ObjPtrConstArg QuadTreeTerrainPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<GeometryPtr,
 #endif
 
 template <>
-struct FieldTraits<QuadTreeTerrainPtr> : 
+struct FieldTraits<QuadTreeTerrainPtr> :
     public FieldTraitsTemplateBase<QuadTreeTerrainPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<QuadTreeTerrainPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING 
+    static OSG_DRAWABLE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFQuadTreeTerrainPtr"; }

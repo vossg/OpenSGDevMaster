@@ -9,6 +9,9 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+\ingroup GrpSystemNodeCoresDrawablesParticles
+
+See \ref PageSystemParticles for details.
 	<Field
 		name="mode"
 		type="UInt32"

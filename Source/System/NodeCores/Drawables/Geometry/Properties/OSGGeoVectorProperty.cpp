@@ -52,15 +52,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::GeoVectorProperty
-Abstract base class for all vector-valued GeoProperties.
-Provides a uniform interface for accessing all vector data in geometry using
-automatic conversion methods.
-*/
+// Documentation for this class is emited in the
+// OSGGeoVectorPropertyBase.cpp file.
+// To modify it, please change the .fcd file (OSGGeoVectorProperty.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

@@ -65,43 +65,64 @@
 #include "OSGGeoStatsAttachmentBase.h"
 #include "OSGGeoStatsAttachment.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var UInt32 GeoStatsAttachmentBase::_sfVertices
-            The number of vertices in the subtree.
+/*! \class OSG::GeoStatsAttachment
+    The base class for geometry statistics.
 
+    The GeoStatsAttachment keeps track of some core Geometry
+    Characteristics like the number of vertices used, the number of points,
+    lines or triangles created and some information about memory
+    consumption.
+
+    It is designed as an attachment so that it can be kept inside the
+    graph. It can also be used to keep aggregated information about
+    subtrees, by adding up the contributions of the underlying nodes. It
+    can invalidate itself by using changed callbacks, so that no manual
+    bookkeeping is necessary.
+
+    \warning To use the automatic update you have to use the
+    osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()
+    methods! Otherwise the necessary callbacks are not set!
+
+    \warning Before accessing the data osg::GeoStatsAttachment::validate()
+    needs to be called to calculate and aggregate the results.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var UInt32          GeoStatsAttachmentBase::_sfVertices
+    The number of vertices in the subtree.
 */
-/*! \var UInt32 GeoStatsAttachmentBase::_sfPoints
-            The number of points in the subtree.
-
+/*! \var UInt32          GeoStatsAttachmentBase::_sfPoints
+    The number of points in the subtree.
 */
-/*! \var UInt32 GeoStatsAttachmentBase::_sfLines
-            The number of lines in the subtree.
-
+/*! \var UInt32          GeoStatsAttachmentBase::_sfLines
+    The number of lines in the subtree.
 */
-/*! \var UInt32 GeoStatsAttachmentBase::_sfTriangles
-            The number of triangles in the subtree.
-
+/*! \var UInt32          GeoStatsAttachmentBase::_sfTriangles
+    The number of triangles in the subtree.
 */
-/*! \var UInt32 GeoStatsAttachmentBase::_sfProcessedAttributeBytes
-            The number of bytes in vertex attribute data that are processed while rendering.
-
+/*! \var UInt32          GeoStatsAttachmentBase::_sfProcessedAttributeBytes
+    The number of bytes in vertex attribute data that are processed while
+    rendering.
 */
-/*! \var UInt32 GeoStatsAttachmentBase::_sfStoredAttributeBytes
-            The number of bytes in vertex attribute data that are stored.
-
+/*! \var UInt32          GeoStatsAttachmentBase::_sfStoredAttributeBytes
+    The number of bytes in vertex attribute data that are stored.
 */
-/*! \var bool GeoStatsAttachmentBase::_sfValid
-            Flags whether the data is valid or needs to be updated.
-The base class for geometry statistics.
-
+/*! \var bool            GeoStatsAttachmentBase::_sfValid
+    Flags whether the data is valid or needs to be updated.
 */
 
 void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -111,9 +132,9 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "vertices", 
-        "        The number of vertices in the subtree.\n",
+        SFUInt32::getClassType(),
+        "vertices",
+        "The number of vertices in the subtree.\n",
         VerticesFieldId, VerticesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -133,9 +154,9 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "points", 
-        "        The number of points in the subtree.\n",
+        SFUInt32::getClassType(),
+        "points",
+        "The number of points in the subtree.\n",
         PointsFieldId, PointsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -155,9 +176,9 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "lines", 
-        "        The number of lines in the subtree.\n",
+        SFUInt32::getClassType(),
+        "lines",
+        "The number of lines in the subtree.\n",
         LinesFieldId, LinesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -177,9 +198,9 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "triangles", 
-        "        The number of triangles in the subtree.\n",
+        SFUInt32::getClassType(),
+        "triangles",
+        "The number of triangles in the subtree.\n",
         TrianglesFieldId, TrianglesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -199,9 +220,9 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "processedAttributeBytes", 
-        "        The number of bytes in vertex attribute data that are processed while rendering.\n",
+        SFUInt32::getClassType(),
+        "processedAttributeBytes",
+        "The number of bytes in vertex attribute data that are processed while rendering.\n",
         ProcessedAttributeBytesFieldId, ProcessedAttributeBytesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -221,9 +242,9 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "storedAttributeBytes", 
-        "        The number of bytes in vertex attribute data that are stored.\n",
+        SFUInt32::getClassType(),
+        "storedAttributeBytes",
+        "The number of bytes in vertex attribute data that are stored.\n",
         StoredAttributeBytesFieldId, StoredAttributeBytesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -243,9 +264,9 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "valid", 
-        "        Flags whether the data is valid or needs to be updated.\nThe base class for geometry statistics.\n",
+        SFBool::getClassType(),
+        "valid",
+        "Flags whether the data is valid or needs to be updated.\n",
         ValidFieldId, ValidFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -270,102 +291,129 @@ GeoStatsAttachmentBase::TypeObject GeoStatsAttachmentBase::_type(true,
     (InitalInsertDescFunc) &GeoStatsAttachmentBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GeoStatsAttachment\"\n"
-"	parent=\"StatsAttachment\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"vertices\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The number of vertices in the subtree.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"points\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The number of points in the subtree.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"lines\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The number of lines in the subtree.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"triangles\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The number of triangles in the subtree.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"processedAttributeBytes\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The number of bytes in vertex attribute data that are processed while rendering.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"storedAttributeBytes\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The number of bytes in vertex attribute data that are stored.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"valid\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"                defaultValue=\"false\"\n"
-"	>\n"
-"        Flags whether the data is valid or needs to be updated.\n"
-"	</Field>\n"
-"The base class for geometry statistics.\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GeoStatsAttachment\"\n"
+    "\tparent=\"StatsAttachment\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "The base class for geometry statistics.\n"
+    "\n"
+    "The GeoStatsAttachment keeps track of some core Geometry Characteristics like\n"
+    "the number of vertices used, the number of points, lines or triangles created\n"
+    "and some information about memory consumption.\n"
+    "\n"
+    "It is designed as an attachment so that it can be kept inside the graph. It\n"
+    "can also be used to keep aggregated information about subtrees, by adding up\n"
+    "the contributions of the underlying nodes. It can invalidate itself by using\n"
+    "changed callbacks, so that no manual bookkeeping is necessary.\n"
+    "\n"
+    "\\warning To use the automatic update you have to use the\n"
+    "osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()\n"
+    "methods! Otherwise the necessary callbacks are not set!\n"
+    "\n"
+    "\\warning Before accessing the data osg::GeoStatsAttachment::validate() needs\n"
+    "to be called to calculate and aggregate the results.\n"
+    "\t<Field\n"
+    "\t\tname=\"vertices\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The number of vertices in the subtree.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"points\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The number of points in the subtree.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"lines\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The number of lines in the subtree.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"triangles\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The number of triangles in the subtree.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"processedAttributeBytes\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The number of bytes in vertex attribute data that are processed while rendering.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"storedAttributeBytes\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The number of bytes in vertex attribute data that are stored.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"valid\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "                defaultValue=\"false\"\n"
+    "\t>\n"
+    "        Flags whether the data is valid or needs to be updated.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "The base class for geometry statistics.\n"
+    "The GeoStatsAttachment keeps track of some core Geometry Characteristics like\n"
+    "the number of vertices used, the number of points, lines or triangles created\n"
+    "and some information about memory consumption.\n"
+    "It is designed as an attachment so that it can be kept inside the graph. It\n"
+    "can also be used to keep aggregated information about subtrees, by adding up\n"
+    "the contributions of the underlying nodes. It can invalidate itself by using\n"
+    "changed callbacks, so that no manual bookkeeping is necessary.\n"
+    "\\warning To use the automatic update you have to use the\n"
+    "osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()\n"
+    "methods! Otherwise the necessary callbacks are not set!\n"
+    "\\warning Before accessing the data osg::GeoStatsAttachment::validate() needs\n"
+    "to be called to calculate and aggregate the results.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GeoStatsAttachmentBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GeoStatsAttachmentBase::getType(void) const 
+FieldContainerType &GeoStatsAttachmentBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GeoStatsAttachmentBase::getContainerSize(void) const 
-{ 
-    return sizeof(GeoStatsAttachment); 
+const FieldContainerType &GeoStatsAttachmentBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GeoStatsAttachmentBase::getContainerSize(void) const
+{
+    return sizeof(GeoStatsAttachment);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -384,9 +432,9 @@ const SFUInt32 *GeoStatsAttachmentBase::getSFVertices(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoStatsAttachmentBase::getSFVertices(void)
+SFUInt32            *GeoStatsAttachmentBase::getSFVertices       (void)
 {
-    return this->editSFVertices();
+    return this->editSFVertices       ();
 }
 #endif
 
@@ -403,9 +451,9 @@ const SFUInt32 *GeoStatsAttachmentBase::getSFPoints(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoStatsAttachmentBase::getSFPoints(void)
+SFUInt32            *GeoStatsAttachmentBase::getSFPoints         (void)
 {
-    return this->editSFPoints();
+    return this->editSFPoints         ();
 }
 #endif
 
@@ -422,9 +470,9 @@ const SFUInt32 *GeoStatsAttachmentBase::getSFLines(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoStatsAttachmentBase::getSFLines(void)
+SFUInt32            *GeoStatsAttachmentBase::getSFLines          (void)
 {
-    return this->editSFLines();
+    return this->editSFLines          ();
 }
 #endif
 
@@ -441,9 +489,9 @@ const SFUInt32 *GeoStatsAttachmentBase::getSFTriangles(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoStatsAttachmentBase::getSFTriangles(void)
+SFUInt32            *GeoStatsAttachmentBase::getSFTriangles      (void)
 {
-    return this->editSFTriangles();
+    return this->editSFTriangles      ();
 }
 #endif
 
@@ -460,7 +508,7 @@ const SFUInt32 *GeoStatsAttachmentBase::getSFProcessedAttributeBytes(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoStatsAttachmentBase::getSFProcessedAttributeBytes(void)
+SFUInt32            *GeoStatsAttachmentBase::getSFProcessedAttributeBytes(void)
 {
     return this->editSFProcessedAttributeBytes();
 }
@@ -479,7 +527,7 @@ const SFUInt32 *GeoStatsAttachmentBase::getSFStoredAttributeBytes(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoStatsAttachmentBase::getSFStoredAttributeBytes(void)
+SFUInt32            *GeoStatsAttachmentBase::getSFStoredAttributeBytes(void)
 {
     return this->editSFStoredAttributeBytes();
 }
@@ -498,9 +546,9 @@ const SFBool *GeoStatsAttachmentBase::getSFValid(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *GeoStatsAttachmentBase::getSFValid(void)
+SFBool              *GeoStatsAttachmentBase::getSFValid          (void)
 {
-    return this->editSFValid();
+    return this->editSFValid          ();
 }
 #endif
 
@@ -615,22 +663,22 @@ void GeoStatsAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GeoStatsAttachmentPtr GeoStatsAttachmentBase::createEmpty(void) 
-{ 
-    GeoStatsAttachmentPtr returnValue; 
-    
-    newPtr<GeoStatsAttachment>(returnValue); 
+GeoStatsAttachmentPtr GeoStatsAttachmentBase::createEmpty(void)
+{
+    GeoStatsAttachmentPtr returnValue;
 
-    return returnValue; 
+    newPtr<GeoStatsAttachment>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr GeoStatsAttachmentBase::shallowCopy(void) const 
-{ 
-    GeoStatsAttachmentPtr returnValue; 
+FieldContainerPtr GeoStatsAttachmentBase::shallowCopy(void) const
+{
+    GeoStatsAttachmentPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const GeoStatsAttachment *>(this)); 
+    newPtr(returnValue, dynamic_cast<const GeoStatsAttachment *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -639,25 +687,25 @@ FieldContainerPtr GeoStatsAttachmentBase::shallowCopy(void) const
 
 GeoStatsAttachmentBase::GeoStatsAttachmentBase(void) :
     Inherited(),
-    _sfVertices(),
-    _sfPoints(),
-    _sfLines(),
-    _sfTriangles(),
+    _sfVertices               (),
+    _sfPoints                 (),
+    _sfLines                  (),
+    _sfTriangles              (),
     _sfProcessedAttributeBytes(),
-    _sfStoredAttributeBytes(),
-    _sfValid(bool(false))
+    _sfStoredAttributeBytes   (),
+    _sfValid                  (bool(false))
 {
 }
 
 GeoStatsAttachmentBase::GeoStatsAttachmentBase(const GeoStatsAttachmentBase &source) :
     Inherited(source),
-    _sfVertices(source._sfVertices),
-    _sfPoints(source._sfPoints),
-    _sfLines(source._sfLines),
-    _sfTriangles(source._sfTriangles),
+    _sfVertices               (source._sfVertices               ),
+    _sfPoints                 (source._sfPoints                 ),
+    _sfLines                  (source._sfLines                  ),
+    _sfTriangles              (source._sfTriangles              ),
     _sfProcessedAttributeBytes(source._sfProcessedAttributeBytes),
-    _sfStoredAttributeBytes(source._sfStoredAttributeBytes),
-    _sfValid(source._sfValid)
+    _sfStoredAttributeBytes   (source._sfStoredAttributeBytes   ),
+    _sfValid                  (source._sfValid                  )
 {
 }
 
@@ -671,13 +719,13 @@ GeoStatsAttachmentBase::~GeoStatsAttachmentBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GeoStatsAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GeoStatsAttachmentBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -687,10 +735,10 @@ void GeoStatsAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 void GeoStatsAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoStatsAttachmentBase *>(&oFrom), 
+    this->execSync(static_cast<GeoStatsAttachmentBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -710,12 +758,12 @@ void GeoStatsAttachmentBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr GeoStatsAttachmentBase::createAspectCopy(void) const
 {
-    GeoStatsAttachmentPtr returnValue; 
+    GeoStatsAttachmentPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const GeoStatsAttachment *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const GeoStatsAttachment *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -724,6 +772,8 @@ void GeoStatsAttachmentBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -746,8 +796,6 @@ OSG_FIELDTRAITS_GETTYPE(GeoStatsAttachmentPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GeoStatsAttachmentPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GeoStatsAttachmentPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -768,3 +816,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGEOSTATSATTACHMENTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

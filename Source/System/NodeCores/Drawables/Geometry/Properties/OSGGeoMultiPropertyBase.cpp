@@ -66,50 +66,52 @@
 #include "OSGGeoMultiPropertyBase.h"
 #include "OSGGeoMultiProperty.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::GeoMultiProperty
+    Class referencing data from a GeoMultiPropertyData.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var GeoMultiPropertyDataPtr GeoMultiPropertyBase::_sfContainer
-    	The data container to source off of.
-
+    The data container to source off of.
 */
-/*! \var UInt32 GeoMultiPropertyBase::_sfOffset
-    	The offset from the start of the container to the first element of this property.
-
+/*! \var UInt32          GeoMultiPropertyBase::_sfOffset
+    The offset from the start of the container to the first element of
+    this property.
 */
-/*! \var GLenum GeoMultiPropertyBase::_sfIFormat
-    	The OpenGL format for the data.
-
+/*! \var GLenum          GeoMultiPropertyBase::_sfIFormat
+    The OpenGL format for the data.
 */
-/*! \var UInt32 GeoMultiPropertyBase::_sfIDimension
-    	The dimensionality of the data.
-
+/*! \var UInt32          GeoMultiPropertyBase::_sfIDimension
+    The dimensionality of the data.
 */
-/*! \var UInt32 GeoMultiPropertyBase::_sfISize
-    	The number of elements in the data.
-
+/*! \var UInt32          GeoMultiPropertyBase::_sfISize
+    The number of elements in the data.
 */
-/*! \var bool GeoMultiPropertyBase::_sfINormalize
-    	Whether to normalize integer arguments to 0..1.
-
+/*! \var bool            GeoMultiPropertyBase::_sfINormalize
+    Whether to normalize integer arguments to 0..1.
 */
-/*! \var UInt32 GeoMultiPropertyBase::_sfIStride
-    	The stride between elements (can be 0).
-        
-Class referencing data from a GeoMultiPropertyData container.
-
+/*! \var UInt32          GeoMultiPropertyBase::_sfIStride
+    The stride between elements (can be 0).
 */
 
 void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFGeoMultiPropertyDataPtr::Description(
-        SFGeoMultiPropertyDataPtr::getClassType(), 
-        "container", 
-        "	The data container to source off of.\n",
+        SFGeoMultiPropertyDataPtr::getClassType(),
+        "container",
+        "The data container to source off of.\n",
         ContainerFieldId, ContainerFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -125,9 +127,9 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "offset", 
-        "	The offset from the start of the container to the first element of this property.\n",
+        SFUInt32::getClassType(),
+        "offset",
+        "The offset from the start of the container to the first element of this property.\n",
         OffsetFieldId, OffsetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -147,9 +149,9 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "iFormat", 
-        "	The OpenGL format for the data.\n",
+        SFGLenum::getClassType(),
+        "iFormat",
+        "The OpenGL format for the data.\n",
         IFormatFieldId, IFormatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -169,9 +171,9 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "iDimension", 
-        "	The dimensionality of the data.\n",
+        SFUInt32::getClassType(),
+        "iDimension",
+        "The dimensionality of the data.\n",
         IDimensionFieldId, IDimensionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -191,9 +193,9 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "iSize", 
-        "	The number of elements in the data.\n",
+        SFUInt32::getClassType(),
+        "iSize",
+        "The number of elements in the data.\n",
         ISizeFieldId, ISizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -213,9 +215,9 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "iNormalize", 
-        "	Whether to normalize integer arguments to 0..1.\n",
+        SFBool::getClassType(),
+        "iNormalize",
+        "Whether to normalize integer arguments to 0..1.\n",
         INormalizeFieldId, INormalizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -235,9 +237,9 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "iStride", 
-        "	The stride between elements (can be 0).\n        \nClass referencing data from a GeoMultiPropertyData container.\n",
+        SFUInt32::getClassType(),
+        "iStride",
+        "The stride between elements (can be 0).\n",
         IStrideFieldId, IStrideFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -262,109 +264,110 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(true,
     (InitalInsertDescFunc) &GeoMultiPropertyBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GeoMultiProperty\"\n"
-"	parent=\"GeoVectorProperty\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"container\"\n"
-"		type=\"GeoMultiPropertyDataPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The data container to source off of.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"offset\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The offset from the start of the container to the first element of this property.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"iFormat\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The OpenGL format for the data.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"iDimension\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The dimensionality of the data.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"iSize\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The number of elements in the data.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"iNormalize\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Whether to normalize integer arguments to 0..1.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"iStride\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The stride between elements (can be 0).\n"
-"	</Field>\n"
-"        \n"
-"\n"
-"Class referencing data from a GeoMultiPropertyData container.\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GeoMultiProperty\"\n"
+    "\tparent=\"GeoVectorProperty\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "Class referencing data from a GeoMultiPropertyData.\n"
+    "\t<Field\n"
+    "\t\tname=\"container\"\n"
+    "\t\ttype=\"GeoMultiPropertyDataPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe data container to source off of.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"offset\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe offset from the start of the container to the first element of this property.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"iFormat\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe OpenGL format for the data.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"iDimension\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe dimensionality of the data.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"iSize\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe number of elements in the data.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"iNormalize\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tWhether to normalize integer arguments to 0..1.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"iStride\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe stride between elements (can be 0).\n"
+    "\t</Field>\n"
+    "        \n"
+    "\n"
+    "Class referencing data from a GeoMultiPropertyData container.\n"
+    "</FieldContainer>\n",
+    "Class referencing data from a GeoMultiPropertyData.\n"
+    "Class referencing data from a GeoMultiPropertyData container.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GeoMultiPropertyBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GeoMultiPropertyBase::getType(void) const 
+FieldContainerType &GeoMultiPropertyBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GeoMultiPropertyBase::getContainerSize(void) const 
-{ 
-    return sizeof(GeoMultiProperty); 
+const FieldContainerType &GeoMultiPropertyBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GeoMultiPropertyBase::getContainerSize(void) const
+{
+    return sizeof(GeoMultiProperty);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -389,9 +392,9 @@ const SFUInt32 *GeoMultiPropertyBase::getSFOffset(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoMultiPropertyBase::getSFOffset(void)
+SFUInt32            *GeoMultiPropertyBase::getSFOffset         (void)
 {
-    return this->editSFOffset();
+    return this->editSFOffset         ();
 }
 #endif
 
@@ -408,9 +411,9 @@ const SFGLenum *GeoMultiPropertyBase::getSFIFormat(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *GeoMultiPropertyBase::getSFIFormat(void)
+SFGLenum            *GeoMultiPropertyBase::getSFIFormat        (void)
 {
-    return this->editSFIFormat();
+    return this->editSFIFormat        ();
 }
 #endif
 
@@ -427,9 +430,9 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIDimension(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoMultiPropertyBase::getSFIDimension(void)
+SFUInt32            *GeoMultiPropertyBase::getSFIDimension     (void)
 {
-    return this->editSFIDimension();
+    return this->editSFIDimension     ();
 }
 #endif
 
@@ -446,9 +449,9 @@ const SFUInt32 *GeoMultiPropertyBase::getSFISize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoMultiPropertyBase::getSFISize(void)
+SFUInt32            *GeoMultiPropertyBase::getSFISize          (void)
 {
-    return this->editSFISize();
+    return this->editSFISize          ();
 }
 #endif
 
@@ -465,9 +468,9 @@ const SFBool *GeoMultiPropertyBase::getSFINormalize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *GeoMultiPropertyBase::getSFINormalize(void)
+SFBool              *GeoMultiPropertyBase::getSFINormalize     (void)
 {
-    return this->editSFINormalize();
+    return this->editSFINormalize     ();
 }
 #endif
 
@@ -484,9 +487,9 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIStride(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *GeoMultiPropertyBase::getSFIStride(void)
+SFUInt32            *GeoMultiPropertyBase::getSFIStride        (void)
 {
-    return this->editSFIStride();
+    return this->editSFIStride        ();
 }
 #endif
 
@@ -662,22 +665,22 @@ void GeoMultiPropertyBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GeoMultiPropertyPtr GeoMultiPropertyBase::createEmpty(void) 
-{ 
-    GeoMultiPropertyPtr returnValue; 
-    
-    newPtr<GeoMultiProperty>(returnValue); 
+GeoMultiPropertyPtr GeoMultiPropertyBase::createEmpty(void)
+{
+    GeoMultiPropertyPtr returnValue;
 
-    return returnValue; 
+    newPtr<GeoMultiProperty>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr GeoMultiPropertyBase::shallowCopy(void) const 
-{ 
-    GeoMultiPropertyPtr returnValue; 
+FieldContainerPtr GeoMultiPropertyBase::shallowCopy(void) const
+{
+    GeoMultiPropertyPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const GeoMultiProperty *>(this)); 
+    newPtr(returnValue, dynamic_cast<const GeoMultiProperty *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -686,25 +689,25 @@ FieldContainerPtr GeoMultiPropertyBase::shallowCopy(void) const
 
 GeoMultiPropertyBase::GeoMultiPropertyBase(void) :
     Inherited(),
-    _sfContainer(),
-    _sfOffset(UInt32(0)),
-    _sfIFormat(GLenum(0)),
-    _sfIDimension(UInt32(0)),
-    _sfISize(UInt32(0)),
-    _sfINormalize(bool(false)),
-    _sfIStride(UInt32(0))
+    _sfContainer              (),
+    _sfOffset                 (UInt32(0)),
+    _sfIFormat                (GLenum(0)),
+    _sfIDimension             (UInt32(0)),
+    _sfISize                  (UInt32(0)),
+    _sfINormalize             (bool(false)),
+    _sfIStride                (UInt32(0))
 {
 }
 
 GeoMultiPropertyBase::GeoMultiPropertyBase(const GeoMultiPropertyBase &source) :
     Inherited(source),
-    _sfContainer(),
-    _sfOffset(source._sfOffset),
-    _sfIFormat(source._sfIFormat),
-    _sfIDimension(source._sfIDimension),
-    _sfISize(source._sfISize),
-    _sfINormalize(source._sfINormalize),
-    _sfIStride(source._sfIStride)
+    _sfContainer              (),
+    _sfOffset                 (source._sfOffset                 ),
+    _sfIFormat                (source._sfIFormat                ),
+    _sfIDimension             (source._sfIDimension             ),
+    _sfISize                  (source._sfISize                  ),
+    _sfINormalize             (source._sfINormalize             ),
+    _sfIStride                (source._sfIStride                )
 {
 }
 
@@ -728,13 +731,13 @@ void GeoMultiPropertyBase::onCreate(const GeoMultiProperty *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GeoMultiPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GeoMultiPropertyBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -744,10 +747,10 @@ void GeoMultiPropertyBase::execSyncV(      FieldContainer    &oFrom,
 void GeoMultiPropertyBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoMultiPropertyBase *>(&oFrom), 
+    this->execSync(static_cast<GeoMultiPropertyBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -767,12 +770,12 @@ void GeoMultiPropertyBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr GeoMultiPropertyBase::createAspectCopy(void) const
 {
-    GeoMultiPropertyPtr returnValue; 
+    GeoMultiPropertyPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const GeoMultiProperty *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const GeoMultiProperty *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -783,6 +786,8 @@ void GeoMultiPropertyBase::resolveLinks(void)
     static_cast<GeoMultiProperty *>(this)->setContainer(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -805,8 +810,6 @@ OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GeoMultiPropertyPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GeoMultiPropertyPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -827,3 +830,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGEOMULTIPROPERTYFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

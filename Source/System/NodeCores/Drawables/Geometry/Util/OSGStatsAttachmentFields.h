@@ -70,49 +70,49 @@ class StatsAttachment;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StatsAttachmentPtr
 
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StatsAttachment>::ObjPtr         StatsAttachmentPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StatsAttachment>::ObjPtrConst    StatsAttachmentPtrConst;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StatsAttachment>::ObjConstPtr    StatsAttachmentConstPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StatsAttachment>::ObjPtrArg      StatsAttachmentPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StatsAttachment>::ObjConstPtrArg StatsAttachmentConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StatsAttachment>::ObjPtrConstArg StatsAttachmentPtrConstArg;
 
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpDrawableFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
 #endif
 
 template <>
-struct FieldTraits<StatsAttachmentPtr> : 
+struct FieldTraits<StatsAttachmentPtr> :
     public FieldTraitsTemplateBase<StatsAttachmentPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<StatsAttachmentPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING 
+    static OSG_DRAWABLE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFStatsAttachmentPtr"; }
@@ -129,23 +129,23 @@ struct FieldTraits<StatsAttachmentPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpDrawableFieldSingle */
 
 typedef SFieldAdaptor<StatsAttachmentPtr, SFFieldContainerPtr> SFStatsAttachmentPtr;
 #endif
 
 #ifndef OSG_COMPILESTATSATTACHMENTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, StatsAttachmentPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, StatsAttachmentPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpDrawableFieldMulti */
 
 typedef MFieldAdaptor<StatsAttachmentPtr, MFFieldContainerPtr> MFStatsAttachmentPtr;
 #endif
 
 #ifndef OSG_COMPILESTATSATTACHMENTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, StatsAttachmentPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, StatsAttachmentPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

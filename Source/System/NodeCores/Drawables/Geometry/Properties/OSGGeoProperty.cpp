@@ -54,13 +54,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::GeoProperty
-
-*/
+// Documentation for this class is emited in the
+// OSGGeoPropertyBase.cpp file.
+// To modify it, please change the .fcd file (OSGGeoProperty.fcd) and
+// regenerate the base file.
 
 /*! \fn GeoProperty::
 

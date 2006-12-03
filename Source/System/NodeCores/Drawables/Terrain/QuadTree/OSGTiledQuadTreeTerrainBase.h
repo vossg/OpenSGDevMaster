@@ -98,22 +98,22 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialGroupPtr, 
-                              MaterialGroupConstPtr, 
+    typedef PointerFwdBuilder<MaterialGroupPtr,
+                              MaterialGroupConstPtr,
                               TiledQuadTreeTerrain>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialGroupPtr, 
-                              MaterialGroupConstPtr, 
+    typedef PointerFwdBuilder<MaterialGroupPtr,
+                              MaterialGroupConstPtr,
                               TiledQuadTreeTerrain>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialGroupPtr, 
+    typedef PointerFwdBuilder<MaterialGroupPtr,
                               MaterialGroupConstPtr,
                               TiledQuadTreeTerrain>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialGroupPtr, 
+    typedef PointerFwdBuilder<MaterialGroupPtr,
                               MaterialGroupConstPtr,
                               TiledQuadTreeTerrain>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialGroupPtr, 
+    typedef PointerFwdBuilder<MaterialGroupPtr,
                               MaterialGroupConstPtr,
                               TiledQuadTreeTerrain>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialGroupPtr, 
+    typedef PointerFwdBuilder<MaterialGroupPtr,
                               MaterialGroupConstPtr,
                               TiledQuadTreeTerrain>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -140,44 +140,43 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
         NextFieldId = PerPixelLightingFieldId + 1
     };
 
-    static const OSG::BitVector HeightTilesFieldMask = 
+    static const OSG::BitVector HeightTilesFieldMask =
         (TypeTraits<BitVector>::One << HeightTilesFieldId);
-    static const OSG::BitVector HeightTexturesFieldMask = 
+    static const OSG::BitVector HeightTexturesFieldMask =
         (TypeTraits<BitVector>::One << HeightTexturesFieldId);
-    static const OSG::BitVector SizeXFieldMask = 
+    static const OSG::BitVector SizeXFieldMask =
         (TypeTraits<BitVector>::One << SizeXFieldId);
-    static const OSG::BitVector SizeYFieldMask = 
+    static const OSG::BitVector SizeYFieldMask =
         (TypeTraits<BitVector>::One << SizeYFieldId);
-    static const OSG::BitVector HeightScaleFieldMask = 
+    static const OSG::BitVector HeightScaleFieldMask =
         (TypeTraits<BitVector>::One << HeightScaleFieldId);
-    static const OSG::BitVector VertexSpacingFieldMask = 
+    static const OSG::BitVector VertexSpacingFieldMask =
         (TypeTraits<BitVector>::One << VertexSpacingFieldId);
-    static const OSG::BitVector GeoMorphingFieldMask = 
+    static const OSG::BitVector GeoMorphingFieldMask =
         (TypeTraits<BitVector>::One << GeoMorphingFieldId);
-    static const OSG::BitVector DetailFieldMask = 
+    static const OSG::BitVector DetailFieldMask =
         (TypeTraits<BitVector>::One << DetailFieldId);
-    static const OSG::BitVector CurrentXFieldMask = 
+    static const OSG::BitVector CurrentXFieldMask =
         (TypeTraits<BitVector>::One << CurrentXFieldId);
-    static const OSG::BitVector CurrentYFieldMask = 
+    static const OSG::BitVector CurrentYFieldMask =
         (TypeTraits<BitVector>::One << CurrentYFieldId);
-    static const OSG::BitVector SizeROIFieldMask = 
+    static const OSG::BitVector SizeROIFieldMask =
         (TypeTraits<BitVector>::One << SizeROIFieldId);
-    static const OSG::BitVector UpdateFieldMask = 
+    static const OSG::BitVector UpdateFieldMask =
         (TypeTraits<BitVector>::One << UpdateFieldId);
-    static const OSG::BitVector UpdateTerrainFieldMask = 
+    static const OSG::BitVector UpdateTerrainFieldMask =
         (TypeTraits<BitVector>::One << UpdateTerrainFieldId);
-    static const OSG::BitVector PerPixelLightingFieldMask = 
+    static const OSG::BitVector PerPixelLightingFieldMask =
         (TypeTraits<BitVector>::One << PerPixelLightingFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -185,8 +184,8 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -195,202 +194,202 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const MFImagePtr *getMFHeightTiles (void) const;
-     const MFMaterialPtr *getMFHeightTextures (void) const;
+            const MFImagePtr          *getMFHeightTiles     (void) const;
+            const MFMaterialPtr       *getMFHeightTextures  (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFSizeX(void);
+                  SFUInt32            *getSFSizeX           (void);
 #endif
-           SFUInt32 *editSFSizeX(void);
-     const SFUInt32 *getSFSizeX (void) const;
+                  SFUInt32            *editSFSizeX          (void);
+            const SFUInt32            *getSFSizeX           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFSizeY(void);
+                  SFUInt32            *getSFSizeY           (void);
 #endif
-           SFUInt32 *editSFSizeY(void);
-     const SFUInt32 *getSFSizeY (void) const;
+                  SFUInt32            *editSFSizeY          (void);
+            const SFUInt32            *getSFSizeY           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFHeightScale(void);
+                  SFReal32            *getSFHeightScale     (void);
 #endif
-           SFReal32 *editSFHeightScale(void);
-     const SFReal32 *getSFHeightScale (void) const;
+                  SFReal32            *editSFHeightScale    (void);
+            const SFReal32            *getSFHeightScale     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFVertexSpacing(void);
+                  SFReal32            *getSFVertexSpacing   (void);
 #endif
-           SFReal32 *editSFVertexSpacing(void);
-     const SFReal32 *getSFVertexSpacing (void) const;
+                  SFReal32            *editSFVertexSpacing  (void);
+            const SFReal32            *getSFVertexSpacing   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFGeoMorphing(void);
+                  SFBool              *getSFGeoMorphing     (void);
 #endif
-           SFBool *editSFGeoMorphing(void);
-     const SFBool *getSFGeoMorphing (void) const;
+                  SFBool              *editSFGeoMorphing    (void);
+            const SFBool              *getSFGeoMorphing     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFDetail(void);
+                  SFReal32            *getSFDetail          (void);
 #endif
-           SFReal32 *editSFDetail(void);
-     const SFReal32 *getSFDetail (void) const;
+                  SFReal32            *editSFDetail         (void);
+            const SFReal32            *getSFDetail          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFCurrentX(void);
+                  SFInt32             *getSFCurrentX        (void);
 #endif
-           SFInt32 *editSFCurrentX(void);
-     const SFInt32 *getSFCurrentX (void) const;
+                  SFInt32             *editSFCurrentX       (void);
+            const SFInt32             *getSFCurrentX        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFCurrentY(void);
+                  SFInt32             *getSFCurrentY        (void);
 #endif
-           SFInt32 *editSFCurrentY(void);
-     const SFInt32 *getSFCurrentY (void) const;
+                  SFInt32             *editSFCurrentY       (void);
+            const SFInt32             *getSFCurrentY        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFSizeROI(void);
+                  SFInt32             *getSFSizeROI         (void);
 #endif
-           SFInt32 *editSFSizeROI(void);
-     const SFInt32 *getSFSizeROI (void) const;
+                  SFInt32             *editSFSizeROI        (void);
+            const SFInt32             *getSFSizeROI         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFUpdate(void);
+                  SFBool              *getSFUpdate          (void);
 #endif
-           SFBool *editSFUpdate(void);
-     const SFBool *getSFUpdate (void) const;
+                  SFBool              *editSFUpdate         (void);
+            const SFBool              *getSFUpdate          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFUpdateTerrain(void);
+                  SFBool              *getSFUpdateTerrain   (void);
 #endif
-           SFBool *editSFUpdateTerrain(void);
-     const SFBool *getSFUpdateTerrain (void) const;
+                  SFBool              *editSFUpdateTerrain  (void);
+            const SFBool              *getSFUpdateTerrain   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFPerPixelLighting(void);
+                  SFBool              *getSFPerPixelLighting (void);
 #endif
-           SFBool *editSFPerPixelLighting(void);
-     const SFBool *getSFPerPixelLighting (void) const;
+                  SFBool              *editSFPerPixelLighting(void);
+            const SFBool              *getSFPerPixelLighting (void) const;
 
 
-           ImagePtrConst getHeightTiles(const UInt32 index) const;
-     const MFImagePtr &getHeightTiles(void) const;
+                  ImagePtrConst getHeightTiles    (const UInt32 index) const;
+            const MFImagePtr          &getHeightTiles    (void) const;
 
-           MaterialPtrConst getHeightTextures(const UInt32 index) const;
-     const MFMaterialPtr &getHeightTextures(void) const;
+                  MaterialPtrConst getHeightTextures (const UInt32 index) const;
+            const MFMaterialPtr       &getHeightTextures (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getSizeX(void);
+                  UInt32              &getSizeX           (void);
 #endif
-           UInt32 &editSizeX(void);
-     const UInt32 &getSizeX (void) const;
+                  UInt32              &editSizeX          (void);
+            const UInt32              &getSizeX           (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getSizeY(void);
+                  UInt32              &getSizeY           (void);
 #endif
-           UInt32 &editSizeY(void);
-     const UInt32 &getSizeY (void) const;
+                  UInt32              &editSizeY          (void);
+            const UInt32              &getSizeY           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getHeightScale(void);
+                  Real32              &getHeightScale     (void);
 #endif
-           Real32 &editHeightScale(void);
-     const Real32 &getHeightScale (void) const;
+                  Real32              &editHeightScale    (void);
+            const Real32              &getHeightScale     (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getVertexSpacing(void);
+                  Real32              &getVertexSpacing   (void);
 #endif
-           Real32 &editVertexSpacing(void);
-     const Real32 &getVertexSpacing (void) const;
+                  Real32              &editVertexSpacing  (void);
+            const Real32              &getVertexSpacing   (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getGeoMorphing(void);
+                  bool                &getGeoMorphing     (void);
 #endif
-           bool &editGeoMorphing(void);
-     const bool &getGeoMorphing (void) const;
+                  bool                &editGeoMorphing    (void);
+            const bool                &getGeoMorphing     (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getDetail(void);
+                  Real32              &getDetail          (void);
 #endif
-           Real32 &editDetail(void);
-     const Real32 &getDetail (void) const;
+                  Real32              &editDetail         (void);
+            const Real32              &getDetail          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getCurrentX(void);
+                  Int32               &getCurrentX        (void);
 #endif
-           Int32 &editCurrentX(void);
-     const Int32 &getCurrentX (void) const;
+                  Int32               &editCurrentX       (void);
+            const Int32               &getCurrentX        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getCurrentY(void);
+                  Int32               &getCurrentY        (void);
 #endif
-           Int32 &editCurrentY(void);
-     const Int32 &getCurrentY (void) const;
+                  Int32               &editCurrentY       (void);
+            const Int32               &getCurrentY        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getSizeROI(void);
+                  Int32               &getSizeROI         (void);
 #endif
-           Int32 &editSizeROI(void);
-     const Int32 &getSizeROI (void) const;
+                  Int32               &editSizeROI        (void);
+            const Int32               &getSizeROI         (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getUpdate(void);
+                  bool                &getUpdate          (void);
 #endif
-           bool &editUpdate(void);
-     const bool &getUpdate (void) const;
+                  bool                &editUpdate         (void);
+            const bool                &getUpdate          (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getUpdateTerrain(void);
+                  bool                &getUpdateTerrain   (void);
 #endif
-           bool &editUpdateTerrain(void);
-     const bool &getUpdateTerrain (void) const;
+                  bool                &editUpdateTerrain  (void);
+            const bool                &getUpdateTerrain   (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getPerPixelLighting(void);
+                  bool                &getPerPixelLighting (void);
 #endif
-           bool &editPerPixelLighting(void);
-     const bool &getPerPixelLighting (void) const;
+                  bool                &editPerPixelLighting(void);
+            const bool                &getPerPixelLighting (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setSizeX(const UInt32 &value);
-     void setSizeY(const UInt32 &value);
-     void setHeightScale(const Real32 &value);
-     void setVertexSpacing(const Real32 &value);
-     void setGeoMorphing(const bool &value);
-     void setDetail(const Real32 &value);
-     void setCurrentX(const Int32 &value);
-     void setCurrentY(const Int32 &value);
-     void setSizeROI(const Int32 &value);
-     void setUpdate(const bool &value);
-     void setUpdateTerrain(const bool &value);
-     void setPerPixelLighting(const bool &value);
+            void setSizeX          (const UInt32 &value);
+            void setSizeY          (const UInt32 &value);
+            void setHeightScale    (const Real32 &value);
+            void setVertexSpacing  (const Real32 &value);
+            void setGeoMorphing    (const bool &value);
+            void setDetail         (const Real32 &value);
+            void setCurrentX       (const Int32 &value);
+            void setCurrentY       (const Int32 &value);
+            void setSizeROI        (const Int32 &value);
+            void setUpdate         (const bool &value);
+            void setUpdateTerrain  (const bool &value);
+            void setPerPixelLighting(const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -402,29 +401,29 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
 
     void pushToHeightTiles           (ImagePtrConstArg value   );
     void insertIntoHeightTiles      (UInt32                uiIndex,
-                                    ImagePtrConstArg value   );
+                                             ImagePtrConstArg value   );
     void replaceInHeightTiles  (UInt32                uiIndex,
-                                    ImagePtrConstArg value   );
+                                             ImagePtrConstArg value   );
     void replaceInHeightTiles (ImagePtrConstArg pOldElem,
-                                    ImagePtrConstArg pNewElem);
+                                             ImagePtrConstArg pNewElem);
     void removeFromHeightTiles (UInt32                uiIndex );
     void removeFromHeightTiles(ImagePtrConstArg value   );
     void clearHeightTiles            (void                          );
 
- 
+
 
     void pushToHeightTextures           (MaterialPtrConstArg value   );
     void insertIntoHeightTextures      (UInt32                uiIndex,
-                                    MaterialPtrConstArg value   );
+                                             MaterialPtrConstArg value   );
     void replaceInHeightTextures  (UInt32                uiIndex,
-                                    MaterialPtrConstArg value   );
+                                             MaterialPtrConstArg value   );
     void replaceInHeightTextures (MaterialPtrConstArg pOldElem,
-                                    MaterialPtrConstArg pNewElem);
+                                             MaterialPtrConstArg pNewElem);
     void removeFromHeightTextures (UInt32                uiIndex );
     void removeFromHeightTextures(MaterialPtrConstArg value   );
     void clearHeightTextures            (void                          );
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -443,15 +442,15 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TiledQuadTreeTerrainPtr create     (void); 
-    static  TiledQuadTreeTerrainPtr createEmpty(void); 
+    static  TiledQuadTreeTerrainPtr create     (void);
+    static  TiledQuadTreeTerrainPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -467,20 +466,20 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFImagePtr _mfHeightTiles;
-    MFMaterialPtr _mfHeightTextures;
-    SFUInt32 _sfSizeX;
-    SFUInt32 _sfSizeY;
-    SFReal32 _sfHeightScale;
-    SFReal32 _sfVertexSpacing;
-    SFBool _sfGeoMorphing;
-    SFReal32 _sfDetail;
-    SFInt32 _sfCurrentX;
-    SFInt32 _sfCurrentY;
-    SFInt32 _sfSizeROI;
-    SFBool _sfUpdate;
-    SFBool _sfUpdateTerrain;
-    SFBool _sfPerPixelLighting;
+    MFImagePtr        _mfHeightTiles;
+    MFMaterialPtr     _mfHeightTextures;
+    SFUInt32          _sfSizeX;
+    SFUInt32          _sfSizeY;
+    SFReal32          _sfHeightScale;
+    SFReal32          _sfVertexSpacing;
+    SFBool            _sfGeoMorphing;
+    SFReal32          _sfDetail;
+    SFInt32           _sfCurrentX;
+    SFInt32           _sfCurrentY;
+    SFInt32           _sfSizeROI;
+    SFBool            _sfUpdate;
+    SFBool            _sfUpdateTerrain;
+    SFBool            _sfPerPixelLighting;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -495,7 +494,7 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TiledQuadTreeTerrainBase(void); 
+    virtual ~TiledQuadTreeTerrainBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -542,11 +541,11 @@ class OSG_DRAWABLE_DLLMAPPING TiledQuadTreeTerrainBase : public MaterialGroup
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

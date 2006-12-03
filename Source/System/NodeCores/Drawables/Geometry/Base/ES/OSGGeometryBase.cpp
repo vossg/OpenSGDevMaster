@@ -69,49 +69,55 @@
 #include "OSGGeometryBase.h"
 #include "OSGGeometry.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::Geometry
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var GeoIntegralPropertyPtr GeometryBase::_sfTypes
-            The types property contains the primitive's types. Legal values are 
-        everything that can be passed to glBegin(). There have to be as many 
-        types as lengths.
-
+    The types property contains the primitive's types. Legal values are
+    everything that can be passed to glBegin(). There have to be as many
+    types as lengths.
 */
 /*! \var GeoIntegralPropertyPtr GeometryBase::_sfLengths
-            The lengths property contains the number of vertices to use for the 
-        corresponding primitive. There have to be as many  lengths as types.
-
+    The lengths property contains the number of vertices to use for the
+    corresponding primitive. There have to be as many  lengths as types.
 */
 /*! \var GeoVectorPropertyPtr GeometryBase::_mfProperties
-            The attributes used to render the geometry. The order is based on the 
-        the one given in ARB_vertex_program.
-
+    The attributes used to render the geometry. The order is based on the
+    the one given in ARB_vertex_program.
 */
 /*! \var GeoIntegralPropertyPtr GeometryBase::_mfPropIndices
-            The indices property contains the index data. See \ref 
-        PageSystemGeoIndexing for a description of the indexing options.
-
+    The indices property contains the index data. See \ref
+    PageSystemGeoIndexing for a description of the indexing options.
 */
-/*! \var Int32 GeometryBase::_sfClassicGLId
-    	The dlist id for the classic rendering mode, if used.
-
+/*! \var Int32           GeometryBase::_sfClassicGLId
+    The dlist id for the classic rendering mode, if used.
 */
-/*! \var Int32 GeometryBase::_sfAttGLId
-    	The dlist id for the attribute-based rendering mode, if used.
-
+/*! \var Int32           GeometryBase::_sfAttGLId
+    The dlist id for the attribute-based rendering mode, if used.
 */
 
 void GeometryBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFGeoIntegralPropertyPtr::Description(
-        SFGeoIntegralPropertyPtr::getClassType(), 
-        "types", 
-        "        The types property contains the primitive's types. Legal values are \n        everything that can be passed to glBegin(). There have to be as many \n        types as lengths.\n",
+        SFGeoIntegralPropertyPtr::getClassType(),
+        "types",
+        "The types property contains the primitive's types. Legal values are \n"
+        "everything that can be passed to glBegin(). There have to be as many \n"
+        "types as lengths.\n",
         TypesFieldId, TypesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -121,9 +127,10 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFGeoIntegralPropertyPtr::Description(
-        SFGeoIntegralPropertyPtr::getClassType(), 
-        "lengths", 
-        "        The lengths property contains the number of vertices to use for the \n        corresponding primitive. There have to be as many  lengths as types.\n",
+        SFGeoIntegralPropertyPtr::getClassType(),
+        "lengths",
+        "The lengths property contains the number of vertices to use for the \n"
+        "corresponding primitive. There have to be as many  lengths as types.\n",
         LengthsFieldId, LengthsFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -133,9 +140,10 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFGeoVectorPropertyPtr::Description(
-        MFGeoVectorPropertyPtr::getClassType(), 
-        "properties", 
-        "        The attributes used to render the geometry. The order is based on the \n        the one given in ARB_vertex_program.\n",
+        MFGeoVectorPropertyPtr::getClassType(),
+        "properties",
+        "The attributes used to render the geometry. The order is based on the \n"
+        "the one given in ARB_vertex_program.\n",
         PropertiesFieldId, PropertiesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -145,9 +153,10 @@ void GeometryBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFGeoIntegralPropertyPtr::Description(
-        MFGeoIntegralPropertyPtr::getClassType(), 
-        "propIndices", 
-        "        The indices property contains the index data. See \ref \n        PageSystemGeoIndexing for a description of the indexing options.\n",
+        MFGeoIntegralPropertyPtr::getClassType(),
+        "propIndices",
+        "The indices property contains the index data. See \\ref \n"
+        "PageSystemGeoIndexing for a description of the indexing options.\n",
         PropIndicesFieldId, PropIndicesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -163,9 +172,9 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "classicGLId", 
-        "	The dlist id for the classic rendering mode, if used.\n",
+        SFInt32::getClassType(),
+        "classicGLId",
+        "The dlist id for the classic rendering mode, if used.\n",
         ClassicGLIdFieldId, ClassicGLIdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -185,9 +194,9 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "attGLId", 
-        "	The dlist id for the attribute-based rendering mode, if used.\n",
+        SFInt32::getClassType(),
+        "attGLId",
+        "The dlist id for the attribute-based rendering mode, if used.\n",
         AttGLIdFieldId, AttGLIdFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -212,104 +221,103 @@ GeometryBase::TypeObject GeometryBase::_type(true,
     (InitalInsertDescFunc) &GeometryBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Geometry\"\n"
-"	parent=\"MaterialDrawable\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"types\"\n"
-"		type=\"GeoIntegralPropertyPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        linkMParent=\"true\"\n"
-"	>\n"
-"        The types property contains the primitive's types. Legal values are \n"
-"        everything that can be passed to glBegin(). There have to be as many \n"
-"        types as lengths.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"lengths\"\n"
-"		type=\"GeoIntegralPropertyPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        linkMParent=\"true\"\n"
-"	>\n"
-"        The lengths property contains the number of vertices to use for the \n"
-"        corresponding primitive. There have to be as many  lengths as types.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"properties\"\n"
-"		type=\"GeoVectorPropertyPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        linkMParent=\"true\"\n"
-"        checkNilPtr=\"false\"\n"
-"	>\n"
-"        The attributes used to render the geometry. The order is based on the \n"
-"        the one given in ARB_vertex_program.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"propIndices\"\n"
-"		type=\"GeoIntegralPropertyPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        linkMParent=\"true\"\n"
-"        checkNilPtr=\"false\"\n"
-"	>\n"
-"        The indices property contains the index data. See \ref \n"
-"        PageSystemGeoIndexing for a description of the indexing options.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"classicGLId\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The dlist id for the classic rendering mode, if used.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"attGLId\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The dlist id for the attribute-based rendering mode, if used.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Geometry\"\n"
+    "\tparent=\"MaterialDrawable\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"types\"\n"
+    "\t\ttype=\"GeoIntegralPropertyPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
+    "\t>\n"
+    "        The types property contains the primitive's types. Legal values are \n"
+    "        everything that can be passed to glBegin(). There have to be as many \n"
+    "        types as lengths.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"lengths\"\n"
+    "\t\ttype=\"GeoIntegralPropertyPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
+    "\t>\n"
+    "        The lengths property contains the number of vertices to use for the \n"
+    "        corresponding primitive. There have to be as many  lengths as types.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"properties\"\n"
+    "\t\ttype=\"GeoVectorPropertyPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
+    "        checkNilPtr=\"false\"\n"
+    "\t>\n"
+    "        The attributes used to render the geometry. The order is based on the \n"
+    "        the one given in ARB_vertex_program.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"propIndices\"\n"
+    "\t\ttype=\"GeoIntegralPropertyPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        linkMParent=\"true\"\n"
+    "        checkNilPtr=\"false\"\n"
+    "\t>\n"
+    "        The indices property contains the index data. See \\ref \n"
+    "        PageSystemGeoIndexing for a description of the indexing options.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"classicGLId\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe dlist id for the classic rendering mode, if used.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"attGLId\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe dlist id for the attribute-based rendering mode, if used.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GeometryBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GeometryBase::getType(void) const 
+FieldContainerType &GeometryBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GeometryBase::getContainerSize(void) const 
-{ 
-    return sizeof(Geometry); 
+const FieldContainerType &GeometryBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GeometryBase::getContainerSize(void) const
+{
+    return sizeof(Geometry);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -352,9 +360,9 @@ const SFInt32 *GeometryBase::getSFClassicGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *GeometryBase::getSFClassicGLId(void)
+SFInt32             *GeometryBase::getSFClassicGLId    (void)
 {
-    return this->editSFClassicGLId();
+    return this->editSFClassicGLId    ();
 }
 #endif
 
@@ -371,9 +379,9 @@ const SFInt32 *GeometryBase::getSFAttGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *GeometryBase::getSFAttGLId(void)
+SFInt32             *GeometryBase::getSFAttGLId        (void)
 {
-    return this->editSFAttGLId();
+    return this->editSFAttGLId        ();
 }
 #endif
 
@@ -539,7 +547,7 @@ void GeometryBase::pushToProperties(GeoVectorPropertyPtrConstArg value)
 }
 
 void GeometryBase::insertIntoProperties(UInt32                uiIndex,
-                                             GeoVectorPropertyPtrConstArg value   )
+                                                   GeoVectorPropertyPtrConstArg value   )
 {
     editMField(PropertiesFieldMask, _mfProperties);
 
@@ -561,7 +569,7 @@ void GeometryBase::insertIntoProperties(UInt32                uiIndex,
 }
 
 void GeometryBase::replaceInProperties(UInt32                uiIndex,
-                                                 GeoVectorPropertyPtrConstArg value   )
+                                                       GeoVectorPropertyPtrConstArg value   )
 {
     if(uiIndex >= _mfProperties.size())
         return;
@@ -589,7 +597,7 @@ void GeometryBase::replaceInProperties(UInt32                uiIndex,
 }
 
 void GeometryBase::replaceInProperties(GeoVectorPropertyPtrConstArg pOldElem,
-                                                  GeoVectorPropertyPtrConstArg pNewElem)
+                                                        GeoVectorPropertyPtrConstArg pNewElem)
 {
     Int32  elemIdx = _mfProperties.findIndex(pOldElem);
 
@@ -695,8 +703,6 @@ void GeometryBase::clearProperties(void)
     _mfProperties.clear();
 }
 
-
-
 void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
@@ -715,7 +721,7 @@ void GeometryBase::pushToPropIndices(GeoIntegralPropertyPtrConstArg value)
 }
 
 void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
-                                             GeoIntegralPropertyPtrConstArg value   )
+                                                   GeoIntegralPropertyPtrConstArg value   )
 {
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
@@ -737,7 +743,7 @@ void GeometryBase::insertIntoPropIndices(UInt32                uiIndex,
 }
 
 void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
-                                                 GeoIntegralPropertyPtrConstArg value   )
+                                                       GeoIntegralPropertyPtrConstArg value   )
 {
     if(uiIndex >= _mfPropIndices.size())
         return;
@@ -765,7 +771,7 @@ void GeometryBase::replaceInPropIndices(UInt32                uiIndex,
 }
 
 void GeometryBase::replaceInPropIndices(GeoIntegralPropertyPtrConstArg pOldElem,
-                                                  GeoIntegralPropertyPtrConstArg pNewElem)
+                                                        GeoIntegralPropertyPtrConstArg pNewElem)
 {
     Int32  elemIdx = _mfPropIndices.findIndex(pOldElem);
 
@@ -873,8 +879,6 @@ void GeometryBase::clearPropIndices(void)
 
 
 
-
-
 /*------------------------------ access -----------------------------------*/
 
 UInt32 GeometryBase::getBinSize(ConstFieldMaskArg whichField)
@@ -972,22 +976,22 @@ void GeometryBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GeometryPtr GeometryBase::createEmpty(void) 
-{ 
-    GeometryPtr returnValue; 
-    
-    newPtr<Geometry>(returnValue); 
+GeometryPtr GeometryBase::createEmpty(void)
+{
+    GeometryPtr returnValue;
 
-    return returnValue; 
+    newPtr<Geometry>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr GeometryBase::shallowCopy(void) const 
-{ 
-    GeometryPtr returnValue; 
+FieldContainerPtr GeometryBase::shallowCopy(void) const
+{
+    GeometryPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Geometry *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Geometry *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -996,23 +1000,23 @@ FieldContainerPtr GeometryBase::shallowCopy(void) const
 
 GeometryBase::GeometryBase(void) :
     Inherited(),
-    _sfTypes(),
-    _sfLengths(),
-    _mfProperties(),
-    _mfPropIndices(),
-    _sfClassicGLId(Int32(0)),
-    _sfAttGLId(Int32(0))
+    _sfTypes                  (),
+    _sfLengths                (),
+    _mfProperties             (),
+    _mfPropIndices            (),
+    _sfClassicGLId            (Int32(0)),
+    _sfAttGLId                (Int32(0))
 {
 }
 
 GeometryBase::GeometryBase(const GeometryBase &source) :
     Inherited(source),
-    _sfTypes(),
-    _sfLengths(),
-    _mfProperties(),
-    _mfPropIndices(),
-    _sfClassicGLId(source._sfClassicGLId),
-    _sfAttGLId(source._sfAttGLId)
+    _sfTypes                  (),
+    _sfLengths                (),
+    _mfProperties             (),
+    _mfPropIndices            (),
+    _sfClassicGLId            (source._sfClassicGLId            ),
+    _sfAttGLId                (source._sfAttGLId                )
 {
 }
 
@@ -1033,9 +1037,9 @@ void GeometryBase::onCreate(const Geometry *source)
 
         this->setLengths(source->getLengths());
 
-        MFGeoVectorPropertyPtr::const_iterator PropertiesIt  = 
+        MFGeoVectorPropertyPtr::const_iterator PropertiesIt  =
             source->_mfProperties.begin();
-        MFGeoVectorPropertyPtr::const_iterator PropertiesEnd = 
+        MFGeoVectorPropertyPtr::const_iterator PropertiesEnd =
             source->_mfProperties.end  ();
 
         while(PropertiesIt != PropertiesEnd)
@@ -1045,9 +1049,9 @@ void GeometryBase::onCreate(const Geometry *source)
             ++PropertiesIt;
         }
 
-        MFGeoIntegralPropertyPtr::const_iterator PropIndicesIt  = 
+        MFGeoIntegralPropertyPtr::const_iterator PropIndicesIt  =
             source->_mfPropIndices.begin();
-        MFGeoIntegralPropertyPtr::const_iterator PropIndicesEnd = 
+        MFGeoIntegralPropertyPtr::const_iterator PropIndicesEnd =
             source->_mfPropIndices.end  ();
 
         while(PropIndicesIt != PropIndicesEnd)
@@ -1062,13 +1066,13 @@ void GeometryBase::onCreate(const Geometry *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GeometryBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GeometryBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1078,10 +1082,10 @@ void GeometryBase::execSyncV(      FieldContainer    &oFrom,
 void GeometryBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeometryBase *>(&oFrom), 
+    this->execSync(static_cast<GeometryBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1101,12 +1105,12 @@ void GeometryBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr GeometryBase::createAspectCopy(void) const
 {
-    GeometryPtr returnValue; 
+    GeometryPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Geometry *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Geometry *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1123,6 +1127,8 @@ void GeometryBase::resolveLinks(void)
     static_cast<Geometry *>(this)->clearPropIndices();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1145,8 +1151,6 @@ OSG_FIELDTRAITS_GETTYPE(GeometryPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GeometryPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GeometryPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1167,3 +1171,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGEOMETRYFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

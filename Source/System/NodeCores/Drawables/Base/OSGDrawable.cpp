@@ -49,9 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Drawable
-
-*/
+// Documentation for this class is emited in the
+// OSGDrawableBase.cpp file.
+// To modify it, please change the .fcd file (OSGDrawable.fcd) and
+// regenerate the base file.
 
 /*----------------------------- class variables ---------------------------*/
 

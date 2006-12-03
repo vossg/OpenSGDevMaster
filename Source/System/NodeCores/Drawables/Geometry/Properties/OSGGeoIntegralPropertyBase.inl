@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &GeoIntegralPropertyBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GeoIntegralPropertyBase::getClassTypeId(void) 
+OSG::UInt32 GeoIntegralPropertyBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 GeoIntegralPropertyBase::getClassGroupId(void)
@@ -79,7 +79,7 @@ OSG::UInt16 GeoIntegralPropertyBase::getClassGroupId(void)
 inline
 void GeoIntegralPropertyBase::execSync(      GeoIntegralPropertyBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -92,7 +92,7 @@ inline
 void GeoIntegralPropertyBase::execSync (      GeoIntegralPropertyBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -127,4 +127,3 @@ typedef PointerBuilder<GeoIntegralProperty>::ObjPtrConstArg  GeoIntegralProperty
 OSG_END_NAMESPACE
 
 #define OSGGEOINTEGRALPROPERTYBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -65,7 +65,15 @@
 #include "OSGDrawableBase.h"
 #include "OSGDrawable.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::Drawable
+    
+ */
 
 
 DrawableBase::TypeObject DrawableBase::_type(true,
@@ -73,42 +81,41 @@ DrawableBase::TypeObject DrawableBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     Drawable::initMethod,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Drawable\"\n"
-"	parent=\"NodeCore\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Drawable\"\n"
+    "\tparent=\"NodeCore\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &DrawableBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &DrawableBase::getType(void) const 
+FieldContainerType &DrawableBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 DrawableBase::getContainerSize(void) const 
-{ 
-    return sizeof(Drawable); 
+const FieldContainerType &DrawableBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 DrawableBase::getContainerSize(void) const
+{
+    return sizeof(Drawable);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -164,13 +171,13 @@ DrawableBase::~DrawableBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void DrawableBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<DrawableBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -180,10 +187,10 @@ void DrawableBase::execSyncV(      FieldContainer    &oFrom,
 void DrawableBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DrawableBase *>(&oFrom), 
+    this->execSync(static_cast<DrawableBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -207,6 +214,8 @@ void DrawableBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -228,8 +237,6 @@ OSG_FIELDTRAITS_GETTYPE(DrawablePtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, DrawablePtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, DrawablePtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -250,3 +257,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGDRAWABLEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

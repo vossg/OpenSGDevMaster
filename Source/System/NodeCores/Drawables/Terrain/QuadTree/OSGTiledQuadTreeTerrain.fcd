@@ -11,7 +11,7 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-Tiled terrain node core
+Tiled terrain node core.
 	<Field
 		name="heightTiles"
 		type="ImagePtr"
@@ -19,7 +19,7 @@ Tiled terrain node core
 		visibility="external"
 		access="public"
 	>
-	Terrain tile array
+	Terrain tile array.
 	</Field>
 	<Field
 		name="heightTextures"
@@ -28,7 +28,7 @@ Tiled terrain node core
 		visibility="external"
 		access="public"
 	>
-	Terrain textures
+	Terrain textures.
 	</Field>
 	<Field
 		name="sizeX"
@@ -38,7 +38,7 @@ Tiled terrain node core
 		defaultValue="1"
 		access="public"
 	>
-	x-size of 2-dimensional tile array
+	x-size of 2-dimensional tile array.
 	</Field>
 	<Field
 		name="sizeY"
@@ -48,7 +48,7 @@ Tiled terrain node core
 		defaultValue="1"
 		access="public"
 	>
-	y-size of 2-dimensional tile array
+	y-size of 2-dimensional tile array.
 	</Field>
 	<Field
 		name="heightScale"
@@ -85,7 +85,7 @@ Tiled terrain node core
 		defaultValue="22.0f"
 		access="public"
 	>
-	detail of terrain tesselation
+	Detail of terrain tesselation.
 	</Field>
 	<Field
 		name="currentX"
@@ -113,7 +113,7 @@ Tiled terrain node core
 		defaultValue="1"
 		access="public"
 	>
-	number of tiles (0, 1, 2, 3) around current eye point
+	Number of tiles (0, 1, 2, 3) around current eye point.
 	</Field>
 	<Field
 		name="update"
@@ -123,7 +123,7 @@ Tiled terrain node core
 		defaultValue="true"
 		access="public"
 	>
-	perform any updates (tiling, terrain tiles)
+	Perform any updates (tiling, terrain tiles).
 	</Field>
 	<Field
 		name="updateTerrain"
@@ -133,7 +133,7 @@ Tiled terrain node core
 		defaultValue="false"
 		access="public"
 	>
-	update terrain tiles in the next frame
+	Update terrain tiles in the next frame.
 	</Field>
 	<Field
 		name="perPixelLighting"
@@ -143,6 +143,6 @@ Tiled terrain node core
 		defaultValue="true"
 		access="public"
 	>
-	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals
+	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals.
 	</Field>
 </FieldContainer>

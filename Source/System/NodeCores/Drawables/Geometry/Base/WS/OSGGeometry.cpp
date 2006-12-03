@@ -64,13 +64,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::Geometry
-
-*/
+// Documentation for this class is emited in the
+// OSGGeometryBase.cpp file.
+// To modify it, please change the .fcd file (OSGGeometry.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

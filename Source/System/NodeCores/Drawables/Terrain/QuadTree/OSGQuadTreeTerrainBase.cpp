@@ -67,115 +67,106 @@
 #include "OSGQuadTreeTerrainBase.h"
 #include "OSGQuadTreeTerrain.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var ImagePtr QuadTreeTerrainBase::_sfHeightData
-    	Terrain height as image
+/*! \class OSG::QuadTreeTerrain
+    Terrain node core.
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var ImagePtr        QuadTreeTerrainBase::_sfHeightData
+    Terrain height as image.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfHeightScale
-    	Scale factor for terrain height
-
+/*! \var Real32          QuadTreeTerrainBase::_sfHeightScale
+    Scale factor for terrain height.
 */
-/*! \var Real32 QuadTreeTerrainBase::_mfHeightError
-    	Error values
-
+/*! \var Real32          QuadTreeTerrainBase::_mfHeightError
+    Error values.
 */
-/*! \var Real32 QuadTreeTerrainBase::_mfHeightQuad
-    	Vertex indices used in current tesselation (encoding terrain quadtree)
-
+/*! \var Real32          QuadTreeTerrainBase::_mfHeightQuad
+    Vertex indices used in current tesselation (encoding terrain
+    quadtree).
 */
-/*! \var UInt32 QuadTreeTerrainBase::_sfWidth
-    	width and height of dataset
-
+/*! \var UInt32          QuadTreeTerrainBase::_sfWidth
+    Width and height of dataset.
 */
-/*! \var UInt32 QuadTreeTerrainBase::_sfLevel
-    	levels of terrain quadtree
-
+/*! \var UInt32          QuadTreeTerrainBase::_sfLevel
+    Levels of terrain quadtree.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfDetail
-    	Detail of terrain tesselation
-
+/*! \var Real32          QuadTreeTerrainBase::_sfDetail
+    Detail of terrain tesselation.
 */
-/*! \var Int32 QuadTreeTerrainBase::_sfBorderDetail
-    	Detail for borders (0: determined by height data, positive: borders at level borderDetail)
-
+/*! \var Int32           QuadTreeTerrainBase::_sfBorderDetail
+    Detail for borders (0: determined by height data, positive: borders at
+    level borderDetail).
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfVertexSpacing
-    	Spacing to horizontal and vertical neighbour vertices
-
+/*! \var Real32          QuadTreeTerrainBase::_sfVertexSpacing
+    Spacing to horizontal and vertical neighbour vertices.
 */
 /*! \var GeoVectorPropertyPtr QuadTreeTerrainBase::_sfHeightVertices
-    	Precomputed terrain vertices
-
+    Precomputed terrain vertices.
 */
-/*! \var bool QuadTreeTerrainBase::_sfGeoMorphing
+/*! \var bool            QuadTreeTerrainBase::_sfGeoMorphing
     
 */
-/*! \var Pnt3f QuadTreeTerrainBase::_sfBoundMin
-    	Min vertex of AABB
-
+/*! \var Pnt3f           QuadTreeTerrainBase::_sfBoundMin
+    Min vertex of AABB.
 */
-/*! \var Pnt3f QuadTreeTerrainBase::_sfBoundMax
-    	Max vertex of AABB
-
+/*! \var Pnt3f           QuadTreeTerrainBase::_sfBoundMax
+    Max vertex of AABB.
 */
-/*! \var Pnt3f QuadTreeTerrainBase::_sfEyePoint
-    	Eye point of this frame
-
+/*! \var Pnt3f           QuadTreeTerrainBase::_sfEyePoint
+    Eye point of this frame.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfEyeHeight
-    	Height of eye point above terrain
-
+/*! \var Real32          QuadTreeTerrainBase::_sfEyeHeight
+    Height of eye point above terrain.
 */
-/*! \var bool QuadTreeTerrainBase::_sfEyePointValid
-    	Eye point set externally, otherwise it is computed internally
-
+/*! \var bool            QuadTreeTerrainBase::_sfEyePointValid
+    Eye point set externally, otherwise it is computed internally.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfOriginX
-    	X-component of terrain lower left point
-
+/*! \var Real32          QuadTreeTerrainBase::_sfOriginX
+    X-component of terrain lower left point.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfOriginY
-    	Y-component of terrain lower left point
-
+/*! \var Real32          QuadTreeTerrainBase::_sfOriginY
+    Y-component of terrain lower left point.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfOriginTexX
-    	texture X-component of terrain lower left point
-
+/*! \var Real32          QuadTreeTerrainBase::_sfOriginTexX
+    Texture X-component of terrain lower left point.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfOriginTexY
-    	texture Y-component of terrain lower left point
-
+/*! \var Real32          QuadTreeTerrainBase::_sfOriginTexY
+    Texture Y-component of terrain lower left point.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfTexSpacing
-    	Spacing of texture coordinates for horizontal (and vertical) neighbour vertices
-
+/*! \var Real32          QuadTreeTerrainBase::_sfTexSpacing
+    Spacing of texture coordinates for horizontal (and vertical) neighbour
+    vertices.
 */
-/*! \var Real32 QuadTreeTerrainBase::_sfTexYSpacing
-    	Spacing of texture coordinates for vertical neighbour vertices
-
+/*! \var Real32          QuadTreeTerrainBase::_sfTexYSpacing
+    Spacing of texture coordinates for vertical neighbour vertices.
 */
-/*! \var bool QuadTreeTerrainBase::_sfUpdateTerrain
-    	update terrain in next frame
-
+/*! \var bool            QuadTreeTerrainBase::_sfUpdateTerrain
+    Update terrain in next frame.
 */
-/*! \var bool QuadTreeTerrainBase::_sfPerPixelLighting
-    	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals
-
+/*! \var bool            QuadTreeTerrainBase::_sfPerPixelLighting
+    Do per-pixel lighting with normalmap; otherwise generate per-vertex
+    normals.
 */
 
 void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "heightData", 
-        "	Terrain height as image\n",
+        SFImagePtr::getClassType(),
+        "heightData",
+        "Terrain height as image.\n",
         HeightDataFieldId, HeightDataFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -191,9 +182,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "heightScale", 
-        "	Scale factor for terrain height\n",
+        SFReal32::getClassType(),
+        "heightScale",
+        "Scale factor for terrain height.\n",
         HeightScaleFieldId, HeightScaleFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -213,9 +204,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFReal32::Description(
-        MFReal32::getClassType(), 
-        "heightError", 
-        "	Error values\n",
+        MFReal32::getClassType(),
+        "heightError",
+        "Error values.\n",
         HeightErrorFieldId, HeightErrorFieldMask,
         true,
         Field::MFDefaultFlags,
@@ -235,9 +226,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFReal32::Description(
-        MFReal32::getClassType(), 
-        "heightQuad", 
-        "	Vertex indices used in current tesselation (encoding terrain quadtree)\n",
+        MFReal32::getClassType(),
+        "heightQuad",
+        "Vertex indices used in current tesselation (encoding terrain quadtree).\n",
         HeightQuadFieldId, HeightQuadFieldMask,
         true,
         Field::MFDefaultFlags,
@@ -257,9 +248,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "width", 
-        "	width and height of dataset\n",
+        SFUInt32::getClassType(),
+        "width",
+        "Width and height of dataset.\n",
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -279,9 +270,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "level", 
-        "	levels of terrain quadtree\n",
+        SFUInt32::getClassType(),
+        "level",
+        "Levels of terrain quadtree.\n",
         LevelFieldId, LevelFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -301,9 +292,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "detail", 
-        "	Detail of terrain tesselation\n",
+        SFReal32::getClassType(),
+        "detail",
+        "Detail of terrain tesselation.\n",
         DetailFieldId, DetailFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -323,9 +314,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "borderDetail", 
-        "	Detail for borders (0: determined by height data, positive: borders at level borderDetail)\n",
+        SFInt32::getClassType(),
+        "borderDetail",
+        "Detail for borders (0: determined by height data, positive: borders at level borderDetail).\n",
         BorderDetailFieldId, BorderDetailFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -345,9 +336,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "vertexSpacing", 
-        "	Spacing to horizontal and vertical neighbour vertices\n",
+        SFReal32::getClassType(),
+        "vertexSpacing",
+        "Spacing to horizontal and vertical neighbour vertices.\n",
         VertexSpacingFieldId, VertexSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -361,9 +352,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFGeoVectorPropertyPtr::Description(
-        SFGeoVectorPropertyPtr::getClassType(), 
-        "heightVertices", 
-        "	Precomputed terrain vertices\n",
+        SFGeoVectorPropertyPtr::getClassType(),
+        "heightVertices",
+        "Precomputed terrain vertices.\n",
         HeightVerticesFieldId, HeightVerticesFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -379,8 +370,8 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "geoMorphing", 
+        SFBool::getClassType(),
+        "geoMorphing",
         "",
         GeoMorphingFieldId, GeoMorphingFieldMask,
         false,
@@ -401,9 +392,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFPnt3f::Description(
-        SFPnt3f::getClassType(), 
-        "boundMin", 
-        "	Min vertex of AABB\n",
+        SFPnt3f::getClassType(),
+        "boundMin",
+        "Min vertex of AABB.\n",
         BoundMinFieldId, BoundMinFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -423,9 +414,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFPnt3f::Description(
-        SFPnt3f::getClassType(), 
-        "boundMax", 
-        "	Max vertex of AABB\n",
+        SFPnt3f::getClassType(),
+        "boundMax",
+        "Max vertex of AABB.\n",
         BoundMaxFieldId, BoundMaxFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -445,9 +436,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFPnt3f::Description(
-        SFPnt3f::getClassType(), 
-        "eyePoint", 
-        "	Eye point of this frame\n",
+        SFPnt3f::getClassType(),
+        "eyePoint",
+        "Eye point of this frame.\n",
         EyePointFieldId, EyePointFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -467,9 +458,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "eyeHeight", 
-        "	Height of eye point above terrain\n",
+        SFReal32::getClassType(),
+        "eyeHeight",
+        "Height of eye point above terrain.\n",
         EyeHeightFieldId, EyeHeightFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -489,9 +480,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "eyePointValid", 
-        "	Eye point set externally, otherwise it is computed internally\n",
+        SFBool::getClassType(),
+        "eyePointValid",
+        "Eye point set externally, otherwise it is computed internally.\n",
         EyePointValidFieldId, EyePointValidFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -511,9 +502,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "originX", 
-        "	X-component of terrain lower left point\n",
+        SFReal32::getClassType(),
+        "originX",
+        "X-component of terrain lower left point.\n",
         OriginXFieldId, OriginXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -533,9 +524,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "originY", 
-        "	Y-component of terrain lower left point\n",
+        SFReal32::getClassType(),
+        "originY",
+        "Y-component of terrain lower left point.\n",
         OriginYFieldId, OriginYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -555,9 +546,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "originTexX", 
-        "	texture X-component of terrain lower left point\n",
+        SFReal32::getClassType(),
+        "originTexX",
+        "Texture X-component of terrain lower left point.\n",
         OriginTexXFieldId, OriginTexXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -577,9 +568,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "originTexY", 
-        "	texture Y-component of terrain lower left point\n",
+        SFReal32::getClassType(),
+        "originTexY",
+        "Texture Y-component of terrain lower left point.\n",
         OriginTexYFieldId, OriginTexYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -599,9 +590,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "texSpacing", 
-        "	Spacing of texture coordinates for horizontal (and vertical) neighbour vertices\n",
+        SFReal32::getClassType(),
+        "texSpacing",
+        "Spacing of texture coordinates for horizontal (and vertical) neighbour vertices.\n",
         TexSpacingFieldId, TexSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -621,9 +612,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "texYSpacing", 
-        "	Spacing of texture coordinates for vertical neighbour vertices\n",
+        SFReal32::getClassType(),
+        "texYSpacing",
+        "Spacing of texture coordinates for vertical neighbour vertices.\n",
         TexYSpacingFieldId, TexYSpacingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -643,9 +634,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "updateTerrain", 
-        "	update terrain in next frame\n",
+        SFBool::getClassType(),
+        "updateTerrain",
+        "Update terrain in next frame.\n",
         UpdateTerrainFieldId, UpdateTerrainFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -665,9 +656,9 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "perPixelLighting", 
-        "	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals\n",
+        SFBool::getClassType(),
+        "perPixelLighting",
+        "Do per-pixel lighting with normalmap; otherwise generate per-vertex normals.\n",
         PerPixelLightingFieldId, PerPixelLightingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -692,271 +683,270 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(true,
     (InitalInsertDescFunc) &QuadTreeTerrainBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"QuadTreeTerrain\"\n"
-"	parent=\"Geometry\"\n"
-"	library=\"Drawable\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"Terrain node core\n"
-"	<Field\n"
-"		name=\"heightData\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Terrain height as image\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"heightScale\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Scale factor for terrain height\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"heightError\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Error values\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"heightQuad\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Vertex indices used in current tesselation (encoding terrain quadtree)\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"width\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	width and height of dataset\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"level\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	levels of terrain quadtree\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"detail\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"22.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Detail of terrain tesselation\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"borderDetail\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Detail for borders (0: determined by height data, positive: borders at level borderDetail)\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"vertexSpacing\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.1f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Spacing to horizontal and vertical neighbour vertices\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"heightVertices\"\n"
-"		type=\"GeoVectorPropertyPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	Precomputed terrain vertices\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"geoMorphing\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"boundMin\"\n"
-"		type=\"Pnt3f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	Min vertex of AABB\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"boundMax\"\n"
-"		type=\"Pnt3f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	Max vertex of AABB\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"eyePoint\"\n"
-"		type=\"Pnt3f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Eye point of this frame\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"eyeHeight\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0.0f\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	Height of eye point above terrain\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"eyePointValid\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Eye point set externally, otherwise it is computed internally\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"originX\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	X-component of terrain lower left point\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"originY\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Y-component of terrain lower left point\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"originTexX\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	texture X-component of terrain lower left point\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"originTexY\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	texture Y-component of terrain lower left point\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"texSpacing\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Spacing of texture coordinates for horizontal (and vertical) neighbour vertices\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"texYSpacing\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Spacing of texture coordinates for vertical neighbour vertices\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"updateTerrain\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	update terrain in next frame\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"perPixelLighting\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Do per-pixel lighting with normalmap; otherwise generate per-vertex normals\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "Terrain node core\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"QuadTreeTerrain\"\n"
+    "\tparent=\"Geometry\"\n"
+    "\tlibrary=\"Drawable\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "Terrain node core.\n"
+    "\t<Field\n"
+    "\t\tname=\"heightData\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTerrain height as image.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"heightScale\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tScale factor for terrain height.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"heightError\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tError values.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"heightQuad\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tVertex indices used in current tesselation (encoding terrain quadtree).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"width\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tWidth and height of dataset.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"level\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tLevels of terrain quadtree.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"detail\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"22.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDetail of terrain tesselation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"borderDetail\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDetail for borders (0: determined by height data, positive: borders at level borderDetail).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"vertexSpacing\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.1f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tSpacing to horizontal and vertical neighbour vertices.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"heightVertices\"\n"
+    "\t\ttype=\"GeoVectorPropertyPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tPrecomputed terrain vertices.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"geoMorphing\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"boundMin\"\n"
+    "\t\ttype=\"Pnt3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tMin vertex of AABB.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"boundMax\"\n"
+    "\t\ttype=\"Pnt3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tMax vertex of AABB.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"eyePoint\"\n"
+    "\t\ttype=\"Pnt3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tEye point of this frame.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"eyeHeight\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0.0f\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tHeight of eye point above terrain.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"eyePointValid\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tEye point set externally, otherwise it is computed internally.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"originX\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tX-component of terrain lower left point.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"originY\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tY-component of terrain lower left point.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"originTexX\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture X-component of terrain lower left point.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"originTexY\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture Y-component of terrain lower left point.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"texSpacing\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tSpacing of texture coordinates for horizontal (and vertical) neighbour vertices.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"texYSpacing\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tSpacing of texture coordinates for vertical neighbour vertices.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"updateTerrain\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUpdate terrain in next frame.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"perPixelLighting\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDo per-pixel lighting with normalmap; otherwise generate per-vertex normals.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "Terrain node core.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &QuadTreeTerrainBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &QuadTreeTerrainBase::getType(void) const 
+FieldContainerType &QuadTreeTerrainBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 QuadTreeTerrainBase::getContainerSize(void) const 
-{ 
-    return sizeof(QuadTreeTerrain); 
+const FieldContainerType &QuadTreeTerrainBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 QuadTreeTerrainBase::getContainerSize(void) const
+{
+    return sizeof(QuadTreeTerrain);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -981,9 +971,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFHeightScale(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFHeightScale(void)
+SFReal32            *QuadTreeTerrainBase::getSFHeightScale    (void)
 {
-    return this->editSFHeightScale();
+    return this->editSFHeightScale    ();
 }
 #endif
 
@@ -1000,9 +990,9 @@ const MFReal32 *QuadTreeTerrainBase::getMFHeightError(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFReal32 *QuadTreeTerrainBase::getMFHeightError(void)
+MFReal32            *QuadTreeTerrainBase::getMFHeightError    (void)
 {
-    return this->editMFHeightError();
+    return this->editMFHeightError    ();
 }
 #endif
 
@@ -1019,9 +1009,9 @@ const MFReal32 *QuadTreeTerrainBase::getMFHeightQuad(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFReal32 *QuadTreeTerrainBase::getMFHeightQuad(void)
+MFReal32            *QuadTreeTerrainBase::getMFHeightQuad     (void)
 {
-    return this->editMFHeightQuad();
+    return this->editMFHeightQuad     ();
 }
 #endif
 
@@ -1038,9 +1028,9 @@ const SFUInt32 *QuadTreeTerrainBase::getSFWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *QuadTreeTerrainBase::getSFWidth(void)
+SFUInt32            *QuadTreeTerrainBase::getSFWidth          (void)
 {
-    return this->editSFWidth();
+    return this->editSFWidth          ();
 }
 #endif
 
@@ -1057,9 +1047,9 @@ const SFUInt32 *QuadTreeTerrainBase::getSFLevel(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *QuadTreeTerrainBase::getSFLevel(void)
+SFUInt32            *QuadTreeTerrainBase::getSFLevel          (void)
 {
-    return this->editSFLevel();
+    return this->editSFLevel          ();
 }
 #endif
 
@@ -1076,9 +1066,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFDetail(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFDetail(void)
+SFReal32            *QuadTreeTerrainBase::getSFDetail         (void)
 {
-    return this->editSFDetail();
+    return this->editSFDetail         ();
 }
 #endif
 
@@ -1095,9 +1085,9 @@ const SFInt32 *QuadTreeTerrainBase::getSFBorderDetail(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *QuadTreeTerrainBase::getSFBorderDetail(void)
+SFInt32             *QuadTreeTerrainBase::getSFBorderDetail   (void)
 {
-    return this->editSFBorderDetail();
+    return this->editSFBorderDetail   ();
 }
 #endif
 
@@ -1114,9 +1104,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFVertexSpacing(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFVertexSpacing(void)
+SFReal32            *QuadTreeTerrainBase::getSFVertexSpacing  (void)
 {
-    return this->editSFVertexSpacing();
+    return this->editSFVertexSpacing  ();
 }
 #endif
 
@@ -1139,9 +1129,9 @@ const SFBool *QuadTreeTerrainBase::getSFGeoMorphing(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *QuadTreeTerrainBase::getSFGeoMorphing(void)
+SFBool              *QuadTreeTerrainBase::getSFGeoMorphing    (void)
 {
-    return this->editSFGeoMorphing();
+    return this->editSFGeoMorphing    ();
 }
 #endif
 
@@ -1158,9 +1148,9 @@ const SFPnt3f *QuadTreeTerrainBase::getSFBoundMin(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFPnt3f *QuadTreeTerrainBase::getSFBoundMin(void)
+SFPnt3f             *QuadTreeTerrainBase::getSFBoundMin       (void)
 {
-    return this->editSFBoundMin();
+    return this->editSFBoundMin       ();
 }
 #endif
 
@@ -1177,9 +1167,9 @@ const SFPnt3f *QuadTreeTerrainBase::getSFBoundMax(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFPnt3f *QuadTreeTerrainBase::getSFBoundMax(void)
+SFPnt3f             *QuadTreeTerrainBase::getSFBoundMax       (void)
 {
-    return this->editSFBoundMax();
+    return this->editSFBoundMax       ();
 }
 #endif
 
@@ -1196,9 +1186,9 @@ const SFPnt3f *QuadTreeTerrainBase::getSFEyePoint(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFPnt3f *QuadTreeTerrainBase::getSFEyePoint(void)
+SFPnt3f             *QuadTreeTerrainBase::getSFEyePoint       (void)
 {
-    return this->editSFEyePoint();
+    return this->editSFEyePoint       ();
 }
 #endif
 
@@ -1215,9 +1205,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFEyeHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFEyeHeight(void)
+SFReal32            *QuadTreeTerrainBase::getSFEyeHeight      (void)
 {
-    return this->editSFEyeHeight();
+    return this->editSFEyeHeight      ();
 }
 #endif
 
@@ -1234,9 +1224,9 @@ const SFBool *QuadTreeTerrainBase::getSFEyePointValid(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *QuadTreeTerrainBase::getSFEyePointValid(void)
+SFBool              *QuadTreeTerrainBase::getSFEyePointValid  (void)
 {
-    return this->editSFEyePointValid();
+    return this->editSFEyePointValid  ();
 }
 #endif
 
@@ -1253,9 +1243,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFOriginX(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFOriginX(void)
+SFReal32            *QuadTreeTerrainBase::getSFOriginX        (void)
 {
-    return this->editSFOriginX();
+    return this->editSFOriginX        ();
 }
 #endif
 
@@ -1272,9 +1262,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFOriginY(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFOriginY(void)
+SFReal32            *QuadTreeTerrainBase::getSFOriginY        (void)
 {
-    return this->editSFOriginY();
+    return this->editSFOriginY        ();
 }
 #endif
 
@@ -1291,9 +1281,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFOriginTexX(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFOriginTexX(void)
+SFReal32            *QuadTreeTerrainBase::getSFOriginTexX     (void)
 {
-    return this->editSFOriginTexX();
+    return this->editSFOriginTexX     ();
 }
 #endif
 
@@ -1310,9 +1300,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFOriginTexY(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFOriginTexY(void)
+SFReal32            *QuadTreeTerrainBase::getSFOriginTexY     (void)
 {
-    return this->editSFOriginTexY();
+    return this->editSFOriginTexY     ();
 }
 #endif
 
@@ -1329,9 +1319,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFTexSpacing(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFTexSpacing(void)
+SFReal32            *QuadTreeTerrainBase::getSFTexSpacing     (void)
 {
-    return this->editSFTexSpacing();
+    return this->editSFTexSpacing     ();
 }
 #endif
 
@@ -1348,9 +1338,9 @@ const SFReal32 *QuadTreeTerrainBase::getSFTexYSpacing(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *QuadTreeTerrainBase::getSFTexYSpacing(void)
+SFReal32            *QuadTreeTerrainBase::getSFTexYSpacing    (void)
 {
-    return this->editSFTexYSpacing();
+    return this->editSFTexYSpacing    ();
 }
 #endif
 
@@ -1367,9 +1357,9 @@ const SFBool *QuadTreeTerrainBase::getSFUpdateTerrain(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *QuadTreeTerrainBase::getSFUpdateTerrain(void)
+SFBool              *QuadTreeTerrainBase::getSFUpdateTerrain  (void)
 {
-    return this->editSFUpdateTerrain();
+    return this->editSFUpdateTerrain  ();
 }
 #endif
 
@@ -1386,7 +1376,7 @@ const SFBool *QuadTreeTerrainBase::getSFPerPixelLighting(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *QuadTreeTerrainBase::getSFPerPixelLighting(void)
+SFBool              *QuadTreeTerrainBase::getSFPerPixelLighting(void)
 {
     return this->editSFPerPixelLighting();
 }
@@ -1470,7 +1460,7 @@ void QuadTreeTerrainBase::pushToHeightError(const Real32& value)
 }
 
 void QuadTreeTerrainBase::insertIntoHeightError(UInt32                uiIndex,
-                                             const Real32& value   )
+                                                   const Real32& value   )
 {
     editMField(HeightErrorFieldMask, _mfHeightError);
 
@@ -1482,7 +1472,7 @@ void QuadTreeTerrainBase::insertIntoHeightError(UInt32                uiIndex,
 }
 
 void QuadTreeTerrainBase::replaceInHeightError(UInt32                uiIndex,
-                                                 const Real32& value   )
+                                                       const Real32& value   )
 {
     if(uiIndex >= _mfHeightError.size())
         return;
@@ -1493,7 +1483,7 @@ void QuadTreeTerrainBase::replaceInHeightError(UInt32                uiIndex,
 }
 
 void QuadTreeTerrainBase::replaceInHeightError(const Real32& pOldElem,
-                                                  const Real32& pNewElem)
+                                                        const Real32& pNewElem)
 {
     Int32  elemIdx = _mfHeightError.findIndex(pOldElem);
 
@@ -1537,19 +1527,13 @@ void QuadTreeTerrainBase::removeFromHeightError(const Real32& value)
         _mfHeightError.erase(fieldIt);
     }
 }
+
 void QuadTreeTerrainBase::clearHeightError(void)
 {
     editMField(HeightErrorFieldMask, _mfHeightError);
 
     _mfHeightError.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void QuadTreeTerrainBase::pushToHeightQuad(const Real32& value)
 {
@@ -1558,7 +1542,7 @@ void QuadTreeTerrainBase::pushToHeightQuad(const Real32& value)
 }
 
 void QuadTreeTerrainBase::insertIntoHeightQuad(UInt32                uiIndex,
-                                             const Real32& value   )
+                                                   const Real32& value   )
 {
     editMField(HeightQuadFieldMask, _mfHeightQuad);
 
@@ -1570,7 +1554,7 @@ void QuadTreeTerrainBase::insertIntoHeightQuad(UInt32                uiIndex,
 }
 
 void QuadTreeTerrainBase::replaceInHeightQuad(UInt32                uiIndex,
-                                                 const Real32& value   )
+                                                       const Real32& value   )
 {
     if(uiIndex >= _mfHeightQuad.size())
         return;
@@ -1581,7 +1565,7 @@ void QuadTreeTerrainBase::replaceInHeightQuad(UInt32                uiIndex,
 }
 
 void QuadTreeTerrainBase::replaceInHeightQuad(const Real32& pOldElem,
-                                                  const Real32& pNewElem)
+                                                        const Real32& pNewElem)
 {
     Int32  elemIdx = _mfHeightQuad.findIndex(pOldElem);
 
@@ -1625,19 +1609,13 @@ void QuadTreeTerrainBase::removeFromHeightQuad(const Real32& value)
         _mfHeightQuad.erase(fieldIt);
     }
 }
+
 void QuadTreeTerrainBase::clearHeightQuad(void)
 {
     editMField(HeightQuadFieldMask, _mfHeightQuad);
 
     _mfHeightQuad.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -1953,22 +1931,22 @@ void QuadTreeTerrainBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-QuadTreeTerrainPtr QuadTreeTerrainBase::createEmpty(void) 
-{ 
-    QuadTreeTerrainPtr returnValue; 
-    
-    newPtr<QuadTreeTerrain>(returnValue); 
+QuadTreeTerrainPtr QuadTreeTerrainBase::createEmpty(void)
+{
+    QuadTreeTerrainPtr returnValue;
 
-    return returnValue; 
+    newPtr<QuadTreeTerrain>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr QuadTreeTerrainBase::shallowCopy(void) const 
-{ 
-    QuadTreeTerrainPtr returnValue; 
+FieldContainerPtr QuadTreeTerrainBase::shallowCopy(void) const
+{
+    QuadTreeTerrainPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const QuadTreeTerrain *>(this)); 
+    newPtr(returnValue, dynamic_cast<const QuadTreeTerrain *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -1977,59 +1955,59 @@ FieldContainerPtr QuadTreeTerrainBase::shallowCopy(void) const
 
 QuadTreeTerrainBase::QuadTreeTerrainBase(void) :
     Inherited(),
-    _sfHeightData(),
-    _sfHeightScale(Real32(1.0f)),
-    _mfHeightError(),
-    _mfHeightQuad(),
-    _sfWidth(UInt32(0)),
-    _sfLevel(UInt32(1)),
-    _sfDetail(Real32(22.0f)),
-    _sfBorderDetail(Int32(0)),
-    _sfVertexSpacing(Real32(0.1f)),
-    _sfHeightVertices(),
-    _sfGeoMorphing(bool(false)),
-    _sfBoundMin(),
-    _sfBoundMax(),
-    _sfEyePoint(),
-    _sfEyeHeight(Real32(0.0f)),
-    _sfEyePointValid(bool(false)),
-    _sfOriginX(Real32(0.0f)),
-    _sfOriginY(Real32(0.0f)),
-    _sfOriginTexX(Real32(0.0f)),
-    _sfOriginTexY(Real32(0.0f)),
-    _sfTexSpacing(Real32(1.0f)),
-    _sfTexYSpacing(Real32(1.0f)),
-    _sfUpdateTerrain(bool(true)),
-    _sfPerPixelLighting(bool(true))
+    _sfHeightData             (),
+    _sfHeightScale            (Real32(1.0f)),
+    _mfHeightError            (),
+    _mfHeightQuad             (),
+    _sfWidth                  (UInt32(0)),
+    _sfLevel                  (UInt32(1)),
+    _sfDetail                 (Real32(22.0f)),
+    _sfBorderDetail           (Int32(0)),
+    _sfVertexSpacing          (Real32(0.1f)),
+    _sfHeightVertices         (),
+    _sfGeoMorphing            (bool(false)),
+    _sfBoundMin               (),
+    _sfBoundMax               (),
+    _sfEyePoint               (),
+    _sfEyeHeight              (Real32(0.0f)),
+    _sfEyePointValid          (bool(false)),
+    _sfOriginX                (Real32(0.0f)),
+    _sfOriginY                (Real32(0.0f)),
+    _sfOriginTexX             (Real32(0.0f)),
+    _sfOriginTexY             (Real32(0.0f)),
+    _sfTexSpacing             (Real32(1.0f)),
+    _sfTexYSpacing            (Real32(1.0f)),
+    _sfUpdateTerrain          (bool(true)),
+    _sfPerPixelLighting       (bool(true))
 {
 }
 
 QuadTreeTerrainBase::QuadTreeTerrainBase(const QuadTreeTerrainBase &source) :
     Inherited(source),
-    _sfHeightData(),
-    _sfHeightScale(source._sfHeightScale),
-    _mfHeightError(source._mfHeightError),
-    _mfHeightQuad(source._mfHeightQuad),
-    _sfWidth(source._sfWidth),
-    _sfLevel(source._sfLevel),
-    _sfDetail(source._sfDetail),
-    _sfBorderDetail(source._sfBorderDetail),
-    _sfVertexSpacing(source._sfVertexSpacing),
-    _sfHeightVertices(),
-    _sfGeoMorphing(source._sfGeoMorphing),
-    _sfBoundMin(source._sfBoundMin),
-    _sfBoundMax(source._sfBoundMax),
-    _sfEyePoint(source._sfEyePoint),
-    _sfEyeHeight(source._sfEyeHeight),
-    _sfEyePointValid(source._sfEyePointValid),
-    _sfOriginX(source._sfOriginX),
-    _sfOriginY(source._sfOriginY),
-    _sfOriginTexX(source._sfOriginTexX),
-    _sfOriginTexY(source._sfOriginTexY),
-    _sfTexSpacing(source._sfTexSpacing),
-    _sfTexYSpacing(source._sfTexYSpacing),
-    _sfUpdateTerrain(source._sfUpdateTerrain),
-    _sfPerPixelLighting(source._sfPerPixelLighting)
+    _sfHeightData             (),
+    _sfHeightScale            (source._sfHeightScale            ),
+    _mfHeightError            (source._mfHeightError            ),
+    _mfHeightQuad             (source._mfHeightQuad             ),
+    _sfWidth                  (source._sfWidth                  ),
+    _sfLevel                  (source._sfLevel                  ),
+    _sfDetail                 (source._sfDetail                 ),
+    _sfBorderDetail           (source._sfBorderDetail           ),
+    _sfVertexSpacing          (source._sfVertexSpacing          ),
+    _sfHeightVertices         (),
+    _sfGeoMorphing            (source._sfGeoMorphing            ),
+    _sfBoundMin               (source._sfBoundMin               ),
+    _sfBoundMax               (source._sfBoundMax               ),
+    _sfEyePoint               (source._sfEyePoint               ),
+    _sfEyeHeight              (source._sfEyeHeight              ),
+    _sfEyePointValid          (source._sfEyePointValid          ),
+    _sfOriginX                (source._sfOriginX                ),
+    _sfOriginY                (source._sfOriginY                ),
+    _sfOriginTexX             (source._sfOriginTexX             ),
+    _sfOriginTexY             (source._sfOriginTexY             ),
+    _sfTexSpacing             (source._sfTexSpacing             ),
+    _sfTexYSpacing            (source._sfTexYSpacing            ),
+    _sfUpdateTerrain          (source._sfUpdateTerrain          ),
+    _sfPerPixelLighting       (source._sfPerPixelLighting       )
 {
 }
 
@@ -2055,13 +2033,13 @@ void QuadTreeTerrainBase::onCreate(const QuadTreeTerrain *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<QuadTreeTerrainBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -2071,10 +2049,10 @@ void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
 void QuadTreeTerrainBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<QuadTreeTerrainBase *>(&oFrom), 
+    this->execSync(static_cast<QuadTreeTerrainBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -2094,12 +2072,12 @@ void QuadTreeTerrainBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr QuadTreeTerrainBase::createAspectCopy(void) const
 {
-    QuadTreeTerrainPtr returnValue; 
+    QuadTreeTerrainPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const QuadTreeTerrain *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const QuadTreeTerrain *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -2112,6 +2090,8 @@ void QuadTreeTerrainBase::resolveLinks(void)
     static_cast<QuadTreeTerrain *>(this)->setHeightVertices(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -2134,8 +2114,6 @@ OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrainPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, QuadTreeTerrainPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, QuadTreeTerrainPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -2156,3 +2134,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGQUADTREETERRAINFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

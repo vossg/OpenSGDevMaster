@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &QuadTreeTerrainBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 QuadTreeTerrainBase::getClassTypeId(void) 
+OSG::UInt32 QuadTreeTerrainBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 QuadTreeTerrainBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const Real32 &QuadTreeTerrainBase::getHeightScale(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getHeightScale(void)
+Real32              &QuadTreeTerrainBase::getHeightScale    (void)
 {
-    return this->editHeightScale();
+    return this->editHeightScale    ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const UInt32 &QuadTreeTerrainBase::getWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &QuadTreeTerrainBase::getWidth(void)
+UInt32              &QuadTreeTerrainBase::getWidth          (void)
 {
-    return this->editWidth();
+    return this->editWidth          ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const UInt32 &QuadTreeTerrainBase::getLevel(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &QuadTreeTerrainBase::getLevel(void)
+UInt32              &QuadTreeTerrainBase::getLevel          (void)
 {
-    return this->editLevel();
+    return this->editLevel          ();
 }
 #endif
 
@@ -208,9 +208,9 @@ const Real32 &QuadTreeTerrainBase::getDetail(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getDetail(void)
+Real32              &QuadTreeTerrainBase::getDetail         (void)
 {
-    return this->editDetail();
+    return this->editDetail         ();
 }
 #endif
 
@@ -241,9 +241,9 @@ const Int32 &QuadTreeTerrainBase::getBorderDetail(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &QuadTreeTerrainBase::getBorderDetail(void)
+Int32               &QuadTreeTerrainBase::getBorderDetail   (void)
 {
-    return this->editBorderDetail();
+    return this->editBorderDetail   ();
 }
 #endif
 
@@ -274,9 +274,9 @@ const Real32 &QuadTreeTerrainBase::getVertexSpacing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getVertexSpacing(void)
+Real32              &QuadTreeTerrainBase::getVertexSpacing  (void)
 {
-    return this->editVertexSpacing();
+    return this->editVertexSpacing  ();
 }
 #endif
 
@@ -324,9 +324,9 @@ const bool &QuadTreeTerrainBase::getGeoMorphing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &QuadTreeTerrainBase::getGeoMorphing(void)
+bool                &QuadTreeTerrainBase::getGeoMorphing    (void)
 {
-    return this->editGeoMorphing();
+    return this->editGeoMorphing    ();
 }
 #endif
 
@@ -357,9 +357,9 @@ const Pnt3f &QuadTreeTerrainBase::getBoundMin(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt3f &QuadTreeTerrainBase::getBoundMin(void)
+Pnt3f               &QuadTreeTerrainBase::getBoundMin       (void)
 {
-    return this->editBoundMin();
+    return this->editBoundMin       ();
 }
 #endif
 
@@ -390,9 +390,9 @@ const Pnt3f &QuadTreeTerrainBase::getBoundMax(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt3f &QuadTreeTerrainBase::getBoundMax(void)
+Pnt3f               &QuadTreeTerrainBase::getBoundMax       (void)
 {
-    return this->editBoundMax();
+    return this->editBoundMax       ();
 }
 #endif
 
@@ -423,9 +423,9 @@ const Pnt3f &QuadTreeTerrainBase::getEyePoint(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt3f &QuadTreeTerrainBase::getEyePoint(void)
+Pnt3f               &QuadTreeTerrainBase::getEyePoint       (void)
 {
-    return this->editEyePoint();
+    return this->editEyePoint       ();
 }
 #endif
 
@@ -456,9 +456,9 @@ const Real32 &QuadTreeTerrainBase::getEyeHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getEyeHeight(void)
+Real32              &QuadTreeTerrainBase::getEyeHeight      (void)
 {
-    return this->editEyeHeight();
+    return this->editEyeHeight      ();
 }
 #endif
 
@@ -489,9 +489,9 @@ const bool &QuadTreeTerrainBase::getEyePointValid(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &QuadTreeTerrainBase::getEyePointValid(void)
+bool                &QuadTreeTerrainBase::getEyePointValid  (void)
 {
-    return this->editEyePointValid();
+    return this->editEyePointValid  ();
 }
 #endif
 
@@ -522,9 +522,9 @@ const Real32 &QuadTreeTerrainBase::getOriginX(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getOriginX(void)
+Real32              &QuadTreeTerrainBase::getOriginX        (void)
 {
-    return this->editOriginX();
+    return this->editOriginX        ();
 }
 #endif
 
@@ -555,9 +555,9 @@ const Real32 &QuadTreeTerrainBase::getOriginY(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getOriginY(void)
+Real32              &QuadTreeTerrainBase::getOriginY        (void)
 {
-    return this->editOriginY();
+    return this->editOriginY        ();
 }
 #endif
 
@@ -588,9 +588,9 @@ const Real32 &QuadTreeTerrainBase::getOriginTexX(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getOriginTexX(void)
+Real32              &QuadTreeTerrainBase::getOriginTexX     (void)
 {
-    return this->editOriginTexX();
+    return this->editOriginTexX     ();
 }
 #endif
 
@@ -621,9 +621,9 @@ const Real32 &QuadTreeTerrainBase::getOriginTexY(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getOriginTexY(void)
+Real32              &QuadTreeTerrainBase::getOriginTexY     (void)
 {
-    return this->editOriginTexY();
+    return this->editOriginTexY     ();
 }
 #endif
 
@@ -654,9 +654,9 @@ const Real32 &QuadTreeTerrainBase::getTexSpacing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getTexSpacing(void)
+Real32              &QuadTreeTerrainBase::getTexSpacing     (void)
 {
-    return this->editTexSpacing();
+    return this->editTexSpacing     ();
 }
 #endif
 
@@ -687,9 +687,9 @@ const Real32 &QuadTreeTerrainBase::getTexYSpacing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getTexYSpacing(void)
+Real32              &QuadTreeTerrainBase::getTexYSpacing    (void)
 {
-    return this->editTexYSpacing();
+    return this->editTexYSpacing    ();
 }
 #endif
 
@@ -720,9 +720,9 @@ const bool &QuadTreeTerrainBase::getUpdateTerrain(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &QuadTreeTerrainBase::getUpdateTerrain(void)
+bool                &QuadTreeTerrainBase::getUpdateTerrain  (void)
 {
-    return this->editUpdateTerrain();
+    return this->editUpdateTerrain  ();
 }
 #endif
 
@@ -753,7 +753,7 @@ const bool &QuadTreeTerrainBase::getPerPixelLighting(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &QuadTreeTerrainBase::getPerPixelLighting(void)
+bool                &QuadTreeTerrainBase::getPerPixelLighting(void)
 {
     return this->editPerPixelLighting();
 }
@@ -794,15 +794,15 @@ MFReal32 &QuadTreeTerrainBase::editHeightError(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getHeightError(const UInt32 index)
+Real32              &QuadTreeTerrainBase::getHeightError    (const UInt32 index)
 {
-    return this->editHeightError(index);
+    return this->editHeightError    (index);
 }
 
 inline
-MFReal32 &QuadTreeTerrainBase::getHeightError(void)
+MFReal32            &QuadTreeTerrainBase::getHeightError    (void)
 {
-    return this->editHeightError();
+    return this->editHeightError    ();
 }
 
 #endif
@@ -841,15 +841,15 @@ MFReal32 &QuadTreeTerrainBase::editHeightQuad(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &QuadTreeTerrainBase::getHeightQuad(const UInt32 index)
+Real32              &QuadTreeTerrainBase::getHeightQuad     (const UInt32 index)
 {
-    return this->editHeightQuad(index);
+    return this->editHeightQuad     (index);
 }
 
 inline
-MFReal32 &QuadTreeTerrainBase::getHeightQuad(void)
+MFReal32            &QuadTreeTerrainBase::getHeightQuad     (void)
 {
-    return this->editHeightQuad();
+    return this->editHeightQuad     ();
 }
 
 #endif
@@ -864,24 +864,24 @@ const MFReal32 &QuadTreeTerrainBase::getHeightQuad(void) const
 
 //! create a new instance of the class
 inline
-QuadTreeTerrainPtr QuadTreeTerrainBase::create(void) 
+QuadTreeTerrainPtr QuadTreeTerrainBase::create(void)
 {
-    QuadTreeTerrainPtr fc; 
+    QuadTreeTerrainPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<QuadTreeTerrain::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void QuadTreeTerrainBase::execSync(      QuadTreeTerrainBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -894,13 +894,13 @@ void QuadTreeTerrainBase::execSync(      QuadTreeTerrainBase *pOther,
         _sfHeightScale.syncWith(pOther->_sfHeightScale);
 
     if(FieldBits::NoField != (HeightErrorFieldMask & whichField))
-        _mfHeightError.syncWith(pOther->_mfHeightError, 
+        _mfHeightError.syncWith(pOther->_mfHeightError,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (HeightQuadFieldMask & whichField))
-        _mfHeightQuad.syncWith(pOther->_mfHeightQuad, 
+        _mfHeightQuad.syncWith(pOther->_mfHeightQuad,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -972,7 +972,7 @@ inline
 void QuadTreeTerrainBase::execSync (      QuadTreeTerrainBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -984,13 +984,13 @@ void QuadTreeTerrainBase::execSync (      QuadTreeTerrainBase *pFrom,
         _sfHeightScale.syncWith(pFrom->_sfHeightScale);
 
     if(FieldBits::NoField != (HeightErrorFieldMask & whichField))
-        _mfHeightError.syncWith(pFrom->_mfHeightError, 
+        _mfHeightError.syncWith(pFrom->_mfHeightError,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (HeightQuadFieldMask & whichField))
-        _mfHeightQuad.syncWith(pFrom->_mfHeightQuad, 
+        _mfHeightQuad.syncWith(pFrom->_mfHeightQuad,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -1095,4 +1095,3 @@ typedef PointerBuilder<QuadTreeTerrain>::ObjPtrConstArg  QuadTreeTerrainPtrConst
 OSG_END_NAMESPACE
 
 #define OSGQUADTREETERRAINBASE_INLINE_CVSID "@(#)$Id$"
-

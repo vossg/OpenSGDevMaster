@@ -70,49 +70,49 @@ class GeoStatsAttachment;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GeoStatsAttachmentPtr
 
-typedef PointerFwdBuilder<StatsAttachmentPtr, 
+typedef PointerFwdBuilder<StatsAttachmentPtr,
                           StatsAttachmentConstPtr,
                           GeoStatsAttachment>::ObjPtr         GeoStatsAttachmentPtr;
-typedef PointerFwdBuilder<StatsAttachmentPtr, 
+typedef PointerFwdBuilder<StatsAttachmentPtr,
                           StatsAttachmentConstPtr,
                           GeoStatsAttachment>::ObjPtrConst    GeoStatsAttachmentPtrConst;
-typedef PointerFwdBuilder<StatsAttachmentPtr, 
+typedef PointerFwdBuilder<StatsAttachmentPtr,
                           StatsAttachmentConstPtr,
                           GeoStatsAttachment>::ObjConstPtr    GeoStatsAttachmentConstPtr;
-typedef PointerFwdBuilder<StatsAttachmentPtr, 
+typedef PointerFwdBuilder<StatsAttachmentPtr,
                           StatsAttachmentConstPtr,
                           GeoStatsAttachment>::ObjPtrArg      GeoStatsAttachmentPtrArg;
-typedef PointerFwdBuilder<StatsAttachmentPtr, 
+typedef PointerFwdBuilder<StatsAttachmentPtr,
                           StatsAttachmentConstPtr,
                           GeoStatsAttachment>::ObjConstPtrArg GeoStatsAttachmentConstPtrArg;
-typedef PointerFwdBuilder<StatsAttachmentPtr, 
+typedef PointerFwdBuilder<StatsAttachmentPtr,
                           StatsAttachmentConstPtr,
                           GeoStatsAttachment>::ObjPtrConstArg GeoStatsAttachmentPtrConstArg;
 
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpDrawableFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
 #endif
 
 template <>
-struct FieldTraits<GeoStatsAttachmentPtr> : 
+struct FieldTraits<GeoStatsAttachmentPtr> :
     public FieldTraitsTemplateBase<GeoStatsAttachmentPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<GeoStatsAttachmentPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING 
+    static OSG_DRAWABLE_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFGeoStatsAttachmentPtr"; }
@@ -129,23 +129,23 @@ struct FieldTraits<GeoStatsAttachmentPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+/*! \ingroup GrpDrawableFieldSingle */
 
 typedef SFieldAdaptor<GeoStatsAttachmentPtr, SFFieldContainerPtr> SFGeoStatsAttachmentPtr;
 #endif
 
 #ifndef OSG_COMPILEGEOSTATSATTACHMENTINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, GeoStatsAttachmentPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, GeoStatsAttachmentPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
+/*! \ingroup GrpDrawableFieldMulti */
 
 typedef MFieldAdaptor<GeoStatsAttachmentPtr, MFFieldContainerPtr> MFGeoStatsAttachmentPtr;
 #endif
 
 #ifndef OSG_COMPILEGEOSTATSATTACHMENTINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, GeoStatsAttachmentPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, GeoStatsAttachmentPtr, OSG_DRAWABLE_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

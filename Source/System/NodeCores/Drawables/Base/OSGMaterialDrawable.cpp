@@ -52,9 +52,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::MaterialDrawable
-
-*/
+// Documentation for this class is emited in the
+// OSGMaterialDrawableBase.cpp file.
+// To modify it, please change the .fcd file (OSGMaterialDrawable.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

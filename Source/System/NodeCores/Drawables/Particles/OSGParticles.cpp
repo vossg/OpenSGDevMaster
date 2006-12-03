@@ -60,17 +60,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::Particles
-    \ingroup GrpSystemNodeCoresDrawablesParticles
-    
-See \ref PageSystemParticles for details.
-
-*/
-
+// Documentation for this class is emited in the
+// OSGParticlesBase.cpp file.
+// To modify it, please change the .fcd file (OSGParticles.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           File variables                                *
