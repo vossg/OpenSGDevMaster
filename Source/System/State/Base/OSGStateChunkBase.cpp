@@ -65,7 +65,15 @@
 #include "OSGStateChunkBase.h"
 #include "OSGStateChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::StateChunk
+    \ingroup GrpSystemState
+ */
 
 
 StateChunkBase::TypeObject StateChunkBase::_type(true,
@@ -73,41 +81,44 @@ StateChunkBase::TypeObject StateChunkBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     StateChunk::initMethod,
     NULL,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"StateChunk\"\n"
-"	parent=\"FieldContainerAttachment\"\n"
-"	library=\"System\"\n"
-"	structure=\"abstract\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"StateChunk\"\n"
+    "\tparent=\"FieldContainerAttachment\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemState for the conceptual background.\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemState for the conceptual background.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &StateChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &StateChunkBase::getType(void) const 
+FieldContainerType &StateChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 StateChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(StateChunk); 
+const FieldContainerType &StateChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 StateChunkBase::getContainerSize(void) const
+{
+    return sizeof(StateChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -163,13 +174,13 @@ StateChunkBase::~StateChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void StateChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<StateChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -179,10 +190,10 @@ void StateChunkBase::execSyncV(      FieldContainer    &oFrom,
 void StateChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StateChunkBase *>(&oFrom), 
+    this->execSync(static_cast<StateChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -206,6 +217,8 @@ void StateChunkBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -227,8 +240,6 @@ OSG_FIELDTRAITS_GETTYPE(StateChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, StateChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, StateChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -249,3 +260,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSTATECHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

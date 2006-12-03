@@ -70,22 +70,22 @@ class TextureEnvChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureEnvChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TextureEnvChunk>::ObjPtr         TextureEnvChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TextureEnvChunk>::ObjPtrConst    TextureEnvChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TextureEnvChunk>::ObjConstPtr    TextureEnvChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TextureEnvChunk>::ObjPtrArg      TextureEnvChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TextureEnvChunk>::ObjConstPtrArg TextureEnvChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TextureEnvChunk>::ObjPtrConstArg TextureEnvChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<StateChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<TextureEnvChunkPtr> : 
+struct FieldTraits<TextureEnvChunkPtr> :
     public FieldTraitsTemplateBase<TextureEnvChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TextureEnvChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFTextureEnvChunkPtr"; }

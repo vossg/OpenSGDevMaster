@@ -11,6 +11,38 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
+\ingroup GrpSystemState
+
+See \ref PageSystemTextureObjChunk for a description.
+
+This chunk wraps glTexImage[123]D (OSG::TextureChunk::_sfImage,
+OSG::TextureChunk::_sfInternalFormat, OSG::TextureChunk::_sfExternalFormat),
+glTexParameter (OSG::TextureChunk::_sfMinFilter,
+OSG::TextureChunk::_sfMagFilter, OSG::TextureChunk::_sfWrapS,
+OSG::TextureChunk::_sfWrapT, OSG::TextureChunk::_sfWrapR), glTexEnv
+(OSG::TextureChunk::_sfEnvMode, OSG::TextureChunk::_sfEnvColor,
+OSG::TextureChunk::_sfPriority).
+
+The ARB combine extension is also supported,
+where available (OSG::TextureChunk::_sfEnvCombineRGB,
+OSG::TextureChunk::_sfEnvScaleRGB, OSG::TextureChunk::_sfEnvSource0RGB,
+OSG::TextureChunk::_sfEnvSource1RGB, OSG::TextureChunk::_sfEnvSource2RGB,
+OSG::TextureChunk::_sfEnvOperand0RGB, OSG::TextureChunk::_sfEnvOperand1RGB,
+OSG::TextureChunk::_sfEnvOperand2RGB,
+OSG::TextureChunk::_sfEnvCombineAlpha,   OSG::TextureChunk::_sfEnvScaleAlpha,
+OSG::TextureChunk::_sfEnvSource0Alpha, OSG::TextureChunk::_sfEnvSource1Alpha,
+OSG::TextureChunk::_sfEnvSource2Alpha, OSG::TextureChunk::_sfEnvOperand0Alpha,
+OSG::TextureChunk::_sfEnvOperand1Alpha,
+OSG::TextureChunk::_sfEnvOperand2Alpha).
+
+It is possible to enable the point
+sprite coordinate replacement  (OSG::TextureChunk::_sfPointSprite), see \ref
+PageSystemPointChunk for details. The two parameters
+OSG::TextureChunk::_sfScale and OSG::TextureChunk::_sfFrame specify details
+about the texture.
+
+On hardware that supports it (i.e. NVidia boards) the texture shader
+extension(s) are also available.
 	<Field
 		name="image"
 		type="ImagePtr"

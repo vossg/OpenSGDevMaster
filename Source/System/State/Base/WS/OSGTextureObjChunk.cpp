@@ -61,42 +61,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::TextureObjChunk
-    \ingroup GrpSystemState
-
-See \ref PageSystemTextureObjChunk for a description.
-
-This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,
-osg::TextureObjChunk::_sfInternalFormat, osg::TextureObjChunk::_sfExternalFormat),
-glTexParameter (osg::TextureObjChunk::_sfMinFilter,
-osg::TextureObjChunk::_sfMagFilter, osg::TextureObjChunk::_sfWrapS,
-osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR), glTexEnv
-(osg::TextureObjChunk::_sfEnvMode, osg::TextureObjChunk::_sfEnvColor,
-osg::TextureObjChunk::_sfPriority). The ARB combine extension is also supported,
-where available (osg::TextureObjChunk::_sfEnvCombineRGB,
-osg::TextureObjChunk::_sfEnvScaleRGB, osg::TextureObjChunk::_sfEnvSource0RGB,
-osg::TextureObjChunk::_sfEnvSource1RGB, osg::TextureObjChunk::_sfEnvSource2RGB,
-osg::TextureObjChunk::_sfEnvOperand0RGB, osg::TextureObjChunk::_sfEnvOperand1RGB,
-osg::TextureObjChunk::_sfEnvOperand2RGB,
-osg::TextureObjChunk::_sfEnvCombineAlpha,   osg::TextureObjChunk::_sfEnvScaleAlpha,
-osg::TextureObjChunk::_sfEnvSource0Alpha, osg::TextureObjChunk::_sfEnvSource1Alpha,
-osg::TextureObjChunk::_sfEnvSource2Alpha, osg::TextureObjChunk::_sfEnvOperand0Alpha,
-osg::TextureObjChunk::_sfEnvOperand1Alpha,
-osg::TextureObjChunk::_sfEnvOperand2Alpha). It is possible to enable the point
-sprite coordinate replacement  (osg::TextureObjChunk::_sfPointSprite), see \ref
-PageSystemPointChunk for details. The two parameters
-osg::TextureObjChunk::_sfScale and osg::TextureObjChunk::_sfFrame specify details
-about the texture.
-
-On hardware that supports it (i.e. NVidia boards) the texture shader
-extension(s) are also available.
-
-*/
+// Documentation for this class is emited in the
+// OSGTextureObjChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGTextureObjChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -1979,7 +1947,7 @@ bool TextureObjChunk::operator != (const StateChunk &other) const
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGTEXTUREOBJCHUNK_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGTEXTUREOBJCHUNK_INLINE_CVSID;
 

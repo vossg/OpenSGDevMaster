@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TextureBaseChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TextureBaseChunkBase::getClassTypeId(void) 
+OSG::UInt32 TextureBaseChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TextureBaseChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const GLenum &TextureBaseChunkBase::getTarget(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureBaseChunkBase::getTarget(void)
+GLenum              &TextureBaseChunkBase::getTarget         (void)
 {
-    return this->editTarget();
+    return this->editTarget         ();
 }
 #endif
 
@@ -112,7 +112,7 @@ void TextureBaseChunkBase::setTarget(const GLenum &value)
 inline
 void TextureBaseChunkBase::execSync(      TextureBaseChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -128,7 +128,7 @@ inline
 void TextureBaseChunkBase::execSync (      TextureBaseChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -166,4 +166,3 @@ typedef PointerBuilder<TextureBaseChunk>::ObjPtrConstArg  TextureBaseChunkPtrCon
 OSG_END_NAMESPACE
 
 #define OSGTEXTUREBASECHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

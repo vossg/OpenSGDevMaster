@@ -70,22 +70,22 @@ class TexGenChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TexGenChunkPtr
 
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TexGenChunk>::ObjPtr         TexGenChunkPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TexGenChunk>::ObjPtrConst    TexGenChunkPtrConst;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TexGenChunk>::ObjConstPtr    TexGenChunkConstPtr;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TexGenChunk>::ObjPtrArg      TexGenChunkPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TexGenChunk>::ObjConstPtrArg TexGenChunkConstPtrArg;
-typedef PointerFwdBuilder<StateChunkPtr, 
+typedef PointerFwdBuilder<StateChunkPtr,
                           StateChunkConstPtr,
                           TexGenChunk>::ObjPtrConstArg TexGenChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<StateChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<TexGenChunkPtr> : 
+struct FieldTraits<TexGenChunkPtr> :
     public FieldTraitsTemplateBase<TexGenChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TexGenChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFTexGenChunkPtr"; }

@@ -9,4 +9,7 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+\ingroup GrpSystemState
+
+See \ref PageSystemState for the conceptual background.
 </FieldContainer>

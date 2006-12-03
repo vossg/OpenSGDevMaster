@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TextureObjChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TextureObjChunkBase::getClassTypeId(void) 
+OSG::UInt32 TextureObjChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TextureObjChunkBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const GLenum &TextureObjChunkBase::getInternalFormat(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getInternalFormat(void)
+GLenum              &TextureObjChunkBase::getInternalFormat (void)
 {
-    return this->editInternalFormat();
+    return this->editInternalFormat ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const GLenum &TextureObjChunkBase::getExternalFormat(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getExternalFormat(void)
+GLenum              &TextureObjChunkBase::getExternalFormat (void)
 {
-    return this->editExternalFormat();
+    return this->editExternalFormat ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const bool &TextureObjChunkBase::getScale(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &TextureObjChunkBase::getScale(void)
+bool                &TextureObjChunkBase::getScale          (void)
 {
-    return this->editScale();
+    return this->editScale          ();
 }
 #endif
 
@@ -208,9 +208,9 @@ const UInt32 &TextureObjChunkBase::getFrame(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &TextureObjChunkBase::getFrame(void)
+UInt32              &TextureObjChunkBase::getFrame          (void)
 {
-    return this->editFrame();
+    return this->editFrame          ();
 }
 #endif
 
@@ -241,9 +241,9 @@ const GLenum &TextureObjChunkBase::getMinFilter(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getMinFilter(void)
+GLenum              &TextureObjChunkBase::getMinFilter      (void)
 {
-    return this->editMinFilter();
+    return this->editMinFilter      ();
 }
 #endif
 
@@ -274,9 +274,9 @@ const GLenum &TextureObjChunkBase::getMagFilter(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getMagFilter(void)
+GLenum              &TextureObjChunkBase::getMagFilter      (void)
 {
-    return this->editMagFilter();
+    return this->editMagFilter      ();
 }
 #endif
 
@@ -307,9 +307,9 @@ const GLenum &TextureObjChunkBase::getWrapS(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getWrapS(void)
+GLenum              &TextureObjChunkBase::getWrapS          (void)
 {
-    return this->editWrapS();
+    return this->editWrapS          ();
 }
 #endif
 
@@ -340,9 +340,9 @@ const GLenum &TextureObjChunkBase::getWrapT(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getWrapT(void)
+GLenum              &TextureObjChunkBase::getWrapT          (void)
 {
-    return this->editWrapT();
+    return this->editWrapT          ();
 }
 #endif
 
@@ -373,9 +373,9 @@ const GLenum &TextureObjChunkBase::getWrapR(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getWrapR(void)
+GLenum              &TextureObjChunkBase::getWrapR          (void)
 {
-    return this->editWrapR();
+    return this->editWrapR          ();
 }
 #endif
 
@@ -406,9 +406,9 @@ const GLenum &TextureObjChunkBase::getGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getGLId(void)
+GLenum              &TextureObjChunkBase::getGLId           (void)
 {
-    return this->editGLId();
+    return this->editGLId           ();
 }
 #endif
 
@@ -439,7 +439,7 @@ const Int32 &TextureObjChunkBase::getIgnoreGLForAspect(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TextureObjChunkBase::getIgnoreGLForAspect(void)
+Int32               &TextureObjChunkBase::getIgnoreGLForAspect(void)
 {
     return this->editIgnoreGLForAspect();
 }
@@ -472,9 +472,9 @@ const Real32 &TextureObjChunkBase::getPriority(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureObjChunkBase::getPriority(void)
+Real32              &TextureObjChunkBase::getPriority       (void)
 {
-    return this->editPriority();
+    return this->editPriority       ();
 }
 #endif
 
@@ -505,9 +505,9 @@ const Int32 &TextureObjChunkBase::getDirtyLeft(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TextureObjChunkBase::getDirtyLeft(void)
+Int32               &TextureObjChunkBase::getDirtyLeft      (void)
 {
-    return this->editDirtyLeft();
+    return this->editDirtyLeft      ();
 }
 #endif
 
@@ -538,9 +538,9 @@ const Int32 &TextureObjChunkBase::getDirtyMinX(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TextureObjChunkBase::getDirtyMinX(void)
+Int32               &TextureObjChunkBase::getDirtyMinX      (void)
 {
-    return this->editDirtyMinX();
+    return this->editDirtyMinX      ();
 }
 #endif
 
@@ -571,9 +571,9 @@ const Int32 &TextureObjChunkBase::getDirtyMaxX(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TextureObjChunkBase::getDirtyMaxX(void)
+Int32               &TextureObjChunkBase::getDirtyMaxX      (void)
 {
-    return this->editDirtyMaxX();
+    return this->editDirtyMaxX      ();
 }
 #endif
 
@@ -604,9 +604,9 @@ const Int32 &TextureObjChunkBase::getDirtyMinY(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TextureObjChunkBase::getDirtyMinY(void)
+Int32               &TextureObjChunkBase::getDirtyMinY      (void)
 {
-    return this->editDirtyMinY();
+    return this->editDirtyMinY      ();
 }
 #endif
 
@@ -637,9 +637,9 @@ const Int32 &TextureObjChunkBase::getDirtyMaxY(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TextureObjChunkBase::getDirtyMaxY(void)
+Int32               &TextureObjChunkBase::getDirtyMaxY      (void)
 {
-    return this->editDirtyMaxY();
+    return this->editDirtyMaxY      ();
 }
 #endif
 
@@ -670,9 +670,9 @@ const Int32 &TextureObjChunkBase::getDirtyMinZ(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TextureObjChunkBase::getDirtyMinZ(void)
+Int32               &TextureObjChunkBase::getDirtyMinZ      (void)
 {
-    return this->editDirtyMinZ();
+    return this->editDirtyMinZ      ();
 }
 #endif
 
@@ -703,9 +703,9 @@ const Int32 &TextureObjChunkBase::getDirtyMaxZ(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &TextureObjChunkBase::getDirtyMaxZ(void)
+Int32               &TextureObjChunkBase::getDirtyMaxZ      (void)
 {
-    return this->editDirtyMaxZ();
+    return this->editDirtyMaxZ      ();
 }
 #endif
 
@@ -736,9 +736,9 @@ const Real32 &TextureObjChunkBase::getAnisotropy(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureObjChunkBase::getAnisotropy(void)
+Real32              &TextureObjChunkBase::getAnisotropy     (void)
 {
-    return this->editAnisotropy();
+    return this->editAnisotropy     ();
 }
 #endif
 
@@ -769,9 +769,9 @@ const Color4f &TextureObjChunkBase::getBorderColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &TextureObjChunkBase::getBorderColor(void)
+Color4f             &TextureObjChunkBase::getBorderColor    (void)
 {
-    return this->editBorderColor();
+    return this->editBorderColor    ();
 }
 #endif
 
@@ -802,9 +802,9 @@ const GLenum &TextureObjChunkBase::getCompareMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getCompareMode(void)
+GLenum              &TextureObjChunkBase::getCompareMode    (void)
 {
-    return this->editCompareMode();
+    return this->editCompareMode    ();
 }
 #endif
 
@@ -835,9 +835,9 @@ const GLenum &TextureObjChunkBase::getCompareFunc(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getCompareFunc(void)
+GLenum              &TextureObjChunkBase::getCompareFunc    (void)
 {
-    return this->editCompareFunc();
+    return this->editCompareFunc    ();
 }
 #endif
 
@@ -868,9 +868,9 @@ const GLenum &TextureObjChunkBase::getDepthMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureObjChunkBase::getDepthMode(void)
+GLenum              &TextureObjChunkBase::getDepthMode      (void)
 {
-    return this->editDepthMode();
+    return this->editDepthMode      ();
 }
 #endif
 
@@ -885,24 +885,24 @@ void TextureObjChunkBase::setDepthMode(const GLenum &value)
 
 //! create a new instance of the class
 inline
-TextureObjChunkPtr TextureObjChunkBase::create(void) 
+TextureObjChunkPtr TextureObjChunkBase::create(void)
 {
-    TextureObjChunkPtr fc; 
+    TextureObjChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TextureObjChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TextureObjChunkBase::execSync(      TextureObjChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -990,7 +990,7 @@ inline
 void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -1100,4 +1100,3 @@ typedef PointerBuilder<TextureObjChunk>::ObjPtrConstArg  TextureObjChunkPtrConst
 OSG_END_NAMESPACE
 
 #define OSGTEXTUREOBJCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

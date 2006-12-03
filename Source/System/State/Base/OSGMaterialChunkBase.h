@@ -98,22 +98,22 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               MaterialChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               MaterialChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               MaterialChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               MaterialChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               MaterialChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               MaterialChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -140,44 +140,43 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
         NextFieldId = BackColorMaterialFieldId + 1
     };
 
-    static const OSG::BitVector DiffuseFieldMask = 
+    static const OSG::BitVector DiffuseFieldMask =
         (TypeTraits<BitVector>::One << DiffuseFieldId);
-    static const OSG::BitVector AmbientFieldMask = 
+    static const OSG::BitVector AmbientFieldMask =
         (TypeTraits<BitVector>::One << AmbientFieldId);
-    static const OSG::BitVector SpecularFieldMask = 
+    static const OSG::BitVector SpecularFieldMask =
         (TypeTraits<BitVector>::One << SpecularFieldId);
-    static const OSG::BitVector EmissionFieldMask = 
+    static const OSG::BitVector EmissionFieldMask =
         (TypeTraits<BitVector>::One << EmissionFieldId);
-    static const OSG::BitVector ShininessFieldMask = 
+    static const OSG::BitVector ShininessFieldMask =
         (TypeTraits<BitVector>::One << ShininessFieldId);
-    static const OSG::BitVector LitFieldMask = 
+    static const OSG::BitVector LitFieldMask =
         (TypeTraits<BitVector>::One << LitFieldId);
-    static const OSG::BitVector ColorMaterialFieldMask = 
+    static const OSG::BitVector ColorMaterialFieldMask =
         (TypeTraits<BitVector>::One << ColorMaterialFieldId);
-    static const OSG::BitVector BackMaterialFieldMask = 
+    static const OSG::BitVector BackMaterialFieldMask =
         (TypeTraits<BitVector>::One << BackMaterialFieldId);
-    static const OSG::BitVector BackDiffuseFieldMask = 
+    static const OSG::BitVector BackDiffuseFieldMask =
         (TypeTraits<BitVector>::One << BackDiffuseFieldId);
-    static const OSG::BitVector BackAmbientFieldMask = 
+    static const OSG::BitVector BackAmbientFieldMask =
         (TypeTraits<BitVector>::One << BackAmbientFieldId);
-    static const OSG::BitVector BackSpecularFieldMask = 
+    static const OSG::BitVector BackSpecularFieldMask =
         (TypeTraits<BitVector>::One << BackSpecularFieldId);
-    static const OSG::BitVector BackEmissionFieldMask = 
+    static const OSG::BitVector BackEmissionFieldMask =
         (TypeTraits<BitVector>::One << BackEmissionFieldId);
-    static const OSG::BitVector BackShininessFieldMask = 
+    static const OSG::BitVector BackShininessFieldMask =
         (TypeTraits<BitVector>::One << BackShininessFieldId);
-    static const OSG::BitVector BackColorMaterialFieldMask = 
+    static const OSG::BitVector BackColorMaterialFieldMask =
         (TypeTraits<BitVector>::One << BackColorMaterialFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -185,8 +184,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -197,193 +196,193 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFDiffuse(void);
+                  SFColor4r           *getSFDiffuse         (void);
 #endif
-           SFColor4r *editSFDiffuse(void);
-     const SFColor4r *getSFDiffuse (void) const;
+                  SFColor4r           *editSFDiffuse        (void);
+            const SFColor4r           *getSFDiffuse         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFAmbient(void);
+                  SFColor4r           *getSFAmbient         (void);
 #endif
-           SFColor4r *editSFAmbient(void);
-     const SFColor4r *getSFAmbient (void) const;
+                  SFColor4r           *editSFAmbient        (void);
+            const SFColor4r           *getSFAmbient         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFSpecular(void);
+                  SFColor4r           *getSFSpecular        (void);
 #endif
-           SFColor4r *editSFSpecular(void);
-     const SFColor4r *getSFSpecular (void) const;
+                  SFColor4r           *editSFSpecular       (void);
+            const SFColor4r           *getSFSpecular        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFEmission(void);
+                  SFColor4r           *getSFEmission        (void);
 #endif
-           SFColor4r *editSFEmission(void);
-     const SFColor4r *getSFEmission (void) const;
+                  SFColor4r           *editSFEmission       (void);
+            const SFColor4r           *getSFEmission        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal *getSFShininess(void);
+                  SFReal              *getSFShininess       (void);
 #endif
-           SFReal *editSFShininess(void);
-     const SFReal *getSFShininess (void) const;
+                  SFReal              *editSFShininess      (void);
+            const SFReal              *getSFShininess       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFLit(void);
+                  SFBool              *getSFLit             (void);
 #endif
-           SFBool *editSFLit(void);
-     const SFBool *getSFLit (void) const;
+                  SFBool              *editSFLit            (void);
+            const SFBool              *getSFLit             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFColorMaterial(void);
+                  SFGLenum            *getSFColorMaterial   (void);
 #endif
-           SFGLenum *editSFColorMaterial(void);
-     const SFGLenum *getSFColorMaterial (void) const;
+                  SFGLenum            *editSFColorMaterial  (void);
+            const SFGLenum            *getSFColorMaterial   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFBackMaterial(void);
+                  SFBool              *getSFBackMaterial    (void);
 #endif
-           SFBool *editSFBackMaterial(void);
-     const SFBool *getSFBackMaterial (void) const;
+                  SFBool              *editSFBackMaterial   (void);
+            const SFBool              *getSFBackMaterial    (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFBackDiffuse(void);
+                  SFColor4r           *getSFBackDiffuse     (void);
 #endif
-           SFColor4r *editSFBackDiffuse(void);
-     const SFColor4r *getSFBackDiffuse (void) const;
+                  SFColor4r           *editSFBackDiffuse    (void);
+            const SFColor4r           *getSFBackDiffuse     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFBackAmbient(void);
+                  SFColor4r           *getSFBackAmbient     (void);
 #endif
-           SFColor4r *editSFBackAmbient(void);
-     const SFColor4r *getSFBackAmbient (void) const;
+                  SFColor4r           *editSFBackAmbient    (void);
+            const SFColor4r           *getSFBackAmbient     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFBackSpecular(void);
+                  SFColor4r           *getSFBackSpecular    (void);
 #endif
-           SFColor4r *editSFBackSpecular(void);
-     const SFColor4r *getSFBackSpecular (void) const;
+                  SFColor4r           *editSFBackSpecular   (void);
+            const SFColor4r           *getSFBackSpecular    (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFBackEmission(void);
+                  SFColor4r           *getSFBackEmission    (void);
 #endif
-           SFColor4r *editSFBackEmission(void);
-     const SFColor4r *getSFBackEmission (void) const;
+                  SFColor4r           *editSFBackEmission   (void);
+            const SFColor4r           *getSFBackEmission    (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal *getSFBackShininess(void);
+                  SFReal              *getSFBackShininess   (void);
 #endif
-           SFReal *editSFBackShininess(void);
-     const SFReal *getSFBackShininess (void) const;
+                  SFReal              *editSFBackShininess  (void);
+            const SFReal              *getSFBackShininess   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFBackColorMaterial(void);
+                  SFGLenum            *getSFBackColorMaterial (void);
 #endif
-           SFGLenum *editSFBackColorMaterial(void);
-     const SFGLenum *getSFBackColorMaterial (void) const;
+                  SFGLenum            *editSFBackColorMaterial(void);
+            const SFGLenum            *getSFBackColorMaterial (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Color4r &getDiffuse(void);
+                  Color4r             &getDiffuse         (void);
 #endif
-           Color4r &editDiffuse(void);
-     const Color4r &getDiffuse (void) const;
+                  Color4r             &editDiffuse        (void);
+            const Color4r             &getDiffuse         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getAmbient(void);
+                  Color4r             &getAmbient         (void);
 #endif
-           Color4r &editAmbient(void);
-     const Color4r &getAmbient (void) const;
+                  Color4r             &editAmbient        (void);
+            const Color4r             &getAmbient         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getSpecular(void);
+                  Color4r             &getSpecular        (void);
 #endif
-           Color4r &editSpecular(void);
-     const Color4r &getSpecular (void) const;
+                  Color4r             &editSpecular       (void);
+            const Color4r             &getSpecular        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getEmission(void);
+                  Color4r             &getEmission        (void);
 #endif
-           Color4r &editEmission(void);
-     const Color4r &getEmission (void) const;
+                  Color4r             &editEmission       (void);
+            const Color4r             &getEmission        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real &getShininess(void);
+                  Real                &getShininess       (void);
 #endif
-           Real &editShininess(void);
-     const Real &getShininess (void) const;
+                  Real                &editShininess      (void);
+            const Real                &getShininess       (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getLit(void);
+                  bool                &getLit             (void);
 #endif
-           bool &editLit(void);
-     const bool &getLit (void) const;
+                  bool                &editLit            (void);
+            const bool                &getLit             (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getColorMaterial(void);
+                  GLenum              &getColorMaterial   (void);
 #endif
-           GLenum &editColorMaterial(void);
-     const GLenum &getColorMaterial (void) const;
+                  GLenum              &editColorMaterial  (void);
+            const GLenum              &getColorMaterial   (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getBackMaterial(void);
+                  bool                &getBackMaterial    (void);
 #endif
-           bool &editBackMaterial(void);
-     const bool &getBackMaterial (void) const;
+                  bool                &editBackMaterial   (void);
+            const bool                &getBackMaterial    (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getBackDiffuse(void);
+                  Color4r             &getBackDiffuse     (void);
 #endif
-           Color4r &editBackDiffuse(void);
-     const Color4r &getBackDiffuse (void) const;
+                  Color4r             &editBackDiffuse    (void);
+            const Color4r             &getBackDiffuse     (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getBackAmbient(void);
+                  Color4r             &getBackAmbient     (void);
 #endif
-           Color4r &editBackAmbient(void);
-     const Color4r &getBackAmbient (void) const;
+                  Color4r             &editBackAmbient    (void);
+            const Color4r             &getBackAmbient     (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getBackSpecular(void);
+                  Color4r             &getBackSpecular    (void);
 #endif
-           Color4r &editBackSpecular(void);
-     const Color4r &getBackSpecular (void) const;
+                  Color4r             &editBackSpecular   (void);
+            const Color4r             &getBackSpecular    (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getBackEmission(void);
+                  Color4r             &getBackEmission    (void);
 #endif
-           Color4r &editBackEmission(void);
-     const Color4r &getBackEmission (void) const;
+                  Color4r             &editBackEmission   (void);
+            const Color4r             &getBackEmission    (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real &getBackShininess(void);
+                  Real                &getBackShininess   (void);
 #endif
-           Real &editBackShininess(void);
-     const Real &getBackShininess (void) const;
+                  Real                &editBackShininess  (void);
+            const Real                &getBackShininess   (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getBackColorMaterial(void);
+                  GLenum              &getBackColorMaterial (void);
 #endif
-           GLenum &editBackColorMaterial(void);
-     const GLenum &getBackColorMaterial (void) const;
+                  GLenum              &editBackColorMaterial(void);
+            const GLenum              &getBackColorMaterial (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setDiffuse(const Color4r &value);
-     void setAmbient(const Color4r &value);
-     void setSpecular(const Color4r &value);
-     void setEmission(const Color4r &value);
-     void setShininess(const Real &value);
-     void setLit(const bool &value);
-     void setColorMaterial(const GLenum &value);
-     void setBackMaterial(const bool &value);
-     void setBackDiffuse(const Color4r &value);
-     void setBackAmbient(const Color4r &value);
-     void setBackSpecular(const Color4r &value);
-     void setBackEmission(const Color4r &value);
-     void setBackShininess(const Real &value);
-     void setBackColorMaterial(const GLenum &value);
+            void setDiffuse        (const Color4r &value);
+            void setAmbient        (const Color4r &value);
+            void setSpecular       (const Color4r &value);
+            void setEmission       (const Color4r &value);
+            void setShininess      (const Real &value);
+            void setLit            (const bool &value);
+            void setColorMaterial  (const GLenum &value);
+            void setBackMaterial   (const bool &value);
+            void setBackDiffuse    (const Color4r &value);
+            void setBackAmbient    (const Color4r &value);
+            void setBackSpecular   (const Color4r &value);
+            void setBackEmission   (const Color4r &value);
+            void setBackShininess  (const Real &value);
+            void setBackColorMaterial(const GLenum &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -403,15 +402,15 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MaterialChunkPtr create     (void); 
-    static  MaterialChunkPtr createEmpty(void); 
+    static  MaterialChunkPtr create     (void);
+    static  MaterialChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -427,20 +426,20 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFColor4r _sfDiffuse;
-    SFColor4r _sfAmbient;
-    SFColor4r _sfSpecular;
-    SFColor4r _sfEmission;
-    SFReal _sfShininess;
-    SFBool _sfLit;
-    SFGLenum _sfColorMaterial;
-    SFBool _sfBackMaterial;
-    SFColor4r _sfBackDiffuse;
-    SFColor4r _sfBackAmbient;
-    SFColor4r _sfBackSpecular;
-    SFColor4r _sfBackEmission;
-    SFReal _sfBackShininess;
-    SFGLenum _sfBackColorMaterial;
+    SFColor4r         _sfDiffuse;
+    SFColor4r         _sfAmbient;
+    SFColor4r         _sfSpecular;
+    SFColor4r         _sfEmission;
+    SFReal            _sfShininess;
+    SFBool            _sfLit;
+    SFGLenum          _sfColorMaterial;
+    SFBool            _sfBackMaterial;
+    SFColor4r         _sfBackDiffuse;
+    SFColor4r         _sfBackAmbient;
+    SFColor4r         _sfBackSpecular;
+    SFColor4r         _sfBackEmission;
+    SFReal            _sfBackShininess;
+    SFGLenum          _sfBackColorMaterial;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -455,7 +454,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~MaterialChunkBase(void); 
+    virtual ~MaterialChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -501,11 +500,11 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

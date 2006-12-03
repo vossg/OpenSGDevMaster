@@ -85,22 +85,22 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
+                              FieldContainerConstPtr,
                               State>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
-                              FieldContainerConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
+                              FieldContainerConstPtr,
                               State>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
                               FieldContainerConstPtr,
                               State>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
                               FieldContainerConstPtr,
                               State>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
                               FieldContainerConstPtr,
                               State>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerPtr, 
+    typedef PointerFwdBuilder<FieldContainerPtr,
                               FieldContainerConstPtr,
                               State>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
         NextFieldId = ChunksFieldId + 1
     };
 
-    static const OSG::BitVector ChunksFieldMask = 
+    static const OSG::BitVector ChunksFieldMask =
         (TypeTraits<BitVector>::One << ChunksFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -143,11 +142,11 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const MFStateChunkPtr *getMFChunks (void) const;
+            const MFStateChunkPtr     *getMFChunks          (void) const;
 
 
-           StateChunkPtrConst getChunks(const UInt32 index) const;
-     const MFStateChunkPtr &getChunks(void) const;
+                  StateChunkPtrConst getChunks         (const UInt32 index) const;
+            const MFStateChunkPtr     &getChunks         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -160,25 +159,25 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -188,18 +187,18 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToChunks           (StateChunkPtrConstArg value   );
+    void pushToChunks              (StateChunkPtrConstArg value   );
     void insertIntoChunks      (UInt32                uiIndex,
-                                    StateChunkPtrConstArg value   );
+                                             StateChunkPtrConstArg value   );
     void replaceInChunks  (UInt32                uiIndex,
-                                    StateChunkPtrConstArg value   );
+                                             StateChunkPtrConstArg value   );
     void replaceInChunks (StateChunkPtrConstArg pOldElem,
-                                    StateChunkPtrConstArg pNewElem);
+                                             StateChunkPtrConstArg pNewElem);
     void removeFromChunks (UInt32                uiIndex );
     void removeFromChunks(StateChunkPtrConstArg value   );
-    void clearChunks            (void                          );
+    void clearChunks                (void                          );
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,15 +217,15 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StatePtr create     (void); 
-    static  StatePtr createEmpty(void); 
+    static  StatePtr create     (void);
+    static  StatePtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -242,7 +241,7 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFStateChunkPtr _mfChunks;
+    MFStateChunkPtr   _mfChunks;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,7 +256,7 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StateBase(void); 
+    virtual ~StateBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -304,11 +303,11 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

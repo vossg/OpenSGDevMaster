@@ -66,57 +66,71 @@
 #include "OSGLightChunkBase.h"
 #include "OSGLightChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color4r LightChunkBase::_sfDiffuse
-    	The light's diffuse color.
+/*! \class OSG::LightChunk
+    \ingroup GrpSystemState
 
+    See \ref PageSystemLightChunk for a description.
+
+    The light chunk contains the parameter set for a single light source.
+    It's taken straight from the glLight() manpage.
+
+    This chunk wraps glLight() (OSG::LightChunk::_sfAmbient,
+    OSG::LightChunk::_sfDiffuse, OSG::LightChunk::_sfSpecular,
+    OSG::LightChunk::_sfEmission, OSG::LightChunk::_sfPosition,
+    OSG::LightChunk::_sfDirection, OSG::LightChunk::_sfExponent,
+    OSG::LightChunk::_sfCutoff, OSG::LightChunk::_sfConstantAttenuation,
+    OSG::LightChunk::_sfLinearAttenuation,
+    OSG::LightChunk::_sfQuadraticAttenuation).
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Color4r         LightChunkBase::_sfDiffuse
+    The light's diffuse color.
 */
-/*! \var Color4r LightChunkBase::_sfAmbient
-    	The light's ambient color.
-
+/*! \var Color4r         LightChunkBase::_sfAmbient
+    The light's ambient color.
 */
-/*! \var Color4r LightChunkBase::_sfSpecular
-    	The light's specular color.
-
+/*! \var Color4r         LightChunkBase::_sfSpecular
+    The light's specular color.
 */
-/*! \var Vec4r LightChunkBase::_sfPosition
-    	The light's position.
-
+/*! \var Vec4r           LightChunkBase::_sfPosition
+    The light's position.
 */
-/*! \var Vec3r LightChunkBase::_sfDirection
-    	The light's direction (only for spotlights).
-
+/*! \var Vec3r           LightChunkBase::_sfDirection
+    The light's direction (only for spotlights).
 */
-/*! \var Real LightChunkBase::_sfExponent
-    	The light's spotlight exponent.
-
+/*! \var Real            LightChunkBase::_sfExponent
+    The light's spotlight exponent.
 */
-/*! \var Real LightChunkBase::_sfCutoff
-    	The light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.
-
+/*! \var Real            LightChunkBase::_sfCutoff
+    The light's spotlight cutoff. As this chunk follows OpenGL
+    conventions, this is the only angle in the system given in degrees.
 */
-/*! \var Real LightChunkBase::_sfConstantAttenuation
-    	The light's constant attenuation.
-
+/*! \var Real            LightChunkBase::_sfConstantAttenuation
+    The light's constant attenuation.
 */
-/*! \var Real LightChunkBase::_sfLinearAttenuation
-    	The light's linear attenuation.
-
+/*! \var Real            LightChunkBase::_sfLinearAttenuation
+    The light's linear attenuation.
 */
-/*! \var Real LightChunkBase::_sfQuadraticAttenuation
-    	The light's quadratic attenuation.
-
+/*! \var Real            LightChunkBase::_sfQuadraticAttenuation
+    The light's quadratic attenuation.
 */
-/*! \var NodePtr LightChunkBase::_sfBeacon
+/*! \var NodePtr         LightChunkBase::_sfBeacon
     
 */
 
 void LightChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -126,9 +140,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "diffuse", 
-        "	The light's diffuse color.\n",
+        SFColor4r::getClassType(),
+        "diffuse",
+        "The light's diffuse color.\n",
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -148,9 +162,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "ambient", 
-        "	The light's ambient color.\n",
+        SFColor4r::getClassType(),
+        "ambient",
+        "The light's ambient color.\n",
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -170,9 +184,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "specular", 
-        "	The light's specular color.\n",
+        SFColor4r::getClassType(),
+        "specular",
+        "The light's specular color.\n",
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -192,9 +206,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec4r::Description(
-        SFVec4r::getClassType(), 
-        "position", 
-        "	The light's position.\n",
+        SFVec4r::getClassType(),
+        "position",
+        "The light's position.\n",
         PositionFieldId, PositionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -214,9 +228,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec3r::Description(
-        SFVec3r::getClassType(), 
-        "direction", 
-        "	The light's direction (only for spotlights).\n",
+        SFVec3r::getClassType(),
+        "direction",
+        "The light's direction (only for spotlights).\n",
         DirectionFieldId, DirectionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -236,9 +250,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "exponent", 
-        "	The light's spotlight exponent.\n",
+        SFReal::getClassType(),
+        "exponent",
+        "The light's spotlight exponent.\n",
         ExponentFieldId, ExponentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -258,9 +272,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "cutoff", 
-        "	The light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.\n",
+        SFReal::getClassType(),
+        "cutoff",
+        "The light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.\n",
         CutoffFieldId, CutoffFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -280,9 +294,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "constantAttenuation", 
-        "	The light's constant attenuation.\n",
+        SFReal::getClassType(),
+        "constantAttenuation",
+        "The light's constant attenuation.\n",
         ConstantAttenuationFieldId, ConstantAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -302,9 +316,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "linearAttenuation", 
-        "	The light's linear attenuation.\n",
+        SFReal::getClassType(),
+        "linearAttenuation",
+        "The light's linear attenuation.\n",
         LinearAttenuationFieldId, LinearAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -324,9 +338,9 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "quadraticAttenuation", 
-        "	The light's quadratic attenuation.\n",
+        SFReal::getClassType(),
+        "quadraticAttenuation",
+        "The light's quadratic attenuation.\n",
         QuadraticAttenuationFieldId, QuadraticAttenuationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -340,8 +354,8 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "beacon", 
+        SFNodePtr::getClassType(),
+        "beacon",
         "",
         BeaconFieldId, BeaconFieldMask,
         false,
@@ -363,138 +377,159 @@ LightChunkBase::TypeObject LightChunkBase::_type(true,
     (InitalInsertDescFunc) &LightChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"LightChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"System\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The light chunk contains the parameter set for a single light source. It's taken\n"
-"straight from the glLight() manpage.\n"
-"	<Field\n"
-"		name=\"diffuse\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f,1.f,1.f,0.f\"\n"
-"	>\n"
-"	The light's diffuse color.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"ambient\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\".1f,.1f,.1f,0.f\"\n"
-"	>\n"
-"	The light's ambient color.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"specular\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f,1.f,1.f,0.f\"\n"
-"	>\n"
-"	The light's specular color.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"position\"\n"
-"		type=\"Vec4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,-1.f,0.f,0.f\"\n"
-"	>\n"
-"	The light's position.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"direction\"\n"
-"		type=\"Vec3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,0.f,1.f\"\n"
-"	>\n"
-"	The light's direction (only for spotlights).\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"exponent\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"2.f\"\n"
-"	>\n"
-"	The light's spotlight exponent.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"cutoff\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"180.f\"\n"
-"	>\n"
-"	The light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"constantAttenuation\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f\"\n"
-"	>\n"
-"	The light's constant attenuation.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"linearAttenuation\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f\"\n"
-"	>\n"
-"	The light's linear attenuation.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"quadraticAttenuation\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f\"\n"
-"	>\n"
-"	The light's quadratic attenuation.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"beacon\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"        doRefCount=\"false\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The light chunk contains the parameter set for a single light source. It's taken\nstraight from the glLight() manpage.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"LightChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemLightChunk for a description.\n"
+    "\n"
+    "The light chunk contains the parameter set for a single light source. It's taken\n"
+    "straight from the glLight() manpage.\n"
+    "\n"
+    "This chunk wraps glLight() (OSG::LightChunk::_sfAmbient,\n"
+    "OSG::LightChunk::_sfDiffuse, OSG::LightChunk::_sfSpecular,\n"
+    "OSG::LightChunk::_sfEmission, OSG::LightChunk::_sfPosition,\n"
+    "OSG::LightChunk::_sfDirection, OSG::LightChunk::_sfExponent,\n"
+    "OSG::LightChunk::_sfCutoff, OSG::LightChunk::_sfConstantAttenuation,\n"
+    "OSG::LightChunk::_sfLinearAttenuation,\n"
+    "OSG::LightChunk::_sfQuadraticAttenuation).\n"
+    "\t<Field\n"
+    "\t\tname=\"diffuse\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f,1.f,1.f,0.f\"\n"
+    "\t>\n"
+    "\tThe light's diffuse color.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"ambient\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\".1f,.1f,.1f,0.f\"\n"
+    "\t>\n"
+    "\tThe light's ambient color.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"specular\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f,1.f,1.f,0.f\"\n"
+    "\t>\n"
+    "\tThe light's specular color.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"position\"\n"
+    "\t\ttype=\"Vec4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,-1.f,0.f,0.f\"\n"
+    "\t>\n"
+    "\tThe light's position.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"direction\"\n"
+    "\t\ttype=\"Vec3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,0.f,1.f\"\n"
+    "\t>\n"
+    "\tThe light's direction (only for spotlights).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"exponent\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"2.f\"\n"
+    "\t>\n"
+    "\tThe light's spotlight exponent.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"cutoff\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"180.f\"\n"
+    "\t>\n"
+    "\tThe light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"constantAttenuation\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f\"\n"
+    "\t>\n"
+    "\tThe light's constant attenuation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"linearAttenuation\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f\"\n"
+    "\t>\n"
+    "\tThe light's linear attenuation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"quadraticAttenuation\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f\"\n"
+    "\t>\n"
+    "\tThe light's quadratic attenuation.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"beacon\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "        doRefCount=\"false\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemLightChunk for a description.\n"
+    "The light chunk contains the parameter set for a single light source. It's taken\n"
+    "straight from the glLight() manpage.\n"
+    "This chunk wraps glLight() (OSG::LightChunk::_sfAmbient,\n"
+    "OSG::LightChunk::_sfDiffuse, OSG::LightChunk::_sfSpecular,\n"
+    "OSG::LightChunk::_sfEmission, OSG::LightChunk::_sfPosition,\n"
+    "OSG::LightChunk::_sfDirection, OSG::LightChunk::_sfExponent,\n"
+    "OSG::LightChunk::_sfCutoff, OSG::LightChunk::_sfConstantAttenuation,\n"
+    "OSG::LightChunk::_sfLinearAttenuation,\n"
+    "OSG::LightChunk::_sfQuadraticAttenuation).\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &LightChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &LightChunkBase::getType(void) const 
+FieldContainerType &LightChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 LightChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(LightChunk); 
+const FieldContainerType &LightChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 LightChunkBase::getContainerSize(void) const
+{
+    return sizeof(LightChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -513,9 +548,9 @@ const SFColor4r *LightChunkBase::getSFDiffuse(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *LightChunkBase::getSFDiffuse(void)
+SFColor4r           *LightChunkBase::getSFDiffuse        (void)
 {
-    return this->editSFDiffuse();
+    return this->editSFDiffuse        ();
 }
 #endif
 
@@ -532,9 +567,9 @@ const SFColor4r *LightChunkBase::getSFAmbient(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *LightChunkBase::getSFAmbient(void)
+SFColor4r           *LightChunkBase::getSFAmbient        (void)
 {
-    return this->editSFAmbient();
+    return this->editSFAmbient        ();
 }
 #endif
 
@@ -551,9 +586,9 @@ const SFColor4r *LightChunkBase::getSFSpecular(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *LightChunkBase::getSFSpecular(void)
+SFColor4r           *LightChunkBase::getSFSpecular       (void)
 {
-    return this->editSFSpecular();
+    return this->editSFSpecular       ();
 }
 #endif
 
@@ -570,9 +605,9 @@ const SFVec4r *LightChunkBase::getSFPosition(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec4r *LightChunkBase::getSFPosition(void)
+SFVec4r             *LightChunkBase::getSFPosition       (void)
 {
-    return this->editSFPosition();
+    return this->editSFPosition       ();
 }
 #endif
 
@@ -589,9 +624,9 @@ const SFVec3r *LightChunkBase::getSFDirection(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec3r *LightChunkBase::getSFDirection(void)
+SFVec3r             *LightChunkBase::getSFDirection      (void)
 {
-    return this->editSFDirection();
+    return this->editSFDirection      ();
 }
 #endif
 
@@ -608,9 +643,9 @@ const SFReal *LightChunkBase::getSFExponent(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *LightChunkBase::getSFExponent(void)
+SFReal              *LightChunkBase::getSFExponent       (void)
 {
-    return this->editSFExponent();
+    return this->editSFExponent       ();
 }
 #endif
 
@@ -627,9 +662,9 @@ const SFReal *LightChunkBase::getSFCutoff(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *LightChunkBase::getSFCutoff(void)
+SFReal              *LightChunkBase::getSFCutoff         (void)
 {
-    return this->editSFCutoff();
+    return this->editSFCutoff         ();
 }
 #endif
 
@@ -646,7 +681,7 @@ const SFReal *LightChunkBase::getSFConstantAttenuation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *LightChunkBase::getSFConstantAttenuation(void)
+SFReal              *LightChunkBase::getSFConstantAttenuation(void)
 {
     return this->editSFConstantAttenuation();
 }
@@ -665,7 +700,7 @@ const SFReal *LightChunkBase::getSFLinearAttenuation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *LightChunkBase::getSFLinearAttenuation(void)
+SFReal              *LightChunkBase::getSFLinearAttenuation(void)
 {
     return this->editSFLinearAttenuation();
 }
@@ -684,7 +719,7 @@ const SFReal *LightChunkBase::getSFQuadraticAttenuation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *LightChunkBase::getSFQuadraticAttenuation(void)
+SFReal              *LightChunkBase::getSFQuadraticAttenuation(void)
 {
     return this->editSFQuadraticAttenuation();
 }
@@ -916,22 +951,22 @@ void LightChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-LightChunkPtr LightChunkBase::createEmpty(void) 
-{ 
-    LightChunkPtr returnValue; 
-    
-    newPtr<LightChunk>(returnValue); 
+LightChunkPtr LightChunkBase::createEmpty(void)
+{
+    LightChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<LightChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr LightChunkBase::shallowCopy(void) const 
-{ 
-    LightChunkPtr returnValue; 
+FieldContainerPtr LightChunkBase::shallowCopy(void) const
+{
+    LightChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const LightChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const LightChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -940,33 +975,33 @@ FieldContainerPtr LightChunkBase::shallowCopy(void) const
 
 LightChunkBase::LightChunkBase(void) :
     Inherited(),
-    _sfDiffuse(Color4r(1.f,1.f,1.f,0.f)),
-    _sfAmbient(Color4r(.1f,.1f,.1f,0.f)),
-    _sfSpecular(Color4r(1.f,1.f,1.f,0.f)),
-    _sfPosition(Vec4r(0.f,-1.f,0.f,0.f)),
-    _sfDirection(Vec3r(0.f,0.f,1.f)),
-    _sfExponent(Real(2.f)),
-    _sfCutoff(Real(180.f)),
-    _sfConstantAttenuation(Real(1.f)),
-    _sfLinearAttenuation(Real(0.f)),
-    _sfQuadraticAttenuation(Real(0.f)),
-    _sfBeacon(NodePtr(NullFC))
+    _sfDiffuse                (Color4r(1.f,1.f,1.f,0.f)),
+    _sfAmbient                (Color4r(.1f,.1f,.1f,0.f)),
+    _sfSpecular               (Color4r(1.f,1.f,1.f,0.f)),
+    _sfPosition               (Vec4r(0.f,-1.f,0.f,0.f)),
+    _sfDirection              (Vec3r(0.f,0.f,1.f)),
+    _sfExponent               (Real(2.f)),
+    _sfCutoff                 (Real(180.f)),
+    _sfConstantAttenuation    (Real(1.f)),
+    _sfLinearAttenuation      (Real(0.f)),
+    _sfQuadraticAttenuation   (Real(0.f)),
+    _sfBeacon                 (NodePtr(NullFC))
 {
 }
 
 LightChunkBase::LightChunkBase(const LightChunkBase &source) :
     Inherited(source),
-    _sfDiffuse(source._sfDiffuse),
-    _sfAmbient(source._sfAmbient),
-    _sfSpecular(source._sfSpecular),
-    _sfPosition(source._sfPosition),
-    _sfDirection(source._sfDirection),
-    _sfExponent(source._sfExponent),
-    _sfCutoff(source._sfCutoff),
-    _sfConstantAttenuation(source._sfConstantAttenuation),
-    _sfLinearAttenuation(source._sfLinearAttenuation),
-    _sfQuadraticAttenuation(source._sfQuadraticAttenuation),
-    _sfBeacon()
+    _sfDiffuse                (source._sfDiffuse                ),
+    _sfAmbient                (source._sfAmbient                ),
+    _sfSpecular               (source._sfSpecular               ),
+    _sfPosition               (source._sfPosition               ),
+    _sfDirection              (source._sfDirection              ),
+    _sfExponent               (source._sfExponent               ),
+    _sfCutoff                 (source._sfCutoff                 ),
+    _sfConstantAttenuation    (source._sfConstantAttenuation    ),
+    _sfLinearAttenuation      (source._sfLinearAttenuation      ),
+    _sfQuadraticAttenuation   (source._sfQuadraticAttenuation   ),
+    _sfBeacon                 ()
 {
 }
 
@@ -990,13 +1025,13 @@ void LightChunkBase::onCreate(const LightChunk *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void LightChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<LightChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1006,10 +1041,10 @@ void LightChunkBase::execSyncV(      FieldContainer    &oFrom,
 void LightChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<LightChunkBase *>(&oFrom), 
+    this->execSync(static_cast<LightChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1029,12 +1064,12 @@ void LightChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr LightChunkBase::createAspectCopy(void) const
 {
-    LightChunkPtr returnValue; 
+    LightChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const LightChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const LightChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1045,6 +1080,8 @@ void LightChunkBase::resolveLinks(void)
     static_cast<LightChunk *>(this)->setBeacon(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1067,8 +1104,6 @@ OSG_FIELDTRAITS_GETTYPE(LightChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, LightChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, LightChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1089,3 +1124,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGLIGHTCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -60,156 +60,141 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // EnvMode default header
-#include <OSGGL.h>   // EnvCombineRGB default header
-#include <OSGGL.h>   // EnvCombineAlpha default header
-#include <OSGGL.h>   // EnvSource0RGB default header
-#include <OSGGLEXT.h>   // EnvSource1RGB default header
-#include <OSGGLEXT.h>   // EnvSource2RGB default header
-#include <OSGGL.h>   // EnvSource0Alpha default header
-#include <OSGGLEXT.h>   // EnvSource1Alpha default header
-#include <OSGGLEXT.h>   // EnvSource2Alpha default header
-#include <OSGGL.h>   // EnvOperand0RGB default header
-#include <OSGGL.h>   // EnvOperand1RGB default header
-#include <OSGGL.h>   // EnvOperand2RGB default header
-#include <OSGGL.h>   // EnvOperand0Alpha default header
-#include <OSGGL.h>   // EnvOperand1Alpha default header
-#include <OSGGL.h>   // EnvOperand2Alpha default header
-#include <OSGGL.h>   // PointSprite default header
-#include <OSGGL.h>   // ShaderOperation default header
-#include <OSGGL.h>   // ShaderInput default header
-#include <OSGGL.h>   // ShaderRGBADotProduct default header
+#include <OSGGL.h>                        // EnvMode default header
+#include <OSGGL.h>                        // EnvCombineRGB default header
+#include <OSGGL.h>                        // EnvCombineAlpha default header
+#include <OSGGL.h>                        // EnvSource0RGB default header
+#include <OSGGLEXT.h>                     // EnvSource1RGB default header
+#include <OSGGLEXT.h>                     // EnvSource2RGB default header
+#include <OSGGL.h>                        // EnvSource0Alpha default header
+#include <OSGGLEXT.h>                     // EnvSource1Alpha default header
+#include <OSGGLEXT.h>                     // EnvSource2Alpha default header
+#include <OSGGL.h>                        // EnvOperand0RGB default header
+#include <OSGGL.h>                        // EnvOperand1RGB default header
+#include <OSGGL.h>                        // EnvOperand2RGB default header
+#include <OSGGL.h>                        // EnvOperand0Alpha default header
+#include <OSGGL.h>                        // EnvOperand1Alpha default header
+#include <OSGGL.h>                        // EnvOperand2Alpha default header
+#include <OSGGL.h>                        // PointSprite default header
+#include <OSGGL.h>                        // ShaderOperation default header
+#include <OSGGL.h>                        // ShaderInput default header
+#include <OSGGL.h>                        // ShaderRGBADotProduct default header
 
 
 #include "OSGTextureEnvChunkBase.h"
 #include "OSGTextureEnvChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var GLenum TextureEnvChunkBase::_sfEnvMode
-            Texture environment mode, default GL_REPLACE
+/*! \class OSG::TextureEnvChunk
+    \ingroup GrpSystemState
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvMode
+    Texture environment mode, default GL_REPLACE.
 */
-/*! \var Color4f TextureEnvChunkBase::_sfEnvColor
-            Texture environment color default transparent black.
-
+/*! \var Color4f         TextureEnvChunkBase::_sfEnvColor
+    Texture environment color default transparent black.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvCombineRGB
-            Texture environment rgb combine mode, default GL_MODULATE
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvCombineRGB
+    Texture environment rgb combine mode, default GL_MODULATE.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvCombineAlpha
-            Texture environment alpha combine mode, default GL_MODULATE
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvCombineAlpha
+    Texture environment alpha combine mode, default GL_MODULATE.
 */
-/*! \var Real32 TextureEnvChunkBase::_sfEnvScaleRGB
-            Texture environment combine rgb scale factor, default 1.f
-
+/*! \var Real32          TextureEnvChunkBase::_sfEnvScaleRGB
+    Texture environment combine rgb scale factor, default 1.f.
 */
-/*! \var Real32 TextureEnvChunkBase::_sfEnvScaleAlpha
-            Texture environment combine alpha scale factor, default 1.f
-
+/*! \var Real32          TextureEnvChunkBase::_sfEnvScaleAlpha
+    Texture environment combine alpha scale factor, default 1.f.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvSource0RGB
-            Texture environment combine source 0 rgb, default GL_TEXTURE
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvSource0RGB
+    Texture environment combine source 0 rgb, default GL_TEXTURE.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvSource1RGB
-            Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvSource1RGB
+    Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvSource2RGB
-            Texture environment combine source 2 rgb, default GL_CONSTANT_EXT
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvSource2RGB
+    Texture environment combine source 2 rgb, default GL_CONSTANT_EXT.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvSource0Alpha
-            Texture environment combine source 0 alpha, default GL_TEXTURE
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvSource0Alpha
+    Texture environment combine source 0 alpha, default GL_TEXTURE.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvSource1Alpha
-            Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvSource1Alpha
+    Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvSource2Alpha
-            Texture environment combine source 2 alpha, default GL_CONSTANT_EXT
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvSource2Alpha
+    Texture environment combine source 2 alpha, default GL_CONSTANT_EXT.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvOperand0RGB
-            Texture environment combine operand 0 rgb, default GL_SRC_COLOR
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand0RGB
+    Texture environment combine operand 0 rgb, default GL_SRC_COLOR.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvOperand1RGB
-            Texture environment combine operand 1 rgb, default GL_SRC_COLOR
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand1RGB
+    Texture environment combine operand 1 rgb, default GL_SRC_COLOR.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvOperand2RGB
-            Texture environment combine operand 2 rgb, default GL_SRC_ALPHA
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand2RGB
+    Texture environment combine operand 2 rgb, default GL_SRC_ALPHA.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvOperand0Alpha
-            Texture environment combine operand 0 alpha, default GL_SRC_ALPHA
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand0Alpha
+    Texture environment combine operand 0 alpha, default GL_SRC_ALPHA.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvOperand1Alpha
-            Texture environment combine operand 1 alpha, default GL_SRC_ALPHA
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand1Alpha
+    Texture environment combine operand 1 alpha, default GL_SRC_ALPHA.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfEnvOperand2Alpha
-            Texture environment combine operand 2 alpha, default GL_SRC_ALPHA
-
+/*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand2Alpha
+    Texture environment combine operand 2 alpha, default GL_SRC_ALPHA.
 */
-/*! \var bool TextureEnvChunkBase::_sfPointSprite
-            Flag to use this texture for Point Sprites.
-
+/*! \var bool            TextureEnvChunkBase::_sfPointSprite
+    Flag to use this texture for Point Sprites.
 */
-/*! \var GLenum TextureEnvChunkBase::_sfShaderOperation
-            Shader operation of this texture unit, default GL_NONE. If unit 0 uses
-        GL_NONE, shading is switched off.  (GL_SHADER_OPERATION_NV)
-
+/*! \var GLenum          TextureEnvChunkBase::_sfShaderOperation
+    Shader operation of this texture unit, default GL_NONE. If unit 0 uses
+    GL_NONE, shading is switched off. (GL_SHADER_OPERATION_NV).
 */
-/*! \var GLenum TextureEnvChunkBase::_sfShaderInput
-            Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)
-
+/*! \var GLenum          TextureEnvChunkBase::_sfShaderInput
+    Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)
 */
-/*! \var Real32 TextureEnvChunkBase::_mfShaderOffsetMatrix
-            The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)
-
+/*! \var Real32          TextureEnvChunkBase::_mfShaderOffsetMatrix
+    The 2x2 transformation matrix for offset textures.
+    (GL_OFFSET_TEXTURE_MATRIX_NV)
 */
-/*! \var Real32 TextureEnvChunkBase::_sfShaderOffsetScale
-            The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)
-
+/*! \var Real32          TextureEnvChunkBase::_sfShaderOffsetScale
+    The scaling factor for scaled offset textures.
+    (GL_OFFSET_TEXTURE_SCALE_NV)
 */
-/*! \var Real32 TextureEnvChunkBase::_sfShaderOffsetBias
-            The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)
-
+/*! \var Real32          TextureEnvChunkBase::_sfShaderOffsetBias
+    The bias factor for scaled offset textures.
+    (GL_OFFSET_TEXTURE_BIAS_NV)
 */
-/*! \var GLenum TextureEnvChunkBase::_sfShaderRGBADotProduct
-            The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.
-
+/*! \var GLenum          TextureEnvChunkBase::_sfShaderRGBADotProduct
+    The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.
 */
-/*! \var UInt8 TextureEnvChunkBase::_sfShaderCullModes
-            The CULL_MODES_NV value, coded into a single byte. The first 4 bits of
-        the byte are used to indicate the wnated cull modes, a value of 0 
-        signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for 
-        the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4 
-        (mask 8) for Q.
-
+/*! \var UInt8           TextureEnvChunkBase::_sfShaderCullModes
+    The CULL_MODES_NV value, coded into a single byte. The first 4 bits of
+    the byte are used to indicate the wnated cull modes, a value of 0
+    signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for
+    the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4
+    (mask 8) for Q.
 */
-/*! \var Vec3f TextureEnvChunkBase::_sfShaderConstEye
-            The CONST_EYE_NV value, i.e. the constant eye position used by the 
-        DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.
-
+/*! \var Vec3f           TextureEnvChunkBase::_sfShaderConstEye
+    The CONST_EYE_NV value, i.e. the constant eye position used by the
+    DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.
 */
-/*! \var Real32 TextureEnvChunkBase::_sfLodBias
-            Bias of LOD calculation for texture access.
-
+/*! \var Real32          TextureEnvChunkBase::_sfLodBias
+    Bias of LOD calculation for texture access.
 */
 
 void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -219,9 +204,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envMode", 
-        "        Texture environment mode, default GL_REPLACE\n",
+        SFGLenum::getClassType(),
+        "envMode",
+        "Texture environment mode, default GL_REPLACE.\n",
         EnvModeFieldId, EnvModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -241,9 +226,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "envColor", 
-        "        Texture environment color default transparent black.\n",
+        SFColor4f::getClassType(),
+        "envColor",
+        "Texture environment color default transparent black.\n",
         EnvColorFieldId, EnvColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -263,9 +248,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envCombineRGB", 
-        "        Texture environment rgb combine mode, default GL_MODULATE\n",
+        SFGLenum::getClassType(),
+        "envCombineRGB",
+        "Texture environment rgb combine mode, default GL_MODULATE.\n",
         EnvCombineRGBFieldId, EnvCombineRGBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -285,9 +270,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envCombineAlpha", 
-        "        Texture environment alpha combine mode, default GL_MODULATE\n",
+        SFGLenum::getClassType(),
+        "envCombineAlpha",
+        "Texture environment alpha combine mode, default GL_MODULATE.\n",
         EnvCombineAlphaFieldId, EnvCombineAlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -307,9 +292,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "envScaleRGB", 
-        "        Texture environment combine rgb scale factor, default 1.f\n",
+        SFReal32::getClassType(),
+        "envScaleRGB",
+        "Texture environment combine rgb scale factor, default 1.f.\n",
         EnvScaleRGBFieldId, EnvScaleRGBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -329,9 +314,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "envScaleAlpha", 
-        "        Texture environment combine alpha scale factor, default 1.f\n",
+        SFReal32::getClassType(),
+        "envScaleAlpha",
+        "Texture environment combine alpha scale factor, default 1.f.\n",
         EnvScaleAlphaFieldId, EnvScaleAlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -351,9 +336,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envSource0RGB", 
-        "        Texture environment combine source 0 rgb, default GL_TEXTURE\n",
+        SFGLenum::getClassType(),
+        "envSource0RGB",
+        "Texture environment combine source 0 rgb, default GL_TEXTURE.\n",
         EnvSource0RGBFieldId, EnvSource0RGBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -373,9 +358,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envSource1RGB", 
-        "        Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT\n",
+        SFGLenum::getClassType(),
+        "envSource1RGB",
+        "Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT.\n",
         EnvSource1RGBFieldId, EnvSource1RGBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -395,9 +380,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envSource2RGB", 
-        "        Texture environment combine source 2 rgb, default GL_CONSTANT_EXT\n",
+        SFGLenum::getClassType(),
+        "envSource2RGB",
+        "Texture environment combine source 2 rgb, default GL_CONSTANT_EXT.\n",
         EnvSource2RGBFieldId, EnvSource2RGBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -417,9 +402,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envSource0Alpha", 
-        "        Texture environment combine source 0 alpha, default GL_TEXTURE\n",
+        SFGLenum::getClassType(),
+        "envSource0Alpha",
+        "Texture environment combine source 0 alpha, default GL_TEXTURE.\n",
         EnvSource0AlphaFieldId, EnvSource0AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -439,9 +424,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envSource1Alpha", 
-        "        Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT\n",
+        SFGLenum::getClassType(),
+        "envSource1Alpha",
+        "Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT.\n",
         EnvSource1AlphaFieldId, EnvSource1AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -461,9 +446,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envSource2Alpha", 
-        "        Texture environment combine source 2 alpha, default GL_CONSTANT_EXT\n",
+        SFGLenum::getClassType(),
+        "envSource2Alpha",
+        "Texture environment combine source 2 alpha, default GL_CONSTANT_EXT.\n",
         EnvSource2AlphaFieldId, EnvSource2AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -483,9 +468,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envOperand0RGB", 
-        "        Texture environment combine operand 0 rgb, default GL_SRC_COLOR\n",
+        SFGLenum::getClassType(),
+        "envOperand0RGB",
+        "Texture environment combine operand 0 rgb, default GL_SRC_COLOR.\n",
         EnvOperand0RGBFieldId, EnvOperand0RGBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -505,9 +490,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envOperand1RGB", 
-        "        Texture environment combine operand 1 rgb, default GL_SRC_COLOR\n",
+        SFGLenum::getClassType(),
+        "envOperand1RGB",
+        "Texture environment combine operand 1 rgb, default GL_SRC_COLOR.\n",
         EnvOperand1RGBFieldId, EnvOperand1RGBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -527,9 +512,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envOperand2RGB", 
-        "        Texture environment combine operand 2 rgb, default GL_SRC_ALPHA\n",
+        SFGLenum::getClassType(),
+        "envOperand2RGB",
+        "Texture environment combine operand 2 rgb, default GL_SRC_ALPHA.\n",
         EnvOperand2RGBFieldId, EnvOperand2RGBFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -549,9 +534,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envOperand0Alpha", 
-        "        Texture environment combine operand 0 alpha, default GL_SRC_ALPHA\n",
+        SFGLenum::getClassType(),
+        "envOperand0Alpha",
+        "Texture environment combine operand 0 alpha, default GL_SRC_ALPHA.\n",
         EnvOperand0AlphaFieldId, EnvOperand0AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -571,9 +556,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envOperand1Alpha", 
-        "        Texture environment combine operand 1 alpha, default GL_SRC_ALPHA\n",
+        SFGLenum::getClassType(),
+        "envOperand1Alpha",
+        "Texture environment combine operand 1 alpha, default GL_SRC_ALPHA.\n",
         EnvOperand1AlphaFieldId, EnvOperand1AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -593,9 +578,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envOperand2Alpha", 
-        "        Texture environment combine operand 2 alpha, default GL_SRC_ALPHA\n",
+        SFGLenum::getClassType(),
+        "envOperand2Alpha",
+        "Texture environment combine operand 2 alpha, default GL_SRC_ALPHA.\n",
         EnvOperand2AlphaFieldId, EnvOperand2AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -615,9 +600,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "pointSprite", 
-        "        Flag to use this texture for Point Sprites.\n",
+        SFBool::getClassType(),
+        "pointSprite",
+        "Flag to use this texture for Point Sprites.\n",
         PointSpriteFieldId, PointSpriteFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -637,9 +622,10 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "shaderOperation", 
-        "        Shader operation of this texture unit, default GL_NONE. If unit 0 uses\n        GL_NONE, shading is switched off.  (GL_SHADER_OPERATION_NV)\n",
+        SFGLenum::getClassType(),
+        "shaderOperation",
+        "Shader operation of this texture unit, default GL_NONE. If unit 0 uses\n"
+        "GL_NONE, shading is switched off. (GL_SHADER_OPERATION_NV).\n",
         ShaderOperationFieldId, ShaderOperationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -659,9 +645,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "shaderInput", 
-        "        Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)\n",
+        SFGLenum::getClassType(),
+        "shaderInput",
+        "Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)\n",
         ShaderInputFieldId, ShaderInputFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -681,9 +667,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFReal32::Description(
-        MFReal32::getClassType(), 
-        "shaderOffsetMatrix", 
-        "        The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)\n",
+        MFReal32::getClassType(),
+        "shaderOffsetMatrix",
+        "The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)\n",
         ShaderOffsetMatrixFieldId, ShaderOffsetMatrixFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -703,9 +689,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "shaderOffsetScale", 
-        "        The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)\n",
+        SFReal32::getClassType(),
+        "shaderOffsetScale",
+        "The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)\n",
         ShaderOffsetScaleFieldId, ShaderOffsetScaleFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -725,9 +711,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "shaderOffsetBias", 
-        "        The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)\n",
+        SFReal32::getClassType(),
+        "shaderOffsetBias",
+        "The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)\n",
         ShaderOffsetBiasFieldId, ShaderOffsetBiasFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -747,9 +733,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "shaderRGBADotProduct", 
-        "        The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.\n",
+        SFGLenum::getClassType(),
+        "shaderRGBADotProduct",
+        "The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.\n",
         ShaderRGBADotProductFieldId, ShaderRGBADotProductFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -769,9 +755,13 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt8::Description(
-        SFUInt8::getClassType(), 
-        "shaderCullModes", 
-        "        The CULL_MODES_NV value, coded into a single byte. The first 4 bits of\n        the byte are used to indicate the wnated cull modes, a value of 0 \n        signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for \n        the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4 \n        (mask 8) for Q.\n",
+        SFUInt8::getClassType(),
+        "shaderCullModes",
+        "The CULL_MODES_NV value, coded into a single byte. The first 4 bits of\n"
+        "the byte are used to indicate the wnated cull modes, a value of 0 \n"
+        "signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for \n"
+        "the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4 \n"
+        "(mask 8) for Q.\n",
         ShaderCullModesFieldId, ShaderCullModesFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -791,9 +781,10 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec3f::Description(
-        SFVec3f::getClassType(), 
-        "shaderConstEye", 
-        "        The CONST_EYE_NV value, i.e. the constant eye position used by the \n        DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.\n",
+        SFVec3f::getClassType(),
+        "shaderConstEye",
+        "The CONST_EYE_NV value, i.e. the constant eye position used by the \n"
+        "DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.\n",
         ShaderConstEyeFieldId, ShaderConstEyeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -813,9 +804,9 @@ void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "lodBias", 
-        "        Bias of LOD calculation for texture access.\n",
+        SFReal32::getClassType(),
+        "lodBias",
+        "Bias of LOD calculation for texture access.\n",
         LodBiasFieldId, LodBiasFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -840,345 +831,345 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(true,
     (InitalInsertDescFunc) &TextureEnvChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TextureEnvChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"envMode\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_REPLACE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE\"\n"
-"	>\n"
-"        Texture environment mode, default GL_REPLACE\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envColor\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0,0,0,0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment color default transparent black.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envCombineRGB\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_MODULATE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT, GL_DOT3_RGB, GL_DOT3_RGBA\"\n"
-"	>\n"
-"        Texture environment rgb combine mode, default GL_MODULATE\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envCombineAlpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_MODULATE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT\"\n"
-"	>\n"
-"        Texture environment alpha combine mode, default GL_MODULATE\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envScaleRGB\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine rgb scale factor, default 1.f\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envScaleAlpha\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine alpha scale factor, default 1.f\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envSource0RGB\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_TEXTURE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine source 0 rgb, default GL_TEXTURE\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envSource1RGB\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_PREVIOUS_EXT\"\n"
-"		defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envSource2RGB\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_CONSTANT_EXT\"\n"
-"		defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine source 2 rgb, default GL_CONSTANT_EXT\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envSource0Alpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_TEXTURE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine source 0 alpha, default GL_TEXTURE\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envSource1Alpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_PREVIOUS_EXT\"\n"
-"		defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envSource2Alpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_CONSTANT_EXT\"\n"
-"		defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine source 2 alpha, default GL_CONSTANT_EXT\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envOperand0RGB\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_SRC_COLOR\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine operand 0 rgb, default GL_SRC_COLOR\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envOperand1RGB\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_SRC_COLOR\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine operand 1 rgb, default GL_SRC_COLOR\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envOperand2RGB\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_SRC_ALPHA\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine operand 2 rgb, default GL_SRC_ALPHA\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envOperand0Alpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_SRC_ALPHA\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine operand 0 alpha, default GL_SRC_ALPHA\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envOperand1Alpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_SRC_ALPHA\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine operand 1 alpha, default GL_SRC_ALPHA\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envOperand2Alpha\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_SRC_ALPHA\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Texture environment combine operand 2 alpha, default GL_SRC_ALPHA\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"pointSprite\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"GL_FALSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"        Flag to use this texture for Point Sprites.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shaderOperation\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"        Shader operation of this texture unit, default GL_NONE. If unit 0 uses\n"
-"        GL_NONE, shading is switched off.  (GL_SHADER_OPERATION_NV)\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shaderInput\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"        Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shaderOffsetMatrix\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shaderOffsetScale\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"1.f\"\n"
-"	>\n"
-"        The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shaderOffsetBias\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0.f\"\n"
-"	>\n"
-"        The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shaderRGBADotProduct\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"        The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shaderCullModes\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0\"\n"
-"	>\n"
-"        The CULL_MODES_NV value, coded into a single byte. The first 4 bits of\n"
-"        the byte are used to indicate the wnated cull modes, a value of 0 \n"
-"        signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for \n"
-"        the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4 \n"
-"        (mask 8) for Q.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shaderConstEye\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The CONST_EYE_NV value, i.e. the constant eye position used by the \n"
-"        DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"lodBias\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0.f\"\n"
-"		defaultHeader=\"\"\n"
-"	>\n"
-"        Bias of LOD calculation for texture access.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TextureEnvChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\t<Field\n"
+    "\t\tname=\"envMode\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_REPLACE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE\"\n"
+    "\t>\n"
+    "        Texture environment mode, default GL_REPLACE.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0,0,0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment color default transparent black.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envCombineRGB\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_MODULATE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT, GL_DOT3_RGB, GL_DOT3_RGBA\"\n"
+    "\t>\n"
+    "        Texture environment rgb combine mode, default GL_MODULATE.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envCombineAlpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_MODULATE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT\"\n"
+    "\t>\n"
+    "        Texture environment alpha combine mode, default GL_MODULATE.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envScaleRGB\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine rgb scale factor, default 1.f.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envScaleAlpha\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine alpha scale factor, default 1.f.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envSource0RGB\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_TEXTURE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine source 0 rgb, default GL_TEXTURE.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envSource1RGB\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_PREVIOUS_EXT\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envSource2RGB\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_CONSTANT_EXT\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine source 2 rgb, default GL_CONSTANT_EXT.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envSource0Alpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_TEXTURE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine source 0 alpha, default GL_TEXTURE.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envSource1Alpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_PREVIOUS_EXT\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envSource2Alpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_CONSTANT_EXT\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine source 2 alpha, default GL_CONSTANT_EXT.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envOperand0RGB\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_SRC_COLOR\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine operand 0 rgb, default GL_SRC_COLOR.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envOperand1RGB\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_SRC_COLOR\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine operand 1 rgb, default GL_SRC_COLOR.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envOperand2RGB\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_SRC_ALPHA\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine operand 2 rgb, default GL_SRC_ALPHA.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envOperand0Alpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_SRC_ALPHA\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine operand 0 alpha, default GL_SRC_ALPHA.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envOperand1Alpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_SRC_ALPHA\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine operand 1 alpha, default GL_SRC_ALPHA.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envOperand2Alpha\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_SRC_ALPHA\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Texture environment combine operand 2 alpha, default GL_SRC_ALPHA.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"pointSprite\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"GL_FALSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "        Flag to use this texture for Point Sprites.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shaderOperation\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "        Shader operation of this texture unit, default GL_NONE. If unit 0 uses\n"
+    "        GL_NONE, shading is switched off. (GL_SHADER_OPERATION_NV).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shaderInput\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "        Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shaderOffsetMatrix\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shaderOffsetScale\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"1.f\"\n"
+    "\t>\n"
+    "        The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shaderOffsetBias\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"0.f\"\n"
+    "\t>\n"
+    "        The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shaderRGBADotProduct\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "        The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shaderCullModes\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t>\n"
+    "        The CULL_MODES_NV value, coded into a single byte. The first 4 bits of\n"
+    "        the byte are used to indicate the wnated cull modes, a value of 0 \n"
+    "        signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for \n"
+    "        the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4 \n"
+    "        (mask 8) for Q.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shaderConstEye\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The CONST_EYE_NV value, i.e. the constant eye position used by the \n"
+    "        DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"lodBias\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"0.f\"\n"
+    "\t\tdefaultHeader=\"\"\n"
+    "\t>\n"
+    "        Bias of LOD calculation for texture access.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureEnvChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureEnvChunkBase::getType(void) const 
+FieldContainerType &TextureEnvChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureEnvChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureEnvChunk); 
+const FieldContainerType &TextureEnvChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureEnvChunkBase::getContainerSize(void) const
+{
+    return sizeof(TextureEnvChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -1197,9 +1188,9 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvMode(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvMode        (void)
 {
-    return this->editSFEnvMode();
+    return this->editSFEnvMode        ();
 }
 #endif
 
@@ -1216,9 +1207,9 @@ const SFColor4f *TextureEnvChunkBase::getSFEnvColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *TextureEnvChunkBase::getSFEnvColor(void)
+SFColor4f           *TextureEnvChunkBase::getSFEnvColor       (void)
 {
-    return this->editSFEnvColor();
+    return this->editSFEnvColor       ();
 }
 #endif
 
@@ -1235,9 +1226,9 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvCombineRGB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvCombineRGB(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvCombineRGB  (void)
 {
-    return this->editSFEnvCombineRGB();
+    return this->editSFEnvCombineRGB  ();
 }
 #endif
 
@@ -1254,7 +1245,7 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvCombineAlpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvCombineAlpha(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvCombineAlpha(void)
 {
     return this->editSFEnvCombineAlpha();
 }
@@ -1273,9 +1264,9 @@ const SFReal32 *TextureEnvChunkBase::getSFEnvScaleRGB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TextureEnvChunkBase::getSFEnvScaleRGB(void)
+SFReal32            *TextureEnvChunkBase::getSFEnvScaleRGB    (void)
 {
-    return this->editSFEnvScaleRGB();
+    return this->editSFEnvScaleRGB    ();
 }
 #endif
 
@@ -1292,9 +1283,9 @@ const SFReal32 *TextureEnvChunkBase::getSFEnvScaleAlpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TextureEnvChunkBase::getSFEnvScaleAlpha(void)
+SFReal32            *TextureEnvChunkBase::getSFEnvScaleAlpha  (void)
 {
-    return this->editSFEnvScaleAlpha();
+    return this->editSFEnvScaleAlpha  ();
 }
 #endif
 
@@ -1311,9 +1302,9 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource0RGB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvSource0RGB(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvSource0RGB  (void)
 {
-    return this->editSFEnvSource0RGB();
+    return this->editSFEnvSource0RGB  ();
 }
 #endif
 
@@ -1330,9 +1321,9 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource1RGB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvSource1RGB(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvSource1RGB  (void)
 {
-    return this->editSFEnvSource1RGB();
+    return this->editSFEnvSource1RGB  ();
 }
 #endif
 
@@ -1349,9 +1340,9 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource2RGB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvSource2RGB(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvSource2RGB  (void)
 {
-    return this->editSFEnvSource2RGB();
+    return this->editSFEnvSource2RGB  ();
 }
 #endif
 
@@ -1368,7 +1359,7 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource0Alpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvSource0Alpha(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvSource0Alpha(void)
 {
     return this->editSFEnvSource0Alpha();
 }
@@ -1387,7 +1378,7 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource1Alpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvSource1Alpha(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvSource1Alpha(void)
 {
     return this->editSFEnvSource1Alpha();
 }
@@ -1406,7 +1397,7 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvSource2Alpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvSource2Alpha(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvSource2Alpha(void)
 {
     return this->editSFEnvSource2Alpha();
 }
@@ -1425,9 +1416,9 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand0RGB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvOperand0RGB(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvOperand0RGB (void)
 {
-    return this->editSFEnvOperand0RGB();
+    return this->editSFEnvOperand0RGB ();
 }
 #endif
 
@@ -1444,9 +1435,9 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand1RGB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvOperand1RGB(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvOperand1RGB (void)
 {
-    return this->editSFEnvOperand1RGB();
+    return this->editSFEnvOperand1RGB ();
 }
 #endif
 
@@ -1463,9 +1454,9 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand2RGB(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvOperand2RGB(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvOperand2RGB (void)
 {
-    return this->editSFEnvOperand2RGB();
+    return this->editSFEnvOperand2RGB ();
 }
 #endif
 
@@ -1482,7 +1473,7 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand0Alpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvOperand0Alpha(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvOperand0Alpha(void)
 {
     return this->editSFEnvOperand0Alpha();
 }
@@ -1501,7 +1492,7 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand1Alpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvOperand1Alpha(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvOperand1Alpha(void)
 {
     return this->editSFEnvOperand1Alpha();
 }
@@ -1520,7 +1511,7 @@ const SFGLenum *TextureEnvChunkBase::getSFEnvOperand2Alpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFEnvOperand2Alpha(void)
+SFGLenum            *TextureEnvChunkBase::getSFEnvOperand2Alpha(void)
 {
     return this->editSFEnvOperand2Alpha();
 }
@@ -1539,9 +1530,9 @@ const SFBool *TextureEnvChunkBase::getSFPointSprite(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *TextureEnvChunkBase::getSFPointSprite(void)
+SFBool              *TextureEnvChunkBase::getSFPointSprite    (void)
 {
-    return this->editSFPointSprite();
+    return this->editSFPointSprite    ();
 }
 #endif
 
@@ -1558,7 +1549,7 @@ const SFGLenum *TextureEnvChunkBase::getSFShaderOperation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFShaderOperation(void)
+SFGLenum            *TextureEnvChunkBase::getSFShaderOperation(void)
 {
     return this->editSFShaderOperation();
 }
@@ -1577,9 +1568,9 @@ const SFGLenum *TextureEnvChunkBase::getSFShaderInput(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFShaderInput(void)
+SFGLenum            *TextureEnvChunkBase::getSFShaderInput    (void)
 {
-    return this->editSFShaderInput();
+    return this->editSFShaderInput    ();
 }
 #endif
 
@@ -1596,7 +1587,7 @@ const MFReal32 *TextureEnvChunkBase::getMFShaderOffsetMatrix(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFReal32 *TextureEnvChunkBase::getMFShaderOffsetMatrix(void)
+MFReal32            *TextureEnvChunkBase::getMFShaderOffsetMatrix(void)
 {
     return this->editMFShaderOffsetMatrix();
 }
@@ -1615,7 +1606,7 @@ const SFReal32 *TextureEnvChunkBase::getSFShaderOffsetScale(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TextureEnvChunkBase::getSFShaderOffsetScale(void)
+SFReal32            *TextureEnvChunkBase::getSFShaderOffsetScale(void)
 {
     return this->editSFShaderOffsetScale();
 }
@@ -1634,7 +1625,7 @@ const SFReal32 *TextureEnvChunkBase::getSFShaderOffsetBias(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TextureEnvChunkBase::getSFShaderOffsetBias(void)
+SFReal32            *TextureEnvChunkBase::getSFShaderOffsetBias(void)
 {
     return this->editSFShaderOffsetBias();
 }
@@ -1653,7 +1644,7 @@ const SFGLenum *TextureEnvChunkBase::getSFShaderRGBADotProduct(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureEnvChunkBase::getSFShaderRGBADotProduct(void)
+SFGLenum            *TextureEnvChunkBase::getSFShaderRGBADotProduct(void)
 {
     return this->editSFShaderRGBADotProduct();
 }
@@ -1672,7 +1663,7 @@ const SFUInt8 *TextureEnvChunkBase::getSFShaderCullModes(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt8 *TextureEnvChunkBase::getSFShaderCullModes(void)
+SFUInt8             *TextureEnvChunkBase::getSFShaderCullModes(void)
 {
     return this->editSFShaderCullModes();
 }
@@ -1691,9 +1682,9 @@ const SFVec3f *TextureEnvChunkBase::getSFShaderConstEye(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec3f *TextureEnvChunkBase::getSFShaderConstEye(void)
+SFVec3f             *TextureEnvChunkBase::getSFShaderConstEye (void)
 {
-    return this->editSFShaderConstEye();
+    return this->editSFShaderConstEye ();
 }
 #endif
 
@@ -1710,9 +1701,9 @@ const SFReal32 *TextureEnvChunkBase::getSFLodBias(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TextureEnvChunkBase::getSFLodBias(void)
+SFReal32            *TextureEnvChunkBase::getSFLodBias        (void)
 {
-    return this->editSFLodBias();
+    return this->editSFLodBias        ();
 }
 #endif
 
@@ -2079,22 +2070,22 @@ void TextureEnvChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureEnvChunkPtr TextureEnvChunkBase::createEmpty(void) 
-{ 
-    TextureEnvChunkPtr returnValue; 
-    
-    newPtr<TextureEnvChunk>(returnValue); 
+TextureEnvChunkPtr TextureEnvChunkBase::createEmpty(void)
+{
+    TextureEnvChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<TextureEnvChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TextureEnvChunkBase::shallowCopy(void) const 
-{ 
-    TextureEnvChunkPtr returnValue; 
+FieldContainerPtr TextureEnvChunkBase::shallowCopy(void) const
+{
+    TextureEnvChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TextureEnvChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TextureEnvChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -2103,67 +2094,67 @@ FieldContainerPtr TextureEnvChunkBase::shallowCopy(void) const
 
 TextureEnvChunkBase::TextureEnvChunkBase(void) :
     Inherited(),
-    _sfEnvMode(GLenum(GL_REPLACE)),
-    _sfEnvColor(Color4f(0,0,0,0)),
-    _sfEnvCombineRGB(GLenum(GL_MODULATE)),
-    _sfEnvCombineAlpha(GLenum(GL_MODULATE)),
-    _sfEnvScaleRGB(Real32(1.0f)),
-    _sfEnvScaleAlpha(Real32(1.0f)),
-    _sfEnvSource0RGB(GLenum(GL_TEXTURE)),
-    _sfEnvSource1RGB(GLenum(GL_PREVIOUS_EXT)),
-    _sfEnvSource2RGB(GLenum(GL_CONSTANT_EXT)),
-    _sfEnvSource0Alpha(GLenum(GL_TEXTURE)),
-    _sfEnvSource1Alpha(GLenum(GL_PREVIOUS_EXT)),
-    _sfEnvSource2Alpha(GLenum(GL_CONSTANT_EXT)),
-    _sfEnvOperand0RGB(GLenum(GL_SRC_COLOR)),
-    _sfEnvOperand1RGB(GLenum(GL_SRC_COLOR)),
-    _sfEnvOperand2RGB(GLenum(GL_SRC_ALPHA)),
-    _sfEnvOperand0Alpha(GLenum(GL_SRC_ALPHA)),
-    _sfEnvOperand1Alpha(GLenum(GL_SRC_ALPHA)),
-    _sfEnvOperand2Alpha(GLenum(GL_SRC_ALPHA)),
-    _sfPointSprite(bool(GL_FALSE)),
-    _sfShaderOperation(GLenum(GL_NONE)),
-    _sfShaderInput(GLenum(GL_NONE)),
-    _mfShaderOffsetMatrix(),
-    _sfShaderOffsetScale(Real32(1.f)),
-    _sfShaderOffsetBias(Real32(0.f)),
-    _sfShaderRGBADotProduct(GLenum(GL_NONE)),
-    _sfShaderCullModes(UInt8(0)),
-    _sfShaderConstEye(),
-    _sfLodBias(Real32(0.f))
+    _sfEnvMode                (GLenum(GL_REPLACE)),
+    _sfEnvColor               (Color4f(0,0,0,0)),
+    _sfEnvCombineRGB          (GLenum(GL_MODULATE)),
+    _sfEnvCombineAlpha        (GLenum(GL_MODULATE)),
+    _sfEnvScaleRGB            (Real32(1.0f)),
+    _sfEnvScaleAlpha          (Real32(1.0f)),
+    _sfEnvSource0RGB          (GLenum(GL_TEXTURE)),
+    _sfEnvSource1RGB          (GLenum(GL_PREVIOUS_EXT)),
+    _sfEnvSource2RGB          (GLenum(GL_CONSTANT_EXT)),
+    _sfEnvSource0Alpha        (GLenum(GL_TEXTURE)),
+    _sfEnvSource1Alpha        (GLenum(GL_PREVIOUS_EXT)),
+    _sfEnvSource2Alpha        (GLenum(GL_CONSTANT_EXT)),
+    _sfEnvOperand0RGB         (GLenum(GL_SRC_COLOR)),
+    _sfEnvOperand1RGB         (GLenum(GL_SRC_COLOR)),
+    _sfEnvOperand2RGB         (GLenum(GL_SRC_ALPHA)),
+    _sfEnvOperand0Alpha       (GLenum(GL_SRC_ALPHA)),
+    _sfEnvOperand1Alpha       (GLenum(GL_SRC_ALPHA)),
+    _sfEnvOperand2Alpha       (GLenum(GL_SRC_ALPHA)),
+    _sfPointSprite            (bool(GL_FALSE)),
+    _sfShaderOperation        (GLenum(GL_NONE)),
+    _sfShaderInput            (GLenum(GL_NONE)),
+    _mfShaderOffsetMatrix     (),
+    _sfShaderOffsetScale      (Real32(1.f)),
+    _sfShaderOffsetBias       (Real32(0.f)),
+    _sfShaderRGBADotProduct   (GLenum(GL_NONE)),
+    _sfShaderCullModes        (UInt8(0)),
+    _sfShaderConstEye         (),
+    _sfLodBias                (Real32(0.f))
 {
 }
 
 TextureEnvChunkBase::TextureEnvChunkBase(const TextureEnvChunkBase &source) :
     Inherited(source),
-    _sfEnvMode(source._sfEnvMode),
-    _sfEnvColor(source._sfEnvColor),
-    _sfEnvCombineRGB(source._sfEnvCombineRGB),
-    _sfEnvCombineAlpha(source._sfEnvCombineAlpha),
-    _sfEnvScaleRGB(source._sfEnvScaleRGB),
-    _sfEnvScaleAlpha(source._sfEnvScaleAlpha),
-    _sfEnvSource0RGB(source._sfEnvSource0RGB),
-    _sfEnvSource1RGB(source._sfEnvSource1RGB),
-    _sfEnvSource2RGB(source._sfEnvSource2RGB),
-    _sfEnvSource0Alpha(source._sfEnvSource0Alpha),
-    _sfEnvSource1Alpha(source._sfEnvSource1Alpha),
-    _sfEnvSource2Alpha(source._sfEnvSource2Alpha),
-    _sfEnvOperand0RGB(source._sfEnvOperand0RGB),
-    _sfEnvOperand1RGB(source._sfEnvOperand1RGB),
-    _sfEnvOperand2RGB(source._sfEnvOperand2RGB),
-    _sfEnvOperand0Alpha(source._sfEnvOperand0Alpha),
-    _sfEnvOperand1Alpha(source._sfEnvOperand1Alpha),
-    _sfEnvOperand2Alpha(source._sfEnvOperand2Alpha),
-    _sfPointSprite(source._sfPointSprite),
-    _sfShaderOperation(source._sfShaderOperation),
-    _sfShaderInput(source._sfShaderInput),
-    _mfShaderOffsetMatrix(source._mfShaderOffsetMatrix),
-    _sfShaderOffsetScale(source._sfShaderOffsetScale),
-    _sfShaderOffsetBias(source._sfShaderOffsetBias),
-    _sfShaderRGBADotProduct(source._sfShaderRGBADotProduct),
-    _sfShaderCullModes(source._sfShaderCullModes),
-    _sfShaderConstEye(source._sfShaderConstEye),
-    _sfLodBias(source._sfLodBias)
+    _sfEnvMode                (source._sfEnvMode                ),
+    _sfEnvColor               (source._sfEnvColor               ),
+    _sfEnvCombineRGB          (source._sfEnvCombineRGB          ),
+    _sfEnvCombineAlpha        (source._sfEnvCombineAlpha        ),
+    _sfEnvScaleRGB            (source._sfEnvScaleRGB            ),
+    _sfEnvScaleAlpha          (source._sfEnvScaleAlpha          ),
+    _sfEnvSource0RGB          (source._sfEnvSource0RGB          ),
+    _sfEnvSource1RGB          (source._sfEnvSource1RGB          ),
+    _sfEnvSource2RGB          (source._sfEnvSource2RGB          ),
+    _sfEnvSource0Alpha        (source._sfEnvSource0Alpha        ),
+    _sfEnvSource1Alpha        (source._sfEnvSource1Alpha        ),
+    _sfEnvSource2Alpha        (source._sfEnvSource2Alpha        ),
+    _sfEnvOperand0RGB         (source._sfEnvOperand0RGB         ),
+    _sfEnvOperand1RGB         (source._sfEnvOperand1RGB         ),
+    _sfEnvOperand2RGB         (source._sfEnvOperand2RGB         ),
+    _sfEnvOperand0Alpha       (source._sfEnvOperand0Alpha       ),
+    _sfEnvOperand1Alpha       (source._sfEnvOperand1Alpha       ),
+    _sfEnvOperand2Alpha       (source._sfEnvOperand2Alpha       ),
+    _sfPointSprite            (source._sfPointSprite            ),
+    _sfShaderOperation        (source._sfShaderOperation        ),
+    _sfShaderInput            (source._sfShaderInput            ),
+    _mfShaderOffsetMatrix     (source._mfShaderOffsetMatrix     ),
+    _sfShaderOffsetScale      (source._sfShaderOffsetScale      ),
+    _sfShaderOffsetBias       (source._sfShaderOffsetBias       ),
+    _sfShaderRGBADotProduct   (source._sfShaderRGBADotProduct   ),
+    _sfShaderCullModes        (source._sfShaderCullModes        ),
+    _sfShaderConstEye         (source._sfShaderConstEye         ),
+    _sfLodBias                (source._sfLodBias                )
 {
 }
 
@@ -2177,13 +2168,13 @@ TextureEnvChunkBase::~TextureEnvChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureEnvChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureEnvChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -2193,10 +2184,10 @@ void TextureEnvChunkBase::execSyncV(      FieldContainer    &oFrom,
 void TextureEnvChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureEnvChunkBase *>(&oFrom), 
+    this->execSync(static_cast<TextureEnvChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -2216,12 +2207,12 @@ void TextureEnvChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureEnvChunkBase::createAspectCopy(void) const
 {
-    TextureEnvChunkPtr returnValue; 
+    TextureEnvChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TextureEnvChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TextureEnvChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -2230,6 +2221,8 @@ void TextureEnvChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -2252,8 +2245,6 @@ OSG_FIELDTRAITS_GETTYPE(TextureEnvChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TextureEnvChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TextureEnvChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -2274,3 +2265,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTUREENVCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

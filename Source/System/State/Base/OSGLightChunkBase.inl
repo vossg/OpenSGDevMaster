@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &LightChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 LightChunkBase::getClassTypeId(void) 
+OSG::UInt32 LightChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 LightChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Color4r &LightChunkBase::getDiffuse(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &LightChunkBase::getDiffuse(void)
+Color4r             &LightChunkBase::getDiffuse        (void)
 {
-    return this->editDiffuse();
+    return this->editDiffuse        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Color4r &LightChunkBase::getAmbient(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &LightChunkBase::getAmbient(void)
+Color4r             &LightChunkBase::getAmbient        (void)
 {
-    return this->editAmbient();
+    return this->editAmbient        ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Color4r &LightChunkBase::getSpecular(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &LightChunkBase::getSpecular(void)
+Color4r             &LightChunkBase::getSpecular       (void)
 {
-    return this->editSpecular();
+    return this->editSpecular       ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Vec4r &LightChunkBase::getPosition(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec4r &LightChunkBase::getPosition(void)
+Vec4r               &LightChunkBase::getPosition       (void)
 {
-    return this->editPosition();
+    return this->editPosition       ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const Vec3r &LightChunkBase::getDirection(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3r &LightChunkBase::getDirection(void)
+Vec3r               &LightChunkBase::getDirection      (void)
 {
-    return this->editDirection();
+    return this->editDirection      ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Real &LightChunkBase::getExponent(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &LightChunkBase::getExponent(void)
+Real                &LightChunkBase::getExponent       (void)
 {
-    return this->editExponent();
+    return this->editExponent       ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const Real &LightChunkBase::getCutoff(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &LightChunkBase::getCutoff(void)
+Real                &LightChunkBase::getCutoff         (void)
 {
-    return this->editCutoff();
+    return this->editCutoff         ();
 }
 #endif
 
@@ -323,7 +323,7 @@ const Real &LightChunkBase::getConstantAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &LightChunkBase::getConstantAttenuation(void)
+Real                &LightChunkBase::getConstantAttenuation(void)
 {
     return this->editConstantAttenuation();
 }
@@ -356,7 +356,7 @@ const Real &LightChunkBase::getLinearAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &LightChunkBase::getLinearAttenuation(void)
+Real                &LightChunkBase::getLinearAttenuation(void)
 {
     return this->editLinearAttenuation();
 }
@@ -389,7 +389,7 @@ const Real &LightChunkBase::getQuadraticAttenuation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &LightChunkBase::getQuadraticAttenuation(void)
+Real                &LightChunkBase::getQuadraticAttenuation(void)
 {
     return this->editQuadraticAttenuation();
 }
@@ -423,24 +423,24 @@ void LightChunkBase::setBeacon(NodePtrConstArg value)
 
 //! create a new instance of the class
 inline
-LightChunkPtr LightChunkBase::create(void) 
+LightChunkPtr LightChunkBase::create(void)
 {
-    LightChunkPtr fc; 
+    LightChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<LightChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void LightChunkBase::execSync(      LightChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -486,7 +486,7 @@ inline
 void LightChunkBase::execSync (      LightChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -554,4 +554,3 @@ typedef PointerBuilder<LightChunk>::ObjPtrConstArg  LightChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGLIGHTCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

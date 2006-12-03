@@ -58,25 +58,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::TexGenChunk
-    \ingroup GrpSystemState
-
-See \ref PageSystemTexGenChunk for a description.
-
-This chunk wraps glTexGen(). All 4 coordinates are wrapped in a single chunk
-by using separate gen funcs for each variable (OSG::TexGenChunk::_sfGenFuncS, 
-OSG::TexGenChunk::_sfGenFuncT, OSG::TexGenChunk::_sfGenFuncR, 
-OSG::TexGenChunk::_sfGenFuncQ). The default for each of these is GL_NONE, or
-off. The optional plane parameters are stored in
-OSG::TexGenChunk::_sfGenFuncSPlane, 
-OSG::TexGenChunk::_sfGenFuncTPlane, OSG::TexGenChunk::_sfGenFuncRPlane and
-OSG::TexGenChunk::_sfGenFuncQPlane.
-
-*/
+// Documentation for this class is emited in the
+// OSGTexGenChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGTexGenChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

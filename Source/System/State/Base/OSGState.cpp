@@ -80,18 +80,10 @@ OSG_END_NAMESPACE
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-
-/*! \class OSG::State
-    \ingroup GrpSystemState
-    
-The state base class. See \ref PageSystemState for the conceptual background. 
-
-*/
+// Documentation for this class is emited in the
+// OSGStateBase.cpp file.
+// To modify it, please change the .fcd file (OSGState.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

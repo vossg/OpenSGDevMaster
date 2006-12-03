@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TextureEnvChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TextureEnvChunkBase::getClassTypeId(void) 
+OSG::UInt32 TextureEnvChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TextureEnvChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const GLenum &TextureEnvChunkBase::getEnvMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvMode(void)
+GLenum              &TextureEnvChunkBase::getEnvMode        (void)
 {
-    return this->editEnvMode();
+    return this->editEnvMode        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Color4f &TextureEnvChunkBase::getEnvColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &TextureEnvChunkBase::getEnvColor(void)
+Color4f             &TextureEnvChunkBase::getEnvColor       (void)
 {
-    return this->editEnvColor();
+    return this->editEnvColor       ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const GLenum &TextureEnvChunkBase::getEnvCombineRGB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvCombineRGB(void)
+GLenum              &TextureEnvChunkBase::getEnvCombineRGB  (void)
 {
-    return this->editEnvCombineRGB();
+    return this->editEnvCombineRGB  ();
 }
 #endif
 
@@ -191,7 +191,7 @@ const GLenum &TextureEnvChunkBase::getEnvCombineAlpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvCombineAlpha(void)
+GLenum              &TextureEnvChunkBase::getEnvCombineAlpha(void)
 {
     return this->editEnvCombineAlpha();
 }
@@ -224,9 +224,9 @@ const Real32 &TextureEnvChunkBase::getEnvScaleRGB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureEnvChunkBase::getEnvScaleRGB(void)
+Real32              &TextureEnvChunkBase::getEnvScaleRGB    (void)
 {
-    return this->editEnvScaleRGB();
+    return this->editEnvScaleRGB    ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Real32 &TextureEnvChunkBase::getEnvScaleAlpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureEnvChunkBase::getEnvScaleAlpha(void)
+Real32              &TextureEnvChunkBase::getEnvScaleAlpha  (void)
 {
-    return this->editEnvScaleAlpha();
+    return this->editEnvScaleAlpha  ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const GLenum &TextureEnvChunkBase::getEnvSource0RGB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvSource0RGB(void)
+GLenum              &TextureEnvChunkBase::getEnvSource0RGB  (void)
 {
-    return this->editEnvSource0RGB();
+    return this->editEnvSource0RGB  ();
 }
 #endif
 
@@ -323,9 +323,9 @@ const GLenum &TextureEnvChunkBase::getEnvSource1RGB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvSource1RGB(void)
+GLenum              &TextureEnvChunkBase::getEnvSource1RGB  (void)
 {
-    return this->editEnvSource1RGB();
+    return this->editEnvSource1RGB  ();
 }
 #endif
 
@@ -356,9 +356,9 @@ const GLenum &TextureEnvChunkBase::getEnvSource2RGB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvSource2RGB(void)
+GLenum              &TextureEnvChunkBase::getEnvSource2RGB  (void)
 {
-    return this->editEnvSource2RGB();
+    return this->editEnvSource2RGB  ();
 }
 #endif
 
@@ -389,7 +389,7 @@ const GLenum &TextureEnvChunkBase::getEnvSource0Alpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvSource0Alpha(void)
+GLenum              &TextureEnvChunkBase::getEnvSource0Alpha(void)
 {
     return this->editEnvSource0Alpha();
 }
@@ -422,7 +422,7 @@ const GLenum &TextureEnvChunkBase::getEnvSource1Alpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvSource1Alpha(void)
+GLenum              &TextureEnvChunkBase::getEnvSource1Alpha(void)
 {
     return this->editEnvSource1Alpha();
 }
@@ -455,7 +455,7 @@ const GLenum &TextureEnvChunkBase::getEnvSource2Alpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvSource2Alpha(void)
+GLenum              &TextureEnvChunkBase::getEnvSource2Alpha(void)
 {
     return this->editEnvSource2Alpha();
 }
@@ -488,9 +488,9 @@ const GLenum &TextureEnvChunkBase::getEnvOperand0RGB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvOperand0RGB(void)
+GLenum              &TextureEnvChunkBase::getEnvOperand0RGB (void)
 {
-    return this->editEnvOperand0RGB();
+    return this->editEnvOperand0RGB ();
 }
 #endif
 
@@ -521,9 +521,9 @@ const GLenum &TextureEnvChunkBase::getEnvOperand1RGB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvOperand1RGB(void)
+GLenum              &TextureEnvChunkBase::getEnvOperand1RGB (void)
 {
-    return this->editEnvOperand1RGB();
+    return this->editEnvOperand1RGB ();
 }
 #endif
 
@@ -554,9 +554,9 @@ const GLenum &TextureEnvChunkBase::getEnvOperand2RGB(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvOperand2RGB(void)
+GLenum              &TextureEnvChunkBase::getEnvOperand2RGB (void)
 {
-    return this->editEnvOperand2RGB();
+    return this->editEnvOperand2RGB ();
 }
 #endif
 
@@ -587,7 +587,7 @@ const GLenum &TextureEnvChunkBase::getEnvOperand0Alpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvOperand0Alpha(void)
+GLenum              &TextureEnvChunkBase::getEnvOperand0Alpha(void)
 {
     return this->editEnvOperand0Alpha();
 }
@@ -620,7 +620,7 @@ const GLenum &TextureEnvChunkBase::getEnvOperand1Alpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvOperand1Alpha(void)
+GLenum              &TextureEnvChunkBase::getEnvOperand1Alpha(void)
 {
     return this->editEnvOperand1Alpha();
 }
@@ -653,7 +653,7 @@ const GLenum &TextureEnvChunkBase::getEnvOperand2Alpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getEnvOperand2Alpha(void)
+GLenum              &TextureEnvChunkBase::getEnvOperand2Alpha(void)
 {
     return this->editEnvOperand2Alpha();
 }
@@ -686,9 +686,9 @@ const bool &TextureEnvChunkBase::getPointSprite(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &TextureEnvChunkBase::getPointSprite(void)
+bool                &TextureEnvChunkBase::getPointSprite    (void)
 {
-    return this->editPointSprite();
+    return this->editPointSprite    ();
 }
 #endif
 
@@ -719,7 +719,7 @@ const GLenum &TextureEnvChunkBase::getShaderOperation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getShaderOperation(void)
+GLenum              &TextureEnvChunkBase::getShaderOperation(void)
 {
     return this->editShaderOperation();
 }
@@ -752,9 +752,9 @@ const GLenum &TextureEnvChunkBase::getShaderInput(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getShaderInput(void)
+GLenum              &TextureEnvChunkBase::getShaderInput    (void)
 {
-    return this->editShaderInput();
+    return this->editShaderInput    ();
 }
 #endif
 
@@ -785,7 +785,7 @@ const Real32 &TextureEnvChunkBase::getShaderOffsetScale(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureEnvChunkBase::getShaderOffsetScale(void)
+Real32              &TextureEnvChunkBase::getShaderOffsetScale(void)
 {
     return this->editShaderOffsetScale();
 }
@@ -818,7 +818,7 @@ const Real32 &TextureEnvChunkBase::getShaderOffsetBias(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureEnvChunkBase::getShaderOffsetBias(void)
+Real32              &TextureEnvChunkBase::getShaderOffsetBias(void)
 {
     return this->editShaderOffsetBias();
 }
@@ -851,7 +851,7 @@ const GLenum &TextureEnvChunkBase::getShaderRGBADotProduct(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureEnvChunkBase::getShaderRGBADotProduct(void)
+GLenum              &TextureEnvChunkBase::getShaderRGBADotProduct(void)
 {
     return this->editShaderRGBADotProduct();
 }
@@ -884,7 +884,7 @@ const UInt8 &TextureEnvChunkBase::getShaderCullModes(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &TextureEnvChunkBase::getShaderCullModes(void)
+UInt8               &TextureEnvChunkBase::getShaderCullModes(void)
 {
     return this->editShaderCullModes();
 }
@@ -917,9 +917,9 @@ const Vec3f &TextureEnvChunkBase::getShaderConstEye(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &TextureEnvChunkBase::getShaderConstEye(void)
+Vec3f               &TextureEnvChunkBase::getShaderConstEye (void)
 {
-    return this->editShaderConstEye();
+    return this->editShaderConstEye ();
 }
 #endif
 
@@ -950,9 +950,9 @@ const Real32 &TextureEnvChunkBase::getLodBias(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureEnvChunkBase::getLodBias(void)
+Real32              &TextureEnvChunkBase::getLodBias        (void)
 {
-    return this->editLodBias();
+    return this->editLodBias        ();
 }
 #endif
 
@@ -991,13 +991,13 @@ MFReal32 &TextureEnvChunkBase::editShaderOffsetMatrix(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureEnvChunkBase::getShaderOffsetMatrix(const UInt32 index)
+Real32              &TextureEnvChunkBase::getShaderOffsetMatrix(const UInt32 index)
 {
     return this->editShaderOffsetMatrix(index);
 }
 
 inline
-MFReal32 &TextureEnvChunkBase::getShaderOffsetMatrix(void)
+MFReal32            &TextureEnvChunkBase::getShaderOffsetMatrix(void)
 {
     return this->editShaderOffsetMatrix();
 }
@@ -1014,24 +1014,24 @@ const MFReal32 &TextureEnvChunkBase::getShaderOffsetMatrix(void) const
 
 //! create a new instance of the class
 inline
-TextureEnvChunkPtr TextureEnvChunkBase::create(void) 
+TextureEnvChunkPtr TextureEnvChunkBase::create(void)
 {
-    TextureEnvChunkPtr fc; 
+    TextureEnvChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TextureEnvChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TextureEnvChunkBase::execSync(      TextureEnvChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -1101,7 +1101,7 @@ void TextureEnvChunkBase::execSync(      TextureEnvChunkBase *pOther,
         _sfShaderInput.syncWith(pOther->_sfShaderInput);
 
     if(FieldBits::NoField != (ShaderOffsetMatrixFieldMask & whichField))
-        _mfShaderOffsetMatrix.syncWith(pOther->_mfShaderOffsetMatrix, 
+        _mfShaderOffsetMatrix.syncWith(pOther->_mfShaderOffsetMatrix,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -1131,7 +1131,7 @@ inline
 void TextureEnvChunkBase::execSync (      TextureEnvChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -1200,7 +1200,7 @@ void TextureEnvChunkBase::execSync (      TextureEnvChunkBase *pFrom,
         _sfShaderInput.syncWith(pFrom->_sfShaderInput);
 
     if(FieldBits::NoField != (ShaderOffsetMatrixFieldMask & whichField))
-        _mfShaderOffsetMatrix.syncWith(pFrom->_mfShaderOffsetMatrix, 
+        _mfShaderOffsetMatrix.syncWith(pFrom->_mfShaderOffsetMatrix,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -1258,4 +1258,3 @@ typedef PointerBuilder<TextureEnvChunk>::ObjPtrConstArg  TextureEnvChunkPtrConst
 OSG_END_NAMESPACE
 
 #define OSGTEXTUREENVCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

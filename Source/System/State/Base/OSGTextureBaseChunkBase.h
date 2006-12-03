@@ -85,22 +85,22 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               TextureBaseChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               TextureBaseChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               TextureBaseChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               TextureBaseChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               TextureBaseChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               TextureBaseChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
         NextFieldId = TargetFieldId + 1
     };
 
-    static const OSG::BitVector TargetFieldMask = 
+    static const OSG::BitVector TargetFieldMask =
         (TypeTraits<BitVector>::One << TargetFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFTarget(void);
+                  SFGLenum            *getSFTarget          (void);
 #endif
-           SFGLenum *editSFTarget(void);
-     const SFGLenum *getSFTarget (void) const;
+                  SFGLenum            *editSFTarget         (void);
+            const SFGLenum            *getSFTarget          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           GLenum &getTarget(void);
+                  GLenum              &getTarget          (void);
 #endif
-           GLenum &editTarget(void);
-     const GLenum &getTarget (void) const;
+                  GLenum              &editTarget         (void);
+            const GLenum              &getTarget          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setTarget(const GLenum &value);
+            void setTarget         (const GLenum &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -191,7 +190,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum _sfTarget;
+    SFGLenum          _sfTarget;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,7 +205,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureBaseChunkBase(void); 
+    virtual ~TextureBaseChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -252,11 +251,11 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

@@ -11,6 +11,7 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
+\ingroup GrpSystemState
 	<Field
 		name="envMode"
 		type="GLenum"
@@ -21,7 +22,7 @@
 		access="public"
                 potential_values="GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE"
 	>
-        Texture environment mode, default GL_REPLACE
+        Texture environment mode, default GL_REPLACE.
 	</Field>
 	<Field
 		name="envColor"
@@ -43,7 +44,7 @@
 		access="public"
                 potential_values="GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT, GL_DOT3_RGB, GL_DOT3_RGBA"
 	>
-        Texture environment rgb combine mode, default GL_MODULATE
+        Texture environment rgb combine mode, default GL_MODULATE.
 	</Field>
 	<Field
 		name="envCombineAlpha"
@@ -55,7 +56,7 @@
 		access="public"
                 potential_values="GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT"
 	>
-        Texture environment alpha combine mode, default GL_MODULATE
+        Texture environment alpha combine mode, default GL_MODULATE.
 	</Field>
 	<Field
 		name="envScaleRGB"
@@ -65,7 +66,7 @@
 		defaultValue="1.0f"
 		access="public"
 	>
-        Texture environment combine rgb scale factor, default 1.f
+        Texture environment combine rgb scale factor, default 1.f.
 	</Field>
 	<Field
 		name="envScaleAlpha"
@@ -75,7 +76,7 @@
 		defaultValue="1.0f"
 		access="public"
 	>
-        Texture environment combine alpha scale factor, default 1.f
+        Texture environment combine alpha scale factor, default 1.f.
 	</Field>
 	<Field
 		name="envSource0RGB"
@@ -86,7 +87,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-        Texture environment combine source 0 rgb, default GL_TEXTURE
+        Texture environment combine source 0 rgb, default GL_TEXTURE.
 	</Field>
 	<Field
 		name="envSource1RGB"
@@ -97,7 +98,7 @@
 		defaultHeader="&lt;OSGGLEXT.h&gt;"
 		access="public"
 	>
-        Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT
+        Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT.
 	</Field>
 	<Field
 		name="envSource2RGB"
@@ -108,7 +109,7 @@
 		defaultHeader="&lt;OSGGLEXT.h&gt;"
 		access="public"
 	>
-        Texture environment combine source 2 rgb, default GL_CONSTANT_EXT
+        Texture environment combine source 2 rgb, default GL_CONSTANT_EXT.
 	</Field>
 	<Field
 		name="envSource0Alpha"
@@ -119,7 +120,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-        Texture environment combine source 0 alpha, default GL_TEXTURE
+        Texture environment combine source 0 alpha, default GL_TEXTURE.
 	</Field>
 	<Field
 		name="envSource1Alpha"
@@ -130,7 +131,7 @@
 		defaultHeader="&lt;OSGGLEXT.h&gt;"
 		access="public"
 	>
-        Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT
+        Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT.
 	</Field>
 	<Field
 		name="envSource2Alpha"
@@ -141,7 +142,7 @@
 		defaultHeader="&lt;OSGGLEXT.h&gt;"
 		access="public"
 	>
-        Texture environment combine source 2 alpha, default GL_CONSTANT_EXT
+        Texture environment combine source 2 alpha, default GL_CONSTANT_EXT.
 	</Field>
 	<Field
 		name="envOperand0RGB"
@@ -152,7 +153,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-        Texture environment combine operand 0 rgb, default GL_SRC_COLOR
+        Texture environment combine operand 0 rgb, default GL_SRC_COLOR.
 	</Field>
 	<Field
 		name="envOperand1RGB"
@@ -163,7 +164,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-        Texture environment combine operand 1 rgb, default GL_SRC_COLOR
+        Texture environment combine operand 1 rgb, default GL_SRC_COLOR.
 	</Field>
 	<Field
 		name="envOperand2RGB"
@@ -174,7 +175,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-        Texture environment combine operand 2 rgb, default GL_SRC_ALPHA
+        Texture environment combine operand 2 rgb, default GL_SRC_ALPHA.
 	</Field>
 	<Field
 		name="envOperand0Alpha"
@@ -185,7 +186,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-        Texture environment combine operand 0 alpha, default GL_SRC_ALPHA
+        Texture environment combine operand 0 alpha, default GL_SRC_ALPHA.
 	</Field>
 	<Field
 		name="envOperand1Alpha"
@@ -196,7 +197,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-        Texture environment combine operand 1 alpha, default GL_SRC_ALPHA
+        Texture environment combine operand 1 alpha, default GL_SRC_ALPHA.
 	</Field>
 	<Field
 		name="envOperand2Alpha"
@@ -207,7 +208,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-        Texture environment combine operand 2 alpha, default GL_SRC_ALPHA
+        Texture environment combine operand 2 alpha, default GL_SRC_ALPHA.
 	</Field>
 	<Field
 		name="pointSprite"
@@ -230,7 +231,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 	>
         Shader operation of this texture unit, default GL_NONE. If unit 0 uses
-        GL_NONE, shading is switched off.  (GL_SHADER_OPERATION_NV)
+        GL_NONE, shading is switched off. (GL_SHADER_OPERATION_NV).
 	</Field>
 	<Field
 		name="shaderInput"

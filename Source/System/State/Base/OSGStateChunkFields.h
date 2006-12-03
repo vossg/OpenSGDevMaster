@@ -70,22 +70,22 @@ class StateChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StateChunkPtr
 
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StateChunk>::ObjPtr         StateChunkPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StateChunk>::ObjPtrConst    StateChunkPtrConst;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StateChunk>::ObjConstPtr    StateChunkConstPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StateChunk>::ObjPtrArg      StateChunkPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StateChunk>::ObjConstPtrArg StateChunkConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           StateChunk>::ObjPtrConstArg StateChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
 #endif
 
 template <>
-struct FieldTraits<StateChunkPtr> : 
+struct FieldTraits<StateChunkPtr> :
     public FieldTraitsTemplateBase<StateChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<StateChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFStateChunkPtr"; }

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &StateBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 StateBase::getClassTypeId(void) 
+OSG::UInt32 StateBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 StateBase::getClassGroupId(void)
@@ -90,31 +90,31 @@ const MFStateChunkPtr &StateBase::getChunks(void) const
 
 //! create a new instance of the class
 inline
-StatePtr StateBase::create(void) 
+StatePtr StateBase::create(void)
 {
-    StatePtr fc; 
+    StatePtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<State::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void StateBase::execSync(      StateBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
-        _mfChunks.syncWith(pOther->_mfChunks, 
+        _mfChunks.syncWith(pOther->_mfChunks,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -126,13 +126,13 @@ inline
 void StateBase::execSync (      StateBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
-        _mfChunks.syncWith(pFrom->_mfChunks, 
+        _mfChunks.syncWith(pFrom->_mfChunks,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -172,4 +172,3 @@ typedef PointerBuilder<State>::ObjPtrConstArg  StatePtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSTATEBASE_INLINE_CVSID "@(#)$Id$"
-

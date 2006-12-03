@@ -60,170 +60,180 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // InternalFormat default header
-#include <OSGGL.h>   // ExternalFormat default header
-#include <OSGGL.h>   // MinFilter default header
-#include <OSGGL.h>   // MagFilter default header
-#include <OSGGL.h>   // WrapS default header
-#include <OSGGL.h>   // WrapT default header
-#include <OSGGL.h>   // WrapR default header
-#include <OSGGL.h>   // CompareMode default header
-#include <OSGGL.h>   // CompareFunc default header
-#include <OSGGL.h>   // DepthMode default header
+#include <OSGGL.h>                        // InternalFormat default header
+#include <OSGGL.h>                        // ExternalFormat default header
+#include <OSGGL.h>                        // MinFilter default header
+#include <OSGGL.h>                        // MagFilter default header
+#include <OSGGL.h>                        // WrapS default header
+#include <OSGGL.h>                        // WrapT default header
+#include <OSGGL.h>                        // WrapR default header
+#include <OSGGL.h>                        // CompareMode default header
+#include <OSGGL.h>                        // CompareFunc default header
+#include <OSGGL.h>                        // DepthMode default header
 
 #include <OSGImage.h> // Image Class
 
 #include "OSGTextureObjChunkBase.h"
 #include "OSGTextureObjChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var ImagePtr TextureObjChunkBase::_sfImage
+/*! \class OSG::TextureObjChunk
+    \ingroup GrpSystemState
+
+    See \ref PageSystemTextureObjChunk for a description.
+
+    This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,
+    osg::TextureObjChunk::_sfInternalFormat,
+    osg::TextureObjChunk::_sfExternalFormat), glTexParameter
+    (osg::TextureObjChunk::_sfMinFilter,
+    osg::TextureObjChunk::_sfMagFilter, osg::TextureObjChunk::_sfWrapS,
+    osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR),
+    glTexEnv (osg::TextureObjChunk::_sfEnvMode,
+    osg::TextureObjChunk::_sfEnvColor, osg::TextureObjChunk::_sfPriority).
+
+    The ARB combine extension is also supported, where available
+    (osg::TextureObjChunk::_sfEnvCombineRGB,
+    osg::TextureObjChunk::_sfEnvScaleRGB,
+    osg::TextureObjChunk::_sfEnvSource0RGB,
+    osg::TextureObjChunk::_sfEnvSource1RGB,
+    osg::TextureObjChunk::_sfEnvSource2RGB,
+    osg::TextureObjChunk::_sfEnvOperand0RGB,
+    osg::TextureObjChunk::_sfEnvOperand1RGB,
+    osg::TextureObjChunk::_sfEnvOperand2RGB,
+    osg::TextureObjChunk::_sfEnvCombineAlpha,
+    osg::TextureObjChunk::_sfEnvScaleAlpha,
+    osg::TextureObjChunk::_sfEnvSource0Alpha,
+    osg::TextureObjChunk::_sfEnvSource1Alpha,
+    osg::TextureObjChunk::_sfEnvSource2Alpha,
+    osg::TextureObjChunk::_sfEnvOperand0Alpha,
+    osg::TextureObjChunk::_sfEnvOperand1Alpha,
+    osg::TextureObjChunk::_sfEnvOperand2Alpha).
+
+    It is possible to enable the point sprite coordinate replacement
+    (osg::TextureObjChunk::_sfPointSprite), see \ref PageSystemPointChunk
+    for details. The two parameters osg::TextureObjChunk::_sfScale and
+    osg::TextureObjChunk::_sfFrame specify details about the texture.
+
+    On hardware that supports it (i.e. NVidia boards) the texture shader
+    extension(s) are also available.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var ImagePtr        TextureObjChunkBase::_sfImage
+    The texture image.
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfInternalFormat
+    The internal texture format.
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfExternalFormat
+    The external texture format - overwrites  external format of image
+    when set to a value not equal to  GL_NONE (which is the default).
+*/
+/*! \var bool            TextureObjChunkBase::_sfScale
+    Specifies whether the image should be scaled to the next power of two,
+    thus filling the whole texture coordinate range, or if it should be put
+    in the lower left corner, leaving the rest of the texture undefined.
+    This is mainly used for rapidly changing non power of two textures, to
+    get around the scaling overhead.
+*/
+/*! \var UInt32          TextureObjChunkBase::_sfFrame
+    Select the frame of the image to be used. See osg::Image about details
+    concerning multi-frame images. @hint For fast update use GL_LINEAR or
+    GL_NEAREST filters, as mipmap creation is slow right now.
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfMinFilter
+    The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfMagFilter
+    The magnification filter, default GL_LINEAR.
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfWrapS
+    Texture coordinate S wrapping, default GL_REPEAT.
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfWrapT
+    Texture coordinate T wrapping, default GL_REPEAT.
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfWrapR
+    Texture coordinate R wrapping, default GL_REPEAT.
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfGLId
+    The OpenGL texture id for this texture.
+*/
+/*! \var Int32           TextureObjChunkBase::_sfIgnoreGLForAspect
+    Don't do any GL calls for aspect of given id.
+*/
+/*! \var Real32          TextureObjChunkBase::_sfPriority
+    Priority of this texture, between 0 and 1, the default is 0.
+    (GL_TEXTURE_PRIORITY)
+*/
+/*! \var Int32           TextureObjChunkBase::_sfDirtyLeft
+    Left coordinate of the dirty rectangle to use for
+    imageContentChanged(). This doesn't make sense to be stored in files,
+    it does make sense on a cluster, though, that's why it's external.
+*/
+/*! \var Int32           TextureObjChunkBase::_sfDirtyMinX
+    Minimum X coordinate of the dirty rectangle to use for
+    imageContentChanged(). This doesn't make sense to be stored in files,
+    it does make sense on a cluster, though, that's why it's external.
+*/
+/*! \var Int32           TextureObjChunkBase::_sfDirtyMaxX
+    Maximum X coordinate of the dirty rectangle to use for
+    imageContentChanged(). This doesn't make sense to be stored in files,
+    it does make sense on a cluster, though, that's why it's external.
+*/
+/*! \var Int32           TextureObjChunkBase::_sfDirtyMinY
+    Minimum Y coordinate of the dirty rectangle to use for
+    imageContentChanged(). This doesn't make sense to be stored in files,
+    it does make sense on a cluster, though, that's why it's external.
+*/
+/*! \var Int32           TextureObjChunkBase::_sfDirtyMaxY
+    Maximum Y coordinate of the dirty rectangle to use for
+    imageContentChanged(). This doesn't make sense to be stored in files,
+    it does make sense on a cluster, though, that's why it's external.
+*/
+/*! \var Int32           TextureObjChunkBase::_sfDirtyMinZ
+    Minimum Z coordinate of the dirty rectangle to use for
+    imageContentChanged(). This doesn't make sense to be stored in files,
+    it does make sense on a cluster, though, that's why it's external.
+*/
+/*! \var Int32           TextureObjChunkBase::_sfDirtyMaxZ
+    Maximum Z coordinate of the dirty rectangle to use for
+    imageContentChanged(). This doesn't make sense to be stored in files,
+    it does make sense on a cluster, though, that's why it's external.
+*/
+/*! \var Real32          TextureObjChunkBase::_sfAnisotropy
+    Anisotropic filtering the default 1.0f means isotropic filtering.
+*/
+/*! \var Color4f         TextureObjChunkBase::_sfBorderColor
+    Texture border color
+*/
+/*! \var GLenum          TextureObjChunkBase::_sfCompareMode
     
 */
-/*! \var GLenum TextureObjChunkBase::_sfInternalFormat
-    	The internal texture format.
-
-*/
-/*! \var GLenum TextureObjChunkBase::_sfExternalFormat
-    	    The external texture format - overwrites 
-        external format of image when set to a value not equal to 
-        GL_NONE (which is the default).
-
-*/
-/*! \var bool TextureObjChunkBase::_sfScale
-            Specifies whether the image should be scaled to the next power of two,
-        thus filling the whole texture coordinate range, or if it should be put
-        in the lower left corner, leaving the rest of the texture undefined.
-        This is mainly used for rapidly changing non power of two textures, to
-        get around the scaling overhead.
-
-*/
-/*! \var UInt32 TextureObjChunkBase::_sfFrame
-            Select the frame of the image to be used. See osg::Image about details
-        concerning multi-frame images.
-        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.
-
-*/
-/*! \var GLenum TextureObjChunkBase::_sfMinFilter
-            The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.
-
-*/
-/*! \var GLenum TextureObjChunkBase::_sfMagFilter
-            The magnification filter, default GL_LINEAR.
-
-*/
-/*! \var GLenum TextureObjChunkBase::_sfWrapS
-            Texture coordinate S wrapping, default GL_REPEAT.
-
-*/
-/*! \var GLenum TextureObjChunkBase::_sfWrapT
-            Texture coordinate T wrapping, default GL_REPEAT.
-
-*/
-/*! \var GLenum TextureObjChunkBase::_sfWrapR
-            Texture coordinate R wrapping, default GL_REPEAT.
-
-*/
-/*! \var GLenum TextureObjChunkBase::_sfGLId
-            The OpenGL texture id for this texture.
-
-*/
-/*! \var Int32 TextureObjChunkBase::_sfIgnoreGLForAspect
-    	    Don't do any GL calls for aspect of given id.
-
-*/
-/*! \var Real32 TextureObjChunkBase::_sfPriority
-            Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)
-    
-
-*/
-/*! \var Int32 TextureObjChunkBase::_sfDirtyLeft
-            Left coordinate of the dirty rectangle to use for 
-        imageContentChanged(). This doesn't make sense to be stored in files, 
-        it does make sense on a cluster, though, that's why it's external.
-    
-    
-
-*/
-/*! \var Int32 TextureObjChunkBase::_sfDirtyMinX
-            Minimum X coordinate of the dirty rectangle to use for 
-        imageContentChanged(). This doesn't make sense to be stored in files, 
-        it does make sense on a cluster, though, that's why it's external.
-    
-    
-
-*/
-/*! \var Int32 TextureObjChunkBase::_sfDirtyMaxX
-            Maximum X coordinate of the dirty rectangle to use for 
-        imageContentChanged(). This doesn't make sense to be stored in files, 
-        it does make sense on a cluster, though, that's why it's external.
-    
-    
-
-*/
-/*! \var Int32 TextureObjChunkBase::_sfDirtyMinY
-            Minimum Y coordinate of the dirty rectangle to use for 
-        imageContentChanged(). This doesn't make sense to be stored in files, 
-        it does make sense on a cluster, though, that's why it's external.
-    
-    
-
-*/
-/*! \var Int32 TextureObjChunkBase::_sfDirtyMaxY
-            Maximum Y coordinate of the dirty rectangle to use for 
-        imageContentChanged(). This doesn't make sense to be stored in files, 
-        it does make sense on a cluster, though, that's why it's external.
-    
-    
-
-*/
-/*! \var Int32 TextureObjChunkBase::_sfDirtyMinZ
-            Minimum Z coordinate of the dirty rectangle to use for 
-        imageContentChanged(). This doesn't make sense to be stored in files, 
-        it does make sense on a cluster, though, that's why it's external.
-    
-    
-
-*/
-/*! \var Int32 TextureObjChunkBase::_sfDirtyMaxZ
-            Maximum Z coordinate of the dirty rectangle to use for 
-        imageContentChanged(). This doesn't make sense to be stored in files, 
-        it does make sense on a cluster, though, that's why it's external.
-    
-    
-
-*/
-/*! \var Real32 TextureObjChunkBase::_sfAnisotropy
-            Anisotropic filtering the default 1.0f means isotropic filtering.
-        
-
-*/
-/*! \var Color4f TextureObjChunkBase::_sfBorderColor
-    	Texture border color
-
-*/
-/*! \var GLenum TextureObjChunkBase::_sfCompareMode
+/*! \var GLenum          TextureObjChunkBase::_sfCompareFunc
     
 */
-/*! \var GLenum TextureObjChunkBase::_sfCompareFunc
-    
-*/
-/*! \var GLenum TextureObjChunkBase::_sfDepthMode
+/*! \var GLenum          TextureObjChunkBase::_sfDepthMode
     
 */
 
 void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "image", 
-        "",
+        SFImagePtr::getClassType(),
+        "image",
+        "The texture image.\n",
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -239,9 +249,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "internalFormat", 
-        "	The internal texture format.\n",
+        SFGLenum::getClassType(),
+        "internalFormat",
+        "The internal texture format.\n",
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -261,9 +271,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "externalFormat", 
-        "	    The external texture format - overwrites \n        external format of image when set to a value not equal to \n        GL_NONE (which is the default).\n",
+        SFGLenum::getClassType(),
+        "externalFormat",
+        "The external texture format - overwrites \n"
+        "external format of image when set to a value not equal to \n"
+        "GL_NONE (which is the default).\n",
         ExternalFormatFieldId, ExternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -283,9 +295,13 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "scale", 
-        "        Specifies whether the image should be scaled to the next power of two,\n        thus filling the whole texture coordinate range, or if it should be put\n        in the lower left corner, leaving the rest of the texture undefined.\n        This is mainly used for rapidly changing non power of two textures, to\n        get around the scaling overhead.\n",
+        SFBool::getClassType(),
+        "scale",
+        "Specifies whether the image should be scaled to the next power of two,\n"
+        "thus filling the whole texture coordinate range, or if it should be put\n"
+        "in the lower left corner, leaving the rest of the texture undefined.\n"
+        "This is mainly used for rapidly changing non power of two textures, to\n"
+        "get around the scaling overhead.\n",
         ScaleFieldId, ScaleFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -305,9 +321,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "frame", 
-        "        Select the frame of the image to be used. See osg::Image about details\n        concerning multi-frame images.\n        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n",
+        SFUInt32::getClassType(),
+        "frame",
+        "Select the frame of the image to be used. See osg::Image about details\n"
+        "concerning multi-frame images.\n"
+        "@hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n",
         FrameFieldId, FrameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -327,9 +345,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "minFilter", 
-        "        The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.\n",
+        SFGLenum::getClassType(),
+        "minFilter",
+        "The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.\n",
         MinFilterFieldId, MinFilterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -349,9 +367,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "magFilter", 
-        "        The magnification filter, default GL_LINEAR.\n",
+        SFGLenum::getClassType(),
+        "magFilter",
+        "The magnification filter, default GL_LINEAR.\n",
         MagFilterFieldId, MagFilterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -371,9 +389,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "wrapS", 
-        "        Texture coordinate S wrapping, default GL_REPEAT.\n",
+        SFGLenum::getClassType(),
+        "wrapS",
+        "Texture coordinate S wrapping, default GL_REPEAT.\n",
         WrapSFieldId, WrapSFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -393,9 +411,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "wrapT", 
-        "        Texture coordinate T wrapping, default GL_REPEAT.\n",
+        SFGLenum::getClassType(),
+        "wrapT",
+        "Texture coordinate T wrapping, default GL_REPEAT.\n",
         WrapTFieldId, WrapTFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -415,9 +433,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "wrapR", 
-        "        Texture coordinate R wrapping, default GL_REPEAT.\n",
+        SFGLenum::getClassType(),
+        "wrapR",
+        "Texture coordinate R wrapping, default GL_REPEAT.\n",
         WrapRFieldId, WrapRFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -437,9 +455,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "GLId", 
-        "        The OpenGL texture id for this texture.\n",
+        SFGLenum::getClassType(),
+        "GLId",
+        "The OpenGL texture id for this texture.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -459,9 +477,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "IgnoreGLForAspect", 
-        "	    Don't do any GL calls for aspect of given id.\n",
+        SFInt32::getClassType(),
+        "IgnoreGLForAspect",
+        "Don't do any GL calls for aspect of given id.\n",
         IgnoreGLForAspectFieldId, IgnoreGLForAspectFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -481,9 +499,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "priority", 
-        "        Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)\n    \n",
+        SFReal32::getClassType(),
+        "priority",
+        "Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)\n",
         PriorityFieldId, PriorityFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -503,9 +521,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dirtyLeft", 
-        "        Left coordinate of the dirty rectangle to use for \n        imageContentChanged(). This doesn't make sense to be stored in files, \n        it does make sense on a cluster, though, that's why it's external.\n    \n    \n",
+        SFInt32::getClassType(),
+        "dirtyLeft",
+        "Left coordinate of the dirty rectangle to use for \n"
+        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
+        "it does make sense on a cluster, though, that's why it's external.\n",
         DirtyLeftFieldId, DirtyLeftFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -525,9 +545,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dirtyMinX", 
-        "        Minimum X coordinate of the dirty rectangle to use for \n        imageContentChanged(). This doesn't make sense to be stored in files, \n        it does make sense on a cluster, though, that's why it's external.\n    \n    \n",
+        SFInt32::getClassType(),
+        "dirtyMinX",
+        "Minimum X coordinate of the dirty rectangle to use for \n"
+        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
+        "it does make sense on a cluster, though, that's why it's external.\n",
         DirtyMinXFieldId, DirtyMinXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -547,9 +569,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dirtyMaxX", 
-        "        Maximum X coordinate of the dirty rectangle to use for \n        imageContentChanged(). This doesn't make sense to be stored in files, \n        it does make sense on a cluster, though, that's why it's external.\n    \n    \n",
+        SFInt32::getClassType(),
+        "dirtyMaxX",
+        "Maximum X coordinate of the dirty rectangle to use for \n"
+        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
+        "it does make sense on a cluster, though, that's why it's external.\n",
         DirtyMaxXFieldId, DirtyMaxXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -569,9 +593,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dirtyMinY", 
-        "        Minimum Y coordinate of the dirty rectangle to use for \n        imageContentChanged(). This doesn't make sense to be stored in files, \n        it does make sense on a cluster, though, that's why it's external.\n    \n    \n",
+        SFInt32::getClassType(),
+        "dirtyMinY",
+        "Minimum Y coordinate of the dirty rectangle to use for \n"
+        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
+        "it does make sense on a cluster, though, that's why it's external.\n",
         DirtyMinYFieldId, DirtyMinYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -591,9 +617,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dirtyMaxY", 
-        "        Maximum Y coordinate of the dirty rectangle to use for \n        imageContentChanged(). This doesn't make sense to be stored in files, \n        it does make sense on a cluster, though, that's why it's external.\n    \n    \n",
+        SFInt32::getClassType(),
+        "dirtyMaxY",
+        "Maximum Y coordinate of the dirty rectangle to use for \n"
+        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
+        "it does make sense on a cluster, though, that's why it's external.\n",
         DirtyMaxYFieldId, DirtyMaxYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -613,9 +641,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dirtyMinZ", 
-        "        Minimum Z coordinate of the dirty rectangle to use for \n        imageContentChanged(). This doesn't make sense to be stored in files, \n        it does make sense on a cluster, though, that's why it's external.\n    \n    \n",
+        SFInt32::getClassType(),
+        "dirtyMinZ",
+        "Minimum Z coordinate of the dirty rectangle to use for \n"
+        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
+        "it does make sense on a cluster, though, that's why it's external.\n",
         DirtyMinZFieldId, DirtyMinZFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -635,9 +665,11 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dirtyMaxZ", 
-        "        Maximum Z coordinate of the dirty rectangle to use for \n        imageContentChanged(). This doesn't make sense to be stored in files, \n        it does make sense on a cluster, though, that's why it's external.\n    \n    \n",
+        SFInt32::getClassType(),
+        "dirtyMaxZ",
+        "Maximum Z coordinate of the dirty rectangle to use for \n"
+        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
+        "it does make sense on a cluster, though, that's why it's external.\n",
         DirtyMaxZFieldId, DirtyMaxZFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -657,9 +689,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "anisotropy", 
-        "        Anisotropic filtering the default 1.0f means isotropic filtering.\n        \n",
+        SFReal32::getClassType(),
+        "anisotropy",
+        "Anisotropic filtering the default 1.0f means isotropic filtering.\n",
         AnisotropyFieldId, AnisotropyFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -679,9 +711,9 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "borderColor", 
-        "	Texture border color\n",
+        SFColor4f::getClassType(),
+        "borderColor",
+        "Texture border color\n",
         BorderColorFieldId, BorderColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -701,8 +733,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "compareMode", 
+        SFGLenum::getClassType(),
+        "compareMode",
         "",
         CompareModeFieldId, CompareModeFieldMask,
         false,
@@ -723,8 +755,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "compareFunc", 
+        SFGLenum::getClassType(),
+        "compareFunc",
         "",
         CompareFuncFieldId, CompareFuncFieldMask,
         false,
@@ -745,8 +777,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "depthMode", 
+        SFGLenum::getClassType(),
+        "depthMode",
         "",
         DepthModeFieldId, DepthModeFieldMask,
         false,
@@ -772,326 +804,384 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
     (InitalInsertDescFunc) &TextureObjChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TextureObjChunk\"\n"
-"	parent=\"TextureBaseChunk\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"image\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"internalFormat\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA\"\n"
-"	>\n"
-"	The internal texture format.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"externalFormat\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_NONE,GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_RGBA, GL_BGR, GL_BGRA, GL_LUMINANCE, GL_LUMINANCE_ALPHA\"\n"
-"	>\n"
-"	    The external texture format - overwrites \n"
-"        external format of image when set to a value not equal to \n"
-"        GL_NONE (which is the default).\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"scale\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Specifies whether the image should be scaled to the next power of two,\n"
-"        thus filling the whole texture coordinate range, or if it should be put\n"
-"        in the lower left corner, leaving the rest of the texture undefined.\n"
-"        This is mainly used for rapidly changing non power of two textures, to\n"
-"        get around the scaling overhead.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frame\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Select the frame of the image to be used. See osg::Image about details\n"
-"        concerning multi-frame images.\n"
-"        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"minFilter\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR\"\n"
-"	>\n"
-"        The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"magFilter\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_LINEAR\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_NEAREST, GL_LINEAR\"\n"
-"	>\n"
-"        The magnification filter, default GL_LINEAR.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"wrapS\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_REPEAT\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"\n"
-"	>\n"
-"        Texture coordinate S wrapping, default GL_REPEAT.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"wrapT\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_REPEAT\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"                \n"
-"	>\n"
-"        Texture coordinate T wrapping, default GL_REPEAT.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"wrapR\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_REPEAT\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"                \n"
-"	>\n"
-"        Texture coordinate R wrapping, default GL_REPEAT.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"GLId\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"0\"\n"
-"        fieldFlags=\"FClusterLocal\"\n"
-"	>\n"
-"        The OpenGL texture id for this texture.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"IgnoreGLForAspect\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"-1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	    Don't do any GL calls for aspect of given id.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"priority\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"		defaultValue=\"1.f\"\n"
-"	>\n"
-"        Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)\n"
-"	</Field>\n"
-"    <Field\n"
-"        name=\"dirtyLeft\"\n"
-"        type=\"Int32\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"-1\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Left coordinate of the dirty rectangle to use for \n"
-"        imageContentChanged(). This doesn't make sense to be stored in files, \n"
-"        it does make sense on a cluster, though, that's why it's external.\n"
-"    </Field>\n"
-"    <Field\n"
-"        name=\"dirtyMinX\"\n"
-"        type=\"Int32\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"-1\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Minimum X coordinate of the dirty rectangle to use for \n"
-"        imageContentChanged(). This doesn't make sense to be stored in files, \n"
-"        it does make sense on a cluster, though, that's why it's external.\n"
-"    </Field>\n"
-"    <Field\n"
-"        name=\"dirtyMaxX\"\n"
-"        type=\"Int32\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"-1\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Maximum X coordinate of the dirty rectangle to use for \n"
-"        imageContentChanged(). This doesn't make sense to be stored in files, \n"
-"        it does make sense on a cluster, though, that's why it's external.\n"
-"    </Field>\n"
-"    <Field\n"
-"        name=\"dirtyMinY\"\n"
-"        type=\"Int32\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"-1\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Minimum Y coordinate of the dirty rectangle to use for \n"
-"        imageContentChanged(). This doesn't make sense to be stored in files, \n"
-"        it does make sense on a cluster, though, that's why it's external.\n"
-"    </Field>\n"
-"    <Field\n"
-"        name=\"dirtyMaxY\"\n"
-"        type=\"Int32\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"-1\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Maximum Y coordinate of the dirty rectangle to use for \n"
-"        imageContentChanged(). This doesn't make sense to be stored in files, \n"
-"        it does make sense on a cluster, though, that's why it's external.\n"
-"    </Field>\n"
-"    <Field\n"
-"        name=\"dirtyMinZ\"\n"
-"        type=\"Int32\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"-1\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Minimum Z coordinate of the dirty rectangle to use for \n"
-"        imageContentChanged(). This doesn't make sense to be stored in files, \n"
-"        it does make sense on a cluster, though, that's why it's external.\n"
-"    </Field>\n"
-"    <Field\n"
-"        name=\"dirtyMaxZ\"\n"
-"        type=\"Int32\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"-1\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Maximum Z coordinate of the dirty rectangle to use for \n"
-"        imageContentChanged(). This doesn't make sense to be stored in files, \n"
-"        it does make sense on a cluster, though, that's why it's external.\n"
-"    </Field>\n"
-"    <Field\n"
-"        name=\"anisotropy\"\n"
-"        type=\"Real32\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"1.0f\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Anisotropic filtering the default 1.0f means isotropic filtering.\n"
-"        </Field>\n"
-"	<Field\n"
-"		name=\"borderColor\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0,0,0,0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture border color\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"compareMode\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_NONE, GL_COMPARE_R_TO_TEXTURE\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"compareFunc\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_LEQUAL\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_LEQUAL, GL_GEQUAL, GL_LESS, GL_GREATER, GL_EQUAL, GL_NOTEQUAL, GL_ALWAYS, GL_NEVER\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"depthMode\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_LUMINANCE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_LUMINANCE, GL_INTENSITY, GL_ALPHA\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TextureObjChunk\"\n"
+    "\tparent=\"TextureBaseChunk\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemTextureObjChunk for a description.\n"
+    "\n"
+    "This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,\n"
+    "osg::TextureObjChunk::_sfInternalFormat, osg::TextureObjChunk::_sfExternalFormat),\n"
+    "glTexParameter (osg::TextureObjChunk::_sfMinFilter,\n"
+    "osg::TextureObjChunk::_sfMagFilter, osg::TextureObjChunk::_sfWrapS,\n"
+    "osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR), glTexEnv\n"
+    "(osg::TextureObjChunk::_sfEnvMode, osg::TextureObjChunk::_sfEnvColor,\n"
+    "osg::TextureObjChunk::_sfPriority).\n"
+    "\n"
+    "The ARB combine extension is also supported,\n"
+    "where available (osg::TextureObjChunk::_sfEnvCombineRGB,\n"
+    "osg::TextureObjChunk::_sfEnvScaleRGB, osg::TextureObjChunk::_sfEnvSource0RGB,\n"
+    "osg::TextureObjChunk::_sfEnvSource1RGB, osg::TextureObjChunk::_sfEnvSource2RGB,\n"
+    "osg::TextureObjChunk::_sfEnvOperand0RGB, osg::TextureObjChunk::_sfEnvOperand1RGB,\n"
+    "osg::TextureObjChunk::_sfEnvOperand2RGB,\n"
+    "osg::TextureObjChunk::_sfEnvCombineAlpha,   osg::TextureObjChunk::_sfEnvScaleAlpha,\n"
+    "osg::TextureObjChunk::_sfEnvSource0Alpha, osg::TextureObjChunk::_sfEnvSource1Alpha,\n"
+    "osg::TextureObjChunk::_sfEnvSource2Alpha, osg::TextureObjChunk::_sfEnvOperand0Alpha,\n"
+    "osg::TextureObjChunk::_sfEnvOperand1Alpha,\n"
+    "osg::TextureObjChunk::_sfEnvOperand2Alpha).\n"
+    "\n"
+    "It is possible to enable the point\n"
+    "sprite coordinate replacement  (osg::TextureObjChunk::_sfPointSprite), see \\ref\n"
+    "PageSystemPointChunk for details. The two parameters\n"
+    "osg::TextureObjChunk::_sfScale and osg::TextureObjChunk::_sfFrame specify details\n"
+    "about the texture.\n"
+    "\n"
+    "On hardware that supports it (i.e. NVidia boards) the texture shader\n"
+    "extension(s) are also available.\n"
+    "\t<Field\n"
+    "\t\tname=\"image\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe texture image.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"internalFormat\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA\"\n"
+    "\t>\n"
+    "\tThe internal texture format.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"externalFormat\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_NONE,GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_RGBA, GL_BGR, GL_BGRA, GL_LUMINANCE, GL_LUMINANCE_ALPHA\"\n"
+    "\t>\n"
+    "\t    The external texture format - overwrites \n"
+    "        external format of image when set to a value not equal to \n"
+    "        GL_NONE (which is the default).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"scale\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Specifies whether the image should be scaled to the next power of two,\n"
+    "        thus filling the whole texture coordinate range, or if it should be put\n"
+    "        in the lower left corner, leaving the rest of the texture undefined.\n"
+    "        This is mainly used for rapidly changing non power of two textures, to\n"
+    "        get around the scaling overhead.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frame\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Select the frame of the image to be used. See osg::Image about details\n"
+    "        concerning multi-frame images.\n"
+    "        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"minFilter\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR\"\n"
+    "\t>\n"
+    "        The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"magFilter\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_LINEAR\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_NEAREST, GL_LINEAR\"\n"
+    "\t>\n"
+    "        The magnification filter, default GL_LINEAR.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"wrapS\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_REPEAT\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"\n"
+    "\t>\n"
+    "        Texture coordinate S wrapping, default GL_REPEAT.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"wrapT\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_REPEAT\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"                \n"
+    "\t>\n"
+    "        Texture coordinate T wrapping, default GL_REPEAT.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"wrapR\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_REPEAT\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"                \n"
+    "\t>\n"
+    "        Texture coordinate R wrapping, default GL_REPEAT.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"GLId\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "\t>\n"
+    "        The OpenGL texture id for this texture.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"IgnoreGLForAspect\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"-1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t    Don't do any GL calls for aspect of given id.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"priority\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"1.f\"\n"
+    "\t>\n"
+    "        Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)\n"
+    "\t</Field>\n"
+    "    <Field\n"
+    "        name=\"dirtyLeft\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Left coordinate of the dirty rectangle to use for \n"
+    "        imageContentChanged(). This doesn't make sense to be stored in files, \n"
+    "        it does make sense on a cluster, though, that's why it's external.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"dirtyMinX\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Minimum X coordinate of the dirty rectangle to use for \n"
+    "        imageContentChanged(). This doesn't make sense to be stored in files, \n"
+    "        it does make sense on a cluster, though, that's why it's external.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"dirtyMaxX\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Maximum X coordinate of the dirty rectangle to use for \n"
+    "        imageContentChanged(). This doesn't make sense to be stored in files, \n"
+    "        it does make sense on a cluster, though, that's why it's external.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"dirtyMinY\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Minimum Y coordinate of the dirty rectangle to use for \n"
+    "        imageContentChanged(). This doesn't make sense to be stored in files, \n"
+    "        it does make sense on a cluster, though, that's why it's external.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"dirtyMaxY\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Maximum Y coordinate of the dirty rectangle to use for \n"
+    "        imageContentChanged(). This doesn't make sense to be stored in files, \n"
+    "        it does make sense on a cluster, though, that's why it's external.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"dirtyMinZ\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Minimum Z coordinate of the dirty rectangle to use for \n"
+    "        imageContentChanged(). This doesn't make sense to be stored in files, \n"
+    "        it does make sense on a cluster, though, that's why it's external.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"dirtyMaxZ\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Maximum Z coordinate of the dirty rectangle to use for \n"
+    "        imageContentChanged(). This doesn't make sense to be stored in files, \n"
+    "        it does make sense on a cluster, though, that's why it's external.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"anisotropy\"\n"
+    "        type=\"Real32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"1.0f\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Anisotropic filtering the default 1.0f means isotropic filtering.\n"
+    "        </Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"borderColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0,0,0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture border color\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"compareMode\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_NONE, GL_COMPARE_R_TO_TEXTURE\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"compareFunc\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_LEQUAL\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_LEQUAL, GL_GEQUAL, GL_LESS, GL_GREATER, GL_EQUAL, GL_NOTEQUAL, GL_ALWAYS, GL_NEVER\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"depthMode\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_LUMINANCE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_LUMINANCE, GL_INTENSITY, GL_ALPHA\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemTextureObjChunk for a description.\n"
+    "This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,\n"
+    "osg::TextureObjChunk::_sfInternalFormat, osg::TextureObjChunk::_sfExternalFormat),\n"
+    "glTexParameter (osg::TextureObjChunk::_sfMinFilter,\n"
+    "osg::TextureObjChunk::_sfMagFilter, osg::TextureObjChunk::_sfWrapS,\n"
+    "osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR), glTexEnv\n"
+    "(osg::TextureObjChunk::_sfEnvMode, osg::TextureObjChunk::_sfEnvColor,\n"
+    "osg::TextureObjChunk::_sfPriority).\n"
+    "The ARB combine extension is also supported,\n"
+    "where available (osg::TextureObjChunk::_sfEnvCombineRGB,\n"
+    "osg::TextureObjChunk::_sfEnvScaleRGB, osg::TextureObjChunk::_sfEnvSource0RGB,\n"
+    "osg::TextureObjChunk::_sfEnvSource1RGB, osg::TextureObjChunk::_sfEnvSource2RGB,\n"
+    "osg::TextureObjChunk::_sfEnvOperand0RGB, osg::TextureObjChunk::_sfEnvOperand1RGB,\n"
+    "osg::TextureObjChunk::_sfEnvOperand2RGB,\n"
+    "osg::TextureObjChunk::_sfEnvCombineAlpha,   osg::TextureObjChunk::_sfEnvScaleAlpha,\n"
+    "osg::TextureObjChunk::_sfEnvSource0Alpha, osg::TextureObjChunk::_sfEnvSource1Alpha,\n"
+    "osg::TextureObjChunk::_sfEnvSource2Alpha, osg::TextureObjChunk::_sfEnvOperand0Alpha,\n"
+    "osg::TextureObjChunk::_sfEnvOperand1Alpha,\n"
+    "osg::TextureObjChunk::_sfEnvOperand2Alpha).\n"
+    "It is possible to enable the point\n"
+    "sprite coordinate replacement  (osg::TextureObjChunk::_sfPointSprite), see \\ref\n"
+    "PageSystemPointChunk for details. The two parameters\n"
+    "osg::TextureObjChunk::_sfScale and osg::TextureObjChunk::_sfFrame specify details\n"
+    "about the texture.\n"
+    "On hardware that supports it (i.e. NVidia boards) the texture shader\n"
+    "extension(s) are also available.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureObjChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureObjChunkBase::getType(void) const 
+FieldContainerType &TextureObjChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureObjChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureObjChunk); 
+const FieldContainerType &TextureObjChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureObjChunkBase::getContainerSize(void) const
+{
+    return sizeof(TextureObjChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -1116,9 +1206,9 @@ const SFGLenum *TextureObjChunkBase::getSFInternalFormat(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFInternalFormat(void)
+SFGLenum            *TextureObjChunkBase::getSFInternalFormat (void)
 {
-    return this->editSFInternalFormat();
+    return this->editSFInternalFormat ();
 }
 #endif
 
@@ -1135,9 +1225,9 @@ const SFGLenum *TextureObjChunkBase::getSFExternalFormat(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFExternalFormat(void)
+SFGLenum            *TextureObjChunkBase::getSFExternalFormat (void)
 {
-    return this->editSFExternalFormat();
+    return this->editSFExternalFormat ();
 }
 #endif
 
@@ -1154,9 +1244,9 @@ const SFBool *TextureObjChunkBase::getSFScale(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *TextureObjChunkBase::getSFScale(void)
+SFBool              *TextureObjChunkBase::getSFScale          (void)
 {
-    return this->editSFScale();
+    return this->editSFScale          ();
 }
 #endif
 
@@ -1173,9 +1263,9 @@ const SFUInt32 *TextureObjChunkBase::getSFFrame(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *TextureObjChunkBase::getSFFrame(void)
+SFUInt32            *TextureObjChunkBase::getSFFrame          (void)
 {
-    return this->editSFFrame();
+    return this->editSFFrame          ();
 }
 #endif
 
@@ -1192,9 +1282,9 @@ const SFGLenum *TextureObjChunkBase::getSFMinFilter(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFMinFilter(void)
+SFGLenum            *TextureObjChunkBase::getSFMinFilter      (void)
 {
-    return this->editSFMinFilter();
+    return this->editSFMinFilter      ();
 }
 #endif
 
@@ -1211,9 +1301,9 @@ const SFGLenum *TextureObjChunkBase::getSFMagFilter(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFMagFilter(void)
+SFGLenum            *TextureObjChunkBase::getSFMagFilter      (void)
 {
-    return this->editSFMagFilter();
+    return this->editSFMagFilter      ();
 }
 #endif
 
@@ -1230,9 +1320,9 @@ const SFGLenum *TextureObjChunkBase::getSFWrapS(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFWrapS(void)
+SFGLenum            *TextureObjChunkBase::getSFWrapS          (void)
 {
-    return this->editSFWrapS();
+    return this->editSFWrapS          ();
 }
 #endif
 
@@ -1249,9 +1339,9 @@ const SFGLenum *TextureObjChunkBase::getSFWrapT(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFWrapT(void)
+SFGLenum            *TextureObjChunkBase::getSFWrapT          (void)
 {
-    return this->editSFWrapT();
+    return this->editSFWrapT          ();
 }
 #endif
 
@@ -1268,9 +1358,9 @@ const SFGLenum *TextureObjChunkBase::getSFWrapR(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFWrapR(void)
+SFGLenum            *TextureObjChunkBase::getSFWrapR          (void)
 {
-    return this->editSFWrapR();
+    return this->editSFWrapR          ();
 }
 #endif
 
@@ -1287,9 +1377,9 @@ const SFGLenum *TextureObjChunkBase::getSFGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFGLId(void)
+SFGLenum            *TextureObjChunkBase::getSFGLId           (void)
 {
-    return this->editSFGLId();
+    return this->editSFGLId           ();
 }
 #endif
 
@@ -1306,7 +1396,7 @@ const SFInt32 *TextureObjChunkBase::getSFIgnoreGLForAspect(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TextureObjChunkBase::getSFIgnoreGLForAspect(void)
+SFInt32             *TextureObjChunkBase::getSFIgnoreGLForAspect(void)
 {
     return this->editSFIgnoreGLForAspect();
 }
@@ -1325,9 +1415,9 @@ const SFReal32 *TextureObjChunkBase::getSFPriority(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TextureObjChunkBase::getSFPriority(void)
+SFReal32            *TextureObjChunkBase::getSFPriority       (void)
 {
-    return this->editSFPriority();
+    return this->editSFPriority       ();
 }
 #endif
 
@@ -1344,9 +1434,9 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyLeft(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TextureObjChunkBase::getSFDirtyLeft(void)
+SFInt32             *TextureObjChunkBase::getSFDirtyLeft      (void)
 {
-    return this->editSFDirtyLeft();
+    return this->editSFDirtyLeft      ();
 }
 #endif
 
@@ -1363,9 +1453,9 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMinX(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TextureObjChunkBase::getSFDirtyMinX(void)
+SFInt32             *TextureObjChunkBase::getSFDirtyMinX      (void)
 {
-    return this->editSFDirtyMinX();
+    return this->editSFDirtyMinX      ();
 }
 #endif
 
@@ -1382,9 +1472,9 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMaxX(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TextureObjChunkBase::getSFDirtyMaxX(void)
+SFInt32             *TextureObjChunkBase::getSFDirtyMaxX      (void)
 {
-    return this->editSFDirtyMaxX();
+    return this->editSFDirtyMaxX      ();
 }
 #endif
 
@@ -1401,9 +1491,9 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMinY(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TextureObjChunkBase::getSFDirtyMinY(void)
+SFInt32             *TextureObjChunkBase::getSFDirtyMinY      (void)
 {
-    return this->editSFDirtyMinY();
+    return this->editSFDirtyMinY      ();
 }
 #endif
 
@@ -1420,9 +1510,9 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMaxY(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TextureObjChunkBase::getSFDirtyMaxY(void)
+SFInt32             *TextureObjChunkBase::getSFDirtyMaxY      (void)
 {
-    return this->editSFDirtyMaxY();
+    return this->editSFDirtyMaxY      ();
 }
 #endif
 
@@ -1439,9 +1529,9 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMinZ(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TextureObjChunkBase::getSFDirtyMinZ(void)
+SFInt32             *TextureObjChunkBase::getSFDirtyMinZ      (void)
 {
-    return this->editSFDirtyMinZ();
+    return this->editSFDirtyMinZ      ();
 }
 #endif
 
@@ -1458,9 +1548,9 @@ const SFInt32 *TextureObjChunkBase::getSFDirtyMaxZ(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *TextureObjChunkBase::getSFDirtyMaxZ(void)
+SFInt32             *TextureObjChunkBase::getSFDirtyMaxZ      (void)
 {
-    return this->editSFDirtyMaxZ();
+    return this->editSFDirtyMaxZ      ();
 }
 #endif
 
@@ -1477,9 +1567,9 @@ const SFReal32 *TextureObjChunkBase::getSFAnisotropy(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TextureObjChunkBase::getSFAnisotropy(void)
+SFReal32            *TextureObjChunkBase::getSFAnisotropy     (void)
 {
-    return this->editSFAnisotropy();
+    return this->editSFAnisotropy     ();
 }
 #endif
 
@@ -1496,9 +1586,9 @@ const SFColor4f *TextureObjChunkBase::getSFBorderColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *TextureObjChunkBase::getSFBorderColor(void)
+SFColor4f           *TextureObjChunkBase::getSFBorderColor    (void)
 {
-    return this->editSFBorderColor();
+    return this->editSFBorderColor    ();
 }
 #endif
 
@@ -1515,9 +1605,9 @@ const SFGLenum *TextureObjChunkBase::getSFCompareMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFCompareMode(void)
+SFGLenum            *TextureObjChunkBase::getSFCompareMode    (void)
 {
-    return this->editSFCompareMode();
+    return this->editSFCompareMode    ();
 }
 #endif
 
@@ -1534,9 +1624,9 @@ const SFGLenum *TextureObjChunkBase::getSFCompareFunc(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFCompareFunc(void)
+SFGLenum            *TextureObjChunkBase::getSFCompareFunc    (void)
 {
-    return this->editSFCompareFunc();
+    return this->editSFCompareFunc    ();
 }
 #endif
 
@@ -1553,9 +1643,9 @@ const SFGLenum *TextureObjChunkBase::getSFDepthMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureObjChunkBase::getSFDepthMode(void)
+SFGLenum            *TextureObjChunkBase::getSFDepthMode      (void)
 {
-    return this->editSFDepthMode();
+    return this->editSFDepthMode      ();
 }
 #endif
 
@@ -1947,22 +2037,22 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureObjChunkPtr TextureObjChunkBase::createEmpty(void) 
-{ 
-    TextureObjChunkPtr returnValue; 
-    
-    newPtr<TextureObjChunk>(returnValue); 
+TextureObjChunkPtr TextureObjChunkBase::createEmpty(void)
+{
+    TextureObjChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<TextureObjChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TextureObjChunkBase::shallowCopy(void) const 
-{ 
-    TextureObjChunkPtr returnValue; 
+FieldContainerPtr TextureObjChunkBase::shallowCopy(void) const
+{
+    TextureObjChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TextureObjChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TextureObjChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -1971,61 +2061,61 @@ FieldContainerPtr TextureObjChunkBase::shallowCopy(void) const
 
 TextureObjChunkBase::TextureObjChunkBase(void) :
     Inherited(),
-    _sfImage(),
-    _sfInternalFormat(GLenum(GL_NONE)),
-    _sfExternalFormat(GLenum(GL_NONE)),
-    _sfScale(bool(true)),
-    _sfFrame(UInt32(0)),
-    _sfMinFilter(GLenum(GL_LINEAR_MIPMAP_LINEAR)),
-    _sfMagFilter(GLenum(GL_LINEAR)),
-    _sfWrapS(GLenum(GL_REPEAT)),
-    _sfWrapT(GLenum(GL_REPEAT)),
-    _sfWrapR(GLenum(GL_REPEAT)),
-    _sfGLId(GLenum(0)),
-    _sfIgnoreGLForAspect(Int32(-1)),
-    _sfPriority(Real32(1.f)),
-    _sfDirtyLeft(Int32(-1)),
-    _sfDirtyMinX(Int32(-1)),
-    _sfDirtyMaxX(Int32(-1)),
-    _sfDirtyMinY(Int32(-1)),
-    _sfDirtyMaxY(Int32(-1)),
-    _sfDirtyMinZ(Int32(-1)),
-    _sfDirtyMaxZ(Int32(-1)),
-    _sfAnisotropy(Real32(1.0f)),
-    _sfBorderColor(Color4f(0,0,0,0)),
-    _sfCompareMode(GLenum(GL_NONE)),
-    _sfCompareFunc(GLenum(GL_LEQUAL)),
-    _sfDepthMode(GLenum(GL_LUMINANCE))
+    _sfImage                  (),
+    _sfInternalFormat         (GLenum(GL_NONE)),
+    _sfExternalFormat         (GLenum(GL_NONE)),
+    _sfScale                  (bool(true)),
+    _sfFrame                  (UInt32(0)),
+    _sfMinFilter              (GLenum(GL_LINEAR_MIPMAP_LINEAR)),
+    _sfMagFilter              (GLenum(GL_LINEAR)),
+    _sfWrapS                  (GLenum(GL_REPEAT)),
+    _sfWrapT                  (GLenum(GL_REPEAT)),
+    _sfWrapR                  (GLenum(GL_REPEAT)),
+    _sfGLId                   (GLenum(0)),
+    _sfIgnoreGLForAspect      (Int32(-1)),
+    _sfPriority               (Real32(1.f)),
+    _sfDirtyLeft              (Int32(-1)),
+    _sfDirtyMinX              (Int32(-1)),
+    _sfDirtyMaxX              (Int32(-1)),
+    _sfDirtyMinY              (Int32(-1)),
+    _sfDirtyMaxY              (Int32(-1)),
+    _sfDirtyMinZ              (Int32(-1)),
+    _sfDirtyMaxZ              (Int32(-1)),
+    _sfAnisotropy             (Real32(1.0f)),
+    _sfBorderColor            (Color4f(0,0,0,0)),
+    _sfCompareMode            (GLenum(GL_NONE)),
+    _sfCompareFunc            (GLenum(GL_LEQUAL)),
+    _sfDepthMode              (GLenum(GL_LUMINANCE))
 {
 }
 
 TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
     Inherited(source),
-    _sfImage(),
-    _sfInternalFormat(source._sfInternalFormat),
-    _sfExternalFormat(source._sfExternalFormat),
-    _sfScale(source._sfScale),
-    _sfFrame(source._sfFrame),
-    _sfMinFilter(source._sfMinFilter),
-    _sfMagFilter(source._sfMagFilter),
-    _sfWrapS(source._sfWrapS),
-    _sfWrapT(source._sfWrapT),
-    _sfWrapR(source._sfWrapR),
-    _sfGLId(source._sfGLId),
-    _sfIgnoreGLForAspect(source._sfIgnoreGLForAspect),
-    _sfPriority(source._sfPriority),
-    _sfDirtyLeft(source._sfDirtyLeft),
-    _sfDirtyMinX(source._sfDirtyMinX),
-    _sfDirtyMaxX(source._sfDirtyMaxX),
-    _sfDirtyMinY(source._sfDirtyMinY),
-    _sfDirtyMaxY(source._sfDirtyMaxY),
-    _sfDirtyMinZ(source._sfDirtyMinZ),
-    _sfDirtyMaxZ(source._sfDirtyMaxZ),
-    _sfAnisotropy(source._sfAnisotropy),
-    _sfBorderColor(source._sfBorderColor),
-    _sfCompareMode(source._sfCompareMode),
-    _sfCompareFunc(source._sfCompareFunc),
-    _sfDepthMode(source._sfDepthMode)
+    _sfImage                  (),
+    _sfInternalFormat         (source._sfInternalFormat         ),
+    _sfExternalFormat         (source._sfExternalFormat         ),
+    _sfScale                  (source._sfScale                  ),
+    _sfFrame                  (source._sfFrame                  ),
+    _sfMinFilter              (source._sfMinFilter              ),
+    _sfMagFilter              (source._sfMagFilter              ),
+    _sfWrapS                  (source._sfWrapS                  ),
+    _sfWrapT                  (source._sfWrapT                  ),
+    _sfWrapR                  (source._sfWrapR                  ),
+    _sfGLId                   (source._sfGLId                   ),
+    _sfIgnoreGLForAspect      (source._sfIgnoreGLForAspect      ),
+    _sfPriority               (source._sfPriority               ),
+    _sfDirtyLeft              (source._sfDirtyLeft              ),
+    _sfDirtyMinX              (source._sfDirtyMinX              ),
+    _sfDirtyMaxX              (source._sfDirtyMaxX              ),
+    _sfDirtyMinY              (source._sfDirtyMinY              ),
+    _sfDirtyMaxY              (source._sfDirtyMaxY              ),
+    _sfDirtyMinZ              (source._sfDirtyMinZ              ),
+    _sfDirtyMaxZ              (source._sfDirtyMaxZ              ),
+    _sfAnisotropy             (source._sfAnisotropy             ),
+    _sfBorderColor            (source._sfBorderColor            ),
+    _sfCompareMode            (source._sfCompareMode            ),
+    _sfCompareFunc            (source._sfCompareFunc            ),
+    _sfDepthMode              (source._sfDepthMode              )
 {
 }
 
@@ -2049,13 +2139,13 @@ void TextureObjChunkBase::onCreate(const TextureObjChunk *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureObjChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureObjChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -2065,10 +2155,10 @@ void TextureObjChunkBase::execSyncV(      FieldContainer    &oFrom,
 void TextureObjChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureObjChunkBase *>(&oFrom), 
+    this->execSync(static_cast<TextureObjChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -2088,12 +2178,12 @@ void TextureObjChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureObjChunkBase::createAspectCopy(void) const
 {
-    TextureObjChunkPtr returnValue; 
+    TextureObjChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TextureObjChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TextureObjChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -2104,6 +2194,8 @@ void TextureObjChunkBase::resolveLinks(void)
     static_cast<TextureObjChunk *>(this)->setImage(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -2126,8 +2218,6 @@ OSG_FIELDTRAITS_GETTYPE(TextureObjChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TextureObjChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TextureObjChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -2148,3 +2238,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTUREOBJCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

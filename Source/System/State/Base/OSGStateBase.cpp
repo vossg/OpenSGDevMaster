@@ -66,22 +66,35 @@
 #include "OSGStateBase.h"
 #include "OSGState.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var StateChunkPtr StateBase::_mfChunks
+/*! \class OSG::State
+    \ingroup GrpSystemState
+
+    The state base class. See \ref PageSystemState for the conceptual
+    background.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var StateChunkPtr   StateBase::_mfChunks
     
 */
 
 void StateBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new MFStateChunkPtr::Description(
-        MFStateChunkPtr::getClassType(), 
-        "chunks", 
+        MFStateChunkPtr::getClassType(),
+        "chunks",
         "",
         ChunksFieldId, ChunksFieldMask,
         false,
@@ -103,54 +116,57 @@ StateBase::TypeObject StateBase::_type(true,
     (InitalInsertDescFunc) &StateBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"State\"\n"
-"	parent=\"FieldContainer\"\n"
-"	library=\"System\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"chunks\"\n"
-"		type=\"StateChunkPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"        checkNilPtr=\"false\"\n"
-"        linkParent=\"false\"\n"
-"        removeTo=\"NullFC\"\n"
-"        clearMField=\"true\"\n"
-"        pushToField=\"\"\n"
-"        insertIntoMField=\"\"\n"
-"        replaceInMFieldIndex=\"\"\n"
-"        replaceInMFieldObject=\"\"\n"
-"        removeFromMFieldIndex=\"\"\n"
-"        removeFromMFieldObject=\"\"\n"
-"        clearField=\"\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"State\"\n"
+    "\tparent=\"FieldContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "The state base class. See \\ref PageSystemState for the conceptual background.\n"
+    "\t<Field\n"
+    "\t\tname=\"chunks\"\n"
+    "\t\ttype=\"StateChunkPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        checkNilPtr=\"false\"\n"
+    "        linkParent=\"false\"\n"
+    "        removeTo=\"NullFC\"\n"
+    "        clearMField=\"true\"\n"
+    "        pushToField=\"\"\n"
+    "        insertIntoMField=\"\"\n"
+    "        replaceInMFieldIndex=\"\"\n"
+    "        replaceInMFieldObject=\"\"\n"
+    "        removeFromMFieldIndex=\"\"\n"
+    "        removeFromMFieldObject=\"\"\n"
+    "        clearField=\"\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "The state base class. See \\ref PageSystemState for the conceptual background.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &StateBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &StateBase::getType(void) const 
+FieldContainerType &StateBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 StateBase::getContainerSize(void) const 
-{ 
-    return sizeof(State); 
+const FieldContainerType &StateBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 StateBase::getContainerSize(void) const
+{
+    return sizeof(State);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -264,7 +280,7 @@ void StateBase::pushToChunks(StateChunkPtrConstArg value)
 }
 
 void StateBase::insertIntoChunks(UInt32                uiIndex,
-                                             StateChunkPtrConstArg value   )
+                                                   StateChunkPtrConstArg value   )
 {
     editMField(ChunksFieldMask, _mfChunks);
 
@@ -281,7 +297,7 @@ void StateBase::insertIntoChunks(UInt32                uiIndex,
 }
 
 void StateBase::replaceInChunks(UInt32                uiIndex,
-                                                 StateChunkPtrConstArg value   )
+                                                       StateChunkPtrConstArg value   )
 {
     if(uiIndex >= _mfChunks.size())
         return;
@@ -299,7 +315,7 @@ void StateBase::replaceInChunks(UInt32                uiIndex,
 }
 
 void StateBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
-                                                  StateChunkPtrConstArg pNewElem)
+                                                        StateChunkPtrConstArg pNewElem)
 {
     Int32  elemIdx = _mfChunks.findIndex(pOldElem);
 
@@ -372,8 +388,6 @@ void StateBase::clearChunks(void)
 
 
 
-
-
 /*------------------------------ access -----------------------------------*/
 
 UInt32 StateBase::getBinSize(ConstFieldMaskArg whichField)
@@ -411,22 +425,22 @@ void StateBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StatePtr StateBase::createEmpty(void) 
-{ 
-    StatePtr returnValue; 
-    
-    newPtr<State>(returnValue); 
+StatePtr StateBase::createEmpty(void)
+{
+    StatePtr returnValue;
 
-    return returnValue; 
+    newPtr<State>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr StateBase::shallowCopy(void) const 
-{ 
-    StatePtr returnValue; 
+FieldContainerPtr StateBase::shallowCopy(void) const
+{
+    StatePtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const State *>(this)); 
+    newPtr(returnValue, dynamic_cast<const State *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -435,13 +449,13 @@ FieldContainerPtr StateBase::shallowCopy(void) const
 
 StateBase::StateBase(void) :
     Inherited(),
-    _mfChunks()
+    _mfChunks                 ()
 {
 }
 
 StateBase::StateBase(const StateBase &source) :
     Inherited(source),
-    _mfChunks()
+    _mfChunks                 ()
 {
 }
 
@@ -458,9 +472,9 @@ void StateBase::onCreate(const State *source)
     if(source != NULL)
     {
 
-        MFStateChunkPtr::const_iterator ChunksIt  = 
+        MFStateChunkPtr::const_iterator ChunksIt  =
             source->_mfChunks.begin();
-        MFStateChunkPtr::const_iterator ChunksEnd = 
+        MFStateChunkPtr::const_iterator ChunksEnd =
             source->_mfChunks.end  ();
 
         while(ChunksIt != ChunksEnd)
@@ -475,13 +489,13 @@ void StateBase::onCreate(const State *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void StateBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<StateBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -491,10 +505,10 @@ void StateBase::execSyncV(      FieldContainer    &oFrom,
 void StateBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StateBase *>(&oFrom), 
+    this->execSync(static_cast<StateBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -514,12 +528,12 @@ void StateBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr StateBase::createAspectCopy(void) const
 {
-    StatePtr returnValue; 
+    StatePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const State *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const State *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -530,6 +544,8 @@ void StateBase::resolveLinks(void)
     static_cast<State *>(this)->clearChunks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -552,8 +568,6 @@ OSG_FIELDTRAITS_GETTYPE(StatePtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, StatePtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, StatePtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -574,3 +588,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSTATEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

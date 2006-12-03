@@ -60,60 +60,81 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // SrcFactor default header
-#include <OSGGL.h>   // DestFactor default header
-#include <OSGGL.h>   // Equation default header
-#include <OSGGL.h>   // AlphaFunc default header
+#include <OSGGL.h>                        // SrcFactor default header
+#include <OSGGL.h>                        // DestFactor default header
+#include <OSGGL.h>                        // Equation default header
+#include <OSGGL.h>                        // AlphaFunc default header
 
 
 #include "OSGBlendChunkBase.h"
 #include "OSGBlendChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var GLenum BlendChunkBase::_sfSrcFactor
-    	The incoming pixel is multiplied by the source factor. Legal values are directly taken from the glBlendFunc() manpage.
+/*! \class OSG::BlendChunk
+    \ingroup GrpSystemState
 
+    See \ref PageSystemBlendChunk for a description.
+
+    The blending chunk handles OpenGL blending, i.e. the definition how
+    incoming pixel are combined with the pixel already in the frame buffer.
+
+    This chunk wraps glBlendFunc() (OSG::BlendChunk::_sfSrcFactor,
+    OSG::BlendChunk::_sfDestFactor), glBlendEquation() or
+    glBlendEquationEXT() (whichever is supported)
+    (OSG::BlendChunk::_sfEquation), glBlendColor()
+    (OSG::BlendChunk::_sfColor) and glAlphaFunc()
+    (OSG::BlendChunk::_sfAlphaFunc, OSG::BlendChunk::_sfAlphaValue)
+    including glEnable(GL_ALPHA_TEST).
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var GLenum          BlendChunkBase::_sfSrcFactor
+    The incoming pixel is multiplied by the source factor. Legal values
+    are directly taken from the glBlendFunc() manpage.
 */
-/*! \var GLenum BlendChunkBase::_sfDestFactor
-    	The frame buffer pixel is multiplied by the destination factor. Legal values are directly taken from the glBlendFunc() manpage.
-
+/*! \var GLenum          BlendChunkBase::_sfDestFactor
+    The frame buffer pixel is multiplied by the destination factor. Legal
+    values are directly taken from the glBlendFunc() manpage.
 */
-/*! \var GLenum BlendChunkBase::_sfEquation
-    	The equation used to combine the two values. Only available where GL_ARB_imaging is supported. See glBlendEquation() for details.
-
+/*! \var GLenum          BlendChunkBase::_sfEquation
+    The equation used to combine the two values. Only available where
+    GL_ARB_imaging is supported. See glBlendEquation() for details.
 */
-/*! \var Color4f BlendChunkBase::_sfColor
-    	This is the constant color used by blend modes *_CONSTANT_*.
-
+/*! \var Color4f         BlendChunkBase::_sfColor
+    This is the constant color used by blend modes *_CONSTANT_*.
 */
-/*! \var GLenum BlendChunkBase::_sfAlphaFunc
-    	The alphaFunc defines how fragments which do not fulfill a certain condition are handled. 
-        See glAlphaFunc() for details. GL_NONE is used to disable alpha comparison.
-
+/*! \var GLenum          BlendChunkBase::_sfAlphaFunc
+    The alphaFunc defines how fragments which do not fulfill a certain
+    condition are handled.  See glAlphaFunc() for details. GL_NONE is used
+    to disable alpha comparison.
 */
-/*! \var Real32 BlendChunkBase::_sfAlphaValue
-            The value used in alpha comparison.
-
+/*! \var Real32          BlendChunkBase::_sfAlphaValue
+    The value used in alpha comparison.
 */
-/*! \var GLenum BlendChunkBase::_sfAlphaSrcFactor
-    	The incoming alpha is multiplied by the source factor before being stored 
-        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.
-        The default is GL_NONE, which indicates using the standard BlendFunction.
-
+/*! \var GLenum          BlendChunkBase::_sfAlphaSrcFactor
+    The incoming alpha is multiplied by the source factor before being
+    stored  in the frame buffer. Only available where
+    GL_EXT_blend_func_separate is supported. The default is GL_NONE, which
+    indicates using the standard BlendFunction.
 */
-/*! \var GLenum BlendChunkBase::_sfAlphaDestFactor
-    	The frame buffer alpha is multiplied by the source factor before being stored 
-        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.
-        The default is GL_NONE, which indicates using the standard BlendFunction.
-
+/*! \var GLenum          BlendChunkBase::_sfAlphaDestFactor
+    The frame buffer alpha is multiplied by the source factor before being
+    stored  in the frame buffer. Only available where
+    GL_EXT_blend_func_separate is supported. The default is GL_NONE, which
+    indicates using the standard BlendFunction.
 */
 
 void BlendChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -123,9 +144,9 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "srcFactor", 
-        "	The incoming pixel is multiplied by the source factor. Legal values are directly taken from the glBlendFunc() manpage.\n",
+        SFGLenum::getClassType(),
+        "srcFactor",
+        "The incoming pixel is multiplied by the source factor. Legal values are directly taken from the glBlendFunc() manpage.\n",
         SrcFactorFieldId, SrcFactorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -145,9 +166,9 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "destFactor", 
-        "	The frame buffer pixel is multiplied by the destination factor. Legal values are directly taken from the glBlendFunc() manpage.\n",
+        SFGLenum::getClassType(),
+        "destFactor",
+        "The frame buffer pixel is multiplied by the destination factor. Legal values are directly taken from the glBlendFunc() manpage.\n",
         DestFactorFieldId, DestFactorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -167,9 +188,9 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "equation", 
-        "	The equation used to combine the two values. Only available where GL_ARB_imaging is supported. See glBlendEquation() for details.\n",
+        SFGLenum::getClassType(),
+        "equation",
+        "The equation used to combine the two values. Only available where GL_ARB_imaging is supported. See glBlendEquation() for details.\n",
         EquationFieldId, EquationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -189,9 +210,9 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "color", 
-        "	This is the constant color used by blend modes *_CONSTANT_*.\n",
+        SFColor4f::getClassType(),
+        "color",
+        "This is the constant color used by blend modes *_CONSTANT_*.\n",
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -211,9 +232,10 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "alphaFunc", 
-        "	The alphaFunc defines how fragments which do not fulfill a certain condition are handled. \n        See glAlphaFunc() for details. GL_NONE is used to disable alpha comparison.\n",
+        SFGLenum::getClassType(),
+        "alphaFunc",
+        "The alphaFunc defines how fragments which do not fulfill a certain condition are handled. \n"
+        "See glAlphaFunc() for details. GL_NONE is used to disable alpha comparison.\n",
         AlphaFuncFieldId, AlphaFuncFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -233,9 +255,9 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "alphaValue", 
-        "        The value used in alpha comparison.\n",
+        SFReal32::getClassType(),
+        "alphaValue",
+        "The value used in alpha comparison.\n",
         AlphaValueFieldId, AlphaValueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -255,9 +277,11 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "alphaSrcFactor", 
-        "	The incoming alpha is multiplied by the source factor before being stored \n        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.\n        The default is GL_NONE, which indicates using the standard BlendFunction.\n",
+        SFGLenum::getClassType(),
+        "alphaSrcFactor",
+        "The incoming alpha is multiplied by the source factor before being stored \n"
+        "in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.\n"
+        "The default is GL_NONE, which indicates using the standard BlendFunction.\n",
         AlphaSrcFactorFieldId, AlphaSrcFactorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -277,9 +301,11 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "alphaDestFactor", 
-        "	The frame buffer alpha is multiplied by the source factor before being stored \n        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.\n        The default is GL_NONE, which indicates using the standard BlendFunction.\n",
+        SFGLenum::getClassType(),
+        "alphaDestFactor",
+        "The frame buffer alpha is multiplied by the source factor before being stored \n"
+        "in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.\n"
+        "The default is GL_NONE, which indicates using the standard BlendFunction.\n",
         AlphaDestFactorFieldId, AlphaDestFactorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -304,126 +330,144 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(true,
     (InitalInsertDescFunc) &BlendChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"BlendChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel are combined with the pixel already in the frame buffer.\n"
-"	<Field\n"
-"		name=\"srcFactor\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		defaultValue=\"GL_ONE\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The incoming pixel is multiplied by the source factor. Legal values are directly taken from the glBlendFunc() manpage.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"destFactor\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		defaultValue=\"GL_ZERO\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The frame buffer pixel is multiplied by the destination factor. Legal values are directly taken from the glBlendFunc() manpage.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"equation\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The equation used to combine the two values. Only available where GL_ARB_imaging is supported. See glBlendEquation() for details.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"color\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0,0,0,0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	This is the constant color used by blend modes *_CONSTANT_*.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"alphaFunc\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The alphaFunc defines how fragments which do not fulfill a certain condition are handled. \n"
-"        See glAlphaFunc() for details. GL_NONE is used to disable alpha comparison.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"alphaValue\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The value used in alpha comparison.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"alphaSrcFactor\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"OSG_GL_UNUSED\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The incoming alpha is multiplied by the source factor before being stored \n"
-"        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.\n"
-"        The default is GL_NONE, which indicates using the standard BlendFunction.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"alphaDestFactor\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"OSG_GL_UNUSED\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The frame buffer alpha is multiplied by the source factor before being stored \n"
-"        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.\n"
-"        The default is GL_NONE, which indicates using the standard BlendFunction.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel are combined with the pixel already in the frame buffer.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"BlendChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemBlendChunk for a description. \n"
+    "\n"
+    "The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel\n"
+    "are combined with the pixel already in the frame buffer.\n"
+    "\n"
+    "This chunk wraps glBlendFunc() (OSG::BlendChunk::_sfSrcFactor,\n"
+    "OSG::BlendChunk::_sfDestFactor), glBlendEquation() or glBlendEquationEXT()\n"
+    "(whichever is supported) (OSG::BlendChunk::_sfEquation), glBlendColor() \n"
+    "(OSG::BlendChunk::_sfColor) and glAlphaFunc() (OSG::BlendChunk::_sfAlphaFunc,\n"
+    "OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).\n"
+    "\t<Field\n"
+    "\t\tname=\"srcFactor\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultValue=\"GL_ONE\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe incoming pixel is multiplied by the source factor. Legal values are directly taken from the glBlendFunc() manpage.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"destFactor\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultValue=\"GL_ZERO\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe frame buffer pixel is multiplied by the destination factor. Legal values are directly taken from the glBlendFunc() manpage.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"equation\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe equation used to combine the two values. Only available where GL_ARB_imaging is supported. See glBlendEquation() for details.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"color\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0,0,0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThis is the constant color used by blend modes *_CONSTANT_*.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"alphaFunc\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe alphaFunc defines how fragments which do not fulfill a certain condition are handled. \n"
+    "        See glAlphaFunc() for details. GL_NONE is used to disable alpha comparison.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"alphaValue\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The value used in alpha comparison.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"alphaSrcFactor\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"OSG_GL_UNUSED\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe incoming alpha is multiplied by the source factor before being stored \n"
+    "        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.\n"
+    "        The default is GL_NONE, which indicates using the standard BlendFunction.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"alphaDestFactor\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"OSG_GL_UNUSED\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe frame buffer alpha is multiplied by the source factor before being stored \n"
+    "        in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.\n"
+    "        The default is GL_NONE, which indicates using the standard BlendFunction.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemBlendChunk for a description. \n"
+    "The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel\n"
+    "are combined with the pixel already in the frame buffer.\n"
+    "This chunk wraps glBlendFunc() (OSG::BlendChunk::_sfSrcFactor,\n"
+    "OSG::BlendChunk::_sfDestFactor), glBlendEquation() or glBlendEquationEXT()\n"
+    "(whichever is supported) (OSG::BlendChunk::_sfEquation), glBlendColor() \n"
+    "(OSG::BlendChunk::_sfColor) and glAlphaFunc() (OSG::BlendChunk::_sfAlphaFunc,\n"
+    "OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &BlendChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &BlendChunkBase::getType(void) const 
+FieldContainerType &BlendChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 BlendChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(BlendChunk); 
+const FieldContainerType &BlendChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 BlendChunkBase::getContainerSize(void) const
+{
+    return sizeof(BlendChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -442,9 +486,9 @@ const SFGLenum *BlendChunkBase::getSFSrcFactor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *BlendChunkBase::getSFSrcFactor(void)
+SFGLenum            *BlendChunkBase::getSFSrcFactor      (void)
 {
-    return this->editSFSrcFactor();
+    return this->editSFSrcFactor      ();
 }
 #endif
 
@@ -461,9 +505,9 @@ const SFGLenum *BlendChunkBase::getSFDestFactor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *BlendChunkBase::getSFDestFactor(void)
+SFGLenum            *BlendChunkBase::getSFDestFactor     (void)
 {
-    return this->editSFDestFactor();
+    return this->editSFDestFactor     ();
 }
 #endif
 
@@ -480,9 +524,9 @@ const SFGLenum *BlendChunkBase::getSFEquation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *BlendChunkBase::getSFEquation(void)
+SFGLenum            *BlendChunkBase::getSFEquation       (void)
 {
-    return this->editSFEquation();
+    return this->editSFEquation       ();
 }
 #endif
 
@@ -499,9 +543,9 @@ const SFColor4f *BlendChunkBase::getSFColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *BlendChunkBase::getSFColor(void)
+SFColor4f           *BlendChunkBase::getSFColor          (void)
 {
-    return this->editSFColor();
+    return this->editSFColor          ();
 }
 #endif
 
@@ -518,9 +562,9 @@ const SFGLenum *BlendChunkBase::getSFAlphaFunc(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *BlendChunkBase::getSFAlphaFunc(void)
+SFGLenum            *BlendChunkBase::getSFAlphaFunc      (void)
 {
-    return this->editSFAlphaFunc();
+    return this->editSFAlphaFunc      ();
 }
 #endif
 
@@ -537,9 +581,9 @@ const SFReal32 *BlendChunkBase::getSFAlphaValue(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *BlendChunkBase::getSFAlphaValue(void)
+SFReal32            *BlendChunkBase::getSFAlphaValue     (void)
 {
-    return this->editSFAlphaValue();
+    return this->editSFAlphaValue     ();
 }
 #endif
 
@@ -556,9 +600,9 @@ const SFGLenum *BlendChunkBase::getSFAlphaSrcFactor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *BlendChunkBase::getSFAlphaSrcFactor(void)
+SFGLenum            *BlendChunkBase::getSFAlphaSrcFactor (void)
 {
-    return this->editSFAlphaSrcFactor();
+    return this->editSFAlphaSrcFactor ();
 }
 #endif
 
@@ -575,7 +619,7 @@ const SFGLenum *BlendChunkBase::getSFAlphaDestFactor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *BlendChunkBase::getSFAlphaDestFactor(void)
+SFGLenum            *BlendChunkBase::getSFAlphaDestFactor(void)
 {
     return this->editSFAlphaDestFactor();
 }
@@ -704,22 +748,22 @@ void BlendChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-BlendChunkPtr BlendChunkBase::createEmpty(void) 
-{ 
-    BlendChunkPtr returnValue; 
-    
-    newPtr<BlendChunk>(returnValue); 
+BlendChunkPtr BlendChunkBase::createEmpty(void)
+{
+    BlendChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<BlendChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr BlendChunkBase::shallowCopy(void) const 
-{ 
-    BlendChunkPtr returnValue; 
+FieldContainerPtr BlendChunkBase::shallowCopy(void) const
+{
+    BlendChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const BlendChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const BlendChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -728,27 +772,27 @@ FieldContainerPtr BlendChunkBase::shallowCopy(void) const
 
 BlendChunkBase::BlendChunkBase(void) :
     Inherited(),
-    _sfSrcFactor(GLenum(GL_ONE)),
-    _sfDestFactor(GLenum(GL_ZERO)),
-    _sfEquation(GLenum(GL_NONE)),
-    _sfColor(Color4f(0,0,0,0)),
-    _sfAlphaFunc(GLenum(GL_NONE)),
-    _sfAlphaValue(Real32(0)),
-    _sfAlphaSrcFactor(GLenum(OSG_GL_UNUSED)),
-    _sfAlphaDestFactor(GLenum(OSG_GL_UNUSED))
+    _sfSrcFactor              (GLenum(GL_ONE)),
+    _sfDestFactor             (GLenum(GL_ZERO)),
+    _sfEquation               (GLenum(GL_NONE)),
+    _sfColor                  (Color4f(0,0,0,0)),
+    _sfAlphaFunc              (GLenum(GL_NONE)),
+    _sfAlphaValue             (Real32(0)),
+    _sfAlphaSrcFactor         (GLenum(OSG_GL_UNUSED)),
+    _sfAlphaDestFactor        (GLenum(OSG_GL_UNUSED))
 {
 }
 
 BlendChunkBase::BlendChunkBase(const BlendChunkBase &source) :
     Inherited(source),
-    _sfSrcFactor(source._sfSrcFactor),
-    _sfDestFactor(source._sfDestFactor),
-    _sfEquation(source._sfEquation),
-    _sfColor(source._sfColor),
-    _sfAlphaFunc(source._sfAlphaFunc),
-    _sfAlphaValue(source._sfAlphaValue),
-    _sfAlphaSrcFactor(source._sfAlphaSrcFactor),
-    _sfAlphaDestFactor(source._sfAlphaDestFactor)
+    _sfSrcFactor              (source._sfSrcFactor              ),
+    _sfDestFactor             (source._sfDestFactor             ),
+    _sfEquation               (source._sfEquation               ),
+    _sfColor                  (source._sfColor                  ),
+    _sfAlphaFunc              (source._sfAlphaFunc              ),
+    _sfAlphaValue             (source._sfAlphaValue             ),
+    _sfAlphaSrcFactor         (source._sfAlphaSrcFactor         ),
+    _sfAlphaDestFactor        (source._sfAlphaDestFactor        )
 {
 }
 
@@ -762,13 +806,13 @@ BlendChunkBase::~BlendChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void BlendChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<BlendChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -778,10 +822,10 @@ void BlendChunkBase::execSyncV(      FieldContainer    &oFrom,
 void BlendChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<BlendChunkBase *>(&oFrom), 
+    this->execSync(static_cast<BlendChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -801,12 +845,12 @@ void BlendChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr BlendChunkBase::createAspectCopy(void) const
 {
-    BlendChunkPtr returnValue; 
+    BlendChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const BlendChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const BlendChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -815,6 +859,8 @@ void BlendChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -837,8 +883,6 @@ OSG_FIELDTRAITS_GETTYPE(BlendChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, BlendChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, BlendChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -859,3 +903,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGBLENDCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

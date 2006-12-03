@@ -60,28 +60,38 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // Target default header
+#include <OSGGL.h>                        // Target default header
 
 
 #include "OSGTextureBaseChunkBase.h"
 #include "OSGTextureBaseChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var GLenum TextureBaseChunkBase::_sfTarget
-            Texture target. Overwrite automatically determined texture target
-        based on the parameters of the assigned image if set to anything 
-        else than GL_NONE. Used for nVidia's rectangle textures. Be careful
-        when using it!
-    
+/*! \class OSG::TextureBaseChunk
+    \ingroup GrpSystemState
 
+    See \ref PageSystemTextureChunk for a description.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var GLenum          TextureBaseChunkBase::_sfTarget
+    Texture target. Overwrite automatically determined texture target
+    based on the parameters of the assigned image if set to anything  else
+    than GL_NONE. Used for nVidia's rectangle textures. Be careful when
+    using it!
 */
 
 void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -91,9 +101,12 @@ void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "target", 
-        "        Texture target. Overwrite automatically determined texture target\n        based on the parameters of the assigned image if set to anything \n        else than GL_NONE. Used for nVidia's rectangle textures. Be careful\n        when using it!\n    \n",
+        SFGLenum::getClassType(),
+        "target",
+        "Texture target. Overwrite automatically determined texture target\n"
+        "based on the parameters of the assigned image if set to anything \n"
+        "else than GL_NONE. Used for nVidia's rectangle textures. Be careful\n"
+        "when using it!\n",
         TargetFieldId, TargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,57 +126,60 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     TextureBaseChunk::initMethod,
     (InitalInsertDescFunc) &TextureBaseChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TextureBaseChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"    <Field\n"
-"        name=\"target\"\n"
-"        type=\"GLenum\"\n"
-"        cardinality=\"single\"\n"
-"        visibility=\"external\"\n"
-"        defaultValue=\"GL_NONE\"\n"
-"        defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"        access=\"public\"\n"
-"    >\n"
-"        Texture target. Overwrite automatically determined texture target\n"
-"        based on the parameters of the assigned image if set to anything \n"
-"        else than GL_NONE. Used for nVidia's rectangle textures. Be careful\n"
-"        when using it!\n"
-"    </Field>\n"
-"</FieldContainer>\n"
-,
-    "    \n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TextureBaseChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemTextureChunk for a description.\n"
+    "    <Field\n"
+    "        name=\"target\"\n"
+    "        type=\"GLenum\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"GL_NONE\"\n"
+    "        defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "        Texture target. Overwrite automatically determined texture target\n"
+    "        based on the parameters of the assigned image if set to anything \n"
+    "        else than GL_NONE. Used for nVidia's rectangle textures. Be careful\n"
+    "        when using it!\n"
+    "    </Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemTextureChunk for a description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureBaseChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureBaseChunkBase::getType(void) const 
+FieldContainerType &TextureBaseChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureBaseChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureBaseChunk); 
+const FieldContainerType &TextureBaseChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureBaseChunkBase::getContainerSize(void) const
+{
+    return sizeof(TextureBaseChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -182,9 +198,9 @@ const SFGLenum *TextureBaseChunkBase::getSFTarget(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureBaseChunkBase::getSFTarget(void)
+SFGLenum            *TextureBaseChunkBase::getSFTarget         (void)
 {
-    return this->editSFTarget();
+    return this->editSFTarget         ();
 }
 #endif
 
@@ -232,13 +248,13 @@ void TextureBaseChunkBase::copyFromBin(BinaryDataHandler &pMem,
 
 TextureBaseChunkBase::TextureBaseChunkBase(void) :
     Inherited(),
-    _sfTarget(GLenum(GL_NONE))
+    _sfTarget                 (GLenum(GL_NONE))
 {
 }
 
 TextureBaseChunkBase::TextureBaseChunkBase(const TextureBaseChunkBase &source) :
     Inherited(source),
-    _sfTarget(source._sfTarget)
+    _sfTarget                 (source._sfTarget                 )
 {
 }
 
@@ -252,13 +268,13 @@ TextureBaseChunkBase::~TextureBaseChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureBaseChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureBaseChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -268,10 +284,10 @@ void TextureBaseChunkBase::execSyncV(      FieldContainer    &oFrom,
 void TextureBaseChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureBaseChunkBase *>(&oFrom), 
+    this->execSync(static_cast<TextureBaseChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -295,6 +311,8 @@ void TextureBaseChunkBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -316,8 +334,6 @@ OSG_FIELDTRAITS_GETTYPE(TextureBaseChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TextureBaseChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TextureBaseChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -338,3 +354,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTUREBASECHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

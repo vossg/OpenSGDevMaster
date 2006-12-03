@@ -9,8 +9,20 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+\ingroup GrpSystemState
+
+See \ref PageSystemLightChunk for a description.
+
 The light chunk contains the parameter set for a single light source. It's taken
 straight from the glLight() manpage.
+
+This chunk wraps glLight() (OSG::LightChunk::_sfAmbient,
+OSG::LightChunk::_sfDiffuse, OSG::LightChunk::_sfSpecular,
+OSG::LightChunk::_sfEmission, OSG::LightChunk::_sfPosition,
+OSG::LightChunk::_sfDirection, OSG::LightChunk::_sfExponent,
+OSG::LightChunk::_sfCutoff, OSG::LightChunk::_sfConstantAttenuation,
+OSG::LightChunk::_sfLinearAttenuation,
+OSG::LightChunk::_sfQuadraticAttenuation).
 	<Field
 		name="diffuse"
 		type="Color4r"

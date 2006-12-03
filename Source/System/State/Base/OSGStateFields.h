@@ -70,22 +70,22 @@ class State;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StatePtr
 
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           State>::ObjPtr         StatePtr;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           State>::ObjPtrConst    StatePtrConst;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           State>::ObjConstPtr    StateConstPtr;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           State>::ObjPtrArg      StatePtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           State>::ObjConstPtrArg StateConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerPtr, 
+typedef PointerFwdBuilder<FieldContainerPtr,
                           FieldContainerConstPtr,
                           State>::ObjPtrConstArg StatePtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<FieldContainerPtr,
 #endif
 
 template <>
-struct FieldTraits<StatePtr> : 
+struct FieldTraits<StatePtr> :
     public FieldTraitsTemplateBase<StatePtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<StatePtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFStatePtr"; }

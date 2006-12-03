@@ -9,6 +9,9 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+\ingroup GrpSystemState
+
+The state base class. See \ref PageSystemState for the conceptual background.
 	<Field
 		name="chunks"
 		type="StateChunkPtr"

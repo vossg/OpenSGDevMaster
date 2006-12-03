@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &MaterialChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 MaterialChunkBase::getClassTypeId(void) 
+OSG::UInt32 MaterialChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 MaterialChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Color4r &MaterialChunkBase::getDiffuse(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &MaterialChunkBase::getDiffuse(void)
+Color4r             &MaterialChunkBase::getDiffuse        (void)
 {
-    return this->editDiffuse();
+    return this->editDiffuse        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Color4r &MaterialChunkBase::getAmbient(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &MaterialChunkBase::getAmbient(void)
+Color4r             &MaterialChunkBase::getAmbient        (void)
 {
-    return this->editAmbient();
+    return this->editAmbient        ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Color4r &MaterialChunkBase::getSpecular(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &MaterialChunkBase::getSpecular(void)
+Color4r             &MaterialChunkBase::getSpecular       (void)
 {
-    return this->editSpecular();
+    return this->editSpecular       ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Color4r &MaterialChunkBase::getEmission(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &MaterialChunkBase::getEmission(void)
+Color4r             &MaterialChunkBase::getEmission       (void)
 {
-    return this->editEmission();
+    return this->editEmission       ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const Real &MaterialChunkBase::getShininess(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &MaterialChunkBase::getShininess(void)
+Real                &MaterialChunkBase::getShininess      (void)
 {
-    return this->editShininess();
+    return this->editShininess      ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const bool &MaterialChunkBase::getLit(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &MaterialChunkBase::getLit(void)
+bool                &MaterialChunkBase::getLit            (void)
 {
-    return this->editLit();
+    return this->editLit            ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const GLenum &MaterialChunkBase::getColorMaterial(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &MaterialChunkBase::getColorMaterial(void)
+GLenum              &MaterialChunkBase::getColorMaterial  (void)
 {
-    return this->editColorMaterial();
+    return this->editColorMaterial  ();
 }
 #endif
 
@@ -323,9 +323,9 @@ const bool &MaterialChunkBase::getBackMaterial(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &MaterialChunkBase::getBackMaterial(void)
+bool                &MaterialChunkBase::getBackMaterial   (void)
 {
-    return this->editBackMaterial();
+    return this->editBackMaterial   ();
 }
 #endif
 
@@ -356,9 +356,9 @@ const Color4r &MaterialChunkBase::getBackDiffuse(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &MaterialChunkBase::getBackDiffuse(void)
+Color4r             &MaterialChunkBase::getBackDiffuse    (void)
 {
-    return this->editBackDiffuse();
+    return this->editBackDiffuse    ();
 }
 #endif
 
@@ -389,9 +389,9 @@ const Color4r &MaterialChunkBase::getBackAmbient(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &MaterialChunkBase::getBackAmbient(void)
+Color4r             &MaterialChunkBase::getBackAmbient    (void)
 {
-    return this->editBackAmbient();
+    return this->editBackAmbient    ();
 }
 #endif
 
@@ -422,9 +422,9 @@ const Color4r &MaterialChunkBase::getBackSpecular(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &MaterialChunkBase::getBackSpecular(void)
+Color4r             &MaterialChunkBase::getBackSpecular   (void)
 {
-    return this->editBackSpecular();
+    return this->editBackSpecular   ();
 }
 #endif
 
@@ -455,9 +455,9 @@ const Color4r &MaterialChunkBase::getBackEmission(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4r &MaterialChunkBase::getBackEmission(void)
+Color4r             &MaterialChunkBase::getBackEmission   (void)
 {
-    return this->editBackEmission();
+    return this->editBackEmission   ();
 }
 #endif
 
@@ -488,9 +488,9 @@ const Real &MaterialChunkBase::getBackShininess(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &MaterialChunkBase::getBackShininess(void)
+Real                &MaterialChunkBase::getBackShininess  (void)
 {
-    return this->editBackShininess();
+    return this->editBackShininess  ();
 }
 #endif
 
@@ -521,7 +521,7 @@ const GLenum &MaterialChunkBase::getBackColorMaterial(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &MaterialChunkBase::getBackColorMaterial(void)
+GLenum              &MaterialChunkBase::getBackColorMaterial(void)
 {
     return this->editBackColorMaterial();
 }
@@ -538,24 +538,24 @@ void MaterialChunkBase::setBackColorMaterial(const GLenum &value)
 
 //! create a new instance of the class
 inline
-MaterialChunkPtr MaterialChunkBase::create(void) 
+MaterialChunkPtr MaterialChunkBase::create(void)
 {
-    MaterialChunkPtr fc; 
+    MaterialChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<MaterialChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void MaterialChunkBase::execSync(      MaterialChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -610,7 +610,7 @@ inline
 void MaterialChunkBase::execSync (      MaterialChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -687,4 +687,3 @@ typedef PointerBuilder<MaterialChunk>::ObjPtrConstArg  MaterialChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGMATERIALCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

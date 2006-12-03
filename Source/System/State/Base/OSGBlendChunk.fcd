@@ -9,7 +9,18 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel are combined with the pixel already in the frame buffer.
+\ingroup GrpSystemState
+
+See \ref PageSystemBlendChunk for a description. 
+
+The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel
+are combined with the pixel already in the frame buffer.
+
+This chunk wraps glBlendFunc() (OSG::BlendChunk::_sfSrcFactor,
+OSG::BlendChunk::_sfDestFactor), glBlendEquation() or glBlendEquationEXT()
+(whichever is supported) (OSG::BlendChunk::_sfEquation), glBlendColor() 
+(OSG::BlendChunk::_sfColor) and glAlphaFunc() (OSG::BlendChunk::_sfAlphaFunc,
+OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).
 	<Field
 		name="srcFactor"
 		type="GLenum"

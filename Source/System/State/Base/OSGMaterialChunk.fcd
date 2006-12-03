@@ -9,6 +9,15 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+\ingroup GrpSystemState
+
+See \ref PageSystemMaterialChunk for details.
+
+This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,
+OSG::MaterialChunk::_sfSpecular, OSG::MaterialChunk::_sfEmission,
+OSG::MaterialChunk::_sfShininess, OSG::MaterialChunk::_sfAmbient),
+glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
+(OSG::MaterialChunk::_sfColorMaterial).
 	<Field
 		name="diffuse"
 		type="Color4r"

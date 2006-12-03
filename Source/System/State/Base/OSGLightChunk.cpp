@@ -55,25 +55,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::LightChunk
-    \ingroup GrpSystemState
-
-  See \ref PageSystemLightChunk for a description.
-
-  This chunk wraps glLight() (OSG::LightChunk::_sfAmbient,
-  OSG::LightChunk::_sfDiffuse, OSG::LightChunk::_sfSpecular,
-  OSG::LightChunk::_sfEmission, OSG::LightChunk::_sfPosition,
-  OSG::LightChunk::_sfDirection, OSG::LightChunk::_sfExponent,
-  OSG::LightChunk::_sfCutoff, OSG::LightChunk::_sfConstantAttenuation,
-  OSG::LightChunk::_sfLinearAttenuation,
-  OSG::LightChunk::_sfQuadraticAttenuation).
-  
- */
+// Documentation for this class is emited in the
+// OSGLightChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGLightChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

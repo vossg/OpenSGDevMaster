@@ -109,22 +109,22 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
-                              TextureBaseChunkConstPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
+                              TextureBaseChunkConstPtr,
                               TextureObjChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
-                              TextureBaseChunkConstPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
+                              TextureBaseChunkConstPtr,
                               TextureObjChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureObjChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureObjChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureObjChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+    typedef PointerFwdBuilder<TextureBaseChunkPtr,
                               TextureBaseChunkConstPtr,
                               TextureObjChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -162,66 +162,65 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         NextFieldId = DepthModeFieldId + 1
     };
 
-    static const OSG::BitVector ImageFieldMask = 
+    static const OSG::BitVector ImageFieldMask =
         (TypeTraits<BitVector>::One << ImageFieldId);
-    static const OSG::BitVector InternalFormatFieldMask = 
+    static const OSG::BitVector InternalFormatFieldMask =
         (TypeTraits<BitVector>::One << InternalFormatFieldId);
-    static const OSG::BitVector ExternalFormatFieldMask = 
+    static const OSG::BitVector ExternalFormatFieldMask =
         (TypeTraits<BitVector>::One << ExternalFormatFieldId);
-    static const OSG::BitVector ScaleFieldMask = 
+    static const OSG::BitVector ScaleFieldMask =
         (TypeTraits<BitVector>::One << ScaleFieldId);
-    static const OSG::BitVector FrameFieldMask = 
+    static const OSG::BitVector FrameFieldMask =
         (TypeTraits<BitVector>::One << FrameFieldId);
-    static const OSG::BitVector MinFilterFieldMask = 
+    static const OSG::BitVector MinFilterFieldMask =
         (TypeTraits<BitVector>::One << MinFilterFieldId);
-    static const OSG::BitVector MagFilterFieldMask = 
+    static const OSG::BitVector MagFilterFieldMask =
         (TypeTraits<BitVector>::One << MagFilterFieldId);
-    static const OSG::BitVector WrapSFieldMask = 
+    static const OSG::BitVector WrapSFieldMask =
         (TypeTraits<BitVector>::One << WrapSFieldId);
-    static const OSG::BitVector WrapTFieldMask = 
+    static const OSG::BitVector WrapTFieldMask =
         (TypeTraits<BitVector>::One << WrapTFieldId);
-    static const OSG::BitVector WrapRFieldMask = 
+    static const OSG::BitVector WrapRFieldMask =
         (TypeTraits<BitVector>::One << WrapRFieldId);
-    static const OSG::BitVector GLIdFieldMask = 
+    static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector IgnoreGLForAspectFieldMask = 
+    static const OSG::BitVector IgnoreGLForAspectFieldMask =
         (TypeTraits<BitVector>::One << IgnoreGLForAspectFieldId);
-    static const OSG::BitVector PriorityFieldMask = 
+    static const OSG::BitVector PriorityFieldMask =
         (TypeTraits<BitVector>::One << PriorityFieldId);
-    static const OSG::BitVector DirtyLeftFieldMask = 
+    static const OSG::BitVector DirtyLeftFieldMask =
         (TypeTraits<BitVector>::One << DirtyLeftFieldId);
-    static const OSG::BitVector DirtyMinXFieldMask = 
+    static const OSG::BitVector DirtyMinXFieldMask =
         (TypeTraits<BitVector>::One << DirtyMinXFieldId);
-    static const OSG::BitVector DirtyMaxXFieldMask = 
+    static const OSG::BitVector DirtyMaxXFieldMask =
         (TypeTraits<BitVector>::One << DirtyMaxXFieldId);
-    static const OSG::BitVector DirtyMinYFieldMask = 
+    static const OSG::BitVector DirtyMinYFieldMask =
         (TypeTraits<BitVector>::One << DirtyMinYFieldId);
-    static const OSG::BitVector DirtyMaxYFieldMask = 
+    static const OSG::BitVector DirtyMaxYFieldMask =
         (TypeTraits<BitVector>::One << DirtyMaxYFieldId);
-    static const OSG::BitVector DirtyMinZFieldMask = 
+    static const OSG::BitVector DirtyMinZFieldMask =
         (TypeTraits<BitVector>::One << DirtyMinZFieldId);
-    static const OSG::BitVector DirtyMaxZFieldMask = 
+    static const OSG::BitVector DirtyMaxZFieldMask =
         (TypeTraits<BitVector>::One << DirtyMaxZFieldId);
-    static const OSG::BitVector AnisotropyFieldMask = 
+    static const OSG::BitVector AnisotropyFieldMask =
         (TypeTraits<BitVector>::One << AnisotropyFieldId);
-    static const OSG::BitVector BorderColorFieldMask = 
+    static const OSG::BitVector BorderColorFieldMask =
         (TypeTraits<BitVector>::One << BorderColorFieldId);
-    static const OSG::BitVector CompareModeFieldMask = 
+    static const OSG::BitVector CompareModeFieldMask =
         (TypeTraits<BitVector>::One << CompareModeFieldId);
-    static const OSG::BitVector CompareFuncFieldMask = 
+    static const OSG::BitVector CompareFuncFieldMask =
         (TypeTraits<BitVector>::One << CompareFuncFieldId);
-    static const OSG::BitVector DepthModeFieldMask = 
+    static const OSG::BitVector DepthModeFieldMask =
         (TypeTraits<BitVector>::One << DepthModeFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -229,8 +228,8 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -239,354 +238,354 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFImagePtr *getSFImage (void) const;
+            const SFImagePtr          *getSFImage           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFInternalFormat(void);
+                  SFGLenum            *getSFInternalFormat  (void);
 #endif
-           SFGLenum *editSFInternalFormat(void);
-     const SFGLenum *getSFInternalFormat (void) const;
+                  SFGLenum            *editSFInternalFormat (void);
+            const SFGLenum            *getSFInternalFormat  (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFExternalFormat(void);
+                  SFGLenum            *getSFExternalFormat  (void);
 #endif
-           SFGLenum *editSFExternalFormat(void);
-     const SFGLenum *getSFExternalFormat (void) const;
+                  SFGLenum            *editSFExternalFormat (void);
+            const SFGLenum            *getSFExternalFormat  (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFScale(void);
+                  SFBool              *getSFScale           (void);
 #endif
-           SFBool *editSFScale(void);
-     const SFBool *getSFScale (void) const;
+                  SFBool              *editSFScale          (void);
+            const SFBool              *getSFScale           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFFrame(void);
+                  SFUInt32            *getSFFrame           (void);
 #endif
-           SFUInt32 *editSFFrame(void);
-     const SFUInt32 *getSFFrame (void) const;
+                  SFUInt32            *editSFFrame          (void);
+            const SFUInt32            *getSFFrame           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFMinFilter(void);
+                  SFGLenum            *getSFMinFilter       (void);
 #endif
-           SFGLenum *editSFMinFilter(void);
-     const SFGLenum *getSFMinFilter (void) const;
+                  SFGLenum            *editSFMinFilter      (void);
+            const SFGLenum            *getSFMinFilter       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFMagFilter(void);
+                  SFGLenum            *getSFMagFilter       (void);
 #endif
-           SFGLenum *editSFMagFilter(void);
-     const SFGLenum *getSFMagFilter (void) const;
+                  SFGLenum            *editSFMagFilter      (void);
+            const SFGLenum            *getSFMagFilter       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFWrapS(void);
+                  SFGLenum            *getSFWrapS           (void);
 #endif
-           SFGLenum *editSFWrapS(void);
-     const SFGLenum *getSFWrapS (void) const;
+                  SFGLenum            *editSFWrapS          (void);
+            const SFGLenum            *getSFWrapS           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFWrapT(void);
+                  SFGLenum            *getSFWrapT           (void);
 #endif
-           SFGLenum *editSFWrapT(void);
-     const SFGLenum *getSFWrapT (void) const;
+                  SFGLenum            *editSFWrapT          (void);
+            const SFGLenum            *getSFWrapT           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFWrapR(void);
+                  SFGLenum            *getSFWrapR           (void);
 #endif
-           SFGLenum *editSFWrapR(void);
-     const SFGLenum *getSFWrapR (void) const;
+                  SFGLenum            *editSFWrapR          (void);
+            const SFGLenum            *getSFWrapR           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFGLId(void);
+                  SFGLenum            *getSFGLId            (void);
 #endif
-           SFGLenum *editSFGLId(void);
-     const SFGLenum *getSFGLId (void) const;
+                  SFGLenum            *editSFGLId           (void);
+            const SFGLenum            *getSFGLId            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFIgnoreGLForAspect(void);
+                  SFInt32             *getSFIgnoreGLForAspect (void);
 #endif
-           SFInt32 *editSFIgnoreGLForAspect(void);
-     const SFInt32 *getSFIgnoreGLForAspect (void) const;
+                  SFInt32             *editSFIgnoreGLForAspect(void);
+            const SFInt32             *getSFIgnoreGLForAspect (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFPriority(void);
+                  SFReal32            *getSFPriority        (void);
 #endif
-           SFReal32 *editSFPriority(void);
-     const SFReal32 *getSFPriority (void) const;
+                  SFReal32            *editSFPriority       (void);
+            const SFReal32            *getSFPriority        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFDirtyLeft(void);
+                  SFInt32             *getSFDirtyLeft       (void);
 #endif
-           SFInt32 *editSFDirtyLeft(void);
-     const SFInt32 *getSFDirtyLeft (void) const;
+                  SFInt32             *editSFDirtyLeft      (void);
+            const SFInt32             *getSFDirtyLeft       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFDirtyMinX(void);
+                  SFInt32             *getSFDirtyMinX       (void);
 #endif
-           SFInt32 *editSFDirtyMinX(void);
-     const SFInt32 *getSFDirtyMinX (void) const;
+                  SFInt32             *editSFDirtyMinX      (void);
+            const SFInt32             *getSFDirtyMinX       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFDirtyMaxX(void);
+                  SFInt32             *getSFDirtyMaxX       (void);
 #endif
-           SFInt32 *editSFDirtyMaxX(void);
-     const SFInt32 *getSFDirtyMaxX (void) const;
+                  SFInt32             *editSFDirtyMaxX      (void);
+            const SFInt32             *getSFDirtyMaxX       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFDirtyMinY(void);
+                  SFInt32             *getSFDirtyMinY       (void);
 #endif
-           SFInt32 *editSFDirtyMinY(void);
-     const SFInt32 *getSFDirtyMinY (void) const;
+                  SFInt32             *editSFDirtyMinY      (void);
+            const SFInt32             *getSFDirtyMinY       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFDirtyMaxY(void);
+                  SFInt32             *getSFDirtyMaxY       (void);
 #endif
-           SFInt32 *editSFDirtyMaxY(void);
-     const SFInt32 *getSFDirtyMaxY (void) const;
+                  SFInt32             *editSFDirtyMaxY      (void);
+            const SFInt32             *getSFDirtyMaxY       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFDirtyMinZ(void);
+                  SFInt32             *getSFDirtyMinZ       (void);
 #endif
-           SFInt32 *editSFDirtyMinZ(void);
-     const SFInt32 *getSFDirtyMinZ (void) const;
+                  SFInt32             *editSFDirtyMinZ      (void);
+            const SFInt32             *getSFDirtyMinZ       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFDirtyMaxZ(void);
+                  SFInt32             *getSFDirtyMaxZ       (void);
 #endif
-           SFInt32 *editSFDirtyMaxZ(void);
-     const SFInt32 *getSFDirtyMaxZ (void) const;
+                  SFInt32             *editSFDirtyMaxZ      (void);
+            const SFInt32             *getSFDirtyMaxZ       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFAnisotropy(void);
+                  SFReal32            *getSFAnisotropy      (void);
 #endif
-           SFReal32 *editSFAnisotropy(void);
-     const SFReal32 *getSFAnisotropy (void) const;
+                  SFReal32            *editSFAnisotropy     (void);
+            const SFReal32            *getSFAnisotropy      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4f *getSFBorderColor(void);
+                  SFColor4f           *getSFBorderColor     (void);
 #endif
-           SFColor4f *editSFBorderColor(void);
-     const SFColor4f *getSFBorderColor (void) const;
+                  SFColor4f           *editSFBorderColor    (void);
+            const SFColor4f           *getSFBorderColor     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFCompareMode(void);
+                  SFGLenum            *getSFCompareMode     (void);
 #endif
-           SFGLenum *editSFCompareMode(void);
-     const SFGLenum *getSFCompareMode (void) const;
+                  SFGLenum            *editSFCompareMode    (void);
+            const SFGLenum            *getSFCompareMode     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFCompareFunc(void);
+                  SFGLenum            *getSFCompareFunc     (void);
 #endif
-           SFGLenum *editSFCompareFunc(void);
-     const SFGLenum *getSFCompareFunc (void) const;
+                  SFGLenum            *editSFCompareFunc    (void);
+            const SFGLenum            *getSFCompareFunc     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFDepthMode(void);
+                  SFGLenum            *getSFDepthMode       (void);
 #endif
-           SFGLenum *editSFDepthMode(void);
-     const SFGLenum *getSFDepthMode (void) const;
+                  SFGLenum            *editSFDepthMode      (void);
+            const SFGLenum            *getSFDepthMode       (void) const;
 
 
-           ImagePtrConst getImage(void) const;
+                  ImagePtrConst getImage          (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getInternalFormat(void);
+                  GLenum              &getInternalFormat  (void);
 #endif
-           GLenum &editInternalFormat(void);
-     const GLenum &getInternalFormat (void) const;
+                  GLenum              &editInternalFormat (void);
+            const GLenum              &getInternalFormat  (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getExternalFormat(void);
+                  GLenum              &getExternalFormat  (void);
 #endif
-           GLenum &editExternalFormat(void);
-     const GLenum &getExternalFormat (void) const;
+                  GLenum              &editExternalFormat (void);
+            const GLenum              &getExternalFormat  (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getScale(void);
+                  bool                &getScale           (void);
 #endif
-           bool &editScale(void);
-     const bool &getScale (void) const;
+                  bool                &editScale          (void);
+            const bool                &getScale           (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getFrame(void);
+                  UInt32              &getFrame           (void);
 #endif
-           UInt32 &editFrame(void);
-     const UInt32 &getFrame (void) const;
+                  UInt32              &editFrame          (void);
+            const UInt32              &getFrame           (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getMinFilter(void);
+                  GLenum              &getMinFilter       (void);
 #endif
-           GLenum &editMinFilter(void);
-     const GLenum &getMinFilter (void) const;
+                  GLenum              &editMinFilter      (void);
+            const GLenum              &getMinFilter       (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getMagFilter(void);
+                  GLenum              &getMagFilter       (void);
 #endif
-           GLenum &editMagFilter(void);
-     const GLenum &getMagFilter (void) const;
+                  GLenum              &editMagFilter      (void);
+            const GLenum              &getMagFilter       (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getWrapS(void);
+                  GLenum              &getWrapS           (void);
 #endif
-           GLenum &editWrapS(void);
-     const GLenum &getWrapS (void) const;
+                  GLenum              &editWrapS          (void);
+            const GLenum              &getWrapS           (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getWrapT(void);
+                  GLenum              &getWrapT           (void);
 #endif
-           GLenum &editWrapT(void);
-     const GLenum &getWrapT (void) const;
+                  GLenum              &editWrapT          (void);
+            const GLenum              &getWrapT           (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getWrapR(void);
+                  GLenum              &getWrapR           (void);
 #endif
-           GLenum &editWrapR(void);
-     const GLenum &getWrapR (void) const;
+                  GLenum              &editWrapR          (void);
+            const GLenum              &getWrapR           (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getGLId(void);
+                  GLenum              &getGLId            (void);
 #endif
-           GLenum &editGLId(void);
-     const GLenum &getGLId (void) const;
+                  GLenum              &editGLId           (void);
+            const GLenum              &getGLId            (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getIgnoreGLForAspect(void);
+                  Int32               &getIgnoreGLForAspect (void);
 #endif
-           Int32 &editIgnoreGLForAspect(void);
-     const Int32 &getIgnoreGLForAspect (void) const;
+                  Int32               &editIgnoreGLForAspect(void);
+            const Int32               &getIgnoreGLForAspect (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getPriority(void);
+                  Real32              &getPriority        (void);
 #endif
-           Real32 &editPriority(void);
-     const Real32 &getPriority (void) const;
+                  Real32              &editPriority       (void);
+            const Real32              &getPriority        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getDirtyLeft(void);
+                  Int32               &getDirtyLeft       (void);
 #endif
-           Int32 &editDirtyLeft(void);
-     const Int32 &getDirtyLeft (void) const;
+                  Int32               &editDirtyLeft      (void);
+            const Int32               &getDirtyLeft       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getDirtyMinX(void);
+                  Int32               &getDirtyMinX       (void);
 #endif
-           Int32 &editDirtyMinX(void);
-     const Int32 &getDirtyMinX (void) const;
+                  Int32               &editDirtyMinX      (void);
+            const Int32               &getDirtyMinX       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getDirtyMaxX(void);
+                  Int32               &getDirtyMaxX       (void);
 #endif
-           Int32 &editDirtyMaxX(void);
-     const Int32 &getDirtyMaxX (void) const;
+                  Int32               &editDirtyMaxX      (void);
+            const Int32               &getDirtyMaxX       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getDirtyMinY(void);
+                  Int32               &getDirtyMinY       (void);
 #endif
-           Int32 &editDirtyMinY(void);
-     const Int32 &getDirtyMinY (void) const;
+                  Int32               &editDirtyMinY      (void);
+            const Int32               &getDirtyMinY       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getDirtyMaxY(void);
+                  Int32               &getDirtyMaxY       (void);
 #endif
-           Int32 &editDirtyMaxY(void);
-     const Int32 &getDirtyMaxY (void) const;
+                  Int32               &editDirtyMaxY      (void);
+            const Int32               &getDirtyMaxY       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getDirtyMinZ(void);
+                  Int32               &getDirtyMinZ       (void);
 #endif
-           Int32 &editDirtyMinZ(void);
-     const Int32 &getDirtyMinZ (void) const;
+                  Int32               &editDirtyMinZ      (void);
+            const Int32               &getDirtyMinZ       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getDirtyMaxZ(void);
+                  Int32               &getDirtyMaxZ       (void);
 #endif
-           Int32 &editDirtyMaxZ(void);
-     const Int32 &getDirtyMaxZ (void) const;
+                  Int32               &editDirtyMaxZ      (void);
+            const Int32               &getDirtyMaxZ       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getAnisotropy(void);
+                  Real32              &getAnisotropy      (void);
 #endif
-           Real32 &editAnisotropy(void);
-     const Real32 &getAnisotropy (void) const;
+                  Real32              &editAnisotropy     (void);
+            const Real32              &getAnisotropy      (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4f &getBorderColor(void);
+                  Color4f             &getBorderColor     (void);
 #endif
-           Color4f &editBorderColor(void);
-     const Color4f &getBorderColor (void) const;
+                  Color4f             &editBorderColor    (void);
+            const Color4f             &getBorderColor     (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getCompareMode(void);
+                  GLenum              &getCompareMode     (void);
 #endif
-           GLenum &editCompareMode(void);
-     const GLenum &getCompareMode (void) const;
+                  GLenum              &editCompareMode    (void);
+            const GLenum              &getCompareMode     (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getCompareFunc(void);
+                  GLenum              &getCompareFunc     (void);
 #endif
-           GLenum &editCompareFunc(void);
-     const GLenum &getCompareFunc (void) const;
+                  GLenum              &editCompareFunc    (void);
+            const GLenum              &getCompareFunc     (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getDepthMode(void);
+                  GLenum              &getDepthMode       (void);
 #endif
-           GLenum &editDepthMode(void);
-     const GLenum &getDepthMode (void) const;
+                  GLenum              &editDepthMode      (void);
+            const GLenum              &getDepthMode       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setImage(ImagePtrConstArg value);
-     void setInternalFormat(const GLenum &value);
-     void setExternalFormat(const GLenum &value);
-     void setScale(const bool &value);
-     void setFrame(const UInt32 &value);
-     void setMinFilter(const GLenum &value);
-     void setMagFilter(const GLenum &value);
-     void setWrapS(const GLenum &value);
-     void setWrapT(const GLenum &value);
-     void setWrapR(const GLenum &value);
-     void setGLId(const GLenum &value);
-     void setIgnoreGLForAspect(const Int32 &value);
-     void setPriority(const Real32 &value);
-     void setDirtyLeft(const Int32 &value);
-     void setDirtyMinX(const Int32 &value);
-     void setDirtyMaxX(const Int32 &value);
-     void setDirtyMinY(const Int32 &value);
-     void setDirtyMaxY(const Int32 &value);
-     void setDirtyMinZ(const Int32 &value);
-     void setDirtyMaxZ(const Int32 &value);
-     void setAnisotropy(const Real32 &value);
-     void setBorderColor(const Color4f &value);
-     void setCompareMode(const GLenum &value);
-     void setCompareFunc(const GLenum &value);
-     void setDepthMode(const GLenum &value);
+            void setImage          (ImagePtrConstArg value);
+            void setInternalFormat (const GLenum &value);
+            void setExternalFormat (const GLenum &value);
+            void setScale          (const bool &value);
+            void setFrame          (const UInt32 &value);
+            void setMinFilter      (const GLenum &value);
+            void setMagFilter      (const GLenum &value);
+            void setWrapS          (const GLenum &value);
+            void setWrapT          (const GLenum &value);
+            void setWrapR          (const GLenum &value);
+            void setGLId           (const GLenum &value);
+            void setIgnoreGLForAspect(const Int32 &value);
+            void setPriority       (const Real32 &value);
+            void setDirtyLeft      (const Int32 &value);
+            void setDirtyMinX      (const Int32 &value);
+            void setDirtyMaxX      (const Int32 &value);
+            void setDirtyMinY      (const Int32 &value);
+            void setDirtyMaxY      (const Int32 &value);
+            void setDirtyMinZ      (const Int32 &value);
+            void setDirtyMaxZ      (const Int32 &value);
+            void setAnisotropy     (const Real32 &value);
+            void setBorderColor    (const Color4f &value);
+            void setCompareMode    (const GLenum &value);
+            void setCompareFunc    (const GLenum &value);
+            void setDepthMode      (const GLenum &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -613,15 +612,15 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureObjChunkPtr create     (void); 
-    static  TextureObjChunkPtr createEmpty(void); 
+    static  TextureObjChunkPtr create     (void);
+    static  TextureObjChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -637,31 +636,31 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFImagePtr _sfImage;
-    SFGLenum _sfInternalFormat;
-    SFGLenum _sfExternalFormat;
-    SFBool _sfScale;
-    SFUInt32 _sfFrame;
-    SFGLenum _sfMinFilter;
-    SFGLenum _sfMagFilter;
-    SFGLenum _sfWrapS;
-    SFGLenum _sfWrapT;
-    SFGLenum _sfWrapR;
-    SFGLenum _sfGLId;
-    SFInt32 _sfIgnoreGLForAspect;
-    SFReal32 _sfPriority;
-    SFInt32 _sfDirtyLeft;
-    SFInt32 _sfDirtyMinX;
-    SFInt32 _sfDirtyMaxX;
-    SFInt32 _sfDirtyMinY;
-    SFInt32 _sfDirtyMaxY;
-    SFInt32 _sfDirtyMinZ;
-    SFInt32 _sfDirtyMaxZ;
-    SFReal32 _sfAnisotropy;
-    SFColor4f _sfBorderColor;
-    SFGLenum _sfCompareMode;
-    SFGLenum _sfCompareFunc;
-    SFGLenum _sfDepthMode;
+    SFImagePtr        _sfImage;
+    SFGLenum          _sfInternalFormat;
+    SFGLenum          _sfExternalFormat;
+    SFBool            _sfScale;
+    SFUInt32          _sfFrame;
+    SFGLenum          _sfMinFilter;
+    SFGLenum          _sfMagFilter;
+    SFGLenum          _sfWrapS;
+    SFGLenum          _sfWrapT;
+    SFGLenum          _sfWrapR;
+    SFGLenum          _sfGLId;
+    SFInt32           _sfIgnoreGLForAspect;
+    SFReal32          _sfPriority;
+    SFInt32           _sfDirtyLeft;
+    SFInt32           _sfDirtyMinX;
+    SFInt32           _sfDirtyMaxX;
+    SFInt32           _sfDirtyMinY;
+    SFInt32           _sfDirtyMaxY;
+    SFInt32           _sfDirtyMinZ;
+    SFInt32           _sfDirtyMaxZ;
+    SFReal32          _sfAnisotropy;
+    SFColor4f         _sfBorderColor;
+    SFGLenum          _sfCompareMode;
+    SFGLenum          _sfCompareFunc;
+    SFGLenum          _sfDepthMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -676,7 +675,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureObjChunkBase(void); 
+    virtual ~TextureObjChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -723,11 +722,11 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

@@ -60,71 +60,86 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // ColorMaterial default header
-#include <OSGGL.h>   // BackColorMaterial default header
+#include <OSGGL.h>                        // ColorMaterial default header
+#include <OSGGL.h>                        // BackColorMaterial default header
 
 
 #include "OSGMaterialChunkBase.h"
 #include "OSGMaterialChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color4r MaterialChunkBase::_sfDiffuse
-    
-*/
-/*! \var Color4r MaterialChunkBase::_sfAmbient
-    
-*/
-/*! \var Color4r MaterialChunkBase::_sfSpecular
-    
-*/
-/*! \var Color4r MaterialChunkBase::_sfEmission
-    
-*/
-/*! \var Real MaterialChunkBase::_sfShininess
-    
-*/
-/*! \var bool MaterialChunkBase::_sfLit
-            Switch for using this material in lighting calculation. 
-        If not set the diffuse color is used as is.
+/*! \class OSG::MaterialChunk
+    \ingroup GrpSystemState
 
-*/
-/*! \var GLenum MaterialChunkBase::_sfColorMaterial
-            The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.
+    See \ref PageSystemMaterialChunk for details.
 
-*/
-/*! \var bool MaterialChunkBase::_sfBackMaterial
-            Switch for using separate material properties for front- and back-facing
-        polygons. If set to false the standard parameters will be used for front- and 
-        backfaces.
+    This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,
+    OSG::MaterialChunk::_sfSpecular, OSG::MaterialChunk::_sfEmission,
+    OSG::MaterialChunk::_sfShininess, OSG::MaterialChunk::_sfAmbient),
+    glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
+    (OSG::MaterialChunk::_sfColorMaterial).
+ */
 
-*/
-/*! \var Color4r MaterialChunkBase::_sfBackDiffuse
-    
-*/
-/*! \var Color4r MaterialChunkBase::_sfBackAmbient
-    
-*/
-/*! \var Color4r MaterialChunkBase::_sfBackSpecular
-    
-*/
-/*! \var Color4r MaterialChunkBase::_sfBackEmission
-    
-*/
-/*! \var Real MaterialChunkBase::_sfBackShininess
-    
-*/
-/*! \var GLenum MaterialChunkBase::_sfBackColorMaterial
-            The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.
-       
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
+/*! \var Color4r         MaterialChunkBase::_sfDiffuse
+    
+*/
+/*! \var Color4r         MaterialChunkBase::_sfAmbient
+    
+*/
+/*! \var Color4r         MaterialChunkBase::_sfSpecular
+    
+*/
+/*! \var Color4r         MaterialChunkBase::_sfEmission
+    
+*/
+/*! \var Real            MaterialChunkBase::_sfShininess
+    
+*/
+/*! \var bool            MaterialChunkBase::_sfLit
+    Switch for using this material in lighting calculation.  If not set
+    the diffuse color is used as is.
+*/
+/*! \var GLenum          MaterialChunkBase::_sfColorMaterial
+    The mode for using Geometry colors in lighting. Defaults to
+    GL_DIFFUSE.
+*/
+/*! \var bool            MaterialChunkBase::_sfBackMaterial
+    Switch for using separate material properties for front- and back-
+    facing polygons. If set to false the standard parameters will be used
+    for front- and  backfaces.
+*/
+/*! \var Color4r         MaterialChunkBase::_sfBackDiffuse
+    
+*/
+/*! \var Color4r         MaterialChunkBase::_sfBackAmbient
+    
+*/
+/*! \var Color4r         MaterialChunkBase::_sfBackSpecular
+    
+*/
+/*! \var Color4r         MaterialChunkBase::_sfBackEmission
+    
+*/
+/*! \var Real            MaterialChunkBase::_sfBackShininess
+    
+*/
+/*! \var GLenum          MaterialChunkBase::_sfBackColorMaterial
+    The mode for using Geometry colors in lighting. Defaults to
+    GL_DIFFUSE.
 */
 
 void MaterialChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -134,8 +149,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "diffuse", 
+        SFColor4r::getClassType(),
+        "diffuse",
         "",
         DiffuseFieldId, DiffuseFieldMask,
         false,
@@ -156,8 +171,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "ambient", 
+        SFColor4r::getClassType(),
+        "ambient",
         "",
         AmbientFieldId, AmbientFieldMask,
         false,
@@ -178,8 +193,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "specular", 
+        SFColor4r::getClassType(),
+        "specular",
         "",
         SpecularFieldId, SpecularFieldMask,
         false,
@@ -200,8 +215,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "emission", 
+        SFColor4r::getClassType(),
+        "emission",
         "",
         EmissionFieldId, EmissionFieldMask,
         false,
@@ -222,8 +237,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "shininess", 
+        SFReal::getClassType(),
+        "shininess",
         "",
         ShininessFieldId, ShininessFieldMask,
         false,
@@ -244,9 +259,10 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "lit", 
-        "        Switch for using this material in lighting calculation. \n        If not set the diffuse color is used as is.\n",
+        SFBool::getClassType(),
+        "lit",
+        "Switch for using this material in lighting calculation. \n"
+        "If not set the diffuse color is used as is.\n",
         LitFieldId, LitFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -266,9 +282,9 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "colorMaterial", 
-        "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n",
+        SFGLenum::getClassType(),
+        "colorMaterial",
+        "The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n",
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -288,9 +304,11 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "backMaterial", 
-        "        Switch for using separate material properties for front- and back-facing\n        polygons. If set to false the standard parameters will be used for front- and \n        backfaces.\n",
+        SFBool::getClassType(),
+        "backMaterial",
+        "Switch for using separate material properties for front- and back-facing\n"
+        "polygons. If set to false the standard parameters will be used for front- and \n"
+        "backfaces.\n",
         BackMaterialFieldId, BackMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -310,8 +328,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "backDiffuse", 
+        SFColor4r::getClassType(),
+        "backDiffuse",
         "",
         BackDiffuseFieldId, BackDiffuseFieldMask,
         false,
@@ -332,8 +350,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "backAmbient", 
+        SFColor4r::getClassType(),
+        "backAmbient",
         "",
         BackAmbientFieldId, BackAmbientFieldMask,
         false,
@@ -354,8 +372,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "backSpecular", 
+        SFColor4r::getClassType(),
+        "backSpecular",
         "",
         BackSpecularFieldId, BackSpecularFieldMask,
         false,
@@ -376,8 +394,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4r::Description(
-        SFColor4r::getClassType(), 
-        "backEmission", 
+        SFColor4r::getClassType(),
+        "backEmission",
         "",
         BackEmissionFieldId, BackEmissionFieldMask,
         false,
@@ -398,8 +416,8 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "backShininess", 
+        SFReal::getClassType(),
+        "backShininess",
         "",
         BackShininessFieldId, BackShininessFieldMask,
         false,
@@ -420,9 +438,9 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "backColorMaterial", 
-        "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n       \n",
+        SFGLenum::getClassType(),
+        "backColorMaterial",
+        "The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n",
         BackColorMaterialFieldId, BackColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -447,157 +465,171 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(true,
     (InitalInsertDescFunc) &MaterialChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"MaterialChunk\"\n"
-"	parent=\"StateChunk\"\n"
-"	library=\"System\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"diffuse\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f,1.f,1.f,1.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"ambient\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\".2f,.2f,.2f,1.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"specular\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\".5f,.5f,.5f,1.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"emission\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,0.f,0.f,1.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shininess\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"10.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"lit\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"	>\n"
-"        Switch for using this material in lighting calculation. \n"
-"        If not set the diffuse color is used as is.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"colorMaterial\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_DIFFUSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backMaterial\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"	>\n"
-"        Switch for using separate material properties for front- and back-facing\n"
-"        polygons. If set to false the standard parameters will be used for front- and \n"
-"        backfaces.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backDiffuse\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f,1.f,1.f,0.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backAmbient\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\".2f,.2f,.2f,0.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backSpecular\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\".5f,.5f,.5f,0.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backEmission\"\n"
-"		type=\"Color4r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,0.f,0.f,0.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backShininess\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"10.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backColorMaterial\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_DIFFUSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"	>\n"
-"        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
-"	</Field>       \n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"MaterialChunk\"\n"
+    "\tparent=\"StateChunk\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemMaterialChunk for details.\n"
+    "\n"
+    "This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,\n"
+    "OSG::MaterialChunk::_sfSpecular, OSG::MaterialChunk::_sfEmission,\n"
+    "OSG::MaterialChunk::_sfShininess, OSG::MaterialChunk::_sfAmbient),\n"
+    "glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()\n"
+    "(OSG::MaterialChunk::_sfColorMaterial).\n"
+    "\t<Field\n"
+    "\t\tname=\"diffuse\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f,1.f,1.f,1.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"ambient\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\".2f,.2f,.2f,1.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"specular\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\".5f,.5f,.5f,1.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"emission\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,0.f,0.f,1.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shininess\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"10.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"lit\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t>\n"
+    "        Switch for using this material in lighting calculation. \n"
+    "        If not set the diffuse color is used as is.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"colorMaterial\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_DIFFUSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backMaterial\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t>\n"
+    "        Switch for using separate material properties for front- and back-facing\n"
+    "        polygons. If set to false the standard parameters will be used for front- and \n"
+    "        backfaces.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backDiffuse\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f,1.f,1.f,0.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backAmbient\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\".2f,.2f,.2f,0.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backSpecular\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\".5f,.5f,.5f,0.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backEmission\"\n"
+    "\t\ttype=\"Color4r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,0.f,0.f,0.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backShininess\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"10.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backColorMaterial\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_DIFFUSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t>\n"
+    "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
+    "\t</Field>       \n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemMaterialChunk for details.\n"
+    "This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,\n"
+    "OSG::MaterialChunk::_sfSpecular, OSG::MaterialChunk::_sfEmission,\n"
+    "OSG::MaterialChunk::_sfShininess, OSG::MaterialChunk::_sfAmbient),\n"
+    "glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()\n"
+    "(OSG::MaterialChunk::_sfColorMaterial).\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &MaterialChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &MaterialChunkBase::getType(void) const 
+FieldContainerType &MaterialChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 MaterialChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(MaterialChunk); 
+const FieldContainerType &MaterialChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 MaterialChunkBase::getContainerSize(void) const
+{
+    return sizeof(MaterialChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -616,9 +648,9 @@ const SFColor4r *MaterialChunkBase::getSFDiffuse(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *MaterialChunkBase::getSFDiffuse(void)
+SFColor4r           *MaterialChunkBase::getSFDiffuse        (void)
 {
-    return this->editSFDiffuse();
+    return this->editSFDiffuse        ();
 }
 #endif
 
@@ -635,9 +667,9 @@ const SFColor4r *MaterialChunkBase::getSFAmbient(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *MaterialChunkBase::getSFAmbient(void)
+SFColor4r           *MaterialChunkBase::getSFAmbient        (void)
 {
-    return this->editSFAmbient();
+    return this->editSFAmbient        ();
 }
 #endif
 
@@ -654,9 +686,9 @@ const SFColor4r *MaterialChunkBase::getSFSpecular(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *MaterialChunkBase::getSFSpecular(void)
+SFColor4r           *MaterialChunkBase::getSFSpecular       (void)
 {
-    return this->editSFSpecular();
+    return this->editSFSpecular       ();
 }
 #endif
 
@@ -673,9 +705,9 @@ const SFColor4r *MaterialChunkBase::getSFEmission(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *MaterialChunkBase::getSFEmission(void)
+SFColor4r           *MaterialChunkBase::getSFEmission       (void)
 {
-    return this->editSFEmission();
+    return this->editSFEmission       ();
 }
 #endif
 
@@ -692,9 +724,9 @@ const SFReal *MaterialChunkBase::getSFShininess(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *MaterialChunkBase::getSFShininess(void)
+SFReal              *MaterialChunkBase::getSFShininess      (void)
 {
-    return this->editSFShininess();
+    return this->editSFShininess      ();
 }
 #endif
 
@@ -711,9 +743,9 @@ const SFBool *MaterialChunkBase::getSFLit(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *MaterialChunkBase::getSFLit(void)
+SFBool              *MaterialChunkBase::getSFLit            (void)
 {
-    return this->editSFLit();
+    return this->editSFLit            ();
 }
 #endif
 
@@ -730,9 +762,9 @@ const SFGLenum *MaterialChunkBase::getSFColorMaterial(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *MaterialChunkBase::getSFColorMaterial(void)
+SFGLenum            *MaterialChunkBase::getSFColorMaterial  (void)
 {
-    return this->editSFColorMaterial();
+    return this->editSFColorMaterial  ();
 }
 #endif
 
@@ -749,9 +781,9 @@ const SFBool *MaterialChunkBase::getSFBackMaterial(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *MaterialChunkBase::getSFBackMaterial(void)
+SFBool              *MaterialChunkBase::getSFBackMaterial   (void)
 {
-    return this->editSFBackMaterial();
+    return this->editSFBackMaterial   ();
 }
 #endif
 
@@ -768,9 +800,9 @@ const SFColor4r *MaterialChunkBase::getSFBackDiffuse(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *MaterialChunkBase::getSFBackDiffuse(void)
+SFColor4r           *MaterialChunkBase::getSFBackDiffuse    (void)
 {
-    return this->editSFBackDiffuse();
+    return this->editSFBackDiffuse    ();
 }
 #endif
 
@@ -787,9 +819,9 @@ const SFColor4r *MaterialChunkBase::getSFBackAmbient(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *MaterialChunkBase::getSFBackAmbient(void)
+SFColor4r           *MaterialChunkBase::getSFBackAmbient    (void)
 {
-    return this->editSFBackAmbient();
+    return this->editSFBackAmbient    ();
 }
 #endif
 
@@ -806,9 +838,9 @@ const SFColor4r *MaterialChunkBase::getSFBackSpecular(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *MaterialChunkBase::getSFBackSpecular(void)
+SFColor4r           *MaterialChunkBase::getSFBackSpecular   (void)
 {
-    return this->editSFBackSpecular();
+    return this->editSFBackSpecular   ();
 }
 #endif
 
@@ -825,9 +857,9 @@ const SFColor4r *MaterialChunkBase::getSFBackEmission(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4r *MaterialChunkBase::getSFBackEmission(void)
+SFColor4r           *MaterialChunkBase::getSFBackEmission   (void)
 {
-    return this->editSFBackEmission();
+    return this->editSFBackEmission   ();
 }
 #endif
 
@@ -844,9 +876,9 @@ const SFReal *MaterialChunkBase::getSFBackShininess(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *MaterialChunkBase::getSFBackShininess(void)
+SFReal              *MaterialChunkBase::getSFBackShininess  (void)
 {
-    return this->editSFBackShininess();
+    return this->editSFBackShininess  ();
 }
 #endif
 
@@ -863,7 +895,7 @@ const SFGLenum *MaterialChunkBase::getSFBackColorMaterial(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *MaterialChunkBase::getSFBackColorMaterial(void)
+SFGLenum            *MaterialChunkBase::getSFBackColorMaterial(void)
 {
     return this->editSFBackColorMaterial();
 }
@@ -1064,22 +1096,22 @@ void MaterialChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MaterialChunkPtr MaterialChunkBase::createEmpty(void) 
-{ 
-    MaterialChunkPtr returnValue; 
-    
-    newPtr<MaterialChunk>(returnValue); 
+MaterialChunkPtr MaterialChunkBase::createEmpty(void)
+{
+    MaterialChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<MaterialChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr MaterialChunkBase::shallowCopy(void) const 
-{ 
-    MaterialChunkPtr returnValue; 
+FieldContainerPtr MaterialChunkBase::shallowCopy(void) const
+{
+    MaterialChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const MaterialChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const MaterialChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -1088,39 +1120,39 @@ FieldContainerPtr MaterialChunkBase::shallowCopy(void) const
 
 MaterialChunkBase::MaterialChunkBase(void) :
     Inherited(),
-    _sfDiffuse(Color4r(1.f,1.f,1.f,1.f)),
-    _sfAmbient(Color4r(.2f,.2f,.2f,1.f)),
-    _sfSpecular(Color4r(.5f,.5f,.5f,1.f)),
-    _sfEmission(Color4r(0.f,0.f,0.f,1.f)),
-    _sfShininess(Real(10.f)),
-    _sfLit(bool(true)),
-    _sfColorMaterial(GLenum(GL_DIFFUSE)),
-    _sfBackMaterial(bool(false)),
-    _sfBackDiffuse(Color4r(1.f,1.f,1.f,0.f)),
-    _sfBackAmbient(Color4r(.2f,.2f,.2f,0.f)),
-    _sfBackSpecular(Color4r(.5f,.5f,.5f,0.f)),
-    _sfBackEmission(Color4r(0.f,0.f,0.f,0.f)),
-    _sfBackShininess(Real(10.f)),
-    _sfBackColorMaterial(GLenum(GL_DIFFUSE))
+    _sfDiffuse                (Color4r(1.f,1.f,1.f,1.f)),
+    _sfAmbient                (Color4r(.2f,.2f,.2f,1.f)),
+    _sfSpecular               (Color4r(.5f,.5f,.5f,1.f)),
+    _sfEmission               (Color4r(0.f,0.f,0.f,1.f)),
+    _sfShininess              (Real(10.f)),
+    _sfLit                    (bool(true)),
+    _sfColorMaterial          (GLenum(GL_DIFFUSE)),
+    _sfBackMaterial           (bool(false)),
+    _sfBackDiffuse            (Color4r(1.f,1.f,1.f,0.f)),
+    _sfBackAmbient            (Color4r(.2f,.2f,.2f,0.f)),
+    _sfBackSpecular           (Color4r(.5f,.5f,.5f,0.f)),
+    _sfBackEmission           (Color4r(0.f,0.f,0.f,0.f)),
+    _sfBackShininess          (Real(10.f)),
+    _sfBackColorMaterial      (GLenum(GL_DIFFUSE))
 {
 }
 
 MaterialChunkBase::MaterialChunkBase(const MaterialChunkBase &source) :
     Inherited(source),
-    _sfDiffuse(source._sfDiffuse),
-    _sfAmbient(source._sfAmbient),
-    _sfSpecular(source._sfSpecular),
-    _sfEmission(source._sfEmission),
-    _sfShininess(source._sfShininess),
-    _sfLit(source._sfLit),
-    _sfColorMaterial(source._sfColorMaterial),
-    _sfBackMaterial(source._sfBackMaterial),
-    _sfBackDiffuse(source._sfBackDiffuse),
-    _sfBackAmbient(source._sfBackAmbient),
-    _sfBackSpecular(source._sfBackSpecular),
-    _sfBackEmission(source._sfBackEmission),
-    _sfBackShininess(source._sfBackShininess),
-    _sfBackColorMaterial(source._sfBackColorMaterial)
+    _sfDiffuse                (source._sfDiffuse                ),
+    _sfAmbient                (source._sfAmbient                ),
+    _sfSpecular               (source._sfSpecular               ),
+    _sfEmission               (source._sfEmission               ),
+    _sfShininess              (source._sfShininess              ),
+    _sfLit                    (source._sfLit                    ),
+    _sfColorMaterial          (source._sfColorMaterial          ),
+    _sfBackMaterial           (source._sfBackMaterial           ),
+    _sfBackDiffuse            (source._sfBackDiffuse            ),
+    _sfBackAmbient            (source._sfBackAmbient            ),
+    _sfBackSpecular           (source._sfBackSpecular           ),
+    _sfBackEmission           (source._sfBackEmission           ),
+    _sfBackShininess          (source._sfBackShininess          ),
+    _sfBackColorMaterial      (source._sfBackColorMaterial      )
 {
 }
 
@@ -1134,13 +1166,13 @@ MaterialChunkBase::~MaterialChunkBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void MaterialChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<MaterialChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1150,10 +1182,10 @@ void MaterialChunkBase::execSyncV(      FieldContainer    &oFrom,
 void MaterialChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MaterialChunkBase *>(&oFrom), 
+    this->execSync(static_cast<MaterialChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1173,12 +1205,12 @@ void MaterialChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr MaterialChunkBase::createAspectCopy(void) const
 {
-    MaterialChunkPtr returnValue; 
+    MaterialChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const MaterialChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const MaterialChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1187,6 +1219,8 @@ void MaterialChunkBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1209,8 +1243,6 @@ OSG_FIELDTRAITS_GETTYPE(MaterialChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, MaterialChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, MaterialChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1231,3 +1263,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGMATERIALCHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

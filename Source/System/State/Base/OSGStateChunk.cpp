@@ -64,16 +64,10 @@ OSG_END_NAMESPACE
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::StateChunk
-    \ingroup GrpSystemState
-    
-See \ref PageSystemState for the conceptual background. 
-
-*/
+// Documentation for this class is emited in the
+// OSGStateChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGStateChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                               Types                                     *

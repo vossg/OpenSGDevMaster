@@ -96,22 +96,22 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               TexGenChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               TexGenChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               TexGenChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               TexGenChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               TexGenChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               TexGenChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -136,40 +136,39 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
         NextFieldId = QBeaconFieldId + 1
     };
 
-    static const OSG::BitVector GenFuncSFieldMask = 
+    static const OSG::BitVector GenFuncSFieldMask =
         (TypeTraits<BitVector>::One << GenFuncSFieldId);
-    static const OSG::BitVector GenFuncTFieldMask = 
+    static const OSG::BitVector GenFuncTFieldMask =
         (TypeTraits<BitVector>::One << GenFuncTFieldId);
-    static const OSG::BitVector GenFuncRFieldMask = 
+    static const OSG::BitVector GenFuncRFieldMask =
         (TypeTraits<BitVector>::One << GenFuncRFieldId);
-    static const OSG::BitVector GenFuncQFieldMask = 
+    static const OSG::BitVector GenFuncQFieldMask =
         (TypeTraits<BitVector>::One << GenFuncQFieldId);
-    static const OSG::BitVector GenFuncSPlaneFieldMask = 
+    static const OSG::BitVector GenFuncSPlaneFieldMask =
         (TypeTraits<BitVector>::One << GenFuncSPlaneFieldId);
-    static const OSG::BitVector GenFuncTPlaneFieldMask = 
+    static const OSG::BitVector GenFuncTPlaneFieldMask =
         (TypeTraits<BitVector>::One << GenFuncTPlaneFieldId);
-    static const OSG::BitVector GenFuncRPlaneFieldMask = 
+    static const OSG::BitVector GenFuncRPlaneFieldMask =
         (TypeTraits<BitVector>::One << GenFuncRPlaneFieldId);
-    static const OSG::BitVector GenFuncQPlaneFieldMask = 
+    static const OSG::BitVector GenFuncQPlaneFieldMask =
         (TypeTraits<BitVector>::One << GenFuncQPlaneFieldId);
-    static const OSG::BitVector SBeaconFieldMask = 
+    static const OSG::BitVector SBeaconFieldMask =
         (TypeTraits<BitVector>::One << SBeaconFieldId);
-    static const OSG::BitVector TBeaconFieldMask = 
+    static const OSG::BitVector TBeaconFieldMask =
         (TypeTraits<BitVector>::One << TBeaconFieldId);
-    static const OSG::BitVector RBeaconFieldMask = 
+    static const OSG::BitVector RBeaconFieldMask =
         (TypeTraits<BitVector>::One << RBeaconFieldId);
-    static const OSG::BitVector QBeaconFieldMask = 
+    static const OSG::BitVector QBeaconFieldMask =
         (TypeTraits<BitVector>::One << QBeaconFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -177,8 +176,8 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -189,156 +188,156 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFGenFuncS(void);
+                  SFGLenum            *getSFGenFuncS        (void);
 #endif
-           SFGLenum *editSFGenFuncS(void);
-     const SFGLenum *getSFGenFuncS (void) const;
+                  SFGLenum            *editSFGenFuncS       (void);
+            const SFGLenum            *getSFGenFuncS        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFGenFuncT(void);
+                  SFGLenum            *getSFGenFuncT        (void);
 #endif
-           SFGLenum *editSFGenFuncT(void);
-     const SFGLenum *getSFGenFuncT (void) const;
+                  SFGLenum            *editSFGenFuncT       (void);
+            const SFGLenum            *getSFGenFuncT        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFGenFuncR(void);
+                  SFGLenum            *getSFGenFuncR        (void);
 #endif
-           SFGLenum *editSFGenFuncR(void);
-     const SFGLenum *getSFGenFuncR (void) const;
+                  SFGLenum            *editSFGenFuncR       (void);
+            const SFGLenum            *getSFGenFuncR        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFGenFuncQ(void);
+                  SFGLenum            *getSFGenFuncQ        (void);
 #endif
-           SFGLenum *editSFGenFuncQ(void);
-     const SFGLenum *getSFGenFuncQ (void) const;
+                  SFGLenum            *editSFGenFuncQ       (void);
+            const SFGLenum            *getSFGenFuncQ        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec4f *getSFGenFuncSPlane(void);
+                  SFVec4f             *getSFGenFuncSPlane   (void);
 #endif
-           SFVec4f *editSFGenFuncSPlane(void);
-     const SFVec4f *getSFGenFuncSPlane (void) const;
+                  SFVec4f             *editSFGenFuncSPlane  (void);
+            const SFVec4f             *getSFGenFuncSPlane   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec4f *getSFGenFuncTPlane(void);
+                  SFVec4f             *getSFGenFuncTPlane   (void);
 #endif
-           SFVec4f *editSFGenFuncTPlane(void);
-     const SFVec4f *getSFGenFuncTPlane (void) const;
+                  SFVec4f             *editSFGenFuncTPlane  (void);
+            const SFVec4f             *getSFGenFuncTPlane   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec4f *getSFGenFuncRPlane(void);
+                  SFVec4f             *getSFGenFuncRPlane   (void);
 #endif
-           SFVec4f *editSFGenFuncRPlane(void);
-     const SFVec4f *getSFGenFuncRPlane (void) const;
+                  SFVec4f             *editSFGenFuncRPlane  (void);
+            const SFVec4f             *getSFGenFuncRPlane   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec4f *getSFGenFuncQPlane(void);
+                  SFVec4f             *getSFGenFuncQPlane   (void);
 #endif
-           SFVec4f *editSFGenFuncQPlane(void);
-     const SFVec4f *getSFGenFuncQPlane (void) const;
-     const SFNodePtr *getSFSBeacon (void) const;
-     const SFNodePtr *getSFTBeacon (void) const;
-     const SFNodePtr *getSFRBeacon (void) const;
-     const SFNodePtr *getSFQBeacon (void) const;
+                  SFVec4f             *editSFGenFuncQPlane  (void);
+            const SFVec4f             *getSFGenFuncQPlane   (void) const;
+            const SFNodePtr           *getSFSBeacon         (void) const;
+            const SFNodePtr           *getSFTBeacon         (void) const;
+            const SFNodePtr           *getSFRBeacon         (void) const;
+            const SFNodePtr           *getSFQBeacon         (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           GLenum &getGenFuncS(void);
+                  GLenum              &getGenFuncS        (void);
 #endif
-           GLenum &editGenFuncS(void);
-     const GLenum &getGenFuncS (void) const;
+                  GLenum              &editGenFuncS       (void);
+            const GLenum              &getGenFuncS        (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getGenFuncT(void);
+                  GLenum              &getGenFuncT        (void);
 #endif
-           GLenum &editGenFuncT(void);
-     const GLenum &getGenFuncT (void) const;
+                  GLenum              &editGenFuncT       (void);
+            const GLenum              &getGenFuncT        (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getGenFuncR(void);
+                  GLenum              &getGenFuncR        (void);
 #endif
-           GLenum &editGenFuncR(void);
-     const GLenum &getGenFuncR (void) const;
+                  GLenum              &editGenFuncR       (void);
+            const GLenum              &getGenFuncR        (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getGenFuncQ(void);
+                  GLenum              &getGenFuncQ        (void);
 #endif
-           GLenum &editGenFuncQ(void);
-     const GLenum &getGenFuncQ (void) const;
+                  GLenum              &editGenFuncQ       (void);
+            const GLenum              &getGenFuncQ        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec4f &getGenFuncSPlane(void);
+                  Vec4f               &getGenFuncSPlane   (void);
 #endif
-           Vec4f &editGenFuncSPlane(void);
-     const Vec4f &getGenFuncSPlane (void) const;
+                  Vec4f               &editGenFuncSPlane  (void);
+            const Vec4f               &getGenFuncSPlane   (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec4f &getGenFuncTPlane(void);
+                  Vec4f               &getGenFuncTPlane   (void);
 #endif
-           Vec4f &editGenFuncTPlane(void);
-     const Vec4f &getGenFuncTPlane (void) const;
+                  Vec4f               &editGenFuncTPlane  (void);
+            const Vec4f               &getGenFuncTPlane   (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec4f &getGenFuncRPlane(void);
+                  Vec4f               &getGenFuncRPlane   (void);
 #endif
-           Vec4f &editGenFuncRPlane(void);
-     const Vec4f &getGenFuncRPlane (void) const;
+                  Vec4f               &editGenFuncRPlane  (void);
+            const Vec4f               &getGenFuncRPlane   (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec4f &getGenFuncQPlane(void);
+                  Vec4f               &getGenFuncQPlane   (void);
 #endif
-           Vec4f &editGenFuncQPlane(void);
-     const Vec4f &getGenFuncQPlane (void) const;
+                  Vec4f               &editGenFuncQPlane  (void);
+            const Vec4f               &getGenFuncQPlane   (void) const;
 
-           NodePtrConst getSBeacon(void) const;
+                  NodePtrConst getSBeacon        (void) const;
 
-           NodePtrConst getTBeacon(void) const;
+                  NodePtrConst getTBeacon        (void) const;
 
-           NodePtrConst getRBeacon(void) const;
+                  NodePtrConst getRBeacon        (void) const;
 
-           NodePtrConst getQBeacon(void) const;
+                  NodePtrConst getQBeacon        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setGenFuncS(const GLenum &value);
-     void setGenFuncT(const GLenum &value);
-     void setGenFuncR(const GLenum &value);
-     void setGenFuncQ(const GLenum &value);
-     void setGenFuncSPlane(const Vec4f &value);
-     void setGenFuncTPlane(const Vec4f &value);
-     void setGenFuncRPlane(const Vec4f &value);
-     void setGenFuncQPlane(const Vec4f &value);
-     void setSBeacon(NodePtrConstArg value);
-     void setTBeacon(NodePtrConstArg value);
-     void setRBeacon(NodePtrConstArg value);
-     void setQBeacon(NodePtrConstArg value);
+            void setGenFuncS       (const GLenum &value);
+            void setGenFuncT       (const GLenum &value);
+            void setGenFuncR       (const GLenum &value);
+            void setGenFuncQ       (const GLenum &value);
+            void setGenFuncSPlane  (const Vec4f &value);
+            void setGenFuncTPlane  (const Vec4f &value);
+            void setGenFuncRPlane  (const Vec4f &value);
+            void setGenFuncQPlane  (const Vec4f &value);
+            void setSBeacon        (NodePtrConstArg value);
+            void setTBeacon        (NodePtrConstArg value);
+            void setRBeacon        (NodePtrConstArg value);
+            void setQBeacon        (NodePtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -365,15 +364,15 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TexGenChunkPtr create     (void); 
-    static  TexGenChunkPtr createEmpty(void); 
+    static  TexGenChunkPtr create     (void);
+    static  TexGenChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -389,18 +388,18 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum _sfGenFuncS;
-    SFGLenum _sfGenFuncT;
-    SFGLenum _sfGenFuncR;
-    SFGLenum _sfGenFuncQ;
-    SFVec4f _sfGenFuncSPlane;
-    SFVec4f _sfGenFuncTPlane;
-    SFVec4f _sfGenFuncRPlane;
-    SFVec4f _sfGenFuncQPlane;
-    SFNodePtr _sfSBeacon;
-    SFNodePtr _sfTBeacon;
-    SFNodePtr _sfRBeacon;
-    SFNodePtr _sfQBeacon;
+    SFGLenum          _sfGenFuncS;
+    SFGLenum          _sfGenFuncT;
+    SFGLenum          _sfGenFuncR;
+    SFGLenum          _sfGenFuncQ;
+    SFVec4f           _sfGenFuncSPlane;
+    SFVec4f           _sfGenFuncTPlane;
+    SFVec4f           _sfGenFuncRPlane;
+    SFVec4f           _sfGenFuncQPlane;
+    SFNodePtr         _sfSBeacon;
+    SFNodePtr         _sfTBeacon;
+    SFNodePtr         _sfRBeacon;
+    SFNodePtr         _sfQBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -415,7 +414,7 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TexGenChunkBase(void); 
+    virtual ~TexGenChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -462,11 +461,11 @@ class OSG_SYSTEM_DLLMAPPING TexGenChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

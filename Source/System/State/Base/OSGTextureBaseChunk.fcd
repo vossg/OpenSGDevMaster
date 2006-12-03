@@ -11,6 +11,9 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
+\ingroup GrpSystemState
+
+See \ref PageSystemTextureChunk for a description.
     <Field
         name="target"
         type="GLenum"

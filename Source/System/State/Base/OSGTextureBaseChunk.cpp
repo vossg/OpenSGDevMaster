@@ -61,17 +61,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::TextureBaseChunk
-    \ingroup GrpSystemState
-
-See \ref PageSystemTextureChunk for a description.
-
- */
+// Documentation for this class is emited in the
+// OSGTextureBaseChunkBase.cpp file.
+// To modify it, please change the .fcd file (OSGTextureBaseChunk.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

@@ -95,22 +95,22 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               LightChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               LightChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               LightChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               LightChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               LightChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               LightChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -134,38 +134,37 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
         NextFieldId = BeaconFieldId + 1
     };
 
-    static const OSG::BitVector DiffuseFieldMask = 
+    static const OSG::BitVector DiffuseFieldMask =
         (TypeTraits<BitVector>::One << DiffuseFieldId);
-    static const OSG::BitVector AmbientFieldMask = 
+    static const OSG::BitVector AmbientFieldMask =
         (TypeTraits<BitVector>::One << AmbientFieldId);
-    static const OSG::BitVector SpecularFieldMask = 
+    static const OSG::BitVector SpecularFieldMask =
         (TypeTraits<BitVector>::One << SpecularFieldId);
-    static const OSG::BitVector PositionFieldMask = 
+    static const OSG::BitVector PositionFieldMask =
         (TypeTraits<BitVector>::One << PositionFieldId);
-    static const OSG::BitVector DirectionFieldMask = 
+    static const OSG::BitVector DirectionFieldMask =
         (TypeTraits<BitVector>::One << DirectionFieldId);
-    static const OSG::BitVector ExponentFieldMask = 
+    static const OSG::BitVector ExponentFieldMask =
         (TypeTraits<BitVector>::One << ExponentFieldId);
-    static const OSG::BitVector CutoffFieldMask = 
+    static const OSG::BitVector CutoffFieldMask =
         (TypeTraits<BitVector>::One << CutoffFieldId);
-    static const OSG::BitVector ConstantAttenuationFieldMask = 
+    static const OSG::BitVector ConstantAttenuationFieldMask =
         (TypeTraits<BitVector>::One << ConstantAttenuationFieldId);
-    static const OSG::BitVector LinearAttenuationFieldMask = 
+    static const OSG::BitVector LinearAttenuationFieldMask =
         (TypeTraits<BitVector>::One << LinearAttenuationFieldId);
-    static const OSG::BitVector QuadraticAttenuationFieldMask = 
+    static const OSG::BitVector QuadraticAttenuationFieldMask =
         (TypeTraits<BitVector>::One << QuadraticAttenuationFieldId);
-    static const OSG::BitVector BeaconFieldMask = 
+    static const OSG::BitVector BeaconFieldMask =
         (TypeTraits<BitVector>::One << BeaconFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -173,8 +172,8 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -185,170 +184,170 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFDiffuse(void);
+                  SFColor4r           *getSFDiffuse         (void);
 #endif
-           SFColor4r *editSFDiffuse(void);
-     const SFColor4r *getSFDiffuse (void) const;
+                  SFColor4r           *editSFDiffuse        (void);
+            const SFColor4r           *getSFDiffuse         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFAmbient(void);
+                  SFColor4r           *getSFAmbient         (void);
 #endif
-           SFColor4r *editSFAmbient(void);
-     const SFColor4r *getSFAmbient (void) const;
+                  SFColor4r           *editSFAmbient        (void);
+            const SFColor4r           *getSFAmbient         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4r *getSFSpecular(void);
+                  SFColor4r           *getSFSpecular        (void);
 #endif
-           SFColor4r *editSFSpecular(void);
-     const SFColor4r *getSFSpecular (void) const;
+                  SFColor4r           *editSFSpecular       (void);
+            const SFColor4r           *getSFSpecular        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec4r *getSFPosition(void);
+                  SFVec4r             *getSFPosition        (void);
 #endif
-           SFVec4r *editSFPosition(void);
-     const SFVec4r *getSFPosition (void) const;
+                  SFVec4r             *editSFPosition       (void);
+            const SFVec4r             *getSFPosition        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec3r *getSFDirection(void);
+                  SFVec3r             *getSFDirection       (void);
 #endif
-           SFVec3r *editSFDirection(void);
-     const SFVec3r *getSFDirection (void) const;
+                  SFVec3r             *editSFDirection      (void);
+            const SFVec3r             *getSFDirection       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal *getSFExponent(void);
+                  SFReal              *getSFExponent        (void);
 #endif
-           SFReal *editSFExponent(void);
-     const SFReal *getSFExponent (void) const;
+                  SFReal              *editSFExponent       (void);
+            const SFReal              *getSFExponent        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal *getSFCutoff(void);
+                  SFReal              *getSFCutoff          (void);
 #endif
-           SFReal *editSFCutoff(void);
-     const SFReal *getSFCutoff (void) const;
+                  SFReal              *editSFCutoff         (void);
+            const SFReal              *getSFCutoff          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal *getSFConstantAttenuation(void);
+                  SFReal              *getSFConstantAttenuation (void);
 #endif
-           SFReal *editSFConstantAttenuation(void);
-     const SFReal *getSFConstantAttenuation (void) const;
+                  SFReal              *editSFConstantAttenuation(void);
+            const SFReal              *getSFConstantAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal *getSFLinearAttenuation(void);
+                  SFReal              *getSFLinearAttenuation (void);
 #endif
-           SFReal *editSFLinearAttenuation(void);
-     const SFReal *getSFLinearAttenuation (void) const;
+                  SFReal              *editSFLinearAttenuation(void);
+            const SFReal              *getSFLinearAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal *getSFQuadraticAttenuation(void);
+                  SFReal              *getSFQuadraticAttenuation (void);
 #endif
-           SFReal *editSFQuadraticAttenuation(void);
-     const SFReal *getSFQuadraticAttenuation (void) const;
-     const SFNodePtr *getSFBeacon (void) const;
+                  SFReal              *editSFQuadraticAttenuation(void);
+            const SFReal              *getSFQuadraticAttenuation (void) const;
+            const SFNodePtr           *getSFBeacon          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Color4r &getDiffuse(void);
+                  Color4r             &getDiffuse         (void);
 #endif
-           Color4r &editDiffuse(void);
-     const Color4r &getDiffuse (void) const;
+                  Color4r             &editDiffuse        (void);
+            const Color4r             &getDiffuse         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getAmbient(void);
+                  Color4r             &getAmbient         (void);
 #endif
-           Color4r &editAmbient(void);
-     const Color4r &getAmbient (void) const;
+                  Color4r             &editAmbient        (void);
+            const Color4r             &getAmbient         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4r &getSpecular(void);
+                  Color4r             &getSpecular        (void);
 #endif
-           Color4r &editSpecular(void);
-     const Color4r &getSpecular (void) const;
+                  Color4r             &editSpecular       (void);
+            const Color4r             &getSpecular        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec4r &getPosition(void);
+                  Vec4r               &getPosition        (void);
 #endif
-           Vec4r &editPosition(void);
-     const Vec4r &getPosition (void) const;
+                  Vec4r               &editPosition       (void);
+            const Vec4r               &getPosition        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3r &getDirection(void);
+                  Vec3r               &getDirection       (void);
 #endif
-           Vec3r &editDirection(void);
-     const Vec3r &getDirection (void) const;
+                  Vec3r               &editDirection      (void);
+            const Vec3r               &getDirection       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real &getExponent(void);
+                  Real                &getExponent        (void);
 #endif
-           Real &editExponent(void);
-     const Real &getExponent (void) const;
+                  Real                &editExponent       (void);
+            const Real                &getExponent        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real &getCutoff(void);
+                  Real                &getCutoff          (void);
 #endif
-           Real &editCutoff(void);
-     const Real &getCutoff (void) const;
+                  Real                &editCutoff         (void);
+            const Real                &getCutoff          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real &getConstantAttenuation(void);
+                  Real                &getConstantAttenuation (void);
 #endif
-           Real &editConstantAttenuation(void);
-     const Real &getConstantAttenuation (void) const;
+                  Real                &editConstantAttenuation(void);
+            const Real                &getConstantAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real &getLinearAttenuation(void);
+                  Real                &getLinearAttenuation (void);
 #endif
-           Real &editLinearAttenuation(void);
-     const Real &getLinearAttenuation (void) const;
+                  Real                &editLinearAttenuation(void);
+            const Real                &getLinearAttenuation (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real &getQuadraticAttenuation(void);
+                  Real                &getQuadraticAttenuation (void);
 #endif
-           Real &editQuadraticAttenuation(void);
-     const Real &getQuadraticAttenuation (void) const;
+                  Real                &editQuadraticAttenuation(void);
+            const Real                &getQuadraticAttenuation (void) const;
 
-           NodePtrConst getBeacon(void) const;
+                  NodePtrConst getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setDiffuse(const Color4r &value);
-     void setAmbient(const Color4r &value);
-     void setSpecular(const Color4r &value);
-     void setPosition(const Vec4r &value);
-     void setDirection(const Vec3r &value);
-     void setExponent(const Real &value);
-     void setCutoff(const Real &value);
-     void setConstantAttenuation(const Real &value);
-     void setLinearAttenuation(const Real &value);
-     void setQuadraticAttenuation(const Real &value);
-     void setBeacon(NodePtrConstArg value);
+            void setDiffuse        (const Color4r &value);
+            void setAmbient        (const Color4r &value);
+            void setSpecular       (const Color4r &value);
+            void setPosition       (const Vec4r &value);
+            void setDirection      (const Vec3r &value);
+            void setExponent       (const Real &value);
+            void setCutoff         (const Real &value);
+            void setConstantAttenuation(const Real &value);
+            void setLinearAttenuation(const Real &value);
+            void setQuadraticAttenuation(const Real &value);
+            void setBeacon         (NodePtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -375,15 +374,15 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  LightChunkPtr create     (void); 
-    static  LightChunkPtr createEmpty(void); 
+    static  LightChunkPtr create     (void);
+    static  LightChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -399,17 +398,17 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFColor4r _sfDiffuse;
-    SFColor4r _sfAmbient;
-    SFColor4r _sfSpecular;
-    SFVec4r _sfPosition;
-    SFVec3r _sfDirection;
-    SFReal _sfExponent;
-    SFReal _sfCutoff;
-    SFReal _sfConstantAttenuation;
-    SFReal _sfLinearAttenuation;
-    SFReal _sfQuadraticAttenuation;
-    SFNodePtr _sfBeacon;
+    SFColor4r         _sfDiffuse;
+    SFColor4r         _sfAmbient;
+    SFColor4r         _sfSpecular;
+    SFVec4r           _sfPosition;
+    SFVec3r           _sfDirection;
+    SFReal            _sfExponent;
+    SFReal            _sfCutoff;
+    SFReal            _sfConstantAttenuation;
+    SFReal            _sfLinearAttenuation;
+    SFReal            _sfQuadraticAttenuation;
+    SFNodePtr         _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -424,7 +423,7 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~LightChunkBase(void); 
+    virtual ~LightChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -471,11 +470,11 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

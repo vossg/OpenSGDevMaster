@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TexGenChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TexGenChunkBase::getClassTypeId(void) 
+OSG::UInt32 TexGenChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TexGenChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const GLenum &TexGenChunkBase::getGenFuncS(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TexGenChunkBase::getGenFuncS(void)
+GLenum              &TexGenChunkBase::getGenFuncS       (void)
 {
-    return this->editGenFuncS();
+    return this->editGenFuncS       ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const GLenum &TexGenChunkBase::getGenFuncT(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TexGenChunkBase::getGenFuncT(void)
+GLenum              &TexGenChunkBase::getGenFuncT       (void)
 {
-    return this->editGenFuncT();
+    return this->editGenFuncT       ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const GLenum &TexGenChunkBase::getGenFuncR(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TexGenChunkBase::getGenFuncR(void)
+GLenum              &TexGenChunkBase::getGenFuncR       (void)
 {
-    return this->editGenFuncR();
+    return this->editGenFuncR       ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const GLenum &TexGenChunkBase::getGenFuncQ(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TexGenChunkBase::getGenFuncQ(void)
+GLenum              &TexGenChunkBase::getGenFuncQ       (void)
 {
-    return this->editGenFuncQ();
+    return this->editGenFuncQ       ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const Vec4f &TexGenChunkBase::getGenFuncSPlane(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec4f &TexGenChunkBase::getGenFuncSPlane(void)
+Vec4f               &TexGenChunkBase::getGenFuncSPlane  (void)
 {
-    return this->editGenFuncSPlane();
+    return this->editGenFuncSPlane  ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Vec4f &TexGenChunkBase::getGenFuncTPlane(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec4f &TexGenChunkBase::getGenFuncTPlane(void)
+Vec4f               &TexGenChunkBase::getGenFuncTPlane  (void)
 {
-    return this->editGenFuncTPlane();
+    return this->editGenFuncTPlane  ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const Vec4f &TexGenChunkBase::getGenFuncRPlane(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec4f &TexGenChunkBase::getGenFuncRPlane(void)
+Vec4f               &TexGenChunkBase::getGenFuncRPlane  (void)
 {
-    return this->editGenFuncRPlane();
+    return this->editGenFuncRPlane  ();
 }
 #endif
 
@@ -323,9 +323,9 @@ const Vec4f &TexGenChunkBase::getGenFuncQPlane(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec4f &TexGenChunkBase::getGenFuncQPlane(void)
+Vec4f               &TexGenChunkBase::getGenFuncQPlane  (void)
 {
-    return this->editGenFuncQPlane();
+    return this->editGenFuncQPlane  ();
 }
 #endif
 
@@ -408,24 +408,24 @@ void TexGenChunkBase::setQBeacon(NodePtrConstArg value)
 
 //! create a new instance of the class
 inline
-TexGenChunkPtr TexGenChunkBase::create(void) 
+TexGenChunkPtr TexGenChunkBase::create(void)
 {
-    TexGenChunkPtr fc; 
+    TexGenChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TexGenChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TexGenChunkBase::execSync(      TexGenChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -474,7 +474,7 @@ inline
 void TexGenChunkBase::execSync (      TexGenChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -545,4 +545,3 @@ typedef PointerBuilder<TexGenChunk>::ObjPtrConstArg  TexGenChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGTEXGENCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

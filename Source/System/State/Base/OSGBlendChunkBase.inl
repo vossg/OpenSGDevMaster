@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &BlendChunkBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 BlendChunkBase::getClassTypeId(void) 
+OSG::UInt32 BlendChunkBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 BlendChunkBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const GLenum &BlendChunkBase::getSrcFactor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &BlendChunkBase::getSrcFactor(void)
+GLenum              &BlendChunkBase::getSrcFactor      (void)
 {
-    return this->editSrcFactor();
+    return this->editSrcFactor      ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const GLenum &BlendChunkBase::getDestFactor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &BlendChunkBase::getDestFactor(void)
+GLenum              &BlendChunkBase::getDestFactor     (void)
 {
-    return this->editDestFactor();
+    return this->editDestFactor     ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const GLenum &BlendChunkBase::getEquation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &BlendChunkBase::getEquation(void)
+GLenum              &BlendChunkBase::getEquation       (void)
 {
-    return this->editEquation();
+    return this->editEquation       ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Color4f &BlendChunkBase::getColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &BlendChunkBase::getColor(void)
+Color4f             &BlendChunkBase::getColor          (void)
 {
-    return this->editColor();
+    return this->editColor          ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const GLenum &BlendChunkBase::getAlphaFunc(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &BlendChunkBase::getAlphaFunc(void)
+GLenum              &BlendChunkBase::getAlphaFunc      (void)
 {
-    return this->editAlphaFunc();
+    return this->editAlphaFunc      ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Real32 &BlendChunkBase::getAlphaValue(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &BlendChunkBase::getAlphaValue(void)
+Real32              &BlendChunkBase::getAlphaValue     (void)
 {
-    return this->editAlphaValue();
+    return this->editAlphaValue     ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const GLenum &BlendChunkBase::getAlphaSrcFactor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &BlendChunkBase::getAlphaSrcFactor(void)
+GLenum              &BlendChunkBase::getAlphaSrcFactor (void)
 {
-    return this->editAlphaSrcFactor();
+    return this->editAlphaSrcFactor ();
 }
 #endif
 
@@ -323,7 +323,7 @@ const GLenum &BlendChunkBase::getAlphaDestFactor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &BlendChunkBase::getAlphaDestFactor(void)
+GLenum              &BlendChunkBase::getAlphaDestFactor(void)
 {
     return this->editAlphaDestFactor();
 }
@@ -340,24 +340,24 @@ void BlendChunkBase::setAlphaDestFactor(const GLenum &value)
 
 //! create a new instance of the class
 inline
-BlendChunkPtr BlendChunkBase::create(void) 
+BlendChunkPtr BlendChunkBase::create(void)
 {
-    BlendChunkPtr fc; 
+    BlendChunkPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<BlendChunk::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void BlendChunkBase::execSync(      BlendChunkBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -394,7 +394,7 @@ inline
 void BlendChunkBase::execSync (      BlendChunkBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -453,4 +453,3 @@ typedef PointerBuilder<BlendChunk>::ObjPtrConstArg  BlendChunkPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGBLENDCHUNKBASE_INLINE_CVSID "@(#)$Id$"
-

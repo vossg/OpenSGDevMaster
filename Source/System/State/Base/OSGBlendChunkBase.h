@@ -92,22 +92,22 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               BlendChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
-                              StateChunkConstPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
+                              StateChunkConstPtr,
                               BlendChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               BlendChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               BlendChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               BlendChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StateChunkPtr, 
+    typedef PointerFwdBuilder<StateChunkPtr,
                               StateChunkConstPtr,
                               BlendChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -128,32 +128,31 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
         NextFieldId = AlphaDestFactorFieldId + 1
     };
 
-    static const OSG::BitVector SrcFactorFieldMask = 
+    static const OSG::BitVector SrcFactorFieldMask =
         (TypeTraits<BitVector>::One << SrcFactorFieldId);
-    static const OSG::BitVector DestFactorFieldMask = 
+    static const OSG::BitVector DestFactorFieldMask =
         (TypeTraits<BitVector>::One << DestFactorFieldId);
-    static const OSG::BitVector EquationFieldMask = 
+    static const OSG::BitVector EquationFieldMask =
         (TypeTraits<BitVector>::One << EquationFieldId);
-    static const OSG::BitVector ColorFieldMask = 
+    static const OSG::BitVector ColorFieldMask =
         (TypeTraits<BitVector>::One << ColorFieldId);
-    static const OSG::BitVector AlphaFuncFieldMask = 
+    static const OSG::BitVector AlphaFuncFieldMask =
         (TypeTraits<BitVector>::One << AlphaFuncFieldId);
-    static const OSG::BitVector AlphaValueFieldMask = 
+    static const OSG::BitVector AlphaValueFieldMask =
         (TypeTraits<BitVector>::One << AlphaValueFieldId);
-    static const OSG::BitVector AlphaSrcFactorFieldMask = 
+    static const OSG::BitVector AlphaSrcFactorFieldMask =
         (TypeTraits<BitVector>::One << AlphaSrcFactorFieldId);
-    static const OSG::BitVector AlphaDestFactorFieldMask = 
+    static const OSG::BitVector AlphaDestFactorFieldMask =
         (TypeTraits<BitVector>::One << AlphaDestFactorFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -161,8 +160,8 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -173,115 +172,115 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
 
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFSrcFactor(void);
+                  SFGLenum            *getSFSrcFactor       (void);
 #endif
-           SFGLenum *editSFSrcFactor(void);
-     const SFGLenum *getSFSrcFactor (void) const;
+                  SFGLenum            *editSFSrcFactor      (void);
+            const SFGLenum            *getSFSrcFactor       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFDestFactor(void);
+                  SFGLenum            *getSFDestFactor      (void);
 #endif
-           SFGLenum *editSFDestFactor(void);
-     const SFGLenum *getSFDestFactor (void) const;
+                  SFGLenum            *editSFDestFactor     (void);
+            const SFGLenum            *getSFDestFactor      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFEquation(void);
+                  SFGLenum            *getSFEquation        (void);
 #endif
-           SFGLenum *editSFEquation(void);
-     const SFGLenum *getSFEquation (void) const;
+                  SFGLenum            *editSFEquation       (void);
+            const SFGLenum            *getSFEquation        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFColor4f *getSFColor(void);
+                  SFColor4f           *getSFColor           (void);
 #endif
-           SFColor4f *editSFColor(void);
-     const SFColor4f *getSFColor (void) const;
+                  SFColor4f           *editSFColor          (void);
+            const SFColor4f           *getSFColor           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFAlphaFunc(void);
+                  SFGLenum            *getSFAlphaFunc       (void);
 #endif
-           SFGLenum *editSFAlphaFunc(void);
-     const SFGLenum *getSFAlphaFunc (void) const;
+                  SFGLenum            *editSFAlphaFunc      (void);
+            const SFGLenum            *getSFAlphaFunc       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFAlphaValue(void);
+                  SFReal32            *getSFAlphaValue      (void);
 #endif
-           SFReal32 *editSFAlphaValue(void);
-     const SFReal32 *getSFAlphaValue (void) const;
+                  SFReal32            *editSFAlphaValue     (void);
+            const SFReal32            *getSFAlphaValue      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFAlphaSrcFactor(void);
+                  SFGLenum            *getSFAlphaSrcFactor  (void);
 #endif
-           SFGLenum *editSFAlphaSrcFactor(void);
-     const SFGLenum *getSFAlphaSrcFactor (void) const;
+                  SFGLenum            *editSFAlphaSrcFactor (void);
+            const SFGLenum            *getSFAlphaSrcFactor  (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFAlphaDestFactor(void);
+                  SFGLenum            *getSFAlphaDestFactor (void);
 #endif
-           SFGLenum *editSFAlphaDestFactor(void);
-     const SFGLenum *getSFAlphaDestFactor (void) const;
+                  SFGLenum            *editSFAlphaDestFactor(void);
+            const SFGLenum            *getSFAlphaDestFactor (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           GLenum &getSrcFactor(void);
+                  GLenum              &getSrcFactor       (void);
 #endif
-           GLenum &editSrcFactor(void);
-     const GLenum &getSrcFactor (void) const;
+                  GLenum              &editSrcFactor      (void);
+            const GLenum              &getSrcFactor       (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getDestFactor(void);
+                  GLenum              &getDestFactor      (void);
 #endif
-           GLenum &editDestFactor(void);
-     const GLenum &getDestFactor (void) const;
+                  GLenum              &editDestFactor     (void);
+            const GLenum              &getDestFactor      (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getEquation(void);
+                  GLenum              &getEquation        (void);
 #endif
-           GLenum &editEquation(void);
-     const GLenum &getEquation (void) const;
+                  GLenum              &editEquation       (void);
+            const GLenum              &getEquation        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4f &getColor(void);
+                  Color4f             &getColor           (void);
 #endif
-           Color4f &editColor(void);
-     const Color4f &getColor (void) const;
+                  Color4f             &editColor          (void);
+            const Color4f             &getColor           (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getAlphaFunc(void);
+                  GLenum              &getAlphaFunc       (void);
 #endif
-           GLenum &editAlphaFunc(void);
-     const GLenum &getAlphaFunc (void) const;
+                  GLenum              &editAlphaFunc      (void);
+            const GLenum              &getAlphaFunc       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getAlphaValue(void);
+                  Real32              &getAlphaValue      (void);
 #endif
-           Real32 &editAlphaValue(void);
-     const Real32 &getAlphaValue (void) const;
+                  Real32              &editAlphaValue     (void);
+            const Real32              &getAlphaValue      (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getAlphaSrcFactor(void);
+                  GLenum              &getAlphaSrcFactor  (void);
 #endif
-           GLenum &editAlphaSrcFactor(void);
-     const GLenum &getAlphaSrcFactor (void) const;
+                  GLenum              &editAlphaSrcFactor (void);
+            const GLenum              &getAlphaSrcFactor  (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getAlphaDestFactor(void);
+                  GLenum              &getAlphaDestFactor (void);
 #endif
-           GLenum &editAlphaDestFactor(void);
-     const GLenum &getAlphaDestFactor (void) const;
+                  GLenum              &editAlphaDestFactor(void);
+            const GLenum              &getAlphaDestFactor (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setSrcFactor(const GLenum &value);
-     void setDestFactor(const GLenum &value);
-     void setEquation(const GLenum &value);
-     void setColor(const Color4f &value);
-     void setAlphaFunc(const GLenum &value);
-     void setAlphaValue(const Real32 &value);
-     void setAlphaSrcFactor(const GLenum &value);
-     void setAlphaDestFactor(const GLenum &value);
+            void setSrcFactor      (const GLenum &value);
+            void setDestFactor     (const GLenum &value);
+            void setEquation       (const GLenum &value);
+            void setColor          (const Color4f &value);
+            void setAlphaFunc      (const GLenum &value);
+            void setAlphaValue     (const Real32 &value);
+            void setAlphaSrcFactor (const GLenum &value);
+            void setAlphaDestFactor(const GLenum &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -301,15 +300,15 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  BlendChunkPtr create     (void); 
-    static  BlendChunkPtr createEmpty(void); 
+    static  BlendChunkPtr create     (void);
+    static  BlendChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -325,14 +324,14 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum _sfSrcFactor;
-    SFGLenum _sfDestFactor;
-    SFGLenum _sfEquation;
-    SFColor4f _sfColor;
-    SFGLenum _sfAlphaFunc;
-    SFReal32 _sfAlphaValue;
-    SFGLenum _sfAlphaSrcFactor;
-    SFGLenum _sfAlphaDestFactor;
+    SFGLenum          _sfSrcFactor;
+    SFGLenum          _sfDestFactor;
+    SFGLenum          _sfEquation;
+    SFColor4f         _sfColor;
+    SFGLenum          _sfAlphaFunc;
+    SFReal32          _sfAlphaValue;
+    SFGLenum          _sfAlphaSrcFactor;
+    SFGLenum          _sfAlphaDestFactor;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -347,7 +346,7 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~BlendChunkBase(void); 
+    virtual ~BlendChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -393,11 +392,11 @@ class OSG_SYSTEM_DLLMAPPING BlendChunkBase : public StateChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

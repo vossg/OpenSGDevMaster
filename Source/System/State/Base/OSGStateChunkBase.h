@@ -84,22 +84,22 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
-                              FieldContainerAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
+                              FieldContainerAttachmentConstPtr,
                               StateChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
-                              FieldContainerAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
+                              FieldContainerAttachmentConstPtr,
                               StateChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               StateChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               StateChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               StateChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               StateChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -161,7 +160,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StateChunkBase(void); 
+    virtual ~StateChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -207,11 +206,11 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif
