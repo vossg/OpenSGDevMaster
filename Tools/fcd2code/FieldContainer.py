@@ -209,7 +209,7 @@ class FieldContainer(FCDElement):
         
         decorateeFieldFlags = self.getFCD("decorateeFieldFlags");
         if decorateeFieldFlags == "":
-            self["DecorateeFieldFlags"] = decorateeFieldFlags;
+            self["DecorateeFieldFlags"] = "Field::SFDefaultFlags";
         else:
             dffList  = decorateeFieldFlags.split(",");
             numFlags = len(dffList);

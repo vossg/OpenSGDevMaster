@@ -300,55 +300,55 @@ class @!Classname!@Base : public @!Parent!@
 @@if field.isPublic
 @@if field.isPtrField
 @@if field.writePushToField
-    void @!field.PushToField!@           (@!field.Type!@ConstArg value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeInsertIntoMField
-    void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                          @!field.Type!@ConstArg value   );
+    void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
+                                             @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
-    void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                          @!field.Type!@ConstArg value   );
+    void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
+                                             @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
-    void @!field.ReplaceInMFieldObject!@ (@!field.Type!@ConstArg pOldElem,
-                                          @!field.Type!@ConstArg pNewElem);
+    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ConstArg pOldElem,
+                                             @!field.Type!@ConstArg pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
-    void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
 @@endif
 @@if field.writeRemoveFromMFieldObject
-    void @!field.RemoveFromMFieldObject!@(@!field.Type!@ConstArg value   );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeClearField
-    void @!field.ClearField!@            (void                          );
+    void @!field.ClearField:15!@            (void                          );
 @@endif
 
 @@else
 
 @@if field.writePushToField
-    void @!field.PushToField!@           (const @!field.Type!@& value   );
+    void @!field.PushToField:15!@           (const @!field.Type!@& value   );
 @@endif
 @@if field.writeInsertIntoMField
-    void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                          const @!field.Type!@& value   );
+    void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
+                                             const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
-    void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                          const @!field.Type!@& value   );
+    void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
+                                             const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
-    void @!field.ReplaceInMFieldObject!@ (const @!field.Type!@& pOldElem,
-                                          const @!field.Type!@& pNewElem);
+    void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@& pOldElem,
+                                             const @!field.Type!@& pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
-    void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
 @@endif
 @@if field.writeRemoveFromMFieldObject
-    void @!field.RemoveFromMFieldObject!@(const @!field.Type!@& value   );
+    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@& value   );
 @@endif
 @@if field.writeClearField
-    void @!field.ClearField!@            (void                          );
+    void @!field.ClearField:15!@            (void                          );
 @@endif
 
 
@@ -520,57 +520,56 @@ class @!Classname!@Base : public @!Parent!@
 @@if field.isProtected
 @@if field.isPtrField
 @@if field.writePushToField
-    void @!field.PushToField!@           (@!field.Type!@ConstArg value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeInsertIntoMField
-    void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                          @!field.Type!@ConstArg value   );
+    void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
+                                             @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
-    void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                          @!field.Type!@ConstArg value   );
+    void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
+                                             @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
-    void @!field.ReplaceInMFieldObject!@ (@!field.Type!@ConstArg pOldElem,
-                                          @!field.Type!@ConstArg pNewElem);
+    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ConstArg pOldElem,
+                                             @!field.Type!@ConstArg pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
-    void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
 @@endif
 @@if field.writeRemoveFromMFieldObject
-    void @!field.RemoveFromMFieldObject!@(@!field.Type!@ConstArg value   );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeClearField
-    void @!field.ClearField!@            (void                          );
+    void @!field.ClearField:15!@            (void                          );
 @@endif
 
 @@else
 
 @@if field.writePushToField
-    void @!field.PushToField!@           (const @!field.Type!@& value   );
+    void @!field.PushToField:15!@           (const @!field.Type!@& value   );
 @@endif
 @@if field.writeInsertIntoMField
-    void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                          const @!field.Type!@& value   );
+    void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
+                                             const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
-    void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                          const @!field.Type!@& value   );
+    void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
+                                             const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
-    void @!field.ReplaceInMFieldObject!@ (const @!field.Type!@& pOldElem,
-                                          const @!field.Type!@& pNewElem);
+    void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@& pOldElem,
+                                             const @!field.Type!@& pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
-    void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
 @@endif
 @@if field.writeRemoveFromMFieldObject
-    void @!field.RemoveFromMFieldObject!@(const @!field.Type!@& value   );
+    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@& value   );
 @@endif
 @@if field.writeClearField
-    void @!field.ClearField!@            (void                          );
+    void @!field.ClearField:15!@            (void                          );
 @@endif
-
 
 @@endif
 @@endif
@@ -746,55 +745,55 @@ class @!Classname!@Base : public @!Parent!@
 
 @@if field.isPtrField
 @@if field.writePushToField
-    void @!field.PushToField!@           (@!field.Type!@ConstArg value   );
+    void @!field.PushToField:15!@           (@!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeInsertIntoMField
-    void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                          @!field.Type!@ConstArg value   );
+    void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
+                                             @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
-    void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                          @!field.Type!@ConstArg value   );
+    void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
+                                             @!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
-    void @!field.ReplaceInMFieldObject!@ (@!field.Type!@ConstArg pOldElem,
-                                          @!field.Type!@ConstArg pNewElem);
+    void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ConstArg pOldElem,
+                                             @!field.Type!@ConstArg pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
-    void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
 @@endif
 @@if field.writeRemoveFromMFieldObject
-    void @!field.RemoveFromMFieldObject!@(@!field.Type!@ConstArg value   );
+    void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ConstArg value   );
 @@endif
 @@if field.writeClearField
-    void @!field.ClearField!@            (void                          );
+    void @!field.ClearField:15!@            (void                          );
 @@endif
 
 @@else
 
 @@if field.writePushToField
-    void @!field.PushToField!@           (const @!field.Type!@& value   );
+    void @!field.PushToField:15!@           (const @!field.Type!@& value   );
 @@endif
 @@if field.writeInsertIntoMField
-    void @!field.InsertIntoMField!@      (UInt32                uiIndex,
-                                          const @!field.Type!@& value   );
+    void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
+                                             const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldIndex
-    void @!field.ReplaceInMFieldIndex!@  (UInt32                uiIndex,
-                                          const @!field.Type!@& value   );
+    void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
+                                             const @!field.Type!@& value   );
 @@endif
 @@if field.writeReplaceInMFieldObject
-    void @!field.ReplaceInMFieldObject!@ (const @!field.Type!@& pOldElem,
-                                          const @!field.Type!@& pNewElem);
+    void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@& pOldElem,
+                                             const @!field.Type!@& pNewElem);
 @@endif
 @@if field.writeRemoveFromMFieldIndex
-    void @!field.RemoveFromMFieldIndex!@ (UInt32                uiIndex );
+    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
 @@endif
 @@if field.writeRemoveFromMFieldObject
-    void @!field.RemoveFromMFieldObject!@(const @!field.Type!@& value    );
+    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@& value    );
 @@endif
 @@if field.writeClearField
-    void @!field.ClearField!@            (void                          );
+    void @!field.ClearField:15!@            (void                          );
 @@endif
 
 
