@@ -124,7 +124,7 @@ char *FCPtrTemplate_h[]={
 "",
 "    typedef FieldTraits<@!Classname!@Ptr>  Self;",
 "",
-"    enum                        { StringConvertable = 0x00 };",
+"    enum                                 { Convertible = NotConvertible };",
 "@@if Pointerfield",
 "",
 "    static OSG_@!LIBNAME!@_DLLMAPPING ",
