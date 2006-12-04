@@ -56,20 +56,20 @@ verbose_build = False
 # ------ HELPER METHODS -------- #
 
 # ------------------ BUILDERS ------------------- #
-# fcdProcess builder
-# - Custom builder for fcdProcess
-def registerFcdProcessBuilder(env, required=True):
-   print "Setting up fcdProcess builder...",
+# fcd2code builder
+# - Custom builder for fcd2code
+def registerfcd2codeBuilder(env, required=True):
+   print "Setting up fcd2code builder...",
    
-   fcdProcess_cmd = pj("Tools", "fcdProcess","fcdProcess.pl")
-   fcdProcess_cmd = os.path.abspath(fcdProcess_cmd)
-   if not os.path.isfile(fcdProcess_cmd):
-      print " Warning: fcdProcess not found at: ", fcdProcess_cmd      
+   fcd2code_cmd = pj("Tools", "fcd2code","fcd2code")
+   fcd2code_cmd = os.path.abspath(fcd2code_cmd)
+   if not os.path.isfile(fcd2code_cmd):
+      print " Warning: fcd2code not found at: ", fcd2code_cmd      
       if required:
          sys.exit(1)
       return
    
-   template_files = glob.glob(pj("Tools","fcdProcess","*Template*"))   
+   template_files = glob.glob(pj("Tools","fcd2code","*Template*"))   
    
       
    def prop_emitter(target,source,env, template_files=template_files):
@@ -92,11 +92,11 @@ def registerFcdProcessBuilder(env, required=True):
       return (target, source)
    
    
-   fcdprocess_builder = Builder(action = fcdProcess_cmd + ' -c -b -d $SOURCE -p ${TARGET.dir}',
+   fcd2code_builder = Builder(action = fcd2code_cmd + ' -c -b -d $SOURCE -p ${TARGET.dir}',
                               src_suffix = '.fcd',
                               suffix = 'unused.h',
                               emitter = prop_emitter)
-   env.Append(BUILDERS = {'FcdProcess' : fcdprocess_builder});
+   env.Append(BUILDERS = {'fcd2code' : fcd2code_builder});
    print "[OK]"
 
 
@@ -324,7 +324,7 @@ opts.AddOption(sca_opts.BoolOption("disable_glut_glsubdir","Do not use GL subdir
 opts.AddOption(sca_opts.BoolOption("osg_1_compat","Enable opensg 1.x compatibility.",False))
 opts.AddOption(sca_opts.BoolOption("osg_deprecated_props","Enable deprecated property types.",False))
 opts.Add("build_suffix", "Suffix to append to build directory.  Useful for compiling multiple variations on same platform.", "")                                    
-opts.AddOption(sca_opts.BoolOption("enable_fcdprocess","If true, enable support for fcdProcess in the build.",False))
+opts.AddOption(sca_opts.BoolOption("enable_fcd2code","If true, enable support for fcd2code in the build.",False))
 opts.AddOption(sca_opts.BoolOption("enable_unittests","If true, enable unit tests in the build.",True))
 opts.AddOption(sca_opts.BoolOption("enable_revision","If true, update OSG*Def.cpp with current revision numbers.",False))
 opts.Add("icc_gnu_compat","<GCC Version> to make the icc resultbinary compatible to the given gcc version. (unsupported)")
@@ -382,15 +382,15 @@ if not SConsAddons.Util.hasHelpFlag():
       buildDir += "." + common_env["build_suffix"]
       
    # .fcd processing
-   if common_env["enable_fcdprocess"]:      
-      registerFcdProcessBuilder(common_env)
+   if common_env["enable_fcd2code"]:      
+      registerfcd2codeBuilder(common_env)
       
       fcd_files = []
       for root, dirs, files in os.walk(pj(os.getcwd(),'Source')):
          fcd_files += [pj(root,f) for f in files if f.endswith(".fcd")]
       
       for f in fcd_files:
-         fcd_targets = common_env.FcdProcess(source=f)
+         fcd_targets = common_env.fcd2code(source=f)
          NoClean(fcd_targets)
 
    
@@ -587,7 +587,7 @@ if not SConsAddons.Util.hasHelpFlag():
    common_env.DefineBuilder(pj(paths["include"],"OpenSG","OSGConfigured.h"),Value(definemap), 
                             definemap=definemap)
 
-   # common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
+   #common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
    
    # Unit Testing framework
    # - Build the framework
@@ -625,9 +625,9 @@ if not SConsAddons.Util.hasHelpFlag():
          mod = False
          
          # Ignore unversioned files
-         if pysvn.wc_status_kind.unversioned != file_status[0].text_status:
-            rev = file_info.revision.number
-            
+         if pysvn.wc_status_kind.unversioned != file_status[0].text_status and \
+            pysvn.wc_status_kind.ignored     != file_status[0].text_status:
+            rev = file_info.revision.number            
             mod = pysvn.wc_status_kind.modified == file_status[0].text_status
 
          return rev, mod
@@ -674,6 +674,7 @@ if not SConsAddons.Util.hasHelpFlag():
       # Find the high version for stuff in Doc/, too
       have_modified = ""
       for f in glob.glob("Doc/*"):
+         print f
          rev, mod = getSVNInfo(f)
          if global_high_rev < rev:
             global_high_rev = rev
