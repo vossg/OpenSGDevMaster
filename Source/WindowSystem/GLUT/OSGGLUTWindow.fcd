@@ -9,7 +9,7 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-The class for GLUT-based windows.
+The class for GLUT-based windows. See \ref PageWindowGlut for a description.
 	<Field
 		name="id"
 		type="Int32"

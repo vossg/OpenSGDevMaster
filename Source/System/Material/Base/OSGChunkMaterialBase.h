@@ -86,22 +86,22 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<MaterialPtr, 
-                              MaterialConstPtr, 
+    typedef PointerFwdBuilder<MaterialPtr,
+                              MaterialConstPtr,
                               ChunkMaterial>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<MaterialPtr, 
-                              MaterialConstPtr, 
+    typedef PointerFwdBuilder<MaterialPtr,
+                              MaterialConstPtr,
                               ChunkMaterial>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<MaterialPtr, 
+    typedef PointerFwdBuilder<MaterialPtr,
                               MaterialConstPtr,
                               ChunkMaterial>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<MaterialPtr, 
+    typedef PointerFwdBuilder<MaterialPtr,
                               MaterialConstPtr,
                               ChunkMaterial>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<MaterialPtr, 
+    typedef PointerFwdBuilder<MaterialPtr,
                               MaterialConstPtr,
                               ChunkMaterial>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<MaterialPtr, 
+    typedef PointerFwdBuilder<MaterialPtr,
                               MaterialConstPtr,
                               ChunkMaterial>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
         NextFieldId = SlotsFieldId + 1
     };
 
-    static const OSG::BitVector ChunksFieldMask = 
+    static const OSG::BitVector ChunksFieldMask =
         (TypeTraits<BitVector>::One << ChunksFieldId);
-    static const OSG::BitVector SlotsFieldMask = 
+    static const OSG::BitVector SlotsFieldMask =
         (TypeTraits<BitVector>::One << SlotsFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -147,26 +146,26 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const MFStateChunkPtr *getMFChunks (void) const;
+            const MFStateChunkPtr     *getMFChunks          (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFInt32 *getMFSlots(void);
+                  MFInt32             *getMFSlots           (void);
 #endif
-           MFInt32 *editMFSlots(void);
-     const MFInt32 *getMFSlots (void) const;
+                  MFInt32             *editMFSlots          (void);
+            const MFInt32             *getMFSlots           (void) const;
 
 
-           StateChunkPtrConst getChunks(const UInt32 index) const;
-     const MFStateChunkPtr &getChunks(void) const;
+                  StateChunkPtrConst getChunks         (const UInt32 index) const;
+            const MFStateChunkPtr     &getChunks         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Int32 &getSlots(const UInt32 index);
-           MFInt32 &getSlots(void);
+                  Int32               &getSlots           (const UInt32 index);
+                  MFInt32             &getSlots          (void);
 #endif
-           Int32 &editSlots(const UInt32 index);
-     const Int32 &getSlots (const UInt32 index) const;
-           MFInt32 &editSlots(void);
-     const MFInt32 &getSlots(void) const;
+                  Int32               &editSlots          (const UInt32 index);
+            const Int32               &getSlots           (const UInt32 index) const;
+                  MFInt32             &editSlots          (void);
+            const MFInt32             &getSlots          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -179,25 +178,25 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -207,32 +206,32 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToChunks           (StateChunkPtrConstArg value   );
+    void pushToChunks              (StateChunkPtrConstArg value   );
     void insertIntoChunks      (UInt32                uiIndex,
-                                    StateChunkPtrConstArg value   );
+                                             StateChunkPtrConstArg value   );
     void replaceInChunks  (UInt32                uiIndex,
-                                    StateChunkPtrConstArg value   );
+                                             StateChunkPtrConstArg value   );
     void replaceInChunks (StateChunkPtrConstArg pOldElem,
-                                    StateChunkPtrConstArg pNewElem);
+                                             StateChunkPtrConstArg pNewElem);
     void removeFromChunks (UInt32                uiIndex );
     void removeFromChunks(StateChunkPtrConstArg value   );
 
- 
 
 
-    void pushToSlots           (const Int32& value   );
+
+    void pushToSlots               (const Int32& value   );
     void insertIntoSlots      (UInt32                uiIndex,
-                                    const Int32& value   );
-    void replaceInSlots  (UInt32                uiIndex,
-                                    const Int32& value   );
-    void replaceInSlots (const Int32& pOldElem,
-                                    const Int32& pNewElem);
+                                             const Int32& value   );
+    void replaceInSlots   (UInt32                uiIndex,
+                                             const Int32& value   );
+    void replaceInSlots  (const Int32& pOldElem,
+                                             const Int32& pNewElem);
     void removeFromSlots (UInt32                uiIndex );
     void removeFromSlots(const Int32& value   );
-    void clearSlots            (void                          );
+    void clearSlots                 (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -251,15 +250,15 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ChunkMaterialPtr create     (void); 
-    static  ChunkMaterialPtr createEmpty(void); 
+    static  ChunkMaterialPtr create     (void);
+    static  ChunkMaterialPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -275,8 +274,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFStateChunkPtr _mfChunks;
-    MFInt32 _mfSlots;
+    MFStateChunkPtr   _mfChunks;
+    MFInt32           _mfSlots;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -291,7 +290,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ChunkMaterialBase(void); 
+    virtual ~ChunkMaterialBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -338,11 +337,11 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

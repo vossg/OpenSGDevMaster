@@ -70,22 +70,22 @@ class SimpleMaterial;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SimpleMaterialPtr
 
-typedef PointerFwdBuilder<ChunkMaterialPtr, 
+typedef PointerFwdBuilder<ChunkMaterialPtr,
                           ChunkMaterialConstPtr,
                           SimpleMaterial>::ObjPtr         SimpleMaterialPtr;
-typedef PointerFwdBuilder<ChunkMaterialPtr, 
+typedef PointerFwdBuilder<ChunkMaterialPtr,
                           ChunkMaterialConstPtr,
                           SimpleMaterial>::ObjPtrConst    SimpleMaterialPtrConst;
-typedef PointerFwdBuilder<ChunkMaterialPtr, 
+typedef PointerFwdBuilder<ChunkMaterialPtr,
                           ChunkMaterialConstPtr,
                           SimpleMaterial>::ObjConstPtr    SimpleMaterialConstPtr;
-typedef PointerFwdBuilder<ChunkMaterialPtr, 
+typedef PointerFwdBuilder<ChunkMaterialPtr,
                           ChunkMaterialConstPtr,
                           SimpleMaterial>::ObjPtrArg      SimpleMaterialPtrArg;
-typedef PointerFwdBuilder<ChunkMaterialPtr, 
+typedef PointerFwdBuilder<ChunkMaterialPtr,
                           ChunkMaterialConstPtr,
                           SimpleMaterial>::ObjConstPtrArg SimpleMaterialConstPtrArg;
-typedef PointerFwdBuilder<ChunkMaterialPtr, 
+typedef PointerFwdBuilder<ChunkMaterialPtr,
                           ChunkMaterialConstPtr,
                           SimpleMaterial>::ObjPtrConstArg SimpleMaterialPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<ChunkMaterialPtr,
 #endif
 
 template <>
-struct FieldTraits<SimpleMaterialPtr> : 
+struct FieldTraits<SimpleMaterialPtr> :
     public FieldTraitsTemplateBase<SimpleMaterialPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SimpleMaterialPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

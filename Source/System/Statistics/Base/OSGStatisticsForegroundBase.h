@@ -86,22 +86,22 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ForegroundPtr, 
-                              ForegroundConstPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
+                              ForegroundConstPtr,
                               StatisticsForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ForegroundPtr, 
-                              ForegroundConstPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
+                              ForegroundConstPtr,
                               StatisticsForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               StatisticsForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               StatisticsForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               StatisticsForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               StatisticsForeground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
         NextFieldId = CollectorFieldId + 1
     };
 
-    static const OSG::BitVector ElementIDsFieldMask = 
+    static const OSG::BitVector ElementIDsFieldMask =
         (TypeTraits<BitVector>::One << ElementIDsFieldId);
-    static const OSG::BitVector CollectorFieldMask = 
+    static const OSG::BitVector CollectorFieldMask =
         (TypeTraits<BitVector>::One << CollectorFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,39 +148,39 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
 
 
 #ifdef OSG_1_COMPAT
-           MFInt32 *getMFElementIDs(void);
+                  MFInt32             *getMFElementIDs      (void);
 #endif
-           MFInt32 *editMFElementIDs(void);
-     const MFInt32 *getMFElementIDs (void) const;
+                  MFInt32             *editMFElementIDs     (void);
+            const MFInt32             *getMFElementIDs      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFStatCollector *getSFCollector(void);
+                  SFStatCollector     *getSFCollector       (void);
 #endif
-           SFStatCollector *editSFCollector(void);
-     const SFStatCollector *getSFCollector (void) const;
+                  SFStatCollector     *editSFCollector      (void);
+            const SFStatCollector     *getSFCollector       (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Int32 &getElementIDs(const UInt32 index);
-           MFInt32 &getElementIDs(void);
+                  Int32               &getElementIDs      (const UInt32 index);
+                  MFInt32             &getElementIDs     (void);
 #endif
-           Int32 &editElementIDs(const UInt32 index);
-     const Int32 &getElementIDs (const UInt32 index) const;
-           MFInt32 &editElementIDs(void);
-     const MFInt32 &getElementIDs(void) const;
+                  Int32               &editElementIDs     (const UInt32 index);
+            const Int32               &getElementIDs      (const UInt32 index) const;
+                  MFInt32             &editElementIDs     (void);
+            const MFInt32             &getElementIDs     (void) const;
 
 #ifdef OSG_1_COMPAT
-           StatCollector &getCollector(void);
+                  StatCollector       &getCollector       (void);
 #endif
-           StatCollector &editCollector(void);
-     const StatCollector &getCollector (void) const;
+                  StatCollector       &editCollector      (void);
+            const StatCollector       &getCollector       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setCollector(const StatCollector &value);
+            void setCollector      (const StatCollector &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -210,8 +209,8 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFInt32 _mfElementIDs;
-    SFStatCollector _sfCollector;
+    MFInt32           _mfElementIDs;
+    SFStatCollector   _sfCollector;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -226,7 +225,7 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StatisticsForegroundBase(void); 
+    virtual ~StatisticsForegroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -272,11 +271,11 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

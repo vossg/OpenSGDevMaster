@@ -10,8 +10,21 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-A SimpleMaterial with an added texture. It doesn't expose all features of the texture, 
-just the ones needed most often.
+\ingroup GrpSystemMaterial
+
+The simple textured material class. See \ref
+PageSystemMaterialTexturedSimpleMaterial for a description.
+
+A OSG::SimpleMaterial with an added texture. It doesn't expose all features 
+of the texture, just the ones needed most often.
+
+OSG::SimpleTexturedMaterial::_sfImage defines the texture, 
+OSG::SimpleTexturedMaterial::_sfMinFilter and
+OSG::SimpleTexturedMaterial::_sfMagFilter the used filters and 
+OSG::SimpleTexturedMaterial::_sfEnvMode the environment mode. As a special 
+case
+OSG::SimpleTexturedMaterial::_sfEnvMap can be used to use the texture as a
+spherical environment map.
 	<Field
 		name="image"
 		type="ImagePtr"
@@ -29,9 +42,9 @@ just the ones needed most often.
 		defaultValue="GL_LINEAR_MIPMAP_LINEAR"
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
-                potential_values="GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR"                
+                potential_values="GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR"
 	>
-	Defines the minification filter, see glTexParameter for details.          
+	Defines the minification filter, see glTexParameter for details.
         Default: GL_LINEAR_MIPMAP_LINEAR.
 	</Field>
 	<Field
@@ -44,7 +57,7 @@ just the ones needed most often.
 		access="public"
                 potential_values="GL_NEAREST, GL_LINEAR"
 	>
-	Defines the magnification filter, see glTexParameter for details.          
+	Defines the magnification filter, see glTexParameter for details.
         Default: GL_LINEAR
 	</Field>
 	<Field
@@ -57,7 +70,7 @@ just the ones needed most often.
 		access="public"
                 potential_values="GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE"
 	>
-	Sets the environment mode, defining how texture and lighting color interact.         
+	Sets the environment mode, defining how texture and lighting color interact.
         Default: GL_REPLACE.
 	</Field>
 	<Field

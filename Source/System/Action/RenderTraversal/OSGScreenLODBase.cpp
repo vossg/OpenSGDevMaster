@@ -65,7 +65,15 @@
 #include "OSGScreenLODBase.h"
 #include "OSGScreenLOD.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::ScreenLOD
+    
+ */
 
 
 ScreenLODBase::TypeObject ScreenLODBase::_type(true,
@@ -78,37 +86,36 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(true,
     NULL,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ScreenLOD\"\n"
-"	parent=\"Group\"\n"
-"	library=\"RenderTrav\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ScreenLOD\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"RenderTrav\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "        isNodeCore=\"true\"\n"
+    ">\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ScreenLODBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ScreenLODBase::getType(void) const 
+FieldContainerType &ScreenLODBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ScreenLODBase::getContainerSize(void) const 
-{ 
-    return sizeof(ScreenLOD); 
+const FieldContainerType &ScreenLODBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ScreenLODBase::getContainerSize(void) const
+{
+    return sizeof(ScreenLOD);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -141,22 +148,22 @@ void ScreenLODBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ScreenLODPtr ScreenLODBase::createEmpty(void) 
-{ 
-    ScreenLODPtr returnValue; 
-    
-    newPtr<ScreenLOD>(returnValue); 
+ScreenLODPtr ScreenLODBase::createEmpty(void)
+{
+    ScreenLODPtr returnValue;
 
-    return returnValue; 
+    newPtr<ScreenLOD>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ScreenLODBase::shallowCopy(void) const 
-{ 
-    ScreenLODPtr returnValue; 
+FieldContainerPtr ScreenLODBase::shallowCopy(void) const
+{
+    ScreenLODPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ScreenLOD *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ScreenLOD *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -183,13 +190,13 @@ ScreenLODBase::~ScreenLODBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ScreenLODBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ScreenLODBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -199,10 +206,10 @@ void ScreenLODBase::execSyncV(      FieldContainer    &oFrom,
 void ScreenLODBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ScreenLODBase *>(&oFrom), 
+    this->execSync(static_cast<ScreenLODBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -222,12 +229,12 @@ void ScreenLODBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ScreenLODBase::createAspectCopy(void) const
 {
-    ScreenLODPtr returnValue; 
+    ScreenLODPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ScreenLOD *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ScreenLOD *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -237,14 +244,10 @@ void ScreenLODBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<ScreenLODPtr>::_type("ScreenLODPtr", "GroupPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -260,9 +263,11 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 313 2006-10-18 22:54:24Z allenb $";
+    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 403 2006-11-09 12:34:33Z PatrickDaehne $";
     static Char8 cvsid_hpp       [] = OSGSCREENLODBASE_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGSCREENLODBASE_INLINE_CVSID;
 
     static Char8 cvsid_fields_hpp[] = OSGSCREENLODFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

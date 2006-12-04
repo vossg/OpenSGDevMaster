@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &EGLWindowBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 EGLWindowBase::getClassTypeId(void) 
+OSG::UInt32 EGLWindowBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 EGLWindowBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const EGLDisplay &EGLWindowBase::getDisplay(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-EGLDisplay &EGLWindowBase::getDisplay(void)
+EGLDisplay          &EGLWindowBase::getDisplay        (void)
 {
-    return this->editDisplay();
+    return this->editDisplay        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const EGLSurface &EGLWindowBase::getWindow(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-EGLSurface &EGLWindowBase::getWindow(void)
+EGLSurface          &EGLWindowBase::getWindow         (void)
 {
-    return this->editWindow();
+    return this->editWindow         ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const EGLContext &EGLWindowBase::getContext(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-EGLContext &EGLWindowBase::getContext(void)
+EGLContext          &EGLWindowBase::getContext        (void)
 {
-    return this->editContext();
+    return this->editContext        ();
 }
 #endif
 
@@ -175,24 +175,24 @@ void EGLWindowBase::setContext(const EGLContext &value)
 
 //! create a new instance of the class
 inline
-EGLWindowPtr EGLWindowBase::create(void) 
+EGLWindowPtr EGLWindowBase::create(void)
 {
-    EGLWindowPtr fc; 
+    EGLWindowPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<EGLWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void EGLWindowBase::execSync(      EGLWindowBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -214,7 +214,7 @@ inline
 void EGLWindowBase::execSync (      EGLWindowBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -258,4 +258,3 @@ typedef PointerBuilder<EGLWindow>::ObjPtrConstArg  EGLWindowPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGEGLWINDOWBASE_INLINE_CVSID "@(#)$Id$"
-

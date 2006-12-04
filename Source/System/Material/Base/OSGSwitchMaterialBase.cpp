@@ -66,26 +66,37 @@
 #include "OSGSwitchMaterialBase.h"
 #include "OSGSwitchMaterial.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var MaterialPtr SwitchMaterialBase::_mfMaterials
-    
+/*! \class OSG::SwitchMaterial
+    Material that allows selection of one of the materials in the
+    _mfMaterials field based on the value of the _sfChoice field.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var MaterialPtr     SwitchMaterialBase::_mfMaterials
+    Materials to choose from.
 */
-/*! \var UInt32 SwitchMaterialBase::_sfChoice
-    
+/*! \var UInt32          SwitchMaterialBase::_sfChoice
+    The material to actually use for drawing.
 */
 
 void SwitchMaterialBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new MFMaterialPtr::Description(
-        MFMaterialPtr::getClassType(), 
-        "materials", 
-        "",
+        MFMaterialPtr::getClassType(),
+        "materials",
+        "Materials to choose from.\n",
         MaterialsFieldId, MaterialsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -101,9 +112,9 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "choice", 
-        "",
+        SFUInt32::getClassType(),
+        "choice",
+        "The material to actually use for drawing.\n",
         ChoiceFieldId, ChoiceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -128,54 +139,58 @@ SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(true,
     (InitalInsertDescFunc) &SwitchMaterialBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SwitchMaterial\"\n"
-"	parent=\"Material\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"materials\"\n"
-"		type=\"MaterialPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"choice\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SwitchMaterial\"\n"
+    "\tparent=\"Material\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "Material that allows selection of one of the materials in the _mfMaterials\n"
+    "field based on the value of the _sfChoice field.\n"
+    "\t<Field\n"
+    "\t\tname=\"materials\"\n"
+    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tMaterials to choose from.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"choice\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe material to actually use for drawing.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "Material that allows selection of one of the materials in the _mfMaterials\n"
+    "field based on the value of the _sfChoice field.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SwitchMaterialBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SwitchMaterialBase::getType(void) const 
+FieldContainerType &SwitchMaterialBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SwitchMaterialBase::getContainerSize(void) const 
-{ 
-    return sizeof(SwitchMaterial); 
+const FieldContainerType &SwitchMaterialBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SwitchMaterialBase::getContainerSize(void) const
+{
+    return sizeof(SwitchMaterial);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -200,9 +215,9 @@ const SFUInt32 *SwitchMaterialBase::getSFChoice(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *SwitchMaterialBase::getSFChoice(void)
+SFUInt32            *SwitchMaterialBase::getSFChoice         (void)
 {
-    return this->editSFChoice();
+    return this->editSFChoice         ();
 }
 #endif
 
@@ -308,7 +323,7 @@ void SwitchMaterialBase::pushToMaterials(MaterialPtrConstArg value)
 }
 
 void SwitchMaterialBase::insertIntoMaterials(UInt32                uiIndex,
-                                             MaterialPtrConstArg value   )
+                                                   MaterialPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -325,7 +340,7 @@ void SwitchMaterialBase::insertIntoMaterials(UInt32                uiIndex,
 }
 
 void SwitchMaterialBase::replaceInMaterials(UInt32                uiIndex,
-                                                 MaterialPtrConstArg value   )
+                                                       MaterialPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -343,7 +358,7 @@ void SwitchMaterialBase::replaceInMaterials(UInt32                uiIndex,
 }
 
 void SwitchMaterialBase::replaceInMaterials(MaterialPtrConstArg pOldElem,
-                                                  MaterialPtrConstArg pNewElem)
+                                                        MaterialPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -417,8 +432,6 @@ void SwitchMaterialBase::clearMaterials(void)
 
 
 
-
-
 /*------------------------------ access -----------------------------------*/
 
 UInt32 SwitchMaterialBase::getBinSize(ConstFieldMaskArg whichField)
@@ -468,22 +481,22 @@ void SwitchMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SwitchMaterialPtr SwitchMaterialBase::createEmpty(void) 
-{ 
-    SwitchMaterialPtr returnValue; 
-    
-    newPtr<SwitchMaterial>(returnValue); 
+SwitchMaterialPtr SwitchMaterialBase::createEmpty(void)
+{
+    SwitchMaterialPtr returnValue;
 
-    return returnValue; 
+    newPtr<SwitchMaterial>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SwitchMaterialBase::shallowCopy(void) const 
-{ 
-    SwitchMaterialPtr returnValue; 
+FieldContainerPtr SwitchMaterialBase::shallowCopy(void) const
+{
+    SwitchMaterialPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SwitchMaterial *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SwitchMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -492,15 +505,15 @@ FieldContainerPtr SwitchMaterialBase::shallowCopy(void) const
 
 SwitchMaterialBase::SwitchMaterialBase(void) :
     Inherited(),
-    _mfMaterials(),
-    _sfChoice()
+    _mfMaterials              (),
+    _sfChoice                 ()
 {
 }
 
 SwitchMaterialBase::SwitchMaterialBase(const SwitchMaterialBase &source) :
     Inherited(source),
-    _mfMaterials(),
-    _sfChoice(source._sfChoice)
+    _mfMaterials              (),
+    _sfChoice                 (source._sfChoice                 )
 {
 }
 
@@ -517,9 +530,9 @@ void SwitchMaterialBase::onCreate(const SwitchMaterial *source)
     if(source != NULL)
     {
 
-        MFMaterialPtr::const_iterator MaterialsIt  = 
+        MFMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
-        MFMaterialPtr::const_iterator MaterialsEnd = 
+        MFMaterialPtr::const_iterator MaterialsEnd =
             source->_mfMaterials.end  ();
 
         while(MaterialsIt != MaterialsEnd)
@@ -534,13 +547,13 @@ void SwitchMaterialBase::onCreate(const SwitchMaterial *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SwitchMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SwitchMaterialBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -550,10 +563,10 @@ void SwitchMaterialBase::execSyncV(      FieldContainer    &oFrom,
 void SwitchMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SwitchMaterialBase *>(&oFrom), 
+    this->execSync(static_cast<SwitchMaterialBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -573,12 +586,12 @@ void SwitchMaterialBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SwitchMaterialBase::createAspectCopy(void) const
 {
-    SwitchMaterialPtr returnValue; 
+    SwitchMaterialPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SwitchMaterial *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SwitchMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -589,6 +602,8 @@ void SwitchMaterialBase::resolveLinks(void)
     static_cast<SwitchMaterial *>(this)->clearMaterials();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -611,8 +626,6 @@ OSG_FIELDTRAITS_GETTYPE(SwitchMaterialPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, SwitchMaterialPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, SwitchMaterialPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -633,3 +646,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSWITCHMATERIALFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

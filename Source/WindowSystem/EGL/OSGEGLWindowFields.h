@@ -70,22 +70,22 @@ class EGLWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! EGLWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           EGLWindow>::ObjPtr         EGLWindowPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           EGLWindow>::ObjPtrConst    EGLWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           EGLWindow>::ObjConstPtr    EGLWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           EGLWindow>::ObjPtrArg      EGLWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           EGLWindow>::ObjConstPtrArg EGLWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           EGLWindow>::ObjPtrConstArg EGLWindowPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<WindowPtr,
 #endif
 
 template <>
-struct FieldTraits<EGLWindowPtr> : 
+struct FieldTraits<EGLWindowPtr> :
     public FieldTraitsTemplateBase<EGLWindowPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<EGLWindowPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWEGL_DLLMAPPING 
+    static OSG_WINDOWEGL_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFEGLWindowPtr"; }

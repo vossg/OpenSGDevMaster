@@ -65,17 +65,40 @@
 #include "OSGMaterialBase.h"
 #include "OSGMaterial.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Int32 MaterialBase::_sfSortKey
+/*! \class OSG::Material
+    \ingroup GrpSystemMaterial
+
+    The material base class.
+
+    \ext The Material has two interfaces to return a State that represents
+    it. OSG::Material::makeState() creates a new OSG::State and returns it.
+    This is  ok for rare use, but for every frame this is going to be too
+    expensive. For  these cases OSG::Material::rebuildState() and
+    OSG::Material::getState() are  used, which modify and return an
+    internal copy of the State.
+
+    The other method to implement is OSG::Material::isTransparent(), to
+    identify transparent materials to be rendered after the opaque ones.
+    \endext
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Int32           MaterialBase::_sfSortKey
     
 */
 
 void MaterialBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -85,8 +108,8 @@ void MaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "sortKey", 
+        SFInt32::getClassType(),
+        "sortKey",
         "",
         SortKeyFieldId, SortKeyFieldMask,
         false,
@@ -107,52 +130,75 @@ MaterialBase::TypeObject MaterialBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     Material::initMethod,
     (InitalInsertDescFunc) &MaterialBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Material\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	structure=\"abstract\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"sortKey\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Material\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemMaterial\n"
+    "\n"
+    "The material base class.\n"
+    "\n"
+    "\\ext\n"
+    "The Material has two interfaces to return a State that represents it.\n"
+    "OSG::Material::makeState() creates a new OSG::State and returns it. This is \n"
+    "ok for rare use, but for every frame this is going to be too expensive. For \n"
+    "these cases OSG::Material::rebuildState() and OSG::Material::getState() are \n"
+    "used, which modify and return an internal copy of the State. \n"
+    "\n"
+    "The other method to implement is OSG::Material::isTransparent(), to identify\n"
+    "transparent materials to be rendered after the opaque ones.\n"
+    "\\endext\n"
+    "\t<Field\n"
+    "\t\tname=\"sortKey\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemMaterial\n"
+    "The material base class.\n"
+    "\\ext\n"
+    "The Material has two interfaces to return a State that represents it.\n"
+    "OSG::Material::makeState() creates a new OSG::State and returns it. This is \n"
+    "ok for rare use, but for every frame this is going to be too expensive. For \n"
+    "these cases OSG::Material::rebuildState() and OSG::Material::getState() are \n"
+    "used, which modify and return an internal copy of the State. \n"
+    "The other method to implement is OSG::Material::isTransparent(), to identify\n"
+    "transparent materials to be rendered after the opaque ones.\n"
+    "\\endext\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &MaterialBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &MaterialBase::getType(void) const 
+FieldContainerType &MaterialBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 MaterialBase::getContainerSize(void) const 
-{ 
-    return sizeof(Material); 
+const FieldContainerType &MaterialBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 MaterialBase::getContainerSize(void) const
+{
+    return sizeof(Material);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -171,9 +217,9 @@ const SFInt32 *MaterialBase::getSFSortKey(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *MaterialBase::getSFSortKey(void)
+SFInt32             *MaterialBase::getSFSortKey        (void)
 {
-    return this->editSFSortKey();
+    return this->editSFSortKey        ();
 }
 #endif
 
@@ -221,13 +267,13 @@ void MaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
 MaterialBase::MaterialBase(void) :
     Inherited(),
-    _sfSortKey(Int32(0))
+    _sfSortKey                (Int32(0))
 {
 }
 
 MaterialBase::MaterialBase(const MaterialBase &source) :
     Inherited(source),
-    _sfSortKey(source._sfSortKey)
+    _sfSortKey                (source._sfSortKey                )
 {
 }
 
@@ -241,13 +287,13 @@ MaterialBase::~MaterialBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void MaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<MaterialBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -257,10 +303,10 @@ void MaterialBase::execSyncV(      FieldContainer    &oFrom,
 void MaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MaterialBase *>(&oFrom), 
+    this->execSync(static_cast<MaterialBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -284,6 +330,8 @@ void MaterialBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -305,8 +353,6 @@ OSG_FIELDTRAITS_GETTYPE(MaterialPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, MaterialPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, MaterialPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -327,3 +373,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGMATERIALFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

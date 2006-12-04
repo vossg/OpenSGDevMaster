@@ -70,22 +70,22 @@ class Material;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MaterialPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Material>::ObjPtr         MaterialPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Material>::ObjPtrConst    MaterialPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Material>::ObjConstPtr    MaterialConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Material>::ObjPtrArg      MaterialPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Material>::ObjConstPtrArg MaterialConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Material>::ObjPtrConstArg MaterialPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<AttachmentContainerPtr,
 #endif
 
 template <>
-struct FieldTraits<MaterialPtr> : 
+struct FieldTraits<MaterialPtr> :
     public FieldTraitsTemplateBase<MaterialPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<MaterialPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFMaterialPtr"; }

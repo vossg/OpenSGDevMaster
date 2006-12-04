@@ -67,60 +67,79 @@
 
 OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var std::string SimpleStatisticsForegroundBase::_mfFormats
-    	The format strings for the given StatElemDesc IDs. If not set, name and value are used.
+/*! \class OSG::SimpleStatisticsForeground
+    \ingroup GrpSystemWindowForegroundsStatistics
 
+    SimpleStatisticsForeground displays the Statistics info as simple lines
+    of text.
+
+    osg::SimpleStatisticsForeground displays the statistics info as simple
+    text lines. They are displayed using a compiled-in font that can use an
+    arbitrary color and that can be arbitrarily resized, with the size per
+    line given in pixel.
+
+    The format of every element is given by a format string for every
+    element that is directly passed to OSG::StatElem::putToString(), so go
+    there to see the possible options.
+
+    If no elementIDs are given all elements in the osg::StatCollector are
+    display, using the default format.
+
+    The format string for the given elements are stored in the _mfFormats
+    Field, the size and color used for all lines in _sfSize and _sfColor.
+
+    See \ref PageSystemWindowForegroundStatisticsSimple
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var std::string     SimpleStatisticsForegroundBase::_mfFormats
+    The format strings for the given StatElemDesc IDs. If not set, name
+    and value are used.
 */
-/*! \var Real32 SimpleStatisticsForegroundBase::_sfSize
-    	Height of a single line, in  pixel.
-
+/*! \var Real32          SimpleStatisticsForegroundBase::_sfSize
+    Height of a single line, in  pixel.
 */
-/*! \var Color4f SimpleStatisticsForegroundBase::_sfColor
-    	Color of the text.
-
+/*! \var Color4f         SimpleStatisticsForegroundBase::_sfColor
+    Color of the text.
 */
-/*! \var Color4f SimpleStatisticsForegroundBase::_sfShadowColor
-    	Color of the shadow.
-
+/*! \var Color4f         SimpleStatisticsForegroundBase::_sfShadowColor
+    Color of the shadow.
 */
-/*! \var Color4f SimpleStatisticsForegroundBase::_sfBgColor
-    	Color of the background.
-
+/*! \var Color4f         SimpleStatisticsForegroundBase::_sfBgColor
+    Color of the background.
 */
-/*! \var std::string SimpleStatisticsForegroundBase::_sfFamily
-    	The font family to be used, e.g. "SANS", default if unset.
-
+/*! \var std::string     SimpleStatisticsForegroundBase::_sfFamily
+    The font family to be used, e.g. "SANS", default if unset.
 */
-/*! \var Vec2f SimpleStatisticsForegroundBase::_sfShadowOffset
-    	Offset of the shadow, in pixels.
-
+/*! \var Vec2f           SimpleStatisticsForegroundBase::_sfShadowOffset
+    Offset of the shadow, in pixels.
 */
-/*! \var UInt8 SimpleStatisticsForegroundBase::_sfHorizontalAlign
-    	Simple form of layout management, 0 defaults to left.
-
+/*! \var UInt8           SimpleStatisticsForegroundBase::_sfHorizontalAlign
+    Simple form of layout management, 0 defaults to left.
 */
-/*! \var UInt8 SimpleStatisticsForegroundBase::_sfVerticalAlign
-    	Simple form of layout management, 0 defaults to top.
-
+/*! \var UInt8           SimpleStatisticsForegroundBase::_sfVerticalAlign
+    Simple form of layout management, 0 defaults to top.
 */
-/*! \var Color4f SimpleStatisticsForegroundBase::_sfBorderColor
-    	Color of the border.
-
+/*! \var Color4f         SimpleStatisticsForegroundBase::_sfBorderColor
+    Color of the border.
 */
-/*! \var Vec2f SimpleStatisticsForegroundBase::_sfBorderOffset
-    	Offset of the border in pixels.
-
+/*! \var Vec2f           SimpleStatisticsForegroundBase::_sfBorderOffset
+    Offset of the border in pixels.
 */
-/*! \var Vec2f SimpleStatisticsForegroundBase::_sfTextMargin
-    	Text margin in pixels.
-
+/*! \var Vec2f           SimpleStatisticsForegroundBase::_sfTextMargin
+    Text margin in pixels.
 */
 
 void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -130,9 +149,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFString::Description(
-        MFString::getClassType(), 
-        "formats", 
-        "	The format strings for the given StatElemDesc IDs. If not set, name and value are used.\n",
+        MFString::getClassType(),
+        "formats",
+        "The format strings for the given StatElemDesc IDs. If not set, name and value are used.\n",
         FormatsFieldId, FormatsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -152,9 +171,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "size", 
-        "	Height of a single line, in  pixel.\n",
+        SFReal32::getClassType(),
+        "size",
+        "Height of a single line, in  pixel.\n",
         SizeFieldId, SizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -174,9 +193,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "color", 
-        "	Color of the text.\n",
+        SFColor4f::getClassType(),
+        "color",
+        "Color of the text.\n",
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -196,9 +215,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "shadowColor", 
-        "	Color of the shadow.\n",
+        SFColor4f::getClassType(),
+        "shadowColor",
+        "Color of the shadow.\n",
         ShadowColorFieldId, ShadowColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -218,9 +237,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "bgColor", 
-        "	Color of the background.\n",
+        SFColor4f::getClassType(),
+        "bgColor",
+        "Color of the background.\n",
         BgColorFieldId, BgColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -240,9 +259,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "family", 
-        "	The font family to be used, e.g. \\\"SANS\\\", default if unset.\n",
+        SFString::getClassType(),
+        "family",
+        "The font family to be used, e.g. \"SANS\", default if unset.\n",
         FamilyFieldId, FamilyFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -262,9 +281,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec2f::Description(
-        SFVec2f::getClassType(), 
-        "shadowOffset", 
-        "	Offset of the shadow, in pixels.\n",
+        SFVec2f::getClassType(),
+        "shadowOffset",
+        "Offset of the shadow, in pixels.\n",
         ShadowOffsetFieldId, ShadowOffsetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -284,9 +303,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt8::Description(
-        SFUInt8::getClassType(), 
-        "horizontalAlign", 
-        "	Simple form of layout management, 0 defaults to left.\n",
+        SFUInt8::getClassType(),
+        "horizontalAlign",
+        "Simple form of layout management, 0 defaults to left.\n",
         HorizontalAlignFieldId, HorizontalAlignFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -306,9 +325,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt8::Description(
-        SFUInt8::getClassType(), 
-        "verticalAlign", 
-        "	Simple form of layout management, 0 defaults to top.\n",
+        SFUInt8::getClassType(),
+        "verticalAlign",
+        "Simple form of layout management, 0 defaults to top.\n",
         VerticalAlignFieldId, VerticalAlignFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -328,9 +347,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "borderColor", 
-        "	Color of the border.\n",
+        SFColor4f::getClassType(),
+        "borderColor",
+        "Color of the border.\n",
         BorderColorFieldId, BorderColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -350,9 +369,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec2f::Description(
-        SFVec2f::getClassType(), 
-        "borderOffset", 
-        "	Offset of the border in pixels.\n",
+        SFVec2f::getClassType(),
+        "borderOffset",
+        "Offset of the border in pixels.\n",
         BorderOffsetFieldId, BorderOffsetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -372,9 +391,9 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec2f::Description(
-        SFVec2f::getClassType(), 
-        "textMargin", 
-        "	Text margin in pixels.\n",
+        SFVec2f::getClassType(),
+        "textMargin",
+        "Text margin in pixels.\n",
         TextMarginFieldId, TextMarginFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -399,156 +418,187 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     (InitalInsertDescFunc) &SimpleStatisticsForegroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SimpleStatisticsForeground\"\n"
-"	parent=\"StatisticsForeground\"\n"
-"	library=\"Util\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"Simple Statistics display. Just print all the selected elements in the upper left corner of the screen.\n"
-"	<Field\n"
-"		name=\"formats\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The format strings for the given StatElemDesc IDs. If not set, name and value are used.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"size\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"16\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Height of a single line, in  pixel.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"color\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1,1,1,1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Color of the text.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shadowColor\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0,0,0,1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Color of the shadow.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"bgColor\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0,0,0,0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Color of the background.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"family\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The font family to be used, e.g. \"SANS\", default if unset.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shadowOffset\"\n"
-"		type=\"Vec2f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1,-1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Offset of the shadow, in pixels.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"horizontalAlign\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Simple form of layout management, 0 defaults to left.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"verticalAlign\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Simple form of layout management, 0 defaults to top.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"borderColor\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0,0,0,0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Color of the border.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"borderOffset\"\n"
-"		type=\"Vec2f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"4,4\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Offset of the border in pixels.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"textMargin\"\n"
-"		type=\"Vec2f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0,0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Text margin in pixels.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "Simple Statistics display. Just print all the selected elements in the upper left corner of the screen.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SimpleStatisticsForeground\"\n"
+    "\tparent=\"StatisticsForeground\"\n"
+    "\tlibrary=\"Util\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowForegroundsStatistics\n"
+    "\n"
+    "SimpleStatisticsForeground displays the Statistics info as simple lines of text.\n"
+    "\n"
+    "osg::SimpleStatisticsForeground displays the statistics info as simple text\n"
+    "lines. They are displayed using a compiled-in font that can use an arbitrary\n"
+    "color and that can be arbitrarily resized, with the size per line given in\n"
+    "pixel.\n"
+    "\n"
+    "The format of every element is given by a format string for every element that\n"
+    "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
+    "possible options.\n"
+    "\n"
+    "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
+    "using the default format.\n"
+    "\n"
+    "The format string for the given elements are stored in the _mfFormats Field,\n"
+    "the size and color used for all lines in _sfSize and _sfColor.\n"
+    "\n"
+    "See \\ref PageSystemWindowForegroundStatisticsSimple\n"
+    "\t<Field\n"
+    "\t\tname=\"formats\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe format strings for the given StatElemDesc IDs. If not set, name and value are used.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"size\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"16\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tHeight of a single line, in  pixel.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"color\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1,1,1,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tColor of the text.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shadowColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0,0,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tColor of the shadow.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bgColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0,0,0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tColor of the background.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"family\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe font family to be used, e.g. \"SANS\", default if unset.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shadowOffset\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1,-1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tOffset of the shadow, in pixels.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"horizontalAlign\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tSimple form of layout management, 0 defaults to left.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"verticalAlign\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tSimple form of layout management, 0 defaults to top.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"borderColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0,0,0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tColor of the border.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"borderOffset\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"4,4\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tOffset of the border in pixels.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"textMargin\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0,0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tText margin in pixels.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowForegroundsStatistics\n"
+    "SimpleStatisticsForeground displays the Statistics info as simple lines of text.\n"
+    "osg::SimpleStatisticsForeground displays the statistics info as simple text\n"
+    "lines. They are displayed using a compiled-in font that can use an arbitrary\n"
+    "color and that can be arbitrarily resized, with the size per line given in\n"
+    "pixel.\n"
+    "The format of every element is given by a format string for every element that\n"
+    "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
+    "possible options.\n"
+    "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
+    "using the default format.\n"
+    "The format string for the given elements are stored in the _mfFormats Field,\n"
+    "the size and color used for all lines in _sfSize and _sfColor.\n"
+    "See \\ref PageSystemWindowForegroundStatisticsSimple\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SimpleStatisticsForegroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SimpleStatisticsForegroundBase::getType(void) const 
+FieldContainerType &SimpleStatisticsForegroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SimpleStatisticsForegroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(SimpleStatisticsForeground); 
+const FieldContainerType &SimpleStatisticsForegroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SimpleStatisticsForegroundBase::getContainerSize(void) const
+{
+    return sizeof(SimpleStatisticsForeground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -567,9 +617,9 @@ const MFString *SimpleStatisticsForegroundBase::getMFFormats(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFString *SimpleStatisticsForegroundBase::getMFFormats(void)
+MFString            *SimpleStatisticsForegroundBase::getMFFormats        (void)
 {
-    return this->editMFFormats();
+    return this->editMFFormats        ();
 }
 #endif
 
@@ -586,9 +636,9 @@ const SFReal32 *SimpleStatisticsForegroundBase::getSFSize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *SimpleStatisticsForegroundBase::getSFSize(void)
+SFReal32            *SimpleStatisticsForegroundBase::getSFSize           (void)
 {
-    return this->editSFSize();
+    return this->editSFSize           ();
 }
 #endif
 
@@ -605,9 +655,9 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *SimpleStatisticsForegroundBase::getSFColor(void)
+SFColor4f           *SimpleStatisticsForegroundBase::getSFColor          (void)
 {
-    return this->editSFColor();
+    return this->editSFColor          ();
 }
 #endif
 
@@ -624,9 +674,9 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFShadowColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *SimpleStatisticsForegroundBase::getSFShadowColor(void)
+SFColor4f           *SimpleStatisticsForegroundBase::getSFShadowColor    (void)
 {
-    return this->editSFShadowColor();
+    return this->editSFShadowColor    ();
 }
 #endif
 
@@ -643,9 +693,9 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFBgColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *SimpleStatisticsForegroundBase::getSFBgColor(void)
+SFColor4f           *SimpleStatisticsForegroundBase::getSFBgColor        (void)
 {
-    return this->editSFBgColor();
+    return this->editSFBgColor        ();
 }
 #endif
 
@@ -662,9 +712,9 @@ const SFString *SimpleStatisticsForegroundBase::getSFFamily(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *SimpleStatisticsForegroundBase::getSFFamily(void)
+SFString            *SimpleStatisticsForegroundBase::getSFFamily         (void)
 {
-    return this->editSFFamily();
+    return this->editSFFamily         ();
 }
 #endif
 
@@ -681,9 +731,9 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFShadowOffset(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec2f *SimpleStatisticsForegroundBase::getSFShadowOffset(void)
+SFVec2f             *SimpleStatisticsForegroundBase::getSFShadowOffset   (void)
 {
-    return this->editSFShadowOffset();
+    return this->editSFShadowOffset   ();
 }
 #endif
 
@@ -700,7 +750,7 @@ const SFUInt8 *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt8 *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void)
+SFUInt8             *SimpleStatisticsForegroundBase::getSFHorizontalAlign(void)
 {
     return this->editSFHorizontalAlign();
 }
@@ -719,9 +769,9 @@ const SFUInt8 *SimpleStatisticsForegroundBase::getSFVerticalAlign(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt8 *SimpleStatisticsForegroundBase::getSFVerticalAlign(void)
+SFUInt8             *SimpleStatisticsForegroundBase::getSFVerticalAlign  (void)
 {
-    return this->editSFVerticalAlign();
+    return this->editSFVerticalAlign  ();
 }
 #endif
 
@@ -738,9 +788,9 @@ const SFColor4f *SimpleStatisticsForegroundBase::getSFBorderColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *SimpleStatisticsForegroundBase::getSFBorderColor(void)
+SFColor4f           *SimpleStatisticsForegroundBase::getSFBorderColor    (void)
 {
-    return this->editSFBorderColor();
+    return this->editSFBorderColor    ();
 }
 #endif
 
@@ -757,9 +807,9 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFBorderOffset(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec2f *SimpleStatisticsForegroundBase::getSFBorderOffset(void)
+SFVec2f             *SimpleStatisticsForegroundBase::getSFBorderOffset   (void)
 {
-    return this->editSFBorderOffset();
+    return this->editSFBorderOffset   ();
 }
 #endif
 
@@ -776,9 +826,9 @@ const SFVec2f *SimpleStatisticsForegroundBase::getSFTextMargin(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec2f *SimpleStatisticsForegroundBase::getSFTextMargin(void)
+SFVec2f             *SimpleStatisticsForegroundBase::getSFTextMargin     (void)
 {
-    return this->editSFTextMargin();
+    return this->editSFTextMargin     ();
 }
 #endif
 
@@ -953,22 +1003,22 @@ void SimpleStatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmpty(void) 
-{ 
-    SimpleStatisticsForegroundPtr returnValue; 
-    
-    newPtr<SimpleStatisticsForeground>(returnValue); 
+SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::createEmpty(void)
+{
+    SimpleStatisticsForegroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<SimpleStatisticsForeground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SimpleStatisticsForegroundBase::shallowCopy(void) const 
-{ 
-    SimpleStatisticsForegroundPtr returnValue; 
+FieldContainerPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
+{
+    SimpleStatisticsForegroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SimpleStatisticsForeground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SimpleStatisticsForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -977,35 +1027,35 @@ FieldContainerPtr SimpleStatisticsForegroundBase::shallowCopy(void) const
 
 SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(void) :
     Inherited(),
-    _mfFormats(),
-    _sfSize(Real32(16)),
-    _sfColor(Color4f(1,1,1,1)),
-    _sfShadowColor(Color4f(0,0,0,1)),
-    _sfBgColor(Color4f(0,0,0,0)),
-    _sfFamily(),
-    _sfShadowOffset(Vec2f(1,-1)),
-    _sfHorizontalAlign(UInt8(0)),
-    _sfVerticalAlign(UInt8(0)),
-    _sfBorderColor(Color4f(0,0,0,0)),
-    _sfBorderOffset(Vec2f(4,4)),
-    _sfTextMargin(Vec2f(0,0))
+    _mfFormats                (),
+    _sfSize                   (Real32(16)),
+    _sfColor                  (Color4f(1,1,1,1)),
+    _sfShadowColor            (Color4f(0,0,0,1)),
+    _sfBgColor                (Color4f(0,0,0,0)),
+    _sfFamily                 (),
+    _sfShadowOffset           (Vec2f(1,-1)),
+    _sfHorizontalAlign        (UInt8(0)),
+    _sfVerticalAlign          (UInt8(0)),
+    _sfBorderColor            (Color4f(0,0,0,0)),
+    _sfBorderOffset           (Vec2f(4,4)),
+    _sfTextMargin             (Vec2f(0,0))
 {
 }
 
 SimpleStatisticsForegroundBase::SimpleStatisticsForegroundBase(const SimpleStatisticsForegroundBase &source) :
     Inherited(source),
-    _mfFormats(source._mfFormats),
-    _sfSize(source._sfSize),
-    _sfColor(source._sfColor),
-    _sfShadowColor(source._sfShadowColor),
-    _sfBgColor(source._sfBgColor),
-    _sfFamily(source._sfFamily),
-    _sfShadowOffset(source._sfShadowOffset),
-    _sfHorizontalAlign(source._sfHorizontalAlign),
-    _sfVerticalAlign(source._sfVerticalAlign),
-    _sfBorderColor(source._sfBorderColor),
-    _sfBorderOffset(source._sfBorderOffset),
-    _sfTextMargin(source._sfTextMargin)
+    _mfFormats                (source._mfFormats                ),
+    _sfSize                   (source._sfSize                   ),
+    _sfColor                  (source._sfColor                  ),
+    _sfShadowColor            (source._sfShadowColor            ),
+    _sfBgColor                (source._sfBgColor                ),
+    _sfFamily                 (source._sfFamily                 ),
+    _sfShadowOffset           (source._sfShadowOffset           ),
+    _sfHorizontalAlign        (source._sfHorizontalAlign        ),
+    _sfVerticalAlign          (source._sfVerticalAlign          ),
+    _sfBorderColor            (source._sfBorderColor            ),
+    _sfBorderOffset           (source._sfBorderOffset           ),
+    _sfTextMargin             (source._sfTextMargin             )
 {
 }
 
@@ -1019,13 +1069,13 @@ SimpleStatisticsForegroundBase::~SimpleStatisticsForegroundBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SimpleStatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SimpleStatisticsForegroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1035,10 +1085,10 @@ void SimpleStatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
 void SimpleStatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SimpleStatisticsForegroundBase *>(&oFrom), 
+    this->execSync(static_cast<SimpleStatisticsForegroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1058,12 +1108,12 @@ void SimpleStatisticsForegroundBase::execBeginEditV(ConstFieldMaskArg whichField
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SimpleStatisticsForegroundBase::createAspectCopy(void) const
 {
-    SimpleStatisticsForegroundPtr returnValue; 
+    SimpleStatisticsForegroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SimpleStatisticsForeground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleStatisticsForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 

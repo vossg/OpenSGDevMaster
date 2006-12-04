@@ -9,7 +9,7 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-The class windows on X.
+The class for X-based windows. See \ref PageWindowX for a description.
 	<Field
 		name="display"
 		type="DisplayP"

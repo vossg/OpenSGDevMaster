@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &StatisticsForegroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 StatisticsForegroundBase::getClassTypeId(void) 
+OSG::UInt32 StatisticsForegroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 StatisticsForegroundBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const StatCollector &StatisticsForegroundBase::getCollector(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-StatCollector &StatisticsForegroundBase::getCollector(void)
+StatCollector       &StatisticsForegroundBase::getCollector      (void)
 {
-    return this->editCollector();
+    return this->editCollector      ();
 }
 #endif
 
@@ -133,15 +133,15 @@ MFInt32 &StatisticsForegroundBase::editElementIDs(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &StatisticsForegroundBase::getElementIDs(const UInt32 index)
+Int32               &StatisticsForegroundBase::getElementIDs     (const UInt32 index)
 {
-    return this->editElementIDs(index);
+    return this->editElementIDs     (index);
 }
 
 inline
-MFInt32 &StatisticsForegroundBase::getElementIDs(void)
+MFInt32             &StatisticsForegroundBase::getElementIDs     (void)
 {
-    return this->editElementIDs();
+    return this->editElementIDs     ();
 }
 
 #endif
@@ -159,14 +159,14 @@ const MFInt32 &StatisticsForegroundBase::getElementIDs(void) const
 inline
 void StatisticsForegroundBase::execSync(      StatisticsForegroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (ElementIDsFieldMask & whichField))
-        _mfElementIDs.syncWith(pOther->_mfElementIDs, 
+        _mfElementIDs.syncWith(pOther->_mfElementIDs,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -181,13 +181,13 @@ inline
 void StatisticsForegroundBase::execSync (      StatisticsForegroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (ElementIDsFieldMask & whichField))
-        _mfElementIDs.syncWith(pFrom->_mfElementIDs, 
+        _mfElementIDs.syncWith(pFrom->_mfElementIDs,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -230,4 +230,3 @@ typedef PointerBuilder<StatisticsForeground>::ObjPtrConstArg  StatisticsForegrou
 OSG_END_NAMESPACE
 
 #define OSGSTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

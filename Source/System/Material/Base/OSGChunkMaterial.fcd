@@ -9,6 +9,15 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+\ingroup GrpSystemMaterial
+
+The chunk material class. See \ref PageSystemMaterialChunkMaterial for a
+description.
+
+Chunks can be attached and detached from the material using
+OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more
+complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks
+field's functions.
 	<Field
 		name="chunks"
 		type="StateChunkPtr"

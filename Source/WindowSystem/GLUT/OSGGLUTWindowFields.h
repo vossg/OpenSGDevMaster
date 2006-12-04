@@ -70,22 +70,22 @@ class GLUTWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GLUTWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           GLUTWindow>::ObjPtr         GLUTWindowPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           GLUTWindow>::ObjPtrConst    GLUTWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           GLUTWindow>::ObjConstPtr    GLUTWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           GLUTWindow>::ObjPtrArg      GLUTWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           GLUTWindow>::ObjConstPtrArg GLUTWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           GLUTWindow>::ObjPtrConstArg GLUTWindowPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<WindowPtr,
 #endif
 
 template <>
-struct FieldTraits<GLUTWindowPtr> : 
+struct FieldTraits<GLUTWindowPtr> :
     public FieldTraitsTemplateBase<GLUTWindowPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<GLUTWindowPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWGLUT_DLLMAPPING 
+    static OSG_WINDOWGLUT_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFGLUTWindowPtr"; }

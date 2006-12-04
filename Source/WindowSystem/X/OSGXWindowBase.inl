@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &XWindowBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 XWindowBase::getClassTypeId(void) 
+OSG::UInt32 XWindowBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 XWindowBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const DisplayP &XWindowBase::getDisplay(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-DisplayP &XWindowBase::getDisplay(void)
+DisplayP            &XWindowBase::getDisplay        (void)
 {
-    return this->editDisplay();
+    return this->editDisplay        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const X11Window &XWindowBase::getWindow(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-X11Window &XWindowBase::getWindow(void)
+X11Window           &XWindowBase::getWindow         (void)
 {
-    return this->editWindow();
+    return this->editWindow         ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const GLXContext &XWindowBase::getContext(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLXContext &XWindowBase::getContext(void)
+GLXContext          &XWindowBase::getContext        (void)
 {
-    return this->editContext();
+    return this->editContext        ();
 }
 #endif
 
@@ -175,24 +175,24 @@ void XWindowBase::setContext(const GLXContext &value)
 
 //! create a new instance of the class
 inline
-XWindowPtr XWindowBase::create(void) 
+XWindowPtr XWindowBase::create(void)
 {
-    XWindowPtr fc; 
+    XWindowPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<XWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void XWindowBase::execSync(      XWindowBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -214,7 +214,7 @@ inline
 void XWindowBase::execSync (      XWindowBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -258,4 +258,3 @@ typedef PointerBuilder<XWindow>::ObjPtrConstArg  XWindowPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGXWINDOWBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ChunkMaterialBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ChunkMaterialBase::getClassTypeId(void) 
+OSG::UInt32 ChunkMaterialBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ChunkMaterialBase::getClassGroupId(void)
@@ -114,15 +114,15 @@ MFInt32 &ChunkMaterialBase::editSlots(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ChunkMaterialBase::getSlots(const UInt32 index)
+Int32               &ChunkMaterialBase::getSlots          (const UInt32 index)
 {
-    return this->editSlots(index);
+    return this->editSlots          (index);
 }
 
 inline
-MFInt32 &ChunkMaterialBase::getSlots(void)
+MFInt32             &ChunkMaterialBase::getSlots          (void)
 {
-    return this->editSlots();
+    return this->editSlots          ();
 }
 
 #endif
@@ -137,37 +137,37 @@ const MFInt32 &ChunkMaterialBase::getSlots(void) const
 
 //! create a new instance of the class
 inline
-ChunkMaterialPtr ChunkMaterialBase::create(void) 
+ChunkMaterialPtr ChunkMaterialBase::create(void)
 {
-    ChunkMaterialPtr fc; 
+    ChunkMaterialPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ChunkMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ChunkMaterialBase::execSync(      ChunkMaterialBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
-        _mfChunks.syncWith(pOther->_mfChunks, 
+        _mfChunks.syncWith(pOther->_mfChunks,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (SlotsFieldMask & whichField))
-        _mfSlots.syncWith(pOther->_mfSlots, 
+        _mfSlots.syncWith(pOther->_mfSlots,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -179,19 +179,19 @@ inline
 void ChunkMaterialBase::execSync (      ChunkMaterialBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (ChunksFieldMask & whichField))
-        _mfChunks.syncWith(pFrom->_mfChunks, 
+        _mfChunks.syncWith(pFrom->_mfChunks,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (SlotsFieldMask & whichField))
-        _mfSlots.syncWith(pFrom->_mfSlots, 
+        _mfSlots.syncWith(pFrom->_mfSlots,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -236,4 +236,3 @@ typedef PointerBuilder<ChunkMaterial>::ObjPtrConstArg  ChunkMaterialPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGCHUNKMATERIALBASE_INLINE_CVSID "@(#)$Id$"
-

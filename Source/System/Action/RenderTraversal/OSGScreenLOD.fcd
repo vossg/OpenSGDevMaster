@@ -8,6 +8,6 @@
 	structure="concrete"
 	systemcomponent="true"
 	parentsystemcomponent="true"
-    isNodeCore="true"
+        isNodeCore="true"
 >
 </FieldContainer>

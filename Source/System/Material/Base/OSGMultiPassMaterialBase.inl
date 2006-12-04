@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &MultiPassMaterialBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 MultiPassMaterialBase::getClassTypeId(void) 
+OSG::UInt32 MultiPassMaterialBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 MultiPassMaterialBase::getClassGroupId(void)
@@ -90,31 +90,31 @@ const MFMaterialPtr &MultiPassMaterialBase::getMaterials(void) const
 
 //! create a new instance of the class
 inline
-MultiPassMaterialPtr MultiPassMaterialBase::create(void) 
+MultiPassMaterialPtr MultiPassMaterialBase::create(void)
 {
-    MultiPassMaterialPtr fc; 
+    MultiPassMaterialPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<MultiPassMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void MultiPassMaterialBase::execSync(      MultiPassMaterialBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-        _mfMaterials.syncWith(pOther->_mfMaterials, 
+        _mfMaterials.syncWith(pOther->_mfMaterials,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -126,13 +126,13 @@ inline
 void MultiPassMaterialBase::execSync (      MultiPassMaterialBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-        _mfMaterials.syncWith(pFrom->_mfMaterials, 
+        _mfMaterials.syncWith(pFrom->_mfMaterials,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -172,4 +172,3 @@ typedef PointerBuilder<MultiPassMaterial>::ObjPtrConstArg  MultiPassMaterialPtrC
 OSG_END_NAMESPACE
 
 #define OSGMULTIPASSMATERIALBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -85,22 +85,22 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               Material>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               Material>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Material>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Material>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Material>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Material>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
         NextFieldId = SortKeyFieldId + 1
     };
 
-    static const OSG::BitVector SortKeyFieldMask = 
+    static const OSG::BitVector SortKeyFieldMask =
         (TypeTraits<BitVector>::One << SortKeyFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
 
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFSortKey(void);
+                  SFInt32             *getSFSortKey         (void);
 #endif
-           SFInt32 *editSFSortKey(void);
-     const SFInt32 *getSFSortKey (void) const;
+                  SFInt32             *editSFSortKey        (void);
+            const SFInt32             *getSFSortKey         (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Int32 &getSortKey(void);
+                  Int32               &getSortKey         (void);
 #endif
-           Int32 &editSortKey(void);
-     const Int32 &getSortKey (void) const;
+                  Int32               &editSortKey        (void);
+            const Int32               &getSortKey         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setSortKey(const Int32 &value);
+            void setSortKey        (const Int32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -191,7 +190,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFInt32 _sfSortKey;
+    SFInt32           _sfSortKey;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,7 +205,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~MaterialBase(void); 
+    virtual ~MaterialBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -252,11 +251,11 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

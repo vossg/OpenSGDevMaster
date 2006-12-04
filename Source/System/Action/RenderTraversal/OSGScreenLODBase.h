@@ -84,22 +84,22 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               ScreenLOD>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
-                              GroupConstPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
+                              GroupConstPtr,
                               ScreenLOD>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               ScreenLOD>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               ScreenLOD>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               ScreenLOD>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GroupPtr, 
+    typedef PointerFwdBuilder<GroupPtr,
                               GroupConstPtr,
                               ScreenLOD>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -144,15 +143,15 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ScreenLODPtr create     (void); 
-    static  ScreenLODPtr createEmpty(void); 
+    static  ScreenLODPtr create     (void);
+    static  ScreenLODPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -176,7 +175,7 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ScreenLODBase(void); 
+    virtual ~ScreenLODBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,11 +221,11 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

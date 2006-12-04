@@ -70,22 +70,22 @@ class WIN32Window;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! WIN32WindowPtr
 
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           WIN32Window>::ObjPtr         WIN32WindowPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           WIN32Window>::ObjPtrConst    WIN32WindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           WIN32Window>::ObjConstPtr    WIN32WindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           WIN32Window>::ObjPtrArg      WIN32WindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           WIN32Window>::ObjConstPtrArg WIN32WindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           WIN32Window>::ObjPtrConstArg WIN32WindowPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<WindowPtr,
 #endif
 
 template <>
-struct FieldTraits<WIN32WindowPtr> : 
+struct FieldTraits<WIN32WindowPtr> :
     public FieldTraitsTemplateBase<WIN32WindowPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<WIN32WindowPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWWIN32_DLLMAPPING 
+    static OSG_WINDOWWIN32_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFWIN32WindowPtr"; }

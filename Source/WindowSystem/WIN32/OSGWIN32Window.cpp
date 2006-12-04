@@ -52,9 +52,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::WIN32Window
-The class for WIN32 windows. 	
-*/
+// Documentation for this class is emited in the
+// OSGWIN32WindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGWIN32Window.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

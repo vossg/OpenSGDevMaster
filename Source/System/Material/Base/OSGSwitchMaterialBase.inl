@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SwitchMaterialBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SwitchMaterialBase::getClassTypeId(void) 
+OSG::UInt32 SwitchMaterialBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SwitchMaterialBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt32 &SwitchMaterialBase::getChoice(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &SwitchMaterialBase::getChoice(void)
+UInt32              &SwitchMaterialBase::getChoice         (void)
 {
-    return this->editChoice();
+    return this->editChoice         ();
 }
 #endif
 
@@ -123,31 +123,31 @@ const MFMaterialPtr &SwitchMaterialBase::getMaterials(void) const
 
 //! create a new instance of the class
 inline
-SwitchMaterialPtr SwitchMaterialBase::create(void) 
+SwitchMaterialPtr SwitchMaterialBase::create(void)
 {
-    SwitchMaterialPtr fc; 
+    SwitchMaterialPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SwitchMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SwitchMaterialBase::execSync(      SwitchMaterialBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-        _mfMaterials.syncWith(pOther->_mfMaterials, 
+        _mfMaterials.syncWith(pOther->_mfMaterials,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -162,13 +162,13 @@ inline
 void SwitchMaterialBase::execSync (      SwitchMaterialBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-        _mfMaterials.syncWith(pFrom->_mfMaterials, 
+        _mfMaterials.syncWith(pFrom->_mfMaterials,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -211,4 +211,3 @@ typedef PointerBuilder<SwitchMaterial>::ObjPtrConstArg  SwitchMaterialPtrConstAr
 OSG_END_NAMESPACE
 
 #define OSGSWITCHMATERIALBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -70,22 +70,22 @@ class XWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! XWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           XWindow>::ObjPtr         XWindowPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           XWindow>::ObjPtrConst    XWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           XWindow>::ObjConstPtr    XWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           XWindow>::ObjPtrArg      XWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           XWindow>::ObjConstPtrArg XWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           XWindow>::ObjPtrConstArg XWindowPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<WindowPtr,
 #endif
 
 template <>
-struct FieldTraits<XWindowPtr> : 
+struct FieldTraits<XWindowPtr> :
     public FieldTraitsTemplateBase<XWindowPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<XWindowPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWX_DLLMAPPING 
+    static OSG_WINDOWX_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFXWindowPtr"; }

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &VTKMapperBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 VTKMapperBase::getClassTypeId(void) 
+OSG::UInt32 VTKMapperBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 VTKMapperBase::getClassGroupId(void)
@@ -219,24 +219,24 @@ const MFGeoVec3fPropertyPtr &VTKMapperBase::getNormals(void) const
 
 //! create a new instance of the class
 inline
-VTKMapperPtr VTKMapperBase::create(void) 
+VTKMapperPtr VTKMapperBase::create(void)
 {
-    VTKMapperPtr fc; 
+    VTKMapperPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<VTKMapper::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void VTKMapperBase::execSync(      VTKMapperBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -246,55 +246,55 @@ void VTKMapperBase::execSync(      VTKMapperBase *pOther,
         _sfRoot.syncWith(pOther->_sfRoot);
 
     if(FieldBits::NoField != (GeoRootsFieldMask & whichField))
-        _mfGeoRoots.syncWith(pOther->_mfGeoRoots, 
+        _mfGeoRoots.syncWith(pOther->_mfGeoRoots,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (GeometriesFieldMask & whichField))
-        _mfGeometries.syncWith(pOther->_mfGeometries, 
+        _mfGeometries.syncWith(pOther->_mfGeometries,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-        _mfMaterials.syncWith(pOther->_mfMaterials, 
+        _mfMaterials.syncWith(pOther->_mfMaterials,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (MaterialChunksFieldMask & whichField))
-        _mfMaterialChunks.syncWith(pOther->_mfMaterialChunks, 
+        _mfMaterialChunks.syncWith(pOther->_mfMaterialChunks,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pOther->_mfPositions, 
+        _mfPositions.syncWith(pOther->_mfPositions,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (LengthFieldMask & whichField))
-        _mfLength.syncWith(pOther->_mfLength, 
+        _mfLength.syncWith(pOther->_mfLength,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (TypesFieldMask & whichField))
-        _mfTypes.syncWith(pOther->_mfTypes, 
+        _mfTypes.syncWith(pOther->_mfTypes,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (ColorsFieldMask & whichField))
-        _mfColors.syncWith(pOther->_mfColors, 
+        _mfColors.syncWith(pOther->_mfColors,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (NormalsFieldMask & whichField))
-        _mfNormals.syncWith(pOther->_mfNormals, 
+        _mfNormals.syncWith(pOther->_mfNormals,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -306,7 +306,7 @@ inline
 void VTKMapperBase::execSync (      VTKMapperBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -315,55 +315,55 @@ void VTKMapperBase::execSync (      VTKMapperBase *pFrom,
         _sfRoot.syncWith(pFrom->_sfRoot);
 
     if(FieldBits::NoField != (GeoRootsFieldMask & whichField))
-        _mfGeoRoots.syncWith(pFrom->_mfGeoRoots, 
+        _mfGeoRoots.syncWith(pFrom->_mfGeoRoots,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (GeometriesFieldMask & whichField))
-        _mfGeometries.syncWith(pFrom->_mfGeometries, 
+        _mfGeometries.syncWith(pFrom->_mfGeometries,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (MaterialsFieldMask & whichField))
-        _mfMaterials.syncWith(pFrom->_mfMaterials, 
+        _mfMaterials.syncWith(pFrom->_mfMaterials,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (MaterialChunksFieldMask & whichField))
-        _mfMaterialChunks.syncWith(pFrom->_mfMaterialChunks, 
+        _mfMaterialChunks.syncWith(pFrom->_mfMaterialChunks,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pFrom->_mfPositions, 
+        _mfPositions.syncWith(pFrom->_mfPositions,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (LengthFieldMask & whichField))
-        _mfLength.syncWith(pFrom->_mfLength, 
+        _mfLength.syncWith(pFrom->_mfLength,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (TypesFieldMask & whichField))
-        _mfTypes.syncWith(pFrom->_mfTypes, 
+        _mfTypes.syncWith(pFrom->_mfTypes,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (ColorsFieldMask & whichField))
-        _mfColors.syncWith(pFrom->_mfColors, 
+        _mfColors.syncWith(pFrom->_mfColors,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (NormalsFieldMask & whichField))
-        _mfNormals.syncWith(pFrom->_mfNormals, 
+        _mfNormals.syncWith(pFrom->_mfNormals,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -443,4 +443,3 @@ typedef PointerBuilder<VTKMapper>::ObjPtrConstArg  VTKMapperPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGVTKMAPPERBASE_INLINE_CVSID "@(#)$Id$"
-

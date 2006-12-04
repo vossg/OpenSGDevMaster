@@ -75,17 +75,27 @@
 #include "OSGVTKMapperBase.h"
 #include "OSGVTKMapper.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var NodePtr VTKMapperBase::_sfRoot
+/*! \class OSG::VTKMapper
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var NodePtr         VTKMapperBase::_sfRoot
     
 */
-/*! \var NodePtr VTKMapperBase::_mfGeoRoots
+/*! \var NodePtr         VTKMapperBase::_mfGeoRoots
     
 */
-/*! \var GeometryPtr VTKMapperBase::_mfGeometries
+/*! \var GeometryPtr     VTKMapperBase::_mfGeometries
     
 */
 /*! \var ChunkMaterialPtr VTKMapperBase::_mfMaterials
@@ -112,12 +122,12 @@ OSG_USING_NAMESPACE
 
 void VTKMapperBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "root", 
+        SFNodePtr::getClassType(),
+        "root",
         "",
         RootFieldId, RootFieldMask,
         false,
@@ -128,8 +138,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFNodePtr::Description(
-        MFNodePtr::getClassType(), 
-        "geoRoots", 
+        MFNodePtr::getClassType(),
+        "geoRoots",
         "",
         GeoRootsFieldId, GeoRootsFieldMask,
         false,
@@ -140,8 +150,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFGeometryPtr::Description(
-        MFGeometryPtr::getClassType(), 
-        "geometries", 
+        MFGeometryPtr::getClassType(),
+        "geometries",
         "",
         GeometriesFieldId, GeometriesFieldMask,
         false,
@@ -152,8 +162,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFChunkMaterialPtr::Description(
-        MFChunkMaterialPtr::getClassType(), 
-        "materials", 
+        MFChunkMaterialPtr::getClassType(),
+        "materials",
         "",
         MaterialsFieldId, MaterialsFieldMask,
         false,
@@ -164,8 +174,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFMaterialChunkPtr::Description(
-        MFMaterialChunkPtr::getClassType(), 
-        "materialChunks", 
+        MFMaterialChunkPtr::getClassType(),
+        "materialChunks",
         "",
         MaterialChunksFieldId, MaterialChunksFieldMask,
         false,
@@ -176,8 +186,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFGeoPnt3fPropertyPtr::Description(
-        MFGeoPnt3fPropertyPtr::getClassType(), 
-        "positions", 
+        MFGeoPnt3fPropertyPtr::getClassType(),
+        "positions",
         "",
         PositionsFieldId, PositionsFieldMask,
         false,
@@ -188,8 +198,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFGeoUInt32PropertyPtr::Description(
-        MFGeoUInt32PropertyPtr::getClassType(), 
-        "length", 
+        MFGeoUInt32PropertyPtr::getClassType(),
+        "length",
         "",
         LengthFieldId, LengthFieldMask,
         false,
@@ -200,8 +210,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFGeoUInt8PropertyPtr::Description(
-        MFGeoUInt8PropertyPtr::getClassType(), 
-        "types", 
+        MFGeoUInt8PropertyPtr::getClassType(),
+        "types",
         "",
         TypesFieldId, TypesFieldMask,
         false,
@@ -212,8 +222,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFGeoColor4fPropertyPtr::Description(
-        MFGeoColor4fPropertyPtr::getClassType(), 
-        "Colors", 
+        MFGeoColor4fPropertyPtr::getClassType(),
+        "Colors",
         "",
         ColorsFieldId, ColorsFieldMask,
         false,
@@ -224,8 +234,8 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFGeoVec3fPropertyPtr::Description(
-        MFGeoVec3fPropertyPtr::getClassType(), 
-        "normals", 
+        MFGeoVec3fPropertyPtr::getClassType(),
+        "normals",
         "",
         NormalsFieldId, NormalsFieldMask,
         false,
@@ -247,117 +257,116 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(true,
     (InitalInsertDescFunc) &VTKMapperBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"VTKMapper\"\n"
-"	parent=\"Group\"\n"
-"	library=\"Contrib\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"    isNodeCore=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"root\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"geoRoots\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"geometries\"\n"
-"		type=\"GeometryPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"materials\"\n"
-"		type=\"ChunkMaterialPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"materialChunks\"\n"
-"		type=\"MaterialChunkPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"positions\"\n"
-"		type=\"GeoPnt3fPropertyPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"length\"\n"
-"		type=\"GeoUInt32PropertyPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"types\"\n"
-"		type=\"GeoUInt8PropertyPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"Colors\"\n"
-"		type=\"GeoColor4fPropertyPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"normals\"\n"
-"		type=\"GeoVec3fPropertyPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"VTKMapper\"\n"
+    "\tparent=\"Group\"\n"
+    "\tlibrary=\"Contrib\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "        isNodeCore=\"true\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"root\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"geoRoots\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"geometries\"\n"
+    "\t\ttype=\"GeometryPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"materials\"\n"
+    "\t\ttype=\"ChunkMaterialPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"materialChunks\"\n"
+    "\t\ttype=\"MaterialChunkPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"positions\"\n"
+    "\t\ttype=\"GeoPnt3fPropertyPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"length\"\n"
+    "\t\ttype=\"GeoUInt32PropertyPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"types\"\n"
+    "\t\ttype=\"GeoUInt8PropertyPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"Colors\"\n"
+    "\t\ttype=\"GeoColor4fPropertyPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"normals\"\n"
+    "\t\ttype=\"GeoVec3fPropertyPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &VTKMapperBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &VTKMapperBase::getType(void) const 
+FieldContainerType &VTKMapperBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 VTKMapperBase::getContainerSize(void) const 
-{ 
-    return sizeof(VTKMapper); 
+const FieldContainerType &VTKMapperBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 VTKMapperBase::getContainerSize(void) const
+{
+    return sizeof(VTKMapper);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -830,7 +839,7 @@ void VTKMapperBase::pushToGeoRoots(NodePtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoGeoRoots(UInt32                uiIndex,
-                                             NodePtrConstArg value   )
+                                                   NodePtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -847,7 +856,7 @@ void VTKMapperBase::insertIntoGeoRoots(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInGeoRoots(UInt32                uiIndex,
-                                                 NodePtrConstArg value   )
+                                                       NodePtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -865,7 +874,7 @@ void VTKMapperBase::replaceInGeoRoots(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInGeoRoots(NodePtrConstArg pOldElem,
-                                                  NodePtrConstArg pNewElem)
+                                                        NodePtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -937,8 +946,6 @@ void VTKMapperBase::clearGeoRoots(void)
     _mfGeoRoots.clear();
 }
 
-
-
 void VTKMapperBase::pushToGeometries(GeometryPtrConstArg value)
 {
     if(value == NullFC)
@@ -952,7 +959,7 @@ void VTKMapperBase::pushToGeometries(GeometryPtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoGeometries(UInt32                uiIndex,
-                                             GeometryPtrConstArg value   )
+                                                   GeometryPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -969,7 +976,7 @@ void VTKMapperBase::insertIntoGeometries(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInGeometries(UInt32                uiIndex,
-                                                 GeometryPtrConstArg value   )
+                                                       GeometryPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -987,7 +994,7 @@ void VTKMapperBase::replaceInGeometries(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInGeometries(GeometryPtrConstArg pOldElem,
-                                                  GeometryPtrConstArg pNewElem)
+                                                        GeometryPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1059,8 +1066,6 @@ void VTKMapperBase::clearGeometries(void)
     _mfGeometries.clear();
 }
 
-
-
 void VTKMapperBase::pushToMaterials(ChunkMaterialPtrConstArg value)
 {
     if(value == NullFC)
@@ -1074,7 +1079,7 @@ void VTKMapperBase::pushToMaterials(ChunkMaterialPtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoMaterials(UInt32                uiIndex,
-                                             ChunkMaterialPtrConstArg value   )
+                                                   ChunkMaterialPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1091,7 +1096,7 @@ void VTKMapperBase::insertIntoMaterials(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInMaterials(UInt32                uiIndex,
-                                                 ChunkMaterialPtrConstArg value   )
+                                                       ChunkMaterialPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1109,7 +1114,7 @@ void VTKMapperBase::replaceInMaterials(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInMaterials(ChunkMaterialPtrConstArg pOldElem,
-                                                  ChunkMaterialPtrConstArg pNewElem)
+                                                        ChunkMaterialPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1181,8 +1186,6 @@ void VTKMapperBase::clearMaterials(void)
     _mfMaterials.clear();
 }
 
-
-
 void VTKMapperBase::pushToMaterialChunks(MaterialChunkPtrConstArg value)
 {
     if(value == NullFC)
@@ -1196,7 +1199,7 @@ void VTKMapperBase::pushToMaterialChunks(MaterialChunkPtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoMaterialChunks(UInt32                uiIndex,
-                                             MaterialChunkPtrConstArg value   )
+                                                   MaterialChunkPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1213,7 +1216,7 @@ void VTKMapperBase::insertIntoMaterialChunks(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInMaterialChunks(UInt32                uiIndex,
-                                                 MaterialChunkPtrConstArg value   )
+                                                       MaterialChunkPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1231,7 +1234,7 @@ void VTKMapperBase::replaceInMaterialChunks(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInMaterialChunks(MaterialChunkPtrConstArg pOldElem,
-                                                  MaterialChunkPtrConstArg pNewElem)
+                                                        MaterialChunkPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1303,8 +1306,6 @@ void VTKMapperBase::clearMaterialChunks(void)
     _mfMaterialChunks.clear();
 }
 
-
-
 void VTKMapperBase::pushToPositions(GeoPnt3fPropertyPtrConstArg value)
 {
     if(value == NullFC)
@@ -1318,7 +1319,7 @@ void VTKMapperBase::pushToPositions(GeoPnt3fPropertyPtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoPositions(UInt32                uiIndex,
-                                             GeoPnt3fPropertyPtrConstArg value   )
+                                                   GeoPnt3fPropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1335,7 +1336,7 @@ void VTKMapperBase::insertIntoPositions(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInPositions(UInt32                uiIndex,
-                                                 GeoPnt3fPropertyPtrConstArg value   )
+                                                       GeoPnt3fPropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1353,7 +1354,7 @@ void VTKMapperBase::replaceInPositions(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInPositions(GeoPnt3fPropertyPtrConstArg pOldElem,
-                                                  GeoPnt3fPropertyPtrConstArg pNewElem)
+                                                        GeoPnt3fPropertyPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1425,8 +1426,6 @@ void VTKMapperBase::clearPositions(void)
     _mfPositions.clear();
 }
 
-
-
 void VTKMapperBase::pushToLength(GeoUInt32PropertyPtrConstArg value)
 {
     if(value == NullFC)
@@ -1440,7 +1439,7 @@ void VTKMapperBase::pushToLength(GeoUInt32PropertyPtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoLength(UInt32                uiIndex,
-                                             GeoUInt32PropertyPtrConstArg value   )
+                                                   GeoUInt32PropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1457,7 +1456,7 @@ void VTKMapperBase::insertIntoLength(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInLength(UInt32                uiIndex,
-                                                 GeoUInt32PropertyPtrConstArg value   )
+                                                       GeoUInt32PropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1475,7 +1474,7 @@ void VTKMapperBase::replaceInLength(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInLength(GeoUInt32PropertyPtrConstArg pOldElem,
-                                                  GeoUInt32PropertyPtrConstArg pNewElem)
+                                                        GeoUInt32PropertyPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1547,8 +1546,6 @@ void VTKMapperBase::clearLength(void)
     _mfLength.clear();
 }
 
-
-
 void VTKMapperBase::pushToTypes(GeoUInt8PropertyPtrConstArg value)
 {
     if(value == NullFC)
@@ -1562,7 +1559,7 @@ void VTKMapperBase::pushToTypes(GeoUInt8PropertyPtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoTypes(UInt32                uiIndex,
-                                             GeoUInt8PropertyPtrConstArg value   )
+                                                   GeoUInt8PropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1579,7 +1576,7 @@ void VTKMapperBase::insertIntoTypes(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInTypes(UInt32                uiIndex,
-                                                 GeoUInt8PropertyPtrConstArg value   )
+                                                       GeoUInt8PropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1597,7 +1594,7 @@ void VTKMapperBase::replaceInTypes(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInTypes(GeoUInt8PropertyPtrConstArg pOldElem,
-                                                  GeoUInt8PropertyPtrConstArg pNewElem)
+                                                        GeoUInt8PropertyPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1669,8 +1666,6 @@ void VTKMapperBase::clearTypes(void)
     _mfTypes.clear();
 }
 
-
-
 void VTKMapperBase::pushToColors(GeoColor4fPropertyPtrConstArg value)
 {
     if(value == NullFC)
@@ -1684,7 +1679,7 @@ void VTKMapperBase::pushToColors(GeoColor4fPropertyPtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoColors(UInt32                uiIndex,
-                                             GeoColor4fPropertyPtrConstArg value   )
+                                                   GeoColor4fPropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1701,7 +1696,7 @@ void VTKMapperBase::insertIntoColors(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInColors(UInt32                uiIndex,
-                                                 GeoColor4fPropertyPtrConstArg value   )
+                                                       GeoColor4fPropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1719,7 +1714,7 @@ void VTKMapperBase::replaceInColors(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInColors(GeoColor4fPropertyPtrConstArg pOldElem,
-                                                  GeoColor4fPropertyPtrConstArg pNewElem)
+                                                        GeoColor4fPropertyPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1791,8 +1786,6 @@ void VTKMapperBase::clearColors(void)
     _mfColors.clear();
 }
 
-
-
 void VTKMapperBase::pushToNormals(GeoVec3fPropertyPtrConstArg value)
 {
     if(value == NullFC)
@@ -1806,7 +1799,7 @@ void VTKMapperBase::pushToNormals(GeoVec3fPropertyPtrConstArg value)
 }
 
 void VTKMapperBase::insertIntoNormals(UInt32                uiIndex,
-                                             GeoVec3fPropertyPtrConstArg value   )
+                                                   GeoVec3fPropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1823,7 +1816,7 @@ void VTKMapperBase::insertIntoNormals(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInNormals(UInt32                uiIndex,
-                                                 GeoVec3fPropertyPtrConstArg value   )
+                                                       GeoVec3fPropertyPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1841,7 +1834,7 @@ void VTKMapperBase::replaceInNormals(UInt32                uiIndex,
 }
 
 void VTKMapperBase::replaceInNormals(GeoVec3fPropertyPtrConstArg pOldElem,
-                                                  GeoVec3fPropertyPtrConstArg pNewElem)
+                                                        GeoVec3fPropertyPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1912,8 +1905,6 @@ void VTKMapperBase::clearNormals(void)
 
     _mfNormals.clear();
 }
-
-
 
 
 
@@ -2062,22 +2053,22 @@ void VTKMapperBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-VTKMapperPtr VTKMapperBase::createEmpty(void) 
-{ 
-    VTKMapperPtr returnValue; 
-    
-    newPtr<VTKMapper>(returnValue); 
+VTKMapperPtr VTKMapperBase::createEmpty(void)
+{
+    VTKMapperPtr returnValue;
 
-    return returnValue; 
+    newPtr<VTKMapper>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr VTKMapperBase::shallowCopy(void) const 
-{ 
-    VTKMapperPtr returnValue; 
+FieldContainerPtr VTKMapperBase::shallowCopy(void) const
+{
+    VTKMapperPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const VTKMapper *>(this)); 
+    newPtr(returnValue, dynamic_cast<const VTKMapper *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -2086,31 +2077,31 @@ FieldContainerPtr VTKMapperBase::shallowCopy(void) const
 
 VTKMapperBase::VTKMapperBase(void) :
     Inherited(),
-    _sfRoot(),
-    _mfGeoRoots(),
-    _mfGeometries(),
-    _mfMaterials(),
-    _mfMaterialChunks(),
-    _mfPositions(),
-    _mfLength(),
-    _mfTypes(),
-    _mfColors(),
-    _mfNormals()
+    _sfRoot                   (),
+    _mfGeoRoots               (),
+    _mfGeometries             (),
+    _mfMaterials              (),
+    _mfMaterialChunks         (),
+    _mfPositions              (),
+    _mfLength                 (),
+    _mfTypes                  (),
+    _mfColors                 (),
+    _mfNormals                ()
 {
 }
 
 VTKMapperBase::VTKMapperBase(const VTKMapperBase &source) :
     Inherited(source),
-    _sfRoot(),
-    _mfGeoRoots(),
-    _mfGeometries(),
-    _mfMaterials(),
-    _mfMaterialChunks(),
-    _mfPositions(),
-    _mfLength(),
-    _mfTypes(),
-    _mfColors(),
-    _mfNormals()
+    _sfRoot                   (),
+    _mfGeoRoots               (),
+    _mfGeometries             (),
+    _mfMaterials              (),
+    _mfMaterialChunks         (),
+    _mfPositions              (),
+    _mfLength                 (),
+    _mfTypes                  (),
+    _mfColors                 (),
+    _mfNormals                ()
 {
 }
 
@@ -2129,9 +2120,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
 
         this->setRoot(source->getRoot());
 
-        MFNodePtr::const_iterator GeoRootsIt  = 
+        MFNodePtr::const_iterator GeoRootsIt  =
             source->_mfGeoRoots.begin();
-        MFNodePtr::const_iterator GeoRootsEnd = 
+        MFNodePtr::const_iterator GeoRootsEnd =
             source->_mfGeoRoots.end  ();
 
         while(GeoRootsIt != GeoRootsEnd)
@@ -2141,9 +2132,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++GeoRootsIt;
         }
 
-        MFGeometryPtr::const_iterator GeometriesIt  = 
+        MFGeometryPtr::const_iterator GeometriesIt  =
             source->_mfGeometries.begin();
-        MFGeometryPtr::const_iterator GeometriesEnd = 
+        MFGeometryPtr::const_iterator GeometriesEnd =
             source->_mfGeometries.end  ();
 
         while(GeometriesIt != GeometriesEnd)
@@ -2153,9 +2144,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++GeometriesIt;
         }
 
-        MFChunkMaterialPtr::const_iterator MaterialsIt  = 
+        MFChunkMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
-        MFChunkMaterialPtr::const_iterator MaterialsEnd = 
+        MFChunkMaterialPtr::const_iterator MaterialsEnd =
             source->_mfMaterials.end  ();
 
         while(MaterialsIt != MaterialsEnd)
@@ -2165,9 +2156,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++MaterialsIt;
         }
 
-        MFMaterialChunkPtr::const_iterator MaterialChunksIt  = 
+        MFMaterialChunkPtr::const_iterator MaterialChunksIt  =
             source->_mfMaterialChunks.begin();
-        MFMaterialChunkPtr::const_iterator MaterialChunksEnd = 
+        MFMaterialChunkPtr::const_iterator MaterialChunksEnd =
             source->_mfMaterialChunks.end  ();
 
         while(MaterialChunksIt != MaterialChunksEnd)
@@ -2177,9 +2168,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++MaterialChunksIt;
         }
 
-        MFGeoPnt3fPropertyPtr::const_iterator PositionsIt  = 
+        MFGeoPnt3fPropertyPtr::const_iterator PositionsIt  =
             source->_mfPositions.begin();
-        MFGeoPnt3fPropertyPtr::const_iterator PositionsEnd = 
+        MFGeoPnt3fPropertyPtr::const_iterator PositionsEnd =
             source->_mfPositions.end  ();
 
         while(PositionsIt != PositionsEnd)
@@ -2189,9 +2180,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++PositionsIt;
         }
 
-        MFGeoUInt32PropertyPtr::const_iterator LengthIt  = 
+        MFGeoUInt32PropertyPtr::const_iterator LengthIt  =
             source->_mfLength.begin();
-        MFGeoUInt32PropertyPtr::const_iterator LengthEnd = 
+        MFGeoUInt32PropertyPtr::const_iterator LengthEnd =
             source->_mfLength.end  ();
 
         while(LengthIt != LengthEnd)
@@ -2201,9 +2192,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++LengthIt;
         }
 
-        MFGeoUInt8PropertyPtr::const_iterator TypesIt  = 
+        MFGeoUInt8PropertyPtr::const_iterator TypesIt  =
             source->_mfTypes.begin();
-        MFGeoUInt8PropertyPtr::const_iterator TypesEnd = 
+        MFGeoUInt8PropertyPtr::const_iterator TypesEnd =
             source->_mfTypes.end  ();
 
         while(TypesIt != TypesEnd)
@@ -2213,9 +2204,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++TypesIt;
         }
 
-        MFGeoColor4fPropertyPtr::const_iterator ColorsIt  = 
+        MFGeoColor4fPropertyPtr::const_iterator ColorsIt  =
             source->_mfColors.begin();
-        MFGeoColor4fPropertyPtr::const_iterator ColorsEnd = 
+        MFGeoColor4fPropertyPtr::const_iterator ColorsEnd =
             source->_mfColors.end  ();
 
         while(ColorsIt != ColorsEnd)
@@ -2225,9 +2216,9 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
             ++ColorsIt;
         }
 
-        MFGeoVec3fPropertyPtr::const_iterator NormalsIt  = 
+        MFGeoVec3fPropertyPtr::const_iterator NormalsIt  =
             source->_mfNormals.begin();
-        MFGeoVec3fPropertyPtr::const_iterator NormalsEnd = 
+        MFGeoVec3fPropertyPtr::const_iterator NormalsEnd =
             source->_mfNormals.end  ();
 
         while(NormalsIt != NormalsEnd)
@@ -2242,13 +2233,13 @@ void VTKMapperBase::onCreate(const VTKMapper *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void VTKMapperBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<VTKMapperBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -2258,10 +2249,10 @@ void VTKMapperBase::execSyncV(      FieldContainer    &oFrom,
 void VTKMapperBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<VTKMapperBase *>(&oFrom), 
+    this->execSync(static_cast<VTKMapperBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -2281,12 +2272,12 @@ void VTKMapperBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr VTKMapperBase::createAspectCopy(void) const
 {
-    VTKMapperPtr returnValue; 
+    VTKMapperPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const VTKMapper *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const VTKMapper *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -2316,6 +2307,8 @@ void VTKMapperBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -2337,8 +2330,6 @@ OSG_FIELDTRAITS_GETTYPE(VTKMapperPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, VTKMapperPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, VTKMapperPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -2359,3 +2350,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGVTKMAPPERFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

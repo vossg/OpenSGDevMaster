@@ -8,7 +8,7 @@
 	pointerfieldtypes="both"
 	systemcomponent="true"
 	parentsystemcomponent="true"
-    isNodeCore="true"
+        isNodeCore="true"
 >
 	<Field
 		name="root"

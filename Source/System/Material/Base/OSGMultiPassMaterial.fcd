@@ -17,7 +17,7 @@
 		cardinality="multi"
 		visibility="external"
 		access="public"
-        pushToFieldAs="addMaterial"
+                pushToFieldAs="addMaterial"
 	>
 	</Field>
 </FieldContainer>

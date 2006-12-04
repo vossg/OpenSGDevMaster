@@ -49,13 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::MultiPassMaterial
-
-*/
+// Documentation for this class is emited in the
+// OSGMultiPassMaterialBase.cpp file.
+// To modify it, please change the .fcd file (OSGMultiPassMaterial.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

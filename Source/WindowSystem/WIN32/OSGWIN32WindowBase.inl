@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &WIN32WindowBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 WIN32WindowBase::getClassTypeId(void) 
+OSG::UInt32 WIN32WindowBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 WIN32WindowBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const HWND &WIN32WindowBase::getHwnd(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-HWND &WIN32WindowBase::getHwnd(void)
+HWND                &WIN32WindowBase::getHwnd           (void)
 {
-    return this->editHwnd();
+    return this->editHwnd           ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const HDC &WIN32WindowBase::getHdc(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-HDC &WIN32WindowBase::getHdc(void)
+HDC                 &WIN32WindowBase::getHdc            (void)
 {
-    return this->editHdc();
+    return this->editHdc            ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const HGLRC &WIN32WindowBase::getHglrc(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-HGLRC &WIN32WindowBase::getHglrc(void)
+HGLRC               &WIN32WindowBase::getHglrc          (void)
 {
-    return this->editHglrc();
+    return this->editHglrc          ();
 }
 #endif
 
@@ -175,24 +175,24 @@ void WIN32WindowBase::setHglrc(const HGLRC &value)
 
 //! create a new instance of the class
 inline
-WIN32WindowPtr WIN32WindowBase::create(void) 
+WIN32WindowPtr WIN32WindowBase::create(void)
 {
-    WIN32WindowPtr fc; 
+    WIN32WindowPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<WIN32Window::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void WIN32WindowBase::execSync(      WIN32WindowBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -214,7 +214,7 @@ inline
 void WIN32WindowBase::execSync (      WIN32WindowBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -258,4 +258,3 @@ typedef PointerBuilder<WIN32Window>::ObjPtrConstArg  WIN32WindowPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGWIN32WINDOWBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -70,47 +70,47 @@ class ScreenLOD;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ScreenLODPtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ScreenLOD>::ObjPtr         ScreenLODPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ScreenLOD>::ObjPtrConst    ScreenLODPtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ScreenLOD>::ObjConstPtr    ScreenLODConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ScreenLOD>::ObjPtrArg      ScreenLODPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ScreenLOD>::ObjConstPtrArg ScreenLODConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           ScreenLOD>::ObjPtrConstArg ScreenLODPtrConstArg;
 
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpRenderTravFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
 #endif
 
 template <>
-struct FieldTraits<ScreenLODPtr> : 
+struct FieldTraits<ScreenLODPtr> :
     public FieldTraitsTemplateBase<ScreenLODPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ScreenLODPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

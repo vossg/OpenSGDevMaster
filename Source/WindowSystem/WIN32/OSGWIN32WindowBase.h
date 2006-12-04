@@ -87,22 +87,22 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               WIN32Window>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               WIN32Window>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               WIN32Window>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               WIN32Window>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               WIN32Window>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               WIN32Window>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -118,22 +118,21 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
         NextFieldId = HglrcFieldId + 1
     };
 
-    static const OSG::BitVector HwndFieldMask = 
+    static const OSG::BitVector HwndFieldMask =
         (TypeTraits<BitVector>::One << HwndFieldId);
-    static const OSG::BitVector HdcFieldMask = 
+    static const OSG::BitVector HdcFieldMask =
         (TypeTraits<BitVector>::One << HdcFieldId);
-    static const OSG::BitVector HglrcFieldMask = 
+    static const OSG::BitVector HglrcFieldMask =
         (TypeTraits<BitVector>::One << HglrcFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -141,8 +140,8 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -153,50 +152,50 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
 
 
 #ifdef OSG_1_COMPAT
-           SFHWND *getSFHwnd(void);
+                  SFHWND              *getSFHwnd            (void);
 #endif
-           SFHWND *editSFHwnd(void);
-     const SFHWND *getSFHwnd (void) const;
+                  SFHWND              *editSFHwnd           (void);
+            const SFHWND              *getSFHwnd            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFHDC *getSFHdc(void);
+                  SFHDC               *getSFHdc             (void);
 #endif
-           SFHDC *editSFHdc(void);
-     const SFHDC *getSFHdc (void) const;
+                  SFHDC               *editSFHdc            (void);
+            const SFHDC               *getSFHdc             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFHGLRC *getSFHglrc(void);
+                  SFHGLRC             *getSFHglrc           (void);
 #endif
-           SFHGLRC *editSFHglrc(void);
-     const SFHGLRC *getSFHglrc (void) const;
+                  SFHGLRC             *editSFHglrc          (void);
+            const SFHGLRC             *getSFHglrc           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           HWND &getHwnd(void);
+                  HWND                &getHwnd            (void);
 #endif
-           HWND &editHwnd(void);
-     const HWND &getHwnd (void) const;
+                  HWND                &editHwnd           (void);
+            const HWND                &getHwnd            (void) const;
 
 #ifdef OSG_1_COMPAT
-           HDC &getHdc(void);
+                  HDC                 &getHdc             (void);
 #endif
-           HDC &editHdc(void);
-     const HDC &getHdc (void) const;
+                  HDC                 &editHdc            (void);
+            const HDC                 &getHdc             (void) const;
 
 #ifdef OSG_1_COMPAT
-           HGLRC &getHglrc(void);
+                  HGLRC               &getHglrc           (void);
 #endif
-           HGLRC &editHglrc(void);
-     const HGLRC &getHglrc (void) const;
+                  HGLRC               &editHglrc          (void);
+            const HGLRC               &getHglrc           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setHwnd(const HWND &value);
-     void setHdc(const HDC &value);
-     void setHglrc(const HGLRC &value);
+            void setHwnd           (const HWND &value);
+            void setHdc            (const HDC &value);
+            void setHglrc          (const HGLRC &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -216,15 +215,15 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  WIN32WindowPtr create     (void); 
-    static  WIN32WindowPtr createEmpty(void); 
+    static  WIN32WindowPtr create     (void);
+    static  WIN32WindowPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -240,9 +239,9 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFHWND _sfHwnd;
-    SFHDC _sfHdc;
-    SFHGLRC _sfHglrc;
+    SFHWND            _sfHwnd;
+    SFHDC             _sfHdc;
+    SFHGLRC           _sfHglrc;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,7 +256,7 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~WIN32WindowBase(void); 
+    virtual ~WIN32WindowBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -303,11 +302,11 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

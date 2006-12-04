@@ -57,26 +57,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::SimpleMaterial
-    \ingroup GrpSystemMaterial
-
-  The simple material class. See \ref PageSystemMaterialSimpleMaterial for a
-  description.
-  
-  This material wraps the standard calls to glMaterial() in
-  OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, 
-  OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, 
-  OSG::SimpleMaterial::_sfShininess. In addition it supports transparency 
-  (OSG::SimpleMaterial::_sfTransparency), can switch lighting 
-  (OSG::SimpleMaterial::_sfLit) and the color material 
-  (OSG::SimpleMaterial::_sfColorMaterial).
-  
- */
+// Documentation for this class is emited in the
+// OSGSimpleMaterialBase.cpp file.
+// To modify it, please change the .fcd file (OSGSimpleMaterial.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -345,7 +329,7 @@ void SimpleMaterial::dump(      UInt32    uiIndent,
 
 namespace
 {
-    static Char8 cvsid_cpp       [] = "@(#)$Id:$";
+    static Char8 cvsid_cpp       [] = "@(#)$Id$";
     static Char8 cvsid_hpp       [] = OSGSIMPLEMATERIAL_HEADER_CVSID;
     static Char8 cvsid_inl       [] = OSGSIMPLEMATERIAL_INLINE_CVSID;
 

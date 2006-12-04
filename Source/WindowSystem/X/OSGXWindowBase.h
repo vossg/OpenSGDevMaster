@@ -87,22 +87,22 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               XWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               XWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               XWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               XWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               XWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               XWindow>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -118,22 +118,21 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
         NextFieldId = ContextFieldId + 1
     };
 
-    static const OSG::BitVector DisplayFieldMask = 
+    static const OSG::BitVector DisplayFieldMask =
         (TypeTraits<BitVector>::One << DisplayFieldId);
-    static const OSG::BitVector WindowFieldMask = 
+    static const OSG::BitVector WindowFieldMask =
         (TypeTraits<BitVector>::One << WindowFieldId);
-    static const OSG::BitVector ContextFieldMask = 
+    static const OSG::BitVector ContextFieldMask =
         (TypeTraits<BitVector>::One << ContextFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -141,8 +140,8 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -153,50 +152,50 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
 
 
 #ifdef OSG_1_COMPAT
-           SFDisplayP *getSFDisplay(void);
+                  SFDisplayP          *getSFDisplay         (void);
 #endif
-           SFDisplayP *editSFDisplay(void);
-     const SFDisplayP *getSFDisplay (void) const;
+                  SFDisplayP          *editSFDisplay        (void);
+            const SFDisplayP          *getSFDisplay         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFX11Window *getSFWindow(void);
+                  SFX11Window         *getSFWindow          (void);
 #endif
-           SFX11Window *editSFWindow(void);
-     const SFX11Window *getSFWindow (void) const;
+                  SFX11Window         *editSFWindow         (void);
+            const SFX11Window         *getSFWindow          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLXContext *getSFContext(void);
+                  SFGLXContext        *getSFContext         (void);
 #endif
-           SFGLXContext *editSFContext(void);
-     const SFGLXContext *getSFContext (void) const;
+                  SFGLXContext        *editSFContext        (void);
+            const SFGLXContext        *getSFContext         (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           DisplayP &getDisplay(void);
+                  DisplayP            &getDisplay         (void);
 #endif
-           DisplayP &editDisplay(void);
-     const DisplayP &getDisplay (void) const;
+                  DisplayP            &editDisplay        (void);
+            const DisplayP            &getDisplay         (void) const;
 
 #ifdef OSG_1_COMPAT
-           X11Window &getWindow(void);
+                  X11Window           &getWindow          (void);
 #endif
-           X11Window &editWindow(void);
-     const X11Window &getWindow (void) const;
+                  X11Window           &editWindow         (void);
+            const X11Window           &getWindow          (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLXContext &getContext(void);
+                  GLXContext          &getContext         (void);
 #endif
-           GLXContext &editContext(void);
-     const GLXContext &getContext (void) const;
+                  GLXContext          &editContext        (void);
+            const GLXContext          &getContext         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setDisplay(const DisplayP &value);
-     void setWindow(const X11Window &value);
-     void setContext(const GLXContext &value);
+            void setDisplay        (const DisplayP &value);
+            void setWindow         (const X11Window &value);
+            void setContext        (const GLXContext &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -216,15 +215,15 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  XWindowPtr create     (void); 
-    static  XWindowPtr createEmpty(void); 
+    static  XWindowPtr create     (void);
+    static  XWindowPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -240,9 +239,9 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFDisplayP _sfDisplay;
-    SFX11Window _sfWindow;
-    SFGLXContext _sfContext;
+    SFDisplayP        _sfDisplay;
+    SFX11Window       _sfWindow;
+    SFGLXContext      _sfContext;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,7 +256,7 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~XWindowBase(void); 
+    virtual ~XWindowBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -303,11 +302,11 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

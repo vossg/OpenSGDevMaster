@@ -66,25 +66,43 @@
 #include "OSGChunkMaterialBase.h"
 #include "OSGChunkMaterial.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var StateChunkPtr ChunkMaterialBase::_mfChunks
+/*! \class OSG::ChunkMaterial
+    \ingroup GrpSystemMaterial
+
+    The chunk material class. See \ref PageSystemMaterialChunkMaterial for
+    a description.
+
+    Chunks can be attached and detached from the material using
+    OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For
+    more complex manipulation of the chunk list use the
+    OSG::ChunkMaterial::_mfChunks field's functions.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var StateChunkPtr   ChunkMaterialBase::_mfChunks
     
 */
-/*! \var Int32 ChunkMaterialBase::_mfSlots
+/*! \var Int32           ChunkMaterialBase::_mfSlots
     
 */
 
 void ChunkMaterialBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new MFStateChunkPtr::Description(
-        MFStateChunkPtr::getClassType(), 
-        "chunks", 
+        MFStateChunkPtr::getClassType(),
+        "chunks",
         "",
         ChunksFieldId, ChunksFieldMask,
         false,
@@ -101,8 +119,8 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFInt32::Description(
-        MFInt32::getClassType(), 
-        "slots", 
+        MFInt32::getClassType(),
+        "slots",
         "",
         SlotsFieldId, SlotsFieldMask,
         false,
@@ -128,51 +146,65 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(true,
     (InitalInsertDescFunc) &ChunkMaterialBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ChunkMaterial\"\n"
-"	parent=\"Material\"\n"
-"	library=\"System\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"chunks\"\n"
-"		type=\"StateChunkPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"        clearField=\"clearChunks\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"slots\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ChunkMaterial\"\n"
+    "\tparent=\"Material\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemMaterial\n"
+    "\n"
+    "The chunk material class. See \\ref PageSystemMaterialChunkMaterial for a\n"
+    "description.\n"
+    "\n"
+    "Chunks can be attached and detached from the material using\n"
+    "OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more\n"
+    "complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks\n"
+    "field's functions.\n"
+    "\t<Field\n"
+    "\t\tname=\"chunks\"\n"
+    "\t\ttype=\"StateChunkPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        clearField=\"clearChunks\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"slots\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemMaterial\n"
+    "The chunk material class. See \\ref PageSystemMaterialChunkMaterial for a\n"
+    "description.\n"
+    "Chunks can be attached and detached from the material using\n"
+    "OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more\n"
+    "complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks\n"
+    "field's functions.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ChunkMaterialBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ChunkMaterialBase::getType(void) const 
+FieldContainerType &ChunkMaterialBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ChunkMaterialBase::getContainerSize(void) const 
-{ 
-    return sizeof(ChunkMaterial); 
+const FieldContainerType &ChunkMaterialBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ChunkMaterialBase::getContainerSize(void) const
+{
+    return sizeof(ChunkMaterial);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -197,9 +229,9 @@ const MFInt32 *ChunkMaterialBase::getMFSlots(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFInt32 *ChunkMaterialBase::getMFSlots(void)
+MFInt32             *ChunkMaterialBase::getMFSlots          (void)
 {
-    return this->editMFSlots();
+    return this->editMFSlots          ();
 }
 #endif
 
@@ -305,7 +337,7 @@ void ChunkMaterialBase::pushToChunks(StateChunkPtrConstArg value)
 }
 
 void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
-                                             StateChunkPtrConstArg value   )
+                                                   StateChunkPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -322,7 +354,7 @@ void ChunkMaterialBase::insertIntoChunks(UInt32                uiIndex,
 }
 
 void ChunkMaterialBase::replaceInChunks(UInt32                uiIndex,
-                                                 StateChunkPtrConstArg value   )
+                                                       StateChunkPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -340,7 +372,7 @@ void ChunkMaterialBase::replaceInChunks(UInt32                uiIndex,
 }
 
 void ChunkMaterialBase::replaceInChunks(StateChunkPtrConstArg pOldElem,
-                                                  StateChunkPtrConstArg pNewElem)
+                                                        StateChunkPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -396,8 +428,6 @@ void ChunkMaterialBase::removeFromChunks(StateChunkPtrConstArg value)
     }
 }
 
-
-
 /*********************************** Non-ptr code ********************************/
 void ChunkMaterialBase::pushToSlots(const Int32& value)
 {
@@ -406,7 +436,7 @@ void ChunkMaterialBase::pushToSlots(const Int32& value)
 }
 
 void ChunkMaterialBase::insertIntoSlots(UInt32                uiIndex,
-                                             const Int32& value   )
+                                                   const Int32& value   )
 {
     editMField(SlotsFieldMask, _mfSlots);
 
@@ -418,7 +448,7 @@ void ChunkMaterialBase::insertIntoSlots(UInt32                uiIndex,
 }
 
 void ChunkMaterialBase::replaceInSlots(UInt32                uiIndex,
-                                                 const Int32& value   )
+                                                       const Int32& value   )
 {
     if(uiIndex >= _mfSlots.size())
         return;
@@ -429,7 +459,7 @@ void ChunkMaterialBase::replaceInSlots(UInt32                uiIndex,
 }
 
 void ChunkMaterialBase::replaceInSlots(const Int32& pOldElem,
-                                                  const Int32& pNewElem)
+                                                        const Int32& pNewElem)
 {
     Int32  elemIdx = _mfSlots.findIndex(pOldElem);
 
@@ -473,19 +503,13 @@ void ChunkMaterialBase::removeFromSlots(const Int32& value)
         _mfSlots.erase(fieldIt);
     }
 }
+
 void ChunkMaterialBase::clearSlots(void)
 {
     editMField(SlotsFieldMask, _mfSlots);
 
     _mfSlots.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -537,22 +561,22 @@ void ChunkMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ChunkMaterialPtr ChunkMaterialBase::createEmpty(void) 
-{ 
-    ChunkMaterialPtr returnValue; 
-    
-    newPtr<ChunkMaterial>(returnValue); 
+ChunkMaterialPtr ChunkMaterialBase::createEmpty(void)
+{
+    ChunkMaterialPtr returnValue;
 
-    return returnValue; 
+    newPtr<ChunkMaterial>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ChunkMaterialBase::shallowCopy(void) const 
-{ 
-    ChunkMaterialPtr returnValue; 
+FieldContainerPtr ChunkMaterialBase::shallowCopy(void) const
+{
+    ChunkMaterialPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ChunkMaterial *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ChunkMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -561,15 +585,15 @@ FieldContainerPtr ChunkMaterialBase::shallowCopy(void) const
 
 ChunkMaterialBase::ChunkMaterialBase(void) :
     Inherited(),
-    _mfChunks(),
-    _mfSlots()
+    _mfChunks                 (),
+    _mfSlots                  ()
 {
 }
 
 ChunkMaterialBase::ChunkMaterialBase(const ChunkMaterialBase &source) :
     Inherited(source),
-    _mfChunks(),
-    _mfSlots(source._mfSlots)
+    _mfChunks                 (),
+    _mfSlots                  (source._mfSlots                  )
 {
 }
 
@@ -586,9 +610,9 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
     if(source != NULL)
     {
 
-        MFStateChunkPtr::const_iterator ChunksIt  = 
+        MFStateChunkPtr::const_iterator ChunksIt  =
             source->_mfChunks.begin();
-        MFStateChunkPtr::const_iterator ChunksEnd = 
+        MFStateChunkPtr::const_iterator ChunksEnd =
             source->_mfChunks.end  ();
 
         while(ChunksIt != ChunksEnd)
@@ -603,13 +627,13 @@ void ChunkMaterialBase::onCreate(const ChunkMaterial *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ChunkMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ChunkMaterialBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -619,10 +643,10 @@ void ChunkMaterialBase::execSyncV(      FieldContainer    &oFrom,
 void ChunkMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ChunkMaterialBase *>(&oFrom), 
+    this->execSync(static_cast<ChunkMaterialBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -642,12 +666,12 @@ void ChunkMaterialBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ChunkMaterialBase::createAspectCopy(void) const
 {
-    ChunkMaterialPtr returnValue; 
+    ChunkMaterialPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ChunkMaterial *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ChunkMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -658,6 +682,8 @@ void ChunkMaterialBase::resolveLinks(void)
     static_cast<ChunkMaterial *>(this)->clearChunks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -680,8 +706,6 @@ OSG_FIELDTRAITS_GETTYPE(ChunkMaterialPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ChunkMaterialPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ChunkMaterialPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -702,3 +726,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGCHUNKMATERIALFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

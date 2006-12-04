@@ -70,22 +70,22 @@ class SwitchMaterial;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SwitchMaterialPtr
 
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           SwitchMaterial>::ObjPtr         SwitchMaterialPtr;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           SwitchMaterial>::ObjPtrConst    SwitchMaterialPtrConst;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           SwitchMaterial>::ObjConstPtr    SwitchMaterialConstPtr;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           SwitchMaterial>::ObjPtrArg      SwitchMaterialPtrArg;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           SwitchMaterial>::ObjConstPtrArg SwitchMaterialConstPtrArg;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           SwitchMaterial>::ObjPtrConstArg SwitchMaterialPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<MaterialPtr,
 #endif
 
 template <>
-struct FieldTraits<SwitchMaterialPtr> : 
+struct FieldTraits<SwitchMaterialPtr> :
     public FieldTraitsTemplateBase<SwitchMaterialPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SwitchMaterialPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFSwitchMaterialPtr"; }

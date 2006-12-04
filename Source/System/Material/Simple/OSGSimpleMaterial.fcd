@@ -9,7 +9,18 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-Wrapper around common "simple" material settings for glMaterial.
+\ingroup GrpSystemMaterial
+
+The simple material class. See \ref PageSystemMaterialSimpleMaterial for a
+description.
+
+This material wraps the standard calls to glMaterial() in
+OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, 
+OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, 
+OSG::SimpleMaterial::_sfShininess. In addition it supports transparency 
+(OSG::SimpleMaterial::_sfTransparency), can switch lighting 
+(OSG::SimpleMaterial::_sfLit) and the color material 
+(OSG::SimpleMaterial::_sfColorMaterial).
 	<Field
 		name="ambient"
 		type="Color3r"

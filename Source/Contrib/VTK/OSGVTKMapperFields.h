@@ -70,22 +70,22 @@ class VTKMapper;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! VTKMapperPtr
 
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VTKMapper>::ObjPtr         VTKMapperPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VTKMapper>::ObjPtrConst    VTKMapperPtrConst;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VTKMapper>::ObjConstPtr    VTKMapperConstPtr;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VTKMapper>::ObjPtrArg      VTKMapperPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VTKMapper>::ObjConstPtrArg VTKMapperConstPtrArg;
-typedef PointerFwdBuilder<GroupPtr, 
+typedef PointerFwdBuilder<GroupPtr,
                           GroupConstPtr,
                           VTKMapper>::ObjPtrConstArg VTKMapperPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 template <>
-struct FieldTraits<VTKMapperPtr> : 
+struct FieldTraits<VTKMapperPtr> :
     public FieldTraitsTemplateBase<VTKMapperPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<VTKMapperPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_CONTRIB_DLLMAPPING 
+    static OSG_CONTRIB_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFVTKMapperPtr"; }

@@ -85,22 +85,22 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               GLUTWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               GLUTWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               GLUTWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               GLUTWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               GLUTWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               GLUTWindow>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
         NextFieldId = IdFieldId + 1
     };
 
-    static const OSG::BitVector IdFieldMask = 
+    static const OSG::BitVector IdFieldMask =
         (TypeTraits<BitVector>::One << IdFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
 
 
 #ifdef OSG_1_COMPAT
-           SFInt32 *getSFId(void);
+                  SFInt32             *getSFId              (void);
 #endif
-           SFInt32 *editSFId(void);
-     const SFInt32 *getSFId (void) const;
+                  SFInt32             *editSFId             (void);
+            const SFInt32             *getSFId              (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Int32 &getId(void);
+                  Int32               &getId              (void);
 #endif
-           Int32 &editId(void);
-     const Int32 &getId (void) const;
+                  Int32               &editId             (void);
+            const Int32               &getId              (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setId(const Int32 &value);
+            void setId             (const Int32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -182,15 +181,15 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GLUTWindowPtr create     (void); 
-    static  GLUTWindowPtr createEmpty(void); 
+    static  GLUTWindowPtr create     (void);
+    static  GLUTWindowPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -206,7 +205,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFInt32 _sfId;
+    SFInt32           _sfId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,7 +220,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GLUTWindowBase(void); 
+    virtual ~GLUTWindowBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,11 +266,11 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

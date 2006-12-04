@@ -65,17 +65,28 @@
 #include "OSGGLUTWindowBase.h"
 #include "OSGGLUTWindow.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Int32 GLUTWindowBase::_sfId
+/*! \class OSG::GLUTWindow
+    The class for GLUT-based windows. See \ref PageWindowGlut for a
+    description.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Int32           GLUTWindowBase::_sfId
     
 */
 
 void GLUTWindowBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -85,8 +96,8 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "id", 
+        SFInt32::getClassType(),
+        "id",
         "",
         IdFieldId, IdFieldMask,
         true,
@@ -112,47 +123,46 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(true,
     (InitalInsertDescFunc) &GLUTWindowBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GLUTWindow\"\n"
-"	parent=\"Window\"\n"
-"	library=\"WindowGLUT\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The class for GLUT-based windows.\n"
-"	<Field\n"
-"		name=\"id\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		header=\"\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The class for GLUT-based windows.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GLUTWindow\"\n"
+    "\tparent=\"Window\"\n"
+    "\tlibrary=\"WindowGLUT\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "The class for GLUT-based windows. See \\ref PageWindowGlut for a description.\n"
+    "\t<Field\n"
+    "\t\tname=\"id\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\theader=\"\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "The class for GLUT-based windows. See \\ref PageWindowGlut for a description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GLUTWindowBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GLUTWindowBase::getType(void) const 
+FieldContainerType &GLUTWindowBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GLUTWindowBase::getContainerSize(void) const 
-{ 
-    return sizeof(GLUTWindow); 
+const FieldContainerType &GLUTWindowBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GLUTWindowBase::getContainerSize(void) const
+{
+    return sizeof(GLUTWindow);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -171,9 +181,9 @@ const SFInt32 *GLUTWindowBase::getSFId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *GLUTWindowBase::getSFId(void)
+SFInt32             *GLUTWindowBase::getSFId             (void)
 {
-    return this->editSFId();
+    return this->editSFId             ();
 }
 #endif
 
@@ -216,22 +226,22 @@ void GLUTWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GLUTWindowPtr GLUTWindowBase::createEmpty(void) 
-{ 
-    GLUTWindowPtr returnValue; 
-    
-    newPtr<GLUTWindow>(returnValue); 
+GLUTWindowPtr GLUTWindowBase::createEmpty(void)
+{
+    GLUTWindowPtr returnValue;
 
-    return returnValue; 
+    newPtr<GLUTWindow>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr GLUTWindowBase::shallowCopy(void) const 
-{ 
-    GLUTWindowPtr returnValue; 
+FieldContainerPtr GLUTWindowBase::shallowCopy(void) const
+{
+    GLUTWindowPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const GLUTWindow *>(this)); 
+    newPtr(returnValue, dynamic_cast<const GLUTWindow *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -240,13 +250,13 @@ FieldContainerPtr GLUTWindowBase::shallowCopy(void) const
 
 GLUTWindowBase::GLUTWindowBase(void) :
     Inherited(),
-    _sfId(Int32(0))
+    _sfId                     (Int32(0))
 {
 }
 
 GLUTWindowBase::GLUTWindowBase(const GLUTWindowBase &source) :
     Inherited(source),
-    _sfId(source._sfId)
+    _sfId                     (source._sfId                     )
 {
 }
 
@@ -260,13 +270,13 @@ GLUTWindowBase::~GLUTWindowBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GLUTWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GLUTWindowBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -276,10 +286,10 @@ void GLUTWindowBase::execSyncV(      FieldContainer    &oFrom,
 void GLUTWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GLUTWindowBase *>(&oFrom), 
+    this->execSync(static_cast<GLUTWindowBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -299,12 +309,12 @@ void GLUTWindowBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr GLUTWindowBase::createAspectCopy(void) const
 {
-    GLUTWindowPtr returnValue; 
+    GLUTWindowPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const GLUTWindow *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const GLUTWindow *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -313,6 +323,8 @@ void GLUTWindowBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -335,8 +347,6 @@ OSG_FIELDTRAITS_GETTYPE(GLUTWindowPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GLUTWindowPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GLUTWindowPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -357,3 +367,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGLUTWINDOWFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

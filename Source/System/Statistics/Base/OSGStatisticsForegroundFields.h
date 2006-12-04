@@ -70,22 +70,22 @@ class StatisticsForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StatisticsForegroundPtr
 
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           StatisticsForeground>::ObjPtr         StatisticsForegroundPtr;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           StatisticsForeground>::ObjPtrConst    StatisticsForegroundPtrConst;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           StatisticsForeground>::ObjConstPtr    StatisticsForegroundConstPtr;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           StatisticsForeground>::ObjPtrArg      StatisticsForegroundPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           StatisticsForeground>::ObjConstPtrArg StatisticsForegroundConstPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           StatisticsForeground>::ObjPtrConstArg StatisticsForegroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ForegroundPtr,
 #endif
 
 template <>
-struct FieldTraits<StatisticsForegroundPtr> : 
+struct FieldTraits<StatisticsForegroundPtr> :
     public FieldTraitsTemplateBase<StatisticsForegroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<StatisticsForegroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFStatisticsForegroundPtr"; }

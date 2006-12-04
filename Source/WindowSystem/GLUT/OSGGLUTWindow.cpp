@@ -60,11 +60,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::GLUTWindow
-
-  The class for GLUT-based windows. See \ref PageWindowGlut for a description.
-
- */
+// Documentation for this class is emited in the
+// OSGGLUTWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGGLUTWindow.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

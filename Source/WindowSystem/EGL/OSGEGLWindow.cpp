@@ -54,9 +54,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::EGLWindow
-The class for EGL windows. 	
-*/
+// Documentation for this class is emited in the
+// OSGEGLWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGEGLWindow.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

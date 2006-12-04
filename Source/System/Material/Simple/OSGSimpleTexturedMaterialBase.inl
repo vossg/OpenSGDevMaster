@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SimpleTexturedMaterialBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SimpleTexturedMaterialBase::getClassTypeId(void) 
+OSG::UInt32 SimpleTexturedMaterialBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SimpleTexturedMaterialBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const GLenum &SimpleTexturedMaterialBase::getMinFilter(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &SimpleTexturedMaterialBase::getMinFilter(void)
+GLenum              &SimpleTexturedMaterialBase::getMinFilter      (void)
 {
-    return this->editMinFilter();
+    return this->editMinFilter      ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const GLenum &SimpleTexturedMaterialBase::getMagFilter(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &SimpleTexturedMaterialBase::getMagFilter(void)
+GLenum              &SimpleTexturedMaterialBase::getMagFilter      (void)
 {
-    return this->editMagFilter();
+    return this->editMagFilter      ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const GLenum &SimpleTexturedMaterialBase::getEnvMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &SimpleTexturedMaterialBase::getEnvMode(void)
+GLenum              &SimpleTexturedMaterialBase::getEnvMode        (void)
 {
-    return this->editEnvMode();
+    return this->editEnvMode        ();
 }
 #endif
 
@@ -208,9 +208,9 @@ const bool &SimpleTexturedMaterialBase::getEnvMap(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &SimpleTexturedMaterialBase::getEnvMap(void)
+bool                &SimpleTexturedMaterialBase::getEnvMap         (void)
 {
-    return this->editEnvMap();
+    return this->editEnvMap         ();
 }
 #endif
 
@@ -225,24 +225,24 @@ void SimpleTexturedMaterialBase::setEnvMap(const bool &value)
 
 //! create a new instance of the class
 inline
-SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::create(void) 
+SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::create(void)
 {
-    SimpleTexturedMaterialPtr fc; 
+    SimpleTexturedMaterialPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SimpleTexturedMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SimpleTexturedMaterialBase::execSync(      SimpleTexturedMaterialBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -270,7 +270,7 @@ inline
 void SimpleTexturedMaterialBase::execSync (      SimpleTexturedMaterialBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -320,4 +320,3 @@ typedef PointerBuilder<SimpleTexturedMaterial>::ObjPtrConstArg  SimpleTexturedMa
 OSG_END_NAMESPACE
 
 #define OSGSIMPLETEXTUREDMATERIALBASE_INLINE_CVSID "@(#)$Id$"
-

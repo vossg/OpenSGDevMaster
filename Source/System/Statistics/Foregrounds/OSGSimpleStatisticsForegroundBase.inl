@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SimpleStatisticsForegroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SimpleStatisticsForegroundBase::getClassTypeId(void) 
+OSG::UInt32 SimpleStatisticsForegroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SimpleStatisticsForegroundBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Real32 &SimpleStatisticsForegroundBase::getSize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &SimpleStatisticsForegroundBase::getSize(void)
+Real32              &SimpleStatisticsForegroundBase::getSize           (void)
 {
-    return this->editSize();
+    return this->editSize           ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Color4f &SimpleStatisticsForegroundBase::getColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &SimpleStatisticsForegroundBase::getColor(void)
+Color4f             &SimpleStatisticsForegroundBase::getColor          (void)
 {
-    return this->editColor();
+    return this->editColor          ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Color4f &SimpleStatisticsForegroundBase::getShadowColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &SimpleStatisticsForegroundBase::getShadowColor(void)
+Color4f             &SimpleStatisticsForegroundBase::getShadowColor    (void)
 {
-    return this->editShadowColor();
+    return this->editShadowColor    ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Color4f &SimpleStatisticsForegroundBase::getBgColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &SimpleStatisticsForegroundBase::getBgColor(void)
+Color4f             &SimpleStatisticsForegroundBase::getBgColor        (void)
 {
-    return this->editBgColor();
+    return this->editBgColor        ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const std::string &SimpleStatisticsForegroundBase::getFamily(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &SimpleStatisticsForegroundBase::getFamily(void)
+std::string         &SimpleStatisticsForegroundBase::getFamily         (void)
 {
-    return this->editFamily();
+    return this->editFamily         ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Vec2f &SimpleStatisticsForegroundBase::getShadowOffset(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec2f &SimpleStatisticsForegroundBase::getShadowOffset(void)
+Vec2f               &SimpleStatisticsForegroundBase::getShadowOffset   (void)
 {
-    return this->editShadowOffset();
+    return this->editShadowOffset   ();
 }
 #endif
 
@@ -290,7 +290,7 @@ const UInt8 &SimpleStatisticsForegroundBase::getHorizontalAlign(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &SimpleStatisticsForegroundBase::getHorizontalAlign(void)
+UInt8               &SimpleStatisticsForegroundBase::getHorizontalAlign(void)
 {
     return this->editHorizontalAlign();
 }
@@ -323,9 +323,9 @@ const UInt8 &SimpleStatisticsForegroundBase::getVerticalAlign(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &SimpleStatisticsForegroundBase::getVerticalAlign(void)
+UInt8               &SimpleStatisticsForegroundBase::getVerticalAlign  (void)
 {
-    return this->editVerticalAlign();
+    return this->editVerticalAlign  ();
 }
 #endif
 
@@ -356,9 +356,9 @@ const Color4f &SimpleStatisticsForegroundBase::getBorderColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &SimpleStatisticsForegroundBase::getBorderColor(void)
+Color4f             &SimpleStatisticsForegroundBase::getBorderColor    (void)
 {
-    return this->editBorderColor();
+    return this->editBorderColor    ();
 }
 #endif
 
@@ -389,9 +389,9 @@ const Vec2f &SimpleStatisticsForegroundBase::getBorderOffset(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec2f &SimpleStatisticsForegroundBase::getBorderOffset(void)
+Vec2f               &SimpleStatisticsForegroundBase::getBorderOffset   (void)
 {
-    return this->editBorderOffset();
+    return this->editBorderOffset   ();
 }
 #endif
 
@@ -422,9 +422,9 @@ const Vec2f &SimpleStatisticsForegroundBase::getTextMargin(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec2f &SimpleStatisticsForegroundBase::getTextMargin(void)
+Vec2f               &SimpleStatisticsForegroundBase::getTextMargin     (void)
 {
-    return this->editTextMargin();
+    return this->editTextMargin     ();
 }
 #endif
 
@@ -463,15 +463,15 @@ MFString &SimpleStatisticsForegroundBase::editFormats(void)
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &SimpleStatisticsForegroundBase::getFormats(const UInt32 index)
+std::string         &SimpleStatisticsForegroundBase::getFormats        (const UInt32 index)
 {
-    return this->editFormats(index);
+    return this->editFormats        (index);
 }
 
 inline
-MFString &SimpleStatisticsForegroundBase::getFormats(void)
+MFString            &SimpleStatisticsForegroundBase::getFormats        (void)
 {
-    return this->editFormats();
+    return this->editFormats        ();
 }
 
 #endif
@@ -486,31 +486,31 @@ const MFString &SimpleStatisticsForegroundBase::getFormats(void) const
 
 //! create a new instance of the class
 inline
-SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::create(void) 
+SimpleStatisticsForegroundPtr SimpleStatisticsForegroundBase::create(void)
 {
-    SimpleStatisticsForegroundPtr fc; 
+    SimpleStatisticsForegroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SimpleStatisticsForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SimpleStatisticsForegroundBase::execSync(      SimpleStatisticsForegroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (FormatsFieldMask & whichField))
-        _mfFormats.syncWith(pOther->_mfFormats, 
+        _mfFormats.syncWith(pOther->_mfFormats,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -555,13 +555,13 @@ inline
 void SimpleStatisticsForegroundBase::execSync (      SimpleStatisticsForegroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (FormatsFieldMask & whichField))
-        _mfFormats.syncWith(pFrom->_mfFormats, 
+        _mfFormats.syncWith(pFrom->_mfFormats,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -634,4 +634,3 @@ typedef PointerBuilder<SimpleStatisticsForeground>::ObjPtrConstArg  SimpleStatis
 OSG_END_NAMESPACE
 
 #define OSGSIMPLESTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

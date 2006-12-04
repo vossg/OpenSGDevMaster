@@ -65,22 +65,46 @@
 #include "OSGStatisticsForegroundBase.h"
 #include "OSGStatisticsForeground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Int32 StatisticsForegroundBase::_mfElementIDs
-    	The StatElemDesc IDs to use. If not set, use all in the descriptor.
+/*! \class OSG::StatisticsForeground
+    \ingroup GrpSystemWindowForegrounds
 
+    StatisticsForeground is the base class for all foregrounds that process
+    statistics.  Decendents of this class can be used to print or draw
+    Statistics elements on the rendered image.
+
+    The OSG::StatCollector that is used to collect the elements needs to be
+    attached to the foreground in the _sfCollection field and the list of
+    OSG::StatElemDesc IDs that should be displayed need to be selected with
+    the _mfElementIDs field.
+
+    Statistics presentation is done as a foreground so it can be drawn on
+    top of a currently rendering scene.  This does not mean you could not
+    collect statistics directly and present them to the user in another way
+    such as a GUI or text output.
+
+    See \ref PageSystemWindowForegroundStatistics for a description.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Int32           StatisticsForegroundBase::_mfElementIDs
+    The StatElemDesc IDs to use. If not set, use all in the descriptor.
 */
-/*! \var StatCollector StatisticsForegroundBase::_sfCollector
-            The OSG::StatisticsCollector that keeps the displayed statistics.
-
+/*! \var StatCollector   StatisticsForegroundBase::_sfCollector
+    The OSG::StatCollector that keeps the displayed statistics.
 */
 
 void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +114,9 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFInt32::Description(
-        MFInt32::getClassType(), 
-        "elementIDs", 
-        "	The StatElemDesc IDs to use. If not set, use all in the descriptor.\n",
+        MFInt32::getClassType(),
+        "elementIDs",
+        "The StatElemDesc IDs to use. If not set, use all in the descriptor.\n",
         ElementIDsFieldId, ElementIDsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -112,9 +136,9 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFStatCollector::Description(
-        SFStatCollector::getClassType(), 
-        "collector", 
-        "        The OSG::StatisticsCollector that keeps the displayed statistics.\n",
+        SFStatCollector::getClassType(),
+        "collector",
+        "The OSG::StatCollector that keeps the displayed statistics.\n",
         CollectorFieldId, CollectorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,61 +158,86 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     StatisticsForeground::initMethod,
     (InitalInsertDescFunc) &StatisticsForegroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"StatisticsForeground\"\n"
-"	parent=\"Foreground\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"Background is the base class for all background clearing.\n"
-"	<Field\n"
-"		name=\"elementIDs\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The StatElemDesc IDs to use. If not set, use all in the descriptor.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"collector\"\n"
-"		type=\"StatCollector\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        The OSG::StatisticsCollector that keeps the displayed statistics.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "Background is the base class for all background clearing.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"StatisticsForeground\"\n"
+    "\tparent=\"Foreground\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
+    "StatisticsForeground is the base class for all foregrounds that process\n"
+    "statistics.  Decendents of this class can be used to print or draw Statistics\n"
+    "elements on the rendered image.\n"
+    "\n"
+    "The OSG::StatCollector that is used to collect the elements needs to be\n"
+    "attached to the foreground in the _sfCollection field and the list of\n"
+    "OSG::StatElemDesc IDs that should be displayed need to be selected with the\n"
+    "_mfElementIDs field.\n"
+    "\n"
+    "Statistics presentation is done as a foreground so it can be drawn on top of a\n"
+    "currently rendering scene.  This does not mean you could not collect statistics\n"
+    "directly and present them to the user in another way such as a GUI or text output.\n"
+    "\n"
+    "See \\ref PageSystemWindowForegroundStatistics for a description.\n"
+    "\t<Field\n"
+    "\t\tname=\"elementIDs\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe StatElemDesc IDs to use. If not set, use all in the descriptor.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"collector\"\n"
+    "\t\ttype=\"StatCollector\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        The OSG::StatCollector that keeps the displayed statistics.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "StatisticsForeground is the base class for all foregrounds that process\n"
+    "statistics.  Decendents of this class can be used to print or draw Statistics\n"
+    "elements on the rendered image.\n"
+    "The OSG::StatCollector that is used to collect the elements needs to be\n"
+    "attached to the foreground in the _sfCollection field and the list of\n"
+    "OSG::StatElemDesc IDs that should be displayed need to be selected with the\n"
+    "_mfElementIDs field.\n"
+    "Statistics presentation is done as a foreground so it can be drawn on top of a\n"
+    "currently rendering scene.  This does not mean you could not collect statistics\n"
+    "directly and present them to the user in another way such as a GUI or text output.\n"
+    "See \\ref PageSystemWindowForegroundStatistics for a description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &StatisticsForegroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &StatisticsForegroundBase::getType(void) const 
+FieldContainerType &StatisticsForegroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 StatisticsForegroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(StatisticsForeground); 
+const FieldContainerType &StatisticsForegroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 StatisticsForegroundBase::getContainerSize(void) const
+{
+    return sizeof(StatisticsForeground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -207,9 +256,9 @@ const MFInt32 *StatisticsForegroundBase::getMFElementIDs(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFInt32 *StatisticsForegroundBase::getMFElementIDs(void)
+MFInt32             *StatisticsForegroundBase::getMFElementIDs     (void)
 {
-    return this->editMFElementIDs();
+    return this->editMFElementIDs     ();
 }
 #endif
 
@@ -226,9 +275,9 @@ const SFStatCollector *StatisticsForegroundBase::getSFCollector(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFStatCollector *StatisticsForegroundBase::getSFCollector(void)
+SFStatCollector     *StatisticsForegroundBase::getSFCollector      (void)
 {
-    return this->editSFCollector();
+    return this->editSFCollector      ();
 }
 #endif
 
@@ -288,15 +337,15 @@ void StatisticsForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
 StatisticsForegroundBase::StatisticsForegroundBase(void) :
     Inherited(),
-    _mfElementIDs(),
-    _sfCollector()
+    _mfElementIDs             (),
+    _sfCollector              ()
 {
 }
 
 StatisticsForegroundBase::StatisticsForegroundBase(const StatisticsForegroundBase &source) :
     Inherited(source),
-    _mfElementIDs(source._mfElementIDs),
-    _sfCollector(source._sfCollector)
+    _mfElementIDs             (source._mfElementIDs             ),
+    _sfCollector              (source._sfCollector              )
 {
 }
 
@@ -310,13 +359,13 @@ StatisticsForegroundBase::~StatisticsForegroundBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void StatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<StatisticsForegroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -326,10 +375,10 @@ void StatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
 void StatisticsForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StatisticsForegroundBase *>(&oFrom), 
+    this->execSync(static_cast<StatisticsForegroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -353,6 +402,8 @@ void StatisticsForegroundBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -374,8 +425,6 @@ OSG_FIELDTRAITS_GETTYPE(StatisticsForegroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, StatisticsForegroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, StatisticsForegroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -396,3 +445,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSTATISTICSFOREGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

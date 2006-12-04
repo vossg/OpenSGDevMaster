@@ -65,23 +65,33 @@
 #include "OSGXWindowBase.h"
 #include "OSGXWindow.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var DisplayP XWindowBase::_sfDisplay
+/*! \class OSG::XWindow
+    The class for X-based windows. See \ref PageWindowX for a description.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var DisplayP        XWindowBase::_sfDisplay
     
 */
-/*! \var X11Window XWindowBase::_sfWindow
+/*! \var X11Window       XWindowBase::_sfWindow
     
 */
-/*! \var GLXContext XWindowBase::_sfContext
+/*! \var GLXContext      XWindowBase::_sfContext
     
 */
 
 void XWindowBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -91,8 +101,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFDisplayP::Description(
-        SFDisplayP::getClassType(), 
-        "display", 
+        SFDisplayP::getClassType(),
+        "display",
         "",
         DisplayFieldId, DisplayFieldMask,
         true,
@@ -113,8 +123,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFX11Window::Description(
-        SFX11Window::getClassType(), 
-        "window", 
+        SFX11Window::getClassType(),
+        "window",
         "",
         WindowFieldId, WindowFieldMask,
         true,
@@ -135,8 +145,8 @@ void XWindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLXContext::Description(
-        SFGLXContext::getClassType(), 
-        "context", 
+        SFGLXContext::getClassType(),
+        "context",
         "",
         ContextFieldId, ContextFieldMask,
         true,
@@ -162,65 +172,64 @@ XWindowBase::TypeObject XWindowBase::_type(true,
     (InitalInsertDescFunc) &XWindowBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"XWindow\"\n"
-"	parent=\"Window\"\n"
-"	library=\"WindowX\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The class windows on X.\n"
-"	<Field\n"
-"		name=\"display\"\n"
-"		type=\"DisplayP\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"NULL\"\n"
-"		header=\"OSGXWindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"window\"\n"
-"		type=\"X11Window\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		header=\"OSGXWindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"context\"\n"
-"		type=\"GLXContext\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		header=\"OSGXWindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The class windows on X.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"XWindow\"\n"
+    "\tparent=\"Window\"\n"
+    "\tlibrary=\"WindowX\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "The class for X-based windows. See \\ref PageWindowX for a description.\n"
+    "\t<Field\n"
+    "\t\tname=\"display\"\n"
+    "\t\ttype=\"DisplayP\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
+    "\t\theader=\"OSGXWindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"window\"\n"
+    "\t\ttype=\"X11Window\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\theader=\"OSGXWindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"context\"\n"
+    "\t\ttype=\"GLXContext\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\theader=\"OSGXWindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "The class for X-based windows. See \\ref PageWindowX for a description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &XWindowBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &XWindowBase::getType(void) const 
+FieldContainerType &XWindowBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 XWindowBase::getContainerSize(void) const 
-{ 
-    return sizeof(XWindow); 
+const FieldContainerType &XWindowBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 XWindowBase::getContainerSize(void) const
+{
+    return sizeof(XWindow);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -239,9 +248,9 @@ const SFDisplayP *XWindowBase::getSFDisplay(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFDisplayP *XWindowBase::getSFDisplay(void)
+SFDisplayP          *XWindowBase::getSFDisplay        (void)
 {
-    return this->editSFDisplay();
+    return this->editSFDisplay        ();
 }
 #endif
 
@@ -258,9 +267,9 @@ const SFX11Window *XWindowBase::getSFWindow(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFX11Window *XWindowBase::getSFWindow(void)
+SFX11Window         *XWindowBase::getSFWindow         (void)
 {
-    return this->editSFWindow();
+    return this->editSFWindow         ();
 }
 #endif
 
@@ -277,9 +286,9 @@ const SFGLXContext *XWindowBase::getSFContext(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLXContext *XWindowBase::getSFContext(void)
+SFGLXContext        *XWindowBase::getSFContext        (void)
 {
-    return this->editSFContext();
+    return this->editSFContext        ();
 }
 #endif
 
@@ -346,22 +355,22 @@ void XWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-XWindowPtr XWindowBase::createEmpty(void) 
-{ 
-    XWindowPtr returnValue; 
-    
-    newPtr<XWindow>(returnValue); 
+XWindowPtr XWindowBase::createEmpty(void)
+{
+    XWindowPtr returnValue;
 
-    return returnValue; 
+    newPtr<XWindow>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr XWindowBase::shallowCopy(void) const 
-{ 
-    XWindowPtr returnValue; 
+FieldContainerPtr XWindowBase::shallowCopy(void) const
+{
+    XWindowPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const XWindow *>(this)); 
+    newPtr(returnValue, dynamic_cast<const XWindow *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -370,17 +379,17 @@ FieldContainerPtr XWindowBase::shallowCopy(void) const
 
 XWindowBase::XWindowBase(void) :
     Inherited(),
-    _sfDisplay(DisplayP(NULL)),
-    _sfWindow(),
-    _sfContext()
+    _sfDisplay                (DisplayP(NULL)),
+    _sfWindow                 (),
+    _sfContext                ()
 {
 }
 
 XWindowBase::XWindowBase(const XWindowBase &source) :
     Inherited(source),
-    _sfDisplay(source._sfDisplay),
-    _sfWindow(source._sfWindow),
-    _sfContext(source._sfContext)
+    _sfDisplay                (source._sfDisplay                ),
+    _sfWindow                 (source._sfWindow                 ),
+    _sfContext                (source._sfContext                )
 {
 }
 
@@ -394,13 +403,13 @@ XWindowBase::~XWindowBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void XWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<XWindowBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -410,10 +419,10 @@ void XWindowBase::execSyncV(      FieldContainer    &oFrom,
 void XWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<XWindowBase *>(&oFrom), 
+    this->execSync(static_cast<XWindowBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -433,12 +442,12 @@ void XWindowBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr XWindowBase::createAspectCopy(void) const
 {
-    XWindowPtr returnValue; 
+    XWindowPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const XWindow *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const XWindow *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -447,6 +456,8 @@ void XWindowBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -469,8 +480,6 @@ OSG_FIELDTRAITS_GETTYPE(XWindowPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, XWindowPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, XWindowPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -491,3 +500,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGXWINDOWFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

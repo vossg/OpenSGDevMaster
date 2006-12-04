@@ -70,43 +70,62 @@
 #include "OSGCubeTextureChunkBase.h"
 #include "OSGCubeTextureChunk.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var ImagePtr CubeTextureChunkBase::_sfPosZImage
-    	The image for the positive Z direction for the cube tetxure.
+/*! \class OSG::CubeTextureChunk
+    \ingroup GrpSystemState
 
+    See \ref PageSystemCubeTextureChunk for a description.
+
+    The CubeTexture is defined by 6 separate texture images. As it is
+    derived from  the standard texture chunk it already has an image, which
+    is used for the  negative Z direction. The other 5 images are stored in
+    variables that are named according to the direction they represent
+    (OSG::CubeTextureChunk::_sfPosZImage,
+    OSG::CubeTextureChunk::_sfNegYImage,
+    OSG::CubeTextureChunk::_sfPosYImage,
+    OSG::CubeTextureChunk::_sfNegXImage,
+    OSG::CubeTextureChunk::_sfPosXImage).
+
+    \deprecated Use OSG::CubeTextureObjChunk instead.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var ImagePtr        CubeTextureChunkBase::_sfPosZImage
+    The image for the positive Z direction for the cube tetxure.
 */
-/*! \var ImagePtr CubeTextureChunkBase::_sfPosXImage
-    	The image for the positive X direction for the cube tetxure.
-
+/*! \var ImagePtr        CubeTextureChunkBase::_sfPosXImage
+    The image for the positive X direction for the cube tetxure.
 */
-/*! \var ImagePtr CubeTextureChunkBase::_sfNegXImage
-    	The image for the negative X direction for the cube tetxure.
-
+/*! \var ImagePtr        CubeTextureChunkBase::_sfNegXImage
+    The image for the negative X direction for the cube tetxure.
 */
-/*! \var ImagePtr CubeTextureChunkBase::_sfPosYImage
-    	The image for the positive Y direction for the cube tetxure.
-
+/*! \var ImagePtr        CubeTextureChunkBase::_sfPosYImage
+    The image for the positive Y direction for the cube tetxure.
 */
-/*! \var ImagePtr CubeTextureChunkBase::_sfNegYImage
-    	The image for the negative Y direction for the cube tetxure.
-
+/*! \var ImagePtr        CubeTextureChunkBase::_sfNegYImage
+    The image for the negative Y direction for the cube tetxure.
 */
-/*! \var bool CubeTextureChunkBase::_sfIsReflectionMap
+/*! \var bool            CubeTextureChunkBase::_sfIsReflectionMap
     
 */
 
 void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "posZImage", 
-        "	The image for the positive Z direction for the cube tetxure.\n",
+        SFImagePtr::getClassType(),
+        "posZImage",
+        "The image for the positive Z direction for the cube tetxure.\n",
         PosZImageFieldId, PosZImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -116,9 +135,9 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "posXImage", 
-        "	The image for the positive X direction for the cube tetxure.\n",
+        SFImagePtr::getClassType(),
+        "posXImage",
+        "The image for the positive X direction for the cube tetxure.\n",
         PosXImageFieldId, PosXImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -128,9 +147,9 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "negXImage", 
-        "	The image for the negative X direction for the cube tetxure.\n",
+        SFImagePtr::getClassType(),
+        "negXImage",
+        "The image for the negative X direction for the cube tetxure.\n",
         NegXImageFieldId, NegXImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -140,9 +159,9 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "posYImage", 
-        "	The image for the positive Y direction for the cube tetxure.\n",
+        SFImagePtr::getClassType(),
+        "posYImage",
+        "The image for the positive Y direction for the cube tetxure.\n",
         PosYImageFieldId, PosYImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -152,9 +171,9 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "negYImage", 
-        "	The image for the negative Y direction for the cube tetxure.\n",
+        SFImagePtr::getClassType(),
+        "negYImage",
+        "The image for the negative Y direction for the cube tetxure.\n",
         NegYImageFieldId, NegYImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -170,8 +189,8 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "isReflectionMap", 
+        SFBool::getClassType(),
+        "isReflectionMap",
         "",
         IsReflectionMapFieldId, IsReflectionMapFieldMask,
         false,
@@ -197,91 +216,110 @@ CubeTextureChunkBase::TypeObject CubeTextureChunkBase::_type(true,
     (InitalInsertDescFunc) &CubeTextureChunkBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"CubeTextureChunk\"\n"
-"	parent=\"TextureChunk\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"posZImage\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The image for the positive Z direction for the cube tetxure.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"posXImage\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The image for the positive X direction for the cube tetxure.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"negXImage\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The image for the negative X direction for the cube tetxure.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"posYImage\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The image for the positive Y direction for the cube tetxure.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"negYImage\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The image for the negative Y direction for the cube tetxure.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"isReflectionMap\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"CubeTextureChunk\"\n"
+    "\tparent=\"TextureChunk\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemState\n"
+    "\n"
+    "See \\ref PageSystemCubeTextureChunk for a description.\n"
+    "\n"
+    "The CubeTexture is defined by 6 separate texture images. As it is derived from \n"
+    "the standard texture chunk it already has an image, which is used for the \n"
+    "negative Z direction. The other 5 images are stored in variables that are named\n"
+    "according to the direction they represent (OSG::CubeTextureChunk::_sfPosZImage,\n"
+    "OSG::CubeTextureChunk::_sfNegYImage, OSG::CubeTextureChunk::_sfPosYImage, \n"
+    "OSG::CubeTextureChunk::_sfNegXImage, OSG::CubeTextureChunk::_sfPosXImage).\n"
+    "\n"
+    "\\deprecated Use OSG::CubeTextureObjChunk instead.\n"
+    "\t<Field\n"
+    "\t\tname=\"posZImage\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe image for the positive Z direction for the cube tetxure.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"posXImage\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe image for the positive X direction for the cube tetxure.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"negXImage\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe image for the negative X direction for the cube tetxure.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"posYImage\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe image for the positive Y direction for the cube tetxure.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"negYImage\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe image for the negative Y direction for the cube tetxure.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"isReflectionMap\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemState\n"
+    "See \\ref PageSystemCubeTextureChunk for a description.\n"
+    "The CubeTexture is defined by 6 separate texture images. As it is derived from \n"
+    "the standard texture chunk it already has an image, which is used for the \n"
+    "negative Z direction. The other 5 images are stored in variables that are named\n"
+    "according to the direction they represent (OSG::CubeTextureChunk::_sfPosZImage,\n"
+    "OSG::CubeTextureChunk::_sfNegYImage, OSG::CubeTextureChunk::_sfPosYImage, \n"
+    "OSG::CubeTextureChunk::_sfNegXImage, OSG::CubeTextureChunk::_sfPosXImage).\n"
+    "\\deprecated Use OSG::CubeTextureObjChunk instead.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &CubeTextureChunkBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &CubeTextureChunkBase::getType(void) const 
+FieldContainerType &CubeTextureChunkBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 CubeTextureChunkBase::getContainerSize(void) const 
-{ 
-    return sizeof(CubeTextureChunk); 
+const FieldContainerType &CubeTextureChunkBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 CubeTextureChunkBase::getContainerSize(void) const
+{
+    return sizeof(CubeTextureChunk);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -330,7 +368,7 @@ const SFBool *CubeTextureChunkBase::getSFIsReflectionMap(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *CubeTextureChunkBase::getSFIsReflectionMap(void)
+SFBool              *CubeTextureChunkBase::getSFIsReflectionMap(void)
 {
     return this->editSFIsReflectionMap();
 }
@@ -532,22 +570,22 @@ void CubeTextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-CubeTextureChunkPtr CubeTextureChunkBase::createEmpty(void) 
-{ 
-    CubeTextureChunkPtr returnValue; 
-    
-    newPtr<CubeTextureChunk>(returnValue); 
+CubeTextureChunkPtr CubeTextureChunkBase::createEmpty(void)
+{
+    CubeTextureChunkPtr returnValue;
 
-    return returnValue; 
+    newPtr<CubeTextureChunk>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr CubeTextureChunkBase::shallowCopy(void) const 
-{ 
-    CubeTextureChunkPtr returnValue; 
+FieldContainerPtr CubeTextureChunkBase::shallowCopy(void) const
+{
+    CubeTextureChunkPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const CubeTextureChunk *>(this)); 
+    newPtr(returnValue, dynamic_cast<const CubeTextureChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -556,23 +594,23 @@ FieldContainerPtr CubeTextureChunkBase::shallowCopy(void) const
 
 CubeTextureChunkBase::CubeTextureChunkBase(void) :
     Inherited(),
-    _sfPosZImage(),
-    _sfPosXImage(),
-    _sfNegXImage(),
-    _sfPosYImage(),
-    _sfNegYImage(),
-    _sfIsReflectionMap(bool(true))
+    _sfPosZImage              (),
+    _sfPosXImage              (),
+    _sfNegXImage              (),
+    _sfPosYImage              (),
+    _sfNegYImage              (),
+    _sfIsReflectionMap        (bool(true))
 {
 }
 
 CubeTextureChunkBase::CubeTextureChunkBase(const CubeTextureChunkBase &source) :
     Inherited(source),
-    _sfPosZImage(),
-    _sfPosXImage(),
-    _sfNegXImage(),
-    _sfPosYImage(),
-    _sfNegYImage(),
-    _sfIsReflectionMap(source._sfIsReflectionMap)
+    _sfPosZImage              (),
+    _sfPosXImage              (),
+    _sfNegXImage              (),
+    _sfPosYImage              (),
+    _sfNegYImage              (),
+    _sfIsReflectionMap        (source._sfIsReflectionMap        )
 {
 }
 
@@ -604,13 +642,13 @@ void CubeTextureChunkBase::onCreate(const CubeTextureChunk *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void CubeTextureChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<CubeTextureChunkBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -620,10 +658,10 @@ void CubeTextureChunkBase::execSyncV(      FieldContainer    &oFrom,
 void CubeTextureChunkBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CubeTextureChunkBase *>(&oFrom), 
+    this->execSync(static_cast<CubeTextureChunkBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -643,12 +681,12 @@ void CubeTextureChunkBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr CubeTextureChunkBase::createAspectCopy(void) const
 {
-    CubeTextureChunkPtr returnValue; 
+    CubeTextureChunkPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const CubeTextureChunk *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const CubeTextureChunk *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -667,6 +705,8 @@ void CubeTextureChunkBase::resolveLinks(void)
     static_cast<CubeTextureChunk *>(this)->setNegYImage(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -689,8 +729,6 @@ OSG_FIELDTRAITS_GETTYPE(CubeTextureChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, CubeTextureChunkPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, CubeTextureChunkPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -711,3 +749,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGCUBETEXTURECHUNKFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

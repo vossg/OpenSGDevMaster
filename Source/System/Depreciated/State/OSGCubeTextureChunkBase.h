@@ -90,22 +90,22 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<TextureChunkPtr, 
-                              TextureChunkConstPtr, 
+    typedef PointerFwdBuilder<TextureChunkPtr,
+                              TextureChunkConstPtr,
                               CubeTextureChunk>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<TextureChunkPtr, 
-                              TextureChunkConstPtr, 
+    typedef PointerFwdBuilder<TextureChunkPtr,
+                              TextureChunkConstPtr,
                               CubeTextureChunk>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<TextureChunkPtr, 
+    typedef PointerFwdBuilder<TextureChunkPtr,
                               TextureChunkConstPtr,
                               CubeTextureChunk>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<TextureChunkPtr, 
+    typedef PointerFwdBuilder<TextureChunkPtr,
                               TextureChunkConstPtr,
                               CubeTextureChunk>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<TextureChunkPtr, 
+    typedef PointerFwdBuilder<TextureChunkPtr,
                               TextureChunkConstPtr,
                               CubeTextureChunk>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<TextureChunkPtr, 
+    typedef PointerFwdBuilder<TextureChunkPtr,
                               TextureChunkConstPtr,
                               CubeTextureChunk>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -124,28 +124,27 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
         NextFieldId = IsReflectionMapFieldId + 1
     };
 
-    static const OSG::BitVector PosZImageFieldMask = 
+    static const OSG::BitVector PosZImageFieldMask =
         (TypeTraits<BitVector>::One << PosZImageFieldId);
-    static const OSG::BitVector PosXImageFieldMask = 
+    static const OSG::BitVector PosXImageFieldMask =
         (TypeTraits<BitVector>::One << PosXImageFieldId);
-    static const OSG::BitVector NegXImageFieldMask = 
+    static const OSG::BitVector NegXImageFieldMask =
         (TypeTraits<BitVector>::One << NegXImageFieldId);
-    static const OSG::BitVector PosYImageFieldMask = 
+    static const OSG::BitVector PosYImageFieldMask =
         (TypeTraits<BitVector>::One << PosYImageFieldId);
-    static const OSG::BitVector NegYImageFieldMask = 
+    static const OSG::BitVector NegYImageFieldMask =
         (TypeTraits<BitVector>::One << NegYImageFieldId);
-    static const OSG::BitVector IsReflectionMapFieldMask = 
+    static const OSG::BitVector IsReflectionMapFieldMask =
         (TypeTraits<BitVector>::One << IsReflectionMapFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -153,8 +152,8 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -163,71 +162,71 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFImagePtr *getSFPosZImage (void) const;
-     const SFImagePtr *getSFPosXImage (void) const;
-     const SFImagePtr *getSFNegXImage (void) const;
-     const SFImagePtr *getSFPosYImage (void) const;
-     const SFImagePtr *getSFNegYImage (void) const;
+            const SFImagePtr          *getSFPosZImage       (void) const;
+            const SFImagePtr          *getSFPosXImage       (void) const;
+            const SFImagePtr          *getSFNegXImage       (void) const;
+            const SFImagePtr          *getSFPosYImage       (void) const;
+            const SFImagePtr          *getSFNegYImage       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFIsReflectionMap(void);
+                  SFBool              *getSFIsReflectionMap (void);
 #endif
-           SFBool *editSFIsReflectionMap(void);
-     const SFBool *getSFIsReflectionMap (void) const;
+                  SFBool              *editSFIsReflectionMap(void);
+            const SFBool              *getSFIsReflectionMap (void) const;
 
 
-           ImagePtrConst getPosZImage(void) const;
+                  ImagePtrConst getPosZImage      (void) const;
 
-           ImagePtrConst getPosXImage(void) const;
+                  ImagePtrConst getPosXImage      (void) const;
 
-           ImagePtrConst getNegXImage(void) const;
+                  ImagePtrConst getNegXImage      (void) const;
 
-           ImagePtrConst getPosYImage(void) const;
+                  ImagePtrConst getPosYImage      (void) const;
 
-           ImagePtrConst getNegYImage(void) const;
+                  ImagePtrConst getNegYImage      (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getIsReflectionMap(void);
+                  bool                &getIsReflectionMap (void);
 #endif
-           bool &editIsReflectionMap(void);
-     const bool &getIsReflectionMap (void) const;
+                  bool                &editIsReflectionMap(void);
+            const bool                &getIsReflectionMap (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setPosZImage(ImagePtrConstArg value);
-     void setPosXImage(ImagePtrConstArg value);
-     void setNegXImage(ImagePtrConstArg value);
-     void setPosYImage(ImagePtrConstArg value);
-     void setNegYImage(ImagePtrConstArg value);
-     void setIsReflectionMap(const bool &value);
+            void setPosZImage      (ImagePtrConstArg value);
+            void setPosXImage      (ImagePtrConstArg value);
+            void setNegXImage      (ImagePtrConstArg value);
+            void setPosYImage      (ImagePtrConstArg value);
+            void setNegYImage      (ImagePtrConstArg value);
+            void setIsReflectionMap(const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -254,15 +253,15 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CubeTextureChunkPtr create     (void); 
-    static  CubeTextureChunkPtr createEmpty(void); 
+    static  CubeTextureChunkPtr create     (void);
+    static  CubeTextureChunkPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -278,12 +277,12 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFImagePtr _sfPosZImage;
-    SFImagePtr _sfPosXImage;
-    SFImagePtr _sfNegXImage;
-    SFImagePtr _sfPosYImage;
-    SFImagePtr _sfNegYImage;
-    SFBool _sfIsReflectionMap;
+    SFImagePtr        _sfPosZImage;
+    SFImagePtr        _sfPosXImage;
+    SFImagePtr        _sfNegXImage;
+    SFImagePtr        _sfPosYImage;
+    SFImagePtr        _sfNegYImage;
+    SFBool            _sfIsReflectionMap;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -298,7 +297,7 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CubeTextureChunkBase(void); 
+    virtual ~CubeTextureChunkBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -345,11 +344,11 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

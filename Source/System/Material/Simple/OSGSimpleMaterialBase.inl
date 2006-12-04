@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SimpleMaterialBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SimpleMaterialBase::getClassTypeId(void) 
+OSG::UInt32 SimpleMaterialBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SimpleMaterialBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Color3r &SimpleMaterialBase::getAmbient(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color3r &SimpleMaterialBase::getAmbient(void)
+Color3r             &SimpleMaterialBase::getAmbient        (void)
 {
-    return this->editAmbient();
+    return this->editAmbient        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Color3r &SimpleMaterialBase::getDiffuse(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color3r &SimpleMaterialBase::getDiffuse(void)
+Color3r             &SimpleMaterialBase::getDiffuse        (void)
 {
-    return this->editDiffuse();
+    return this->editDiffuse        ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Color3r &SimpleMaterialBase::getSpecular(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color3r &SimpleMaterialBase::getSpecular(void)
+Color3r             &SimpleMaterialBase::getSpecular       (void)
 {
-    return this->editSpecular();
+    return this->editSpecular       ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Real &SimpleMaterialBase::getShininess(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &SimpleMaterialBase::getShininess(void)
+Real                &SimpleMaterialBase::getShininess      (void)
 {
-    return this->editShininess();
+    return this->editShininess      ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const Color3r &SimpleMaterialBase::getEmission(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color3r &SimpleMaterialBase::getEmission(void)
+Color3r             &SimpleMaterialBase::getEmission       (void)
 {
-    return this->editEmission();
+    return this->editEmission       ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Real &SimpleMaterialBase::getTransparency(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real &SimpleMaterialBase::getTransparency(void)
+Real                &SimpleMaterialBase::getTransparency   (void)
 {
-    return this->editTransparency();
+    return this->editTransparency   ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const bool &SimpleMaterialBase::getLit(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &SimpleMaterialBase::getLit(void)
+bool                &SimpleMaterialBase::getLit            (void)
 {
-    return this->editLit();
+    return this->editLit            ();
 }
 #endif
 
@@ -323,9 +323,9 @@ const GLenum &SimpleMaterialBase::getColorMaterial(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &SimpleMaterialBase::getColorMaterial(void)
+GLenum              &SimpleMaterialBase::getColorMaterial  (void)
 {
-    return this->editColorMaterial();
+    return this->editColorMaterial  ();
 }
 #endif
 
@@ -340,24 +340,24 @@ void SimpleMaterialBase::setColorMaterial(const GLenum &value)
 
 //! create a new instance of the class
 inline
-SimpleMaterialPtr SimpleMaterialBase::create(void) 
+SimpleMaterialPtr SimpleMaterialBase::create(void)
 {
-    SimpleMaterialPtr fc; 
+    SimpleMaterialPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SimpleMaterial::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SimpleMaterialBase::execSync(      SimpleMaterialBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -394,7 +394,7 @@ inline
 void SimpleMaterialBase::execSync (      SimpleMaterialBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -453,4 +453,3 @@ typedef PointerBuilder<SimpleMaterial>::ObjPtrConstArg  SimpleMaterialPtrConstAr
 OSG_END_NAMESPACE
 
 #define OSGSIMPLEMATERIALBASE_INLINE_CVSID "@(#)$Id$"
-

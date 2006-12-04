@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &MaterialBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 MaterialBase::getClassTypeId(void) 
+OSG::UInt32 MaterialBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 MaterialBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Int32 &MaterialBase::getSortKey(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &MaterialBase::getSortKey(void)
+Int32               &MaterialBase::getSortKey        (void)
 {
-    return this->editSortKey();
+    return this->editSortKey        ();
 }
 #endif
 
@@ -112,7 +112,7 @@ void MaterialBase::setSortKey(const Int32 &value)
 inline
 void MaterialBase::execSync(      MaterialBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -128,7 +128,7 @@ inline
 void MaterialBase::execSync (      MaterialBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -166,4 +166,3 @@ typedef PointerBuilder<Material>::ObjPtrConstArg  MaterialPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGMATERIALBASE_INLINE_CVSID "@(#)$Id$"
-

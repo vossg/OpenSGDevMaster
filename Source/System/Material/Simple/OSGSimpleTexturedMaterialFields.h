@@ -70,22 +70,22 @@ class SimpleTexturedMaterial;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SimpleTexturedMaterialPtr
 
-typedef PointerFwdBuilder<SimpleMaterialPtr, 
+typedef PointerFwdBuilder<SimpleMaterialPtr,
                           SimpleMaterialConstPtr,
                           SimpleTexturedMaterial>::ObjPtr         SimpleTexturedMaterialPtr;
-typedef PointerFwdBuilder<SimpleMaterialPtr, 
+typedef PointerFwdBuilder<SimpleMaterialPtr,
                           SimpleMaterialConstPtr,
                           SimpleTexturedMaterial>::ObjPtrConst    SimpleTexturedMaterialPtrConst;
-typedef PointerFwdBuilder<SimpleMaterialPtr, 
+typedef PointerFwdBuilder<SimpleMaterialPtr,
                           SimpleMaterialConstPtr,
                           SimpleTexturedMaterial>::ObjConstPtr    SimpleTexturedMaterialConstPtr;
-typedef PointerFwdBuilder<SimpleMaterialPtr, 
+typedef PointerFwdBuilder<SimpleMaterialPtr,
                           SimpleMaterialConstPtr,
                           SimpleTexturedMaterial>::ObjPtrArg      SimpleTexturedMaterialPtrArg;
-typedef PointerFwdBuilder<SimpleMaterialPtr, 
+typedef PointerFwdBuilder<SimpleMaterialPtr,
                           SimpleMaterialConstPtr,
                           SimpleTexturedMaterial>::ObjConstPtrArg SimpleTexturedMaterialConstPtrArg;
-typedef PointerFwdBuilder<SimpleMaterialPtr, 
+typedef PointerFwdBuilder<SimpleMaterialPtr,
                           SimpleMaterialConstPtr,
                           SimpleTexturedMaterial>::ObjPtrConstArg SimpleTexturedMaterialPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<SimpleMaterialPtr,
 #endif
 
 template <>
-struct FieldTraits<SimpleTexturedMaterialPtr> : 
+struct FieldTraits<SimpleTexturedMaterialPtr> :
     public FieldTraitsTemplateBase<SimpleTexturedMaterialPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SimpleTexturedMaterialPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFSimpleTexturedMaterialPtr"; }

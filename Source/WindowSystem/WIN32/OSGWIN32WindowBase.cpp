@@ -65,23 +65,33 @@
 #include "OSGWIN32WindowBase.h"
 #include "OSGWIN32Window.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var HWND WIN32WindowBase::_sfHwnd
+/*! \class OSG::WIN32Window
+    The class for WIN32 windows.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var HWND            WIN32WindowBase::_sfHwnd
     
 */
-/*! \var HDC WIN32WindowBase::_sfHdc
+/*! \var HDC             WIN32WindowBase::_sfHdc
     
 */
-/*! \var HGLRC WIN32WindowBase::_sfHglrc
+/*! \var HGLRC           WIN32WindowBase::_sfHglrc
     
 */
 
 void WIN32WindowBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -91,8 +101,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFHWND::Description(
-        SFHWND::getClassType(), 
-        "hwnd", 
+        SFHWND::getClassType(),
+        "hwnd",
         "",
         HwndFieldId, HwndFieldMask,
         true,
@@ -113,8 +123,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFHDC::Description(
-        SFHDC::getClassType(), 
-        "hdc", 
+        SFHDC::getClassType(),
+        "hdc",
         "",
         HdcFieldId, HdcFieldMask,
         true,
@@ -135,8 +145,8 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFHGLRC::Description(
-        SFHGLRC::getClassType(), 
-        "hglrc", 
+        SFHGLRC::getClassType(),
+        "hglrc",
         "",
         HglrcFieldId, HglrcFieldMask,
         true,
@@ -162,67 +172,66 @@ WIN32WindowBase::TypeObject WIN32WindowBase::_type(true,
     (InitalInsertDescFunc) &WIN32WindowBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"WIN32Window\"\n"
-"	parent=\"Window\"\n"
-"	library=\"WindowWIN32\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The class for WIN32 windows.\n"
-"	<Field\n"
-"		name=\"hwnd\"\n"
-"		type=\"HWND\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		header=\"OSGWIN32WindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"hdc\"\n"
-"		type=\"HDC\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		header=\"OSGWIN32WindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"hglrc\"\n"
-"		type=\"HGLRC\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		header=\"OSGWIN32WindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The class for WIN32 windows.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"WIN32Window\"\n"
+    "\tparent=\"Window\"\n"
+    "\tlibrary=\"WindowWIN32\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "The class for WIN32 windows.\n"
+    "\t<Field\n"
+    "\t\tname=\"hwnd\"\n"
+    "\t\ttype=\"HWND\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\theader=\"OSGWIN32WindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"hdc\"\n"
+    "\t\ttype=\"HDC\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\theader=\"OSGWIN32WindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"hglrc\"\n"
+    "\t\ttype=\"HGLRC\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\theader=\"OSGWIN32WindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "The class for WIN32 windows.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &WIN32WindowBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &WIN32WindowBase::getType(void) const 
+FieldContainerType &WIN32WindowBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 WIN32WindowBase::getContainerSize(void) const 
-{ 
-    return sizeof(WIN32Window); 
+const FieldContainerType &WIN32WindowBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 WIN32WindowBase::getContainerSize(void) const
+{
+    return sizeof(WIN32Window);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -241,9 +250,9 @@ const SFHWND *WIN32WindowBase::getSFHwnd(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFHWND *WIN32WindowBase::getSFHwnd(void)
+SFHWND              *WIN32WindowBase::getSFHwnd           (void)
 {
-    return this->editSFHwnd();
+    return this->editSFHwnd           ();
 }
 #endif
 
@@ -260,9 +269,9 @@ const SFHDC *WIN32WindowBase::getSFHdc(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFHDC *WIN32WindowBase::getSFHdc(void)
+SFHDC               *WIN32WindowBase::getSFHdc            (void)
 {
-    return this->editSFHdc();
+    return this->editSFHdc            ();
 }
 #endif
 
@@ -279,9 +288,9 @@ const SFHGLRC *WIN32WindowBase::getSFHglrc(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFHGLRC *WIN32WindowBase::getSFHglrc(void)
+SFHGLRC             *WIN32WindowBase::getSFHglrc          (void)
 {
-    return this->editSFHglrc();
+    return this->editSFHglrc          ();
 }
 #endif
 
@@ -348,22 +357,22 @@ void WIN32WindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-WIN32WindowPtr WIN32WindowBase::createEmpty(void) 
-{ 
-    WIN32WindowPtr returnValue; 
-    
-    newPtr<WIN32Window>(returnValue); 
+WIN32WindowPtr WIN32WindowBase::createEmpty(void)
+{
+    WIN32WindowPtr returnValue;
 
-    return returnValue; 
+    newPtr<WIN32Window>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr WIN32WindowBase::shallowCopy(void) const 
-{ 
-    WIN32WindowPtr returnValue; 
+FieldContainerPtr WIN32WindowBase::shallowCopy(void) const
+{
+    WIN32WindowPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const WIN32Window *>(this)); 
+    newPtr(returnValue, dynamic_cast<const WIN32Window *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -372,17 +381,17 @@ FieldContainerPtr WIN32WindowBase::shallowCopy(void) const
 
 WIN32WindowBase::WIN32WindowBase(void) :
     Inherited(),
-    _sfHwnd(HWND(0)),
-    _sfHdc(HDC(0)),
-    _sfHglrc(HGLRC(0))
+    _sfHwnd                   (HWND(0)),
+    _sfHdc                    (HDC(0)),
+    _sfHglrc                  (HGLRC(0))
 {
 }
 
 WIN32WindowBase::WIN32WindowBase(const WIN32WindowBase &source) :
     Inherited(source),
-    _sfHwnd(source._sfHwnd),
-    _sfHdc(source._sfHdc),
-    _sfHglrc(source._sfHglrc)
+    _sfHwnd                   (source._sfHwnd                   ),
+    _sfHdc                    (source._sfHdc                    ),
+    _sfHglrc                  (source._sfHglrc                  )
 {
 }
 
@@ -396,13 +405,13 @@ WIN32WindowBase::~WIN32WindowBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void WIN32WindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<WIN32WindowBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -412,10 +421,10 @@ void WIN32WindowBase::execSyncV(      FieldContainer    &oFrom,
 void WIN32WindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<WIN32WindowBase *>(&oFrom), 
+    this->execSync(static_cast<WIN32WindowBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -435,12 +444,12 @@ void WIN32WindowBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr WIN32WindowBase::createAspectCopy(void) const
 {
-    WIN32WindowPtr returnValue; 
+    WIN32WindowPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const WIN32Window *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const WIN32Window *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -449,6 +458,8 @@ void WIN32WindowBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -471,8 +482,6 @@ OSG_FIELDTRAITS_GETTYPE(WIN32WindowPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, WIN32WindowPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, WIN32WindowPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -493,3 +502,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGWIN32WINDOWFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

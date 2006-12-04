@@ -66,22 +66,32 @@
 #include "OSGMultiPassMaterialBase.h"
 #include "OSGMultiPassMaterial.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var MaterialPtr MultiPassMaterialBase::_mfMaterials
+/*! \class OSG::MultiPassMaterial
+    
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var MaterialPtr     MultiPassMaterialBase::_mfMaterials
     
 */
 
 void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new MFMaterialPtr::Description(
-        MFMaterialPtr::getClassType(), 
-        "materials", 
+        MFMaterialPtr::getClassType(),
+        "materials",
         "",
         MaterialsFieldId, MaterialsFieldMask,
         false,
@@ -103,47 +113,46 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(true,
     (InitalInsertDescFunc) &MultiPassMaterialBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"MultiPassMaterial\"\n"
-"	parent=\"Material\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"materials\"\n"
-"		type=\"MaterialPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        pushToFieldAs=\"addMaterial\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"MultiPassMaterial\"\n"
+    "\tparent=\"Material\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"materials\"\n"
+    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "                pushToFieldAs=\"addMaterial\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &MultiPassMaterialBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &MultiPassMaterialBase::getType(void) const 
+FieldContainerType &MultiPassMaterialBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 MultiPassMaterialBase::getContainerSize(void) const 
-{ 
-    return sizeof(MultiPassMaterial); 
+const FieldContainerType &MultiPassMaterialBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 MultiPassMaterialBase::getContainerSize(void) const
+{
+    return sizeof(MultiPassMaterial);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -257,7 +266,7 @@ void MultiPassMaterialBase::addMaterial(MaterialPtrConstArg value)
 }
 
 void MultiPassMaterialBase::insertIntoMaterials(UInt32                uiIndex,
-                                             MaterialPtrConstArg value   )
+                                                   MaterialPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -274,7 +283,7 @@ void MultiPassMaterialBase::insertIntoMaterials(UInt32                uiIndex,
 }
 
 void MultiPassMaterialBase::replaceInMaterials(UInt32                uiIndex,
-                                                 MaterialPtrConstArg value   )
+                                                       MaterialPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -292,7 +301,7 @@ void MultiPassMaterialBase::replaceInMaterials(UInt32                uiIndex,
 }
 
 void MultiPassMaterialBase::replaceInMaterials(MaterialPtrConstArg pOldElem,
-                                                  MaterialPtrConstArg pNewElem)
+                                                        MaterialPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -366,8 +375,6 @@ void MultiPassMaterialBase::clearMaterials(void)
 
 
 
-
-
 /*------------------------------ access -----------------------------------*/
 
 UInt32 MultiPassMaterialBase::getBinSize(ConstFieldMaskArg whichField)
@@ -405,22 +412,22 @@ void MultiPassMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MultiPassMaterialPtr MultiPassMaterialBase::createEmpty(void) 
-{ 
-    MultiPassMaterialPtr returnValue; 
-    
-    newPtr<MultiPassMaterial>(returnValue); 
+MultiPassMaterialPtr MultiPassMaterialBase::createEmpty(void)
+{
+    MultiPassMaterialPtr returnValue;
 
-    return returnValue; 
+    newPtr<MultiPassMaterial>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr MultiPassMaterialBase::shallowCopy(void) const 
-{ 
-    MultiPassMaterialPtr returnValue; 
+FieldContainerPtr MultiPassMaterialBase::shallowCopy(void) const
+{
+    MultiPassMaterialPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const MultiPassMaterial *>(this)); 
+    newPtr(returnValue, dynamic_cast<const MultiPassMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -429,13 +436,13 @@ FieldContainerPtr MultiPassMaterialBase::shallowCopy(void) const
 
 MultiPassMaterialBase::MultiPassMaterialBase(void) :
     Inherited(),
-    _mfMaterials()
+    _mfMaterials              ()
 {
 }
 
 MultiPassMaterialBase::MultiPassMaterialBase(const MultiPassMaterialBase &source) :
     Inherited(source),
-    _mfMaterials()
+    _mfMaterials              ()
 {
 }
 
@@ -452,9 +459,9 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
     if(source != NULL)
     {
 
-        MFMaterialPtr::const_iterator MaterialsIt  = 
+        MFMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
-        MFMaterialPtr::const_iterator MaterialsEnd = 
+        MFMaterialPtr::const_iterator MaterialsEnd =
             source->_mfMaterials.end  ();
 
         while(MaterialsIt != MaterialsEnd)
@@ -469,13 +476,13 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void MultiPassMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<MultiPassMaterialBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -485,10 +492,10 @@ void MultiPassMaterialBase::execSyncV(      FieldContainer    &oFrom,
 void MultiPassMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MultiPassMaterialBase *>(&oFrom), 
+    this->execSync(static_cast<MultiPassMaterialBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -508,12 +515,12 @@ void MultiPassMaterialBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr MultiPassMaterialBase::createAspectCopy(void) const
 {
-    MultiPassMaterialPtr returnValue; 
+    MultiPassMaterialPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const MultiPassMaterial *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const MultiPassMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -524,6 +531,8 @@ void MultiPassMaterialBase::resolveLinks(void)
     static_cast<MultiPassMaterial *>(this)->clearMaterials();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -546,8 +555,6 @@ OSG_FIELDTRAITS_GETTYPE(MultiPassMaterialPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, MultiPassMaterialPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, MultiPassMaterialPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -568,3 +575,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGMULTIPASSMATERIALFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

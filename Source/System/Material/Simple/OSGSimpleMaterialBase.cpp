@@ -60,50 +60,66 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // ColorMaterial default header
+#include <OSGGL.h>                        // ColorMaterial default header
 
 
 #include "OSGSimpleMaterialBase.h"
 #include "OSGSimpleMaterial.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color3r SimpleMaterialBase::_sfAmbient
-            The ambient color for the material.
+/*! \class OSG::SimpleMaterial
+    \ingroup GrpSystemMaterial
 
+    The simple material class. See \ref PageSystemMaterialSimpleMaterial
+    for a description.
+
+    This material wraps the standard calls to glMaterial() in
+    OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse,
+    OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular,
+    OSG::SimpleMaterial::_sfShininess. In addition it supports transparency
+    (OSG::SimpleMaterial::_sfTransparency), can switch lighting
+    (OSG::SimpleMaterial::_sfLit) and the color material
+    (OSG::SimpleMaterial::_sfColorMaterial).
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Color3r         SimpleMaterialBase::_sfAmbient
+    The ambient color for the material.
 */
-/*! \var Color3r SimpleMaterialBase::_sfDiffuse
-            The diffuse color for the material.
-
+/*! \var Color3r         SimpleMaterialBase::_sfDiffuse
+    The diffuse color for the material.
 */
-/*! \var Color3r SimpleMaterialBase::_sfSpecular
-            The color used for the specular highlight on the object.
-
+/*! \var Color3r         SimpleMaterialBase::_sfSpecular
+    The color used for the specular highlight on the object.
 */
-/*! \var Real SimpleMaterialBase::_sfShininess
-            The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.
-
+/*! \var Real            SimpleMaterialBase::_sfShininess
+    The shininess value to use when lighting the object.  Higher values
+    equal smaller and brighter highlights.
 */
-/*! \var Color3r SimpleMaterialBase::_sfEmission
+/*! \var Color3r         SimpleMaterialBase::_sfEmission
     
 */
-/*! \var Real SimpleMaterialBase::_sfTransparency
-            Defines how transparent objects are rendered with this material.
-
+/*! \var Real            SimpleMaterialBase::_sfTransparency
+    Defines how transparent objects are rendered with this material.
 */
-/*! \var bool SimpleMaterialBase::_sfLit
+/*! \var bool            SimpleMaterialBase::_sfLit
     
 */
-/*! \var GLenum SimpleMaterialBase::_sfColorMaterial
-            Defines which color material mode this material affects.
-
+/*! \var GLenum          SimpleMaterialBase::_sfColorMaterial
+    Defines which color material mode this material affects.
 */
 
 void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -113,9 +129,9 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor3r::Description(
-        SFColor3r::getClassType(), 
-        "ambient", 
-        "        The ambient color for the material.\n",
+        SFColor3r::getClassType(),
+        "ambient",
+        "The ambient color for the material.\n",
         AmbientFieldId, AmbientFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -135,9 +151,9 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor3r::Description(
-        SFColor3r::getClassType(), 
-        "diffuse", 
-        "        The diffuse color for the material.\n",
+        SFColor3r::getClassType(),
+        "diffuse",
+        "The diffuse color for the material.\n",
         DiffuseFieldId, DiffuseFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -157,9 +173,9 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor3r::Description(
-        SFColor3r::getClassType(), 
-        "specular", 
-        "        The color used for the specular highlight on the object.\n",
+        SFColor3r::getClassType(),
+        "specular",
+        "The color used for the specular highlight on the object.\n",
         SpecularFieldId, SpecularFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -179,9 +195,9 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "shininess", 
-        "        The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.\n",
+        SFReal::getClassType(),
+        "shininess",
+        "The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.\n",
         ShininessFieldId, ShininessFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -201,8 +217,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor3r::Description(
-        SFColor3r::getClassType(), 
-        "emission", 
+        SFColor3r::getClassType(),
+        "emission",
         "",
         EmissionFieldId, EmissionFieldMask,
         false,
@@ -223,9 +239,9 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal::Description(
-        SFReal::getClassType(), 
-        "transparency", 
-        "        Defines how transparent objects are rendered with this material.\n",
+        SFReal::getClassType(),
+        "transparency",
+        "Defines how transparent objects are rendered with this material.\n",
         TransparencyFieldId, TransparencyFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -245,8 +261,8 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "lit", 
+        SFBool::getClassType(),
+        "lit",
         "",
         LitFieldId, LitFieldMask,
         false,
@@ -267,9 +283,9 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "colorMaterial", 
-        "        Defines which color material mode this material affects.\n",
+        SFGLenum::getClassType(),
+        "colorMaterial",
+        "Defines which color material mode this material affects.\n",
         ColorMaterialFieldId, ColorMaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -294,115 +310,134 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
     (InitalInsertDescFunc) &SimpleMaterialBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SimpleMaterial\"\n"
-"	parent=\"ChunkMaterial\"\n"
-"	library=\"System\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"Wrapper around common \"simple\" material settings for glMaterial.\n"
-"	<Field\n"
-"		name=\"ambient\"\n"
-"		type=\"Color3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,0.f,0.f\"\n"
-"	>\n"
-"        The ambient color for the material.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"diffuse\"\n"
-"		type=\"Color3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,0.f,0.f\"\n"
-"	>\n"
-"        The diffuse color for the material.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"specular\"\n"
-"		type=\"Color3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,0.f,0.f\"\n"
-"	>\n"
-"        The color used for the specular highlight on the object.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"shininess\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1.f\"\n"
-"                min_value=\"0.0\"\n"
-"                max_value=\"128.0\"\n"
-"	>\n"
-"        The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"emission\"\n"
-"		type=\"Color3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f,0.f,0.f\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"transparency\"\n"
-"		type=\"Real\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.f\"\n"
-"                min_value=\"0.0\"\n"
-"                max_value=\"1.0\"\n"
-"	>\n"
-"        Defines how transparent objects are rendered with this material.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"lit\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"colorMaterial\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_DIFFUSE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"                potential_values=\"GL_AMBIENT,GL_DIFFUSE,GL_SPECULAR,GL_AMBIENT_AND_DIFFUSE,GL_EMISSION\"\n"
-"	>\n"
-"        Defines which color material mode this material affects.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-"\n"
-"\n"
-,
-    "Wrapper around common \"simple\" material settings for glMaterial.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SimpleMaterial\"\n"
+    "\tparent=\"ChunkMaterial\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemMaterial\n"
+    "\n"
+    "The simple material class. See \\ref PageSystemMaterialSimpleMaterial for a\n"
+    "description.\n"
+    "\n"
+    "This material wraps the standard calls to glMaterial() in\n"
+    "OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, \n"
+    "OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, \n"
+    "OSG::SimpleMaterial::_sfShininess. In addition it supports transparency \n"
+    "(OSG::SimpleMaterial::_sfTransparency), can switch lighting \n"
+    "(OSG::SimpleMaterial::_sfLit) and the color material \n"
+    "(OSG::SimpleMaterial::_sfColorMaterial).\n"
+    "\t<Field\n"
+    "\t\tname=\"ambient\"\n"
+    "\t\ttype=\"Color3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,0.f,0.f\"\n"
+    "\t>\n"
+    "        The ambient color for the material.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"diffuse\"\n"
+    "\t\ttype=\"Color3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,0.f,0.f\"\n"
+    "\t>\n"
+    "        The diffuse color for the material.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"specular\"\n"
+    "\t\ttype=\"Color3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,0.f,0.f\"\n"
+    "\t>\n"
+    "        The color used for the specular highlight on the object.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"shininess\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f\"\n"
+    "                min_value=\"0.0\"\n"
+    "                max_value=\"128.0\"\n"
+    "\t>\n"
+    "        The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"emission\"\n"
+    "\t\ttype=\"Color3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f,0.f,0.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"transparency\"\n"
+    "\t\ttype=\"Real\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.f\"\n"
+    "                min_value=\"0.0\"\n"
+    "                max_value=\"1.0\"\n"
+    "\t>\n"
+    "        Defines how transparent objects are rendered with this material.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"lit\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"colorMaterial\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_DIFFUSE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "                potential_values=\"GL_AMBIENT,GL_DIFFUSE,GL_SPECULAR,GL_AMBIENT_AND_DIFFUSE,GL_EMISSION\"\n"
+    "\t>\n"
+    "        Defines which color material mode this material affects.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n"
+    "\n"
+    "\n",
+    "\\ingroup GrpSystemMaterial\n"
+    "The simple material class. See \\ref PageSystemMaterialSimpleMaterial for a\n"
+    "description.\n"
+    "This material wraps the standard calls to glMaterial() in\n"
+    "OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, \n"
+    "OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, \n"
+    "OSG::SimpleMaterial::_sfShininess. In addition it supports transparency \n"
+    "(OSG::SimpleMaterial::_sfTransparency), can switch lighting \n"
+    "(OSG::SimpleMaterial::_sfLit) and the color material \n"
+    "(OSG::SimpleMaterial::_sfColorMaterial).\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SimpleMaterialBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SimpleMaterialBase::getType(void) const 
+FieldContainerType &SimpleMaterialBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SimpleMaterialBase::getContainerSize(void) const 
-{ 
-    return sizeof(SimpleMaterial); 
+const FieldContainerType &SimpleMaterialBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SimpleMaterialBase::getContainerSize(void) const
+{
+    return sizeof(SimpleMaterial);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -421,9 +456,9 @@ const SFColor3r *SimpleMaterialBase::getSFAmbient(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor3r *SimpleMaterialBase::getSFAmbient(void)
+SFColor3r           *SimpleMaterialBase::getSFAmbient        (void)
 {
-    return this->editSFAmbient();
+    return this->editSFAmbient        ();
 }
 #endif
 
@@ -440,9 +475,9 @@ const SFColor3r *SimpleMaterialBase::getSFDiffuse(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor3r *SimpleMaterialBase::getSFDiffuse(void)
+SFColor3r           *SimpleMaterialBase::getSFDiffuse        (void)
 {
-    return this->editSFDiffuse();
+    return this->editSFDiffuse        ();
 }
 #endif
 
@@ -459,9 +494,9 @@ const SFColor3r *SimpleMaterialBase::getSFSpecular(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor3r *SimpleMaterialBase::getSFSpecular(void)
+SFColor3r           *SimpleMaterialBase::getSFSpecular       (void)
 {
-    return this->editSFSpecular();
+    return this->editSFSpecular       ();
 }
 #endif
 
@@ -478,9 +513,9 @@ const SFReal *SimpleMaterialBase::getSFShininess(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *SimpleMaterialBase::getSFShininess(void)
+SFReal              *SimpleMaterialBase::getSFShininess      (void)
 {
-    return this->editSFShininess();
+    return this->editSFShininess      ();
 }
 #endif
 
@@ -497,9 +532,9 @@ const SFColor3r *SimpleMaterialBase::getSFEmission(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor3r *SimpleMaterialBase::getSFEmission(void)
+SFColor3r           *SimpleMaterialBase::getSFEmission       (void)
 {
-    return this->editSFEmission();
+    return this->editSFEmission       ();
 }
 #endif
 
@@ -516,9 +551,9 @@ const SFReal *SimpleMaterialBase::getSFTransparency(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal *SimpleMaterialBase::getSFTransparency(void)
+SFReal              *SimpleMaterialBase::getSFTransparency   (void)
 {
-    return this->editSFTransparency();
+    return this->editSFTransparency   ();
 }
 #endif
 
@@ -535,9 +570,9 @@ const SFBool *SimpleMaterialBase::getSFLit(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *SimpleMaterialBase::getSFLit(void)
+SFBool              *SimpleMaterialBase::getSFLit            (void)
 {
-    return this->editSFLit();
+    return this->editSFLit            ();
 }
 #endif
 
@@ -554,9 +589,9 @@ const SFGLenum *SimpleMaterialBase::getSFColorMaterial(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *SimpleMaterialBase::getSFColorMaterial(void)
+SFGLenum            *SimpleMaterialBase::getSFColorMaterial  (void)
 {
-    return this->editSFColorMaterial();
+    return this->editSFColorMaterial  ();
 }
 #endif
 
@@ -683,22 +718,22 @@ void SimpleMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleMaterialPtr SimpleMaterialBase::createEmpty(void) 
-{ 
-    SimpleMaterialPtr returnValue; 
-    
-    newPtr<SimpleMaterial>(returnValue); 
+SimpleMaterialPtr SimpleMaterialBase::createEmpty(void)
+{
+    SimpleMaterialPtr returnValue;
 
-    return returnValue; 
+    newPtr<SimpleMaterial>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SimpleMaterialBase::shallowCopy(void) const 
-{ 
-    SimpleMaterialPtr returnValue; 
+FieldContainerPtr SimpleMaterialBase::shallowCopy(void) const
+{
+    SimpleMaterialPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SimpleMaterial *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SimpleMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -707,27 +742,27 @@ FieldContainerPtr SimpleMaterialBase::shallowCopy(void) const
 
 SimpleMaterialBase::SimpleMaterialBase(void) :
     Inherited(),
-    _sfAmbient(Color3r(0.f,0.f,0.f)),
-    _sfDiffuse(Color3r(0.f,0.f,0.f)),
-    _sfSpecular(Color3r(0.f,0.f,0.f)),
-    _sfShininess(Real(1.f)),
-    _sfEmission(Color3r(0.f,0.f,0.f)),
-    _sfTransparency(Real(0.f)),
-    _sfLit(bool(true)),
-    _sfColorMaterial(GLenum(GL_DIFFUSE))
+    _sfAmbient                (Color3r(0.f,0.f,0.f)),
+    _sfDiffuse                (Color3r(0.f,0.f,0.f)),
+    _sfSpecular               (Color3r(0.f,0.f,0.f)),
+    _sfShininess              (Real(1.f)),
+    _sfEmission               (Color3r(0.f,0.f,0.f)),
+    _sfTransparency           (Real(0.f)),
+    _sfLit                    (bool(true)),
+    _sfColorMaterial          (GLenum(GL_DIFFUSE))
 {
 }
 
 SimpleMaterialBase::SimpleMaterialBase(const SimpleMaterialBase &source) :
     Inherited(source),
-    _sfAmbient(source._sfAmbient),
-    _sfDiffuse(source._sfDiffuse),
-    _sfSpecular(source._sfSpecular),
-    _sfShininess(source._sfShininess),
-    _sfEmission(source._sfEmission),
-    _sfTransparency(source._sfTransparency),
-    _sfLit(source._sfLit),
-    _sfColorMaterial(source._sfColorMaterial)
+    _sfAmbient                (source._sfAmbient                ),
+    _sfDiffuse                (source._sfDiffuse                ),
+    _sfSpecular               (source._sfSpecular               ),
+    _sfShininess              (source._sfShininess              ),
+    _sfEmission               (source._sfEmission               ),
+    _sfTransparency           (source._sfTransparency           ),
+    _sfLit                    (source._sfLit                    ),
+    _sfColorMaterial          (source._sfColorMaterial          )
 {
 }
 
@@ -741,13 +776,13 @@ SimpleMaterialBase::~SimpleMaterialBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SimpleMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SimpleMaterialBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -757,10 +792,10 @@ void SimpleMaterialBase::execSyncV(      FieldContainer    &oFrom,
 void SimpleMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SimpleMaterialBase *>(&oFrom), 
+    this->execSync(static_cast<SimpleMaterialBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -780,12 +815,12 @@ void SimpleMaterialBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SimpleMaterialBase::createAspectCopy(void) const
 {
-    SimpleMaterialPtr returnValue; 
+    SimpleMaterialPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SimpleMaterial *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -795,14 +830,10 @@ void SimpleMaterialBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<SimpleMaterialPtr>::_type("SimpleMaterialPtr", "ChunkMaterialPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -824,3 +855,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSIMPLEMATERIALFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

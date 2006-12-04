@@ -52,11 +52,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::XWindow
-
-  The class for X-based windows. See \ref PageWindowX for a description.
-
- */
+// Documentation for this class is emited in the
+// OSGXWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGXWindow.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

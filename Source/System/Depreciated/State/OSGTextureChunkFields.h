@@ -70,22 +70,22 @@ class TextureChunk;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureChunkPtr
 
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureChunk>::ObjPtr         TextureChunkPtr;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureChunk>::ObjPtrConst    TextureChunkPtrConst;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureChunk>::ObjConstPtr    TextureChunkConstPtr;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureChunk>::ObjPtrArg      TextureChunkPtrArg;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureChunk>::ObjConstPtrArg TextureChunkConstPtrArg;
-typedef PointerFwdBuilder<TextureBaseChunkPtr, 
+typedef PointerFwdBuilder<TextureBaseChunkPtr,
                           TextureBaseChunkConstPtr,
                           TextureChunk>::ObjPtrConstArg TextureChunkPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<TextureBaseChunkPtr,
 #endif
 
 template <>
-struct FieldTraits<TextureChunkPtr> : 
+struct FieldTraits<TextureChunkPtr> :
     public FieldTraitsTemplateBase<TextureChunkPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TextureChunkPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFTextureChunkPtr"; }

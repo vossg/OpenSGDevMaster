@@ -83,6 +83,10 @@
 
 OSG_USING_NAMESPACE
 
+// Documentation for this class is emited in the
+// OSGVTKMapperBase.cpp file.
+// To modify it, please change the .fcd file (OSGVTKMapper.fcd) and
+// regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
@@ -748,7 +752,7 @@ void VTKMapper::initMethod(InitPhase ePhase)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id: $";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGVTKMAPPER_HEADER_CVSID;
     static Char8 cvsid_inl[] = OSGVTKMAPPER_INLINE_CVSID;
 }

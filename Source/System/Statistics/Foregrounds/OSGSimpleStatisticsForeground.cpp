@@ -57,28 +57,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::SimpleStatisticsForeground
-    \ingroup GrpSystemWindowForegroundsStatistics
-
-SimpleStatisticsForeground displays the Statistics info as simple lines of text.
-
-osg::SimpleStatisticsForeground displays the statistics info as simple text
-lines. They are displayed using a compiled-in font that can use an arbitrary
-color and that can be arbitrarily resized, with the size per line given in
-pixel.
-
-The format of every element is given by a format string for every element that
-is directly passed to OSG::StatElem::putToString(), so go there to see the
-possible options.
-
-If no elementIDs are given all elements in the osg::StatCollector are display,
-using the default format.
-
-The format string for the given elements are stored in the _mfFormats Field,
-the size and color used for all lines in _sfSize and _sfColor.
-
-See \ref PageSystemWindowForegroundStatisticsSimple
-*/
+// Documentation for this class is emited in the
+// OSGSimpleStatisticsForegroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGSimpleStatisticsForeground.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

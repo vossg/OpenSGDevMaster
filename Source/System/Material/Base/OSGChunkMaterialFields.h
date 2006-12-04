@@ -70,22 +70,22 @@ class ChunkMaterial;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ChunkMaterialPtr
 
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           ChunkMaterial>::ObjPtr         ChunkMaterialPtr;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           ChunkMaterial>::ObjPtrConst    ChunkMaterialPtrConst;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           ChunkMaterial>::ObjConstPtr    ChunkMaterialConstPtr;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           ChunkMaterial>::ObjPtrArg      ChunkMaterialPtrArg;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           ChunkMaterial>::ObjConstPtrArg ChunkMaterialConstPtrArg;
-typedef PointerFwdBuilder<MaterialPtr, 
+typedef PointerFwdBuilder<MaterialPtr,
                           MaterialConstPtr,
                           ChunkMaterial>::ObjPtrConstArg ChunkMaterialPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<MaterialPtr,
 #endif
 
 template <>
-struct FieldTraits<ChunkMaterialPtr> : 
+struct FieldTraits<ChunkMaterialPtr> :
     public FieldTraitsTemplateBase<ChunkMaterialPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ChunkMaterialPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFChunkMaterialPtr"; }

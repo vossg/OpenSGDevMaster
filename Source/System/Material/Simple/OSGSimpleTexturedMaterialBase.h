@@ -89,22 +89,22 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<SimpleMaterialPtr, 
-                              SimpleMaterialConstPtr, 
+    typedef PointerFwdBuilder<SimpleMaterialPtr,
+                              SimpleMaterialConstPtr,
                               SimpleTexturedMaterial>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<SimpleMaterialPtr, 
-                              SimpleMaterialConstPtr, 
+    typedef PointerFwdBuilder<SimpleMaterialPtr,
+                              SimpleMaterialConstPtr,
                               SimpleTexturedMaterial>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<SimpleMaterialPtr, 
+    typedef PointerFwdBuilder<SimpleMaterialPtr,
                               SimpleMaterialConstPtr,
                               SimpleTexturedMaterial>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<SimpleMaterialPtr, 
+    typedef PointerFwdBuilder<SimpleMaterialPtr,
                               SimpleMaterialConstPtr,
                               SimpleTexturedMaterial>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<SimpleMaterialPtr, 
+    typedef PointerFwdBuilder<SimpleMaterialPtr,
                               SimpleMaterialConstPtr,
                               SimpleTexturedMaterial>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<SimpleMaterialPtr, 
+    typedef PointerFwdBuilder<SimpleMaterialPtr,
                               SimpleMaterialConstPtr,
                               SimpleTexturedMaterial>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -122,26 +122,25 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
         NextFieldId = EnvMapFieldId + 1
     };
 
-    static const OSG::BitVector ImageFieldMask = 
+    static const OSG::BitVector ImageFieldMask =
         (TypeTraits<BitVector>::One << ImageFieldId);
-    static const OSG::BitVector MinFilterFieldMask = 
+    static const OSG::BitVector MinFilterFieldMask =
         (TypeTraits<BitVector>::One << MinFilterFieldId);
-    static const OSG::BitVector MagFilterFieldMask = 
+    static const OSG::BitVector MagFilterFieldMask =
         (TypeTraits<BitVector>::One << MagFilterFieldId);
-    static const OSG::BitVector EnvModeFieldMask = 
+    static const OSG::BitVector EnvModeFieldMask =
         (TypeTraits<BitVector>::One << EnvModeFieldId);
-    static const OSG::BitVector EnvMapFieldMask = 
+    static const OSG::BitVector EnvMapFieldMask =
         (TypeTraits<BitVector>::One << EnvMapFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -149,8 +148,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -159,94 +158,94 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFImagePtr *getSFImage (void) const;
+            const SFImagePtr          *getSFImage           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFMinFilter(void);
+                  SFGLenum            *getSFMinFilter       (void);
 #endif
-           SFGLenum *editSFMinFilter(void);
-     const SFGLenum *getSFMinFilter (void) const;
+                  SFGLenum            *editSFMinFilter      (void);
+            const SFGLenum            *getSFMinFilter       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFMagFilter(void);
+                  SFGLenum            *getSFMagFilter       (void);
 #endif
-           SFGLenum *editSFMagFilter(void);
-     const SFGLenum *getSFMagFilter (void) const;
+                  SFGLenum            *editSFMagFilter      (void);
+            const SFGLenum            *getSFMagFilter       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFEnvMode(void);
+                  SFGLenum            *getSFEnvMode         (void);
 #endif
-           SFGLenum *editSFEnvMode(void);
-     const SFGLenum *getSFEnvMode (void) const;
+                  SFGLenum            *editSFEnvMode        (void);
+            const SFGLenum            *getSFEnvMode         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFEnvMap(void);
+                  SFBool              *getSFEnvMap          (void);
 #endif
-           SFBool *editSFEnvMap(void);
-     const SFBool *getSFEnvMap (void) const;
+                  SFBool              *editSFEnvMap         (void);
+            const SFBool              *getSFEnvMap          (void) const;
 
 
-           ImagePtrConst getImage(void) const;
+                  ImagePtrConst getImage          (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getMinFilter(void);
+                  GLenum              &getMinFilter       (void);
 #endif
-           GLenum &editMinFilter(void);
-     const GLenum &getMinFilter (void) const;
+                  GLenum              &editMinFilter      (void);
+            const GLenum              &getMinFilter       (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getMagFilter(void);
+                  GLenum              &getMagFilter       (void);
 #endif
-           GLenum &editMagFilter(void);
-     const GLenum &getMagFilter (void) const;
+                  GLenum              &editMagFilter      (void);
+            const GLenum              &getMagFilter       (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getEnvMode(void);
+                  GLenum              &getEnvMode         (void);
 #endif
-           GLenum &editEnvMode(void);
-     const GLenum &getEnvMode (void) const;
+                  GLenum              &editEnvMode        (void);
+            const GLenum              &getEnvMode         (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getEnvMap(void);
+                  bool                &getEnvMap          (void);
 #endif
-           bool &editEnvMap(void);
-     const bool &getEnvMap (void) const;
+                  bool                &editEnvMap         (void);
+            const bool                &getEnvMap          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setImage(ImagePtrConstArg value);
-     void setMinFilter(const GLenum &value);
-     void setMagFilter(const GLenum &value);
-     void setEnvMode(const GLenum &value);
-     void setEnvMap(const bool &value);
+            void setImage          (ImagePtrConstArg value);
+            void setMinFilter      (const GLenum &value);
+            void setMagFilter      (const GLenum &value);
+            void setEnvMode        (const GLenum &value);
+            void setEnvMap         (const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -273,15 +272,15 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleTexturedMaterialPtr create     (void); 
-    static  SimpleTexturedMaterialPtr createEmpty(void); 
+    static  SimpleTexturedMaterialPtr create     (void);
+    static  SimpleTexturedMaterialPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -297,11 +296,11 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFImagePtr _sfImage;
-    SFGLenum _sfMinFilter;
-    SFGLenum _sfMagFilter;
-    SFGLenum _sfEnvMode;
-    SFBool _sfEnvMap;
+    SFImagePtr        _sfImage;
+    SFGLenum          _sfMinFilter;
+    SFGLenum          _sfMagFilter;
+    SFGLenum          _sfEnvMode;
+    SFBool            _sfEnvMap;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -316,7 +315,7 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SimpleTexturedMaterialBase(void); 
+    virtual ~SimpleTexturedMaterialBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -363,11 +362,11 @@ class OSG_SYSTEM_DLLMAPPING SimpleTexturedMaterialBase : public SimpleMaterial
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

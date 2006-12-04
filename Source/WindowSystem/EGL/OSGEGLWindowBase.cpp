@@ -65,23 +65,33 @@
 #include "OSGEGLWindowBase.h"
 #include "OSGEGLWindow.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var EGLDisplay EGLWindowBase::_sfDisplay
+/*! \class OSG::EGLWindow
+    The class for EGL windows.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var EGLDisplay      EGLWindowBase::_sfDisplay
     
 */
-/*! \var EGLSurface EGLWindowBase::_sfWindow
+/*! \var EGLSurface      EGLWindowBase::_sfWindow
     
 */
-/*! \var EGLContext EGLWindowBase::_sfContext
+/*! \var EGLContext      EGLWindowBase::_sfContext
     
 */
 
 void EGLWindowBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -91,8 +101,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFEGLDisplay::Description(
-        SFEGLDisplay::getClassType(), 
-        "display", 
+        SFEGLDisplay::getClassType(),
+        "display",
         "",
         DisplayFieldId, DisplayFieldMask,
         true,
@@ -113,8 +123,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFEGLSurface::Description(
-        SFEGLSurface::getClassType(), 
-        "window", 
+        SFEGLSurface::getClassType(),
+        "window",
         "",
         WindowFieldId, WindowFieldMask,
         true,
@@ -135,8 +145,8 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFEGLContext::Description(
-        SFEGLContext::getClassType(), 
-        "context", 
+        SFEGLContext::getClassType(),
+        "context",
         "",
         ContextFieldId, ContextFieldMask,
         true,
@@ -162,67 +172,66 @@ EGLWindowBase::TypeObject EGLWindowBase::_type(true,
     (InitalInsertDescFunc) &EGLWindowBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"EGLWindow\"\n"
-"	parent=\"Window\"\n"
-"	library=\"WindowEGL\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The class for EGL windows.\n"
-"	<Field\n"
-"		name=\"display\"\n"
-"		type=\"EGLDisplay\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		header=\"OSGEGLWindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"window\"\n"
-"		type=\"EGLSurface\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		header=\"OSGEGLWindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"context\"\n"
-"		type=\"EGLContext\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		header=\"OSGEGLWindowDataFields.h\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The class for EGL windows.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"EGLWindow\"\n"
+    "\tparent=\"Window\"\n"
+    "\tlibrary=\"WindowEGL\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "The class for EGL windows.\n"
+    "\t<Field\n"
+    "\t\tname=\"display\"\n"
+    "\t\ttype=\"EGLDisplay\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\theader=\"OSGEGLWindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"window\"\n"
+    "\t\ttype=\"EGLSurface\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\theader=\"OSGEGLWindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"context\"\n"
+    "\t\ttype=\"EGLContext\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\theader=\"OSGEGLWindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "The class for EGL windows.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &EGLWindowBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &EGLWindowBase::getType(void) const 
+FieldContainerType &EGLWindowBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 EGLWindowBase::getContainerSize(void) const 
-{ 
-    return sizeof(EGLWindow); 
+const FieldContainerType &EGLWindowBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 EGLWindowBase::getContainerSize(void) const
+{
+    return sizeof(EGLWindow);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -241,9 +250,9 @@ const SFEGLDisplay *EGLWindowBase::getSFDisplay(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFEGLDisplay *EGLWindowBase::getSFDisplay(void)
+SFEGLDisplay        *EGLWindowBase::getSFDisplay        (void)
 {
-    return this->editSFDisplay();
+    return this->editSFDisplay        ();
 }
 #endif
 
@@ -260,9 +269,9 @@ const SFEGLSurface *EGLWindowBase::getSFWindow(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFEGLSurface *EGLWindowBase::getSFWindow(void)
+SFEGLSurface        *EGLWindowBase::getSFWindow         (void)
 {
-    return this->editSFWindow();
+    return this->editSFWindow         ();
 }
 #endif
 
@@ -279,9 +288,9 @@ const SFEGLContext *EGLWindowBase::getSFContext(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFEGLContext *EGLWindowBase::getSFContext(void)
+SFEGLContext        *EGLWindowBase::getSFContext        (void)
 {
-    return this->editSFContext();
+    return this->editSFContext        ();
 }
 #endif
 
@@ -348,22 +357,22 @@ void EGLWindowBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-EGLWindowPtr EGLWindowBase::createEmpty(void) 
-{ 
-    EGLWindowPtr returnValue; 
-    
-    newPtr<EGLWindow>(returnValue); 
+EGLWindowPtr EGLWindowBase::createEmpty(void)
+{
+    EGLWindowPtr returnValue;
 
-    return returnValue; 
+    newPtr<EGLWindow>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr EGLWindowBase::shallowCopy(void) const 
-{ 
-    EGLWindowPtr returnValue; 
+FieldContainerPtr EGLWindowBase::shallowCopy(void) const
+{
+    EGLWindowPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const EGLWindow *>(this)); 
+    newPtr(returnValue, dynamic_cast<const EGLWindow *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -372,17 +381,17 @@ FieldContainerPtr EGLWindowBase::shallowCopy(void) const
 
 EGLWindowBase::EGLWindowBase(void) :
     Inherited(),
-    _sfDisplay(EGLDisplay(0)),
-    _sfWindow(EGLSurface(0)),
-    _sfContext(EGLContext(0))
+    _sfDisplay                (EGLDisplay(0)),
+    _sfWindow                 (EGLSurface(0)),
+    _sfContext                (EGLContext(0))
 {
 }
 
 EGLWindowBase::EGLWindowBase(const EGLWindowBase &source) :
     Inherited(source),
-    _sfDisplay(source._sfDisplay),
-    _sfWindow(source._sfWindow),
-    _sfContext(source._sfContext)
+    _sfDisplay                (source._sfDisplay                ),
+    _sfWindow                 (source._sfWindow                 ),
+    _sfContext                (source._sfContext                )
 {
 }
 
@@ -396,13 +405,13 @@ EGLWindowBase::~EGLWindowBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void EGLWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<EGLWindowBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -412,10 +421,10 @@ void EGLWindowBase::execSyncV(      FieldContainer    &oFrom,
 void EGLWindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<EGLWindowBase *>(&oFrom), 
+    this->execSync(static_cast<EGLWindowBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -435,12 +444,12 @@ void EGLWindowBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr EGLWindowBase::createAspectCopy(void) const
 {
-    EGLWindowPtr returnValue; 
+    EGLWindowPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const EGLWindow *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const EGLWindow *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -449,6 +458,8 @@ void EGLWindowBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -471,8 +482,6 @@ OSG_FIELDTRAITS_GETTYPE(EGLWindowPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, EGLWindowPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, EGLWindowPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -493,3 +502,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGEGLWINDOWFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

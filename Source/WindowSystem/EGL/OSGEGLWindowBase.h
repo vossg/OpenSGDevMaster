@@ -87,22 +87,22 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               EGLWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               EGLWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               EGLWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               EGLWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               EGLWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               EGLWindow>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -118,22 +118,21 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
         NextFieldId = ContextFieldId + 1
     };
 
-    static const OSG::BitVector DisplayFieldMask = 
+    static const OSG::BitVector DisplayFieldMask =
         (TypeTraits<BitVector>::One << DisplayFieldId);
-    static const OSG::BitVector WindowFieldMask = 
+    static const OSG::BitVector WindowFieldMask =
         (TypeTraits<BitVector>::One << WindowFieldId);
-    static const OSG::BitVector ContextFieldMask = 
+    static const OSG::BitVector ContextFieldMask =
         (TypeTraits<BitVector>::One << ContextFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -141,8 +140,8 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -153,50 +152,50 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
 
 
 #ifdef OSG_1_COMPAT
-           SFEGLDisplay *getSFDisplay(void);
+                  SFEGLDisplay        *getSFDisplay         (void);
 #endif
-           SFEGLDisplay *editSFDisplay(void);
-     const SFEGLDisplay *getSFDisplay (void) const;
+                  SFEGLDisplay        *editSFDisplay        (void);
+            const SFEGLDisplay        *getSFDisplay         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFEGLSurface *getSFWindow(void);
+                  SFEGLSurface        *getSFWindow          (void);
 #endif
-           SFEGLSurface *editSFWindow(void);
-     const SFEGLSurface *getSFWindow (void) const;
+                  SFEGLSurface        *editSFWindow         (void);
+            const SFEGLSurface        *getSFWindow          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFEGLContext *getSFContext(void);
+                  SFEGLContext        *getSFContext         (void);
 #endif
-           SFEGLContext *editSFContext(void);
-     const SFEGLContext *getSFContext (void) const;
+                  SFEGLContext        *editSFContext        (void);
+            const SFEGLContext        *getSFContext         (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           EGLDisplay &getDisplay(void);
+                  EGLDisplay          &getDisplay         (void);
 #endif
-           EGLDisplay &editDisplay(void);
-     const EGLDisplay &getDisplay (void) const;
+                  EGLDisplay          &editDisplay        (void);
+            const EGLDisplay          &getDisplay         (void) const;
 
 #ifdef OSG_1_COMPAT
-           EGLSurface &getWindow(void);
+                  EGLSurface          &getWindow          (void);
 #endif
-           EGLSurface &editWindow(void);
-     const EGLSurface &getWindow (void) const;
+                  EGLSurface          &editWindow         (void);
+            const EGLSurface          &getWindow          (void) const;
 
 #ifdef OSG_1_COMPAT
-           EGLContext &getContext(void);
+                  EGLContext          &getContext         (void);
 #endif
-           EGLContext &editContext(void);
-     const EGLContext &getContext (void) const;
+                  EGLContext          &editContext        (void);
+            const EGLContext          &getContext         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setDisplay(const EGLDisplay &value);
-     void setWindow(const EGLSurface &value);
-     void setContext(const EGLContext &value);
+            void setDisplay        (const EGLDisplay &value);
+            void setWindow         (const EGLSurface &value);
+            void setContext        (const EGLContext &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -216,15 +215,15 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  EGLWindowPtr create     (void); 
-    static  EGLWindowPtr createEmpty(void); 
+    static  EGLWindowPtr create     (void);
+    static  EGLWindowPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -240,9 +239,9 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFEGLDisplay _sfDisplay;
-    SFEGLSurface _sfWindow;
-    SFEGLContext _sfContext;
+    SFEGLDisplay      _sfDisplay;
+    SFEGLSurface      _sfWindow;
+    SFEGLContext      _sfContext;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,7 +256,7 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~EGLWindowBase(void); 
+    virtual ~EGLWindowBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -303,11 +302,11 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

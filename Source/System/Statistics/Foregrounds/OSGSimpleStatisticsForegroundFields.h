@@ -70,22 +70,22 @@ class SimpleStatisticsForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SimpleStatisticsForegroundPtr
 
-typedef PointerFwdBuilder<StatisticsForegroundPtr, 
+typedef PointerFwdBuilder<StatisticsForegroundPtr,
                           StatisticsForegroundConstPtr,
                           SimpleStatisticsForeground>::ObjPtr         SimpleStatisticsForegroundPtr;
-typedef PointerFwdBuilder<StatisticsForegroundPtr, 
+typedef PointerFwdBuilder<StatisticsForegroundPtr,
                           StatisticsForegroundConstPtr,
                           SimpleStatisticsForeground>::ObjPtrConst    SimpleStatisticsForegroundPtrConst;
-typedef PointerFwdBuilder<StatisticsForegroundPtr, 
+typedef PointerFwdBuilder<StatisticsForegroundPtr,
                           StatisticsForegroundConstPtr,
                           SimpleStatisticsForeground>::ObjConstPtr    SimpleStatisticsForegroundConstPtr;
-typedef PointerFwdBuilder<StatisticsForegroundPtr, 
+typedef PointerFwdBuilder<StatisticsForegroundPtr,
                           StatisticsForegroundConstPtr,
                           SimpleStatisticsForeground>::ObjPtrArg      SimpleStatisticsForegroundPtrArg;
-typedef PointerFwdBuilder<StatisticsForegroundPtr, 
+typedef PointerFwdBuilder<StatisticsForegroundPtr,
                           StatisticsForegroundConstPtr,
                           SimpleStatisticsForeground>::ObjConstPtrArg SimpleStatisticsForegroundConstPtrArg;
-typedef PointerFwdBuilder<StatisticsForegroundPtr, 
+typedef PointerFwdBuilder<StatisticsForegroundPtr,
                           StatisticsForegroundConstPtr,
                           SimpleStatisticsForeground>::ObjPtrConstArg SimpleStatisticsForegroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<StatisticsForegroundPtr,
 #endif
 
 template <>
-struct FieldTraits<SimpleStatisticsForegroundPtr> : 
+struct FieldTraits<SimpleStatisticsForegroundPtr> :
     public FieldTraitsTemplateBase<SimpleStatisticsForegroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SimpleStatisticsForegroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_UTIL_DLLMAPPING 
+    static OSG_UTIL_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFSimpleStatisticsForegroundPtr"; }

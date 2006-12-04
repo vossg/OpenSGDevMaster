@@ -51,26 +51,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::Material
-    \ingroup GrpSystemMaterial
-
-  The material base class.
-  
-  \ext The Material has two interfaces to return a State that represents it.
-  OSG::Material::makeState() creates a new OSG::State and returns it. This is 
-  ok for rare use, but for every frame this is going to be too expensive. For 
-  these cases OSG::Material::rebuildState() and OSG::Material::getState() are 
-  used, which modify and return an internal copy of the State. 
-
-  The other method to implement is OSG::Material::isTransparent(), to identify
-  transparent materials to be rendered after the opaque ones.
-  \endext
- */
+// Documentation for this class is emited in the
+// OSGMaterialBase.cpp file.
+// To modify it, please change the .fcd file (OSGMaterial.fcd) and
+// regenerate the base file.
 
 /*! \fn OSG::Material::makeState()
   

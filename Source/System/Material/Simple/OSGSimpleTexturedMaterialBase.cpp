@@ -60,52 +60,70 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // MinFilter default header
-#include <OSGGL.h>   // MagFilter default header
-#include <OSGGL.h>   // EnvMode default header
+#include <OSGGL.h>                        // MinFilter default header
+#include <OSGGL.h>                        // MagFilter default header
+#include <OSGGL.h>                        // EnvMode default header
 
 #include <OSGImage.h> // Image Class
 
 #include "OSGSimpleTexturedMaterialBase.h"
 #include "OSGSimpleTexturedMaterial.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var ImagePtr SimpleTexturedMaterialBase::_sfImage
-    	Defines the texture image.
+/*! \class OSG::SimpleTexturedMaterial
+    \ingroup GrpSystemMaterial
 
+    The simple textured material class. See \ref
+    PageSystemMaterialTexturedSimpleMaterial for a description.
+
+    A OSG::SimpleMaterial with an added texture. It doesn't expose all
+    features  of the texture, just the ones needed most often.
+
+    OSG::SimpleTexturedMaterial::_sfImage defines the texture,
+    OSG::SimpleTexturedMaterial::_sfMinFilter and
+    OSG::SimpleTexturedMaterial::_sfMagFilter the used filters and
+    OSG::SimpleTexturedMaterial::_sfEnvMode the environment mode. As a
+    special  case OSG::SimpleTexturedMaterial::_sfEnvMap can be used to use
+    the texture as a spherical environment map.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var ImagePtr        SimpleTexturedMaterialBase::_sfImage
+    Defines the texture image.
 */
-/*! \var GLenum SimpleTexturedMaterialBase::_sfMinFilter
-    	Defines the minification filter, see glTexParameter for details.          
-        Default: GL_LINEAR_MIPMAP_LINEAR.
-
+/*! \var GLenum          SimpleTexturedMaterialBase::_sfMinFilter
+    Defines the minification filter, see glTexParameter for details.
+    Default: GL_LINEAR_MIPMAP_LINEAR.
 */
-/*! \var GLenum SimpleTexturedMaterialBase::_sfMagFilter
-    	Defines the magnification filter, see glTexParameter for details.          
-        Default: GL_LINEAR
-
+/*! \var GLenum          SimpleTexturedMaterialBase::_sfMagFilter
+    Defines the magnification filter, see glTexParameter for details.
+    Default: GL_LINEAR
 */
-/*! \var GLenum SimpleTexturedMaterialBase::_sfEnvMode
-    	Sets the environment mode, defining how texture and lighting color interact.         
-        Default: GL_REPLACE.
-
+/*! \var GLenum          SimpleTexturedMaterialBase::_sfEnvMode
+    Sets the environment mode, defining how texture and lighting color
+    interact. Default: GL_REPLACE.
 */
-/*! \var bool SimpleTexturedMaterialBase::_sfEnvMap
-    	Defines whether to use the texture as a spherical environment map.
-
+/*! \var bool            SimpleTexturedMaterialBase::_sfEnvMap
+    Defines whether to use the texture as a spherical environment map.
 */
 
 void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "image", 
-        "	Defines the texture image.\n",
+        SFImagePtr::getClassType(),
+        "image",
+        "Defines the texture image.\n",
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -121,9 +139,10 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "minFilter", 
-        "	Defines the minification filter, see glTexParameter for details.          \n        Default: GL_LINEAR_MIPMAP_LINEAR.\n",
+        SFGLenum::getClassType(),
+        "minFilter",
+        "Defines the minification filter, see glTexParameter for details.\n"
+        "Default: GL_LINEAR_MIPMAP_LINEAR.\n",
         MinFilterFieldId, MinFilterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -143,9 +162,10 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "magFilter", 
-        "	Defines the magnification filter, see glTexParameter for details.          \n        Default: GL_LINEAR\n",
+        SFGLenum::getClassType(),
+        "magFilter",
+        "Defines the magnification filter, see glTexParameter for details.\n"
+        "Default: GL_LINEAR\n",
         MagFilterFieldId, MagFilterFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -165,9 +185,10 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "envMode", 
-        "	Sets the environment mode, defining how texture and lighting color interact.         \n        Default: GL_REPLACE.\n",
+        SFGLenum::getClassType(),
+        "envMode",
+        "Sets the environment mode, defining how texture and lighting color interact.\n"
+        "Default: GL_REPLACE.\n",
         EnvModeFieldId, EnvModeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -187,9 +208,9 @@ void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "envMap", 
-        "	Defines whether to use the texture as a spherical environment map.\n",
+        SFBool::getClassType(),
+        "envMap",
+        "Defines whether to use the texture as a spherical environment map.\n",
         EnvMapFieldId, EnvMapFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -214,97 +235,120 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(true,
     (InitalInsertDescFunc) &SimpleTexturedMaterialBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SimpleTexturedMaterial\"\n"
-"	parent=\"SimpleMaterial\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"A SimpleMaterial with an added texture. It doesn't expose all features of the texture, \n"
-"just the ones needed most often.\n"
-"	<Field\n"
-"		name=\"image\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Defines the texture image.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"minFilter\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR\"                \n"
-"	>\n"
-"	Defines the minification filter, see glTexParameter for details.          \n"
-"        Default: GL_LINEAR_MIPMAP_LINEAR.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"magFilter\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_LINEAR\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_NEAREST, GL_LINEAR\"\n"
-"	>\n"
-"	Defines the magnification filter, see glTexParameter for details.          \n"
-"        Default: GL_LINEAR\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envMode\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_REPLACE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"                potential_values=\"GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE\"\n"
-"	>\n"
-"	Sets the environment mode, defining how texture and lighting color interact.         \n"
-"        Default: GL_REPLACE.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"envMap\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Defines whether to use the texture as a spherical environment map.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A SimpleMaterial with an added texture. It doesn't expose all features of the texture, \njust the ones needed most often.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SimpleTexturedMaterial\"\n"
+    "\tparent=\"SimpleMaterial\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemMaterial\n"
+    "\n"
+    "The simple textured material class. See \\ref\n"
+    "PageSystemMaterialTexturedSimpleMaterial for a description.\n"
+    "\n"
+    "A OSG::SimpleMaterial with an added texture. It doesn't expose all features \n"
+    "of the texture, just the ones needed most often.\n"
+    "\n"
+    "OSG::SimpleTexturedMaterial::_sfImage defines the texture, \n"
+    "OSG::SimpleTexturedMaterial::_sfMinFilter and\n"
+    "OSG::SimpleTexturedMaterial::_sfMagFilter the used filters and \n"
+    "OSG::SimpleTexturedMaterial::_sfEnvMode the environment mode. As a special \n"
+    "case\n"
+    "OSG::SimpleTexturedMaterial::_sfEnvMap can be used to use the texture as a\n"
+    "spherical environment map.\n"
+    "\t<Field\n"
+    "\t\tname=\"image\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefines the texture image.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"minFilter\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR\"\n"
+    "\t>\n"
+    "\tDefines the minification filter, see glTexParameter for details.\n"
+    "        Default: GL_LINEAR_MIPMAP_LINEAR.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"magFilter\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_LINEAR\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_NEAREST, GL_LINEAR\"\n"
+    "\t>\n"
+    "\tDefines the magnification filter, see glTexParameter for details.\n"
+    "        Default: GL_LINEAR\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envMode\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_REPLACE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "                potential_values=\"GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE\"\n"
+    "\t>\n"
+    "\tSets the environment mode, defining how texture and lighting color interact.\n"
+    "        Default: GL_REPLACE.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"envMap\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefines whether to use the texture as a spherical environment map.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemMaterial\n"
+    "The simple textured material class. See \\ref\n"
+    "PageSystemMaterialTexturedSimpleMaterial for a description.\n"
+    "A OSG::SimpleMaterial with an added texture. It doesn't expose all features \n"
+    "of the texture, just the ones needed most often.\n"
+    "OSG::SimpleTexturedMaterial::_sfImage defines the texture, \n"
+    "OSG::SimpleTexturedMaterial::_sfMinFilter and\n"
+    "OSG::SimpleTexturedMaterial::_sfMagFilter the used filters and \n"
+    "OSG::SimpleTexturedMaterial::_sfEnvMode the environment mode. As a special \n"
+    "case\n"
+    "OSG::SimpleTexturedMaterial::_sfEnvMap can be used to use the texture as a\n"
+    "spherical environment map.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SimpleTexturedMaterialBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SimpleTexturedMaterialBase::getType(void) const 
+FieldContainerType &SimpleTexturedMaterialBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SimpleTexturedMaterialBase::getContainerSize(void) const 
-{ 
-    return sizeof(SimpleTexturedMaterial); 
+const FieldContainerType &SimpleTexturedMaterialBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SimpleTexturedMaterialBase::getContainerSize(void) const
+{
+    return sizeof(SimpleTexturedMaterial);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -329,9 +373,9 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFMinFilter(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *SimpleTexturedMaterialBase::getSFMinFilter(void)
+SFGLenum            *SimpleTexturedMaterialBase::getSFMinFilter      (void)
 {
-    return this->editSFMinFilter();
+    return this->editSFMinFilter      ();
 }
 #endif
 
@@ -348,9 +392,9 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFMagFilter(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *SimpleTexturedMaterialBase::getSFMagFilter(void)
+SFGLenum            *SimpleTexturedMaterialBase::getSFMagFilter      (void)
 {
-    return this->editSFMagFilter();
+    return this->editSFMagFilter      ();
 }
 #endif
 
@@ -367,9 +411,9 @@ const SFGLenum *SimpleTexturedMaterialBase::getSFEnvMode(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *SimpleTexturedMaterialBase::getSFEnvMode(void)
+SFGLenum            *SimpleTexturedMaterialBase::getSFEnvMode        (void)
 {
-    return this->editSFEnvMode();
+    return this->editSFEnvMode        ();
 }
 #endif
 
@@ -386,9 +430,9 @@ const SFBool *SimpleTexturedMaterialBase::getSFEnvMap(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *SimpleTexturedMaterialBase::getSFEnvMap(void)
+SFBool              *SimpleTexturedMaterialBase::getSFEnvMap         (void)
 {
-    return this->editSFEnvMap();
+    return this->editSFEnvMap         ();
 }
 #endif
 
@@ -540,22 +584,22 @@ void SimpleTexturedMaterialBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::createEmpty(void) 
-{ 
-    SimpleTexturedMaterialPtr returnValue; 
-    
-    newPtr<SimpleTexturedMaterial>(returnValue); 
+SimpleTexturedMaterialPtr SimpleTexturedMaterialBase::createEmpty(void)
+{
+    SimpleTexturedMaterialPtr returnValue;
 
-    return returnValue; 
+    newPtr<SimpleTexturedMaterial>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SimpleTexturedMaterialBase::shallowCopy(void) const 
-{ 
-    SimpleTexturedMaterialPtr returnValue; 
+FieldContainerPtr SimpleTexturedMaterialBase::shallowCopy(void) const
+{
+    SimpleTexturedMaterialPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SimpleTexturedMaterial *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SimpleTexturedMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -564,21 +608,21 @@ FieldContainerPtr SimpleTexturedMaterialBase::shallowCopy(void) const
 
 SimpleTexturedMaterialBase::SimpleTexturedMaterialBase(void) :
     Inherited(),
-    _sfImage(),
-    _sfMinFilter(GLenum(GL_LINEAR_MIPMAP_LINEAR)),
-    _sfMagFilter(GLenum(GL_LINEAR)),
-    _sfEnvMode(GLenum(GL_REPLACE)),
-    _sfEnvMap(bool(false))
+    _sfImage                  (),
+    _sfMinFilter              (GLenum(GL_LINEAR_MIPMAP_LINEAR)),
+    _sfMagFilter              (GLenum(GL_LINEAR)),
+    _sfEnvMode                (GLenum(GL_REPLACE)),
+    _sfEnvMap                 (bool(false))
 {
 }
 
 SimpleTexturedMaterialBase::SimpleTexturedMaterialBase(const SimpleTexturedMaterialBase &source) :
     Inherited(source),
-    _sfImage(),
-    _sfMinFilter(source._sfMinFilter),
-    _sfMagFilter(source._sfMagFilter),
-    _sfEnvMode(source._sfEnvMode),
-    _sfEnvMap(source._sfEnvMap)
+    _sfImage                  (),
+    _sfMinFilter              (source._sfMinFilter              ),
+    _sfMagFilter              (source._sfMagFilter              ),
+    _sfEnvMode                (source._sfEnvMode                ),
+    _sfEnvMap                 (source._sfEnvMap                 )
 {
 }
 
@@ -602,13 +646,13 @@ void SimpleTexturedMaterialBase::onCreate(const SimpleTexturedMaterial *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SimpleTexturedMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SimpleTexturedMaterialBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -618,10 +662,10 @@ void SimpleTexturedMaterialBase::execSyncV(      FieldContainer    &oFrom,
 void SimpleTexturedMaterialBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SimpleTexturedMaterialBase *>(&oFrom), 
+    this->execSync(static_cast<SimpleTexturedMaterialBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -641,12 +685,12 @@ void SimpleTexturedMaterialBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SimpleTexturedMaterialBase::createAspectCopy(void) const
 {
-    SimpleTexturedMaterialPtr returnValue; 
+    SimpleTexturedMaterialPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SimpleTexturedMaterial *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SimpleTexturedMaterial *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -657,6 +701,8 @@ void SimpleTexturedMaterialBase::resolveLinks(void)
     static_cast<SimpleTexturedMaterial *>(this)->setImage(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -679,8 +725,6 @@ OSG_FIELDTRAITS_GETTYPE(SimpleTexturedMaterialPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, SimpleTexturedMaterialPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, SimpleTexturedMaterialPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -701,3 +745,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSIMPLETEXTUREDMATERIALFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

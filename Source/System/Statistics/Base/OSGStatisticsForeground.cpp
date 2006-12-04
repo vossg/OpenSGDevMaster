@@ -49,25 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::StatisticsForeground
-    \ingroup GrpSystemWindowForegrounds
-
-StatisticsForeground is the base class for all foregrounds that process
-statistics.  Decendents of this class can be used to print or draw Statistics
-elements on the rendered image.
-
-The OSG::StatisticsCollector that is used to collect the elements needs to be
-attached to the foreground in the _sfCollection field and the list of
-OSG::StatElemDesc IDs that should be displayed need to be selected with the
-_mfElementIDs field.
-
-Statistics presentation is done as a foreground so it can be drawn on top of a
-currently rendering scene.  This does not mean you could not collect statistics
-directly and present them to the user in another way such as a GUI or text output.
-
-See \ref PageSystemWindowForegroundStatistics for a description.
-
-*/
+// Documentation for this class is emited in the
+// OSGStatisticsForegroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGStatisticsForeground.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

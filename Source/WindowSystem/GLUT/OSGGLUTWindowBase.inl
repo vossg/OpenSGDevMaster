@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &GLUTWindowBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GLUTWindowBase::getClassTypeId(void) 
+OSG::UInt32 GLUTWindowBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 GLUTWindowBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Int32 &GLUTWindowBase::getId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &GLUTWindowBase::getId(void)
+Int32               &GLUTWindowBase::getId             (void)
 {
-    return this->editId();
+    return this->editId             ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void GLUTWindowBase::setId(const Int32 &value)
 
 //! create a new instance of the class
 inline
-GLUTWindowPtr GLUTWindowBase::create(void) 
+GLUTWindowPtr GLUTWindowBase::create(void)
 {
-    GLUTWindowPtr fc; 
+    GLUTWindowPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<GLUTWindow::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void GLUTWindowBase::execSync(      GLUTWindowBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void GLUTWindowBase::execSync (      GLUTWindowBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<GLUTWindow>::ObjPtrConstArg  GLUTWindowPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGGLUTWINDOWBASE_INLINE_CVSID "@(#)$Id$"
-

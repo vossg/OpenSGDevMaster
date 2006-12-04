@@ -11,6 +11,8 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
+Material that allows selection of one of the materials in the _mfMaterials
+field based on the value of the _sfChoice field.
 	<Field
 		name="materials"
 		type="MaterialPtr"
@@ -18,6 +20,7 @@
 		visibility="external"
 		access="public"
 	>
+	Materials to choose from.
 	</Field>
 	<Field
 		name="choice"
@@ -26,5 +29,6 @@
 		visibility="external"
 		access="public"
 	>
+	The material to actually use for drawing.
 	</Field>
 </FieldContainer>

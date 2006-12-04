@@ -55,23 +55,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ChunkMaterial
-    \ingroup GrpSystemMaterial
-
-  The chunk material class. See \ref PageSystemMaterialChunkMaterial for a
-  description.
-  
-  Chunks can be attached and detached from the material using
-  OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more
-  complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks
-  field's functions.
-  
- */
+// Documentation for this class is emited in the
+// OSGChunkMaterialBase.cpp file.
+// To modify it, please change the .fcd file (OSGChunkMaterial.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *
