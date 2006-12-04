@@ -58,20 +58,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::TextureGrabBackground
-    \ingroup GrpSystemWindowBackgrounds
-
-  A background that grabs what's underneath it into a texture before it clears 
-  the viewport to a constant color.    
-  
-  The color of the background is given by the _sfColor field, the texture to 
-  grab into .
-
-*/
+// Documentation for this class is emited in the
+// OSGTextureGrabBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGTextureGrabBackground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

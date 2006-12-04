@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ForegroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ForegroundBase::getClassTypeId(void) 
+OSG::UInt32 ForegroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ForegroundBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &ForegroundBase::getActive(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ForegroundBase::getActive(void)
+bool                &ForegroundBase::getActive         (void)
 {
-    return this->editActive();
+    return this->editActive         ();
 }
 #endif
 
@@ -112,7 +112,7 @@ void ForegroundBase::setActive(const bool &value)
 inline
 void ForegroundBase::execSync(      ForegroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -128,7 +128,7 @@ inline
 void ForegroundBase::execSync (      ForegroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -166,4 +166,3 @@ typedef PointerBuilder<Foreground>::ObjPtrConstArg  ForegroundPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

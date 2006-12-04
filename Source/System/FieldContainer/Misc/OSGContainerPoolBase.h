@@ -86,22 +86,22 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
-                              FieldContainerAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
+                              FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
-                              FieldContainerAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
+                              FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               ContainerPool>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
         NextFieldId = ContainersFieldId + 1
     };
 
-    static const OSG::BitVector NameFieldMask = 
+    static const OSG::BitVector NameFieldMask =
         (TypeTraits<BitVector>::One << NameFieldId);
-    static const OSG::BitVector ContainersFieldMask = 
+    static const OSG::BitVector ContainersFieldMask =
         (TypeTraits<BitVector>::One << ContainersFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,53 +148,53 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
 
 
 #ifdef OSG_1_COMPAT
-           SFString *getSFName(void);
+                  SFString            *getSFName            (void);
 #endif
-           SFString *editSFName(void);
-     const SFString *getSFName (void) const;
-     const MFFieldContainerPtr *getMFContainers (void) const;
+                  SFString            *editSFName           (void);
+            const SFString            *getSFName            (void) const;
+            const MFFieldContainerPtr *getMFContainers      (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           std::string &getName(void);
+                  std::string         &getName            (void);
 #endif
-           std::string &editName(void);
-     const std::string &getName (void) const;
+                  std::string         &editName           (void);
+            const std::string         &getName            (void) const;
 
-           FieldContainerPtrConst getContainers(const UInt32 index) const;
-     const MFFieldContainerPtr &getContainers(void) const;
+                  FieldContainerPtrConst getContainers     (const UInt32 index) const;
+            const MFFieldContainerPtr &getContainers     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setName(const std::string &value);
+            void setName           (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -207,16 +206,16 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
 
     void pushToContainers           (FieldContainerPtrConstArg value   );
     void insertIntoContainers      (UInt32                uiIndex,
-                                    FieldContainerPtrConstArg value   );
+                                             FieldContainerPtrConstArg value   );
     void replaceInContainers  (UInt32                uiIndex,
-                                    FieldContainerPtrConstArg value   );
+                                             FieldContainerPtrConstArg value   );
     void replaceInContainers (FieldContainerPtrConstArg pOldElem,
-                                    FieldContainerPtrConstArg pNewElem);
+                                             FieldContainerPtrConstArg pNewElem);
     void removeFromContainers (UInt32                uiIndex );
     void removeFromContainers(FieldContainerPtrConstArg value   );
     void clearContainers            (void                          );
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,15 +234,15 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ContainerPoolPtr create     (void); 
-    static  ContainerPoolPtr createEmpty(void); 
+    static  ContainerPoolPtr create     (void);
+    static  ContainerPoolPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -259,7 +258,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFString _sfName;
+    SFString          _sfName;
     MFFieldContainerPtr _mfContainers;
 
     /*! \}                                                                 */
@@ -275,7 +274,7 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ContainerPoolBase(void); 
+    virtual ~ContainerPoolBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -322,11 +321,11 @@ class OSG_SYSTEM_DLLMAPPING ContainerPoolBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

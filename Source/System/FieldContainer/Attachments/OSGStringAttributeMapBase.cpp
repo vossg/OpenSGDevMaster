@@ -65,20 +65,32 @@
 #include "OSGStringAttributeMapBase.h"
 #include "OSGStringAttributeMap.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var std::string StringAttributeMapBase::_mfKeys
+/*! \class OSG::StringAttributeMap
+    An attachment that stores a string-to-string mapping of keys to
+    values. User code can store any key and value pair and interpret the
+    string value in whatever ways are appropriate.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var std::string     StringAttributeMapBase::_mfKeys
     
 */
-/*! \var std::string StringAttributeMapBase::_mfValues
+/*! \var std::string     StringAttributeMapBase::_mfValues
     
 */
 
 void StringAttributeMapBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -88,8 +100,8 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFString::Description(
-        MFString::getClassType(), 
-        "keys", 
+        MFString::getClassType(),
+        "keys",
         "",
         KeysFieldId, KeysFieldMask,
         false,
@@ -110,8 +122,8 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFString::Description(
-        MFString::getClassType(), 
-        "values", 
+        MFString::getClassType(),
+        "values",
         "",
         ValuesFieldId, ValuesFieldMask,
         false,
@@ -137,55 +149,58 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(true,
     (InitalInsertDescFunc) &StringAttributeMapBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"StringAttributeMap\"\n"
-"	parent=\"FieldContainerAttachment\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"single\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"An attachment that stores a string-to-string mapping of keys to values. User code can store any key and value pair and interpret the string value in whatever ways are appropriate.\n"
-"	<Field\n"
-"		name=\"keys\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"values\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "An attachment that stores a string-to-string mapping of keys to values. User code can store any key and value pair and interpret the string value in whatever ways are appropriate.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"StringAttributeMap\"\n"
+    "\tparent=\"FieldContainerAttachment\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"single\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "An attachment that stores a string-to-string mapping of keys to values.\n"
+    "User code can store any key and value pair and interpret the string value in\n"
+    "whatever ways are appropriate.\n"
+    "\t<Field\n"
+    "\t\tname=\"keys\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"values\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "An attachment that stores a string-to-string mapping of keys to values.\n"
+    "User code can store any key and value pair and interpret the string value in\n"
+    "whatever ways are appropriate.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &StringAttributeMapBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &StringAttributeMapBase::getType(void) const 
+FieldContainerType &StringAttributeMapBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 StringAttributeMapBase::getContainerSize(void) const 
-{ 
-    return sizeof(StringAttributeMap); 
+const FieldContainerType &StringAttributeMapBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 StringAttributeMapBase::getContainerSize(void) const
+{
+    return sizeof(StringAttributeMap);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -204,9 +219,9 @@ const MFString *StringAttributeMapBase::getMFKeys(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFString *StringAttributeMapBase::getMFKeys(void)
+MFString            *StringAttributeMapBase::getMFKeys           (void)
 {
-    return this->editMFKeys();
+    return this->editMFKeys           ();
 }
 #endif
 
@@ -223,9 +238,9 @@ const MFString *StringAttributeMapBase::getMFValues(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFString *StringAttributeMapBase::getMFValues(void)
+MFString            *StringAttributeMapBase::getMFValues         (void)
 {
-    return this->editMFValues();
+    return this->editMFValues         ();
 }
 #endif
 
@@ -280,22 +295,22 @@ void StringAttributeMapBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StringAttributeMapPtr StringAttributeMapBase::createEmpty(void) 
-{ 
-    StringAttributeMapPtr returnValue; 
-    
-    newPtr<StringAttributeMap>(returnValue); 
+StringAttributeMapPtr StringAttributeMapBase::createEmpty(void)
+{
+    StringAttributeMapPtr returnValue;
 
-    return returnValue; 
+    newPtr<StringAttributeMap>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr StringAttributeMapBase::shallowCopy(void) const 
-{ 
-    StringAttributeMapPtr returnValue; 
+FieldContainerPtr StringAttributeMapBase::shallowCopy(void) const
+{
+    StringAttributeMapPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const StringAttributeMap *>(this)); 
+    newPtr(returnValue, dynamic_cast<const StringAttributeMap *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -304,15 +319,15 @@ FieldContainerPtr StringAttributeMapBase::shallowCopy(void) const
 
 StringAttributeMapBase::StringAttributeMapBase(void) :
     Inherited(),
-    _mfKeys(),
-    _mfValues()
+    _mfKeys                   (),
+    _mfValues                 ()
 {
 }
 
 StringAttributeMapBase::StringAttributeMapBase(const StringAttributeMapBase &source) :
     Inherited(source),
-    _mfKeys(source._mfKeys),
-    _mfValues(source._mfValues)
+    _mfKeys                   (source._mfKeys                   ),
+    _mfValues                 (source._mfValues                 )
 {
 }
 
@@ -326,13 +341,13 @@ StringAttributeMapBase::~StringAttributeMapBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void StringAttributeMapBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<StringAttributeMapBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -342,10 +357,10 @@ void StringAttributeMapBase::execSyncV(      FieldContainer    &oFrom,
 void StringAttributeMapBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StringAttributeMapBase *>(&oFrom), 
+    this->execSync(static_cast<StringAttributeMapBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -365,12 +380,12 @@ void StringAttributeMapBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr StringAttributeMapBase::createAspectCopy(void) const
 {
-    StringAttributeMapPtr returnValue; 
+    StringAttributeMapPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const StringAttributeMap *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const StringAttributeMap *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -379,6 +394,8 @@ void StringAttributeMapBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 
@@ -397,8 +414,6 @@ DataType FieldTraits<StringAttributeMapPtr>::_type("StringAttributeMapPtr", "Fie
 OSG_FIELDTRAITS_GETTYPE(StringAttributeMapPtr)
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, StringAttributeMapPtr);
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -420,3 +435,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSTRINGATTRIBUTEMAPFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

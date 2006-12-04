@@ -90,10 +90,10 @@ typedef void (OSG_APIENTRY *GLRenderbufferStorageEXTProcT    )(
     GLsizei width, 
     GLsizei height);
 
-/*! \class OSG::RenderBuffer
-    \ingroup GrpSystemWindowViewports
-
-*/
+// Documentation for this class is emited in the
+// OSGRenderBufferBase.cpp file.
+// To modify it, please change the .fcd file (OSGRenderBuffer.fcd) and
+// regenerate the base file.
 
 void RenderBuffer::bind(DrawEnv *pEnv, UInt32 index)
 {

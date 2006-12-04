@@ -86,22 +86,22 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<CameraPtr, 
-                              CameraConstPtr, 
+    typedef PointerFwdBuilder<CameraPtr,
+                              CameraConstPtr,
                               PerspectiveCamera>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<CameraPtr, 
-                              CameraConstPtr, 
+    typedef PointerFwdBuilder<CameraPtr,
+                              CameraConstPtr,
                               PerspectiveCamera>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<CameraPtr, 
+    typedef PointerFwdBuilder<CameraPtr,
                               CameraConstPtr,
                               PerspectiveCamera>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<CameraPtr, 
+    typedef PointerFwdBuilder<CameraPtr,
                               CameraConstPtr,
                               PerspectiveCamera>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<CameraPtr, 
+    typedef PointerFwdBuilder<CameraPtr,
                               CameraConstPtr,
                               PerspectiveCamera>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<CameraPtr, 
+    typedef PointerFwdBuilder<CameraPtr,
                               CameraConstPtr,
                               PerspectiveCamera>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
         NextFieldId = AspectFieldId + 1
     };
 
-    static const OSG::BitVector FovFieldMask = 
+    static const OSG::BitVector FovFieldMask =
         (TypeTraits<BitVector>::One << FovFieldId);
-    static const OSG::BitVector AspectFieldMask = 
+    static const OSG::BitVector AspectFieldMask =
         (TypeTraits<BitVector>::One << AspectFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,37 +148,37 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
 
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFFov(void);
+                  SFReal32            *getSFFov             (void);
 #endif
-           SFReal32 *editSFFov(void);
-     const SFReal32 *getSFFov (void) const;
+                  SFReal32            *editSFFov            (void);
+            const SFReal32            *getSFFov             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFAspect(void);
+                  SFReal32            *getSFAspect          (void);
 #endif
-           SFReal32 *editSFAspect(void);
-     const SFReal32 *getSFAspect (void) const;
+                  SFReal32            *editSFAspect         (void);
+            const SFReal32            *getSFAspect          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Real32 &getFov(void);
+                  Real32              &getFov             (void);
 #endif
-           Real32 &editFov(void);
-     const Real32 &getFov (void) const;
+                  Real32              &editFov            (void);
+            const Real32              &getFov             (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getAspect(void);
+                  Real32              &getAspect          (void);
 #endif
-           Real32 &editAspect(void);
-     const Real32 &getAspect (void) const;
+                  Real32              &editAspect         (void);
+            const Real32              &getAspect          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setFov(const Real32 &value);
-     void setAspect(const Real32 &value);
+            void setFov            (const Real32 &value);
+            void setAspect         (const Real32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -199,15 +198,15 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PerspectiveCameraPtr create     (void); 
-    static  PerspectiveCameraPtr createEmpty(void); 
+    static  PerspectiveCameraPtr create     (void);
+    static  PerspectiveCameraPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -223,8 +222,8 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32 _sfFov;
-    SFReal32 _sfAspect;
+    SFReal32          _sfFov;
+    SFReal32          _sfAspect;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -239,7 +238,7 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PerspectiveCameraBase(void); 
+    virtual ~PerspectiveCameraBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -285,11 +284,11 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

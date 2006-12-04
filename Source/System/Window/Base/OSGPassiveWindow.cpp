@@ -49,16 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::PassiveWindow
-    \ingroup GrpSystemWindowPassive
-
-A PassiveWindow is a Window class for integration into other OpenGL
-programs. See \ref PageSystemWindowWindowPassive for a description.
-*/
+// Documentation for this class is emited in the
+// OSGPassiveWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGPassiveWindow.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

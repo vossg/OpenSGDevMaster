@@ -49,23 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::MatrixCameraDecorator
-    \ingroup GrpSystemWindowCameraDecorators
-
-  The decorator to modify the Camera matrices simply by matrices. 	
-  
-  The OSG::MatrixCameraDecorator for madifying the camera matrices by 
-  matrices, see \ref
-  PageSystemWindowCameraDecoratorsMatrix for a description.
-  
-  The matrices to use are defined by the _sf Fields. The size of the full
-  image is defined by the _sfFullWidth and
-  _sfFullHeight Fields.
-*/
+// Documentation for this class is emited in the
+// OSGMatrixCameraDecoratorBase.cpp file.
+// To modify it, please change the .fcd file (OSGMatrixCameraDecorator.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

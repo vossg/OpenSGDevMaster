@@ -65,38 +65,50 @@
 #include "OSGTileCameraDecoratorBase.h"
 #include "OSGTileCameraDecorator.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Real32 TileCameraDecoratorBase::_sfLeft
-    	The left border of the selected tile.
+/*! \class OSG::TileCameraDecorator
+    \ingroup GrpSystemWindowCameraDecorators
 
+    The OSG::TileCameraDecorator for selecting only a part of a virtual
+    large image, see \ref PageSystemWindowCameraDecoratorsTile for a
+    description.
+
+    The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom
+    and _sfTop Fields. The size of the full image is defined by the
+    _sfFullWidth and _sfFullHeight Fields.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Real32          TileCameraDecoratorBase::_sfLeft
+    The left border of the selected tile.
 */
-/*! \var Real32 TileCameraDecoratorBase::_sfRight
-    	The right border of the selected tile.
-
+/*! \var Real32          TileCameraDecoratorBase::_sfRight
+    The right border of the selected tile.
 */
-/*! \var Real32 TileCameraDecoratorBase::_sfBottom
-    	The bottom border of the selected tile.
-
+/*! \var Real32          TileCameraDecoratorBase::_sfBottom
+    The bottom border of the selected tile.
 */
-/*! \var Real32 TileCameraDecoratorBase::_sfTop
-    	The top border of the selected tile.
-
+/*! \var Real32          TileCameraDecoratorBase::_sfTop
+    The top border of the selected tile.
 */
-/*! \var UInt32 TileCameraDecoratorBase::_sfFullWidth
-    	The width of the full image this is a tile of.
-
+/*! \var UInt32          TileCameraDecoratorBase::_sfFullWidth
+    The width of the full image this is a tile of.
 */
-/*! \var UInt32 TileCameraDecoratorBase::_sfFullHeight
-    	The height of the full image this is a tile of.
-
+/*! \var UInt32          TileCameraDecoratorBase::_sfFullHeight
+    The height of the full image this is a tile of.
 */
 
 void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -106,9 +118,9 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "left", 
-        "	The left border of the selected tile.\n",
+        SFReal32::getClassType(),
+        "left",
+        "The left border of the selected tile.\n",
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -128,9 +140,9 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "right", 
-        "	The right border of the selected tile.\n",
+        SFReal32::getClassType(),
+        "right",
+        "The right border of the selected tile.\n",
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -150,9 +162,9 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "bottom", 
-        "	The bottom border of the selected tile.\n",
+        SFReal32::getClassType(),
+        "bottom",
+        "The bottom border of the selected tile.\n",
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -172,9 +184,9 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "top", 
-        "	The top border of the selected tile.\n",
+        SFReal32::getClassType(),
+        "top",
+        "The top border of the selected tile.\n",
         TopFieldId, TopFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -194,9 +206,9 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "fullWidth", 
-        "	The width of the full image this is a tile of.\n",
+        SFUInt32::getClassType(),
+        "fullWidth",
+        "The width of the full image this is a tile of.\n",
         FullWidthFieldId, FullWidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -216,9 +228,9 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "fullHeight", 
-        "	The height of the full image this is a tile of.\n",
+        SFUInt32::getClassType(),
+        "fullHeight",
+        "The height of the full image this is a tile of.\n",
         FullHeightFieldId, FullHeightFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -243,97 +255,110 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(true,
     (InitalInsertDescFunc) &TileCameraDecoratorBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TileCameraDecorator\"\n"
-"	parent=\"CameraDecorator\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The decorator to select a rectangular part of the image.\n"
-"	<Field\n"
-"		name=\"left\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The left border of the selected tile.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"right\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The right border of the selected tile.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"bottom\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The bottom border of the selected tile.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"top\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The top border of the selected tile.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"fullWidth\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The width of the full image this is a tile of.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"fullHeight\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The height of the full image this is a tile of.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The decorator to select a rectangular part of the image.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TileCameraDecorator\"\n"
+    "\tparent=\"CameraDecorator\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "\n"
+    "The OSG::TileCameraDecorator for selecting only a part of a virtual large\n"
+    "image, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsTile for a description.\n"
+    "\n"
+    "The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom and\n"
+    "_sfTop Fields. The size of the full image is defined by the _sfFullWidth and\n"
+    "_sfFullHeight Fields.\n"
+    "\t<Field\n"
+    "\t\tname=\"left\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe left border of the selected tile.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"right\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe right border of the selected tile.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bottom\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe bottom border of the selected tile.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"top\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe top border of the selected tile.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"fullWidth\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe width of the full image this is a tile of.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"fullHeight\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe height of the full image this is a tile of.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "The OSG::TileCameraDecorator for selecting only a part of a virtual large\n"
+    "image, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsTile for a description.\n"
+    "The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom and\n"
+    "_sfTop Fields. The size of the full image is defined by the _sfFullWidth and\n"
+    "_sfFullHeight Fields.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TileCameraDecoratorBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TileCameraDecoratorBase::getType(void) const 
+FieldContainerType &TileCameraDecoratorBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TileCameraDecoratorBase::getContainerSize(void) const 
-{ 
-    return sizeof(TileCameraDecorator); 
+const FieldContainerType &TileCameraDecoratorBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TileCameraDecoratorBase::getContainerSize(void) const
+{
+    return sizeof(TileCameraDecorator);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -352,9 +377,9 @@ const SFReal32 *TileCameraDecoratorBase::getSFLeft(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TileCameraDecoratorBase::getSFLeft(void)
+SFReal32            *TileCameraDecoratorBase::getSFLeft           (void)
 {
-    return this->editSFLeft();
+    return this->editSFLeft           ();
 }
 #endif
 
@@ -371,9 +396,9 @@ const SFReal32 *TileCameraDecoratorBase::getSFRight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TileCameraDecoratorBase::getSFRight(void)
+SFReal32            *TileCameraDecoratorBase::getSFRight          (void)
 {
-    return this->editSFRight();
+    return this->editSFRight          ();
 }
 #endif
 
@@ -390,9 +415,9 @@ const SFReal32 *TileCameraDecoratorBase::getSFBottom(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TileCameraDecoratorBase::getSFBottom(void)
+SFReal32            *TileCameraDecoratorBase::getSFBottom         (void)
 {
-    return this->editSFBottom();
+    return this->editSFBottom         ();
 }
 #endif
 
@@ -409,9 +434,9 @@ const SFReal32 *TileCameraDecoratorBase::getSFTop(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TileCameraDecoratorBase::getSFTop(void)
+SFReal32            *TileCameraDecoratorBase::getSFTop            (void)
 {
-    return this->editSFTop();
+    return this->editSFTop            ();
 }
 #endif
 
@@ -428,9 +453,9 @@ const SFUInt32 *TileCameraDecoratorBase::getSFFullWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *TileCameraDecoratorBase::getSFFullWidth(void)
+SFUInt32            *TileCameraDecoratorBase::getSFFullWidth      (void)
 {
-    return this->editSFFullWidth();
+    return this->editSFFullWidth      ();
 }
 #endif
 
@@ -447,9 +472,9 @@ const SFUInt32 *TileCameraDecoratorBase::getSFFullHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *TileCameraDecoratorBase::getSFFullHeight(void)
+SFUInt32            *TileCameraDecoratorBase::getSFFullHeight     (void)
 {
-    return this->editSFFullHeight();
+    return this->editSFFullHeight     ();
 }
 #endif
 
@@ -552,22 +577,22 @@ void TileCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TileCameraDecoratorPtr TileCameraDecoratorBase::createEmpty(void) 
-{ 
-    TileCameraDecoratorPtr returnValue; 
-    
-    newPtr<TileCameraDecorator>(returnValue); 
+TileCameraDecoratorPtr TileCameraDecoratorBase::createEmpty(void)
+{
+    TileCameraDecoratorPtr returnValue;
 
-    return returnValue; 
+    newPtr<TileCameraDecorator>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TileCameraDecoratorBase::shallowCopy(void) const 
-{ 
-    TileCameraDecoratorPtr returnValue; 
+FieldContainerPtr TileCameraDecoratorBase::shallowCopy(void) const
+{
+    TileCameraDecoratorPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TileCameraDecorator *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TileCameraDecorator *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -576,23 +601,23 @@ FieldContainerPtr TileCameraDecoratorBase::shallowCopy(void) const
 
 TileCameraDecoratorBase::TileCameraDecoratorBase(void) :
     Inherited(),
-    _sfLeft(Real32(0)),
-    _sfRight(Real32(1)),
-    _sfBottom(Real32(0)),
-    _sfTop(Real32(1)),
-    _sfFullWidth(UInt32(0)),
-    _sfFullHeight(UInt32(0))
+    _sfLeft                   (Real32(0)),
+    _sfRight                  (Real32(1)),
+    _sfBottom                 (Real32(0)),
+    _sfTop                    (Real32(1)),
+    _sfFullWidth              (UInt32(0)),
+    _sfFullHeight             (UInt32(0))
 {
 }
 
 TileCameraDecoratorBase::TileCameraDecoratorBase(const TileCameraDecoratorBase &source) :
     Inherited(source),
-    _sfLeft(source._sfLeft),
-    _sfRight(source._sfRight),
-    _sfBottom(source._sfBottom),
-    _sfTop(source._sfTop),
-    _sfFullWidth(source._sfFullWidth),
-    _sfFullHeight(source._sfFullHeight)
+    _sfLeft                   (source._sfLeft                   ),
+    _sfRight                  (source._sfRight                  ),
+    _sfBottom                 (source._sfBottom                 ),
+    _sfTop                    (source._sfTop                    ),
+    _sfFullWidth              (source._sfFullWidth              ),
+    _sfFullHeight             (source._sfFullHeight             )
 {
 }
 
@@ -606,13 +631,13 @@ TileCameraDecoratorBase::~TileCameraDecoratorBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TileCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TileCameraDecoratorBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -622,10 +647,10 @@ void TileCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 void TileCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TileCameraDecoratorBase *>(&oFrom), 
+    this->execSync(static_cast<TileCameraDecoratorBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -645,12 +670,12 @@ void TileCameraDecoratorBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TileCameraDecoratorBase::createAspectCopy(void) const
 {
-    TileCameraDecoratorPtr returnValue; 
+    TileCameraDecoratorPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TileCameraDecorator *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TileCameraDecorator *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -659,6 +684,8 @@ void TileCameraDecoratorBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -681,8 +708,6 @@ OSG_FIELDTRAITS_GETTYPE(TileCameraDecoratorPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TileCameraDecoratorPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TileCameraDecoratorPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -703,3 +728,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTILECAMERADECORATORFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

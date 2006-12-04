@@ -72,90 +72,99 @@
 #include "OSGSkyBackgroundBase.h"
 #include "OSGSkyBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color4f SkyBackgroundBase::_mfSkyColor
-    	The colors for the sky gradient bands. Corresponds to the skyAngle         angles.  The first value is for the apex (i.e. straight up), which         doesn't need an angle, thus there  should be one more color than         angles. If no angles are given color[0] is used, or black if none are         given.
+/*! \class OSG::SkyBackground
+    \ingroup GrpSystemWindowBackgrounds
 
+    A Sky/Ground/Skybox background, inspired by VRML, see \ref
+    PageSystemWindowBackgroundSky for a description.
+
+    The sky is defined by the _mfSkyAngle and _mfSkyColor fields, the
+    ground by the _mfGroundAngle and _mfGround Color fields. The resolution
+    of the sky sphere can be influenced by the _sfSphereRes field. The sky
+    box is defined by the _sfBackTexture, _sfFrontTexture, _sfLeftTexture,
+    _sfRightTexture, _sfTopTexture and _sfBottomTexture fields.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Color4f         SkyBackgroundBase::_mfSkyColor
+    The colors for the sky gradient bands. Corresponds to the skyAngle
+    angles.  The first value is for the apex (i.e. straight up), which
+    doesn't need an angle, thus there  should be one more color than
+    angles. If no angles are given color[0] is used, or black if none are
+    given.
 */
-/*! \var Real32 SkyBackgroundBase::_mfSkyAngle
-    	The angles for the sky gradient bands. Corresponds to the skyColor colors,          with the exception of the apex. Values should be between 0 and PI.
-
+/*! \var Real32          SkyBackgroundBase::_mfSkyAngle
+    The angles for the sky gradient bands. Corresponds to the skyColor
+    colors, with the exception of the apex. Values should be between 0 and
+    PI.
 */
-/*! \var Color4f SkyBackgroundBase::_mfGroundColor
-    	The colors of the ground sphere-part. Interpretation is similar to the sky.
-
+/*! \var Color4f         SkyBackgroundBase::_mfGroundColor
+    The colors of the ground sphere-part. Interpretation is similar to the
+    sky.
 */
-/*! \var Real32 SkyBackgroundBase::_mfGroundAngle
-    	The angles of the ground sphere-part. Interpretation is similar to the sky, with          0 being straight down.
-
+/*! \var Real32          SkyBackgroundBase::_mfGroundAngle
+    The angles of the ground sphere-part. Interpretation is similar to the
+    sky, with 0 being straight down.
 */
-/*! \var UInt32 SkyBackgroundBase::_sfSphereRes
-    	The polygonal resolution of the sky/ground sphere.
-
+/*! \var UInt32          SkyBackgroundBase::_sfSphereRes
+    The polygonal resolution of the sky/ground sphere.
 */
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfBackTexture
-    	Texture for the back (+Z) side of the sky cube.
-
+    Texture for the back (+Z) side of the sky cube.
 */
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfBottomTexture
-    	Texture for the bottom (-Y) side of the sky cube.
-
+    Texture for the bottom (-Y) side of the sky cube.
 */
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfFrontTexture
-    	Texture for the front (-Z) side of the sky cube.
-
+    Texture for the front (-Z) side of the sky cube.
 */
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfLeftTexture
-    	Texture for the left (-X) side of the sky cube.
-
+    Texture for the left (-X) side of the sky cube.
 */
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfRightTexture
-    	Texture for the right (+X) side of the sky cube.
-
+    Texture for the right (+X) side of the sky cube.
 */
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfTopTexture
-    	Texture for the top (+Y) side of the sky cube.
-
+    Texture for the top (+Y) side of the sky cube.
 */
-/*! \var bool SkyBackgroundBase::_sfBoxInside
-    	flag to draw the box inside or outside of the sphere
-
+/*! \var bool            SkyBackgroundBase::_sfBoxInside
+    Flag to draw the box inside or outside of the sphere
 */
-/*! \var Vec3f SkyBackgroundBase::_mfTopTexCoord
-    	Texture coordinates for the top face
-
+/*! \var Vec3f           SkyBackgroundBase::_mfTopTexCoord
+    Texture coordinates for the top face
 */
-/*! \var Vec3f SkyBackgroundBase::_mfBottomTexCoord
-    	Bottom texture coordinates
-
+/*! \var Vec3f           SkyBackgroundBase::_mfBottomTexCoord
+    Bottom texture coordinates.
 */
-/*! \var Vec3f SkyBackgroundBase::_mfRightTexCoord
-    	right texture coordinates
-
+/*! \var Vec3f           SkyBackgroundBase::_mfRightTexCoord
+    Right texture coordinates.
 */
-/*! \var Vec3f SkyBackgroundBase::_mfLeftTexCoord
-    	left texture coordinates
-
+/*! \var Vec3f           SkyBackgroundBase::_mfLeftTexCoord
+    Left texture coordinates.
 */
-/*! \var Vec3f SkyBackgroundBase::_mfFrontTexCoord
-    	front texture coordinates
-
+/*! \var Vec3f           SkyBackgroundBase::_mfFrontTexCoord
+    Front texture coordinates.
 */
-/*! \var Vec3f SkyBackgroundBase::_mfBackTexCoord
-    	back texture coordinates
-
+/*! \var Vec3f           SkyBackgroundBase::_mfBackTexCoord
+    Back texture coordinates.
 */
-/*! \var NodePtr SkyBackgroundBase::_sfBeacon
-    	The object that defines the orientation of the background.
-
+/*! \var NodePtr         SkyBackgroundBase::_sfBeacon
+    The object that defines the orientation of the background, i.e. the
+    local coordinate system it is drawn in.
 */
 
 void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -165,9 +174,13 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFColor4f::Description(
-        MFColor4f::getClassType(), 
-        "skyColor", 
-        "	The colors for the sky gradient bands. Corresponds to the skyAngle         angles.  The first value is for the apex (i.e. straight up), which         doesn't need an angle, thus there  should be one more color than         angles. If no angles are given color[0] is used, or black if none are         given.\n",
+        MFColor4f::getClassType(),
+        "skyColor",
+        "The colors for the sky gradient bands. Corresponds to the skyAngle\n"
+        "angles.  The first value is for the apex (i.e. straight up), which\n"
+        "doesn't need an angle, thus there  should be one more color than\n"
+        "angles. If no angles are given color[0] is used, or black if none are\n"
+        "given.\n",
         SkyColorFieldId, SkyColorFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -187,9 +200,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFReal32::Description(
-        MFReal32::getClassType(), 
-        "skyAngle", 
-        "	The angles for the sky gradient bands. Corresponds to the skyColor colors,          with the exception of the apex. Values should be between 0 and PI.\n",
+        MFReal32::getClassType(),
+        "skyAngle",
+        "The angles for the sky gradient bands. Corresponds to the skyColor colors,\n"
+        "with the exception of the apex. Values should be between 0 and PI.\n",
         SkyAngleFieldId, SkyAngleFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -209,9 +223,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFColor4f::Description(
-        MFColor4f::getClassType(), 
-        "groundColor", 
-        "	The colors of the ground sphere-part. Interpretation is similar to the sky.\n",
+        MFColor4f::getClassType(),
+        "groundColor",
+        "The colors of the ground sphere-part. Interpretation is similar to the sky.\n",
         GroundColorFieldId, GroundColorFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -231,9 +245,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFReal32::Description(
-        MFReal32::getClassType(), 
-        "groundAngle", 
-        "	The angles of the ground sphere-part. Interpretation is similar to the sky, with          0 being straight down.\n",
+        MFReal32::getClassType(),
+        "groundAngle",
+        "The angles of the ground sphere-part. Interpretation is similar to the sky, with\n"
+        "0 being straight down.\n",
         GroundAngleFieldId, GroundAngleFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -253,9 +268,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "sphereRes", 
-        "	The polygonal resolution of the sky/ground sphere.\n",
+        SFUInt32::getClassType(),
+        "sphereRes",
+        "The polygonal resolution of the sky/ground sphere.\n",
         SphereResFieldId, SphereResFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -269,9 +284,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "backTexture", 
-        "	Texture for the back (+Z) side of the sky cube.\n",
+        SFTextureObjChunkPtr::getClassType(),
+        "backTexture",
+        "Texture for the back (+Z) side of the sky cube.\n",
         BackTextureFieldId, BackTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -281,9 +296,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "bottomTexture", 
-        "	Texture for the bottom (-Y) side of the sky cube.\n",
+        SFTextureObjChunkPtr::getClassType(),
+        "bottomTexture",
+        "Texture for the bottom (-Y) side of the sky cube.\n",
         BottomTextureFieldId, BottomTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -293,9 +308,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "frontTexture", 
-        "	Texture for the front (-Z) side of the sky cube.\n",
+        SFTextureObjChunkPtr::getClassType(),
+        "frontTexture",
+        "Texture for the front (-Z) side of the sky cube.\n",
         FrontTextureFieldId, FrontTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -305,9 +320,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "leftTexture", 
-        "	Texture for the left (-X) side of the sky cube.\n",
+        SFTextureObjChunkPtr::getClassType(),
+        "leftTexture",
+        "Texture for the left (-X) side of the sky cube.\n",
         LeftTextureFieldId, LeftTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -317,9 +332,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "rightTexture", 
-        "	Texture for the right (+X) side of the sky cube.\n",
+        SFTextureObjChunkPtr::getClassType(),
+        "rightTexture",
+        "Texture for the right (+X) side of the sky cube.\n",
         RightTextureFieldId, RightTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -329,9 +344,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "topTexture", 
-        "	Texture for the top (+Y) side of the sky cube.\n",
+        SFTextureObjChunkPtr::getClassType(),
+        "topTexture",
+        "Texture for the top (+Y) side of the sky cube.\n",
         TopTextureFieldId, TopTextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -347,9 +362,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "boxInside", 
-        "	flag to draw the box inside or outside of the sphere\n",
+        SFBool::getClassType(),
+        "boxInside",
+        "Flag to draw the box inside or outside of the sphere\n",
         BoxInsideFieldId, BoxInsideFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -369,9 +384,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "topTexCoord", 
-        "	Texture coordinates for the top face\n",
+        MFVec3f::getClassType(),
+        "topTexCoord",
+        "Texture coordinates for the top face\n",
         TopTexCoordFieldId, TopTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -391,9 +406,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "bottomTexCoord", 
-        "	Bottom texture coordinates\n",
+        MFVec3f::getClassType(),
+        "bottomTexCoord",
+        "Bottom texture coordinates.\n",
         BottomTexCoordFieldId, BottomTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -413,9 +428,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "rightTexCoord", 
-        "	right texture coordinates\n",
+        MFVec3f::getClassType(),
+        "rightTexCoord",
+        "Right texture coordinates.\n",
         RightTexCoordFieldId, RightTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -435,9 +450,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "leftTexCoord", 
-        "	left texture coordinates\n",
+        MFVec3f::getClassType(),
+        "leftTexCoord",
+        "Left texture coordinates.\n",
         LeftTexCoordFieldId, LeftTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -457,9 +472,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "frontTexCoord", 
-        "	front texture coordinates\n",
+        MFVec3f::getClassType(),
+        "frontTexCoord",
+        "Front texture coordinates.\n",
         FrontTexCoordFieldId, FrontTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -479,9 +494,9 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "backTexCoord", 
-        "	back texture coordinates\n",
+        MFVec3f::getClassType(),
+        "backTexCoord",
+        "Back texture coordinates.\n",
         BackTexCoordFieldId, BackTexCoordFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -495,9 +510,10 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "beacon", 
-        "	The object that defines the orientation of the background.\n",
+        SFNodePtr::getClassType(),
+        "beacon",
+        "The object that defines the orientation of the background, i.e. the\n"
+        "local coordinate system it is drawn in.\n",
         BeaconFieldId, BeaconFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -518,218 +534,240 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     (InitalInsertDescFunc) &SkyBackgroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SkyBackground\"\n"
-"	parent=\"Background\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"multi\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"A sky-sphere background showing a color gradient. The colors and angles correspond to each other, they should have the same number of elements.\n"
-"	<Field\n"
-"		name=\"skyColor\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The colors for the sky gradient bands. Corresponds to the skyAngle         angles.  The first value is for the apex (i.e. straight up), which         doesn't need an angle, thus there  should be one more color than         angles. If no angles are given color[0] is used, or black if none are         given.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"skyAngle\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The angles for the sky gradient bands. Corresponds to the skyColor colors,          with the exception of the apex. Values should be between 0 and PI.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"groundColor\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The colors of the ground sphere-part. Interpretation is similar to the sky.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"groundAngle\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The angles of the ground sphere-part. Interpretation is similar to the sky, with          0 being straight down.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"sphereRes\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"8\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The polygonal resolution of the sky/ground sphere.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backTexture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture for the back (+Z) side of the sky cube.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"bottomTexture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture for the bottom (-Y) side of the sky cube.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frontTexture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture for the front (-Z) side of the sky cube.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"leftTexture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture for the left (-X) side of the sky cube.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"rightTexture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture for the right (+X) side of the sky cube.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"topTexture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"NullFC\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture for the top (+Y) side of the sky cube.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"boxInside\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	flag to draw the box inside or outside of the sphere\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"topTexCoord\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture coordinates for the top face\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"bottomTexCoord\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Bottom texture coordinates\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"rightTexCoord\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	right texture coordinates\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"leftTexCoord\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	left texture coordinates\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frontTexCoord\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	front texture coordinates\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"backTexCoord\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	back texture coordinates\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"beacon\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The object that defines the orientation of the background.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A sky-sphere background showing a color gradient. The colors and angles correspond to each other, they should have the same number of elements.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SkyBackground\"\n"
+    "\tparent=\"Background\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"multi\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
+    "A Sky/Ground/Skybox background, inspired by VRML, see \\ref\n"
+    "PageSystemWindowBackgroundSky for a description.\n"
+    "\n"
+    "The sky is defined by the _mfSkyAngle and _mfSkyColor fields, the ground by the\n"
+    "_mfGroundAngle and _mfGround Color fields. The resolution of the sky sphere can\n"
+    "be influenced by the _sfSphereRes field. The sky box is defined by the\n"
+    "_sfBackTexture, _sfFrontTexture, _sfLeftTexture, _sfRightTexture, _sfTopTexture\n"
+    "and _sfBottomTexture fields.\n"
+    "\t<Field\n"
+    "\t\tname=\"skyColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe colors for the sky gradient bands. Corresponds to the skyAngle\n"
+    "        angles.  The first value is for the apex (i.e. straight up), which\n"
+    "        doesn't need an angle, thus there  should be one more color than\n"
+    "        angles. If no angles are given color[0] is used, or black if none are\n"
+    "        given.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"skyAngle\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe angles for the sky gradient bands. Corresponds to the skyColor colors,\n"
+    "        with the exception of the apex. Values should be between 0 and PI.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"groundColor\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe colors of the ground sphere-part. Interpretation is similar to the sky.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"groundAngle\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe angles of the ground sphere-part. Interpretation is similar to the sky, with\n"
+    "        0 being straight down.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sphereRes\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"8\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe polygonal resolution of the sky/ground sphere.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backTexture\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture for the back (+Z) side of the sky cube.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bottomTexture\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture for the bottom (-Y) side of the sky cube.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frontTexture\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture for the front (-Z) side of the sky cube.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"leftTexture\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture for the left (-X) side of the sky cube.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"rightTexture\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture for the right (+X) side of the sky cube.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"topTexture\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"NullFC\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture for the top (+Y) side of the sky cube.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"boxInside\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tFlag to draw the box inside or outside of the sphere\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"topTexCoord\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture coordinates for the top face\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bottomTexCoord\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tBottom texture coordinates.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"rightTexCoord\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tRight texture coordinates.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"leftTexCoord\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tLeft texture coordinates.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frontTexCoord\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tFront texture coordinates.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"backTexCoord\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tBack texture coordinates.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"beacon\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe object that defines the orientation of the background, i.e. the\n"
+    "\tlocal coordinate system it is drawn in.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "A Sky/Ground/Skybox background, inspired by VRML, see \\ref\n"
+    "PageSystemWindowBackgroundSky for a description.\n"
+    "The sky is defined by the _mfSkyAngle and _mfSkyColor fields, the ground by the\n"
+    "_mfGroundAngle and _mfGround Color fields. The resolution of the sky sphere can\n"
+    "be influenced by the _sfSphereRes field. The sky box is defined by the\n"
+    "_sfBackTexture, _sfFrontTexture, _sfLeftTexture, _sfRightTexture, _sfTopTexture\n"
+    "and _sfBottomTexture fields.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SkyBackgroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SkyBackgroundBase::getType(void) const 
+FieldContainerType &SkyBackgroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SkyBackgroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(SkyBackground); 
+const FieldContainerType &SkyBackgroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SkyBackgroundBase::getContainerSize(void) const
+{
+    return sizeof(SkyBackground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -748,9 +786,9 @@ const MFColor4f *SkyBackgroundBase::getMFSkyColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFColor4f *SkyBackgroundBase::getMFSkyColor(void)
+MFColor4f           *SkyBackgroundBase::getMFSkyColor       (void)
 {
-    return this->editMFSkyColor();
+    return this->editMFSkyColor       ();
 }
 #endif
 
@@ -767,9 +805,9 @@ const MFReal32 *SkyBackgroundBase::getMFSkyAngle(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFReal32 *SkyBackgroundBase::getMFSkyAngle(void)
+MFReal32            *SkyBackgroundBase::getMFSkyAngle       (void)
 {
-    return this->editMFSkyAngle();
+    return this->editMFSkyAngle       ();
 }
 #endif
 
@@ -786,9 +824,9 @@ const MFColor4f *SkyBackgroundBase::getMFGroundColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFColor4f *SkyBackgroundBase::getMFGroundColor(void)
+MFColor4f           *SkyBackgroundBase::getMFGroundColor    (void)
 {
-    return this->editMFGroundColor();
+    return this->editMFGroundColor    ();
 }
 #endif
 
@@ -805,9 +843,9 @@ const MFReal32 *SkyBackgroundBase::getMFGroundAngle(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFReal32 *SkyBackgroundBase::getMFGroundAngle(void)
+MFReal32            *SkyBackgroundBase::getMFGroundAngle    (void)
 {
-    return this->editMFGroundAngle();
+    return this->editMFGroundAngle    ();
 }
 #endif
 
@@ -824,9 +862,9 @@ const SFUInt32 *SkyBackgroundBase::getSFSphereRes(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *SkyBackgroundBase::getSFSphereRes(void)
+SFUInt32            *SkyBackgroundBase::getSFSphereRes      (void)
 {
-    return this->editSFSphereRes();
+    return this->editSFSphereRes      ();
 }
 #endif
 
@@ -879,9 +917,9 @@ const SFBool *SkyBackgroundBase::getSFBoxInside(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *SkyBackgroundBase::getSFBoxInside(void)
+SFBool              *SkyBackgroundBase::getSFBoxInside      (void)
 {
-    return this->editSFBoxInside();
+    return this->editSFBoxInside      ();
 }
 #endif
 
@@ -898,9 +936,9 @@ const MFVec3f *SkyBackgroundBase::getMFTopTexCoord(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *SkyBackgroundBase::getMFTopTexCoord(void)
+MFVec3f             *SkyBackgroundBase::getMFTopTexCoord    (void)
 {
-    return this->editMFTopTexCoord();
+    return this->editMFTopTexCoord    ();
 }
 #endif
 
@@ -917,9 +955,9 @@ const MFVec3f *SkyBackgroundBase::getMFBottomTexCoord(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *SkyBackgroundBase::getMFBottomTexCoord(void)
+MFVec3f             *SkyBackgroundBase::getMFBottomTexCoord (void)
 {
-    return this->editMFBottomTexCoord();
+    return this->editMFBottomTexCoord ();
 }
 #endif
 
@@ -936,9 +974,9 @@ const MFVec3f *SkyBackgroundBase::getMFRightTexCoord(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *SkyBackgroundBase::getMFRightTexCoord(void)
+MFVec3f             *SkyBackgroundBase::getMFRightTexCoord  (void)
 {
-    return this->editMFRightTexCoord();
+    return this->editMFRightTexCoord  ();
 }
 #endif
 
@@ -955,9 +993,9 @@ const MFVec3f *SkyBackgroundBase::getMFLeftTexCoord(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *SkyBackgroundBase::getMFLeftTexCoord(void)
+MFVec3f             *SkyBackgroundBase::getMFLeftTexCoord   (void)
 {
-    return this->editMFLeftTexCoord();
+    return this->editMFLeftTexCoord   ();
 }
 #endif
 
@@ -974,9 +1012,9 @@ const MFVec3f *SkyBackgroundBase::getMFFrontTexCoord(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *SkyBackgroundBase::getMFFrontTexCoord(void)
+MFVec3f             *SkyBackgroundBase::getMFFrontTexCoord  (void)
 {
-    return this->editMFFrontTexCoord();
+    return this->editMFFrontTexCoord  ();
 }
 #endif
 
@@ -993,9 +1031,9 @@ const MFVec3f *SkyBackgroundBase::getMFBackTexCoord(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *SkyBackgroundBase::getMFBackTexCoord(void)
+MFVec3f             *SkyBackgroundBase::getMFBackTexCoord   (void)
 {
-    return this->editMFBackTexCoord();
+    return this->editMFBackTexCoord   ();
 }
 #endif
 
@@ -1128,7 +1166,7 @@ void SkyBackgroundBase::pushToSkyColor(const Color4f& value)
 }
 
 void SkyBackgroundBase::insertIntoSkyColor(UInt32                uiIndex,
-                                             const Color4f& value   )
+                                                   const Color4f& value   )
 {
     editMField(SkyColorFieldMask, _mfSkyColor);
 
@@ -1140,7 +1178,7 @@ void SkyBackgroundBase::insertIntoSkyColor(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInSkyColor(UInt32                uiIndex,
-                                                 const Color4f& value   )
+                                                       const Color4f& value   )
 {
     if(uiIndex >= _mfSkyColor.size())
         return;
@@ -1151,7 +1189,7 @@ void SkyBackgroundBase::replaceInSkyColor(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInSkyColor(const Color4f& pOldElem,
-                                                  const Color4f& pNewElem)
+                                                        const Color4f& pNewElem)
 {
     Int32  elemIdx = _mfSkyColor.findIndex(pOldElem);
 
@@ -1195,19 +1233,13 @@ void SkyBackgroundBase::removeFromSkyColor(const Color4f& value)
         _mfSkyColor.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearSkyColor(void)
 {
     editMField(SkyColorFieldMask, _mfSkyColor);
 
     _mfSkyColor.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToSkyAngle(const Real32& value)
 {
@@ -1216,7 +1248,7 @@ void SkyBackgroundBase::pushToSkyAngle(const Real32& value)
 }
 
 void SkyBackgroundBase::insertIntoSkyAngle(UInt32                uiIndex,
-                                             const Real32& value   )
+                                                   const Real32& value   )
 {
     editMField(SkyAngleFieldMask, _mfSkyAngle);
 
@@ -1228,7 +1260,7 @@ void SkyBackgroundBase::insertIntoSkyAngle(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInSkyAngle(UInt32                uiIndex,
-                                                 const Real32& value   )
+                                                       const Real32& value   )
 {
     if(uiIndex >= _mfSkyAngle.size())
         return;
@@ -1239,7 +1271,7 @@ void SkyBackgroundBase::replaceInSkyAngle(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInSkyAngle(const Real32& pOldElem,
-                                                  const Real32& pNewElem)
+                                                        const Real32& pNewElem)
 {
     Int32  elemIdx = _mfSkyAngle.findIndex(pOldElem);
 
@@ -1283,19 +1315,13 @@ void SkyBackgroundBase::removeFromSkyAngle(const Real32& value)
         _mfSkyAngle.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearSkyAngle(void)
 {
     editMField(SkyAngleFieldMask, _mfSkyAngle);
 
     _mfSkyAngle.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToGroundColor(const Color4f& value)
 {
@@ -1304,7 +1330,7 @@ void SkyBackgroundBase::pushToGroundColor(const Color4f& value)
 }
 
 void SkyBackgroundBase::insertIntoGroundColor(UInt32                uiIndex,
-                                             const Color4f& value   )
+                                                   const Color4f& value   )
 {
     editMField(GroundColorFieldMask, _mfGroundColor);
 
@@ -1316,7 +1342,7 @@ void SkyBackgroundBase::insertIntoGroundColor(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInGroundColor(UInt32                uiIndex,
-                                                 const Color4f& value   )
+                                                       const Color4f& value   )
 {
     if(uiIndex >= _mfGroundColor.size())
         return;
@@ -1327,7 +1353,7 @@ void SkyBackgroundBase::replaceInGroundColor(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInGroundColor(const Color4f& pOldElem,
-                                                  const Color4f& pNewElem)
+                                                        const Color4f& pNewElem)
 {
     Int32  elemIdx = _mfGroundColor.findIndex(pOldElem);
 
@@ -1371,19 +1397,13 @@ void SkyBackgroundBase::removeFromGroundColor(const Color4f& value)
         _mfGroundColor.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearGroundColor(void)
 {
     editMField(GroundColorFieldMask, _mfGroundColor);
 
     _mfGroundColor.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToGroundAngle(const Real32& value)
 {
@@ -1392,7 +1412,7 @@ void SkyBackgroundBase::pushToGroundAngle(const Real32& value)
 }
 
 void SkyBackgroundBase::insertIntoGroundAngle(UInt32                uiIndex,
-                                             const Real32& value   )
+                                                   const Real32& value   )
 {
     editMField(GroundAngleFieldMask, _mfGroundAngle);
 
@@ -1404,7 +1424,7 @@ void SkyBackgroundBase::insertIntoGroundAngle(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInGroundAngle(UInt32                uiIndex,
-                                                 const Real32& value   )
+                                                       const Real32& value   )
 {
     if(uiIndex >= _mfGroundAngle.size())
         return;
@@ -1415,7 +1435,7 @@ void SkyBackgroundBase::replaceInGroundAngle(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInGroundAngle(const Real32& pOldElem,
-                                                  const Real32& pNewElem)
+                                                        const Real32& pNewElem)
 {
     Int32  elemIdx = _mfGroundAngle.findIndex(pOldElem);
 
@@ -1459,19 +1479,13 @@ void SkyBackgroundBase::removeFromGroundAngle(const Real32& value)
         _mfGroundAngle.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearGroundAngle(void)
 {
     editMField(GroundAngleFieldMask, _mfGroundAngle);
 
     _mfGroundAngle.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToTopTexCoord(const Vec3f& value)
 {
@@ -1480,7 +1494,7 @@ void SkyBackgroundBase::pushToTopTexCoord(const Vec3f& value)
 }
 
 void SkyBackgroundBase::insertIntoTopTexCoord(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(TopTexCoordFieldMask, _mfTopTexCoord);
 
@@ -1492,7 +1506,7 @@ void SkyBackgroundBase::insertIntoTopTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInTopTexCoord(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfTopTexCoord.size())
         return;
@@ -1503,7 +1517,7 @@ void SkyBackgroundBase::replaceInTopTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInTopTexCoord(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfTopTexCoord.findIndex(pOldElem);
 
@@ -1547,19 +1561,13 @@ void SkyBackgroundBase::removeFromTopTexCoord(const Vec3f& value)
         _mfTopTexCoord.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearTopTexCoord(void)
 {
     editMField(TopTexCoordFieldMask, _mfTopTexCoord);
 
     _mfTopTexCoord.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToBottomTexCoord(const Vec3f& value)
 {
@@ -1568,7 +1576,7 @@ void SkyBackgroundBase::pushToBottomTexCoord(const Vec3f& value)
 }
 
 void SkyBackgroundBase::insertIntoBottomTexCoord(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(BottomTexCoordFieldMask, _mfBottomTexCoord);
 
@@ -1580,7 +1588,7 @@ void SkyBackgroundBase::insertIntoBottomTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInBottomTexCoord(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfBottomTexCoord.size())
         return;
@@ -1591,7 +1599,7 @@ void SkyBackgroundBase::replaceInBottomTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInBottomTexCoord(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfBottomTexCoord.findIndex(pOldElem);
 
@@ -1635,19 +1643,13 @@ void SkyBackgroundBase::removeFromBottomTexCoord(const Vec3f& value)
         _mfBottomTexCoord.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearBottomTexCoord(void)
 {
     editMField(BottomTexCoordFieldMask, _mfBottomTexCoord);
 
     _mfBottomTexCoord.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToRightTexCoord(const Vec3f& value)
 {
@@ -1656,7 +1658,7 @@ void SkyBackgroundBase::pushToRightTexCoord(const Vec3f& value)
 }
 
 void SkyBackgroundBase::insertIntoRightTexCoord(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(RightTexCoordFieldMask, _mfRightTexCoord);
 
@@ -1668,7 +1670,7 @@ void SkyBackgroundBase::insertIntoRightTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInRightTexCoord(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfRightTexCoord.size())
         return;
@@ -1679,7 +1681,7 @@ void SkyBackgroundBase::replaceInRightTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInRightTexCoord(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfRightTexCoord.findIndex(pOldElem);
 
@@ -1723,19 +1725,13 @@ void SkyBackgroundBase::removeFromRightTexCoord(const Vec3f& value)
         _mfRightTexCoord.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearRightTexCoord(void)
 {
     editMField(RightTexCoordFieldMask, _mfRightTexCoord);
 
     _mfRightTexCoord.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToLeftTexCoord(const Vec3f& value)
 {
@@ -1744,7 +1740,7 @@ void SkyBackgroundBase::pushToLeftTexCoord(const Vec3f& value)
 }
 
 void SkyBackgroundBase::insertIntoLeftTexCoord(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(LeftTexCoordFieldMask, _mfLeftTexCoord);
 
@@ -1756,7 +1752,7 @@ void SkyBackgroundBase::insertIntoLeftTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInLeftTexCoord(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfLeftTexCoord.size())
         return;
@@ -1767,7 +1763,7 @@ void SkyBackgroundBase::replaceInLeftTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInLeftTexCoord(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfLeftTexCoord.findIndex(pOldElem);
 
@@ -1811,19 +1807,13 @@ void SkyBackgroundBase::removeFromLeftTexCoord(const Vec3f& value)
         _mfLeftTexCoord.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearLeftTexCoord(void)
 {
     editMField(LeftTexCoordFieldMask, _mfLeftTexCoord);
 
     _mfLeftTexCoord.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToFrontTexCoord(const Vec3f& value)
 {
@@ -1832,7 +1822,7 @@ void SkyBackgroundBase::pushToFrontTexCoord(const Vec3f& value)
 }
 
 void SkyBackgroundBase::insertIntoFrontTexCoord(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(FrontTexCoordFieldMask, _mfFrontTexCoord);
 
@@ -1844,7 +1834,7 @@ void SkyBackgroundBase::insertIntoFrontTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInFrontTexCoord(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfFrontTexCoord.size())
         return;
@@ -1855,7 +1845,7 @@ void SkyBackgroundBase::replaceInFrontTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInFrontTexCoord(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfFrontTexCoord.findIndex(pOldElem);
 
@@ -1899,19 +1889,13 @@ void SkyBackgroundBase::removeFromFrontTexCoord(const Vec3f& value)
         _mfFrontTexCoord.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearFrontTexCoord(void)
 {
     editMField(FrontTexCoordFieldMask, _mfFrontTexCoord);
 
     _mfFrontTexCoord.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void SkyBackgroundBase::pushToBackTexCoord(const Vec3f& value)
 {
@@ -1920,7 +1904,7 @@ void SkyBackgroundBase::pushToBackTexCoord(const Vec3f& value)
 }
 
 void SkyBackgroundBase::insertIntoBackTexCoord(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(BackTexCoordFieldMask, _mfBackTexCoord);
 
@@ -1932,7 +1916,7 @@ void SkyBackgroundBase::insertIntoBackTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInBackTexCoord(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfBackTexCoord.size())
         return;
@@ -1943,7 +1927,7 @@ void SkyBackgroundBase::replaceInBackTexCoord(UInt32                uiIndex,
 }
 
 void SkyBackgroundBase::replaceInBackTexCoord(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfBackTexCoord.findIndex(pOldElem);
 
@@ -1987,19 +1971,13 @@ void SkyBackgroundBase::removeFromBackTexCoord(const Vec3f& value)
         _mfBackTexCoord.erase(fieldIt);
     }
 }
+
 void SkyBackgroundBase::clearBackTexCoord(void)
 {
     editMField(BackTexCoordFieldMask, _mfBackTexCoord);
 
     _mfBackTexCoord.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -2255,22 +2233,22 @@ void SkyBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SkyBackgroundPtr SkyBackgroundBase::createEmpty(void) 
-{ 
-    SkyBackgroundPtr returnValue; 
-    
-    newPtr<SkyBackground>(returnValue); 
+SkyBackgroundPtr SkyBackgroundBase::createEmpty(void)
+{
+    SkyBackgroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<SkyBackground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SkyBackgroundBase::shallowCopy(void) const 
-{ 
-    SkyBackgroundPtr returnValue; 
+FieldContainerPtr SkyBackgroundBase::shallowCopy(void) const
+{
+    SkyBackgroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SkyBackground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SkyBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -2279,49 +2257,49 @@ FieldContainerPtr SkyBackgroundBase::shallowCopy(void) const
 
 SkyBackgroundBase::SkyBackgroundBase(void) :
     Inherited(),
-    _mfSkyColor(),
-    _mfSkyAngle(),
-    _mfGroundColor(),
-    _mfGroundAngle(),
-    _sfSphereRes(UInt32(8)),
-    _sfBackTexture(TextureObjChunkPtr(NullFC)),
-    _sfBottomTexture(TextureObjChunkPtr(NullFC)),
-    _sfFrontTexture(TextureObjChunkPtr(NullFC)),
-    _sfLeftTexture(TextureObjChunkPtr(NullFC)),
-    _sfRightTexture(TextureObjChunkPtr(NullFC)),
-    _sfTopTexture(TextureObjChunkPtr(NullFC)),
-    _sfBoxInside(bool(true)),
-    _mfTopTexCoord(),
-    _mfBottomTexCoord(),
-    _mfRightTexCoord(),
-    _mfLeftTexCoord(),
-    _mfFrontTexCoord(),
-    _mfBackTexCoord(),
-    _sfBeacon()
+    _mfSkyColor               (),
+    _mfSkyAngle               (),
+    _mfGroundColor            (),
+    _mfGroundAngle            (),
+    _sfSphereRes              (UInt32(8)),
+    _sfBackTexture            (TextureObjChunkPtr(NullFC)),
+    _sfBottomTexture          (TextureObjChunkPtr(NullFC)),
+    _sfFrontTexture           (TextureObjChunkPtr(NullFC)),
+    _sfLeftTexture            (TextureObjChunkPtr(NullFC)),
+    _sfRightTexture           (TextureObjChunkPtr(NullFC)),
+    _sfTopTexture             (TextureObjChunkPtr(NullFC)),
+    _sfBoxInside              (bool(true)),
+    _mfTopTexCoord            (),
+    _mfBottomTexCoord         (),
+    _mfRightTexCoord          (),
+    _mfLeftTexCoord           (),
+    _mfFrontTexCoord          (),
+    _mfBackTexCoord           (),
+    _sfBeacon                 ()
 {
 }
 
 SkyBackgroundBase::SkyBackgroundBase(const SkyBackgroundBase &source) :
     Inherited(source),
-    _mfSkyColor(source._mfSkyColor),
-    _mfSkyAngle(source._mfSkyAngle),
-    _mfGroundColor(source._mfGroundColor),
-    _mfGroundAngle(source._mfGroundAngle),
-    _sfSphereRes(source._sfSphereRes),
-    _sfBackTexture(),
-    _sfBottomTexture(),
-    _sfFrontTexture(),
-    _sfLeftTexture(),
-    _sfRightTexture(),
-    _sfTopTexture(),
-    _sfBoxInside(source._sfBoxInside),
-    _mfTopTexCoord(source._mfTopTexCoord),
-    _mfBottomTexCoord(source._mfBottomTexCoord),
-    _mfRightTexCoord(source._mfRightTexCoord),
-    _mfLeftTexCoord(source._mfLeftTexCoord),
-    _mfFrontTexCoord(source._mfFrontTexCoord),
-    _mfBackTexCoord(source._mfBackTexCoord),
-    _sfBeacon()
+    _mfSkyColor               (source._mfSkyColor               ),
+    _mfSkyAngle               (source._mfSkyAngle               ),
+    _mfGroundColor            (source._mfGroundColor            ),
+    _mfGroundAngle            (source._mfGroundAngle            ),
+    _sfSphereRes              (source._sfSphereRes              ),
+    _sfBackTexture            (),
+    _sfBottomTexture          (),
+    _sfFrontTexture           (),
+    _sfLeftTexture            (),
+    _sfRightTexture           (),
+    _sfTopTexture             (),
+    _sfBoxInside              (source._sfBoxInside              ),
+    _mfTopTexCoord            (source._mfTopTexCoord            ),
+    _mfBottomTexCoord         (source._mfBottomTexCoord         ),
+    _mfRightTexCoord          (source._mfRightTexCoord          ),
+    _mfLeftTexCoord           (source._mfLeftTexCoord           ),
+    _mfFrontTexCoord          (source._mfFrontTexCoord          ),
+    _mfBackTexCoord           (source._mfBackTexCoord           ),
+    _sfBeacon                 ()
 {
 }
 
@@ -2357,13 +2335,13 @@ void SkyBackgroundBase::onCreate(const SkyBackground *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SkyBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SkyBackgroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -2373,10 +2351,10 @@ void SkyBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 void SkyBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SkyBackgroundBase *>(&oFrom), 
+    this->execSync(static_cast<SkyBackgroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -2396,12 +2374,12 @@ void SkyBackgroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SkyBackgroundBase::createAspectCopy(void) const
 {
-    SkyBackgroundPtr returnValue; 
+    SkyBackgroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SkyBackground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SkyBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -2425,6 +2403,8 @@ void SkyBackgroundBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGMField.ins"
 
 #if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
@@ -2442,8 +2422,6 @@ DataType FieldTraits<SkyBackgroundPtr>::_type("SkyBackgroundPtr", "BackgroundPtr
 OSG_FIELDTRAITS_GETTYPE(SkyBackgroundPtr)
 
 OSG_FIELD_DLLEXPORT_DEF1(MField, SkyBackgroundPtr);
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -2465,3 +2443,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSKYBACKGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

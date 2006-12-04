@@ -66,44 +66,46 @@
 #include "OSGTextureBufferBase.h"
 #include "OSGTextureBuffer.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::TextureBuffer
+    Texture buffer.  Wraps support to binding a framebuffer attachment to
+    an OpenSG texture object.
+
+    See FramebufferTexture1/2/3DEXT.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var TextureObjChunkPtr TextureBufferBase::_sfTexture
-            The texture object to target.
-        
-        
-
+    The texture object to target.
 */
-/*! \var GLenum TextureBufferBase::_sfTexTarget
-            If specified, this is the target value for FramebufferTextureXDEXT.  If GL_NONE, automatically
-        determined.
-        
-        
-
+/*! \var GLenum          TextureBufferBase::_sfTexTarget
+    If specified, this is the target value for FramebufferTextureXDEXT. If
+    GL_NONE, automatically determined.
 */
-/*! \var UInt32 TextureBufferBase::_sfLevel
-            The mipmap level in the texture to target.
-        
-        
-
+/*! \var UInt32          TextureBufferBase::_sfLevel
+    The mipmap level in the texture to target.
 */
-/*! \var UInt32 TextureBufferBase::_sfZoffset
-            UNUSED.
-        
-
+/*! \var UInt32          TextureBufferBase::_sfZoffset
+    UNUSED.
 */
 
 void TextureBufferBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "texture", 
-        "        The texture object to target.\n        \n        \n",
+        SFTextureObjChunkPtr::getClassType(),
+        "texture",
+        "The texture object to target.\n",
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -119,9 +121,10 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "texTarget", 
-        "        If specified, this is the target value for FramebufferTextureXDEXT.  If GL_NONE, automatically\n        determined.\n        \n        \n",
+        SFGLenum::getClassType(),
+        "texTarget",
+        "If specified, this is the target value for FramebufferTextureXDEXT.\n"
+        "If GL_NONE, automatically determined.\n",
         TexTargetFieldId, TexTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -141,9 +144,9 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "level", 
-        "        The mipmap level in the texture to target.\n        \n        \n",
+        SFUInt32::getClassType(),
+        "level",
+        "The mipmap level in the texture to target.\n",
         LevelFieldId, LevelFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -163,9 +166,9 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "zoffset", 
-        "        UNUSED.\n        \n",
+        SFUInt32::getClassType(),
+        "zoffset",
+        "UNUSED.\n",
         ZoffsetFieldId, ZoffsetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -190,80 +193,80 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(true,
     (InitalInsertDescFunc) &TextureBufferBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"        name=\"TextureBuffer\"\n"
-"        parent=\"FrameBufferAttachment\"\n"
-"        library=\"System\"\n"
-"        pointerfieldtypes=\"both\"\n"
-"        structure=\"concrete\"\n"
-"        systemcomponent=\"true\"\n"
-"        parentsystemcomponent=\"true\"\n"
-"        decoratable=\"false\"\n"
-">\n"
-"Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\n"
-"\n"
-"See FramebufferTexture1/2/3DEXT.\n"
-"        <Field\n"
-"                name=\"texture\"\n"
-"                type=\"TextureObjChunkPtr\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        The texture object to target.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"texTarget\"\n"
-"                type=\"GLenum\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"                defaultValue=\"GL_NONE\"\n"
-"        >\n"
-"        If specified, this is the target value for FramebufferTextureXDEXT.  If GL_NONE, automatically\n"
-"        determined.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"level\"\n"
-"                type=\"UInt32\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        defaultValue=\"0\"\n"
-"        >\n"
-"        The mipmap level in the texture to target.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"zoffset\"\n"
-"                type=\"UInt32\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        defaultValue=\"0\"\n"
-"        >\n"
-"        UNUSED.\n"
-"        </Field>\n"
-"</FieldContainer>\n"
-,
-    "Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\nSee FramebufferTexture1/2/3DEXT.\n        \n" 
+    "\n"
+    "<FieldContainer\n"
+    "        name=\"TextureBuffer\"\n"
+    "        parent=\"FrameBufferAttachment\"\n"
+    "        library=\"System\"\n"
+    "        pointerfieldtypes=\"both\"\n"
+    "        structure=\"concrete\"\n"
+    "        systemcomponent=\"true\"\n"
+    "        parentsystemcomponent=\"true\"\n"
+    "        decoratable=\"false\"\n"
+    ">\n"
+    "Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\n"
+    "\n"
+    "See FramebufferTexture1/2/3DEXT.\n"
+    "        <Field\n"
+    "                name=\"texture\"\n"
+    "                type=\"TextureObjChunkPtr\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        The texture object to target.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"texTarget\"\n"
+    "                type=\"GLenum\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"GL_NONE\"\n"
+    "        >\n"
+    "        If specified, this is the target value for FramebufferTextureXDEXT.\n"
+    "        If GL_NONE, automatically determined.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"level\"\n"
+    "                type=\"UInt32\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"0\"\n"
+    "        >\n"
+    "        The mipmap level in the texture to target.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"zoffset\"\n"
+    "                type=\"UInt32\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"0\"\n"
+    "        >\n"
+    "        UNUSED.\n"
+    "        </Field>\n"
+    "</FieldContainer>\n",
+    "Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\n"
+    "See FramebufferTexture1/2/3DEXT.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureBufferBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureBufferBase::getType(void) const 
+FieldContainerType &TextureBufferBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureBufferBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureBuffer); 
+const FieldContainerType &TextureBufferBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureBufferBase::getContainerSize(void) const
+{
+    return sizeof(TextureBuffer);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -288,9 +291,9 @@ const SFGLenum *TextureBufferBase::getSFTexTarget(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureBufferBase::getSFTexTarget(void)
+SFGLenum            *TextureBufferBase::getSFTexTarget      (void)
 {
-    return this->editSFTexTarget();
+    return this->editSFTexTarget      ();
 }
 #endif
 
@@ -307,9 +310,9 @@ const SFUInt32 *TextureBufferBase::getSFLevel(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *TextureBufferBase::getSFLevel(void)
+SFUInt32            *TextureBufferBase::getSFLevel          (void)
 {
-    return this->editSFLevel();
+    return this->editSFLevel          ();
 }
 #endif
 
@@ -326,9 +329,9 @@ const SFUInt32 *TextureBufferBase::getSFZoffset(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *TextureBufferBase::getSFZoffset(void)
+SFUInt32            *TextureBufferBase::getSFZoffset        (void)
 {
-    return this->editSFZoffset();
+    return this->editSFZoffset        ();
 }
 #endif
 
@@ -468,22 +471,22 @@ void TextureBufferBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureBufferPtr TextureBufferBase::createEmpty(void) 
-{ 
-    TextureBufferPtr returnValue; 
-    
-    newPtr<TextureBuffer>(returnValue); 
+TextureBufferPtr TextureBufferBase::createEmpty(void)
+{
+    TextureBufferPtr returnValue;
 
-    return returnValue; 
+    newPtr<TextureBuffer>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TextureBufferBase::shallowCopy(void) const 
-{ 
-    TextureBufferPtr returnValue; 
+FieldContainerPtr TextureBufferBase::shallowCopy(void) const
+{
+    TextureBufferPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TextureBuffer *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TextureBuffer *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -492,19 +495,19 @@ FieldContainerPtr TextureBufferBase::shallowCopy(void) const
 
 TextureBufferBase::TextureBufferBase(void) :
     Inherited(),
-    _sfTexture(),
-    _sfTexTarget(GLenum(GL_NONE)),
-    _sfLevel(UInt32(0)),
-    _sfZoffset(UInt32(0))
+    _sfTexture                (),
+    _sfTexTarget              (GLenum(GL_NONE)),
+    _sfLevel                  (UInt32(0)),
+    _sfZoffset                (UInt32(0))
 {
 }
 
 TextureBufferBase::TextureBufferBase(const TextureBufferBase &source) :
     Inherited(source),
-    _sfTexture(),
-    _sfTexTarget(source._sfTexTarget),
-    _sfLevel(source._sfLevel),
-    _sfZoffset(source._sfZoffset)
+    _sfTexture                (),
+    _sfTexTarget              (source._sfTexTarget              ),
+    _sfLevel                  (source._sfLevel                  ),
+    _sfZoffset                (source._sfZoffset                )
 {
 }
 
@@ -528,13 +531,13 @@ void TextureBufferBase::onCreate(const TextureBuffer *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureBufferBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureBufferBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -544,10 +547,10 @@ void TextureBufferBase::execSyncV(      FieldContainer    &oFrom,
 void TextureBufferBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureBufferBase *>(&oFrom), 
+    this->execSync(static_cast<TextureBufferBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -567,12 +570,12 @@ void TextureBufferBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureBufferBase::createAspectCopy(void) const
 {
-    TextureBufferPtr returnValue; 
+    TextureBufferPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TextureBuffer *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TextureBuffer *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -583,6 +586,8 @@ void TextureBufferBase::resolveLinks(void)
     static_cast<TextureBuffer *>(this)->setTexture(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -605,8 +610,6 @@ OSG_FIELDTRAITS_GETTYPE(TextureBufferPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, TextureBufferPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, TextureBufferPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -627,3 +630,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTUREBUFFERFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

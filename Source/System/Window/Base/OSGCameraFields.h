@@ -70,22 +70,22 @@ class Camera;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! CameraPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Camera>::ObjPtr         CameraPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Camera>::ObjPtrConst    CameraPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Camera>::ObjConstPtr    CameraConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Camera>::ObjPtrArg      CameraPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Camera>::ObjConstPtrArg CameraConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Camera>::ObjPtrConstArg CameraPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<AttachmentContainerPtr,
 #endif
 
 template <>
-struct FieldTraits<CameraPtr> : 
+struct FieldTraits<CameraPtr> :
     public FieldTraitsTemplateBase<CameraPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<CameraPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFCameraPtr"; }

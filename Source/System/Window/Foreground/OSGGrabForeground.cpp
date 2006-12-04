@@ -57,19 +57,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::GrabForeground
-    \ingroup GrpSystemWindowForegrounds
-    
-The GrabForeground is used for grabbing a rendered viewport into an Image. 
-See \ref PageSystemWindowForegroundGrab for a description.
-
-
-*/
+// Documentation for this class is emited in the
+// OSGGrabForegroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGGrabForeground.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

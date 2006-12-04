@@ -70,22 +70,22 @@ class Background;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! BackgroundPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Background>::ObjPtr         BackgroundPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Background>::ObjPtrConst    BackgroundPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Background>::ObjConstPtr    BackgroundConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Background>::ObjPtrArg      BackgroundPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Background>::ObjConstPtrArg BackgroundConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           Background>::ObjPtrConstArg BackgroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<AttachmentContainerPtr,
 #endif
 
 template <>
-struct FieldTraits<BackgroundPtr> : 
+struct FieldTraits<BackgroundPtr> :
     public FieldTraitsTemplateBase<BackgroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<BackgroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFBackgroundPtr"; }

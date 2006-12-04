@@ -9,7 +9,15 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-The decorator to select a rectangular part of the image.
+\ingroup GrpSystemWindowCameraDecorators
+
+The OSG::TileCameraDecorator for selecting only a part of a virtual large
+image, see \ref
+PageSystemWindowCameraDecoratorsTile for a description.
+
+The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom and
+_sfTop Fields. The size of the full image is defined by the _sfFullWidth and
+_sfFullHeight Fields.
 	<Field
 		name="left"
 		type="Real32"

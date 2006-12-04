@@ -86,22 +86,22 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
-                              FrameBufferAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
+                              FrameBufferAttachmentConstPtr,
                               RenderBuffer>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
-                              FrameBufferAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
+                              FrameBufferAttachmentConstPtr,
                               RenderBuffer>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                               FrameBufferAttachmentConstPtr,
                               RenderBuffer>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                               FrameBufferAttachmentConstPtr,
                               RenderBuffer>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                               FrameBufferAttachmentConstPtr,
                               RenderBuffer>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                               FrameBufferAttachmentConstPtr,
                               RenderBuffer>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
         NextFieldId = InternalFormatFieldId + 1
     };
 
-    static const OSG::BitVector GLIdFieldMask = 
+    static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector InternalFormatFieldMask = 
+    static const OSG::BitVector InternalFormatFieldMask =
         (TypeTraits<BitVector>::One << InternalFormatFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,37 +148,37 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
 
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFGLId(void);
+                  SFGLenum            *getSFGLId            (void);
 #endif
-           SFGLenum *editSFGLId(void);
-     const SFGLenum *getSFGLId (void) const;
+                  SFGLenum            *editSFGLId           (void);
+            const SFGLenum            *getSFGLId            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFInternalFormat(void);
+                  SFGLenum            *getSFInternalFormat  (void);
 #endif
-           SFGLenum *editSFInternalFormat(void);
-     const SFGLenum *getSFInternalFormat (void) const;
+                  SFGLenum            *editSFInternalFormat (void);
+            const SFGLenum            *getSFInternalFormat  (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           GLenum &getGLId(void);
+                  GLenum              &getGLId            (void);
 #endif
-           GLenum &editGLId(void);
-     const GLenum &getGLId (void) const;
+                  GLenum              &editGLId           (void);
+            const GLenum              &getGLId            (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getInternalFormat(void);
+                  GLenum              &getInternalFormat  (void);
 #endif
-           GLenum &editInternalFormat(void);
-     const GLenum &getInternalFormat (void) const;
+                  GLenum              &editInternalFormat (void);
+            const GLenum              &getInternalFormat  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setGLId(const GLenum &value);
-     void setInternalFormat(const GLenum &value);
+            void setGLId           (const GLenum &value);
+            void setInternalFormat (const GLenum &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -199,15 +198,15 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RenderBufferPtr create     (void); 
-    static  RenderBufferPtr createEmpty(void); 
+    static  RenderBufferPtr create     (void);
+    static  RenderBufferPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -223,8 +222,8 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum _sfGLId;
-    SFGLenum _sfInternalFormat;
+    SFGLenum          _sfGLId;
+    SFGLenum          _sfInternalFormat;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -239,7 +238,7 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~RenderBufferBase(void); 
+    virtual ~RenderBufferBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -285,11 +284,11 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

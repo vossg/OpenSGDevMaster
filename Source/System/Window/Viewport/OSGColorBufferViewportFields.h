@@ -70,22 +70,22 @@ class ColorBufferViewport;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ColorBufferViewportPtr
 
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           ColorBufferViewport>::ObjPtr         ColorBufferViewportPtr;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           ColorBufferViewport>::ObjPtrConst    ColorBufferViewportPtrConst;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           ColorBufferViewport>::ObjConstPtr    ColorBufferViewportConstPtr;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           ColorBufferViewport>::ObjPtrArg      ColorBufferViewportPtrArg;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           ColorBufferViewport>::ObjConstPtrArg ColorBufferViewportConstPtrArg;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           ColorBufferViewport>::ObjPtrConstArg ColorBufferViewportPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ViewportPtr,
 #endif
 
 template <>
-struct FieldTraits<ColorBufferViewportPtr> : 
+struct FieldTraits<ColorBufferViewportPtr> :
     public FieldTraitsTemplateBase<ColorBufferViewportPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ColorBufferViewportPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFColorBufferViewportPtr"; }

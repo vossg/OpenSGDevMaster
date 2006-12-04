@@ -70,22 +70,22 @@ class FBOViewport;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! FBOViewportPtr
 
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           FBOViewport>::ObjPtr         FBOViewportPtr;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           FBOViewport>::ObjPtrConst    FBOViewportPtrConst;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           FBOViewport>::ObjConstPtr    FBOViewportConstPtr;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           FBOViewport>::ObjPtrArg      FBOViewportPtrArg;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           FBOViewport>::ObjConstPtrArg FBOViewportConstPtrArg;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           FBOViewport>::ObjPtrConstArg FBOViewportPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ViewportPtr,
 #endif
 
 template <>
-struct FieldTraits<FBOViewportPtr> : 
+struct FieldTraits<FBOViewportPtr> :
     public FieldTraitsTemplateBase<FBOViewportPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<FBOViewportPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFFBOViewportPtr"; }

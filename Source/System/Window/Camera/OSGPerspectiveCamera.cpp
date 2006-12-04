@@ -60,19 +60,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::PerspectiveCamera
-    \ingroup GrpSystemWindowCameras
-
-  The Perspective Camera class, see \ref PageSystemWindowCameraPerspective for 
-  a description.
-
-  The only new parameter is the _sfFov.
- */
+// Documentation for this class is emited in the
+// OSGPerspectiveCameraBase.cpp file.
+// To modify it, please change the .fcd file (OSGPerspectiveCamera.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

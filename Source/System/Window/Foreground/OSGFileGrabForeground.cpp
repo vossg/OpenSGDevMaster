@@ -51,19 +51,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::FileGrabForeground
-    \ingroup GrpSystemWindowForegrounds
-    
-The FileGrabForeground is used for grabbing a frame or sequence of frames to
-disk.  See \ref
-PageSystemWindowForegroundGrabFile for a description.
-
-The name of the file(s) grabbed to are defined by the _sfName Field, the
-current frame number by _sfFrame. _sfIncrement can be used to automatically
-increment the frame number after each image is written. The whole grabber can
-be activated/deactivated using _sfActive.
-
-*/
+// Documentation for this class is emited in the
+// OSGFileGrabForegroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGFileGrabForeground.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

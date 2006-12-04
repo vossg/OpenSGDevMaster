@@ -90,22 +90,22 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
-                              CameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
+                              CameraDecoratorConstPtr,
                               TileCameraDecorator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
-                              CameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
+                              CameraDecoratorConstPtr,
                               TileCameraDecorator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               TileCameraDecorator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               TileCameraDecorator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               TileCameraDecorator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               TileCameraDecorator>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -124,28 +124,27 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
         NextFieldId = FullHeightFieldId + 1
     };
 
-    static const OSG::BitVector LeftFieldMask = 
+    static const OSG::BitVector LeftFieldMask =
         (TypeTraits<BitVector>::One << LeftFieldId);
-    static const OSG::BitVector RightFieldMask = 
+    static const OSG::BitVector RightFieldMask =
         (TypeTraits<BitVector>::One << RightFieldId);
-    static const OSG::BitVector BottomFieldMask = 
+    static const OSG::BitVector BottomFieldMask =
         (TypeTraits<BitVector>::One << BottomFieldId);
-    static const OSG::BitVector TopFieldMask = 
+    static const OSG::BitVector TopFieldMask =
         (TypeTraits<BitVector>::One << TopFieldId);
-    static const OSG::BitVector FullWidthFieldMask = 
+    static const OSG::BitVector FullWidthFieldMask =
         (TypeTraits<BitVector>::One << FullWidthFieldId);
-    static const OSG::BitVector FullHeightFieldMask = 
+    static const OSG::BitVector FullHeightFieldMask =
         (TypeTraits<BitVector>::One << FullHeightFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -153,8 +152,8 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -165,89 +164,89 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
 
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFLeft(void);
+                  SFReal32            *getSFLeft            (void);
 #endif
-           SFReal32 *editSFLeft(void);
-     const SFReal32 *getSFLeft (void) const;
+                  SFReal32            *editSFLeft           (void);
+            const SFReal32            *getSFLeft            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFRight(void);
+                  SFReal32            *getSFRight           (void);
 #endif
-           SFReal32 *editSFRight(void);
-     const SFReal32 *getSFRight (void) const;
+                  SFReal32            *editSFRight          (void);
+            const SFReal32            *getSFRight           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFBottom(void);
+                  SFReal32            *getSFBottom          (void);
 #endif
-           SFReal32 *editSFBottom(void);
-     const SFReal32 *getSFBottom (void) const;
+                  SFReal32            *editSFBottom         (void);
+            const SFReal32            *getSFBottom          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFTop(void);
+                  SFReal32            *getSFTop             (void);
 #endif
-           SFReal32 *editSFTop(void);
-     const SFReal32 *getSFTop (void) const;
+                  SFReal32            *editSFTop            (void);
+            const SFReal32            *getSFTop             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFFullWidth(void);
+                  SFUInt32            *getSFFullWidth       (void);
 #endif
-           SFUInt32 *editSFFullWidth(void);
-     const SFUInt32 *getSFFullWidth (void) const;
+                  SFUInt32            *editSFFullWidth      (void);
+            const SFUInt32            *getSFFullWidth       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFFullHeight(void);
+                  SFUInt32            *getSFFullHeight      (void);
 #endif
-           SFUInt32 *editSFFullHeight(void);
-     const SFUInt32 *getSFFullHeight (void) const;
+                  SFUInt32            *editSFFullHeight     (void);
+            const SFUInt32            *getSFFullHeight      (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Real32 &getLeft(void);
+                  Real32              &getLeft            (void);
 #endif
-           Real32 &editLeft(void);
-     const Real32 &getLeft (void) const;
+                  Real32              &editLeft           (void);
+            const Real32              &getLeft            (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getRight(void);
+                  Real32              &getRight           (void);
 #endif
-           Real32 &editRight(void);
-     const Real32 &getRight (void) const;
+                  Real32              &editRight          (void);
+            const Real32              &getRight           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getBottom(void);
+                  Real32              &getBottom          (void);
 #endif
-           Real32 &editBottom(void);
-     const Real32 &getBottom (void) const;
+                  Real32              &editBottom         (void);
+            const Real32              &getBottom          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getTop(void);
+                  Real32              &getTop             (void);
 #endif
-           Real32 &editTop(void);
-     const Real32 &getTop (void) const;
+                  Real32              &editTop            (void);
+            const Real32              &getTop             (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getFullWidth(void);
+                  UInt32              &getFullWidth       (void);
 #endif
-           UInt32 &editFullWidth(void);
-     const UInt32 &getFullWidth (void) const;
+                  UInt32              &editFullWidth      (void);
+            const UInt32              &getFullWidth       (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getFullHeight(void);
+                  UInt32              &getFullHeight      (void);
 #endif
-           UInt32 &editFullHeight(void);
-     const UInt32 &getFullHeight (void) const;
+                  UInt32              &editFullHeight     (void);
+            const UInt32              &getFullHeight      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setLeft(const Real32 &value);
-     void setRight(const Real32 &value);
-     void setBottom(const Real32 &value);
-     void setTop(const Real32 &value);
-     void setFullWidth(const UInt32 &value);
-     void setFullHeight(const UInt32 &value);
+            void setLeft           (const Real32 &value);
+            void setRight          (const Real32 &value);
+            void setBottom         (const Real32 &value);
+            void setTop            (const Real32 &value);
+            void setFullWidth      (const UInt32 &value);
+            void setFullHeight     (const UInt32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -267,15 +266,15 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TileCameraDecoratorPtr create     (void); 
-    static  TileCameraDecoratorPtr createEmpty(void); 
+    static  TileCameraDecoratorPtr create     (void);
+    static  TileCameraDecoratorPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -291,12 +290,12 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32 _sfLeft;
-    SFReal32 _sfRight;
-    SFReal32 _sfBottom;
-    SFReal32 _sfTop;
-    SFUInt32 _sfFullWidth;
-    SFUInt32 _sfFullHeight;
+    SFReal32          _sfLeft;
+    SFReal32          _sfRight;
+    SFReal32          _sfBottom;
+    SFReal32          _sfTop;
+    SFUInt32          _sfFullWidth;
+    SFUInt32          _sfFullHeight;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -311,7 +310,7 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TileCameraDecoratorBase(void); 
+    virtual ~TileCameraDecoratorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -357,11 +356,11 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

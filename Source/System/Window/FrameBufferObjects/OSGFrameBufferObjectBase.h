@@ -91,22 +91,22 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               FrameBufferObject>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               FrameBufferObject>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               FrameBufferObject>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               FrameBufferObject>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               FrameBufferObject>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               FrameBufferObject>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
         NextFieldId = HeightFieldId + 1
     };
 
-    static const OSG::BitVector GLIdFieldMask = 
+    static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
-    static const OSG::BitVector ColorAttachmentsFieldMask = 
+    static const OSG::BitVector ColorAttachmentsFieldMask =
         (TypeTraits<BitVector>::One << ColorAttachmentsFieldId);
-    static const OSG::BitVector DrawBuffersFieldMask = 
+    static const OSG::BitVector DrawBuffersFieldMask =
         (TypeTraits<BitVector>::One << DrawBuffersFieldId);
-    static const OSG::BitVector DepthAttachmentFieldMask = 
+    static const OSG::BitVector DepthAttachmentFieldMask =
         (TypeTraits<BitVector>::One << DepthAttachmentFieldId);
-    static const OSG::BitVector StencilAttachmentFieldMask = 
+    static const OSG::BitVector StencilAttachmentFieldMask =
         (TypeTraits<BitVector>::One << StencilAttachmentFieldId);
-    static const OSG::BitVector WidthFieldMask = 
+    static const OSG::BitVector WidthFieldMask =
         (TypeTraits<BitVector>::One << WidthFieldId);
-    static const OSG::BitVector HeightFieldMask = 
+    static const OSG::BitVector HeightFieldMask =
         (TypeTraits<BitVector>::One << HeightFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -169,102 +168,102 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFGLId(void);
+                  SFGLenum            *getSFGLId            (void);
 #endif
-           SFGLenum *editSFGLId(void);
-     const SFGLenum *getSFGLId (void) const;
-     const MFFrameBufferAttachmentPtr *getMFColorAttachments (void) const;
+                  SFGLenum            *editSFGLId           (void);
+            const SFGLenum            *getSFGLId            (void) const;
+            const MFFrameBufferAttachmentPtr *getMFColorAttachments (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFGLenum *getMFDrawBuffers(void);
+                  MFGLenum            *getMFDrawBuffers     (void);
 #endif
-           MFGLenum *editMFDrawBuffers(void);
-     const MFGLenum *getMFDrawBuffers (void) const;
-     const SFFrameBufferAttachmentPtr *getSFDepthAttachment (void) const;
-     const SFFrameBufferAttachmentPtr *getSFStencilAttachment (void) const;
+                  MFGLenum            *editMFDrawBuffers    (void);
+            const MFGLenum            *getMFDrawBuffers     (void) const;
+            const SFFrameBufferAttachmentPtr *getSFDepthAttachment (void) const;
+            const SFFrameBufferAttachmentPtr *getSFStencilAttachment (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFWidth(void);
+                  SFUInt16            *getSFWidth           (void);
 #endif
-           SFUInt16 *editSFWidth(void);
-     const SFUInt16 *getSFWidth (void) const;
+                  SFUInt16            *editSFWidth          (void);
+            const SFUInt16            *getSFWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFHeight(void);
+                  SFUInt16            *getSFHeight          (void);
 #endif
-           SFUInt16 *editSFHeight(void);
-     const SFUInt16 *getSFHeight (void) const;
+                  SFUInt16            *editSFHeight         (void);
+            const SFUInt16            *getSFHeight          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           GLenum &getGLId(void);
+                  GLenum              &getGLId            (void);
 #endif
-           GLenum &editGLId(void);
-     const GLenum &getGLId (void) const;
+                  GLenum              &editGLId           (void);
+            const GLenum              &getGLId            (void) const;
 
-           FrameBufferAttachmentPtrConst getColorAttachments(const UInt32 index) const;
-     const MFFrameBufferAttachmentPtr &getColorAttachments(void) const;
+                  FrameBufferAttachmentPtrConst getColorAttachments(const UInt32 index) const;
+            const MFFrameBufferAttachmentPtr &getColorAttachments(void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getDrawBuffers(const UInt32 index);
-           MFGLenum &getDrawBuffers(void);
+                  GLenum              &getDrawBuffers     (const UInt32 index);
+                  MFGLenum            &getDrawBuffers    (void);
 #endif
-           GLenum &editDrawBuffers(const UInt32 index);
-     const GLenum &getDrawBuffers (const UInt32 index) const;
-           MFGLenum &editDrawBuffers(void);
-     const MFGLenum &getDrawBuffers(void) const;
+                  GLenum              &editDrawBuffers    (const UInt32 index);
+            const GLenum              &getDrawBuffers     (const UInt32 index) const;
+                  MFGLenum            &editDrawBuffers    (void);
+            const MFGLenum            &getDrawBuffers    (void) const;
 
-           FrameBufferAttachmentPtrConst getDepthAttachment(void) const;
+                  FrameBufferAttachmentPtrConst getDepthAttachment(void) const;
 
-           FrameBufferAttachmentPtrConst getStencilAttachment(void) const;
+                  FrameBufferAttachmentPtrConst getStencilAttachment(void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getWidth(void);
+                  UInt16              &getWidth           (void);
 #endif
-           UInt16 &editWidth(void);
-     const UInt16 &getWidth (void) const;
+                  UInt16              &editWidth          (void);
+            const UInt16              &getWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getHeight(void);
+                  UInt16              &getHeight          (void);
 #endif
-           UInt16 &editHeight(void);
-     const UInt16 &getHeight (void) const;
+                  UInt16              &editHeight         (void);
+            const UInt16              &getHeight          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setGLId(const GLenum &value);
-     void setDepthAttachment(FrameBufferAttachmentPtrConstArg value);
-     void setStencilAttachment(FrameBufferAttachmentPtrConstArg value);
-     void setWidth(const UInt16 &value);
-     void setHeight(const UInt16 &value);
+            void setGLId           (const GLenum &value);
+            void setDepthAttachment(FrameBufferAttachmentPtrConstArg value);
+            void setStencilAttachment(FrameBufferAttachmentPtrConstArg value);
+            void setWidth          (const UInt16 &value);
+            void setHeight         (const UInt16 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -276,31 +275,31 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
 
     void pushToColorAttachments           (FrameBufferAttachmentPtrConstArg value   );
     void insertIntoColorAttachments      (UInt32                uiIndex,
-                                    FrameBufferAttachmentPtrConstArg value   );
+                                             FrameBufferAttachmentPtrConstArg value   );
     void replaceInColorAttachments  (UInt32                uiIndex,
-                                    FrameBufferAttachmentPtrConstArg value   );
+                                             FrameBufferAttachmentPtrConstArg value   );
     void replaceInColorAttachments (FrameBufferAttachmentPtrConstArg pOldElem,
-                                    FrameBufferAttachmentPtrConstArg pNewElem);
+                                             FrameBufferAttachmentPtrConstArg pNewElem);
     void removeFromColorAttachments (UInt32                uiIndex );
     void removeFromColorAttachments(FrameBufferAttachmentPtrConstArg value   );
     void clearColorAttachments            (void                          );
 
- 
+
 
 
     void pushToDrawBuffers           (const GLenum& value   );
     void insertIntoDrawBuffers      (UInt32                uiIndex,
-                                    const GLenum& value   );
+                                             const GLenum& value   );
     void replaceInDrawBuffers  (UInt32                uiIndex,
-                                    const GLenum& value   );
+                                             const GLenum& value   );
     void replaceInDrawBuffers (const GLenum& pOldElem,
-                                    const GLenum& pNewElem);
+                                             const GLenum& pNewElem);
     void removeFromDrawBuffers (UInt32                uiIndex );
     void removeFromDrawBuffers(const GLenum& value   );
     void clearDrawBuffers            (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -319,15 +318,15 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FrameBufferObjectPtr create     (void); 
-    static  FrameBufferObjectPtr createEmpty(void); 
+    static  FrameBufferObjectPtr create     (void);
+    static  FrameBufferObjectPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -343,13 +342,13 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFGLenum _sfGLId;
+    SFGLenum          _sfGLId;
     MFFrameBufferAttachmentPtr _mfColorAttachments;
-    MFGLenum _mfDrawBuffers;
+    MFGLenum          _mfDrawBuffers;
     SFFrameBufferAttachmentPtr _sfDepthAttachment;
     SFFrameBufferAttachmentPtr _sfStencilAttachment;
-    SFUInt16 _sfWidth;
-    SFUInt16 _sfHeight;
+    SFUInt16          _sfWidth;
+    SFUInt16          _sfHeight;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -364,7 +363,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~FrameBufferObjectBase(void); 
+    virtual ~FrameBufferObjectBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -411,11 +410,11 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObjectBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

@@ -70,22 +70,22 @@ class ContainerPool;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ContainerPoolPtr
 
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjPtr         ContainerPoolPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjPtrConst    ContainerPoolPtrConst;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjConstPtr    ContainerPoolConstPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjPtrArg      ContainerPoolPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjConstPtrArg ContainerPoolConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           ContainerPool>::ObjPtrConstArg ContainerPoolPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
 #endif
 
 template <>
-struct FieldTraits<ContainerPoolPtr> : 
+struct FieldTraits<ContainerPoolPtr> :
     public FieldTraitsTemplateBase<ContainerPoolPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ContainerPoolPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFContainerPoolPtr"; }

@@ -65,24 +65,34 @@
 #include "OSGRenderBufferBase.h"
 #include "OSGRenderBuffer.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var GLenum RenderBufferBase::_sfGLId
-            The OpenGL texture id for this buffer object.
-        
-        
+/*! \class OSG::RenderBuffer
+    Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT
+    A renderbuffer is a data storage object containing a single image of a
+    renderable internal format.
 
+    \see TextureBuffer
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var GLenum          RenderBufferBase::_sfGLId
+    The OpenGL texture id for this buffer object.
 */
-/*! \var GLenum RenderBufferBase::_sfInternalFormat
-            
-
+/*! \var GLenum          RenderBufferBase::_sfInternalFormat
+    
 */
 
 void RenderBufferBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -92,9 +102,9 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "GLId", 
-        "        The OpenGL texture id for this buffer object.\n        \n        \n",
+        SFGLenum::getClassType(),
+        "GLId",
+        "The OpenGL texture id for this buffer object.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -114,9 +124,9 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "internalFormat", 
-        "        \n",
+        SFGLenum::getClassType(),
+        "internalFormat",
+        "",
         InternalFormatFieldId, InternalFormatFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -141,61 +151,62 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(true,
     (InitalInsertDescFunc) &RenderBufferBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"        name=\"RenderBuffer\"\n"
-"        parent=\"FrameBufferAttachment\"\n"
-"        library=\"System\"\n"
-"        pointerfieldtypes=\"both\"\n"
-"        structure=\"concrete\"\n"
-"        systemcomponent=\"true\"\n"
-"        parentsystemcomponent=\"true\"\n"
-"        decoratable=\"false\"\n"
-">\n"
-"Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
-"A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"
-"\n"
-"@see TextureBuffer\n"
-"        <Field\n"
-"                name=\"GLId\"\n"
-"                type=\"GLenum\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"internal\"\n"
-"                access=\"public\"\n"
-"                defaultValue=\"0\"\n"
-"        fieldFlags=\"FClusterLocal\"\n"
-"        >\n"
-"        The OpenGL texture id for this buffer object.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"internalFormat\"\n"
-"                type=\"GLenum\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"                defaultValue=\"GL_NONE\"\n"
-"        >\n"
-"        </Field>\n"
-"</FieldContainer>\n"
-,
-    "Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\nA renderbuffer is a data storage object containing a single image of a renderable internal format.\n@see TextureBuffer\n        \n" 
+    "\n"
+    "<FieldContainer\n"
+    "        name=\"RenderBuffer\"\n"
+    "        parent=\"FrameBufferAttachment\"\n"
+    "        library=\"System\"\n"
+    "        pointerfieldtypes=\"both\"\n"
+    "        structure=\"concrete\"\n"
+    "        systemcomponent=\"true\"\n"
+    "        parentsystemcomponent=\"true\"\n"
+    "        decoratable=\"false\"\n"
+    ">\n"
+    "Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
+    "A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"
+    "\n"
+    "\\see TextureBuffer\n"
+    "        <Field\n"
+    "                name=\"GLId\"\n"
+    "                type=\"GLenum\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"internal\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"0\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
+    "        >\n"
+    "        The OpenGL texture id for this buffer object.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"internalFormat\"\n"
+    "                type=\"GLenum\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"GL_NONE\"\n"
+    "        >\n"
+    "        </Field>\n"
+    "</FieldContainer>\n",
+    "Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
+    "A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"
+    "\\see TextureBuffer\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &RenderBufferBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &RenderBufferBase::getType(void) const 
+FieldContainerType &RenderBufferBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 RenderBufferBase::getContainerSize(void) const 
-{ 
-    return sizeof(RenderBuffer); 
+const FieldContainerType &RenderBufferBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 RenderBufferBase::getContainerSize(void) const
+{
+    return sizeof(RenderBuffer);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -214,9 +225,9 @@ const SFGLenum *RenderBufferBase::getSFGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *RenderBufferBase::getSFGLId(void)
+SFGLenum            *RenderBufferBase::getSFGLId           (void)
 {
-    return this->editSFGLId();
+    return this->editSFGLId           ();
 }
 #endif
 
@@ -233,9 +244,9 @@ const SFGLenum *RenderBufferBase::getSFInternalFormat(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *RenderBufferBase::getSFInternalFormat(void)
+SFGLenum            *RenderBufferBase::getSFInternalFormat (void)
 {
-    return this->editSFInternalFormat();
+    return this->editSFInternalFormat ();
 }
 #endif
 
@@ -290,22 +301,22 @@ void RenderBufferBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-RenderBufferPtr RenderBufferBase::createEmpty(void) 
-{ 
-    RenderBufferPtr returnValue; 
-    
-    newPtr<RenderBuffer>(returnValue); 
+RenderBufferPtr RenderBufferBase::createEmpty(void)
+{
+    RenderBufferPtr returnValue;
 
-    return returnValue; 
+    newPtr<RenderBuffer>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr RenderBufferBase::shallowCopy(void) const 
-{ 
-    RenderBufferPtr returnValue; 
+FieldContainerPtr RenderBufferBase::shallowCopy(void) const
+{
+    RenderBufferPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const RenderBuffer *>(this)); 
+    newPtr(returnValue, dynamic_cast<const RenderBuffer *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -314,15 +325,15 @@ FieldContainerPtr RenderBufferBase::shallowCopy(void) const
 
 RenderBufferBase::RenderBufferBase(void) :
     Inherited(),
-    _sfGLId(GLenum(0)),
-    _sfInternalFormat(GLenum(GL_NONE))
+    _sfGLId                   (GLenum(0)),
+    _sfInternalFormat         (GLenum(GL_NONE))
 {
 }
 
 RenderBufferBase::RenderBufferBase(const RenderBufferBase &source) :
     Inherited(source),
-    _sfGLId(source._sfGLId),
-    _sfInternalFormat(source._sfInternalFormat)
+    _sfGLId                   (source._sfGLId                   ),
+    _sfInternalFormat         (source._sfInternalFormat         )
 {
 }
 
@@ -336,13 +347,13 @@ RenderBufferBase::~RenderBufferBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void RenderBufferBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<RenderBufferBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -352,10 +363,10 @@ void RenderBufferBase::execSyncV(      FieldContainer    &oFrom,
 void RenderBufferBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<RenderBufferBase *>(&oFrom), 
+    this->execSync(static_cast<RenderBufferBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -375,12 +386,12 @@ void RenderBufferBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr RenderBufferBase::createAspectCopy(void) const
 {
-    RenderBufferPtr returnValue; 
+    RenderBufferPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const RenderBuffer *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const RenderBuffer *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -389,6 +400,8 @@ void RenderBufferBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -411,8 +424,6 @@ OSG_FIELDTRAITS_GETTYPE(RenderBufferPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, RenderBufferPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, RenderBufferPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -433,3 +444,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGRENDERBUFFERFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

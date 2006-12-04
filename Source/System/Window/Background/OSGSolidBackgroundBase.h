@@ -85,22 +85,22 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               SolidBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               SolidBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               SolidBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               SolidBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               SolidBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               SolidBackground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
         NextFieldId = ColorFieldId + 1
     };
 
-    static const OSG::BitVector ColorFieldMask = 
+    static const OSG::BitVector ColorFieldMask =
         (TypeTraits<BitVector>::One << ColorFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
 
 
 #ifdef OSG_1_COMPAT
-           SFColor3r *getSFColor(void);
+                  SFColor3r           *getSFColor           (void);
 #endif
-           SFColor3r *editSFColor(void);
-     const SFColor3r *getSFColor (void) const;
+                  SFColor3r           *editSFColor          (void);
+            const SFColor3r           *getSFColor           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Color3r &getColor(void);
+                  Color3r             &getColor           (void);
 #endif
-           Color3r &editColor(void);
-     const Color3r &getColor (void) const;
+                  Color3r             &editColor          (void);
+            const Color3r             &getColor           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setColor(const Color3r &value);
+            void setColor          (const Color3r &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -182,15 +181,15 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SolidBackgroundPtr create     (void); 
-    static  SolidBackgroundPtr createEmpty(void); 
+    static  SolidBackgroundPtr create     (void);
+    static  SolidBackgroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -206,7 +205,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFColor3r _sfColor;
+    SFColor3r         _sfColor;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -221,7 +220,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SolidBackgroundBase(void); 
+    virtual ~SolidBackgroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -267,11 +266,11 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

@@ -66,28 +66,39 @@
 #include "OSGGrabForegroundBase.h"
 #include "OSGGrabForeground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var ImagePtr GrabForegroundBase::_sfImage
-    	The image to write to.
+/*! \class OSG::GrabForeground
+    \ingroup GrpSystemWindowForegrounds
 
+    The GrabForeground is used for grabbing a rendered viewport into an
+    Image. See \ref PageSystemWindowForegroundGrab for a description.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var ImagePtr        GrabForegroundBase::_sfImage
+    The image to write to.
 */
-/*! \var bool GrabForegroundBase::_sfAutoResize
-    	Automatically resize the image when the viewport size changes.
-
+/*! \var bool            GrabForegroundBase::_sfAutoResize
+    Automatically resize the image when the viewport size changes.
 */
 
 void GrabForegroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFImagePtr::Description(
-        SFImagePtr::getClassType(), 
-        "image", 
-        "	The image to write to.\n",
+        SFImagePtr::getClassType(),
+        "image",
+        "The image to write to.\n",
         ImageFieldId, ImageFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -103,9 +114,9 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "autoResize", 
-        "	Automatically resize the image when the viewport size changes.\n",
+        SFBool::getClassType(),
+        "autoResize",
+        "Automatically resize the image when the viewport size changes.\n",
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -130,58 +141,62 @@ GrabForegroundBase::TypeObject GrabForegroundBase::_type(true,
     (InitalInsertDescFunc) &GrabForegroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GrabForeground\"\n"
-"	parent=\"Foreground\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"Background is the base class for all background clearing.\n"
-"	<Field\n"
-"		name=\"image\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The image to write to.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"autoResize\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Automatically resize the image when the viewport size changes.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "Background is the base class for all background clearing.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GrabForeground\"\n"
+    "\tparent=\"Foreground\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
+    "The GrabForeground is used for grabbing a rendered viewport into an Image.\n"
+    "See \\ref PageSystemWindowForegroundGrab for a description.\n"
+    "\t<Field\n"
+    "\t\tname=\"image\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe image to write to.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"autoResize\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tAutomatically resize the image when the viewport size changes.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "The GrabForeground is used for grabbing a rendered viewport into an Image.\n"
+    "See \\ref PageSystemWindowForegroundGrab for a description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GrabForegroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GrabForegroundBase::getType(void) const 
+FieldContainerType &GrabForegroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GrabForegroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(GrabForeground); 
+const FieldContainerType &GrabForegroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GrabForegroundBase::getContainerSize(void) const
+{
+    return sizeof(GrabForeground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -206,9 +221,9 @@ const SFBool *GrabForegroundBase::getSFAutoResize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *GrabForegroundBase::getSFAutoResize(void)
+SFBool              *GrabForegroundBase::getSFAutoResize     (void)
 {
-    return this->editSFAutoResize();
+    return this->editSFAutoResize     ();
 }
 #endif
 
@@ -324,22 +339,22 @@ void GrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GrabForegroundPtr GrabForegroundBase::createEmpty(void) 
-{ 
-    GrabForegroundPtr returnValue; 
-    
-    newPtr<GrabForeground>(returnValue); 
+GrabForegroundPtr GrabForegroundBase::createEmpty(void)
+{
+    GrabForegroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<GrabForeground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr GrabForegroundBase::shallowCopy(void) const 
-{ 
-    GrabForegroundPtr returnValue; 
+FieldContainerPtr GrabForegroundBase::shallowCopy(void) const
+{
+    GrabForegroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const GrabForeground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const GrabForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -348,15 +363,15 @@ FieldContainerPtr GrabForegroundBase::shallowCopy(void) const
 
 GrabForegroundBase::GrabForegroundBase(void) :
     Inherited(),
-    _sfImage(),
-    _sfAutoResize(bool(false))
+    _sfImage                  (),
+    _sfAutoResize             (bool(false))
 {
 }
 
 GrabForegroundBase::GrabForegroundBase(const GrabForegroundBase &source) :
     Inherited(source),
-    _sfImage(),
-    _sfAutoResize(source._sfAutoResize)
+    _sfImage                  (),
+    _sfAutoResize             (source._sfAutoResize             )
 {
 }
 
@@ -380,13 +395,13 @@ void GrabForegroundBase::onCreate(const GrabForeground *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GrabForegroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -396,10 +411,10 @@ void GrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
 void GrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GrabForegroundBase *>(&oFrom), 
+    this->execSync(static_cast<GrabForegroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -419,12 +434,12 @@ void GrabForegroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr GrabForegroundBase::createAspectCopy(void) const
 {
-    GrabForegroundPtr returnValue; 
+    GrabForegroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const GrabForeground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const GrabForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -435,6 +450,8 @@ void GrabForegroundBase::resolveLinks(void)
     static_cast<GrabForeground *>(this)->setImage(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -457,8 +474,6 @@ OSG_FIELDTRAITS_GETTYPE(GrabForegroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, GrabForegroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, GrabForegroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -479,3 +494,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGRABFOREGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -66,24 +66,35 @@
 #include "OSGFBOViewportBase.h"
 #include "OSGFBOViewport.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::FBOViewport
+    \ingroup GrpSystemWindowViewports
+
+    A viewport using a framebuffer object for output.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var FrameBufferObjectPtr FBOViewportBase::_sfFrameBufferObject
-            FramebufferObject to be written to
-
+    FramebufferObject to write to.
 */
 
 void FBOViewportBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFFrameBufferObjectPtr::Description(
-        SFFrameBufferObjectPtr::getClassType(), 
-        "frameBufferObject", 
-        "        FramebufferObject to be written to\n",
+        SFFrameBufferObjectPtr::getClassType(),
+        "frameBufferObject",
+        "FramebufferObject to write to.\n",
         FrameBufferObjectFieldId, FrameBufferObjectFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -104,47 +115,49 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(true,
     (InitalInsertDescFunc) &FBOViewportBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"FBOViewport\"\n"
-"	parent=\"Viewport\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"A viewport using a framebuffer object for output.\n"
-"	<Field\n"
-"		name=\"frameBufferObject\"\n"
-"		type=\"FrameBufferObjectPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        FramebufferObject to be written to\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A viewport using a framebuffer object for output.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"FBOViewport\"\n"
+    "\tparent=\"Viewport\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowViewports\n"
+    "\n"
+    "A viewport using a framebuffer object for output.\n"
+    "\t<Field\n"
+    "\t\tname=\"frameBufferObject\"\n"
+    "\t\ttype=\"FrameBufferObjectPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        FramebufferObject to write to.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowViewports\n"
+    "A viewport using a framebuffer object for output.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &FBOViewportBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &FBOViewportBase::getType(void) const 
+FieldContainerType &FBOViewportBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 FBOViewportBase::getContainerSize(void) const 
-{ 
-    return sizeof(FBOViewport); 
+const FieldContainerType &FBOViewportBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 FBOViewportBase::getContainerSize(void) const
+{
+    return sizeof(FBOViewport);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -256,22 +269,22 @@ void FBOViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FBOViewportPtr FBOViewportBase::createEmpty(void) 
-{ 
-    FBOViewportPtr returnValue; 
-    
-    newPtr<FBOViewport>(returnValue); 
+FBOViewportPtr FBOViewportBase::createEmpty(void)
+{
+    FBOViewportPtr returnValue;
 
-    return returnValue; 
+    newPtr<FBOViewport>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr FBOViewportBase::shallowCopy(void) const 
-{ 
-    FBOViewportPtr returnValue; 
+FieldContainerPtr FBOViewportBase::shallowCopy(void) const
+{
+    FBOViewportPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const FBOViewport *>(this)); 
+    newPtr(returnValue, dynamic_cast<const FBOViewport *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -280,13 +293,13 @@ FieldContainerPtr FBOViewportBase::shallowCopy(void) const
 
 FBOViewportBase::FBOViewportBase(void) :
     Inherited(),
-    _sfFrameBufferObject()
+    _sfFrameBufferObject      ()
 {
 }
 
 FBOViewportBase::FBOViewportBase(const FBOViewportBase &source) :
     Inherited(source),
-    _sfFrameBufferObject()
+    _sfFrameBufferObject      ()
 {
 }
 
@@ -310,13 +323,13 @@ void FBOViewportBase::onCreate(const FBOViewport *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void FBOViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<FBOViewportBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -326,10 +339,10 @@ void FBOViewportBase::execSyncV(      FieldContainer    &oFrom,
 void FBOViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FBOViewportBase *>(&oFrom), 
+    this->execSync(static_cast<FBOViewportBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -349,12 +362,12 @@ void FBOViewportBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr FBOViewportBase::createAspectCopy(void) const
 {
-    FBOViewportPtr returnValue; 
+    FBOViewportPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const FBOViewport *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const FBOViewport *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -365,6 +378,8 @@ void FBOViewportBase::resolveLinks(void)
     static_cast<FBOViewport *>(this)->setFrameBufferObject(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -387,8 +402,6 @@ OSG_FIELDTRAITS_GETTYPE(FBOViewportPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, FBOViewportPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, FBOViewportPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -409,3 +422,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGFBOVIEWPORTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

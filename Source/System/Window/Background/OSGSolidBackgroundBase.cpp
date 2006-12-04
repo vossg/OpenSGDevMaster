@@ -65,18 +65,32 @@
 #include "OSGSolidBackgroundBase.h"
 #include "OSGSolidBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color3r SolidBackgroundBase::_sfColor
-    	The background color.
+/*! \class OSG::SolidBackground
+    \ingroup GrpSystemWindowBackgrounds
 
+    A single colored background, see \ref PageSystemWindowBackgroundSolid
+    for a description.
+
+    The color of the background is given by the _sfColor field.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Color3r         SolidBackgroundBase::_sfColor
+    The background color.
 */
 
 void SolidBackgroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +100,9 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor3r::Description(
-        SFColor3r::getClassType(), 
-        "color", 
-        "	The background color.\n",
+        SFColor3r::getClassType(),
+        "color",
+        "The background color.\n",
         ColorFieldId, ColorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -113,45 +127,52 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(true,
     (InitalInsertDescFunc) &SolidBackgroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"SolidBackground\"\n"
-"	parent=\"Background\"\n"
-"	library=\"Window\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"single\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"A single colored background.\n"
-"	<Field\n"
-"		name=\"color\"\n"
-"		type=\"Color3r\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	The background color.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A single colored background.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"SolidBackground\"\n"
+    "\tparent=\"Background\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"single\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
+    "A single colored background, see \\ref PageSystemWindowBackgroundSolid for a\n"
+    "description.\n"
+    "\n"
+    "The color of the background is given by the _sfColor field.\n"
+    "\t<Field\n"
+    "\t\tname=\"color\"\n"
+    "\t\ttype=\"Color3r\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\tThe background color.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "A single colored background, see \\ref PageSystemWindowBackgroundSolid for a\n"
+    "description.\n"
+    "The color of the background is given by the _sfColor field.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &SolidBackgroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &SolidBackgroundBase::getType(void) const 
+FieldContainerType &SolidBackgroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 SolidBackgroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(SolidBackground); 
+const FieldContainerType &SolidBackgroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 SolidBackgroundBase::getContainerSize(void) const
+{
+    return sizeof(SolidBackground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -170,9 +191,9 @@ const SFColor3r *SolidBackgroundBase::getSFColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor3r *SolidBackgroundBase::getSFColor(void)
+SFColor3r           *SolidBackgroundBase::getSFColor          (void)
 {
-    return this->editSFColor();
+    return this->editSFColor          ();
 }
 #endif
 
@@ -215,22 +236,22 @@ void SolidBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-SolidBackgroundPtr SolidBackgroundBase::createEmpty(void) 
-{ 
-    SolidBackgroundPtr returnValue; 
-    
-    newPtr<SolidBackground>(returnValue); 
+SolidBackgroundPtr SolidBackgroundBase::createEmpty(void)
+{
+    SolidBackgroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<SolidBackground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr SolidBackgroundBase::shallowCopy(void) const 
-{ 
-    SolidBackgroundPtr returnValue; 
+FieldContainerPtr SolidBackgroundBase::shallowCopy(void) const
+{
+    SolidBackgroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const SolidBackground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const SolidBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -239,13 +260,13 @@ FieldContainerPtr SolidBackgroundBase::shallowCopy(void) const
 
 SolidBackgroundBase::SolidBackgroundBase(void) :
     Inherited(),
-    _sfColor()
+    _sfColor                  ()
 {
 }
 
 SolidBackgroundBase::SolidBackgroundBase(const SolidBackgroundBase &source) :
     Inherited(source),
-    _sfColor(source._sfColor)
+    _sfColor                  (source._sfColor                  )
 {
 }
 
@@ -259,13 +280,13 @@ SolidBackgroundBase::~SolidBackgroundBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void SolidBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<SolidBackgroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -275,10 +296,10 @@ void SolidBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 void SolidBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<SolidBackgroundBase *>(&oFrom), 
+    this->execSync(static_cast<SolidBackgroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -298,12 +319,12 @@ void SolidBackgroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr SolidBackgroundBase::createAspectCopy(void) const
 {
-    SolidBackgroundPtr returnValue; 
+    SolidBackgroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const SolidBackground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SolidBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -312,6 +333,8 @@ void SolidBackgroundBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 
@@ -330,8 +353,6 @@ DataType FieldTraits<SolidBackgroundPtr>::_type("SolidBackgroundPtr", "Backgroun
 OSG_FIELDTRAITS_GETTYPE(SolidBackgroundPtr)
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, SolidBackgroundPtr);
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -353,3 +374,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSOLIDBACKGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

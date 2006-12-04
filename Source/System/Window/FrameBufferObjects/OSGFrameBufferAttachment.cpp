@@ -50,10 +50,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::FrameBufferAttachment
-    \ingroup GrpSystemWindowViewports
-
- */
+// Documentation for this class is emited in the
+// OSGFrameBufferAttachmentBase.cpp file.
+// To modify it, please change the .fcd file (OSGFrameBufferAttachment.fcd) and
+// regenerate the base file.
 
 /*
 void FrameBufferAttachment::bind(Window *pWindow, 

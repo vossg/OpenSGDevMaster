@@ -11,7 +11,16 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-A sky-sphere background showing a color gradient. The colors and angles correspond to each other, they should have the same number of elements.
+\ingroup GrpSystemWindowBackgrounds
+
+A Sky/Ground/Skybox background, inspired by VRML, see \ref
+PageSystemWindowBackgroundSky for a description.
+
+The sky is defined by the _mfSkyAngle and _mfSkyColor fields, the ground by the
+_mfGroundAngle and _mfGround Color fields. The resolution of the sky sphere can
+be influenced by the _sfSphereRes field. The sky box is defined by the
+_sfBackTexture, _sfFrontTexture, _sfLeftTexture, _sfRightTexture, _sfTopTexture
+and _sfBottomTexture fields.
 	<Field
 		name="skyColor"
 		type="Color4f"
@@ -19,7 +28,11 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	The colors for the sky gradient bands. Corresponds to the skyAngle         angles.  The first value is for the apex (i.e. straight up), which         doesn't need an angle, thus there  should be one more color than         angles. If no angles are given color[0] is used, or black if none are         given.
+	The colors for the sky gradient bands. Corresponds to the skyAngle
+        angles.  The first value is for the apex (i.e. straight up), which
+        doesn't need an angle, thus there  should be one more color than
+        angles. If no angles are given color[0] is used, or black if none are
+        given.
 	</Field>
 	<Field
 		name="skyAngle"
@@ -28,7 +41,8 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	The angles for the sky gradient bands. Corresponds to the skyColor colors,          with the exception of the apex. Values should be between 0 and PI.
+	The angles for the sky gradient bands. Corresponds to the skyColor colors,
+        with the exception of the apex. Values should be between 0 and PI.
 	</Field>
 	<Field
 		name="groundColor"
@@ -46,7 +60,8 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	The angles of the ground sphere-part. Interpretation is similar to the sky, with          0 being straight down.
+	The angles of the ground sphere-part. Interpretation is similar to the sky, with
+        0 being straight down.
 	</Field>
 	<Field
 		name="sphereRes"
@@ -126,7 +141,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		defaultValue="true"
 		access="public"
 	>
-	flag to draw the box inside or outside of the sphere
+	Flag to draw the box inside or outside of the sphere
 	</Field>
 	<Field
 		name="topTexCoord"
@@ -144,7 +159,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	Bottom texture coordinates
+	Bottom texture coordinates.
 	</Field>
 	<Field
 		name="rightTexCoord"
@@ -153,7 +168,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	right texture coordinates
+	Right texture coordinates.
 	</Field>
 	<Field
 		name="leftTexCoord"
@@ -162,7 +177,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	left texture coordinates
+	Left texture coordinates.
 	</Field>
 	<Field
 		name="frontTexCoord"
@@ -171,7 +186,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	front texture coordinates
+	Front texture coordinates.
 	</Field>
 	<Field
 		name="backTexCoord"
@@ -180,7 +195,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	back texture coordinates
+	Back texture coordinates.
 	</Field>
 	<Field
 		name="beacon"
@@ -189,6 +204,7 @@ A sky-sphere background showing a color gradient. The colors and angles correspo
 		visibility="external"
 		access="public"
 	>
-	The object that defines the orientation of the background.
+	The object that defines the orientation of the background, i.e. the
+	local coordinate system it is drawn in.
 	</Field>
 </FieldContainer>

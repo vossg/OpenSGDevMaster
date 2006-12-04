@@ -49,23 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::TileCameraDecorator
-    \ingroup GrpSystemWindowCameraDecorators
-
-  The OSG::TileCameraDecorator for selecting only a part of a virtual large
-  image, see \ref
-  PageSystemWindowCameraDecoratorsTile for a description.
-  
-  The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom and
-  _sfTop Fields. The size of the full image is defined by the _sfFullWidth and
-  _sfFullHeight Fields.
-
-*/
+// Documentation for this class is emited in the
+// OSGTileCameraDecoratorBase.cpp file.
+// To modify it, please change the .fcd file (OSGTileCameraDecorator.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

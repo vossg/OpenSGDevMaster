@@ -70,22 +70,22 @@ class StereoBufferViewport;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! StereoBufferViewportPtr
 
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           StereoBufferViewport>::ObjPtr         StereoBufferViewportPtr;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           StereoBufferViewport>::ObjPtrConst    StereoBufferViewportPtrConst;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           StereoBufferViewport>::ObjConstPtr    StereoBufferViewportConstPtr;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           StereoBufferViewport>::ObjPtrArg      StereoBufferViewportPtrArg;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           StereoBufferViewport>::ObjConstPtrArg StereoBufferViewportConstPtrArg;
-typedef PointerFwdBuilder<ViewportPtr, 
+typedef PointerFwdBuilder<ViewportPtr,
                           ViewportConstPtr,
                           StereoBufferViewport>::ObjPtrConstArg StereoBufferViewportPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ViewportPtr,
 #endif
 
 template <>
-struct FieldTraits<StereoBufferViewportPtr> : 
+struct FieldTraits<StereoBufferViewportPtr> :
     public FieldTraitsTemplateBase<StereoBufferViewportPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<StereoBufferViewportPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFStereoBufferViewportPtr"; }

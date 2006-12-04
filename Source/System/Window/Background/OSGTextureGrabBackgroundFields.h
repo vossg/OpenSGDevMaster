@@ -70,22 +70,22 @@ class TextureGrabBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureGrabBackgroundPtr
 
-typedef PointerFwdBuilder<SolidBackgroundPtr, 
+typedef PointerFwdBuilder<SolidBackgroundPtr,
                           SolidBackgroundConstPtr,
                           TextureGrabBackground>::ObjPtr         TextureGrabBackgroundPtr;
-typedef PointerFwdBuilder<SolidBackgroundPtr, 
+typedef PointerFwdBuilder<SolidBackgroundPtr,
                           SolidBackgroundConstPtr,
                           TextureGrabBackground>::ObjPtrConst    TextureGrabBackgroundPtrConst;
-typedef PointerFwdBuilder<SolidBackgroundPtr, 
+typedef PointerFwdBuilder<SolidBackgroundPtr,
                           SolidBackgroundConstPtr,
                           TextureGrabBackground>::ObjConstPtr    TextureGrabBackgroundConstPtr;
-typedef PointerFwdBuilder<SolidBackgroundPtr, 
+typedef PointerFwdBuilder<SolidBackgroundPtr,
                           SolidBackgroundConstPtr,
                           TextureGrabBackground>::ObjPtrArg      TextureGrabBackgroundPtrArg;
-typedef PointerFwdBuilder<SolidBackgroundPtr, 
+typedef PointerFwdBuilder<SolidBackgroundPtr,
                           SolidBackgroundConstPtr,
                           TextureGrabBackground>::ObjConstPtrArg TextureGrabBackgroundConstPtrArg;
-typedef PointerFwdBuilder<SolidBackgroundPtr, 
+typedef PointerFwdBuilder<SolidBackgroundPtr,
                           SolidBackgroundConstPtr,
                           TextureGrabBackground>::ObjPtrConstArg TextureGrabBackgroundPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<SolidBackgroundPtr,
 #endif
 
 template <>
-struct FieldTraits<TextureGrabBackgroundPtr> : 
+struct FieldTraits<TextureGrabBackgroundPtr> :
     public FieldTraitsTemplateBase<TextureGrabBackgroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TextureGrabBackgroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

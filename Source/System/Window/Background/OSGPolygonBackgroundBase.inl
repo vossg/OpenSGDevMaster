@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &PolygonBackgroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 PolygonBackgroundBase::getClassTypeId(void) 
+OSG::UInt32 PolygonBackgroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 PolygonBackgroundBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const bool &PolygonBackgroundBase::getNormalizedX(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PolygonBackgroundBase::getNormalizedX(void)
+bool                &PolygonBackgroundBase::getNormalizedX    (void)
 {
-    return this->editNormalizedX();
+    return this->editNormalizedX    ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const bool &PolygonBackgroundBase::getNormalizedY(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PolygonBackgroundBase::getNormalizedY(void)
+bool                &PolygonBackgroundBase::getNormalizedY    (void)
 {
-    return this->editNormalizedY();
+    return this->editNormalizedY    ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const UInt16 &PolygonBackgroundBase::getAspectHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &PolygonBackgroundBase::getAspectHeight(void)
+UInt16              &PolygonBackgroundBase::getAspectHeight   (void)
 {
-    return this->editAspectHeight();
+    return this->editAspectHeight   ();
 }
 #endif
 
@@ -208,9 +208,9 @@ const UInt16 &PolygonBackgroundBase::getAspectWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &PolygonBackgroundBase::getAspectWidth(void)
+UInt16              &PolygonBackgroundBase::getAspectWidth    (void)
 {
-    return this->editAspectWidth();
+    return this->editAspectWidth    ();
 }
 #endif
 
@@ -249,15 +249,15 @@ MFVec3f &PolygonBackgroundBase::editTexCoords(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &PolygonBackgroundBase::getTexCoords(const UInt32 index)
+Vec3f               &PolygonBackgroundBase::getTexCoords      (const UInt32 index)
 {
-    return this->editTexCoords(index);
+    return this->editTexCoords      (index);
 }
 
 inline
-MFVec3f &PolygonBackgroundBase::getTexCoords(void)
+MFVec3f             &PolygonBackgroundBase::getTexCoords      (void)
 {
-    return this->editTexCoords();
+    return this->editTexCoords      ();
 }
 
 #endif
@@ -296,15 +296,15 @@ MFPnt2f &PolygonBackgroundBase::editPositions(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt2f &PolygonBackgroundBase::getPositions(const UInt32 index)
+Pnt2f               &PolygonBackgroundBase::getPositions      (const UInt32 index)
 {
-    return this->editPositions(index);
+    return this->editPositions      (index);
 }
 
 inline
-MFPnt2f &PolygonBackgroundBase::getPositions(void)
+MFPnt2f             &PolygonBackgroundBase::getPositions      (void)
 {
-    return this->editPositions();
+    return this->editPositions      ();
 }
 
 #endif
@@ -319,24 +319,24 @@ const MFPnt2f &PolygonBackgroundBase::getPositions(void) const
 
 //! create a new instance of the class
 inline
-PolygonBackgroundPtr PolygonBackgroundBase::create(void) 
+PolygonBackgroundPtr PolygonBackgroundBase::create(void)
 {
-    PolygonBackgroundPtr fc; 
+    PolygonBackgroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<PolygonBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void PolygonBackgroundBase::execSync(      PolygonBackgroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -346,13 +346,13 @@ void PolygonBackgroundBase::execSync(      PolygonBackgroundBase *pOther,
         _sfMaterial.syncWith(pOther->_sfMaterial);
 
     if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-        _mfTexCoords.syncWith(pOther->_mfTexCoords, 
+        _mfTexCoords.syncWith(pOther->_mfTexCoords,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pOther->_mfPositions, 
+        _mfPositions.syncWith(pOther->_mfPositions,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -376,7 +376,7 @@ inline
 void PolygonBackgroundBase::execSync (      PolygonBackgroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -385,13 +385,13 @@ void PolygonBackgroundBase::execSync (      PolygonBackgroundBase *pFrom,
         _sfMaterial.syncWith(pFrom->_sfMaterial);
 
     if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-        _mfTexCoords.syncWith(pFrom->_mfTexCoords, 
+        _mfTexCoords.syncWith(pFrom->_mfTexCoords,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pFrom->_mfPositions, 
+        _mfPositions.syncWith(pFrom->_mfPositions,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -448,4 +448,3 @@ typedef PointerBuilder<PolygonBackground>::ObjPtrConstArg  PolygonBackgroundPtrC
 OSG_END_NAMESPACE
 
 #define OSGPOLYGONBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

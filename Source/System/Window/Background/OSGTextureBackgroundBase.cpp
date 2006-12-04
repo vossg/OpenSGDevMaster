@@ -66,37 +66,48 @@
 #include "OSGTextureBackgroundBase.h"
 #include "OSGTextureBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color4f TextureBackgroundBase::_sfColor
+/*! \class OSG::TextureBackground
+    \ingroup GrpSystemWindowBackgrounds
+
+    A textured background e.g for distortion corrected fast live video from
+    a camera with known intrinsic parameters.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Color4f         TextureBackgroundBase::_sfColor
     
 */
 /*! \var TextureObjChunkPtr TextureBackgroundBase::_sfTexture
     
 */
-/*! \var Pnt2f TextureBackgroundBase::_mfTexCoords
+/*! \var Pnt2f           TextureBackgroundBase::_mfTexCoords
     
 */
-/*! \var Real32 TextureBackgroundBase::_sfRadialDistortion
+/*! \var Real32          TextureBackgroundBase::_sfRadialDistortion
     
 */
-/*! \var Vec2f TextureBackgroundBase::_sfCenterOfDistortion
+/*! \var Vec2f           TextureBackgroundBase::_sfCenterOfDistortion
     
 */
-/*! \var UInt16 TextureBackgroundBase::_sfHor
-    	horizontal subdivision
-
+/*! \var UInt16          TextureBackgroundBase::_sfHor
+    Horizontal subdivision.
 */
-/*! \var UInt16 TextureBackgroundBase::_sfVert
-    	vertical subdivision
-
+/*! \var UInt16          TextureBackgroundBase::_sfVert
+    Vertical subdivision.
 */
 
 void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -106,8 +117,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(), 
-        "color", 
+        SFColor4f::getClassType(),
+        "color",
         "",
         ColorFieldId, ColorFieldMask,
         false,
@@ -122,8 +133,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "texture", 
+        SFTextureObjChunkPtr::getClassType(),
+        "texture",
         "",
         TextureFieldId, TextureFieldMask,
         false,
@@ -140,8 +151,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFPnt2f::Description(
-        MFPnt2f::getClassType(), 
-        "texCoords", 
+        MFPnt2f::getClassType(),
+        "texCoords",
         "",
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
@@ -162,8 +173,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "radialDistortion", 
+        SFReal32::getClassType(),
+        "radialDistortion",
         "",
         RadialDistortionFieldId, RadialDistortionFieldMask,
         false,
@@ -184,8 +195,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFVec2f::Description(
-        SFVec2f::getClassType(), 
-        "centerOfDistortion", 
+        SFVec2f::getClassType(),
+        "centerOfDistortion",
         "",
         CenterOfDistortionFieldId, CenterOfDistortionFieldMask,
         false,
@@ -206,9 +217,9 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "hor", 
-        "	horizontal subdivision\n",
+        SFUInt16::getClassType(),
+        "hor",
+        "Horizontal subdivision.\n",
         HorFieldId, HorFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -228,9 +239,9 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "vert", 
-        "	vertical subdivision\n",
+        SFUInt16::getClassType(),
+        "vert",
+        "Vertical subdivision.\n",
         VertFieldId, VertFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -255,101 +266,105 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(true,
     (InitalInsertDescFunc) &TextureBackgroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TextureBackground\"\n"
-"	parent=\"Background\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"single\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"A textured background e.g for distortion corrected fast live video from a camera with known intrinsic parameters.\n"
-"	<Field\n"
-"		name=\"color\"\n"
-"		type=\"Color4f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"texture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"texCoords\"\n"
-"		type=\"Pnt2f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"radialDistortion\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"centerOfDistortion\"\n"
-"		type=\"Vec2f\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0.5, 0.5\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"hor\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"2\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	horizontal subdivision\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"vert\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"2\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	vertical subdivision\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A textured background e.g for distortion corrected fast live video from a camera with known intrinsic parameters.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TextureBackground\"\n"
+    "\tparent=\"Background\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"single\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
+    "A textured background e.g for distortion corrected fast live video from a\n"
+    "camera with known intrinsic parameters.\n"
+    "\t<Field\n"
+    "\t\tname=\"color\"\n"
+    "\t\ttype=\"Color4f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"texture\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"texCoords\"\n"
+    "\t\ttype=\"Pnt2f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"radialDistortion\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"centerOfDistortion\"\n"
+    "\t\ttype=\"Vec2f\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0.5, 0.5\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"hor\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"2\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tHorizontal subdivision.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"vert\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"2\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tVertical subdivision.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "A textured background e.g for distortion corrected fast live video from a\n"
+    "camera with known intrinsic parameters.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureBackgroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureBackgroundBase::getType(void) const 
+FieldContainerType &TextureBackgroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureBackgroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureBackground); 
+const FieldContainerType &TextureBackgroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureBackgroundBase::getContainerSize(void) const
+{
+    return sizeof(TextureBackground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -368,9 +383,9 @@ const SFColor4f *TextureBackgroundBase::getSFColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFColor4f *TextureBackgroundBase::getSFColor(void)
+SFColor4f           *TextureBackgroundBase::getSFColor          (void)
 {
-    return this->editSFColor();
+    return this->editSFColor          ();
 }
 #endif
 
@@ -393,9 +408,9 @@ const MFPnt2f *TextureBackgroundBase::getMFTexCoords(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFPnt2f *TextureBackgroundBase::getMFTexCoords(void)
+MFPnt2f             *TextureBackgroundBase::getMFTexCoords      (void)
 {
-    return this->editMFTexCoords();
+    return this->editMFTexCoords      ();
 }
 #endif
 
@@ -412,7 +427,7 @@ const SFReal32 *TextureBackgroundBase::getSFRadialDistortion(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *TextureBackgroundBase::getSFRadialDistortion(void)
+SFReal32            *TextureBackgroundBase::getSFRadialDistortion(void)
 {
     return this->editSFRadialDistortion();
 }
@@ -431,7 +446,7 @@ const SFVec2f *TextureBackgroundBase::getSFCenterOfDistortion(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFVec2f *TextureBackgroundBase::getSFCenterOfDistortion(void)
+SFVec2f             *TextureBackgroundBase::getSFCenterOfDistortion(void)
 {
     return this->editSFCenterOfDistortion();
 }
@@ -450,9 +465,9 @@ const SFUInt16 *TextureBackgroundBase::getSFHor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *TextureBackgroundBase::getSFHor(void)
+SFUInt16            *TextureBackgroundBase::getSFHor            (void)
 {
-    return this->editSFHor();
+    return this->editSFHor            ();
 }
 #endif
 
@@ -469,9 +484,9 @@ const SFUInt16 *TextureBackgroundBase::getSFVert(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *TextureBackgroundBase::getSFVert(void)
+SFUInt16            *TextureBackgroundBase::getSFVert           (void)
 {
-    return this->editSFVert();
+    return this->editSFVert           ();
 }
 #endif
 
@@ -544,7 +559,7 @@ void TextureBackgroundBase::pushToTexCoords(const Pnt2f& value)
 }
 
 void TextureBackgroundBase::insertIntoTexCoords(UInt32                uiIndex,
-                                             const Pnt2f& value   )
+                                                   const Pnt2f& value   )
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
@@ -556,7 +571,7 @@ void TextureBackgroundBase::insertIntoTexCoords(UInt32                uiIndex,
 }
 
 void TextureBackgroundBase::replaceInTexCoords(UInt32                uiIndex,
-                                                 const Pnt2f& value   )
+                                                       const Pnt2f& value   )
 {
     if(uiIndex >= _mfTexCoords.size())
         return;
@@ -567,7 +582,7 @@ void TextureBackgroundBase::replaceInTexCoords(UInt32                uiIndex,
 }
 
 void TextureBackgroundBase::replaceInTexCoords(const Pnt2f& pOldElem,
-                                                  const Pnt2f& pNewElem)
+                                                        const Pnt2f& pNewElem)
 {
     Int32  elemIdx = _mfTexCoords.findIndex(pOldElem);
 
@@ -611,19 +626,13 @@ void TextureBackgroundBase::removeFromTexCoords(const Pnt2f& value)
         _mfTexCoords.erase(fieldIt);
     }
 }
+
 void TextureBackgroundBase::clearTexCoords(void)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
     _mfTexCoords.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -735,22 +744,22 @@ void TextureBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureBackgroundPtr TextureBackgroundBase::createEmpty(void) 
-{ 
-    TextureBackgroundPtr returnValue; 
-    
-    newPtr<TextureBackground>(returnValue); 
+TextureBackgroundPtr TextureBackgroundBase::createEmpty(void)
+{
+    TextureBackgroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<TextureBackground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TextureBackgroundBase::shallowCopy(void) const 
-{ 
-    TextureBackgroundPtr returnValue; 
+FieldContainerPtr TextureBackgroundBase::shallowCopy(void) const
+{
+    TextureBackgroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TextureBackground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TextureBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -759,25 +768,25 @@ FieldContainerPtr TextureBackgroundBase::shallowCopy(void) const
 
 TextureBackgroundBase::TextureBackgroundBase(void) :
     Inherited(),
-    _sfColor(),
-    _sfTexture(),
-    _mfTexCoords(),
-    _sfRadialDistortion(Real32(0)),
-    _sfCenterOfDistortion(Vec2f(0.5, 0.5)),
-    _sfHor(UInt16(2)),
-    _sfVert(UInt16(2))
+    _sfColor                  (),
+    _sfTexture                (),
+    _mfTexCoords              (),
+    _sfRadialDistortion       (Real32(0)),
+    _sfCenterOfDistortion     (Vec2f(0.5, 0.5)),
+    _sfHor                    (UInt16(2)),
+    _sfVert                   (UInt16(2))
 {
 }
 
 TextureBackgroundBase::TextureBackgroundBase(const TextureBackgroundBase &source) :
     Inherited(source),
-    _sfColor(source._sfColor),
-    _sfTexture(),
-    _mfTexCoords(source._mfTexCoords),
-    _sfRadialDistortion(source._sfRadialDistortion),
-    _sfCenterOfDistortion(source._sfCenterOfDistortion),
-    _sfHor(source._sfHor),
-    _sfVert(source._sfVert)
+    _sfColor                  (source._sfColor                  ),
+    _sfTexture                (),
+    _mfTexCoords              (source._mfTexCoords              ),
+    _sfRadialDistortion       (source._sfRadialDistortion       ),
+    _sfCenterOfDistortion     (source._sfCenterOfDistortion     ),
+    _sfHor                    (source._sfHor                    ),
+    _sfVert                   (source._sfVert                   )
 {
 }
 
@@ -801,13 +810,13 @@ void TextureBackgroundBase::onCreate(const TextureBackground *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureBackgroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -817,10 +826,10 @@ void TextureBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 void TextureBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureBackgroundBase *>(&oFrom), 
+    this->execSync(static_cast<TextureBackgroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -840,12 +849,12 @@ void TextureBackgroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureBackgroundBase::createAspectCopy(void) const
 {
-    TextureBackgroundPtr returnValue; 
+    TextureBackgroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TextureBackground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TextureBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -856,6 +865,8 @@ void TextureBackgroundBase::resolveLinks(void)
     static_cast<TextureBackground *>(this)->setTexture(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 
@@ -874,8 +885,6 @@ DataType FieldTraits<TextureBackgroundPtr>::_type("TextureBackgroundPtr", "Backg
 OSG_FIELDTRAITS_GETTYPE(TextureBackgroundPtr)
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, TextureBackgroundPtr);
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -897,3 +906,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTUREBACKGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

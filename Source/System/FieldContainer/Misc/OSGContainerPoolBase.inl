@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ContainerPoolBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ContainerPoolBase::getClassTypeId(void) 
+OSG::UInt32 ContainerPoolBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ContainerPoolBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const std::string &ContainerPoolBase::getName(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ContainerPoolBase::getName(void)
+std::string         &ContainerPoolBase::getName           (void)
 {
-    return this->editName();
+    return this->editName           ();
 }
 #endif
 
@@ -123,24 +123,24 @@ const MFFieldContainerPtr &ContainerPoolBase::getContainers(void) const
 
 //! create a new instance of the class
 inline
-ContainerPoolPtr ContainerPoolBase::create(void) 
+ContainerPoolPtr ContainerPoolBase::create(void)
 {
-    ContainerPoolPtr fc; 
+    ContainerPoolPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ContainerPool::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ContainerPoolBase::execSync(      ContainerPoolBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -150,7 +150,7 @@ void ContainerPoolBase::execSync(      ContainerPoolBase *pOther,
         _sfName.syncWith(pOther->_sfName);
 
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
-        _mfContainers.syncWith(pOther->_mfContainers, 
+        _mfContainers.syncWith(pOther->_mfContainers,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -162,7 +162,7 @@ inline
 void ContainerPoolBase::execSync (      ContainerPoolBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -171,7 +171,7 @@ void ContainerPoolBase::execSync (      ContainerPoolBase *pFrom,
         _sfName.syncWith(pFrom->_sfName);
 
     if(FieldBits::NoField != (ContainersFieldMask & whichField))
-        _mfContainers.syncWith(pFrom->_mfContainers, 
+        _mfContainers.syncWith(pFrom->_mfContainers,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -211,4 +211,3 @@ typedef PointerBuilder<ContainerPool>::ObjPtrConstArg  ContainerPoolPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGCONTAINERPOOLBASE_INLINE_CVSID "@(#)$Id$"
-

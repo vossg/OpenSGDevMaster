@@ -70,22 +70,22 @@ class TileCameraDecorator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TileCameraDecoratorPtr
 
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           TileCameraDecorator>::ObjPtr         TileCameraDecoratorPtr;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           TileCameraDecorator>::ObjPtrConst    TileCameraDecoratorPtrConst;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           TileCameraDecorator>::ObjConstPtr    TileCameraDecoratorConstPtr;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           TileCameraDecorator>::ObjPtrArg      TileCameraDecoratorPtrArg;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           TileCameraDecorator>::ObjConstPtrArg TileCameraDecoratorConstPtrArg;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           TileCameraDecorator>::ObjPtrConstArg TileCameraDecoratorPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<CameraDecoratorPtr,
 #endif
 
 template <>
-struct FieldTraits<TileCameraDecoratorPtr> : 
+struct FieldTraits<TileCameraDecoratorPtr> :
     public FieldTraitsTemplateBase<TileCameraDecoratorPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TileCameraDecoratorPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFTileCameraDecoratorPtr"; }

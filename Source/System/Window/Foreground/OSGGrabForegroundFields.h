@@ -70,22 +70,22 @@ class GrabForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GrabForegroundPtr
 
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           GrabForeground>::ObjPtr         GrabForegroundPtr;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           GrabForeground>::ObjPtrConst    GrabForegroundPtrConst;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           GrabForeground>::ObjConstPtr    GrabForegroundConstPtr;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           GrabForeground>::ObjPtrArg      GrabForegroundPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           GrabForeground>::ObjConstPtrArg GrabForegroundConstPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           GrabForeground>::ObjPtrConstArg GrabForegroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ForegroundPtr,
 #endif
 
 template <>
-struct FieldTraits<GrabForegroundPtr> : 
+struct FieldTraits<GrabForegroundPtr> :
     public FieldTraitsTemplateBase<GrabForegroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<GrabForegroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFGrabForegroundPtr"; }

@@ -9,7 +9,13 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-A perspective camera with a symmetric frustum. 	
+\ingroup GrpSystemWindowCameras
+
+The Matrix Camera class, see \ref PageSystemWindowCameraMatrix for
+a description.
+
+The used matrices are stored in the _sfModelviewMatrix and
+_sfProjectionMatrix Fields.
 	<Field
 		name="ProjectionMatrix"
 		type="Matrix"

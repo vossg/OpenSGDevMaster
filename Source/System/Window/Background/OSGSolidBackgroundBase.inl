@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SolidBackgroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SolidBackgroundBase::getClassTypeId(void) 
+OSG::UInt32 SolidBackgroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SolidBackgroundBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Color3r &SolidBackgroundBase::getColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color3r &SolidBackgroundBase::getColor(void)
+Color3r             &SolidBackgroundBase::getColor          (void)
 {
-    return this->editColor();
+    return this->editColor          ();
 }
 #endif
 
@@ -109,24 +109,24 @@ void SolidBackgroundBase::setColor(const Color3r &value)
 
 //! create a new instance of the class
 inline
-SolidBackgroundPtr SolidBackgroundBase::create(void) 
+SolidBackgroundPtr SolidBackgroundBase::create(void)
 {
-    SolidBackgroundPtr fc; 
+    SolidBackgroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SolidBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SolidBackgroundBase::execSync(      SolidBackgroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -142,7 +142,7 @@ inline
 void SolidBackgroundBase::execSync (      SolidBackgroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -180,4 +180,3 @@ typedef PointerBuilder<SolidBackground>::ObjPtrConstArg  SolidBackgroundPtrConst
 OSG_END_NAMESPACE
 
 #define OSGSOLIDBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

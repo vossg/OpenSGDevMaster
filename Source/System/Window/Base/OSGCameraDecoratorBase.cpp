@@ -66,9 +66,24 @@
 #include "OSGCameraDecoratorBase.h"
 #include "OSGCameraDecorator.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::CameraDecorator
+    \ingroup GrpSystemWindowCameras
+
+    The Camera base class, see \ref PageSystemWindowCamera for a
+    description.
+
+    The only common fields are _sfNear and _sfFar.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var CameraPtr CameraDecoratorBase::_sfDecoratee
     The object being decorated
@@ -76,10 +91,10 @@ OSG_USING_NAMESPACE
 
 void CameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
     pDesc = new SFCameraPtr::Description(
-        SFCameraPtr::getClassType(), 
+        SFCameraPtr::getClassType(),
         "decoratee",
         "undocumented decoratee",
         DecorateeFieldId, DecorateeFieldMask,
@@ -97,68 +112,73 @@ CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     CameraDecorator::initMethod,
     (InitalInsertDescFunc) &CameraDecoratorBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Camera\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	structure=\"abstract\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"true\"\n"
-">\n"
-"The base class for the camera.\n"
-"	<Field\n"
-"		name=\"beacon\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	The object that define's the camera's coordinate system. The camera is positioned\n"
-"	at the origin of the system and looks doen the negative z-axis (OpenGL-style).\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"near\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	The near distance of the camera.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"far\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	The far distance of the camera.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The base class for the camera.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Camera\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowCameras\n"
+    "\n"
+    "The Camera base class, see \\ref PageSystemWindowCamera for a description.\n"
+    "\n"
+    "The only common fields are _sfNear and _sfFar.\n"
+    "\t<Field\n"
+    "\t\tname=\"beacon\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\tThe object that define's the camera's coordinate system. The camera is positioned\n"
+    "\tat the origin of the system and looks down the negative z-axis (OpenGL-style).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"near\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\tThe near distance of the camera.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"far\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\tThe far distance of the camera.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowCameras\n"
+    "The Camera base class, see \\ref PageSystemWindowCamera for a description.\n"
+    "The only common fields are _sfNear and _sfFar.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &CameraDecoratorBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &CameraDecoratorBase::getType(void) const 
+FieldContainerType &CameraDecoratorBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 CameraDecoratorBase::getContainerSize(void) const 
-{ 
-    return sizeof(CameraDecorator); 
+const FieldContainerType &CameraDecoratorBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 CameraDecoratorBase::getContainerSize(void) const
+{
+    return sizeof(CameraDecorator);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -205,9 +225,9 @@ const SFReal32 *CameraDecoratorBase::getSFNear(void) const
     }
 }
 #ifdef OSG_1_COMPAT
-SFReal32 *CameraDecoratorBase::getSFNear(void)
+SFReal32            *CameraDecoratorBase::getSFNear           (void)
 {
-    return this->editSFNear();
+    return this->editSFNear           ();
 }
 #endif
 
@@ -235,9 +255,9 @@ const SFReal32 *CameraDecoratorBase::getSFFar(void) const
     }
 }
 #ifdef OSG_1_COMPAT
-SFReal32 *CameraDecoratorBase::getSFFar(void)
+SFReal32            *CameraDecoratorBase::getSFFar            (void)
 {
-    return this->editSFFar();
+    return this->editSFFar            ();
 }
 #endif
 
@@ -377,13 +397,13 @@ void CameraDecoratorBase::onCreate(const CameraDecorator *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void CameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<CameraDecoratorBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -393,10 +413,10 @@ void CameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 void CameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<CameraDecoratorBase *>(&oFrom), 
+    this->execSync(static_cast<CameraDecoratorBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -478,9 +498,9 @@ const Real32 &CameraDecoratorBase::getNear(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &CameraDecoratorBase::getNear(void)
+Real32              &CameraDecoratorBase::getNear           (void)
 {
-    return this->editNear();
+    return this->editNear           ();
 }
 #endif
 
@@ -525,9 +545,9 @@ const Real32 &CameraDecoratorBase::getFar(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &CameraDecoratorBase::getFar(void)
+Real32              &CameraDecoratorBase::getFar            (void)
 {
-    return this->editFar();
+    return this->editFar            ();
 }
 #endif
 
@@ -544,6 +564,8 @@ void CameraDecoratorBase::setFar(const Real32 &value)
     }
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -566,8 +588,6 @@ OSG_FIELDTRAITS_GETTYPE(CameraDecoratorPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, CameraDecoratorPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, CameraDecoratorPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -588,3 +608,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGCAMERADECORATORFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

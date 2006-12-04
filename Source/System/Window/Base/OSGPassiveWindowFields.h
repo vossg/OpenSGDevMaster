@@ -70,22 +70,22 @@ class PassiveWindow;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PassiveWindowPtr
 
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           PassiveWindow>::ObjPtr         PassiveWindowPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           PassiveWindow>::ObjPtrConst    PassiveWindowPtrConst;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           PassiveWindow>::ObjConstPtr    PassiveWindowConstPtr;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           PassiveWindow>::ObjPtrArg      PassiveWindowPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           PassiveWindow>::ObjConstPtrArg PassiveWindowConstPtrArg;
-typedef PointerFwdBuilder<WindowPtr, 
+typedef PointerFwdBuilder<WindowPtr,
                           WindowConstPtr,
                           PassiveWindow>::ObjPtrConstArg PassiveWindowPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<WindowPtr,
 #endif
 
 template <>
-struct FieldTraits<PassiveWindowPtr> : 
+struct FieldTraits<PassiveWindowPtr> :
     public FieldTraitsTemplateBase<PassiveWindowPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<PassiveWindowPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFPassiveWindowPtr"; }

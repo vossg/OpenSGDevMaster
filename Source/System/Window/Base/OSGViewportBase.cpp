@@ -70,66 +70,89 @@
 #include "OSGViewportBase.h"
 #include "OSGViewport.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Real32 ViewportBase::_sfLeft
-    	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values 
->
- 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.
+/*! \class OSG::Viewport
+    \ingroup GrpSystemWindowsViewports
 
+    A Viewport is a part of the Window it is attached to used for
+    rendering. See \ref PageSystemWindowViewports for a description.
+
+    The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom
+    and _sfTop Fields. The Window this Viewport is attached is stored in
+    _sfWindow. _sfBackground defines the background clearing method, the
+    _sfRoot and _sfCamera Fields the scene being rendered and the camera
+    used to view it. The optional _mfForegrounds define which information
+    are added or actions are executed after the Viewport has been rendered.
+
+    \ext
+
+    To create a new Viewport the draw and render methods should be
+    overridden.
+
+    \endext
+
+    \dev
+
+    When adding fields to the Viewport, make sure to add the code to copy
+    them to all the different ClusterWindows!
+
+    \enddev
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Real32          ViewportBase::_sfLeft
+    The left edge of the viewport. Values between 0 and 1 are relative to
+    the size of the Window, values >1 are absolute pixel coordinates, value
+    == -1 means the left border. All other values are illegal.
 */
-/*! \var Real32 ViewportBase::_sfRight
-    	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values 
->
- 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.
-
+/*! \var Real32          ViewportBase::_sfRight
+    The right edge of the viewport. Values between 0 and 1 are relative to
+    the size of the Window, values >1 are absolute pixel coordinates, value
+    == -1 means the right border. All other values are illegal.
 */
-/*! \var Real32 ViewportBase::_sfBottom
-    	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values 
->
- 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.
-
+/*! \var Real32          ViewportBase::_sfBottom
+    The bottom edge of the viewport. Values between 0 and 1 are relative
+    to the size of the Window, values >1 are absolute pixel coordinates,
+    value == -1 means the bottom border. All other values are illegal.
 */
-/*! \var Real32 ViewportBase::_sfTop
-    	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values 
->
- 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.
-
+/*! \var Real32          ViewportBase::_sfTop
+    The top edge of the viewport. Values between 0 and 1 are relative to
+    the size of the Window, values >1 are absolute pixel coordinates, value
+    == -1 means the top border. All other values are illegal.
 */
 /*! \var ParentFieldContainerPtr ViewportBase::_sfParent
-    	The Window this viewport is contained in.
-
+    The Window this viewport is contained in.
 */
-/*! \var CameraPtr ViewportBase::_sfCamera
-    	The Camera used to render the viewport.
-
+/*! \var CameraPtr       ViewportBase::_sfCamera
+    The Camera used to render the viewport.
 */
-/*! \var NodePtr ViewportBase::_sfRoot
-    	The root of the tree that is displayed in this viewport.
-
+/*! \var NodePtr         ViewportBase::_sfRoot
+    The root of the tree that is displayed in this viewport.
 */
-/*! \var BackgroundPtr ViewportBase::_sfBackground
-    	The background used to clear this viewport.
-
+/*! \var BackgroundPtr   ViewportBase::_sfBackground
+    The background used to clear this viewport.
 */
-/*! \var ForegroundPtr ViewportBase::_mfForegrounds
-    	The foreground additions to the rendered image.
-
+/*! \var ForegroundPtr   ViewportBase::_mfForegrounds
+    The foreground additions to the rendered image.
 */
-/*! \var UInt32 ViewportBase::_sfTravMask
-    	The foreground additions to the rendered image.
-
+/*! \var UInt32          ViewportBase::_sfTravMask
+    The foreground additions to the rendered image.
 */
-/*! \var Real32 ViewportBase::_sfDrawTime
-    	Drawtime of the last frame using this viewport.
-
+/*! \var Real32          ViewportBase::_sfDrawTime
+    Drawtime of the last frame using this viewport.
 */
 
 void ViewportBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -139,9 +162,11 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "left", 
-        "	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.\n",
+        SFReal32::getClassType(),
+        "left",
+        "The left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "left border. All other values are illegal.\n",
         LeftFieldId, LeftFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -161,9 +186,11 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "right", 
-        "	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.\n",
+        SFReal32::getClassType(),
+        "right",
+        "The right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "right border. All other values are illegal.\n",
         RightFieldId, RightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -183,9 +210,11 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "bottom", 
-        "	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.\n",
+        SFReal32::getClassType(),
+        "bottom",
+        "The bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "bottom border. All other values are illegal.\n",
         BottomFieldId, BottomFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -205,9 +234,11 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "top", 
-        "	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values \n>\n 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.\n",
+        SFReal32::getClassType(),
+        "top",
+        "The top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "top border. All other values are illegal.\n",
         TopFieldId, TopFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -221,9 +252,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFParentFieldContainerPtr::Description(
-        SFParentFieldContainerPtr::getClassType(), 
-        "parent", 
-        "	The Window this viewport is contained in.\n",
+        SFParentFieldContainerPtr::getClassType(),
+        "parent",
+        "The Window this viewport is contained in.\n",
         ParentFieldId, ParentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -233,9 +264,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFCameraPtr::Description(
-        SFCameraPtr::getClassType(), 
-        "camera", 
-        "	The Camera used to render the viewport.\n",
+        SFCameraPtr::getClassType(),
+        "camera",
+        "The Camera used to render the viewport.\n",
         CameraFieldId, CameraFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -245,9 +276,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "root", 
-        "	The root of the tree that is displayed in this viewport.\n",
+        SFNodePtr::getClassType(),
+        "root",
+        "The root of the tree that is displayed in this viewport.\n",
         RootFieldId, RootFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -257,9 +288,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFBackgroundPtr::Description(
-        SFBackgroundPtr::getClassType(), 
-        "background", 
-        "	The background used to clear this viewport.\n",
+        SFBackgroundPtr::getClassType(),
+        "background",
+        "The background used to clear this viewport.\n",
         BackgroundFieldId, BackgroundFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -269,9 +300,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFForegroundPtr::Description(
-        MFForegroundPtr::getClassType(), 
-        "foregrounds", 
-        "	The foreground additions to the rendered image.\n",
+        MFForegroundPtr::getClassType(),
+        "foregrounds",
+        "The foreground additions to the rendered image.\n",
         ForegroundsFieldId, ForegroundsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -287,9 +318,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "travMask", 
-        "	The foreground additions to the rendered image.\n",
+        SFUInt32::getClassType(),
+        "travMask",
+        "The foreground additions to the rendered image.\n",
         TravMaskFieldId, TravMaskFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -309,9 +340,9 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "drawTime", 
-        "	Drawtime of the last frame using this viewport.\n",
+        SFReal32::getClassType(),
+        "drawTime",
+        "Drawtime of the last frame using this viewport.\n",
         DrawTimeFieldId, DrawTimeFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -336,141 +367,186 @@ ViewportBase::TypeObject ViewportBase::_type(true,
     (InitalInsertDescFunc) &ViewportBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Viewport\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"A Viewport is a part of the Window it is attached to used for rendering. Every Window can hold an arbitrary number of viewports.\n"
-"	<Field\n"
-"		name=\"left\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"right\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"bottom\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"top\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"parent\"\n"
-"		type=\"ParentFieldContainerPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        doRefCount=\"false\"\n"
-"        passFieldMask=\"true\"\n"
-"	>\n"
-"	The Window this viewport is contained in.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"camera\"\n"
-"		type=\"CameraPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The Camera used to render the viewport.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"root\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The root of the tree that is displayed in this viewport.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"background\"\n"
-"		type=\"BackgroundPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The background used to clear this viewport.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"foregrounds\"\n"
-"		type=\"ForegroundPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        pushToFieldAs=\"addForeground\"\n"
-"	>\n"
-"	The foreground additions to the rendered image.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"travMask\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"        defaultValue=\"TypeTraits&lt;UInt32&gt;::getMax()\"\n"
-"	>\n"
-"	The foreground additions to the rendered image.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"drawTime\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"        defaultValue=\"0.0f\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Drawtime of the last frame using this viewport.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A Viewport is a part of the Window it is attached to used for rendering. Every Window can hold an arbitrary number of viewports.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Viewport\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowsViewports\n"
+    "\n"
+    "A Viewport is a part of the Window it is attached to used for rendering. See\n"
+    "\\ref PageSystemWindowViewports for a description.\n"
+    "\n"
+    "The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom and\n"
+    "_sfTop Fields. The Window this Viewport is attached is stored in _sfWindow.\n"
+    "_sfBackground defines the background clearing method, the\n"
+    "_sfRoot and _sfCamera Fields the scene being rendered and the camera used to\n"
+    "view it. The optional _mfForegrounds define which information are added or\n"
+    "actions are executed after the Viewport has been rendered.\n"
+    "\n"
+    "\\ext\n"
+    "\n"
+    "To create a new Viewport the draw and render methods should be overridden. \n"
+    "\n"
+    "\\endext\n"
+    "\n"
+    "\\dev\n"
+    "\n"
+    "When adding fields to the Viewport, make sure to add the code to copy them to\n"
+    "all the different ClusterWindows!\n"
+    "\n"
+    "\\enddev\n"
+    "\t<Field\n"
+    "\t\tname=\"left\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+    "\tthe Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        left border. All other values are illegal.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"right\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+    "\tthe Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "\tright border. All other values are illegal.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bottom\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+    "\tthe Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "\tbottom border. All other values are illegal.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"top\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
+    "\tthe Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "\ttop border. All other values are illegal.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"parent\"\n"
+    "\t\ttype=\"ParentFieldContainerPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "        doRefCount=\"false\"\n"
+    "        passFieldMask=\"true\"\n"
+    "\t>\n"
+    "\tThe Window this viewport is contained in.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"camera\"\n"
+    "\t\ttype=\"CameraPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe Camera used to render the viewport.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"root\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe root of the tree that is displayed in this viewport.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"background\"\n"
+    "\t\ttype=\"BackgroundPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe background used to clear this viewport.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"foregrounds\"\n"
+    "\t\ttype=\"ForegroundPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "                pushToFieldAs=\"addForeground\"\n"
+    "\t>\n"
+    "\tThe foreground additions to the rendered image.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"travMask\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "                defaultValue=\"TypeTraits&lt;UInt32&gt;::getMax()\"\n"
+    "\t>\n"
+    "\tThe foreground additions to the rendered image.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"drawTime\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "                defaultValue=\"0.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDrawtime of the last frame using this viewport.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowsViewports\n"
+    "A Viewport is a part of the Window it is attached to used for rendering. See\n"
+    "\\ref PageSystemWindowViewports for a description.\n"
+    "The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom and\n"
+    "_sfTop Fields. The Window this Viewport is attached is stored in _sfWindow.\n"
+    "_sfBackground defines the background clearing method, the\n"
+    "_sfRoot and _sfCamera Fields the scene being rendered and the camera used to\n"
+    "view it. The optional _mfForegrounds define which information are added or\n"
+    "actions are executed after the Viewport has been rendered.\n"
+    "\\ext\n"
+    "To create a new Viewport the draw and render methods should be overridden. \n"
+    "\\endext\n"
+    "\\dev\n"
+    "When adding fields to the Viewport, make sure to add the code to copy them to\n"
+    "all the different ClusterWindows!\n"
+    "\\enddev\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ViewportBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ViewportBase::getType(void) const 
+FieldContainerType &ViewportBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ViewportBase::getContainerSize(void) const 
-{ 
-    return sizeof(Viewport); 
+const FieldContainerType &ViewportBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ViewportBase::getContainerSize(void) const
+{
+    return sizeof(Viewport);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -489,9 +565,9 @@ const SFReal32 *ViewportBase::getSFLeft(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ViewportBase::getSFLeft(void)
+SFReal32            *ViewportBase::getSFLeft           (void)
 {
-    return this->editSFLeft();
+    return this->editSFLeft           ();
 }
 #endif
 
@@ -508,9 +584,9 @@ const SFReal32 *ViewportBase::getSFRight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ViewportBase::getSFRight(void)
+SFReal32            *ViewportBase::getSFRight          (void)
 {
-    return this->editSFRight();
+    return this->editSFRight          ();
 }
 #endif
 
@@ -527,9 +603,9 @@ const SFReal32 *ViewportBase::getSFBottom(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ViewportBase::getSFBottom(void)
+SFReal32            *ViewportBase::getSFBottom         (void)
 {
-    return this->editSFBottom();
+    return this->editSFBottom         ();
 }
 #endif
 
@@ -546,9 +622,9 @@ const SFReal32 *ViewportBase::getSFTop(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ViewportBase::getSFTop(void)
+SFReal32            *ViewportBase::getSFTop            (void)
 {
-    return this->editSFTop();
+    return this->editSFTop            ();
 }
 #endif
 
@@ -595,9 +671,9 @@ const SFUInt32 *ViewportBase::getSFTravMask(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ViewportBase::getSFTravMask(void)
+SFUInt32            *ViewportBase::getSFTravMask       (void)
 {
-    return this->editSFTravMask();
+    return this->editSFTravMask       ();
 }
 #endif
 
@@ -614,9 +690,9 @@ const SFReal32 *ViewportBase::getSFDrawTime(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ViewportBase::getSFDrawTime(void)
+SFReal32            *ViewportBase::getSFDrawTime       (void)
 {
-    return this->editSFDrawTime();
+    return this->editSFDrawTime       ();
 }
 #endif
 
@@ -758,7 +834,7 @@ void ViewportBase::addForeground(ForegroundPtrConstArg value)
 }
 
 void ViewportBase::insertIntoForegrounds(UInt32                uiIndex,
-                                             ForegroundPtrConstArg value   )
+                                                   ForegroundPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -775,7 +851,7 @@ void ViewportBase::insertIntoForegrounds(UInt32                uiIndex,
 }
 
 void ViewportBase::replaceInForegrounds(UInt32                uiIndex,
-                                                 ForegroundPtrConstArg value   )
+                                                       ForegroundPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -793,7 +869,7 @@ void ViewportBase::replaceInForegrounds(UInt32                uiIndex,
 }
 
 void ViewportBase::replaceInForegrounds(ForegroundPtrConstArg pOldElem,
-                                                  ForegroundPtrConstArg pNewElem)
+                                                        ForegroundPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -864,8 +940,6 @@ void ViewportBase::clearForegrounds(void)
 
     _mfForegrounds.clear();
 }
-
-
 
 
 
@@ -1026,22 +1100,22 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ViewportPtr ViewportBase::createEmpty(void) 
-{ 
-    ViewportPtr returnValue; 
-    
-    newPtr<Viewport>(returnValue); 
+ViewportPtr ViewportBase::createEmpty(void)
+{
+    ViewportPtr returnValue;
 
-    return returnValue; 
+    newPtr<Viewport>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ViewportBase::shallowCopy(void) const 
-{ 
-    ViewportPtr returnValue; 
+FieldContainerPtr ViewportBase::shallowCopy(void) const
+{
+    ViewportPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Viewport *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Viewport *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -1050,33 +1124,33 @@ FieldContainerPtr ViewportBase::shallowCopy(void) const
 
 ViewportBase::ViewportBase(void) :
     Inherited(),
-    _sfLeft(),
-    _sfRight(),
-    _sfBottom(),
-    _sfTop(),
-    _sfParent(),
-    _sfCamera(),
-    _sfRoot(),
-    _sfBackground(),
-    _mfForegrounds(),
-    _sfTravMask(UInt32(TypeTraits<UInt32>::getMax())),
-    _sfDrawTime(Real32(0.0f))
+    _sfLeft                   (),
+    _sfRight                  (),
+    _sfBottom                 (),
+    _sfTop                    (),
+    _sfParent                 (),
+    _sfCamera                 (),
+    _sfRoot                   (),
+    _sfBackground             (),
+    _mfForegrounds            (),
+    _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax())),
+    _sfDrawTime               (Real32(0.0f))
 {
 }
 
 ViewportBase::ViewportBase(const ViewportBase &source) :
     Inherited(source),
-    _sfLeft(source._sfLeft),
-    _sfRight(source._sfRight),
-    _sfBottom(source._sfBottom),
-    _sfTop(source._sfTop),
-    _sfParent(),
-    _sfCamera(),
-    _sfRoot(),
-    _sfBackground(),
-    _mfForegrounds(),
-    _sfTravMask(source._sfTravMask),
-    _sfDrawTime(source._sfDrawTime)
+    _sfLeft                   (source._sfLeft                   ),
+    _sfRight                  (source._sfRight                  ),
+    _sfBottom                 (source._sfBottom                 ),
+    _sfTop                    (source._sfTop                    ),
+    _sfParent                 (),
+    _sfCamera                 (),
+    _sfRoot                   (),
+    _sfBackground             (),
+    _mfForegrounds            (),
+    _sfTravMask               (source._sfTravMask               ),
+    _sfDrawTime               (source._sfDrawTime               )
 {
 }
 
@@ -1101,9 +1175,9 @@ void ViewportBase::onCreate(const Viewport *source)
 
         this->setBackground(source->getBackground());
 
-        MFForegroundPtr::const_iterator ForegroundsIt  = 
+        MFForegroundPtr::const_iterator ForegroundsIt  =
             source->_mfForegrounds.begin();
-        MFForegroundPtr::const_iterator ForegroundsEnd = 
+        MFForegroundPtr::const_iterator ForegroundsEnd =
             source->_mfForegrounds.end  ();
 
         while(ForegroundsIt != ForegroundsEnd)
@@ -1118,13 +1192,13 @@ void ViewportBase::onCreate(const Viewport *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ViewportBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1134,10 +1208,10 @@ void ViewportBase::execSyncV(      FieldContainer    &oFrom,
 void ViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ViewportBase *>(&oFrom), 
+    this->execSync(static_cast<ViewportBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1157,12 +1231,12 @@ void ViewportBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ViewportBase::createAspectCopy(void) const
 {
-    ViewportPtr returnValue; 
+    ViewportPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Viewport *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Viewport *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1181,6 +1255,8 @@ void ViewportBase::resolveLinks(void)
     static_cast<Viewport *>(this)->clearForegrounds();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1203,8 +1279,6 @@ OSG_FIELDTRAITS_GETTYPE(ViewportPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ViewportPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ViewportPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1225,3 +1299,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGVIEWPORTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

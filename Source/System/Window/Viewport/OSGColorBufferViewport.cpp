@@ -53,16 +53,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::ColorBufferViewport
-    \ingroup GrpSystemWindowViewports
-
-Viewport to only render to specific color channels, see \ref
-PageSystemWindowViewports for a description.
-
-The color channels used are defined by the _sfRed, _sfGreen, _sfBlue and
-_sfAlpha Fields. 
-
-*/
+// Documentation for this class is emited in the
+// OSGColorBufferViewportBase.cpp file.
+// To modify it, please change the .fcd file (OSGColorBufferViewport.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

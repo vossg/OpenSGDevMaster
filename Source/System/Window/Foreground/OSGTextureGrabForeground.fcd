@@ -10,6 +10,10 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
+\ingroup GrpSystemWindowForegrounds
+
+The GrabForeground is used for grabbing a rendered viewport into a Texture.
+See \ref PageSystemWindowForegroundGrabTexture for a description.
 	<Field
 		name="texture"
 		type="TextureObjChunkPtr"

@@ -65,45 +65,55 @@
 #include "OSGMatrixCameraDecoratorBase.h"
 #include "OSGMatrixCameraDecorator.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Matrix MatrixCameraDecoratorBase::_sfPreViewing
-    	The matrix to multiply to the right of the viewing matrix, i.e. 
-        applied before the viewing matrix.
+/*! \class OSG::MatrixCameraDecorator
+    \ingroup GrpSystemWindowCameraDecorators
 
+    The OSG::MatrixCameraDecorator for modifying the camera matrices by
+    matrices, see \ref PageSystemWindowCameraDecoratorsMatrix for a
+    description.
+
+    The matrices to use are defined by the _sf Fields. The size of the full
+    image is defined by the _sfFullWidth and _sfFullHeight Fields.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Matrix          MatrixCameraDecoratorBase::_sfPreViewing
+    The matrix to multiply to the right of the viewing matrix, i.e.
+    applied before the viewing matrix.
 */
-/*! \var Matrix MatrixCameraDecoratorBase::_sfPostViewing
-    	The matrix to multiply to the left of the viewing matrix, i.e. 
-        applied after the viewing matrix.
-
+/*! \var Matrix          MatrixCameraDecoratorBase::_sfPostViewing
+    The matrix to multiply to the left of the viewing matrix, i.e.
+    applied after the viewing matrix.
 */
-/*! \var Matrix MatrixCameraDecoratorBase::_sfPreProjectionTranslation
-    	The matrix to multiply to the right of the projectionTranslation matrix, i.e. 
-        applied before the projectionTranslation matrix.
-
+/*! \var Matrix          MatrixCameraDecoratorBase::_sfPreProjectionTranslation
+    The matrix to multiply to the right of the projectionTranslation
+    matrix, i.e.  applied before the projectionTranslation matrix.
 */
-/*! \var Matrix MatrixCameraDecoratorBase::_sfPostProjectionTranslation
-    	The matrix to multiply to the left of the projectionTranslation matrix, i.e. 
-        applied before the projectionTranslation matrix.
-    
-
+/*! \var Matrix          MatrixCameraDecoratorBase::_sfPostProjectionTranslation
+    The matrix to multiply to the left of the projectionTranslation
+    matrix, i.e.  applied before the projectionTranslation matrix.
 */
-/*! \var Matrix MatrixCameraDecoratorBase::_sfPreProjection
-    	The matrix to multiply to the right of the projection matrix, i.e. 
-        applied before the projection matrix.
-
+/*! \var Matrix          MatrixCameraDecoratorBase::_sfPreProjection
+    The matrix to multiply to the right of the projection matrix, i.e.
+    applied before the projection matrix.
 */
-/*! \var Matrix MatrixCameraDecoratorBase::_sfPostProjection
-    	The matrix to multiply to the left of the projection matrix, i.e. 
-        applied before the projection matrix.
-
+/*! \var Matrix          MatrixCameraDecoratorBase::_sfPostProjection
+    The matrix to multiply to the left of the projection matrix, i.e.
+    applied before the projection matrix.
 */
 
 void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -113,9 +123,10 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "preViewing", 
-        "	The matrix to multiply to the right of the viewing matrix, i.e. \n        applied before the viewing matrix.\n",
+        SFMatrix::getClassType(),
+        "preViewing",
+        "The matrix to multiply to the right of the viewing matrix, i.e. \n"
+        "applied before the viewing matrix.\n",
         PreViewingFieldId, PreViewingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -135,9 +146,10 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "postViewing", 
-        "	The matrix to multiply to the left of the viewing matrix, i.e. \n        applied after the viewing matrix.\n",
+        SFMatrix::getClassType(),
+        "postViewing",
+        "The matrix to multiply to the left of the viewing matrix, i.e. \n"
+        "applied after the viewing matrix.\n",
         PostViewingFieldId, PostViewingFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -157,9 +169,10 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "preProjectionTranslation", 
-        "	The matrix to multiply to the right of the projectionTranslation matrix, i.e. \n        applied before the projectionTranslation matrix.\n",
+        SFMatrix::getClassType(),
+        "preProjectionTranslation",
+        "The matrix to multiply to the right of the projectionTranslation matrix, i.e. \n"
+        "applied before the projectionTranslation matrix.\n",
         PreProjectionTranslationFieldId, PreProjectionTranslationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -179,9 +192,10 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "postProjectionTranslation", 
-        "	The matrix to multiply to the left of the projectionTranslation matrix, i.e. \n        applied before the projectionTranslation matrix.\n    \n",
+        SFMatrix::getClassType(),
+        "postProjectionTranslation",
+        "The matrix to multiply to the left of the projectionTranslation matrix, i.e. \n"
+        "applied before the projectionTranslation matrix.\n",
         PostProjectionTranslationFieldId, PostProjectionTranslationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -201,9 +215,10 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "preProjection", 
-        "	The matrix to multiply to the right of the projection matrix, i.e. \n        applied before the projection matrix.\n",
+        SFMatrix::getClassType(),
+        "preProjection",
+        "The matrix to multiply to the right of the projection matrix, i.e. \n"
+        "applied before the projection matrix.\n",
         PreProjectionFieldId, PreProjectionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -223,9 +238,10 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "postProjection", 
-        "	The matrix to multiply to the left of the projection matrix, i.e. \n        applied before the projection matrix.\n",
+        SFMatrix::getClassType(),
+        "postProjection",
+        "The matrix to multiply to the left of the projection matrix, i.e. \n"
+        "applied before the projection matrix.\n",
         PostProjectionFieldId, PostProjectionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -250,103 +266,116 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(true,
     (InitalInsertDescFunc) &MatrixCameraDecoratorBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"MatrixCameraDecorator\"\n"
-"	parent=\"CameraDecorator\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The decorator to modify the Camera matrices simply by matrices.\n"
-"	<Field\n"
-"		name=\"preViewing\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The matrix to multiply to the right of the viewing matrix, i.e. \n"
-"        applied before the viewing matrix.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"postViewing\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The matrix to multiply to the left of the viewing matrix, i.e. \n"
-"        applied after the viewing matrix.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"preProjectionTranslation\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The matrix to multiply to the right of the projectionTranslation matrix, i.e. \n"
-"        applied before the projectionTranslation matrix.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"postProjectionTranslation\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The matrix to multiply to the left of the projectionTranslation matrix, i.e. \n"
-"        applied before the projectionTranslation matrix.\n"
-"	</Field>\n"
-"    <Field\n"
-"		name=\"preProjection\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The matrix to multiply to the right of the projection matrix, i.e. \n"
-"        applied before the projection matrix.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"postProjection\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The matrix to multiply to the left of the projection matrix, i.e. \n"
-"        applied before the projection matrix.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The decorator to modify the Camera matrices simply by matrices.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"MatrixCameraDecorator\"\n"
+    "\tparent=\"CameraDecorator\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "\n"
+    "The OSG::MatrixCameraDecorator for modifying the camera matrices by \n"
+    "matrices, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsMatrix for a description.\n"
+    "\n"
+    "The matrices to use are defined by the _sf Fields. The size of the full\n"
+    "image is defined by the _sfFullWidth and\n"
+    "_sfFullHeight Fields.\n"
+    "\t<Field\n"
+    "\t\tname=\"preViewing\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe matrix to multiply to the right of the viewing matrix, i.e. \n"
+    "        applied before the viewing matrix.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"postViewing\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe matrix to multiply to the left of the viewing matrix, i.e. \n"
+    "        applied after the viewing matrix.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"preProjectionTranslation\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe matrix to multiply to the right of the projectionTranslation matrix, i.e. \n"
+    "        applied before the projectionTranslation matrix.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"postProjectionTranslation\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe matrix to multiply to the left of the projectionTranslation matrix, i.e. \n"
+    "        applied before the projectionTranslation matrix.\n"
+    "\t</Field>\n"
+    "    <Field\n"
+    "\t\tname=\"preProjection\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe matrix to multiply to the right of the projection matrix, i.e. \n"
+    "        applied before the projection matrix.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"postProjection\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe matrix to multiply to the left of the projection matrix, i.e. \n"
+    "        applied before the projection matrix.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "The OSG::MatrixCameraDecorator for modifying the camera matrices by \n"
+    "matrices, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsMatrix for a description.\n"
+    "The matrices to use are defined by the _sf Fields. The size of the full\n"
+    "image is defined by the _sfFullWidth and\n"
+    "_sfFullHeight Fields.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &MatrixCameraDecoratorBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &MatrixCameraDecoratorBase::getType(void) const 
+FieldContainerType &MatrixCameraDecoratorBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 MatrixCameraDecoratorBase::getContainerSize(void) const 
-{ 
-    return sizeof(MatrixCameraDecorator); 
+const FieldContainerType &MatrixCameraDecoratorBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 MatrixCameraDecoratorBase::getContainerSize(void) const
+{
+    return sizeof(MatrixCameraDecorator);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -365,9 +394,9 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreViewing(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *MatrixCameraDecoratorBase::getSFPreViewing(void)
+SFMatrix            *MatrixCameraDecoratorBase::getSFPreViewing     (void)
 {
-    return this->editSFPreViewing();
+    return this->editSFPreViewing     ();
 }
 #endif
 
@@ -384,9 +413,9 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostViewing(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *MatrixCameraDecoratorBase::getSFPostViewing(void)
+SFMatrix            *MatrixCameraDecoratorBase::getSFPostViewing    (void)
 {
-    return this->editSFPostViewing();
+    return this->editSFPostViewing    ();
 }
 #endif
 
@@ -403,7 +432,7 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreProjectionTranslation(void) c
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *MatrixCameraDecoratorBase::getSFPreProjectionTranslation(void)
+SFMatrix            *MatrixCameraDecoratorBase::getSFPreProjectionTranslation(void)
 {
     return this->editSFPreProjectionTranslation();
 }
@@ -422,7 +451,7 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostProjectionTranslation(void) 
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *MatrixCameraDecoratorBase::getSFPostProjectionTranslation(void)
+SFMatrix            *MatrixCameraDecoratorBase::getSFPostProjectionTranslation(void)
 {
     return this->editSFPostProjectionTranslation();
 }
@@ -441,9 +470,9 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPreProjection(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *MatrixCameraDecoratorBase::getSFPreProjection(void)
+SFMatrix            *MatrixCameraDecoratorBase::getSFPreProjection  (void)
 {
-    return this->editSFPreProjection();
+    return this->editSFPreProjection  ();
 }
 #endif
 
@@ -460,9 +489,9 @@ const SFMatrix *MatrixCameraDecoratorBase::getSFPostProjection(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *MatrixCameraDecoratorBase::getSFPostProjection(void)
+SFMatrix            *MatrixCameraDecoratorBase::getSFPostProjection (void)
 {
-    return this->editSFPostProjection();
+    return this->editSFPostProjection ();
 }
 #endif
 
@@ -565,22 +594,22 @@ void MatrixCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::createEmpty(void) 
-{ 
-    MatrixCameraDecoratorPtr returnValue; 
-    
-    newPtr<MatrixCameraDecorator>(returnValue); 
+MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::createEmpty(void)
+{
+    MatrixCameraDecoratorPtr returnValue;
 
-    return returnValue; 
+    newPtr<MatrixCameraDecorator>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr MatrixCameraDecoratorBase::shallowCopy(void) const 
-{ 
-    MatrixCameraDecoratorPtr returnValue; 
+FieldContainerPtr MatrixCameraDecoratorBase::shallowCopy(void) const
+{
+    MatrixCameraDecoratorPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const MatrixCameraDecorator *>(this)); 
+    newPtr(returnValue, dynamic_cast<const MatrixCameraDecorator *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -589,23 +618,23 @@ FieldContainerPtr MatrixCameraDecoratorBase::shallowCopy(void) const
 
 MatrixCameraDecoratorBase::MatrixCameraDecoratorBase(void) :
     Inherited(),
-    _sfPreViewing(Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)),
-    _sfPostViewing(Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)),
+    _sfPreViewing             (Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)),
+    _sfPostViewing            (Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)),
     _sfPreProjectionTranslation(Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)),
     _sfPostProjectionTranslation(Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)),
-    _sfPreProjection(Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)),
-    _sfPostProjection(Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1))
+    _sfPreProjection          (Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)),
+    _sfPostProjection         (Matrix(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1))
 {
 }
 
 MatrixCameraDecoratorBase::MatrixCameraDecoratorBase(const MatrixCameraDecoratorBase &source) :
     Inherited(source),
-    _sfPreViewing(source._sfPreViewing),
-    _sfPostViewing(source._sfPostViewing),
+    _sfPreViewing             (source._sfPreViewing             ),
+    _sfPostViewing            (source._sfPostViewing            ),
     _sfPreProjectionTranslation(source._sfPreProjectionTranslation),
     _sfPostProjectionTranslation(source._sfPostProjectionTranslation),
-    _sfPreProjection(source._sfPreProjection),
-    _sfPostProjection(source._sfPostProjection)
+    _sfPreProjection          (source._sfPreProjection          ),
+    _sfPostProjection         (source._sfPostProjection         )
 {
 }
 
@@ -619,13 +648,13 @@ MatrixCameraDecoratorBase::~MatrixCameraDecoratorBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void MatrixCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<MatrixCameraDecoratorBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -635,10 +664,10 @@ void MatrixCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 void MatrixCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MatrixCameraDecoratorBase *>(&oFrom), 
+    this->execSync(static_cast<MatrixCameraDecoratorBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -658,12 +687,12 @@ void MatrixCameraDecoratorBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr MatrixCameraDecoratorBase::createAspectCopy(void) const
 {
-    MatrixCameraDecoratorPtr returnValue; 
+    MatrixCameraDecoratorPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const MatrixCameraDecorator *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const MatrixCameraDecorator *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -672,6 +701,8 @@ void MatrixCameraDecoratorBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -694,8 +725,6 @@ OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecoratorPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, MatrixCameraDecoratorPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, MatrixCameraDecoratorPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -716,3 +745,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGMATRIXCAMERADECORATORFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

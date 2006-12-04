@@ -59,19 +59,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::SolidBackground
-    \ingroup GrpSystemWindowBackgrounds
-
-  A single colored background, see \ref PageSystemWindowBackgroundSolid for a
-  description.    
-
-  The color of the background is given by the _sfColor field.
- */
+// Documentation for this class is emited in the
+// OSGSolidBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGSolidBackground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

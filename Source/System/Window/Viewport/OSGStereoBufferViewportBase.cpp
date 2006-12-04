@@ -65,22 +65,36 @@
 #include "OSGStereoBufferViewportBase.h"
 #include "OSGStereoBufferViewport.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool StereoBufferViewportBase::_sfLeftBuffer
-            Defines whether the left buffer is written to.
+/*! \class OSG::StereoBufferViewport
+    \ingroup GrpSystemWindowViewports
 
+    Viewport for quad-buffered stereo rendering, see \ref
+    PageSystemWindowViewports for a description.
+
+    The active buffers are selected using the _sfLeftBuffer and
+    _sfRightBuffer Fields.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            StereoBufferViewportBase::_sfLeftBuffer
+    Defines whether the left buffer is written to.
 */
-/*! \var bool StereoBufferViewportBase::_sfRightBuffer
-            Defines whether the right buffer is written to.
-
+/*! \var bool            StereoBufferViewportBase::_sfRightBuffer
+    Defines whether the right buffer is written to.
 */
 
 void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +104,9 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "leftBuffer", 
-        "        Defines whether the left buffer is written to.\n",
+        SFBool::getClassType(),
+        "leftBuffer",
+        "Defines whether the left buffer is written to.\n",
         LeftBufferFieldId, LeftBufferFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,9 +126,9 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "rightBuffer", 
-        "        Defines whether the right buffer is written to.\n",
+        SFBool::getClassType(),
+        "rightBuffer",
+        "Defines whether the right buffer is written to.\n",
         RightBufferFieldId, RightBufferFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -139,58 +153,67 @@ StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(true,
     (InitalInsertDescFunc) &StereoBufferViewportBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"StereoBufferViewport\"\n"
-"	parent=\"Viewport\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"A Viewport for rendering to quad-buffered visuals.\n"
-"	<Field\n"
-"		name=\"leftBuffer\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Defines whether the left buffer is written to.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"rightBuffer\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Defines whether the right buffer is written to.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A Viewport for rendering to quad-buffered visuals.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"StereoBufferViewport\"\n"
+    "\tparent=\"Viewport\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowViewports\n"
+    "\n"
+    "Viewport for quad-buffered stereo rendering, see \\ref\n"
+    "PageSystemWindowViewports for a description.\n"
+    "\n"
+    "The active buffers are selected using the _sfLeftBuffer and _sfRightBuffer\n"
+    "Fields.\n"
+    "\t<Field\n"
+    "\t\tname=\"leftBuffer\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Defines whether the left buffer is written to.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"rightBuffer\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Defines whether the right buffer is written to.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowViewports\n"
+    "Viewport for quad-buffered stereo rendering, see \\ref\n"
+    "PageSystemWindowViewports for a description.\n"
+    "The active buffers are selected using the _sfLeftBuffer and _sfRightBuffer\n"
+    "Fields.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &StereoBufferViewportBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &StereoBufferViewportBase::getType(void) const 
+FieldContainerType &StereoBufferViewportBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 StereoBufferViewportBase::getContainerSize(void) const 
-{ 
-    return sizeof(StereoBufferViewport); 
+const FieldContainerType &StereoBufferViewportBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 StereoBufferViewportBase::getContainerSize(void) const
+{
+    return sizeof(StereoBufferViewport);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -209,9 +232,9 @@ const SFBool *StereoBufferViewportBase::getSFLeftBuffer(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *StereoBufferViewportBase::getSFLeftBuffer(void)
+SFBool              *StereoBufferViewportBase::getSFLeftBuffer     (void)
 {
-    return this->editSFLeftBuffer();
+    return this->editSFLeftBuffer     ();
 }
 #endif
 
@@ -228,9 +251,9 @@ const SFBool *StereoBufferViewportBase::getSFRightBuffer(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *StereoBufferViewportBase::getSFRightBuffer(void)
+SFBool              *StereoBufferViewportBase::getSFRightBuffer    (void)
 {
-    return this->editSFRightBuffer();
+    return this->editSFRightBuffer    ();
 }
 #endif
 
@@ -285,22 +308,22 @@ void StereoBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-StereoBufferViewportPtr StereoBufferViewportBase::createEmpty(void) 
-{ 
-    StereoBufferViewportPtr returnValue; 
-    
-    newPtr<StereoBufferViewport>(returnValue); 
+StereoBufferViewportPtr StereoBufferViewportBase::createEmpty(void)
+{
+    StereoBufferViewportPtr returnValue;
 
-    return returnValue; 
+    newPtr<StereoBufferViewport>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr StereoBufferViewportBase::shallowCopy(void) const 
-{ 
-    StereoBufferViewportPtr returnValue; 
+FieldContainerPtr StereoBufferViewportBase::shallowCopy(void) const
+{
+    StereoBufferViewportPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const StereoBufferViewport *>(this)); 
+    newPtr(returnValue, dynamic_cast<const StereoBufferViewport *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -309,15 +332,15 @@ FieldContainerPtr StereoBufferViewportBase::shallowCopy(void) const
 
 StereoBufferViewportBase::StereoBufferViewportBase(void) :
     Inherited(),
-    _sfLeftBuffer(bool(true)),
-    _sfRightBuffer(bool(true))
+    _sfLeftBuffer             (bool(true)),
+    _sfRightBuffer            (bool(true))
 {
 }
 
 StereoBufferViewportBase::StereoBufferViewportBase(const StereoBufferViewportBase &source) :
     Inherited(source),
-    _sfLeftBuffer(source._sfLeftBuffer),
-    _sfRightBuffer(source._sfRightBuffer)
+    _sfLeftBuffer             (source._sfLeftBuffer             ),
+    _sfRightBuffer            (source._sfRightBuffer            )
 {
 }
 
@@ -331,13 +354,13 @@ StereoBufferViewportBase::~StereoBufferViewportBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void StereoBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<StereoBufferViewportBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -347,10 +370,10 @@ void StereoBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
 void StereoBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StereoBufferViewportBase *>(&oFrom), 
+    this->execSync(static_cast<StereoBufferViewportBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -370,12 +393,12 @@ void StereoBufferViewportBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr StereoBufferViewportBase::createAspectCopy(void) const
 {
-    StereoBufferViewportPtr returnValue; 
+    StereoBufferViewportPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const StereoBufferViewport *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const StereoBufferViewport *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -384,6 +407,8 @@ void StereoBufferViewportBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -406,8 +431,6 @@ OSG_FIELDTRAITS_GETTYPE(StereoBufferViewportPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, StereoBufferViewportPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, StereoBufferViewportPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -428,3 +451,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSTEREOBUFFERVIEWPORTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -10,7 +10,7 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-FramebufferAttachment base class
+FramebufferAttachment base class.
 	<Field
 		name="width"
 		type="UInt16"

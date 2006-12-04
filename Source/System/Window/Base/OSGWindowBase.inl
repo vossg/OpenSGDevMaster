@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &WindowBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 WindowBase::getClassTypeId(void) 
+OSG::UInt32 WindowBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 WindowBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt16 &WindowBase::getWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &WindowBase::getWidth(void)
+UInt16              &WindowBase::getWidth          (void)
 {
-    return this->editWidth();
+    return this->editWidth          ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const UInt16 &WindowBase::getHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &WindowBase::getHeight(void)
+UInt16              &WindowBase::getHeight         (void)
 {
-    return this->editHeight();
+    return this->editHeight         ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const bool &WindowBase::getResizePending(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &WindowBase::getResizePending(void)
+bool                &WindowBase::getResizePending  (void)
 {
-    return this->editResizePending();
+    return this->editResizePending  ();
 }
 #endif
 
@@ -191,7 +191,7 @@ const UInt32 &WindowBase::getGlObjectEventCounter(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &WindowBase::getGlObjectEventCounter(void)
+UInt32              &WindowBase::getGlObjectEventCounter(void)
 {
     return this->editGlObjectEventCounter();
 }
@@ -246,13 +246,13 @@ MFUInt32 &WindowBase::editGlObjectLastRefresh(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &WindowBase::getGlObjectLastRefresh(const UInt32 index)
+UInt32              &WindowBase::getGlObjectLastRefresh(const UInt32 index)
 {
     return this->editGlObjectLastRefresh(index);
 }
 
 inline
-MFUInt32 &WindowBase::getGlObjectLastRefresh(void)
+MFUInt32            &WindowBase::getGlObjectLastRefresh(void)
 {
     return this->editGlObjectLastRefresh();
 }
@@ -293,13 +293,13 @@ MFUInt32 &WindowBase::editGlObjectLastReinitialize(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &WindowBase::getGlObjectLastReinitialize(const UInt32 index)
+UInt32              &WindowBase::getGlObjectLastReinitialize(const UInt32 index)
 {
     return this->editGlObjectLastReinitialize(index);
 }
 
 inline
-MFUInt32 &WindowBase::getGlObjectLastReinitialize(void)
+MFUInt32            &WindowBase::getGlObjectLastReinitialize(void)
 {
     return this->editGlObjectLastReinitialize();
 }
@@ -319,7 +319,7 @@ const MFUInt32 &WindowBase::getGlObjectLastReinitialize(void) const
 inline
 void WindowBase::execSync(      WindowBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -332,7 +332,7 @@ void WindowBase::execSync(      WindowBase *pOther,
         _sfHeight.syncWith(pOther->_sfHeight);
 
     if(FieldBits::NoField != (PortFieldMask & whichField))
-        _mfPort.syncWith(pOther->_mfPort, 
+        _mfPort.syncWith(pOther->_mfPort,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -344,13 +344,13 @@ void WindowBase::execSync(      WindowBase *pOther,
         _sfGlObjectEventCounter.syncWith(pOther->_sfGlObjectEventCounter);
 
     if(FieldBits::NoField != (GlObjectLastRefreshFieldMask & whichField))
-        _mfGlObjectLastRefresh.syncWith(pOther->_mfGlObjectLastRefresh, 
+        _mfGlObjectLastRefresh.syncWith(pOther->_mfGlObjectLastRefresh,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (GlObjectLastReinitializeFieldMask & whichField))
-        _mfGlObjectLastReinitialize.syncWith(pOther->_mfGlObjectLastReinitialize, 
+        _mfGlObjectLastReinitialize.syncWith(pOther->_mfGlObjectLastReinitialize,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -362,7 +362,7 @@ inline
 void WindowBase::execSync (      WindowBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -374,7 +374,7 @@ void WindowBase::execSync (      WindowBase *pFrom,
         _sfHeight.syncWith(pFrom->_sfHeight);
 
     if(FieldBits::NoField != (PortFieldMask & whichField))
-        _mfPort.syncWith(pFrom->_mfPort, 
+        _mfPort.syncWith(pFrom->_mfPort,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -386,13 +386,13 @@ void WindowBase::execSync (      WindowBase *pFrom,
         _sfGlObjectEventCounter.syncWith(pFrom->_sfGlObjectEventCounter);
 
     if(FieldBits::NoField != (GlObjectLastRefreshFieldMask & whichField))
-        _mfGlObjectLastRefresh.syncWith(pFrom->_mfGlObjectLastRefresh, 
+        _mfGlObjectLastRefresh.syncWith(pFrom->_mfGlObjectLastRefresh,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (GlObjectLastReinitializeFieldMask & whichField))
-        _mfGlObjectLastReinitialize.syncWith(pFrom->_mfGlObjectLastReinitialize, 
+        _mfGlObjectLastReinitialize.syncWith(pFrom->_mfGlObjectLastReinitialize,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -442,4 +442,3 @@ typedef PointerBuilder<Window>::ObjPtrConstArg  WindowPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGWINDOWBASE_INLINE_CVSID "@(#)$Id$"
-

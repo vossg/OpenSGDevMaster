@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &RenderBufferBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 RenderBufferBase::getClassTypeId(void) 
+OSG::UInt32 RenderBufferBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 RenderBufferBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const GLenum &RenderBufferBase::getGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RenderBufferBase::getGLId(void)
+GLenum              &RenderBufferBase::getGLId           (void)
 {
-    return this->editGLId();
+    return this->editGLId           ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const GLenum &RenderBufferBase::getInternalFormat(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RenderBufferBase::getInternalFormat(void)
+GLenum              &RenderBufferBase::getInternalFormat (void)
 {
-    return this->editInternalFormat();
+    return this->editInternalFormat ();
 }
 #endif
 
@@ -142,24 +142,24 @@ void RenderBufferBase::setInternalFormat(const GLenum &value)
 
 //! create a new instance of the class
 inline
-RenderBufferPtr RenderBufferBase::create(void) 
+RenderBufferPtr RenderBufferBase::create(void)
 {
-    RenderBufferPtr fc; 
+    RenderBufferPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<RenderBuffer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void RenderBufferBase::execSync(      RenderBufferBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -178,7 +178,7 @@ inline
 void RenderBufferBase::execSync (      RenderBufferBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -219,4 +219,3 @@ typedef PointerBuilder<RenderBuffer>::ObjPtrConstArg  RenderBufferPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGRENDERBUFFERBASE_INLINE_CVSID "@(#)$Id$"
-

@@ -11,7 +11,16 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-A Foreground that renders a single polygon used the specified material. The main use of this Foreground is rendering a simple texture above the viewport, but it's general enough to be used for other things. There have to be as many vertices as texture coordinates.
+\ingroup GrpSystemWindowForegrounds
+
+A foreground that renders a single polygon used the specified material, 
+see \ref PageSystemPolygonForeground for a
+description.
+
+The polygon material is defined by _sfMaterial, the positions by _mfPositions,
+the texture coordinates by _mfTexCoords (there must be as many texture
+coordinates as positions). The interpretation of the positions is
+controlled by _sfNormalizedX and _sfNormalizedY.
 	<Field
 		name="material"
 		type="MaterialPtr"
@@ -47,7 +56,7 @@ A Foreground that renders a single polygon used the specified material. The main
 		defaultValue="true"
 		access="public"
 	>
-	Define whether the x coordinates are normalized (0-1) or pixel-based .
+	Define whether the x coordinates are normalized (0-1) or pixel-based.
 	</Field>
 	<Field
 		name="normalizedY"
@@ -57,6 +66,6 @@ A Foreground that renders a single polygon used the specified material. The main
 		defaultValue="true"
 		access="public"
 	>
-	Define whether the y coordinates are normalized (0-1) or pixel-based .
+	Define whether the y coordinates are normalized (0-1) or pixel-based.
 	</Field>
 </FieldContainer>

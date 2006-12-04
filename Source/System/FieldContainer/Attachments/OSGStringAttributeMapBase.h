@@ -86,22 +86,22 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
-                              FieldContainerAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
+                              FieldContainerAttachmentConstPtr,
                               StringAttributeMap>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
-                              FieldContainerAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
+                              FieldContainerAttachmentConstPtr,
                               StringAttributeMap>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               StringAttributeMap>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               StringAttributeMap>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               StringAttributeMap>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               StringAttributeMap>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
         NextFieldId = ValuesFieldId + 1
     };
 
-    static const OSG::BitVector KeysFieldMask = 
+    static const OSG::BitVector KeysFieldMask =
         (TypeTraits<BitVector>::One << KeysFieldId);
-    static const OSG::BitVector ValuesFieldMask = 
+    static const OSG::BitVector ValuesFieldMask =
         (TypeTraits<BitVector>::One << ValuesFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -159,15 +158,15 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StringAttributeMapPtr create     (void); 
-    static  StringAttributeMapPtr createEmpty(void); 
+    static  StringAttributeMapPtr create     (void);
+    static  StringAttributeMapPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -183,8 +182,8 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFString _mfKeys;
-    MFString _mfValues;
+    MFString          _mfKeys;
+    MFString          _mfValues;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,7 +198,7 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StringAttributeMapBase(void); 
+    virtual ~StringAttributeMapBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,35 +213,35 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
 
 
 #ifdef OSG_1_COMPAT
-           MFString *getMFKeys(void);
+                  MFString            *getMFKeys            (void);
 #endif
-           MFString *editMFKeys(void);
-     const MFString *getMFKeys (void) const;
+                  MFString            *editMFKeys           (void);
+            const MFString            *getMFKeys            (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFString *getMFValues(void);
+                  MFString            *getMFValues          (void);
 #endif
-           MFString *editMFValues(void);
-     const MFString *getMFValues (void) const;
+                  MFString            *editMFValues         (void);
+            const MFString            *getMFValues          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           std::string &getKeys(const UInt32 index);
-           MFString &getKeys(void);
+                  std::string         &getKeys            (const UInt32 index);
+                  MFString            &getKeys           (void);
 #endif
-           std::string &editKeys(const UInt32 index);
-     const std::string &getKeys(const UInt32 index) const;
-           MFString &editKeys(void);
-     const MFString &getKeys(void) const;
+                  std::string         &editKeys           (const UInt32 index);
+            const std::string         &getKeys            (const UInt32 index) const;
+                  MFString            &editKeys           (void);
+            const MFString            &getKeys            (void) const;
 
 #ifdef OSG_1_COMPAT
-           std::string &getValues(const UInt32 index);
-           MFString &getValues(void);
+                  std::string         &getValues          (const UInt32 index);
+                  MFString            &getValues         (void);
 #endif
-           std::string &editValues(const UInt32 index);
-     const std::string &getValues(const UInt32 index) const;
-           MFString &editValues(void);
-     const MFString &getValues(void) const;
+                  std::string         &editValues         (const UInt32 index);
+            const std::string         &getValues          (const UInt32 index) const;
+                  MFString            &editValues         (void);
+            const MFString            &getValues          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -256,31 +255,29 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \{                                                                 */
 
 
-    void pushToKeys           (const std::string& value   );
-    void insertIntoKeys      (UInt32                uiIndex,
-                                    const std::string& value   );
-    void replaceInKeys  (UInt32                uiIndex,
-                                    const std::string& value   );
-    void replaceInKeys (const std::string& pOldElem,
-                                    const std::string& pNewElem);
-    void removeFromKeys (UInt32                uiIndex );
-    void removeFromKeys(const std::string& value   );
-    void clearKeys            (void                          );
+    void pushToKeys                (const std::string& value   );
+    void insertIntoKeys       (UInt32                uiIndex,
+                                             const std::string& value   );
+    void replaceInKeys    (UInt32                uiIndex,
+                                             const std::string& value   );
+    void replaceInKeys   (const std::string& pOldElem,
+                                             const std::string& pNewElem);
+    void removeFromKeys  (UInt32                uiIndex );
+    void removeFromKeys (const std::string& value   );
+    void clearKeys                  (void                          );
 
 
 
-
-    void pushToValues           (const std::string& value   );
+    void pushToValues              (const std::string& value   );
     void insertIntoValues      (UInt32                uiIndex,
-                                    const std::string& value   );
+                                             const std::string& value   );
     void replaceInValues  (UInt32                uiIndex,
-                                    const std::string& value   );
+                                             const std::string& value   );
     void replaceInValues (const std::string& pOldElem,
-                                    const std::string& pNewElem);
+                                             const std::string& pNewElem);
     void removeFromValues (UInt32                uiIndex );
     void removeFromValues(const std::string& value   );
-    void clearValues            (void                          );
-
+    void clearValues                (void                          );
 
 
 
@@ -322,11 +319,11 @@ class OSG_SYSTEM_DLLMAPPING StringAttributeMapBase : public FieldContainerAttach
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

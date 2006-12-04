@@ -49,20 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::MatrixCamera
-    \ingroup GrpSystemWindowCameras
-
-  The Matrix Camera class, see \ref PageSystemWindowCameraMatrix for 
-  a description.
-  
-  The used matrices are stored in the _sfModelviewMatrix and 
-  _sfProjectionMatrix Fields.
- */
+// Documentation for this class is emited in the
+// OSGMatrixCameraBase.cpp file.
+// To modify it, please change the .fcd file (OSGMatrixCamera.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

@@ -65,7 +65,24 @@
 #include "OSGBackgroundBase.h"
 #include "OSGBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::Background
+    \ingroup GrpSystemWindowBackgrounds
+
+    Background is the base class for all background/buffer clearing.  See
+    \ref PageSystemWindowBackground for a description.
+
+    \ext
+
+    To create a new Background the method that has be overridden is
+    clear(DrawActionBase * action, Viewport * port);. It can directly call
+    OpenGL commands, but should restore the state after it's done.
+ */
 
 
 BackgroundBase::TypeObject BackgroundBase::_type(true,
@@ -73,42 +90,59 @@ BackgroundBase::TypeObject BackgroundBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     Background::initMethod,
     NULL,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Background\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	structure=\"abstract\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"Background is the base class for all background clearing.\n"
-"</FieldContainer>\n"
-,
-    "Background is the base class for all background clearing.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Background\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
+    "Background is the base class for all background/buffer clearing.  See \\ref\n"
+    "PageSystemWindowBackground for a description.\n"
+    "\n"
+    "\\ext\n"
+    "\n"
+    "To create a new Background the method that has be overridden is\n"
+    "clear(DrawActionBase * action, Viewport * port);. It can directly call OpenGL\n"
+    "commands, but should restore the state after it's done.\n"
+    "\n"
+    "\\endext\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "Background is the base class for all background/buffer clearing.  See \\ref\n"
+    "PageSystemWindowBackground for a description.\n"
+    "\\ext\n"
+    "To create a new Background the method that has be overridden is\n"
+    "clear(DrawActionBase * action, Viewport * port);. It can directly call OpenGL\n"
+    "commands, but should restore the state after it's done.\n"
+    "\\endext\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &BackgroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &BackgroundBase::getType(void) const 
+FieldContainerType &BackgroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 BackgroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(Background); 
+const FieldContainerType &BackgroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 BackgroundBase::getContainerSize(void) const
+{
+    return sizeof(Background);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -164,13 +198,13 @@ BackgroundBase::~BackgroundBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void BackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<BackgroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -180,10 +214,10 @@ void BackgroundBase::execSyncV(      FieldContainer    &oFrom,
 void BackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<BackgroundBase *>(&oFrom), 
+    this->execSync(static_cast<BackgroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -207,6 +241,8 @@ void BackgroundBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -228,8 +264,6 @@ OSG_FIELDTRAITS_GETTYPE(BackgroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, BackgroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, BackgroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -250,3 +284,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGBACKGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

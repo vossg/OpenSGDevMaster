@@ -53,26 +53,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ProjectionCameraDecorator
-    \ingroup GrpSystemWindowCameraDecoratorsStereo
-
-The decorator for tracked projection screens, see \ref
-PageSystemWindowCameraDecoratorsStereoProjection for a description.
-
-The parameters are defined by the _sfUser and _mfSurface fields.
-
-\dev
-
-The derived parameters used to actually calculate the matrix are stored in the
-_sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.
-
-\enddev
-
-*/
+// Documentation for this class is emited in the
+// OSGProjectionCameraDecoratorBase.cpp file.
+// To modify it, please change the .fcd file (OSGProjectionCameraDecorator.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

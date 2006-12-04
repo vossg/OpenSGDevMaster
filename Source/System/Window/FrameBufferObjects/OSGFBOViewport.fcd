@@ -10,6 +10,8 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
+\ingroup GrpSystemWindowViewports
+
 A viewport using a framebuffer object for output.
 	<Field
 		name="frameBufferObject"
@@ -18,6 +20,6 @@ A viewport using a framebuffer object for output.
 		visibility="external"
 		access="public"
 	>
-        FramebufferObject to be written to
+        FramebufferObject to write to.
 	</Field>
 </FieldContainer>

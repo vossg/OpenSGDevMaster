@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ColorBufferViewportBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ColorBufferViewportBase::getClassTypeId(void) 
+OSG::UInt32 ColorBufferViewportBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ColorBufferViewportBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &ColorBufferViewportBase::getRed(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ColorBufferViewportBase::getRed(void)
+bool                &ColorBufferViewportBase::getRed            (void)
 {
-    return this->editRed();
+    return this->editRed            ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const bool &ColorBufferViewportBase::getBlue(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ColorBufferViewportBase::getBlue(void)
+bool                &ColorBufferViewportBase::getBlue           (void)
 {
-    return this->editBlue();
+    return this->editBlue           ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const bool &ColorBufferViewportBase::getGreen(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ColorBufferViewportBase::getGreen(void)
+bool                &ColorBufferViewportBase::getGreen          (void)
 {
-    return this->editGreen();
+    return this->editGreen          ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const bool &ColorBufferViewportBase::getAlpha(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ColorBufferViewportBase::getAlpha(void)
+bool                &ColorBufferViewportBase::getAlpha          (void)
 {
-    return this->editAlpha();
+    return this->editAlpha          ();
 }
 #endif
 
@@ -208,24 +208,24 @@ void ColorBufferViewportBase::setAlpha(const bool &value)
 
 //! create a new instance of the class
 inline
-ColorBufferViewportPtr ColorBufferViewportBase::create(void) 
+ColorBufferViewportPtr ColorBufferViewportBase::create(void)
 {
-    ColorBufferViewportPtr fc; 
+    ColorBufferViewportPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ColorBufferViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ColorBufferViewportBase::execSync(      ColorBufferViewportBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -250,7 +250,7 @@ inline
 void ColorBufferViewportBase::execSync (      ColorBufferViewportBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -297,4 +297,3 @@ typedef PointerBuilder<ColorBufferViewport>::ObjPtrConstArg  ColorBufferViewport
 OSG_END_NAMESPACE
 
 #define OSGCOLORBUFFERVIEWPORTBASE_INLINE_CVSID "@(#)$Id$"
-

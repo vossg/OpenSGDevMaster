@@ -65,22 +65,38 @@
 #include "OSGGradientBackgroundBase.h"
 #include "OSGGradientBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Color3f GradientBackgroundBase::_mfColor
-    	The colors of the gradient.
+/*! \class OSG::GradientBackground
+    \ingroup GrpSystemWindowBackgrounds
 
+    A background showing a vertical color gradient, see \ref
+    PageSystemWindowBackgroundGradient.
+
+    The colors (_mfColor) and positions (_mfPosition) correspond to each
+    other, so both have to have the same number of elements. The addColor()
+    method should be used for defining the gradient, as it ensures that
+    constraint.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Color3f         GradientBackgroundBase::_mfColor
+    The colors of the gradient.
 */
-/*! \var Real32 GradientBackgroundBase::_mfPosition
-    	The positions of the gradient.
-
+/*! \var Real32          GradientBackgroundBase::_mfPosition
+    The positions of the gradient.
 */
 
 void GradientBackgroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +106,9 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFColor3f::Description(
-        MFColor3f::getClassType(), 
-        "color", 
-        "	The colors of the gradient.\n",
+        MFColor3f::getClassType(),
+        "color",
+        "The colors of the gradient.\n",
         ColorFieldId, ColorFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -112,9 +128,9 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFReal32::Description(
-        MFReal32::getClassType(), 
-        "position", 
-        "	The positions of the gradient.\n",
+        MFReal32::getClassType(),
+        "position",
+        "The positions of the gradient.\n",
         PositionFieldId, PositionFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -139,56 +155,67 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(true,
     (InitalInsertDescFunc) &GradientBackgroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"GradientBackground\"\n"
-"	parent=\"Background\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"multi\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"A background showing a vertical color gradient. The colors and positions correspond to each other, so both have to have the same number of elements.\n"
-"	<Field\n"
-"		name=\"color\"\n"
-"		type=\"Color3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The colors of the gradient.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"position\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The positions of the gradient.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A background showing a vertical color gradient. The colors and positions correspond to each other, so both have to have the same number of elements.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"GradientBackground\"\n"
+    "\tparent=\"Background\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"multi\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
+    "A background showing a vertical color gradient, see\n"
+    "\\ref PageSystemWindowBackgroundGradient.\n"
+    "\n"
+    "The colors (_mfColor) and positions (_mfPosition) correspond to each other, so\n"
+    "both have to have the same number of elements. The addColor() method should\n"
+    "be used for defining the gradient, as it ensures that constraint.\n"
+    "\t<Field\n"
+    "\t\tname=\"color\"\n"
+    "\t\ttype=\"Color3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe colors of the gradient.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"position\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe positions of the gradient.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "A background showing a vertical color gradient, see\n"
+    "\\ref PageSystemWindowBackgroundGradient.\n"
+    "The colors (_mfColor) and positions (_mfPosition) correspond to each other, so\n"
+    "both have to have the same number of elements. The addColor() method should\n"
+    "be used for defining the gradient, as it ensures that constraint.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &GradientBackgroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &GradientBackgroundBase::getType(void) const 
+FieldContainerType &GradientBackgroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 GradientBackgroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(GradientBackground); 
+const FieldContainerType &GradientBackgroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 GradientBackgroundBase::getContainerSize(void) const
+{
+    return sizeof(GradientBackground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -207,9 +234,9 @@ const MFColor3f *GradientBackgroundBase::getMFColor(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFColor3f *GradientBackgroundBase::getMFColor(void)
+MFColor3f           *GradientBackgroundBase::getMFColor          (void)
 {
-    return this->editMFColor();
+    return this->editMFColor          ();
 }
 #endif
 
@@ -226,9 +253,9 @@ const MFReal32 *GradientBackgroundBase::getMFPosition(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFReal32 *GradientBackgroundBase::getMFPosition(void)
+MFReal32            *GradientBackgroundBase::getMFPosition       (void)
 {
-    return this->editMFPosition();
+    return this->editMFPosition       ();
 }
 #endif
 
@@ -283,22 +310,22 @@ void GradientBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GradientBackgroundPtr GradientBackgroundBase::createEmpty(void) 
-{ 
-    GradientBackgroundPtr returnValue; 
-    
-    newPtr<GradientBackground>(returnValue); 
+GradientBackgroundPtr GradientBackgroundBase::createEmpty(void)
+{
+    GradientBackgroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<GradientBackground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr GradientBackgroundBase::shallowCopy(void) const 
-{ 
-    GradientBackgroundPtr returnValue; 
+FieldContainerPtr GradientBackgroundBase::shallowCopy(void) const
+{
+    GradientBackgroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const GradientBackground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const GradientBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -307,15 +334,15 @@ FieldContainerPtr GradientBackgroundBase::shallowCopy(void) const
 
 GradientBackgroundBase::GradientBackgroundBase(void) :
     Inherited(),
-    _mfColor(),
-    _mfPosition()
+    _mfColor                  (),
+    _mfPosition               ()
 {
 }
 
 GradientBackgroundBase::GradientBackgroundBase(const GradientBackgroundBase &source) :
     Inherited(source),
-    _mfColor(source._mfColor),
-    _mfPosition(source._mfPosition)
+    _mfColor                  (source._mfColor                  ),
+    _mfPosition               (source._mfPosition               )
 {
 }
 
@@ -329,13 +356,13 @@ GradientBackgroundBase::~GradientBackgroundBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void GradientBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<GradientBackgroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -345,10 +372,10 @@ void GradientBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 void GradientBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GradientBackgroundBase *>(&oFrom), 
+    this->execSync(static_cast<GradientBackgroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -368,12 +395,12 @@ void GradientBackgroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr GradientBackgroundBase::createAspectCopy(void) const
 {
-    GradientBackgroundPtr returnValue; 
+    GradientBackgroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const GradientBackground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const GradientBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -382,6 +409,8 @@ void GradientBackgroundBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGMField.ins"
 
@@ -400,8 +429,6 @@ DataType FieldTraits<GradientBackgroundPtr>::_type("GradientBackgroundPtr", "Bac
 OSG_FIELDTRAITS_GETTYPE(GradientBackgroundPtr)
 
 OSG_FIELD_DLLEXPORT_DEF1(MField, GradientBackgroundPtr);
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -423,3 +450,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGGRADIENTBACKGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -60,101 +60,105 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>   // DataType default header
+#include <OSGGL.h>                        // DataType default header
 
 #include <OSGFieldContainer.h> // Parents Class
 
 #include "OSGImageBase.h"
 #include "OSGImage.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::Image
+    1D/2D/3D Image with various pixel types data, optionally also can hold
+    mipMap and simple multi-frame data.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var ParentFieldContainerPtr ImageBase::_mfParents
     
 */
-/*! \var Int32 ImageBase::_sfDimension
-    	image dimension, 0 for invalid, 1 for 1D, 2 for 2D and     3 for 3D data.
-
+/*! \var Int32           ImageBase::_sfDimension
+    Image dimension, 0 for invalid, 1 for 1D, 2 for 2D and 3 for 3D data.
 */
-/*! \var Int32 ImageBase::_sfWidth
+/*! \var Int32           ImageBase::_sfWidth
     
 */
-/*! \var Int32 ImageBase::_sfHeight
+/*! \var Int32           ImageBase::_sfHeight
     
 */
-/*! \var Int32 ImageBase::_sfDepth
+/*! \var Int32           ImageBase::_sfDepth
     
 */
-/*! \var Int32 ImageBase::_sfBpp
+/*! \var Int32           ImageBase::_sfBpp
     
 */
-/*! \var Int32 ImageBase::_sfMipMapCount
+/*! \var Int32           ImageBase::_sfMipMapCount
     
 */
-/*! \var Int32 ImageBase::_sfFrameCount
+/*! \var Int32           ImageBase::_sfFrameCount
     
 */
-/*! \var Time ImageBase::_sfFrameDelay
+/*! \var Time            ImageBase::_sfFrameDelay
     
 */
-/*! \var UInt32 ImageBase::_sfPixelFormat
+/*! \var UInt32          ImageBase::_sfPixelFormat
     
 */
-/*! \var UInt8 ImageBase::_mfPixel
+/*! \var UInt8           ImageBase::_mfPixel
     
 */
-/*! \var Int32 ImageBase::_sfFrameSize
+/*! \var Int32           ImageBase::_sfFrameSize
     
 */
-/*! \var std::string ImageBase::_sfName
-    	Texture file path
-
+/*! \var std::string     ImageBase::_sfName
+    Texture file path.
 */
-/*! \var Int32 ImageBase::_sfDataType
-    	Type of image data
-
+/*! \var Int32           ImageBase::_sfDataType
+    Type of image data.
 */
-/*! \var Int32 ImageBase::_sfComponentSize
-    	Size (in byte) of a single component of the image. Necessary         for High Dynamic Range and other higher-level image types.
-
+/*! \var Int32           ImageBase::_sfComponentSize
+    Size (in byte) of a single component of the image. Necessary for High
+    Dynamic Range and other higher-level image types.
 */
-/*! \var Int32 ImageBase::_sfSideCount
+/*! \var Int32           ImageBase::_sfSideCount
     
 */
-/*! \var Int32 ImageBase::_sfSideSize
+/*! \var Int32           ImageBase::_sfSideSize
     
 */
-/*! \var bool ImageBase::_sfForceCompressedData
-            Set to true if using the image to keep unknown data for textures.
-        Generally used in conjunction with TextureChunk::externalFormat.
-
+/*! \var bool            ImageBase::_sfForceCompressedData
+    Set to true if using the image to keep unknown data for textures.
+    Generally used in conjunction with TextureChunk::externalFormat.
 */
-/*! \var bool ImageBase::_sfForceAlphaChannel
-            Set to true if using the image to keep unknown data for textures.
-        Generally used in conjunction with TextureChunk::externalFormat.
-
+/*! \var bool            ImageBase::_sfForceAlphaChannel
+    Set to true if using the image to keep unknown data for textures.
+    Generally used in conjunction with TextureChunk::externalFormat.
 */
-/*! \var bool ImageBase::_sfForceColorChannel
-            Set to true if using the image to keep unknown data for textures.
-        Generally used in conjunction with TextureChunk::externalFormat.
-
+/*! \var bool            ImageBase::_sfForceColorChannel
+    Set to true if using the image to keep unknown data for textures.
+    Generally used in conjunction with TextureChunk::externalFormat.
 */
-/*! \var bool ImageBase::_sfForceAlphaBinary
-            Set to true if using the image to prevent depth sorting for 
-        SimpleTexturedMaterials using this Image.
-
+/*! \var bool            ImageBase::_sfForceAlphaBinary
+    Set to true if using the image to prevent depth sorting for
+    SimpleTexturedMaterials using this Image.
 */
 
 void ImageBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new MFParentFieldContainerPtr::Description(
-        MFParentFieldContainerPtr::getClassType(), 
-        "parents", 
+        MFParentFieldContainerPtr::getClassType(),
+        "parents",
         "",
         ParentsFieldId, ParentsFieldMask,
         false,
@@ -171,9 +175,9 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dimension", 
-        "	image dimension, 0 for invalid, 1 for 1D, 2 for 2D and     3 for 3D data.\n",
+        SFInt32::getClassType(),
+        "dimension",
+        "Image dimension, 0 for invalid, 1 for 1D, 2 for 2D and 3 for 3D data.\n",
         DimensionFieldId, DimensionFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -193,8 +197,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "width", 
+        SFInt32::getClassType(),
+        "width",
         "",
         WidthFieldId, WidthFieldMask,
         false,
@@ -215,8 +219,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "height", 
+        SFInt32::getClassType(),
+        "height",
         "",
         HeightFieldId, HeightFieldMask,
         false,
@@ -237,8 +241,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "depth", 
+        SFInt32::getClassType(),
+        "depth",
         "",
         DepthFieldId, DepthFieldMask,
         false,
@@ -259,8 +263,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "bpp", 
+        SFInt32::getClassType(),
+        "bpp",
         "",
         BppFieldId, BppFieldMask,
         false,
@@ -281,8 +285,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "mipMapCount", 
+        SFInt32::getClassType(),
+        "mipMapCount",
         "",
         MipMapCountFieldId, MipMapCountFieldMask,
         false,
@@ -303,8 +307,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "frameCount", 
+        SFInt32::getClassType(),
+        "frameCount",
         "",
         FrameCountFieldId, FrameCountFieldMask,
         false,
@@ -325,8 +329,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFTime::Description(
-        SFTime::getClassType(), 
-        "frameDelay", 
+        SFTime::getClassType(),
+        "frameDelay",
         "",
         FrameDelayFieldId, FrameDelayFieldMask,
         false,
@@ -347,8 +351,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "pixelFormat", 
+        SFUInt32::getClassType(),
+        "pixelFormat",
         "",
         PixelFormatFieldId, PixelFormatFieldMask,
         false,
@@ -369,8 +373,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt8::Description(
-        MFUInt8::getClassType(), 
-        "pixel", 
+        MFUInt8::getClassType(),
+        "pixel",
         "",
         PixelFieldId, PixelFieldMask,
         false,
@@ -391,8 +395,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "frameSize", 
+        SFInt32::getClassType(),
+        "frameSize",
         "",
         FrameSizeFieldId, FrameSizeFieldMask,
         true,
@@ -413,9 +417,9 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "name", 
-        "	Texture file path\n",
+        SFString::getClassType(),
+        "name",
+        "Texture file path.\n",
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -435,9 +439,9 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "dataType", 
-        "	Type of image data\n",
+        SFInt32::getClassType(),
+        "dataType",
+        "Type of image data.\n",
         DataTypeFieldId, DataTypeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -457,9 +461,10 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "componentSize", 
-        "	Size (in byte) of a single component of the image. Necessary         for High Dynamic Range and other higher-level image types.\n",
+        SFInt32::getClassType(),
+        "componentSize",
+        "Size (in byte) of a single component of the image. Necessary\n"
+        "for High Dynamic Range and other higher-level image types.\n",
         ComponentSizeFieldId, ComponentSizeFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -479,8 +484,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "sideCount", 
+        SFInt32::getClassType(),
+        "sideCount",
         "",
         SideCountFieldId, SideCountFieldMask,
         false,
@@ -501,8 +506,8 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFInt32::Description(
-        SFInt32::getClassType(), 
-        "sideSize", 
+        SFInt32::getClassType(),
+        "sideSize",
         "",
         SideSizeFieldId, SideSizeFieldMask,
         true,
@@ -523,9 +528,10 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "forceCompressedData", 
-        "        Set to true if using the image to keep unknown data for textures.\n        Generally used in conjunction with TextureChunk::externalFormat.\n",
+        SFBool::getClassType(),
+        "forceCompressedData",
+        "Set to true if using the image to keep unknown data for textures.\n"
+        "Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceCompressedDataFieldId, ForceCompressedDataFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -545,9 +551,10 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "forceAlphaChannel", 
-        "        Set to true if using the image to keep unknown data for textures.\n        Generally used in conjunction with TextureChunk::externalFormat.\n",
+        SFBool::getClassType(),
+        "forceAlphaChannel",
+        "Set to true if using the image to keep unknown data for textures.\n"
+        "Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceAlphaChannelFieldId, ForceAlphaChannelFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -567,9 +574,10 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "forceColorChannel", 
-        "        Set to true if using the image to keep unknown data for textures.\n        Generally used in conjunction with TextureChunk::externalFormat.\n",
+        SFBool::getClassType(),
+        "forceColorChannel",
+        "Set to true if using the image to keep unknown data for textures.\n"
+        "Generally used in conjunction with TextureChunk::externalFormat.\n",
         ForceColorChannelFieldId, ForceColorChannelFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -589,9 +597,10 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "forceAlphaBinary", 
-        "        Set to true if using the image to prevent depth sorting for \n        SimpleTexturedMaterials using this Image.\n",
+        SFBool::getClassType(),
+        "forceAlphaBinary",
+        "Set to true if using the image to prevent depth sorting for \n"
+        "SimpleTexturedMaterials using this Image.\n",
         ForceAlphaBinaryFieldId, ForceAlphaBinaryFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -616,238 +625,240 @@ ImageBase::TypeObject ImageBase::_type(true,
     (InitalInsertDescFunc) &ImageBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Image\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"1D/2D/3D Image with various pixel types data, can also optional hold mipMap and simple multi-frame data.\n"
-"	<Field\n"
-"		name=\"parents\"\n"
-"		type=\"ParentFieldContainerPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"dimension\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	image dimension, 0 for invalid, 1 for 1D, 2 for 2D and     3 for 3D data.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"width\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"height\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"depth\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"bpp\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"mipMapCount\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frameCount\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frameDelay\"\n"
-"		type=\"Time\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"pixelFormat\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"Image::OSG_INVALID_PF\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"pixel\"\n"
-"		type=\"UInt8\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frameSize\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"name\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Texture file path\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"dataType\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_UNSIGNED_BYTE\"\n"
-"		defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Type of image data\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"componentSize\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	Size (in byte) of a single component of the image. Necessary         for High Dynamic Range and other higher-level image types.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"sideCount\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"sideSize\"\n"
-"		type=\"Int32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"forceCompressedData\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Set to true if using the image to keep unknown data for textures.\n"
-"        Generally used in conjunction with TextureChunk::externalFormat.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"forceAlphaChannel\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Set to true if using the image to keep unknown data for textures.\n"
-"        Generally used in conjunction with TextureChunk::externalFormat.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"forceColorChannel\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Set to true if using the image to keep unknown data for textures.\n"
-"        Generally used in conjunction with TextureChunk::externalFormat.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"forceAlphaBinary\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"false\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Set to true if using the image to prevent depth sorting for \n"
-"        SimpleTexturedMaterials using this Image.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "1D/2D/3D Image with various pixel types data, can also optional hold mipMap and simple multi-frame data.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Image\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "1D/2D/3D Image with various pixel types data, optionally also can hold\n"
+    "mipMap and simple multi-frame data.\n"
+    "\t<Field\n"
+    "\t\tname=\"parents\"\n"
+    "\t\ttype=\"ParentFieldContainerPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"dimension\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tImage dimension, 0 for invalid, 1 for 1D, 2 for 2D and 3 for 3D data.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"width\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"height\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"depth\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bpp\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"mipMapCount\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frameCount\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frameDelay\"\n"
+    "\t\ttype=\"Time\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"pixelFormat\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"Image::OSG_INVALID_PF\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"pixel\"\n"
+    "\t\ttype=\"UInt8\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frameSize\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"name\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture file path.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"dataType\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_UNSIGNED_BYTE\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tType of image data.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"componentSize\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tSize (in byte) of a single component of the image. Necessary\n"
+    "        for High Dynamic Range and other higher-level image types.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sideCount\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"sideSize\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"forceCompressedData\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Set to true if using the image to keep unknown data for textures.\n"
+    "        Generally used in conjunction with TextureChunk::externalFormat.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"forceAlphaChannel\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Set to true if using the image to keep unknown data for textures.\n"
+    "        Generally used in conjunction with TextureChunk::externalFormat.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"forceColorChannel\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Set to true if using the image to keep unknown data for textures.\n"
+    "        Generally used in conjunction with TextureChunk::externalFormat.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"forceAlphaBinary\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Set to true if using the image to prevent depth sorting for \n"
+    "        SimpleTexturedMaterials using this Image.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "1D/2D/3D Image with various pixel types data, optionally also can hold\n"
+    "mipMap and simple multi-frame data.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ImageBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ImageBase::getType(void) const 
+FieldContainerType &ImageBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ImageBase::getContainerSize(void) const 
-{ 
-    return sizeof(Image); 
+const FieldContainerType &ImageBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ImageBase::getContainerSize(void) const
+{
+    return sizeof(Image);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -872,9 +883,9 @@ const SFInt32 *ImageBase::getSFDimension(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFDimension(void)
+SFInt32             *ImageBase::getSFDimension      (void)
 {
-    return this->editSFDimension();
+    return this->editSFDimension      ();
 }
 #endif
 
@@ -891,9 +902,9 @@ const SFInt32 *ImageBase::getSFWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFWidth(void)
+SFInt32             *ImageBase::getSFWidth          (void)
 {
-    return this->editSFWidth();
+    return this->editSFWidth          ();
 }
 #endif
 
@@ -910,9 +921,9 @@ const SFInt32 *ImageBase::getSFHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFHeight(void)
+SFInt32             *ImageBase::getSFHeight         (void)
 {
-    return this->editSFHeight();
+    return this->editSFHeight         ();
 }
 #endif
 
@@ -929,9 +940,9 @@ const SFInt32 *ImageBase::getSFDepth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFDepth(void)
+SFInt32             *ImageBase::getSFDepth          (void)
 {
-    return this->editSFDepth();
+    return this->editSFDepth          ();
 }
 #endif
 
@@ -948,9 +959,9 @@ const SFInt32 *ImageBase::getSFBpp(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFBpp(void)
+SFInt32             *ImageBase::getSFBpp            (void)
 {
-    return this->editSFBpp();
+    return this->editSFBpp            ();
 }
 #endif
 
@@ -967,9 +978,9 @@ const SFInt32 *ImageBase::getSFMipMapCount(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFMipMapCount(void)
+SFInt32             *ImageBase::getSFMipMapCount    (void)
 {
-    return this->editSFMipMapCount();
+    return this->editSFMipMapCount    ();
 }
 #endif
 
@@ -986,9 +997,9 @@ const SFInt32 *ImageBase::getSFFrameCount(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFFrameCount(void)
+SFInt32             *ImageBase::getSFFrameCount     (void)
 {
-    return this->editSFFrameCount();
+    return this->editSFFrameCount     ();
 }
 #endif
 
@@ -1005,9 +1016,9 @@ const SFTime *ImageBase::getSFFrameDelay(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFTime *ImageBase::getSFFrameDelay(void)
+SFTime              *ImageBase::getSFFrameDelay     (void)
 {
-    return this->editSFFrameDelay();
+    return this->editSFFrameDelay     ();
 }
 #endif
 
@@ -1024,9 +1035,9 @@ const SFUInt32 *ImageBase::getSFPixelFormat(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *ImageBase::getSFPixelFormat(void)
+SFUInt32            *ImageBase::getSFPixelFormat    (void)
 {
-    return this->editSFPixelFormat();
+    return this->editSFPixelFormat    ();
 }
 #endif
 
@@ -1043,9 +1054,9 @@ const MFUInt8 *ImageBase::getMFPixel(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt8 *ImageBase::getMFPixel(void)
+MFUInt8             *ImageBase::getMFPixel          (void)
 {
-    return this->editMFPixel();
+    return this->editMFPixel          ();
 }
 #endif
 
@@ -1062,9 +1073,9 @@ const SFInt32 *ImageBase::getSFFrameSize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFFrameSize(void)
+SFInt32             *ImageBase::getSFFrameSize      (void)
 {
-    return this->editSFFrameSize();
+    return this->editSFFrameSize      ();
 }
 #endif
 
@@ -1081,9 +1092,9 @@ const SFString *ImageBase::getSFName(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *ImageBase::getSFName(void)
+SFString            *ImageBase::getSFName           (void)
 {
-    return this->editSFName();
+    return this->editSFName           ();
 }
 #endif
 
@@ -1100,9 +1111,9 @@ const SFInt32 *ImageBase::getSFDataType(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFDataType(void)
+SFInt32             *ImageBase::getSFDataType       (void)
 {
-    return this->editSFDataType();
+    return this->editSFDataType       ();
 }
 #endif
 
@@ -1119,9 +1130,9 @@ const SFInt32 *ImageBase::getSFComponentSize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFComponentSize(void)
+SFInt32             *ImageBase::getSFComponentSize  (void)
 {
-    return this->editSFComponentSize();
+    return this->editSFComponentSize  ();
 }
 #endif
 
@@ -1138,9 +1149,9 @@ const SFInt32 *ImageBase::getSFSideCount(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFSideCount(void)
+SFInt32             *ImageBase::getSFSideCount      (void)
 {
-    return this->editSFSideCount();
+    return this->editSFSideCount      ();
 }
 #endif
 
@@ -1157,9 +1168,9 @@ const SFInt32 *ImageBase::getSFSideSize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFInt32 *ImageBase::getSFSideSize(void)
+SFInt32             *ImageBase::getSFSideSize       (void)
 {
-    return this->editSFSideSize();
+    return this->editSFSideSize       ();
 }
 #endif
 
@@ -1176,7 +1187,7 @@ const SFBool *ImageBase::getSFForceCompressedData(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ImageBase::getSFForceCompressedData(void)
+SFBool              *ImageBase::getSFForceCompressedData(void)
 {
     return this->editSFForceCompressedData();
 }
@@ -1195,7 +1206,7 @@ const SFBool *ImageBase::getSFForceAlphaChannel(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ImageBase::getSFForceAlphaChannel(void)
+SFBool              *ImageBase::getSFForceAlphaChannel(void)
 {
     return this->editSFForceAlphaChannel();
 }
@@ -1214,7 +1225,7 @@ const SFBool *ImageBase::getSFForceColorChannel(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ImageBase::getSFForceColorChannel(void)
+SFBool              *ImageBase::getSFForceColorChannel(void)
 {
     return this->editSFForceColorChannel();
 }
@@ -1233,7 +1244,7 @@ const SFBool *ImageBase::getSFForceAlphaBinary(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ImageBase::getSFForceAlphaBinary(void)
+SFBool              *ImageBase::getSFForceAlphaBinary(void)
 {
     return this->editSFForceAlphaBinary();
 }
@@ -1341,7 +1352,7 @@ void ImageBase::pushToParents(ParentFieldContainerPtrConstArg value)
 }
 
 void ImageBase::insertIntoParents(UInt32                uiIndex,
-                                             ParentFieldContainerPtrConstArg value   )
+                                                   ParentFieldContainerPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1358,7 +1369,7 @@ void ImageBase::insertIntoParents(UInt32                uiIndex,
 }
 
 void ImageBase::replaceInParents(UInt32                uiIndex,
-                                                 ParentFieldContainerPtrConstArg value   )
+                                                       ParentFieldContainerPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -1376,7 +1387,7 @@ void ImageBase::replaceInParents(UInt32                uiIndex,
 }
 
 void ImageBase::replaceInParents(ParentFieldContainerPtrConstArg pOldElem,
-                                                  ParentFieldContainerPtrConstArg pNewElem)
+                                                        ParentFieldContainerPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -1448,8 +1459,6 @@ void ImageBase::clearParents(void)
     _mfParents.clear();
 }
 
-
-
 /*********************************** Non-ptr code ********************************/
 void ImageBase::pushToPixel(const UInt8& value)
 {
@@ -1458,7 +1467,7 @@ void ImageBase::pushToPixel(const UInt8& value)
 }
 
 void ImageBase::insertIntoPixel(UInt32                uiIndex,
-                                             const UInt8& value   )
+                                                   const UInt8& value   )
 {
     editMField(PixelFieldMask, _mfPixel);
 
@@ -1470,7 +1479,7 @@ void ImageBase::insertIntoPixel(UInt32                uiIndex,
 }
 
 void ImageBase::replaceInPixel(UInt32                uiIndex,
-                                                 const UInt8& value   )
+                                                       const UInt8& value   )
 {
     if(uiIndex >= _mfPixel.size())
         return;
@@ -1481,7 +1490,7 @@ void ImageBase::replaceInPixel(UInt32                uiIndex,
 }
 
 void ImageBase::replaceInPixel(const UInt8& pOldElem,
-                                                  const UInt8& pNewElem)
+                                                        const UInt8& pNewElem)
 {
     Int32  elemIdx = _mfPixel.findIndex(pOldElem);
 
@@ -1525,19 +1534,13 @@ void ImageBase::removeFromPixel(const UInt8& value)
         _mfPixel.erase(fieldIt);
     }
 }
+
 void ImageBase::clearPixel(void)
 {
     editMField(PixelFieldMask, _mfPixel);
 
     _mfPixel.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -1817,22 +1820,22 @@ void ImageBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ImagePtr ImageBase::createEmpty(void) 
-{ 
-    ImagePtr returnValue; 
-    
-    newPtr<Image>(returnValue); 
+ImagePtr ImageBase::createEmpty(void)
+{
+    ImagePtr returnValue;
 
-    return returnValue; 
+    newPtr<Image>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ImageBase::shallowCopy(void) const 
-{ 
-    ImagePtr returnValue; 
+FieldContainerPtr ImageBase::shallowCopy(void) const
+{
+    ImagePtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const Image *>(this)); 
+    newPtr(returnValue, dynamic_cast<const Image *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -1841,53 +1844,53 @@ FieldContainerPtr ImageBase::shallowCopy(void) const
 
 ImageBase::ImageBase(void) :
     Inherited(),
-    _mfParents(),
-    _sfDimension(Int32(0)),
-    _sfWidth(Int32(0)),
-    _sfHeight(Int32(1)),
-    _sfDepth(Int32(1)),
-    _sfBpp(Int32(1)),
-    _sfMipMapCount(Int32(1)),
-    _sfFrameCount(Int32(1)),
-    _sfFrameDelay(Time(0)),
-    _sfPixelFormat(UInt32(Image::OSG_INVALID_PF)),
-    _mfPixel(),
-    _sfFrameSize(Int32(0)),
-    _sfName(),
-    _sfDataType(Int32(GL_UNSIGNED_BYTE)),
-    _sfComponentSize(Int32(1)),
-    _sfSideCount(Int32(1)),
-    _sfSideSize(Int32(0)),
-    _sfForceCompressedData(bool(false)),
-    _sfForceAlphaChannel(bool(false)),
-    _sfForceColorChannel(bool(false)),
-    _sfForceAlphaBinary(bool(false))
+    _mfParents                (),
+    _sfDimension              (Int32(0)),
+    _sfWidth                  (Int32(0)),
+    _sfHeight                 (Int32(1)),
+    _sfDepth                  (Int32(1)),
+    _sfBpp                    (Int32(1)),
+    _sfMipMapCount            (Int32(1)),
+    _sfFrameCount             (Int32(1)),
+    _sfFrameDelay             (Time(0)),
+    _sfPixelFormat            (UInt32(Image::OSG_INVALID_PF)),
+    _mfPixel                  (),
+    _sfFrameSize              (Int32(0)),
+    _sfName                   (),
+    _sfDataType               (Int32(GL_UNSIGNED_BYTE)),
+    _sfComponentSize          (Int32(1)),
+    _sfSideCount              (Int32(1)),
+    _sfSideSize               (Int32(0)),
+    _sfForceCompressedData    (bool(false)),
+    _sfForceAlphaChannel      (bool(false)),
+    _sfForceColorChannel      (bool(false)),
+    _sfForceAlphaBinary       (bool(false))
 {
 }
 
 ImageBase::ImageBase(const ImageBase &source) :
     Inherited(source),
-    _mfParents(),
-    _sfDimension(source._sfDimension),
-    _sfWidth(source._sfWidth),
-    _sfHeight(source._sfHeight),
-    _sfDepth(source._sfDepth),
-    _sfBpp(source._sfBpp),
-    _sfMipMapCount(source._sfMipMapCount),
-    _sfFrameCount(source._sfFrameCount),
-    _sfFrameDelay(source._sfFrameDelay),
-    _sfPixelFormat(source._sfPixelFormat),
-    _mfPixel(source._mfPixel),
-    _sfFrameSize(source._sfFrameSize),
-    _sfName(source._sfName),
-    _sfDataType(source._sfDataType),
-    _sfComponentSize(source._sfComponentSize),
-    _sfSideCount(source._sfSideCount),
-    _sfSideSize(source._sfSideSize),
-    _sfForceCompressedData(source._sfForceCompressedData),
-    _sfForceAlphaChannel(source._sfForceAlphaChannel),
-    _sfForceColorChannel(source._sfForceColorChannel),
-    _sfForceAlphaBinary(source._sfForceAlphaBinary)
+    _mfParents                (),
+    _sfDimension              (source._sfDimension              ),
+    _sfWidth                  (source._sfWidth                  ),
+    _sfHeight                 (source._sfHeight                 ),
+    _sfDepth                  (source._sfDepth                  ),
+    _sfBpp                    (source._sfBpp                    ),
+    _sfMipMapCount            (source._sfMipMapCount            ),
+    _sfFrameCount             (source._sfFrameCount             ),
+    _sfFrameDelay             (source._sfFrameDelay             ),
+    _sfPixelFormat            (source._sfPixelFormat            ),
+    _mfPixel                  (source._mfPixel                  ),
+    _sfFrameSize              (source._sfFrameSize              ),
+    _sfName                   (source._sfName                   ),
+    _sfDataType               (source._sfDataType               ),
+    _sfComponentSize          (source._sfComponentSize          ),
+    _sfSideCount              (source._sfSideCount              ),
+    _sfSideSize               (source._sfSideSize               ),
+    _sfForceCompressedData    (source._sfForceCompressedData    ),
+    _sfForceAlphaChannel      (source._sfForceAlphaChannel      ),
+    _sfForceColorChannel      (source._sfForceColorChannel      ),
+    _sfForceAlphaBinary       (source._sfForceAlphaBinary       )
 {
 }
 
@@ -1904,9 +1907,9 @@ void ImageBase::onCreate(const Image *source)
     if(source != NULL)
     {
 
-        MFParentFieldContainerPtr::const_iterator ParentsIt  = 
+        MFParentFieldContainerPtr::const_iterator ParentsIt  =
             source->_mfParents.begin();
-        MFParentFieldContainerPtr::const_iterator ParentsEnd = 
+        MFParentFieldContainerPtr::const_iterator ParentsEnd =
             source->_mfParents.end  ();
 
         while(ParentsIt != ParentsEnd)
@@ -1921,13 +1924,13 @@ void ImageBase::onCreate(const Image *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ImageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ImageBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1937,10 +1940,10 @@ void ImageBase::execSyncV(      FieldContainer    &oFrom,
 void ImageBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ImageBase *>(&oFrom), 
+    this->execSync(static_cast<ImageBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1960,12 +1963,12 @@ void ImageBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ImageBase::createAspectCopy(void) const
 {
-    ImagePtr returnValue; 
+    ImagePtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Image *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Image *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1976,6 +1979,8 @@ void ImageBase::resolveLinks(void)
     static_cast<Image *>(this)->clearParents();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1998,8 +2003,6 @@ OSG_FIELDTRAITS_GETTYPE(ImagePtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ImagePtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ImagePtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -2020,3 +2023,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGIMAGEFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

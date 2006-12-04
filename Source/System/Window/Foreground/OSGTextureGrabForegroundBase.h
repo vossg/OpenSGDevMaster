@@ -88,22 +88,22 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ForegroundPtr, 
-                              ForegroundConstPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
+                              ForegroundConstPtr,
                               TextureGrabForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ForegroundPtr, 
-                              ForegroundConstPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
+                              ForegroundConstPtr,
                               TextureGrabForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               TextureGrabForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               TextureGrabForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               TextureGrabForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               TextureGrabForeground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -120,24 +120,23 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
         NextFieldId = CopyTargetFieldId + 1
     };
 
-    static const OSG::BitVector TextureFieldMask = 
+    static const OSG::BitVector TextureFieldMask =
         (TypeTraits<BitVector>::One << TextureFieldId);
-    static const OSG::BitVector AutoResizeFieldMask = 
+    static const OSG::BitVector AutoResizeFieldMask =
         (TypeTraits<BitVector>::One << AutoResizeFieldId);
-    static const OSG::BitVector BindTargetFieldMask = 
+    static const OSG::BitVector BindTargetFieldMask =
         (TypeTraits<BitVector>::One << BindTargetFieldId);
-    static const OSG::BitVector CopyTargetFieldMask = 
+    static const OSG::BitVector CopyTargetFieldMask =
         (TypeTraits<BitVector>::One << CopyTargetFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -145,8 +144,8 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -155,81 +154,81 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFTextureObjChunkPtr *getSFTexture (void) const;
+            const SFTextureObjChunkPtr *getSFTexture         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFAutoResize(void);
+                  SFBool              *getSFAutoResize      (void);
 #endif
-           SFBool *editSFAutoResize(void);
-     const SFBool *getSFAutoResize (void) const;
+                  SFBool              *editSFAutoResize     (void);
+            const SFBool              *getSFAutoResize      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFBindTarget(void);
+                  SFGLenum            *getSFBindTarget      (void);
 #endif
-           SFGLenum *editSFBindTarget(void);
-     const SFGLenum *getSFBindTarget (void) const;
+                  SFGLenum            *editSFBindTarget     (void);
+            const SFGLenum            *getSFBindTarget      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFCopyTarget(void);
+                  SFGLenum            *getSFCopyTarget      (void);
 #endif
-           SFGLenum *editSFCopyTarget(void);
-     const SFGLenum *getSFCopyTarget (void) const;
+                  SFGLenum            *editSFCopyTarget     (void);
+            const SFGLenum            *getSFCopyTarget      (void) const;
 
 
-           TextureObjChunkPtrConst getTexture(void) const;
+                  TextureObjChunkPtrConst getTexture        (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getAutoResize(void);
+                  bool                &getAutoResize      (void);
 #endif
-           bool &editAutoResize(void);
-     const bool &getAutoResize (void) const;
+                  bool                &editAutoResize     (void);
+            const bool                &getAutoResize      (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getBindTarget(void);
+                  GLenum              &getBindTarget      (void);
 #endif
-           GLenum &editBindTarget(void);
-     const GLenum &getBindTarget (void) const;
+                  GLenum              &editBindTarget     (void);
+            const GLenum              &getBindTarget      (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getCopyTarget(void);
+                  GLenum              &getCopyTarget      (void);
 #endif
-           GLenum &editCopyTarget(void);
-     const GLenum &getCopyTarget (void) const;
+                  GLenum              &editCopyTarget     (void);
+            const GLenum              &getCopyTarget      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setTexture(TextureObjChunkPtrConstArg value);
-     void setAutoResize(const bool &value);
-     void setBindTarget(const GLenum &value);
-     void setCopyTarget(const GLenum &value);
+            void setTexture        (TextureObjChunkPtrConstArg value);
+            void setAutoResize     (const bool &value);
+            void setBindTarget     (const GLenum &value);
+            void setCopyTarget     (const GLenum &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -256,15 +255,15 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureGrabForegroundPtr create     (void); 
-    static  TextureGrabForegroundPtr createEmpty(void); 
+    static  TextureGrabForegroundPtr create     (void);
+    static  TextureGrabForegroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -281,9 +280,9 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \{                                                                 */
 
     SFTextureObjChunkPtr _sfTexture;
-    SFBool _sfAutoResize;
-    SFGLenum _sfBindTarget;
-    SFGLenum _sfCopyTarget;
+    SFBool            _sfAutoResize;
+    SFGLenum          _sfBindTarget;
+    SFGLenum          _sfCopyTarget;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -298,7 +297,7 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureGrabForegroundBase(void); 
+    virtual ~TextureGrabForegroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -345,11 +344,11 @@ class OSG_WINDOW_DLLMAPPING TextureGrabForegroundBase : public Foreground
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

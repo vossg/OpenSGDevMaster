@@ -66,40 +66,53 @@
 #include "OSGPolygonForegroundBase.h"
 #include "OSGPolygonForeground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var MaterialPtr PolygonForegroundBase::_sfMaterial
-    	The material used to display.
+/*! \class OSG::PolygonForeground
+    \ingroup GrpSystemWindowForegrounds
 
+    A foreground that renders a single polygon used the specified material,
+    see \ref PageSystemPolygonForeground for a description.
+
+    The polygon material is defined by _sfMaterial, the positions by
+    _mfPositions, the texture coordinates by _mfTexCoords (there must be as
+    many texture coordinates as positions). The interpretation of the
+    positions is controlled by _sfNormalizedX and _sfNormalizedY.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var MaterialPtr     PolygonForegroundBase::_sfMaterial
+    The material used to display.
 */
-/*! \var Pnt2f PolygonForegroundBase::_mfPositions
-    	The vertices of the geometry to display.
-
+/*! \var Pnt2f           PolygonForegroundBase::_mfPositions
+    The vertices of the geometry to display.
 */
-/*! \var Vec3f PolygonForegroundBase::_mfTexCoords
-    	The texture coordinates of the geometry to display.
-
+/*! \var Vec3f           PolygonForegroundBase::_mfTexCoords
+    The texture coordinates of the geometry to display.
 */
-/*! \var bool PolygonForegroundBase::_sfNormalizedX
-    	Define whether the x coordinates are normalized (0-1) or pixel-based .
-
+/*! \var bool            PolygonForegroundBase::_sfNormalizedX
+    Define whether the x coordinates are normalized (0-1) or pixel-based.
 */
-/*! \var bool PolygonForegroundBase::_sfNormalizedY
-    	Define whether the y coordinates are normalized (0-1) or pixel-based .
-
+/*! \var bool            PolygonForegroundBase::_sfNormalizedY
+    Define whether the y coordinates are normalized (0-1) or pixel-based.
 */
 
 void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFMaterialPtr::Description(
-        SFMaterialPtr::getClassType(), 
-        "material", 
-        "	The material used to display.\n",
+        SFMaterialPtr::getClassType(),
+        "material",
+        "The material used to display.\n",
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -115,9 +128,9 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFPnt2f::Description(
-        MFPnt2f::getClassType(), 
-        "positions", 
-        "	The vertices of the geometry to display.\n",
+        MFPnt2f::getClassType(),
+        "positions",
+        "The vertices of the geometry to display.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -137,9 +150,9 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "texCoords", 
-        "	The texture coordinates of the geometry to display.\n",
+        MFVec3f::getClassType(),
+        "texCoords",
+        "The texture coordinates of the geometry to display.\n",
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -159,9 +172,9 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "normalizedX", 
-        "	Define whether the x coordinates are normalized (0-1) or pixel-based .\n",
+        SFBool::getClassType(),
+        "normalizedX",
+        "Define whether the x coordinates are normalized (0-1) or pixel-based.\n",
         NormalizedXFieldId, NormalizedXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -181,9 +194,9 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "normalizedY", 
-        "	Define whether the y coordinates are normalized (0-1) or pixel-based .\n",
+        SFBool::getClassType(),
+        "normalizedY",
+        "Define whether the y coordinates are normalized (0-1) or pixel-based.\n",
         NormalizedYFieldId, NormalizedYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -208,86 +221,101 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(true,
     (InitalInsertDescFunc) &PolygonForegroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"PolygonForeground\"\n"
-"	parent=\"Foreground\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"A Foreground that renders a single polygon used the specified material. The main use of this Foreground is rendering a simple texture above the viewport, but it's general enough to be used for other things. There have to be as many vertices as texture coordinates.\n"
-"	<Field\n"
-"		name=\"material\"\n"
-"		type=\"MaterialPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The material used to display.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"positions\"\n"
-"		type=\"Pnt2f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The vertices of the geometry to display.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"texCoords\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The texture coordinates of the geometry to display.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"normalizedX\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Define whether the x coordinates are normalized (0-1) or pixel-based .\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"normalizedY\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Define whether the y coordinates are normalized (0-1) or pixel-based .\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A Foreground that renders a single polygon used the specified material. The main use of this Foreground is rendering a simple texture above the viewport, but it's general enough to be used for other things. There have to be as many vertices as texture coordinates.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"PolygonForeground\"\n"
+    "\tparent=\"Foreground\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
+    "A foreground that renders a single polygon used the specified material, \n"
+    "see \\ref PageSystemPolygonForeground for a\n"
+    "description.\n"
+    "\n"
+    "The polygon material is defined by _sfMaterial, the positions by _mfPositions,\n"
+    "the texture coordinates by _mfTexCoords (there must be as many texture\n"
+    "coordinates as positions). The interpretation of the positions is\n"
+    "controlled by _sfNormalizedX and _sfNormalizedY.\n"
+    "\t<Field\n"
+    "\t\tname=\"material\"\n"
+    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe material used to display.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"positions\"\n"
+    "\t\ttype=\"Pnt2f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe vertices of the geometry to display.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"texCoords\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe texture coordinates of the geometry to display.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"normalizedX\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefine whether the x coordinates are normalized (0-1) or pixel-based.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"normalizedY\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefine whether the y coordinates are normalized (0-1) or pixel-based.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "A foreground that renders a single polygon used the specified material, \n"
+    "see \\ref PageSystemPolygonForeground for a\n"
+    "description.\n"
+    "The polygon material is defined by _sfMaterial, the positions by _mfPositions,\n"
+    "the texture coordinates by _mfTexCoords (there must be as many texture\n"
+    "coordinates as positions). The interpretation of the positions is\n"
+    "controlled by _sfNormalizedX and _sfNormalizedY.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &PolygonForegroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &PolygonForegroundBase::getType(void) const 
+FieldContainerType &PolygonForegroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 PolygonForegroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(PolygonForeground); 
+const FieldContainerType &PolygonForegroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 PolygonForegroundBase::getContainerSize(void) const
+{
+    return sizeof(PolygonForeground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -312,9 +340,9 @@ const MFPnt2f *PolygonForegroundBase::getMFPositions(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFPnt2f *PolygonForegroundBase::getMFPositions(void)
+MFPnt2f             *PolygonForegroundBase::getMFPositions      (void)
 {
-    return this->editMFPositions();
+    return this->editMFPositions      ();
 }
 #endif
 
@@ -331,9 +359,9 @@ const MFVec3f *PolygonForegroundBase::getMFTexCoords(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *PolygonForegroundBase::getMFTexCoords(void)
+MFVec3f             *PolygonForegroundBase::getMFTexCoords      (void)
 {
-    return this->editMFTexCoords();
+    return this->editMFTexCoords      ();
 }
 #endif
 
@@ -350,9 +378,9 @@ const SFBool *PolygonForegroundBase::getSFNormalizedX(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *PolygonForegroundBase::getSFNormalizedX(void)
+SFBool              *PolygonForegroundBase::getSFNormalizedX    (void)
 {
-    return this->editSFNormalizedX();
+    return this->editSFNormalizedX    ();
 }
 #endif
 
@@ -369,9 +397,9 @@ const SFBool *PolygonForegroundBase::getSFNormalizedY(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *PolygonForegroundBase::getSFNormalizedY(void)
+SFBool              *PolygonForegroundBase::getSFNormalizedY    (void)
 {
-    return this->editSFNormalizedY();
+    return this->editSFNormalizedY    ();
 }
 #endif
 
@@ -444,7 +472,7 @@ void PolygonForegroundBase::pushToPositions(const Pnt2f& value)
 }
 
 void PolygonForegroundBase::insertIntoPositions(UInt32                uiIndex,
-                                             const Pnt2f& value   )
+                                                   const Pnt2f& value   )
 {
     editMField(PositionsFieldMask, _mfPositions);
 
@@ -456,7 +484,7 @@ void PolygonForegroundBase::insertIntoPositions(UInt32                uiIndex,
 }
 
 void PolygonForegroundBase::replaceInPositions(UInt32                uiIndex,
-                                                 const Pnt2f& value   )
+                                                       const Pnt2f& value   )
 {
     if(uiIndex >= _mfPositions.size())
         return;
@@ -467,7 +495,7 @@ void PolygonForegroundBase::replaceInPositions(UInt32                uiIndex,
 }
 
 void PolygonForegroundBase::replaceInPositions(const Pnt2f& pOldElem,
-                                                  const Pnt2f& pNewElem)
+                                                        const Pnt2f& pNewElem)
 {
     Int32  elemIdx = _mfPositions.findIndex(pOldElem);
 
@@ -511,19 +539,13 @@ void PolygonForegroundBase::removeFromPositions(const Pnt2f& value)
         _mfPositions.erase(fieldIt);
     }
 }
+
 void PolygonForegroundBase::clearPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
     _mfPositions.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void PolygonForegroundBase::pushToTexCoords(const Vec3f& value)
 {
@@ -532,7 +554,7 @@ void PolygonForegroundBase::pushToTexCoords(const Vec3f& value)
 }
 
 void PolygonForegroundBase::insertIntoTexCoords(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
@@ -544,7 +566,7 @@ void PolygonForegroundBase::insertIntoTexCoords(UInt32                uiIndex,
 }
 
 void PolygonForegroundBase::replaceInTexCoords(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfTexCoords.size())
         return;
@@ -555,7 +577,7 @@ void PolygonForegroundBase::replaceInTexCoords(UInt32                uiIndex,
 }
 
 void PolygonForegroundBase::replaceInTexCoords(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfTexCoords.findIndex(pOldElem);
 
@@ -599,19 +621,13 @@ void PolygonForegroundBase::removeFromTexCoords(const Vec3f& value)
         _mfTexCoords.erase(fieldIt);
     }
 }
+
 void PolygonForegroundBase::clearTexCoords(void)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
     _mfTexCoords.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -699,22 +715,22 @@ void PolygonForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PolygonForegroundPtr PolygonForegroundBase::createEmpty(void) 
-{ 
-    PolygonForegroundPtr returnValue; 
-    
-    newPtr<PolygonForeground>(returnValue); 
+PolygonForegroundPtr PolygonForegroundBase::createEmpty(void)
+{
+    PolygonForegroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<PolygonForeground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr PolygonForegroundBase::shallowCopy(void) const 
-{ 
-    PolygonForegroundPtr returnValue; 
+FieldContainerPtr PolygonForegroundBase::shallowCopy(void) const
+{
+    PolygonForegroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const PolygonForeground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const PolygonForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -723,21 +739,21 @@ FieldContainerPtr PolygonForegroundBase::shallowCopy(void) const
 
 PolygonForegroundBase::PolygonForegroundBase(void) :
     Inherited(),
-    _sfMaterial(),
-    _mfPositions(),
-    _mfTexCoords(),
-    _sfNormalizedX(bool(true)),
-    _sfNormalizedY(bool(true))
+    _sfMaterial               (),
+    _mfPositions              (),
+    _mfTexCoords              (),
+    _sfNormalizedX            (bool(true)),
+    _sfNormalizedY            (bool(true))
 {
 }
 
 PolygonForegroundBase::PolygonForegroundBase(const PolygonForegroundBase &source) :
     Inherited(source),
-    _sfMaterial(),
-    _mfPositions(source._mfPositions),
-    _mfTexCoords(source._mfTexCoords),
-    _sfNormalizedX(source._sfNormalizedX),
-    _sfNormalizedY(source._sfNormalizedY)
+    _sfMaterial               (),
+    _mfPositions              (source._mfPositions              ),
+    _mfTexCoords              (source._mfTexCoords              ),
+    _sfNormalizedX            (source._sfNormalizedX            ),
+    _sfNormalizedY            (source._sfNormalizedY            )
 {
 }
 
@@ -761,13 +777,13 @@ void PolygonForegroundBase::onCreate(const PolygonForeground *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void PolygonForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<PolygonForegroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -777,10 +793,10 @@ void PolygonForegroundBase::execSyncV(      FieldContainer    &oFrom,
 void PolygonForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PolygonForegroundBase *>(&oFrom), 
+    this->execSync(static_cast<PolygonForegroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -800,12 +816,12 @@ void PolygonForegroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr PolygonForegroundBase::createAspectCopy(void) const
 {
-    PolygonForegroundPtr returnValue; 
+    PolygonForegroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const PolygonForeground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const PolygonForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -816,6 +832,8 @@ void PolygonForegroundBase::resolveLinks(void)
     static_cast<PolygonForeground *>(this)->setMaterial(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -838,8 +856,6 @@ OSG_FIELDTRAITS_GETTYPE(PolygonForegroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, PolygonForegroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, PolygonForegroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -860,3 +876,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPOLYGONFOREGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

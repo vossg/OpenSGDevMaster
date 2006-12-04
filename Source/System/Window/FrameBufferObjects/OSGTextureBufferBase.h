@@ -88,22 +88,22 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
-                              FrameBufferAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
+                              FrameBufferAttachmentConstPtr,
                               TextureBuffer>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
-                              FrameBufferAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
+                              FrameBufferAttachmentConstPtr,
                               TextureBuffer>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                               FrameBufferAttachmentConstPtr,
                               TextureBuffer>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                               FrameBufferAttachmentConstPtr,
                               TextureBuffer>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                               FrameBufferAttachmentConstPtr,
                               TextureBuffer>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+    typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                               FrameBufferAttachmentConstPtr,
                               TextureBuffer>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -120,24 +120,23 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
         NextFieldId = ZoffsetFieldId + 1
     };
 
-    static const OSG::BitVector TextureFieldMask = 
+    static const OSG::BitVector TextureFieldMask =
         (TypeTraits<BitVector>::One << TextureFieldId);
-    static const OSG::BitVector TexTargetFieldMask = 
+    static const OSG::BitVector TexTargetFieldMask =
         (TypeTraits<BitVector>::One << TexTargetFieldId);
-    static const OSG::BitVector LevelFieldMask = 
+    static const OSG::BitVector LevelFieldMask =
         (TypeTraits<BitVector>::One << LevelFieldId);
-    static const OSG::BitVector ZoffsetFieldMask = 
+    static const OSG::BitVector ZoffsetFieldMask =
         (TypeTraits<BitVector>::One << ZoffsetFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -145,8 +144,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -155,81 +154,81 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFTextureObjChunkPtr *getSFTexture (void) const;
+            const SFTextureObjChunkPtr *getSFTexture         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFTexTarget(void);
+                  SFGLenum            *getSFTexTarget       (void);
 #endif
-           SFGLenum *editSFTexTarget(void);
-     const SFGLenum *getSFTexTarget (void) const;
+                  SFGLenum            *editSFTexTarget      (void);
+            const SFGLenum            *getSFTexTarget       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFLevel(void);
+                  SFUInt32            *getSFLevel           (void);
 #endif
-           SFUInt32 *editSFLevel(void);
-     const SFUInt32 *getSFLevel (void) const;
+                  SFUInt32            *editSFLevel          (void);
+            const SFUInt32            *getSFLevel           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFZoffset(void);
+                  SFUInt32            *getSFZoffset         (void);
 #endif
-           SFUInt32 *editSFZoffset(void);
-     const SFUInt32 *getSFZoffset (void) const;
+                  SFUInt32            *editSFZoffset        (void);
+            const SFUInt32            *getSFZoffset         (void) const;
 
 
-           TextureObjChunkPtrConst getTexture(void) const;
+                  TextureObjChunkPtrConst getTexture        (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getTexTarget(void);
+                  GLenum              &getTexTarget       (void);
 #endif
-           GLenum &editTexTarget(void);
-     const GLenum &getTexTarget (void) const;
+                  GLenum              &editTexTarget      (void);
+            const GLenum              &getTexTarget       (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getLevel(void);
+                  UInt32              &getLevel           (void);
 #endif
-           UInt32 &editLevel(void);
-     const UInt32 &getLevel (void) const;
+                  UInt32              &editLevel          (void);
+            const UInt32              &getLevel           (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getZoffset(void);
+                  UInt32              &getZoffset         (void);
 #endif
-           UInt32 &editZoffset(void);
-     const UInt32 &getZoffset (void) const;
+                  UInt32              &editZoffset        (void);
+            const UInt32              &getZoffset         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setTexture(TextureObjChunkPtrConstArg value);
-     void setTexTarget(const GLenum &value);
-     void setLevel(const UInt32 &value);
-     void setZoffset(const UInt32 &value);
+            void setTexture        (TextureObjChunkPtrConstArg value);
+            void setTexTarget      (const GLenum &value);
+            void setLevel          (const UInt32 &value);
+            void setZoffset        (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -256,15 +255,15 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureBufferPtr create     (void); 
-    static  TextureBufferPtr createEmpty(void); 
+    static  TextureBufferPtr create     (void);
+    static  TextureBufferPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -281,9 +280,9 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \{                                                                 */
 
     SFTextureObjChunkPtr _sfTexture;
-    SFGLenum _sfTexTarget;
-    SFUInt32 _sfLevel;
-    SFUInt32 _sfZoffset;
+    SFGLenum          _sfTexTarget;
+    SFUInt32          _sfLevel;
+    SFUInt32          _sfZoffset;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -298,7 +297,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureBufferBase(void); 
+    virtual ~TextureBufferBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -345,11 +344,11 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

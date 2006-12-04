@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &FBOViewportBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 FBOViewportBase::getClassTypeId(void) 
+OSG::UInt32 FBOViewportBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 FBOViewportBase::getClassGroupId(void)
@@ -93,24 +93,24 @@ void FBOViewportBase::setFrameBufferObject(FrameBufferObjectPtrConstArg value)
 
 //! create a new instance of the class
 inline
-FBOViewportPtr FBOViewportBase::create(void) 
+FBOViewportPtr FBOViewportBase::create(void)
 {
-    FBOViewportPtr fc; 
+    FBOViewportPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<FBOViewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void FBOViewportBase::execSync(      FBOViewportBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -126,7 +126,7 @@ inline
 void FBOViewportBase::execSync (      FBOViewportBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -164,4 +164,3 @@ typedef PointerBuilder<FBOViewport>::ObjPtrConstArg  FBOViewportPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGFBOVIEWPORTBASE_INLINE_CVSID "@(#)$Id$"
-

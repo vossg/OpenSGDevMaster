@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ImageForegroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ImageForegroundBase::getClassTypeId(void) 
+OSG::UInt32 ImageForegroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ImageForegroundBase::getClassGroupId(void)
@@ -114,15 +114,15 @@ MFPnt2f &ImageForegroundBase::editPositions(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt2f &ImageForegroundBase::getPositions(const UInt32 index)
+Pnt2f               &ImageForegroundBase::getPositions      (const UInt32 index)
 {
-    return this->editPositions(index);
+    return this->editPositions      (index);
 }
 
 inline
-MFPnt2f &ImageForegroundBase::getPositions(void)
+MFPnt2f             &ImageForegroundBase::getPositions      (void)
 {
-    return this->editPositions();
+    return this->editPositions      ();
 }
 
 #endif
@@ -137,37 +137,37 @@ const MFPnt2f &ImageForegroundBase::getPositions(void) const
 
 //! create a new instance of the class
 inline
-ImageForegroundPtr ImageForegroundBase::create(void) 
+ImageForegroundPtr ImageForegroundBase::create(void)
 {
-    ImageForegroundPtr fc; 
+    ImageForegroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ImageForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ImageForegroundBase::execSync(      ImageForegroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (ImagesFieldMask & whichField))
-        _mfImages.syncWith(pOther->_mfImages, 
+        _mfImages.syncWith(pOther->_mfImages,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pOther->_mfPositions, 
+        _mfPositions.syncWith(pOther->_mfPositions,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -179,19 +179,19 @@ inline
 void ImageForegroundBase::execSync (      ImageForegroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (ImagesFieldMask & whichField))
-        _mfImages.syncWith(pFrom->_mfImages, 
+        _mfImages.syncWith(pFrom->_mfImages,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pFrom->_mfPositions, 
+        _mfPositions.syncWith(pFrom->_mfPositions,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -236,4 +236,3 @@ typedef PointerBuilder<ImageForeground>::ObjPtrConstArg  ImageForegroundPtrConst
 OSG_END_NAMESPACE
 
 #define OSGIMAGEFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

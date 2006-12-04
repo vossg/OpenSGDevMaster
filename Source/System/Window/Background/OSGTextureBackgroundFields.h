@@ -70,22 +70,22 @@ class TextureBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           TextureBackground>::ObjPtr         TextureBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           TextureBackground>::ObjPtrConst    TextureBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           TextureBackground>::ObjConstPtr    TextureBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           TextureBackground>::ObjPtrArg      TextureBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           TextureBackground>::ObjConstPtrArg TextureBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           TextureBackground>::ObjPtrConstArg TextureBackgroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<BackgroundPtr,
 #endif
 
 template <>
-struct FieldTraits<TextureBackgroundPtr> : 
+struct FieldTraits<TextureBackgroundPtr> :
     public FieldTraitsTemplateBase<TextureBackgroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TextureBackgroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFTextureBackgroundPtr"; }

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TextureBackgroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TextureBackgroundBase::getClassTypeId(void) 
+OSG::UInt32 TextureBackgroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TextureBackgroundBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Color4f &TextureBackgroundBase::getColor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &TextureBackgroundBase::getColor(void)
+Color4f             &TextureBackgroundBase::getColor          (void)
 {
-    return this->editColor();
+    return this->editColor          ();
 }
 #endif
 
@@ -142,7 +142,7 @@ const Real32 &TextureBackgroundBase::getRadialDistortion(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TextureBackgroundBase::getRadialDistortion(void)
+Real32              &TextureBackgroundBase::getRadialDistortion(void)
 {
     return this->editRadialDistortion();
 }
@@ -175,7 +175,7 @@ const Vec2f &TextureBackgroundBase::getCenterOfDistortion(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Vec2f &TextureBackgroundBase::getCenterOfDistortion(void)
+Vec2f               &TextureBackgroundBase::getCenterOfDistortion(void)
 {
     return this->editCenterOfDistortion();
 }
@@ -208,9 +208,9 @@ const UInt16 &TextureBackgroundBase::getHor(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &TextureBackgroundBase::getHor(void)
+UInt16              &TextureBackgroundBase::getHor            (void)
 {
-    return this->editHor();
+    return this->editHor            ();
 }
 #endif
 
@@ -241,9 +241,9 @@ const UInt16 &TextureBackgroundBase::getVert(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &TextureBackgroundBase::getVert(void)
+UInt16              &TextureBackgroundBase::getVert           (void)
 {
-    return this->editVert();
+    return this->editVert           ();
 }
 #endif
 
@@ -282,15 +282,15 @@ MFPnt2f &TextureBackgroundBase::editTexCoords(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt2f &TextureBackgroundBase::getTexCoords(const UInt32 index)
+Pnt2f               &TextureBackgroundBase::getTexCoords      (const UInt32 index)
 {
-    return this->editTexCoords(index);
+    return this->editTexCoords      (index);
 }
 
 inline
-MFPnt2f &TextureBackgroundBase::getTexCoords(void)
+MFPnt2f             &TextureBackgroundBase::getTexCoords      (void)
 {
-    return this->editTexCoords();
+    return this->editTexCoords      ();
 }
 
 #endif
@@ -305,24 +305,24 @@ const MFPnt2f &TextureBackgroundBase::getTexCoords(void) const
 
 //! create a new instance of the class
 inline
-TextureBackgroundPtr TextureBackgroundBase::create(void) 
+TextureBackgroundPtr TextureBackgroundBase::create(void)
 {
-    TextureBackgroundPtr fc; 
+    TextureBackgroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TextureBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TextureBackgroundBase::execSync(      TextureBackgroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -335,7 +335,7 @@ void TextureBackgroundBase::execSync(      TextureBackgroundBase *pOther,
         _sfTexture.syncWith(pOther->_sfTexture);
 
     if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-        _mfTexCoords.syncWith(pOther->_mfTexCoords, 
+        _mfTexCoords.syncWith(pOther->_mfTexCoords,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -359,7 +359,7 @@ inline
 void TextureBackgroundBase::execSync (      TextureBackgroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -371,7 +371,7 @@ void TextureBackgroundBase::execSync (      TextureBackgroundBase *pFrom,
         _sfTexture.syncWith(pFrom->_sfTexture);
 
     if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-        _mfTexCoords.syncWith(pFrom->_mfTexCoords, 
+        _mfTexCoords.syncWith(pFrom->_mfTexCoords,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -423,4 +423,3 @@ typedef PointerBuilder<TextureBackground>::ObjPtrConstArg  TextureBackgroundPtrC
 OSG_END_NAMESPACE
 
 #define OSGTEXTUREBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

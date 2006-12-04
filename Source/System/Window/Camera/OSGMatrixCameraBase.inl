@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &MatrixCameraBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 MatrixCameraBase::getClassTypeId(void) 
+OSG::UInt32 MatrixCameraBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 MatrixCameraBase::getClassGroupId(void)
@@ -92,7 +92,7 @@ const Matrix &MatrixCameraBase::getProjectionMatrix(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &MatrixCameraBase::getProjectionMatrix(void)
+Matrix              &MatrixCameraBase::getProjectionMatrix(void)
 {
     return this->editProjectionMatrix();
 }
@@ -125,7 +125,7 @@ const Matrix &MatrixCameraBase::getModelviewMatrix(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &MatrixCameraBase::getModelviewMatrix(void)
+Matrix              &MatrixCameraBase::getModelviewMatrix(void)
 {
     return this->editModelviewMatrix();
 }
@@ -142,24 +142,24 @@ void MatrixCameraBase::setModelviewMatrix(const Matrix &value)
 
 //! create a new instance of the class
 inline
-MatrixCameraPtr MatrixCameraBase::create(void) 
+MatrixCameraPtr MatrixCameraBase::create(void)
 {
-    MatrixCameraPtr fc; 
+    MatrixCameraPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<MatrixCamera::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void MatrixCameraBase::execSync(      MatrixCameraBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -178,7 +178,7 @@ inline
 void MatrixCameraBase::execSync (      MatrixCameraBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -219,4 +219,3 @@ typedef PointerBuilder<MatrixCamera>::ObjPtrConstArg  MatrixCameraPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGMATRIXCAMERABASE_INLINE_CVSID "@(#)$Id$"
-

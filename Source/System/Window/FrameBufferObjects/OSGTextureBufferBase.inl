@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TextureBufferBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TextureBufferBase::getClassTypeId(void) 
+OSG::UInt32 TextureBufferBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TextureBufferBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const GLenum &TextureBufferBase::getTexTarget(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureBufferBase::getTexTarget(void)
+GLenum              &TextureBufferBase::getTexTarget      (void)
 {
-    return this->editTexTarget();
+    return this->editTexTarget      ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const UInt32 &TextureBufferBase::getLevel(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &TextureBufferBase::getLevel(void)
+UInt32              &TextureBufferBase::getLevel          (void)
 {
-    return this->editLevel();
+    return this->editLevel          ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const UInt32 &TextureBufferBase::getZoffset(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &TextureBufferBase::getZoffset(void)
+UInt32              &TextureBufferBase::getZoffset        (void)
 {
-    return this->editZoffset();
+    return this->editZoffset        ();
 }
 #endif
 
@@ -192,24 +192,24 @@ void TextureBufferBase::setZoffset(const UInt32 &value)
 
 //! create a new instance of the class
 inline
-TextureBufferPtr TextureBufferBase::create(void) 
+TextureBufferPtr TextureBufferBase::create(void)
 {
-    TextureBufferPtr fc; 
+    TextureBufferPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TextureBuffer::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TextureBufferBase::execSync(      TextureBufferBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -234,7 +234,7 @@ inline
 void TextureBufferBase::execSync (      TextureBufferBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -281,4 +281,3 @@ typedef PointerBuilder<TextureBuffer>::ObjPtrConstArg  TextureBufferPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGTEXTUREBUFFERBASE_INLINE_CVSID "@(#)$Id$"
-

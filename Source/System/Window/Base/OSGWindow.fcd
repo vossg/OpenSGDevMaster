@@ -9,7 +9,17 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-The base class for all windows.
+\ingroup GrpSystemWindow
+
+Window is the base class for all window management classes.  See \ref
+PageSystemWindowWindow for a description.
+
+\ext
+
+To create a new Window the methods that have to be overridden are 
+init(void), activate(void), deactivate(void) and swap(void).
+
+\endext
 	<Field
 		name="width"
 		type="UInt16"
@@ -32,18 +42,15 @@ The base class for all windows.
 		cardinality="multi"
 		visibility="external"
 		access="public"
-
-        pushToFieldAs="addPort"
-        insertIntoMFieldAs="insertPort"
-        replaceInMFieldIndexAs="replacePort"
-        replaceInMFieldObjectAs="replacePortyBy"
-        removeFromMFieldIndexAs="subPort"
-        removeFromMFieldObjectAs="subPort"
-        clearFieldAs="clearPorts"        
-        
-        linkSParent="true"
-
-        checkNilPtr="true"
+                pushToFieldAs="addPort"
+                insertIntoMFieldAs="insertPort"
+                replaceInMFieldIndexAs="replacePort"
+                replaceInMFieldObjectAs="replacePortyBy"
+                removeFromMFieldIndexAs="subPort"
+                removeFromMFieldObjectAs="subPort"
+                clearFieldAs="clearPorts"        
+                linkSParent="true"
+                checkNilPtr="true"
 	>
 	</Field>
 	<Field
@@ -61,7 +68,7 @@ The base class for all windows.
 		visibility="internal"
 		defaultValue="1"
 		access="protected"
-        fieldFlags="FClusterLocal"
+                fieldFlags="FClusterLocal"
 	>
 	Counter for GL object events. Needed for multi-aspect updates.
         Is used in glObjectLastRefresh and glObjectLastReinitialize.
@@ -72,9 +79,9 @@ The base class for all windows.
 		cardinality="multi"
 		visibility="internal"
 		access="protected"
-        fieldFlags="FClusterLocal"
+                fieldFlags="FClusterLocal"
 	>
-	indicates the last refresh for the GL object
+	Indicates the last refresh for the GL object.
 	</Field>
 	<Field
 		name="glObjectLastReinitialize"
@@ -82,8 +89,8 @@ The base class for all windows.
 		cardinality="multi"
 		visibility="internal"
 		access="protected"
-        fieldFlags="FClusterLocal"
+                fieldFlags="FClusterLocal"
 	>
-	indicates the last reinit for the GL object
+	Indicates the last reinit for the GL object.
 	</Field>
 </FieldContainer>

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &FrameBufferAttachmentBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 FrameBufferAttachmentBase::getClassTypeId(void) 
+OSG::UInt32 FrameBufferAttachmentBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 FrameBufferAttachmentBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt16 &FrameBufferAttachmentBase::getWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &FrameBufferAttachmentBase::getWidth(void)
+UInt16              &FrameBufferAttachmentBase::getWidth          (void)
 {
-    return this->editWidth();
+    return this->editWidth          ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const UInt16 &FrameBufferAttachmentBase::getHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &FrameBufferAttachmentBase::getHeight(void)
+UInt16              &FrameBufferAttachmentBase::getHeight         (void)
 {
-    return this->editHeight();
+    return this->editHeight         ();
 }
 #endif
 
@@ -145,7 +145,7 @@ void FrameBufferAttachmentBase::setHeight(const UInt16 &value)
 inline
 void FrameBufferAttachmentBase::execSync(      FrameBufferAttachmentBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -164,7 +164,7 @@ inline
 void FrameBufferAttachmentBase::execSync (      FrameBufferAttachmentBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -205,4 +205,3 @@ typedef PointerBuilder<FrameBufferAttachment>::ObjPtrConstArg  FrameBufferAttach
 OSG_END_NAMESPACE
 
 #define OSGFRAMEBUFFERATTACHMENTBASE_INLINE_CVSID "@(#)$Id$"
-

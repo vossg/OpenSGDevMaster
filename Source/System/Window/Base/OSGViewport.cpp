@@ -66,38 +66,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::Viewport
-    \ingroup GrpSystemWindowsViewports
-
-  A Viewport is a part of the Window it is attached to used for rendering. See
-  \ref PageSystemWindowViewports for a description.
-  
-  The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom and
-  _sfTop Fields. The Window this Viewport is attached is stored in _sfWindow.
-  _sfBackground defines the background clearing method, the
-  _sfRoot and _sfCamera Fields the scene being rendered and the camera used to
-  view it. The optional _mfForegrounds define which information are added or
-  actions are executed after the Viewport has been rendered.
-  
-  \ext
-  
-  To create a new Viewport the draw and render methods should be overridden. 
-  
-  \endext
-  
-  \dev
-  
-  When adding fields to the Viewport, make sure to add the code to copy them to
-  all the different CLusterWindows! 
-  
-  \enddev
-  
- */
+// Documentation for this class is emited in the
+// OSGViewportBase.cpp file.
+// To modify it, please change the .fcd file (OSGViewport.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

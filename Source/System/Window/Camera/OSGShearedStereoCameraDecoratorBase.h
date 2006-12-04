@@ -86,22 +86,22 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
-                              StereoCameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
+                              StereoCameraDecoratorConstPtr,
                               ShearedStereoCameraDecorator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
-                              StereoCameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
+                              StereoCameraDecoratorConstPtr,
                               ShearedStereoCameraDecorator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                               StereoCameraDecoratorConstPtr,
                               ShearedStereoCameraDecorator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                               StereoCameraDecoratorConstPtr,
                               ShearedStereoCameraDecorator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                               StereoCameraDecoratorConstPtr,
                               ShearedStereoCameraDecorator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                               StereoCameraDecoratorConstPtr,
                               ShearedStereoCameraDecorator>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
         NextFieldId = OverlapFieldId + 1
     };
 
-    static const OSG::BitVector ZeroParallaxDistanceFieldMask = 
+    static const OSG::BitVector ZeroParallaxDistanceFieldMask =
         (TypeTraits<BitVector>::One << ZeroParallaxDistanceFieldId);
-    static const OSG::BitVector OverlapFieldMask = 
+    static const OSG::BitVector OverlapFieldMask =
         (TypeTraits<BitVector>::One << OverlapFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,37 +148,37 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
 
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFZeroParallaxDistance(void);
+                  SFReal32            *getSFZeroParallaxDistance (void);
 #endif
-           SFReal32 *editSFZeroParallaxDistance(void);
-     const SFReal32 *getSFZeroParallaxDistance (void) const;
+                  SFReal32            *editSFZeroParallaxDistance(void);
+            const SFReal32            *getSFZeroParallaxDistance (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFOverlap(void);
+                  SFReal32            *getSFOverlap         (void);
 #endif
-           SFReal32 *editSFOverlap(void);
-     const SFReal32 *getSFOverlap (void) const;
+                  SFReal32            *editSFOverlap        (void);
+            const SFReal32            *getSFOverlap         (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Real32 &getZeroParallaxDistance(void);
+                  Real32              &getZeroParallaxDistance (void);
 #endif
-           Real32 &editZeroParallaxDistance(void);
-     const Real32 &getZeroParallaxDistance (void) const;
+                  Real32              &editZeroParallaxDistance(void);
+            const Real32              &getZeroParallaxDistance (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getOverlap(void);
+                  Real32              &getOverlap         (void);
 #endif
-           Real32 &editOverlap(void);
-     const Real32 &getOverlap (void) const;
+                  Real32              &editOverlap        (void);
+            const Real32              &getOverlap         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setZeroParallaxDistance(const Real32 &value);
-     void setOverlap(const Real32 &value);
+            void setZeroParallaxDistance(const Real32 &value);
+            void setOverlap        (const Real32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -199,15 +198,15 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ShearedStereoCameraDecoratorPtr create     (void); 
-    static  ShearedStereoCameraDecoratorPtr createEmpty(void); 
+    static  ShearedStereoCameraDecoratorPtr create     (void);
+    static  ShearedStereoCameraDecoratorPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -223,8 +222,8 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32 _sfZeroParallaxDistance;
-    SFReal32 _sfOverlap;
+    SFReal32          _sfZeroParallaxDistance;
+    SFReal32          _sfOverlap;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -239,7 +238,7 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShearedStereoCameraDecoratorBase(void); 
+    virtual ~ShearedStereoCameraDecoratorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -285,11 +284,11 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

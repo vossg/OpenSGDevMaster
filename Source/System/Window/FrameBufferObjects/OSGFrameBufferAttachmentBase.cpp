@@ -65,20 +65,30 @@
 #include "OSGFrameBufferAttachmentBase.h"
 #include "OSGFrameBufferAttachment.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var UInt16 FrameBufferAttachmentBase::_sfWidth
+/*! \class OSG::FrameBufferAttachment
+    FramebufferAttachment base class.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var UInt16          FrameBufferAttachmentBase::_sfWidth
     
 */
-/*! \var UInt16 FrameBufferAttachmentBase::_sfHeight
+/*! \var UInt16          FrameBufferAttachmentBase::_sfHeight
     
 */
 
 void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -88,8 +98,8 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "width", 
+        SFUInt16::getClassType(),
+        "width",
         "",
         WidthFieldId, WidthFieldMask,
         true,
@@ -110,8 +120,8 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "height", 
+        SFUInt16::getClassType(),
+        "height",
         "",
         HeightFieldId, HeightFieldMask,
         true,
@@ -132,59 +142,58 @@ FrameBufferAttachmentBase::TypeObject FrameBufferAttachmentBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     FrameBufferAttachment::initMethod,
     (InitalInsertDescFunc) &FrameBufferAttachmentBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"FrameBufferAttachment\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"FramebufferAttachment base class\n"
-"	<Field\n"
-"		name=\"width\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"height\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "FramebufferAttachment base class\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"FrameBufferAttachment\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "FramebufferAttachment base class.\n"
+    "\t<Field\n"
+    "\t\tname=\"width\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"height\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "FramebufferAttachment base class.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &FrameBufferAttachmentBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &FrameBufferAttachmentBase::getType(void) const 
+FieldContainerType &FrameBufferAttachmentBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 FrameBufferAttachmentBase::getContainerSize(void) const 
-{ 
-    return sizeof(FrameBufferAttachment); 
+const FieldContainerType &FrameBufferAttachmentBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 FrameBufferAttachmentBase::getContainerSize(void) const
+{
+    return sizeof(FrameBufferAttachment);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -203,9 +212,9 @@ const SFUInt16 *FrameBufferAttachmentBase::getSFWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *FrameBufferAttachmentBase::getSFWidth(void)
+SFUInt16            *FrameBufferAttachmentBase::getSFWidth          (void)
 {
-    return this->editSFWidth();
+    return this->editSFWidth          ();
 }
 #endif
 
@@ -222,9 +231,9 @@ const SFUInt16 *FrameBufferAttachmentBase::getSFHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *FrameBufferAttachmentBase::getSFHeight(void)
+SFUInt16            *FrameBufferAttachmentBase::getSFHeight         (void)
 {
-    return this->editSFHeight();
+    return this->editSFHeight         ();
 }
 #endif
 
@@ -284,15 +293,15 @@ void FrameBufferAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 
 FrameBufferAttachmentBase::FrameBufferAttachmentBase(void) :
     Inherited(),
-    _sfWidth(),
-    _sfHeight()
+    _sfWidth                  (),
+    _sfHeight                 ()
 {
 }
 
 FrameBufferAttachmentBase::FrameBufferAttachmentBase(const FrameBufferAttachmentBase &source) :
     Inherited(source),
-    _sfWidth(source._sfWidth),
-    _sfHeight(source._sfHeight)
+    _sfWidth                  (source._sfWidth                  ),
+    _sfHeight                 (source._sfHeight                 )
 {
 }
 
@@ -306,13 +315,13 @@ FrameBufferAttachmentBase::~FrameBufferAttachmentBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void FrameBufferAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<FrameBufferAttachmentBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -322,10 +331,10 @@ void FrameBufferAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 void FrameBufferAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FrameBufferAttachmentBase *>(&oFrom), 
+    this->execSync(static_cast<FrameBufferAttachmentBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -349,6 +358,8 @@ void FrameBufferAttachmentBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -370,8 +381,6 @@ OSG_FIELDTRAITS_GETTYPE(FrameBufferAttachmentPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, FrameBufferAttachmentPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, FrameBufferAttachmentPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -392,3 +401,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGFRAMEBUFFERATTACHMENTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

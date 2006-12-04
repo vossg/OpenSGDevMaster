@@ -63,10 +63,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::Image
-  1D/2D/3D Image with various pixel types data, can also optional hold 
-  mipMap and simple multi-frame data.
- */
+// Documentation for this class is emited in the
+// OSGImageBase.cpp file.
+// To modify it, please change the .fcd file (OSGImage.fcd) and
+// regenerate the base file.
 
 /*------------------------------------------------------------------------*/
 /*                              static member                             */

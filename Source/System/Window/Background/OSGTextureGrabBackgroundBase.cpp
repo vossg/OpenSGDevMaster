@@ -66,39 +66,51 @@
 #include "OSGTextureGrabBackgroundBase.h"
 #include "OSGTextureGrabBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::TextureGrabBackground
+    \ingroup GrpSystemWindowBackgrounds
+
+    A background that grabs what's underneath it into a texture before it
+    clears  the viewport to a constant color.
+
+    The color of the background is given by the _sfColor field, the texture
+    to grab into by the _sfTexture field.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 /*! \var TextureObjChunkPtr TextureGrabBackgroundBase::_sfTexture
-    	The texture to grab into.
-
+    The texture to grab into.
 */
-/*! \var bool TextureGrabBackgroundBase::_sfAutoResize
-            Automatically resize the texture when the viewport size changes.
-       	
-
+/*! \var bool            TextureGrabBackgroundBase::_sfAutoResize
+    Automatically resize the texture when the viewport size changes.
 */
-/*! \var GLenum TextureGrabBackgroundBase::_sfBindTarget
-            Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.
-       	
-
+/*! \var GLenum          TextureGrabBackgroundBase::_sfBindTarget
+    Enum to use for glBindTexture, if GL_NONE chosen from texture
+    dimensionality.
 */
-/*! \var GLenum TextureGrabBackgroundBase::_sfCopyTarget
-            Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.
-        Mainly useful to grab into the different parts of a CubeTexture.
-
+/*! \var GLenum          TextureGrabBackgroundBase::_sfCopyTarget
+    Enum to use for glCopyTexture, if GL_NONE chosen from texture
+    dimensionality. Mainly useful to grab into the different parts of a
+    CubeTexture.
 */
 
 void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(), 
-        "texture", 
-        "	The texture to grab into.\n",
+        SFTextureObjChunkPtr::getClassType(),
+        "texture",
+        "The texture to grab into.\n",
         TextureFieldId, TextureFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -114,9 +126,9 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "autoResize", 
-        "        Automatically resize the texture when the viewport size changes.\n       	\n",
+        SFBool::getClassType(),
+        "autoResize",
+        "Automatically resize the texture when the viewport size changes.\n",
         AutoResizeFieldId, AutoResizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -136,9 +148,9 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "bindTarget", 
-        "        Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.\n       	\n",
+        SFGLenum::getClassType(),
+        "bindTarget",
+        "Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.\n",
         BindTargetFieldId, BindTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -158,9 +170,10 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "copyTarget", 
-        "        Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.\n        Mainly useful to grab into the different parts of a CubeTexture.\n",
+        SFGLenum::getClassType(),
+        "copyTarget",
+        "Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.\n"
+        "Mainly useful to grab into the different parts of a CubeTexture.\n",
         CopyTargetFieldId, CopyTargetFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -185,77 +198,87 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(true,
     (InitalInsertDescFunc) &TextureGrabBackgroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"TextureGrabBackground\"\n"
-"	parent=\"SolidBackground\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"none\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"	<Field\n"
-"		name=\"texture\"\n"
-"		type=\"TextureObjChunkPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The texture to grab into.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"autoResize\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Automatically resize the texture when the viewport size changes.\n"
-"	</Field>\n"
-"       	<Field\n"
-"		name=\"bindTarget\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.\n"
-"	</Field>\n"
-"       	<Field\n"
-"		name=\"copyTarget\"\n"
-"		type=\"GLenum\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_NONE\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.\n"
-"        Mainly useful to grab into the different parts of a CubeTexture.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"TextureGrabBackground\"\n"
+    "\tparent=\"SolidBackground\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"none\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
+    "A background that grabs what's underneath it into a texture before it clears \n"
+    "the viewport to a constant color.\n"
+    "\n"
+    "The color of the background is given by the _sfColor field, the texture to\n"
+    "grab into by the _sfTexture field.\n"
+    "\t<Field\n"
+    "\t\tname=\"texture\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe texture to grab into.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"autoResize\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Automatically resize the texture when the viewport size changes.\n"
+    "\t</Field>\n"
+    "       \t<Field\n"
+    "\t\tname=\"bindTarget\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.\n"
+    "\t</Field>\n"
+    "       \t<Field\n"
+    "\t\tname=\"copyTarget\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_NONE\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.\n"
+    "        Mainly useful to grab into the different parts of a CubeTexture.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "A background that grabs what's underneath it into a texture before it clears \n"
+    "the viewport to a constant color.\n"
+    "The color of the background is given by the _sfColor field, the texture to\n"
+    "grab into by the _sfTexture field.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TextureGrabBackgroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &TextureGrabBackgroundBase::getType(void) const 
+FieldContainerType &TextureGrabBackgroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 TextureGrabBackgroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(TextureGrabBackground); 
+const FieldContainerType &TextureGrabBackgroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 TextureGrabBackgroundBase::getContainerSize(void) const
+{
+    return sizeof(TextureGrabBackground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -280,9 +303,9 @@ const SFBool *TextureGrabBackgroundBase::getSFAutoResize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *TextureGrabBackgroundBase::getSFAutoResize(void)
+SFBool              *TextureGrabBackgroundBase::getSFAutoResize     (void)
 {
-    return this->editSFAutoResize();
+    return this->editSFAutoResize     ();
 }
 #endif
 
@@ -299,9 +322,9 @@ const SFGLenum *TextureGrabBackgroundBase::getSFBindTarget(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureGrabBackgroundBase::getSFBindTarget(void)
+SFGLenum            *TextureGrabBackgroundBase::getSFBindTarget     (void)
 {
-    return this->editSFBindTarget();
+    return this->editSFBindTarget     ();
 }
 #endif
 
@@ -318,9 +341,9 @@ const SFGLenum *TextureGrabBackgroundBase::getSFCopyTarget(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *TextureGrabBackgroundBase::getSFCopyTarget(void)
+SFGLenum            *TextureGrabBackgroundBase::getSFCopyTarget     (void)
 {
-    return this->editSFCopyTarget();
+    return this->editSFCopyTarget     ();
 }
 #endif
 
@@ -460,22 +483,22 @@ void TextureGrabBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmpty(void) 
-{ 
-    TextureGrabBackgroundPtr returnValue; 
-    
-    newPtr<TextureGrabBackground>(returnValue); 
+TextureGrabBackgroundPtr TextureGrabBackgroundBase::createEmpty(void)
+{
+    TextureGrabBackgroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<TextureGrabBackground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr TextureGrabBackgroundBase::shallowCopy(void) const 
-{ 
-    TextureGrabBackgroundPtr returnValue; 
+FieldContainerPtr TextureGrabBackgroundBase::shallowCopy(void) const
+{
+    TextureGrabBackgroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const TextureGrabBackground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const TextureGrabBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -484,19 +507,19 @@ FieldContainerPtr TextureGrabBackgroundBase::shallowCopy(void) const
 
 TextureGrabBackgroundBase::TextureGrabBackgroundBase(void) :
     Inherited(),
-    _sfTexture(),
-    _sfAutoResize(bool(true)),
-    _sfBindTarget(GLenum(GL_NONE)),
-    _sfCopyTarget(GLenum(GL_NONE))
+    _sfTexture                (),
+    _sfAutoResize             (bool(true)),
+    _sfBindTarget             (GLenum(GL_NONE)),
+    _sfCopyTarget             (GLenum(GL_NONE))
 {
 }
 
 TextureGrabBackgroundBase::TextureGrabBackgroundBase(const TextureGrabBackgroundBase &source) :
     Inherited(source),
-    _sfTexture(),
-    _sfAutoResize(source._sfAutoResize),
-    _sfBindTarget(source._sfBindTarget),
-    _sfCopyTarget(source._sfCopyTarget)
+    _sfTexture                (),
+    _sfAutoResize             (source._sfAutoResize             ),
+    _sfBindTarget             (source._sfBindTarget             ),
+    _sfCopyTarget             (source._sfCopyTarget             )
 {
 }
 
@@ -520,13 +543,13 @@ void TextureGrabBackgroundBase::onCreate(const TextureGrabBackground *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void TextureGrabBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<TextureGrabBackgroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -536,10 +559,10 @@ void TextureGrabBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 void TextureGrabBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<TextureGrabBackgroundBase *>(&oFrom), 
+    this->execSync(static_cast<TextureGrabBackgroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -559,12 +582,12 @@ void TextureGrabBackgroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr TextureGrabBackgroundBase::createAspectCopy(void) const
 {
-    TextureGrabBackgroundPtr returnValue; 
+    TextureGrabBackgroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const TextureGrabBackground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const TextureGrabBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -576,14 +599,10 @@ void TextureGrabBackgroundBase::resolveLinks(void)
 }
 
 
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<TextureGrabBackgroundPtr>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr");
 #endif
 
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -605,3 +624,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGTEXTUREGRABBACKGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

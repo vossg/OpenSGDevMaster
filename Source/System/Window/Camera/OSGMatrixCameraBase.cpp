@@ -65,20 +65,36 @@
 #include "OSGMatrixCameraBase.h"
 #include "OSGMatrixCamera.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Matrix MatrixCameraBase::_sfProjectionMatrix
+/*! \class OSG::MatrixCamera
+    \ingroup GrpSystemWindowCameras
+
+    The Matrix Camera class, see \ref PageSystemWindowCameraMatrix for a
+    description.
+
+    The used matrices are stored in the _sfModelviewMatrix and
+    _sfProjectionMatrix Fields.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Matrix          MatrixCameraBase::_sfProjectionMatrix
     
 */
-/*! \var Matrix MatrixCameraBase::_sfModelviewMatrix
+/*! \var Matrix          MatrixCameraBase::_sfModelviewMatrix
     
 */
 
 void MatrixCameraBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -88,8 +104,8 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "ProjectionMatrix", 
+        SFMatrix::getClassType(),
+        "ProjectionMatrix",
         "",
         ProjectionMatrixFieldId, ProjectionMatrixFieldMask,
         false,
@@ -110,8 +126,8 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFMatrix::Description(
-        SFMatrix::getClassType(), 
-        "ModelviewMatrix", 
+        SFMatrix::getClassType(),
+        "ModelviewMatrix",
         "",
         ModelviewMatrixFieldId, ModelviewMatrixFieldMask,
         false,
@@ -137,53 +153,62 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(true,
     (InitalInsertDescFunc) &MatrixCameraBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"MatrixCamera\"\n"
-"	parent=\"Camera\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"A perspective camera with a symmetric frustum. 	\n"
-"	<Field\n"
-"		name=\"ProjectionMatrix\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"ModelviewMatrix\"\n"
-"		type=\"Matrix\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A perspective camera with a symmetric frustum. 	\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"MatrixCamera\"\n"
+    "\tparent=\"Camera\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowCameras\n"
+    "\n"
+    "The Matrix Camera class, see \\ref PageSystemWindowCameraMatrix for\n"
+    "a description.\n"
+    "\n"
+    "The used matrices are stored in the _sfModelviewMatrix and\n"
+    "_sfProjectionMatrix Fields.\n"
+    "\t<Field\n"
+    "\t\tname=\"ProjectionMatrix\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"ModelviewMatrix\"\n"
+    "\t\ttype=\"Matrix\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowCameras\n"
+    "The Matrix Camera class, see \\ref PageSystemWindowCameraMatrix for\n"
+    "a description.\n"
+    "The used matrices are stored in the _sfModelviewMatrix and\n"
+    "_sfProjectionMatrix Fields.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &MatrixCameraBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &MatrixCameraBase::getType(void) const 
+FieldContainerType &MatrixCameraBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 MatrixCameraBase::getContainerSize(void) const 
-{ 
-    return sizeof(MatrixCamera); 
+const FieldContainerType &MatrixCameraBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 MatrixCameraBase::getContainerSize(void) const
+{
+    return sizeof(MatrixCamera);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -202,7 +227,7 @@ const SFMatrix *MatrixCameraBase::getSFProjectionMatrix(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *MatrixCameraBase::getSFProjectionMatrix(void)
+SFMatrix            *MatrixCameraBase::getSFProjectionMatrix(void)
 {
     return this->editSFProjectionMatrix();
 }
@@ -221,7 +246,7 @@ const SFMatrix *MatrixCameraBase::getSFModelviewMatrix(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFMatrix *MatrixCameraBase::getSFModelviewMatrix(void)
+SFMatrix            *MatrixCameraBase::getSFModelviewMatrix(void)
 {
     return this->editSFModelviewMatrix();
 }
@@ -278,22 +303,22 @@ void MatrixCameraBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-MatrixCameraPtr MatrixCameraBase::createEmpty(void) 
-{ 
-    MatrixCameraPtr returnValue; 
-    
-    newPtr<MatrixCamera>(returnValue); 
+MatrixCameraPtr MatrixCameraBase::createEmpty(void)
+{
+    MatrixCameraPtr returnValue;
 
-    return returnValue; 
+    newPtr<MatrixCamera>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr MatrixCameraBase::shallowCopy(void) const 
-{ 
-    MatrixCameraPtr returnValue; 
+FieldContainerPtr MatrixCameraBase::shallowCopy(void) const
+{
+    MatrixCameraPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const MatrixCamera *>(this)); 
+    newPtr(returnValue, dynamic_cast<const MatrixCamera *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -302,15 +327,15 @@ FieldContainerPtr MatrixCameraBase::shallowCopy(void) const
 
 MatrixCameraBase::MatrixCameraBase(void) :
     Inherited(),
-    _sfProjectionMatrix(),
-    _sfModelviewMatrix()
+    _sfProjectionMatrix       (),
+    _sfModelviewMatrix        ()
 {
 }
 
 MatrixCameraBase::MatrixCameraBase(const MatrixCameraBase &source) :
     Inherited(source),
-    _sfProjectionMatrix(source._sfProjectionMatrix),
-    _sfModelviewMatrix(source._sfModelviewMatrix)
+    _sfProjectionMatrix       (source._sfProjectionMatrix       ),
+    _sfModelviewMatrix        (source._sfModelviewMatrix        )
 {
 }
 
@@ -324,13 +349,13 @@ MatrixCameraBase::~MatrixCameraBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void MatrixCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<MatrixCameraBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -340,10 +365,10 @@ void MatrixCameraBase::execSyncV(      FieldContainer    &oFrom,
 void MatrixCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<MatrixCameraBase *>(&oFrom), 
+    this->execSync(static_cast<MatrixCameraBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -363,12 +388,12 @@ void MatrixCameraBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr MatrixCameraBase::createAspectCopy(void) const
 {
-    MatrixCameraPtr returnValue; 
+    MatrixCameraPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const MatrixCamera *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const MatrixCamera *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -377,6 +402,8 @@ void MatrixCameraBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -399,8 +426,6 @@ OSG_FIELDTRAITS_GETTYPE(MatrixCameraPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, MatrixCameraPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, MatrixCameraPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -421,3 +446,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGMATRIXCAMERAFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

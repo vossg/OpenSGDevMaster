@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &RenderOptionsBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 RenderOptionsBase::getClassTypeId(void) 
+OSG::UInt32 RenderOptionsBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 RenderOptionsBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &RenderOptionsBase::getStatistic(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getStatistic(void)
+bool                &RenderOptionsBase::getStatistic      (void)
 {
-    return this->editStatistic();
+    return this->editStatistic      ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const GLenum &RenderOptionsBase::getPolygonMode(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &RenderOptionsBase::getPolygonMode(void)
+GLenum              &RenderOptionsBase::getPolygonMode    (void)
 {
-    return this->editPolygonMode();
+    return this->editPolygonMode    ();
 }
 #endif
 
@@ -158,7 +158,7 @@ const bool &RenderOptionsBase::getTwoSidedLighting(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getTwoSidedLighting(void)
+bool                &RenderOptionsBase::getTwoSidedLighting(void)
 {
     return this->editTwoSidedLighting();
 }
@@ -191,7 +191,7 @@ const bool &RenderOptionsBase::getSpecTexLighting(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getSpecTexLighting(void)
+bool                &RenderOptionsBase::getSpecTexLighting(void)
 {
     return this->editSpecTexLighting();
 }
@@ -224,9 +224,9 @@ const bool &RenderOptionsBase::getSortTrans(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getSortTrans(void)
+bool                &RenderOptionsBase::getSortTrans      (void)
 {
-    return this->editSortTrans();
+    return this->editSortTrans      ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const bool &RenderOptionsBase::getZWriteTrans(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getZWriteTrans(void)
+bool                &RenderOptionsBase::getZWriteTrans    (void)
 {
-    return this->editZWriteTrans();
+    return this->editZWriteTrans    ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const bool &RenderOptionsBase::getLocalLights(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getLocalLights(void)
+bool                &RenderOptionsBase::getLocalLights    (void)
 {
-    return this->editLocalLights();
+    return this->editLocalLights    ();
 }
 #endif
 
@@ -323,7 +323,7 @@ const bool &RenderOptionsBase::getCorrectTwoSidedLighting(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getCorrectTwoSidedLighting(void)
+bool                &RenderOptionsBase::getCorrectTwoSidedLighting(void)
 {
     return this->editCorrectTwoSidedLighting();
 }
@@ -356,7 +356,7 @@ const bool &RenderOptionsBase::getOcclusionCulling(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getOcclusionCulling(void)
+bool                &RenderOptionsBase::getOcclusionCulling(void)
 {
     return this->editOcclusionCulling();
 }
@@ -389,9 +389,9 @@ const bool &RenderOptionsBase::getAntialiasing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getAntialiasing(void)
+bool                &RenderOptionsBase::getAntialiasing   (void)
 {
-    return this->editAntialiasing();
+    return this->editAntialiasing   ();
 }
 #endif
 
@@ -422,7 +422,7 @@ const Real32 &RenderOptionsBase::getAntialiasingDistance(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &RenderOptionsBase::getAntialiasingDistance(void)
+Real32              &RenderOptionsBase::getAntialiasingDistance(void)
 {
     return this->editAntialiasingDistance();
 }
@@ -455,7 +455,7 @@ const Real32 &RenderOptionsBase::getAntialiasingScale(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &RenderOptionsBase::getAntialiasingScale(void)
+Real32              &RenderOptionsBase::getAntialiasingScale(void)
 {
     return this->editAntialiasingScale();
 }
@@ -488,7 +488,7 @@ const UInt32 &RenderOptionsBase::getAntialiasingTrigger(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &RenderOptionsBase::getAntialiasingTrigger(void)
+UInt32              &RenderOptionsBase::getAntialiasingTrigger(void)
 {
     return this->editAntialiasingTrigger();
 }
@@ -521,7 +521,7 @@ const bool &RenderOptionsBase::getBackfaceCulling(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getBackfaceCulling(void)
+bool                &RenderOptionsBase::getBackfaceCulling(void)
 {
     return this->editBackfaceCulling();
 }
@@ -554,7 +554,7 @@ const bool &RenderOptionsBase::getSmallFeatureCulling(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &RenderOptionsBase::getSmallFeatureCulling(void)
+bool                &RenderOptionsBase::getSmallFeatureCulling(void)
 {
     return this->editSmallFeatureCulling();
 }
@@ -587,7 +587,7 @@ const Real32 &RenderOptionsBase::getSmallFeaturePixels(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &RenderOptionsBase::getSmallFeaturePixels(void)
+Real32              &RenderOptionsBase::getSmallFeaturePixels(void)
 {
     return this->editSmallFeaturePixels();
 }
@@ -620,7 +620,7 @@ const UInt32 &RenderOptionsBase::getSmallFeatureThreshold(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &RenderOptionsBase::getSmallFeatureThreshold(void)
+UInt32              &RenderOptionsBase::getSmallFeatureThreshold(void)
 {
     return this->editSmallFeatureThreshold();
 }
@@ -637,24 +637,24 @@ void RenderOptionsBase::setSmallFeatureThreshold(const UInt32 &value)
 
 //! create a new instance of the class
 inline
-RenderOptionsPtr RenderOptionsBase::create(void) 
+RenderOptionsPtr RenderOptionsBase::create(void)
 {
-    RenderOptionsPtr fc; 
+    RenderOptionsPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<RenderOptions::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void RenderOptionsBase::execSync(      RenderOptionsBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -718,7 +718,7 @@ inline
 void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -804,4 +804,3 @@ typedef PointerBuilder<RenderOptions>::ObjPtrConstArg  RenderOptionsPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGRENDEROPTIONSBASE_INLINE_CVSID "@(#)$Id$"
-

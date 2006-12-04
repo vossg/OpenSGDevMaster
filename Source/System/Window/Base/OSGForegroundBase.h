@@ -85,22 +85,22 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               Foreground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               Foreground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Foreground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Foreground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Foreground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Foreground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
         NextFieldId = ActiveFieldId + 1
     };
 
-    static const OSG::BitVector ActiveFieldMask = 
+    static const OSG::BitVector ActiveFieldMask =
         (TypeTraits<BitVector>::One << ActiveFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -145,24 +144,24 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFActive(void);
+                  SFBool              *getSFActive          (void);
 #endif
-           SFBool *editSFActive(void);
-     const SFBool *getSFActive (void) const;
+                  SFBool              *editSFActive         (void);
+            const SFBool              *getSFActive          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getActive(void);
+                  bool                &getActive          (void);
 #endif
-           bool &editActive(void);
-     const bool &getActive (void) const;
+                  bool                &editActive         (void);
+            const bool                &getActive          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setActive(const bool &value);
+            void setActive         (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -191,7 +190,7 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfActive;
+    SFBool            _sfActive;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,7 +205,7 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ForegroundBase(void); 
+    virtual ~ForegroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -252,11 +251,11 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

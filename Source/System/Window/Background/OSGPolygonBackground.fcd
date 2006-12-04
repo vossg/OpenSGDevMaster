@@ -47,7 +47,7 @@ A Background that renders a single polygon using the specified material.
 		defaultValue="true"
 		access="public"
 	>
-	Define whether the x coordinates are normalized (0-1) or pixel-based .
+	Define whether the x coordinates are normalized (0-1) or pixel-based.
 	</Field>
 	<Field
 		name="normalizedY"
@@ -57,7 +57,7 @@ A Background that renders a single polygon using the specified material.
 		defaultValue="true"
 		access="public"
 	>
-	Define whether the y coordinates are normalized (0-1) or pixel-based .
+	Define whether the y coordinates are normalized (0-1) or pixel-based.
 	</Field>
 	<Field
 		name="aspectHeight"

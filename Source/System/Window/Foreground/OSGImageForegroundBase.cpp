@@ -66,28 +66,42 @@
 #include "OSGImageForegroundBase.h"
 #include "OSGImageForeground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var ImagePtr ImageForegroundBase::_mfImages
-    	The images to display.
+/*! \class OSG::ImageForeground
+    \ingroup GrpSystemWindowForegrounds
 
+    The ImageForeground is used to draw images on top of the viewport.  See
+    \ref PageSystemWindowForegroundImage for a description.
+
+    The images are stored in the _mfImages Field, the corresponding
+    positions in the _mfPositions Field.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var ImagePtr        ImageForegroundBase::_mfImages
+    The images to display.
 */
-/*! \var Pnt2f ImageForegroundBase::_mfPositions
-    	The positions of the images.
-
+/*! \var Pnt2f           ImageForegroundBase::_mfPositions
+    The positions of the images.
 */
 
 void ImageForegroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new MFImagePtr::Description(
-        MFImagePtr::getClassType(), 
-        "images", 
-        "	The images to display.\n",
+        MFImagePtr::getClassType(),
+        "images",
+        "The images to display.\n",
         ImagesFieldId, ImagesFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -103,9 +117,9 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFPnt2f::Description(
-        MFPnt2f::getClassType(), 
-        "positions", 
-        "	The positions of the images.\n",
+        MFPnt2f::getClassType(),
+        "positions",
+        "The positions of the images.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -130,55 +144,64 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(true,
     (InitalInsertDescFunc) &ImageForegroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ImageForeground\"\n"
-"	parent=\"Foreground\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"Background is the base class for all background clearing. \n"
-"	<Field\n"
-"		name=\"images\"\n"
-"		type=\"ImagePtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The images to display.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"positions\"\n"
-"		type=\"Pnt2f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The positions of the images.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "Background is the base class for all background clearing. \n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ImageForeground\"\n"
+    "\tparent=\"Foreground\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
+    "The ImageForeground is used to draw images on top of the viewport.  See \\ref\n"
+    "PageSystemWindowForegroundImage for a description.\n"
+    "\n"
+    "The images are stored in the _mfImages Field, the corresponding positions in\n"
+    "the _mfPositions Field.\n"
+    "\t<Field\n"
+    "\t\tname=\"images\"\n"
+    "\t\ttype=\"ImagePtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe images to display.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"positions\"\n"
+    "\t\ttype=\"Pnt2f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe positions of the images.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "The ImageForeground is used to draw images on top of the viewport.  See \\ref\n"
+    "PageSystemWindowForegroundImage for a description.\n"
+    "The images are stored in the _mfImages Field, the corresponding positions in\n"
+    "the _mfPositions Field.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ImageForegroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ImageForegroundBase::getType(void) const 
+FieldContainerType &ImageForegroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ImageForegroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(ImageForeground); 
+const FieldContainerType &ImageForegroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ImageForegroundBase::getContainerSize(void) const
+{
+    return sizeof(ImageForeground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -203,9 +226,9 @@ const MFPnt2f *ImageForegroundBase::getMFPositions(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFPnt2f *ImageForegroundBase::getMFPositions(void)
+MFPnt2f             *ImageForegroundBase::getMFPositions      (void)
 {
-    return this->editMFPositions();
+    return this->editMFPositions      ();
 }
 #endif
 
@@ -311,7 +334,7 @@ void ImageForegroundBase::pushToImages(ImagePtrConstArg value)
 }
 
 void ImageForegroundBase::insertIntoImages(UInt32                uiIndex,
-                                             ImagePtrConstArg value   )
+                                                   ImagePtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -328,7 +351,7 @@ void ImageForegroundBase::insertIntoImages(UInt32                uiIndex,
 }
 
 void ImageForegroundBase::replaceInImages(UInt32                uiIndex,
-                                                 ImagePtrConstArg value   )
+                                                       ImagePtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -346,7 +369,7 @@ void ImageForegroundBase::replaceInImages(UInt32                uiIndex,
 }
 
 void ImageForegroundBase::replaceInImages(ImagePtrConstArg pOldElem,
-                                                  ImagePtrConstArg pNewElem)
+                                                        ImagePtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -418,8 +441,6 @@ void ImageForegroundBase::clearImages(void)
     _mfImages.clear();
 }
 
-
-
 /*********************************** Non-ptr code ********************************/
 void ImageForegroundBase::pushToPositions(const Pnt2f& value)
 {
@@ -428,7 +449,7 @@ void ImageForegroundBase::pushToPositions(const Pnt2f& value)
 }
 
 void ImageForegroundBase::insertIntoPositions(UInt32                uiIndex,
-                                             const Pnt2f& value   )
+                                                   const Pnt2f& value   )
 {
     editMField(PositionsFieldMask, _mfPositions);
 
@@ -440,7 +461,7 @@ void ImageForegroundBase::insertIntoPositions(UInt32                uiIndex,
 }
 
 void ImageForegroundBase::replaceInPositions(UInt32                uiIndex,
-                                                 const Pnt2f& value   )
+                                                       const Pnt2f& value   )
 {
     if(uiIndex >= _mfPositions.size())
         return;
@@ -451,7 +472,7 @@ void ImageForegroundBase::replaceInPositions(UInt32                uiIndex,
 }
 
 void ImageForegroundBase::replaceInPositions(const Pnt2f& pOldElem,
-                                                  const Pnt2f& pNewElem)
+                                                        const Pnt2f& pNewElem)
 {
     Int32  elemIdx = _mfPositions.findIndex(pOldElem);
 
@@ -495,19 +516,13 @@ void ImageForegroundBase::removeFromPositions(const Pnt2f& value)
         _mfPositions.erase(fieldIt);
     }
 }
+
 void ImageForegroundBase::clearPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
     _mfPositions.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -559,22 +574,22 @@ void ImageForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ImageForegroundPtr ImageForegroundBase::createEmpty(void) 
-{ 
-    ImageForegroundPtr returnValue; 
-    
-    newPtr<ImageForeground>(returnValue); 
+ImageForegroundPtr ImageForegroundBase::createEmpty(void)
+{
+    ImageForegroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<ImageForeground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ImageForegroundBase::shallowCopy(void) const 
-{ 
-    ImageForegroundPtr returnValue; 
+FieldContainerPtr ImageForegroundBase::shallowCopy(void) const
+{
+    ImageForegroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ImageForeground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ImageForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -583,15 +598,15 @@ FieldContainerPtr ImageForegroundBase::shallowCopy(void) const
 
 ImageForegroundBase::ImageForegroundBase(void) :
     Inherited(),
-    _mfImages(),
-    _mfPositions()
+    _mfImages                 (),
+    _mfPositions              ()
 {
 }
 
 ImageForegroundBase::ImageForegroundBase(const ImageForegroundBase &source) :
     Inherited(source),
-    _mfImages(),
-    _mfPositions(source._mfPositions)
+    _mfImages                 (),
+    _mfPositions              (source._mfPositions              )
 {
 }
 
@@ -608,9 +623,9 @@ void ImageForegroundBase::onCreate(const ImageForeground *source)
     if(source != NULL)
     {
 
-        MFImagePtr::const_iterator ImagesIt  = 
+        MFImagePtr::const_iterator ImagesIt  =
             source->_mfImages.begin();
-        MFImagePtr::const_iterator ImagesEnd = 
+        MFImagePtr::const_iterator ImagesEnd =
             source->_mfImages.end  ();
 
         while(ImagesIt != ImagesEnd)
@@ -625,13 +640,13 @@ void ImageForegroundBase::onCreate(const ImageForeground *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ImageForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ImageForegroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -641,10 +656,10 @@ void ImageForegroundBase::execSyncV(      FieldContainer    &oFrom,
 void ImageForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ImageForegroundBase *>(&oFrom), 
+    this->execSync(static_cast<ImageForegroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -664,12 +679,12 @@ void ImageForegroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ImageForegroundBase::createAspectCopy(void) const
 {
-    ImageForegroundPtr returnValue; 
+    ImageForegroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ImageForeground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ImageForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -680,6 +695,8 @@ void ImageForegroundBase::resolveLinks(void)
     static_cast<ImageForeground *>(this)->clearImages();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -702,8 +719,6 @@ OSG_FIELDTRAITS_GETTYPE(ImageForegroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ImageForegroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ImageForegroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -724,3 +739,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGIMAGEFOREGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

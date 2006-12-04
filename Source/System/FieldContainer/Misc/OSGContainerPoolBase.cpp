@@ -66,22 +66,30 @@
 #include "OSGContainerPoolBase.h"
 #include "OSGContainerPool.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var std::string ContainerPoolBase::_sfName
-    	The name of the container pool.  Can be used to identify pools.
+/*! \class OSG::ContainerPool
+    
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var std::string     ContainerPoolBase::_sfName
+    The name of the container pool.  Can be used to identify pools.
 */
 /*! \var FieldContainerPtr ContainerPoolBase::_mfContainers
-            A list of containers held in the pool.
-
+    A list of containers held in the pool.
 */
 
 void ContainerPoolBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -91,9 +99,9 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "name", 
-        "	The name of the container pool.  Can be used to identify pools.\n",
+        SFString::getClassType(),
+        "name",
+        "The name of the container pool.  Can be used to identify pools.\n",
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -107,9 +115,9 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFFieldContainerPtr::Description(
-        MFFieldContainerPtr::getClassType(), 
-        "containers", 
-        "        A list of containers held in the pool.\n",
+        MFFieldContainerPtr::getClassType(),
+        "containers",
+        "A list of containers held in the pool.\n",
         ContainersFieldId, ContainersFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -130,55 +138,53 @@ ContainerPoolBase::TypeObject ContainerPoolBase::_type(true,
     (InitalInsertDescFunc) &ContainerPoolBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ContainerPool\"\n"
-"	parent=\"FieldContainerAttachment\"\n"
-"	library=\"System\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"	<Field\n"
-"		name=\"name\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The name of the container pool.  Can be used to identify pools.\n"
-"	</Field>\n"
-"\n"
-"	<Field\n"
-"		name=\"containers\"\n"
-"		type=\"FieldContainerPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"                access=\"public\"\n"
-"	>\n"
-"        A list of containers held in the pool.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ContainerPool\"\n"
+    "\tparent=\"FieldContainerAttachment\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\t<Field\n"
+    "\t\tname=\"name\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe name of the container pool.  Can be used to identify pools.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"containers\"\n"
+    "\t\ttype=\"FieldContainerPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "\t>\n"
+    "        A list of containers held in the pool.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ContainerPoolBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ContainerPoolBase::getType(void) const 
+FieldContainerType &ContainerPoolBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ContainerPoolBase::getContainerSize(void) const 
-{ 
-    return sizeof(ContainerPool); 
+const FieldContainerType &ContainerPoolBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ContainerPoolBase::getContainerSize(void) const
+{
+    return sizeof(ContainerPool);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -197,9 +203,9 @@ const SFString *ContainerPoolBase::getSFName(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *ContainerPoolBase::getSFName(void)
+SFString            *ContainerPoolBase::getSFName           (void)
 {
-    return this->editSFName();
+    return this->editSFName           ();
 }
 #endif
 
@@ -311,7 +317,7 @@ void ContainerPoolBase::pushToContainers(FieldContainerPtrConstArg value)
 }
 
 void ContainerPoolBase::insertIntoContainers(UInt32                uiIndex,
-                                             FieldContainerPtrConstArg value   )
+                                                   FieldContainerPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -328,7 +334,7 @@ void ContainerPoolBase::insertIntoContainers(UInt32                uiIndex,
 }
 
 void ContainerPoolBase::replaceInContainers(UInt32                uiIndex,
-                                                 FieldContainerPtrConstArg value   )
+                                                       FieldContainerPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -346,7 +352,7 @@ void ContainerPoolBase::replaceInContainers(UInt32                uiIndex,
 }
 
 void ContainerPoolBase::replaceInContainers(FieldContainerPtrConstArg pOldElem,
-                                                  FieldContainerPtrConstArg pNewElem)
+                                                        FieldContainerPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -420,8 +426,6 @@ void ContainerPoolBase::clearContainers(void)
 
 
 
-
-
 /*------------------------------ access -----------------------------------*/
 
 UInt32 ContainerPoolBase::getBinSize(ConstFieldMaskArg whichField)
@@ -471,22 +475,22 @@ void ContainerPoolBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ContainerPoolPtr ContainerPoolBase::createEmpty(void) 
-{ 
-    ContainerPoolPtr returnValue; 
-    
-    newPtr<ContainerPool>(returnValue); 
+ContainerPoolPtr ContainerPoolBase::createEmpty(void)
+{
+    ContainerPoolPtr returnValue;
 
-    return returnValue; 
+    newPtr<ContainerPool>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ContainerPoolBase::shallowCopy(void) const 
-{ 
-    ContainerPoolPtr returnValue; 
+FieldContainerPtr ContainerPoolBase::shallowCopy(void) const
+{
+    ContainerPoolPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ContainerPool *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ContainerPool *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -495,15 +499,15 @@ FieldContainerPtr ContainerPoolBase::shallowCopy(void) const
 
 ContainerPoolBase::ContainerPoolBase(void) :
     Inherited(),
-    _sfName(),
-    _mfContainers()
+    _sfName                   (),
+    _mfContainers             ()
 {
 }
 
 ContainerPoolBase::ContainerPoolBase(const ContainerPoolBase &source) :
     Inherited(source),
-    _sfName(source._sfName),
-    _mfContainers()
+    _sfName                   (source._sfName                   ),
+    _mfContainers             ()
 {
 }
 
@@ -520,9 +524,9 @@ void ContainerPoolBase::onCreate(const ContainerPool *source)
     if(source != NULL)
     {
 
-        MFFieldContainerPtr::const_iterator ContainersIt  = 
+        MFFieldContainerPtr::const_iterator ContainersIt  =
             source->_mfContainers.begin();
-        MFFieldContainerPtr::const_iterator ContainersEnd = 
+        MFFieldContainerPtr::const_iterator ContainersEnd =
             source->_mfContainers.end  ();
 
         while(ContainersIt != ContainersEnd)
@@ -537,13 +541,13 @@ void ContainerPoolBase::onCreate(const ContainerPool *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ContainerPoolBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ContainerPoolBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -553,10 +557,10 @@ void ContainerPoolBase::execSyncV(      FieldContainer    &oFrom,
 void ContainerPoolBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ContainerPoolBase *>(&oFrom), 
+    this->execSync(static_cast<ContainerPoolBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -576,12 +580,12 @@ void ContainerPoolBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ContainerPoolBase::createAspectCopy(void) const
 {
-    ContainerPoolPtr returnValue; 
+    ContainerPoolPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ContainerPool *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ContainerPool *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -592,6 +596,8 @@ void ContainerPoolBase::resolveLinks(void)
     static_cast<ContainerPool *>(this)->clearContainers();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -614,8 +620,6 @@ OSG_FIELDTRAITS_GETTYPE(ContainerPoolPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ContainerPoolPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ContainerPoolPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -636,3 +640,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGCONTAINERPOOLFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

@@ -86,22 +86,22 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ForegroundPtr, 
-                              ForegroundConstPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
+                              ForegroundConstPtr,
                               GrabForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ForegroundPtr, 
-                              ForegroundConstPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
+                              ForegroundConstPtr,
                               GrabForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               GrabForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               GrabForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               GrabForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               GrabForeground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
         NextFieldId = AutoResizeFieldId + 1
     };
 
-    static const OSG::BitVector ImageFieldMask = 
+    static const OSG::BitVector ImageFieldMask =
         (TypeTraits<BitVector>::One << ImageFieldId);
-    static const OSG::BitVector AutoResizeFieldMask = 
+    static const OSG::BitVector AutoResizeFieldMask =
         (TypeTraits<BitVector>::One << AutoResizeFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -147,55 +146,55 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFImagePtr *getSFImage (void) const;
+            const SFImagePtr          *getSFImage           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFAutoResize(void);
+                  SFBool              *getSFAutoResize      (void);
 #endif
-           SFBool *editSFAutoResize(void);
-     const SFBool *getSFAutoResize (void) const;
+                  SFBool              *editSFAutoResize     (void);
+            const SFBool              *getSFAutoResize      (void) const;
 
 
-           ImagePtrConst getImage(void) const;
+                  ImagePtrConst getImage          (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getAutoResize(void);
+                  bool                &getAutoResize      (void);
 #endif
-           bool &editAutoResize(void);
-     const bool &getAutoResize (void) const;
+                  bool                &editAutoResize     (void);
+            const bool                &getAutoResize      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setImage(ImagePtrConstArg value);
-     void setAutoResize(const bool &value);
+            void setImage          (ImagePtrConstArg value);
+            void setAutoResize     (const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -222,15 +221,15 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GrabForegroundPtr create     (void); 
-    static  GrabForegroundPtr createEmpty(void); 
+    static  GrabForegroundPtr create     (void);
+    static  GrabForegroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -246,8 +245,8 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFImagePtr _sfImage;
-    SFBool _sfAutoResize;
+    SFImagePtr        _sfImage;
+    SFBool            _sfAutoResize;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -262,7 +261,7 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GrabForegroundBase(void); 
+    virtual ~GrabForegroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -309,11 +308,11 @@ class OSG_WINDOW_DLLMAPPING GrabForegroundBase : public Foreground
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

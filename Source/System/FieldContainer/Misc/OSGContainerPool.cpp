@@ -49,13 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::ContainerPool
-
-*/
+// Documentation for this class is emited in the
+// OSGContainerPoolBase.cpp file.
+// To modify it, please change the .fcd file (OSGContainerPool.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

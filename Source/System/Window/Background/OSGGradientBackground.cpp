@@ -59,22 +59,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::GradientBackground
-    \ingroup GrpSystemWindowBackgrounds
-
-A background showing a vertical color gradient, see
-\ref PageSystemWindowBackgroundGradient. 
-
-The colors (_mfColor) and positions (_mfPosition) correspond to each other, so
-both have to have the same number of elements. The addColor() method should
-be used for defining the gradient, as it ensures that constarint.
-
-*/
+// Documentation for this class is emited in the
+// OSGGradientBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGGradientBackground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

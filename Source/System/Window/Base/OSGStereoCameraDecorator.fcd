@@ -10,7 +10,12 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-The base class for stereo decorators.
+\ingroup PageSystemWindowCameraDecoratorsStereo
+
+The abstract base class for stereo camera decorators, see \ref
+PageSystemWindowCameraDecoratorsStereo for a description.
+
+The basic parameters are given by the _sfEyeSeparation and _sfLeftEye fields.
 	<Field
 		name="leftEye"
 		type="bool"

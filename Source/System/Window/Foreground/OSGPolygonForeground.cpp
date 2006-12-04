@@ -55,22 +55,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::PolygonForeground
-    \ingroup GrpSystemWindowForegrounds
-    
-A foreground that renders a single polygon used the specified material, 
-see \ref PageSystemPolygonForeground for a
-description. 
-
-The polygon material is defined by _sfMaterial, the positions by _mfPositions,
-the texture coordinates by _mfTexCoords. The interpretation of the positions is
-controlled by _sfNormalizedX and _sfNormalizedY.
-
-*/
+// Documentation for this class is emited in the
+// OSGPolygonForegroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGPolygonForeground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

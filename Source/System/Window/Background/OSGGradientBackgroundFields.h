@@ -70,22 +70,22 @@ class GradientBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! GradientBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           GradientBackground>::ObjPtr         GradientBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           GradientBackground>::ObjPtrConst    GradientBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           GradientBackground>::ObjConstPtr    GradientBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           GradientBackground>::ObjPtrArg      GradientBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           GradientBackground>::ObjConstPtrArg GradientBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           GradientBackground>::ObjPtrConstArg GradientBackgroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<BackgroundPtr,
 #endif
 
 template <>
-struct FieldTraits<GradientBackgroundPtr> : 
+struct FieldTraits<GradientBackgroundPtr> :
     public FieldTraitsTemplateBase<GradientBackgroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<GradientBackgroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getMName(void) { return "MFGradientBackgroundPtr"; }

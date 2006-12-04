@@ -91,22 +91,22 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
-                              StereoCameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
+                              StereoCameraDecoratorConstPtr,
                               ProjectionCameraDecorator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
-                              StereoCameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
+                              StereoCameraDecoratorConstPtr,
                               ProjectionCameraDecorator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                               StereoCameraDecoratorConstPtr,
                               ProjectionCameraDecorator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                               StereoCameraDecoratorConstPtr,
                               ProjectionCameraDecorator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                               StereoCameraDecoratorConstPtr,
                               ProjectionCameraDecorator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+    typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                               StereoCameraDecoratorConstPtr,
                               ProjectionCameraDecorator>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
         NextFieldId = HeightFieldId + 1
     };
 
-    static const OSG::BitVector UserFieldMask = 
+    static const OSG::BitVector UserFieldMask =
         (TypeTraits<BitVector>::One << UserFieldId);
-    static const OSG::BitVector SurfaceFieldMask = 
+    static const OSG::BitVector SurfaceFieldMask =
         (TypeTraits<BitVector>::One << SurfaceFieldId);
-    static const OSG::BitVector LeftFieldMask = 
+    static const OSG::BitVector LeftFieldMask =
         (TypeTraits<BitVector>::One << LeftFieldId);
-    static const OSG::BitVector BottomFieldMask = 
+    static const OSG::BitVector BottomFieldMask =
         (TypeTraits<BitVector>::One << BottomFieldId);
-    static const OSG::BitVector NormalFieldMask = 
+    static const OSG::BitVector NormalFieldMask =
         (TypeTraits<BitVector>::One << NormalFieldId);
-    static const OSG::BitVector WidthFieldMask = 
+    static const OSG::BitVector WidthFieldMask =
         (TypeTraits<BitVector>::One << WidthFieldId);
-    static const OSG::BitVector HeightFieldMask = 
+    static const OSG::BitVector HeightFieldMask =
         (TypeTraits<BitVector>::One << HeightFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -167,83 +166,83 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFNodePtr *getSFUser (void) const;
+            const SFNodePtr           *getSFUser            (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFPnt3f *getMFSurface(void);
+                  MFPnt3f             *getMFSurface         (void);
 #endif
-           MFPnt3f *editMFSurface(void);
-     const MFPnt3f *getMFSurface (void) const;
+                  MFPnt3f             *editMFSurface        (void);
+            const MFPnt3f             *getMFSurface         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFWidth(void);
+                  SFReal32            *getSFWidth           (void);
 #endif
-           SFReal32 *editSFWidth(void);
-     const SFReal32 *getSFWidth (void) const;
+                  SFReal32            *editSFWidth          (void);
+            const SFReal32            *getSFWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFHeight(void);
+                  SFReal32            *getSFHeight          (void);
 #endif
-           SFReal32 *editSFHeight(void);
-     const SFReal32 *getSFHeight (void) const;
+                  SFReal32            *editSFHeight         (void);
+            const SFReal32            *getSFHeight          (void) const;
 
 
-           NodePtrConst getUser(void) const;
+                  NodePtrConst getUser           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Pnt3f &getSurface(const UInt32 index);
-           MFPnt3f &getSurface(void);
+                  Pnt3f               &getSurface         (const UInt32 index);
+                  MFPnt3f             &getSurface        (void);
 #endif
-           Pnt3f &editSurface(const UInt32 index);
-     const Pnt3f &getSurface (const UInt32 index) const;
-           MFPnt3f &editSurface(void);
-     const MFPnt3f &getSurface(void) const;
+                  Pnt3f               &editSurface        (const UInt32 index);
+            const Pnt3f               &getSurface         (const UInt32 index) const;
+                  MFPnt3f             &editSurface        (void);
+            const MFPnt3f             &getSurface        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getWidth(void);
+                  Real32              &getWidth           (void);
 #endif
-           Real32 &editWidth(void);
-     const Real32 &getWidth (void) const;
+                  Real32              &editWidth          (void);
+            const Real32              &getWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getHeight(void);
+                  Real32              &getHeight          (void);
 #endif
-           Real32 &editHeight(void);
-     const Real32 &getHeight (void) const;
+                  Real32              &editHeight         (void);
+            const Real32              &getHeight          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setUser(NodePtrConstArg value);
-     void setWidth(const Real32 &value);
-     void setHeight(const Real32 &value);
+            void setUser           (NodePtrConstArg value);
+            void setWidth          (const Real32 &value);
+            void setHeight         (const Real32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -254,19 +253,19 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \{                                                                 */
 
 
-    void pushToSurface           (const Pnt3f& value   );
+    void pushToSurface             (const Pnt3f& value   );
     void insertIntoSurface      (UInt32                uiIndex,
-                                    const Pnt3f& value   );
+                                             const Pnt3f& value   );
     void replaceInSurface  (UInt32                uiIndex,
-                                    const Pnt3f& value   );
+                                             const Pnt3f& value   );
     void replaceInSurface (const Pnt3f& pOldElem,
-                                    const Pnt3f& pNewElem);
+                                             const Pnt3f& pNewElem);
     void removeFromSurface (UInt32                uiIndex );
     void removeFromSurface(const Pnt3f& value   );
-    void clearSurface            (void                          );
+    void clearSurface               (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -285,15 +284,15 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ProjectionCameraDecoratorPtr create     (void); 
-    static  ProjectionCameraDecoratorPtr createEmpty(void); 
+    static  ProjectionCameraDecoratorPtr create     (void);
+    static  ProjectionCameraDecoratorPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -309,13 +308,13 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFNodePtr _sfUser;
-    MFPnt3f _mfSurface;
-    SFPlane _sfLeft;
-    SFPlane _sfBottom;
-    SFPlane _sfNormal;
-    SFReal32 _sfWidth;
-    SFReal32 _sfHeight;
+    SFNodePtr         _sfUser;
+    MFPnt3f           _mfSurface;
+    SFPlane           _sfLeft;
+    SFPlane           _sfBottom;
+    SFPlane           _sfNormal;
+    SFReal32          _sfWidth;
+    SFReal32          _sfHeight;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -330,7 +329,7 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ProjectionCameraDecoratorBase(void); 
+    virtual ~ProjectionCameraDecoratorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -346,50 +345,50 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
 
 
 #ifdef OSG_1_COMPAT
-           SFPlane *getSFLeft(void);
+                  SFPlane             *getSFLeft            (void);
 #endif
-           SFPlane *editSFLeft(void);
-     const SFPlane *getSFLeft (void) const;
+                  SFPlane             *editSFLeft           (void);
+            const SFPlane             *getSFLeft            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFPlane *getSFBottom(void);
+                  SFPlane             *getSFBottom          (void);
 #endif
-           SFPlane *editSFBottom(void);
-     const SFPlane *getSFBottom (void) const;
+                  SFPlane             *editSFBottom         (void);
+            const SFPlane             *getSFBottom          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFPlane *getSFNormal(void);
+                  SFPlane             *getSFNormal          (void);
 #endif
-           SFPlane *editSFNormal(void);
-     const SFPlane *getSFNormal (void) const;
+                  SFPlane             *editSFNormal         (void);
+            const SFPlane             *getSFNormal          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Plane &getLeft(void);
+                  Plane               &getLeft            (void);
 #endif
-           Plane &editLeft(void);
-     const Plane &getLeft(void) const;
+                  Plane               &editLeft           (void);
+            const Plane               &getLeft            (void) const;
 
 #ifdef OSG_1_COMPAT
-           Plane &getBottom(void);
+                  Plane               &getBottom          (void);
 #endif
-           Plane &editBottom(void);
-     const Plane &getBottom(void) const;
+                  Plane               &editBottom         (void);
+            const Plane               &getBottom          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Plane &getNormal(void);
+                  Plane               &getNormal          (void);
 #endif
-           Plane &editNormal(void);
-     const Plane &getNormal(void) const;
+                  Plane               &editNormal         (void);
+            const Plane               &getNormal          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setLeft(const Plane &value);
-     void setBottom(const Plane &value);
-     void setNormal(const Plane &value);
+            void setLeft           (const Plane &value);
+            void setBottom         (const Plane &value);
+            void setNormal         (const Plane &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -436,11 +435,11 @@ class OSG_WINDOW_DLLMAPPING ProjectionCameraDecoratorBase : public StereoCameraD
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

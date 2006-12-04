@@ -86,22 +86,22 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               FrameBufferAttachment>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               FrameBufferAttachment>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               FrameBufferAttachment>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               FrameBufferAttachment>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               FrameBufferAttachment>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               FrameBufferAttachment>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
         NextFieldId = HeightFieldId + 1
     };
 
-    static const OSG::BitVector WidthFieldMask = 
+    static const OSG::BitVector WidthFieldMask =
         (TypeTraits<BitVector>::One << WidthFieldId);
-    static const OSG::BitVector HeightFieldMask = 
+    static const OSG::BitVector HeightFieldMask =
         (TypeTraits<BitVector>::One << HeightFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -168,8 +167,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt16 _sfWidth;
-    SFUInt16 _sfHeight;
+    SFUInt16          _sfWidth;
+    SFUInt16          _sfHeight;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -184,7 +183,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~FrameBufferAttachmentBase(void); 
+    virtual ~FrameBufferAttachmentBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,37 +198,37 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
 
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFWidth(void);
+                  SFUInt16            *getSFWidth           (void);
 #endif
-           SFUInt16 *editSFWidth(void);
-     const SFUInt16 *getSFWidth (void) const;
+                  SFUInt16            *editSFWidth          (void);
+            const SFUInt16            *getSFWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFHeight(void);
+                  SFUInt16            *getSFHeight          (void);
 #endif
-           SFUInt16 *editSFHeight(void);
-     const SFUInt16 *getSFHeight (void) const;
+                  SFUInt16            *editSFHeight         (void);
+            const SFUInt16            *getSFHeight          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getWidth(void);
+                  UInt16              &getWidth           (void);
 #endif
-           UInt16 &editWidth(void);
-     const UInt16 &getWidth(void) const;
+                  UInt16              &editWidth          (void);
+            const UInt16              &getWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getHeight(void);
+                  UInt16              &getHeight          (void);
 #endif
-           UInt16 &editHeight(void);
-     const UInt16 &getHeight(void) const;
+                  UInt16              &editHeight         (void);
+            const UInt16              &getHeight          (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setWidth(const UInt16 &value);
-     void setHeight(const UInt16 &value);
+            void setWidth          (const UInt16 &value);
+            void setHeight         (const UInt16 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,11 +274,11 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

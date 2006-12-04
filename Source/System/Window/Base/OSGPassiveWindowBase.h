@@ -84,22 +84,22 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               PassiveWindow>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
-                              WindowConstPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
+                              WindowConstPtr,
                               PassiveWindow>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               PassiveWindow>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               PassiveWindow>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               PassiveWindow>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<WindowPtr, 
+    typedef PointerFwdBuilder<WindowPtr,
                               WindowConstPtr,
                               PassiveWindow>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -144,15 +143,15 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PassiveWindowPtr create     (void); 
-    static  PassiveWindowPtr createEmpty(void); 
+    static  PassiveWindowPtr create     (void);
+    static  PassiveWindowPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -176,7 +175,7 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PassiveWindowBase(void); 
+    virtual ~PassiveWindowBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,11 +221,11 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

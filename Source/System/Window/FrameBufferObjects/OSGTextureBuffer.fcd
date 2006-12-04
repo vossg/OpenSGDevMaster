@@ -30,8 +30,8 @@ See FramebufferTexture1/2/3DEXT.
                 access="public"
                 defaultValue="GL_NONE"
         >
-        If specified, this is the target value for FramebufferTextureXDEXT.  If GL_NONE, automatically
-        determined.
+        If specified, this is the target value for FramebufferTextureXDEXT.
+        If GL_NONE, automatically determined.
         </Field>
         <Field
                 name="level"
@@ -39,7 +39,7 @@ See FramebufferTexture1/2/3DEXT.
                 cardinality="single"
                 visibility="external"
                 access="public"
-        defaultValue="0"
+                defaultValue="0"
         >
         The mipmap level in the texture to target.
         </Field>
@@ -49,7 +49,7 @@ See FramebufferTexture1/2/3DEXT.
                 cardinality="single"
                 visibility="external"
                 access="public"
-        defaultValue="0"
+                defaultValue="0"
         >
         UNUSED.
         </Field>

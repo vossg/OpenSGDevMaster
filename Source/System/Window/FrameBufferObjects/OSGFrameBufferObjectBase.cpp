@@ -68,55 +68,48 @@
 #include "OSGFrameBufferObjectBase.h"
 #include "OSGFrameBufferObject.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var GLenum FrameBufferObjectBase::_sfGLId
-            The OpenGL texture id for this frame buffer object.
-        
-        
+/*! \class OSG::FrameBufferObject
+    Framebuffer object. Encapsulates FBOs as defined by the
+    EXT_framebuffer_object OpenGL extension.
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var GLenum          FrameBufferObjectBase::_sfGLId
+    The OpenGL texture id for this frame buffer object.
 */
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_mfColorAttachments
-            GL_COLOR_ATTACHMENTX_EXT slots, position defines X.  This defines the target buffers
-        for color attachments.
-        
-        
-
+    GL_COLOR_ATTACHMENTX_EXT slots, position defines X.  This defines the
+    target buffers for color attachments.
 */
-/*! \var GLenum FrameBufferObjectBase::_mfDrawBuffers
-            The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.  These are used to call DrawBuffers
-        to tell GL what targets to render into.
-        
-        
-
+/*! \var GLenum          FrameBufferObjectBase::_mfDrawBuffers
+    The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT. These are used
+    to call DrawBuffers to tell OpenGL what targets to render into.
 */
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_sfDepthAttachment
-            GL_DEPTH_ATTACHMENT_EXT slot.  The target for depth values.
-        
-        
-
+    GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
 */
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_sfStencilAttachment
-            GL_STENCIL_ATTACHMENT_EXT slot
-        
-        
-
+    GL_STENCIL_ATTACHMENT_EXT slot.
 */
-/*! \var UInt16 FrameBufferObjectBase::_sfWidth
-            
-        
-
+/*! \var UInt16          FrameBufferObjectBase::_sfWidth
+    
 */
-/*! \var UInt16 FrameBufferObjectBase::_sfHeight
-            
-
+/*! \var UInt16          FrameBufferObjectBase::_sfHeight
+    
 */
 
 void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -126,9 +119,9 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(), 
-        "GLId", 
-        "        The OpenGL texture id for this frame buffer object.\n        \n        \n",
+        SFGLenum::getClassType(),
+        "GLId",
+        "The OpenGL texture id for this frame buffer object.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
         (Field::FClusterLocal),
@@ -142,9 +135,10 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFFrameBufferAttachmentPtr::Description(
-        MFFrameBufferAttachmentPtr::getClassType(), 
-        "colorAttachments", 
-        "        GL_COLOR_ATTACHMENTX_EXT slots, position defines X.  This defines the target buffers\n        for color attachments.\n        \n        \n",
+        MFFrameBufferAttachmentPtr::getClassType(),
+        "colorAttachments",
+        "GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
+        "This defines the target buffers for color attachments.\n",
         ColorAttachmentsFieldId, ColorAttachmentsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -160,9 +154,11 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFGLenum::Description(
-        MFGLenum::getClassType(), 
-        "drawBuffers", 
-        "        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.  These are used to call DrawBuffers\n        to tell GL what targets to render into.\n        \n        \n",
+        MFGLenum::getClassType(),
+        "drawBuffers",
+        "The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.\n"
+        "These are used to call DrawBuffers to tell OpenGL what targets\n"
+        "to render into.\n",
         DrawBuffersFieldId, DrawBuffersFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -176,9 +172,9 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFFrameBufferAttachmentPtr::Description(
-        SFFrameBufferAttachmentPtr::getClassType(), 
-        "depthAttachment", 
-        "        GL_DEPTH_ATTACHMENT_EXT slot.  The target for depth values.\n        \n        \n",
+        SFFrameBufferAttachmentPtr::getClassType(),
+        "depthAttachment",
+        "GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n",
         DepthAttachmentFieldId, DepthAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -188,9 +184,9 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFFrameBufferAttachmentPtr::Description(
-        SFFrameBufferAttachmentPtr::getClassType(), 
-        "stencilAttachment", 
-        "        GL_STENCIL_ATTACHMENT_EXT slot\n        \n        \n",
+        SFFrameBufferAttachmentPtr::getClassType(),
+        "stencilAttachment",
+        "GL_STENCIL_ATTACHMENT_EXT slot.\n",
         StencilAttachmentFieldId, StencilAttachmentFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -206,9 +202,9 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "width", 
-        "        \n        \n",
+        SFUInt16::getClassType(),
+        "width",
+        "",
         WidthFieldId, WidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -228,9 +224,9 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "height", 
-        "        \n",
+        SFUInt16::getClassType(),
+        "height",
+        "",
         HeightFieldId, HeightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -255,104 +251,106 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(true,
     (InitalInsertDescFunc) &FrameBufferObjectBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"        name=\"FrameBufferObject\"\n"
-"        parent=\"AttachmentContainer\"\n"
-"        library=\"System\"\n"
-"        pointerfieldtypes=\"both\"\n"
-"        structure=\"concrete\"\n"
-"        systemcomponent=\"true\"\n"
-"        parentsystemcomponent=\"true\"\n"
-"        decoratable=\"false\"\n"
-">\n"
-"Framebuffer object.  Encapsulated FBOs as defined by the EXT_framebuffer_object OpenGL extension.\n"
-"        <Field\n"
-"                name=\"GLId\"\n"
-"                type=\"GLenum\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"internal\"\n"
-"                access=\"public\"\n"
-"                defaultValue=\"0\"\n"
-"        fieldFlags=\"FClusterLocal\"\n"
-"        >\n"
-"        The OpenGL texture id for this frame buffer object.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"colorAttachments\"\n"
-"                type=\"FrameBufferAttachmentPtr\"\n"
-"                cardinality=\"multi\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        GL_COLOR_ATTACHMENTX_EXT slots, position defines X.  This defines the target buffers\n"
-"        for color attachments.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"drawBuffers\"\n"
-"                type=\"GLenum\"\n"
-"                cardinality=\"multi\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"                defaultValue=\"0\"\n"
-"        >\n"
-"        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.  These are used to call DrawBuffers\n"
-"        to tell GL what targets to render into.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"depthAttachment\"\n"
-"                type=\"FrameBufferAttachmentPtr\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        GL_DEPTH_ATTACHMENT_EXT slot.  The target for depth values.\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"stencilAttachment\"\n"
-"                type=\"FrameBufferAttachmentPtr\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        GL_STENCIL_ATTACHMENT_EXT slot\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"width\"\n"
-"                type=\"UInt16\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        </Field>\n"
-"        <Field\n"
-"                name=\"height\"\n"
-"                type=\"UInt16\"\n"
-"                cardinality=\"single\"\n"
-"                visibility=\"external\"\n"
-"                access=\"public\"\n"
-"        >\n"
-"        </Field>\n"
-"</FieldContainer>\n"
-,
-    "Framebuffer object.  Encapsulated FBOs as defined by the EXT_framebuffer_object OpenGL extension.\n        \n" 
+    "\n"
+    "<FieldContainer\n"
+    "        name=\"FrameBufferObject\"\n"
+    "        parent=\"AttachmentContainer\"\n"
+    "        library=\"System\"\n"
+    "        pointerfieldtypes=\"both\"\n"
+    "        structure=\"concrete\"\n"
+    "        systemcomponent=\"true\"\n"
+    "        parentsystemcomponent=\"true\"\n"
+    "        decoratable=\"false\"\n"
+    ">\n"
+    "Framebuffer object. Encapsulates FBOs as defined by the EXT_framebuffer_object\n"
+    "OpenGL extension.\n"
+    "        <Field\n"
+    "                name=\"GLId\"\n"
+    "                type=\"GLenum\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"internal\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"0\"\n"
+    "                fieldFlags=\"FClusterLocal\"\n"
+    "        >\n"
+    "        The OpenGL texture id for this frame buffer object.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"colorAttachments\"\n"
+    "                type=\"FrameBufferAttachmentPtr\"\n"
+    "                cardinality=\"multi\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        GL_COLOR_ATTACHMENTX_EXT slots, position defines X. \n"
+    "        This defines the target buffers for color attachments.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"drawBuffers\"\n"
+    "                type=\"GLenum\"\n"
+    "                cardinality=\"multi\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "                defaultValue=\"0\"\n"
+    "        >\n"
+    "        The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.\n"
+    "        These are used to call DrawBuffers to tell OpenGL what targets\n"
+    "        to render into.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"depthAttachment\"\n"
+    "                type=\"FrameBufferAttachmentPtr\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"stencilAttachment\"\n"
+    "                type=\"FrameBufferAttachmentPtr\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        GL_STENCIL_ATTACHMENT_EXT slot.\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"width\"\n"
+    "                type=\"UInt16\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        </Field>\n"
+    "        <Field\n"
+    "                name=\"height\"\n"
+    "                type=\"UInt16\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        </Field>\n"
+    "</FieldContainer>\n",
+    "Framebuffer object. Encapsulates FBOs as defined by the EXT_framebuffer_object\n"
+    "OpenGL extension.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &FrameBufferObjectBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &FrameBufferObjectBase::getType(void) const 
+FieldContainerType &FrameBufferObjectBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 FrameBufferObjectBase::getContainerSize(void) const 
-{ 
-    return sizeof(FrameBufferObject); 
+const FieldContainerType &FrameBufferObjectBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 FrameBufferObjectBase::getContainerSize(void) const
+{
+    return sizeof(FrameBufferObject);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -371,9 +369,9 @@ const SFGLenum *FrameBufferObjectBase::getSFGLId(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFGLenum *FrameBufferObjectBase::getSFGLId(void)
+SFGLenum            *FrameBufferObjectBase::getSFGLId           (void)
 {
-    return this->editSFGLId();
+    return this->editSFGLId           ();
 }
 #endif
 
@@ -396,9 +394,9 @@ const MFGLenum *FrameBufferObjectBase::getMFDrawBuffers(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFGLenum *FrameBufferObjectBase::getMFDrawBuffers(void)
+MFGLenum            *FrameBufferObjectBase::getMFDrawBuffers    (void)
 {
-    return this->editMFDrawBuffers();
+    return this->editMFDrawBuffers    ();
 }
 #endif
 
@@ -427,9 +425,9 @@ const SFUInt16 *FrameBufferObjectBase::getSFWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *FrameBufferObjectBase::getSFWidth(void)
+SFUInt16            *FrameBufferObjectBase::getSFWidth          (void)
 {
-    return this->editSFWidth();
+    return this->editSFWidth          ();
 }
 #endif
 
@@ -446,9 +444,9 @@ const SFUInt16 *FrameBufferObjectBase::getSFHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *FrameBufferObjectBase::getSFHeight(void)
+SFUInt16            *FrameBufferObjectBase::getSFHeight         (void)
 {
-    return this->editSFHeight();
+    return this->editSFHeight         ();
 }
 #endif
 
@@ -572,7 +570,7 @@ void FrameBufferObjectBase::pushToColorAttachments(FrameBufferAttachmentPtrConst
 }
 
 void FrameBufferObjectBase::insertIntoColorAttachments(UInt32                uiIndex,
-                                             FrameBufferAttachmentPtrConstArg value   )
+                                                   FrameBufferAttachmentPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -589,7 +587,7 @@ void FrameBufferObjectBase::insertIntoColorAttachments(UInt32                uiI
 }
 
 void FrameBufferObjectBase::replaceInColorAttachments(UInt32                uiIndex,
-                                                 FrameBufferAttachmentPtrConstArg value   )
+                                                       FrameBufferAttachmentPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -607,7 +605,7 @@ void FrameBufferObjectBase::replaceInColorAttachments(UInt32                uiIn
 }
 
 void FrameBufferObjectBase::replaceInColorAttachments(FrameBufferAttachmentPtrConstArg pOldElem,
-                                                  FrameBufferAttachmentPtrConstArg pNewElem)
+                                                        FrameBufferAttachmentPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -679,8 +677,6 @@ void FrameBufferObjectBase::clearColorAttachments(void)
     _mfColorAttachments.clear();
 }
 
-
-
 /*********************************** Non-ptr code ********************************/
 void FrameBufferObjectBase::pushToDrawBuffers(const GLenum& value)
 {
@@ -689,7 +685,7 @@ void FrameBufferObjectBase::pushToDrawBuffers(const GLenum& value)
 }
 
 void FrameBufferObjectBase::insertIntoDrawBuffers(UInt32                uiIndex,
-                                             const GLenum& value   )
+                                                   const GLenum& value   )
 {
     editMField(DrawBuffersFieldMask, _mfDrawBuffers);
 
@@ -701,7 +697,7 @@ void FrameBufferObjectBase::insertIntoDrawBuffers(UInt32                uiIndex,
 }
 
 void FrameBufferObjectBase::replaceInDrawBuffers(UInt32                uiIndex,
-                                                 const GLenum& value   )
+                                                       const GLenum& value   )
 {
     if(uiIndex >= _mfDrawBuffers.size())
         return;
@@ -712,7 +708,7 @@ void FrameBufferObjectBase::replaceInDrawBuffers(UInt32                uiIndex,
 }
 
 void FrameBufferObjectBase::replaceInDrawBuffers(const GLenum& pOldElem,
-                                                  const GLenum& pNewElem)
+                                                        const GLenum& pNewElem)
 {
     Int32  elemIdx = _mfDrawBuffers.findIndex(pOldElem);
 
@@ -756,19 +752,13 @@ void FrameBufferObjectBase::removeFromDrawBuffers(const GLenum& value)
         _mfDrawBuffers.erase(fieldIt);
     }
 }
+
 void FrameBufferObjectBase::clearDrawBuffers(void)
 {
     editMField(DrawBuffersFieldMask, _mfDrawBuffers);
 
     _mfDrawBuffers.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -880,22 +870,22 @@ void FrameBufferObjectBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FrameBufferObjectPtr FrameBufferObjectBase::createEmpty(void) 
-{ 
-    FrameBufferObjectPtr returnValue; 
-    
-    newPtr<FrameBufferObject>(returnValue); 
+FrameBufferObjectPtr FrameBufferObjectBase::createEmpty(void)
+{
+    FrameBufferObjectPtr returnValue;
 
-    return returnValue; 
+    newPtr<FrameBufferObject>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr FrameBufferObjectBase::shallowCopy(void) const 
-{ 
-    FrameBufferObjectPtr returnValue; 
+FieldContainerPtr FrameBufferObjectBase::shallowCopy(void) const
+{
+    FrameBufferObjectPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const FrameBufferObject *>(this)); 
+    newPtr(returnValue, dynamic_cast<const FrameBufferObject *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -904,25 +894,25 @@ FieldContainerPtr FrameBufferObjectBase::shallowCopy(void) const
 
 FrameBufferObjectBase::FrameBufferObjectBase(void) :
     Inherited(),
-    _sfGLId(GLenum(0)),
-    _mfColorAttachments(),
-    _mfDrawBuffers(GLenum(0)),
-    _sfDepthAttachment(),
-    _sfStencilAttachment(),
-    _sfWidth(),
-    _sfHeight()
+    _sfGLId                   (GLenum(0)),
+    _mfColorAttachments       (),
+    _mfDrawBuffers            (GLenum(0)),
+    _sfDepthAttachment        (),
+    _sfStencilAttachment      (),
+    _sfWidth                  (),
+    _sfHeight                 ()
 {
 }
 
 FrameBufferObjectBase::FrameBufferObjectBase(const FrameBufferObjectBase &source) :
     Inherited(source),
-    _sfGLId(source._sfGLId),
-    _mfColorAttachments(),
-    _mfDrawBuffers(source._mfDrawBuffers),
-    _sfDepthAttachment(),
-    _sfStencilAttachment(),
-    _sfWidth(source._sfWidth),
-    _sfHeight(source._sfHeight)
+    _sfGLId                   (source._sfGLId                   ),
+    _mfColorAttachments       (),
+    _mfDrawBuffers            (source._mfDrawBuffers            ),
+    _sfDepthAttachment        (),
+    _sfStencilAttachment      (),
+    _sfWidth                  (source._sfWidth                  ),
+    _sfHeight                 (source._sfHeight                 )
 {
 }
 
@@ -939,9 +929,9 @@ void FrameBufferObjectBase::onCreate(const FrameBufferObject *source)
     if(source != NULL)
     {
 
-        MFFrameBufferAttachmentPtr::const_iterator ColorAttachmentsIt  = 
+        MFFrameBufferAttachmentPtr::const_iterator ColorAttachmentsIt  =
             source->_mfColorAttachments.begin();
-        MFFrameBufferAttachmentPtr::const_iterator ColorAttachmentsEnd = 
+        MFFrameBufferAttachmentPtr::const_iterator ColorAttachmentsEnd =
             source->_mfColorAttachments.end  ();
 
         while(ColorAttachmentsIt != ColorAttachmentsEnd)
@@ -960,13 +950,13 @@ void FrameBufferObjectBase::onCreate(const FrameBufferObject *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void FrameBufferObjectBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<FrameBufferObjectBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -976,10 +966,10 @@ void FrameBufferObjectBase::execSyncV(      FieldContainer    &oFrom,
 void FrameBufferObjectBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FrameBufferObjectBase *>(&oFrom), 
+    this->execSync(static_cast<FrameBufferObjectBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -999,12 +989,12 @@ void FrameBufferObjectBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr FrameBufferObjectBase::createAspectCopy(void) const
 {
-    FrameBufferObjectPtr returnValue; 
+    FrameBufferObjectPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const FrameBufferObject *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const FrameBufferObject *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -1019,6 +1009,8 @@ void FrameBufferObjectBase::resolveLinks(void)
     static_cast<FrameBufferObject *>(this)->clearColorAttachments();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -1041,8 +1033,6 @@ OSG_FIELDTRAITS_GETTYPE(FrameBufferObjectPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, FrameBufferObjectPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, FrameBufferObjectPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1063,3 +1053,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGFRAMEBUFFEROBJECTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

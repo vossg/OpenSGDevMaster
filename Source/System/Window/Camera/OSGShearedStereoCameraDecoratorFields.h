@@ -70,22 +70,22 @@ class ShearedStereoCameraDecorator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ShearedStereoCameraDecoratorPtr
 
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ShearedStereoCameraDecorator>::ObjPtr         ShearedStereoCameraDecoratorPtr;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ShearedStereoCameraDecorator>::ObjPtrConst    ShearedStereoCameraDecoratorPtrConst;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ShearedStereoCameraDecorator>::ObjConstPtr    ShearedStereoCameraDecoratorConstPtr;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ShearedStereoCameraDecorator>::ObjPtrArg      ShearedStereoCameraDecoratorPtrArg;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ShearedStereoCameraDecorator>::ObjConstPtrArg ShearedStereoCameraDecoratorConstPtrArg;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ShearedStereoCameraDecorator>::ObjPtrConstArg ShearedStereoCameraDecoratorPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
 #endif
 
 template <>
-struct FieldTraits<ShearedStereoCameraDecoratorPtr> : 
+struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
     public FieldTraitsTemplateBase<ShearedStereoCameraDecoratorPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ShearedStereoCameraDecoratorPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFShearedStereoCameraDecoratorPtr"; }

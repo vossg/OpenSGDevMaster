@@ -86,22 +86,22 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
-                              CameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
+                              CameraDecoratorConstPtr,
                               StereoCameraDecorator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
-                              CameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
+                              CameraDecoratorConstPtr,
                               StereoCameraDecorator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               StereoCameraDecorator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               StereoCameraDecorator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               StereoCameraDecorator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               StereoCameraDecorator>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
         NextFieldId = EyeSeparationFieldId + 1
     };
 
-    static const OSG::BitVector LeftEyeFieldMask = 
+    static const OSG::BitVector LeftEyeFieldMask =
         (TypeTraits<BitVector>::One << LeftEyeFieldId);
-    static const OSG::BitVector EyeSeparationFieldMask = 
+    static const OSG::BitVector EyeSeparationFieldMask =
         (TypeTraits<BitVector>::One << EyeSeparationFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,37 +148,37 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFLeftEye(void);
+                  SFBool              *getSFLeftEye         (void);
 #endif
-           SFBool *editSFLeftEye(void);
-     const SFBool *getSFLeftEye (void) const;
+                  SFBool              *editSFLeftEye        (void);
+            const SFBool              *getSFLeftEye         (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFEyeSeparation(void);
+                  SFReal32            *getSFEyeSeparation   (void);
 #endif
-           SFReal32 *editSFEyeSeparation(void);
-     const SFReal32 *getSFEyeSeparation (void) const;
+                  SFReal32            *editSFEyeSeparation  (void);
+            const SFReal32            *getSFEyeSeparation   (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getLeftEye(void);
+                  bool                &getLeftEye         (void);
 #endif
-           bool &editLeftEye(void);
-     const bool &getLeftEye (void) const;
+                  bool                &editLeftEye        (void);
+            const bool                &getLeftEye         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getEyeSeparation(void);
+                  Real32              &getEyeSeparation   (void);
 #endif
-           Real32 &editEyeSeparation(void);
-     const Real32 &getEyeSeparation (void) const;
+                  Real32              &editEyeSeparation  (void);
+            const Real32              &getEyeSeparation   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setLeftEye(const bool &value);
-     void setEyeSeparation(const Real32 &value);
+            void setLeftEye        (const bool &value);
+            void setEyeSeparation  (const Real32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -208,8 +207,8 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfLeftEye;
-    SFReal32 _sfEyeSeparation;
+    SFBool            _sfLeftEye;
+    SFReal32          _sfEyeSeparation;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -224,7 +223,7 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StereoCameraDecoratorBase(void); 
+    virtual ~StereoCameraDecoratorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -270,11 +269,11 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

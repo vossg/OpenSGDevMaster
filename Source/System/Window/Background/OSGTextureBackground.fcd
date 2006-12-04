@@ -11,7 +11,10 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-A textured background e.g for distortion corrected fast live video from a camera with known intrinsic parameters.
+\ingroup GrpSystemWindowBackgrounds
+
+A textured background e.g for distortion corrected fast live video from a
+camera with known intrinsic parameters.
 	<Field
 		name="color"
 		type="Color4f"
@@ -62,7 +65,7 @@ A textured background e.g for distortion corrected fast live video from a camera
 		defaultValue="2"
 		access="public"
 	>
-	horizontal subdivision
+	Horizontal subdivision.
 	</Field>
 	<Field
 		name="vert"
@@ -72,6 +75,6 @@ A textured background e.g for distortion corrected fast live video from a camera
 		defaultValue="2"
 		access="public"
 	>
-	vertical subdivision
+	Vertical subdivision.
 	</Field>
 </FieldContainer>

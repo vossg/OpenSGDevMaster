@@ -66,48 +66,65 @@
 #include "OSGProjectionCameraDecoratorBase.h"
 #include "OSGProjectionCameraDecorator.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var NodePtr ProjectionCameraDecoratorBase::_sfUser
-    	The coordinate system relative to the camera.
+/*! \class OSG::ProjectionCameraDecorator
+    \ingroup GrpSystemWindowCameraDecoratorsStereo
 
+    The decorator for tracked projection screens, see \ref
+    PageSystemWindowCameraDecoratorsStereoProjection for a description.
+
+    The parameters are defined by the _sfUser and _mfSurface fields.
+
+    \dev
+
+    The derived parameters used to actually calculate the matrix are stored
+    in the _sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.
+
+    \enddev
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var NodePtr         ProjectionCameraDecoratorBase::_sfUser
+    The coordinate system relative to the camera.
 */
-/*! \var Pnt3f ProjectionCameraDecoratorBase::_mfSurface
-    	4 points describing the rectangular projection surface, in the camera coordinate system. Counterclockwise, starting at lower left corner of the screen.
-
+/*! \var Pnt3f           ProjectionCameraDecoratorBase::_mfSurface
+    4 points describing the rectangular projection surface, in the camera
+    coordinate system. Counterclockwise, starting at lower left corner of
+    the screen.
 */
-/*! \var Plane ProjectionCameraDecoratorBase::_sfLeft
-    	The left edge direction vector.
-
+/*! \var Plane           ProjectionCameraDecoratorBase::_sfLeft
+    The left edge direction vector.
 */
-/*! \var Plane ProjectionCameraDecoratorBase::_sfBottom
-    	The bottom edge direction vector.
-
+/*! \var Plane           ProjectionCameraDecoratorBase::_sfBottom
+    The bottom edge direction vector.
 */
-/*! \var Plane ProjectionCameraDecoratorBase::_sfNormal
-    	The normal of the projection surface.
-
+/*! \var Plane           ProjectionCameraDecoratorBase::_sfNormal
+    The normal of the projection surface.
 */
-/*! \var Real32 ProjectionCameraDecoratorBase::_sfWidth
-    	The width of the projection screen.
-
+/*! \var Real32          ProjectionCameraDecoratorBase::_sfWidth
+    The width of the projection screen.
 */
-/*! \var Real32 ProjectionCameraDecoratorBase::_sfHeight
-    	The height of the projection screen.
-
+/*! \var Real32          ProjectionCameraDecoratorBase::_sfHeight
+    The height of the projection screen.
 */
 
 void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFNodePtr::Description(
-        SFNodePtr::getClassType(), 
-        "user", 
-        "	The coordinate system relative to the camera.\n",
+        SFNodePtr::getClassType(),
+        "user",
+        "The coordinate system relative to the camera.\n",
         UserFieldId, UserFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -123,9 +140,10 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFPnt3f::Description(
-        MFPnt3f::getClassType(), 
-        "surface", 
-        "	4 points describing the rectangular projection surface, in the camera coordinate system. Counterclockwise, starting at lower left corner of the screen.\n",
+        MFPnt3f::getClassType(),
+        "surface",
+        "4 points describing the rectangular projection surface, in the camera\n"
+        "coordinate system. Counterclockwise, starting at lower left corner of the screen.\n",
         SurfaceFieldId, SurfaceFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -145,9 +163,9 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFPlane::Description(
-        SFPlane::getClassType(), 
-        "left", 
-        "	The left edge direction vector.\n",
+        SFPlane::getClassType(),
+        "left",
+        "The left edge direction vector.\n",
         LeftFieldId, LeftFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -167,9 +185,9 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFPlane::Description(
-        SFPlane::getClassType(), 
-        "bottom", 
-        "	The bottom edge direction vector.\n",
+        SFPlane::getClassType(),
+        "bottom",
+        "The bottom edge direction vector.\n",
         BottomFieldId, BottomFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -189,9 +207,9 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFPlane::Description(
-        SFPlane::getClassType(), 
-        "normal", 
-        "	The normal of the projection surface.\n",
+        SFPlane::getClassType(),
+        "normal",
+        "The normal of the projection surface.\n",
         NormalFieldId, NormalFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -211,9 +229,9 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "width", 
-        "	The width of the projection screen.\n",
+        SFReal32::getClassType(),
+        "width",
+        "The width of the projection screen.\n",
         WidthFieldId, WidthFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -233,9 +251,9 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "height", 
-        "	The height of the projection screen.\n",
+        SFReal32::getClassType(),
+        "height",
+        "The height of the projection screen.\n",
         HeightFieldId, HeightFieldMask,
         true,
         Field::SFDefaultFlags,
@@ -260,101 +278,120 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(t
     (InitalInsertDescFunc) &ProjectionCameraDecoratorBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ProjectionCameraDecorator\"\n"
-"	parent=\"StereoCameraDecorator\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"The decorator for tracked projection screens.\n"
-"	<Field\n"
-"		name=\"user\"\n"
-"		type=\"NodePtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The coordinate system relative to the camera.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"surface\"\n"
-"		type=\"Pnt3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	4 points describing the rectangular projection surface, in the camera coordinate system. Counterclockwise, starting at lower left corner of the screen.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"left\"\n"
-"		type=\"Plane\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The left edge direction vector.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"bottom\"\n"
-"		type=\"Plane\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The bottom edge direction vector.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"normal\"\n"
-"		type=\"Plane\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"	>\n"
-"	The normal of the projection surface.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"width\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The width of the projection screen.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"height\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The height of the projection screen.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The decorator for tracked projection screens.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ProjectionCameraDecorator\"\n"
+    "\tparent=\"StereoCameraDecorator\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowCameraDecoratorsStereo\n"
+    "\n"
+    "The decorator for tracked projection screens, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsStereoProjection for a description.\n"
+    "\n"
+    "The parameters are defined by the _sfUser and _mfSurface fields.\n"
+    "\n"
+    "\\dev\n"
+    "\n"
+    "The derived parameters used to actually calculate the matrix are stored in the\n"
+    "_sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.\n"
+    "\n"
+    "\\enddev\n"
+    "\t<Field\n"
+    "\t\tname=\"user\"\n"
+    "\t\ttype=\"NodePtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe coordinate system relative to the camera.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"surface\"\n"
+    "\t\ttype=\"Pnt3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t4 points describing the rectangular projection surface, in the camera\n"
+    "        coordinate system. Counterclockwise, starting at lower left corner of the screen.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"left\"\n"
+    "\t\ttype=\"Plane\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe left edge direction vector.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bottom\"\n"
+    "\t\ttype=\"Plane\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe bottom edge direction vector.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"normal\"\n"
+    "\t\ttype=\"Plane\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "\t>\n"
+    "\tThe normal of the projection surface.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"width\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe width of the projection screen.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"height\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe height of the projection screen.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowCameraDecoratorsStereo\n"
+    "The decorator for tracked projection screens, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsStereoProjection for a description.\n"
+    "The parameters are defined by the _sfUser and _mfSurface fields.\n"
+    "\\dev\n"
+    "The derived parameters used to actually calculate the matrix are stored in the\n"
+    "_sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.\n"
+    "\\enddev\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ProjectionCameraDecoratorBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ProjectionCameraDecoratorBase::getType(void) const 
+FieldContainerType &ProjectionCameraDecoratorBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ProjectionCameraDecoratorBase::getContainerSize(void) const 
-{ 
-    return sizeof(ProjectionCameraDecorator); 
+const FieldContainerType &ProjectionCameraDecoratorBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ProjectionCameraDecoratorBase::getContainerSize(void) const
+{
+    return sizeof(ProjectionCameraDecorator);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -379,9 +416,9 @@ const MFPnt3f *ProjectionCameraDecoratorBase::getMFSurface(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFPnt3f *ProjectionCameraDecoratorBase::getMFSurface(void)
+MFPnt3f             *ProjectionCameraDecoratorBase::getMFSurface        (void)
 {
-    return this->editMFSurface();
+    return this->editMFSurface        ();
 }
 #endif
 
@@ -398,9 +435,9 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFLeft(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFPlane *ProjectionCameraDecoratorBase::getSFLeft(void)
+SFPlane             *ProjectionCameraDecoratorBase::getSFLeft           (void)
 {
-    return this->editSFLeft();
+    return this->editSFLeft           ();
 }
 #endif
 
@@ -417,9 +454,9 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFBottom(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFPlane *ProjectionCameraDecoratorBase::getSFBottom(void)
+SFPlane             *ProjectionCameraDecoratorBase::getSFBottom         (void)
 {
-    return this->editSFBottom();
+    return this->editSFBottom         ();
 }
 #endif
 
@@ -436,9 +473,9 @@ const SFPlane *ProjectionCameraDecoratorBase::getSFNormal(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFPlane *ProjectionCameraDecoratorBase::getSFNormal(void)
+SFPlane             *ProjectionCameraDecoratorBase::getSFNormal         (void)
 {
-    return this->editSFNormal();
+    return this->editSFNormal         ();
 }
 #endif
 
@@ -455,9 +492,9 @@ const SFReal32 *ProjectionCameraDecoratorBase::getSFWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ProjectionCameraDecoratorBase::getSFWidth(void)
+SFReal32            *ProjectionCameraDecoratorBase::getSFWidth          (void)
 {
-    return this->editSFWidth();
+    return this->editSFWidth          ();
 }
 #endif
 
@@ -474,9 +511,9 @@ const SFReal32 *ProjectionCameraDecoratorBase::getSFHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ProjectionCameraDecoratorBase::getSFHeight(void)
+SFReal32            *ProjectionCameraDecoratorBase::getSFHeight         (void)
 {
-    return this->editSFHeight();
+    return this->editSFHeight         ();
 }
 #endif
 
@@ -549,7 +586,7 @@ void ProjectionCameraDecoratorBase::pushToSurface(const Pnt3f& value)
 }
 
 void ProjectionCameraDecoratorBase::insertIntoSurface(UInt32                uiIndex,
-                                             const Pnt3f& value   )
+                                                   const Pnt3f& value   )
 {
     editMField(SurfaceFieldMask, _mfSurface);
 
@@ -561,7 +598,7 @@ void ProjectionCameraDecoratorBase::insertIntoSurface(UInt32                uiIn
 }
 
 void ProjectionCameraDecoratorBase::replaceInSurface(UInt32                uiIndex,
-                                                 const Pnt3f& value   )
+                                                       const Pnt3f& value   )
 {
     if(uiIndex >= _mfSurface.size())
         return;
@@ -572,7 +609,7 @@ void ProjectionCameraDecoratorBase::replaceInSurface(UInt32                uiInd
 }
 
 void ProjectionCameraDecoratorBase::replaceInSurface(const Pnt3f& pOldElem,
-                                                  const Pnt3f& pNewElem)
+                                                        const Pnt3f& pNewElem)
 {
     Int32  elemIdx = _mfSurface.findIndex(pOldElem);
 
@@ -616,19 +653,13 @@ void ProjectionCameraDecoratorBase::removeFromSurface(const Pnt3f& value)
         _mfSurface.erase(fieldIt);
     }
 }
+
 void ProjectionCameraDecoratorBase::clearSurface(void)
 {
     editMField(SurfaceFieldMask, _mfSurface);
 
     _mfSurface.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -740,22 +771,22 @@ void ProjectionCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmpty(void) 
-{ 
-    ProjectionCameraDecoratorPtr returnValue; 
-    
-    newPtr<ProjectionCameraDecorator>(returnValue); 
+ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::createEmpty(void)
+{
+    ProjectionCameraDecoratorPtr returnValue;
 
-    return returnValue; 
+    newPtr<ProjectionCameraDecorator>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ProjectionCameraDecoratorBase::shallowCopy(void) const 
-{ 
-    ProjectionCameraDecoratorPtr returnValue; 
+FieldContainerPtr ProjectionCameraDecoratorBase::shallowCopy(void) const
+{
+    ProjectionCameraDecoratorPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ProjectionCameraDecorator *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ProjectionCameraDecorator *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -764,25 +795,25 @@ FieldContainerPtr ProjectionCameraDecoratorBase::shallowCopy(void) const
 
 ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(void) :
     Inherited(),
-    _sfUser(),
-    _mfSurface(),
-    _sfLeft(),
-    _sfBottom(),
-    _sfNormal(),
-    _sfWidth(),
-    _sfHeight()
+    _sfUser                   (),
+    _mfSurface                (),
+    _sfLeft                   (),
+    _sfBottom                 (),
+    _sfNormal                 (),
+    _sfWidth                  (),
+    _sfHeight                 ()
 {
 }
 
 ProjectionCameraDecoratorBase::ProjectionCameraDecoratorBase(const ProjectionCameraDecoratorBase &source) :
     Inherited(source),
-    _sfUser(),
-    _mfSurface(source._mfSurface),
-    _sfLeft(source._sfLeft),
-    _sfBottom(source._sfBottom),
-    _sfNormal(source._sfNormal),
-    _sfWidth(source._sfWidth),
-    _sfHeight(source._sfHeight)
+    _sfUser                   (),
+    _mfSurface                (source._mfSurface                ),
+    _sfLeft                   (source._sfLeft                   ),
+    _sfBottom                 (source._sfBottom                 ),
+    _sfNormal                 (source._sfNormal                 ),
+    _sfWidth                  (source._sfWidth                  ),
+    _sfHeight                 (source._sfHeight                 )
 {
 }
 
@@ -806,13 +837,13 @@ void ProjectionCameraDecoratorBase::onCreate(const ProjectionCameraDecorator *so
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ProjectionCameraDecoratorBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -822,10 +853,10 @@ void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 void ProjectionCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ProjectionCameraDecoratorBase *>(&oFrom), 
+    this->execSync(static_cast<ProjectionCameraDecoratorBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -845,12 +876,12 @@ void ProjectionCameraDecoratorBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ProjectionCameraDecoratorBase::createAspectCopy(void) const
 {
-    ProjectionCameraDecoratorPtr returnValue; 
+    ProjectionCameraDecoratorPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ProjectionCameraDecorator *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ProjectionCameraDecorator *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -861,6 +892,8 @@ void ProjectionCameraDecoratorBase::resolveLinks(void)
     static_cast<ProjectionCameraDecorator *>(this)->setUser(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -883,8 +916,6 @@ OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecoratorPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ProjectionCameraDecoratorPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ProjectionCameraDecoratorPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -905,3 +936,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPROJECTIONCAMERADECORATORFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

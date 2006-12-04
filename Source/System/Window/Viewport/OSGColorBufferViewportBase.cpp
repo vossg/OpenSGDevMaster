@@ -65,30 +65,42 @@
 #include "OSGColorBufferViewportBase.h"
 #include "OSGColorBufferViewport.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool ColorBufferViewportBase::_sfRed
-            Define whether the red color channel is written to.
+/*! \class OSG::ColorBufferViewport
+    \ingroup GrpSystemWindowViewports
 
+    Viewport to only render to specific color channels, see \ref
+    PageSystemWindowViewports for a description.
+
+    The color channels used are defined by the _sfRed, _sfGreen, _sfBlue
+    and _sfAlpha Fields.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            ColorBufferViewportBase::_sfRed
+    Define whether the red color channel is written to.
 */
-/*! \var bool ColorBufferViewportBase::_sfBlue
-            Define whether the green color channel is written to.
-
+/*! \var bool            ColorBufferViewportBase::_sfBlue
+    Define whether the green color channel is written to.
 */
-/*! \var bool ColorBufferViewportBase::_sfGreen
-            Define whether the blue color channel is written to.
-
+/*! \var bool            ColorBufferViewportBase::_sfGreen
+    Define whether the blue color channel is written to.
 */
-/*! \var bool ColorBufferViewportBase::_sfAlpha
-            Define whether the alpha color channel is written to.
-
+/*! \var bool            ColorBufferViewportBase::_sfAlpha
+    Define whether the alpha color channel is written to.
 */
 
 void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -98,9 +110,9 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "red", 
-        "        Define whether the red color channel is written to.\n",
+        SFBool::getClassType(),
+        "red",
+        "Define whether the red color channel is written to.\n",
         RedFieldId, RedFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -120,9 +132,9 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "blue", 
-        "        Define whether the green color channel is written to.\n",
+        SFBool::getClassType(),
+        "blue",
+        "Define whether the green color channel is written to.\n",
         BlueFieldId, BlueFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -142,9 +154,9 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "green", 
-        "        Define whether the blue color channel is written to.\n",
+        SFBool::getClassType(),
+        "green",
+        "Define whether the blue color channel is written to.\n",
         GreenFieldId, GreenFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -164,9 +176,9 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "alpha", 
-        "        Define whether the alpha color channel is written to.\n",
+        SFBool::getClassType(),
+        "alpha",
+        "Define whether the alpha color channel is written to.\n",
         AlphaFieldId, AlphaFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -191,78 +203,87 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(true,
     (InitalInsertDescFunc) &ColorBufferViewportBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ColorBufferViewport\"\n"
-"	parent=\"Viewport\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"A viewport used to restrict rendering to specific color channels.\n"
-"	<Field\n"
-"		name=\"red\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_TRUE\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Define whether the red color channel is written to.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"blue\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_TRUE\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Define whether the green color channel is written to.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"green\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_TRUE\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Define whether the blue color channel is written to.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"alpha\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"GL_TRUE\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"        Define whether the alpha color channel is written to.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A viewport used to restrict rendering to specific color channels.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ColorBufferViewport\"\n"
+    "\tparent=\"Viewport\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowViewports\n"
+    "\n"
+    "Viewport to only render to specific color channels, see \\ref\n"
+    "PageSystemWindowViewports for a description.\n"
+    "\n"
+    "The color channels used are defined by the _sfRed, _sfGreen, _sfBlue and\n"
+    "_sfAlpha Fields.\n"
+    "\t<Field\n"
+    "\t\tname=\"red\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_TRUE\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Define whether the red color channel is written to.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"blue\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_TRUE\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Define whether the green color channel is written to.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"green\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_TRUE\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Define whether the blue color channel is written to.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"alpha\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"GL_TRUE\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Define whether the alpha color channel is written to.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowViewports\n"
+    "Viewport to only render to specific color channels, see \\ref\n"
+    "PageSystemWindowViewports for a description.\n"
+    "The color channels used are defined by the _sfRed, _sfGreen, _sfBlue and\n"
+    "_sfAlpha Fields.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ColorBufferViewportBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ColorBufferViewportBase::getType(void) const 
+FieldContainerType &ColorBufferViewportBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ColorBufferViewportBase::getContainerSize(void) const 
-{ 
-    return sizeof(ColorBufferViewport); 
+const FieldContainerType &ColorBufferViewportBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ColorBufferViewportBase::getContainerSize(void) const
+{
+    return sizeof(ColorBufferViewport);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -281,9 +302,9 @@ const SFBool *ColorBufferViewportBase::getSFRed(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ColorBufferViewportBase::getSFRed(void)
+SFBool              *ColorBufferViewportBase::getSFRed            (void)
 {
-    return this->editSFRed();
+    return this->editSFRed            ();
 }
 #endif
 
@@ -300,9 +321,9 @@ const SFBool *ColorBufferViewportBase::getSFBlue(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ColorBufferViewportBase::getSFBlue(void)
+SFBool              *ColorBufferViewportBase::getSFBlue           (void)
 {
-    return this->editSFBlue();
+    return this->editSFBlue           ();
 }
 #endif
 
@@ -319,9 +340,9 @@ const SFBool *ColorBufferViewportBase::getSFGreen(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ColorBufferViewportBase::getSFGreen(void)
+SFBool              *ColorBufferViewportBase::getSFGreen          (void)
 {
-    return this->editSFGreen();
+    return this->editSFGreen          ();
 }
 #endif
 
@@ -338,9 +359,9 @@ const SFBool *ColorBufferViewportBase::getSFAlpha(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ColorBufferViewportBase::getSFAlpha(void)
+SFBool              *ColorBufferViewportBase::getSFAlpha          (void)
 {
-    return this->editSFAlpha();
+    return this->editSFAlpha          ();
 }
 #endif
 
@@ -419,22 +440,22 @@ void ColorBufferViewportBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ColorBufferViewportPtr ColorBufferViewportBase::createEmpty(void) 
-{ 
-    ColorBufferViewportPtr returnValue; 
-    
-    newPtr<ColorBufferViewport>(returnValue); 
+ColorBufferViewportPtr ColorBufferViewportBase::createEmpty(void)
+{
+    ColorBufferViewportPtr returnValue;
 
-    return returnValue; 
+    newPtr<ColorBufferViewport>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ColorBufferViewportBase::shallowCopy(void) const 
-{ 
-    ColorBufferViewportPtr returnValue; 
+FieldContainerPtr ColorBufferViewportBase::shallowCopy(void) const
+{
+    ColorBufferViewportPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ColorBufferViewport *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ColorBufferViewport *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -443,19 +464,19 @@ FieldContainerPtr ColorBufferViewportBase::shallowCopy(void) const
 
 ColorBufferViewportBase::ColorBufferViewportBase(void) :
     Inherited(),
-    _sfRed(bool(GL_TRUE)),
-    _sfBlue(bool(GL_TRUE)),
-    _sfGreen(bool(GL_TRUE)),
-    _sfAlpha(bool(GL_TRUE))
+    _sfRed                    (bool(GL_TRUE)),
+    _sfBlue                   (bool(GL_TRUE)),
+    _sfGreen                  (bool(GL_TRUE)),
+    _sfAlpha                  (bool(GL_TRUE))
 {
 }
 
 ColorBufferViewportBase::ColorBufferViewportBase(const ColorBufferViewportBase &source) :
     Inherited(source),
-    _sfRed(source._sfRed),
-    _sfBlue(source._sfBlue),
-    _sfGreen(source._sfGreen),
-    _sfAlpha(source._sfAlpha)
+    _sfRed                    (source._sfRed                    ),
+    _sfBlue                   (source._sfBlue                   ),
+    _sfGreen                  (source._sfGreen                  ),
+    _sfAlpha                  (source._sfAlpha                  )
 {
 }
 
@@ -469,13 +490,13 @@ ColorBufferViewportBase::~ColorBufferViewportBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ColorBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ColorBufferViewportBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -485,10 +506,10 @@ void ColorBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
 void ColorBufferViewportBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ColorBufferViewportBase *>(&oFrom), 
+    this->execSync(static_cast<ColorBufferViewportBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -508,12 +529,12 @@ void ColorBufferViewportBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ColorBufferViewportBase::createAspectCopy(void) const
 {
-    ColorBufferViewportPtr returnValue; 
+    ColorBufferViewportPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ColorBufferViewport *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ColorBufferViewport *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -522,6 +543,8 @@ void ColorBufferViewportBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -544,8 +567,6 @@ OSG_FIELDTRAITS_GETTYPE(ColorBufferViewportPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ColorBufferViewportPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ColorBufferViewportPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -566,3 +587,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGCOLORBUFFERVIEWPORTFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

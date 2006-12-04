@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &CameraDecoratorBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 CameraDecoratorBase::getClassTypeId(void) 
+OSG::UInt32 CameraDecoratorBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 CameraDecoratorBase::getClassGroupId(void)
@@ -90,7 +90,7 @@ void CameraDecoratorBase::setDecoratee(const CameraPtr &value)
 inline
 void CameraDecoratorBase::execSync(      CameraDecoratorBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -108,7 +108,7 @@ inline
 void CameraDecoratorBase::execSync (      CameraDecoratorBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -148,4 +148,3 @@ typedef PointerBuilder<CameraDecorator>::ObjPtrConstArg  CameraDecoratorPtrConst
 OSG_END_NAMESPACE
 
 #define OSGCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
-

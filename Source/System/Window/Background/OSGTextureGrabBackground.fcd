@@ -10,6 +10,13 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
+\ingroup GrpSystemWindowBackgrounds
+
+A background that grabs what's underneath it into a texture before it clears 
+the viewport to a constant color.
+
+The color of the background is given by the _sfColor field, the texture to
+grab into by the _sfTexture field.
 	<Field
 		name="texture"
 		type="TextureObjChunkPtr"

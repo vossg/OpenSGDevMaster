@@ -11,7 +11,8 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-1D/2D/3D Image with various pixel types data, can also optional hold mipMap and simple multi-frame data.
+1D/2D/3D Image with various pixel types data, optionally also can hold
+mipMap and simple multi-frame data.
 	<Field
 		name="parents"
 		type="ParentFieldContainerPtr"
@@ -28,7 +29,7 @@
 		defaultValue="0"
 		access="public"
 	>
-	image dimension, 0 for invalid, 1 for 1D, 2 for 2D and     3 for 3D data.
+	Image dimension, 0 for invalid, 1 for 1D, 2 for 2D and 3 for 3D data.
 	</Field>
 	<Field
 		name="width"
@@ -112,7 +113,7 @@
 		visibility="external"
 		access="public"
 	>
-        The pixel data buffer.  This is where the data for the image is stored.
+        The pixel data buffer. This is where the data for the image is stored.
 	</Field>
 	<Field
 		name="frameSize"
@@ -130,7 +131,7 @@
 		visibility="external"
 		access="public"
 	>
-	Texture file path
+	Texture file path.
 	</Field>
 	<Field
 		name="dataType"
@@ -141,7 +142,7 @@
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
-	Type of image data
+	Type of image data.
 	</Field>
 	<Field
 		name="componentSize"
@@ -151,7 +152,8 @@
 		defaultValue="1"
 		access="protected"
 	>
-	Size (in byte) of a single component of the image. Necessary         for High Dynamic Range and other higher-level image types.
+	Size (in byte) of a single component of the image. Necessary
+        for High Dynamic Range and other higher-level image types.
 	</Field>
 	<Field
 		name="sideCount"

@@ -65,7 +65,15 @@
 #include "OSGDepthClearBackgroundBase.h"
 #include "OSGDepthClearBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
+
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
+
+/*! \class OSG::DepthClearBackground
+    \ingroup GrpSystemWindowBackgrounds
+ */
 
 
 DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(true,
@@ -78,36 +86,41 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(true,
     NULL,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"DepthClearBackground\"\n"
-"	parent=\"Background\"\n"
-"	library=\"Window\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"single\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"</FieldContainer>\n"
-,
-    "" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"DepthClearBackground\"\n"
+    "\tparent=\"Background\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"single\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
+    "A depth-clear background, see \\ref PageSystemWindowBackgroundDepthClear for a\n"
+    "description.\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowBackgrounds\n"
+    "A depth-clear background, see \\ref PageSystemWindowBackgroundDepthClear for a\n"
+    "description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &DepthClearBackgroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &DepthClearBackgroundBase::getType(void) const 
+FieldContainerType &DepthClearBackgroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 DepthClearBackgroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(DepthClearBackground); 
+const FieldContainerType &DepthClearBackgroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 DepthClearBackgroundBase::getContainerSize(void) const
+{
+    return sizeof(DepthClearBackground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -140,22 +153,22 @@ void DepthClearBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DepthClearBackgroundPtr DepthClearBackgroundBase::createEmpty(void) 
-{ 
-    DepthClearBackgroundPtr returnValue; 
-    
-    newPtr<DepthClearBackground>(returnValue); 
+DepthClearBackgroundPtr DepthClearBackgroundBase::createEmpty(void)
+{
+    DepthClearBackgroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<DepthClearBackground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr DepthClearBackgroundBase::shallowCopy(void) const 
-{ 
-    DepthClearBackgroundPtr returnValue; 
+FieldContainerPtr DepthClearBackgroundBase::shallowCopy(void) const
+{
+    DepthClearBackgroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const DepthClearBackground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const DepthClearBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -182,13 +195,13 @@ DepthClearBackgroundBase::~DepthClearBackgroundBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void DepthClearBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<DepthClearBackgroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -198,10 +211,10 @@ void DepthClearBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 void DepthClearBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<DepthClearBackgroundBase *>(&oFrom), 
+    this->execSync(static_cast<DepthClearBackgroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -221,12 +234,12 @@ void DepthClearBackgroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr DepthClearBackgroundBase::createAspectCopy(void) const
 {
-    DepthClearBackgroundPtr returnValue; 
+    DepthClearBackgroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const DepthClearBackground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const DepthClearBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -235,6 +248,8 @@ void DepthClearBackgroundBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 
@@ -253,8 +268,6 @@ DataType FieldTraits<DepthClearBackgroundPtr>::_type("DepthClearBackgroundPtr", 
 OSG_FIELDTRAITS_GETTYPE(DepthClearBackgroundPtr)
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, DepthClearBackgroundPtr);
-
-OSG_END_NAMESPACE
 
 
 /*------------------------------------------------------------------------*/
@@ -276,3 +289,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGDEPTHCLEARBACKGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

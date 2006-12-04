@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &StereoCameraDecoratorBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 StereoCameraDecoratorBase::getClassTypeId(void) 
+OSG::UInt32 StereoCameraDecoratorBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 StereoCameraDecoratorBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const bool &StereoCameraDecoratorBase::getLeftEye(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &StereoCameraDecoratorBase::getLeftEye(void)
+bool                &StereoCameraDecoratorBase::getLeftEye        (void)
 {
-    return this->editLeftEye();
+    return this->editLeftEye        ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Real32 &StereoCameraDecoratorBase::getEyeSeparation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &StereoCameraDecoratorBase::getEyeSeparation(void)
+Real32              &StereoCameraDecoratorBase::getEyeSeparation  (void)
 {
-    return this->editEyeSeparation();
+    return this->editEyeSeparation  ();
 }
 #endif
 
@@ -145,7 +145,7 @@ void StereoCameraDecoratorBase::setEyeSeparation(const Real32 &value)
 inline
 void StereoCameraDecoratorBase::execSync(      StereoCameraDecoratorBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -164,7 +164,7 @@ inline
 void StereoCameraDecoratorBase::execSync (      StereoCameraDecoratorBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -205,4 +205,3 @@ typedef PointerBuilder<StereoCameraDecorator>::ObjPtrConstArg  StereoCameraDecor
 OSG_END_NAMESPACE
 
 #define OSGSTEREOCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
-

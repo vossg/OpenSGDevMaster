@@ -70,22 +70,22 @@ class RenderBuffer;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! RenderBufferPtr
 
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           RenderBuffer>::ObjPtr         RenderBufferPtr;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           RenderBuffer>::ObjPtrConst    RenderBufferPtrConst;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           RenderBuffer>::ObjConstPtr    RenderBufferConstPtr;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           RenderBuffer>::ObjPtrArg      RenderBufferPtrArg;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           RenderBuffer>::ObjConstPtrArg RenderBufferConstPtrArg;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           RenderBuffer>::ObjPtrConstArg RenderBufferPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
 #endif
 
 template <>
-struct FieldTraits<RenderBufferPtr> : 
+struct FieldTraits<RenderBufferPtr> :
     public FieldTraitsTemplateBase<RenderBufferPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<RenderBufferPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFRenderBufferPtr"; }

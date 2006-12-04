@@ -58,11 +58,10 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class OSG::FBOViewport
-    \ingroup GrpSystemWindowViewports
-
-
-*/
+// Documentation for this class is emited in the
+// OSGFBOViewportBase.cpp file.
+// To modify it, please change the .fcd file (OSGFBOViewport.fcd) and
+// regenerate the base file.
 
 Int32 FBOViewport::getPixelLeft(void) const
 {

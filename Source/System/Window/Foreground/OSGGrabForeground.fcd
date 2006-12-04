@@ -11,7 +11,10 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-Background is the base class for all background clearing.
+\ingroup GrpSystemWindowForegrounds
+
+The GrabForeground is used for grabbing a rendered viewport into an Image.
+See \ref PageSystemWindowForegroundGrab for a description.
 	<Field
 		name="image"
 		type="ImagePtr"

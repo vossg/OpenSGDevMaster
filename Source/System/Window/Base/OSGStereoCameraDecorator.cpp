@@ -49,19 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::StereoCameraDecorator
-    \ingroup PageSystemWindowCameraDecoratorsStereo
-
-The abstract base class for stereo camera decorators, see \ref
-PageSystemWindowCameraDecoratorsStereo for a description.
-
-The basic parameters are given by the _sfEyeSeparation and _sfLeftEye fields.
-
-*/
+// Documentation for this class is emited in the
+// OSGStereoCameraDecoratorBase.cpp file.
+// To modify it, please change the .fcd file (OSGStereoCameraDecorator.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

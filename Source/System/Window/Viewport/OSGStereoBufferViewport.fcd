@@ -10,7 +10,13 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-A Viewport for rendering to quad-buffered visuals.
+\ingroup GrpSystemWindowViewports
+
+Viewport for quad-buffered stereo rendering, see \ref
+PageSystemWindowViewports for a description.
+
+The active buffers are selected using the _sfLeftBuffer and _sfRightBuffer
+Fields.
 	<Field
 		name="leftBuffer"
 		type="bool"

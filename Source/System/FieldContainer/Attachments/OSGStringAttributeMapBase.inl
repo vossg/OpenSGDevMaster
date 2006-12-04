@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &StringAttributeMapBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 StringAttributeMapBase::getClassTypeId(void) 
+OSG::UInt32 StringAttributeMapBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 StringAttributeMapBase::getClassGroupId(void)
@@ -100,15 +100,15 @@ MFString &StringAttributeMapBase::editKeys(void)
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &StringAttributeMapBase::getKeys(const UInt32 index)
+std::string         &StringAttributeMapBase::getKeys           (const UInt32 index)
 {
-    return this->editKeys(index);
+    return this->editKeys           (index);
 }
 
 inline
-MFString &StringAttributeMapBase::getKeys(void)
+MFString            &StringAttributeMapBase::getKeys           (void)
 {
-    return this->editKeys();
+    return this->editKeys           ();
 }
 
 #endif
@@ -147,15 +147,15 @@ MFString &StringAttributeMapBase::editValues(void)
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &StringAttributeMapBase::getValues(const UInt32 index)
+std::string         &StringAttributeMapBase::getValues         (const UInt32 index)
 {
-    return this->editValues(index);
+    return this->editValues         (index);
 }
 
 inline
-MFString &StringAttributeMapBase::getValues(void)
+MFString            &StringAttributeMapBase::getValues         (void)
 {
-    return this->editValues();
+    return this->editValues         ();
 }
 
 #endif
@@ -170,37 +170,37 @@ const MFString &StringAttributeMapBase::getValues(void) const
 
 //! create a new instance of the class
 inline
-StringAttributeMapPtr StringAttributeMapBase::create(void) 
+StringAttributeMapPtr StringAttributeMapBase::create(void)
 {
-    StringAttributeMapPtr fc; 
+    StringAttributeMapPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<StringAttributeMap::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void StringAttributeMapBase::execSync(      StringAttributeMapBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (KeysFieldMask & whichField))
-        _mfKeys.syncWith(pOther->_mfKeys, 
+        _mfKeys.syncWith(pOther->_mfKeys,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (ValuesFieldMask & whichField))
-        _mfValues.syncWith(pOther->_mfValues, 
+        _mfValues.syncWith(pOther->_mfValues,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -212,19 +212,19 @@ inline
 void StringAttributeMapBase::execSync (      StringAttributeMapBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (KeysFieldMask & whichField))
-        _mfKeys.syncWith(pFrom->_mfKeys, 
+        _mfKeys.syncWith(pFrom->_mfKeys,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (ValuesFieldMask & whichField))
-        _mfValues.syncWith(pFrom->_mfValues, 
+        _mfValues.syncWith(pFrom->_mfValues,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -269,4 +269,3 @@ typedef PointerBuilder<StringAttributeMap>::ObjPtrConstArg  StringAttributeMapPt
 OSG_END_NAMESPACE
 
 #define OSGSTRINGATTRIBUTEMAPBASE_INLINE_CVSID "@(#)$Id$"
-

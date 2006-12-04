@@ -70,22 +70,22 @@ class DepthClearBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! DepthClearBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           DepthClearBackground>::ObjPtr         DepthClearBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           DepthClearBackground>::ObjPtrConst    DepthClearBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           DepthClearBackground>::ObjConstPtr    DepthClearBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           DepthClearBackground>::ObjPtrArg      DepthClearBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           DepthClearBackground>::ObjConstPtrArg DepthClearBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           DepthClearBackground>::ObjPtrConstArg DepthClearBackgroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<BackgroundPtr,
 #endif
 
 template <>
-struct FieldTraits<DepthClearBackgroundPtr> : 
+struct FieldTraits<DepthClearBackgroundPtr> :
     public FieldTraitsTemplateBase<DepthClearBackgroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<DepthClearBackgroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFDepthClearBackgroundPtr"; }

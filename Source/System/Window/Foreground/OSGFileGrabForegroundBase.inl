@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &FileGrabForegroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 FileGrabForegroundBase::getClassTypeId(void) 
+OSG::UInt32 FileGrabForegroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 FileGrabForegroundBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const std::string &FileGrabForegroundBase::getName(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &FileGrabForegroundBase::getName(void)
+std::string         &FileGrabForegroundBase::getName           (void)
 {
-    return this->editName();
+    return this->editName           ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const UInt32 &FileGrabForegroundBase::getFrame(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &FileGrabForegroundBase::getFrame(void)
+UInt32              &FileGrabForegroundBase::getFrame          (void)
 {
-    return this->editFrame();
+    return this->editFrame          ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const bool &FileGrabForegroundBase::getIncrement(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &FileGrabForegroundBase::getIncrement(void)
+bool                &FileGrabForegroundBase::getIncrement      (void)
 {
-    return this->editIncrement();
+    return this->editIncrement      ();
 }
 #endif
 
@@ -175,24 +175,24 @@ void FileGrabForegroundBase::setIncrement(const bool &value)
 
 //! create a new instance of the class
 inline
-FileGrabForegroundPtr FileGrabForegroundBase::create(void) 
+FileGrabForegroundPtr FileGrabForegroundBase::create(void)
 {
-    FileGrabForegroundPtr fc; 
+    FileGrabForegroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<FileGrabForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void FileGrabForegroundBase::execSync(      FileGrabForegroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -214,7 +214,7 @@ inline
 void FileGrabForegroundBase::execSync (      FileGrabForegroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -258,4 +258,3 @@ typedef PointerBuilder<FileGrabForeground>::ObjPtrConstArg  FileGrabForegroundPt
 OSG_END_NAMESPACE
 
 #define OSGFILEGRABFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

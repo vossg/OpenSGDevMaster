@@ -58,18 +58,11 @@
 
 OSG_USING_NAMESPACE
 
+// Documentation for this class is emited in the
+// OSGDepthClearBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGDepthClearBackground.fcd) and
+// regenerate the base file.
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::DepthClearBackground
-    \ingroup GrpSystemWindowBackgrounds
-
-A depth-clear background, see \ref PageSystemWindowBackgroundDepthClear for a
-description.
-
-*/
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/

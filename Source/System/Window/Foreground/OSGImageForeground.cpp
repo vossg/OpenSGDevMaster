@@ -60,21 +60,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ImageForeground
-    \ingroup GrpSystemWindowForegrounds
-    
-The ImageForeground is used to draw images on top of the viewport.  See \ref
-PageSystemWindowForegroundImage for a description.
-
-The images are stored in the _mfImages Field, the corresponding positions in
-the _mfPositions Field.
-
-*/
+// Documentation for this class is emited in the
+// OSGImageForegroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGImageForeground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

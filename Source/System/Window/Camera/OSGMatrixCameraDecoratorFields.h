@@ -70,22 +70,22 @@ class MatrixCameraDecorator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MatrixCameraDecoratorPtr
 
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           MatrixCameraDecorator>::ObjPtr         MatrixCameraDecoratorPtr;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           MatrixCameraDecorator>::ObjPtrConst    MatrixCameraDecoratorPtrConst;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           MatrixCameraDecorator>::ObjConstPtr    MatrixCameraDecoratorConstPtr;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           MatrixCameraDecorator>::ObjPtrArg      MatrixCameraDecoratorPtrArg;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           MatrixCameraDecorator>::ObjConstPtrArg MatrixCameraDecoratorConstPtrArg;
-typedef PointerFwdBuilder<CameraDecoratorPtr, 
+typedef PointerFwdBuilder<CameraDecoratorPtr,
                           CameraDecoratorConstPtr,
                           MatrixCameraDecorator>::ObjPtrConstArg MatrixCameraDecoratorPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<CameraDecoratorPtr,
 #endif
 
 template <>
-struct FieldTraits<MatrixCameraDecoratorPtr> : 
+struct FieldTraits<MatrixCameraDecoratorPtr> :
     public FieldTraitsTemplateBase<MatrixCameraDecoratorPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<MatrixCameraDecoratorPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFMatrixCameraDecoratorPtr"; }

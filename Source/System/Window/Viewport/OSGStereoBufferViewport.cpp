@@ -53,20 +53,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::StereoBufferViewport
-    \ingroup GrpSystemWindowViewports
-
-Viewport for quad-buffered stereo rendering, see \ref
-PageSystemWindowViewports for a description.
-
-The active buffers are selected using the _sfLeftBuffer and _sfRightBuffer
-Fields. 
-
-*/
+// Documentation for this class is emited in the
+// OSGStereoBufferViewportBase.cpp file.
+// To modify it, please change the .fcd file (OSGStereoBufferViewport.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

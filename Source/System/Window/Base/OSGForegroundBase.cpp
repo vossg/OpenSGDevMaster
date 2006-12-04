@@ -65,18 +65,38 @@
 #include "OSGForegroundBase.h"
 #include "OSGForeground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool ForegroundBase::_sfActive
-    	Activate the grabber.
+/*! \class OSG::Foreground
+    \ingroup GrpSystemWindowForegrounds
 
+    Foreground is the base class for all foreground rendering.  See \ref
+    PageSystemWindowForegrounds for a description.
+
+    \ext
+
+    To create a new Foreground the method that has be overridden is
+    draw(DrawActionBase * action, Viewport * port);. It can directly call
+    OpenGL commands, but should restore the state after it's done.
+
+    \endext
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            ForegroundBase::_sfActive
+    Activate the grabber.
 */
 
 void ForegroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -86,9 +106,9 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "active", 
-        "	Activate the grabber.\n",
+        SFBool::getClassType(),
+        "active",
+        "Activate the grabber.\n",
         ActiveFieldId, ActiveFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -108,52 +128,69 @@ ForegroundBase::TypeObject ForegroundBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     Foreground::initMethod,
     (InitalInsertDescFunc) &ForegroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Foreground\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"Background is the base class for all background clearing. \n"
-"	<Field\n"
-"		name=\"active\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Activate the grabber.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "Background is the base class for all background clearing. \n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Foreground\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
+    "Foreground is the base class for all foreground rendering.  See \\ref\n"
+    "PageSystemWindowForegrounds for a description.\n"
+    "\n"
+    "\\ext\n"
+    "\n"
+    "To create a new Foreground the method that has be overridden is\n"
+    "draw(DrawActionBase * action, Viewport * port);. It can directly call OpenGL\n"
+    "commands, but should restore the state after it's done.\n"
+    "\n"
+    "\\endext\n"
+    "\t<Field\n"
+    "\t\tname=\"active\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tActivate the grabber.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "Foreground is the base class for all foreground rendering.  See \\ref\n"
+    "PageSystemWindowForegrounds for a description.\n"
+    "\\ext\n"
+    "To create a new Foreground the method that has be overridden is\n"
+    "draw(DrawActionBase * action, Viewport * port);. It can directly call OpenGL\n"
+    "commands, but should restore the state after it's done.\n"
+    "\\endext\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ForegroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ForegroundBase::getType(void) const 
+FieldContainerType &ForegroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ForegroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(Foreground); 
+const FieldContainerType &ForegroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ForegroundBase::getContainerSize(void) const
+{
+    return sizeof(Foreground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -172,9 +209,9 @@ const SFBool *ForegroundBase::getSFActive(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *ForegroundBase::getSFActive(void)
+SFBool              *ForegroundBase::getSFActive         (void)
 {
-    return this->editSFActive();
+    return this->editSFActive         ();
 }
 #endif
 
@@ -222,13 +259,13 @@ void ForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 
 ForegroundBase::ForegroundBase(void) :
     Inherited(),
-    _sfActive(bool(true))
+    _sfActive                 (bool(true))
 {
 }
 
 ForegroundBase::ForegroundBase(const ForegroundBase &source) :
     Inherited(source),
-    _sfActive(source._sfActive)
+    _sfActive                 (source._sfActive                 )
 {
 }
 
@@ -242,13 +279,13 @@ ForegroundBase::~ForegroundBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ForegroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -258,10 +295,10 @@ void ForegroundBase::execSyncV(      FieldContainer    &oFrom,
 void ForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ForegroundBase *>(&oFrom), 
+    this->execSync(static_cast<ForegroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -285,6 +322,8 @@ void ForegroundBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -306,8 +345,6 @@ OSG_FIELDTRAITS_GETTYPE(ForegroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ForegroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ForegroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -328,3 +365,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGFOREGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

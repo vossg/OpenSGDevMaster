@@ -70,22 +70,22 @@ class ProjectionCameraDecorator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ProjectionCameraDecoratorPtr
 
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ProjectionCameraDecorator>::ObjPtr         ProjectionCameraDecoratorPtr;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ProjectionCameraDecorator>::ObjPtrConst    ProjectionCameraDecoratorPtrConst;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ProjectionCameraDecorator>::ObjConstPtr    ProjectionCameraDecoratorConstPtr;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ProjectionCameraDecorator>::ObjPtrArg      ProjectionCameraDecoratorPtrArg;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ProjectionCameraDecorator>::ObjConstPtrArg ProjectionCameraDecoratorConstPtrArg;
-typedef PointerFwdBuilder<StereoCameraDecoratorPtr, 
+typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
                           StereoCameraDecoratorConstPtr,
                           ProjectionCameraDecorator>::ObjPtrConstArg ProjectionCameraDecoratorPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<StereoCameraDecoratorPtr,
 #endif
 
 template <>
-struct FieldTraits<ProjectionCameraDecoratorPtr> : 
+struct FieldTraits<ProjectionCameraDecoratorPtr> :
     public FieldTraitsTemplateBase<ProjectionCameraDecoratorPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ProjectionCameraDecoratorPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFProjectionCameraDecoratorPtr"; }

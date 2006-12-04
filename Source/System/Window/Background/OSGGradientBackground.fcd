@@ -10,7 +10,14 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-A background showing a vertical color gradient. The colors and positions correspond to each other, so both have to have the same number of elements.
+\ingroup GrpSystemWindowBackgrounds
+
+A background showing a vertical color gradient, see
+\ref PageSystemWindowBackgroundGradient.
+
+The colors (_mfColor) and positions (_mfPosition) correspond to each other, so
+both have to have the same number of elements. The addColor() method should
+be used for defining the gradient, as it ensures that constraint.
 	<Field
 		name="color"
 		type="Color3f"

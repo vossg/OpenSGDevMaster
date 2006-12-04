@@ -10,7 +10,13 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-A viewport used to restrict rendering to specific color channels.
+\ingroup GrpSystemWindowViewports
+
+Viewport to only render to specific color channels, see \ref
+PageSystemWindowViewports for a description.
+
+The color channels used are defined by the _sfRed, _sfGreen, _sfBlue and
+_sfAlpha Fields.
 	<Field
 		name="red"
 		type="bool"

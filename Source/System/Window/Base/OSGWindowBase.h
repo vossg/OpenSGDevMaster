@@ -91,22 +91,22 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               Window>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               Window>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Window>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Window>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Window>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Window>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         NextFieldId = GlObjectLastReinitializeFieldId + 1
     };
 
-    static const OSG::BitVector WidthFieldMask = 
+    static const OSG::BitVector WidthFieldMask =
         (TypeTraits<BitVector>::One << WidthFieldId);
-    static const OSG::BitVector HeightFieldMask = 
+    static const OSG::BitVector HeightFieldMask =
         (TypeTraits<BitVector>::One << HeightFieldId);
-    static const OSG::BitVector PortFieldMask = 
+    static const OSG::BitVector PortFieldMask =
         (TypeTraits<BitVector>::One << PortFieldId);
-    static const OSG::BitVector ResizePendingFieldMask = 
+    static const OSG::BitVector ResizePendingFieldMask =
         (TypeTraits<BitVector>::One << ResizePendingFieldId);
-    static const OSG::BitVector GlObjectEventCounterFieldMask = 
+    static const OSG::BitVector GlObjectEventCounterFieldMask =
         (TypeTraits<BitVector>::One << GlObjectEventCounterFieldId);
-    static const OSG::BitVector GlObjectLastRefreshFieldMask = 
+    static const OSG::BitVector GlObjectLastRefreshFieldMask =
         (TypeTraits<BitVector>::One << GlObjectLastRefreshFieldId);
-    static const OSG::BitVector GlObjectLastReinitializeFieldMask = 
+    static const OSG::BitVector GlObjectLastReinitializeFieldMask =
         (TypeTraits<BitVector>::One << GlObjectLastReinitializeFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -169,79 +168,79 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFWidth(void);
+                  SFUInt16            *getSFWidth           (void);
 #endif
-           SFUInt16 *editSFWidth(void);
-     const SFUInt16 *getSFWidth (void) const;
+                  SFUInt16            *editSFWidth          (void);
+            const SFUInt16            *getSFWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFHeight(void);
+                  SFUInt16            *getSFHeight          (void);
 #endif
-           SFUInt16 *editSFHeight(void);
-     const SFUInt16 *getSFHeight (void) const;
-     const MFViewportPtr *getMFPort (void) const;
+                  SFUInt16            *editSFHeight         (void);
+            const SFUInt16            *getSFHeight          (void) const;
+            const MFViewportPtr       *getMFPort            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFResizePending(void);
+                  SFBool              *getSFResizePending   (void);
 #endif
-           SFBool *editSFResizePending(void);
-     const SFBool *getSFResizePending (void) const;
+                  SFBool              *editSFResizePending  (void);
+            const SFBool              *getSFResizePending   (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getWidth(void);
+                  UInt16              &getWidth           (void);
 #endif
-           UInt16 &editWidth(void);
-     const UInt16 &getWidth (void) const;
+                  UInt16              &editWidth          (void);
+            const UInt16              &getWidth           (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getHeight(void);
+                  UInt16              &getHeight          (void);
 #endif
-           UInt16 &editHeight(void);
-     const UInt16 &getHeight (void) const;
+                  UInt16              &editHeight         (void);
+            const UInt16              &getHeight          (void) const;
 
-           ViewportPtrConst getPort(const UInt32 index) const;
-     const MFViewportPtr &getPort(void) const;
+                  ViewportPtrConst getPort           (const UInt32 index) const;
+            const MFViewportPtr       &getPort           (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getResizePending(void);
+                  bool                &getResizePending   (void);
 #endif
-           bool &editResizePending(void);
-     const bool &getResizePending (void) const;
+                  bool                &editResizePending  (void);
+            const bool                &getResizePending   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setWidth(const UInt16 &value);
-     void setHeight(const UInt16 &value);
-     void setResizePending(const bool &value);
+            void setWidth          (const UInt16 &value);
+            void setHeight         (const UInt16 &value);
+            void setResizePending  (const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -251,18 +250,18 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addPort           (ViewportPtrConstArg value   );
-    void insertPort      (UInt32                uiIndex,
-                                    ViewportPtrConstArg value   );
-    void replacePort  (UInt32                uiIndex,
-                                    ViewportPtrConstArg value   );
-    void replacePortyBy (ViewportPtrConstArg pOldElem,
-                                    ViewportPtrConstArg pNewElem);
-    void subPort (UInt32                uiIndex );
-    void subPort(ViewportPtrConstArg value   );
-    void clearPorts            (void                          );
+    void addPort                   (ViewportPtrConstArg value   );
+    void insertPort           (UInt32                uiIndex,
+                                             ViewportPtrConstArg value   );
+    void replacePort      (UInt32                uiIndex,
+                                             ViewportPtrConstArg value   );
+    void replacePortyBy  (ViewportPtrConstArg pOldElem,
+                                             ViewportPtrConstArg pNewElem);
+    void subPort         (UInt32                uiIndex );
+    void subPort        (ViewportPtrConstArg value   );
+    void clearPorts                 (void                          );
 
- 
+
 
 
 
@@ -292,13 +291,13 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt16 _sfWidth;
-    SFUInt16 _sfHeight;
-    MFViewportPtr _mfPort;
-    SFBool _sfResizePending;
-    SFUInt32 _sfGlObjectEventCounter;
-    MFUInt32 _mfGlObjectLastRefresh;
-    MFUInt32 _mfGlObjectLastReinitialize;
+    SFUInt16          _sfWidth;
+    SFUInt16          _sfHeight;
+    MFViewportPtr     _mfPort;
+    SFBool            _sfResizePending;
+    SFUInt32          _sfGlObjectEventCounter;
+    MFUInt32          _mfGlObjectLastRefresh;
+    MFUInt32          _mfGlObjectLastReinitialize;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -313,7 +312,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~WindowBase(void); 
+    virtual ~WindowBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -329,54 +328,54 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFGlObjectEventCounter(void);
+                  SFUInt32            *getSFGlObjectEventCounter (void);
 #endif
-           SFUInt32 *editSFGlObjectEventCounter(void);
-     const SFUInt32 *getSFGlObjectEventCounter (void) const;
+                  SFUInt32            *editSFGlObjectEventCounter(void);
+            const SFUInt32            *getSFGlObjectEventCounter (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFUInt32 *getMFGlObjectLastRefresh(void);
+                  MFUInt32            *getMFGlObjectLastRefresh (void);
 #endif
-           MFUInt32 *editMFGlObjectLastRefresh(void);
-     const MFUInt32 *getMFGlObjectLastRefresh (void) const;
+                  MFUInt32            *editMFGlObjectLastRefresh(void);
+            const MFUInt32            *getMFGlObjectLastRefresh (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFUInt32 *getMFGlObjectLastReinitialize(void);
+                  MFUInt32            *getMFGlObjectLastReinitialize (void);
 #endif
-           MFUInt32 *editMFGlObjectLastReinitialize(void);
-     const MFUInt32 *getMFGlObjectLastReinitialize (void) const;
+                  MFUInt32            *editMFGlObjectLastReinitialize(void);
+            const MFUInt32            *getMFGlObjectLastReinitialize (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getGlObjectEventCounter(void);
+                  UInt32              &getGlObjectEventCounter (void);
 #endif
-           UInt32 &editGlObjectEventCounter(void);
-     const UInt32 &getGlObjectEventCounter(void) const;
+                  UInt32              &editGlObjectEventCounter(void);
+            const UInt32              &getGlObjectEventCounter (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getGlObjectLastRefresh(const UInt32 index);
-           MFUInt32 &getGlObjectLastRefresh(void);
+                  UInt32              &getGlObjectLastRefresh (const UInt32 index);
+                  MFUInt32            &getGlObjectLastRefresh(void);
 #endif
-           UInt32 &editGlObjectLastRefresh(const UInt32 index);
-     const UInt32 &getGlObjectLastRefresh(const UInt32 index) const;
-           MFUInt32 &editGlObjectLastRefresh(void);
-     const MFUInt32 &getGlObjectLastRefresh(void) const;
+                  UInt32              &editGlObjectLastRefresh(const UInt32 index);
+            const UInt32              &getGlObjectLastRefresh (const UInt32 index) const;
+                  MFUInt32            &editGlObjectLastRefresh(void);
+            const MFUInt32            &getGlObjectLastRefresh (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getGlObjectLastReinitialize(const UInt32 index);
-           MFUInt32 &getGlObjectLastReinitialize(void);
+                  UInt32              &getGlObjectLastReinitialize (const UInt32 index);
+                  MFUInt32            &getGlObjectLastReinitialize(void);
 #endif
-           UInt32 &editGlObjectLastReinitialize(const UInt32 index);
-     const UInt32 &getGlObjectLastReinitialize(const UInt32 index) const;
-           MFUInt32 &editGlObjectLastReinitialize(void);
-     const MFUInt32 &getGlObjectLastReinitialize(void) const;
+                  UInt32              &editGlObjectLastReinitialize(const UInt32 index);
+            const UInt32              &getGlObjectLastReinitialize (const UInt32 index) const;
+                  MFUInt32            &editGlObjectLastReinitialize(void);
+            const MFUInt32            &getGlObjectLastReinitialize (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setGlObjectEventCounter(const UInt32 &value);
+            void setGlObjectEventCounter(const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -387,29 +386,27 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
     void pushToGlObjectLastRefresh           (const UInt32& value   );
     void insertIntoGlObjectLastRefresh      (UInt32                uiIndex,
-                                    const UInt32& value   );
+                                             const UInt32& value   );
     void replaceInGlObjectLastRefresh  (UInt32                uiIndex,
-                                    const UInt32& value   );
+                                             const UInt32& value   );
     void replaceInGlObjectLastRefresh (const UInt32& pOldElem,
-                                    const UInt32& pNewElem);
+                                             const UInt32& pNewElem);
     void removeFromGlObjectLastRefresh (UInt32                uiIndex );
     void removeFromGlObjectLastRefresh(const UInt32& value   );
     void clearGlObjectLastRefresh            (void                          );
 
 
 
-
     void pushToGlObjectLastReinitialize           (const UInt32& value   );
     void insertIntoGlObjectLastReinitialize      (UInt32                uiIndex,
-                                    const UInt32& value   );
+                                             const UInt32& value   );
     void replaceInGlObjectLastReinitialize  (UInt32                uiIndex,
-                                    const UInt32& value   );
+                                             const UInt32& value   );
     void replaceInGlObjectLastReinitialize (const UInt32& pOldElem,
-                                    const UInt32& pNewElem);
+                                             const UInt32& pNewElem);
     void removeFromGlObjectLastReinitialize (UInt32                uiIndex );
     void removeFromGlObjectLastReinitialize(const UInt32& value   );
     void clearGlObjectLastReinitialize            (void                          );
-
 
 
 
@@ -451,11 +448,11 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

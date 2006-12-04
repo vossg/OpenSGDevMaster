@@ -90,22 +90,22 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
-                              CameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
+                              CameraDecoratorConstPtr,
                               MatrixCameraDecorator>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
-                              CameraDecoratorConstPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
+                              CameraDecoratorConstPtr,
                               MatrixCameraDecorator>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               MatrixCameraDecorator>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               MatrixCameraDecorator>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               MatrixCameraDecorator>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<CameraDecoratorPtr, 
+    typedef PointerFwdBuilder<CameraDecoratorPtr,
                               CameraDecoratorConstPtr,
                               MatrixCameraDecorator>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -124,28 +124,27 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
         NextFieldId = PostProjectionFieldId + 1
     };
 
-    static const OSG::BitVector PreViewingFieldMask = 
+    static const OSG::BitVector PreViewingFieldMask =
         (TypeTraits<BitVector>::One << PreViewingFieldId);
-    static const OSG::BitVector PostViewingFieldMask = 
+    static const OSG::BitVector PostViewingFieldMask =
         (TypeTraits<BitVector>::One << PostViewingFieldId);
-    static const OSG::BitVector PreProjectionTranslationFieldMask = 
+    static const OSG::BitVector PreProjectionTranslationFieldMask =
         (TypeTraits<BitVector>::One << PreProjectionTranslationFieldId);
-    static const OSG::BitVector PostProjectionTranslationFieldMask = 
+    static const OSG::BitVector PostProjectionTranslationFieldMask =
         (TypeTraits<BitVector>::One << PostProjectionTranslationFieldId);
-    static const OSG::BitVector PreProjectionFieldMask = 
+    static const OSG::BitVector PreProjectionFieldMask =
         (TypeTraits<BitVector>::One << PreProjectionFieldId);
-    static const OSG::BitVector PostProjectionFieldMask = 
+    static const OSG::BitVector PostProjectionFieldMask =
         (TypeTraits<BitVector>::One << PostProjectionFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -153,8 +152,8 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -165,89 +164,89 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
 
 
 #ifdef OSG_1_COMPAT
-           SFMatrix *getSFPreViewing(void);
+                  SFMatrix            *getSFPreViewing      (void);
 #endif
-           SFMatrix *editSFPreViewing(void);
-     const SFMatrix *getSFPreViewing (void) const;
+                  SFMatrix            *editSFPreViewing     (void);
+            const SFMatrix            *getSFPreViewing      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFMatrix *getSFPostViewing(void);
+                  SFMatrix            *getSFPostViewing     (void);
 #endif
-           SFMatrix *editSFPostViewing(void);
-     const SFMatrix *getSFPostViewing (void) const;
+                  SFMatrix            *editSFPostViewing    (void);
+            const SFMatrix            *getSFPostViewing     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFMatrix *getSFPreProjectionTranslation(void);
+                  SFMatrix            *getSFPreProjectionTranslation (void);
 #endif
-           SFMatrix *editSFPreProjectionTranslation(void);
-     const SFMatrix *getSFPreProjectionTranslation (void) const;
+                  SFMatrix            *editSFPreProjectionTranslation(void);
+            const SFMatrix            *getSFPreProjectionTranslation (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFMatrix *getSFPostProjectionTranslation(void);
+                  SFMatrix            *getSFPostProjectionTranslation (void);
 #endif
-           SFMatrix *editSFPostProjectionTranslation(void);
-     const SFMatrix *getSFPostProjectionTranslation (void) const;
+                  SFMatrix            *editSFPostProjectionTranslation(void);
+            const SFMatrix            *getSFPostProjectionTranslation (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFMatrix *getSFPreProjection(void);
+                  SFMatrix            *getSFPreProjection   (void);
 #endif
-           SFMatrix *editSFPreProjection(void);
-     const SFMatrix *getSFPreProjection (void) const;
+                  SFMatrix            *editSFPreProjection  (void);
+            const SFMatrix            *getSFPreProjection   (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFMatrix *getSFPostProjection(void);
+                  SFMatrix            *getSFPostProjection  (void);
 #endif
-           SFMatrix *editSFPostProjection(void);
-     const SFMatrix *getSFPostProjection (void) const;
+                  SFMatrix            *editSFPostProjection (void);
+            const SFMatrix            *getSFPostProjection  (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Matrix &getPreViewing(void);
+                  Matrix              &getPreViewing      (void);
 #endif
-           Matrix &editPreViewing(void);
-     const Matrix &getPreViewing (void) const;
+                  Matrix              &editPreViewing     (void);
+            const Matrix              &getPreViewing      (void) const;
 
 #ifdef OSG_1_COMPAT
-           Matrix &getPostViewing(void);
+                  Matrix              &getPostViewing     (void);
 #endif
-           Matrix &editPostViewing(void);
-     const Matrix &getPostViewing (void) const;
+                  Matrix              &editPostViewing    (void);
+            const Matrix              &getPostViewing     (void) const;
 
 #ifdef OSG_1_COMPAT
-           Matrix &getPreProjectionTranslation(void);
+                  Matrix              &getPreProjectionTranslation (void);
 #endif
-           Matrix &editPreProjectionTranslation(void);
-     const Matrix &getPreProjectionTranslation (void) const;
+                  Matrix              &editPreProjectionTranslation(void);
+            const Matrix              &getPreProjectionTranslation (void) const;
 
 #ifdef OSG_1_COMPAT
-           Matrix &getPostProjectionTranslation(void);
+                  Matrix              &getPostProjectionTranslation (void);
 #endif
-           Matrix &editPostProjectionTranslation(void);
-     const Matrix &getPostProjectionTranslation (void) const;
+                  Matrix              &editPostProjectionTranslation(void);
+            const Matrix              &getPostProjectionTranslation (void) const;
 
 #ifdef OSG_1_COMPAT
-           Matrix &getPreProjection(void);
+                  Matrix              &getPreProjection   (void);
 #endif
-           Matrix &editPreProjection(void);
-     const Matrix &getPreProjection (void) const;
+                  Matrix              &editPreProjection  (void);
+            const Matrix              &getPreProjection   (void) const;
 
 #ifdef OSG_1_COMPAT
-           Matrix &getPostProjection(void);
+                  Matrix              &getPostProjection  (void);
 #endif
-           Matrix &editPostProjection(void);
-     const Matrix &getPostProjection (void) const;
+                  Matrix              &editPostProjection (void);
+            const Matrix              &getPostProjection  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setPreViewing(const Matrix &value);
-     void setPostViewing(const Matrix &value);
-     void setPreProjectionTranslation(const Matrix &value);
-     void setPostProjectionTranslation(const Matrix &value);
-     void setPreProjection(const Matrix &value);
-     void setPostProjection(const Matrix &value);
+            void setPreViewing     (const Matrix &value);
+            void setPostViewing    (const Matrix &value);
+            void setPreProjectionTranslation(const Matrix &value);
+            void setPostProjectionTranslation(const Matrix &value);
+            void setPreProjection  (const Matrix &value);
+            void setPostProjection (const Matrix &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -267,15 +266,15 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  MatrixCameraDecoratorPtr create     (void); 
-    static  MatrixCameraDecoratorPtr createEmpty(void); 
+    static  MatrixCameraDecoratorPtr create     (void);
+    static  MatrixCameraDecoratorPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -291,12 +290,12 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMatrix _sfPreViewing;
-    SFMatrix _sfPostViewing;
-    SFMatrix _sfPreProjectionTranslation;
-    SFMatrix _sfPostProjectionTranslation;
-    SFMatrix _sfPreProjection;
-    SFMatrix _sfPostProjection;
+    SFMatrix          _sfPreViewing;
+    SFMatrix          _sfPostViewing;
+    SFMatrix          _sfPreProjectionTranslation;
+    SFMatrix          _sfPostProjectionTranslation;
+    SFMatrix          _sfPreProjection;
+    SFMatrix          _sfPostProjection;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -311,7 +310,7 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~MatrixCameraDecoratorBase(void); 
+    virtual ~MatrixCameraDecoratorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -357,11 +356,11 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

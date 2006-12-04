@@ -65,26 +65,42 @@
 #include "OSGFileGrabForegroundBase.h"
 #include "OSGFileGrabForeground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var std::string FileGrabForegroundBase::_sfName
-    	The filename template. 0 is replaced by the frame number.
+/*! \class OSG::FileGrabForeground
+    \ingroup GrpSystemWindowForegrounds
 
+    The FileGrabForeground is used for grabbing a frame or sequence of
+    frames to disk.  See \ref PageSystemWindowForegroundGrabFile for a
+    description.
+
+    The name of the file(s) grabbed to are defined by the _sfName Field,
+    the current frame number by _sfFrame. _sfIncrement can be used to
+    automatically increment the frame number after each image is written.
+    The whole grabber can be activated/deactivated using _sfActive.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var std::string     FileGrabForegroundBase::_sfName
+    The filename template. %d is replaced by the frame number.
 */
-/*! \var UInt32 FileGrabForegroundBase::_sfFrame
-    	The frame number to use.
-
+/*! \var UInt32          FileGrabForegroundBase::_sfFrame
+    The frame number to use.
 */
-/*! \var bool FileGrabForegroundBase::_sfIncrement
-    	Flag to start/stop automatic frame increments after each grab.
-
+/*! \var bool            FileGrabForegroundBase::_sfIncrement
+    Flag to start/stop automatic frame increments after each grab.
 */
 
 void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -94,9 +110,9 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFString::Description(
-        SFString::getClassType(), 
-        "name", 
-        "	The filename template. 0 is replaced by the frame number.\n",
+        SFString::getClassType(),
+        "name",
+        "The filename template. %d is replaced by the frame number.\n",
         NameFieldId, NameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -116,9 +132,9 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "frame", 
-        "	The frame number to use.\n",
+        SFUInt32::getClassType(),
+        "frame",
+        "The frame number to use.\n",
         FrameFieldId, FrameFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -138,9 +154,9 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "increment", 
-        "	Flag to start/stop automatic frame increments after each grab.\n",
+        SFBool::getClassType(),
+        "increment",
+        "Flag to start/stop automatic frame increments after each grab.\n",
         IncrementFieldId, IncrementFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -165,68 +181,83 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(true,
     (InitalInsertDescFunc) &FileGrabForegroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"FileGrabForeground\"\n"
-"	parent=\"GrabForeground\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"Background is the base class for all background clearing.\n"
-"	<Field\n"
-"		name=\"name\"\n"
-"		type=\"std::string\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The filename template. 0 is replaced by the frame number.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"frame\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The frame number to use.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"increment\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Flag to start/stop automatic frame increments after each grab.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "Background is the base class for all background clearing.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"FileGrabForeground\"\n"
+    "\tparent=\"GrabForeground\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
+    "The FileGrabForeground is used for grabbing a frame or sequence of frames to\n"
+    "disk.  See \\ref\n"
+    "PageSystemWindowForegroundGrabFile for a description.\n"
+    "\n"
+    "The name of the file(s) grabbed to are defined by the _sfName Field, the\n"
+    "current frame number by _sfFrame. _sfIncrement can be used to automatically\n"
+    "increment the frame number after each image is written. The whole grabber can\n"
+    "be activated/deactivated using _sfActive.\n"
+    "\t<Field\n"
+    "\t\tname=\"name\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe filename template. %d is replaced by the frame number.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"frame\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe frame number to use.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"increment\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tFlag to start/stop automatic frame increments after each grab.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowForegrounds\n"
+    "The FileGrabForeground is used for grabbing a frame or sequence of frames to\n"
+    "disk.  See \\ref\n"
+    "PageSystemWindowForegroundGrabFile for a description.\n"
+    "The name of the file(s) grabbed to are defined by the _sfName Field, the\n"
+    "current frame number by _sfFrame. _sfIncrement can be used to automatically\n"
+    "increment the frame number after each image is written. The whole grabber can\n"
+    "be activated/deactivated using _sfActive.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &FileGrabForegroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &FileGrabForegroundBase::getType(void) const 
+FieldContainerType &FileGrabForegroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 FileGrabForegroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(FileGrabForeground); 
+const FieldContainerType &FileGrabForegroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 FileGrabForegroundBase::getContainerSize(void) const
+{
+    return sizeof(FileGrabForeground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -245,9 +276,9 @@ const SFString *FileGrabForegroundBase::getSFName(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFString *FileGrabForegroundBase::getSFName(void)
+SFString            *FileGrabForegroundBase::getSFName           (void)
 {
-    return this->editSFName();
+    return this->editSFName           ();
 }
 #endif
 
@@ -264,9 +295,9 @@ const SFUInt32 *FileGrabForegroundBase::getSFFrame(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *FileGrabForegroundBase::getSFFrame(void)
+SFUInt32            *FileGrabForegroundBase::getSFFrame          (void)
 {
-    return this->editSFFrame();
+    return this->editSFFrame          ();
 }
 #endif
 
@@ -283,9 +314,9 @@ const SFBool *FileGrabForegroundBase::getSFIncrement(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *FileGrabForegroundBase::getSFIncrement(void)
+SFBool              *FileGrabForegroundBase::getSFIncrement      (void)
 {
-    return this->editSFIncrement();
+    return this->editSFIncrement      ();
 }
 #endif
 
@@ -352,22 +383,22 @@ void FileGrabForegroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-FileGrabForegroundPtr FileGrabForegroundBase::createEmpty(void) 
-{ 
-    FileGrabForegroundPtr returnValue; 
-    
-    newPtr<FileGrabForeground>(returnValue); 
+FileGrabForegroundPtr FileGrabForegroundBase::createEmpty(void)
+{
+    FileGrabForegroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<FileGrabForeground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr FileGrabForegroundBase::shallowCopy(void) const 
-{ 
-    FileGrabForegroundPtr returnValue; 
+FieldContainerPtr FileGrabForegroundBase::shallowCopy(void) const
+{
+    FileGrabForegroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const FileGrabForeground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const FileGrabForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -376,17 +407,17 @@ FieldContainerPtr FileGrabForegroundBase::shallowCopy(void) const
 
 FileGrabForegroundBase::FileGrabForegroundBase(void) :
     Inherited(),
-    _sfName(),
-    _sfFrame(UInt32(0)),
-    _sfIncrement(bool(true))
+    _sfName                   (),
+    _sfFrame                  (UInt32(0)),
+    _sfIncrement              (bool(true))
 {
 }
 
 FileGrabForegroundBase::FileGrabForegroundBase(const FileGrabForegroundBase &source) :
     Inherited(source),
-    _sfName(source._sfName),
-    _sfFrame(source._sfFrame),
-    _sfIncrement(source._sfIncrement)
+    _sfName                   (source._sfName                   ),
+    _sfFrame                  (source._sfFrame                  ),
+    _sfIncrement              (source._sfIncrement              )
 {
 }
 
@@ -400,13 +431,13 @@ FileGrabForegroundBase::~FileGrabForegroundBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void FileGrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<FileGrabForegroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -416,10 +447,10 @@ void FileGrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
 void FileGrabForegroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<FileGrabForegroundBase *>(&oFrom), 
+    this->execSync(static_cast<FileGrabForegroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -439,12 +470,12 @@ void FileGrabForegroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr FileGrabForegroundBase::createAspectCopy(void) const
 {
-    FileGrabForegroundPtr returnValue; 
+    FileGrabForegroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const FileGrabForeground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const FileGrabForeground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -453,6 +484,8 @@ void FileGrabForegroundBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -475,8 +508,6 @@ OSG_FIELDTRAITS_GETTYPE(FileGrabForegroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, FileGrabForegroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, FileGrabForegroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -497,3 +528,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGFILEGRABFOREGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

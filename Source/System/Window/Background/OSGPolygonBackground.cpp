@@ -51,13 +51,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::PolygonBackground
-  A Background that renders a single polygon using the specified material.
-*/
+// Documentation for this class is emited in the
+// OSGPolygonBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGPolygonBackground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TileCameraDecoratorBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TileCameraDecoratorBase::getClassTypeId(void) 
+OSG::UInt32 TileCameraDecoratorBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TileCameraDecoratorBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Real32 &TileCameraDecoratorBase::getLeft(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TileCameraDecoratorBase::getLeft(void)
+Real32              &TileCameraDecoratorBase::getLeft           (void)
 {
-    return this->editLeft();
+    return this->editLeft           ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Real32 &TileCameraDecoratorBase::getRight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TileCameraDecoratorBase::getRight(void)
+Real32              &TileCameraDecoratorBase::getRight          (void)
 {
-    return this->editRight();
+    return this->editRight          ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Real32 &TileCameraDecoratorBase::getBottom(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TileCameraDecoratorBase::getBottom(void)
+Real32              &TileCameraDecoratorBase::getBottom         (void)
 {
-    return this->editBottom();
+    return this->editBottom         ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Real32 &TileCameraDecoratorBase::getTop(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &TileCameraDecoratorBase::getTop(void)
+Real32              &TileCameraDecoratorBase::getTop            (void)
 {
-    return this->editTop();
+    return this->editTop            ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const UInt32 &TileCameraDecoratorBase::getFullWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &TileCameraDecoratorBase::getFullWidth(void)
+UInt32              &TileCameraDecoratorBase::getFullWidth      (void)
 {
-    return this->editFullWidth();
+    return this->editFullWidth      ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const UInt32 &TileCameraDecoratorBase::getFullHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &TileCameraDecoratorBase::getFullHeight(void)
+UInt32              &TileCameraDecoratorBase::getFullHeight     (void)
 {
-    return this->editFullHeight();
+    return this->editFullHeight     ();
 }
 #endif
 
@@ -274,24 +274,24 @@ void TileCameraDecoratorBase::setFullHeight(const UInt32 &value)
 
 //! create a new instance of the class
 inline
-TileCameraDecoratorPtr TileCameraDecoratorBase::create(void) 
+TileCameraDecoratorPtr TileCameraDecoratorBase::create(void)
 {
-    TileCameraDecoratorPtr fc; 
+    TileCameraDecoratorPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TileCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TileCameraDecoratorBase::execSync(      TileCameraDecoratorBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -322,7 +322,7 @@ inline
 void TileCameraDecoratorBase::execSync (      TileCameraDecoratorBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -375,4 +375,3 @@ typedef PointerBuilder<TileCameraDecorator>::ObjPtrConstArg  TileCameraDecorator
 OSG_END_NAMESPACE
 
 #define OSGTILECAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
-

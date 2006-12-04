@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &PolygonForegroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 PolygonForegroundBase::getClassTypeId(void) 
+OSG::UInt32 PolygonForegroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 PolygonForegroundBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const bool &PolygonForegroundBase::getNormalizedX(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PolygonForegroundBase::getNormalizedX(void)
+bool                &PolygonForegroundBase::getNormalizedX    (void)
 {
-    return this->editNormalizedX();
+    return this->editNormalizedX    ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const bool &PolygonForegroundBase::getNormalizedY(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &PolygonForegroundBase::getNormalizedY(void)
+bool                &PolygonForegroundBase::getNormalizedY    (void)
 {
-    return this->editNormalizedY();
+    return this->editNormalizedY    ();
 }
 #endif
 
@@ -183,15 +183,15 @@ MFPnt2f &PolygonForegroundBase::editPositions(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt2f &PolygonForegroundBase::getPositions(const UInt32 index)
+Pnt2f               &PolygonForegroundBase::getPositions      (const UInt32 index)
 {
-    return this->editPositions(index);
+    return this->editPositions      (index);
 }
 
 inline
-MFPnt2f &PolygonForegroundBase::getPositions(void)
+MFPnt2f             &PolygonForegroundBase::getPositions      (void)
 {
-    return this->editPositions();
+    return this->editPositions      ();
 }
 
 #endif
@@ -230,15 +230,15 @@ MFVec3f &PolygonForegroundBase::editTexCoords(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &PolygonForegroundBase::getTexCoords(const UInt32 index)
+Vec3f               &PolygonForegroundBase::getTexCoords      (const UInt32 index)
 {
-    return this->editTexCoords(index);
+    return this->editTexCoords      (index);
 }
 
 inline
-MFVec3f &PolygonForegroundBase::getTexCoords(void)
+MFVec3f             &PolygonForegroundBase::getTexCoords      (void)
 {
-    return this->editTexCoords();
+    return this->editTexCoords      ();
 }
 
 #endif
@@ -253,24 +253,24 @@ const MFVec3f &PolygonForegroundBase::getTexCoords(void) const
 
 //! create a new instance of the class
 inline
-PolygonForegroundPtr PolygonForegroundBase::create(void) 
+PolygonForegroundPtr PolygonForegroundBase::create(void)
 {
-    PolygonForegroundPtr fc; 
+    PolygonForegroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<PolygonForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void PolygonForegroundBase::execSync(      PolygonForegroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -280,13 +280,13 @@ void PolygonForegroundBase::execSync(      PolygonForegroundBase *pOther,
         _sfMaterial.syncWith(pOther->_sfMaterial);
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pOther->_mfPositions, 
+        _mfPositions.syncWith(pOther->_mfPositions,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-        _mfTexCoords.syncWith(pOther->_mfTexCoords, 
+        _mfTexCoords.syncWith(pOther->_mfTexCoords,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -304,7 +304,7 @@ inline
 void PolygonForegroundBase::execSync (      PolygonForegroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -313,13 +313,13 @@ void PolygonForegroundBase::execSync (      PolygonForegroundBase *pFrom,
         _sfMaterial.syncWith(pFrom->_sfMaterial);
 
     if(FieldBits::NoField != (PositionsFieldMask & whichField))
-        _mfPositions.syncWith(pFrom->_mfPositions, 
+        _mfPositions.syncWith(pFrom->_mfPositions,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (TexCoordsFieldMask & whichField))
-        _mfTexCoords.syncWith(pFrom->_mfTexCoords, 
+        _mfTexCoords.syncWith(pFrom->_mfTexCoords,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -370,4 +370,3 @@ typedef PointerBuilder<PolygonForeground>::ObjPtrConstArg  PolygonForegroundPtrC
 OSG_END_NAMESPACE
 
 #define OSGPOLYGONFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

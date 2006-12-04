@@ -65,22 +65,33 @@
 #include "OSGShearedStereoCameraDecoratorBase.h"
 #include "OSGShearedStereoCameraDecorator.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Real32 ShearedStereoCameraDecoratorBase::_sfZeroParallaxDistance
-    	The distance to the zero parallax plane.
+/*! \class OSG::ShearedStereoCameraDecorator
+    \ingroup GrpSystemWindowCameraDecorators
 
+    The OSG::CameraDecorator for standard sheared stereo projections, see
+    \ref PageSystemWindowCameraDecoratorsStereoSheared for a description.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Real32          ShearedStereoCameraDecoratorBase::_sfZeroParallaxDistance
+    The distance to the zero parallax plane.
 */
-/*! \var Real32 ShearedStereoCameraDecoratorBase::_sfOverlap
-    	The overlap between left and right eye.
-
+/*! \var Real32          ShearedStereoCameraDecoratorBase::_sfOverlap
+    The overlap between left and right eye.
 */
 
 void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +101,9 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "zeroParallaxDistance", 
-        "	The distance to the zero parallax plane.\n",
+        SFReal32::getClassType(),
+        "zeroParallaxDistance",
+        "The distance to the zero parallax plane.\n",
         ZeroParallaxDistanceFieldId, ZeroParallaxDistanceFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,9 +123,9 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "overlap", 
-        "	The overlap between left and right eye.\n",
+        SFReal32::getClassType(),
+        "overlap",
+        "The overlap between left and right eye.\n",
         OverlapFieldId, OverlapFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -139,58 +150,62 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     (InitalInsertDescFunc) &ShearedStereoCameraDecoratorBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"ShearedStereoCameraDecorator\"\n"
-"	parent=\"StereoCameraDecorator\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"The base class for stereo decorators.\n"
-"	<Field\n"
-"		name=\"zeroParallaxDistance\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The distance to the zero parallax plane.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"overlap\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The overlap between left and right eye.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The base class for stereo decorators.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"ShearedStereoCameraDecorator\"\n"
+    "\tparent=\"StereoCameraDecorator\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "\n"
+    "The OSG::CameraDecorator for standard sheared stereo projections, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsStereoSheared for a description.\n"
+    "\t<Field\n"
+    "\t\tname=\"zeroParallaxDistance\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe distance to the zero parallax plane.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"overlap\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe overlap between left and right eye.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "The OSG::CameraDecorator for standard sheared stereo projections, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsStereoSheared for a description.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ShearedStereoCameraDecoratorBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &ShearedStereoCameraDecoratorBase::getType(void) const 
+FieldContainerType &ShearedStereoCameraDecoratorBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 ShearedStereoCameraDecoratorBase::getContainerSize(void) const 
-{ 
-    return sizeof(ShearedStereoCameraDecorator); 
+const FieldContainerType &ShearedStereoCameraDecoratorBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 ShearedStereoCameraDecoratorBase::getContainerSize(void) const
+{
+    return sizeof(ShearedStereoCameraDecorator);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -209,7 +224,7 @@ const SFReal32 *ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance(void
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance(void)
+SFReal32            *ShearedStereoCameraDecoratorBase::getSFZeroParallaxDistance(void)
 {
     return this->editSFZeroParallaxDistance();
 }
@@ -228,9 +243,9 @@ const SFReal32 *ShearedStereoCameraDecoratorBase::getSFOverlap(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *ShearedStereoCameraDecoratorBase::getSFOverlap(void)
+SFReal32            *ShearedStereoCameraDecoratorBase::getSFOverlap        (void)
 {
-    return this->editSFOverlap();
+    return this->editSFOverlap        ();
 }
 #endif
 
@@ -285,22 +300,22 @@ void ShearedStereoCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmpty(void) 
-{ 
-    ShearedStereoCameraDecoratorPtr returnValue; 
-    
-    newPtr<ShearedStereoCameraDecorator>(returnValue); 
+ShearedStereoCameraDecoratorPtr ShearedStereoCameraDecoratorBase::createEmpty(void)
+{
+    ShearedStereoCameraDecoratorPtr returnValue;
 
-    return returnValue; 
+    newPtr<ShearedStereoCameraDecorator>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) const 
-{ 
-    ShearedStereoCameraDecoratorPtr returnValue; 
+FieldContainerPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) const
+{
+    ShearedStereoCameraDecoratorPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const ShearedStereoCameraDecorator *>(this)); 
+    newPtr(returnValue, dynamic_cast<const ShearedStereoCameraDecorator *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -309,15 +324,15 @@ FieldContainerPtr ShearedStereoCameraDecoratorBase::shallowCopy(void) const
 
 ShearedStereoCameraDecoratorBase::ShearedStereoCameraDecoratorBase(void) :
     Inherited(),
-    _sfZeroParallaxDistance(Real32(1)),
-    _sfOverlap(Real32(1))
+    _sfZeroParallaxDistance   (Real32(1)),
+    _sfOverlap                (Real32(1))
 {
 }
 
 ShearedStereoCameraDecoratorBase::ShearedStereoCameraDecoratorBase(const ShearedStereoCameraDecoratorBase &source) :
     Inherited(source),
-    _sfZeroParallaxDistance(source._sfZeroParallaxDistance),
-    _sfOverlap(source._sfOverlap)
+    _sfZeroParallaxDistance   (source._sfZeroParallaxDistance   ),
+    _sfOverlap                (source._sfOverlap                )
 {
 }
 
@@ -331,13 +346,13 @@ ShearedStereoCameraDecoratorBase::~ShearedStereoCameraDecoratorBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void ShearedStereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<ShearedStereoCameraDecoratorBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -347,10 +362,10 @@ void ShearedStereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 void ShearedStereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<ShearedStereoCameraDecoratorBase *>(&oFrom), 
+    this->execSync(static_cast<ShearedStereoCameraDecoratorBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -370,12 +385,12 @@ void ShearedStereoCameraDecoratorBase::execBeginEditV(ConstFieldMaskArg whichFie
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr ShearedStereoCameraDecoratorBase::createAspectCopy(void) const
 {
-    ShearedStereoCameraDecoratorPtr returnValue; 
+    ShearedStereoCameraDecoratorPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const ShearedStereoCameraDecorator *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const ShearedStereoCameraDecorator *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -384,6 +399,8 @@ void ShearedStereoCameraDecoratorBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -406,8 +423,6 @@ OSG_FIELDTRAITS_GETTYPE(ShearedStereoCameraDecoratorPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, ShearedStereoCameraDecoratorPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ShearedStereoCameraDecoratorPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -428,3 +443,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSHEAREDSTEREOCAMERADECORATORFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

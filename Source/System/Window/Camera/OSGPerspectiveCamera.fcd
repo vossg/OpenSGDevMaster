@@ -9,7 +9,12 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-A perspective camera with a symmetric frustum.
+\ingroup GrpSystemWindowCameras
+
+The Perspective Camera class, see \ref PageSystemWindowCameraPerspective for 
+a description.
+
+The only new parameter is the _sfFov.
 	<Field
 		name="fov"
 		type="Real32"

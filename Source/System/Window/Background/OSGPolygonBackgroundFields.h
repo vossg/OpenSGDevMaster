@@ -70,22 +70,22 @@ class PolygonBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! PolygonBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           PolygonBackground>::ObjPtr         PolygonBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           PolygonBackground>::ObjPtrConst    PolygonBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           PolygonBackground>::ObjConstPtr    PolygonBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           PolygonBackground>::ObjPtrArg      PolygonBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           PolygonBackground>::ObjConstPtrArg PolygonBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           PolygonBackground>::ObjPtrConstArg PolygonBackgroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<BackgroundPtr,
 #endif
 
 template <>
-struct FieldTraits<PolygonBackgroundPtr> : 
+struct FieldTraits<PolygonBackgroundPtr> :
     public FieldTraitsTemplateBase<PolygonBackgroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<PolygonBackgroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFPolygonBackgroundPtr"; }

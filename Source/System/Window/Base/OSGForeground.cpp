@@ -49,26 +49,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::Foreground
-    \ingroup GrpSystemWindowForegrounds
-    
-  Foreground is the base class for all foreground rendering.  See \ref
-  PageSystemWindowForegrounds for a description.
-  
-  \ext
-  
-  To create a new Background the method that has be overridden is  
-  draw(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
-  commands, but should restore the state after it's done.
-
-  \endext
-  
- */
+// Documentation for this class is emited in the
+// OSGForegroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGForeground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

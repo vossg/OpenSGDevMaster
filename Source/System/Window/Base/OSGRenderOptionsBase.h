@@ -101,22 +101,22 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
-                              FieldContainerAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
+                              FieldContainerAttachmentConstPtr,
                               RenderOptions>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
-                              FieldContainerAttachmentConstPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
+                              FieldContainerAttachmentConstPtr,
                               RenderOptions>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               RenderOptions>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               RenderOptions>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               RenderOptions>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+    typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                               FieldContainerAttachmentConstPtr,
                               RenderOptions>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -146,50 +146,49 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
         NextFieldId = SmallFeatureThresholdFieldId + 1
     };
 
-    static const OSG::BitVector StatisticFieldMask = 
+    static const OSG::BitVector StatisticFieldMask =
         (TypeTraits<BitVector>::One << StatisticFieldId);
-    static const OSG::BitVector PolygonModeFieldMask = 
+    static const OSG::BitVector PolygonModeFieldMask =
         (TypeTraits<BitVector>::One << PolygonModeFieldId);
-    static const OSG::BitVector TwoSidedLightingFieldMask = 
+    static const OSG::BitVector TwoSidedLightingFieldMask =
         (TypeTraits<BitVector>::One << TwoSidedLightingFieldId);
-    static const OSG::BitVector SpecTexLightingFieldMask = 
+    static const OSG::BitVector SpecTexLightingFieldMask =
         (TypeTraits<BitVector>::One << SpecTexLightingFieldId);
-    static const OSG::BitVector SortTransFieldMask = 
+    static const OSG::BitVector SortTransFieldMask =
         (TypeTraits<BitVector>::One << SortTransFieldId);
-    static const OSG::BitVector ZWriteTransFieldMask = 
+    static const OSG::BitVector ZWriteTransFieldMask =
         (TypeTraits<BitVector>::One << ZWriteTransFieldId);
-    static const OSG::BitVector LocalLightsFieldMask = 
+    static const OSG::BitVector LocalLightsFieldMask =
         (TypeTraits<BitVector>::One << LocalLightsFieldId);
-    static const OSG::BitVector CorrectTwoSidedLightingFieldMask = 
+    static const OSG::BitVector CorrectTwoSidedLightingFieldMask =
         (TypeTraits<BitVector>::One << CorrectTwoSidedLightingFieldId);
-    static const OSG::BitVector OcclusionCullingFieldMask = 
+    static const OSG::BitVector OcclusionCullingFieldMask =
         (TypeTraits<BitVector>::One << OcclusionCullingFieldId);
-    static const OSG::BitVector AntialiasingFieldMask = 
+    static const OSG::BitVector AntialiasingFieldMask =
         (TypeTraits<BitVector>::One << AntialiasingFieldId);
-    static const OSG::BitVector AntialiasingDistanceFieldMask = 
+    static const OSG::BitVector AntialiasingDistanceFieldMask =
         (TypeTraits<BitVector>::One << AntialiasingDistanceFieldId);
-    static const OSG::BitVector AntialiasingScaleFieldMask = 
+    static const OSG::BitVector AntialiasingScaleFieldMask =
         (TypeTraits<BitVector>::One << AntialiasingScaleFieldId);
-    static const OSG::BitVector AntialiasingTriggerFieldMask = 
+    static const OSG::BitVector AntialiasingTriggerFieldMask =
         (TypeTraits<BitVector>::One << AntialiasingTriggerFieldId);
-    static const OSG::BitVector BackfaceCullingFieldMask = 
+    static const OSG::BitVector BackfaceCullingFieldMask =
         (TypeTraits<BitVector>::One << BackfaceCullingFieldId);
-    static const OSG::BitVector SmallFeatureCullingFieldMask = 
+    static const OSG::BitVector SmallFeatureCullingFieldMask =
         (TypeTraits<BitVector>::One << SmallFeatureCullingFieldId);
-    static const OSG::BitVector SmallFeaturePixelsFieldMask = 
+    static const OSG::BitVector SmallFeaturePixelsFieldMask =
         (TypeTraits<BitVector>::One << SmallFeaturePixelsFieldId);
-    static const OSG::BitVector SmallFeatureThresholdFieldMask = 
+    static const OSG::BitVector SmallFeatureThresholdFieldMask =
         (TypeTraits<BitVector>::One << SmallFeatureThresholdFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -197,8 +196,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -209,232 +208,232 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFStatistic(void);
+                  SFBool              *getSFStatistic       (void);
 #endif
-           SFBool *editSFStatistic(void);
-     const SFBool *getSFStatistic (void) const;
+                  SFBool              *editSFStatistic      (void);
+            const SFBool              *getSFStatistic       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFGLenum *getSFPolygonMode(void);
+                  SFGLenum            *getSFPolygonMode     (void);
 #endif
-           SFGLenum *editSFPolygonMode(void);
-     const SFGLenum *getSFPolygonMode (void) const;
+                  SFGLenum            *editSFPolygonMode    (void);
+            const SFGLenum            *getSFPolygonMode     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFTwoSidedLighting(void);
+                  SFBool              *getSFTwoSidedLighting (void);
 #endif
-           SFBool *editSFTwoSidedLighting(void);
-     const SFBool *getSFTwoSidedLighting (void) const;
+                  SFBool              *editSFTwoSidedLighting(void);
+            const SFBool              *getSFTwoSidedLighting (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFSpecTexLighting(void);
+                  SFBool              *getSFSpecTexLighting (void);
 #endif
-           SFBool *editSFSpecTexLighting(void);
-     const SFBool *getSFSpecTexLighting (void) const;
+                  SFBool              *editSFSpecTexLighting(void);
+            const SFBool              *getSFSpecTexLighting (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFSortTrans(void);
+                  SFBool              *getSFSortTrans       (void);
 #endif
-           SFBool *editSFSortTrans(void);
-     const SFBool *getSFSortTrans (void) const;
+                  SFBool              *editSFSortTrans      (void);
+            const SFBool              *getSFSortTrans       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFZWriteTrans(void);
+                  SFBool              *getSFZWriteTrans     (void);
 #endif
-           SFBool *editSFZWriteTrans(void);
-     const SFBool *getSFZWriteTrans (void) const;
+                  SFBool              *editSFZWriteTrans    (void);
+            const SFBool              *getSFZWriteTrans     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFLocalLights(void);
+                  SFBool              *getSFLocalLights     (void);
 #endif
-           SFBool *editSFLocalLights(void);
-     const SFBool *getSFLocalLights (void) const;
+                  SFBool              *editSFLocalLights    (void);
+            const SFBool              *getSFLocalLights     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFCorrectTwoSidedLighting(void);
+                  SFBool              *getSFCorrectTwoSidedLighting (void);
 #endif
-           SFBool *editSFCorrectTwoSidedLighting(void);
-     const SFBool *getSFCorrectTwoSidedLighting (void) const;
+                  SFBool              *editSFCorrectTwoSidedLighting(void);
+            const SFBool              *getSFCorrectTwoSidedLighting (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFOcclusionCulling(void);
+                  SFBool              *getSFOcclusionCulling (void);
 #endif
-           SFBool *editSFOcclusionCulling(void);
-     const SFBool *getSFOcclusionCulling (void) const;
+                  SFBool              *editSFOcclusionCulling(void);
+            const SFBool              *getSFOcclusionCulling (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFAntialiasing(void);
+                  SFBool              *getSFAntialiasing    (void);
 #endif
-           SFBool *editSFAntialiasing(void);
-     const SFBool *getSFAntialiasing (void) const;
+                  SFBool              *editSFAntialiasing   (void);
+            const SFBool              *getSFAntialiasing    (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFAntialiasingDistance(void);
+                  SFReal32            *getSFAntialiasingDistance (void);
 #endif
-           SFReal32 *editSFAntialiasingDistance(void);
-     const SFReal32 *getSFAntialiasingDistance (void) const;
+                  SFReal32            *editSFAntialiasingDistance(void);
+            const SFReal32            *getSFAntialiasingDistance (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFAntialiasingScale(void);
+                  SFReal32            *getSFAntialiasingScale (void);
 #endif
-           SFReal32 *editSFAntialiasingScale(void);
-     const SFReal32 *getSFAntialiasingScale (void) const;
+                  SFReal32            *editSFAntialiasingScale(void);
+            const SFReal32            *getSFAntialiasingScale (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFAntialiasingTrigger(void);
+                  SFUInt32            *getSFAntialiasingTrigger (void);
 #endif
-           SFUInt32 *editSFAntialiasingTrigger(void);
-     const SFUInt32 *getSFAntialiasingTrigger (void) const;
+                  SFUInt32            *editSFAntialiasingTrigger(void);
+            const SFUInt32            *getSFAntialiasingTrigger (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFBackfaceCulling(void);
+                  SFBool              *getSFBackfaceCulling (void);
 #endif
-           SFBool *editSFBackfaceCulling(void);
-     const SFBool *getSFBackfaceCulling (void) const;
+                  SFBool              *editSFBackfaceCulling(void);
+            const SFBool              *getSFBackfaceCulling (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFSmallFeatureCulling(void);
+                  SFBool              *getSFSmallFeatureCulling (void);
 #endif
-           SFBool *editSFSmallFeatureCulling(void);
-     const SFBool *getSFSmallFeatureCulling (void) const;
+                  SFBool              *editSFSmallFeatureCulling(void);
+            const SFBool              *getSFSmallFeatureCulling (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFSmallFeaturePixels(void);
+                  SFReal32            *getSFSmallFeaturePixels (void);
 #endif
-           SFReal32 *editSFSmallFeaturePixels(void);
-     const SFReal32 *getSFSmallFeaturePixels (void) const;
+                  SFReal32            *editSFSmallFeaturePixels(void);
+            const SFReal32            *getSFSmallFeaturePixels (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFSmallFeatureThreshold(void);
+                  SFUInt32            *getSFSmallFeatureThreshold (void);
 #endif
-           SFUInt32 *editSFSmallFeatureThreshold(void);
-     const SFUInt32 *getSFSmallFeatureThreshold (void) const;
+                  SFUInt32            *editSFSmallFeatureThreshold(void);
+            const SFUInt32            *getSFSmallFeatureThreshold (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getStatistic(void);
+                  bool                &getStatistic       (void);
 #endif
-           bool &editStatistic(void);
-     const bool &getStatistic (void) const;
+                  bool                &editStatistic      (void);
+            const bool                &getStatistic       (void) const;
 
 #ifdef OSG_1_COMPAT
-           GLenum &getPolygonMode(void);
+                  GLenum              &getPolygonMode     (void);
 #endif
-           GLenum &editPolygonMode(void);
-     const GLenum &getPolygonMode (void) const;
+                  GLenum              &editPolygonMode    (void);
+            const GLenum              &getPolygonMode     (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getTwoSidedLighting(void);
+                  bool                &getTwoSidedLighting (void);
 #endif
-           bool &editTwoSidedLighting(void);
-     const bool &getTwoSidedLighting (void) const;
+                  bool                &editTwoSidedLighting(void);
+            const bool                &getTwoSidedLighting (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getSpecTexLighting(void);
+                  bool                &getSpecTexLighting (void);
 #endif
-           bool &editSpecTexLighting(void);
-     const bool &getSpecTexLighting (void) const;
+                  bool                &editSpecTexLighting(void);
+            const bool                &getSpecTexLighting (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getSortTrans(void);
+                  bool                &getSortTrans       (void);
 #endif
-           bool &editSortTrans(void);
-     const bool &getSortTrans (void) const;
+                  bool                &editSortTrans      (void);
+            const bool                &getSortTrans       (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getZWriteTrans(void);
+                  bool                &getZWriteTrans     (void);
 #endif
-           bool &editZWriteTrans(void);
-     const bool &getZWriteTrans (void) const;
+                  bool                &editZWriteTrans    (void);
+            const bool                &getZWriteTrans     (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getLocalLights(void);
+                  bool                &getLocalLights     (void);
 #endif
-           bool &editLocalLights(void);
-     const bool &getLocalLights (void) const;
+                  bool                &editLocalLights    (void);
+            const bool                &getLocalLights     (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getCorrectTwoSidedLighting(void);
+                  bool                &getCorrectTwoSidedLighting (void);
 #endif
-           bool &editCorrectTwoSidedLighting(void);
-     const bool &getCorrectTwoSidedLighting (void) const;
+                  bool                &editCorrectTwoSidedLighting(void);
+            const bool                &getCorrectTwoSidedLighting (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getOcclusionCulling(void);
+                  bool                &getOcclusionCulling (void);
 #endif
-           bool &editOcclusionCulling(void);
-     const bool &getOcclusionCulling (void) const;
+                  bool                &editOcclusionCulling(void);
+            const bool                &getOcclusionCulling (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getAntialiasing(void);
+                  bool                &getAntialiasing    (void);
 #endif
-           bool &editAntialiasing(void);
-     const bool &getAntialiasing (void) const;
+                  bool                &editAntialiasing   (void);
+            const bool                &getAntialiasing    (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getAntialiasingDistance(void);
+                  Real32              &getAntialiasingDistance (void);
 #endif
-           Real32 &editAntialiasingDistance(void);
-     const Real32 &getAntialiasingDistance (void) const;
+                  Real32              &editAntialiasingDistance(void);
+            const Real32              &getAntialiasingDistance (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getAntialiasingScale(void);
+                  Real32              &getAntialiasingScale (void);
 #endif
-           Real32 &editAntialiasingScale(void);
-     const Real32 &getAntialiasingScale (void) const;
+                  Real32              &editAntialiasingScale(void);
+            const Real32              &getAntialiasingScale (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getAntialiasingTrigger(void);
+                  UInt32              &getAntialiasingTrigger (void);
 #endif
-           UInt32 &editAntialiasingTrigger(void);
-     const UInt32 &getAntialiasingTrigger (void) const;
+                  UInt32              &editAntialiasingTrigger(void);
+            const UInt32              &getAntialiasingTrigger (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getBackfaceCulling(void);
+                  bool                &getBackfaceCulling (void);
 #endif
-           bool &editBackfaceCulling(void);
-     const bool &getBackfaceCulling (void) const;
+                  bool                &editBackfaceCulling(void);
+            const bool                &getBackfaceCulling (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getSmallFeatureCulling(void);
+                  bool                &getSmallFeatureCulling (void);
 #endif
-           bool &editSmallFeatureCulling(void);
-     const bool &getSmallFeatureCulling (void) const;
+                  bool                &editSmallFeatureCulling(void);
+            const bool                &getSmallFeatureCulling (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getSmallFeaturePixels(void);
+                  Real32              &getSmallFeaturePixels (void);
 #endif
-           Real32 &editSmallFeaturePixels(void);
-     const Real32 &getSmallFeaturePixels (void) const;
+                  Real32              &editSmallFeaturePixels(void);
+            const Real32              &getSmallFeaturePixels (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getSmallFeatureThreshold(void);
+                  UInt32              &getSmallFeatureThreshold (void);
 #endif
-           UInt32 &editSmallFeatureThreshold(void);
-     const UInt32 &getSmallFeatureThreshold (void) const;
+                  UInt32              &editSmallFeatureThreshold(void);
+            const UInt32              &getSmallFeatureThreshold (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setStatistic(const bool &value);
-     void setPolygonMode(const GLenum &value);
-     void setTwoSidedLighting(const bool &value);
-     void setSpecTexLighting(const bool &value);
-     void setSortTrans(const bool &value);
-     void setZWriteTrans(const bool &value);
-     void setLocalLights(const bool &value);
-     void setCorrectTwoSidedLighting(const bool &value);
-     void setOcclusionCulling(const bool &value);
-     void setAntialiasing(const bool &value);
-     void setAntialiasingDistance(const Real32 &value);
-     void setAntialiasingScale(const Real32 &value);
-     void setAntialiasingTrigger(const UInt32 &value);
-     void setBackfaceCulling(const bool &value);
-     void setSmallFeatureCulling(const bool &value);
-     void setSmallFeaturePixels(const Real32 &value);
-     void setSmallFeatureThreshold(const UInt32 &value);
+            void setStatistic      (const bool &value);
+            void setPolygonMode    (const GLenum &value);
+            void setTwoSidedLighting(const bool &value);
+            void setSpecTexLighting(const bool &value);
+            void setSortTrans      (const bool &value);
+            void setZWriteTrans    (const bool &value);
+            void setLocalLights    (const bool &value);
+            void setCorrectTwoSidedLighting(const bool &value);
+            void setOcclusionCulling(const bool &value);
+            void setAntialiasing   (const bool &value);
+            void setAntialiasingDistance(const Real32 &value);
+            void setAntialiasingScale(const Real32 &value);
+            void setAntialiasingTrigger(const UInt32 &value);
+            void setBackfaceCulling(const bool &value);
+            void setSmallFeatureCulling(const bool &value);
+            void setSmallFeaturePixels(const Real32 &value);
+            void setSmallFeatureThreshold(const UInt32 &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -454,15 +453,15 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  RenderOptionsPtr create     (void); 
-    static  RenderOptionsPtr createEmpty(void); 
+    static  RenderOptionsPtr create     (void);
+    static  RenderOptionsPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -478,23 +477,23 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfStatistic;
-    SFGLenum _sfPolygonMode;
-    SFBool _sfTwoSidedLighting;
-    SFBool _sfSpecTexLighting;
-    SFBool _sfSortTrans;
-    SFBool _sfZWriteTrans;
-    SFBool _sfLocalLights;
-    SFBool _sfCorrectTwoSidedLighting;
-    SFBool _sfOcclusionCulling;
-    SFBool _sfAntialiasing;
-    SFReal32 _sfAntialiasingDistance;
-    SFReal32 _sfAntialiasingScale;
-    SFUInt32 _sfAntialiasingTrigger;
-    SFBool _sfBackfaceCulling;
-    SFBool _sfSmallFeatureCulling;
-    SFReal32 _sfSmallFeaturePixels;
-    SFUInt32 _sfSmallFeatureThreshold;
+    SFBool            _sfStatistic;
+    SFGLenum          _sfPolygonMode;
+    SFBool            _sfTwoSidedLighting;
+    SFBool            _sfSpecTexLighting;
+    SFBool            _sfSortTrans;
+    SFBool            _sfZWriteTrans;
+    SFBool            _sfLocalLights;
+    SFBool            _sfCorrectTwoSidedLighting;
+    SFBool            _sfOcclusionCulling;
+    SFBool            _sfAntialiasing;
+    SFReal32          _sfAntialiasingDistance;
+    SFReal32          _sfAntialiasingScale;
+    SFUInt32          _sfAntialiasingTrigger;
+    SFBool            _sfBackfaceCulling;
+    SFBool            _sfSmallFeatureCulling;
+    SFReal32          _sfSmallFeaturePixels;
+    SFUInt32          _sfSmallFeatureThreshold;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -509,7 +508,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~RenderOptionsBase(void); 
+    virtual ~RenderOptionsBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -555,11 +554,11 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public FieldContainerAttachment
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

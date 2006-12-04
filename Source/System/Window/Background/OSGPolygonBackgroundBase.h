@@ -91,22 +91,22 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               PolygonBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               PolygonBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               PolygonBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               PolygonBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               PolygonBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               PolygonBackground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
         NextFieldId = AspectWidthFieldId + 1
     };
 
-    static const OSG::BitVector MaterialFieldMask = 
+    static const OSG::BitVector MaterialFieldMask =
         (TypeTraits<BitVector>::One << MaterialFieldId);
-    static const OSG::BitVector TexCoordsFieldMask = 
+    static const OSG::BitVector TexCoordsFieldMask =
         (TypeTraits<BitVector>::One << TexCoordsFieldId);
-    static const OSG::BitVector PositionsFieldMask = 
+    static const OSG::BitVector PositionsFieldMask =
         (TypeTraits<BitVector>::One << PositionsFieldId);
-    static const OSG::BitVector NormalizedXFieldMask = 
+    static const OSG::BitVector NormalizedXFieldMask =
         (TypeTraits<BitVector>::One << NormalizedXFieldId);
-    static const OSG::BitVector NormalizedYFieldMask = 
+    static const OSG::BitVector NormalizedYFieldMask =
         (TypeTraits<BitVector>::One << NormalizedYFieldId);
-    static const OSG::BitVector AspectHeightFieldMask = 
+    static const OSG::BitVector AspectHeightFieldMask =
         (TypeTraits<BitVector>::One << AspectHeightFieldId);
-    static const OSG::BitVector AspectWidthFieldMask = 
+    static const OSG::BitVector AspectWidthFieldMask =
         (TypeTraits<BitVector>::One << AspectWidthFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -167,124 +166,124 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFMaterialPtr *getSFMaterial (void) const;
+            const SFMaterialPtr       *getSFMaterial        (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec3f *getMFTexCoords(void);
+                  MFVec3f             *getMFTexCoords       (void);
 #endif
-           MFVec3f *editMFTexCoords(void);
-     const MFVec3f *getMFTexCoords (void) const;
+                  MFVec3f             *editMFTexCoords      (void);
+            const MFVec3f             *getMFTexCoords       (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFPnt2f *getMFPositions(void);
+                  MFPnt2f             *getMFPositions       (void);
 #endif
-           MFPnt2f *editMFPositions(void);
-     const MFPnt2f *getMFPositions (void) const;
+                  MFPnt2f             *editMFPositions      (void);
+            const MFPnt2f             *getMFPositions       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFNormalizedX(void);
+                  SFBool              *getSFNormalizedX     (void);
 #endif
-           SFBool *editSFNormalizedX(void);
-     const SFBool *getSFNormalizedX (void) const;
+                  SFBool              *editSFNormalizedX    (void);
+            const SFBool              *getSFNormalizedX     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFNormalizedY(void);
+                  SFBool              *getSFNormalizedY     (void);
 #endif
-           SFBool *editSFNormalizedY(void);
-     const SFBool *getSFNormalizedY (void) const;
+                  SFBool              *editSFNormalizedY    (void);
+            const SFBool              *getSFNormalizedY     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFAspectHeight(void);
+                  SFUInt16            *getSFAspectHeight    (void);
 #endif
-           SFUInt16 *editSFAspectHeight(void);
-     const SFUInt16 *getSFAspectHeight (void) const;
+                  SFUInt16            *editSFAspectHeight   (void);
+            const SFUInt16            *getSFAspectHeight    (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFAspectWidth(void);
+                  SFUInt16            *getSFAspectWidth     (void);
 #endif
-           SFUInt16 *editSFAspectWidth(void);
-     const SFUInt16 *getSFAspectWidth (void) const;
+                  SFUInt16            *editSFAspectWidth    (void);
+            const SFUInt16            *getSFAspectWidth     (void) const;
 
 
-           MaterialPtrConst getMaterial(void) const;
+                  MaterialPtrConst getMaterial       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getTexCoords(const UInt32 index);
-           MFVec3f &getTexCoords(void);
+                  Vec3f               &getTexCoords       (const UInt32 index);
+                  MFVec3f             &getTexCoords      (void);
 #endif
-           Vec3f &editTexCoords(const UInt32 index);
-     const Vec3f &getTexCoords (const UInt32 index) const;
-           MFVec3f &editTexCoords(void);
-     const MFVec3f &getTexCoords(void) const;
+                  Vec3f               &editTexCoords      (const UInt32 index);
+            const Vec3f               &getTexCoords       (const UInt32 index) const;
+                  MFVec3f             &editTexCoords      (void);
+            const MFVec3f             &getTexCoords      (void) const;
 
 #ifdef OSG_1_COMPAT
-           Pnt2f &getPositions(const UInt32 index);
-           MFPnt2f &getPositions(void);
+                  Pnt2f               &getPositions       (const UInt32 index);
+                  MFPnt2f             &getPositions      (void);
 #endif
-           Pnt2f &editPositions(const UInt32 index);
-     const Pnt2f &getPositions (const UInt32 index) const;
-           MFPnt2f &editPositions(void);
-     const MFPnt2f &getPositions(void) const;
+                  Pnt2f               &editPositions      (const UInt32 index);
+            const Pnt2f               &getPositions       (const UInt32 index) const;
+                  MFPnt2f             &editPositions      (void);
+            const MFPnt2f             &getPositions      (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getNormalizedX(void);
+                  bool                &getNormalizedX     (void);
 #endif
-           bool &editNormalizedX(void);
-     const bool &getNormalizedX (void) const;
+                  bool                &editNormalizedX    (void);
+            const bool                &getNormalizedX     (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getNormalizedY(void);
+                  bool                &getNormalizedY     (void);
 #endif
-           bool &editNormalizedY(void);
-     const bool &getNormalizedY (void) const;
+                  bool                &editNormalizedY    (void);
+            const bool                &getNormalizedY     (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getAspectHeight(void);
+                  UInt16              &getAspectHeight    (void);
 #endif
-           UInt16 &editAspectHeight(void);
-     const UInt16 &getAspectHeight (void) const;
+                  UInt16              &editAspectHeight   (void);
+            const UInt16              &getAspectHeight    (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getAspectWidth(void);
+                  UInt16              &getAspectWidth     (void);
 #endif
-           UInt16 &editAspectWidth(void);
-     const UInt16 &getAspectWidth (void) const;
+                  UInt16              &editAspectWidth    (void);
+            const UInt16              &getAspectWidth     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setMaterial(MaterialPtrConstArg value);
-     void setNormalizedX(const bool &value);
-     void setNormalizedY(const bool &value);
-     void setAspectHeight(const UInt16 &value);
-     void setAspectWidth(const UInt16 &value);
+            void setMaterial       (MaterialPtrConstArg value);
+            void setNormalizedX    (const bool &value);
+            void setNormalizedY    (const bool &value);
+            void setAspectHeight   (const UInt16 &value);
+            void setAspectWidth    (const UInt16 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -297,32 +296,32 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
 
     void pushToTexCoords           (const Vec3f& value   );
     void insertIntoTexCoords      (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInTexCoords  (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInTexCoords (const Vec3f& pOldElem,
-                                    const Vec3f& pNewElem);
+                                             const Vec3f& pNewElem);
     void removeFromTexCoords (UInt32                uiIndex );
     void removeFromTexCoords(const Vec3f& value   );
-    void clearTexCoords            (void                          );
+    void clearTexCoords             (void                          );
 
 
- 
+
 
 
     void pushToPositions           (const Pnt2f& value   );
     void insertIntoPositions      (UInt32                uiIndex,
-                                    const Pnt2f& value   );
+                                             const Pnt2f& value   );
     void replaceInPositions  (UInt32                uiIndex,
-                                    const Pnt2f& value   );
+                                             const Pnt2f& value   );
     void replaceInPositions (const Pnt2f& pOldElem,
-                                    const Pnt2f& pNewElem);
+                                             const Pnt2f& pNewElem);
     void removeFromPositions (UInt32                uiIndex );
     void removeFromPositions(const Pnt2f& value   );
-    void clearPositions            (void                          );
+    void clearPositions             (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -341,15 +340,15 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PolygonBackgroundPtr create     (void); 
-    static  PolygonBackgroundPtr createEmpty(void); 
+    static  PolygonBackgroundPtr create     (void);
+    static  PolygonBackgroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -365,13 +364,13 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMaterialPtr _sfMaterial;
-    MFVec3f _mfTexCoords;
-    MFPnt2f _mfPositions;
-    SFBool _sfNormalizedX;
-    SFBool _sfNormalizedY;
-    SFUInt16 _sfAspectHeight;
-    SFUInt16 _sfAspectWidth;
+    SFMaterialPtr     _sfMaterial;
+    MFVec3f           _mfTexCoords;
+    MFPnt2f           _mfPositions;
+    SFBool            _sfNormalizedX;
+    SFBool            _sfNormalizedY;
+    SFUInt16          _sfAspectHeight;
+    SFUInt16          _sfAspectWidth;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -386,7 +385,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PolygonBackgroundBase(void); 
+    virtual ~PolygonBackgroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -433,11 +432,11 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

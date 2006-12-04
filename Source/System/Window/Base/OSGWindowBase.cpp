@@ -66,39 +66,56 @@
 #include "OSGWindowBase.h"
 #include "OSGWindow.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var UInt16 WindowBase::_sfWidth
+/*! \class OSG::Window
+    \ingroup GrpSystemWindow
+
+    Window is the base class for all window management classes.  See \ref
+    PageSystemWindowWindow for a description.
+
+    \ext
+
+    To create a new Window the methods that have to be overridden are
+    init(void), activate(void), deactivate(void) and swap(void).
+
+    \endext
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var UInt16          WindowBase::_sfWidth
     
 */
-/*! \var UInt16 WindowBase::_sfHeight
+/*! \var UInt16          WindowBase::_sfHeight
     
 */
-/*! \var ViewportPtr WindowBase::_mfPort
+/*! \var ViewportPtr     WindowBase::_mfPort
     
 */
-/*! \var bool WindowBase::_sfResizePending
+/*! \var bool            WindowBase::_sfResizePending
     
 */
-/*! \var UInt32 WindowBase::_sfGlObjectEventCounter
-    	Counter for GL object events. Needed for multi-aspect updates.
-        Is used in glObjectLastRefresh and glObjectLastReinitialize.
-
+/*! \var UInt32          WindowBase::_sfGlObjectEventCounter
+    Counter for GL object events. Needed for multi-aspect updates. Is used
+    in glObjectLastRefresh and glObjectLastReinitialize.
 */
-/*! \var UInt32 WindowBase::_mfGlObjectLastRefresh
-    	indicates the last refresh for the GL object
-
+/*! \var UInt32          WindowBase::_mfGlObjectLastRefresh
+    Indicates the last refresh for the GL object.
 */
-/*! \var UInt32 WindowBase::_mfGlObjectLastReinitialize
-    	indicates the last reinit for the GL object
-
+/*! \var UInt32          WindowBase::_mfGlObjectLastReinitialize
+    Indicates the last reinit for the GL object.
 */
 
 void WindowBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -108,8 +125,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "width", 
+        SFUInt16::getClassType(),
+        "width",
         "",
         WidthFieldId, WidthFieldMask,
         false,
@@ -130,8 +147,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "height", 
+        SFUInt16::getClassType(),
+        "height",
         "",
         HeightFieldId, HeightFieldMask,
         false,
@@ -146,8 +163,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
     pDesc = new MFViewportPtr::Description(
-        MFViewportPtr::getClassType(), 
-        "port", 
+        MFViewportPtr::getClassType(),
+        "port",
         "",
         PortFieldId, PortFieldMask,
         false,
@@ -164,8 +181,8 @@ void WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "resizePending", 
+        SFBool::getClassType(),
+        "resizePending",
         "",
         ResizePendingFieldId, ResizePendingFieldMask,
         true,
@@ -186,9 +203,10 @@ void WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(), 
-        "glObjectEventCounter", 
-        "	Counter for GL object events. Needed for multi-aspect updates.\n        Is used in glObjectLastRefresh and glObjectLastReinitialize.\n",
+        SFUInt32::getClassType(),
+        "glObjectEventCounter",
+        "Counter for GL object events. Needed for multi-aspect updates.\n"
+        "Is used in glObjectLastRefresh and glObjectLastReinitialize.\n",
         GlObjectEventCounterFieldId, GlObjectEventCounterFieldMask,
         true,
         (Field::FClusterLocal),
@@ -208,9 +226,9 @@ void WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt32::Description(
-        MFUInt32::getClassType(), 
-        "glObjectLastRefresh", 
-        "	indicates the last refresh for the GL object\n",
+        MFUInt32::getClassType(),
+        "glObjectLastRefresh",
+        "Indicates the last refresh for the GL object.\n",
         GlObjectLastRefreshFieldId, GlObjectLastRefreshFieldMask,
         true,
         (Field::FClusterLocal),
@@ -230,9 +248,9 @@ void WindowBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFUInt32::Description(
-        MFUInt32::getClassType(), 
-        "glObjectLastReinitialize", 
-        "	indicates the last reinit for the GL object\n",
+        MFUInt32::getClassType(),
+        "glObjectLastReinitialize",
+        "Indicates the last reinit for the GL object.\n",
         GlObjectLastReinitializeFieldId, GlObjectLastReinitializeFieldMask,
         true,
         (Field::FClusterLocal),
@@ -252,118 +270,130 @@ WindowBase::TypeObject WindowBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     Window::initMethod,
     (InitalInsertDescFunc) &WindowBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"Window\"\n"
-"	parent=\"AttachmentContainer\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"The base class for all windows.\n"
-"	<Field\n"
-"		name=\"width\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"height\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"port\"\n"
-"		type=\"ViewportPtr\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"\n"
-"        pushToFieldAs=\"addPort\"\n"
-"        insertIntoMFieldAs=\"insertPort\"\n"
-"        replaceInMFieldIndexAs=\"replacePort\"\n"
-"        replaceInMFieldObjectAs=\"replacePortyBy\"\n"
-"        removeFromMFieldIndexAs=\"subPort\"\n"
-"        removeFromMFieldObjectAs=\"subPort\"\n"
-"        clearFieldAs=\"clearPorts\"        \n"
-"        \n"
-"        linkSParent=\"true\"\n"
-"\n"
-"        checkNilPtr=\"true\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"resizePending\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"glObjectEventCounter\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"internal\"\n"
-"		defaultValue=\"1\"\n"
-"		access=\"protected\"\n"
-"        fieldFlags=\"FClusterLocal\"\n"
-"	>\n"
-"	Counter for GL object events. Needed for multi-aspect updates.\n"
-"        Is used in glObjectLastRefresh and glObjectLastReinitialize.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"glObjectLastRefresh\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"        fieldFlags=\"FClusterLocal\"\n"
-"	>\n"
-"	indicates the last refresh for the GL object\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"glObjectLastReinitialize\"\n"
-"		type=\"UInt32\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"internal\"\n"
-"		access=\"protected\"\n"
-"        fieldFlags=\"FClusterLocal\"\n"
-"	>\n"
-"	indicates the last reinit for the GL object\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The base class for all windows.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"Window\"\n"
+    "\tparent=\"AttachmentContainer\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindow\n"
+    "\n"
+    "Window is the base class for all window management classes.  See \\ref\n"
+    "PageSystemWindowWindow for a description.\n"
+    "\n"
+    "\\ext\n"
+    "\n"
+    "To create a new Window the methods that have to be overridden are \n"
+    "init(void), activate(void), deactivate(void) and swap(void).\n"
+    "\n"
+    "\\endext\n"
+    "\t<Field\n"
+    "\t\tname=\"width\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"height\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"port\"\n"
+    "\t\ttype=\"ViewportPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "                pushToFieldAs=\"addPort\"\n"
+    "                insertIntoMFieldAs=\"insertPort\"\n"
+    "                replaceInMFieldIndexAs=\"replacePort\"\n"
+    "                replaceInMFieldObjectAs=\"replacePortyBy\"\n"
+    "                removeFromMFieldIndexAs=\"subPort\"\n"
+    "                removeFromMFieldObjectAs=\"subPort\"\n"
+    "                clearFieldAs=\"clearPorts\"        \n"
+    "                linkSParent=\"true\"\n"
+    "                checkNilPtr=\"true\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"resizePending\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"glObjectEventCounter\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"protected\"\n"
+    "                fieldFlags=\"FClusterLocal\"\n"
+    "\t>\n"
+    "\tCounter for GL object events. Needed for multi-aspect updates.\n"
+    "        Is used in glObjectLastRefresh and glObjectLastReinitialize.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"glObjectLastRefresh\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "                fieldFlags=\"FClusterLocal\"\n"
+    "\t>\n"
+    "\tIndicates the last refresh for the GL object.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"glObjectLastReinitialize\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\taccess=\"protected\"\n"
+    "                fieldFlags=\"FClusterLocal\"\n"
+    "\t>\n"
+    "\tIndicates the last reinit for the GL object.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindow\n"
+    "Window is the base class for all window management classes.  See \\ref\n"
+    "PageSystemWindowWindow for a description.\n"
+    "\\ext\n"
+    "To create a new Window the methods that have to be overridden are \n"
+    "init(void), activate(void), deactivate(void) and swap(void).\n"
+    "\\endext\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &WindowBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &WindowBase::getType(void) const 
+FieldContainerType &WindowBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 WindowBase::getContainerSize(void) const 
-{ 
-    return sizeof(Window); 
+const FieldContainerType &WindowBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 WindowBase::getContainerSize(void) const
+{
+    return sizeof(Window);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -382,9 +412,9 @@ const SFUInt16 *WindowBase::getSFWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *WindowBase::getSFWidth(void)
+SFUInt16            *WindowBase::getSFWidth          (void)
 {
-    return this->editSFWidth();
+    return this->editSFWidth          ();
 }
 #endif
 
@@ -401,9 +431,9 @@ const SFUInt16 *WindowBase::getSFHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *WindowBase::getSFHeight(void)
+SFUInt16            *WindowBase::getSFHeight         (void)
 {
-    return this->editSFHeight();
+    return this->editSFHeight         ();
 }
 #endif
 
@@ -426,9 +456,9 @@ const SFBool *WindowBase::getSFResizePending(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *WindowBase::getSFResizePending(void)
+SFBool              *WindowBase::getSFResizePending  (void)
 {
-    return this->editSFResizePending();
+    return this->editSFResizePending  ();
 }
 #endif
 
@@ -445,7 +475,7 @@ const SFUInt32 *WindowBase::getSFGlObjectEventCounter(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt32 *WindowBase::getSFGlObjectEventCounter(void)
+SFUInt32            *WindowBase::getSFGlObjectEventCounter(void)
 {
     return this->editSFGlObjectEventCounter();
 }
@@ -464,7 +494,7 @@ const MFUInt32 *WindowBase::getMFGlObjectLastRefresh(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt32 *WindowBase::getMFGlObjectLastRefresh(void)
+MFUInt32            *WindowBase::getMFGlObjectLastRefresh(void)
 {
     return this->editMFGlObjectLastRefresh();
 }
@@ -483,7 +513,7 @@ const MFUInt32 *WindowBase::getMFGlObjectLastReinitialize(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFUInt32 *WindowBase::getMFGlObjectLastReinitialize(void)
+MFUInt32            *WindowBase::getMFGlObjectLastReinitialize(void)
 {
     return this->editMFGlObjectLastReinitialize();
 }
@@ -596,7 +626,7 @@ void WindowBase::addPort(ViewportPtrConstArg value)
 }
 
 void WindowBase::insertPort(UInt32                uiIndex,
-                                             ViewportPtrConstArg value   )
+                                                   ViewportPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -618,7 +648,7 @@ void WindowBase::insertPort(UInt32                uiIndex,
 }
 
 void WindowBase::replacePort(UInt32                uiIndex,
-                                                 ViewportPtrConstArg value   )
+                                                       ViewportPtrConstArg value   )
 {
     if(value == NullFC)
         return;
@@ -646,7 +676,7 @@ void WindowBase::replacePort(UInt32                uiIndex,
 }
 
 void WindowBase::replacePortyBy(ViewportPtrConstArg pOldElem,
-                                                  ViewportPtrConstArg pNewElem)
+                                                        ViewportPtrConstArg pNewElem)
 {
     if(pNewElem == NullFC)
         return;
@@ -746,8 +776,6 @@ void WindowBase::clearPorts(void)
     _mfPort.clear();
 }
 
-
-
 /*********************************** Non-ptr code ********************************/
 void WindowBase::pushToGlObjectLastRefresh(const UInt32& value)
 {
@@ -756,7 +784,7 @@ void WindowBase::pushToGlObjectLastRefresh(const UInt32& value)
 }
 
 void WindowBase::insertIntoGlObjectLastRefresh(UInt32                uiIndex,
-                                             const UInt32& value   )
+                                                   const UInt32& value   )
 {
     editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
 
@@ -768,7 +796,7 @@ void WindowBase::insertIntoGlObjectLastRefresh(UInt32                uiIndex,
 }
 
 void WindowBase::replaceInGlObjectLastRefresh(UInt32                uiIndex,
-                                                 const UInt32& value   )
+                                                       const UInt32& value   )
 {
     if(uiIndex >= _mfGlObjectLastRefresh.size())
         return;
@@ -779,7 +807,7 @@ void WindowBase::replaceInGlObjectLastRefresh(UInt32                uiIndex,
 }
 
 void WindowBase::replaceInGlObjectLastRefresh(const UInt32& pOldElem,
-                                                  const UInt32& pNewElem)
+                                                        const UInt32& pNewElem)
 {
     Int32  elemIdx = _mfGlObjectLastRefresh.findIndex(pOldElem);
 
@@ -823,19 +851,13 @@ void WindowBase::removeFromGlObjectLastRefresh(const UInt32& value)
         _mfGlObjectLastRefresh.erase(fieldIt);
     }
 }
+
 void WindowBase::clearGlObjectLastRefresh(void)
 {
     editMField(GlObjectLastRefreshFieldMask, _mfGlObjectLastRefresh);
 
     _mfGlObjectLastRefresh.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void WindowBase::pushToGlObjectLastReinitialize(const UInt32& value)
 {
@@ -844,7 +866,7 @@ void WindowBase::pushToGlObjectLastReinitialize(const UInt32& value)
 }
 
 void WindowBase::insertIntoGlObjectLastReinitialize(UInt32                uiIndex,
-                                             const UInt32& value   )
+                                                   const UInt32& value   )
 {
     editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
 
@@ -856,7 +878,7 @@ void WindowBase::insertIntoGlObjectLastReinitialize(UInt32                uiInde
 }
 
 void WindowBase::replaceInGlObjectLastReinitialize(UInt32                uiIndex,
-                                                 const UInt32& value   )
+                                                       const UInt32& value   )
 {
     if(uiIndex >= _mfGlObjectLastReinitialize.size())
         return;
@@ -867,7 +889,7 @@ void WindowBase::replaceInGlObjectLastReinitialize(UInt32                uiIndex
 }
 
 void WindowBase::replaceInGlObjectLastReinitialize(const UInt32& pOldElem,
-                                                  const UInt32& pNewElem)
+                                                        const UInt32& pNewElem)
 {
     Int32  elemIdx = _mfGlObjectLastReinitialize.findIndex(pOldElem);
 
@@ -911,19 +933,13 @@ void WindowBase::removeFromGlObjectLastReinitialize(const UInt32& value)
         _mfGlObjectLastReinitialize.erase(fieldIt);
     }
 }
+
 void WindowBase::clearGlObjectLastReinitialize(void)
 {
     editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
 
     _mfGlObjectLastReinitialize.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -1040,24 +1056,24 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
 
 WindowBase::WindowBase(void) :
     Inherited(),
-    _sfWidth(),
-    _sfHeight(),
-    _mfPort(),
-    _sfResizePending(),
-    _sfGlObjectEventCounter(UInt32(1)),
-    _mfGlObjectLastRefresh(),
+    _sfWidth                  (),
+    _sfHeight                 (),
+    _mfPort                   (),
+    _sfResizePending          (),
+    _sfGlObjectEventCounter   (UInt32(1)),
+    _mfGlObjectLastRefresh    (),
     _mfGlObjectLastReinitialize()
 {
 }
 
 WindowBase::WindowBase(const WindowBase &source) :
     Inherited(source),
-    _sfWidth(source._sfWidth),
-    _sfHeight(source._sfHeight),
-    _mfPort(),
-    _sfResizePending(source._sfResizePending),
-    _sfGlObjectEventCounter(source._sfGlObjectEventCounter),
-    _mfGlObjectLastRefresh(source._mfGlObjectLastRefresh),
+    _sfWidth                  (source._sfWidth                  ),
+    _sfHeight                 (source._sfHeight                 ),
+    _mfPort                   (),
+    _sfResizePending          (source._sfResizePending          ),
+    _sfGlObjectEventCounter   (source._sfGlObjectEventCounter   ),
+    _mfGlObjectLastRefresh    (source._mfGlObjectLastRefresh    ),
     _mfGlObjectLastReinitialize(source._mfGlObjectLastReinitialize)
 {
 }
@@ -1075,9 +1091,9 @@ void WindowBase::onCreate(const Window *source)
     if(source != NULL)
     {
 
-        MFViewportPtr::const_iterator PortIt  = 
+        MFViewportPtr::const_iterator PortIt  =
             source->_mfPort.begin();
-        MFViewportPtr::const_iterator PortEnd = 
+        MFViewportPtr::const_iterator PortEnd =
             source->_mfPort.end  ();
 
         while(PortIt != PortEnd)
@@ -1092,13 +1108,13 @@ void WindowBase::onCreate(const Window *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void WindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<WindowBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -1108,10 +1124,10 @@ void WindowBase::execSyncV(      FieldContainer    &oFrom,
 void WindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<WindowBase *>(&oFrom), 
+    this->execSync(static_cast<WindowBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -1137,6 +1153,8 @@ void WindowBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -1158,8 +1176,6 @@ OSG_FIELDTRAITS_GETTYPE(WindowPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, WindowPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, WindowPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -1180,3 +1196,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGWINDOWFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

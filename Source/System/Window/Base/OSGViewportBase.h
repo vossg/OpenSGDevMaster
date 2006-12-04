@@ -95,22 +95,22 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               Viewport>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
-                              AttachmentContainerConstPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
+                              AttachmentContainerConstPtr,
                               Viewport>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Viewport>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Viewport>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Viewport>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<AttachmentContainerPtr, 
+    typedef PointerFwdBuilder<AttachmentContainerPtr,
                               AttachmentContainerConstPtr,
                               Viewport>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -134,38 +134,37 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
         NextFieldId = DrawTimeFieldId + 1
     };
 
-    static const OSG::BitVector LeftFieldMask = 
+    static const OSG::BitVector LeftFieldMask =
         (TypeTraits<BitVector>::One << LeftFieldId);
-    static const OSG::BitVector RightFieldMask = 
+    static const OSG::BitVector RightFieldMask =
         (TypeTraits<BitVector>::One << RightFieldId);
-    static const OSG::BitVector BottomFieldMask = 
+    static const OSG::BitVector BottomFieldMask =
         (TypeTraits<BitVector>::One << BottomFieldId);
-    static const OSG::BitVector TopFieldMask = 
+    static const OSG::BitVector TopFieldMask =
         (TypeTraits<BitVector>::One << TopFieldId);
-    static const OSG::BitVector ParentFieldMask = 
+    static const OSG::BitVector ParentFieldMask =
         (TypeTraits<BitVector>::One << ParentFieldId);
-    static const OSG::BitVector CameraFieldMask = 
+    static const OSG::BitVector CameraFieldMask =
         (TypeTraits<BitVector>::One << CameraFieldId);
-    static const OSG::BitVector RootFieldMask = 
+    static const OSG::BitVector RootFieldMask =
         (TypeTraits<BitVector>::One << RootFieldId);
-    static const OSG::BitVector BackgroundFieldMask = 
+    static const OSG::BitVector BackgroundFieldMask =
         (TypeTraits<BitVector>::One << BackgroundFieldId);
-    static const OSG::BitVector ForegroundsFieldMask = 
+    static const OSG::BitVector ForegroundsFieldMask =
         (TypeTraits<BitVector>::One << ForegroundsFieldId);
-    static const OSG::BitVector TravMaskFieldMask = 
+    static const OSG::BitVector TravMaskFieldMask =
         (TypeTraits<BitVector>::One << TravMaskFieldId);
-    static const OSG::BitVector DrawTimeFieldMask = 
+    static const OSG::BitVector DrawTimeFieldMask =
         (TypeTraits<BitVector>::One << DrawTimeFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -173,8 +172,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -185,135 +184,135 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFLeft(void);
+                  SFReal32            *getSFLeft            (void);
 #endif
-           SFReal32 *editSFLeft(void);
-     const SFReal32 *getSFLeft (void) const;
+                  SFReal32            *editSFLeft           (void);
+            const SFReal32            *getSFLeft            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFRight(void);
+                  SFReal32            *getSFRight           (void);
 #endif
-           SFReal32 *editSFRight(void);
-     const SFReal32 *getSFRight (void) const;
+                  SFReal32            *editSFRight          (void);
+            const SFReal32            *getSFRight           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFBottom(void);
+                  SFReal32            *getSFBottom          (void);
 #endif
-           SFReal32 *editSFBottom(void);
-     const SFReal32 *getSFBottom (void) const;
+                  SFReal32            *editSFBottom         (void);
+            const SFReal32            *getSFBottom          (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFTop(void);
+                  SFReal32            *getSFTop             (void);
 #endif
-           SFReal32 *editSFTop(void);
-     const SFReal32 *getSFTop (void) const;
-     const SFParentFieldContainerPtr *getSFParent (void) const;
-     const SFCameraPtr *getSFCamera (void) const;
-     const SFNodePtr *getSFRoot (void) const;
-     const SFBackgroundPtr *getSFBackground (void) const;
-     const MFForegroundPtr *getMFForegrounds (void) const;
+                  SFReal32            *editSFTop            (void);
+            const SFReal32            *getSFTop             (void) const;
+            const SFParentFieldContainerPtr *getSFParent          (void) const;
+            const SFCameraPtr         *getSFCamera          (void) const;
+            const SFNodePtr           *getSFRoot            (void) const;
+            const SFBackgroundPtr     *getSFBackground      (void) const;
+            const MFForegroundPtr     *getMFForegrounds     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFTravMask(void);
+                  SFUInt32            *getSFTravMask        (void);
 #endif
-           SFUInt32 *editSFTravMask(void);
-     const SFUInt32 *getSFTravMask (void) const;
+                  SFUInt32            *editSFTravMask       (void);
+            const SFUInt32            *getSFTravMask        (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFDrawTime(void);
+                  SFReal32            *getSFDrawTime        (void);
 #endif
-           SFReal32 *editSFDrawTime(void);
-     const SFReal32 *getSFDrawTime (void) const;
+                  SFReal32            *editSFDrawTime       (void);
+            const SFReal32            *getSFDrawTime        (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Real32 &getLeft(void);
+                  Real32              &getLeft            (void);
 #endif
-           Real32 &editLeft(void);
-     const Real32 &getLeft (void) const;
+                  Real32              &editLeft           (void);
+            const Real32              &getLeft            (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getRight(void);
+                  Real32              &getRight           (void);
 #endif
-           Real32 &editRight(void);
-     const Real32 &getRight (void) const;
+                  Real32              &editRight          (void);
+            const Real32              &getRight           (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getBottom(void);
+                  Real32              &getBottom          (void);
 #endif
-           Real32 &editBottom(void);
-     const Real32 &getBottom (void) const;
+                  Real32              &editBottom         (void);
+            const Real32              &getBottom          (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getTop(void);
+                  Real32              &getTop             (void);
 #endif
-           Real32 &editTop(void);
-     const Real32 &getTop (void) const;
+                  Real32              &editTop            (void);
+            const Real32              &getTop             (void) const;
 
-           ParentFieldContainerPtrConst getParent(void) const;
+                  ParentFieldContainerPtrConst getParent         (void) const;
 
-           CameraPtrConst getCamera(void) const;
+                  CameraPtrConst getCamera         (void) const;
 
-           NodePtrConst getRoot(void) const;
+                  NodePtrConst getRoot           (void) const;
 
-           BackgroundPtrConst getBackground(void) const;
+                  BackgroundPtrConst getBackground     (void) const;
 
-           ForegroundPtrConst getForegrounds(const UInt32 index) const;
-     const MFForegroundPtr &getForegrounds(void) const;
+                  ForegroundPtrConst getForegrounds    (const UInt32 index) const;
+            const MFForegroundPtr     &getForegrounds    (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getTravMask(void);
+                  UInt32              &getTravMask        (void);
 #endif
-           UInt32 &editTravMask(void);
-     const UInt32 &getTravMask (void) const;
+                  UInt32              &editTravMask       (void);
+            const UInt32              &getTravMask        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getDrawTime(void);
+                  Real32              &getDrawTime        (void);
 #endif
-           Real32 &editDrawTime(void);
-     const Real32 &getDrawTime (void) const;
+                  Real32              &editDrawTime       (void);
+            const Real32              &getDrawTime        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setLeft(const Real32 &value);
-     void setRight(const Real32 &value);
-     void setBottom(const Real32 &value);
-     void setTop(const Real32 &value);
-     void setParent(      ParentFieldContainerPtrConstArg value,
+            void setLeft           (const Real32 &value);
+            void setRight          (const Real32 &value);
+            void setBottom         (const Real32 &value);
+            void setTop            (const Real32 &value);
+            void setParent         (      ParentFieldContainerPtrConstArg value,
                     const UInt16        uiStoredInFieldId = InvalidParentEPos);
-     void setCamera(CameraPtrConstArg value);
-     void setRoot(NodePtrConstArg value);
-     void setBackground(BackgroundPtrConstArg value);
-     void setTravMask(const UInt32 &value);
-     void setDrawTime(const Real32 &value);
+            void setCamera         (CameraPtrConstArg value);
+            void setRoot           (NodePtrConstArg value);
+            void setBackground     (BackgroundPtrConstArg value);
+            void setTravMask       (const UInt32 &value);
+            void setDrawTime       (const Real32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -323,18 +322,18 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addForeground           (ForegroundPtrConstArg value   );
+    void addForeground             (ForegroundPtrConstArg value   );
     void insertIntoForegrounds      (UInt32                uiIndex,
-                                    ForegroundPtrConstArg value   );
+                                             ForegroundPtrConstArg value   );
     void replaceInForegrounds  (UInt32                uiIndex,
-                                    ForegroundPtrConstArg value   );
+                                             ForegroundPtrConstArg value   );
     void replaceInForegrounds (ForegroundPtrConstArg pOldElem,
-                                    ForegroundPtrConstArg pNewElem);
+                                             ForegroundPtrConstArg pNewElem);
     void removeFromForegrounds (UInt32                uiIndex );
     void removeFromForegrounds(ForegroundPtrConstArg value   );
     void clearForegrounds            (void                          );
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -353,15 +352,15 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ViewportPtr create     (void); 
-    static  ViewportPtr createEmpty(void); 
+    static  ViewportPtr create     (void);
+    static  ViewportPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -377,17 +376,17 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32 _sfLeft;
-    SFReal32 _sfRight;
-    SFReal32 _sfBottom;
-    SFReal32 _sfTop;
+    SFReal32          _sfLeft;
+    SFReal32          _sfRight;
+    SFReal32          _sfBottom;
+    SFReal32          _sfTop;
     SFParentFieldContainerPtr _sfParent;
-    SFCameraPtr _sfCamera;
-    SFNodePtr _sfRoot;
-    SFBackgroundPtr _sfBackground;
-    MFForegroundPtr _mfForegrounds;
-    SFUInt32 _sfTravMask;
-    SFReal32 _sfDrawTime;
+    SFCameraPtr       _sfCamera;
+    SFNodePtr         _sfRoot;
+    SFBackgroundPtr   _sfBackground;
+    MFForegroundPtr   _mfForegrounds;
+    SFUInt32          _sfTravMask;
+    SFReal32          _sfDrawTime;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -402,7 +401,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ViewportBase(void); 
+    virtual ~ViewportBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -449,11 +448,11 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

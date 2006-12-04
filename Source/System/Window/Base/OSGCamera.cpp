@@ -58,18 +58,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::Camera
-    \ingroup GrpSystemWindowCameras
-
-  The Camera base class, see \ref PageSystemWindowCamera for a description.
-
-  The only common fields are _sfNear and _sfFar.
- */
+// Documentation for this class is emited in the
+// OSGCameraBase.cpp file.
+// To modify it, please change the .fcd file (OSGCamera.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

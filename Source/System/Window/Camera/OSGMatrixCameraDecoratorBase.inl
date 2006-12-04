@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &MatrixCameraDecoratorBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 MatrixCameraDecoratorBase::getClassTypeId(void) 
+OSG::UInt32 MatrixCameraDecoratorBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 MatrixCameraDecoratorBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Matrix &MatrixCameraDecoratorBase::getPreViewing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &MatrixCameraDecoratorBase::getPreViewing(void)
+Matrix              &MatrixCameraDecoratorBase::getPreViewing     (void)
 {
-    return this->editPreViewing();
+    return this->editPreViewing     ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Matrix &MatrixCameraDecoratorBase::getPostViewing(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &MatrixCameraDecoratorBase::getPostViewing(void)
+Matrix              &MatrixCameraDecoratorBase::getPostViewing    (void)
 {
-    return this->editPostViewing();
+    return this->editPostViewing    ();
 }
 #endif
 
@@ -158,7 +158,7 @@ const Matrix &MatrixCameraDecoratorBase::getPreProjectionTranslation(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &MatrixCameraDecoratorBase::getPreProjectionTranslation(void)
+Matrix              &MatrixCameraDecoratorBase::getPreProjectionTranslation(void)
 {
     return this->editPreProjectionTranslation();
 }
@@ -191,7 +191,7 @@ const Matrix &MatrixCameraDecoratorBase::getPostProjectionTranslation(void) cons
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &MatrixCameraDecoratorBase::getPostProjectionTranslation(void)
+Matrix              &MatrixCameraDecoratorBase::getPostProjectionTranslation(void)
 {
     return this->editPostProjectionTranslation();
 }
@@ -224,9 +224,9 @@ const Matrix &MatrixCameraDecoratorBase::getPreProjection(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &MatrixCameraDecoratorBase::getPreProjection(void)
+Matrix              &MatrixCameraDecoratorBase::getPreProjection  (void)
 {
-    return this->editPreProjection();
+    return this->editPreProjection  ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Matrix &MatrixCameraDecoratorBase::getPostProjection(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Matrix &MatrixCameraDecoratorBase::getPostProjection(void)
+Matrix              &MatrixCameraDecoratorBase::getPostProjection (void)
 {
-    return this->editPostProjection();
+    return this->editPostProjection ();
 }
 #endif
 
@@ -274,24 +274,24 @@ void MatrixCameraDecoratorBase::setPostProjection(const Matrix &value)
 
 //! create a new instance of the class
 inline
-MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::create(void) 
+MatrixCameraDecoratorPtr MatrixCameraDecoratorBase::create(void)
 {
-    MatrixCameraDecoratorPtr fc; 
+    MatrixCameraDecoratorPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<MatrixCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void MatrixCameraDecoratorBase::execSync(      MatrixCameraDecoratorBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -322,7 +322,7 @@ inline
 void MatrixCameraDecoratorBase::execSync (      MatrixCameraDecoratorBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -375,4 +375,3 @@ typedef PointerBuilder<MatrixCameraDecorator>::ObjPtrConstArg  MatrixCameraDecor
 OSG_END_NAMESPACE
 
 #define OSGMATRIXCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
-

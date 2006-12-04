@@ -9,7 +9,13 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-Background is the base class for all background clearing. 
+\ingroup GrpSystemWindowForegrounds
+
+The ImageForeground is used to draw images on top of the viewport.  See \ref
+PageSystemWindowForegroundImage for a description.
+
+The images are stored in the _mfImages Field, the corresponding positions in
+the _mfPositions Field.
 	<Field
 		name="images"
 		type="ImagePtr"

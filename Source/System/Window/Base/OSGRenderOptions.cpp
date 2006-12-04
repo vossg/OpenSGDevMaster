@@ -47,6 +47,10 @@
 
 OSG_USING_NAMESPACE
 
+// Documentation for this class is emited in the
+// OSGRenderOptionsBase.cpp file.
+// To modify it, please change the .fcd file (OSGRenderOptions.fcd) and
+// regenerate the base file.
 
 /*!
  * \brief

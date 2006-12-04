@@ -11,7 +11,9 @@
 	decoratable="false"
 	useLocalIncludes="false"
 >
-An attachment that stores a string-to-string mapping of keys to values. User code can store any key and value pair and interpret the string value in whatever ways are appropriate.
+An attachment that stores a string-to-string mapping of keys to values.
+User code can store any key and value pair and interpret the string value in
+whatever ways are appropriate.
 	<Field
 		name="keys"
 		type="std::string"

@@ -9,7 +9,15 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-The decorator to modify the Camera matrices simply by matrices.
+\ingroup GrpSystemWindowCameraDecorators
+
+The OSG::MatrixCameraDecorator for modifying the camera matrices by 
+matrices, see \ref
+PageSystemWindowCameraDecoratorsMatrix for a description.
+
+The matrices to use are defined by the _sf Fields. The size of the full
+image is defined by the _sfFullWidth and
+_sfFullHeight Fields.
 	<Field
 		name="preViewing"
 		type="Matrix"

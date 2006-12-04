@@ -50,16 +50,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class osg::StringAttributeMap
-An attachment that stores a string-to-string mapping of keys to values. User
-code can store any key and value pair and interpret the string value in
-whatever ways are appropriate.
-
-*/
+// Documentation for this class is emited in the
+// OSGStringAttributeMapBase.cpp file.
+// To modify it, please change the .fcd file (OSGStringAttributeMap.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

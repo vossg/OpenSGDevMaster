@@ -88,24 +88,10 @@ OSG_USING_NAMESPACE
 #pragma warning (disable)
 #endif
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::Window
-    \ingroup GrpSystemWindow
-
-  Window is the base class for all window management classes.  See \ref
-  PageSystemWindowWindow for a description.
-  
-  \ext
-  
-  To create a new Window the methods that have to be overridden are 
-  init(void), activate(void), deactivate(void) and swap(void).
-  
-  \endext 
-  
- */
+// Documentation for this class is emited in the
+// OSGWindowBase.cpp file.
+// To modify it, please change the .fcd file (OSGWindow.fcd) and
+// regenerate the base file.
 
 // Window-sytem specific virtual functions
 

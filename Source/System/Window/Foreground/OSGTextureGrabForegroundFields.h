@@ -70,22 +70,22 @@ class TextureGrabForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureGrabForegroundPtr
 
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           TextureGrabForeground>::ObjPtr         TextureGrabForegroundPtr;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           TextureGrabForeground>::ObjPtrConst    TextureGrabForegroundPtrConst;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           TextureGrabForeground>::ObjConstPtr    TextureGrabForegroundConstPtr;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           TextureGrabForeground>::ObjPtrArg      TextureGrabForegroundPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           TextureGrabForeground>::ObjConstPtrArg TextureGrabForegroundConstPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           TextureGrabForeground>::ObjPtrConstArg TextureGrabForegroundPtrConstArg;
 
@@ -99,18 +99,18 @@ typedef PointerFwdBuilder<ForegroundPtr,
 #endif
 
 template <>
-struct FieldTraits<TextureGrabForegroundPtr> : 
+struct FieldTraits<TextureGrabForegroundPtr> :
     public FieldTraitsTemplateBase<TextureGrabForegroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TextureGrabForegroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)

@@ -58,23 +58,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::SkyBackground
-    \ingroup GrpSystemWindowBackgrounds
-
-A Sky/Ground/Skybox background, inspired by VRML, see \ref
-PageSystemWindowBackgroundSky for a description.
-
-The sky is defined by the _mfSkyAngle and _mfSkyColor fields, the ground by the
-_mfGroundAngle and _mfGround Color fields. The resolution of the sky sphere can
-be influenced by the _sfSphereRes field. The sky box is defined by the
-_sfBackTexture, _sfFrontTexture, _sfLeftTexture, _sfRightTexture, _sfTopTexture
-and _sfBottomTexture fields.
-
-*/
+// Documentation for this class is emited in the
+// OSGSkyBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGSkyBackground.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

@@ -86,22 +86,22 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ViewportPtr, 
-                              ViewportConstPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
+                              ViewportConstPtr,
                               StereoBufferViewport>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ViewportPtr, 
-                              ViewportConstPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
+                              ViewportConstPtr,
                               StereoBufferViewport>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               StereoBufferViewport>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               StereoBufferViewport>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               StereoBufferViewport>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               StereoBufferViewport>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
         NextFieldId = RightBufferFieldId + 1
     };
 
-    static const OSG::BitVector LeftBufferFieldMask = 
+    static const OSG::BitVector LeftBufferFieldMask =
         (TypeTraits<BitVector>::One << LeftBufferFieldId);
-    static const OSG::BitVector RightBufferFieldMask = 
+    static const OSG::BitVector RightBufferFieldMask =
         (TypeTraits<BitVector>::One << RightBufferFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -149,37 +148,37 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFLeftBuffer(void);
+                  SFBool              *getSFLeftBuffer      (void);
 #endif
-           SFBool *editSFLeftBuffer(void);
-     const SFBool *getSFLeftBuffer (void) const;
+                  SFBool              *editSFLeftBuffer     (void);
+            const SFBool              *getSFLeftBuffer      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFRightBuffer(void);
+                  SFBool              *getSFRightBuffer     (void);
 #endif
-           SFBool *editSFRightBuffer(void);
-     const SFBool *getSFRightBuffer (void) const;
+                  SFBool              *editSFRightBuffer    (void);
+            const SFBool              *getSFRightBuffer     (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getLeftBuffer(void);
+                  bool                &getLeftBuffer      (void);
 #endif
-           bool &editLeftBuffer(void);
-     const bool &getLeftBuffer (void) const;
+                  bool                &editLeftBuffer     (void);
+            const bool                &getLeftBuffer      (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getRightBuffer(void);
+                  bool                &getRightBuffer     (void);
 #endif
-           bool &editRightBuffer(void);
-     const bool &getRightBuffer (void) const;
+                  bool                &editRightBuffer    (void);
+            const bool                &getRightBuffer     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setLeftBuffer(const bool &value);
-     void setRightBuffer(const bool &value);
+            void setLeftBuffer     (const bool &value);
+            void setRightBuffer    (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -199,15 +198,15 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  StereoBufferViewportPtr create     (void); 
-    static  StereoBufferViewportPtr createEmpty(void); 
+    static  StereoBufferViewportPtr create     (void);
+    static  StereoBufferViewportPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -223,8 +222,8 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfLeftBuffer;
-    SFBool _sfRightBuffer;
+    SFBool            _sfLeftBuffer;
+    SFBool            _sfRightBuffer;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -239,7 +238,7 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StereoBufferViewportBase(void); 
+    virtual ~StereoBufferViewportBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -285,11 +284,11 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

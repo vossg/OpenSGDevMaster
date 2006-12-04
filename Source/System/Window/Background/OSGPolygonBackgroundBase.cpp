@@ -66,48 +66,52 @@
 #include "OSGPolygonBackgroundBase.h"
 #include "OSGPolygonBackground.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var MaterialPtr PolygonBackgroundBase::_sfMaterial
-    	The material used to display.
+/*! \class OSG::PolygonBackground
+    A Background that renders a single polygon using the specified
+    material.
+ */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var MaterialPtr     PolygonBackgroundBase::_sfMaterial
+    The material used to display.
 */
-/*! \var Vec3f PolygonBackgroundBase::_mfTexCoords
-    	The texture coordinates of the geometry to display.
-
+/*! \var Vec3f           PolygonBackgroundBase::_mfTexCoords
+    The texture coordinates of the geometry to display.
 */
-/*! \var Pnt2f PolygonBackgroundBase::_mfPositions
-    	The positions of the geometry to display.
-
+/*! \var Pnt2f           PolygonBackgroundBase::_mfPositions
+    The positions of the geometry to display.
 */
-/*! \var bool PolygonBackgroundBase::_sfNormalizedX
-    	Define whether the x coordinates are normalized (0-1) or pixel-based .
-
+/*! \var bool            PolygonBackgroundBase::_sfNormalizedX
+    Define whether the x coordinates are normalized (0-1) or pixel-based.
 */
-/*! \var bool PolygonBackgroundBase::_sfNormalizedY
-    	Define whether the y coordinates are normalized (0-1) or pixel-based .
-
+/*! \var bool            PolygonBackgroundBase::_sfNormalizedY
+    Define whether the y coordinates are normalized (0-1) or pixel-based.
 */
-/*! \var UInt16 PolygonBackgroundBase::_sfAspectHeight
-    	Useful for keeping aspect ratio when rendering things like images.
-
+/*! \var UInt16          PolygonBackgroundBase::_sfAspectHeight
+    Useful for keeping aspect ratio when rendering things like images.
 */
-/*! \var UInt16 PolygonBackgroundBase::_sfAspectWidth
-    	Useful for keeping aspect ratio when rendering things like images.
-
+/*! \var UInt16          PolygonBackgroundBase::_sfAspectWidth
+    Useful for keeping aspect ratio when rendering things like images.
 */
 
 void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFMaterialPtr::Description(
-        SFMaterialPtr::getClassType(), 
-        "material", 
-        "	The material used to display.\n",
+        SFMaterialPtr::getClassType(),
+        "material",
+        "The material used to display.\n",
         MaterialFieldId, MaterialFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -123,9 +127,9 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFVec3f::Description(
-        MFVec3f::getClassType(), 
-        "texCoords", 
-        "	The texture coordinates of the geometry to display.\n",
+        MFVec3f::getClassType(),
+        "texCoords",
+        "The texture coordinates of the geometry to display.\n",
         TexCoordsFieldId, TexCoordsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -145,9 +149,9 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new MFPnt2f::Description(
-        MFPnt2f::getClassType(), 
-        "positions", 
-        "	The positions of the geometry to display.\n",
+        MFPnt2f::getClassType(),
+        "positions",
+        "The positions of the geometry to display.\n",
         PositionsFieldId, PositionsFieldMask,
         false,
         Field::MFDefaultFlags,
@@ -167,9 +171,9 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "normalizedX", 
-        "	Define whether the x coordinates are normalized (0-1) or pixel-based .\n",
+        SFBool::getClassType(),
+        "normalizedX",
+        "Define whether the x coordinates are normalized (0-1) or pixel-based.\n",
         NormalizedXFieldId, NormalizedXFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -189,9 +193,9 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "normalizedY", 
-        "	Define whether the y coordinates are normalized (0-1) or pixel-based .\n",
+        SFBool::getClassType(),
+        "normalizedY",
+        "Define whether the y coordinates are normalized (0-1) or pixel-based.\n",
         NormalizedYFieldId, NormalizedYFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -211,9 +215,9 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "aspectHeight", 
-        "	Useful for keeping aspect ratio when rendering things like images.\n",
+        SFUInt16::getClassType(),
+        "aspectHeight",
+        "Useful for keeping aspect ratio when rendering things like images.\n",
         AspectHeightFieldId, AspectHeightFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -233,9 +237,9 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(), 
-        "aspectWidth", 
-        "	Useful for keeping aspect ratio when rendering things like images.\n",
+        SFUInt16::getClassType(),
+        "aspectWidth",
+        "Useful for keeping aspect ratio when rendering things like images.\n",
         AspectWidthFieldId, AspectWidthFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -260,106 +264,105 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(true,
     (InitalInsertDescFunc) &PolygonBackgroundBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"PolygonBackground\"\n"
-"	parent=\"Background\"\n"
-"	library=\"Window\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"concrete\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-"	useLocalIncludes=\"false\"\n"
-">\n"
-"A Background that renders a single polygon using the specified material.\n"
-"	<Field\n"
-"		name=\"material\"\n"
-"		type=\"MaterialPtr\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The material used to display.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"texCoords\"\n"
-"		type=\"Vec3f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The texture coordinates of the geometry to display.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"positions\"\n"
-"		type=\"Pnt2f\"\n"
-"		cardinality=\"multi\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The positions of the geometry to display.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"normalizedX\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Define whether the x coordinates are normalized (0-1) or pixel-based .\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"normalizedY\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"true\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Define whether the y coordinates are normalized (0-1) or pixel-based .\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"aspectHeight\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Useful for keeping aspect ratio when rendering things like images.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"aspectWidth\"\n"
-"		type=\"UInt16\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		defaultValue=\"0\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Useful for keeping aspect ratio when rendering things like images.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A Background that renders a single polygon using the specified material.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"PolygonBackground\"\n"
+    "\tparent=\"Background\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
+    ">\n"
+    "A Background that renders a single polygon using the specified material.\n"
+    "\t<Field\n"
+    "\t\tname=\"material\"\n"
+    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe material used to display.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"texCoords\"\n"
+    "\t\ttype=\"Vec3f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe texture coordinates of the geometry to display.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"positions\"\n"
+    "\t\ttype=\"Pnt2f\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe positions of the geometry to display.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"normalizedX\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefine whether the x coordinates are normalized (0-1) or pixel-based.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"normalizedY\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tDefine whether the y coordinates are normalized (0-1) or pixel-based.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"aspectHeight\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUseful for keeping aspect ratio when rendering things like images.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"aspectWidth\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUseful for keeping aspect ratio when rendering things like images.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "A Background that renders a single polygon using the specified material.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &PolygonBackgroundBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &PolygonBackgroundBase::getType(void) const 
+FieldContainerType &PolygonBackgroundBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 PolygonBackgroundBase::getContainerSize(void) const 
-{ 
-    return sizeof(PolygonBackground); 
+const FieldContainerType &PolygonBackgroundBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 PolygonBackgroundBase::getContainerSize(void) const
+{
+    return sizeof(PolygonBackground);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -384,9 +387,9 @@ const MFVec3f *PolygonBackgroundBase::getMFTexCoords(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFVec3f *PolygonBackgroundBase::getMFTexCoords(void)
+MFVec3f             *PolygonBackgroundBase::getMFTexCoords      (void)
 {
-    return this->editMFTexCoords();
+    return this->editMFTexCoords      ();
 }
 #endif
 
@@ -403,9 +406,9 @@ const MFPnt2f *PolygonBackgroundBase::getMFPositions(void) const
 }
 
 #ifdef OSG_1_COMPAT
-MFPnt2f *PolygonBackgroundBase::getMFPositions(void)
+MFPnt2f             *PolygonBackgroundBase::getMFPositions      (void)
 {
-    return this->editMFPositions();
+    return this->editMFPositions      ();
 }
 #endif
 
@@ -422,9 +425,9 @@ const SFBool *PolygonBackgroundBase::getSFNormalizedX(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *PolygonBackgroundBase::getSFNormalizedX(void)
+SFBool              *PolygonBackgroundBase::getSFNormalizedX    (void)
 {
-    return this->editSFNormalizedX();
+    return this->editSFNormalizedX    ();
 }
 #endif
 
@@ -441,9 +444,9 @@ const SFBool *PolygonBackgroundBase::getSFNormalizedY(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *PolygonBackgroundBase::getSFNormalizedY(void)
+SFBool              *PolygonBackgroundBase::getSFNormalizedY    (void)
 {
-    return this->editSFNormalizedY();
+    return this->editSFNormalizedY    ();
 }
 #endif
 
@@ -460,9 +463,9 @@ const SFUInt16 *PolygonBackgroundBase::getSFAspectHeight(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *PolygonBackgroundBase::getSFAspectHeight(void)
+SFUInt16            *PolygonBackgroundBase::getSFAspectHeight   (void)
 {
-    return this->editSFAspectHeight();
+    return this->editSFAspectHeight   ();
 }
 #endif
 
@@ -479,9 +482,9 @@ const SFUInt16 *PolygonBackgroundBase::getSFAspectWidth(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFUInt16 *PolygonBackgroundBase::getSFAspectWidth(void)
+SFUInt16            *PolygonBackgroundBase::getSFAspectWidth    (void)
 {
-    return this->editSFAspectWidth();
+    return this->editSFAspectWidth    ();
 }
 #endif
 
@@ -554,7 +557,7 @@ void PolygonBackgroundBase::pushToTexCoords(const Vec3f& value)
 }
 
 void PolygonBackgroundBase::insertIntoTexCoords(UInt32                uiIndex,
-                                             const Vec3f& value   )
+                                                   const Vec3f& value   )
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
@@ -566,7 +569,7 @@ void PolygonBackgroundBase::insertIntoTexCoords(UInt32                uiIndex,
 }
 
 void PolygonBackgroundBase::replaceInTexCoords(UInt32                uiIndex,
-                                                 const Vec3f& value   )
+                                                       const Vec3f& value   )
 {
     if(uiIndex >= _mfTexCoords.size())
         return;
@@ -577,7 +580,7 @@ void PolygonBackgroundBase::replaceInTexCoords(UInt32                uiIndex,
 }
 
 void PolygonBackgroundBase::replaceInTexCoords(const Vec3f& pOldElem,
-                                                  const Vec3f& pNewElem)
+                                                        const Vec3f& pNewElem)
 {
     Int32  elemIdx = _mfTexCoords.findIndex(pOldElem);
 
@@ -621,19 +624,13 @@ void PolygonBackgroundBase::removeFromTexCoords(const Vec3f& value)
         _mfTexCoords.erase(fieldIt);
     }
 }
+
 void PolygonBackgroundBase::clearTexCoords(void)
 {
     editMField(TexCoordsFieldMask, _mfTexCoords);
 
     _mfTexCoords.clear();
 }
-
-
-
-
-
-
-
 /*********************************** Non-ptr code ********************************/
 void PolygonBackgroundBase::pushToPositions(const Pnt2f& value)
 {
@@ -642,7 +639,7 @@ void PolygonBackgroundBase::pushToPositions(const Pnt2f& value)
 }
 
 void PolygonBackgroundBase::insertIntoPositions(UInt32                uiIndex,
-                                             const Pnt2f& value   )
+                                                   const Pnt2f& value   )
 {
     editMField(PositionsFieldMask, _mfPositions);
 
@@ -654,7 +651,7 @@ void PolygonBackgroundBase::insertIntoPositions(UInt32                uiIndex,
 }
 
 void PolygonBackgroundBase::replaceInPositions(UInt32                uiIndex,
-                                                 const Pnt2f& value   )
+                                                       const Pnt2f& value   )
 {
     if(uiIndex >= _mfPositions.size())
         return;
@@ -665,7 +662,7 @@ void PolygonBackgroundBase::replaceInPositions(UInt32                uiIndex,
 }
 
 void PolygonBackgroundBase::replaceInPositions(const Pnt2f& pOldElem,
-                                                  const Pnt2f& pNewElem)
+                                                        const Pnt2f& pNewElem)
 {
     Int32  elemIdx = _mfPositions.findIndex(pOldElem);
 
@@ -709,19 +706,13 @@ void PolygonBackgroundBase::removeFromPositions(const Pnt2f& value)
         _mfPositions.erase(fieldIt);
     }
 }
+
 void PolygonBackgroundBase::clearPositions(void)
 {
     editMField(PositionsFieldMask, _mfPositions);
 
     _mfPositions.clear();
 }
-
-
-
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -833,22 +824,22 @@ void PolygonBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PolygonBackgroundPtr PolygonBackgroundBase::createEmpty(void) 
-{ 
-    PolygonBackgroundPtr returnValue; 
-    
-    newPtr<PolygonBackground>(returnValue); 
+PolygonBackgroundPtr PolygonBackgroundBase::createEmpty(void)
+{
+    PolygonBackgroundPtr returnValue;
 
-    return returnValue; 
+    newPtr<PolygonBackground>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr PolygonBackgroundBase::shallowCopy(void) const 
-{ 
-    PolygonBackgroundPtr returnValue; 
+FieldContainerPtr PolygonBackgroundBase::shallowCopy(void) const
+{
+    PolygonBackgroundPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const PolygonBackground *>(this)); 
+    newPtr(returnValue, dynamic_cast<const PolygonBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -857,25 +848,25 @@ FieldContainerPtr PolygonBackgroundBase::shallowCopy(void) const
 
 PolygonBackgroundBase::PolygonBackgroundBase(void) :
     Inherited(),
-    _sfMaterial(),
-    _mfTexCoords(),
-    _mfPositions(),
-    _sfNormalizedX(bool(true)),
-    _sfNormalizedY(bool(true)),
-    _sfAspectHeight(UInt16(0)),
-    _sfAspectWidth(UInt16(0))
+    _sfMaterial               (),
+    _mfTexCoords              (),
+    _mfPositions              (),
+    _sfNormalizedX            (bool(true)),
+    _sfNormalizedY            (bool(true)),
+    _sfAspectHeight           (UInt16(0)),
+    _sfAspectWidth            (UInt16(0))
 {
 }
 
 PolygonBackgroundBase::PolygonBackgroundBase(const PolygonBackgroundBase &source) :
     Inherited(source),
-    _sfMaterial(),
-    _mfTexCoords(source._mfTexCoords),
-    _mfPositions(source._mfPositions),
-    _sfNormalizedX(source._sfNormalizedX),
-    _sfNormalizedY(source._sfNormalizedY),
-    _sfAspectHeight(source._sfAspectHeight),
-    _sfAspectWidth(source._sfAspectWidth)
+    _sfMaterial               (),
+    _mfTexCoords              (source._mfTexCoords              ),
+    _mfPositions              (source._mfPositions              ),
+    _sfNormalizedX            (source._sfNormalizedX            ),
+    _sfNormalizedY            (source._sfNormalizedY            ),
+    _sfAspectHeight           (source._sfAspectHeight           ),
+    _sfAspectWidth            (source._sfAspectWidth            )
 {
 }
 
@@ -899,13 +890,13 @@ void PolygonBackgroundBase::onCreate(const PolygonBackground *source)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void PolygonBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<PolygonBackgroundBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -915,10 +906,10 @@ void PolygonBackgroundBase::execSyncV(      FieldContainer    &oFrom,
 void PolygonBackgroundBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PolygonBackgroundBase *>(&oFrom), 
+    this->execSync(static_cast<PolygonBackgroundBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -938,12 +929,12 @@ void PolygonBackgroundBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr PolygonBackgroundBase::createAspectCopy(void) const
 {
-    PolygonBackgroundPtr returnValue; 
+    PolygonBackgroundPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const PolygonBackground *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const PolygonBackground *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -954,6 +945,8 @@ void PolygonBackgroundBase::resolveLinks(void)
     static_cast<PolygonBackground *>(this)->setMaterial(NullFC);
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -976,8 +969,6 @@ OSG_FIELDTRAITS_GETTYPE(PolygonBackgroundPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, PolygonBackgroundPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, PolygonBackgroundPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -998,3 +989,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPOLYGONBACKGROUNDFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

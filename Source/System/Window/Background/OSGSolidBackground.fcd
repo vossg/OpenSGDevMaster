@@ -9,7 +9,12 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-A single colored background.
+\ingroup GrpSystemWindowBackgrounds
+
+A single colored background, see \ref PageSystemWindowBackgroundSolid for a
+description.
+
+The color of the background is given by the _sfColor field.
 	<Field
 		name="color"
 		type="Color3r"

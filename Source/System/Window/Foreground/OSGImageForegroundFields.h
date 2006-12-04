@@ -70,22 +70,22 @@ class ImageForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! ImageForegroundPtr
 
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           ImageForeground>::ObjPtr         ImageForegroundPtr;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           ImageForeground>::ObjPtrConst    ImageForegroundPtrConst;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           ImageForeground>::ObjConstPtr    ImageForegroundConstPtr;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           ImageForeground>::ObjPtrArg      ImageForegroundPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           ImageForeground>::ObjConstPtrArg ImageForegroundConstPtrArg;
-typedef PointerFwdBuilder<ForegroundPtr, 
+typedef PointerFwdBuilder<ForegroundPtr,
                           ForegroundConstPtr,
                           ImageForeground>::ObjPtrConstArg ImageForegroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<ForegroundPtr,
 #endif
 
 template <>
-struct FieldTraits<ImageForegroundPtr> : 
+struct FieldTraits<ImageForegroundPtr> :
     public FieldTraitsTemplateBase<ImageForegroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<ImageForegroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFImageForegroundPtr"; }

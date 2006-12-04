@@ -54,14 +54,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::TextureBackground
-  A textured background e.g for distortion corrected fast live video from a 
-  camera with known intrinsic parameters.
- */
+// Documentation for this class is emited in the
+// OSGTextureBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGTextureBackground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *

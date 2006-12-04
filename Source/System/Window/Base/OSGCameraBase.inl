@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &CameraBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 CameraBase::getClassTypeId(void) 
+OSG::UInt32 CameraBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 CameraBase::getClassGroupId(void)
@@ -76,7 +76,7 @@ OSG::UInt16 CameraBase::getClassGroupId(void)
 inline
 void CameraBase::execSync(      CameraBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -98,7 +98,7 @@ inline
 void CameraBase::execSync (      CameraBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -142,4 +142,3 @@ typedef PointerBuilder<Camera>::ObjPtrConstArg  CameraPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGCAMERABASE_INLINE_CVSID "@(#)$Id$"
-

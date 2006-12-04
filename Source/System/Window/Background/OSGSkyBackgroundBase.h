@@ -103,22 +103,22 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               SkyBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               SkyBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               SkyBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               SkyBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               SkyBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               SkyBackground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -150,54 +150,53 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
         NextFieldId = BeaconFieldId + 1
     };
 
-    static const OSG::BitVector SkyColorFieldMask = 
+    static const OSG::BitVector SkyColorFieldMask =
         (TypeTraits<BitVector>::One << SkyColorFieldId);
-    static const OSG::BitVector SkyAngleFieldMask = 
+    static const OSG::BitVector SkyAngleFieldMask =
         (TypeTraits<BitVector>::One << SkyAngleFieldId);
-    static const OSG::BitVector GroundColorFieldMask = 
+    static const OSG::BitVector GroundColorFieldMask =
         (TypeTraits<BitVector>::One << GroundColorFieldId);
-    static const OSG::BitVector GroundAngleFieldMask = 
+    static const OSG::BitVector GroundAngleFieldMask =
         (TypeTraits<BitVector>::One << GroundAngleFieldId);
-    static const OSG::BitVector SphereResFieldMask = 
+    static const OSG::BitVector SphereResFieldMask =
         (TypeTraits<BitVector>::One << SphereResFieldId);
-    static const OSG::BitVector BackTextureFieldMask = 
+    static const OSG::BitVector BackTextureFieldMask =
         (TypeTraits<BitVector>::One << BackTextureFieldId);
-    static const OSG::BitVector BottomTextureFieldMask = 
+    static const OSG::BitVector BottomTextureFieldMask =
         (TypeTraits<BitVector>::One << BottomTextureFieldId);
-    static const OSG::BitVector FrontTextureFieldMask = 
+    static const OSG::BitVector FrontTextureFieldMask =
         (TypeTraits<BitVector>::One << FrontTextureFieldId);
-    static const OSG::BitVector LeftTextureFieldMask = 
+    static const OSG::BitVector LeftTextureFieldMask =
         (TypeTraits<BitVector>::One << LeftTextureFieldId);
-    static const OSG::BitVector RightTextureFieldMask = 
+    static const OSG::BitVector RightTextureFieldMask =
         (TypeTraits<BitVector>::One << RightTextureFieldId);
-    static const OSG::BitVector TopTextureFieldMask = 
+    static const OSG::BitVector TopTextureFieldMask =
         (TypeTraits<BitVector>::One << TopTextureFieldId);
-    static const OSG::BitVector BoxInsideFieldMask = 
+    static const OSG::BitVector BoxInsideFieldMask =
         (TypeTraits<BitVector>::One << BoxInsideFieldId);
-    static const OSG::BitVector TopTexCoordFieldMask = 
+    static const OSG::BitVector TopTexCoordFieldMask =
         (TypeTraits<BitVector>::One << TopTexCoordFieldId);
-    static const OSG::BitVector BottomTexCoordFieldMask = 
+    static const OSG::BitVector BottomTexCoordFieldMask =
         (TypeTraits<BitVector>::One << BottomTexCoordFieldId);
-    static const OSG::BitVector RightTexCoordFieldMask = 
+    static const OSG::BitVector RightTexCoordFieldMask =
         (TypeTraits<BitVector>::One << RightTexCoordFieldId);
-    static const OSG::BitVector LeftTexCoordFieldMask = 
+    static const OSG::BitVector LeftTexCoordFieldMask =
         (TypeTraits<BitVector>::One << LeftTexCoordFieldId);
-    static const OSG::BitVector FrontTexCoordFieldMask = 
+    static const OSG::BitVector FrontTexCoordFieldMask =
         (TypeTraits<BitVector>::One << FrontTexCoordFieldId);
-    static const OSG::BitVector BackTexCoordFieldMask = 
+    static const OSG::BitVector BackTexCoordFieldMask =
         (TypeTraits<BitVector>::One << BackTexCoordFieldId);
-    static const OSG::BitVector BeaconFieldMask = 
+    static const OSG::BitVector BeaconFieldMask =
         (TypeTraits<BitVector>::One << BeaconFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -205,8 +204,8 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -217,240 +216,240 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
 
 
 #ifdef OSG_1_COMPAT
-           MFColor4f *getMFSkyColor(void);
+                  MFColor4f           *getMFSkyColor        (void);
 #endif
-           MFColor4f *editMFSkyColor(void);
-     const MFColor4f *getMFSkyColor (void) const;
+                  MFColor4f           *editMFSkyColor       (void);
+            const MFColor4f           *getMFSkyColor        (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFReal32 *getMFSkyAngle(void);
+                  MFReal32            *getMFSkyAngle        (void);
 #endif
-           MFReal32 *editMFSkyAngle(void);
-     const MFReal32 *getMFSkyAngle (void) const;
+                  MFReal32            *editMFSkyAngle       (void);
+            const MFReal32            *getMFSkyAngle        (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFColor4f *getMFGroundColor(void);
+                  MFColor4f           *getMFGroundColor     (void);
 #endif
-           MFColor4f *editMFGroundColor(void);
-     const MFColor4f *getMFGroundColor (void) const;
+                  MFColor4f           *editMFGroundColor    (void);
+            const MFColor4f           *getMFGroundColor     (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFReal32 *getMFGroundAngle(void);
+                  MFReal32            *getMFGroundAngle     (void);
 #endif
-           MFReal32 *editMFGroundAngle(void);
-     const MFReal32 *getMFGroundAngle (void) const;
+                  MFReal32            *editMFGroundAngle    (void);
+            const MFReal32            *getMFGroundAngle     (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFSphereRes(void);
+                  SFUInt32            *getSFSphereRes       (void);
 #endif
-           SFUInt32 *editSFSphereRes(void);
-     const SFUInt32 *getSFSphereRes (void) const;
-     const SFTextureObjChunkPtr *getSFBackTexture (void) const;
-     const SFTextureObjChunkPtr *getSFBottomTexture (void) const;
-     const SFTextureObjChunkPtr *getSFFrontTexture (void) const;
-     const SFTextureObjChunkPtr *getSFLeftTexture (void) const;
-     const SFTextureObjChunkPtr *getSFRightTexture (void) const;
-     const SFTextureObjChunkPtr *getSFTopTexture (void) const;
+                  SFUInt32            *editSFSphereRes      (void);
+            const SFUInt32            *getSFSphereRes       (void) const;
+            const SFTextureObjChunkPtr *getSFBackTexture     (void) const;
+            const SFTextureObjChunkPtr *getSFBottomTexture   (void) const;
+            const SFTextureObjChunkPtr *getSFFrontTexture    (void) const;
+            const SFTextureObjChunkPtr *getSFLeftTexture     (void) const;
+            const SFTextureObjChunkPtr *getSFRightTexture    (void) const;
+            const SFTextureObjChunkPtr *getSFTopTexture      (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFBoxInside(void);
+                  SFBool              *getSFBoxInside       (void);
 #endif
-           SFBool *editSFBoxInside(void);
-     const SFBool *getSFBoxInside (void) const;
+                  SFBool              *editSFBoxInside      (void);
+            const SFBool              *getSFBoxInside       (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec3f *getMFTopTexCoord(void);
+                  MFVec3f             *getMFTopTexCoord     (void);
 #endif
-           MFVec3f *editMFTopTexCoord(void);
-     const MFVec3f *getMFTopTexCoord (void) const;
+                  MFVec3f             *editMFTopTexCoord    (void);
+            const MFVec3f             *getMFTopTexCoord     (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec3f *getMFBottomTexCoord(void);
+                  MFVec3f             *getMFBottomTexCoord  (void);
 #endif
-           MFVec3f *editMFBottomTexCoord(void);
-     const MFVec3f *getMFBottomTexCoord (void) const;
+                  MFVec3f             *editMFBottomTexCoord (void);
+            const MFVec3f             *getMFBottomTexCoord  (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec3f *getMFRightTexCoord(void);
+                  MFVec3f             *getMFRightTexCoord   (void);
 #endif
-           MFVec3f *editMFRightTexCoord(void);
-     const MFVec3f *getMFRightTexCoord (void) const;
+                  MFVec3f             *editMFRightTexCoord  (void);
+            const MFVec3f             *getMFRightTexCoord   (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec3f *getMFLeftTexCoord(void);
+                  MFVec3f             *getMFLeftTexCoord    (void);
 #endif
-           MFVec3f *editMFLeftTexCoord(void);
-     const MFVec3f *getMFLeftTexCoord (void) const;
+                  MFVec3f             *editMFLeftTexCoord   (void);
+            const MFVec3f             *getMFLeftTexCoord    (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec3f *getMFFrontTexCoord(void);
+                  MFVec3f             *getMFFrontTexCoord   (void);
 #endif
-           MFVec3f *editMFFrontTexCoord(void);
-     const MFVec3f *getMFFrontTexCoord (void) const;
+                  MFVec3f             *editMFFrontTexCoord  (void);
+            const MFVec3f             *getMFFrontTexCoord   (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFVec3f *getMFBackTexCoord(void);
+                  MFVec3f             *getMFBackTexCoord    (void);
 #endif
-           MFVec3f *editMFBackTexCoord(void);
-     const MFVec3f *getMFBackTexCoord (void) const;
-     const SFNodePtr *getSFBeacon (void) const;
+                  MFVec3f             *editMFBackTexCoord   (void);
+            const MFVec3f             *getMFBackTexCoord    (void) const;
+            const SFNodePtr           *getSFBeacon          (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Color4f &getSkyColor(const UInt32 index);
-           MFColor4f &getSkyColor(void);
+                  Color4f             &getSkyColor        (const UInt32 index);
+                  MFColor4f           &getSkyColor       (void);
 #endif
-           Color4f &editSkyColor(const UInt32 index);
-     const Color4f &getSkyColor (const UInt32 index) const;
-           MFColor4f &editSkyColor(void);
-     const MFColor4f &getSkyColor(void) const;
+                  Color4f             &editSkyColor       (const UInt32 index);
+            const Color4f             &getSkyColor        (const UInt32 index) const;
+                  MFColor4f           &editSkyColor       (void);
+            const MFColor4f           &getSkyColor       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getSkyAngle(const UInt32 index);
-           MFReal32 &getSkyAngle(void);
+                  Real32              &getSkyAngle        (const UInt32 index);
+                  MFReal32            &getSkyAngle       (void);
 #endif
-           Real32 &editSkyAngle(const UInt32 index);
-     const Real32 &getSkyAngle (const UInt32 index) const;
-           MFReal32 &editSkyAngle(void);
-     const MFReal32 &getSkyAngle(void) const;
+                  Real32              &editSkyAngle       (const UInt32 index);
+            const Real32              &getSkyAngle        (const UInt32 index) const;
+                  MFReal32            &editSkyAngle       (void);
+            const MFReal32            &getSkyAngle       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Color4f &getGroundColor(const UInt32 index);
-           MFColor4f &getGroundColor(void);
+                  Color4f             &getGroundColor     (const UInt32 index);
+                  MFColor4f           &getGroundColor    (void);
 #endif
-           Color4f &editGroundColor(const UInt32 index);
-     const Color4f &getGroundColor (const UInt32 index) const;
-           MFColor4f &editGroundColor(void);
-     const MFColor4f &getGroundColor(void) const;
+                  Color4f             &editGroundColor    (const UInt32 index);
+            const Color4f             &getGroundColor     (const UInt32 index) const;
+                  MFColor4f           &editGroundColor    (void);
+            const MFColor4f           &getGroundColor    (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getGroundAngle(const UInt32 index);
-           MFReal32 &getGroundAngle(void);
+                  Real32              &getGroundAngle     (const UInt32 index);
+                  MFReal32            &getGroundAngle    (void);
 #endif
-           Real32 &editGroundAngle(const UInt32 index);
-     const Real32 &getGroundAngle (const UInt32 index) const;
-           MFReal32 &editGroundAngle(void);
-     const MFReal32 &getGroundAngle(void) const;
+                  Real32              &editGroundAngle    (const UInt32 index);
+            const Real32              &getGroundAngle     (const UInt32 index) const;
+                  MFReal32            &editGroundAngle    (void);
+            const MFReal32            &getGroundAngle    (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getSphereRes(void);
+                  UInt32              &getSphereRes       (void);
 #endif
-           UInt32 &editSphereRes(void);
-     const UInt32 &getSphereRes (void) const;
+                  UInt32              &editSphereRes      (void);
+            const UInt32              &getSphereRes       (void) const;
 
-           TextureObjChunkPtrConst getBackTexture(void) const;
+                  TextureObjChunkPtrConst getBackTexture    (void) const;
 
-           TextureObjChunkPtrConst getBottomTexture(void) const;
+                  TextureObjChunkPtrConst getBottomTexture  (void) const;
 
-           TextureObjChunkPtrConst getFrontTexture(void) const;
+                  TextureObjChunkPtrConst getFrontTexture   (void) const;
 
-           TextureObjChunkPtrConst getLeftTexture(void) const;
+                  TextureObjChunkPtrConst getLeftTexture    (void) const;
 
-           TextureObjChunkPtrConst getRightTexture(void) const;
+                  TextureObjChunkPtrConst getRightTexture   (void) const;
 
-           TextureObjChunkPtrConst getTopTexture(void) const;
+                  TextureObjChunkPtrConst getTopTexture     (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getBoxInside(void);
+                  bool                &getBoxInside       (void);
 #endif
-           bool &editBoxInside(void);
-     const bool &getBoxInside (void) const;
+                  bool                &editBoxInside      (void);
+            const bool                &getBoxInside       (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getTopTexCoord(const UInt32 index);
-           MFVec3f &getTopTexCoord(void);
+                  Vec3f               &getTopTexCoord     (const UInt32 index);
+                  MFVec3f             &getTopTexCoord    (void);
 #endif
-           Vec3f &editTopTexCoord(const UInt32 index);
-     const Vec3f &getTopTexCoord (const UInt32 index) const;
-           MFVec3f &editTopTexCoord(void);
-     const MFVec3f &getTopTexCoord(void) const;
+                  Vec3f               &editTopTexCoord    (const UInt32 index);
+            const Vec3f               &getTopTexCoord     (const UInt32 index) const;
+                  MFVec3f             &editTopTexCoord    (void);
+            const MFVec3f             &getTopTexCoord    (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getBottomTexCoord(const UInt32 index);
-           MFVec3f &getBottomTexCoord(void);
+                  Vec3f               &getBottomTexCoord  (const UInt32 index);
+                  MFVec3f             &getBottomTexCoord (void);
 #endif
-           Vec3f &editBottomTexCoord(const UInt32 index);
-     const Vec3f &getBottomTexCoord (const UInt32 index) const;
-           MFVec3f &editBottomTexCoord(void);
-     const MFVec3f &getBottomTexCoord(void) const;
+                  Vec3f               &editBottomTexCoord (const UInt32 index);
+            const Vec3f               &getBottomTexCoord  (const UInt32 index) const;
+                  MFVec3f             &editBottomTexCoord (void);
+            const MFVec3f             &getBottomTexCoord (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getRightTexCoord(const UInt32 index);
-           MFVec3f &getRightTexCoord(void);
+                  Vec3f               &getRightTexCoord   (const UInt32 index);
+                  MFVec3f             &getRightTexCoord  (void);
 #endif
-           Vec3f &editRightTexCoord(const UInt32 index);
-     const Vec3f &getRightTexCoord (const UInt32 index) const;
-           MFVec3f &editRightTexCoord(void);
-     const MFVec3f &getRightTexCoord(void) const;
+                  Vec3f               &editRightTexCoord  (const UInt32 index);
+            const Vec3f               &getRightTexCoord   (const UInt32 index) const;
+                  MFVec3f             &editRightTexCoord  (void);
+            const MFVec3f             &getRightTexCoord  (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getLeftTexCoord(const UInt32 index);
-           MFVec3f &getLeftTexCoord(void);
+                  Vec3f               &getLeftTexCoord    (const UInt32 index);
+                  MFVec3f             &getLeftTexCoord   (void);
 #endif
-           Vec3f &editLeftTexCoord(const UInt32 index);
-     const Vec3f &getLeftTexCoord (const UInt32 index) const;
-           MFVec3f &editLeftTexCoord(void);
-     const MFVec3f &getLeftTexCoord(void) const;
+                  Vec3f               &editLeftTexCoord   (const UInt32 index);
+            const Vec3f               &getLeftTexCoord    (const UInt32 index) const;
+                  MFVec3f             &editLeftTexCoord   (void);
+            const MFVec3f             &getLeftTexCoord   (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getFrontTexCoord(const UInt32 index);
-           MFVec3f &getFrontTexCoord(void);
+                  Vec3f               &getFrontTexCoord   (const UInt32 index);
+                  MFVec3f             &getFrontTexCoord  (void);
 #endif
-           Vec3f &editFrontTexCoord(const UInt32 index);
-     const Vec3f &getFrontTexCoord (const UInt32 index) const;
-           MFVec3f &editFrontTexCoord(void);
-     const MFVec3f &getFrontTexCoord(void) const;
+                  Vec3f               &editFrontTexCoord  (const UInt32 index);
+            const Vec3f               &getFrontTexCoord   (const UInt32 index) const;
+                  MFVec3f             &editFrontTexCoord  (void);
+            const MFVec3f             &getFrontTexCoord  (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec3f &getBackTexCoord(const UInt32 index);
-           MFVec3f &getBackTexCoord(void);
+                  Vec3f               &getBackTexCoord    (const UInt32 index);
+                  MFVec3f             &getBackTexCoord   (void);
 #endif
-           Vec3f &editBackTexCoord(const UInt32 index);
-     const Vec3f &getBackTexCoord (const UInt32 index) const;
-           MFVec3f &editBackTexCoord(void);
-     const MFVec3f &getBackTexCoord(void) const;
+                  Vec3f               &editBackTexCoord   (const UInt32 index);
+            const Vec3f               &getBackTexCoord    (const UInt32 index) const;
+                  MFVec3f             &editBackTexCoord   (void);
+            const MFVec3f             &getBackTexCoord   (void) const;
 
-           NodePtrConst getBeacon(void) const;
+                  NodePtrConst getBeacon         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setSphereRes(const UInt32 &value);
-     void setBackTexture(TextureObjChunkPtrConstArg value);
-     void setBottomTexture(TextureObjChunkPtrConstArg value);
-     void setFrontTexture(TextureObjChunkPtrConstArg value);
-     void setLeftTexture(TextureObjChunkPtrConstArg value);
-     void setRightTexture(TextureObjChunkPtrConstArg value);
-     void setTopTexture(TextureObjChunkPtrConstArg value);
-     void setBoxInside(const bool &value);
-     void setBeacon(NodePtrConstArg value);
+            void setSphereRes      (const UInt32 &value);
+            void setBackTexture    (TextureObjChunkPtrConstArg value);
+            void setBottomTexture  (TextureObjChunkPtrConstArg value);
+            void setFrontTexture   (TextureObjChunkPtrConstArg value);
+            void setLeftTexture    (TextureObjChunkPtrConstArg value);
+            void setRightTexture   (TextureObjChunkPtrConstArg value);
+            void setTopTexture     (TextureObjChunkPtrConstArg value);
+            void setBoxInside      (const bool &value);
+            void setBeacon         (NodePtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -461,154 +460,154 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-    void pushToSkyColor           (const Color4f& value   );
+    void pushToSkyColor            (const Color4f& value   );
     void insertIntoSkyColor      (UInt32                uiIndex,
-                                    const Color4f& value   );
+                                             const Color4f& value   );
     void replaceInSkyColor  (UInt32                uiIndex,
-                                    const Color4f& value   );
+                                             const Color4f& value   );
     void replaceInSkyColor (const Color4f& pOldElem,
-                                    const Color4f& pNewElem);
+                                             const Color4f& pNewElem);
     void removeFromSkyColor (UInt32                uiIndex );
     void removeFromSkyColor(const Color4f& value   );
-    void clearSkyColor            (void                          );
+    void clearSkyColor              (void                          );
 
 
- 
 
 
-    void pushToSkyAngle           (const Real32& value   );
+
+    void pushToSkyAngle            (const Real32& value   );
     void insertIntoSkyAngle      (UInt32                uiIndex,
-                                    const Real32& value   );
+                                             const Real32& value   );
     void replaceInSkyAngle  (UInt32                uiIndex,
-                                    const Real32& value   );
+                                             const Real32& value   );
     void replaceInSkyAngle (const Real32& pOldElem,
-                                    const Real32& pNewElem);
+                                             const Real32& pNewElem);
     void removeFromSkyAngle (UInt32                uiIndex );
     void removeFromSkyAngle(const Real32& value   );
-    void clearSkyAngle            (void                          );
+    void clearSkyAngle              (void                          );
 
 
- 
+
 
 
     void pushToGroundColor           (const Color4f& value   );
     void insertIntoGroundColor      (UInt32                uiIndex,
-                                    const Color4f& value   );
+                                             const Color4f& value   );
     void replaceInGroundColor  (UInt32                uiIndex,
-                                    const Color4f& value   );
+                                             const Color4f& value   );
     void replaceInGroundColor (const Color4f& pOldElem,
-                                    const Color4f& pNewElem);
+                                             const Color4f& pNewElem);
     void removeFromGroundColor (UInt32                uiIndex );
     void removeFromGroundColor(const Color4f& value   );
     void clearGroundColor            (void                          );
 
 
- 
+
 
 
     void pushToGroundAngle           (const Real32& value   );
     void insertIntoGroundAngle      (UInt32                uiIndex,
-                                    const Real32& value   );
+                                             const Real32& value   );
     void replaceInGroundAngle  (UInt32                uiIndex,
-                                    const Real32& value   );
+                                             const Real32& value   );
     void replaceInGroundAngle (const Real32& pOldElem,
-                                    const Real32& pNewElem);
+                                             const Real32& pNewElem);
     void removeFromGroundAngle (UInt32                uiIndex );
     void removeFromGroundAngle(const Real32& value   );
     void clearGroundAngle            (void                          );
 
 
- 
+
 
 
     void pushToTopTexCoord           (const Vec3f& value   );
     void insertIntoTopTexCoord      (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInTopTexCoord  (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInTopTexCoord (const Vec3f& pOldElem,
-                                    const Vec3f& pNewElem);
+                                             const Vec3f& pNewElem);
     void removeFromTopTexCoord (UInt32                uiIndex );
     void removeFromTopTexCoord(const Vec3f& value   );
     void clearTopTexCoord            (void                          );
 
 
- 
+
 
 
     void pushToBottomTexCoord           (const Vec3f& value   );
     void insertIntoBottomTexCoord      (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInBottomTexCoord  (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInBottomTexCoord (const Vec3f& pOldElem,
-                                    const Vec3f& pNewElem);
+                                             const Vec3f& pNewElem);
     void removeFromBottomTexCoord (UInt32                uiIndex );
     void removeFromBottomTexCoord(const Vec3f& value   );
     void clearBottomTexCoord            (void                          );
 
 
- 
+
 
 
     void pushToRightTexCoord           (const Vec3f& value   );
     void insertIntoRightTexCoord      (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInRightTexCoord  (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInRightTexCoord (const Vec3f& pOldElem,
-                                    const Vec3f& pNewElem);
+                                             const Vec3f& pNewElem);
     void removeFromRightTexCoord (UInt32                uiIndex );
     void removeFromRightTexCoord(const Vec3f& value   );
     void clearRightTexCoord            (void                          );
 
 
- 
+
 
 
     void pushToLeftTexCoord           (const Vec3f& value   );
     void insertIntoLeftTexCoord      (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInLeftTexCoord  (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInLeftTexCoord (const Vec3f& pOldElem,
-                                    const Vec3f& pNewElem);
+                                             const Vec3f& pNewElem);
     void removeFromLeftTexCoord (UInt32                uiIndex );
     void removeFromLeftTexCoord(const Vec3f& value   );
     void clearLeftTexCoord            (void                          );
 
 
- 
+
 
 
     void pushToFrontTexCoord           (const Vec3f& value   );
     void insertIntoFrontTexCoord      (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInFrontTexCoord  (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInFrontTexCoord (const Vec3f& pOldElem,
-                                    const Vec3f& pNewElem);
+                                             const Vec3f& pNewElem);
     void removeFromFrontTexCoord (UInt32                uiIndex );
     void removeFromFrontTexCoord(const Vec3f& value   );
     void clearFrontTexCoord            (void                          );
 
 
- 
+
 
 
     void pushToBackTexCoord           (const Vec3f& value   );
     void insertIntoBackTexCoord      (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInBackTexCoord  (UInt32                uiIndex,
-                                    const Vec3f& value   );
+                                             const Vec3f& value   );
     void replaceInBackTexCoord (const Vec3f& pOldElem,
-                                    const Vec3f& pNewElem);
+                                             const Vec3f& pNewElem);
     void removeFromBackTexCoord (UInt32                uiIndex );
     void removeFromBackTexCoord(const Vec3f& value   );
     void clearBackTexCoord            (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -627,15 +626,15 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SkyBackgroundPtr create     (void); 
-    static  SkyBackgroundPtr createEmpty(void); 
+    static  SkyBackgroundPtr create     (void);
+    static  SkyBackgroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -651,25 +650,25 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFColor4f _mfSkyColor;
-    MFReal32 _mfSkyAngle;
-    MFColor4f _mfGroundColor;
-    MFReal32 _mfGroundAngle;
-    SFUInt32 _sfSphereRes;
+    MFColor4f         _mfSkyColor;
+    MFReal32          _mfSkyAngle;
+    MFColor4f         _mfGroundColor;
+    MFReal32          _mfGroundAngle;
+    SFUInt32          _sfSphereRes;
     SFTextureObjChunkPtr _sfBackTexture;
     SFTextureObjChunkPtr _sfBottomTexture;
     SFTextureObjChunkPtr _sfFrontTexture;
     SFTextureObjChunkPtr _sfLeftTexture;
     SFTextureObjChunkPtr _sfRightTexture;
     SFTextureObjChunkPtr _sfTopTexture;
-    SFBool _sfBoxInside;
-    MFVec3f _mfTopTexCoord;
-    MFVec3f _mfBottomTexCoord;
-    MFVec3f _mfRightTexCoord;
-    MFVec3f _mfLeftTexCoord;
-    MFVec3f _mfFrontTexCoord;
-    MFVec3f _mfBackTexCoord;
-    SFNodePtr _sfBeacon;
+    SFBool            _sfBoxInside;
+    MFVec3f           _mfTopTexCoord;
+    MFVec3f           _mfBottomTexCoord;
+    MFVec3f           _mfRightTexCoord;
+    MFVec3f           _mfLeftTexCoord;
+    MFVec3f           _mfFrontTexCoord;
+    MFVec3f           _mfBackTexCoord;
+    SFNodePtr         _sfBeacon;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -684,7 +683,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SkyBackgroundBase(void); 
+    virtual ~SkyBackgroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -731,11 +730,11 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

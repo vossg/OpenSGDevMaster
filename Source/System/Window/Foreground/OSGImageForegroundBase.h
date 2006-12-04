@@ -86,22 +86,22 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ForegroundPtr, 
-                              ForegroundConstPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
+                              ForegroundConstPtr,
                               ImageForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ForegroundPtr, 
-                              ForegroundConstPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
+                              ForegroundConstPtr,
                               ImageForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               ImageForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               ImageForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               ImageForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ForegroundPtr, 
+    typedef PointerFwdBuilder<ForegroundPtr,
                               ForegroundConstPtr,
                               ImageForeground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -116,20 +116,19 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
         NextFieldId = PositionsFieldId + 1
     };
 
-    static const OSG::BitVector ImagesFieldMask = 
+    static const OSG::BitVector ImagesFieldMask =
         (TypeTraits<BitVector>::One << ImagesFieldId);
-    static const OSG::BitVector PositionsFieldMask = 
+    static const OSG::BitVector PositionsFieldMask =
         (TypeTraits<BitVector>::One << PositionsFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -137,8 +136,8 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -147,26 +146,26 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const MFImagePtr *getMFImages (void) const;
+            const MFImagePtr          *getMFImages          (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFPnt2f *getMFPositions(void);
+                  MFPnt2f             *getMFPositions       (void);
 #endif
-           MFPnt2f *editMFPositions(void);
-     const MFPnt2f *getMFPositions (void) const;
+                  MFPnt2f             *editMFPositions      (void);
+            const MFPnt2f             *getMFPositions       (void) const;
 
 
-           ImagePtrConst getImages(const UInt32 index) const;
-     const MFImagePtr &getImages(void) const;
+                  ImagePtrConst getImages         (const UInt32 index) const;
+            const MFImagePtr          &getImages         (void) const;
 
 #ifdef OSG_1_COMPAT
-           Pnt2f &getPositions(const UInt32 index);
-           MFPnt2f &getPositions(void);
+                  Pnt2f               &getPositions       (const UInt32 index);
+                  MFPnt2f             &getPositions      (void);
 #endif
-           Pnt2f &editPositions(const UInt32 index);
-     const Pnt2f &getPositions (const UInt32 index) const;
-           MFPnt2f &editPositions(void);
-     const MFPnt2f &getPositions(void) const;
+                  Pnt2f               &editPositions      (const UInt32 index);
+            const Pnt2f               &getPositions       (const UInt32 index) const;
+                  MFPnt2f             &editPositions      (void);
+            const MFPnt2f             &getPositions      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -179,25 +178,25 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -207,33 +206,33 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToImages           (ImagePtrConstArg value   );
+    void pushToImages              (ImagePtrConstArg value   );
     void insertIntoImages      (UInt32                uiIndex,
-                                    ImagePtrConstArg value   );
+                                             ImagePtrConstArg value   );
     void replaceInImages  (UInt32                uiIndex,
-                                    ImagePtrConstArg value   );
+                                             ImagePtrConstArg value   );
     void replaceInImages (ImagePtrConstArg pOldElem,
-                                    ImagePtrConstArg pNewElem);
+                                             ImagePtrConstArg pNewElem);
     void removeFromImages (UInt32                uiIndex );
     void removeFromImages(ImagePtrConstArg value   );
-    void clearImages            (void                          );
+    void clearImages                (void                          );
 
- 
+
 
 
     void pushToPositions           (const Pnt2f& value   );
     void insertIntoPositions      (UInt32                uiIndex,
-                                    const Pnt2f& value   );
+                                             const Pnt2f& value   );
     void replaceInPositions  (UInt32                uiIndex,
-                                    const Pnt2f& value   );
+                                             const Pnt2f& value   );
     void replaceInPositions (const Pnt2f& pOldElem,
-                                    const Pnt2f& pNewElem);
+                                             const Pnt2f& pNewElem);
     void removeFromPositions (UInt32                uiIndex );
     void removeFromPositions(const Pnt2f& value   );
-    void clearPositions            (void                          );
+    void clearPositions             (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -252,15 +251,15 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ImageForegroundPtr create     (void); 
-    static  ImageForegroundPtr createEmpty(void); 
+    static  ImageForegroundPtr create     (void);
+    static  ImageForegroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -276,8 +275,8 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFImagePtr _mfImages;
-    MFPnt2f _mfPositions;
+    MFImagePtr        _mfImages;
+    MFPnt2f           _mfPositions;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -292,7 +291,7 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ImageForegroundBase(void); 
+    virtual ~ImageForegroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -339,11 +338,11 @@ class OSG_WINDOW_DLLMAPPING ImageForegroundBase : public Foreground
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

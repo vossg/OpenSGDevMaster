@@ -70,22 +70,22 @@ class FrameBufferObject;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! FrameBufferObjectPtr
 
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           FrameBufferObject>::ObjPtr         FrameBufferObjectPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           FrameBufferObject>::ObjPtrConst    FrameBufferObjectPtrConst;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           FrameBufferObject>::ObjConstPtr    FrameBufferObjectConstPtr;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           FrameBufferObject>::ObjPtrArg      FrameBufferObjectPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           FrameBufferObject>::ObjConstPtrArg FrameBufferObjectConstPtrArg;
-typedef PointerFwdBuilder<AttachmentContainerPtr, 
+typedef PointerFwdBuilder<AttachmentContainerPtr,
                           AttachmentContainerConstPtr,
                           FrameBufferObject>::ObjPtrConstArg FrameBufferObjectPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<AttachmentContainerPtr,
 #endif
 
 template <>
-struct FieldTraits<FrameBufferObjectPtr> : 
+struct FieldTraits<FrameBufferObjectPtr> :
     public FieldTraitsTemplateBase<FrameBufferObjectPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<FrameBufferObjectPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFFrameBufferObjectPtr"; }

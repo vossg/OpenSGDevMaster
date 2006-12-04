@@ -9,4 +9,8 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
+\ingroup GrpSystemWindowBackgrounds
+
+A depth-clear background, see \ref PageSystemWindowBackgroundDepthClear for a
+description.
 </FieldContainer>

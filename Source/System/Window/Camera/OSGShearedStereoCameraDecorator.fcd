@@ -10,7 +10,10 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-The base class for stereo decorators.
+\ingroup GrpSystemWindowCameraDecorators
+
+The OSG::CameraDecorator for standard sheared stereo projections, see \ref
+PageSystemWindowCameraDecoratorsStereoSheared for a description.
 	<Field
 		name="zeroParallaxDistance"
 		type="Real32"

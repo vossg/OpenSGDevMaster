@@ -70,22 +70,22 @@ class CameraDecorator;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! CameraDecoratorPtr
 
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           CameraDecorator>::ObjPtr         CameraDecoratorPtr;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           CameraDecorator>::ObjPtrConst    CameraDecoratorPtrConst;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           CameraDecorator>::ObjConstPtr    CameraDecoratorConstPtr;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           CameraDecorator>::ObjPtrArg      CameraDecoratorPtrArg;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           CameraDecorator>::ObjConstPtrArg CameraDecoratorConstPtrArg;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           CameraDecorator>::ObjPtrConstArg CameraDecoratorPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<CameraPtr,
 #endif
 
 template <>
-struct FieldTraits<CameraDecoratorPtr> : 
+struct FieldTraits<CameraDecoratorPtr> :
     public FieldTraitsTemplateBase<CameraDecoratorPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<CameraDecoratorPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFCameraDecoratorPtr"; }

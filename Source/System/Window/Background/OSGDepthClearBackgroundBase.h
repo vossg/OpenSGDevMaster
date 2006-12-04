@@ -84,22 +84,22 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               DepthClearBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               DepthClearBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               DepthClearBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               DepthClearBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               DepthClearBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               DepthClearBackground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -108,13 +108,12 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
   public:
 
 
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -122,8 +121,8 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -144,15 +143,15 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DepthClearBackgroundPtr create     (void); 
-    static  DepthClearBackgroundPtr createEmpty(void); 
+    static  DepthClearBackgroundPtr create     (void);
+    static  DepthClearBackgroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -176,7 +175,7 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DepthClearBackgroundBase(void); 
+    virtual ~DepthClearBackgroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -222,11 +221,11 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

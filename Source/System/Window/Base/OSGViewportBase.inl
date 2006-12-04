@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ViewportBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ViewportBase::getClassTypeId(void) 
+OSG::UInt32 ViewportBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ViewportBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Real32 &ViewportBase::getLeft(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ViewportBase::getLeft(void)
+Real32              &ViewportBase::getLeft           (void)
 {
-    return this->editLeft();
+    return this->editLeft           ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Real32 &ViewportBase::getRight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ViewportBase::getRight(void)
+Real32              &ViewportBase::getRight          (void)
 {
-    return this->editRight();
+    return this->editRight          ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Real32 &ViewportBase::getBottom(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ViewportBase::getBottom(void)
+Real32              &ViewportBase::getBottom         (void)
 {
-    return this->editBottom();
+    return this->editBottom         ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Real32 &ViewportBase::getTop(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ViewportBase::getTop(void)
+Real32              &ViewportBase::getTop            (void)
 {
-    return this->editTop();
+    return this->editTop            ();
 }
 #endif
 
@@ -294,9 +294,9 @@ const UInt32 &ViewportBase::getTravMask(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ViewportBase::getTravMask(void)
+UInt32              &ViewportBase::getTravMask       (void)
 {
-    return this->editTravMask();
+    return this->editTravMask       ();
 }
 #endif
 
@@ -327,9 +327,9 @@ const Real32 &ViewportBase::getDrawTime(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ViewportBase::getDrawTime(void)
+Real32              &ViewportBase::getDrawTime       (void)
 {
-    return this->editDrawTime();
+    return this->editDrawTime       ();
 }
 #endif
 
@@ -358,24 +358,24 @@ const MFForegroundPtr &ViewportBase::getForegrounds(void) const
 
 //! create a new instance of the class
 inline
-ViewportPtr ViewportBase::create(void) 
+ViewportPtr ViewportBase::create(void)
 {
-    ViewportPtr fc; 
+    ViewportPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Viewport::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ViewportBase::execSync(      ViewportBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -406,7 +406,7 @@ void ViewportBase::execSync(      ViewportBase *pOther,
         _sfBackground.syncWith(pOther->_sfBackground);
 
     if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pOther->_mfForegrounds, 
+        _mfForegrounds.syncWith(pOther->_mfForegrounds,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -424,7 +424,7 @@ inline
 void ViewportBase::execSync (      ViewportBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -454,7 +454,7 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
         _sfBackground.syncWith(pFrom->_sfBackground);
 
     if(FieldBits::NoField != (ForegroundsFieldMask & whichField))
-        _mfForegrounds.syncWith(pFrom->_mfForegrounds, 
+        _mfForegrounds.syncWith(pFrom->_mfForegrounds,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -500,4 +500,3 @@ typedef PointerBuilder<Viewport>::ObjPtrConstArg  ViewportPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGVIEWPORTBASE_INLINE_CVSID "@(#)$Id$"
-

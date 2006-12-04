@@ -85,10 +85,10 @@ typedef void (OSG_APIENTRY *GLFramebufferTexture3DEXTProcT)(
     GLint level, 
     GLint zoffset);
 
-/*! \class OSG::TextureBuffer
-    \ingroup GrpSystemWindowViewports
-
-*/
+// Documentation for this class is emited in the
+// OSGTextureBufferBase.cpp file.
+// To modify it, please change the .fcd file (OSGTextureBuffer.fcd) and
+// regenerate the base file.
 
 void TextureBuffer::bind(DrawEnv *pEnv, UInt32 index)
 {

@@ -87,22 +87,22 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<GrabForegroundPtr, 
-                              GrabForegroundConstPtr, 
+    typedef PointerFwdBuilder<GrabForegroundPtr,
+                              GrabForegroundConstPtr,
                               FileGrabForeground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<GrabForegroundPtr, 
-                              GrabForegroundConstPtr, 
+    typedef PointerFwdBuilder<GrabForegroundPtr,
+                              GrabForegroundConstPtr,
                               FileGrabForeground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<GrabForegroundPtr, 
+    typedef PointerFwdBuilder<GrabForegroundPtr,
                               GrabForegroundConstPtr,
                               FileGrabForeground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<GrabForegroundPtr, 
+    typedef PointerFwdBuilder<GrabForegroundPtr,
                               GrabForegroundConstPtr,
                               FileGrabForeground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<GrabForegroundPtr, 
+    typedef PointerFwdBuilder<GrabForegroundPtr,
                               GrabForegroundConstPtr,
                               FileGrabForeground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<GrabForegroundPtr, 
+    typedef PointerFwdBuilder<GrabForegroundPtr,
                               GrabForegroundConstPtr,
                               FileGrabForeground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -118,22 +118,21 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
         NextFieldId = IncrementFieldId + 1
     };
 
-    static const OSG::BitVector NameFieldMask = 
+    static const OSG::BitVector NameFieldMask =
         (TypeTraits<BitVector>::One << NameFieldId);
-    static const OSG::BitVector FrameFieldMask = 
+    static const OSG::BitVector FrameFieldMask =
         (TypeTraits<BitVector>::One << FrameFieldId);
-    static const OSG::BitVector IncrementFieldMask = 
+    static const OSG::BitVector IncrementFieldMask =
         (TypeTraits<BitVector>::One << IncrementFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -141,8 +140,8 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -153,50 +152,50 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
 
 
 #ifdef OSG_1_COMPAT
-           SFString *getSFName(void);
+                  SFString            *getSFName            (void);
 #endif
-           SFString *editSFName(void);
-     const SFString *getSFName (void) const;
+                  SFString            *editSFName           (void);
+            const SFString            *getSFName            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt32 *getSFFrame(void);
+                  SFUInt32            *getSFFrame           (void);
 #endif
-           SFUInt32 *editSFFrame(void);
-     const SFUInt32 *getSFFrame (void) const;
+                  SFUInt32            *editSFFrame          (void);
+            const SFUInt32            *getSFFrame           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFIncrement(void);
+                  SFBool              *getSFIncrement       (void);
 #endif
-           SFBool *editSFIncrement(void);
-     const SFBool *getSFIncrement (void) const;
+                  SFBool              *editSFIncrement      (void);
+            const SFBool              *getSFIncrement       (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           std::string &getName(void);
+                  std::string         &getName            (void);
 #endif
-           std::string &editName(void);
-     const std::string &getName (void) const;
+                  std::string         &editName           (void);
+            const std::string         &getName            (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt32 &getFrame(void);
+                  UInt32              &getFrame           (void);
 #endif
-           UInt32 &editFrame(void);
-     const UInt32 &getFrame (void) const;
+                  UInt32              &editFrame          (void);
+            const UInt32              &getFrame           (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getIncrement(void);
+                  bool                &getIncrement       (void);
 #endif
-           bool &editIncrement(void);
-     const bool &getIncrement (void) const;
+                  bool                &editIncrement      (void);
+            const bool                &getIncrement       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setName(const std::string &value);
-     void setFrame(const UInt32 &value);
-     void setIncrement(const bool &value);
+            void setName           (const std::string &value);
+            void setFrame          (const UInt32 &value);
+            void setIncrement      (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -216,15 +215,15 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FileGrabForegroundPtr create     (void); 
-    static  FileGrabForegroundPtr createEmpty(void); 
+    static  FileGrabForegroundPtr create     (void);
+    static  FileGrabForegroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -240,9 +239,9 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFString _sfName;
-    SFUInt32 _sfFrame;
-    SFBool _sfIncrement;
+    SFString          _sfName;
+    SFUInt32          _sfFrame;
+    SFBool            _sfIncrement;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,7 +256,7 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~FileGrabForegroundBase(void); 
+    virtual ~FileGrabForegroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -303,11 +302,11 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

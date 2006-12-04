@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ImageBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ImageBase::getClassTypeId(void) 
+OSG::UInt32 ImageBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ImageBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const Int32 &ImageBase::getDimension(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getDimension(void)
+Int32               &ImageBase::getDimension      (void)
 {
-    return this->editDimension();
+    return this->editDimension      ();
 }
 #endif
 
@@ -125,9 +125,9 @@ const Int32 &ImageBase::getWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getWidth(void)
+Int32               &ImageBase::getWidth          (void)
 {
-    return this->editWidth();
+    return this->editWidth          ();
 }
 #endif
 
@@ -158,9 +158,9 @@ const Int32 &ImageBase::getHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getHeight(void)
+Int32               &ImageBase::getHeight         (void)
 {
-    return this->editHeight();
+    return this->editHeight         ();
 }
 #endif
 
@@ -191,9 +191,9 @@ const Int32 &ImageBase::getDepth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getDepth(void)
+Int32               &ImageBase::getDepth          (void)
 {
-    return this->editDepth();
+    return this->editDepth          ();
 }
 #endif
 
@@ -224,9 +224,9 @@ const Int32 &ImageBase::getBpp(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getBpp(void)
+Int32               &ImageBase::getBpp            (void)
 {
-    return this->editBpp();
+    return this->editBpp            ();
 }
 #endif
 
@@ -257,9 +257,9 @@ const Int32 &ImageBase::getMipMapCount(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getMipMapCount(void)
+Int32               &ImageBase::getMipMapCount    (void)
 {
-    return this->editMipMapCount();
+    return this->editMipMapCount    ();
 }
 #endif
 
@@ -290,9 +290,9 @@ const Int32 &ImageBase::getFrameCount(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getFrameCount(void)
+Int32               &ImageBase::getFrameCount     (void)
 {
-    return this->editFrameCount();
+    return this->editFrameCount     ();
 }
 #endif
 
@@ -323,9 +323,9 @@ const Time &ImageBase::getFrameDelay(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Time &ImageBase::getFrameDelay(void)
+Time                &ImageBase::getFrameDelay     (void)
 {
-    return this->editFrameDelay();
+    return this->editFrameDelay     ();
 }
 #endif
 
@@ -356,9 +356,9 @@ const UInt32 &ImageBase::getPixelFormat(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &ImageBase::getPixelFormat(void)
+UInt32              &ImageBase::getPixelFormat    (void)
 {
-    return this->editPixelFormat();
+    return this->editPixelFormat    ();
 }
 #endif
 
@@ -389,9 +389,9 @@ const Int32 &ImageBase::getFrameSize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getFrameSize(void)
+Int32               &ImageBase::getFrameSize      (void)
 {
-    return this->editFrameSize();
+    return this->editFrameSize      ();
 }
 #endif
 
@@ -422,9 +422,9 @@ const std::string &ImageBase::getName(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-std::string &ImageBase::getName(void)
+std::string         &ImageBase::getName           (void)
 {
-    return this->editName();
+    return this->editName           ();
 }
 #endif
 
@@ -455,9 +455,9 @@ const Int32 &ImageBase::getDataType(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getDataType(void)
+Int32               &ImageBase::getDataType       (void)
 {
-    return this->editDataType();
+    return this->editDataType       ();
 }
 #endif
 
@@ -488,9 +488,9 @@ const Int32 &ImageBase::getComponentSize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getComponentSize(void)
+Int32               &ImageBase::getComponentSize  (void)
 {
-    return this->editComponentSize();
+    return this->editComponentSize  ();
 }
 #endif
 
@@ -521,9 +521,9 @@ const Int32 &ImageBase::getSideCount(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getSideCount(void)
+Int32               &ImageBase::getSideCount      (void)
 {
-    return this->editSideCount();
+    return this->editSideCount      ();
 }
 #endif
 
@@ -554,9 +554,9 @@ const Int32 &ImageBase::getSideSize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 &ImageBase::getSideSize(void)
+Int32               &ImageBase::getSideSize       (void)
 {
-    return this->editSideSize();
+    return this->editSideSize       ();
 }
 #endif
 
@@ -587,7 +587,7 @@ const bool &ImageBase::getForceCompressedData(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ImageBase::getForceCompressedData(void)
+bool                &ImageBase::getForceCompressedData(void)
 {
     return this->editForceCompressedData();
 }
@@ -620,7 +620,7 @@ const bool &ImageBase::getForceAlphaChannel(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ImageBase::getForceAlphaChannel(void)
+bool                &ImageBase::getForceAlphaChannel(void)
 {
     return this->editForceAlphaChannel();
 }
@@ -653,7 +653,7 @@ const bool &ImageBase::getForceColorChannel(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ImageBase::getForceColorChannel(void)
+bool                &ImageBase::getForceColorChannel(void)
 {
     return this->editForceColorChannel();
 }
@@ -686,7 +686,7 @@ const bool &ImageBase::getForceAlphaBinary(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &ImageBase::getForceAlphaBinary(void)
+bool                &ImageBase::getForceAlphaBinary(void)
 {
     return this->editForceAlphaBinary();
 }
@@ -741,15 +741,15 @@ MFUInt8 &ImageBase::editPixel(void)
 
 #ifdef OSG_1_COMPAT
 inline
-UInt8 &ImageBase::getPixel(const UInt32 index)
+UInt8               &ImageBase::getPixel          (const UInt32 index)
 {
-    return this->editPixel(index);
+    return this->editPixel          (index);
 }
 
 inline
-MFUInt8 &ImageBase::getPixel(void)
+MFUInt8             &ImageBase::getPixel          (void)
 {
-    return this->editPixel();
+    return this->editPixel          ();
 }
 
 #endif
@@ -764,31 +764,31 @@ const MFUInt8 &ImageBase::getPixel(void) const
 
 //! create a new instance of the class
 inline
-ImagePtr ImageBase::create(void) 
+ImagePtr ImageBase::create(void)
 {
-    ImagePtr fc; 
+    ImagePtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<Image::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ImageBase::execSync(      ImageBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (ParentsFieldMask & whichField))
-        _mfParents.syncWith(pOther->_mfParents, 
+        _mfParents.syncWith(pOther->_mfParents,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -821,7 +821,7 @@ void ImageBase::execSync(      ImageBase *pOther,
         _sfPixelFormat.syncWith(pOther->_sfPixelFormat);
 
     if(FieldBits::NoField != (PixelFieldMask & whichField))
-        _mfPixel.syncWith(pOther->_mfPixel, 
+        _mfPixel.syncWith(pOther->_mfPixel,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -863,13 +863,13 @@ inline
 void ImageBase::execSync (      ImageBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (ParentsFieldMask & whichField))
-        _mfParents.syncWith(pFrom->_mfParents, 
+        _mfParents.syncWith(pFrom->_mfParents,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -902,7 +902,7 @@ void ImageBase::execSync (      ImageBase *pFrom,
         _sfPixelFormat.syncWith(pFrom->_sfPixelFormat);
 
     if(FieldBits::NoField != (PixelFieldMask & whichField))
-        _mfPixel.syncWith(pFrom->_mfPixel, 
+        _mfPixel.syncWith(pFrom->_mfPixel,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -977,4 +977,3 @@ typedef PointerBuilder<Image>::ObjPtrConstArg  ImagePtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGIMAGEBASE_INLINE_CVSID "@(#)$Id$"
-

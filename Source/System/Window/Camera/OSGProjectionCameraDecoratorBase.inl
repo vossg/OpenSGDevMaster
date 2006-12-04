@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &ProjectionCameraDecoratorBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ProjectionCameraDecoratorBase::getClassTypeId(void) 
+OSG::UInt32 ProjectionCameraDecoratorBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 ProjectionCameraDecoratorBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const Plane &ProjectionCameraDecoratorBase::getLeft(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Plane &ProjectionCameraDecoratorBase::getLeft(void)
+Plane               &ProjectionCameraDecoratorBase::getLeft           (void)
 {
-    return this->editLeft();
+    return this->editLeft           ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const Plane &ProjectionCameraDecoratorBase::getBottom(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Plane &ProjectionCameraDecoratorBase::getBottom(void)
+Plane               &ProjectionCameraDecoratorBase::getBottom         (void)
 {
-    return this->editBottom();
+    return this->editBottom         ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const Plane &ProjectionCameraDecoratorBase::getNormal(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Plane &ProjectionCameraDecoratorBase::getNormal(void)
+Plane               &ProjectionCameraDecoratorBase::getNormal         (void)
 {
-    return this->editNormal();
+    return this->editNormal         ();
 }
 #endif
 
@@ -208,9 +208,9 @@ const Real32 &ProjectionCameraDecoratorBase::getWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ProjectionCameraDecoratorBase::getWidth(void)
+Real32              &ProjectionCameraDecoratorBase::getWidth          (void)
 {
-    return this->editWidth();
+    return this->editWidth          ();
 }
 #endif
 
@@ -241,9 +241,9 @@ const Real32 &ProjectionCameraDecoratorBase::getHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &ProjectionCameraDecoratorBase::getHeight(void)
+Real32              &ProjectionCameraDecoratorBase::getHeight         (void)
 {
-    return this->editHeight();
+    return this->editHeight         ();
 }
 #endif
 
@@ -282,15 +282,15 @@ MFPnt3f &ProjectionCameraDecoratorBase::editSurface(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Pnt3f &ProjectionCameraDecoratorBase::getSurface(const UInt32 index)
+Pnt3f               &ProjectionCameraDecoratorBase::getSurface        (const UInt32 index)
 {
-    return this->editSurface(index);
+    return this->editSurface        (index);
 }
 
 inline
-MFPnt3f &ProjectionCameraDecoratorBase::getSurface(void)
+MFPnt3f             &ProjectionCameraDecoratorBase::getSurface        (void)
 {
-    return this->editSurface();
+    return this->editSurface        ();
 }
 
 #endif
@@ -305,24 +305,24 @@ const MFPnt3f &ProjectionCameraDecoratorBase::getSurface(void) const
 
 //! create a new instance of the class
 inline
-ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::create(void) 
+ProjectionCameraDecoratorPtr ProjectionCameraDecoratorBase::create(void)
 {
-    ProjectionCameraDecoratorPtr fc; 
+    ProjectionCameraDecoratorPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<ProjectionCameraDecorator::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void ProjectionCameraDecoratorBase::execSync(      ProjectionCameraDecoratorBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -332,7 +332,7 @@ void ProjectionCameraDecoratorBase::execSync(      ProjectionCameraDecoratorBase
         _sfUser.syncWith(pOther->_sfUser);
 
     if(FieldBits::NoField != (SurfaceFieldMask & whichField))
-        _mfSurface.syncWith(pOther->_mfSurface, 
+        _mfSurface.syncWith(pOther->_mfSurface,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -359,7 +359,7 @@ inline
 void ProjectionCameraDecoratorBase::execSync (      ProjectionCameraDecoratorBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -368,7 +368,7 @@ void ProjectionCameraDecoratorBase::execSync (      ProjectionCameraDecoratorBas
         _sfUser.syncWith(pFrom->_sfUser);
 
     if(FieldBits::NoField != (SurfaceFieldMask & whichField))
-        _mfSurface.syncWith(pFrom->_mfSurface, 
+        _mfSurface.syncWith(pFrom->_mfSurface,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -423,4 +423,3 @@ typedef PointerBuilder<ProjectionCameraDecorator>::ObjPtrConstArg  ProjectionCam
 OSG_END_NAMESPACE
 
 #define OSGPROJECTIONCAMERADECORATORBASE_INLINE_CVSID "@(#)$Id$"
-

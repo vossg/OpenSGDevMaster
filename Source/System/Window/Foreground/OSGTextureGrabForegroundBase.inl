@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &TextureGrabForegroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TextureGrabForegroundBase::getClassTypeId(void) 
+OSG::UInt32 TextureGrabForegroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 TextureGrabForegroundBase::getClassGroupId(void)
@@ -109,9 +109,9 @@ const bool &TextureGrabForegroundBase::getAutoResize(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &TextureGrabForegroundBase::getAutoResize(void)
+bool                &TextureGrabForegroundBase::getAutoResize     (void)
 {
-    return this->editAutoResize();
+    return this->editAutoResize     ();
 }
 #endif
 
@@ -142,9 +142,9 @@ const GLenum &TextureGrabForegroundBase::getBindTarget(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureGrabForegroundBase::getBindTarget(void)
+GLenum              &TextureGrabForegroundBase::getBindTarget     (void)
 {
-    return this->editBindTarget();
+    return this->editBindTarget     ();
 }
 #endif
 
@@ -175,9 +175,9 @@ const GLenum &TextureGrabForegroundBase::getCopyTarget(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &TextureGrabForegroundBase::getCopyTarget(void)
+GLenum              &TextureGrabForegroundBase::getCopyTarget     (void)
 {
-    return this->editCopyTarget();
+    return this->editCopyTarget     ();
 }
 #endif
 
@@ -192,24 +192,24 @@ void TextureGrabForegroundBase::setCopyTarget(const GLenum &value)
 
 //! create a new instance of the class
 inline
-TextureGrabForegroundPtr TextureGrabForegroundBase::create(void) 
+TextureGrabForegroundPtr TextureGrabForegroundBase::create(void)
 {
-    TextureGrabForegroundPtr fc; 
+    TextureGrabForegroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<TextureGrabForeground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void TextureGrabForegroundBase::execSync(      TextureGrabForegroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -234,7 +234,7 @@ inline
 void TextureGrabForegroundBase::execSync (      TextureGrabForegroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -281,4 +281,3 @@ typedef PointerBuilder<TextureGrabForeground>::ObjPtrConstArg  TextureGrabForegr
 OSG_END_NAMESPACE
 
 #define OSGTEXTUREGRABFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

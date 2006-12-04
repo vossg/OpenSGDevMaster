@@ -52,19 +52,10 @@
 
 OSG_USING_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::ShearedStereoCameraDecorator
-    \ingroup GrpSystemWindowCameraDecorators
-
-  The OSG::CameraDecorator for standard sheared stereo projections, see \ref
-  PageSystemWindowCameraDecoratorsStereoSheared for a description.
-  
-  The only parameter is defined by the _sfZeroParallaxDistance field.
-
- */
+// Documentation for this class is emited in the
+// OSGShearedStereoCameraDecoratorBase.cpp file.
+// To modify it, please change the .fcd file (OSGShearedStereoCameraDecorator.fcd) and
+// regenerate the base file.
 
 /*----------------------- constructors & destructors ----------------------*/
 

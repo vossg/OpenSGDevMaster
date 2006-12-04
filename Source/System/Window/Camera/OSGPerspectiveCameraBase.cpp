@@ -65,22 +65,35 @@
 #include "OSGPerspectiveCameraBase.h"
 #include "OSGPerspectiveCamera.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var Real32 PerspectiveCameraBase::_sfFov
-    	The vertical field of view, in radians.
+/*! \class OSG::PerspectiveCamera
+    \ingroup GrpSystemWindowCameras
 
+    The Perspective Camera class, see \ref
+    PageSystemWindowCameraPerspective for  a description.
+
+    The only new parameter is the _sfFov.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Real32          PerspectiveCameraBase::_sfFov
+    The vertical field of view, in radians.
 */
-/*! \var Real32 PerspectiveCameraBase::_sfAspect
-    	The aspect ratio (i.e. width / height) of a pixel.
-
+/*! \var Real32          PerspectiveCameraBase::_sfAspect
+    The aspect ratio (i.e. width / height) of a pixel.
 */
 
 void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +103,9 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "fov", 
-        "	The vertical field of view, in radians.\n",
+        SFReal32::getClassType(),
+        "fov",
+        "The vertical field of view, in radians.\n",
         FovFieldId, FovFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,9 +125,9 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "aspect", 
-        "	The aspect ratio (i.e. width / height) of a pixel.\n",
+        SFReal32::getClassType(),
+        "aspect",
+        "The aspect ratio (i.e. width / height) of a pixel.\n",
         AspectFieldId, AspectFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -139,54 +152,61 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(true,
     (InitalInsertDescFunc) &PerspectiveCameraBase::classDescInserter,
     false,
     "<?xml version=\"1.0\" ?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"PerspectiveCamera\"\n"
-"	parent=\"Camera\"\n"
-"	library=\"Window\"\n"
-"	structure=\"concrete\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-">\n"
-"A perspective camera with a symmetric frustum.\n"
-"	<Field\n"
-"		name=\"fov\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"	>\n"
-"	The vertical field of view, in radians.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"aspect\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"                defaultValue=\"1\"\n"
-"	>\n"
-"	The aspect ratio (i.e. width / height) of a pixel.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "A perspective camera with a symmetric frustum.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"PerspectiveCamera\"\n"
+    "\tparent=\"Camera\"\n"
+    "\tlibrary=\"Window\"\n"
+    "\tstructure=\"concrete\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    ">\n"
+    "\\ingroup GrpSystemWindowCameras\n"
+    "\n"
+    "The Perspective Camera class, see \\ref PageSystemWindowCameraPerspective for \n"
+    "a description.\n"
+    "\n"
+    "The only new parameter is the _sfFov.\n"
+    "\t<Field\n"
+    "\t\tname=\"fov\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t>\n"
+    "\tThe vertical field of view, in radians.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"aspect\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "                defaultValue=\"1\"\n"
+    "\t>\n"
+    "\tThe aspect ratio (i.e. width / height) of a pixel.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup GrpSystemWindowCameras\n"
+    "The Perspective Camera class, see \\ref PageSystemWindowCameraPerspective for \n"
+    "a description.\n"
+    "The only new parameter is the _sfFov.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &PerspectiveCameraBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &PerspectiveCameraBase::getType(void) const 
+FieldContainerType &PerspectiveCameraBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 PerspectiveCameraBase::getContainerSize(void) const 
-{ 
-    return sizeof(PerspectiveCamera); 
+const FieldContainerType &PerspectiveCameraBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 PerspectiveCameraBase::getContainerSize(void) const
+{
+    return sizeof(PerspectiveCamera);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -205,9 +225,9 @@ const SFReal32 *PerspectiveCameraBase::getSFFov(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *PerspectiveCameraBase::getSFFov(void)
+SFReal32            *PerspectiveCameraBase::getSFFov            (void)
 {
-    return this->editSFFov();
+    return this->editSFFov            ();
 }
 #endif
 
@@ -224,9 +244,9 @@ const SFReal32 *PerspectiveCameraBase::getSFAspect(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *PerspectiveCameraBase::getSFAspect(void)
+SFReal32            *PerspectiveCameraBase::getSFAspect         (void)
 {
-    return this->editSFAspect();
+    return this->editSFAspect         ();
 }
 #endif
 
@@ -281,22 +301,22 @@ void PerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-PerspectiveCameraPtr PerspectiveCameraBase::createEmpty(void) 
-{ 
-    PerspectiveCameraPtr returnValue; 
-    
-    newPtr<PerspectiveCamera>(returnValue); 
+PerspectiveCameraPtr PerspectiveCameraBase::createEmpty(void)
+{
+    PerspectiveCameraPtr returnValue;
 
-    return returnValue; 
+    newPtr<PerspectiveCamera>(returnValue);
+
+    return returnValue;
 }
 
-FieldContainerPtr PerspectiveCameraBase::shallowCopy(void) const 
-{ 
-    PerspectiveCameraPtr returnValue; 
+FieldContainerPtr PerspectiveCameraBase::shallowCopy(void) const
+{
+    PerspectiveCameraPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const PerspectiveCamera *>(this)); 
+    newPtr(returnValue, dynamic_cast<const PerspectiveCamera *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 
 
@@ -305,15 +325,15 @@ FieldContainerPtr PerspectiveCameraBase::shallowCopy(void) const
 
 PerspectiveCameraBase::PerspectiveCameraBase(void) :
     Inherited(),
-    _sfFov(),
-    _sfAspect(Real32(1))
+    _sfFov                    (),
+    _sfAspect                 (Real32(1))
 {
 }
 
 PerspectiveCameraBase::PerspectiveCameraBase(const PerspectiveCameraBase &source) :
     Inherited(source),
-    _sfFov(source._sfFov),
-    _sfAspect(source._sfAspect)
+    _sfFov                    (source._sfFov                    ),
+    _sfAspect                 (source._sfAspect                 )
 {
 }
 
@@ -327,13 +347,13 @@ PerspectiveCameraBase::~PerspectiveCameraBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void PerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<PerspectiveCameraBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -343,10 +363,10 @@ void PerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
 void PerspectiveCameraBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<PerspectiveCameraBase *>(&oFrom), 
+    this->execSync(static_cast<PerspectiveCameraBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -366,12 +386,12 @@ void PerspectiveCameraBase::execBeginEditV(ConstFieldMaskArg whichField,
 #ifdef OSG_MT_CPTR_ASPECT
 FieldContainerPtr PerspectiveCameraBase::createAspectCopy(void) const
 {
-    PerspectiveCameraPtr returnValue; 
+    PerspectiveCameraPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const PerspectiveCamera *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const PerspectiveCamera *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
@@ -380,6 +400,8 @@ void PerspectiveCameraBase::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
+
+OSG_END_NAMESPACE
 
 #include "OSGSField.ins"
 #include "OSGMField.ins"
@@ -402,8 +424,6 @@ OSG_FIELDTRAITS_GETTYPE(PerspectiveCameraPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, PerspectiveCameraPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, PerspectiveCameraPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -424,3 +444,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGPERSPECTIVECAMERAFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

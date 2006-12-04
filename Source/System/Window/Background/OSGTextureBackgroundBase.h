@@ -91,22 +91,22 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               TextureBackground>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
-                              BackgroundConstPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
+                              BackgroundConstPtr,
                               TextureBackground>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               TextureBackground>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               TextureBackground>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               TextureBackground>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<BackgroundPtr, 
+    typedef PointerFwdBuilder<BackgroundPtr,
                               BackgroundConstPtr,
                               TextureBackground>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -126,30 +126,29 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
         NextFieldId = VertFieldId + 1
     };
 
-    static const OSG::BitVector ColorFieldMask = 
+    static const OSG::BitVector ColorFieldMask =
         (TypeTraits<BitVector>::One << ColorFieldId);
-    static const OSG::BitVector TextureFieldMask = 
+    static const OSG::BitVector TextureFieldMask =
         (TypeTraits<BitVector>::One << TextureFieldId);
-    static const OSG::BitVector TexCoordsFieldMask = 
+    static const OSG::BitVector TexCoordsFieldMask =
         (TypeTraits<BitVector>::One << TexCoordsFieldId);
-    static const OSG::BitVector RadialDistortionFieldMask = 
+    static const OSG::BitVector RadialDistortionFieldMask =
         (TypeTraits<BitVector>::One << RadialDistortionFieldId);
-    static const OSG::BitVector CenterOfDistortionFieldMask = 
+    static const OSG::BitVector CenterOfDistortionFieldMask =
         (TypeTraits<BitVector>::One << CenterOfDistortionFieldId);
-    static const OSG::BitVector HorFieldMask = 
+    static const OSG::BitVector HorFieldMask =
         (TypeTraits<BitVector>::One << HorFieldId);
-    static const OSG::BitVector VertFieldMask = 
+    static const OSG::BitVector VertFieldMask =
         (TypeTraits<BitVector>::One << VertFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -157,8 +156,8 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -169,120 +168,120 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
 
 
 #ifdef OSG_1_COMPAT
-           SFColor4f *getSFColor(void);
+                  SFColor4f           *getSFColor           (void);
 #endif
-           SFColor4f *editSFColor(void);
-     const SFColor4f *getSFColor (void) const;
-     const SFTextureObjChunkPtr *getSFTexture (void) const;
+                  SFColor4f           *editSFColor          (void);
+            const SFColor4f           *getSFColor           (void) const;
+            const SFTextureObjChunkPtr *getSFTexture         (void) const;
 
 #ifdef OSG_1_COMPAT
-           MFPnt2f *getMFTexCoords(void);
+                  MFPnt2f             *getMFTexCoords       (void);
 #endif
-           MFPnt2f *editMFTexCoords(void);
-     const MFPnt2f *getMFTexCoords (void) const;
+                  MFPnt2f             *editMFTexCoords      (void);
+            const MFPnt2f             *getMFTexCoords       (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFReal32 *getSFRadialDistortion(void);
+                  SFReal32            *getSFRadialDistortion (void);
 #endif
-           SFReal32 *editSFRadialDistortion(void);
-     const SFReal32 *getSFRadialDistortion (void) const;
+                  SFReal32            *editSFRadialDistortion(void);
+            const SFReal32            *getSFRadialDistortion (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFVec2f *getSFCenterOfDistortion(void);
+                  SFVec2f             *getSFCenterOfDistortion (void);
 #endif
-           SFVec2f *editSFCenterOfDistortion(void);
-     const SFVec2f *getSFCenterOfDistortion (void) const;
+                  SFVec2f             *editSFCenterOfDistortion(void);
+            const SFVec2f             *getSFCenterOfDistortion (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFHor(void);
+                  SFUInt16            *getSFHor             (void);
 #endif
-           SFUInt16 *editSFHor(void);
-     const SFUInt16 *getSFHor (void) const;
+                  SFUInt16            *editSFHor            (void);
+            const SFUInt16            *getSFHor             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFUInt16 *getSFVert(void);
+                  SFUInt16            *getSFVert            (void);
 #endif
-           SFUInt16 *editSFVert(void);
-     const SFUInt16 *getSFVert (void) const;
+                  SFUInt16            *editSFVert           (void);
+            const SFUInt16            *getSFVert            (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           Color4f &getColor(void);
+                  Color4f             &getColor           (void);
 #endif
-           Color4f &editColor(void);
-     const Color4f &getColor (void) const;
+                  Color4f             &editColor          (void);
+            const Color4f             &getColor           (void) const;
 
-           TextureObjChunkPtrConst getTexture(void) const;
-
-#ifdef OSG_1_COMPAT
-           Pnt2f &getTexCoords(const UInt32 index);
-           MFPnt2f &getTexCoords(void);
-#endif
-           Pnt2f &editTexCoords(const UInt32 index);
-     const Pnt2f &getTexCoords (const UInt32 index) const;
-           MFPnt2f &editTexCoords(void);
-     const MFPnt2f &getTexCoords(void) const;
+                  TextureObjChunkPtrConst getTexture        (void) const;
 
 #ifdef OSG_1_COMPAT
-           Real32 &getRadialDistortion(void);
+                  Pnt2f               &getTexCoords       (const UInt32 index);
+                  MFPnt2f             &getTexCoords      (void);
 #endif
-           Real32 &editRadialDistortion(void);
-     const Real32 &getRadialDistortion (void) const;
+                  Pnt2f               &editTexCoords      (const UInt32 index);
+            const Pnt2f               &getTexCoords       (const UInt32 index) const;
+                  MFPnt2f             &editTexCoords      (void);
+            const MFPnt2f             &getTexCoords      (void) const;
 
 #ifdef OSG_1_COMPAT
-           Vec2f &getCenterOfDistortion(void);
+                  Real32              &getRadialDistortion (void);
 #endif
-           Vec2f &editCenterOfDistortion(void);
-     const Vec2f &getCenterOfDistortion (void) const;
+                  Real32              &editRadialDistortion(void);
+            const Real32              &getRadialDistortion (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getHor(void);
+                  Vec2f               &getCenterOfDistortion (void);
 #endif
-           UInt16 &editHor(void);
-     const UInt16 &getHor (void) const;
+                  Vec2f               &editCenterOfDistortion(void);
+            const Vec2f               &getCenterOfDistortion (void) const;
 
 #ifdef OSG_1_COMPAT
-           UInt16 &getVert(void);
+                  UInt16              &getHor             (void);
 #endif
-           UInt16 &editVert(void);
-     const UInt16 &getVert (void) const;
+                  UInt16              &editHor            (void);
+            const UInt16              &getHor             (void) const;
+
+#ifdef OSG_1_COMPAT
+                  UInt16              &getVert            (void);
+#endif
+                  UInt16              &editVert           (void);
+            const UInt16              &getVert            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setColor(const Color4f &value);
-     void setTexture(TextureObjChunkPtrConstArg value);
-     void setRadialDistortion(const Real32 &value);
-     void setCenterOfDistortion(const Vec2f &value);
-     void setHor(const UInt16 &value);
-     void setVert(const UInt16 &value);
+            void setColor          (const Color4f &value);
+            void setTexture        (TextureObjChunkPtrConstArg value);
+            void setRadialDistortion(const Real32 &value);
+            void setCenterOfDistortion(const Vec2f &value);
+            void setHor            (const UInt16 &value);
+            void setVert           (const UInt16 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -295,17 +294,17 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
 
     void pushToTexCoords           (const Pnt2f& value   );
     void insertIntoTexCoords      (UInt32                uiIndex,
-                                    const Pnt2f& value   );
+                                             const Pnt2f& value   );
     void replaceInTexCoords  (UInt32                uiIndex,
-                                    const Pnt2f& value   );
+                                             const Pnt2f& value   );
     void replaceInTexCoords (const Pnt2f& pOldElem,
-                                    const Pnt2f& pNewElem);
+                                             const Pnt2f& pNewElem);
     void removeFromTexCoords (UInt32                uiIndex );
     void removeFromTexCoords(const Pnt2f& value   );
-    void clearTexCoords            (void                          );
+    void clearTexCoords             (void                          );
 
 
- 
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -324,15 +323,15 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TextureBackgroundPtr create     (void); 
-    static  TextureBackgroundPtr createEmpty(void); 
+    static  TextureBackgroundPtr create     (void);
+    static  TextureBackgroundPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -348,13 +347,13 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFColor4f _sfColor;
+    SFColor4f         _sfColor;
     SFTextureObjChunkPtr _sfTexture;
-    MFPnt2f _mfTexCoords;
-    SFReal32 _sfRadialDistortion;
-    SFVec2f _sfCenterOfDistortion;
-    SFUInt16 _sfHor;
-    SFUInt16 _sfVert;
+    MFPnt2f           _mfTexCoords;
+    SFReal32          _sfRadialDistortion;
+    SFVec2f           _sfCenterOfDistortion;
+    SFUInt16          _sfHor;
+    SFUInt16          _sfVert;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -369,7 +368,7 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TextureBackgroundBase(void); 
+    virtual ~TextureBackgroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -416,11 +415,11 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

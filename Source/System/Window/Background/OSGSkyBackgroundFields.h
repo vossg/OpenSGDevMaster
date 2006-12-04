@@ -70,22 +70,22 @@ class SkyBackground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! SkyBackgroundPtr
 
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           SkyBackground>::ObjPtr         SkyBackgroundPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           SkyBackground>::ObjPtrConst    SkyBackgroundPtrConst;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           SkyBackground>::ObjConstPtr    SkyBackgroundConstPtr;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           SkyBackground>::ObjPtrArg      SkyBackgroundPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           SkyBackground>::ObjConstPtrArg SkyBackgroundConstPtrArg;
-typedef PointerFwdBuilder<BackgroundPtr, 
+typedef PointerFwdBuilder<BackgroundPtr,
                           BackgroundConstPtr,
                           SkyBackground>::ObjPtrConstArg SkyBackgroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<BackgroundPtr,
 #endif
 
 template <>
-struct FieldTraits<SkyBackgroundPtr> : 
+struct FieldTraits<SkyBackgroundPtr> :
     public FieldTraitsTemplateBase<SkyBackgroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<SkyBackgroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getMName(void) { return "MFSkyBackgroundPtr"; }

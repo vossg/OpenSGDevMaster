@@ -70,22 +70,22 @@ class TextureBuffer;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! TextureBufferPtr
 
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           TextureBuffer>::ObjPtr         TextureBufferPtr;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           TextureBuffer>::ObjPtrConst    TextureBufferPtrConst;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           TextureBuffer>::ObjConstPtr    TextureBufferConstPtr;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           TextureBuffer>::ObjPtrArg      TextureBufferPtrArg;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           TextureBuffer>::ObjConstPtrArg TextureBufferConstPtrArg;
-typedef PointerFwdBuilder<FrameBufferAttachmentPtr, 
+typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
                           FrameBufferAttachmentConstPtr,
                           TextureBuffer>::ObjPtrConstArg TextureBufferPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<FrameBufferAttachmentPtr,
 #endif
 
 template <>
-struct FieldTraits<TextureBufferPtr> : 
+struct FieldTraits<TextureBufferPtr> :
     public FieldTraitsTemplateBase<TextureBufferPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<TextureBufferPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFTextureBufferPtr"; }

@@ -9,7 +9,30 @@
 	systemcomponent="true"
 	parentsystemcomponent="true"
 >
-A Viewport is a part of the Window it is attached to used for rendering. Every Window can hold an arbitrary number of viewports.
+\ingroup GrpSystemWindowsViewports
+
+A Viewport is a part of the Window it is attached to used for rendering. See
+\ref PageSystemWindowViewports for a description.
+
+The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom and
+_sfTop Fields. The Window this Viewport is attached is stored in _sfWindow.
+_sfBackground defines the background clearing method, the
+_sfRoot and _sfCamera Fields the scene being rendered and the camera used to
+view it. The optional _mfForegrounds define which information are added or
+actions are executed after the Viewport has been rendered.
+
+\ext
+
+To create a new Viewport the draw and render methods should be overridden. 
+
+\endext
+
+\dev
+
+When adding fields to the Viewport, make sure to add the code to copy them to
+all the different ClusterWindows!
+
+\enddev
 	<Field
 		name="left"
 		type="Real32"
@@ -17,7 +40,9 @@ A Viewport is a part of the Window it is attached to used for rendering. Every W
 		visibility="external"
 		access="public"
 	>
-	The left edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	left border. All other values are illegal.
+	The left edge of the viewport. Values between 0 and 1 are relative to the size of
+	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the
+        left border. All other values are illegal.
 	</Field>
 	<Field
 		name="right"
@@ -26,7 +51,9 @@ A Viewport is a part of the Window it is attached to used for rendering. Every W
 		visibility="external"
 		access="public"
 	>
-	The right edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	right border. All other values are illegal.
+	The right edge of the viewport. Values between 0 and 1 are relative to the size of
+	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the
+	right border. All other values are illegal.
 	</Field>
 	<Field
 		name="bottom"
@@ -35,7 +62,9 @@ A Viewport is a part of the Window it is attached to used for rendering. Every W
 		visibility="external"
 		access="public"
 	>
-	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	bottom border. All other values are illegal.
+	The bottom edge of the viewport. Values between 0 and 1 are relative to the size of
+	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the
+	bottom border. All other values are illegal.
 	</Field>
 	<Field
 		name="top"
@@ -44,7 +73,9 @@ A Viewport is a part of the Window it is attached to used for rendering. Every W
 		visibility="external"
 		access="public"
 	>
-	The top edge of the viewport. Values between 0 and 1 are relative to the size of 	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the  	top border. All other values are illegal.
+	The top edge of the viewport. Values between 0 and 1 are relative to the size of
+	the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the
+	top border. All other values are illegal.
 	</Field>
 	<Field
 		name="parent"
@@ -90,7 +121,7 @@ A Viewport is a part of the Window it is attached to used for rendering. Every W
 		cardinality="multi"
 		visibility="external"
 		access="public"
-        pushToFieldAs="addForeground"
+                pushToFieldAs="addForeground"
 	>
 	The foreground additions to the rendered image.
 	</Field>
@@ -100,7 +131,7 @@ A Viewport is a part of the Window it is attached to used for rendering. Every W
 		cardinality="single"
 		visibility="external"
 		access="public"
-        defaultValue="TypeTraits&lt;UInt32&gt;::getMax()"
+                defaultValue="TypeTraits&lt;UInt32&gt;::getMax()"
 	>
 	The foreground additions to the rendered image.
 	</Field>
@@ -109,7 +140,7 @@ A Viewport is a part of the Window it is attached to used for rendering. Every W
 		type="Real32"
 		cardinality="single"
 		visibility="internal"
-        defaultValue="0.0f"
+                defaultValue="0.0f"
 		access="public"
 	>
 	Drawtime of the last frame using this viewport.

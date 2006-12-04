@@ -143,10 +143,10 @@ typedef void   (OSG_APIENTRY *GLDrawBuffersEXTProcT)(
           GLsizei  n, 
     const GLenum  *buffers);
 
-/*! \class OSG::FrameBufferObject
-    \ingroup GrpSystemWindowViewports
- */
-
+// Documentation for this class is emited in the
+// OSGFrameBufferObjectBase.cpp file.
+// To modify it, please change the .fcd file (OSGFrameBufferObject.fcd) and
+// regenerate the base file.
 
 void FrameBufferObject::setColorAttachment(
     FrameBufferAttachmentPtr pAttachment,

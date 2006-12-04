@@ -70,22 +70,22 @@ class RenderOptions;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! RenderOptionsPtr
 
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           RenderOptions>::ObjPtr         RenderOptionsPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           RenderOptions>::ObjPtrConst    RenderOptionsPtrConst;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           RenderOptions>::ObjConstPtr    RenderOptionsConstPtr;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           RenderOptions>::ObjPtrArg      RenderOptionsPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           RenderOptions>::ObjConstPtrArg RenderOptionsConstPtrArg;
-typedef PointerFwdBuilder<FieldContainerAttachmentPtr, 
+typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
                           FieldContainerAttachmentConstPtr,
                           RenderOptions>::ObjPtrConstArg RenderOptionsPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<FieldContainerAttachmentPtr,
 #endif
 
 template <>
-struct FieldTraits<RenderOptionsPtr> : 
+struct FieldTraits<RenderOptionsPtr> :
     public FieldTraitsTemplateBase<RenderOptionsPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<RenderOptionsPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING 
+    static OSG_SYSTEM_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFRenderOptionsPtr"; }

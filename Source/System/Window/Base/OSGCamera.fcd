@@ -10,7 +10,11 @@
 	parentsystemcomponent="true"
 	decoratable="true"
 >
-The base class for the camera.
+\ingroup GrpSystemWindowCameras
+
+The Camera base class, see \ref PageSystemWindowCamera for a description.
+
+The only common fields are _sfNear and _sfFar.
 	<Field
 		name="beacon"
 		type="NodePtr"
@@ -18,7 +22,7 @@ The base class for the camera.
 		visibility="external"
 	>
 	The object that define's the camera's coordinate system. The camera is positioned
-	at the origin of the system and looks doen the negative z-axis (OpenGL-style).
+	at the origin of the system and looks down the negative z-axis (OpenGL-style).
 	</Field>
 	<Field
 		name="near"

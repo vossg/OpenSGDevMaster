@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &FrameBufferObjectBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 FrameBufferObjectBase::getClassTypeId(void) 
+OSG::UInt32 FrameBufferObjectBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 FrameBufferObjectBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const GLenum &FrameBufferObjectBase::getGLId(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &FrameBufferObjectBase::getGLId(void)
+GLenum              &FrameBufferObjectBase::getGLId           (void)
 {
-    return this->editGLId();
+    return this->editGLId           ();
 }
 #endif
 
@@ -159,9 +159,9 @@ const UInt16 &FrameBufferObjectBase::getWidth(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &FrameBufferObjectBase::getWidth(void)
+UInt16              &FrameBufferObjectBase::getWidth          (void)
 {
-    return this->editWidth();
+    return this->editWidth          ();
 }
 #endif
 
@@ -192,9 +192,9 @@ const UInt16 &FrameBufferObjectBase::getHeight(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt16 &FrameBufferObjectBase::getHeight(void)
+UInt16              &FrameBufferObjectBase::getHeight         (void)
 {
-    return this->editHeight();
+    return this->editHeight         ();
 }
 #endif
 
@@ -247,15 +247,15 @@ MFGLenum &FrameBufferObjectBase::editDrawBuffers(void)
 
 #ifdef OSG_1_COMPAT
 inline
-GLenum &FrameBufferObjectBase::getDrawBuffers(const UInt32 index)
+GLenum              &FrameBufferObjectBase::getDrawBuffers    (const UInt32 index)
 {
-    return this->editDrawBuffers(index);
+    return this->editDrawBuffers    (index);
 }
 
 inline
-MFGLenum &FrameBufferObjectBase::getDrawBuffers(void)
+MFGLenum            &FrameBufferObjectBase::getDrawBuffers    (void)
 {
-    return this->editDrawBuffers();
+    return this->editDrawBuffers    ();
 }
 
 #endif
@@ -270,24 +270,24 @@ const MFGLenum &FrameBufferObjectBase::getDrawBuffers(void) const
 
 //! create a new instance of the class
 inline
-FrameBufferObjectPtr FrameBufferObjectBase::create(void) 
+FrameBufferObjectPtr FrameBufferObjectBase::create(void)
 {
-    FrameBufferObjectPtr fc; 
+    FrameBufferObjectPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<FrameBufferObject::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void FrameBufferObjectBase::execSync(      FrameBufferObjectBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
@@ -297,13 +297,13 @@ void FrameBufferObjectBase::execSync(      FrameBufferObjectBase *pOther,
         _sfGLId.syncWith(pOther->_sfGLId);
 
     if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
-        _mfColorAttachments.syncWith(pOther->_mfColorAttachments, 
+        _mfColorAttachments.syncWith(pOther->_mfColorAttachments,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (DrawBuffersFieldMask & whichField))
-        _mfDrawBuffers.syncWith(pOther->_mfDrawBuffers, 
+        _mfDrawBuffers.syncWith(pOther->_mfDrawBuffers,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -327,7 +327,7 @@ inline
 void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
@@ -336,13 +336,13 @@ void FrameBufferObjectBase::execSync (      FrameBufferObjectBase *pFrom,
         _sfGLId.syncWith(pFrom->_sfGLId);
 
     if(FieldBits::NoField != (ColorAttachmentsFieldMask & whichField))
-        _mfColorAttachments.syncWith(pFrom->_mfColorAttachments, 
+        _mfColorAttachments.syncWith(pFrom->_mfColorAttachments,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (DrawBuffersFieldMask & whichField))
-        _mfDrawBuffers.syncWith(pFrom->_mfDrawBuffers, 
+        _mfDrawBuffers.syncWith(pFrom->_mfDrawBuffers,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -399,4 +399,3 @@ typedef PointerBuilder<FrameBufferObject>::ObjPtrConstArg  FrameBufferObjectPtrC
 OSG_END_NAMESPACE
 
 #define OSGFRAMEBUFFEROBJECTBASE_INLINE_CVSID "@(#)$Id$"
-

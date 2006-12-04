@@ -65,22 +65,36 @@
 #include "OSGStereoCameraDecoratorBase.h"
 #include "OSGStereoCameraDecorator.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Field descriptions
+/***************************************************************************\
+ *                            Description                                  *
+\***************************************************************************/
 
-/*! \var bool StereoCameraDecoratorBase::_sfLeftEye
-    	Flag to distinguish between left and right eye views.
+/*! \class OSG::StereoCameraDecorator
+    \ingroup PageSystemWindowCameraDecoratorsStereo
 
+    The abstract base class for stereo camera decorators, see \ref
+    PageSystemWindowCameraDecoratorsStereo for a description.
+
+    The basic parameters are given by the _sfEyeSeparation and _sfLeftEye
+    fields.
+ */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            StereoCameraDecoratorBase::_sfLeftEye
+    Flag to distinguish between left and right eye views.
 */
-/*! \var Real32 StereoCameraDecoratorBase::_sfEyeSeparation
-    	The distance between the two eyes.
-
+/*! \var Real32          StereoCameraDecoratorBase::_sfEyeSeparation
+    The distance between the two eyes.
 */
 
 void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL; 
+    FieldDescriptionBase *pDesc = NULL;
 
 
 #ifdef OSG_1_COMPAT
@@ -90,9 +104,9 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFBool::Description(
-        SFBool::getClassType(), 
-        "leftEye", 
-        "	Flag to distinguish between left and right eye views.\n",
+        SFBool::getClassType(),
+        "leftEye",
+        "Flag to distinguish between left and right eye views.\n",
         LeftEyeFieldId, LeftEyeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -112,9 +126,9 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 #endif
 
     pDesc = new SFReal32::Description(
-        SFReal32::getClassType(), 
-        "eyeSeparation", 
-        "	The distance between the two eyes.\n",
+        SFReal32::getClassType(),
+        "eyeSeparation",
+        "The distance between the two eyes.\n",
         EyeSeparationFieldId, EyeSeparationFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -134,61 +148,68 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(true,
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL, 
+    NULL,
     StereoCameraDecorator::initMethod,
     (InitalInsertDescFunc) &StereoCameraDecoratorBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
-"\n"
-"<FieldContainer\n"
-"	name=\"StereoCameraDecorator\"\n"
-"	parent=\"CameraDecorator\"\n"
-"	library=\"System\"\n"
-"	pointerfieldtypes=\"both\"\n"
-"	structure=\"abstract\"\n"
-"	systemcomponent=\"true\"\n"
-"	parentsystemcomponent=\"true\"\n"
-"	decoratable=\"false\"\n"
-">\n"
-"The base class for stereo decorators.\n"
-"	<Field\n"
-"		name=\"leftEye\"\n"
-"		type=\"bool\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	Flag to distinguish between left and right eye views.\n"
-"	</Field>\n"
-"	<Field\n"
-"		name=\"eyeSeparation\"\n"
-"		type=\"Real32\"\n"
-"		cardinality=\"single\"\n"
-"		visibility=\"external\"\n"
-"		access=\"public\"\n"
-"	>\n"
-"	The distance between the two eyes.\n"
-"	</Field>\n"
-"</FieldContainer>\n"
-,
-    "The base class for stereo decorators.\n" 
+    "\n"
+    "<FieldContainer\n"
+    "\tname=\"StereoCameraDecorator\"\n"
+    "\tparent=\"CameraDecorator\"\n"
+    "\tlibrary=\"System\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
+    "\tstructure=\"abstract\"\n"
+    "\tsystemcomponent=\"true\"\n"
+    "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    ">\n"
+    "\\ingroup PageSystemWindowCameraDecoratorsStereo\n"
+    "\n"
+    "The abstract base class for stereo camera decorators, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsStereo for a description.\n"
+    "\n"
+    "The basic parameters are given by the _sfEyeSeparation and _sfLeftEye fields.\n"
+    "\t<Field\n"
+    "\t\tname=\"leftEye\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tFlag to distinguish between left and right eye views.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"eyeSeparation\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tThe distance between the two eyes.\n"
+    "\t</Field>\n"
+    "</FieldContainer>\n",
+    "\\ingroup PageSystemWindowCameraDecoratorsStereo\n"
+    "The abstract base class for stereo camera decorators, see \\ref\n"
+    "PageSystemWindowCameraDecoratorsStereo for a description.\n"
+    "The basic parameters are given by the _sfEyeSeparation and _sfLeftEye fields.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &StereoCameraDecoratorBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &StereoCameraDecoratorBase::getType(void) const 
+FieldContainerType &StereoCameraDecoratorBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 StereoCameraDecoratorBase::getContainerSize(void) const 
-{ 
-    return sizeof(StereoCameraDecorator); 
+const FieldContainerType &StereoCameraDecoratorBase::getType(void) const
+{
+    return _type;
+}
+
+UInt32 StereoCameraDecoratorBase::getContainerSize(void) const
+{
+    return sizeof(StereoCameraDecorator);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -207,9 +228,9 @@ const SFBool *StereoCameraDecoratorBase::getSFLeftEye(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFBool *StereoCameraDecoratorBase::getSFLeftEye(void)
+SFBool              *StereoCameraDecoratorBase::getSFLeftEye        (void)
 {
-    return this->editSFLeftEye();
+    return this->editSFLeftEye        ();
 }
 #endif
 
@@ -226,9 +247,9 @@ const SFReal32 *StereoCameraDecoratorBase::getSFEyeSeparation(void) const
 }
 
 #ifdef OSG_1_COMPAT
-SFReal32 *StereoCameraDecoratorBase::getSFEyeSeparation(void)
+SFReal32            *StereoCameraDecoratorBase::getSFEyeSeparation  (void)
 {
-    return this->editSFEyeSeparation();
+    return this->editSFEyeSeparation  ();
 }
 #endif
 
@@ -288,15 +309,15 @@ void StereoCameraDecoratorBase::copyFromBin(BinaryDataHandler &pMem,
 
 StereoCameraDecoratorBase::StereoCameraDecoratorBase(void) :
     Inherited(),
-    _sfLeftEye(),
-    _sfEyeSeparation()
+    _sfLeftEye                (),
+    _sfEyeSeparation          ()
 {
 }
 
 StereoCameraDecoratorBase::StereoCameraDecoratorBase(const StereoCameraDecoratorBase &source) :
     Inherited(source),
-    _sfLeftEye(source._sfLeftEye),
-    _sfEyeSeparation(source._sfEyeSeparation)
+    _sfLeftEye                (source._sfLeftEye                ),
+    _sfEyeSeparation          (source._sfEyeSeparation          )
 {
 }
 
@@ -310,13 +331,13 @@ StereoCameraDecoratorBase::~StereoCameraDecoratorBase(void)
 #ifdef OSG_MT_FIELDCONTAINERPTR
 void StereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo,
                                         UInt32             uiCopyOffset)
 {
     this->execSync(static_cast<StereoCameraDecoratorBase *>(&oFrom),
-                   whichField, 
-                   syncMode, 
+                   whichField,
+                   syncMode,
                    uiSyncInfo,
                    uiCopyOffset);
 }
@@ -326,10 +347,10 @@ void StereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
 void StereoCameraDecoratorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StereoCameraDecoratorBase *>(&oFrom), 
+    this->execSync(static_cast<StereoCameraDecoratorBase *>(&oFrom),
                    whichField,
                    oOffsets,
                    syncMode,
@@ -353,6 +374,8 @@ void StereoCameraDecoratorBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
 #include "OSGSField.ins"
 #include "OSGMField.ins"
 
@@ -374,8 +397,6 @@ OSG_FIELDTRAITS_GETTYPE(StereoCameraDecoratorPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, StereoCameraDecoratorPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, StereoCameraDecoratorPtr);
 
-OSG_END_NAMESPACE
-
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */
@@ -396,3 +417,5 @@ namespace
 
     static Char8 cvsid_fields_hpp[] = OSGSTEREOCAMERADECORATORFIELDS_HEADER_CVSID;
 }
+
+OSG_END_NAMESPACE

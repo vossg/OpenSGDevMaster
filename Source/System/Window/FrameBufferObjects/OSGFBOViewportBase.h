@@ -85,22 +85,22 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ViewportPtr, 
-                              ViewportConstPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
+                              ViewportConstPtr,
                               FBOViewport>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ViewportPtr, 
-                              ViewportConstPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
+                              ViewportConstPtr,
                               FBOViewport>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               FBOViewport>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               FBOViewport>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               FBOViewport>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               FBOViewport>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -114,18 +114,17 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
         NextFieldId = FrameBufferObjectFieldId + 1
     };
 
-    static const OSG::BitVector FrameBufferObjectFieldMask = 
+    static const OSG::BitVector FrameBufferObjectFieldMask =
         (TypeTraits<BitVector>::One << FrameBufferObjectFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -133,8 +132,8 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -143,42 +142,42 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-     const SFFrameBufferObjectPtr *getSFFrameBufferObject (void) const;
+            const SFFrameBufferObjectPtr *getSFFrameBufferObject (void) const;
 
 
-           FrameBufferObjectPtrConst getFrameBufferObject(void) const;
+                  FrameBufferObjectPtrConst getFrameBufferObject(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setFrameBufferObject(FrameBufferObjectPtrConstArg value);
+            void setFrameBufferObject(FrameBufferObjectPtrConstArg value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
 
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     virtual void clearField      (const UInt32                    uiFieldId  );
@@ -205,15 +204,15 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  FBOViewportPtr create     (void); 
-    static  FBOViewportPtr createEmpty(void); 
+    static  FBOViewportPtr create     (void);
+    static  FBOViewportPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -244,7 +243,7 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~FBOViewportBase(void); 
+    virtual ~FBOViewportBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -291,11 +290,11 @@ class OSG_SYSTEM_DLLMAPPING FBOViewportBase : public Viewport
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

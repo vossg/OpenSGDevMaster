@@ -70,22 +70,22 @@ class FileGrabForeground;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! FileGrabForegroundPtr
 
-typedef PointerFwdBuilder<GrabForegroundPtr, 
+typedef PointerFwdBuilder<GrabForegroundPtr,
                           GrabForegroundConstPtr,
                           FileGrabForeground>::ObjPtr         FileGrabForegroundPtr;
-typedef PointerFwdBuilder<GrabForegroundPtr, 
+typedef PointerFwdBuilder<GrabForegroundPtr,
                           GrabForegroundConstPtr,
                           FileGrabForeground>::ObjPtrConst    FileGrabForegroundPtrConst;
-typedef PointerFwdBuilder<GrabForegroundPtr, 
+typedef PointerFwdBuilder<GrabForegroundPtr,
                           GrabForegroundConstPtr,
                           FileGrabForeground>::ObjConstPtr    FileGrabForegroundConstPtr;
-typedef PointerFwdBuilder<GrabForegroundPtr, 
+typedef PointerFwdBuilder<GrabForegroundPtr,
                           GrabForegroundConstPtr,
                           FileGrabForeground>::ObjPtrArg      FileGrabForegroundPtrArg;
-typedef PointerFwdBuilder<GrabForegroundPtr, 
+typedef PointerFwdBuilder<GrabForegroundPtr,
                           GrabForegroundConstPtr,
                           FileGrabForeground>::ObjConstPtrArg FileGrabForegroundConstPtrArg;
-typedef PointerFwdBuilder<GrabForegroundPtr, 
+typedef PointerFwdBuilder<GrabForegroundPtr,
                           GrabForegroundConstPtr,
                           FileGrabForeground>::ObjPtrConstArg FileGrabForegroundPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<GrabForegroundPtr,
 #endif
 
 template <>
-struct FieldTraits<FileGrabForegroundPtr> : 
+struct FieldTraits<FileGrabForegroundPtr> :
     public FieldTraitsTemplateBase<FileGrabForegroundPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<FileGrabForegroundPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFFileGrabForegroundPtr"; }

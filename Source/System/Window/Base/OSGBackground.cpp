@@ -57,26 +57,10 @@
 
 OSG_USING_NAMESPACE
 
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::Background
-    \ingroup GrpSystemWindowBackgrounds
-
-  Background is the base class for all background clearing.  See \ref
-  PageSystemWindowBackground for a description.
-
-  \ext
-
-  To create a new Background the method that has be overridden is  
-  clear(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
-  commands, but should restore the state after it's done.
-
-  \endext
-
- */
+// Documentation for this class is emited in the
+// OSGBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGBackground.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class methods                                 *

@@ -88,22 +88,22 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    typedef PointerFwdBuilder<ViewportPtr, 
-                              ViewportConstPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
+                              ViewportConstPtr,
                               ColorBufferViewport>::ObjPtr         ObjPtr;
-    typedef PointerFwdBuilder<ViewportPtr, 
-                              ViewportConstPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
+                              ViewportConstPtr,
                               ColorBufferViewport>::ObjPtrConst    ObjPtrConst;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               ColorBufferViewport>::ObjConstPtr    ObjConstPtr;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               ColorBufferViewport>::ObjPtrArg      ObjPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               ColorBufferViewport>::ObjConstPtrArg ObjConstPtrArg;
-    typedef PointerFwdBuilder<ViewportPtr, 
+    typedef PointerFwdBuilder<ViewportPtr,
                               ViewportConstPtr,
                               ColorBufferViewport>::ObjPtrConstArg ObjPtrConstArg;
 
@@ -120,24 +120,23 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
         NextFieldId = AlphaFieldId + 1
     };
 
-    static const OSG::BitVector RedFieldMask = 
+    static const OSG::BitVector RedFieldMask =
         (TypeTraits<BitVector>::One << RedFieldId);
-    static const OSG::BitVector BlueFieldMask = 
+    static const OSG::BitVector BlueFieldMask =
         (TypeTraits<BitVector>::One << BlueFieldId);
-    static const OSG::BitVector GreenFieldMask = 
+    static const OSG::BitVector GreenFieldMask =
         (TypeTraits<BitVector>::One << GreenFieldId);
-    static const OSG::BitVector AlphaFieldMask = 
+    static const OSG::BitVector AlphaFieldMask =
         (TypeTraits<BitVector>::One << AlphaFieldId);
-    static const OSG::BitVector NextFieldMask = 
+    static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static FieldContainerType &getClassType   (void); 
-    static UInt32              getClassTypeId (void); 
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
@@ -145,8 +144,8 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType         (void); 
-    virtual const FieldContainerType &getType         (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -157,63 +156,63 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
 
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFRed(void);
+                  SFBool              *getSFRed             (void);
 #endif
-           SFBool *editSFRed(void);
-     const SFBool *getSFRed (void) const;
+                  SFBool              *editSFRed            (void);
+            const SFBool              *getSFRed             (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFBlue(void);
+                  SFBool              *getSFBlue            (void);
 #endif
-           SFBool *editSFBlue(void);
-     const SFBool *getSFBlue (void) const;
+                  SFBool              *editSFBlue           (void);
+            const SFBool              *getSFBlue            (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFGreen(void);
+                  SFBool              *getSFGreen           (void);
 #endif
-           SFBool *editSFGreen(void);
-     const SFBool *getSFGreen (void) const;
+                  SFBool              *editSFGreen          (void);
+            const SFBool              *getSFGreen           (void) const;
 
 #ifdef OSG_1_COMPAT
-           SFBool *getSFAlpha(void);
+                  SFBool              *getSFAlpha           (void);
 #endif
-           SFBool *editSFAlpha(void);
-     const SFBool *getSFAlpha (void) const;
+                  SFBool              *editSFAlpha          (void);
+            const SFBool              *getSFAlpha           (void) const;
 
 
 #ifdef OSG_1_COMPAT
-           bool &getRed(void);
+                  bool                &getRed             (void);
 #endif
-           bool &editRed(void);
-     const bool &getRed (void) const;
+                  bool                &editRed            (void);
+            const bool                &getRed             (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getBlue(void);
+                  bool                &getBlue            (void);
 #endif
-           bool &editBlue(void);
-     const bool &getBlue (void) const;
+                  bool                &editBlue           (void);
+            const bool                &getBlue            (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getGreen(void);
+                  bool                &getGreen           (void);
 #endif
-           bool &editGreen(void);
-     const bool &getGreen (void) const;
+                  bool                &editGreen          (void);
+            const bool                &getGreen           (void) const;
 
 #ifdef OSG_1_COMPAT
-           bool &getAlpha(void);
+                  bool                &getAlpha           (void);
 #endif
-           bool &editAlpha(void);
-     const bool &getAlpha (void) const;
+                  bool                &editAlpha          (void);
+            const bool                &getAlpha           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-     void setRed(const bool &value);
-     void setBlue(const bool &value);
-     void setGreen(const bool &value);
-     void setAlpha(const bool &value);
+            void setRed            (const bool &value);
+            void setBlue           (const bool &value);
+            void setGreen          (const bool &value);
+            void setAlpha          (const bool &value);
 
     /*! \}                                                                 */
     /*! \}                                                                 */
@@ -233,15 +232,15 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ColorBufferViewportPtr create     (void); 
-    static  ColorBufferViewportPtr createEmpty(void); 
+    static  ColorBufferViewportPtr create     (void);
+    static  ColorBufferViewportPtr createEmpty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const; 
+    virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -257,10 +256,10 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFBool _sfRed;
-    SFBool _sfBlue;
-    SFBool _sfGreen;
-    SFBool _sfAlpha;
+    SFBool            _sfRed;
+    SFBool            _sfBlue;
+    SFBool            _sfGreen;
+    SFBool            _sfAlpha;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,7 +274,7 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ColorBufferViewportBase(void); 
+    virtual ~ColorBufferViewportBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -321,11 +320,11 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif

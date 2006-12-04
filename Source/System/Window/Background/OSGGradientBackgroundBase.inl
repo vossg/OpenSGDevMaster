@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &GradientBackgroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GradientBackgroundBase::getClassTypeId(void) 
+OSG::UInt32 GradientBackgroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 GradientBackgroundBase::getClassGroupId(void)
@@ -100,15 +100,15 @@ MFColor3f &GradientBackgroundBase::editColor(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Color3f &GradientBackgroundBase::getColor(const UInt32 index)
+Color3f             &GradientBackgroundBase::getColor          (const UInt32 index)
 {
-    return this->editColor(index);
+    return this->editColor          (index);
 }
 
 inline
-MFColor3f &GradientBackgroundBase::getColor(void)
+MFColor3f           &GradientBackgroundBase::getColor          (void)
 {
-    return this->editColor();
+    return this->editColor          ();
 }
 
 #endif
@@ -147,15 +147,15 @@ MFReal32 &GradientBackgroundBase::editPosition(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &GradientBackgroundBase::getPosition(const UInt32 index)
+Real32              &GradientBackgroundBase::getPosition       (const UInt32 index)
 {
-    return this->editPosition(index);
+    return this->editPosition       (index);
 }
 
 inline
-MFReal32 &GradientBackgroundBase::getPosition(void)
+MFReal32            &GradientBackgroundBase::getPosition       (void)
 {
-    return this->editPosition();
+    return this->editPosition       ();
 }
 
 #endif
@@ -170,37 +170,37 @@ const MFReal32 &GradientBackgroundBase::getPosition(void) const
 
 //! create a new instance of the class
 inline
-GradientBackgroundPtr GradientBackgroundBase::create(void) 
+GradientBackgroundPtr GradientBackgroundBase::create(void)
 {
-    GradientBackgroundPtr fc; 
+    GradientBackgroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<GradientBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void GradientBackgroundBase::execSync(      GradientBackgroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
-        _mfColor.syncWith(pOther->_mfColor, 
+        _mfColor.syncWith(pOther->_mfColor,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (PositionFieldMask & whichField))
-        _mfPosition.syncWith(pOther->_mfPosition, 
+        _mfPosition.syncWith(pOther->_mfPosition,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -212,19 +212,19 @@ inline
 void GradientBackgroundBase::execSync (      GradientBackgroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
-        _mfColor.syncWith(pFrom->_mfColor, 
+        _mfColor.syncWith(pFrom->_mfColor,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (PositionFieldMask & whichField))
-        _mfPosition.syncWith(pFrom->_mfPosition, 
+        _mfPosition.syncWith(pFrom->_mfPosition,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -269,4 +269,3 @@ typedef PointerBuilder<GradientBackground>::ObjPtrConstArg  GradientBackgroundPt
 OSG_END_NAMESPACE
 
 #define OSGGRADIENTBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

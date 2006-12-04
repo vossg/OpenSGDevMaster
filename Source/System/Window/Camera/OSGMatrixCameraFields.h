@@ -70,22 +70,22 @@ class MatrixCamera;
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
 //! MatrixCameraPtr
 
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           MatrixCamera>::ObjPtr         MatrixCameraPtr;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           MatrixCamera>::ObjPtrConst    MatrixCameraPtrConst;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           MatrixCamera>::ObjConstPtr    MatrixCameraConstPtr;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           MatrixCamera>::ObjPtrArg      MatrixCameraPtrArg;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           MatrixCamera>::ObjConstPtrArg MatrixCameraConstPtrArg;
-typedef PointerFwdBuilder<CameraPtr, 
+typedef PointerFwdBuilder<CameraPtr,
                           CameraConstPtr,
                           MatrixCamera>::ObjPtrConstArg MatrixCameraPtrConstArg;
 
@@ -99,20 +99,20 @@ typedef PointerFwdBuilder<CameraPtr,
 #endif
 
 template <>
-struct FieldTraits<MatrixCameraPtr> : 
+struct FieldTraits<MatrixCameraPtr> :
     public FieldTraitsTemplateBase<MatrixCameraPtr>
 {
   private:
 
-    static DataType             _type;                       
+    static DataType             _type;
 
   public:
 
     typedef FieldTraits<MatrixCameraPtr>  Self;
 
-    enum                        { StringConvertable = 0x00 };
+    enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING 
+    static OSG_WINDOW_DLLMAPPING
                      DataType &getType (void);
 
     static const char *getSName(void) { return "SFMatrixCameraPtr"; }

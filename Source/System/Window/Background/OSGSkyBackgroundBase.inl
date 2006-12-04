@@ -55,15 +55,15 @@ OSG_BEGIN_NAMESPACE
 inline
 OSG::FieldContainerType &SkyBackgroundBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SkyBackgroundBase::getClassTypeId(void) 
+OSG::UInt32 SkyBackgroundBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
 OSG::UInt16 SkyBackgroundBase::getClassGroupId(void)
@@ -92,9 +92,9 @@ const UInt32 &SkyBackgroundBase::getSphereRes(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-UInt32 &SkyBackgroundBase::getSphereRes(void)
+UInt32              &SkyBackgroundBase::getSphereRes      (void)
 {
-    return this->editSphereRes();
+    return this->editSphereRes      ();
 }
 #endif
 
@@ -227,9 +227,9 @@ const bool &SkyBackgroundBase::getBoxInside(void) const
 
 #ifdef OSG_1_COMPAT
 inline
-bool &SkyBackgroundBase::getBoxInside(void)
+bool                &SkyBackgroundBase::getBoxInside      (void)
 {
-    return this->editBoxInside();
+    return this->editBoxInside      ();
 }
 #endif
 
@@ -285,15 +285,15 @@ MFColor4f &SkyBackgroundBase::editSkyColor(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &SkyBackgroundBase::getSkyColor(const UInt32 index)
+Color4f             &SkyBackgroundBase::getSkyColor       (const UInt32 index)
 {
-    return this->editSkyColor(index);
+    return this->editSkyColor       (index);
 }
 
 inline
-MFColor4f &SkyBackgroundBase::getSkyColor(void)
+MFColor4f           &SkyBackgroundBase::getSkyColor       (void)
 {
-    return this->editSkyColor();
+    return this->editSkyColor       ();
 }
 
 #endif
@@ -332,15 +332,15 @@ MFReal32 &SkyBackgroundBase::editSkyAngle(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &SkyBackgroundBase::getSkyAngle(const UInt32 index)
+Real32              &SkyBackgroundBase::getSkyAngle       (const UInt32 index)
 {
-    return this->editSkyAngle(index);
+    return this->editSkyAngle       (index);
 }
 
 inline
-MFReal32 &SkyBackgroundBase::getSkyAngle(void)
+MFReal32            &SkyBackgroundBase::getSkyAngle       (void)
 {
-    return this->editSkyAngle();
+    return this->editSkyAngle       ();
 }
 
 #endif
@@ -379,15 +379,15 @@ MFColor4f &SkyBackgroundBase::editGroundColor(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Color4f &SkyBackgroundBase::getGroundColor(const UInt32 index)
+Color4f             &SkyBackgroundBase::getGroundColor    (const UInt32 index)
 {
-    return this->editGroundColor(index);
+    return this->editGroundColor    (index);
 }
 
 inline
-MFColor4f &SkyBackgroundBase::getGroundColor(void)
+MFColor4f           &SkyBackgroundBase::getGroundColor    (void)
 {
-    return this->editGroundColor();
+    return this->editGroundColor    ();
 }
 
 #endif
@@ -426,15 +426,15 @@ MFReal32 &SkyBackgroundBase::editGroundAngle(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 &SkyBackgroundBase::getGroundAngle(const UInt32 index)
+Real32              &SkyBackgroundBase::getGroundAngle    (const UInt32 index)
 {
-    return this->editGroundAngle(index);
+    return this->editGroundAngle    (index);
 }
 
 inline
-MFReal32 &SkyBackgroundBase::getGroundAngle(void)
+MFReal32            &SkyBackgroundBase::getGroundAngle    (void)
 {
-    return this->editGroundAngle();
+    return this->editGroundAngle    ();
 }
 
 #endif
@@ -473,15 +473,15 @@ MFVec3f &SkyBackgroundBase::editTopTexCoord(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &SkyBackgroundBase::getTopTexCoord(const UInt32 index)
+Vec3f               &SkyBackgroundBase::getTopTexCoord    (const UInt32 index)
 {
-    return this->editTopTexCoord(index);
+    return this->editTopTexCoord    (index);
 }
 
 inline
-MFVec3f &SkyBackgroundBase::getTopTexCoord(void)
+MFVec3f             &SkyBackgroundBase::getTopTexCoord    (void)
 {
-    return this->editTopTexCoord();
+    return this->editTopTexCoord    ();
 }
 
 #endif
@@ -520,15 +520,15 @@ MFVec3f &SkyBackgroundBase::editBottomTexCoord(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &SkyBackgroundBase::getBottomTexCoord(const UInt32 index)
+Vec3f               &SkyBackgroundBase::getBottomTexCoord (const UInt32 index)
 {
-    return this->editBottomTexCoord(index);
+    return this->editBottomTexCoord (index);
 }
 
 inline
-MFVec3f &SkyBackgroundBase::getBottomTexCoord(void)
+MFVec3f             &SkyBackgroundBase::getBottomTexCoord (void)
 {
-    return this->editBottomTexCoord();
+    return this->editBottomTexCoord ();
 }
 
 #endif
@@ -567,15 +567,15 @@ MFVec3f &SkyBackgroundBase::editRightTexCoord(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &SkyBackgroundBase::getRightTexCoord(const UInt32 index)
+Vec3f               &SkyBackgroundBase::getRightTexCoord  (const UInt32 index)
 {
-    return this->editRightTexCoord(index);
+    return this->editRightTexCoord  (index);
 }
 
 inline
-MFVec3f &SkyBackgroundBase::getRightTexCoord(void)
+MFVec3f             &SkyBackgroundBase::getRightTexCoord  (void)
 {
-    return this->editRightTexCoord();
+    return this->editRightTexCoord  ();
 }
 
 #endif
@@ -614,15 +614,15 @@ MFVec3f &SkyBackgroundBase::editLeftTexCoord(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &SkyBackgroundBase::getLeftTexCoord(const UInt32 index)
+Vec3f               &SkyBackgroundBase::getLeftTexCoord   (const UInt32 index)
 {
-    return this->editLeftTexCoord(index);
+    return this->editLeftTexCoord   (index);
 }
 
 inline
-MFVec3f &SkyBackgroundBase::getLeftTexCoord(void)
+MFVec3f             &SkyBackgroundBase::getLeftTexCoord   (void)
 {
-    return this->editLeftTexCoord();
+    return this->editLeftTexCoord   ();
 }
 
 #endif
@@ -661,15 +661,15 @@ MFVec3f &SkyBackgroundBase::editFrontTexCoord(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &SkyBackgroundBase::getFrontTexCoord(const UInt32 index)
+Vec3f               &SkyBackgroundBase::getFrontTexCoord  (const UInt32 index)
 {
-    return this->editFrontTexCoord(index);
+    return this->editFrontTexCoord  (index);
 }
 
 inline
-MFVec3f &SkyBackgroundBase::getFrontTexCoord(void)
+MFVec3f             &SkyBackgroundBase::getFrontTexCoord  (void)
 {
-    return this->editFrontTexCoord();
+    return this->editFrontTexCoord  ();
 }
 
 #endif
@@ -708,15 +708,15 @@ MFVec3f &SkyBackgroundBase::editBackTexCoord(void)
 
 #ifdef OSG_1_COMPAT
 inline
-Vec3f &SkyBackgroundBase::getBackTexCoord(const UInt32 index)
+Vec3f               &SkyBackgroundBase::getBackTexCoord   (const UInt32 index)
 {
-    return this->editBackTexCoord(index);
+    return this->editBackTexCoord   (index);
 }
 
 inline
-MFVec3f &SkyBackgroundBase::getBackTexCoord(void)
+MFVec3f             &SkyBackgroundBase::getBackTexCoord   (void)
 {
-    return this->editBackTexCoord();
+    return this->editBackTexCoord   ();
 }
 
 #endif
@@ -731,49 +731,49 @@ const MFVec3f &SkyBackgroundBase::getBackTexCoord(void) const
 
 //! create a new instance of the class
 inline
-SkyBackgroundPtr SkyBackgroundBase::create(void) 
+SkyBackgroundPtr SkyBackgroundBase::create(void)
 {
-    SkyBackgroundPtr fc; 
+    SkyBackgroundPtr fc;
 
-    if(getClassType().getPrototype() != NullFC) 
+    if(getClassType().getPrototype() != NullFC)
     {
         fc = OSG::cast_dynamic<SkyBackground::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy()); 
+            getClassType().getPrototype()-> shallowCopy());
     }
-    
-    return fc; 
+
+    return fc;
 }
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
 void SkyBackgroundBase::execSync(      SkyBackgroundBase *pOther,
                                        ConstFieldMaskArg  whichField,
-                                       ConstFieldMaskArg  syncMode  ,
+                                       ConstFieldMaskArg  syncMode,
                                  const UInt32             uiSyncInfo,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
 
     if(FieldBits::NoField != (SkyColorFieldMask & whichField))
-        _mfSkyColor.syncWith(pOther->_mfSkyColor, 
+        _mfSkyColor.syncWith(pOther->_mfSkyColor,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (SkyAngleFieldMask & whichField))
-        _mfSkyAngle.syncWith(pOther->_mfSkyAngle, 
+        _mfSkyAngle.syncWith(pOther->_mfSkyAngle,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (GroundColorFieldMask & whichField))
-        _mfGroundColor.syncWith(pOther->_mfGroundColor, 
+        _mfGroundColor.syncWith(pOther->_mfGroundColor,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (GroundAngleFieldMask & whichField))
-        _mfGroundAngle.syncWith(pOther->_mfGroundAngle, 
+        _mfGroundAngle.syncWith(pOther->_mfGroundAngle,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -803,37 +803,37 @@ void SkyBackgroundBase::execSync(      SkyBackgroundBase *pOther,
         _sfBoxInside.syncWith(pOther->_sfBoxInside);
 
     if(FieldBits::NoField != (TopTexCoordFieldMask & whichField))
-        _mfTopTexCoord.syncWith(pOther->_mfTopTexCoord, 
+        _mfTopTexCoord.syncWith(pOther->_mfTopTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (BottomTexCoordFieldMask & whichField))
-        _mfBottomTexCoord.syncWith(pOther->_mfBottomTexCoord, 
+        _mfBottomTexCoord.syncWith(pOther->_mfBottomTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (RightTexCoordFieldMask & whichField))
-        _mfRightTexCoord.syncWith(pOther->_mfRightTexCoord, 
+        _mfRightTexCoord.syncWith(pOther->_mfRightTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (LeftTexCoordFieldMask & whichField))
-        _mfLeftTexCoord.syncWith(pOther->_mfLeftTexCoord, 
+        _mfLeftTexCoord.syncWith(pOther->_mfLeftTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (FrontTexCoordFieldMask & whichField))
-        _mfFrontTexCoord.syncWith(pOther->_mfFrontTexCoord, 
+        _mfFrontTexCoord.syncWith(pOther->_mfFrontTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
 
     if(FieldBits::NoField != (BackTexCoordFieldMask & whichField))
-        _mfBackTexCoord.syncWith(pOther->_mfBackTexCoord, 
+        _mfBackTexCoord.syncWith(pOther->_mfBackTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
@@ -848,31 +848,31 @@ inline
 void SkyBackgroundBase::execSync (      SkyBackgroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode  ,
+                                        ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
     if(FieldBits::NoField != (SkyColorFieldMask & whichField))
-        _mfSkyColor.syncWith(pFrom->_mfSkyColor, 
+        _mfSkyColor.syncWith(pFrom->_mfSkyColor,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (SkyAngleFieldMask & whichField))
-        _mfSkyAngle.syncWith(pFrom->_mfSkyAngle, 
+        _mfSkyAngle.syncWith(pFrom->_mfSkyAngle,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (GroundColorFieldMask & whichField))
-        _mfGroundColor.syncWith(pFrom->_mfGroundColor, 
+        _mfGroundColor.syncWith(pFrom->_mfGroundColor,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (GroundAngleFieldMask & whichField))
-        _mfGroundAngle.syncWith(pFrom->_mfGroundAngle, 
+        _mfGroundAngle.syncWith(pFrom->_mfGroundAngle,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -902,37 +902,37 @@ void SkyBackgroundBase::execSync (      SkyBackgroundBase *pFrom,
         _sfBoxInside.syncWith(pFrom->_sfBoxInside);
 
     if(FieldBits::NoField != (TopTexCoordFieldMask & whichField))
-        _mfTopTexCoord.syncWith(pFrom->_mfTopTexCoord, 
+        _mfTopTexCoord.syncWith(pFrom->_mfTopTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (BottomTexCoordFieldMask & whichField))
-        _mfBottomTexCoord.syncWith(pFrom->_mfBottomTexCoord, 
+        _mfBottomTexCoord.syncWith(pFrom->_mfBottomTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (RightTexCoordFieldMask & whichField))
-        _mfRightTexCoord.syncWith(pFrom->_mfRightTexCoord, 
+        _mfRightTexCoord.syncWith(pFrom->_mfRightTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (LeftTexCoordFieldMask & whichField))
-        _mfLeftTexCoord.syncWith(pFrom->_mfLeftTexCoord, 
+        _mfLeftTexCoord.syncWith(pFrom->_mfLeftTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (FrontTexCoordFieldMask & whichField))
-        _mfFrontTexCoord.syncWith(pFrom->_mfFrontTexCoord, 
+        _mfFrontTexCoord.syncWith(pFrom->_mfFrontTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
     if(FieldBits::NoField != (BackTexCoordFieldMask & whichField))
-        _mfBackTexCoord.syncWith(pFrom->_mfBackTexCoord, 
+        _mfBackTexCoord.syncWith(pFrom->_mfBackTexCoord,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -1020,4 +1020,3 @@ typedef PointerBuilder<SkyBackground>::ObjPtrConstArg  SkyBackgroundPtrConstArg;
 OSG_END_NAMESPACE
 
 #define OSGSKYBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"
-

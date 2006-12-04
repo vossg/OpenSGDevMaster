@@ -18,7 +18,6 @@
 	>
 	The name of the container pool.  Can be used to identify pools.
 	</Field>
-
 	<Field
 		name="containers"
 		type="FieldContainerPtr"
