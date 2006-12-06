@@ -45,6 +45,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGAttachmentMapFields.h"
 #include "OSGFieldDescriptionBase.h"
+#include "OSGContainerPtrFuncs.h"
 
 OSG_BEGIN_NAMESPACE
 
