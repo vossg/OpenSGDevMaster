@@ -261,17 +261,7 @@ GeoStatsAttachmentPtr GeoStatsAttachment::calcStatic(GeometryPtrArg geo)
     return st;
 }
 
-
-/*! Access the GeoStatsAttachemnt in \a arg, if it has one. Return NullFC
-otherwise.
-*/
-GeoStatsAttachmentPtr GeoStatsAttachment::get(AttachmentContainerPtr arg)
-{
-    return cast_dynamic<GeoStatsAttachmentPtr>(
-            arg->findAttachment(GeoStatsAttachment::getClassType()));
-
-}
-
+#if 0
 /*! Access the GeoStatsAttachemnt in \a arg, if it has one. Return NullFC
 otherwise.
 */
@@ -281,6 +271,7 @@ GeoStatsAttachmentPtr GeoStatsAttachment::get(AttachmentContainer *arg)
             arg->findAttachment(GeoStatsAttachment::getClassType()));
 
 }
+#endif
 
 /*------------------------------------------------------------------------*/
 /*                              Updates                                   */
@@ -478,6 +469,7 @@ void GeoStatsAttachment::operator -=(GeoStatsAttachmentPtr arg)
 
 OSG_BEGIN_NAMESPACE
 
+#if 0
 void operator +=(GeoStatsAttachmentPtr op, GeoStatsAttachmentPtr arg)
 {
     (*op) += arg;
@@ -487,6 +479,7 @@ void operator -=(GeoStatsAttachmentPtr op, GeoStatsAttachmentPtr arg)
 {
     (*op) -= arg;
 }
+#endif
 
 OSG_END_NAMESPACE
 

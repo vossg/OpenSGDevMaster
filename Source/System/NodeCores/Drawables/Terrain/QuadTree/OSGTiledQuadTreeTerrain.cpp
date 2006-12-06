@@ -146,7 +146,7 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField, UInt32 origin)
 
             while(pParent->getNChildren() > 0) 
             {
-                pParent->subChild(0);
+                pParent->subChild(0u);
             }
 
             Real32 step   = 
@@ -312,7 +312,7 @@ inline void subAllChilds (const NodePtr& parent, NodePtr order[], Int32 num)
    //Int32 num2 = num*num;
     while (parent->getNChildren() > 0) 
     {
-        parent->subChild(0);
+        parent->subChild(0u);
     }
 }
 

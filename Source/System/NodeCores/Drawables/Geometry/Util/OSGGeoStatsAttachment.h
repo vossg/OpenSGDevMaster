@@ -103,9 +103,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachment : public GeoStatsAttachmentBase
     /*! \name                     Access                                   */
     /*! \{                                                                 */
 
-    static GeoStatsAttachmentPtr    get(AttachmentContainerPtr  arg);
+    template<class CntPtr>
+    static GeoStatsAttachmentPtr    get(CntPtr  arg);
 
-    static GeoStatsAttachmentPtr    get(AttachmentContainer    *arg);
+//    static GeoStatsAttachmentPtr    get(AttachmentContainer    *arg);
 
 
     /*! \}                                                                 */
@@ -198,8 +199,8 @@ typedef GeoStatsAttachment::ObjPtrConstArg   GeoStatsAttachmentPtrConstArg;
    \{
 */
 
-void operator +=(GeoStatsAttachmentPtr op, GeoStatsAttachmentPtr arg);
-void operator -=(GeoStatsAttachmentPtr op, GeoStatsAttachmentPtr arg);
+//void operator +=(GeoStatsAttachmentPtr op, GeoStatsAttachmentPtr arg);
+//void operator -=(GeoStatsAttachmentPtr op, GeoStatsAttachmentPtr arg);
 
 /*! \} */
 
