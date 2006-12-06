@@ -97,6 +97,7 @@ class TestWindow
     inline bool isOpen(void);
     
     inline OSG::SimpleSceneManager *getSSM(void);
+    inline OSG::WindowPtr           getWindow(void);
     
     /*=========================  PROTECTED  ===============================*/
   protected:

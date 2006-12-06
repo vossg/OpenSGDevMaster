@@ -1,6 +1,6 @@
 # Simple OpenSG Benchmark
 from osgbench import *
-from sys import argv, exit
+from sys import argv, exit, stdout
 import getopt
 from string import atof, atoi
 
@@ -28,8 +28,14 @@ for opt, arg in opts:
 
 
 # Load the scene
-print "Loading " + args[0] + "..."
-scene=loadScene(args[0])
+scene=Group()
+
+for i in args:
+    print "Loading %s..." % i,
+    stdout.flush()
+    scene.addChild(loadScene(i))
+    print "done"
+
 
 # Define the Window's parameters
 win=TestWindow()

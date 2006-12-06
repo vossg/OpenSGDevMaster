@@ -62,6 +62,11 @@ OSG::SimpleSceneManager *TestWindow::getSSM(void)
     return _ssm;
 }
 
+OSG::WindowPtr TestWindow::getWindow(void)
+{
+    return _window;
+}
+
 void TestWindow::setScene(OSG::NodePtr scene)
 {
     _scene = scene;

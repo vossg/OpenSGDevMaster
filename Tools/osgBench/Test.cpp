@@ -474,8 +474,6 @@ void Test::run(void)
    
     _stats.clear();
  
-    // render two start frames to prime caches
-    
     OSG::Thread::getCurrentChangeList()->commitChanges();
     _win->showAll();
     _win->redraw();

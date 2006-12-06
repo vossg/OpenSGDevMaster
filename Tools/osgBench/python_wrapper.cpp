@@ -7,7 +7,6 @@
 #include <OpenSG/OSGGraphOpFactory.h>
 #include <OpenSG/OSGGraphOpSeq.h>
 
-
 #include "Nodes.h"
 #include "TestWindow.h"
 #include "Test.h"
