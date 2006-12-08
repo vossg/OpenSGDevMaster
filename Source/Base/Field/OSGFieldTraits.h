@@ -550,19 +550,23 @@ class FieldDescription : public DescT::FieldDescParent
                SFieldFunctions,
                MFieldFunctions>::_IRet FieldFunctions;
 
-    void cloneValues(const Field                     *pSrc,
-                           ConstFieldMaskArg          whichField,
-                     const StringVector              &share,
-                           FieldContainerPtrConstArg  pDst) const;
+    void cloneValues(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &shareTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &shareGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-    void cloneValues(const Field                *pSrc,
-                           ConstFieldMaskArg     whichField,
-                     const StringVector         &share,
-                           FieldBundlePConstArg  pDst) const;
-
-    void shareValues(const Field                     *pSrc,
-                           ConstFieldMaskArg          whichField,
-                           FieldContainerPtrConstArg  pDst) const;
+    void shareValues(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &cloneTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &cloneGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const;
 
   public:
 
@@ -623,14 +627,23 @@ class FieldDescription : public DescT::FieldDescParent
     virtual void copyValues         (const Field *pSrc,
                                            Field *pDst  ) const;
 
-    virtual void cloneValuesV(const Field                     *pSrc,
-                                    ConstFieldMaskArg          whichField,
-                              const StringVector              &share,
-                                    FieldContainerPtrConstArg  pDst) const;
+    virtual void cloneValuesV(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &shareTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &shareGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-    virtual void shareValuesV(const Field                     *pSrc,
-                                    ConstFieldMaskArg          whichField,
-                                    FieldContainerPtrConstArg  pDst) const;
+    virtual void shareValuesV(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &cloneTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &cloneGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const;
 
     virtual bool equal(const Field *lhs,
                        const Field *rhs) const;

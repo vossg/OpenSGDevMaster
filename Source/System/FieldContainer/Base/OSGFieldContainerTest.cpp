@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                  Copyright (C) 2006 by the OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,58 +34,79 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCHANGEDFUNCTORSFIELDS_H_
-#define _OSGCHANGEDFUNCTORSFIELDS_H_
-#ifdef __sgi
-#pragma once
-#endif
+#include <UnitTest++.h>
 
-#include "OSGSField.h"
-#include "OSGChangedFunctorFieldTraits.h"
+#include <OpenSG/OSGFieldContainer.h>
+#include <OpenSG/OSGNode.h>
+#include <OpenSG/OSGNodeCore.h>
 
-OSG_BEGIN_NAMESPACE
+#include <string>
+#include <vector>
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+namespace {
 
-typedef SField<ChangedFunctor> SFChangedFunctorCallback;
-
-#endif
-
-// there is no good way of comparing boost function objects
-template<> inline
-bool SField<ChangedFunctorCallback, 0>::operator ==(
-    const SField<ChangedFunctorCallback, 0> &source) const
+TEST(appendTypesVector)
 {
-    return false;
+    std::vector<std::string>                     typeNames;
+    std::vector<const OSG::FieldContainerType *> types;
+
+    typeNames.push_back("Node");
+    typeNames.push_back("NodeCore");
+    typeNames.push_back("FieldContainer");
+
+    OSG::appendTypesVector(typeNames, types);
+
+    CHECK_EQUAL(types.size(), 3);
+    CHECK(OSG::osgStringCmp(types[0]->getCName(),
+                            OSG::Node::getClassType().getCName()          ) == 0);
+    CHECK(OSG::osgStringCmp(types[1]->getCName(),
+                            OSG::NodeCore::getClassType().getCName()      ) == 0);
+    CHECK(OSG::osgStringCmp(types[2]->getCName(),
+                            OSG::FieldContainer::getClassType().getCName()) == 0);
 }
 
-template <>
-OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<ChangedFunctorCallback>,
-                      SingleField                         >::cloneValues(
-    const Field                                  *pSrc,
-    const UInt32                                  fieldId,
-          FieldContainerPtrConstArg               pDst,
-    const std::vector<const FieldContainerType*> &shareTypes,
-    const std::vector<const FieldContainerType*> &ignoreTypes,
-    const std::vector<UInt16>                    &shareGroupIds,
-    const std::vector<UInt16>                    &ignoreGroupIds) const;
+TEST(appendGroupsVector)
+{
+    std::vector<std::string> groupNames;
+    std::vector<OSG::UInt16> groups;
 
-template <>
-OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<ChangedFunctorCallback>,
-                      SingleField                         >::shareValues(
-    const Field                                  *pSrc,
-    const UInt32                                  fieldId,
-          FieldContainerPtrConstArg               pDst,
-    const std::vector<const FieldContainerType*> &cloneTypes,
-    const std::vector<const FieldContainerType*> &ignoreTypes,
-    const std::vector<UInt16>                    &cloneGroupIds,
-    const std::vector<UInt16>                    &ignoreGroupIds) const;
+    groupNames.push_back("Node");
+    groupNames.push_back("NodeCores");
+    groupNames.push_back("FieldContainer");
 
-OSG_END_NAMESPACE
+    OSG::appendGroupsVector(groupNames, groups);
 
-#define OSGCHANGEDFUNCTORSFIELDS_HEADER_CVSID "@(#)$Id$"
+    CHECK_EQUAL(groups.size(), 3);
+    CHECK_EQUAL(groups[0], OSG::Node::getClassGroupId());
+    CHECK_EQUAL(groups[1], OSG::NodeCore::getClassGroupId());
+    CHECK_EQUAL(groups[2], OSG::FieldContainer::getClassGroupId());
+}
 
-#endif /* _OSGCHANGEDFUNCTORSFIELDS_H_ */
+TEST(appendTypesString)
+{
+    std::string                                  typesString;
+    std::vector<const OSG::FieldContainerType *> types;
+
+    typesString.assign("Node, NodeCore,FieldContainer");
+
+    OSG::appendTypesString(typesString, types);
+
+    CHECK_EQUAL(types.size(), 3);
+    CHECK(OSG::osgStringCmp(types[0]->getCName(),
+                            OSG::Node::getClassType().getCName()          ) == 0);
+    CHECK(OSG::osgStringCmp(types[1]->getCName(),
+                            OSG::NodeCore::getClassType().getCName()      ) == 0);
+    CHECK(OSG::osgStringCmp(types[2]->getCName(),
+                            OSG::FieldContainer::getClassType().getCName()) == 0);
+    
+    typesString.assign("Node");
+    types.clear();
+    
+    OSG::appendTypesString(typesString, types);
+    
+    CHECK_EQUAL(types.size(), 1);
+    CHECK(OSG::osgStringCmp(types[0]->getCName(),
+                            OSG::Node::getClassType().getCName()) == 0);
+}
+
+} // namespace

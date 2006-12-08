@@ -61,22 +61,29 @@ bool MField<ChangedFunctorCallback, 0>::operator ==(
     return false;
 }
 
-template<> 
+template <>
 OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<ChangedFunctorCallback, 0>, 
-                      MultiField                            >::cloneValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst      ) const;
+void FieldDescription<FieldTraits<ChangedFunctorCallback>,
+                      MultiField                          >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-template<> 
+template <>
 OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<ChangedFunctorCallback, 0>, 
-                      MultiField                            >::shareValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-          FieldContainerPtrConstArg  pDst      ) const;
+void FieldDescription<FieldTraits<ChangedFunctorCallback>,
+                      MultiField                          >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
 
 OSG_END_NAMESPACE
 

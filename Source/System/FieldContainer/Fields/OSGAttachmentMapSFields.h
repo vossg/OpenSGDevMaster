@@ -68,15 +68,31 @@ typedef SField<
 
 #endif
 
+template <>
+OSG_SYSTEM_DLLMAPPING
+void
+FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
+                 SingleField                                    >::cloneValues(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &shareTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &shareGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-template<> 
-void FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits, 
-                      SingleField                           >::cloneValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst) const;
-
+template <>
+OSG_SYSTEM_DLLMAPPING
+void
+FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
+                 SingleField                                    >::shareValues(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &cloneTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &cloneGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const;
 
 #ifndef OSG_COMPILECONTAINERFIELDINST
 //OSG_FIELD_DLLEXPORT_DECL1(SField, 

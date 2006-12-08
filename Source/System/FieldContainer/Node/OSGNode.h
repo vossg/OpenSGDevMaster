@@ -55,6 +55,8 @@
 #include "OSGContainerPtrFuncs.h"
 #include "OSGFieldContainerFactory.h"
 
+#include <boost/assign/list_of.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 /**
@@ -419,21 +421,94 @@ typedef Node::ObjConstPtrArg   NodeConstPtrArg;
 
 typedef RefPtr<NodePtr>        NodeRefPtr;
 
+OSG_SYSTEM_DLLMAPPING
+NodePtr
+cloneTree(      NodePtrConstArg                          rootNode,
+          const std::vector<std::string>                &cloneTypeNames,
+          const std::vector<std::string>                &ignoreTypeNames   =
+              std::vector<std::string>(),
+          const std::vector<std::string>                &cloneGroupNames   =
+              std::vector<std::string>(),
+          const std::vector<std::string>                &ignoreGroupNames  =
+              std::vector<std::string>()                                     );
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr cloneTree    (      NodePtrConstArg           pRootNode       );
+NodePtr
+cloneTree(      NodePtrConstArg                          rootNode,
+          const std::vector<UInt16>                     &cloneGroupIds,
+          const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                          );
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr deepCloneTree(      NodePtrConstArg           src,
-                      const std::vector<std::string> &share           );
+NodePtr
+cloneTree(      NodePtrConstArg                          rootNode,
+          const std::string                             &cloneTypesString,
+          const std::string                             &ignoreTypesString =
+              std::string()                                                  );
+
+#ifdef OSG_1_COMPAT
+OSG_SYSTEM_DLLMAPPING
+NodePtr
+cloneTree(      NodePtrConstArg                          rootNode,
+          const std::vector<const FieldContainerType *> &cloneTypes        =
+              std::vector<const FieldContainerType *>(),
+          const std::vector<const FieldContainerType *> &ignoreTypes       =
+              boost::assign::list_of(
+                  &FieldContainerAttachment::getClassType()),
+          const std::vector<UInt16>                     &cloneGroupIds     =
+              std::vector<UInt16>(),
+          const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                          );
+#else
+OSG_SYSTEM_DLLMAPPING
+NodePtr
+cloneTree(      NodePtrConstArg                          rootNode,
+          const std::vector<const FieldContainerType *> &cloneTypes        =
+              std::vector<const FieldContainerType *>(),
+          const std::vector<const FieldContainerType *> &ignoreTypes       =
+              std::vector<const FieldContainerType *>(),
+          const std::vector<UInt16>                     &cloneGroupIds     =
+              std::vector<UInt16>(),
+          const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                          );
+#endif
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr deepCloneTree(      NodePtrConstArg           src,
-                      const std::vector<UInt16>      &shareGroupIds   );
+NodePtr
+deepCloneTree(      NodePtrConstArg                          rootNode,
+              const std::vector<std::string>                &shareTypeNames,
+              const std::vector<std::string>                &ignoreTypeNames  =
+                  std::vector<std::string>(),
+              const std::vector<std::string>                &shareGroupNames  =
+                  std::vector<std::string>(),
+              const std::vector<std::string>                &ignoreGroupNames =
+                  std::vector<std::string>()                                  );
 
 OSG_SYSTEM_DLLMAPPING
-NodePtr deepCloneTree(      NodePtrConstArg           src,
-                      const std::string              &shareString = "");
+NodePtr
+deepCloneTree(      NodePtrConstArg                          rootNode,
+              const std::vector<UInt16>                     &shareGroupIds,
+              const std::vector<UInt16>                     &ignoreGroupIds   =
+                  std::vector<UInt16>()                                       );
+
+OSG_SYSTEM_DLLMAPPING
+NodePtr
+deepCloneTree(      NodePtrConstArg                          rootNode,
+              const std::string                             &shareTypesString,
+              const std::string                             &ignoreTypesString =
+                  std::string()                                               );
+
+OSG_SYSTEM_DLLMAPPING
+NodePtr
+deepCloneTree(      NodePtrConstArg                          rootNode,
+              const std::vector<const FieldContainerType *> &shareTypes     =
+                  std::vector<const FieldContainerType *>(),
+              const std::vector<const FieldContainerType *> &ignoreTypes    =
+                  std::vector<const FieldContainerType *>(),
+              const std::vector<UInt16>                     &shareGroupIds  =
+                  std::vector<UInt16>(),
+              const std::vector<UInt16>                     &ignoreGroupIds =
+                  std::vector<UInt16>()                                       );
 
 template <class Core> inline
 NodePtr makeCoredNode(typename Core::ObjPtr *coreP = NULL);

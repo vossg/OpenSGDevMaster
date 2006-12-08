@@ -57,15 +57,31 @@ typedef MField<FieldBundleP> MFFieldBundleP;
 //OSG_FIELD_DLLEXPORT_DECL1(MField, FieldBundleP, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
-
-template<> 
+template <>
 OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<FieldBundleP>, 
-                      MultiField                   >::cloneValues(
-    const Field                *pSrc,
-          ConstFieldMaskArg     whichField,
-    const StringVector         &share,
-          FieldBundlePConstArg  pDst      ) const;
+void
+FieldDescription<FieldTraits<FieldBundleP>,
+                 MultiField                 >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
+
+template <>
+OSG_SYSTEM_DLLMAPPING
+void
+FieldDescription<FieldTraits<FieldBundleP>,
+                 MultiField                >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 

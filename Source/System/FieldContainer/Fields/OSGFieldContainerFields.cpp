@@ -40,123 +40,179 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include<OSGFieldContainerSFields.h>
-#include<OSGFieldContainerMFields.h>
+#include <OSGFieldContainerSFields.h>
+#include <OSGFieldContainerMFields.h>
+
+#include <OSGTypeBasePredicates.h>
+#include <OSGReflexiveContainerTypePredicates.h>
 
 OSG_BEGIN_NAMESPACE
 
-template<> 
-OSG_DLL_EXPORT
-void FieldDescription<FieldTraits<FieldContainerPtr>, 
-                      SingleField                   >::cloneValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst) const
-
+template<>
+void
+FieldDescription<FieldTraits<FieldContainerPtr>,
+                 SingleField                  >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FieldContainerPtr fc = 
-        ((const SFFieldContainerPtr *) pSrc)->getValue();
-    
-    bool shareit = false;
+    FieldContainerPtr         fc =
+        static_cast<const SFFieldContainerPtr*>(pSrc)->getValue();
+    const FieldContainerType& fcType = fc->getType();
 
-    for(UInt32 k = 0; k < share.size(); ++k)
+    // test if fc type should NOT be ignored
+    if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                        ignoreGroupIds.end(), fcType) &&
+       !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                        ignoreTypes.end(),    fcType)   )
     {
-        FieldContainerType *fct = 
-            FieldContainerFactory::the()->findType(share[k].c_str());
-
-        if(fc  != NullFC && 
-           fct != NULL   &&
-           fc->getType().isDerivedFrom(*fct))
+        // test if fc should NOT be shared
+        if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
+                                            shareGroupIds.end(), fcType) &&
+           !TypePredicates::typeDerivedFrom(shareTypes.begin(),
+                                            shareTypes.end(),    fcType)   )
         {
-            shareit = true;
-            break;
+            fc = OSG::deepClone(fc, shareTypes,    ignoreTypes,
+                                    shareGroupIds, ignoreGroupIds);
         }
     }
-    
-    if(!shareit)
+    else
     {
-        fc = OSG::deepClone(fc, share);
+        fc = NullFC;
     }
 
-    pDst->pushToField(fc, whichField);
+    pDst->pushToField(fc, fieldId);
 }
 
 template<>
-OSG_DLL_EXPORT
-void FieldDescription<FieldTraits<FieldContainerPtr>, 
-                      MultiField                   >::cloneValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst) const
+void
+FieldDescription<FieldTraits<FieldContainerPtr>,
+                 MultiField                   >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-
-    const MFFieldContainerPtr *pFCField = 
+    const MFFieldContainerPtr *pFCField =
         static_cast<const MFFieldContainerPtr *>(pSrc);
+    MFFieldContainerPtr::const_iterator fieldIter = pFCField->begin();
+    MFFieldContainerPtr::const_iterator fieldEnd  = pFCField->end();
 
-    for(UInt32 j = 0;j < pFCField->size();++j)
+    // TODO: Could this be optimized by checking ignore/share just once ?
+    for(; fieldIter != fieldEnd; ++fieldIter)
     {
-        FieldContainerPtr fc = (*pFCField)[j];
-        
-        bool shareit = false;
+              FieldContainerPtr   fc     = *fieldIter;
+        const FieldContainerType& fcType = fc->getType();
 
-        for(UInt32 k = 0; k < share.size(); ++k)
+        // test if fc type should NOT be ignored
+        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                            ignoreGroupIds.end(), fcType) &&
+           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                            ignoreTypes.end(),    fcType)   )
         {
-            FieldContainerType *fct = 
-                FieldContainerFactory::the()->findType(share[k].c_str());
-
-            if(fc  != NullFC && 
-               fct != NULL   &&
-               fc->getType().isDerivedFrom(*fct))
+            // test if fc should NOT be shared
+            if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
+                                                shareGroupIds.end(), fcType) &&
+               !TypePredicates::typeDerivedFrom(shareTypes.begin(),
+                                                shareTypes.end(),    fcType)   )
             {
-                shareit = true;
-                break;
+                fc = OSG::deepClone(fc, shareTypes,    ignoreTypes,
+                                        shareGroupIds, ignoreGroupIds);
             }
-        }
-        
-        if(!shareit)
-        {
-            fc = OSG::deepClone(fc, share);
-        }
 
-        pDst->pushToField(fc, whichField);
+            pDst->pushToField(fc, fieldId);
+        }
     }
 }
 
-
-template<> 
-OSG_DLL_EXPORT
-void FieldDescription<FieldTraits<FieldContainerPtr>, 
-                      SingleField                   >::shareValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-          FieldContainerPtrConstArg  pDst) const
-
+template <>
+void
+FieldDescription<FieldTraits<FieldContainerPtr>,
+                 SingleField                  >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FieldContainerPtr fc = 
-        ((const SFFieldContainerPtr *) pSrc)->getValue();
-    
-    pDst->pushToField(fc, whichField);
+    FieldContainerPtr         fc =
+        static_cast<const SFFieldContainerPtr*>(pSrc)->getValue();
+    const FieldContainerType& fcType = fc->getType();
+
+    // test if att type should NOT be ignored
+    if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                        ignoreGroupIds.end(), fcType) &&
+       !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                        ignoreTypes.end(),    fcType)   )
+    {
+        // test if att should cloned
+        if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
+                                           cloneGroupIds.end(), fcType) ||
+           TypePredicates::typeDerivedFrom(cloneTypes.begin(),
+                                           cloneTypes.end(),    fcType)   )
+        {
+            fc = OSG::deepClone(fc, cloneTypes,    ignoreTypes,
+                                    cloneGroupIds, ignoreGroupIds);
+        }
+    }
+    else
+    {
+        fc = NullFC;
+    }
+
+    pDst->pushToField(fc, fieldId);
 }
 
-template<>
-OSG_DLL_EXPORT
-void FieldDescription<FieldTraits<FieldContainerPtr>, 
-                      MultiField                   >::shareValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-          FieldContainerPtrConstArg  pDst) const
+template <>
+void
+FieldDescription<FieldTraits<FieldContainerPtr>,
+                 MultiField                   >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-
-    const MFFieldContainerPtr *pFCField = 
+    const MFFieldContainerPtr *pFCField =
         static_cast<const MFFieldContainerPtr *>(pSrc);
+    MFFieldContainerPtr::const_iterator fieldIter = pFCField->begin();
+    MFFieldContainerPtr::const_iterator fieldEnd  = pFCField->end();
 
-    for(UInt32 j = 0;j < pFCField->size();++j)
+    // TODO: Could this be optimized by checking ignore/clone just once ?
+    for(; fieldIter != fieldEnd; ++fieldIter)
     {
-        FieldContainerPtr fc = (*pFCField)[j];
-        
-        pDst->pushToField(fc, whichField);
+              FieldContainerPtr   fc     = *fieldIter;
+        const FieldContainerType& fcType = fc->getType();
+
+        // test if att type should NOT be ignored
+        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                            ignoreGroupIds.end(), fcType) &&
+           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                            ignoreTypes.end(),    fcType)   )
+        {
+            // test if att should cloned
+            if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
+                                               cloneGroupIds.end(), fcType) ||
+               TypePredicates::typeDerivedFrom(cloneTypes.begin(),
+                                               cloneTypes.end(),    fcType)   )
+            {
+                fc = OSG::deepClone(fc, cloneTypes,    ignoreTypes,
+                                        cloneGroupIds, ignoreGroupIds);
+            }
+
+            pDst->pushToField(fc, fieldId);
+        }
     }
 }
 

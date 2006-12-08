@@ -90,52 +90,257 @@ AttachmentContainer::~AttachmentContainer(void)
 OSG_ABSTR_FIELD_CONTAINER_DEF(AttachmentContainer)
 
 /*-------------------------------------------------------------------------*/
-/*                             Comparison                                  */
+/*                              Cloning                                    */
 
+/*! Adds the attachments of \a src to \a dst, overwriting existing attachments
+    of the same type and binding. By default attachments are shared, only if
+    an attachment's type name is in \a cloneTypeNames or if it belongs to a
+    group in \a cloneGroupNames it is cloned. If an attachment's type is in
+    \a ignoreTypeNames or belongs to a group in \a ignoreGroupNames it is
+    ignored altogether.
 
-/** Deep clone of attachements. */
-void OSG::deepCloneAttachments(
+    \param[in] src AttachmentContainer whose attachments are cloned.
+    \param[out] dst AttachmentContainer where cloned attachments are added.
+    \param[in] cloneTypeNames List of type names that are cloned.
+    \param[in] ignoreTypeNames List of type names that are ignored.
+    \param[in] cloneGroupNames List of group names that are cloned.
+    \param[in] ignoreGroupNames LIst of group names that are ignored.
+ */
+void
+OSG::cloneAttachments(
           AttachmentContainerPtrConstArg  src,
           AttachmentContainerPtrArg       dst,
-    const std::vector<std::string>       &share)
+    const std::vector<std::string>       &cloneTypeNames,
+    const std::vector<std::string>       &ignoreTypeNames,
+    const std::vector<std::string>       &cloneGroupNames,
+    const std::vector<std::string>       &ignoreGroupNames)
+{
+    std::vector<const FieldContainerType *> cloneTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     cloneGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
+
+    appendTypesVector (cloneTypeNames,   cloneTypes    );
+    appendTypesVector (ignoreTypeNames,  ignoreTypes   );
+    appendGroupsVector(cloneGroupNames,  cloneGroupIds );
+    appendGroupsVector(ignoreGroupNames, ignoreGroupIds);
+
+    OSG::cloneAttachments(src, dst, cloneTypes,    ignoreTypes,
+                                    cloneGroupIds, ignoreGroupIds);
+}
+
+/*! Adds the attachments of \a src to \a dst, overwriting existing attachments
+    of the same type and binding. By default attachments are shared, only if
+    an attachment belongs to a group in \a cloneGroupIds it is cloned. If the
+    attachment belongs to a group in \a ignoreGroupIds it is ignored altogether.
+
+    \param[in] src AttachmentContainer whose attachments are cloned.
+    \param[out] dst AttachmentContainer where cloned attachments are added.
+    \param[in] cloneGroupIds List of group ids, whose members are cloned.
+    \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+ */
+void
+OSG::cloneAttachments(
+          AttachmentContainerPtrConstArg  src,
+          AttachmentContainerPtrArg       dst,
+    const std::vector<UInt16>            &cloneGroupIds,
+    const std::vector<UInt16>            &ignoreGroupIds)
+{
+    std::vector<const FieldContainerType *> cloneTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+
+    OSG::cloneAttachments(src, dst, cloneTypes,    ignoreTypes,
+                                    cloneGroupIds, ignoreGroupIds);
+}
+
+/*! Adds the attachments of \a src to \a dst, overwriting existing attachments
+    of the same type and binding. By default attachments are shared, only if
+    an attachment's type is in the comma separated string of type names
+    \a cloneTypesString it is cloned. If the type is in the comma separated
+    string of type names \a ignoreTypesString the attachment is ignored
+    altogether.
+
+    \param[in] src AttachmentContainer whose attachments are cloned.
+    \param[out] dst AttachmentContainer where cloned attachments are added.
+    \param[in] cloneTypesString Comma separated string of type names that are
+        cloned instead of shared.
+    \param[in] ignoreTypesString Comma separated string of type names that are
+        ignored.
+ */
+void
+OSG::cloneAttachments(
+          AttachmentContainerPtrConstArg  src,
+          AttachmentContainerPtrArg       dst,
+    const std::string                    &cloneTypesString,
+    const std::string                    &ignoreTypesString)
+{
+    std::vector<const FieldContainerType *> cloneTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     cloneGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
+
+    appendTypesString(cloneTypesString,  cloneTypes);
+    appendTypesString(ignoreTypesString, ignoreTypes);
+
+    OSG::cloneAttachments(src, dst, cloneTypes,    ignoreTypes,
+                                    cloneGroupIds, ignoreGroupIds);
+}
+
+/*! Adds the attachments of \a src to \a dst, overwriting existing attachments
+    of the same type and binding. By default attachments are shared, only if
+    an attachment's type is in \a cloneTypes or belongs to a group in
+    \a cloneGroupIds it is cloned. If the type is in \a ignoreTypes or belongs
+    to a group in \a ignoreGroupIds it is ignored altogether.
+
+    \param[in] src AttachmentContainer whose attachments are cloned.
+    \param[out] dst AttachmentContainer where cloned attachments are added.
+    \param[in] cloneTypes List of types to clone instead of share.
+    \param[in] ignoreTypes List of types to ignore.
+    \param[in] cloneGroupIds List of group ids, whose members are cloned.
+    \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+ */
+void
+OSG::cloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::vector<const FieldContainerType *> &cloneTypes,
+    const std::vector<const FieldContainerType *> &ignoreTypes,
+    const std::vector<UInt16>                     &cloneGroupIds,
+    const std::vector<UInt16>                     &ignoreGroupIds)
 {
     const FieldContainerType   &type     = dst->getType();
-
-    const FieldDescriptionBase *fdesc    = type.getFieldDesc("attachments");
-
+    const FieldDescriptionBase *fDesc    = type.getFieldDesc("attachments");
+    const UInt32                fieldId  = fDesc->getFieldId();
     const Field                *srcField = src->getField("attachments");
 
-          BitVector             mask     = fdesc->getFieldMask();
-
-    fdesc->cloneValuesV(srcField, mask, share, dst);
+    fDesc->shareValuesV(srcField, fieldId, dst, cloneTypes,    ignoreTypes,
+                                                cloneGroupIds, ignoreGroupIds);
 }
 
-void OSG::deepCloneAttachments(
+/*! Adds the attachments of \a src to \a dst, overwriting existing attachments
+    of the same type and binding. By default attachments are cloned, only if
+    an attachment's type name is in \a shareTypeNames or if it belongs to a
+    group in \a shareGroupNames it is shared. If an attachment's type is in
+    \a ignoreTypeNames or belongs to a group in \a ignoreGroupNames it is
+    ignored altogether.
+
+    \param[in] src AttachmentContainer whose attachments are cloned.
+    \param[out] dst AttachmentContainer where cloned attachments are added.
+    \param[in] cloneTypeNames List of type names that are shareed.
+    \param[in] ignoreTypeNames List of type names that are ignored.
+    \param[in] cloneGroupNames List of group names that are shareed.
+    \param[in] ignoreGroupNames LIst of group names that are ignored.
+ */
+void
+OSG::deepCloneAttachments(
+          AttachmentContainerPtrConstArg   src,
+          AttachmentContainerPtrArg        dst,
+    const std::vector<std::string>        &shareTypeNames,
+    const std::vector<std::string>        &ignoreTypeNames,
+    const std::vector<std::string>        &shareGroupNames,
+    const std::vector<std::string>        &ignoreGroupNames)
+{
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     shareGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
+
+    appendTypesVector (shareTypeNames,   shareTypes    );
+    appendTypesVector (ignoreTypeNames,  ignoreTypes   );
+    appendGroupsVector(shareGroupNames,  shareGroupIds );
+    appendGroupsVector(ignoreGroupNames, ignoreGroupIds);
+
+    OSG::deepCloneAttachments(src, dst, shareTypes,    ignoreTypes,
+                                        shareGroupIds, ignoreGroupIds);
+}
+
+/*! Adds the attachments of \a src to \a dst, overwriting existing attachments
+    of the same type and binding. By default attachments are cloned, only if
+    an attachment belongs to a group in \a shareGroupIds it is shared. If the
+    attachment belongs to a group in \a ignoreGroupIds it is ignored altogether.
+
+    \param[in] src AttachmentContainer whose attachments are cloned.
+    \param[out] dst AttachmentContainer where cloned attachments are added.
+    \param[in] shareGroupIds List of group ids, whose members are shared.
+    \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+ */
+void
+OSG::deepCloneAttachments(
           AttachmentContainerPtrConstArg  src,
           AttachmentContainerPtrArg       dst,
-    const std::vector<UInt16>            &shareGroupIds)
+    const std::vector<UInt16>            &shareGroupIds,
+    const std::vector<UInt16>            &ignoreGroupIds)
 {
-    std::vector<std::string> share;
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
 
-    fillGroupShareList(shareGroupIds, share);
-
-    OSG::deepCloneAttachments(src, dst, share);
+    OSG::deepCloneAttachments(src, dst, shareTypes,    ignoreTypes,
+                                        shareGroupIds, ignoreGroupIds);
 }
 
-// shareString is a comma separated FieldContainer type list
-// e.g. "Material, Geometry"
-void OSG::deepCloneAttachments(
+/*! Adds the attachments of \a src to \a dst, overwriting existing attachments
+    of the same type and binding. By default attachments are cloned, only if
+    an attachment's type is in the comma separated string of type names
+    \a shareTypesString it is shared. If the type is in the comma separated
+    string of type names \a ignoreTypesString the attachment is ignored
+    altogether.
+
+    \param[in] src AttachmentContainer whose attachments are cloned.
+    \param[out] dst AttachmentContainer where cloned attachments are added.
+    \param[in] shareTypesString Comma separated string of type names that are
+        shared instead of shared.
+    \param[in] ignoreTypesString Comma separated string of type names that are
+        ignored.
+ */
+void
+OSG::deepCloneAttachments(
           AttachmentContainerPtrConstArg  src,
           AttachmentContainerPtrArg       dst,
-    const std::string                    &shareString)
+    const std::string                    &shareTypesString,
+    const std::string                    &ignoreTypesString)
 {
-    std::vector<std::string> share;
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     shareGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
 
-    splitShareString(shareString, share);
+    appendTypesString(shareTypesString,  shareTypes);
+    appendTypesString(ignoreTypesString, ignoreTypes);
 
-    OSG::deepCloneAttachments(src, dst, share);
+    OSG::deepCloneAttachments(src, dst, shareTypes,    ignoreTypes,
+                                        shareGroupIds, ignoreGroupIds);
 }
 
+/*! Add the attachments of \a src to \a dst. By default attachments are cloned.
+    If the type of an attachment is in \a shareTypes or belongs to a group in
+    \a shareGroupIds the attachment is shared instead. If the type of an
+    attachment is in \a ignoreTypes or belongs to a group in \a ignoreGroupIds
+    the attachment is neither cloned nor shared.
+
+    \param[in] src AttachmentContainer whose attachments are cloned.
+    \param[out] dst AttachmentContainer where cloned attachments are added.
+    \param[in] shareTypes list of types to share.
+    \param[in] ignoreTypes list of types to ignore.
+    \param[in] shareGroupIds list of group ids, whose members are shared.
+    \param[in] ignoreGroupIds list of group ids, whose members are ignored.
+ */
+void
+OSG::deepCloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::vector<const FieldContainerType *> &shareTypes,
+    const std::vector<const FieldContainerType *> &ignoreTypes,
+    const std::vector<UInt16>                     &shareGroupIds,
+    const std::vector<UInt16>                     &ignoreGroupIds)
+{
+    const FieldContainerType   &type     = dst->getType();
+    const FieldDescriptionBase *fDesc    = type.getFieldDesc("attachments");
+    const UInt32                fieldId  = fDesc->getFieldId();
+    const Field                *srcField = src->getField("attachments");
+
+    fDesc->cloneValuesV(srcField, fieldId, dst, shareTypes,    ignoreTypes,
+                                                shareGroupIds, ignoreGroupIds);
+}
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

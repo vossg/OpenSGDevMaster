@@ -46,53 +46,65 @@
 #include<OSGChangedFunctorMFields.h>
 
 OSG_BEGIN_NAMESPACE
-#if 1
-template<> 
+
+template <>
 OSG_DLL_EXPORT
-void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
-                      SingleField                        >::cloneValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst      ) const
+void FieldDescription<FieldTraits<ChangedFunctorCallback>,
+                      SingleField                         >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FWARNING(("clone values ni called for sf changed functors\n"));
+    FWARNING(("FieldDescription::cloneValues called for sf changed functors.\n"));
 }
 
-
-template<> 
+template <>
 OSG_DLL_EXPORT
-void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
-                      SingleField                        >::shareValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-          FieldContainerPtrConstArg  pDst      ) const
+void FieldDescription<FieldTraits<ChangedFunctorCallback>,
+                      SingleField                         >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FWARNING(("share values ni called for sf changed functors\n"));
+    FWARNING(("FieldDescription::shareValues called for sf changed functors.\n"));
 }
 
-template<> 
+template <>
 OSG_DLL_EXPORT
-void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
+void FieldDescription<FieldTraits<ChangedFunctorCallback>,
                       MultiField                          >::cloneValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst      ) const
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FWARNING(("clone values ni called for mf changed functors\n"));
+    FWARNING(("FieldDescription::cloneValues called for mf changed functors.\n"));
 }
 
-template<> 
+template <>
 OSG_DLL_EXPORT
-void FieldDescription<FieldTraits<ChangedFunctorCallback>, 
+void FieldDescription<FieldTraits<ChangedFunctorCallback>,
                       MultiField                          >::shareValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-          FieldContainerPtrConstArg  pDst      ) const
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FWARNING(("share values ni called for mf changed functors\n"));
+    FWARNING(("FieldDescription::shareValues called for mf changed functors.\n"));
 }
-#endif
 
 OSG_END_NAMESPACE

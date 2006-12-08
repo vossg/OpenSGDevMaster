@@ -71,7 +71,7 @@ class FieldContainer : public FieldContainerParent
     /*! \{                                                                 */
 
     typedef FieldContainerParent                             Inherited;
-    
+
     typedef FieldContainerType                               TypeObject;
 
     typedef PointerBuilder<FieldContainer>::ObjPtr           ObjPtr;
@@ -97,7 +97,7 @@ class FieldContainer : public FieldContainerParent
     /*! \name             Get Class Type Information                       */
     /*! \{                                                                 */
 
-    static OSG_SYSTEM_DLLMAPPING TypeObject &getClassType   (void); 
+    static OSG_SYSTEM_DLLMAPPING TypeObject &getClassType   (void);
     static OSG_SYSTEM_DLLMAPPING UInt32      getClassTypeId (void);
     static OSG_SYSTEM_DLLMAPPING UInt16      getClassGroupId(void);
 
@@ -106,9 +106,9 @@ class FieldContainer : public FieldContainerParent
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
     virtual       TypeObject &getType(void);
-    
+
     OSG_SYSTEM_DLLMAPPING
     virtual const TypeObject &getType(void) const;
 
@@ -117,8 +117,8 @@ class FieldContainer : public FieldContainerParent
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    OSG_SYSTEM_DLLMAPPING 
-    virtual void    copyFromBin(BinaryDataHandler  &pMem, 
+    OSG_SYSTEM_DLLMAPPING
+    virtual void    copyFromBin(BinaryDataHandler  &pMem,
                                 ConstFieldMaskArg   whichField);
 
     /*---------------------------------------------------------------------*/
@@ -137,7 +137,7 @@ class FieldContainer : public FieldContainerParent
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    virtual void changed            (ConstFieldMaskArg whichField, 
+    virtual void changed            (ConstFieldMaskArg whichField,
                                      UInt32            origin    );
 
             void callChangedFunctors(ConstFieldMaskArg whichField);
@@ -148,30 +148,30 @@ class FieldContainer : public FieldContainerParent
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement, 
+    virtual void pushToField     (      FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     OSG_SYSTEM_DLLMAPPING
-    virtual void insertIntoMField(const UInt32                    uiIndex, 
-                                        FieldContainerPtrConstArg pNewElement, 
+    virtual void insertIntoMField(const UInt32                    uiIndex,
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     OSG_SYSTEM_DLLMAPPING
     virtual void replaceInMField (const UInt32                    uiIndex,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     OSG_SYSTEM_DLLMAPPING
     virtual void replaceInMField (      FieldContainerPtrConstArg pOldElement,
-                                        FieldContainerPtrConstArg pNewElement, 
+                                        FieldContainerPtrConstArg pNewElement,
                                   const UInt32                    uiFieldId  );
 
     OSG_SYSTEM_DLLMAPPING
-    virtual void removeFromMField(const UInt32                    uiIndex, 
+    virtual void removeFromMField(const UInt32                    uiIndex,
                                   const UInt32                    uiFieldId  );
-    
+
     OSG_SYSTEM_DLLMAPPING
-    virtual void removeFromMField(      FieldContainerPtrConstArg pElement, 
+    virtual void removeFromMField(      FieldContainerPtrConstArg pElement,
                                   const UInt32                    uiFieldId  );
 
     OSG_SYSTEM_DLLMAPPING
@@ -201,7 +201,7 @@ class FieldContainer : public FieldContainerParent
     /*---------------------------------------------------------------------*/
     /*! \name                   Field Flags                                */
     /*! \{                                                                 */
-    
+
     const FieldFlags *getFieldFlags(void);
 
     /*! \}                                                                 */
@@ -223,7 +223,7 @@ class FieldContainer : public FieldContainerParent
     /*! \{                                                                 */
 
     OSG_SYSTEM_DLLMAPPING
-    virtual void dump(      UInt32    uiIndent = 0, 
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -261,10 +261,10 @@ class FieldContainer : public FieldContainerParent
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
     FieldContainer(void);
 
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
     FieldContainer(const FieldContainer &source);
 
     /*! \}                                                                 */
@@ -272,7 +272,7 @@ class FieldContainer : public FieldContainerParent
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
     virtual ~FieldContainer(void);
 
     /*! \}                                                                 */
@@ -295,14 +295,14 @@ class FieldContainer : public FieldContainerParent
     /*! \{                                                                 */
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
     virtual void execSyncV(      FieldContainer    &oFrom,
                                  ConstFieldMaskArg  whichField,
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo,
                                  UInt32             uiCopyOffset) = 0;
 
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
             void execSync (      FieldContainer    *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  ConstFieldMaskArg  syncMode  ,
@@ -310,14 +310,14 @@ class FieldContainer : public FieldContainerParent
                                  UInt32             uiCopyOffset);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
     virtual void execSyncV(      FieldContainer    &oFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg         syncMode  ,
                            const UInt32                    uiSyncInfo) = 0;
 
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
             void execSync (      FieldContainer    *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
@@ -331,13 +331,13 @@ class FieldContainer : public FieldContainerParent
     /*! \{                                                                 */
 
 #if 0
-    OSG_SYSTEM_DLLMAPPING 
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    OSG_SYSTEM_DLLMAPPING
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize) = 0;
 
-    OSG_SYSTEM_DLLMAPPING 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+    OSG_SYSTEM_DLLMAPPING
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif
@@ -347,16 +347,16 @@ class FieldContainer : public FieldContainerParent
     /*! \name                MT Construction                               */
     /*! \{                                                                 */
 
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
             void onCreateAspect(const FieldContainer *createAspect,
                                 const FieldContainer *source      = NULL);
-    OSG_SYSTEM_DLLMAPPING 
+    OSG_SYSTEM_DLLMAPPING
             void onCreate      (const FieldContainer *source      = NULL);
 
     OSG_SYSTEM_DLLMAPPING
     virtual void onDestroy     (      UInt32          uiContainerId     );
 
-    OSG_SYSTEM_DLLMAPPING       
+    OSG_SYSTEM_DLLMAPPING
     virtual bool deregister    (      UInt32          uiContainerId     );
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -373,7 +373,7 @@ class FieldContainer : public FieldContainerParent
 
     OSG_SYSTEM_DLLMAPPING
             void registerChangedContainer (void);
-    
+
     OSG_SYSTEM_DLLMAPPING
     virtual void registerChangedContainerV(void);
 
@@ -423,25 +423,56 @@ class FieldContainer : public FieldContainerParent
 };
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr deepClone(      FieldContainerPtrConstArg  src,
-                            const std::vector<std::string>  &share           );
+void
+appendTypesVector (const std::vector<std::string>                &typeNames,
+                         std::vector<const FieldContainerType *> &types       );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr deepClone(      FieldContainerPtrConstArg  src,
-                            const std::vector<UInt16>       &shareGroupIds   );
+void
+appendGroupsVector(const std::vector<std::string>                &groupNames,
+                         std::vector<UInt16>                     &groupIds    );
 
 OSG_SYSTEM_DLLMAPPING
-FieldContainerPtr deepClone(      FieldContainerPtrConstArg  src,
-                            const std::string               &shareString = "");
-
-
-OSG_SYSTEM_DLLMAPPING
-void splitShareString  (const std::string              &shareString,
-                              std::vector<std::string> &shareList    );
+void
+appendTypesString (const std::string                             &typesString,
+                         std::vector<const FieldContainerType *> &types       );
 
 OSG_SYSTEM_DLLMAPPING
-void fillGroupShareList(const std::vector<UInt16     > &shareGroupIds,
-                              std::vector<std::string> &shareList    );
+FieldContainerPtr
+deepClone(      FieldContainerPtrConstArg                src,
+          const std::vector<std::string>                &shareTypeNames,
+          const std::vector<std::string>                &ignoreTypeNames   =
+              std::vector<std::string>(),
+          const std::vector<std::string>                &shareGroupNames   =
+              std::vector<std::string>(),
+          const std::vector<std::string>                &ignoreGroupNames  =
+              std::vector<std::string>()                                    );
+
+OSG_SYSTEM_DLLMAPPING
+FieldContainerPtr
+deepClone(      FieldContainerPtrConstArg                src,
+          const std::vector<UInt16>                     &shareGroupIds,
+          const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                         );
+
+OSG_SYSTEM_DLLMAPPING
+FieldContainerPtr
+deepClone(      FieldContainerPtrConstArg                src,
+          const std::string                             &shareTypesString,
+          const std::string                             &ignoreTypesString =
+              std::string()                                                 );
+
+OSG_SYSTEM_DLLMAPPING
+FieldContainerPtr
+deepClone(      FieldContainerPtrConstArg                src,
+          const std::vector<const FieldContainerType *> &shareTypes        =
+              std::vector<const FieldContainerType *>(),
+          const std::vector<const FieldContainerType *> &ignoreTypes       =
+              std::vector<const FieldContainerType *>(),
+          const std::vector<UInt16>                     &shareGroupIds     =
+              std::vector<UInt16>(),
+          const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                         );
 
 OSG_END_NAMESPACE
 

@@ -194,114 +194,229 @@ void FieldContainer::resolveLinks(void)
     callChangedFunctors(0);
 }
 
+/*-------------------------------------------------------------------------*/
+/*                              Cloning                                    */
 
-void OSG::splitShareString(const std::string               &shareString,
-                                 std::vector<std::string> &shareList  )
+/*! Fills \a types with the type objects corresponding to the types named in
+    \a typeNames. This is a helper function for deepClone.
+    The elements of \a typeNames must be names of FieldContainer types, if a
+    type name is not found there is no type object inserted into \a types, i.e.
+    \a types may be shorter than \a typeNames.
+
+    \param[in] typeNames FieldContainer type names.
+    \param[out] types Type objects corresponding to \a typeNames.
+ */
+void
+OSG::appendTypesVector(const std::vector<std::string>                &typeNames,
+                             std::vector<const FieldContainerType *> &types     )
 {
-    shareList.clear();
+    const FieldContainerType *pType;
 
-    // parse comma separated names.
-    std::string::const_iterator nextComma;
-    std::string::const_iterator curPos = shareString.begin();
+    std::vector<std::string>::const_iterator namesIt  = typeNames.begin();
+    std::vector<std::string>::const_iterator namesEnd = typeNames.end();
 
-    while(curPos < shareString.end())
+    for(; namesIt != namesEnd; ++namesIt)
     {
-        nextComma = std::find(curPos, shareString.end(), ',');
+        pType = FieldContainerFactory::the()->findType(namesIt->c_str());
 
-        // strip leading spaces
-        curPos = std::find_if(curPos,
-                              nextComma,
-                              std::not1(std::ptr_fun(isspace)));
-
-        shareList.push_back(std::string(curPos, nextComma));
-
-        curPos = ++nextComma;
+        if(pType)
+            types.push_back(pType);
     }
 }
 
-void OSG::fillGroupShareList(const std::vector<UInt16     > &shareGroupIds,
-                                   std::vector<std::string> &shareList    )
+/*! Fills \a groupIds with the group ids of the groups in \a groupNames.
+    This is a helper function for deepClone.
+    The elements of \a groupNames must be names of groups, if a group name is
+    not found there is no group id inserted into \a groupIds, i.e.
+    \a groupIds may be shorter than \a groupNames.
+
+    \param[in] groupNames Names of groups.
+    \param[out] groupIds Ids of the groups in \a groupNames.
+ */
+void
+OSG::appendGroupsVector(const std::vector<std::string> &groupNames,
+                              std::vector<UInt16>      &groupIds   )
 {
-    shareList.clear  ();
-    shareList.reserve(shareGroupIds.size());
+    UInt16 groupId;
 
-    for(UInt32 i = 0; i < shareGroupIds.size(); ++i)
+    std::vector<std::string>::const_iterator namesIt  = groupNames.begin();
+    std::vector<std::string>::const_iterator namesEnd = groupNames.end();
+
+    for(; namesIt != namesEnd; ++namesIt)
     {
-        const Char8 *name =
-            FieldContainerFactory::the()->findGroupName(shareGroupIds[i]);
+        groupId = FieldContainerFactory::the()->findGroupId(namesIt->c_str());
 
-        if(name != NULL)
-            shareList.push_back(name);
+        if(groupId != 0)
+            groupIds.push_back(groupId);
     }
 }
 
-// deep clone of a fieldcontainer.
-FieldContainerPtr OSG::deepClone(      FieldContainerPtrConstArg  src,
-                                 const std::vector<std::string>  &share)
+/*! Fills \a types with the type objects corresponding to the types named in
+    \a typesString. This is a helper function for deepClone.
+    \a typesString is a comma separated string of FieldContainer type names.
+
+    \param[in] typesString String of comma separated FieldContainer type names.
+    \param[out] types Type objects corresponding to elements of \a typesString.
+ */
+void
+OSG::appendTypesString(const std::string                             &typesString,
+                             std::vector<const FieldContainerType *> &types       )
+{
+    const FieldContainerType *pType;
+    string_token_iterator     tokenIt(typesString, ", ");
+    string_token_iterator     tokenEnd;
+
+    for(; tokenIt != tokenEnd; ++tokenIt)
+    {
+        pType = FieldContainerFactory::the()->findType((*tokenIt).c_str());
+
+        if(pType)
+            types.push_back(pType);
+    }
+}
+
+/*! Creates a deep copy of \a src, i.e. all fields of \a src are copied, if
+    they contain pointers to other FieldContainers these are cloned as well.
+    The remaining parameters allow the selection of certain types that are
+    either not cloned at all or are shared between \a src and the copy.
+
+    \param[in] src FieldContainer to clone.
+    \param[in] shareTypeNames Names of types that should be shared
+        instead of cloned.
+    \param[in] ignoreTypeNames Names of types that should be ignored.
+    \param[in] shareGroupNames Names of type groups that should be shared
+        instead of cloned.
+    \param[in] ignoreGroupNames Names of type groups that should be ignored.
+    \return deep copy of \a src.
+ */
+OSG_SYSTEM_DLLMAPPING
+FieldContainerPtr
+OSG::deepClone(      FieldContainerPtrConstArg  src,
+               const std::vector<std::string>  &shareTypeNames,
+               const std::vector<std::string>  &ignoreTypeNames,
+               const std::vector<std::string>  &shareGroupNames,
+               const std::vector<std::string>  &ignoreGroupNames)
+{
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     shareGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
+
+    appendTypesVector (shareTypeNames,   shareTypes    );
+    appendTypesVector (ignoreTypeNames,  ignoreTypes   );
+    appendGroupsVector(shareGroupNames,  shareGroupIds );
+    appendGroupsVector(ignoreGroupNames, ignoreGroupIds);
+
+    return OSG::deepClone(src, shareTypes,    ignoreTypes,
+                               shareGroupIds, ignoreGroupIds);
+}
+
+/*! Creates a deep copy of \a src, i.e. all fields of \a src are copied, if
+    they contain pointers to other FieldContainers these are cloned as well.
+    The remaining parameters allow the selection of certain types that are
+    either not cloned at all or are shared between \a src and the copy.
+
+    \param[in] src FieldContainer to clone.
+    \param[in] shareGroupIds Type groups that should be shared instead
+        of cloned.
+    \param[in] ignoreGroupIds Type groups that should be ignored.
+    \return deep copy of \a src.
+ */
+FieldContainerPtr
+OSG::deepClone(      FieldContainerPtrConstArg  src,
+               const std::vector<UInt16>       &shareGroupIds,
+               const std::vector<UInt16>       &ignoreGroupIds)
+{
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+
+    return OSG::deepClone(src, shareTypes,    ignoreTypes,
+                               shareGroupIds, ignoreGroupIds);
+}
+
+/*! Creates a deep copy of \a src, i.e. all fields of \a src are copied, if
+    they contain pointers to other FieldContainers these are cloned as well.
+    The remaining parameters allow the selection of certain types that are
+    either not cloned at all or are shared between \a src and the copy.
+
+    \param[in] src FieldContainer to clone.
+    \param[in] shareTypesString Comma separated string of type names that
+        should be shared instead of cloned.
+    \param[in] ignoreTypesString Comma separated string of type names that
+        should be ignored.
+    \return deep copy of \a src.
+ */
+FieldContainerPtr
+OSG::deepClone(      FieldContainerPtrConstArg  src,
+               const std::string               &shareTypesString,
+               const std::string               &ignoreTypesString)
+{
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     shareGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
+
+    appendTypesString(shareTypesString,  shareTypes);
+    appendTypesString(ignoreTypesString, ignoreTypes);
+
+    return OSG::deepClone(src, shareTypes,    ignoreTypes,
+                               shareGroupIds, ignoreGroupIds);
+}
+
+/*! Creates a deep copy of \a src, i.e. all fields of \a src are copied, if
+    they contain pointers to other FieldContainers these are cloned as well.
+    The remaining parameters allow the selection of certain types that are
+    either not cloned at all or are shared between \a src and the copy.
+
+    \param[in] src FieldContainer to clone.
+    \param[in] shareTypes Types that should be shared instead of cloned.
+    \param[in] ignoreTypes Types that should be ignored.
+    \param[in] shareGroupIds Type groups that should be shared instead
+        of cloned.
+    \param[in] ignoreGroupIds Type groups that should be ignored.
+    \return deep copy of \a src.
+ */
+FieldContainerPtr
+OSG::deepClone(
+               FieldContainerPtrConstArg                src,
+         const std::vector<const FieldContainerType *> &shareTypes,
+         const std::vector<const FieldContainerType *> &ignoreTypes,
+         const std::vector<UInt16>                     &shareGroupIds,
+         const std::vector<UInt16>                     &ignoreGroupIds)
 {
     if(src == NullFC)
         return NullFC;
 
-    const FieldContainerType &type   = src->getType();
+    const FieldContainerType &fcType  = src->getType();
+    FieldContainerPtr         fcClone = fcType.createContainer();
 
-    //FDEBUG(("deepClone: fieldcontainertype = %s\n", type.getCName()));
+    UInt32 fCount = osgMin(fcType            .getNumFieldDescs(),
+                           fcClone->getType().getNumFieldDescs() );
 
-    FieldContainerPtr dst =
-        FieldContainerFactory::the()->createContainer(
-            type.getName().str());
-
-//          UInt32              fcount = type.getNumFieldDescs();
-    UInt32 fcount = osgMin(     type     .getNumFieldDescs(),
-                           dst->getType().getNumFieldDescs());
-
-    for(UInt32 i = 1;i <= fcount;++i)
+    for(UInt32 i = 1; i <= fCount; ++i)
     {
-        const FieldDescriptionBase *fdesc = type.getFieldDesc(i);
+        const FieldDescriptionBase *fDesc = fcType.getFieldDesc(i);
 
-        if(fdesc->isInternal())
+        if(fDesc->isInternal())
             continue;
 
-        BitVector mask = fdesc->getFieldMask();
-
-        const Field * srcField = src->getField (i);
-
-              Field * dstField = dst->editField(i);
-        const Field *cdstField = dst->getField (i);
+        const UInt32  fieldId  = fDesc  ->getFieldId();
+        const Field  *srcField = src    ->getField (i);
+              Field  *dstField = fcClone->editField(i);
 
         if(dstField != NULL)
         {
-            fdesc->copyValues (srcField, dstField);
+            fDesc->copyValues(srcField, dstField);
         }
         else
         {
-            fdesc->cloneValuesV(srcField, mask, share, dst);
+            fDesc->cloneValuesV(srcField, fieldId, fcClone,
+                                shareTypes,    ignoreTypes,
+                                shareGroupIds, ignoreGroupIds);
         }
     }
 
-    return dst;
-}
-
-FieldContainerPtr OSG::deepClone(
-           FieldContainerPtrConstArg  src,
-     const std::vector<UInt16>       &shareGroupIds)
-{
-    std::vector<std::string> share;
-
-    fillGroupShareList(shareGroupIds, share);
-
-    return OSG::deepClone(src, share);
-}
-
-// shareString is a comma separated FieldContainer type list
-// e.g. "Material, Geometry"
-FieldContainerPtr OSG::deepClone(      FieldContainerPtrConstArg  src,
-                                 const std::string               &shareString)
-{
-    std::vector<std::string> share;
-
-    splitShareString(shareString, share);
-
-    return OSG::deepClone(src, share);
+    return fcClone;
 }
 
 /*-------------------------------------------------------------------------*/

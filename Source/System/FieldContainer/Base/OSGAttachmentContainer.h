@@ -206,21 +206,94 @@ typedef AttachmentContainer::ObjPtrConstArg AttachmentContainerPtrConstArg;
 typedef RefPtr<AttachmentContainerPtr>      AttachmentContainerRefPtr;
 
 OSG_SYSTEM_DLLMAPPING
-void deepCloneAttachments(      AttachmentContainerPtrConstArg src,
-                                AttachmentContainerPtrArg      dst,
-                          const std::vector<std::string>      &share         );
+void
+cloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::vector<std::string>                &cloneTypeNames,
+    const std::vector<std::string>                &ignoreTypeNames   =
+        std::vector<std::string>(),
+    const std::vector<std::string>                &cloneGroupNames   =
+        std::vector<std::string>(),
+    const std::vector<std::string>                &ignoreGroupNames  =
+        std::vector<std::string>()                                    );
 
 OSG_SYSTEM_DLLMAPPING
-void deepCloneAttachments(      AttachmentContainerPtrConstArg src,
-                                AttachmentContainerPtrArg      dst,
-                          const std::vector<UInt16>           &shareGroupIds );
+void
+cloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::vector<UInt16>                     &cloneGroupIds,
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+        std::vector<UInt16>()                                         );
 
 OSG_SYSTEM_DLLMAPPING
-void deepCloneAttachments(      AttachmentContainerPtrConstArg src,
-                                AttachmentContainerPtrArg      dst,
-                          const std::string                   &shareString="");
+void
+cloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::string                             &cloneTypesString,
+    const std::string                             &ignoreTypesString =
+        std::string()                                                 );
 
+OSG_SYSTEM_DLLMAPPING
+void
+cloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::vector<const FieldContainerType *> &cloneTypes        =
+        std::vector<const FieldContainerType *>(),
+    const std::vector<const FieldContainerType *> &ignoreTypes       =
+        std::vector<const FieldContainerType *>(),
+    const std::vector<UInt16>                     &cloneGroupIds     =
+        std::vector<UInt16>(),
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+        std::vector<UInt16>()                                         );
 
+OSG_SYSTEM_DLLMAPPING
+void
+deepCloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::vector<std::string>                &cloneTypeNames,
+    const std::vector<std::string>                &ignoreTypeNames   =
+        std::vector<std::string>(),
+    const std::vector<std::string>                &cloneGroupNames   =
+        std::vector<std::string>(),
+    const std::vector<std::string>                &ignoreGroupNames  =
+        std::vector<std::string>()                                    );
+
+OSG_SYSTEM_DLLMAPPING
+void
+deepCloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::vector<UInt16>                     &cloneGroupIds,
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+        std::vector<UInt16>()                                         );
+
+OSG_SYSTEM_DLLMAPPING
+void
+deepCloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::string                             &cloneTypesString,
+    const std::string                             &ignoreTypesString =
+        std::string()                                                 );
+
+OSG_SYSTEM_DLLMAPPING
+void
+deepCloneAttachments(
+          AttachmentContainerPtrConstArg           src,
+          AttachmentContainerPtrArg                dst,
+    const std::vector<const FieldContainerType *> &shareTypes        =
+        std::vector<const FieldContainerType *>(),
+    const std::vector<const FieldContainerType *> &ignoreTypes       =
+        std::vector<const FieldContainerType *>(),
+    const std::vector<UInt16>                     &shareGroupIds     =
+        std::vector<UInt16>(),
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+        std::vector<UInt16>()                                         );
 
 OSG_END_NAMESPACE
 

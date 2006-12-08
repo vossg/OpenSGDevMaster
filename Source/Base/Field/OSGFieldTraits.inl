@@ -193,24 +193,33 @@ void FieldDescription<DescT, eFieldCard>::MFieldFunctions::copyValues(
     pDst->setValues(*pSrc);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::cloneValues(
-    const Field                     *,
-          ConstFieldMaskArg          ,
-    const StringVector              &,
-          FieldContainerPtrConstArg  ) const
+template<class DescT, enum FieldCardinality eFieldCard>
+inline void
+FieldDescription<DescT, eFieldCard>::cloneValues(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &shareTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &shareGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FWARNING(("illegal clone values called for %s\n", this->getCName()));
+    FWARNING(("illegal cloneValues called for %s\n", this->getCName()));
     OSG_ASSERT(false);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::shareValues(
-    const Field                     *,
-          ConstFieldMaskArg          ,
-          FieldContainerPtrConstArg  ) const
+template<class DescT, enum FieldCardinality eFieldCard>
+inline void
+FieldDescription<DescT, eFieldCard>::shareValues(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &cloneTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &cloneGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FWARNING(("illegal share values called for %s\n", this->getCName()));
+    FWARNING(("illegal shareValues called for %s\n", this->getCName()));
     OSG_ASSERT(false);
 }
 
@@ -306,7 +315,6 @@ void FieldDescription<DescT, eFieldCard>::pushValueFromCString(
     }
 }
 
-
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushValueToCString(
     const Field *pField,
@@ -332,8 +340,6 @@ void FieldDescription<DescT, eFieldCard>::pushValueFromString(
         FieldFunctions::pushValueFromString(in, pConcreteField);
     }
 }
-
-
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 void FieldDescription<DescT, eFieldCard>::pushValueToString(
@@ -402,23 +408,34 @@ void FieldDescription<DescT, eFieldCard>::copyValues(
     }
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::cloneValuesV(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst) const
+template<class DescT, enum FieldCardinality eFieldCard>
+inline void
+FieldDescription<DescT, eFieldCard>::cloneValuesV(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &shareTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &shareGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    cloneValues(pSrc, whichField, share, pDst);
+    cloneValues(pSrc, fieldId, pDst, shareTypes, ignoreTypes,
+                shareGroupIds, ignoreGroupIds);
 }
 
-template<class DescT, enum FieldCardinality eFieldCard> inline
-void FieldDescription<DescT, eFieldCard>::shareValuesV(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-          FieldContainerPtrConstArg  pDst      ) const
+template<class DescT, enum FieldCardinality eFieldCard>
+inline void
+FieldDescription<DescT, eFieldCard>::shareValuesV(
+        const Field                                  *pSrc,
+        const UInt32                                  fieldId,
+              FieldContainerPtrConstArg               pDst,
+        const std::vector<const FieldContainerType*> &cloneTypes,
+        const std::vector<const FieldContainerType*> &ignoreTypes,
+        const std::vector<UInt16>                    &cloneGroupIds,
+        const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    shareValues(pSrc, whichField, pDst);
+    shareValues(pSrc, fieldId, pDst, cloneTypes, ignoreTypes,
+                cloneGroupIds, ignoreGroupIds);
 }
 
 template<class DescT, enum FieldCardinality eFieldCard> inline

@@ -46,59 +46,106 @@
 #include <OSGAttachmentContainer.h>
 #include <OSGContainerPtrFuncs.h>
 
+#include <OSGTypeBasePredicates.h>
+#include <OSGReflexiveContainerTypePredicates.h>
+
 OSG_BEGIN_NAMESPACE
 
-template<> 
-void FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits, 
-                      SingleField                           >::cloneValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst) const
+template <>
+void
+FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
+                 SingleField                                    >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    const SFFieldContainerAttachmentPtrMap *pAttMap = 
+    const SFFieldContainerAttachmentPtrMap *pAttMap =
         static_cast<const SFFieldContainerAttachmentPtrMap *>(pSrc);
-            
-    FieldContainerAttachmentMap::const_iterator mapIt  = 
+    FieldContainerAttachmentMap::const_iterator mapIt  =
         pAttMap->getValue().begin();
-
-    FieldContainerAttachmentMap::const_iterator mapEnd = 
+    FieldContainerAttachmentMap::const_iterator mapEnd =
         pAttMap->getValue().end();
-    
     AttachmentContainerPtr pDstAC = cast_dynamic<AttachmentContainerPtr>(pDst);
 
-    while(mapIt != mapEnd)
+    for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerAttachmentPtr fc = mapIt->second;
-        UInt16                      uiBinding = UInt16(mapIt->first & 
-                                                       0x0000FFFF   );
+        FieldContainerAttachmentPtr  att       = mapIt->second;
+        const FieldContainerType    &attType   = att->getType();
+        UInt16                       uiBinding = UInt16(mapIt->first &
+                                                        0x0000FFFF    );
 
-        bool shareit = false;
-
-        for(UInt32 k = 0;k < share.size(); ++k)
+        // test if fc type should NOT be ignored
+        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                            ignoreGroupIds.end(), attType) &&
+           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                            ignoreTypes.end(),    attType)   )
         {
-            FieldContainerType *fct = 
-                FieldContainerFactory::the()->findType(share[k].c_str());
-
-            if(fc  != NullFC && 
-               fct != NULL   &&
-               fc->getType().isDerivedFrom(*fct))
+            // test if fc should NOT be shared
+            if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
+                                                shareGroupIds.end(), attType) &&
+               !TypePredicates::typeDerivedFrom(shareTypes.begin(),
+                                                shareTypes.end(),    attType)   )
             {
-                shareit = true;
-                break;
+                att = cast_dynamic<FieldContainerAttachmentPtr>(
+                          OSG::deepClone(att, shareTypes,    ignoreTypes,
+                                              shareGroupIds, ignoreGroupIds));
             }
-        }
-        
-        if(!shareit)
-        {
-            fc = cast_dynamic<FieldContainerAttachmentPtr>(
-                OSG::deepClone(fc, share));
-        }
 
-        
-        pDstAC->addAttachment(fc, uiBinding);
-        
-        ++mapIt;
+            pDstAC->addAttachment(att, uiBinding);
+        }
+    }
+}
+
+template <>
+void
+FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
+                 SingleField                                    >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
+{
+    const SFFieldContainerAttachmentPtrMap *pAttMap =
+        static_cast<const SFFieldContainerAttachmentPtrMap *>(pSrc);
+    FieldContainerAttachmentMap::const_iterator mapIt  =
+        pAttMap->getValue().begin();
+    FieldContainerAttachmentMap::const_iterator mapEnd =
+        pAttMap->getValue().end();
+    AttachmentContainerPtr pDstAC = cast_dynamic<AttachmentContainerPtr>(pDst);
+
+    for(; mapIt != mapEnd; ++mapIt)
+    {
+        FieldContainerAttachmentPtr  att       = mapIt->second;
+        const FieldContainerType    &attType   = att->getType();
+        UInt16                       uiBinding = UInt16(mapIt->first &
+                                                        0x0000FFFF    );
+
+        // test if att type should NOT be ignored
+        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                            ignoreGroupIds.end(), attType) &&
+           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                            ignoreTypes.end(),    attType)   )
+        {
+            // test if att should cloned
+            if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
+                                               cloneGroupIds.end(), attType) ||
+               TypePredicates::typeDerivedFrom(cloneTypes.begin(),
+                                               cloneTypes.end(),    attType)   )
+            {
+                att = cast_dynamic<FieldContainerAttachmentPtr>(
+                          OSG::deepClone(att, cloneTypes,    ignoreTypes,
+                                              cloneGroupIds, ignoreGroupIds));
+            }
+
+            pDstAC->addAttachment(att, uiBinding);
+        }
     }
 }
 

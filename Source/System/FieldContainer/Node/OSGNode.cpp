@@ -50,6 +50,9 @@
 #include "OSGNodeCore.h"
 #include "OSGContainerPtrFuncs.h"
 
+#include "OSGTypeBasePredicates.h"
+#include "OSGReflexiveContainerTypePredicates.h"
+
 OSG_USING_NAMESPACE
 
 void Node::classDescInserter(TypeObject &oType)
@@ -884,86 +887,342 @@ void Node::resolveLinks(void)
 /*-------------------------------------------------------------------------*/
 /*                             Cloning                                     */
 
-/*! Create a shallow clone of a tree.
-*
-* \param pRootNode  The root of the tree to clone.
-*
-* This method will create a "new" tree that is a clone of the one rooted at
-* pRootNode.  It does this by creating new nodes and connecting them
-* as they are in the original tree.  It then sets the new nodes
-* to point at the same node cores as the original tree.
-*/
-NodePtr OSG::cloneTree(NodePtrConstArg pRootNode)
+/*! Clones the scene starting at \a rootNode. By default FieldContainers,
+    especially NodeCores, are shared, only if a container's type name is in
+    \a cloneTypeNames or if it belonfs to a group in \a cloneGroupNames it is
+    cloned. If a container's type is in \a ignoreTypeNames or belongs to a 
+    group in \a ignoreGroupNames it is ignored altogether.
+
+    \param[in] rootNode Root of the scene to clone.
+    \param[in] cloneTypeNames List of type names that are cloned.
+    \param[in] ignoreTypeNames List of type names that are ignored.
+    \param[in] cloneGroupNames List of group names that are cloned.
+    \param[in] ignoreGroupNames LIst of group names that are ignored.
+    \return The root Node of the cloned scene.
+ */
+NodePtr
+OSG::cloneTree(      NodePtrConstArg           rootNode,
+               const std::vector<std::string> &cloneTypeNames,
+               const std::vector<std::string> &ignoreTypeNames,
+               const std::vector<std::string> &cloneGroupNames,
+               const std::vector<std::string> &ignoreGroupNames)
 {
-    NodePtr returnValue = NullFC;
+    std::vector<const FieldContainerType *> cloneTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     cloneGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
 
-    if(pRootNode != NullFC)
+    appendTypesVector (cloneTypeNames,   cloneTypes    );
+    appendTypesVector (ignoreTypeNames,  ignoreTypes   );
+    appendGroupsVector(cloneGroupNames,  cloneGroupIds );
+    appendGroupsVector(ignoreGroupNames, ignoreGroupIds);
+
+    return OSG::cloneTree(rootNode, cloneTypes,    ignoreTypes,
+                                    cloneGroupIds, ignoreGroupIds);
+}
+
+/*! Clones the scene starting at \a rootNode. By default FieldContainers,
+    especially NodeCores, are shared, only if a container's group id is in
+    \a cloneGroupIds it is cloned. If a container's group id is in
+    \a ignoreGroupIds it is ignored altogether.
+
+    \param[in] rootNode Root of the scene to clone.
+    \param[in] cloneGroupIds List of group ids, whose members are cloned.
+    \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+    \return The root Node of the cloned scene.
+ */
+NodePtr
+OSG::cloneTree(      NodePtrConstArg      rootNode,
+               const std::vector<UInt16> &cloneGroupIds,
+               const std::vector<UInt16> &ignoreGroupIds)
+{
+    std::vector<const FieldContainerType *> cloneTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+
+    return OSG::cloneTree(rootNode, cloneTypes,    ignoreTypes,
+                                    cloneGroupIds, ignoreGroupIds);
+}
+
+/*! Clones the scene starting at \a rootNode. By default FieldContainers,
+    especially NodeCores, are shared, only if a container's type name is in
+    \a cloneTypesString it is cloned. If a container's type is in
+    \a ignoreTypesString it is ignored altogether.
+
+    \param[in] rootNode Root of the scene to clone.
+    \param[in] cloneTypesString Comma separated string of type names that are
+        cloned instead of shared.
+    \param[in] ignoreTypesString Comma separated string of type names that are
+        ignored.
+    \return The root Node of the cloned scene.
+ */
+NodePtr
+OSG::cloneTree(      NodePtrConstArg  rootNode,
+               const std::string     &cloneTypesString,
+               const std::string     &ignoreTypesString)
+{
+    std::vector<const FieldContainerType *> cloneTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     cloneGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
+
+    appendTypesString(cloneTypesString,  cloneTypes);
+    appendTypesString(ignoreTypesString, ignoreTypes);
+
+    return OSG::cloneTree(rootNode, cloneTypes,    ignoreTypes,
+                                    cloneGroupIds, ignoreGroupIds);
+}
+
+/*! Clones the scene starting at \a rootNode. By default FieldContainers,
+    especially NodeCores, are shared, only if a container's type is in
+    \a cloneTypes of belongs to a group in \a cloneGroupIds it is cloned.
+    If a container's type is in \a ignoreTypes or belongs to a group in
+    \a ignoreGroupIds it is ignored altogether.
+
+    \param[in] rootNode Root of the scene to clone.
+    \param[in] cloneTypes List of types to clone instead of share.
+    \param[in] ignoreTypes List of types to ignore.
+    \param[in] cloneGroupIds List of group ids, whose members are cloned.
+    \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+    \return The root Node of the cloned scene.
+ */
+NodePtr
+OSG::cloneTree(      NodePtrConstArg                          rootNode,
+               const std::vector<const FieldContainerType *> &cloneTypes,
+               const std::vector<const FieldContainerType *> &ignoreTypes,
+               const std::vector<UInt16>                     &cloneGroupIds,
+               const std::vector<UInt16>                     &ignoreGroupIds)
+{
+    NodePtr rootClone = NullFC;
+
+    if(rootNode != NullFC)
     {
-        NodePtr pChildClone = NullFC;
+        NodePtr     childClone;
+        NodeCorePtr core       = rootNode->getCore();
 
-        returnValue = Node::create();
+        rootClone = Node::create();
+        rootClone->setTravMask(rootNode->getTravMask());
 
-        returnValue->setTravMask(pRootNode->getTravMask());
-        returnValue->setCore    (pRootNode->getCore());
+        OSG::cloneAttachments(rootNode,      rootClone,
+                              cloneTypes,    ignoreTypes,
+                              cloneGroupIds, ignoreGroupIds);
 
-        for(UInt32 i = 0; i < pRootNode->getNChildren(); i++)
+        if(core != NullFC)
         {
-            pChildClone = cloneTree(pRootNode->getChild(i));
+                  NodeCorePtr         coreClone  = NullFC;
+            const FieldContainerType &coreType   = core->getType();
 
-            returnValue->addChild(pChildClone);
+            // test if core type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds(
+                    ignoreGroupIds.begin(),
+                    ignoreGroupIds.end(), coreType) &&
+               !TypePredicates::typeDerivedFrom(
+                    ignoreTypes.begin(),
+                    ignoreTypes.end(),    coreType)   )
+            {
+                // test if core should cloned
+                if(TypePredicates::typeInGroupIds (
+                       cloneGroupIds.begin(),
+                       cloneGroupIds.end(), coreType) ||
+                   TypePredicates::typeDerivedFrom(
+                       cloneTypes.begin(),
+                       cloneTypes.end(),    coreType)   )
+                {
+                    // clone core
+                    coreClone = cast_dynamic<NodeCorePtr>(
+                                    OSG::deepClone(core,
+                                                   cloneTypes,    ignoreTypes,
+                                                   cloneGroupIds, ignoreGroupIds));
+                }
+                else
+                {
+                    // share core
+                    coreClone = core;
+                }
+            }
+
+            rootClone->setCore(coreClone);
+        }
+
+        for(UInt32 i = 0; i < rootNode->getNChildren(); ++i)
+        {
+            childClone = OSG::cloneTree(rootNode->getChild(i),
+                                        cloneTypes,    ignoreTypes,
+                                        cloneGroupIds, ignoreGroupIds);
+
+            rootClone->addChild(childClone);
         }
     }
 
-    return returnValue;
+    return rootClone;
 }
 
-// deep clone of nodes.
-NodePtr OSG::deepCloneTree(      NodePtrConstArg           src,
-                           const std::vector<std::string> &share)
+/*! Clones the scene starting at \a rootNode. By default FieldContainers,
+    especially NodeCores, are cloned, only if a container's type name is in
+    \a shareTypeNames or if it belonfs to a group in \a shareGroupNames it is
+    shared. If a container's type is in \a ignoreTypeNames or belongs to a
+    group in \a ignoreGroupNames it is ignored altogether.
+
+    \param[in] rootNode Root of the scene to clone.
+    \param[in] shareTypeNames List of type names that are shared.
+    \param[in] ignoreTypeNames List of type names that are ignored.
+    \param[in] shareGroupNames List of group names that are shared.
+    \param[in] ignoreGroupNames LIst of group names that are ignored.
+    \return The root Node of the cloned scene.
+ */
+NodePtr
+OSG::deepCloneTree(      NodePtrConstArg           rootNode,
+                   const std::vector<std::string> &shareTypeNames,
+                   const std::vector<std::string> &ignoreTypeNames,
+                   const std::vector<std::string> &shareGroupNames,
+                   const std::vector<std::string> &ignoreGroupNames)
 {
-    NodePtr dst = NullFC;
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     shareGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
 
-    if(src != NullFC)
+    appendTypesVector (shareTypeNames,   shareTypes    );
+    appendTypesVector (ignoreTypeNames,  ignoreTypes   );
+    appendGroupsVector(shareGroupNames,  shareGroupIds );
+    appendGroupsVector(ignoreGroupNames, ignoreGroupIds);
+
+    return OSG::deepCloneTree(rootNode, shareTypes,    ignoreTypes,
+                                        shareGroupIds, ignoreGroupIds);
+}
+
+/*! Clones the scene starting at \a rootNode. By default FieldContainers,
+    especially NodeCores, are cloned, only if a container's group id is in
+    \a shareGroupIds it is shared. If a container's group id is in
+    \a ignoreGroupIds it is ignored altogether.
+
+    \param[in] rootNode Root of the scene to clone.
+    \param[in] shareGroupIds List of group ids, whose members are shared.
+    \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+    \return The root Node of the cloned scene.
+ */
+NodePtr
+OSG::deepCloneTree(      NodePtrConstArg      rootNode,
+                   const std::vector<UInt16> &shareGroupIds,
+                   const std::vector<UInt16> &ignoreGroupIds)
+{
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+
+    return OSG::deepCloneTree(rootNode, shareTypes,    ignoreTypes,
+                                        shareGroupIds, ignoreGroupIds);
+}
+
+/*! Clones the scene starting at \a rootNode. By default FieldContainers,
+    especially NodeCores, are cloned, only if a container's type name is in
+    \a shareTypesString it is shared. If a container's type is in
+    \a ignoreTypesString it is ignored altogether.
+
+    \param[in] rootNode Root of the scene to clone.
+    \param[in] shareTypesString Comma separated string of type names that are
+        shared instead of cloned.
+    \param[in] ignoreTypesString Comma separated string of type names that are
+        ignored.
+    \return The root Node of the cloned scene.
+ */
+NodePtr
+OSG::deepCloneTree(      NodePtrConstArg  rootNode,
+                   const std::string     &shareTypesString,
+                   const std::string     &ignoreTypesString)
+{
+    std::vector<const FieldContainerType *> shareTypes;
+    std::vector<const FieldContainerType *> ignoreTypes;
+    std::vector<UInt16>                     shareGroupIds;
+    std::vector<UInt16>                     ignoreGroupIds;
+
+    appendTypesString(shareTypesString,  shareTypes);
+    appendTypesString(ignoreTypesString, ignoreTypes);
+
+    return OSG::deepCloneTree(rootNode, shareTypes,    ignoreTypes,
+                                        shareGroupIds, ignoreGroupIds);
+}
+
+/*! Clones the scene starting at \a rootNode. By default FieldContainers,
+    especially NodeCores, are cloned, only if a container's type is in
+    \a shareTypes of belongs to a group in \a shareGroupIds it is shared.
+    If a container's type is in \a ignoreTypes or belongs to a group in
+    \a ignoreGroupIds it is ignored altogether.
+
+    \param[in] rootNode Root of the scene to clone.
+    \param[in] shareTypes List of types to share instead of clone.
+    \param[in] ignoreTypes List of types to ignore.
+    \param[in] shareGroupIds List of group ids, whose members are shared.
+    \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+    \return The root Node of the cloned scene.
+ */
+NodePtr
+OSG::deepCloneTree(      NodePtrConstArg                          rootNode,
+                   const std::vector<const FieldContainerType *> &shareTypes,
+                   const std::vector<const FieldContainerType *> &ignoreTypes,
+                   const std::vector<UInt16>                     &shareGroupIds,
+                   const std::vector<UInt16>                     &ignoreGroupIds)
+{
+    NodePtr rootClone = NullFC;
+
+    if(rootNode != NullFC)
     {
-        dst = Node::create();
+        NodePtr     childClone;
+        NodeCorePtr core       = rootNode->getCore();
 
-        deepCloneAttachments(src, dst, share);
+        rootClone = Node::create();
+        rootClone->setTravMask(rootNode->getTravMask());
 
-        dst->setTravMask(src->getTravMask());
-        dst->setCore    (
-            cast_dynamic<NodeCorePtr>(OSG::deepClone(src->getCore(),
-                                                     share         )));
+        OSG::deepCloneAttachments(rootNode,      rootClone,
+                                  shareTypes,    ignoreTypes,
+                                  shareGroupIds, ignoreGroupIds);
 
-        for(UInt32 i = 0; i < src->getNChildren(); i++)
+        if(core != NullFC)
         {
-            dst->addChild(deepCloneTree(src->getChild(i), share));
+                  NodeCorePtr         coreClone  = NullFC;
+            const FieldContainerType &coreType   = core->getType();
+
+            // test if core type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds (
+                    ignoreGroupIds.begin(),
+                    ignoreGroupIds.end(), coreType) &&
+               !TypePredicates::typeDerivedFrom(
+                    ignoreTypes.begin(),
+                    ignoreTypes.end(),    coreType)   )
+            {
+                // test if core should be shared
+                if(TypePredicates::typeInGroupIds (
+                       shareGroupIds.begin(),
+                       shareGroupIds.end(), coreType) ||
+                   TypePredicates::typeDerivedFrom(
+                       shareTypes.begin(),
+                       shareTypes.end(),    coreType)   )
+                {
+                    // share core
+                    coreClone = core;
+                }
+                else
+                {
+                    // clone core
+                    coreClone = cast_dynamic<NodeCorePtr>(
+                                    OSG::deepClone(core,
+                                                   shareTypes,    ignoreTypes,
+                                                   shareGroupIds, ignoreGroupIds));
+                }
+            }
+
+            rootClone->setCore(coreClone);
         }
 
+        for(UInt32 i = 0; i < rootNode->getNChildren(); ++i)
+        {
+            childClone = OSG::deepCloneTree(rootNode->getChild(i),
+                                            shareTypes,    ignoreTypes,
+                                            shareGroupIds, ignoreGroupIds);
+
+            rootClone->addChild(childClone);
+        }
     }
 
-    return dst;
-}
-
-NodePtr OSG::deepCloneTree(      NodePtrConstArg      src,
-                           const std::vector<UInt16> &shareGroupIds)
-{
-    std::vector<std::string> share;
-
-    fillGroupShareList(shareGroupIds, share);
-
-    return OSG::deepCloneTree(src, share);
-}
-
-// shareString is a comma separated FieldContainer type list
-// e.g. "Material, Geometry"
-NodePtr OSG::deepCloneTree(      NodePtrConstArg  src,
-                           const std::string     &shareString)
-{
-    std::vector<std::string> share;
-
-    splitShareString(shareString, share);
-
-    return OSG::deepCloneTree(src, share);
+    return rootClone;
 }
 
 /*-------------------------------------------------------------------------*/

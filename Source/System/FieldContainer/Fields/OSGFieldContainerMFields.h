@@ -47,7 +47,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup  */
 
 typedef MField<FieldContainerPtr> MFFieldContainerPtr;
@@ -57,33 +57,41 @@ typedef MField<FieldContainerPtr> MFFieldContainerPtr;
 //OSG_FIELD_DLLEXPORT_DECL1(MField, FieldContainerPtr, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
-
-template<> 
+template <>
 OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<FieldContainerPtr>, 
-                      MultiField                   >::cloneValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-    const StringVector              &share,
-          FieldContainerPtrConstArg  pDst) const;
+void
+FieldDescription<FieldTraits<FieldContainerPtr>,
+                 MultiField                     >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-template<>
+template <>
 OSG_SYSTEM_DLLMAPPING
-void FieldDescription<FieldTraits<FieldContainerPtr>, 
-                      MultiField                   >::shareValues(
-    const Field                     *pSrc,
-          ConstFieldMaskArg          whichField,
-          FieldContainerPtrConstArg  pDst) const;
+void
+FieldDescription<FieldTraits<FieldContainerPtr>,
+                 MultiField                   >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup  */
 
 typedef MField<ParentFieldContainerPtr, 1> MFParentFieldContainerPtr;
 #endif
 
 #ifndef OSG_COMPILECONTAINERFIELDINST
-//OSG_FIELD_DLLEXPORT_DECL2(MField, 
-//                          ParentFieldContainerPtr, 
+//OSG_FIELD_DLLEXPORT_DECL2(MField,
+//                          ParentFieldContainerPtr,
 //                          1,
 //                          OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
