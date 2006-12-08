@@ -170,7 +170,8 @@ TEST_FIXTURE(GSAFixture, MathOps)
         RefPtr<GeoStatsAttachmentPtr> st;
         GeometryPtr g = geos[i];
         st = GeoStatsAttachment::calcStatic(g);
-        sum += st;
+        //sum += st;
+        sum->operator+=(st);
         
         v  += st->getVertices();
         p  += st->getPoints();
@@ -187,7 +188,8 @@ TEST_FIXTURE(GSAFixture, MathOps)
     CHECK_EQUAL(pb, sum->getProcessedAttributeBytes());
     CHECK_EQUAL(sb, sum->getStoredAttributeBytes());  
     
-    sum -= sum;
+    //sum -= sum;
+    sum->operator-=(sum);
     CHECK_EQUAL(sum->getVertices(), 0);
     CHECK_EQUAL(sum->getPoints(), 0);
     CHECK_EQUAL(sum->getLines(), 0);
