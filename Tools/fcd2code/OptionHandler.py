@@ -14,7 +14,6 @@ class OptionHandler:
     m_args = None;
     m_parser = None;
     
-    @staticmethod
     def getOptionActive(optionName):
         """ Returns true if the given option is active
         """
@@ -26,6 +25,8 @@ class OptionHandler:
             
         return False;
         
+    getOptionActive = staticmethod(getOptionActive);
+    
     def getOptionArg(optionName):
         """ Returns the argument of an option
         """
