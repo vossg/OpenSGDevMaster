@@ -26,7 +26,6 @@ class OptionHandler:
             
         return False;
         
-    @staticmethod
     def getOptionArg(optionName):
         """ Returns the argument of an option
         """
@@ -34,20 +33,23 @@ class OptionHandler:
             return OptionHandler.m_options.__dict__[optionName];
         
         return None;
+    
+    getOptionArg = staticmethod(getOptionArg);
             
-    @staticmethod
     def getOptionList():
         """ Low level access to the options dictionary.
         """
         return OptionHandler.m_options;
     
-    @staticmethod
+    getOptionList = staticmethod(getOptionList);
+    
     def getArgList():
         """ Low level access to the arguments list.
         """
         return OptionHandler.m_args;
     
-    @staticmethod
+    getArgList = staticmethod(getArgList);
+    
     def setup():
         """ Setup option parser
         """
@@ -109,7 +111,8 @@ class OptionHandler:
         OptionHandler.m_parser.set_defaults(writeFC=False);
         OptionHandler.m_parser.set_defaults(verbose=False);
     
-    @staticmethod
+    setup = staticmethod(setup);
+    
     def parse(args):
         """ Parse command line arguments.
         """
@@ -122,3 +125,4 @@ class OptionHandler:
         OptionHandler.m_options = options;
         OptionHandler.m_args    = args;
     
+    parse = staticmethod(parse);
