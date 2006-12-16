@@ -425,14 +425,21 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
     return Action::Continue;
 }
 
-/*! Complete intersection test.
-* \todo: Implement geometry intersection test.
+/*! The IntersectAction callback for Geometry. It computes if the ray used in
+    the IntersectAction \a action hits this object and if that is the case,
+    which triangle is hit.
+
+    \param[in] action IntersectAction performing the intersect test.
+    \return Action result code, \see OSG::Action.
+
+    \note This method is registered with the IntersectAction and automatically
+    called from there, you probably never have to call it manually.
 */
 Action::ResultE Geometry::intersect(Action * action)
 {
-/*
-    IntersectAction     * ia = dynamic_cast<IntersectAction*>(action);
-    const DynamicVolume  &dv = ia->getActNode()->getVolume(true);
+    IntersectAction      *ia = dynamic_cast<IntersectAction*>(action);
+    ia->getActNode()->updateVolume();
+    const DynamicVolume  &dv = ia->getActNode()->getVolume();
 
     if(dv.isValid() && !dv.intersect(ia->getLine()))
     {
@@ -441,19 +448,18 @@ Action::ResultE Geometry::intersect(Action * action)
 
     TriangleIterator it  = this->beginTriangles();
     TriangleIterator end = this->endTriangles  ();
-    Real32 t;
-    Vec3f norm;
+    Real32           t;
+    Vec3f            norm;
 
     for(; it != end; ++it)
     {
         if(ia->getLine().intersect(it.getPosition(0),
-                                     it.getPosition(1),
-                                     it.getPosition(2), t, &norm))
+                                   it.getPosition(1),
+                                   it.getPosition(2), t, &norm))
         {
             ia->setHit(t, ia->getActNode(), it.getIndex(), norm);
         }
     }
-*/
 
     return Action::Continue;
 }
