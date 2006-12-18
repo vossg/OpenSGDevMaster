@@ -50,7 +50,7 @@ OSG_USING_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class TypePredicates::IsBaseOf
+/*! \class OSG::TypePredicates::IsBaseOf
 
     \brief A predicate to test if a type is a base type of a fixed type.
 
@@ -84,7 +84,7 @@ TypePredicates::IsBaseOf::operator()(const TypeBase *pTestType) const
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class TypePredicates::IsDerivedFrom
+/*! \class OSG::TypePredicates::IsDerivedFrom
 
     \brief A predicate to test if a type is derived from of a fixed type.
 
