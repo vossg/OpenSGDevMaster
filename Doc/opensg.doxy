@@ -1027,10 +1027,9 @@ PREDEFINED             = DOC_LEVEL=3 \
                          OSG_DOC_DEV \
                          OSG_DOC_EXT \
                          OSG_DOC_DEV_TRAITS \
-                         "OSG_BEGIN_NAMESPACE=namespace osg {"  \
+                         "OSG_BEGIN_NAMESPACE=namespace OSG {"  \
                          OSG_END_NAMESPACE=}         \
-                         OSG=osg                     \
-                        "OSG_USING_NAMESPACE=namespace osg {} using namespace osg;" \
+                        "OSG_USING_NAMESPACE=namespace OSG {} using namespace OSG;" \
                         OSG_DEBUG_ARG                     \
                         OSG_DO_DOC                        \
                         DOXYGEN_SHOULD_SKIP_THIS          \
