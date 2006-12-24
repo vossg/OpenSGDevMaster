@@ -43,8 +43,6 @@
 #include "OpenSG/OSGConfig.h"
 #include "OpenSG/OSGBaseFunctions.h"
 
-#include "OpenSG/OSGLog.h"
-
 // This test is incomplete, it only tests:
 //  * byte order swapping
 //  * osgIsPower2
@@ -52,27 +50,28 @@
 
 using namespace UnitTest;
 
-namespace {
-    
+SUITE(BaseFunctionsTests)
+{
+
 struct ByteOrderFixture
 {
     ByteOrderFixture()
     {
-        OSG::UInt8 bytes_a[] = 
+        OSG::UInt8 bytes_a[] =
             { 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78 };
         OSG::UInt8 bytes_b[] =
             { 0x78, 0x77, 0x76, 0x75, 0x74, 0x73, 0x72, 0x71 };
-        
+
         int16_a   = *reinterpret_cast<OSG::Int16*> (&(bytes_a[0]));
         int16_b   = *reinterpret_cast<OSG::Int16*> (&(bytes_b[6]));
         uint16_a  = *reinterpret_cast<OSG::UInt16*>(&(bytes_a[0]));
         uint16_b  = *reinterpret_cast<OSG::UInt16*>(&(bytes_b[6]));
-        
+
         int32_a   = *reinterpret_cast<OSG::Int32*> (&(bytes_a[0]));
         int32_b   = *reinterpret_cast<OSG::Int32*> (&(bytes_b[4]));
         uint32_a  = *reinterpret_cast<OSG::UInt32*>(&(bytes_a[0]));
         uint32_b  = *reinterpret_cast<OSG::UInt32*>(&(bytes_b[4]));
-        
+
         int64_a   = *reinterpret_cast<OSG::Int64*> (&(bytes_a[0]));
         int64_b   = *reinterpret_cast<OSG::Int64*> (&(bytes_b[0]));
         uint64_a  = *reinterpret_cast<OSG::UInt64*>(&(bytes_a[0]));
@@ -232,7 +231,7 @@ TEST(IsPower2)
 
     typedef OSG::TypeTraits<OSG::UInt32> TTU32;
     typedef OSG::TypeTraits<OSG::Int32>  TTS32;
-    
+
     typedef OSG::TypeTraits<OSG::UInt64> TTU64;
     typedef OSG::TypeTraits<OSG::Int64>  TTS64;
 
@@ -243,14 +242,14 @@ TEST(IsPower2)
     CHECK(!OSG::osgIsPower2(OSG_INT32_LITERAL(-1)));
     CHECK( OSG::osgIsPower2((TTS32::getOneElement() << 30)                         ));
     CHECK(!OSG::osgIsPower2((TTS32::getOneElement() << 30) + TTS32::getOneElement()));
-    
+
     CHECK( OSG::osgIsPower2(OSG_UINT32_LITERAL(0)));
     CHECK( OSG::osgIsPower2(OSG_UINT32_LITERAL(1)));
     CHECK( OSG::osgIsPower2(OSG_UINT32_LITERAL(2)));
     CHECK(!OSG::osgIsPower2(OSG_UINT32_LITERAL(3)));
     CHECK( OSG::osgIsPower2((TTU32::getOneElement() << 31)                         ));
     CHECK(!OSG::osgIsPower2((TTU32::getOneElement() << 31) + TTS32::getOneElement()));
-    
+
     CHECK( OSG::osgIsPower2(OSG_INT64_LITERAL(0)));
     CHECK( OSG::osgIsPower2(OSG_INT64_LITERAL(1)));
     CHECK( OSG::osgIsPower2(OSG_INT64_LITERAL(2)));
@@ -258,14 +257,14 @@ TEST(IsPower2)
     CHECK(!OSG::osgIsPower2(OSG_INT64_LITERAL(-1)));
     CHECK( OSG::osgIsPower2((TTS64::getOneElement() << 62)                         ));
     CHECK(!OSG::osgIsPower2((TTS64::getOneElement() << 62) + TTS64::getOneElement()));
-    
+
     CHECK( OSG::osgIsPower2(OSG_UINT64_LITERAL(0)));
     CHECK( OSG::osgIsPower2(OSG_UINT64_LITERAL(1)));
     CHECK( OSG::osgIsPower2(OSG_UINT64_LITERAL(2)));
     CHECK(!OSG::osgIsPower2(OSG_UINT64_LITERAL(3)));
     CHECK( OSG::osgIsPower2((TTU64::getOneElement() << 63)                         ));
     CHECK(!OSG::osgIsPower2((TTU64::getOneElement() << 63) + TTS64::getOneElement()));
-    
+
 #undef OSG_INT32_LITERAL
 #undef OSG_UINT32_LITERAL
 #undef OSG_INT64_LITERAL
@@ -287,42 +286,42 @@ TEST(NextPower2)
 
     typedef OSG::TypeTraits<OSG::UInt32> TTU32;
     typedef OSG::TypeTraits<OSG::Int32>  TTS32;
-    
+
     typedef OSG::TypeTraits<OSG::UInt64> TTU64;
     typedef OSG::TypeTraits<OSG::Int64>  TTS64;
-    
+
     CHECK_EQUAL(OSG::osgNextPower2(OSG_INT32_LITERAL(0)), 1);
     CHECK_EQUAL(OSG::osgNextPower2(OSG_INT32_LITERAL(1)), 1);
     CHECK_EQUAL(OSG::osgNextPower2(OSG_INT32_LITERAL(3)), 4);
     CHECK_EQUAL(OSG::osgNextPower2((TTS32::getOneElement() << 29) + TTS32::getOneElement()),
                 TTS32::getOneElement() << 30);
     CHECK_EQUAL(OSG::osgNextPower2((TTS32::getOneElement() << 30) + TTS32::getOneElement()), 0);
-    
+
     CHECK_EQUAL(OSG::osgNextPower2(OSG_UINT32_LITERAL(0)), 1);
     CHECK_EQUAL(OSG::osgNextPower2(OSG_UINT32_LITERAL(1)), 1);
     CHECK_EQUAL(OSG::osgNextPower2(OSG_UINT32_LITERAL(3)), 4);
     CHECK_EQUAL(OSG::osgNextPower2((TTU32::getOneElement() << 30) + TTU32::getOneElement()),
                 TTU32::getOneElement() << 31);
     CHECK_EQUAL(OSG::osgNextPower2((TTU32::getOneElement() << 31) + TTU32::getOneElement()), 0);
-    
+
     CHECK_EQUAL(OSG::osgNextPower2(OSG_INT64_LITERAL(0)), 1);
     CHECK_EQUAL(OSG::osgNextPower2(OSG_INT64_LITERAL(1)), 1);
     CHECK_EQUAL(OSG::osgNextPower2(OSG_INT64_LITERAL(3)), 4);
     CHECK_EQUAL(OSG::osgNextPower2((TTS64::getOneElement() << 61) + TTS64::getOneElement()),
                 TTS64::getOneElement() << 62);
     CHECK_EQUAL(OSG::osgNextPower2((TTS64::getOneElement() << 62) + TTS64::getOneElement()), 0);
-    
+
     CHECK_EQUAL(OSG::osgNextPower2(OSG_UINT64_LITERAL(0)), 1);
     CHECK_EQUAL(OSG::osgNextPower2(OSG_UINT64_LITERAL(1)), 1);
     CHECK_EQUAL(OSG::osgNextPower2(OSG_UINT64_LITERAL(3)), 4);
     CHECK_EQUAL(OSG::osgNextPower2((TTU64::getOneElement() << 62) + TTU64::getOneElement()),
                 TTU64::getOneElement() << 63);
     CHECK_EQUAL(OSG::osgNextPower2((TTU64::getOneElement() << 63) + TTU64::getOneElement()), 0);
-    
+
 #undef OSG_INT32_LITERAL
 #undef OSG_UINT32_LITERAL
 #undef OSG_INT64_LITERAL
 #undef OSG_UINT64_LITERAL
 }
 
-}
+} // SUITE

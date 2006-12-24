@@ -49,6 +49,9 @@
 #include <string>
 #include <vector>
 
+SUITE(NodeTests)
+{
+
 TEST(CreateNode)
 {
    OSG::NodePtr n = OSG::Node::create();
@@ -202,3 +205,5 @@ TEST_FIXTURE(CloneFixture, DeepCloneTree)
     CHECK(clone03->getChild(2)->getChild(0)->getCore() == b02Core);
     CHECK(clone03->getChild(2)->getChild(1)->getCore() == OSG::NullFC);
 }
+
+} // SUITE

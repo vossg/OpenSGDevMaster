@@ -43,7 +43,8 @@
 #include <string>
 #include <vector>
 
-namespace {
+SUITE(FieldContainerTests)
+{
 
 TEST(appendTypesVector)
 {
@@ -98,15 +99,15 @@ TEST(appendTypesString)
                             OSG::NodeCore::getClassType().getCName()      ) == 0);
     CHECK(OSG::osgStringCmp(types[2]->getCName(),
                             OSG::FieldContainer::getClassType().getCName()) == 0);
-    
+
     typesString.assign("Node");
     types.clear();
-    
+
     OSG::appendTypesString(typesString, types);
-    
+
     CHECK_EQUAL(types.size(), 1);
     CHECK(OSG::osgStringCmp(types[0]->getCName(),
                             OSG::Node::getClassType().getCName()) == 0);
 }
 
-} // namespace
+} // SUITE

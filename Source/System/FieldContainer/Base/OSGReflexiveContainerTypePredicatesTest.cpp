@@ -57,7 +57,8 @@
 // The former is not tested in the Base library, because there are too few types
 // with interesting relationships to test there.
 
-namespace {
+SUITE(ReflexiveContainerTypePredicatesTests)
+{
 
 TEST(TypeBasePredicates)
 {
@@ -126,4 +127,4 @@ TEST(ReflexiveContainerTypePredicates)
     CHECK_EQUAL(sameGroupAsNode(&fieldConType), false);
 }
 
-} // namespace
+} // SUITE

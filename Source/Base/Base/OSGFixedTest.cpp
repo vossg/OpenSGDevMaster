@@ -44,7 +44,8 @@
 // because Fixed32 plays badly with most other types. Once this is fixed this
 // test should compile and maybe some checking of the computations can be done.
 
-namespace {
+SUITE(FixedTests)
+{
 
 #define OSG_FIXED32_TEST(VDest, VOp1, VOp2) \
     VDest = VOp1 + VOp2;                    \
@@ -56,7 +57,7 @@ namespace {
     VDest = VOp2 * VOp1;                    \
     VDest = VOp2 / VOp1;
 
-TEST(Fixed32_Interoperability)
+TEST(Interoperability)
 {
     OSG::Fixed32 f32a;
     OSG::Fixed32 f32b(2.0f);
@@ -78,7 +79,7 @@ TEST(Fixed32_Interoperability)
 
     // Most of the next lines fail to compile because of ambigous
     // constructor calls or missing operator overloads :(
-    
+
 //     OSG_FIXED32_TEST(f32a, f32b, i8);
 //     OSG_FIXED32_TEST(f32a, f32b, ui8);
 //     OSG_FIXED32_TEST(f32a, f32b, i16);
@@ -89,10 +90,10 @@ TEST(Fixed32_Interoperability)
 //     OSG_FIXED32_TEST(f32a, f32b, ui64);
 //     OSG_FIXED32_TEST(f32a, f32b, r32);
 //     OSG_FIXED32_TEST(f32a, f32b, r64);
-    
-    // Make this test fail unconditonally as a remainder that the above should
+
+    // Make this test fail unconditonally as a reminder that the above should
     // work.
     CHECK(false);
 }
 
-} // namespace
+} // SUITE
