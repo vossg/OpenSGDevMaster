@@ -61,19 +61,19 @@
 #include "@!HeaderPrefix!@OSGConfig.h"
 @@if isInLibrary
 #include "OSG@!Libname!@Def.h"
-@@endif
+@@endif // isInLibrary
 
 #include "@!HeaderPrefix!@OSGBaseTypes.h"
 
 #include "@!ParentHeaderPrefix!@OSG@!Parent!@.h" // Parent
 
 @@if !isDecorator
-@@BeginFieldLoop@@
+    @@BeginFieldLoop@@
 #include "@!field.TypeInclude!@" // @!field.Name!@ type
-@@EndFieldLoop@@
-@@else
+    @@EndFieldLoop@@
+@@else // !isDecorator
 #include "OSG@!Parent!@Fields.h" // Decoratee type
-@@endif
+@@endif // !isDecorator
 
 #include "OSG@!Classname!@Fields.h"
 
@@ -85,9 +85,9 @@ class @!Classname!@;
 
 @@if isInLibrary
 class OSG_@!LIBNAME!@_DLLMAPPING @!Classname!@Base : public @!Parent!@
-@@else
+@@else // isInLibrary
 class @!Classname!@Base : public @!Parent!@
-@@endif
+@@endif // isInLibrary
 {
   public:
 
@@ -129,33 +129,33 @@ class @!Classname!@Base : public @!Parent!@
 
     static const OSG::BitVector DecorateeFieldMask =
         (TypeTraits<BitVector>::One << DecorateeFieldId);
-@@else
-@@if hasFields
+@@else // isDecorator
+    @@if hasFields
     enum
     {
-@@BeginFieldLoop
-@@if field.isFirstField
+        @@BeginFieldLoop
+            @@if field.isFirstField
         @!field.Name!@FieldId = Inherited::NextFieldId,
-@@if field.isLastField
+                @@if field.isLastField
         NextFieldId = @!field.Name!@FieldId + 1
-@@endif
-@@else
+                @@endif // field.isLastField
+            @@else // field.isFirstField
         @!field.Name!@FieldId = @!field.prevField.Name!@FieldId + 1,
-@@if field.isLastField
+                @@if field.isLastField
         NextFieldId = @!field.Name!@FieldId + 1
-@@endif
-@@endif
-@@EndFieldLoop
+                @@endif // field.isLastField
+            @@endif // field.isFirstField
+        @@EndFieldLoop
     };
 
-@@BeginFieldLoop
+        @@BeginFieldLoop
     static const OSG::BitVector @!field.Name!@FieldMask =
         (TypeTraits<BitVector>::One << @!field.Name!@FieldId);
-@@EndFieldLoop
+        @@EndFieldLoop
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
-@@endif
-@@endif
+    @@endif // hasFields
+@@endif // isDecorator
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -181,89 +181,89 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-@@if isDecorator
+    @@if isDecorator
     @!MethodType:7!@       const SF@!Parent!@Ptr *getSFDecoratee(void) const;
-@@endif
-@@BeginFieldLoop@@
-@@if field.isPublic
-@@if field.isPtrField
+    @@endif // isDecorator
+    @@BeginFieldLoop@@
+        @@if field.isPublic
+            @@if field.isPtrField
     @!field.MethodType:7!@ const @!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
-@@else
+            @@else // field.isPtrField
 
-@@if CompatOneSix
+                @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
 #endif
-@@endif
+                @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
     @!field.MethodType:7!@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
-@@endif
-@@endif
-@@EndFieldLoop@@
+            @@endif // field.isPtrField
+        @@endif // field.isPublic
+    @@EndFieldLoop@@
 
-@@if isDecorator
+    @@if isDecorator
     @!MethodType:7!@             @!Parent!@PtrConst getDecoratee(void) const;
-@@endif
-@@BeginFieldLoop@@
-@@if field.isPublic
-@@if field.isSField
+    @@endif // isDecorator
+    @@BeginFieldLoop@@
+        @@if field.isPublic
+            @@if field.isSField
 
-@@if field.isPtrField
+                @@if field.isPtrField
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
-@@else
-@@if CompatOneSix
+                @@else // field.isPtrField
+                    @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (void);
 #endif
-@@endif
+                    @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(void);
     @!field.MethodType:7!@ const @!field.Type:19!@ &get@!field.Name:15!@ (void) const;
-@@endif
-@@else
+                @@endif // field.isPtrField
+            @@else // field.isSField
 
-@@if field.isPtrField
+                @@if field.isPtrField
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
-@@else
-@@if CompatOneSix
+                @@else // field.isPtrField
+                    @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index);
     @!field.MethodType:7!@       @!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void);
 #endif
-@@endif
+                    @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(const UInt32 index);
     @!field.MethodType:7!@ const @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index) const;
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ &edit@!field.Name:15!@(void);
-@@endif
+                @@endif // field.isPtrField
     @!field.MethodType:7!@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void) const;
-@@endif
-@@endif
-@@EndFieldLoop@@
+            @@endif // field.isSField
+        @@endif // field.isPublic
+    @@EndFieldLoop@@
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-@@if isDecorator
+    @@if isDecorator
     @!MethodType:7!@       void setDecoratee      ( const @!Parent!@Ptr &value );
-@@endif
-@@BeginSFFieldLoop@@
-@@if field.isPublic
-@@if field.isPtrField
-@@if field.PassFieldMask
+    @@endif // isDecorator
+    @@BeginSFFieldLoop@@
+        @@if field.isPublic
+            @@if field.isPtrField
+                @@if field.PassFieldMask
     @!field.MethodType:7!@ void set@!field.Name:15!@(      @!field.Type!@ConstArg value,
                     const UInt16        uiStoredInFieldId = InvalidParentEPos);
-@@else
+                @@else // field.PassFieldMask
     @!field.MethodType:7!@ void set@!field.Name:15!@(@!field.Type!@ConstArg value);
-@@endif
-@@else
+                @@endif // field.PassFieldMask
+            @@else // field.isPtrField
     @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ &value);
-@@endif
-@@endif
-@@EndSFFieldLoop@@
+            @@endif // field.isPtrField
+        @@endif // field.isPublic
+    @@EndSFFieldLoop@@
 
     /*! \}                                                                 */
-@@if hasPtrFields
+    @@if hasPtrFields
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr Field Set                                 */
     /*! \{                                                                 */
@@ -292,74 +292,72 @@ class @!Classname!@Base : public @!Parent!@
     virtual void clearField      (const UInt32                    uiFieldId  );
 
     /*! \}                                                                 */
+    @@endif // hasPtrFields
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-@@BeginMFFieldLoop@@
-@@if field.isPublic
-@@if field.isPtrField
-@@if field.writePushToField
+    @@BeginMFFieldLoop@@
+        @@if field.isPublic
+            @@if field.isPtrField
+                @@if field.writePushToField
     void @!field.PushToField:15!@           (@!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeInsertIntoMField
+                @@endif // field.writePushToField
+                @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
                                              @!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeReplaceInMFieldIndex
+                @@endif // field.writeInsertIntoMField
+                @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
                                              @!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeReplaceInMFieldObject
+                @@endif // field.writeReplaceInMFieldIndex
+                @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ConstArg pOldElem,
                                              @!field.Type!@ConstArg pNewElem);
-@@endif
-@@if field.writeRemoveFromMFieldIndex
+                @@endif // field.writeReplaceInMFieldObject
+                @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-@@endif
-@@if field.writeRemoveFromMFieldObject
+                @@endif // field.writeRemoveFromMFieldIndex
+                @@if field.writeRemoveFromMFieldObject
     void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeClearField
+                @@endif // field.writeRemoveFromMFieldObject
+                @@if field.writeClearField
     void @!field.ClearField:15!@            (void                          );
-@@endif
+                @@endif // field.writeClearField
 
-@@else
+            @@else // field.isPtrField
 
-@@if field.writePushToField
-    void @!field.PushToField:15!@           (const @!field.Type!@& value   );
-@@endif
-@@if field.writeInsertIntoMField
-    void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
-                                             const @!field.Type!@& value   );
-@@endif
-@@if field.writeReplaceInMFieldIndex
-    void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
-                                             const @!field.Type!@& value   );
-@@endif
-@@if field.writeReplaceInMFieldObject
-    void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@& pOldElem,
-                                             const @!field.Type!@& pNewElem);
-@@endif
-@@if field.writeRemoveFromMFieldIndex
-    void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-@@endif
-@@if field.writeRemoveFromMFieldObject
-    void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@& value   );
-@@endif
-@@if field.writeClearField
-    void @!field.ClearField:15!@            (void                          );
-@@endif
+                @@if field.writePushToField
+    void @!field.PushToField:34!@(const @!field.Type:10!@&value   );
+                @@endif // field.writePushToField
+                @@if field.writeInsertIntoMField
+    void @!field.InsertIntoMField:34!@(      UInt32     uiIndex,
+                                            const @!field.Type:10!@&value   );
+                @@endif // field.writeInsertIntoMField
+                @@if field.writeReplaceInMFieldIndex
+    void @!field.ReplaceInMFieldIndex:34!@(      UInt32     uiIndex,
+                                            const @!field.Type:10!@&value   );
+                @@endif // field.writeReplaceInMFieldIndex
+                @@if field.writeReplaceInMFieldObject
+    void @!field.ReplaceInMFieldObject:34!@(const @!field.Type:10!@&pOldElem,
+                                            const @!field.Type:10!@&pNewElem);
+                @@endif // field.writeReplaceInMFieldObject
+                @@if field.writeRemoveFromMFieldIndex
+    void @!field.RemoveFromMFieldIndex:34!@(      UInt32     uiIndex );
+                @@endif // field.writeRemoveFromMFieldIndex
+                @@if field.writeRemoveFromMFieldObject
+    void @!field.RemoveFromMFieldObject:34!@(const @!field.Type:10!@&value   );
+                @@endif // field.writeRemoveFromMFieldObject
+                @@if field.writeClearField
+    void @!field.ClearField:34!@(      void               );
+                @@endif // field.writeClearField
 
+            @@endif // field.isPtrField
+        @@endif // field.isPublic
 
-@@endif
-
-@@endif
-
-@@EndMFFieldLoop@@
-@@endif
+    @@EndMFFieldLoop@@
     /*! \}                                                                 */
-@@endif
+@@endif // hasPublicFields
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
@@ -388,7 +386,7 @@ class @!Classname!@Base : public @!Parent!@
     virtual FieldContainerPtr shallowCopy(void) const;
 
     /*! \}                                                                 */
-@@endif
+@@endif // !isAbstract
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -403,18 +401,18 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-@@if isDecorator
+    @@if isDecorator
     SF@!Parent!@Ptr _sfDecoratee;
-@@else
-@@BeginFieldLoop@@
-@@if !field.isPrivate
+    @@else // isDecorator
+        @@BeginFieldLoop@@
+            @@if !field.isPrivate
     @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@ _@!field.VarName!@;
-@@endif
-@@EndFieldLoop@@
-@@endif
+            @@endif // !field.isPrivate
+        @@EndFieldLoop@@
+    @@endif // isDecorator
 
     /*! \}                                                                 */
-@@endif
+@@endif // hasFields
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -436,7 +434,7 @@ class @!Classname!@Base : public @!Parent!@
 
 @@if hasPtrFields
     void onCreate(const @!Classname!@ *source = NULL);
-@@endif
+@@endif // hasPtrFields
 
     /*! \}                                                                 */
 @@if hasProtectedFields
@@ -444,140 +442,140 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-@@BeginFieldLoop@@
-@@if field.isProtected
-@@if field.isPtrField
+    @@BeginFieldLoop@@
+        @@if field.isProtected
+            @@if field.isPtrField
     @!field.MethodType:7!@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
-@@else
+            @@else // field.isPtrField
 
-@@if CompatOneSix
+                @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
 #endif
-@@endif
+                @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
     @!field.MethodType:7!@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
-@@endif
-@@endif
-@@EndFieldLoop@@
+            @@endif // field.isPtrField
+        @@endif // field.isProtected
+    @@EndFieldLoop@@
 
-@@BeginFieldLoop@@
-@@if field.isProtected
-@@if field.isSField
+    @@BeginFieldLoop@@
+        @@if field.isProtected
+            @@if field.isSField
 
-@@if field.isPtrField
+                @@if field.isPtrField
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
-@@else
-@@if CompatOneSix
+                @@else // field.isPtrField
+                    @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (void);
 #endif
-@@endif
+                    @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(void);
     @!field.MethodType:7!@ const @!field.Type:19!@ &get@!field.Name:15!@ (void) const;
-@@endif
-@@else
+                @@endif // field.isPtrField
+            @@else // field.isSField
 
-@@if field.isPtrField
+                @@if field.isPtrField
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
-@@else
-@@if CompatOneSix
+                @@else // field.isPtrField
+                    @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index);
     @!field.MethodType:7!@       @!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void);
 #endif
-@@endif
+                    @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(const UInt32 index);
     @!field.MethodType:7!@ const @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index) const;
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ &edit@!field.Name:15!@(void);
-@@endif
+                @@endif // field.isPtrField
     @!field.MethodType:7!@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@ (void) const;
-@@endif
-@@endif
-@@EndFieldLoop@@
+            @@endif // field.isSField
+        @@endif // field.isProtected
+    @@EndFieldLoop@@
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-@@BeginSFFieldLoop@@
-@@if field.isProtected
-@@if field.isPtrField
+    @@BeginSFFieldLoop@@
+        @@if field.isProtected
+            @@if field.isPtrField
     @!field.MethodType:7!@ void set@!field.Name:15!@(@!field.Type!@ConstArg value);
-@@else
+            @@else // field.isPtrField
     @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ &value);
-@@endif
-@@endif
-@@EndSFFieldLoop@@
+            @@endif // field.isPtrField
+        @@endif // field.isProtected
+    @@EndSFFieldLoop@@
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-@@BeginMFFieldLoop@@
-@@if field.isProtected
-@@if field.isPtrField
-@@if field.writePushToField
+    @@BeginMFFieldLoop@@
+        @@if field.isProtected
+            @@if field.isPtrField
+                @@if field.writePushToField
     void @!field.PushToField:15!@           (@!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeInsertIntoMField
+                @@endif // field.writePushToField
+                @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
                                              @!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeReplaceInMFieldIndex
+                @@endif // field.writeInsertIntoMField
+                @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
                                              @!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeReplaceInMFieldObject
+                @@endif // field.writeReplaceInMFieldIndex
+                @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ConstArg pOldElem,
                                              @!field.Type!@ConstArg pNewElem);
-@@endif
-@@if field.writeRemoveFromMFieldIndex
+                @@endif // field.writeReplaceInMFieldObject
+                @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-@@endif
-@@if field.writeRemoveFromMFieldObject
+                @@endif // field.writeRemoveFromMFieldIndex
+                @@if field.writeRemoveFromMFieldObject
     void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeClearField
+                @@endif // field.writeRemoveFromMFieldObject
+                @@if field.writeClearField
     void @!field.ClearField:15!@            (void                          );
-@@endif
+                @@endif // field.writeClearField
 
-@@else
+            @@else // field.isPtrField
 
-@@if field.writePushToField
+                @@if field.writePushToField
     void @!field.PushToField:15!@           (const @!field.Type!@& value   );
-@@endif
-@@if field.writeInsertIntoMField
+                @@endif // field.writePushToField
+                @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
                                              const @!field.Type!@& value   );
-@@endif
-@@if field.writeReplaceInMFieldIndex
+                @@endif // field.writeInsertIntoMField
+                @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
                                              const @!field.Type!@& value   );
-@@endif
-@@if field.writeReplaceInMFieldObject
+                @@endif // field.writeReplaceInMFieldIndex
+                @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@& pOldElem,
                                              const @!field.Type!@& pNewElem);
-@@endif
-@@if field.writeRemoveFromMFieldIndex
+                @@endif // field.writeReplaceInMFieldObject
+                @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-@@endif
-@@if field.writeRemoveFromMFieldObject
+                @@endif // field.writeRemoveFromMFieldIndex
+                @@if field.writeRemoveFromMFieldObject
     void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@& value   );
-@@endif
-@@if field.writeClearField
+                @@endif // field.writeRemoveFromMFieldObject
+                @@if field.writeClearField
     void @!field.ClearField:15!@            (void                          );
-@@endif
+                @@endif // field.writeClearField
 
-@@endif
-@@endif
+            @@endif // field.isPtrField
+        @@endif // field.isProtected
 
-@@EndMFFieldLoop@@
+    @@EndMFFieldLoop@@
 
     /*! \}                                                                 */
-@@endif
+@@endif // hasProtectedFields
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
@@ -633,7 +631,7 @@ class @!Classname!@Base : public @!Parent!@
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainerPtr createAspectCopy(void) const;
 #endif
-@@endif
+@@endif // !isAbstract
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -656,154 +654,153 @@ class @!Classname!@Base : public @!Parent!@
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-@@if !isDecorator
-@@BeginFieldLoop@@
-@@if field.isPrivate
+    @@if !isDecorator
+        @@BeginFieldLoop@@
+            @@if field.isPrivate
     @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:15!@ _@!field.VarName!@;
-@@endif
-@@EndFieldLoop@@
-@@endif
+            @@endif // field.isPrivate
+        @@EndFieldLoop@@
+    @@endif // !isDecorator
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-@@BeginFieldLoop@@
-@@if field.isPrivate
-@@if field.isPtrField
+    @@BeginFieldLoop@@
+        @@if field.isPrivate
+            @@if field.isPtrField
     @!field.MethodType:7!@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
-@@else
+            @@else // field.isPtrField
 
-@@if CompatOneSix
+                @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
 #endif
-@@endif
+                @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *edit@!field.CARD!@@!field.Name:15!@(void);
     @!field.MethodType:7!@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void) const;
-@@endif
-@@endif
-@@EndFieldLoop@@
-@@BeginFieldLoop@@
-@@if field.isPrivate
-@@if field.isSField
+            @@endif // field.isPtrField
+        @@endif // field.isPrivate
+    @@EndFieldLoop@@
+    @@BeginFieldLoop@@
+        @@if field.isPrivate
+            @@if field.isSField
 
-@@if field.isPtrField
+                @@if field.isPtrField
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
-@@else
-@@if CompatOneSix
+                @@else // field.isPtrField
+                    @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@(void);
 #endif
-@@endif
+                    @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(void);
     @!field.MethodType:7!@ const @!field.Type:19!@ &get@!field.Name:15!@(void) const;
-@@endif
-@@else
+                @@endif // field.isPtrField
+            @@else // field.isSField
 
-@@if field.isPtrField
+                @@if field.isPtrField
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
-@@else
-@@if CompatOneSix
+                @@else // field.isPtrField
+                    @@if CompatOneSix
 #ifdef OSG_1_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index);
     @!field.MethodType:7!@       @!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void);
 #endif
-@@endif
+                    @@endif // CompatOneSix
     @!field.MethodType:7!@       @!field.Type:19!@ &edit@!field.Name:15!@(const UInt32 index);
     @!field.MethodType:7!@ const @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index) const;
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void);
-@@endif
+                @@endif // field.isPtrField
     @!field.MethodType:7!@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void) const;
-@@endif
-@@endif
-@@EndFieldLoop@@
+            @@endif // field.isSField
+        @@endif // field.isPrivate
+    @@EndFieldLoop@@
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-@@BeginSFFieldLoop@@
-@@if field.isPrivate
-@@if field.isPtrField
+    @@BeginSFFieldLoop@@
+        @@if field.isPrivate
+            @@if field.isPtrField
     @!field.MethodType:7!@ void set@!field.Name:15!@(@!field.Type!@ConstArg value);
-@@else
+            @@else // field.isPtrField
     @!field.MethodType:7!@ void set@!field.Name:15!@(const @!field.Type!@ &value);
-@@endif
-@@endif
-@@EndSFFieldLoop@@
+            @@endif // field.isPtrField
+        @@endif // field.isPrivate
+    @@EndSFFieldLoop@@
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-@@BeginMFFieldLoop@@
-@@if field.isPrivate
+    @@BeginMFFieldLoop@@
+        @@if field.isPrivate
 
-@@if field.isPtrField
-@@if field.writePushToField
+            @@if field.isPtrField
+                @@if field.writePushToField
     void @!field.PushToField:15!@           (@!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeInsertIntoMField
+                @@endif // field.writePushToField
+                @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
                                              @!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeReplaceInMFieldIndex
+                @@endif // field.writeInsertIntoMField
+                @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
                                              @!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeReplaceInMFieldObject
+                @@endif // field.writeReplaceInMFieldIndex
+                @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject:15!@ (@!field.Type!@ConstArg pOldElem,
                                              @!field.Type!@ConstArg pNewElem);
-@@endif
-@@if field.writeRemoveFromMFieldIndex
+                @@endif // field.writeReplaceInMFieldObject
+                @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-@@endif
-@@if field.writeRemoveFromMFieldObject
+                @@endif // field.writeRemoveFromMFieldIndex
+                @@if field.writeRemoveFromMFieldObject
     void @!field.RemoveFromMFieldObject:15!@(@!field.Type!@ConstArg value   );
-@@endif
-@@if field.writeClearField
+                @@endif // field.writeRemoveFromMFieldObject
+                @@if field.writeClearField
     void @!field.ClearField:15!@            (void                          );
-@@endif
+                @@endif // field.writeClearField
 
-@@else
+            @@else // field.isPtrField
 
-@@if field.writePushToField
+                @@if field.writePushToField
     void @!field.PushToField:15!@           (const @!field.Type!@& value   );
-@@endif
-@@if field.writeInsertIntoMField
+                @@endif // field.writePushToField
+                @@if field.writeInsertIntoMField
     void @!field.InsertIntoMField:15!@      (UInt32                uiIndex,
                                              const @!field.Type!@& value   );
-@@endif
-@@if field.writeReplaceInMFieldIndex
+                @@endif // field.writeInsertIntoMField
+                @@if field.writeReplaceInMFieldIndex
     void @!field.ReplaceInMFieldIndex:15!@  (UInt32                uiIndex,
                                              const @!field.Type!@& value   );
-@@endif
-@@if field.writeReplaceInMFieldObject
+                @@endif // field.writeReplaceInMFieldIndex
+                @@if field.writeReplaceInMFieldObject
     void @!field.ReplaceInMFieldObject:15!@ (const @!field.Type!@& pOldElem,
                                              const @!field.Type!@& pNewElem);
-@@endif
-@@if field.writeRemoveFromMFieldIndex
+                @@endif // field.writeReplaceInMFieldObject
+                @@if field.writeRemoveFromMFieldIndex
     void @!field.RemoveFromMFieldIndex:15!@ (UInt32                uiIndex );
-@@endif
-@@if field.writeRemoveFromMFieldObject
+                @@endif // field.writeRemoveFromMFieldIndex
+                @@if field.writeRemoveFromMFieldObject
     void @!field.RemoveFromMFieldObject:15!@(const @!field.Type!@& value    );
-@@endif
-@@if field.writeClearField
+                @@endif // field.writeRemoveFromMFieldObject
+                @@if field.writeClearField
     void @!field.ClearField:15!@            (void                          );
-@@endif
+                @@endif // field.writeClearField
 
+            @@endif // field.isPtrField
+        @@endif // field.isPrivate
 
-@@endif
-@@endif
-
-@@EndMFFieldLoop@@
+    @@EndMFFieldLoop@@
 
     /*! \}                                                                 */
-@@endif
+@@endif // hasPrivateFields
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const @!Classname!@Base &source);

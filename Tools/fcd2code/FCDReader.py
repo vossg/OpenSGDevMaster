@@ -55,7 +55,7 @@ class FCDContentHandler(xml.sax.handler.ContentHandler):
         if currDesc == None:
             self.m_elemStack.top().setFCD("description", content.lstrip(" \t"));
         else:
-            currDesc = currDesc + content.lstrip(" \t");
+            currDesc += content.lstrip(" \t");
             self.m_elemStack.top().setFCD("description", currDesc);
         
 

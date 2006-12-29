@@ -246,6 +246,8 @@ class TemplateFiller:
            In that case the first part is looked up in the given context, the
            next part in the context returned by the first lookup and so forth.
         """
+        #self.m_log.debug("_lookup: var: %s" % var);
+        
         varParts = var.split(".");
         value    = None;
         

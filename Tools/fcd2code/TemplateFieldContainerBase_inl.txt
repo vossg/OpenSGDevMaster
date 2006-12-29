@@ -72,11 +72,11 @@ OSG::UInt16 @!Classname!@Base::getClassGroupId(void)
 }
 
 @@if !isDecorator
-@@if !isDecoratable
+    @@if !isDecoratable
 /*------------------------------ get -----------------------------------*/
 
-@@BeginSFFieldLoop@@
-@@if field.isPtrField
+        @@BeginSFFieldLoop@@
+            @@if field.isPtrField
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
@@ -87,16 +87,16 @@ inline
 
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
-@@if field.PassFieldMask
+            @@if field.PassFieldMask
 void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value,
                              const UInt16      uiStoredInFieldId)
-@@else
+            @@else // field.PassFieldMask
 void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value)
-@@endif
+            @@endif // field.PassFieldMask
 {
     editSField(@!field.Name!@FieldMask);
 
-@@if field.linkMParent
+            @@if field.linkMParent
     @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
         static_cast<@!Classname!@ *>(this));
 
@@ -105,27 +105,27 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value)
         _@!field.VarName!@.getValue()->subParent(thisP);
     }
 
-@@endif
-@@if field.linkSParent
+            @@endif // field.linkMParent
+            @@if field.linkSParent
     if(_@!field.VarName!@.getValue() != NullFC)
     {
         _@!field.VarName!@.getValue()->setParent(NullFC);
     }
 
-@@endif
-@@if field.doRefCount
+            @@endif // field.linkSParent
+            @@if field.doRefCount
     setRefd(_@!field.VarName!@.getValue(), value);
-@@else
+            @@else // field.doRefCount
     _@!field.VarName!@.setValue(value);
-@@endif
-@@if field.linkMParent
+            @@endif // field.doRefCount
+            @@if field.linkMParent
 
     if(_@!field.VarName!@.getValue() != NullFC)
     {
         _@!field.VarName!@.getValue()->addParent(thisP, @!field.Name!@FieldMask);
     }
-@@endif
-@@if field.linkSParent
+            @@endif // field.linkMParent
+            @@if field.linkSParent
 
     @!Classname!@Ptr thisP = Inherited::constructPtr<@!Classname!@>(
         static_cast<@!Classname!@ *>(this));
@@ -134,13 +134,13 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ConstArg value)
     {
         _@!field.VarName!@.getValue()->setParent(thisP, @!field.Name!@FieldMask);
     }
-@@endif
-@@if field.PassFieldMask
+            @@endif // field.linkSParent
+            @@if field.PassFieldMask
     _@!field.VarName!@.getValue().setParentFieldPos(uiStoredInFieldId);
-@@endif
+            @@endif // field.PassFieldMask
 
 }
-@@else
+        @@else // field.isPtrField
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 
 inline
@@ -158,7 +158,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(void) const
     return _@!field.VarName!@.getValue();
 }
 
-@@if CompatOneSix
+            @@if CompatOneSix
 #ifdef OSG_1_COMPAT
 inline
 @!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(void)
@@ -166,7 +166,7 @@ inline
     return this->edit@!field.Name:15!@();
 }
 #endif
-@@endif //CompatOneSix
+            @@endif // CompatOneSix
 
 //! Set the value of the @!Classname!@::_@!field.VarName!@ field.
 inline
@@ -176,21 +176,21 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ &value)
 
     _@!field.VarName!@.setValue(value);
 }
-@@endif
-@@EndSFFieldLoop@@
+        @@endif // field.isPtrField
+        @@EndSFFieldLoop@@
 
-@@BeginMFFieldLoop@@
+        @@BeginMFFieldLoop@@
 //! Get the value of the \a index element the @!Classname!@::_@!field.VarName!@ field.
 inline
-@@if field.isPtrField
+            @@if field.isPtrField
 @!field.Type!@Const @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
-@@else
+            @@else // field.isPtrField
 const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) const
-@@endif
+            @@endif // field.isPtrField
 {
     return _@!field.VarName!@[index];
 }
-@@if !field.isPtrField
+            @@if !field.isPtrField
 
 inline
 @!field.Type!@ &@!Classname!@Base::edit@!field.Name!@(const UInt32 index)
@@ -209,7 +209,7 @@ inline
     return _@!field.VarName!@;
 }
 
-@@if CompatOneSix
+                @@if CompatOneSix
 #ifdef OSG_1_COMPAT
 inline
 @!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(const UInt32 index)
@@ -224,9 +224,9 @@ inline
 }
 
 #endif
-@@endif
+                @@endif // CompatOneSix
 
-@@endif
+            @@endif // !field.isPtrField
 
 //! Get the @!Classname!@::_@!field.VarName!@ field.
 inline
@@ -235,9 +235,9 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base
     return _@!field.VarName!@;
 }
 
-@@EndMFFieldLoop@@
-@@endif
-@@else
+        @@EndMFFieldLoop@@
+    @@endif // !isDecoratable
+@@else // !isDecorator
 
 inline
 const @!Parent!@PtrConst @!Classname!@Base::getDecoratee(void) const
@@ -252,7 +252,7 @@ void @!Classname!@Base::setDecoratee(const @!Parent!@Ptr &value)
 
     setRefd(_sfDecoratee.getValue(), value);
 }
-@@endif
+@@endif // !isDecorator
 @@if !isAbstract
 //! create a new instance of the class
 inline
@@ -268,7 +268,7 @@ inline
 
     return fc;
 }
-@@endif
+@@endif // !isAbstract
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 inline
@@ -285,21 +285,21 @@ void @!Classname!@Base::execSync(      @!Classname!@Base *pOther,
     {
         _sfDecoratee.syncWith(pOther->_sfDecoratee);
     }
-@@else
-@@BeginFieldLoop@@
+@@else // isDecorator
+    @@BeginFieldLoop@@
 
-@@if field.isSField
+        @@if field.isSField
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
         _@!field.VarName!@.syncWith(pOther->_@!field.VarName!@);
-@@else
+        @@else // field.isSField
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
         _@!field.VarName!@.syncWith(pOther->_@!field.VarName!@,
                                 syncMode,
                                 uiSyncInfo,
                                 uiCopyOffset);
-@@endif
-@@EndFieldLoop@@
-@@endif
+        @@endif // field.isSField
+    @@EndFieldLoop@@
+@@endif // isDecorator
 }
 #endif
 
@@ -318,21 +318,21 @@ void @!Classname!@Base::execSync (      @!Classname!@Base *pFrom,
     {
         _sfDecoratee.syncWith(pFrom->_sfDecoratee);
     }
-@@else
-@@BeginFieldLoop@@
+@@else // isDecorator
+    @@BeginFieldLoop@@
 
-@@if field.isSField
+    @@if field.isSField
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
         _@!field.VarName!@.syncWith(pFrom->_@!field.VarName!@);
-@@else
+    @@else // field.isSField
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
         _@!field.VarName!@.syncWith(pFrom->_@!field.VarName!@,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-@@endif
-@@EndFieldLoop@@
-@@endif
+    @@endif // field.isSField
+    @@EndFieldLoop@@
+@@endif // isDecorator
 }
 #endif
 
@@ -344,14 +344,14 @@ void @!Classname!@Base::execBeginEdit(ConstFieldMaskArg whichField,
 {
     Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
 @@if !isDecorator
-@@BeginMFFieldLoop@@
+    @@BeginMFFieldLoop@@
 
     if(FieldBits::NoField != (@!field.Name!@FieldMask & whichField))
     {
         _@!field.VarName!@.beginEdit(uiAspect, uiContainerSize);
     }
-@@EndMFFieldLoop@@
-@@endif
+    @@EndMFFieldLoop@@
+@@endif // !isDecorator
 }
 #endif
 

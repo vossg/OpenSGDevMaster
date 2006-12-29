@@ -1,7 +1,6 @@
 
 import logging;
 import re;
-import textwrap;
 
 class FCDElement(object):
     """Base class for elements in a .fcd file.
@@ -93,89 +92,96 @@ class FCDElement(object):
     def _formatString(self, descText, indent):
         """Formats the description string.
         """
+        indentStr   = " " * indent;
         paraList    = self._extractParagraphs(descText);
         paraListLen = len(paraList);
-        self.m_log.debug("paraList: %s", str(paraList));
         
-        # reformat the paragraphs
-        wrapper = textwrap.TextWrapper();
-        wrapper.width             = 79 - indent;
-        wrapper.initial_indent    = " " * indent;
-        wrapper.subsequent_indent = " " * indent;
-        wrapper.break_long_words  = False;
-        
-        for paraNum, paraText in enumerate(paraList):
-            paraList[paraNum] = wrapper.fill(paraText);
+        for paraNum in range(paraListLen):
+            lineList    = paraList[paraNum].split("\n");
+            lineListLen = len(lineList);
             
-            if paraNum == 0:
-                paraList[paraNum] = paraList[paraNum].lstrip();
+            while lineListLen > 0 and lineList[0].strip() == "":
+                lineList     = lineList[1:];
+                lineListLen -= 1;
+            
+            while lineListLen > 0 and lineList[-1].strip() == "":
+                lineList     = lineList[0:-1];
+                lineListLen -= 1;
+            
+            for lineNum in range(lineListLen):
+                if paraNum > 0 or lineNum > 0:
+                    lineList[lineNum] = indentStr + lineList[lineNum];
+            
+            paraList[paraNum] = "\n".join(lineList);
         
-        self.m_log.debug("paraList reformatted: %s", str(paraList));
         return "\n\n".join(paraList);
     
     def _formatSafeString(self, descText, indent):
         """Formats the safe description string.
         """
         indentStr   = " " * indent;
-        skipLines   = 0;
         lineList    = descText.split("\n");
         lineListLen = len(lineList);
-        self.m_log.debug("lineList: %s", str(lineList));
+        
+        while lineListLen > 0 and lineList[0].strip() == "":
+            lineList     = lineList[1:];
+            lineListLen -= 1;
+        
+        while lineListLen > 0 and lineList[lineListLen-1].strip() == "":
+            lineList     = lineList[0:lineListLen-1];
+            lineListLen -= 1;
         
         for lineNum, lineText in enumerate(lineList):
-            if lineText.strip() == "":
-                skipLines = skipLines + 1;
-                continue;
-            
             lineText = lineText.replace("\\",  "\\\\");
             lineText = lineText.replace("\t",  "\\t");
             lineText = lineText.replace("\n",  "\\n");
             lineText = lineText.replace("\"",  "\\\"");
             
-            if lineNum - skipLines == 0:
-                lineText = "\"" + lineText + "\\n\"\n";
+            if lineNum == 0:
+                lineText =             "\"" + lineText + "\\n\"";
             else:
-                lineText = indentStr + "\"" + lineText + "\\n\"\n";
+                lineText = indentStr + "\"" + lineText + "\\n\"";
             
-            lineList[lineNum - skipLines] = lineText;
+            if lineNum < lineListLen - 1:
+                lineText += "\n";
+            
+            lineList[lineNum] = lineText;
         
-        lastLine = lineListLen - skipLines - 1;
-        
-        if lineList[lastLine].endswith("\n"):
-            lineList[lastLine] = lineList[lastLine][:-1];
-        
-        self.m_log.debug("lineList reformatted: %s", str(lineList));
-        return "".join(lineList[:(lineListLen - skipLines)]);
+        return "".join(lineList);
     
     def _formatXML(self, lines, indent):
         """Formats the .fcd XML contents.
         """
-        numLines  = len(lines);
+        linesLen  = len(lines);
         indentStr = " " * indent;
         output    = [];
         
-        for i, line in enumerate(lines):
+        for lineNum, line in enumerate(lines):
             line = line.replace("\\",  "\\\\");
             line = line.replace("\t",  "\\t");
             line = line.replace("\n",  "");
             line = line.replace("\"",  "\\\"");
             
-            if i == 0:
-                output.append("\"" + line + "\\n\"");
+            if lineNum == 0:
+                output.append(            "\"" + line + "\\n\"");
             else:
                 output.append(indentStr + "\"" + line + "\\n\"");
             
-            if i < numLines - 1:
-                output[i] = output[i] + "\n";
+            if lineNum < linesLen - 1:
+                output[lineNum] += "\n";
         
         return "".join(output);
     
     def _dumpValues(self, log):
         """Prints the contents of m_fcdDict and m_tmplDict to <log>
         """
-        for key, value in self._getFCDDict().iteritems():
-            log.info(key + " >" + str(value) + "<");
+        sortFCDKeys = self._getFCDDict().keys();
+        sortFCDKeys.sort();
+        for key in sortFCDKeys:
+            log.info(key + " >" + str(self._getFCDDict()[key]) + "<");
         
-        for key, value in self._getTmplDict().iteritems():
-            log.info("\t" + key + " >" + str(value) + "<");
+        sortTmplKeys = self._getTmplDict().keys();
+        sortTmplKeys.sort();
+        for key in sortTmplKeys:
+            log.info("\t" + key + " >" + str(self._getTmplDict()[key]) + "<");
     
