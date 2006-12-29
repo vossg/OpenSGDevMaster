@@ -125,6 +125,8 @@ UInt32 AlgorithmBase::getContainerSize(void) const
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 AlgorithmBase::getBinSize(ConstFieldMaskArg whichField)

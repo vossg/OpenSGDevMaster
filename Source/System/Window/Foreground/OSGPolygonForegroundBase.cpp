@@ -75,13 +75,14 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::PolygonForeground
     \ingroup GrpSystemWindowForegrounds
 
-    A foreground that renders a single polygon used the specified material,
-    see \ref PageSystemPolygonForeground for a description.
+    A foreground that renders a single polygon used the specified material, 
+    see \ref PageSystemPolygonForeground for a
+    description.
 
-    The polygon material is defined by _sfMaterial, the positions by
-    _mfPositions, the texture coordinates by _mfTexCoords (there must be as
-    many texture coordinates as positions). The interpretation of the
-    positions is controlled by _sfNormalizedX and _sfNormalizedY.
+    The polygon material is defined by _sfMaterial, the positions by _mfPositions,
+    the texture coordinates by _mfTexCoords (there must be as many texture
+    coordinates as positions). The interpretation of the positions is
+    controlled by _sfNormalizedX and _sfNormalizedY.
  */
 
 /***************************************************************************\
@@ -91,18 +92,23 @@ OSG_BEGIN_NAMESPACE
 /*! \var MaterialPtr     PolygonForegroundBase::_sfMaterial
     The material used to display.
 */
+
 /*! \var Pnt2f           PolygonForegroundBase::_mfPositions
     The vertices of the geometry to display.
 */
+
 /*! \var Vec3f           PolygonForegroundBase::_mfTexCoords
     The texture coordinates of the geometry to display.
 */
+
 /*! \var bool            PolygonForegroundBase::_sfNormalizedX
     Define whether the x coordinates are normalized (0-1) or pixel-based.
 */
+
 /*! \var bool            PolygonForegroundBase::_sfNormalizedY
     Define whether the y coordinates are normalized (0-1) or pixel-based.
 */
+
 
 void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -292,9 +298,11 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
     "A foreground that renders a single polygon used the specified material, \n"
     "see \\ref PageSystemPolygonForeground for a\n"
     "description.\n"
+    "\n"
     "The polygon material is defined by _sfMaterial, the positions by _mfPositions,\n"
     "the texture coordinates by _mfTexCoords (there must be as many texture\n"
     "coordinates as positions). The interpretation of the positions is\n"

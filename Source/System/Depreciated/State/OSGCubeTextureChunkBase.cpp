@@ -81,15 +81,12 @@ OSG_BEGIN_NAMESPACE
 
     See \ref PageSystemCubeTextureChunk for a description.
 
-    The CubeTexture is defined by 6 separate texture images. As it is
-    derived from  the standard texture chunk it already has an image, which
-    is used for the  negative Z direction. The other 5 images are stored in
-    variables that are named according to the direction they represent
-    (OSG::CubeTextureChunk::_sfPosZImage,
-    OSG::CubeTextureChunk::_sfNegYImage,
-    OSG::CubeTextureChunk::_sfPosYImage,
-    OSG::CubeTextureChunk::_sfNegXImage,
-    OSG::CubeTextureChunk::_sfPosXImage).
+    The CubeTexture is defined by 6 separate texture images. As it is derived from 
+    the standard texture chunk it already has an image, which is used for the 
+    negative Z direction. The other 5 images are stored in variables that are named
+    according to the direction they represent (OSG::CubeTextureChunk::_sfPosZImage,
+    OSG::CubeTextureChunk::_sfNegYImage, OSG::CubeTextureChunk::_sfPosYImage, 
+    OSG::CubeTextureChunk::_sfNegXImage, OSG::CubeTextureChunk::_sfPosXImage).
 
     \deprecated Use OSG::CubeTextureObjChunk instead.
  */
@@ -101,21 +98,27 @@ OSG_BEGIN_NAMESPACE
 /*! \var ImagePtr        CubeTextureChunkBase::_sfPosZImage
     The image for the positive Z direction for the cube tetxure.
 */
+
 /*! \var ImagePtr        CubeTextureChunkBase::_sfPosXImage
     The image for the positive X direction for the cube tetxure.
 */
+
 /*! \var ImagePtr        CubeTextureChunkBase::_sfNegXImage
     The image for the negative X direction for the cube tetxure.
 */
+
 /*! \var ImagePtr        CubeTextureChunkBase::_sfPosYImage
     The image for the positive Y direction for the cube tetxure.
 */
+
 /*! \var ImagePtr        CubeTextureChunkBase::_sfNegYImage
     The image for the negative Y direction for the cube tetxure.
 */
+
 /*! \var bool            CubeTextureChunkBase::_sfIsReflectionMap
     
 */
+
 
 void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -295,13 +298,16 @@ CubeTextureChunkBase::TypeObject CubeTextureChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemCubeTextureChunk for a description.\n"
+    "\n"
     "The CubeTexture is defined by 6 separate texture images. As it is derived from \n"
     "the standard texture chunk it already has an image, which is used for the \n"
     "negative Z direction. The other 5 images are stored in variables that are named\n"
     "according to the direction they represent (OSG::CubeTextureChunk::_sfPosZImage,\n"
     "OSG::CubeTextureChunk::_sfNegYImage, OSG::CubeTextureChunk::_sfPosYImage, \n"
     "OSG::CubeTextureChunk::_sfNegXImage, OSG::CubeTextureChunk::_sfPosXImage).\n"
+    "\n"
     "\\deprecated Use OSG::CubeTextureObjChunk instead.\n"
     );
 

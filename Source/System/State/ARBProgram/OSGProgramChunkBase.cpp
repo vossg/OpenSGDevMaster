@@ -82,8 +82,8 @@ OSG_BEGIN_NAMESPACE
 
     The ProgramChunk contains the source code of the program to use
     (OSG::ProgramChunk::_sfProgram) and the local program parameters
-    (OSG::ProgramChunk::_mfParamValues). The parameters can have an
-    associated name (OSG::ProgramChunk::_mfParamNames).
+    (OSG::ProgramChunk::_mfParamValues). The parameters can have an associated
+    name (OSG::ProgramChunk::_mfParamNames).
  */
 
 /***************************************************************************\
@@ -93,15 +93,19 @@ OSG_BEGIN_NAMESPACE
 /*! \var std::string     ProgramChunkBase::_sfProgram
     The program source code.
 */
+
 /*! \var Vec4f           ProgramChunkBase::_mfParamValues
     Program Parameters
 */
+
 /*! \var std::string     ProgramChunkBase::_mfParamNames
     Symbolic names for the program parameters.
 */
+
 /*! \var UInt32          ProgramChunkBase::_sfGLId
     The OpenGL ID of the program.
 */
+
 
 void ProgramChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -271,10 +275,13 @@ ProgramChunkBase::TypeObject ProgramChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "The ProgramChunk is the base class for generic ASCII-based programs\n"
     "inside OpenGL. For actual use see the derived VertexProgramChunk and\n"
     "FragmentProgramChunk.\n"
+    "\n"
     "See \\ref PageSystemProgramChunk for a description.\n"
+    "\n"
     "The ProgramChunk contains the source code of the program to use\n"
     "(OSG::ProgramChunk::_sfProgram) and the local program parameters\n"
     "(OSG::ProgramChunk::_mfParamValues). The parameters can have an associated\n"
@@ -377,6 +384,172 @@ SFUInt32            *ProgramChunkBase::getSFGLId           (void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void ProgramChunkBase::pushToParamValues(const Vec4f& value)
+{
+    editMField(ParamValuesFieldMask, _mfParamValues);
+    _mfParamValues.push_back(value);
+}
+
+void ProgramChunkBase::insertIntoParamValues(UInt32                uiIndex,
+                                                   const Vec4f& value   )
+{
+    editMField(ParamValuesFieldMask, _mfParamValues);
+
+    MFVec4f::iterator fieldIt = _mfParamValues.begin();
+
+    fieldIt += uiIndex;
+
+    _mfParamValues.insert(fieldIt, value);
+}
+
+void ProgramChunkBase::replaceInParamValues(UInt32                uiIndex,
+                                                       const Vec4f& value   )
+{
+    if(uiIndex >= _mfParamValues.size())
+        return;
+
+    editMField(ParamValuesFieldMask, _mfParamValues);
+
+    _mfParamValues[uiIndex] = value;
+}
+
+void ProgramChunkBase::replaceInParamValues(const Vec4f& pOldElem,
+                                                        const Vec4f& pNewElem)
+{
+    Int32  elemIdx = _mfParamValues.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ParamValuesFieldMask, _mfParamValues);
+
+        MFVec4f::iterator fieldIt = _mfParamValues.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ProgramChunkBase::removeFromParamValues(UInt32 uiIndex)
+{
+    if(uiIndex < _mfParamValues.size())
+    {
+        editMField(ParamValuesFieldMask, _mfParamValues);
+
+        MFVec4f::iterator fieldIt = _mfParamValues.begin();
+
+        fieldIt += uiIndex;
+        _mfParamValues.erase(fieldIt);
+    }
+}
+
+void ProgramChunkBase::removeFromParamValues(const Vec4f& value)
+{
+    Int32 iElemIdx = _mfParamValues.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ParamValuesFieldMask, _mfParamValues);
+
+        MFVec4f::iterator fieldIt = _mfParamValues.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfParamValues.erase(fieldIt);
+    }
+}
+
+void ProgramChunkBase::clearParamValues(void)
+{
+    editMField(ParamValuesFieldMask, _mfParamValues);
+
+    _mfParamValues.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void ProgramChunkBase::pushToParamNames(const std::string& value)
+{
+    editMField(ParamNamesFieldMask, _mfParamNames);
+    _mfParamNames.push_back(value);
+}
+
+void ProgramChunkBase::insertIntoParamNames(UInt32                uiIndex,
+                                                   const std::string& value   )
+{
+    editMField(ParamNamesFieldMask, _mfParamNames);
+
+    MFString::iterator fieldIt = _mfParamNames.begin();
+
+    fieldIt += uiIndex;
+
+    _mfParamNames.insert(fieldIt, value);
+}
+
+void ProgramChunkBase::replaceInParamNames(UInt32                uiIndex,
+                                                       const std::string& value   )
+{
+    if(uiIndex >= _mfParamNames.size())
+        return;
+
+    editMField(ParamNamesFieldMask, _mfParamNames);
+
+    _mfParamNames[uiIndex] = value;
+}
+
+void ProgramChunkBase::replaceInParamNames(const std::string& pOldElem,
+                                                        const std::string& pNewElem)
+{
+    Int32  elemIdx = _mfParamNames.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ParamNamesFieldMask, _mfParamNames);
+
+        MFString::iterator fieldIt = _mfParamNames.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ProgramChunkBase::removeFromParamNames(UInt32 uiIndex)
+{
+    if(uiIndex < _mfParamNames.size())
+    {
+        editMField(ParamNamesFieldMask, _mfParamNames);
+
+        MFString::iterator fieldIt = _mfParamNames.begin();
+
+        fieldIt += uiIndex;
+        _mfParamNames.erase(fieldIt);
+    }
+}
+
+void ProgramChunkBase::removeFromParamNames(const std::string& value)
+{
+    Int32 iElemIdx = _mfParamNames.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ParamNamesFieldMask, _mfParamNames);
+
+        MFString::iterator fieldIt = _mfParamNames.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfParamNames.erase(fieldIt);
+    }
+}
+
+void ProgramChunkBase::clearParamNames(void)
+{
+    editMField(ParamNamesFieldMask, _mfParamNames);
+
+    _mfParamNames.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

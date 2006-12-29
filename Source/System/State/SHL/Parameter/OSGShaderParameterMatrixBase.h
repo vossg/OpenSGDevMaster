@@ -164,6 +164,10 @@ class OSG_STATE_DLLMAPPING ShaderParameterMatrixBase : public ShaderParameter
             void setValue          (const Matrix &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

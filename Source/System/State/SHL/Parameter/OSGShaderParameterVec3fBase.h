@@ -164,6 +164,10 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec3fBase : public ShaderParameter
             void setValue          (const Vec3f &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

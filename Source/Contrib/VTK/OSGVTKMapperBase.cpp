@@ -92,33 +92,43 @@ OSG_BEGIN_NAMESPACE
 /*! \var NodePtr         VTKMapperBase::_sfRoot
     
 */
+
 /*! \var NodePtr         VTKMapperBase::_mfGeoRoots
     
 */
+
 /*! \var GeometryPtr     VTKMapperBase::_mfGeometries
     
 */
+
 /*! \var ChunkMaterialPtr VTKMapperBase::_mfMaterials
     
 */
+
 /*! \var MaterialChunkPtr VTKMapperBase::_mfMaterialChunks
     
 */
+
 /*! \var GeoPnt3fPropertyPtr VTKMapperBase::_mfPositions
     
 */
+
 /*! \var GeoUInt32PropertyPtr VTKMapperBase::_mfLength
     
 */
+
 /*! \var GeoUInt8PropertyPtr VTKMapperBase::_mfTypes
     
 */
+
 /*! \var GeoColor4fPropertyPtr VTKMapperBase::_mfColors
     
 */
+
 /*! \var GeoVec3fPropertyPtr VTKMapperBase::_mfNormals
     
 */
+
 
 void VTKMapperBase::classDescInserter(TypeObject &oType)
 {

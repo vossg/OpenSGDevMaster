@@ -83,25 +83,31 @@ OSG_BEGIN_NAMESPACE
 /*! \var GeoMultiPropertyDataPtr GeoMultiPropertyBase::_sfContainer
     The data container to source off of.
 */
+
 /*! \var UInt32          GeoMultiPropertyBase::_sfOffset
-    The offset from the start of the container to the first element of
-    this property.
+    The offset from the start of the container to the first element of this property.
 */
+
 /*! \var GLenum          GeoMultiPropertyBase::_sfIFormat
     The OpenGL format for the data.
 */
+
 /*! \var UInt32          GeoMultiPropertyBase::_sfIDimension
     The dimensionality of the data.
 */
+
 /*! \var UInt32          GeoMultiPropertyBase::_sfISize
     The number of elements in the data.
 */
+
 /*! \var bool            GeoMultiPropertyBase::_sfINormalize
     Whether to normalize integer arguments to 0..1.
 */
+
 /*! \var UInt32          GeoMultiPropertyBase::_sfIStride
     The stride between elements (can be 0).
 */
+
 
 void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 {
@@ -350,6 +356,15 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(true,
     "Class referencing data from a GeoMultiPropertyData container.\n"
     "</FieldContainer>\n",
     "Class referencing data from a GeoMultiPropertyData.\n"
+    "\n"
+    "\n"
+    "\n"
+    "\n"
+    "\n"
+    "\n"
+    "\n"
+    "\n"
+    "\n"
     "Class referencing data from a GeoMultiPropertyData container.\n"
     );
 

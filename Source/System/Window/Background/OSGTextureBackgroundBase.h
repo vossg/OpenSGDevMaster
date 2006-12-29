@@ -292,18 +292,16 @@ class OSG_WINDOW_DLLMAPPING TextureBackgroundBase : public Background
     /*! \{                                                                 */
 
 
-    void pushToTexCoords           (const Pnt2f& value   );
-    void insertIntoTexCoords      (UInt32                uiIndex,
-                                             const Pnt2f& value   );
-    void replaceInTexCoords  (UInt32                uiIndex,
-                                             const Pnt2f& value   );
-    void replaceInTexCoords (const Pnt2f& pOldElem,
-                                             const Pnt2f& pNewElem);
-    void removeFromTexCoords (UInt32                uiIndex );
-    void removeFromTexCoords(const Pnt2f& value   );
-    void clearTexCoords             (void                          );
-
-
+    void pushToTexCoords                   (const Pnt2f     &value   );
+    void insertIntoTexCoords               (      UInt32     uiIndex,
+                                            const Pnt2f     &value   );
+    void replaceInTexCoords                (      UInt32     uiIndex,
+                                            const Pnt2f     &value   );
+    void replaceInTexCoords                (const Pnt2f     &pOldElem,
+                                            const Pnt2f     &pNewElem);
+    void removeFromTexCoords               (      UInt32     uiIndex );
+    void removeFromTexCoords               (const Pnt2f     &value   );
+    void clearTexCoords                    (      void               );
 
 
     /*! \}                                                                 */

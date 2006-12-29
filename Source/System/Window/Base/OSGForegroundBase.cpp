@@ -80,8 +80,8 @@ OSG_BEGIN_NAMESPACE
     \ext
 
     To create a new Foreground the method that has be overridden is
-    draw(DrawActionBase * action, Viewport * port);. It can directly call
-    OpenGL commands, but should restore the state after it's done.
+    draw(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
+    commands, but should restore the state after it's done.
 
     \endext
  */
@@ -93,6 +93,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            ForegroundBase::_sfActive
     Activate the grabber.
 */
+
 
 void ForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -167,12 +168,16 @@ ForegroundBase::TypeObject ForegroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
     "Foreground is the base class for all foreground rendering.  See \\ref\n"
     "PageSystemWindowForegrounds for a description.\n"
+    "\n"
     "\\ext\n"
+    "\n"
     "To create a new Foreground the method that has be overridden is\n"
     "draw(DrawActionBase * action, Viewport * port);. It can directly call OpenGL\n"
     "commands, but should restore the state after it's done.\n"
+    "\n"
     "\\endext\n"
     );
 
@@ -214,6 +219,8 @@ SFBool              *ForegroundBase::getSFActive         (void)
     return this->editSFActive         ();
 }
 #endif
+
+
 
 
 

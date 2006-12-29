@@ -75,13 +75,13 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::ChunkMaterial
     \ingroup GrpSystemMaterial
 
-    The chunk material class. See \ref PageSystemMaterialChunkMaterial for
-    a description.
+    The chunk material class. See \ref PageSystemMaterialChunkMaterial for a
+    description.
 
     Chunks can be attached and detached from the material using
-    OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For
-    more complex manipulation of the chunk list use the
-    OSG::ChunkMaterial::_mfChunks field's functions.
+    OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more
+    complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks
+    field's functions.
  */
 
 /***************************************************************************\
@@ -91,9 +91,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var StateChunkPtr   ChunkMaterialBase::_mfChunks
     
 */
+
 /*! \var Int32           ChunkMaterialBase::_mfSlots
     
 */
+
 
 void ChunkMaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -182,8 +184,10 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemMaterial\n"
+    "\n"
     "The chunk material class. See \\ref PageSystemMaterialChunkMaterial for a\n"
     "description.\n"
+    "\n"
     "Chunks can be attached and detached from the material using\n"
     "OSG::ChunkMaterial::addChunk() and OSG::ChunkMaterial::subChunk(). For more\n"
     "complex manipulation of the chunk list use the OSG::ChunkMaterial::_mfChunks\n"

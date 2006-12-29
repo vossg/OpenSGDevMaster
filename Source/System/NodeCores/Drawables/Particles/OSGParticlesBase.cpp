@@ -88,56 +88,69 @@ OSG_BEGIN_NAMESPACE
 /*! \var UInt32          ParticlesBase::_sfMode
     The particle mode, see OSG::Particles::modeE for options.
 */
+
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfPositions
     The positions of the particles. This is the primary defining
     information for a particle.
 */
+
 /*! \var Vec3f           ParticlesBase::_mfSizes
     The particle sizes. If not set (1,1,1) will be used, if only one entry
     is set, it will be used for all particles. If the number of sizes if
     equal to the number of positions every particle will get its own size.
-    Most modes only use the X coordinate of the vector. Particles with
+    Most modes only use the X coordinate of the vector. Particles with 
     size[0] == 0 are ignored.
 */
+
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfSecPositions
     The secondary position of the particle. This information is only used
     by a few rendering modes, e.g. the streak mode. Usually it represents
     the particle's last position.
 */
+
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfColors
     The particle colors (optional).
 */
+
 /*! \var GeoVectorPropertyPtr ParticlesBase::_sfNormals
-    Most particles will be automatically aligned to the view direction. If
-    normals are set they will be used to define the direction the particles
-    are facing.
+    Most particles will be automatically aligned to the view
+    direction. If normals are set they will be used to define the
+    direction the particles are facing.
 */
+
 /*! \var Int32           ParticlesBase::_mfIndices
-    Indices for the particles. Useful to select subsets of all particles
-    for  rendering.
+    Indices for the particles. Useful to select subsets of all particles for 
+    rendering.
 */
+
 /*! \var Real32          ParticlesBase::_mfTextureZs
-    The texture z coordinate of the particles. Useful in conjunction with
-    3D  textures to use different texture images on different particles.
+    The texture z coordinate of the particles. Useful in conjunction with 3D 
+    textures to use different texture images on different particles.
 */
+
 /*! \var UInt32          ParticlesBase::_sfDrawOrder
-    Define an optional sorting on the particles, see
-    OSG::Particles::DrawOrderE for variants. Default is unordered.
+    Define an optional sorting on the particles, see OSG::Particles::DrawOrderE
+    for variants. Default is unordered.
 */
+
 /*! \var bool            ParticlesBase::_sfDynamic
-    Hint to tell the system whether particles are expected to change
-    position or not. Is used to speed up sorting.
+    Hint to tell the system whether particles are expected to change position or
+    not. Is used to speed up sorting.
 */
+
 /*! \var UInt32          ParticlesBase::_sfPump
     
 */
+
 /*! \var ParticleBSPTree ParticlesBase::_sfBsp
     
 */
+
 /*! \var Int32           ParticlesBase::_sfNumParticles
-    Optional number of particles to use. If set to -1, all the particles
-    in  pos, or indices if set, will be used.
+    Optional number of particles to use. If set to -1, all the particles in 
+    pos, or indices if set, will be used.
 */
+
 
 void ParticlesBase::classDescInserter(TypeObject &oType)
 {
@@ -569,6 +582,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemNodeCoresDrawablesParticles\n"
+    "\n"
     "See \\ref PageSystemParticles for details.\n"
     );
 

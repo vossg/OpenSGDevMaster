@@ -215,6 +215,10 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewportBase : public Viewport
             void setAlpha          (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

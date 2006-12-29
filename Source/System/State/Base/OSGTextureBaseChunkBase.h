@@ -164,6 +164,10 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunkBase : public StateChunk
             void setTarget         (const GLenum &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -82,12 +82,15 @@ OSG_BEGIN_NAMESPACE
 /*! \var DisplayP        XWindowBase::_sfDisplay
     
 */
+
 /*! \var X11Window       XWindowBase::_sfWindow
     
 */
+
 /*! \var GLXContext      XWindowBase::_sfContext
     
 */
+
 
 void XWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -291,6 +294,8 @@ SFGLXContext        *XWindowBase::getSFContext        (void)
     return this->editSFContext        ();
 }
 #endif
+
+
 
 
 

@@ -85,71 +85,92 @@ OSG_BEGIN_NAMESPACE
 /*! \var ParentFieldContainerPtr ImageBase::_mfParents
     
 */
+
 /*! \var Int32           ImageBase::_sfDimension
     Image dimension, 0 for invalid, 1 for 1D, 2 for 2D and 3 for 3D data.
 */
+
 /*! \var Int32           ImageBase::_sfWidth
     
 */
+
 /*! \var Int32           ImageBase::_sfHeight
     
 */
+
 /*! \var Int32           ImageBase::_sfDepth
     
 */
+
 /*! \var Int32           ImageBase::_sfBpp
     Bytes of data per pixel.
 */
+
 /*! \var Int32           ImageBase::_sfMipMapCount
     
 */
+
 /*! \var Int32           ImageBase::_sfFrameCount
     The number of frames in the data.
 */
+
 /*! \var Time            ImageBase::_sfFrameDelay
     Time between frames.  Determines the frame rate.
 */
+
 /*! \var UInt32          ImageBase::_sfPixelFormat
     
 */
+
 /*! \var UInt8           ImageBase::_mfPixel
     The pixel data buffer. This is where the data for the image is stored.
 */
+
 /*! \var Int32           ImageBase::_sfFrameSize
     
 */
+
 /*! \var std::string     ImageBase::_sfName
     Texture file path.
 */
+
 /*! \var Int32           ImageBase::_sfDataType
     Type of image data.
 */
+
 /*! \var Int32           ImageBase::_sfComponentSize
-    Size (in byte) of a single component of the image. Necessary for High
-    Dynamic Range and other higher-level image types.
+    Size (in byte) of a single component of the image. Necessary
+    for High Dynamic Range and other higher-level image types.
 */
+
 /*! \var Int32           ImageBase::_sfSideCount
     
 */
+
 /*! \var Int32           ImageBase::_sfSideSize
     
 */
+
 /*! \var bool            ImageBase::_sfForceCompressedData
     Set to true if using the image to keep unknown data for textures.
     Generally used in conjunction with TextureChunk::externalFormat.
 */
+
 /*! \var bool            ImageBase::_sfForceAlphaChannel
     Set to true if using the image to keep unknown data for textures.
     Generally used in conjunction with TextureChunk::externalFormat.
 */
+
 /*! \var bool            ImageBase::_sfForceColorChannel
     Set to true if using the image to keep unknown data for textures.
     Generally used in conjunction with TextureChunk::externalFormat.
 */
+
 /*! \var bool            ImageBase::_sfForceAlphaBinary
-    Set to true if using the image to prevent depth sorting for
+    Set to true if using the image to prevent depth sorting for 
     SimpleTexturedMaterials using this Image.
 */
+
 
 void ImageBase::classDescInserter(TypeObject &oType)
 {

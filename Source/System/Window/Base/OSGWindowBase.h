@@ -264,7 +264,6 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
 
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

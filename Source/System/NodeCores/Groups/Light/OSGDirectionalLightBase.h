@@ -164,6 +164,10 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
             void setDirection      (const Vec3r &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

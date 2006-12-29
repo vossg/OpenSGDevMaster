@@ -183,6 +183,23 @@ class OSG_GROUP_DLLMAPPING DistanceLODBase : public Group
             void setCenter         (const Pnt3f &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+
+    void pushToRange                       (const Real32    &value   );
+    void insertIntoRange                   (      UInt32     uiIndex,
+                                            const Real32    &value   );
+    void replaceInRange                    (      UInt32     uiIndex,
+                                            const Real32    &value   );
+    void replaceInRange                    (const Real32    &pOldElem,
+                                            const Real32    &pNewElem);
+    void removeFromRange                   (      UInt32     uiIndex );
+    void removeFromRange                   (const Real32    &value   );
+    void clearRange                        (      void               );
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

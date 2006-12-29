@@ -86,6 +86,7 @@ OSG_BEGIN_NAMESPACE
     FramebufferObject to write to.
 */
 
+
 void FBOViewportBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
@@ -140,6 +141,7 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowViewports\n"
+    "\n"
     "A viewport using a framebuffer object for output.\n"
     );
 

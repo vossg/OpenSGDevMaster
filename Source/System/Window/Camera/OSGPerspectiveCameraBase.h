@@ -181,6 +181,10 @@ class OSG_WINDOW_DLLMAPPING PerspectiveCameraBase : public Camera
             void setAspect         (const Real32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

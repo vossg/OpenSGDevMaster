@@ -83,12 +83,15 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            GeoPropertyBase::_sfUseVBO
     The id used to register with the Window, 0 if not set up yet.
 */
+
 /*! \var UInt32          GeoPropertyBase::_sfGLId
     The id used to register with the Window, 0 if not set up yet.
 */
+
 /*! \var Int32           GeoPropertyBase::_sfUsage
     The usage pattern, only valid for VBO use.
 */
+
 
 void GeoPropertyBase::classDescInserter(TypeObject &oType)
 {
@@ -295,6 +298,8 @@ SFInt32             *GeoPropertyBase::getSFUsage          (void)
     return this->editSFUsage          ();
 }
 #endif
+
+
 
 
 

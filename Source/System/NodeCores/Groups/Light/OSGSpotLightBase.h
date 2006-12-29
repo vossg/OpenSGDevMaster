@@ -198,6 +198,10 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
             void setSpotCutOff     (const Real &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

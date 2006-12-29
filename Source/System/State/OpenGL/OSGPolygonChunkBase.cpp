@@ -84,21 +84,17 @@ OSG_BEGIN_NAMESPACE
 
     See \ref PageSystemPolygonChunk for details.
 
-    The parameters of the following functions are wrapped here: <ul>
+    The parameters of the following functions are wrapped here:
+    <ul>
     <li>glCullFace() (OSG::PolygonChunk::_sfCullFace),</li>
     <li>glFrontFace()(OSG::PolygonChunk::_sfFrontFace),</li>
-    <li>glPolygonMode() (OSG::PolygonChunk::_sfFrontMode,
-    OSG::PolygonChunk::_sfBackMode),</li> <li>glEnable(GL_POLYGON_SMOOTH)
-    (OSG::PolygonChunk::_sfSmooth),</li> <li>glPolygonOffset()
-    (OSG::PolygonChunk::_sfOffsetFactor,
-    OSG::PolygonChunk::_sfOffsetBias),</li>
-    <li>glEnable(GL_POLYGON_OFFSET_POINT)
-    (OSG::PolygonChunk::_sfOffsetPoint),</li>
-    <li>glEnable(GL_POLYGON_OFFSET_LINE)
-    (OSG::PolygonChunk::_sfOffsetLine),</li>
-    <li>glEnable(GL_POLYGON_OFFSET_FILL)
-    (OSG::PolygonChunk::_sfOffsetFill),</li> <li>glStipplePattern() and
-    glEnable(GL_POLYGON_STIPPLE) (OSG::PolygonChunk::_sfStipple).</li>
+    <li>glPolygonMode() (OSG::PolygonChunk::_sfFrontMode, OSG::PolygonChunk::_sfBackMode),</li>
+    <li>glEnable(GL_POLYGON_SMOOTH) (OSG::PolygonChunk::_sfSmooth),</li>
+    <li>glPolygonOffset() (OSG::PolygonChunk::_sfOffsetFactor, OSG::PolygonChunk::_sfOffsetBias),</li>
+    <li>glEnable(GL_POLYGON_OFFSET_POINT) (OSG::PolygonChunk::_sfOffsetPoint),</li>
+    <li>glEnable(GL_POLYGON_OFFSET_LINE) (OSG::PolygonChunk::_sfOffsetLine),</li>
+    <li>glEnable(GL_POLYGON_OFFSET_FILL) (OSG::PolygonChunk::_sfOffsetFill),</li>
+    <li>glStipplePattern() and glEnable(GL_POLYGON_STIPPLE) (OSG::PolygonChunk::_sfStipple).</li>
     </ul>
  */
 
@@ -107,44 +103,51 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var GLenum          PolygonChunkBase::_sfCullFace
-    Defines which side of the polygon is invisible. Set to GL_NONE to not
-    cull anything. See glCullFace.
+    Defines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.
 */
+
 /*! \var GLenum          PolygonChunkBase::_sfFrontFace
-    Defines which side of the polygon is considered the front side base on
-    vertex ordering of clockwise (CW) of counter clockwise (CCW). defaults
-    to GL_CCW.  See glFrontFace.
+    Defines which side of the polygon is considered the front side base on vertex ordering
+    of clockwise (CW) of counter clockwise (CCW). defaults to GL_CCW.  See glFrontFace.
 */
+
 /*! \var GLenum          PolygonChunkBase::_sfFrontMode
-    Defines if polygon front sides are rendered filled (default), outlined
-    or as points.  See glPolygonMode.
+    Defines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.
 */
+
 /*! \var GLenum          PolygonChunkBase::_sfBackMode
-    Defines if polygon front sides are rendered filled (default), outlined
-    or as points. See glPolygonMode.
+    Defines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.
 */
+
 /*! \var bool            PolygonChunkBase::_sfSmooth
     Defines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.
 */
+
 /*! \var Real32          PolygonChunkBase::_sfOffsetFactor
     Defines the offset factor.  See glPolygonOffset.
 */
+
 /*! \var Real32          PolygonChunkBase::_sfOffsetBias
     Defines the offset bias.  See glPolygonOffset.
 */
+
 /*! \var bool            PolygonChunkBase::_sfOffsetPoint
     Enables offsetting for points.
 */
+
 /*! \var bool            PolygonChunkBase::_sfOffsetLine
     Enables offsetting for lines.
 */
+
 /*! \var bool            PolygonChunkBase::_sfOffsetFill
     Enables offsetting for polygons.
 */
+
 /*! \var Int32           PolygonChunkBase::_mfStipple
-    Defines the stipple pattern. Is only valid and used if it contains  32
-    elements.
+    Defines the stipple pattern. Is only valid and used if it contains 
+    32 elements.
 */
+
 
 void PolygonChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -548,7 +551,9 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemPolygonChunk for details.\n"
+    "\n"
     "The parameters of the following functions are wrapped here:\n"
     "<ul>\n"
     "<li>glCullFace() (OSG::PolygonChunk::_sfCullFace),</li>\n"
@@ -792,6 +797,90 @@ MFInt32             *PolygonChunkBase::getMFStipple        (void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void PolygonChunkBase::pushToStipple(const Int32& value)
+{
+    editMField(StippleFieldMask, _mfStipple);
+    _mfStipple.push_back(value);
+}
+
+void PolygonChunkBase::insertIntoStipple(UInt32                uiIndex,
+                                                   const Int32& value   )
+{
+    editMField(StippleFieldMask, _mfStipple);
+
+    MFInt32::iterator fieldIt = _mfStipple.begin();
+
+    fieldIt += uiIndex;
+
+    _mfStipple.insert(fieldIt, value);
+}
+
+void PolygonChunkBase::replaceInStipple(UInt32                uiIndex,
+                                                       const Int32& value   )
+{
+    if(uiIndex >= _mfStipple.size())
+        return;
+
+    editMField(StippleFieldMask, _mfStipple);
+
+    _mfStipple[uiIndex] = value;
+}
+
+void PolygonChunkBase::replaceInStipple(const Int32& pOldElem,
+                                                        const Int32& pNewElem)
+{
+    Int32  elemIdx = _mfStipple.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(StippleFieldMask, _mfStipple);
+
+        MFInt32::iterator fieldIt = _mfStipple.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void PolygonChunkBase::removeFromStipple(UInt32 uiIndex)
+{
+    if(uiIndex < _mfStipple.size())
+    {
+        editMField(StippleFieldMask, _mfStipple);
+
+        MFInt32::iterator fieldIt = _mfStipple.begin();
+
+        fieldIt += uiIndex;
+        _mfStipple.erase(fieldIt);
+    }
+}
+
+void PolygonChunkBase::removeFromStipple(const Int32& value)
+{
+    Int32 iElemIdx = _mfStipple.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(StippleFieldMask, _mfStipple);
+
+        MFInt32::iterator fieldIt = _mfStipple.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfStipple.erase(fieldIt);
+    }
+}
+
+void PolygonChunkBase::clearStipple(void)
+{
+    editMField(StippleFieldMask, _mfStipple);
+
+    _mfStipple.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

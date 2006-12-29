@@ -84,6 +84,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
 void DirectionalLightBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
@@ -187,6 +188,8 @@ SFVec3r             *DirectionalLightBase::getSFDirection      (void)
     return this->editSFDirection      ();
 }
 #endif
+
+
 
 
 

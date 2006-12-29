@@ -73,10 +73,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::MaterialGroup
-    MaterialGroup is a standard group node that allows for a material to
-    be set that will override all materials in the entire subtree.  This
-    can be useful if you want to disable materials in a subtree or if a
-    large group of geometry nodes should have the same material applied.
+    MaterialGroup is a standard group node that allows for a material to be set
+    that will override all materials in the entire subtree.  This can be useful
+    if you want to disable materials in a subtree or if a large group of geometry
+    nodes should have the same material applied.
  */
 
 /***************************************************************************\
@@ -86,6 +86,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var MaterialPtr     MaterialGroupBase::_sfMaterial
     
 */
+
 
 void MaterialGroupBase::classDescInserter(TypeObject &oType)
 {

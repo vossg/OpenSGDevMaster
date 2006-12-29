@@ -84,6 +84,7 @@ OSG_BEGIN_NAMESPACE
     The material used to render the Drawable.
 */
 
+
 void MaterialDrawableBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;

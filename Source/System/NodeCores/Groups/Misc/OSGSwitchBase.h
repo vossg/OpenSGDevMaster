@@ -164,6 +164,10 @@ class OSG_GROUP_DLLMAPPING SwitchBase : public Group
             void setChoice         (const Int32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

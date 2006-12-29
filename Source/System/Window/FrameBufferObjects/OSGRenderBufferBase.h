@@ -181,6 +181,10 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
             void setInternalFormat (const GLenum &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

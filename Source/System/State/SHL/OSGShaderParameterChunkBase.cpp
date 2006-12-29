@@ -84,6 +84,7 @@ OSG_BEGIN_NAMESPACE
     parameter list
 */
 
+
 void ShaderParameterChunkBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;

@@ -74,13 +74,13 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::TileCameraDecorator
     \ingroup GrpSystemWindowCameraDecorators
 
-    The OSG::TileCameraDecorator for selecting only a part of a virtual
-    large image, see \ref PageSystemWindowCameraDecoratorsTile for a
-    description.
+    The OSG::TileCameraDecorator for selecting only a part of a virtual large
+    image, see \ref
+    PageSystemWindowCameraDecoratorsTile for a description.
 
-    The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom
-    and _sfTop Fields. The size of the full image is defined by the
-    _sfFullWidth and _sfFullHeight Fields.
+    The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom and
+    _sfTop Fields. The size of the full image is defined by the _sfFullWidth and
+    _sfFullHeight Fields.
  */
 
 /***************************************************************************\
@@ -90,21 +90,27 @@ OSG_BEGIN_NAMESPACE
 /*! \var Real32          TileCameraDecoratorBase::_sfLeft
     The left border of the selected tile.
 */
+
 /*! \var Real32          TileCameraDecoratorBase::_sfRight
     The right border of the selected tile.
 */
+
 /*! \var Real32          TileCameraDecoratorBase::_sfBottom
     The bottom border of the selected tile.
 */
+
 /*! \var Real32          TileCameraDecoratorBase::_sfTop
     The top border of the selected tile.
 */
+
 /*! \var UInt32          TileCameraDecoratorBase::_sfFullWidth
     The width of the full image this is a tile of.
 */
+
 /*! \var UInt32          TileCameraDecoratorBase::_sfFullHeight
     The height of the full image this is a tile of.
 */
+
 
 void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -336,9 +342,11 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "\n"
     "The OSG::TileCameraDecorator for selecting only a part of a virtual large\n"
     "image, see \\ref\n"
     "PageSystemWindowCameraDecoratorsTile for a description.\n"
+    "\n"
     "The borders of the tile are defined by the _sfLeft, _sfRight, _sfBottom and\n"
     "_sfTop Fields. The size of the full image is defined by the _sfFullWidth and\n"
     "_sfFullHeight Fields.\n"
@@ -477,6 +485,8 @@ SFUInt32            *TileCameraDecoratorBase::getSFFullHeight     (void)
     return this->editSFFullHeight     ();
 }
 #endif
+
+
 
 
 

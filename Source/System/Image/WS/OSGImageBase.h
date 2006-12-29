@@ -529,19 +529,16 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
 
 
 
-
-    void pushToPixel               (const UInt8& value   );
-    void insertIntoPixel      (UInt32                uiIndex,
-                                             const UInt8& value   );
-    void replaceInPixel   (UInt32                uiIndex,
-                                             const UInt8& value   );
-    void replaceInPixel  (const UInt8& pOldElem,
-                                             const UInt8& pNewElem);
-    void removeFromPixel (UInt32                uiIndex );
-    void removeFromPixel(const UInt8& value   );
-    void clearPixel                 (void                          );
-
-
+    void pushToPixel                       (const UInt8     &value   );
+    void insertIntoPixel                   (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInPixel                    (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInPixel                    (const UInt8     &pOldElem,
+                                            const UInt8     &pNewElem);
+    void removeFromPixel                   (      UInt32     uiIndex );
+    void removeFromPixel                   (const UInt8     &value   );
+    void clearPixel                        (      void               );
 
 
     /*! \}                                                                 */

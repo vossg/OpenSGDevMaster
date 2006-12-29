@@ -164,6 +164,10 @@ class OSG_SYSTEM_DLLMAPPING ForegroundBase : public AttachmentContainer
             void setActive         (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

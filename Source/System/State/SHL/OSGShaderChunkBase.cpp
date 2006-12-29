@@ -82,9 +82,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var std::string     ShaderChunkBase::_sfVertexProgram
     vertex program source
 */
+
 /*! \var std::string     ShaderChunkBase::_sfFragmentProgram
     fragment program source
 */
+
 
 void ShaderChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -238,6 +240,8 @@ SFString            *ShaderChunkBase::getSFFragmentProgram(void)
     return this->editSFFragmentProgram();
 }
 #endif
+
+
 
 
 

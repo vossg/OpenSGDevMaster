@@ -73,8 +73,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Stage
-    Base of a staged rendering.  Tells the renderer to target an FBO for
-    this subtree.
+    Base of a staged rendering.  Tells the renderer to target an FBO for this subtree.
  */
 
 /***************************************************************************\
@@ -84,6 +83,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var FrameBufferObjectPtr StageBase::_sfRenderTarget
     The FBO to target for rendering this subtree.
 */
+
 
 void StageBase::classDescInserter(TypeObject &oType)
 {

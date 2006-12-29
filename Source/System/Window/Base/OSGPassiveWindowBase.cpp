@@ -102,6 +102,7 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(true,
     "programs. See \\ref PageSystemWindowWindowPassive for a description.\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowPassive\n"
+    "\n"
     "A PassiveWindow is a Window class for integration into other OpenGL\n"
     "programs. See \\ref PageSystemWindowWindowPassive for a description.\n"
     );
@@ -124,6 +125,8 @@ UInt32 PassiveWindowBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 

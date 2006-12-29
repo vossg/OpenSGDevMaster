@@ -183,6 +183,23 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
             void setCollector      (const StatCollector &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+
+    void pushToElementIDs                  (const Int32     &value   );
+    void insertIntoElementIDs              (      UInt32     uiIndex,
+                                            const Int32     &value   );
+    void replaceInElementIDs               (      UInt32     uiIndex,
+                                            const Int32     &value   );
+    void replaceInElementIDs               (const Int32     &pOldElem,
+                                            const Int32     &pNewElem);
+    void removeFromElementIDs              (      UInt32     uiIndex );
+    void removeFromElementIDs              (const Int32     &value   );
+    void clearElementIDs                   (      void               );
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

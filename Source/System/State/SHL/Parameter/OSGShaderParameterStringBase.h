@@ -164,6 +164,10 @@ class OSG_STATE_DLLMAPPING ShaderParameterStringBase : public ShaderParameter
             void setValue          (const std::string &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

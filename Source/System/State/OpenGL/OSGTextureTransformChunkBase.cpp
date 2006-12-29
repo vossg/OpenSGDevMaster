@@ -76,8 +76,8 @@ OSG_BEGIN_NAMESPACE
 
     See \ref PageSystemTextureTransformChunk for a description.
 
-    This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is
-    derived from the OSG::TransformChunk and uses its matrix.
+    This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is derived
+    from the OSG::TransformChunk and uses its matrix.
  */
 
 /***************************************************************************\
@@ -87,6 +87,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            TextureTransformChunkBase::_sfUseCameraBeacon
     If enabled it uses the camera beacon matrix (for cube textures)
 */
+
 
 void TextureTransformChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -157,7 +158,9 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemTextureTransformChunk for a description.\n"
+    "\n"
     "This chunk wraps glLoadMatrix() for the GL_TEXTURE matrix mode. It is derived\n"
     "from the OSG::TransformChunk and uses its matrix.\n"
     );
@@ -200,6 +203,8 @@ SFBool              *TextureTransformChunkBase::getSFUseCameraBeacon(void)
     return this->editSFUseCameraBeacon();
 }
 #endif
+
+
 
 
 

@@ -125,6 +125,8 @@ UInt32 LightEnvBase::getContainerSize(void) const
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 LightEnvBase::getBinSize(ConstFieldMaskArg whichField)

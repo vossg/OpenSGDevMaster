@@ -72,8 +72,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::GeoVectorProperty
-    Abstract base class for all vector-valued GeoProperties. Provides a
-    uniform interface for accessing all vector data in geometry using
+    Abstract base class for all vector-valued GeoProperties.
+    Provides a uniform interface for accessing all vector data in geometry using
     automatic conversion methods.
  */
 
@@ -126,6 +126,8 @@ UInt32 GeoVectorPropertyBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 

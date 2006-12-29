@@ -385,6 +385,10 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
             void setBackColorMaterial(const GLenum &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -266,6 +266,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
             void setValid          (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

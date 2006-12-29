@@ -215,6 +215,10 @@ class OSG_STATE_DLLMAPPING LineChunkBase : public StateChunk
             void setSmooth         (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

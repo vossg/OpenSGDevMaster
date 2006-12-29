@@ -183,6 +183,23 @@ class OSG_GROUP_DLLMAPPING InlineBase : public NodeCore
             void setLoaded         (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+
+    void pushToUrl                         (const std::string&value   );
+    void insertIntoUrl                     (      UInt32     uiIndex,
+                                            const std::string&value   );
+    void replaceInUrl                      (      UInt32     uiIndex,
+                                            const std::string&value   );
+    void replaceInUrl                      (const std::string&pOldElem,
+                                            const std::string&pNewElem);
+    void removeFromUrl                     (      UInt32     uiIndex );
+    void removeFromUrl                     (const std::string&value   );
+    void clearUrl                          (      void               );
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

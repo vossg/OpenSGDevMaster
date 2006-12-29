@@ -181,6 +181,10 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
             void setFragmentProgram(const std::string &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

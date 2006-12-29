@@ -76,11 +76,11 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::Light
     \ingroup GrpSystemNodeCoresLights
 
-    Light is the base class for all the light source nodes. It contains the
-    field for the general light source attributes (AmbientColor,
-    DiffuseColor, SpecularColor, Beacon). The Beacon defines the reference
-    coordinate system for the lightsource, while the position in the graph
-    defines the objects that are lit.
+    Light is the base class for all the light source nodes.
+    It contains the field for the general light source attributes
+    (AmbientColor, DiffuseColor, SpecularColor, Beacon). The Beacon
+    defines the reference coordinate system for the lightsource, while
+    the position in the graph defines the objects that are lit.
  */
 
 /***************************************************************************\
@@ -90,30 +90,39 @@ OSG_BEGIN_NAMESPACE
 /*! \var Color4r         LightBase::_sfAmbient
     The light's ambient component.
 */
+
 /*! \var Color4r         LightBase::_sfDiffuse
     The light's diffuse color.
 */
+
 /*! \var Color4r         LightBase::_sfSpecular
     The light's specular color.
 */
+
 /*! \var NodePtr         LightBase::_sfBeacon
     
 */
+
 /*! \var bool            LightBase::_sfOn
     
 */
+
 /*! \var Real            LightBase::_sfConstantAttenuation
     The light's constant attenuation.
 */
+
 /*! \var Real            LightBase::_sfLinearAttenuation
     The light's linear attenuation.
 */
+
 /*! \var Real            LightBase::_sfQuadraticAttenuation
     The light's quadratic attenuation.
 */
+
 /*! \var LightEnginePtr  LightBase::_sfLightEngine
     
 */
+
 
 void LightBase::classDescInserter(TypeObject &oType)
 {
@@ -416,6 +425,7 @@ LightBase::TypeObject LightBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemNodeCoresLights\n"
+    "\n"
     "Light is the base class for all the light source nodes.\n"
     "It contains the field for the general light source attributes\n"
     "(AmbientColor, DiffuseColor, SpecularColor, Beacon). The Beacon\n"

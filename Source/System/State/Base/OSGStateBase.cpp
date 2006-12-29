@@ -75,8 +75,7 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::State
     \ingroup GrpSystemState
 
-    The state base class. See \ref PageSystemState for the conceptual
-    background.
+    The state base class. See \ref PageSystemState for the conceptual background.
  */
 
 /***************************************************************************\
@@ -86,6 +85,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var StateChunkPtr   StateBase::_mfChunks
     
 */
+
 
 void StateBase::classDescInserter(TypeObject &oType)
 {
@@ -149,6 +149,7 @@ StateBase::TypeObject StateBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "The state base class. See \\ref PageSystemState for the conceptual background.\n"
     );
 

@@ -78,18 +78,16 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::BlendChunk
     \ingroup GrpSystemState
 
-    See \ref PageSystemBlendChunk for a description.
+    See \ref PageSystemBlendChunk for a description. 
 
-    The blending chunk handles OpenGL blending, i.e. the definition how
-    incoming pixel are combined with the pixel already in the frame buffer.
+    The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel
+    are combined with the pixel already in the frame buffer.
 
     This chunk wraps glBlendFunc() (OSG::BlendChunk::_sfSrcFactor,
-    OSG::BlendChunk::_sfDestFactor), glBlendEquation() or
-    glBlendEquationEXT() (whichever is supported)
-    (OSG::BlendChunk::_sfEquation), glBlendColor()
-    (OSG::BlendChunk::_sfColor) and glAlphaFunc()
-    (OSG::BlendChunk::_sfAlphaFunc, OSG::BlendChunk::_sfAlphaValue)
-    including glEnable(GL_ALPHA_TEST).
+    OSG::BlendChunk::_sfDestFactor), glBlendEquation() or glBlendEquationEXT()
+    (whichever is supported) (OSG::BlendChunk::_sfEquation), glBlendColor() 
+    (OSG::BlendChunk::_sfColor) and glAlphaFunc() (OSG::BlendChunk::_sfAlphaFunc,
+    OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).
  */
 
 /***************************************************************************\
@@ -97,40 +95,42 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var GLenum          BlendChunkBase::_sfSrcFactor
-    The incoming pixel is multiplied by the source factor. Legal values
-    are directly taken from the glBlendFunc() manpage.
+    The incoming pixel is multiplied by the source factor. Legal values are directly taken from the glBlendFunc() manpage.
 */
+
 /*! \var GLenum          BlendChunkBase::_sfDestFactor
-    The frame buffer pixel is multiplied by the destination factor. Legal
-    values are directly taken from the glBlendFunc() manpage.
+    The frame buffer pixel is multiplied by the destination factor. Legal values are directly taken from the glBlendFunc() manpage.
 */
+
 /*! \var GLenum          BlendChunkBase::_sfEquation
-    The equation used to combine the two values. Only available where
-    GL_ARB_imaging is supported. See glBlendEquation() for details.
+    The equation used to combine the two values. Only available where GL_ARB_imaging is supported. See glBlendEquation() for details.
 */
+
 /*! \var Color4f         BlendChunkBase::_sfColor
     This is the constant color used by blend modes *_CONSTANT_*.
 */
+
 /*! \var GLenum          BlendChunkBase::_sfAlphaFunc
-    The alphaFunc defines how fragments which do not fulfill a certain
-    condition are handled.  See glAlphaFunc() for details. GL_NONE is used
-    to disable alpha comparison.
+    The alphaFunc defines how fragments which do not fulfill a certain condition are handled. 
+    See glAlphaFunc() for details. GL_NONE is used to disable alpha comparison.
 */
+
 /*! \var Real32          BlendChunkBase::_sfAlphaValue
     The value used in alpha comparison.
 */
+
 /*! \var GLenum          BlendChunkBase::_sfAlphaSrcFactor
-    The incoming alpha is multiplied by the source factor before being
-    stored  in the frame buffer. Only available where
-    GL_EXT_blend_func_separate is supported. The default is GL_NONE, which
-    indicates using the standard BlendFunction.
+    The incoming alpha is multiplied by the source factor before being stored 
+    in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.
+    The default is GL_NONE, which indicates using the standard BlendFunction.
 */
+
 /*! \var GLenum          BlendChunkBase::_sfAlphaDestFactor
-    The frame buffer alpha is multiplied by the source factor before being
-    stored  in the frame buffer. Only available where
-    GL_EXT_blend_func_separate is supported. The default is GL_NONE, which
-    indicates using the standard BlendFunction.
+    The frame buffer alpha is multiplied by the source factor before being stored 
+    in the frame buffer. Only available where GL_EXT_blend_func_separate is supported.
+    The default is GL_NONE, which indicates using the standard BlendFunction.
 */
+
 
 void BlendChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -443,9 +443,12 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemBlendChunk for a description. \n"
+    "\n"
     "The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel\n"
     "are combined with the pixel already in the frame buffer.\n"
+    "\n"
     "This chunk wraps glBlendFunc() (OSG::BlendChunk::_sfSrcFactor,\n"
     "OSG::BlendChunk::_sfDestFactor), glBlendEquation() or glBlendEquationEXT()\n"
     "(whichever is supported) (OSG::BlendChunk::_sfEquation), glBlendColor() \n"
@@ -624,6 +627,8 @@ SFGLenum            *BlendChunkBase::getSFAlphaDestFactor(void)
     return this->editSFAlphaDestFactor();
 }
 #endif
+
+
 
 
 

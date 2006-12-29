@@ -74,12 +74,13 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::MatrixCameraDecorator
     \ingroup GrpSystemWindowCameraDecorators
 
-    The OSG::MatrixCameraDecorator for modifying the camera matrices by
-    matrices, see \ref PageSystemWindowCameraDecoratorsMatrix for a
-    description.
+    The OSG::MatrixCameraDecorator for modifying the camera matrices by 
+    matrices, see \ref
+    PageSystemWindowCameraDecoratorsMatrix for a description.
 
     The matrices to use are defined by the _sf Fields. The size of the full
-    image is defined by the _sfFullWidth and _sfFullHeight Fields.
+    image is defined by the _sfFullWidth and
+    _sfFullHeight Fields.
  */
 
 /***************************************************************************\
@@ -87,29 +88,35 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPreViewing
-    The matrix to multiply to the right of the viewing matrix, i.e.
+    The matrix to multiply to the right of the viewing matrix, i.e. 
     applied before the viewing matrix.
 */
+
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPostViewing
-    The matrix to multiply to the left of the viewing matrix, i.e.
+    The matrix to multiply to the left of the viewing matrix, i.e. 
     applied after the viewing matrix.
 */
+
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPreProjectionTranslation
-    The matrix to multiply to the right of the projectionTranslation
-    matrix, i.e.  applied before the projectionTranslation matrix.
+    The matrix to multiply to the right of the projectionTranslation matrix, i.e. 
+    applied before the projectionTranslation matrix.
 */
+
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPostProjectionTranslation
-    The matrix to multiply to the left of the projectionTranslation
-    matrix, i.e.  applied before the projectionTranslation matrix.
+    The matrix to multiply to the left of the projectionTranslation matrix, i.e. 
+    applied before the projectionTranslation matrix.
 */
+
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPreProjection
-    The matrix to multiply to the right of the projection matrix, i.e.
+    The matrix to multiply to the right of the projection matrix, i.e. 
     applied before the projection matrix.
 */
+
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPostProjection
-    The matrix to multiply to the left of the projection matrix, i.e.
+    The matrix to multiply to the left of the projection matrix, i.e. 
     applied before the projection matrix.
 */
+
 
 void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -353,9 +360,11 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "\n"
     "The OSG::MatrixCameraDecorator for modifying the camera matrices by \n"
     "matrices, see \\ref\n"
     "PageSystemWindowCameraDecoratorsMatrix for a description.\n"
+    "\n"
     "The matrices to use are defined by the _sf Fields. The size of the full\n"
     "image is defined by the _sfFullWidth and\n"
     "_sfFullHeight Fields.\n"
@@ -494,6 +503,8 @@ SFMatrix            *MatrixCameraDecoratorBase::getSFPostProjection (void)
     return this->editSFPostProjection ();
 }
 #endif
+
+
 
 
 

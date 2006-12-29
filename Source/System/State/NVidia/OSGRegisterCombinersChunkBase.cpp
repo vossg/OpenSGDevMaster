@@ -79,24 +79,27 @@ OSG_BEGIN_NAMESPACE
     This chunk wraps nVidia's register combiners. The
     OSG::RegisterCombinersChunk::setCombinerRGB and
     OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions
-    should be used, which set up all the parameters for a single combiner's
-    RGB or alpha part. OSG::RegisterCombinersChunk::setFinalCombiner sets
-    all parameters for the final combiner. The constants are set by
+    should be used,
+    which set up all the parameters for a single combiner's RGB or alpha part.
+    OSG::RegisterCombinersChunk::setFinalCombiner sets all parameters for the
+    final combiner. The constants are set by
     OSG::RegisterCombinersChunk::setConstantColors(Color4f &color0, Color4f
-    &color1) for the gloabl constants and
-    OSG::RegisterCombinersChunk::setConstantColors(UInt16 which,   Color4f
-    &color0, Color4f &color1) for the per-combiner constants (if
-    supported). To reset a combiner one or all of the combiners use
-    OSG::RegisterCombinersChunk::clearCombiners or
-    OSG::RegisterCombinersChunk::clearCombiner.
+    &color1) for the gloabl constants and 
+    OSG::RegisterCombinersChunk::setConstantColors(UInt16 which,  
+    Color4f &color0,
+    Color4f &color1) for the per-combiner constants (if supported). To reset a
+    combiner one or all of the combiners use
+    OSG::RegisterCombinersChunk::clearCombiners or 
+    OSG::RegisterCombinersChunk::clearCombiner. 
 
-    Don't use the direct field access to set the register combiner's
-    parameter unlesss you really have to, as the internal representation is
-    a bit non-intuitive.
+    Don't use the direct field access to set the register combiner's parameter
+    unlesss you really have to, as the internal representation is a bit
+    non-intuitive.
 
-    \ext To reduce the number of fields there isn't a field for every
-    parameter, instead they are kept in blocks of three in the fields.
-    Please refer to the source code for details. \endext
+    \ext To reduce the number of fields there isn't a field for every parameter,
+    instead they are kept in blocks of three in the fields. Please refer to the
+    source code for details.
+    \endext
  */
 
 /***************************************************************************\
@@ -106,96 +109,127 @@ OSG_BEGIN_NAMESPACE
 /*! \var Color4f         RegisterCombinersChunkBase::_sfColor0
     
 */
+
 /*! \var Color4f         RegisterCombinersChunkBase::_sfColor1
     
 */
+
 /*! \var bool            RegisterCombinersChunkBase::_sfColorSumClamp
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableArgb
     input,mapping,component Usage triples for variable A, RGB part
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableBrgb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableCrgb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableDrgb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableAalpha
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableBalpha
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableCalpha
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableDalpha
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfOutputABrgb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfOutputCDrgb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfOutputSumrgb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfScalergb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfBiasrgb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfOutputABalpha
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfOutputCDalpha
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfOutputSumalpha
     
 */
+
 /*! \var UInt8           RegisterCombinersChunkBase::_mfDotABrgb
     
 */
+
 /*! \var UInt8           RegisterCombinersChunkBase::_mfDotCDrgb
     
 */
+
 /*! \var UInt8           RegisterCombinersChunkBase::_mfMuxSumrgb
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfScalealpha
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfBiasalpha
     
 */
+
 /*! \var UInt8           RegisterCombinersChunkBase::_mfMuxSumalpha
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableE
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableF
     
 */
+
 /*! \var GLenum          RegisterCombinersChunkBase::_mfVariableG
     
 */
+
 /*! \var Color4f         RegisterCombinersChunkBase::_mfCombinerColor0
     
 */
+
 /*! \var Color4f         RegisterCombinersChunkBase::_mfCombinerColor1
     
 */
+
 /*! \var UInt8           RegisterCombinersChunkBase::_sfPerStageConstants
     
 */
+
 
 void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1187,7 +1221,9 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemRegisterCombinersChunk for a description.\n"
+    "\n"
     "This chunk wraps nVidia's register combiners. The\n"
     "OSG::RegisterCombinersChunk::setCombinerRGB and\n"
     "OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions\n"
@@ -1203,9 +1239,11 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(true,
     "combiner one or all of the combiners use\n"
     "OSG::RegisterCombinersChunk::clearCombiners or \n"
     "OSG::RegisterCombinersChunk::clearCombiner. \n"
+    "\n"
     "Don't use the direct field access to set the register combiner's parameter\n"
     "unlesss you really have to, as the internal representation is a bit\n"
     "non-intuitive.\n"
+    "\n"
     "\\ext To reduce the number of fields there isn't a field for every parameter,\n"
     "instead they are kept in blocks of three in the fields. Please refer to the\n"
     "source code for details.\n"
@@ -1821,6 +1859,2222 @@ SFUInt8             *RegisterCombinersChunkBase::getSFPerStageConstants(void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableArgb(const GLenum& value)
+{
+    editMField(VariableArgbFieldMask, _mfVariableArgb);
+    _mfVariableArgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableArgb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableArgbFieldMask, _mfVariableArgb);
+
+    MFGLenum::iterator fieldIt = _mfVariableArgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableArgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableArgb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableArgb.size())
+        return;
+
+    editMField(VariableArgbFieldMask, _mfVariableArgb);
+
+    _mfVariableArgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableArgb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableArgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableArgbFieldMask, _mfVariableArgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableArgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableArgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableArgb.size())
+    {
+        editMField(VariableArgbFieldMask, _mfVariableArgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableArgb.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableArgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableArgb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableArgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableArgbFieldMask, _mfVariableArgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableArgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableArgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableArgb(void)
+{
+    editMField(VariableArgbFieldMask, _mfVariableArgb);
+
+    _mfVariableArgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableBrgb(const GLenum& value)
+{
+    editMField(VariableBrgbFieldMask, _mfVariableBrgb);
+    _mfVariableBrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableBrgb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableBrgbFieldMask, _mfVariableBrgb);
+
+    MFGLenum::iterator fieldIt = _mfVariableBrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableBrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableBrgb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableBrgb.size())
+        return;
+
+    editMField(VariableBrgbFieldMask, _mfVariableBrgb);
+
+    _mfVariableBrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableBrgb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableBrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableBrgbFieldMask, _mfVariableBrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableBrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableBrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableBrgb.size())
+    {
+        editMField(VariableBrgbFieldMask, _mfVariableBrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableBrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableBrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableBrgb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableBrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableBrgbFieldMask, _mfVariableBrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableBrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableBrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableBrgb(void)
+{
+    editMField(VariableBrgbFieldMask, _mfVariableBrgb);
+
+    _mfVariableBrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableCrgb(const GLenum& value)
+{
+    editMField(VariableCrgbFieldMask, _mfVariableCrgb);
+    _mfVariableCrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableCrgb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableCrgbFieldMask, _mfVariableCrgb);
+
+    MFGLenum::iterator fieldIt = _mfVariableCrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableCrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableCrgb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableCrgb.size())
+        return;
+
+    editMField(VariableCrgbFieldMask, _mfVariableCrgb);
+
+    _mfVariableCrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableCrgb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableCrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableCrgbFieldMask, _mfVariableCrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableCrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableCrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableCrgb.size())
+    {
+        editMField(VariableCrgbFieldMask, _mfVariableCrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableCrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableCrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableCrgb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableCrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableCrgbFieldMask, _mfVariableCrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableCrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableCrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableCrgb(void)
+{
+    editMField(VariableCrgbFieldMask, _mfVariableCrgb);
+
+    _mfVariableCrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableDrgb(const GLenum& value)
+{
+    editMField(VariableDrgbFieldMask, _mfVariableDrgb);
+    _mfVariableDrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableDrgb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableDrgbFieldMask, _mfVariableDrgb);
+
+    MFGLenum::iterator fieldIt = _mfVariableDrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableDrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableDrgb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableDrgb.size())
+        return;
+
+    editMField(VariableDrgbFieldMask, _mfVariableDrgb);
+
+    _mfVariableDrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableDrgb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableDrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableDrgbFieldMask, _mfVariableDrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableDrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableDrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableDrgb.size())
+    {
+        editMField(VariableDrgbFieldMask, _mfVariableDrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableDrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableDrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableDrgb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableDrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableDrgbFieldMask, _mfVariableDrgb);
+
+        MFGLenum::iterator fieldIt = _mfVariableDrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableDrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableDrgb(void)
+{
+    editMField(VariableDrgbFieldMask, _mfVariableDrgb);
+
+    _mfVariableDrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableAalpha(const GLenum& value)
+{
+    editMField(VariableAalphaFieldMask, _mfVariableAalpha);
+    _mfVariableAalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableAalpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableAalphaFieldMask, _mfVariableAalpha);
+
+    MFGLenum::iterator fieldIt = _mfVariableAalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableAalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableAalpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableAalpha.size())
+        return;
+
+    editMField(VariableAalphaFieldMask, _mfVariableAalpha);
+
+    _mfVariableAalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableAalpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableAalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableAalphaFieldMask, _mfVariableAalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableAalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableAalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableAalpha.size())
+    {
+        editMField(VariableAalphaFieldMask, _mfVariableAalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableAalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableAalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableAalpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableAalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableAalphaFieldMask, _mfVariableAalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableAalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableAalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableAalpha(void)
+{
+    editMField(VariableAalphaFieldMask, _mfVariableAalpha);
+
+    _mfVariableAalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableBalpha(const GLenum& value)
+{
+    editMField(VariableBalphaFieldMask, _mfVariableBalpha);
+    _mfVariableBalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableBalpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableBalphaFieldMask, _mfVariableBalpha);
+
+    MFGLenum::iterator fieldIt = _mfVariableBalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableBalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableBalpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableBalpha.size())
+        return;
+
+    editMField(VariableBalphaFieldMask, _mfVariableBalpha);
+
+    _mfVariableBalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableBalpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableBalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableBalphaFieldMask, _mfVariableBalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableBalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableBalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableBalpha.size())
+    {
+        editMField(VariableBalphaFieldMask, _mfVariableBalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableBalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableBalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableBalpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableBalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableBalphaFieldMask, _mfVariableBalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableBalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableBalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableBalpha(void)
+{
+    editMField(VariableBalphaFieldMask, _mfVariableBalpha);
+
+    _mfVariableBalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableCalpha(const GLenum& value)
+{
+    editMField(VariableCalphaFieldMask, _mfVariableCalpha);
+    _mfVariableCalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableCalpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableCalphaFieldMask, _mfVariableCalpha);
+
+    MFGLenum::iterator fieldIt = _mfVariableCalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableCalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableCalpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableCalpha.size())
+        return;
+
+    editMField(VariableCalphaFieldMask, _mfVariableCalpha);
+
+    _mfVariableCalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableCalpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableCalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableCalphaFieldMask, _mfVariableCalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableCalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableCalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableCalpha.size())
+    {
+        editMField(VariableCalphaFieldMask, _mfVariableCalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableCalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableCalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableCalpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableCalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableCalphaFieldMask, _mfVariableCalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableCalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableCalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableCalpha(void)
+{
+    editMField(VariableCalphaFieldMask, _mfVariableCalpha);
+
+    _mfVariableCalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableDalpha(const GLenum& value)
+{
+    editMField(VariableDalphaFieldMask, _mfVariableDalpha);
+    _mfVariableDalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableDalpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableDalphaFieldMask, _mfVariableDalpha);
+
+    MFGLenum::iterator fieldIt = _mfVariableDalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableDalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableDalpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableDalpha.size())
+        return;
+
+    editMField(VariableDalphaFieldMask, _mfVariableDalpha);
+
+    _mfVariableDalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableDalpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableDalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableDalphaFieldMask, _mfVariableDalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableDalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableDalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableDalpha.size())
+    {
+        editMField(VariableDalphaFieldMask, _mfVariableDalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableDalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableDalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableDalpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableDalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableDalphaFieldMask, _mfVariableDalpha);
+
+        MFGLenum::iterator fieldIt = _mfVariableDalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableDalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableDalpha(void)
+{
+    editMField(VariableDalphaFieldMask, _mfVariableDalpha);
+
+    _mfVariableDalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToOutputABrgb(const GLenum& value)
+{
+    editMField(OutputABrgbFieldMask, _mfOutputABrgb);
+    _mfOutputABrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoOutputABrgb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(OutputABrgbFieldMask, _mfOutputABrgb);
+
+    MFGLenum::iterator fieldIt = _mfOutputABrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfOutputABrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInOutputABrgb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfOutputABrgb.size())
+        return;
+
+    editMField(OutputABrgbFieldMask, _mfOutputABrgb);
+
+    _mfOutputABrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInOutputABrgb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfOutputABrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(OutputABrgbFieldMask, _mfOutputABrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputABrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputABrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfOutputABrgb.size())
+    {
+        editMField(OutputABrgbFieldMask, _mfOutputABrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputABrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfOutputABrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputABrgb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfOutputABrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(OutputABrgbFieldMask, _mfOutputABrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputABrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfOutputABrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearOutputABrgb(void)
+{
+    editMField(OutputABrgbFieldMask, _mfOutputABrgb);
+
+    _mfOutputABrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToOutputCDrgb(const GLenum& value)
+{
+    editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
+    _mfOutputCDrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoOutputCDrgb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
+
+    MFGLenum::iterator fieldIt = _mfOutputCDrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfOutputCDrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInOutputCDrgb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfOutputCDrgb.size())
+        return;
+
+    editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
+
+    _mfOutputCDrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInOutputCDrgb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfOutputCDrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputCDrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputCDrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfOutputCDrgb.size())
+    {
+        editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputCDrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfOutputCDrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputCDrgb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfOutputCDrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputCDrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfOutputCDrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearOutputCDrgb(void)
+{
+    editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
+
+    _mfOutputCDrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToOutputSumrgb(const GLenum& value)
+{
+    editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
+    _mfOutputSumrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoOutputSumrgb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
+
+    MFGLenum::iterator fieldIt = _mfOutputSumrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfOutputSumrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInOutputSumrgb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfOutputSumrgb.size())
+        return;
+
+    editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
+
+    _mfOutputSumrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInOutputSumrgb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfOutputSumrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputSumrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputSumrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfOutputSumrgb.size())
+    {
+        editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputSumrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfOutputSumrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputSumrgb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfOutputSumrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
+
+        MFGLenum::iterator fieldIt = _mfOutputSumrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfOutputSumrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearOutputSumrgb(void)
+{
+    editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
+
+    _mfOutputSumrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToScalergb(const GLenum& value)
+{
+    editMField(ScalergbFieldMask, _mfScalergb);
+    _mfScalergb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoScalergb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(ScalergbFieldMask, _mfScalergb);
+
+    MFGLenum::iterator fieldIt = _mfScalergb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfScalergb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInScalergb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfScalergb.size())
+        return;
+
+    editMField(ScalergbFieldMask, _mfScalergb);
+
+    _mfScalergb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInScalergb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfScalergb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ScalergbFieldMask, _mfScalergb);
+
+        MFGLenum::iterator fieldIt = _mfScalergb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromScalergb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfScalergb.size())
+    {
+        editMField(ScalergbFieldMask, _mfScalergb);
+
+        MFGLenum::iterator fieldIt = _mfScalergb.begin();
+
+        fieldIt += uiIndex;
+        _mfScalergb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromScalergb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfScalergb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ScalergbFieldMask, _mfScalergb);
+
+        MFGLenum::iterator fieldIt = _mfScalergb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfScalergb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearScalergb(void)
+{
+    editMField(ScalergbFieldMask, _mfScalergb);
+
+    _mfScalergb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToBiasrgb(const GLenum& value)
+{
+    editMField(BiasrgbFieldMask, _mfBiasrgb);
+    _mfBiasrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoBiasrgb(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(BiasrgbFieldMask, _mfBiasrgb);
+
+    MFGLenum::iterator fieldIt = _mfBiasrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfBiasrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInBiasrgb(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfBiasrgb.size())
+        return;
+
+    editMField(BiasrgbFieldMask, _mfBiasrgb);
+
+    _mfBiasrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInBiasrgb(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfBiasrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(BiasrgbFieldMask, _mfBiasrgb);
+
+        MFGLenum::iterator fieldIt = _mfBiasrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromBiasrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfBiasrgb.size())
+    {
+        editMField(BiasrgbFieldMask, _mfBiasrgb);
+
+        MFGLenum::iterator fieldIt = _mfBiasrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfBiasrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromBiasrgb(const GLenum& value)
+{
+    Int32 iElemIdx = _mfBiasrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(BiasrgbFieldMask, _mfBiasrgb);
+
+        MFGLenum::iterator fieldIt = _mfBiasrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfBiasrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearBiasrgb(void)
+{
+    editMField(BiasrgbFieldMask, _mfBiasrgb);
+
+    _mfBiasrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToOutputABalpha(const GLenum& value)
+{
+    editMField(OutputABalphaFieldMask, _mfOutputABalpha);
+    _mfOutputABalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoOutputABalpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(OutputABalphaFieldMask, _mfOutputABalpha);
+
+    MFGLenum::iterator fieldIt = _mfOutputABalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfOutputABalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInOutputABalpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfOutputABalpha.size())
+        return;
+
+    editMField(OutputABalphaFieldMask, _mfOutputABalpha);
+
+    _mfOutputABalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInOutputABalpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfOutputABalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(OutputABalphaFieldMask, _mfOutputABalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputABalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputABalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfOutputABalpha.size())
+    {
+        editMField(OutputABalphaFieldMask, _mfOutputABalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputABalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfOutputABalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputABalpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfOutputABalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(OutputABalphaFieldMask, _mfOutputABalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputABalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfOutputABalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearOutputABalpha(void)
+{
+    editMField(OutputABalphaFieldMask, _mfOutputABalpha);
+
+    _mfOutputABalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToOutputCDalpha(const GLenum& value)
+{
+    editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
+    _mfOutputCDalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoOutputCDalpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
+
+    MFGLenum::iterator fieldIt = _mfOutputCDalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfOutputCDalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInOutputCDalpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfOutputCDalpha.size())
+        return;
+
+    editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
+
+    _mfOutputCDalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInOutputCDalpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfOutputCDalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputCDalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputCDalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfOutputCDalpha.size())
+    {
+        editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputCDalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfOutputCDalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputCDalpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfOutputCDalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputCDalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfOutputCDalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearOutputCDalpha(void)
+{
+    editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
+
+    _mfOutputCDalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToOutputSumalpha(const GLenum& value)
+{
+    editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
+    _mfOutputSumalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoOutputSumalpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
+
+    MFGLenum::iterator fieldIt = _mfOutputSumalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfOutputSumalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInOutputSumalpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfOutputSumalpha.size())
+        return;
+
+    editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
+
+    _mfOutputSumalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInOutputSumalpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfOutputSumalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputSumalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputSumalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfOutputSumalpha.size())
+    {
+        editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputSumalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfOutputSumalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromOutputSumalpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfOutputSumalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
+
+        MFGLenum::iterator fieldIt = _mfOutputSumalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfOutputSumalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearOutputSumalpha(void)
+{
+    editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
+
+    _mfOutputSumalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToDotABrgb(const UInt8& value)
+{
+    editMField(DotABrgbFieldMask, _mfDotABrgb);
+    _mfDotABrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoDotABrgb(UInt32                uiIndex,
+                                                   const UInt8& value   )
+{
+    editMField(DotABrgbFieldMask, _mfDotABrgb);
+
+    MFUInt8::iterator fieldIt = _mfDotABrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfDotABrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInDotABrgb(UInt32                uiIndex,
+                                                       const UInt8& value   )
+{
+    if(uiIndex >= _mfDotABrgb.size())
+        return;
+
+    editMField(DotABrgbFieldMask, _mfDotABrgb);
+
+    _mfDotABrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInDotABrgb(const UInt8& pOldElem,
+                                                        const UInt8& pNewElem)
+{
+    Int32  elemIdx = _mfDotABrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(DotABrgbFieldMask, _mfDotABrgb);
+
+        MFUInt8::iterator fieldIt = _mfDotABrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromDotABrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfDotABrgb.size())
+    {
+        editMField(DotABrgbFieldMask, _mfDotABrgb);
+
+        MFUInt8::iterator fieldIt = _mfDotABrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfDotABrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromDotABrgb(const UInt8& value)
+{
+    Int32 iElemIdx = _mfDotABrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(DotABrgbFieldMask, _mfDotABrgb);
+
+        MFUInt8::iterator fieldIt = _mfDotABrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfDotABrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearDotABrgb(void)
+{
+    editMField(DotABrgbFieldMask, _mfDotABrgb);
+
+    _mfDotABrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToDotCDrgb(const UInt8& value)
+{
+    editMField(DotCDrgbFieldMask, _mfDotCDrgb);
+    _mfDotCDrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoDotCDrgb(UInt32                uiIndex,
+                                                   const UInt8& value   )
+{
+    editMField(DotCDrgbFieldMask, _mfDotCDrgb);
+
+    MFUInt8::iterator fieldIt = _mfDotCDrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfDotCDrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInDotCDrgb(UInt32                uiIndex,
+                                                       const UInt8& value   )
+{
+    if(uiIndex >= _mfDotCDrgb.size())
+        return;
+
+    editMField(DotCDrgbFieldMask, _mfDotCDrgb);
+
+    _mfDotCDrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInDotCDrgb(const UInt8& pOldElem,
+                                                        const UInt8& pNewElem)
+{
+    Int32  elemIdx = _mfDotCDrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(DotCDrgbFieldMask, _mfDotCDrgb);
+
+        MFUInt8::iterator fieldIt = _mfDotCDrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromDotCDrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfDotCDrgb.size())
+    {
+        editMField(DotCDrgbFieldMask, _mfDotCDrgb);
+
+        MFUInt8::iterator fieldIt = _mfDotCDrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfDotCDrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromDotCDrgb(const UInt8& value)
+{
+    Int32 iElemIdx = _mfDotCDrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(DotCDrgbFieldMask, _mfDotCDrgb);
+
+        MFUInt8::iterator fieldIt = _mfDotCDrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfDotCDrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearDotCDrgb(void)
+{
+    editMField(DotCDrgbFieldMask, _mfDotCDrgb);
+
+    _mfDotCDrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToMuxSumrgb(const UInt8& value)
+{
+    editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
+    _mfMuxSumrgb.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoMuxSumrgb(UInt32                uiIndex,
+                                                   const UInt8& value   )
+{
+    editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
+
+    MFUInt8::iterator fieldIt = _mfMuxSumrgb.begin();
+
+    fieldIt += uiIndex;
+
+    _mfMuxSumrgb.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInMuxSumrgb(UInt32                uiIndex,
+                                                       const UInt8& value   )
+{
+    if(uiIndex >= _mfMuxSumrgb.size())
+        return;
+
+    editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
+
+    _mfMuxSumrgb[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInMuxSumrgb(const UInt8& pOldElem,
+                                                        const UInt8& pNewElem)
+{
+    Int32  elemIdx = _mfMuxSumrgb.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
+
+        MFUInt8::iterator fieldIt = _mfMuxSumrgb.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromMuxSumrgb(UInt32 uiIndex)
+{
+    if(uiIndex < _mfMuxSumrgb.size())
+    {
+        editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
+
+        MFUInt8::iterator fieldIt = _mfMuxSumrgb.begin();
+
+        fieldIt += uiIndex;
+        _mfMuxSumrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromMuxSumrgb(const UInt8& value)
+{
+    Int32 iElemIdx = _mfMuxSumrgb.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
+
+        MFUInt8::iterator fieldIt = _mfMuxSumrgb.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfMuxSumrgb.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearMuxSumrgb(void)
+{
+    editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
+
+    _mfMuxSumrgb.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToScalealpha(const GLenum& value)
+{
+    editMField(ScalealphaFieldMask, _mfScalealpha);
+    _mfScalealpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoScalealpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(ScalealphaFieldMask, _mfScalealpha);
+
+    MFGLenum::iterator fieldIt = _mfScalealpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfScalealpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInScalealpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfScalealpha.size())
+        return;
+
+    editMField(ScalealphaFieldMask, _mfScalealpha);
+
+    _mfScalealpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInScalealpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfScalealpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ScalealphaFieldMask, _mfScalealpha);
+
+        MFGLenum::iterator fieldIt = _mfScalealpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromScalealpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfScalealpha.size())
+    {
+        editMField(ScalealphaFieldMask, _mfScalealpha);
+
+        MFGLenum::iterator fieldIt = _mfScalealpha.begin();
+
+        fieldIt += uiIndex;
+        _mfScalealpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromScalealpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfScalealpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ScalealphaFieldMask, _mfScalealpha);
+
+        MFGLenum::iterator fieldIt = _mfScalealpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfScalealpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearScalealpha(void)
+{
+    editMField(ScalealphaFieldMask, _mfScalealpha);
+
+    _mfScalealpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToBiasalpha(const GLenum& value)
+{
+    editMField(BiasalphaFieldMask, _mfBiasalpha);
+    _mfBiasalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoBiasalpha(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(BiasalphaFieldMask, _mfBiasalpha);
+
+    MFGLenum::iterator fieldIt = _mfBiasalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfBiasalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInBiasalpha(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfBiasalpha.size())
+        return;
+
+    editMField(BiasalphaFieldMask, _mfBiasalpha);
+
+    _mfBiasalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInBiasalpha(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfBiasalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(BiasalphaFieldMask, _mfBiasalpha);
+
+        MFGLenum::iterator fieldIt = _mfBiasalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromBiasalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfBiasalpha.size())
+    {
+        editMField(BiasalphaFieldMask, _mfBiasalpha);
+
+        MFGLenum::iterator fieldIt = _mfBiasalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfBiasalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromBiasalpha(const GLenum& value)
+{
+    Int32 iElemIdx = _mfBiasalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(BiasalphaFieldMask, _mfBiasalpha);
+
+        MFGLenum::iterator fieldIt = _mfBiasalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfBiasalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearBiasalpha(void)
+{
+    editMField(BiasalphaFieldMask, _mfBiasalpha);
+
+    _mfBiasalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToMuxSumalpha(const UInt8& value)
+{
+    editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
+    _mfMuxSumalpha.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoMuxSumalpha(UInt32                uiIndex,
+                                                   const UInt8& value   )
+{
+    editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
+
+    MFUInt8::iterator fieldIt = _mfMuxSumalpha.begin();
+
+    fieldIt += uiIndex;
+
+    _mfMuxSumalpha.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInMuxSumalpha(UInt32                uiIndex,
+                                                       const UInt8& value   )
+{
+    if(uiIndex >= _mfMuxSumalpha.size())
+        return;
+
+    editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
+
+    _mfMuxSumalpha[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInMuxSumalpha(const UInt8& pOldElem,
+                                                        const UInt8& pNewElem)
+{
+    Int32  elemIdx = _mfMuxSumalpha.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
+
+        MFUInt8::iterator fieldIt = _mfMuxSumalpha.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromMuxSumalpha(UInt32 uiIndex)
+{
+    if(uiIndex < _mfMuxSumalpha.size())
+    {
+        editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
+
+        MFUInt8::iterator fieldIt = _mfMuxSumalpha.begin();
+
+        fieldIt += uiIndex;
+        _mfMuxSumalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromMuxSumalpha(const UInt8& value)
+{
+    Int32 iElemIdx = _mfMuxSumalpha.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
+
+        MFUInt8::iterator fieldIt = _mfMuxSumalpha.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfMuxSumalpha.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearMuxSumalpha(void)
+{
+    editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
+
+    _mfMuxSumalpha.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableE(const GLenum& value)
+{
+    editMField(VariableEFieldMask, _mfVariableE);
+    _mfVariableE.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableE(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableEFieldMask, _mfVariableE);
+
+    MFGLenum::iterator fieldIt = _mfVariableE.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableE.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableE(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableE.size())
+        return;
+
+    editMField(VariableEFieldMask, _mfVariableE);
+
+    _mfVariableE[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableE(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableE.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableEFieldMask, _mfVariableE);
+
+        MFGLenum::iterator fieldIt = _mfVariableE.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableE(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableE.size())
+    {
+        editMField(VariableEFieldMask, _mfVariableE);
+
+        MFGLenum::iterator fieldIt = _mfVariableE.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableE.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableE(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableE.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableEFieldMask, _mfVariableE);
+
+        MFGLenum::iterator fieldIt = _mfVariableE.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableE.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableE(void)
+{
+    editMField(VariableEFieldMask, _mfVariableE);
+
+    _mfVariableE.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableF(const GLenum& value)
+{
+    editMField(VariableFFieldMask, _mfVariableF);
+    _mfVariableF.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableF(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableFFieldMask, _mfVariableF);
+
+    MFGLenum::iterator fieldIt = _mfVariableF.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableF.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableF(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableF.size())
+        return;
+
+    editMField(VariableFFieldMask, _mfVariableF);
+
+    _mfVariableF[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableF(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableF.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableFFieldMask, _mfVariableF);
+
+        MFGLenum::iterator fieldIt = _mfVariableF.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableF(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableF.size())
+    {
+        editMField(VariableFFieldMask, _mfVariableF);
+
+        MFGLenum::iterator fieldIt = _mfVariableF.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableF.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableF(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableF.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableFFieldMask, _mfVariableF);
+
+        MFGLenum::iterator fieldIt = _mfVariableF.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableF.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableF(void)
+{
+    editMField(VariableFFieldMask, _mfVariableF);
+
+    _mfVariableF.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToVariableG(const GLenum& value)
+{
+    editMField(VariableGFieldMask, _mfVariableG);
+    _mfVariableG.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoVariableG(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(VariableGFieldMask, _mfVariableG);
+
+    MFGLenum::iterator fieldIt = _mfVariableG.begin();
+
+    fieldIt += uiIndex;
+
+    _mfVariableG.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInVariableG(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfVariableG.size())
+        return;
+
+    editMField(VariableGFieldMask, _mfVariableG);
+
+    _mfVariableG[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInVariableG(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfVariableG.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(VariableGFieldMask, _mfVariableG);
+
+        MFGLenum::iterator fieldIt = _mfVariableG.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableG(UInt32 uiIndex)
+{
+    if(uiIndex < _mfVariableG.size())
+    {
+        editMField(VariableGFieldMask, _mfVariableG);
+
+        MFGLenum::iterator fieldIt = _mfVariableG.begin();
+
+        fieldIt += uiIndex;
+        _mfVariableG.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromVariableG(const GLenum& value)
+{
+    Int32 iElemIdx = _mfVariableG.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(VariableGFieldMask, _mfVariableG);
+
+        MFGLenum::iterator fieldIt = _mfVariableG.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfVariableG.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearVariableG(void)
+{
+    editMField(VariableGFieldMask, _mfVariableG);
+
+    _mfVariableG.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToCombinerColor0(const Color4f& value)
+{
+    editMField(CombinerColor0FieldMask, _mfCombinerColor0);
+    _mfCombinerColor0.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoCombinerColor0(UInt32                uiIndex,
+                                                   const Color4f& value   )
+{
+    editMField(CombinerColor0FieldMask, _mfCombinerColor0);
+
+    MFColor4f::iterator fieldIt = _mfCombinerColor0.begin();
+
+    fieldIt += uiIndex;
+
+    _mfCombinerColor0.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInCombinerColor0(UInt32                uiIndex,
+                                                       const Color4f& value   )
+{
+    if(uiIndex >= _mfCombinerColor0.size())
+        return;
+
+    editMField(CombinerColor0FieldMask, _mfCombinerColor0);
+
+    _mfCombinerColor0[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInCombinerColor0(const Color4f& pOldElem,
+                                                        const Color4f& pNewElem)
+{
+    Int32  elemIdx = _mfCombinerColor0.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(CombinerColor0FieldMask, _mfCombinerColor0);
+
+        MFColor4f::iterator fieldIt = _mfCombinerColor0.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromCombinerColor0(UInt32 uiIndex)
+{
+    if(uiIndex < _mfCombinerColor0.size())
+    {
+        editMField(CombinerColor0FieldMask, _mfCombinerColor0);
+
+        MFColor4f::iterator fieldIt = _mfCombinerColor0.begin();
+
+        fieldIt += uiIndex;
+        _mfCombinerColor0.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromCombinerColor0(const Color4f& value)
+{
+    Int32 iElemIdx = _mfCombinerColor0.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(CombinerColor0FieldMask, _mfCombinerColor0);
+
+        MFColor4f::iterator fieldIt = _mfCombinerColor0.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfCombinerColor0.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearCombinerColor0(void)
+{
+    editMField(CombinerColor0FieldMask, _mfCombinerColor0);
+
+    _mfCombinerColor0.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void RegisterCombinersChunkBase::pushToCombinerColor1(const Color4f& value)
+{
+    editMField(CombinerColor1FieldMask, _mfCombinerColor1);
+    _mfCombinerColor1.push_back(value);
+}
+
+void RegisterCombinersChunkBase::insertIntoCombinerColor1(UInt32                uiIndex,
+                                                   const Color4f& value   )
+{
+    editMField(CombinerColor1FieldMask, _mfCombinerColor1);
+
+    MFColor4f::iterator fieldIt = _mfCombinerColor1.begin();
+
+    fieldIt += uiIndex;
+
+    _mfCombinerColor1.insert(fieldIt, value);
+}
+
+void RegisterCombinersChunkBase::replaceInCombinerColor1(UInt32                uiIndex,
+                                                       const Color4f& value   )
+{
+    if(uiIndex >= _mfCombinerColor1.size())
+        return;
+
+    editMField(CombinerColor1FieldMask, _mfCombinerColor1);
+
+    _mfCombinerColor1[uiIndex] = value;
+}
+
+void RegisterCombinersChunkBase::replaceInCombinerColor1(const Color4f& pOldElem,
+                                                        const Color4f& pNewElem)
+{
+    Int32  elemIdx = _mfCombinerColor1.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(CombinerColor1FieldMask, _mfCombinerColor1);
+
+        MFColor4f::iterator fieldIt = _mfCombinerColor1.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromCombinerColor1(UInt32 uiIndex)
+{
+    if(uiIndex < _mfCombinerColor1.size())
+    {
+        editMField(CombinerColor1FieldMask, _mfCombinerColor1);
+
+        MFColor4f::iterator fieldIt = _mfCombinerColor1.begin();
+
+        fieldIt += uiIndex;
+        _mfCombinerColor1.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::removeFromCombinerColor1(const Color4f& value)
+{
+    Int32 iElemIdx = _mfCombinerColor1.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(CombinerColor1FieldMask, _mfCombinerColor1);
+
+        MFColor4f::iterator fieldIt = _mfCombinerColor1.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfCombinerColor1.erase(fieldIt);
+    }
+}
+
+void RegisterCombinersChunkBase::clearCombinerColor1(void)
+{
+    editMField(CombinerColor1FieldMask, _mfCombinerColor1);
+
+    _mfCombinerColor1.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

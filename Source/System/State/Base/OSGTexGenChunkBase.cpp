@@ -86,14 +86,14 @@ OSG_BEGIN_NAMESPACE
 
     Chunk for texture coordinate generation functions.
 
-    This chunk wraps glTexGen(). All 4 coordinates are wrapped in a single
-    chunk by using separate gen funcs for each variable
-    (OSG::TexGenChunk::_sfGenFuncS,  OSG::TexGenChunk::_sfGenFuncT,
-    OSG::TexGenChunk::_sfGenFuncR,  OSG::TexGenChunk::_sfGenFuncQ). The
-    default for each of these is GL_NONE, or off. The optional plane
-    parameters are stored in OSG::TexGenChunk::_sfGenFuncSPlane,
-    OSG::TexGenChunk::_sfGenFuncTPlane, OSG::TexGenChunk::_sfGenFuncRPlane
-    and OSG::TexGenChunk::_sfGenFuncQPlane.
+    This chunk wraps glTexGen(). All 4 coordinates are wrapped in a single chunk
+    by using separate gen funcs for each variable (OSG::TexGenChunk::_sfGenFuncS, 
+    OSG::TexGenChunk::_sfGenFuncT, OSG::TexGenChunk::_sfGenFuncR, 
+    OSG::TexGenChunk::_sfGenFuncQ). The default for each of these is GL_NONE, or
+    off. The optional plane parameters are stored in
+    OSG::TexGenChunk::_sfGenFuncSPlane, 
+    OSG::TexGenChunk::_sfGenFuncTPlane, OSG::TexGenChunk::_sfGenFuncRPlane and
+    OSG::TexGenChunk::_sfGenFuncQPlane.
  */
 
 /***************************************************************************\
@@ -103,39 +103,51 @@ OSG_BEGIN_NAMESPACE
 /*! \var GLenum          TexGenChunkBase::_sfGenFuncS
     
 */
+
 /*! \var GLenum          TexGenChunkBase::_sfGenFuncT
     
 */
+
 /*! \var GLenum          TexGenChunkBase::_sfGenFuncR
     
 */
+
 /*! \var GLenum          TexGenChunkBase::_sfGenFuncQ
     
 */
+
 /*! \var Vec4f           TexGenChunkBase::_sfGenFuncSPlane
     
 */
+
 /*! \var Vec4f           TexGenChunkBase::_sfGenFuncTPlane
     
 */
+
 /*! \var Vec4f           TexGenChunkBase::_sfGenFuncRPlane
     
 */
+
 /*! \var Vec4f           TexGenChunkBase::_sfGenFuncQPlane
     
 */
+
 /*! \var NodePtr         TexGenChunkBase::_sfSBeacon
     
 */
+
 /*! \var NodePtr         TexGenChunkBase::_sfTBeacon
     
 */
+
 /*! \var NodePtr         TexGenChunkBase::_sfRBeacon
     
 */
+
 /*! \var NodePtr         TexGenChunkBase::_sfQBeacon
     
 */
+
 
 void TexGenChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -514,8 +526,11 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemTexGenChunk for a description.\n"
+    "\n"
     "Chunk for texture coordinate generation functions.\n"
+    "\n"
     "This chunk wraps glTexGen(). All 4 coordinates are wrapped in a single chunk\n"
     "by using separate gen funcs for each variable (OSG::TexGenChunk::_sfGenFuncS, \n"
     "OSG::TexGenChunk::_sfGenFuncT, OSG::TexGenChunk::_sfGenFuncR, \n"

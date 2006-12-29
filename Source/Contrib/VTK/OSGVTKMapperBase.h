@@ -271,7 +271,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void clearGeoRoots              (void                          );
 
 
-
     void pushToGeometries           (GeometryPtrConstArg value   );
     void insertIntoGeometries      (UInt32                uiIndex,
                                              GeometryPtrConstArg value   );
@@ -282,7 +281,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void removeFromGeometries (UInt32                uiIndex );
     void removeFromGeometries(GeometryPtrConstArg value   );
     void clearGeometries            (void                          );
-
 
 
     void pushToMaterials           (ChunkMaterialPtrConstArg value   );
@@ -297,7 +295,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void clearMaterials             (void                          );
 
 
-
     void pushToMaterialChunks           (MaterialChunkPtrConstArg value   );
     void insertIntoMaterialChunks      (UInt32                uiIndex,
                                              MaterialChunkPtrConstArg value   );
@@ -308,7 +305,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void removeFromMaterialChunks (UInt32                uiIndex );
     void removeFromMaterialChunks(MaterialChunkPtrConstArg value   );
     void clearMaterialChunks            (void                          );
-
 
 
     void pushToPositions           (GeoPnt3fPropertyPtrConstArg value   );
@@ -323,7 +319,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void clearPositions             (void                          );
 
 
-
     void pushToLength              (GeoUInt32PropertyPtrConstArg value   );
     void insertIntoLength      (UInt32                uiIndex,
                                              GeoUInt32PropertyPtrConstArg value   );
@@ -334,7 +329,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void removeFromLength (UInt32                uiIndex );
     void removeFromLength(GeoUInt32PropertyPtrConstArg value   );
     void clearLength                (void                          );
-
 
 
     void pushToTypes               (GeoUInt8PropertyPtrConstArg value   );
@@ -349,7 +343,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void clearTypes                 (void                          );
 
 
-
     void pushToColors              (GeoColor4fPropertyPtrConstArg value   );
     void insertIntoColors      (UInt32                uiIndex,
                                              GeoColor4fPropertyPtrConstArg value   );
@@ -362,7 +355,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void clearColors                (void                          );
 
 
-
     void pushToNormals             (GeoVec3fPropertyPtrConstArg value   );
     void insertIntoNormals      (UInt32                uiIndex,
                                              GeoVec3fPropertyPtrConstArg value   );
@@ -373,7 +365,6 @@ class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
     void removeFromNormals (UInt32                uiIndex );
     void removeFromNormals(GeoVec3fPropertyPtrConstArg value   );
     void clearNormals               (void                          );
-
 
 
     /*! \}                                                                 */

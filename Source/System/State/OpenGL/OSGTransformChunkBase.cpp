@@ -87,6 +87,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
 void TransformChunkBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
@@ -150,7 +151,9 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemTransformChunk for a description.\n"
+    "\n"
     "This chunk wraps glMultMatrix() for the GL_MODELVIEW matrix mode.\n"
     );
 
@@ -192,6 +195,8 @@ SFMatrix            *TransformChunkBase::getSFMatrix         (void)
     return this->editSFMatrix         ();
 }
 #endif
+
+
 
 
 

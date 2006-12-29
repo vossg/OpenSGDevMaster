@@ -215,6 +215,10 @@ class OSG_STATE_DLLMAPPING ColorMaskChunkBase : public StateChunk
             void setMaskA          (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

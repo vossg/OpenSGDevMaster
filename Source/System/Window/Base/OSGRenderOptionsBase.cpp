@@ -83,54 +83,71 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            RenderOptionsBase::_sfStatistic
     
 */
+
 /*! \var GLenum          RenderOptionsBase::_sfPolygonMode
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfTwoSidedLighting
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfSpecTexLighting
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfSortTrans
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfZWriteTrans
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfLocalLights
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfCorrectTwoSidedLighting
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfOcclusionCulling
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfAntialiasing
     
 */
+
 /*! \var Real32          RenderOptionsBase::_sfAntialiasingDistance
     
 */
+
 /*! \var Real32          RenderOptionsBase::_sfAntialiasingScale
     
 */
+
 /*! \var UInt32          RenderOptionsBase::_sfAntialiasingTrigger
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfBackfaceCulling
     
 */
+
 /*! \var bool            RenderOptionsBase::_sfSmallFeatureCulling
     
 */
+
 /*! \var Real32          RenderOptionsBase::_sfSmallFeaturePixels
     
 */
+
 /*! \var UInt32          RenderOptionsBase::_sfSmallFeatureThreshold
     
 */
+
 
 void RenderOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -1032,6 +1049,8 @@ SFUInt32            *RenderOptionsBase::getSFSmallFeatureThreshold(void)
     return this->editSFSmallFeatureThreshold();
 }
 #endif
+
+
 
 
 

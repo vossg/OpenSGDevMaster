@@ -72,9 +72,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StringAttributeMap
-    An attachment that stores a string-to-string mapping of keys to
-    values. User code can store any key and value pair and interpret the
-    string value in whatever ways are appropriate.
+    An attachment that stores a string-to-string mapping of keys to values.
+    User code can store any key and value pair and interpret the string value in
+    whatever ways are appropriate.
  */
 
 /***************************************************************************\
@@ -84,9 +84,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var std::string     StringAttributeMapBase::_mfKeys
     
 */
+
 /*! \var std::string     StringAttributeMapBase::_mfValues
     
 */
+
 
 void StringAttributeMapBase::classDescInserter(TypeObject &oType)
 {
@@ -244,6 +246,172 @@ MFString            *StringAttributeMapBase::getMFValues         (void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void StringAttributeMapBase::pushToKeys(const std::string& value)
+{
+    editMField(KeysFieldMask, _mfKeys);
+    _mfKeys.push_back(value);
+}
+
+void StringAttributeMapBase::insertIntoKeys(UInt32                uiIndex,
+                                                   const std::string& value   )
+{
+    editMField(KeysFieldMask, _mfKeys);
+
+    MFString::iterator fieldIt = _mfKeys.begin();
+
+    fieldIt += uiIndex;
+
+    _mfKeys.insert(fieldIt, value);
+}
+
+void StringAttributeMapBase::replaceInKeys(UInt32                uiIndex,
+                                                       const std::string& value   )
+{
+    if(uiIndex >= _mfKeys.size())
+        return;
+
+    editMField(KeysFieldMask, _mfKeys);
+
+    _mfKeys[uiIndex] = value;
+}
+
+void StringAttributeMapBase::replaceInKeys(const std::string& pOldElem,
+                                                        const std::string& pNewElem)
+{
+    Int32  elemIdx = _mfKeys.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(KeysFieldMask, _mfKeys);
+
+        MFString::iterator fieldIt = _mfKeys.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void StringAttributeMapBase::removeFromKeys(UInt32 uiIndex)
+{
+    if(uiIndex < _mfKeys.size())
+    {
+        editMField(KeysFieldMask, _mfKeys);
+
+        MFString::iterator fieldIt = _mfKeys.begin();
+
+        fieldIt += uiIndex;
+        _mfKeys.erase(fieldIt);
+    }
+}
+
+void StringAttributeMapBase::removeFromKeys(const std::string& value)
+{
+    Int32 iElemIdx = _mfKeys.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(KeysFieldMask, _mfKeys);
+
+        MFString::iterator fieldIt = _mfKeys.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfKeys.erase(fieldIt);
+    }
+}
+
+void StringAttributeMapBase::clearKeys(void)
+{
+    editMField(KeysFieldMask, _mfKeys);
+
+    _mfKeys.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void StringAttributeMapBase::pushToValues(const std::string& value)
+{
+    editMField(ValuesFieldMask, _mfValues);
+    _mfValues.push_back(value);
+}
+
+void StringAttributeMapBase::insertIntoValues(UInt32                uiIndex,
+                                                   const std::string& value   )
+{
+    editMField(ValuesFieldMask, _mfValues);
+
+    MFString::iterator fieldIt = _mfValues.begin();
+
+    fieldIt += uiIndex;
+
+    _mfValues.insert(fieldIt, value);
+}
+
+void StringAttributeMapBase::replaceInValues(UInt32                uiIndex,
+                                                       const std::string& value   )
+{
+    if(uiIndex >= _mfValues.size())
+        return;
+
+    editMField(ValuesFieldMask, _mfValues);
+
+    _mfValues[uiIndex] = value;
+}
+
+void StringAttributeMapBase::replaceInValues(const std::string& pOldElem,
+                                                        const std::string& pNewElem)
+{
+    Int32  elemIdx = _mfValues.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ValuesFieldMask, _mfValues);
+
+        MFString::iterator fieldIt = _mfValues.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void StringAttributeMapBase::removeFromValues(UInt32 uiIndex)
+{
+    if(uiIndex < _mfValues.size())
+    {
+        editMField(ValuesFieldMask, _mfValues);
+
+        MFString::iterator fieldIt = _mfValues.begin();
+
+        fieldIt += uiIndex;
+        _mfValues.erase(fieldIt);
+    }
+}
+
+void StringAttributeMapBase::removeFromValues(const std::string& value)
+{
+    Int32 iElemIdx = _mfValues.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ValuesFieldMask, _mfValues);
+
+        MFString::iterator fieldIt = _mfValues.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfValues.erase(fieldIt);
+    }
+}
+
+void StringAttributeMapBase::clearValues(void)
+{
+    editMField(ValuesFieldMask, _mfValues);
+
+    _mfValues.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

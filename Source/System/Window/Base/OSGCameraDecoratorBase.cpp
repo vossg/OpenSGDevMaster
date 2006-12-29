@@ -75,8 +75,7 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::CameraDecorator
     \ingroup GrpSystemWindowCameras
 
-    The Camera base class, see \ref PageSystemWindowCamera for a
-    description.
+    The Camera base class, see \ref PageSystemWindowCamera for a description.
 
     The only common fields are _sfNear and _sfFar.
  */
@@ -160,7 +159,9 @@ CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameras\n"
+    "\n"
     "The Camera base class, see \\ref PageSystemWindowCamera for a description.\n"
+    "\n"
     "The only common fields are _sfNear and _sfFar.\n"
     );
 

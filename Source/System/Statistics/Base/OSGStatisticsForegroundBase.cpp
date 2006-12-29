@@ -75,18 +75,17 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpSystemWindowForegrounds
 
     StatisticsForeground is the base class for all foregrounds that process
-    statistics.  Decendents of this class can be used to print or draw
-    Statistics elements on the rendered image.
+    statistics.  Decendents of this class can be used to print or draw Statistics
+    elements on the rendered image.
 
     The OSG::StatCollector that is used to collect the elements needs to be
     attached to the foreground in the _sfCollection field and the list of
-    OSG::StatElemDesc IDs that should be displayed need to be selected with
-    the _mfElementIDs field.
+    OSG::StatElemDesc IDs that should be displayed need to be selected with the
+    _mfElementIDs field.
 
-    Statistics presentation is done as a foreground so it can be drawn on
-    top of a currently rendering scene.  This does not mean you could not
-    collect statistics directly and present them to the user in another way
-    such as a GUI or text output.
+    Statistics presentation is done as a foreground so it can be drawn on top of a
+    currently rendering scene.  This does not mean you could not collect statistics
+    directly and present them to the user in another way such as a GUI or text output.
 
     See \ref PageSystemWindowForegroundStatistics for a description.
  */
@@ -98,9 +97,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var Int32           StatisticsForegroundBase::_mfElementIDs
     The StatElemDesc IDs to use. If not set, use all in the descriptor.
 */
+
 /*! \var StatCollector   StatisticsForegroundBase::_sfCollector
     The OSG::StatCollector that keeps the displayed statistics.
 */
+
 
 void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -210,16 +211,20 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
     "StatisticsForeground is the base class for all foregrounds that process\n"
     "statistics.  Decendents of this class can be used to print or draw Statistics\n"
     "elements on the rendered image.\n"
+    "\n"
     "The OSG::StatCollector that is used to collect the elements needs to be\n"
     "attached to the foreground in the _sfCollection field and the list of\n"
     "OSG::StatElemDesc IDs that should be displayed need to be selected with the\n"
     "_mfElementIDs field.\n"
+    "\n"
     "Statistics presentation is done as a foreground so it can be drawn on top of a\n"
     "currently rendering scene.  This does not mean you could not collect statistics\n"
     "directly and present them to the user in another way such as a GUI or text output.\n"
+    "\n"
     "See \\ref PageSystemWindowForegroundStatistics for a description.\n"
     );
 
@@ -281,6 +286,90 @@ SFStatCollector     *StatisticsForegroundBase::getSFCollector      (void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void StatisticsForegroundBase::pushToElementIDs(const Int32& value)
+{
+    editMField(ElementIDsFieldMask, _mfElementIDs);
+    _mfElementIDs.push_back(value);
+}
+
+void StatisticsForegroundBase::insertIntoElementIDs(UInt32                uiIndex,
+                                                   const Int32& value   )
+{
+    editMField(ElementIDsFieldMask, _mfElementIDs);
+
+    MFInt32::iterator fieldIt = _mfElementIDs.begin();
+
+    fieldIt += uiIndex;
+
+    _mfElementIDs.insert(fieldIt, value);
+}
+
+void StatisticsForegroundBase::replaceInElementIDs(UInt32                uiIndex,
+                                                       const Int32& value   )
+{
+    if(uiIndex >= _mfElementIDs.size())
+        return;
+
+    editMField(ElementIDsFieldMask, _mfElementIDs);
+
+    _mfElementIDs[uiIndex] = value;
+}
+
+void StatisticsForegroundBase::replaceInElementIDs(const Int32& pOldElem,
+                                                        const Int32& pNewElem)
+{
+    Int32  elemIdx = _mfElementIDs.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ElementIDsFieldMask, _mfElementIDs);
+
+        MFInt32::iterator fieldIt = _mfElementIDs.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void StatisticsForegroundBase::removeFromElementIDs(UInt32 uiIndex)
+{
+    if(uiIndex < _mfElementIDs.size())
+    {
+        editMField(ElementIDsFieldMask, _mfElementIDs);
+
+        MFInt32::iterator fieldIt = _mfElementIDs.begin();
+
+        fieldIt += uiIndex;
+        _mfElementIDs.erase(fieldIt);
+    }
+}
+
+void StatisticsForegroundBase::removeFromElementIDs(const Int32& value)
+{
+    Int32 iElemIdx = _mfElementIDs.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ElementIDsFieldMask, _mfElementIDs);
+
+        MFInt32::iterator fieldIt = _mfElementIDs.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfElementIDs.erase(fieldIt);
+    }
+}
+
+void StatisticsForegroundBase::clearElementIDs(void)
+{
+    editMField(ElementIDsFieldMask, _mfElementIDs);
+
+    _mfElementIDs.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

@@ -101,96 +101,121 @@ OSG_BEGIN_NAMESPACE
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvMode
     Texture environment mode, default GL_REPLACE.
 */
+
 /*! \var Color4f         TextureEnvChunkBase::_sfEnvColor
     Texture environment color default transparent black.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvCombineRGB
     Texture environment rgb combine mode, default GL_MODULATE.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvCombineAlpha
     Texture environment alpha combine mode, default GL_MODULATE.
 */
+
 /*! \var Real32          TextureEnvChunkBase::_sfEnvScaleRGB
     Texture environment combine rgb scale factor, default 1.f.
 */
+
 /*! \var Real32          TextureEnvChunkBase::_sfEnvScaleAlpha
     Texture environment combine alpha scale factor, default 1.f.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvSource0RGB
     Texture environment combine source 0 rgb, default GL_TEXTURE.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvSource1RGB
     Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvSource2RGB
     Texture environment combine source 2 rgb, default GL_CONSTANT_EXT.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvSource0Alpha
     Texture environment combine source 0 alpha, default GL_TEXTURE.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvSource1Alpha
     Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvSource2Alpha
     Texture environment combine source 2 alpha, default GL_CONSTANT_EXT.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand0RGB
     Texture environment combine operand 0 rgb, default GL_SRC_COLOR.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand1RGB
     Texture environment combine operand 1 rgb, default GL_SRC_COLOR.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand2RGB
     Texture environment combine operand 2 rgb, default GL_SRC_ALPHA.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand0Alpha
     Texture environment combine operand 0 alpha, default GL_SRC_ALPHA.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand1Alpha
     Texture environment combine operand 1 alpha, default GL_SRC_ALPHA.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvOperand2Alpha
     Texture environment combine operand 2 alpha, default GL_SRC_ALPHA.
 */
+
 /*! \var bool            TextureEnvChunkBase::_sfPointSprite
     Flag to use this texture for Point Sprites.
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfShaderOperation
     Shader operation of this texture unit, default GL_NONE. If unit 0 uses
     GL_NONE, shading is switched off. (GL_SHADER_OPERATION_NV).
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfShaderInput
     Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)
 */
+
 /*! \var Real32          TextureEnvChunkBase::_mfShaderOffsetMatrix
-    The 2x2 transformation matrix for offset textures.
-    (GL_OFFSET_TEXTURE_MATRIX_NV)
+    The 2x2 transformation matrix for offset textures. (GL_OFFSET_TEXTURE_MATRIX_NV)
 */
+
 /*! \var Real32          TextureEnvChunkBase::_sfShaderOffsetScale
-    The scaling factor for scaled offset textures.
-    (GL_OFFSET_TEXTURE_SCALE_NV)
+    The scaling factor for scaled offset textures. (GL_OFFSET_TEXTURE_SCALE_NV)
 */
+
 /*! \var Real32          TextureEnvChunkBase::_sfShaderOffsetBias
-    The bias factor for scaled offset textures.
-    (GL_OFFSET_TEXTURE_BIAS_NV)
+    The bias factor for scaled offset textures. (GL_OFFSET_TEXTURE_BIAS_NV)
 */
+
 /*! \var GLenum          TextureEnvChunkBase::_sfShaderRGBADotProduct
     The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.
 */
+
 /*! \var UInt8           TextureEnvChunkBase::_sfShaderCullModes
     The CULL_MODES_NV value, coded into a single byte. The first 4 bits of
-    the byte are used to indicate the wnated cull modes, a value of 0
-    signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for
-    the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4
+    the byte are used to indicate the wnated cull modes, a value of 0 
+    signifies GL_LESS, a value of 1 GL_GEQUAL. Bit 0 (mask 1) is used for 
+    the S coordinate, bit 1 (mask 2) for T, bit 2 (mask 4) for R and bit 4 
     (mask 8) for Q.
 */
+
 /*! \var Vec3f           TextureEnvChunkBase::_sfShaderConstEye
-    The CONST_EYE_NV value, i.e. the constant eye position used by the
+    The CONST_EYE_NV value, i.e. the constant eye position used by the 
     DOT_PRODUCT_CONST_EYE_REFLECT_CUBE_MAP_NV shader.
 */
+
 /*! \var Real32          TextureEnvChunkBase::_sfLodBias
     Bias of LOD calculation for texture access.
 */
+
 
 void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1707,6 +1732,90 @@ SFReal32            *TextureEnvChunkBase::getSFLodBias        (void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void TextureEnvChunkBase::pushToShaderOffsetMatrix(const Real32& value)
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+    _mfShaderOffsetMatrix.push_back(value);
+}
+
+void TextureEnvChunkBase::insertIntoShaderOffsetMatrix(UInt32                uiIndex,
+                                                   const Real32& value   )
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+    fieldIt += uiIndex;
+
+    _mfShaderOffsetMatrix.insert(fieldIt, value);
+}
+
+void TextureEnvChunkBase::replaceInShaderOffsetMatrix(UInt32                uiIndex,
+                                                       const Real32& value   )
+{
+    if(uiIndex >= _mfShaderOffsetMatrix.size())
+        return;
+
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    _mfShaderOffsetMatrix[uiIndex] = value;
+}
+
+void TextureEnvChunkBase::replaceInShaderOffsetMatrix(const Real32& pOldElem,
+                                                        const Real32& pNewElem)
+{
+    Int32  elemIdx = _mfShaderOffsetMatrix.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void TextureEnvChunkBase::removeFromShaderOffsetMatrix(UInt32 uiIndex)
+{
+    if(uiIndex < _mfShaderOffsetMatrix.size())
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += uiIndex;
+        _mfShaderOffsetMatrix.erase(fieldIt);
+    }
+}
+
+void TextureEnvChunkBase::removeFromShaderOffsetMatrix(const Real32& value)
+{
+    Int32 iElemIdx = _mfShaderOffsetMatrix.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+        MFReal32::iterator fieldIt = _mfShaderOffsetMatrix.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfShaderOffsetMatrix.erase(fieldIt);
+    }
+}
+
+void TextureEnvChunkBase::clearShaderOffsetMatrix(void)
+{
+    editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
+
+    _mfShaderOffsetMatrix.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

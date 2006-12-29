@@ -83,12 +83,15 @@ OSG_BEGIN_NAMESPACE
 /*! \var AlgorithmPtr    AlgorithmStageBase::_sfAlgorithm
     
 */
+
 /*! \var UInt32          AlgorithmStageBase::_sfProjectionMode
     
 */
+
 /*! \var Matrix          AlgorithmStageBase::_sfProjectionMatrix
     
 */
+
 
 void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 {

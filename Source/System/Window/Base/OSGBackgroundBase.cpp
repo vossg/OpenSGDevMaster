@@ -74,14 +74,14 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::Background
     \ingroup GrpSystemWindowBackgrounds
 
-    Background is the base class for all background/buffer clearing.  See
-    \ref PageSystemWindowBackground for a description.
+    Background is the base class for all background/buffer clearing.  See \ref
+    PageSystemWindowBackground for a description.
 
     \ext
 
     To create a new Background the method that has be overridden is
-    clear(DrawActionBase * action, Viewport * port);. It can directly call
-    OpenGL commands, but should restore the state after it's done.
+    clear(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
+    commands, but should restore the state after it's done.
  */
 
 
@@ -119,12 +119,16 @@ BackgroundBase::TypeObject BackgroundBase::_type(true,
     "\\endext\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
     "Background is the base class for all background/buffer clearing.  See \\ref\n"
     "PageSystemWindowBackground for a description.\n"
+    "\n"
     "\\ext\n"
+    "\n"
     "To create a new Background the method that has be overridden is\n"
     "clear(DrawActionBase * action, Viewport * port);. It can directly call OpenGL\n"
     "commands, but should restore the state after it's done.\n"
+    "\n"
     "\\endext\n"
     );
 
@@ -146,6 +150,8 @@ UInt32 BackgroundBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 

@@ -74,8 +74,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::PointLight
     PointLight is a located lightsource. The position of the light source
     (in the beacon's coordinate system) is defined by the \c position
-    attribute. The influence of the light diminishes with distance,
-    controlled by the \c constantAttenuation, \c linearAttenuation and \c
+    attribute. The influence of the light diminishes with distance, controlled
+    by the \c constantAttenuation, \c linearAttenuation and \c
     quadraticAttenuation attributes.
  */
 
@@ -86,6 +86,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var Pnt3r           PointLightBase::_sfPosition
     
 */
+
 
 void PointLightBase::classDescInserter(TypeObject &oType)
 {
@@ -196,6 +197,8 @@ SFPnt3r             *PointLightBase::getSFPosition       (void)
     return this->editSFPosition       ();
 }
 #endif
+
+
 
 
 

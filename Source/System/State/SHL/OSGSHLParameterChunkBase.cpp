@@ -84,6 +84,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
 void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;

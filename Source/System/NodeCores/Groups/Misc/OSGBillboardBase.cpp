@@ -82,18 +82,23 @@ OSG_BEGIN_NAMESPACE
 /*! \var Vec3f           BillboardBase::_sfAxisOfRotation
     
 */
+
 /*! \var bool            BillboardBase::_sfFocusOnCamera
     
 */
+
 /*! \var bool            BillboardBase::_sfAlignToScreen
     
 */
+
 /*! \var Real32          BillboardBase::_sfMinAngle
     
 */
+
 /*! \var Real32          BillboardBase::_sfMaxAngle
     
 */
+
 
 void BillboardBase::classDescInserter(TypeObject &oType)
 {
@@ -396,6 +401,8 @@ SFReal32            *BillboardBase::getSFMaxAngle       (void)
     return this->editSFMaxAngle       ();
 }
 #endif
+
+
 
 
 

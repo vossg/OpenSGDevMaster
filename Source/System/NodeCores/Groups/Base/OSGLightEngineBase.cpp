@@ -83,6 +83,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
 void LightEngineBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
@@ -184,6 +185,8 @@ SFBool              *LightEngineBase::getSFEnabled        (void)
     return this->editSFEnabled        ();
 }
 #endif
+
+
 
 
 

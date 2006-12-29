@@ -232,6 +232,10 @@ class OSG_GROUP_DLLMAPPING ComponentTransformBase : public Transform
             void setTranslation    (const Vec3r &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

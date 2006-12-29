@@ -164,6 +164,10 @@ class OSG_STATE_DLLMAPPING ShaderParameterIntBase : public ShaderParameter
             void setValue          (const Int32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

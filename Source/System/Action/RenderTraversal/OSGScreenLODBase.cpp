@@ -123,6 +123,8 @@ UInt32 ScreenLODBase::getContainerSize(void) const
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 ScreenLODBase::getBinSize(ConstFieldMaskArg whichField)

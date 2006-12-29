@@ -181,6 +181,10 @@ class OSG_SYSTEM_DLLMAPPING StereoCameraDecoratorBase : public CameraDecorator
             void setEyeSeparation  (const Real32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

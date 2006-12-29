@@ -164,6 +164,10 @@ class OSG_GROUP_DLLMAPPING TransformBase : public Group
             void setMatrix         (const Matrixr &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -164,6 +164,10 @@ class OSG_SYSTEM_DLLMAPPING LightEngineBase : public AttachmentContainer
             void setEnabled        (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

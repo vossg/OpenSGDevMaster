@@ -102,6 +102,7 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(true,
     "description.\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
     "A depth-clear background, see \\ref PageSystemWindowBackgroundDepthClear for a\n"
     "description.\n"
     );
@@ -124,6 +125,8 @@ UInt32 DepthClearBackgroundBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 

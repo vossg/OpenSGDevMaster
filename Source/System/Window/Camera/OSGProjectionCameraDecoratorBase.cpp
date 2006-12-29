@@ -82,8 +82,8 @@ OSG_BEGIN_NAMESPACE
 
     \dev
 
-    The derived parameters used to actually calculate the matrix are stored
-    in the _sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.
+    The derived parameters used to actually calculate the matrix are stored in the
+    _sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.
 
     \enddev
  */
@@ -95,26 +95,32 @@ OSG_BEGIN_NAMESPACE
 /*! \var NodePtr         ProjectionCameraDecoratorBase::_sfUser
     The coordinate system relative to the camera.
 */
+
 /*! \var Pnt3f           ProjectionCameraDecoratorBase::_mfSurface
     4 points describing the rectangular projection surface, in the camera
-    coordinate system. Counterclockwise, starting at lower left corner of
-    the screen.
+    coordinate system. Counterclockwise, starting at lower left corner of the screen.
 */
+
 /*! \var Plane           ProjectionCameraDecoratorBase::_sfLeft
     The left edge direction vector.
 */
+
 /*! \var Plane           ProjectionCameraDecoratorBase::_sfBottom
     The bottom edge direction vector.
 */
+
 /*! \var Plane           ProjectionCameraDecoratorBase::_sfNormal
     The normal of the projection surface.
 */
+
 /*! \var Real32          ProjectionCameraDecoratorBase::_sfWidth
     The width of the projection screen.
 */
+
 /*! \var Real32          ProjectionCameraDecoratorBase::_sfHeight
     The height of the projection screen.
 */
+
 
 void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -368,12 +374,17 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(t
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameraDecoratorsStereo\n"
+    "\n"
     "The decorator for tracked projection screens, see \\ref\n"
     "PageSystemWindowCameraDecoratorsStereoProjection for a description.\n"
+    "\n"
     "The parameters are defined by the _sfUser and _mfSurface fields.\n"
+    "\n"
     "\\dev\n"
+    "\n"
     "The derived parameters used to actually calculate the matrix are stored in the\n"
     "_sfLeft, _sfBottom, _sfNormal, sfWidth and _sfHeight fields.\n"
+    "\n"
     "\\enddev\n"
     );
 

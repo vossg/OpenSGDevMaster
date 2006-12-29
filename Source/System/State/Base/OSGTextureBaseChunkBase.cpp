@@ -84,10 +84,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var GLenum          TextureBaseChunkBase::_sfTarget
     Texture target. Overwrite automatically determined texture target
-    based on the parameters of the assigned image if set to anything  else
-    than GL_NONE. Used for nVidia's rectangle textures. Be careful when
-    using it!
+    based on the parameters of the assigned image if set to anything 
+    else than GL_NONE. Used for nVidia's rectangle textures. Be careful
+    when using it!
 */
+
 
 void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -162,6 +163,7 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(true,
     "    </Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemTextureChunk for a description.\n"
     );
 
@@ -203,6 +205,8 @@ SFGLenum            *TextureBaseChunkBase::getSFTarget         (void)
     return this->editSFTarget         ();
 }
 #endif
+
+
 
 
 

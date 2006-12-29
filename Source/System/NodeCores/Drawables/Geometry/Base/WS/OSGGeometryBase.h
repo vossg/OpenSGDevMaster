@@ -248,7 +248,6 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     void clearProperties            (void                          );
 
 
-
     void pushToPropIndices           (GeoIntegralPropertyPtrConstArg value   );
     void insertIntoPropIndices      (UInt32                uiIndex,
                                              GeoIntegralPropertyPtrConstArg value   );
@@ -259,7 +258,6 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     void removeFromPropIndices (UInt32                uiIndex );
     void removeFromPropIndices(GeoIntegralPropertyPtrConstArg value   );
     void clearPropIndices            (void                          );
-
 
 
     /*! \}                                                                 */

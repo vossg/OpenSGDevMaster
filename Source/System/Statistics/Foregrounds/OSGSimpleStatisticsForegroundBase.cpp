@@ -74,23 +74,22 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::SimpleStatisticsForeground
     \ingroup GrpSystemWindowForegroundsStatistics
 
-    SimpleStatisticsForeground displays the Statistics info as simple lines
-    of text.
+    SimpleStatisticsForeground displays the Statistics info as simple lines of text.
 
-    osg::SimpleStatisticsForeground displays the statistics info as simple
-    text lines. They are displayed using a compiled-in font that can use an
-    arbitrary color and that can be arbitrarily resized, with the size per
-    line given in pixel.
+    osg::SimpleStatisticsForeground displays the statistics info as simple text
+    lines. They are displayed using a compiled-in font that can use an arbitrary
+    color and that can be arbitrarily resized, with the size per line given in
+    pixel.
 
-    The format of every element is given by a format string for every
-    element that is directly passed to OSG::StatElem::putToString(), so go
-    there to see the possible options.
+    The format of every element is given by a format string for every element that
+    is directly passed to OSG::StatElem::putToString(), so go there to see the
+    possible options.
 
-    If no elementIDs are given all elements in the osg::StatCollector are
-    display, using the default format.
+    If no elementIDs are given all elements in the osg::StatCollector are display,
+    using the default format.
 
-    The format string for the given elements are stored in the _mfFormats
-    Field, the size and color used for all lines in _sfSize and _sfColor.
+    The format string for the given elements are stored in the _mfFormats Field,
+    the size and color used for all lines in _sfSize and _sfColor.
 
     See \ref PageSystemWindowForegroundStatisticsSimple
  */
@@ -100,42 +99,53 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var std::string     SimpleStatisticsForegroundBase::_mfFormats
-    The format strings for the given StatElemDesc IDs. If not set, name
-    and value are used.
+    The format strings for the given StatElemDesc IDs. If not set, name and value are used.
 */
+
 /*! \var Real32          SimpleStatisticsForegroundBase::_sfSize
     Height of a single line, in  pixel.
 */
+
 /*! \var Color4f         SimpleStatisticsForegroundBase::_sfColor
     Color of the text.
 */
+
 /*! \var Color4f         SimpleStatisticsForegroundBase::_sfShadowColor
     Color of the shadow.
 */
+
 /*! \var Color4f         SimpleStatisticsForegroundBase::_sfBgColor
     Color of the background.
 */
+
 /*! \var std::string     SimpleStatisticsForegroundBase::_sfFamily
     The font family to be used, e.g. "SANS", default if unset.
 */
+
 /*! \var Vec2f           SimpleStatisticsForegroundBase::_sfShadowOffset
     Offset of the shadow, in pixels.
 */
+
 /*! \var UInt8           SimpleStatisticsForegroundBase::_sfHorizontalAlign
     Simple form of layout management, 0 defaults to left.
 */
+
 /*! \var UInt8           SimpleStatisticsForegroundBase::_sfVerticalAlign
     Simple form of layout management, 0 defaults to top.
 */
+
 /*! \var Color4f         SimpleStatisticsForegroundBase::_sfBorderColor
     Color of the border.
 */
+
 /*! \var Vec2f           SimpleStatisticsForegroundBase::_sfBorderOffset
     Offset of the border in pixels.
 */
+
 /*! \var Vec2f           SimpleStatisticsForegroundBase::_sfTextMargin
     Text margin in pixels.
 */
+
 
 void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -569,18 +579,24 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegroundsStatistics\n"
+    "\n"
     "SimpleStatisticsForeground displays the Statistics info as simple lines of text.\n"
+    "\n"
     "osg::SimpleStatisticsForeground displays the statistics info as simple text\n"
     "lines. They are displayed using a compiled-in font that can use an arbitrary\n"
     "color and that can be arbitrarily resized, with the size per line given in\n"
     "pixel.\n"
+    "\n"
     "The format of every element is given by a format string for every element that\n"
     "is directly passed to OSG::StatElem::putToString(), so go there to see the\n"
     "possible options.\n"
+    "\n"
     "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
     "using the default format.\n"
+    "\n"
     "The format string for the given elements are stored in the _mfFormats Field,\n"
     "the size and color used for all lines in _sfSize and _sfColor.\n"
+    "\n"
     "See \\ref PageSystemWindowForegroundStatisticsSimple\n"
     );
 
@@ -832,6 +848,90 @@ SFVec2f             *SimpleStatisticsForegroundBase::getSFTextMargin     (void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void SimpleStatisticsForegroundBase::pushToFormats(const std::string& value)
+{
+    editMField(FormatsFieldMask, _mfFormats);
+    _mfFormats.push_back(value);
+}
+
+void SimpleStatisticsForegroundBase::insertIntoFormats(UInt32                uiIndex,
+                                                   const std::string& value   )
+{
+    editMField(FormatsFieldMask, _mfFormats);
+
+    MFString::iterator fieldIt = _mfFormats.begin();
+
+    fieldIt += uiIndex;
+
+    _mfFormats.insert(fieldIt, value);
+}
+
+void SimpleStatisticsForegroundBase::replaceInFormats(UInt32                uiIndex,
+                                                       const std::string& value   )
+{
+    if(uiIndex >= _mfFormats.size())
+        return;
+
+    editMField(FormatsFieldMask, _mfFormats);
+
+    _mfFormats[uiIndex] = value;
+}
+
+void SimpleStatisticsForegroundBase::replaceInFormats(const std::string& pOldElem,
+                                                        const std::string& pNewElem)
+{
+    Int32  elemIdx = _mfFormats.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(FormatsFieldMask, _mfFormats);
+
+        MFString::iterator fieldIt = _mfFormats.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void SimpleStatisticsForegroundBase::removeFromFormats(UInt32 uiIndex)
+{
+    if(uiIndex < _mfFormats.size())
+    {
+        editMField(FormatsFieldMask, _mfFormats);
+
+        MFString::iterator fieldIt = _mfFormats.begin();
+
+        fieldIt += uiIndex;
+        _mfFormats.erase(fieldIt);
+    }
+}
+
+void SimpleStatisticsForegroundBase::removeFromFormats(const std::string& value)
+{
+    Int32 iElemIdx = _mfFormats.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(FormatsFieldMask, _mfFormats);
+
+        MFString::iterator fieldIt = _mfFormats.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfFormats.erase(fieldIt);
+    }
+}
+
+void SimpleStatisticsForegroundBase::clearFormats(void)
+{
+    editMField(FormatsFieldMask, _mfFormats);
+
+    _mfFormats.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

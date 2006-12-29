@@ -181,6 +181,10 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecoratorBase : public StereoCame
             void setOverlap        (const Real32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

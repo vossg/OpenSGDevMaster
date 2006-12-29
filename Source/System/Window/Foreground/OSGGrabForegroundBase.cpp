@@ -75,8 +75,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::GrabForeground
     \ingroup GrpSystemWindowForegrounds
 
-    The GrabForeground is used for grabbing a rendered viewport into an
-    Image. See \ref PageSystemWindowForegroundGrab for a description.
+    The GrabForeground is used for grabbing a rendered viewport into an Image.
+    See \ref PageSystemWindowForegroundGrab for a description.
  */
 
 /***************************************************************************\
@@ -86,9 +86,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var ImagePtr        GrabForegroundBase::_sfImage
     The image to write to.
 */
+
 /*! \var bool            GrabForegroundBase::_sfAutoResize
     Automatically resize the image when the viewport size changes.
 */
+
 
 void GrabForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -178,6 +180,7 @@ GrabForegroundBase::TypeObject GrabForegroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
     "The GrabForeground is used for grabbing a rendered viewport into an Image.\n"
     "See \\ref PageSystemWindowForegroundGrab for a description.\n"
     );

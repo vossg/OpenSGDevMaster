@@ -84,28 +84,34 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var GeoIntegralPropertyPtr GeometryBase::_sfTypes
-    The types property contains the primitive's types. Legal values are
-    everything that can be passed to glBegin(). There have to be as many
+    The types property contains the primitive's types. Legal values are 
+    everything that can be passed to glBegin(). There have to be as many 
     types as lengths.
 */
+
 /*! \var GeoIntegralPropertyPtr GeometryBase::_sfLengths
-    The lengths property contains the number of vertices to use for the
+    The lengths property contains the number of vertices to use for the 
     corresponding primitive. There have to be as many  lengths as types.
 */
+
 /*! \var GeoVectorPropertyPtr GeometryBase::_mfProperties
-    The attributes used to render the geometry. The order is based on the
+    The attributes used to render the geometry. The order is based on the 
     the one given in ARB_vertex_program.
 */
+
 /*! \var GeoIntegralPropertyPtr GeometryBase::_mfPropIndices
-    The indices property contains the index data. See \ref
+    The indices property contains the index data. See \ref 
     PageSystemGeoIndexing for a description of the indexing options.
 */
+
 /*! \var Int32           GeometryBase::_sfClassicGLId
     The dlist id for the classic rendering mode, if used.
 */
+
 /*! \var Int32           GeometryBase::_sfAttGLId
     The dlist id for the attribute-based rendering mode, if used.
 */
+
 
 void GeometryBase::classDescInserter(TypeObject &oType)
 {

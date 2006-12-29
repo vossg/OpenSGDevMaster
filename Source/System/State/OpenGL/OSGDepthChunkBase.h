@@ -232,6 +232,10 @@ class OSG_STATE_DLLMAPPING DepthChunkBase : public StateChunk
             void setReadOnly       (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

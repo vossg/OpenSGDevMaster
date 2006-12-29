@@ -183,6 +183,23 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
             void setGLId           (const UInt32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+
+    void pushToIData                       (const UInt8     &value   );
+    void insertIntoIData                   (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInIData                    (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInIData                    (const UInt8     &pOldElem,
+                                            const UInt8     &pNewElem);
+    void removeFromIData                   (      UInt32     uiIndex );
+    void removeFromIData                   (const UInt8     &value   );
+    void clearIData                        (      void               );
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

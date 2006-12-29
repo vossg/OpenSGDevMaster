@@ -72,39 +72,38 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::SHLChunk
-    This chunk provides support for GLSL.  It provides a wrapper for
-    setting vertex and fragment programs.  Because it is derived from
-    OSG::ShaderParameter it also allows setting uniform parameters for the
-    shaders.
+    This chunk provides support for GLSL.  It provides a wrapper for setting vertex
+    and fragment programs.  Because it is derived from OSG::ShaderParameter it also
+    allows setting uniform parameters for the shaders.
 
-    The primary way to use this class is to: <ul>
-    <li>set/getVertexProgram</li> <li>set/getFragmentProgram</li>
-    <li>setUniform</li> </ul>
+    The primary way to use this class is to:
+    <ul>
+    <li>set/getVertexProgram</li>
+    <li>set/getFragmentProgram</li>
+    <li>setUniform</li>
+    </ul>
 
-    To help with OpenSG application development this chunk provides support
-    for derived uniform parameters.  The uniform parameters all start with
-    the characters "OSG" and are derived from the internal state of OpenSG
-    in some way. It is possible for users to make use of this system to add
-    their own derived "OSG" parameters using a user callback.  (see
-    addParameterCallback)
+    To help with OpenSG application development this chunk provides support for
+    derived uniform parameters.  The uniform parameters all start with the
+    characters "OSG" and are derived from the internal state of OpenSG in some way.
+    It is possible for users to make use of this system to add their own derived
+    "OSG" parameters using a user callback.  (see addParameterCallback)
 
-    To use these parameters, simply call setUniform() with the name of the
-    parameter and set it to some default value of the correct type.  After
-    that point OpenSG will ensure that the parameter is automatically
-    updated each frame.
+    To use these parameters, simply call setUniform() with the name of the parameter
+    and set it to some default value of the correct type.  After that point OpenSG
+    will ensure that the parameter is automatically updated each frame.
 
-    The derived parameters supported by default are: <dl>
-    <dt>OSGCameraOrientation</dt><dd>Camera orientation matrix in world
-    coords.</dd> <dt>OSGCameraPosition</dt><dd>Camera position vec3 in
-    world coordinates.</dd> <dt>OSGViewMatrix</dt><dd>Camera viewing matrix
-    in world coordinates.</dd> <dt>OSGInvViewMatrix</dt><dd>Inverse camera
-    viewing matrix in world coordinates.</dd>
-    <dt>OSGStereoLeftEye</dt><dd>Integer: -1 mono, 1 left eye, 0 right
-    eye.</dd> <dt>OSGClusterId</dt><dd>The int id set with
-    setClusterId().</dd> <dt>OSGActiveLightsMast</dt><dd>The active lights
-    mast from the render action.</dd> <dt>OSGLight0Active ...
-    OSGLight7Active</dt><dd>int/bool flag of wether the light is
-    active.</dd> </dl>
+    The derived parameters supported by default are:
+    <dl>
+    <dt>OSGCameraOrientation</dt><dd>Camera orientation matrix in world coords.</dd>
+    <dt>OSGCameraPosition</dt><dd>Camera position vec3 in world coordinates.</dd>
+    <dt>OSGViewMatrix</dt><dd>Camera viewing matrix in world coordinates.</dd>
+    <dt>OSGInvViewMatrix</dt><dd>Inverse camera viewing matrix in world coordinates.</dd>
+    <dt>OSGStereoLeftEye</dt><dd>Integer: -1 mono, 1 left eye, 0 right eye.</dd>
+    <dt>OSGClusterId</dt><dd>The int id set with setClusterId().</dd>
+    <dt>OSGActiveLightsMast</dt><dd>The active lights mast from the render action.</dd>
+    <dt>OSGLight0Active ... OSGLight7Active</dt><dd>int/bool flag of wether the light is active.</dd>
+    </dl>
  */
 
 /***************************************************************************\
@@ -114,12 +113,15 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            SHLChunkBase::_sfCgFrontEnd
     
 */
+
 /*! \var bool            SHLChunkBase::_sfPointSize
     Flag to indicate whether the shader can change the point size.
 */
+
 /*! \var UInt32          SHLChunkBase::_sfGLId
     
 */
+
 
 void SHLChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -280,20 +282,24 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(true,
     "This chunk provides support for GLSL.  It provides a wrapper for setting vertex\n"
     "and fragment programs.  Because it is derived from OSG::ShaderParameter it also\n"
     "allows setting uniform parameters for the shaders.\n"
+    "\n"
     "The primary way to use this class is to:\n"
     "<ul>\n"
     "<li>set/getVertexProgram</li>\n"
     "<li>set/getFragmentProgram</li>\n"
     "<li>setUniform</li>\n"
     "</ul>\n"
+    "\n"
     "To help with OpenSG application development this chunk provides support for\n"
     "derived uniform parameters.  The uniform parameters all start with the\n"
     "characters \"OSG\" and are derived from the internal state of OpenSG in some way.\n"
     "It is possible for users to make use of this system to add their own derived\n"
     "\"OSG\" parameters using a user callback.  (see addParameterCallback)\n"
+    "\n"
     "To use these parameters, simply call setUniform() with the name of the parameter\n"
     "and set it to some default value of the correct type.  After that point OpenSG\n"
     "will ensure that the parameter is automatically updated each frame.\n"
+    "\n"
     "The derived parameters supported by default are:\n"
     "<dl>\n"
     "<dt>OSGCameraOrientation</dt><dd>Camera orientation matrix in world coords.</dd>\n"
@@ -383,6 +389,8 @@ SFUInt32            *SHLChunkBase::getSFGLId           (void)
     return this->editSFGLId           ();
 }
 #endif
+
+
 
 
 

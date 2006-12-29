@@ -77,8 +77,8 @@ OSG_BEGIN_NAMESPACE
     Viewport for quad-buffered stereo rendering, see \ref
     PageSystemWindowViewports for a description.
 
-    The active buffers are selected using the _sfLeftBuffer and
-    _sfRightBuffer Fields.
+    The active buffers are selected using the _sfLeftBuffer and _sfRightBuffer
+    Fields.
  */
 
 /***************************************************************************\
@@ -88,9 +88,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            StereoBufferViewportBase::_sfLeftBuffer
     Defines whether the left buffer is written to.
 */
+
 /*! \var bool            StereoBufferViewportBase::_sfRightBuffer
     Defines whether the right buffer is written to.
 */
+
 
 void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -193,8 +195,10 @@ StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowViewports\n"
+    "\n"
     "Viewport for quad-buffered stereo rendering, see \\ref\n"
     "PageSystemWindowViewports for a description.\n"
+    "\n"
     "The active buffers are selected using the _sfLeftBuffer and _sfRightBuffer\n"
     "Fields.\n"
     );
@@ -256,6 +260,8 @@ SFBool              *StereoBufferViewportBase::getSFRightBuffer    (void)
     return this->editSFRightBuffer    ();
 }
 #endif
+
+
 
 
 

@@ -232,6 +232,10 @@ class OSG_GROUP_DLLMAPPING BillboardBase : public Group
             void setMaxAngle       (const Real32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

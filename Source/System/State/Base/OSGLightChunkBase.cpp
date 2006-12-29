@@ -77,8 +77,8 @@ OSG_BEGIN_NAMESPACE
 
     See \ref PageSystemLightChunk for a description.
 
-    The light chunk contains the parameter set for a single light source.
-    It's taken straight from the glLight() manpage.
+    The light chunk contains the parameter set for a single light source. It's taken
+    straight from the glLight() manpage.
 
     This chunk wraps glLight() (OSG::LightChunk::_sfAmbient,
     OSG::LightChunk::_sfDiffuse, OSG::LightChunk::_sfSpecular,
@@ -96,37 +96,47 @@ OSG_BEGIN_NAMESPACE
 /*! \var Color4r         LightChunkBase::_sfDiffuse
     The light's diffuse color.
 */
+
 /*! \var Color4r         LightChunkBase::_sfAmbient
     The light's ambient color.
 */
+
 /*! \var Color4r         LightChunkBase::_sfSpecular
     The light's specular color.
 */
+
 /*! \var Vec4r           LightChunkBase::_sfPosition
     The light's position.
 */
+
 /*! \var Vec3r           LightChunkBase::_sfDirection
     The light's direction (only for spotlights).
 */
+
 /*! \var Real            LightChunkBase::_sfExponent
     The light's spotlight exponent.
 */
+
 /*! \var Real            LightChunkBase::_sfCutoff
-    The light's spotlight cutoff. As this chunk follows OpenGL
-    conventions, this is the only angle in the system given in degrees.
+    The light's spotlight cutoff. As this chunk follows OpenGL conventions, this is the only angle in the system given in degrees.
 */
+
 /*! \var Real            LightChunkBase::_sfConstantAttenuation
     The light's constant attenuation.
 */
+
 /*! \var Real            LightChunkBase::_sfLinearAttenuation
     The light's linear attenuation.
 */
+
 /*! \var Real            LightChunkBase::_sfQuadraticAttenuation
     The light's quadratic attenuation.
 */
+
 /*! \var NodePtr         LightChunkBase::_sfBeacon
     
 */
+
 
 void LightChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -503,9 +513,12 @@ LightChunkBase::TypeObject LightChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemLightChunk for a description.\n"
+    "\n"
     "The light chunk contains the parameter set for a single light source. It's taken\n"
     "straight from the glLight() manpage.\n"
+    "\n"
     "This chunk wraps glLight() (OSG::LightChunk::_sfAmbient,\n"
     "OSG::LightChunk::_sfDiffuse, OSG::LightChunk::_sfSpecular,\n"
     "OSG::LightChunk::_sfEmission, OSG::LightChunk::_sfPosition,\n"

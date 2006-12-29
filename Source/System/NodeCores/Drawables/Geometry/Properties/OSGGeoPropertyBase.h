@@ -172,6 +172,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
             void setUseVBO         (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

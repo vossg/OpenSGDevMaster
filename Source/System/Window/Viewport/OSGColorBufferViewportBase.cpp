@@ -77,8 +77,8 @@ OSG_BEGIN_NAMESPACE
     Viewport to only render to specific color channels, see \ref
     PageSystemWindowViewports for a description.
 
-    The color channels used are defined by the _sfRed, _sfGreen, _sfBlue
-    and _sfAlpha Fields.
+    The color channels used are defined by the _sfRed, _sfGreen, _sfBlue and
+    _sfAlpha Fields.
  */
 
 /***************************************************************************\
@@ -88,15 +88,19 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            ColorBufferViewportBase::_sfRed
     Define whether the red color channel is written to.
 */
+
 /*! \var bool            ColorBufferViewportBase::_sfBlue
     Define whether the green color channel is written to.
 */
+
 /*! \var bool            ColorBufferViewportBase::_sfGreen
     Define whether the blue color channel is written to.
 */
+
 /*! \var bool            ColorBufferViewportBase::_sfAlpha
     Define whether the alpha color channel is written to.
 */
+
 
 void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -263,8 +267,10 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowViewports\n"
+    "\n"
     "Viewport to only render to specific color channels, see \\ref\n"
     "PageSystemWindowViewports for a description.\n"
+    "\n"
     "The color channels used are defined by the _sfRed, _sfGreen, _sfBlue and\n"
     "_sfAlpha Fields.\n"
     );
@@ -364,6 +370,8 @@ SFBool              *ColorBufferViewportBase::getSFAlpha          (void)
     return this->editSFAlpha          ();
 }
 #endif
+
+
 
 
 

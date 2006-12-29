@@ -75,8 +75,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::FrameBufferObject
-    Framebuffer object. Encapsulates FBOs as defined by the
-    EXT_framebuffer_object OpenGL extension.
+    Framebuffer object. Encapsulates FBOs as defined by the EXT_framebuffer_object
+    OpenGL extension.
  */
 
 /***************************************************************************\
@@ -86,26 +86,34 @@ OSG_BEGIN_NAMESPACE
 /*! \var GLenum          FrameBufferObjectBase::_sfGLId
     The OpenGL texture id for this frame buffer object.
 */
+
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_mfColorAttachments
-    GL_COLOR_ATTACHMENTX_EXT slots, position defines X.  This defines the
-    target buffers for color attachments.
+    GL_COLOR_ATTACHMENTX_EXT slots, position defines X. 
+    This defines the target buffers for color attachments.
 */
+
 /*! \var GLenum          FrameBufferObjectBase::_mfDrawBuffers
-    The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT. These are used
-    to call DrawBuffers to tell OpenGL what targets to render into.
+    The target draw buffers.  ex: GL_COLOR_ATTACHMENT0_EXT.
+    These are used to call DrawBuffers to tell OpenGL what targets
+    to render into.
 */
+
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_sfDepthAttachment
     GL_DEPTH_ATTACHMENT_EXT slot. The target for depth values.
 */
+
 /*! \var FrameBufferAttachmentPtr FrameBufferObjectBase::_sfStencilAttachment
     GL_STENCIL_ATTACHMENT_EXT slot.
 */
+
 /*! \var UInt16          FrameBufferObjectBase::_sfWidth
     
 */
+
 /*! \var UInt16          FrameBufferObjectBase::_sfHeight
     
 */
+
 
 void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 {

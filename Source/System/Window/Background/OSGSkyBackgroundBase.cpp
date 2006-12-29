@@ -84,11 +84,11 @@ OSG_BEGIN_NAMESPACE
     A Sky/Ground/Skybox background, inspired by VRML, see \ref
     PageSystemWindowBackgroundSky for a description.
 
-    The sky is defined by the _mfSkyAngle and _mfSkyColor fields, the
-    ground by the _mfGroundAngle and _mfGround Color fields. The resolution
-    of the sky sphere can be influenced by the _sfSphereRes field. The sky
-    box is defined by the _sfBackTexture, _sfFrontTexture, _sfLeftTexture,
-    _sfRightTexture, _sfTopTexture and _sfBottomTexture fields.
+    The sky is defined by the _mfSkyAngle and _mfSkyColor fields, the ground by the
+    _mfGroundAngle and _mfGround Color fields. The resolution of the sky sphere can
+    be influenced by the _sfSphereRes field. The sky box is defined by the
+    _sfBackTexture, _sfFrontTexture, _sfLeftTexture, _sfRightTexture, _sfTopTexture
+    and _sfBottomTexture fields.
  */
 
 /***************************************************************************\
@@ -102,65 +102,82 @@ OSG_BEGIN_NAMESPACE
     angles. If no angles are given color[0] is used, or black if none are
     given.
 */
+
 /*! \var Real32          SkyBackgroundBase::_mfSkyAngle
-    The angles for the sky gradient bands. Corresponds to the skyColor
-    colors, with the exception of the apex. Values should be between 0 and
-    PI.
+    The angles for the sky gradient bands. Corresponds to the skyColor colors,
+    with the exception of the apex. Values should be between 0 and PI.
 */
+
 /*! \var Color4f         SkyBackgroundBase::_mfGroundColor
-    The colors of the ground sphere-part. Interpretation is similar to the
-    sky.
+    The colors of the ground sphere-part. Interpretation is similar to the sky.
 */
+
 /*! \var Real32          SkyBackgroundBase::_mfGroundAngle
-    The angles of the ground sphere-part. Interpretation is similar to the
-    sky, with 0 being straight down.
+    The angles of the ground sphere-part. Interpretation is similar to the sky, with
+    0 being straight down.
 */
+
 /*! \var UInt32          SkyBackgroundBase::_sfSphereRes
     The polygonal resolution of the sky/ground sphere.
 */
+
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfBackTexture
     Texture for the back (+Z) side of the sky cube.
 */
+
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfBottomTexture
     Texture for the bottom (-Y) side of the sky cube.
 */
+
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfFrontTexture
     Texture for the front (-Z) side of the sky cube.
 */
+
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfLeftTexture
     Texture for the left (-X) side of the sky cube.
 */
+
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfRightTexture
     Texture for the right (+X) side of the sky cube.
 */
+
 /*! \var TextureObjChunkPtr SkyBackgroundBase::_sfTopTexture
     Texture for the top (+Y) side of the sky cube.
 */
+
 /*! \var bool            SkyBackgroundBase::_sfBoxInside
     Flag to draw the box inside or outside of the sphere
 */
+
 /*! \var Vec3f           SkyBackgroundBase::_mfTopTexCoord
     Texture coordinates for the top face
 */
+
 /*! \var Vec3f           SkyBackgroundBase::_mfBottomTexCoord
     Bottom texture coordinates.
 */
+
 /*! \var Vec3f           SkyBackgroundBase::_mfRightTexCoord
     Right texture coordinates.
 */
+
 /*! \var Vec3f           SkyBackgroundBase::_mfLeftTexCoord
     Left texture coordinates.
 */
+
 /*! \var Vec3f           SkyBackgroundBase::_mfFrontTexCoord
     Front texture coordinates.
 */
+
 /*! \var Vec3f           SkyBackgroundBase::_mfBackTexCoord
     Back texture coordinates.
 */
+
 /*! \var NodePtr         SkyBackgroundBase::_sfBeacon
     The object that defines the orientation of the background, i.e. the
     local coordinate system it is drawn in.
 */
+
 
 void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -744,8 +761,10 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
     "A Sky/Ground/Skybox background, inspired by VRML, see \\ref\n"
     "PageSystemWindowBackgroundSky for a description.\n"
+    "\n"
     "The sky is defined by the _mfSkyAngle and _mfSkyColor fields, the ground by the\n"
     "_mfGroundAngle and _mfGround Color fields. The resolution of the sky sphere can\n"
     "be influenced by the _sfSphereRes field. The sky box is defined by the\n"

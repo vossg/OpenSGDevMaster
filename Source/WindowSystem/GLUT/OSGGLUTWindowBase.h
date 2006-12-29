@@ -164,6 +164,10 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
             void setId             (const Int32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

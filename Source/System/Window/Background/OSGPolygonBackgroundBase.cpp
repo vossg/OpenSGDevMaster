@@ -73,8 +73,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::PolygonBackground
-    A Background that renders a single polygon using the specified
-    material.
+    A Background that renders a single polygon using the specified material.
  */
 
 /***************************************************************************\
@@ -84,24 +83,31 @@ OSG_BEGIN_NAMESPACE
 /*! \var MaterialPtr     PolygonBackgroundBase::_sfMaterial
     The material used to display.
 */
+
 /*! \var Vec3f           PolygonBackgroundBase::_mfTexCoords
     The texture coordinates of the geometry to display.
 */
+
 /*! \var Pnt2f           PolygonBackgroundBase::_mfPositions
     The positions of the geometry to display.
 */
+
 /*! \var bool            PolygonBackgroundBase::_sfNormalizedX
     Define whether the x coordinates are normalized (0-1) or pixel-based.
 */
+
 /*! \var bool            PolygonBackgroundBase::_sfNormalizedY
     Define whether the y coordinates are normalized (0-1) or pixel-based.
 */
+
 /*! \var UInt16          PolygonBackgroundBase::_sfAspectHeight
     Useful for keeping aspect ratio when rendering things like images.
 */
+
 /*! \var UInt16          PolygonBackgroundBase::_sfAspectWidth
     Useful for keeping aspect ratio when rendering things like images.
 */
+
 
 void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 {

@@ -76,15 +76,15 @@ OSG_BEGIN_NAMESPACE
 
     The material base class.
 
-    \ext The Material has two interfaces to return a State that represents
-    it. OSG::Material::makeState() creates a new OSG::State and returns it.
-    This is  ok for rare use, but for every frame this is going to be too
-    expensive. For  these cases OSG::Material::rebuildState() and
-    OSG::Material::getState() are  used, which modify and return an
-    internal copy of the State.
+    \ext
+    The Material has two interfaces to return a State that represents it.
+    OSG::Material::makeState() creates a new OSG::State and returns it. This is 
+    ok for rare use, but for every frame this is going to be too expensive. For 
+    these cases OSG::Material::rebuildState() and OSG::Material::getState() are 
+    used, which modify and return an internal copy of the State. 
 
-    The other method to implement is OSG::Material::isTransparent(), to
-    identify transparent materials to be rendered after the opaque ones.
+    The other method to implement is OSG::Material::isTransparent(), to identify
+    transparent materials to be rendered after the opaque ones.
     \endext
  */
 
@@ -95,6 +95,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var Int32           MaterialBase::_sfSortKey
     
 */
+
 
 void MaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -172,13 +173,16 @@ MaterialBase::TypeObject MaterialBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemMaterial\n"
+    "\n"
     "The material base class.\n"
+    "\n"
     "\\ext\n"
     "The Material has two interfaces to return a State that represents it.\n"
     "OSG::Material::makeState() creates a new OSG::State and returns it. This is \n"
     "ok for rare use, but for every frame this is going to be too expensive. For \n"
     "these cases OSG::Material::rebuildState() and OSG::Material::getState() are \n"
     "used, which modify and return an internal copy of the State. \n"
+    "\n"
     "The other method to implement is OSG::Material::isTransparent(), to identify\n"
     "transparent materials to be rendered after the opaque ones.\n"
     "\\endext\n"
@@ -222,6 +226,8 @@ SFInt32             *MaterialBase::getSFSortKey        (void)
     return this->editSFSortKey        ();
 }
 #endif
+
+
 
 
 

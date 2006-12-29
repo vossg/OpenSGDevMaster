@@ -164,6 +164,10 @@ class OSG_STATE_DLLMAPPING TextureTransformChunkBase : public TransformChunk
             void setUseCameraBeacon(const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -74,8 +74,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::PerspectiveCamera
     \ingroup GrpSystemWindowCameras
 
-    The Perspective Camera class, see \ref
-    PageSystemWindowCameraPerspective for  a description.
+    The Perspective Camera class, see \ref PageSystemWindowCameraPerspective for 
+    a description.
 
     The only new parameter is the _sfFov.
  */
@@ -87,9 +87,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var Real32          PerspectiveCameraBase::_sfFov
     The vertical field of view, in radians.
 */
+
 /*! \var Real32          PerspectiveCameraBase::_sfAspect
     The aspect ratio (i.e. width / height) of a pixel.
 */
+
 
 void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
 {
@@ -187,8 +189,10 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameras\n"
+    "\n"
     "The Perspective Camera class, see \\ref PageSystemWindowCameraPerspective for \n"
     "a description.\n"
+    "\n"
     "The only new parameter is the _sfFov.\n"
     );
 
@@ -249,6 +253,8 @@ SFReal32            *PerspectiveCameraBase::getSFAspect         (void)
     return this->editSFAspect         ();
 }
 #endif
+
+
 
 
 

@@ -73,8 +73,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::RenderBuffer
     Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT
-    A renderbuffer is a data storage object containing a single image of a
-    renderable internal format.
+    A renderbuffer is a data storage object containing a single image of a renderable internal format.
 
     \see TextureBuffer
  */
@@ -86,9 +85,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var GLenum          RenderBufferBase::_sfGLId
     The OpenGL texture id for this buffer object.
 */
+
 /*! \var GLenum          RenderBufferBase::_sfInternalFormat
     
 */
+
 
 void RenderBufferBase::classDescInserter(TypeObject &oType)
 {
@@ -189,6 +190,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(true,
     "</FieldContainer>\n",
     "Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT\n"
     "A renderbuffer is a data storage object containing a single image of a renderable internal format.\n"
+    "\n"
     "\\see TextureBuffer\n"
     );
 
@@ -249,6 +251,8 @@ SFGLenum            *RenderBufferBase::getSFInternalFormat (void)
     return this->editSFInternalFormat ();
 }
 #endif
+
+
 
 
 

@@ -83,6 +83,7 @@ OSG_BEGIN_NAMESPACE
     parameter value
 */
 
+
 void ShaderParameterVec4fBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
@@ -185,6 +186,8 @@ SFVec4f             *ShaderParameterVec4fBase::getSFValue          (void)
     return this->editSFValue          ();
 }
 #endif
+
+
 
 
 

@@ -198,6 +198,10 @@ class OSG_WINDOWEGL_DLLMAPPING EGLWindowBase : public Window
             void setContext        (const EGLContext &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

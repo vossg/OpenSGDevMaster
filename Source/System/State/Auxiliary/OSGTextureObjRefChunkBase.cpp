@@ -83,6 +83,7 @@ OSG_BEGIN_NAMESPACE
     glid
 */
 
+
 void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
@@ -185,6 +186,8 @@ SFGLenum            *TextureObjRefChunkBase::getSFGLId           (void)
     return this->editSFGLId           ();
 }
 #endif
+
+
 
 
 

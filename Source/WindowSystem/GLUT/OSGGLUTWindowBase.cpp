@@ -72,8 +72,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::GLUTWindow
-    The class for GLUT-based windows. See \ref PageWindowGlut for a
-    description.
+    The class for GLUT-based windows. See \ref PageWindowGlut for a description.
  */
 
 /***************************************************************************\
@@ -83,6 +82,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var Int32           GLUTWindowBase::_sfId
     
 */
+
 
 void GLUTWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -186,6 +186,8 @@ SFInt32             *GLUTWindowBase::getSFId             (void)
     return this->editSFId             ();
 }
 #endif
+
+
 
 
 

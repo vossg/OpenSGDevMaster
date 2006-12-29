@@ -198,6 +198,10 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
             void setContext        (const GLXContext &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

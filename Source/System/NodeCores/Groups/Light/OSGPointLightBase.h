@@ -164,6 +164,10 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
             void setPosition       (const Pnt3r &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

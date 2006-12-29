@@ -79,27 +79,26 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::Viewport
     \ingroup GrpSystemWindowsViewports
 
-    A Viewport is a part of the Window it is attached to used for
-    rendering. See \ref PageSystemWindowViewports for a description.
+    A Viewport is a part of the Window it is attached to used for rendering. See
+    \ref PageSystemWindowViewports for a description.
 
-    The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom
-    and _sfTop Fields. The Window this Viewport is attached is stored in
-    _sfWindow. _sfBackground defines the background clearing method, the
-    _sfRoot and _sfCamera Fields the scene being rendered and the camera
-    used to view it. The optional _mfForegrounds define which information
-    are added or actions are executed after the Viewport has been rendered.
+    The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom and
+    _sfTop Fields. The Window this Viewport is attached is stored in _sfWindow.
+    _sfBackground defines the background clearing method, the
+    _sfRoot and _sfCamera Fields the scene being rendered and the camera used to
+    view it. The optional _mfForegrounds define which information are added or
+    actions are executed after the Viewport has been rendered.
 
     \ext
 
-    To create a new Viewport the draw and render methods should be
-    overridden.
+    To create a new Viewport the draw and render methods should be overridden. 
 
     \endext
 
     \dev
 
-    When adding fields to the Viewport, make sure to add the code to copy
-    them to all the different ClusterWindows!
+    When adding fields to the Viewport, make sure to add the code to copy them to
+    all the different ClusterWindows!
 
     \enddev
  */
@@ -109,46 +108,57 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Real32          ViewportBase::_sfLeft
-    The left edge of the viewport. Values between 0 and 1 are relative to
-    the size of the Window, values >1 are absolute pixel coordinates, value
-    == -1 means the left border. All other values are illegal.
+    The left edge of the viewport. Values between 0 and 1 are relative to the size of
+    the Window, values >1 are absolute pixel coordinates, value == -1 means the
+    left border. All other values are illegal.
 */
+
 /*! \var Real32          ViewportBase::_sfRight
-    The right edge of the viewport. Values between 0 and 1 are relative to
-    the size of the Window, values >1 are absolute pixel coordinates, value
-    == -1 means the right border. All other values are illegal.
+    The right edge of the viewport. Values between 0 and 1 are relative to the size of
+    the Window, values >1 are absolute pixel coordinates, value == -1 means the
+    right border. All other values are illegal.
 */
+
 /*! \var Real32          ViewportBase::_sfBottom
-    The bottom edge of the viewport. Values between 0 and 1 are relative
-    to the size of the Window, values >1 are absolute pixel coordinates,
-    value == -1 means the bottom border. All other values are illegal.
+    The bottom edge of the viewport. Values between 0 and 1 are relative to the size of
+    the Window, values >1 are absolute pixel coordinates, value == -1 means the
+    bottom border. All other values are illegal.
 */
+
 /*! \var Real32          ViewportBase::_sfTop
-    The top edge of the viewport. Values between 0 and 1 are relative to
-    the size of the Window, values >1 are absolute pixel coordinates, value
-    == -1 means the top border. All other values are illegal.
+    The top edge of the viewport. Values between 0 and 1 are relative to the size of
+    the Window, values >1 are absolute pixel coordinates, value == -1 means the
+    top border. All other values are illegal.
 */
+
 /*! \var ParentFieldContainerPtr ViewportBase::_sfParent
     The Window this viewport is contained in.
 */
+
 /*! \var CameraPtr       ViewportBase::_sfCamera
     The Camera used to render the viewport.
 */
+
 /*! \var NodePtr         ViewportBase::_sfRoot
     The root of the tree that is displayed in this viewport.
 */
+
 /*! \var BackgroundPtr   ViewportBase::_sfBackground
     The background used to clear this viewport.
 */
+
 /*! \var ForegroundPtr   ViewportBase::_mfForegrounds
     The foreground additions to the rendered image.
 */
+
 /*! \var UInt32          ViewportBase::_sfTravMask
     The foreground additions to the rendered image.
 */
+
 /*! \var Real32          ViewportBase::_sfDrawTime
     Drawtime of the last frame using this viewport.
 */
+
 
 void ViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -515,20 +525,28 @@ ViewportBase::TypeObject ViewportBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowsViewports\n"
+    "\n"
     "A Viewport is a part of the Window it is attached to used for rendering. See\n"
     "\\ref PageSystemWindowViewports for a description.\n"
+    "\n"
     "The size of the viewport is defined by the _sfLeft, _sfRight, _sfBottom and\n"
     "_sfTop Fields. The Window this Viewport is attached is stored in _sfWindow.\n"
     "_sfBackground defines the background clearing method, the\n"
     "_sfRoot and _sfCamera Fields the scene being rendered and the camera used to\n"
     "view it. The optional _mfForegrounds define which information are added or\n"
     "actions are executed after the Viewport has been rendered.\n"
+    "\n"
     "\\ext\n"
+    "\n"
     "To create a new Viewport the draw and render methods should be overridden. \n"
+    "\n"
     "\\endext\n"
+    "\n"
     "\\dev\n"
+    "\n"
     "When adding fields to the Viewport, make sure to add the code to copy them to\n"
     "all the different ClusterWindows!\n"
+    "\n"
     "\\enddev\n"
     );
 

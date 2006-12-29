@@ -77,8 +77,7 @@ OSG_BEGIN_NAMESPACE
     The abstract base class for stereo camera decorators, see \ref
     PageSystemWindowCameraDecoratorsStereo for a description.
 
-    The basic parameters are given by the _sfEyeSeparation and _sfLeftEye
-    fields.
+    The basic parameters are given by the _sfEyeSeparation and _sfLeftEye fields.
  */
 
 /***************************************************************************\
@@ -88,9 +87,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            StereoCameraDecoratorBase::_sfLeftEye
     Flag to distinguish between left and right eye views.
 */
+
 /*! \var Real32          StereoCameraDecoratorBase::_sfEyeSeparation
     The distance between the two eyes.
 */
+
 
 void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -190,8 +191,10 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup PageSystemWindowCameraDecoratorsStereo\n"
+    "\n"
     "The abstract base class for stereo camera decorators, see \\ref\n"
     "PageSystemWindowCameraDecoratorsStereo for a description.\n"
+    "\n"
     "The basic parameters are given by the _sfEyeSeparation and _sfLeftEye fields.\n"
     );
 
@@ -252,6 +255,8 @@ SFReal32            *StereoCameraDecoratorBase::getSFEyeSeparation  (void)
     return this->editSFEyeSeparation  ();
 }
 #endif
+
+
 
 
 

@@ -334,7 +334,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     void clearForegrounds            (void                          );
 
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

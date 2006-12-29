@@ -82,12 +82,15 @@ OSG_BEGIN_NAMESPACE
 /*! \var EGLDisplay      EGLWindowBase::_sfDisplay
     
 */
+
 /*! \var EGLSurface      EGLWindowBase::_sfWindow
     
 */
+
 /*! \var EGLContext      EGLWindowBase::_sfContext
     
 */
+
 
 void EGLWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -293,6 +296,8 @@ SFEGLContext        *EGLWindowBase::getSFContext        (void)
     return this->editSFContext        ();
 }
 #endif
+
+
 
 
 

@@ -73,10 +73,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::VisitSubTree
-    VisitSubTree provides a way to point the renderer to another section
-    of the scene graph for rendering. This is useful for multi-pass
-    algorithms using OSG::Stage because it provides a way to render the
-    same graph multiple times without duplicating the nodes.
+    VisitSubTree provides a way to point the renderer to another section of the
+    scene graph for rendering. This is useful for multi-pass algorithms using
+    OSG::Stage because it provides a way to render the same graph multiple times
+    without duplicating the nodes.
  */
 
 /***************************************************************************\
@@ -84,10 +84,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var NodePtr         VisitSubTreeBase::_sfSubTreeRoot
-    Reference to the sub-graph to draw in place of this node. Whatever
-    node is pointed to will be drawn here as if it was duplicated at this
-    location.
+    Reference to the sub-graph to draw in place of this node.
+    Whatever node is pointed to will be drawn here as if it was duplicated
+    at this location.
 */
+
 
 void VisitSubTreeBase::classDescInserter(TypeObject &oType)
 {

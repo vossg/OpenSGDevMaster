@@ -75,11 +75,11 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::TextureGrabBackground
     \ingroup GrpSystemWindowBackgrounds
 
-    A background that grabs what's underneath it into a texture before it
-    clears  the viewport to a constant color.
+    A background that grabs what's underneath it into a texture before it clears 
+    the viewport to a constant color.
 
-    The color of the background is given by the _sfColor field, the texture
-    to grab into by the _sfTexture field.
+    The color of the background is given by the _sfColor field, the texture to
+    grab into by the _sfTexture field.
  */
 
 /***************************************************************************\
@@ -89,18 +89,20 @@ OSG_BEGIN_NAMESPACE
 /*! \var TextureObjChunkPtr TextureGrabBackgroundBase::_sfTexture
     The texture to grab into.
 */
+
 /*! \var bool            TextureGrabBackgroundBase::_sfAutoResize
     Automatically resize the texture when the viewport size changes.
 */
+
 /*! \var GLenum          TextureGrabBackgroundBase::_sfBindTarget
-    Enum to use for glBindTexture, if GL_NONE chosen from texture
-    dimensionality.
+    Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.
 */
+
 /*! \var GLenum          TextureGrabBackgroundBase::_sfCopyTarget
-    Enum to use for glCopyTexture, if GL_NONE chosen from texture
-    dimensionality. Mainly useful to grab into the different parts of a
-    CubeTexture.
+    Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.
+    Mainly useful to grab into the different parts of a CubeTexture.
 */
+
 
 void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -258,8 +260,10 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
     "A background that grabs what's underneath it into a texture before it clears \n"
     "the viewport to a constant color.\n"
+    "\n"
     "The color of the background is given by the _sfColor field, the texture to\n"
     "grab into by the _sfTexture field.\n"
     );

@@ -83,9 +83,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var UInt32          TextureSelectChunkBase::_sfChoice
     Texture selector
 */
+
 /*! \var TextureBaseChunkPtr TextureSelectChunkBase::_mfTextures
-    Texture chunks to choose from
+    Texture chunks to choose from 
 */
+
 
 void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
 {

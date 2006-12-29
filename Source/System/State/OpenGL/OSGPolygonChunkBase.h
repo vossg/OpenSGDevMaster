@@ -336,6 +336,23 @@ class OSG_STATE_DLLMAPPING PolygonChunkBase : public StateChunk
             void setOffsetFill     (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+
+    void pushToStipple                     (const Int32     &value   );
+    void insertIntoStipple                 (      UInt32     uiIndex,
+                                            const Int32     &value   );
+    void replaceInStipple                  (      UInt32     uiIndex,
+                                            const Int32     &value   );
+    void replaceInStipple                  (const Int32     &pOldElem,
+                                            const Int32     &pNewElem);
+    void removeFromStipple                 (      UInt32     uiIndex );
+    void removeFromStipple                 (const Int32     &value   );
+    void clearStipple                      (      void               );
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

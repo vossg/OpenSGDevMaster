@@ -199,7 +199,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunkBase : public StateChunk
     void clearParameters            (void                          );
 
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

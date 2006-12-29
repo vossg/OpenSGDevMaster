@@ -249,6 +249,10 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraDecoratorBase : public CameraDecorator
             void setPostProjection (const Matrix &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

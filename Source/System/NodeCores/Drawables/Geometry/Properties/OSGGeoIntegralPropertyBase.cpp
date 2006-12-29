@@ -72,8 +72,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::GeoIntegralProperty
-    Parent class for integral (i.e. one dimensional unsigned integer
-    typed) properties.
+    Parent class for integral (i.e. one dimensional unsigned integer typed) properties.
  */
 
 
@@ -104,6 +103,7 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(true,
     "types for the Geometry.\n"
     "</FieldContainer>\n",
     "Parent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
+    "\n"
     "The main use for this class is as a parent class for indices, lengths and \n"
     "types for the Geometry.\n"
     );
@@ -126,6 +126,8 @@ UInt32 GeoIntegralPropertyBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 

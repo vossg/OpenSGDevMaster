@@ -108,7 +108,9 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(true,
     "OSG::ProgramChunk, which contains the whole public interface.\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemFragmentProgramChunk for a description.\n"
+    "\n"
     "The FragmentProgramChunk implements Fragment Programs as specified in the\n"
     "GL_ARB_fragment_program extension. It is just a special version of the\n"
     "OSG::ProgramChunk, which contains the whole public interface.\n"
@@ -132,6 +134,8 @@ UInt32 FragmentProgramChunkBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 

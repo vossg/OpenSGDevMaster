@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
 
     \ext
 
-    To create a new Window the methods that have to be overridden are
+    To create a new Window the methods that have to be overridden are 
     init(void), activate(void), deactivate(void) and swap(void).
 
     \endext
@@ -93,25 +93,32 @@ OSG_BEGIN_NAMESPACE
 /*! \var UInt16          WindowBase::_sfWidth
     
 */
+
 /*! \var UInt16          WindowBase::_sfHeight
     
 */
+
 /*! \var ViewportPtr     WindowBase::_mfPort
     
 */
+
 /*! \var bool            WindowBase::_sfResizePending
     
 */
+
 /*! \var UInt32          WindowBase::_sfGlObjectEventCounter
-    Counter for GL object events. Needed for multi-aspect updates. Is used
-    in glObjectLastRefresh and glObjectLastReinitialize.
+    Counter for GL object events. Needed for multi-aspect updates.
+    Is used in glObjectLastRefresh and glObjectLastReinitialize.
 */
+
 /*! \var UInt32          WindowBase::_mfGlObjectLastRefresh
     Indicates the last refresh for the GL object.
 */
+
 /*! \var UInt32          WindowBase::_mfGlObjectLastReinitialize
     Indicates the last reinit for the GL object.
 */
+
 
 void WindowBase::classDescInserter(TypeObject &oType)
 {
@@ -371,11 +378,15 @@ WindowBase::TypeObject WindowBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindow\n"
+    "\n"
     "Window is the base class for all window management classes.  See \\ref\n"
     "PageSystemWindowWindow for a description.\n"
+    "\n"
     "\\ext\n"
+    "\n"
     "To create a new Window the methods that have to be overridden are \n"
     "init(void), activate(void), deactivate(void) and swap(void).\n"
+    "\n"
     "\\endext\n"
     );
 

@@ -74,13 +74,12 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::GradientBackground
     \ingroup GrpSystemWindowBackgrounds
 
-    A background showing a vertical color gradient, see \ref
-    PageSystemWindowBackgroundGradient.
+    A background showing a vertical color gradient, see
+    \ref PageSystemWindowBackgroundGradient.
 
-    The colors (_mfColor) and positions (_mfPosition) correspond to each
-    other, so both have to have the same number of elements. The addColor()
-    method should be used for defining the gradient, as it ensures that
-    constraint.
+    The colors (_mfColor) and positions (_mfPosition) correspond to each other, so
+    both have to have the same number of elements. The addColor() method should
+    be used for defining the gradient, as it ensures that constraint.
  */
 
 /***************************************************************************\
@@ -90,9 +89,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var Color3f         GradientBackgroundBase::_mfColor
     The colors of the gradient.
 */
+
 /*! \var Real32          GradientBackgroundBase::_mfPosition
     The positions of the gradient.
 */
+
 
 void GradientBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -194,8 +195,10 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
     "A background showing a vertical color gradient, see\n"
     "\\ref PageSystemWindowBackgroundGradient.\n"
+    "\n"
     "The colors (_mfColor) and positions (_mfPosition) correspond to each other, so\n"
     "both have to have the same number of elements. The addColor() method should\n"
     "be used for defining the gradient, as it ensures that constraint.\n"
@@ -259,6 +262,172 @@ MFReal32            *GradientBackgroundBase::getMFPosition       (void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void GradientBackgroundBase::pushToColor(const Color3f& value)
+{
+    editMField(ColorFieldMask, _mfColor);
+    _mfColor.push_back(value);
+}
+
+void GradientBackgroundBase::insertIntoColor(UInt32                uiIndex,
+                                                   const Color3f& value   )
+{
+    editMField(ColorFieldMask, _mfColor);
+
+    MFColor3f::iterator fieldIt = _mfColor.begin();
+
+    fieldIt += uiIndex;
+
+    _mfColor.insert(fieldIt, value);
+}
+
+void GradientBackgroundBase::replaceInColor(UInt32                uiIndex,
+                                                       const Color3f& value   )
+{
+    if(uiIndex >= _mfColor.size())
+        return;
+
+    editMField(ColorFieldMask, _mfColor);
+
+    _mfColor[uiIndex] = value;
+}
+
+void GradientBackgroundBase::replaceInColor(const Color3f& pOldElem,
+                                                        const Color3f& pNewElem)
+{
+    Int32  elemIdx = _mfColor.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ColorFieldMask, _mfColor);
+
+        MFColor3f::iterator fieldIt = _mfColor.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void GradientBackgroundBase::removeFromColor(UInt32 uiIndex)
+{
+    if(uiIndex < _mfColor.size())
+    {
+        editMField(ColorFieldMask, _mfColor);
+
+        MFColor3f::iterator fieldIt = _mfColor.begin();
+
+        fieldIt += uiIndex;
+        _mfColor.erase(fieldIt);
+    }
+}
+
+void GradientBackgroundBase::removeFromColor(const Color3f& value)
+{
+    Int32 iElemIdx = _mfColor.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ColorFieldMask, _mfColor);
+
+        MFColor3f::iterator fieldIt = _mfColor.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfColor.erase(fieldIt);
+    }
+}
+
+void GradientBackgroundBase::clearColor(void)
+{
+    editMField(ColorFieldMask, _mfColor);
+
+    _mfColor.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void GradientBackgroundBase::pushToPosition(const Real32& value)
+{
+    editMField(PositionFieldMask, _mfPosition);
+    _mfPosition.push_back(value);
+}
+
+void GradientBackgroundBase::insertIntoPosition(UInt32                uiIndex,
+                                                   const Real32& value   )
+{
+    editMField(PositionFieldMask, _mfPosition);
+
+    MFReal32::iterator fieldIt = _mfPosition.begin();
+
+    fieldIt += uiIndex;
+
+    _mfPosition.insert(fieldIt, value);
+}
+
+void GradientBackgroundBase::replaceInPosition(UInt32                uiIndex,
+                                                       const Real32& value   )
+{
+    if(uiIndex >= _mfPosition.size())
+        return;
+
+    editMField(PositionFieldMask, _mfPosition);
+
+    _mfPosition[uiIndex] = value;
+}
+
+void GradientBackgroundBase::replaceInPosition(const Real32& pOldElem,
+                                                        const Real32& pNewElem)
+{
+    Int32  elemIdx = _mfPosition.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(PositionFieldMask, _mfPosition);
+
+        MFReal32::iterator fieldIt = _mfPosition.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void GradientBackgroundBase::removeFromPosition(UInt32 uiIndex)
+{
+    if(uiIndex < _mfPosition.size())
+    {
+        editMField(PositionFieldMask, _mfPosition);
+
+        MFReal32::iterator fieldIt = _mfPosition.begin();
+
+        fieldIt += uiIndex;
+        _mfPosition.erase(fieldIt);
+    }
+}
+
+void GradientBackgroundBase::removeFromPosition(const Real32& value)
+{
+    Int32 iElemIdx = _mfPosition.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(PositionFieldMask, _mfPosition);
+
+        MFReal32::iterator fieldIt = _mfPosition.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfPosition.erase(fieldIt);
+    }
+}
+
+void GradientBackgroundBase::clearPosition(void)
+{
+    editMField(PositionFieldMask, _mfPosition);
+
+    _mfPosition.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

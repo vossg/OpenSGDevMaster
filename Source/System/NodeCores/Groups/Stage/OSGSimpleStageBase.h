@@ -283,7 +283,6 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public Stage
     void clearForegrounds            (void                          );
 
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -72,8 +72,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Transform
-    The basic Transformation class. Just keeps a single matrix. For more
-    complex behaviour, see its descendents.
+    The basic Transformation class. Just keeps a single matrix. For more complex
+    behaviour, see its descendents.
  */
 
 /***************************************************************************\
@@ -83,6 +83,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var Matrixr         TransformBase::_sfMatrix
     The transformation matrix.
 */
+
 
 void TransformBase::classDescInserter(TypeObject &oType)
 {
@@ -187,6 +188,8 @@ SFMatrixr           *TransformBase::getSFMatrix         (void)
     return this->editSFMatrix         ();
 }
 #endif
+
+
 
 
 

@@ -75,8 +75,7 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::Camera
     \ingroup GrpSystemWindowCameras
 
-    The Camera base class, see \ref PageSystemWindowCamera for a
-    description.
+    The Camera base class, see \ref PageSystemWindowCamera for a description.
 
     The only common fields are _sfNear and _sfFar.
  */
@@ -86,16 +85,18 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var NodePtr         CameraBase::_sfBeacon
-    The object that define's the camera's coordinate system. The camera is
-    positioned at the origin of the system and looks down the negative
-    z-axis (OpenGL-style).
+    The object that define's the camera's coordinate system. The camera is positioned
+    at the origin of the system and looks down the negative z-axis (OpenGL-style).
 */
+
 /*! \var Real32          CameraBase::_sfNear
     The near distance of the camera.
 */
+
 /*! \var Real32          CameraBase::_sfFar
     The far distance of the camera.
 */
+
 
 void CameraBase::classDescInserter(TypeObject &oType)
 {
@@ -214,7 +215,9 @@ CameraBase::TypeObject CameraBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameras\n"
+    "\n"
     "The Camera base class, see \\ref PageSystemWindowCamera for a description.\n"
+    "\n"
     "The only common fields are _sfNear and _sfFar.\n"
     );
 

@@ -75,11 +75,11 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::ImageForeground
     \ingroup GrpSystemWindowForegrounds
 
-    The ImageForeground is used to draw images on top of the viewport.  See
-    \ref PageSystemWindowForegroundImage for a description.
+    The ImageForeground is used to draw images on top of the viewport.  See \ref
+    PageSystemWindowForegroundImage for a description.
 
-    The images are stored in the _mfImages Field, the corresponding
-    positions in the _mfPositions Field.
+    The images are stored in the _mfImages Field, the corresponding positions in
+    the _mfPositions Field.
  */
 
 /***************************************************************************\
@@ -89,9 +89,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var ImagePtr        ImageForegroundBase::_mfImages
     The images to display.
 */
+
 /*! \var Pnt2f           ImageForegroundBase::_mfPositions
     The positions of the images.
 */
+
 
 void ImageForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -181,8 +183,10 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
     "The ImageForeground is used to draw images on top of the viewport.  See \\ref\n"
     "PageSystemWindowForegroundImage for a description.\n"
+    "\n"
     "The images are stored in the _mfImages Field, the corresponding positions in\n"
     "the _mfPositions Field.\n"
     );

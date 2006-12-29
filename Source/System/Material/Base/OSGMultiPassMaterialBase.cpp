@@ -84,6 +84,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
 void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;

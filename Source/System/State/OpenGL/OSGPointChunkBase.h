@@ -317,6 +317,10 @@ class OSG_STATE_DLLMAPPING PointChunkBase : public StateChunk
             void setRMode          (const GLenum &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

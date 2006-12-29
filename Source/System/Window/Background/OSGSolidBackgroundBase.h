@@ -164,6 +164,10 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
             void setColor          (const Color3r &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

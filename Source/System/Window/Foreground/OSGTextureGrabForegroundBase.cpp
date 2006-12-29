@@ -75,9 +75,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::TextureGrabForeground
     \ingroup GrpSystemWindowForegrounds
 
-    The GrabForeground is used for grabbing a rendered viewport into a
-    Texture. See \ref PageSystemWindowForegroundGrabTexture for a
-    description.
+    The GrabForeground is used for grabbing a rendered viewport into a Texture.
+    See \ref PageSystemWindowForegroundGrabTexture for a description.
  */
 
 /***************************************************************************\
@@ -87,18 +86,20 @@ OSG_BEGIN_NAMESPACE
 /*! \var TextureObjChunkPtr TextureGrabForegroundBase::_sfTexture
     The texture to grab into.
 */
+
 /*! \var bool            TextureGrabForegroundBase::_sfAutoResize
     Automatically resize the texture when the viewport size changes.
 */
+
 /*! \var GLenum          TextureGrabForegroundBase::_sfBindTarget
-    Enum to use for glBindTexture, if GL_NONE chosen from texture
-    dimensionality.
+    Enum to use for glBindTexture, if GL_NONE chosen from texture dimensionality.
 */
+
 /*! \var GLenum          TextureGrabForegroundBase::_sfCopyTarget
-    Enum to use for glCopyTexture, if GL_NONE chosen from texture
-    dimensionality. Mainly useful to grab into the different parts of a
-    CubeTexture.
+    Enum to use for glCopyTexture, if GL_NONE chosen from texture dimensionality.
+    Mainly useful to grab into the different parts of a CubeTexture.
 */
+
 
 void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -253,6 +254,7 @@ TextureGrabForegroundBase::TypeObject TextureGrabForegroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
     "The GrabForeground is used for grabbing a rendered viewport into a Texture.\n"
     "See \\ref PageSystemWindowForegroundGrabTexture for a description.\n"
     );

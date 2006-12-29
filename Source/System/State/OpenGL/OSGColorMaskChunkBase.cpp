@@ -72,8 +72,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ColorMaskChunk
-    The color mask chunk contains the parameters that are specific for color
-    writing.
+    The color mask chunk contains the parameters that are specific for color writing.
  */
 
 /***************************************************************************\
@@ -83,15 +82,19 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            ColorMaskChunkBase::_sfMaskR
     Used to mask the writing of the R value to the color buffer.
 */
+
 /*! \var bool            ColorMaskChunkBase::_sfMaskG
     Used to mask the writing of the G value to the color buffer.
 */
+
 /*! \var bool            ColorMaskChunkBase::_sfMaskB
     Used to mask the writing of the B value to the color buffer.
 */
+
 /*! \var bool            ColorMaskChunkBase::_sfMaskA
     Used to mask the writing of the A value to the color buffer.
 */
+
 
 void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -252,8 +255,7 @@ ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(true,
     "\tUsed to mask the writing of the A value to the color buffer.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "The color mask chunk contains the parameters that are specific for color\n"
-    "writing.\n"
+    "The color mask chunk contains the parameters that are specific for color writing.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -351,6 +353,8 @@ SFBool              *ColorMaskChunkBase::getSFMaskA          (void)
     return this->editSFMaskA          ();
 }
 #endif
+
+
 
 
 

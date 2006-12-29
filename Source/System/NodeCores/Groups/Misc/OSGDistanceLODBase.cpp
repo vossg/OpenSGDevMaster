@@ -72,38 +72,42 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::DistanceLOD
-    This Node manages the different levels of detail available for a
-    Geometry and decides which one should be rendered, according to the
-    distance from the current camera. The details of the selection process
-    are taken from VRML97 standard.
+    This Node manages the different levels of detail available for a Geometry
+    and decides which one should be rendered, according to the distance from the
+    current camera. The details of the selection process are taken from VRML97
+    standard. 
 
-    The node chooses which child to render based on the range values in the
-    Range multi-field and the current distance of the camera from the
-    object.   The children should be ordered from the highest level of
-    detail to the  lowest level of detail. The range values specify the
-    distances at which to  switch between the different children.
+    The node chooses which child to render based on the range values in the Range
+    multi-field and the current distance of the camera from the object.  
+    The children should be ordered from the highest level of detail to the 
+    lowest level of detail. The range values specify the distances at which to 
+    switch between the different children.
 
-    The center field is a translation offset in the local coordinate system
-    that specifies the center of the object for distance calculations.  In
-    order to calculate which level to display, first the distance from the
-    viewpoint to the center point of the LOD node (with corresponding
-    transformations) is computed.  If the distance is less than the first
-    range value, then the first LOD is drawn. If it is between the first
-    and the second values, then the second LOD is drawn, and so on.
+    The center field is a translation offset in the local coordinate system that
+    specifies the center of the object for distance calculations.  In order to
+    calculate which level to display, first the distance from the 
+    viewpoint to the center point of the LOD node (with corresponding 
+    transformations) is computed.  If the distance is less than the first range
+    value, then the first LOD is drawn. If it is between the first and the second
+    values, then the second LOD is drawn, and so on.
 
     \example Setting up a OSG::DistanceLOD
 
     Here is an example of setting up an lod core with a center and a range.
     You would also need to add children for the 4 LODs.
 
-    \code DistanceLOD lod = DistanceLOD::create();
+    \code
+    DistanceLOD lod = DistanceLOD::create();
 
-    // this is supposed to be the center of the LOD model, // that is, this
-    is the point the distance is measured from lod->setCenter(12,1,5); //
-    now we add the distances when models will change
+    // this is supposed to be the center of the LOD model,
+    // that is, this is the point the distance is measured from
+    lod->setCenter(12,1,5);
+    // now we add the distances when models will change
     lod->editMFRange()->push_back(6.0);
     lod->editMFRange()->push_back(12.0);
-    lod->editMFRange()->push_back(24.0); \endcode \endexample
+    lod->editMFRange()->push_back(24.0);
+    \endcode
+    \endexample
  */
 
 /***************************************************************************\
@@ -113,9 +117,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var Pnt3f           DistanceLODBase::_sfCenter
     The center for distance calculation.
 */
+
 /*! \var Real32          DistanceLODBase::_mfRange
     The range intervals.
 */
+
 
 void DistanceLODBase::classDescInserter(TypeObject &oType)
 {
@@ -248,11 +254,13 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(true,
     "and decides which one should be rendered, according to the distance from the\n"
     "current camera. The details of the selection process are taken from VRML97\n"
     "standard. \n"
+    "\n"
     "The node chooses which child to render based on the range values in the Range\n"
     "multi-field and the current distance of the camera from the object.  \n"
     "The children should be ordered from the highest level of detail to the \n"
     "lowest level of detail. The range values specify the distances at which to \n"
     "switch between the different children.\n"
+    "\n"
     "The center field is a translation offset in the local coordinate system that\n"
     "specifies the center of the object for distance calculations.  In order to\n"
     "calculate which level to display, first the distance from the \n"
@@ -260,11 +268,15 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(true,
     "transformations) is computed.  If the distance is less than the first range\n"
     "value, then the first LOD is drawn. If it is between the first and the second\n"
     "values, then the second LOD is drawn, and so on.\n"
+    "\n"
     "\\example Setting up a OSG::DistanceLOD\n"
+    "\n"
     "Here is an example of setting up an lod core with a center and a range.\n"
     "You would also need to add children for the 4 LODs.\n"
+    "\n"
     "\\code\n"
     "DistanceLOD lod = DistanceLOD::create();\n"
+    "\n"
     "// this is supposed to be the center of the LOD model,\n"
     "// that is, this is the point the distance is measured from\n"
     "lod->setCenter(12,1,5);\n"
@@ -334,6 +346,90 @@ MFReal32            *DistanceLODBase::getMFRange          (void)
 }
 #endif
 
+
+
+/*********************************** Non-ptr code ********************************/
+void DistanceLODBase::pushToRange(const Real32& value)
+{
+    editMField(RangeFieldMask, _mfRange);
+    _mfRange.push_back(value);
+}
+
+void DistanceLODBase::insertIntoRange(UInt32                uiIndex,
+                                                   const Real32& value   )
+{
+    editMField(RangeFieldMask, _mfRange);
+
+    MFReal32::iterator fieldIt = _mfRange.begin();
+
+    fieldIt += uiIndex;
+
+    _mfRange.insert(fieldIt, value);
+}
+
+void DistanceLODBase::replaceInRange(UInt32                uiIndex,
+                                                       const Real32& value   )
+{
+    if(uiIndex >= _mfRange.size())
+        return;
+
+    editMField(RangeFieldMask, _mfRange);
+
+    _mfRange[uiIndex] = value;
+}
+
+void DistanceLODBase::replaceInRange(const Real32& pOldElem,
+                                                        const Real32& pNewElem)
+{
+    Int32  elemIdx = _mfRange.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(RangeFieldMask, _mfRange);
+
+        MFReal32::iterator fieldIt = _mfRange.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void DistanceLODBase::removeFromRange(UInt32 uiIndex)
+{
+    if(uiIndex < _mfRange.size())
+    {
+        editMField(RangeFieldMask, _mfRange);
+
+        MFReal32::iterator fieldIt = _mfRange.begin();
+
+        fieldIt += uiIndex;
+        _mfRange.erase(fieldIt);
+    }
+}
+
+void DistanceLODBase::removeFromRange(const Real32& value)
+{
+    Int32 iElemIdx = _mfRange.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(RangeFieldMask, _mfRange);
+
+        MFReal32::iterator fieldIt = _mfRange.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfRange.erase(fieldIt);
+    }
+}
+
+void DistanceLODBase::clearRange(void)
+{
+    editMField(RangeFieldMask, _mfRange);
+
+    _mfRange.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/

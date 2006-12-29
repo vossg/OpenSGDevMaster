@@ -73,11 +73,12 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ProxyGroup
-    This group is used for delayed loading. If enabled the child nodes are
-    loaded in a second thread. Until the load is finished the child nodes
-    of this group are rendered. This could be used to show a proxy object.
-    If concurrentLoad is false, then loading is done during the first
-    frame. This is the behaviour of a simple inline.
+    This group is used for delayed loading. If enabled the child
+    nodes are loaded in a second thread. Until the load is finished
+    the child nodes of this group are rendered. This could be used
+    to show a proxy object. If concurrentLoad is false, then loading
+    is done during the first frame. This is the behaviour of a simple
+    inline.
  */
 
 /***************************************************************************\
@@ -87,39 +88,51 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            ProxyGroupBase::_sfEnabled
     
 */
+
 /*! \var std::string     ProxyGroupBase::_sfUrl
     
 */
+
 /*! \var NodePtr         ProxyGroupBase::_sfRoot
     
 */
+
 /*! \var UInt32          ProxyGroupBase::_sfState
     
 */
+
 /*! \var bool            ProxyGroupBase::_sfConcurrentLoad
     
 */
+
 /*! \var DynamicVolume   ProxyGroupBase::_sfVolume
     
 */
+
 /*! \var UInt32          ProxyGroupBase::_sfIndices
     
 */
+
 /*! \var UInt32          ProxyGroupBase::_sfTriangles
     
 */
+
 /*! \var UInt32          ProxyGroupBase::_sfPositions
     
 */
+
 /*! \var UInt32          ProxyGroupBase::_sfGeometries
     
 */
+
 /*! \var std::string     ProxyGroupBase::_sfAbsoluteUrl
     
 */
+
 /*! \var UInt8           ProxyGroupBase::_mfInline
     
 */
+
 
 void ProxyGroupBase::classDescInserter(TypeObject &oType)
 {

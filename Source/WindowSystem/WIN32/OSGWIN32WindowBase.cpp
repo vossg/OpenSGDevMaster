@@ -82,12 +82,15 @@ OSG_BEGIN_NAMESPACE
 /*! \var HWND            WIN32WindowBase::_sfHwnd
     
 */
+
 /*! \var HDC             WIN32WindowBase::_sfHdc
     
 */
+
 /*! \var HGLRC           WIN32WindowBase::_sfHglrc
     
 */
+
 
 void WIN32WindowBase::classDescInserter(TypeObject &oType)
 {
@@ -293,6 +296,8 @@ SFHGLRC             *WIN32WindowBase::getSFHglrc          (void)
     return this->editSFHglrc          ();
 }
 #endif
+
+
 
 
 

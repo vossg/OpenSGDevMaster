@@ -164,6 +164,10 @@ class OSG_STATE_DLLMAPPING TransformChunkBase : public StateChunk
             void setMatrix         (const Matrix &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

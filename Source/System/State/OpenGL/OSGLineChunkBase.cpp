@@ -80,9 +80,9 @@ OSG_BEGIN_NAMESPACE
     The line chunk contains the parameters that are specific to lines.
 
     The parameters of the following functions are wrapped here: glLineWidth
-    (OSG::LineChunk::_sfWidth), glLineStipple
-    (OSG::LineChunk::_sfStippleRepeat, OSG::LineChunk::_sfStipplePattern),
-    glEnable(GL_LINE_SMOOTH) (OSG::LineChunk::_sfSmooth).
+    (OSG::LineChunk::_sfWidth), glLineStipple (OSG::LineChunk::_sfStippleRepeat,
+    OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)
+    (OSG::LineChunk::_sfSmooth).
  */
 
 /***************************************************************************\
@@ -92,16 +92,20 @@ OSG_BEGIN_NAMESPACE
 /*! \var Real32          LineChunkBase::_sfWidth
     The line's width, in pixels.
 */
+
 /*! \var Int32           LineChunkBase::_sfStippleRepeat
     Repetition factor for stippling.
 */
+
 /*! \var UInt16          LineChunkBase::_sfStipplePattern
-    Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored,
+    Defines the stipple pattern. 1 bits are drawn, 0 bits are ignored, 
     starting with the most significant bit.
 */
+
 /*! \var bool            LineChunkBase::_sfSmooth
     Defines if line antialiasing is used.
 */
+
 
 void LineChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -273,8 +277,11 @@ LineChunkBase::TypeObject LineChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemLineChunk for a description.\n"
+    "\n"
     "The line chunk contains the parameters that are specific to lines.\n"
+    "\n"
     "The parameters of the following functions are wrapped here: glLineWidth\n"
     "(OSG::LineChunk::_sfWidth), glLineStipple (OSG::LineChunk::_sfStippleRepeat,\n"
     "OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)\n"
@@ -376,6 +383,8 @@ SFBool              *LineChunkBase::getSFSmooth         (void)
     return this->editSFSmooth         ();
 }
 #endif
+
+
 
 
 

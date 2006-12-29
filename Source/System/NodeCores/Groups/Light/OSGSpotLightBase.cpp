@@ -76,10 +76,10 @@ OSG_BEGIN_NAMESPACE
     (in the beacon's coordinate system) is defined by the \c position
     attribute, its direction by the \c direction attribute. The spot has an
     exponential fallof, controlled by the \c spotExponent attribute and a
-    maximum opening angle, defined by the \c spotCutOff attribute. The
-    influence of the light diminishes with distance, controlled by the \c
-    constantAttenuation, \c linearAttenuation and \c quadraticAttenuation
-    attributes.
+    maximum opening angle, defined by the \c spotCutOff attribute.
+    The influence of the light diminishes with distance, controlled
+    by the \c constantAttenuation, \c linearAttenuation and \c
+    quadraticAttenuation attributes.
  */
 
 /***************************************************************************\
@@ -89,12 +89,15 @@ OSG_BEGIN_NAMESPACE
 /*! \var Vec3r           SpotLightBase::_sfDirection
     
 */
+
 /*! \var Real            SpotLightBase::_sfSpotExponent
     The drop-off exponent of the spotlight.
 */
+
 /*! \var Real            SpotLightBase::_sfSpotCutOff
     The cut-off angle of the spotlight (in radians, not degrees!).
 */
+
 
 void SpotLightBase::classDescInserter(TypeObject &oType)
 {
@@ -311,6 +314,8 @@ SFReal              *SpotLightBase::getSFSpotCutOff     (void)
     return this->editSFSpotCutOff     ();
 }
 #endif
+
+
 
 
 

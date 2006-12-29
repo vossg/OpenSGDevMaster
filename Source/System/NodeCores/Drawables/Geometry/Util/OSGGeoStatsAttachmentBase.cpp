@@ -74,23 +74,21 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::GeoStatsAttachment
     The base class for geometry statistics.
 
-    The GeoStatsAttachment keeps track of some core Geometry
-    Characteristics like the number of vertices used, the number of points,
-    lines or triangles created and some information about memory
-    consumption.
+    The GeoStatsAttachment keeps track of some core Geometry Characteristics like
+    the number of vertices used, the number of points, lines or triangles created
+    and some information about memory consumption.
 
-    It is designed as an attachment so that it can be kept inside the
-    graph. It can also be used to keep aggregated information about
-    subtrees, by adding up the contributions of the underlying nodes. It
-    can invalidate itself by using changed callbacks, so that no manual
-    bookkeeping is necessary.
+    It is designed as an attachment so that it can be kept inside the graph. It
+    can also be used to keep aggregated information about subtrees, by adding up
+    the contributions of the underlying nodes. It can invalidate itself by using
+    changed callbacks, so that no manual bookkeeping is necessary.
 
     \warning To use the automatic update you have to use the
     osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()
     methods! Otherwise the necessary callbacks are not set!
 
-    \warning Before accessing the data osg::GeoStatsAttachment::validate()
-    needs to be called to calculate and aggregate the results.
+    \warning Before accessing the data osg::GeoStatsAttachment::validate() needs
+    to be called to calculate and aggregate the results.
  */
 
 /***************************************************************************\
@@ -100,25 +98,31 @@ OSG_BEGIN_NAMESPACE
 /*! \var UInt32          GeoStatsAttachmentBase::_sfVertices
     The number of vertices in the subtree.
 */
+
 /*! \var UInt32          GeoStatsAttachmentBase::_sfPoints
     The number of points in the subtree.
 */
+
 /*! \var UInt32          GeoStatsAttachmentBase::_sfLines
     The number of lines in the subtree.
 */
+
 /*! \var UInt32          GeoStatsAttachmentBase::_sfTriangles
     The number of triangles in the subtree.
 */
+
 /*! \var UInt32          GeoStatsAttachmentBase::_sfProcessedAttributeBytes
-    The number of bytes in vertex attribute data that are processed while
-    rendering.
+    The number of bytes in vertex attribute data that are processed while rendering.
 */
+
 /*! \var UInt32          GeoStatsAttachmentBase::_sfStoredAttributeBytes
     The number of bytes in vertex attribute data that are stored.
 */
+
 /*! \var bool            GeoStatsAttachmentBase::_sfValid
     Flags whether the data is valid or needs to be updated.
 */
+
 
 void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 {
@@ -385,16 +389,20 @@ GeoStatsAttachmentBase::TypeObject GeoStatsAttachmentBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "The base class for geometry statistics.\n"
+    "\n"
     "The GeoStatsAttachment keeps track of some core Geometry Characteristics like\n"
     "the number of vertices used, the number of points, lines or triangles created\n"
     "and some information about memory consumption.\n"
+    "\n"
     "It is designed as an attachment so that it can be kept inside the graph. It\n"
     "can also be used to keep aggregated information about subtrees, by adding up\n"
     "the contributions of the underlying nodes. It can invalidate itself by using\n"
     "changed callbacks, so that no manual bookkeeping is necessary.\n"
+    "\n"
     "\\warning To use the automatic update you have to use the\n"
     "osg::GeoStatsAttachment::addTo() or osg::GeoStatsAttachment::attachTo()\n"
     "methods! Otherwise the necessary callbacks are not set!\n"
+    "\n"
     "\\warning Before accessing the data osg::GeoStatsAttachment::validate() needs\n"
     "to be called to calculate and aggregate the results.\n"
     );
@@ -551,6 +559,8 @@ SFBool              *GeoStatsAttachmentBase::getSFValid          (void)
     return this->editSFValid          ();
 }
 #endif
+
+
 
 
 

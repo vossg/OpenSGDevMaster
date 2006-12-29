@@ -266,6 +266,10 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
             void setClearBuffer    (const Int32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

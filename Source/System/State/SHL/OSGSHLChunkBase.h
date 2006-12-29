@@ -198,6 +198,10 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
             void setGLId           (const UInt32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

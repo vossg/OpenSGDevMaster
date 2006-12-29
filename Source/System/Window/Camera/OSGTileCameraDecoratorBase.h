@@ -249,6 +249,10 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecoratorBase : public CameraDecorator
             void setFullHeight     (const UInt32 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

@@ -84,79 +84,99 @@ OSG_BEGIN_NAMESPACE
 /*! \var ImagePtr        QuadTreeTerrainBase::_sfHeightData
     Terrain height as image.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfHeightScale
     Scale factor for terrain height.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_mfHeightError
     Error values.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_mfHeightQuad
-    Vertex indices used in current tesselation (encoding terrain
-    quadtree).
+    Vertex indices used in current tesselation (encoding terrain quadtree).
 */
+
 /*! \var UInt32          QuadTreeTerrainBase::_sfWidth
     Width and height of dataset.
 */
+
 /*! \var UInt32          QuadTreeTerrainBase::_sfLevel
     Levels of terrain quadtree.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfDetail
     Detail of terrain tesselation.
 */
+
 /*! \var Int32           QuadTreeTerrainBase::_sfBorderDetail
-    Detail for borders (0: determined by height data, positive: borders at
-    level borderDetail).
+    Detail for borders (0: determined by height data, positive: borders at level borderDetail).
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfVertexSpacing
     Spacing to horizontal and vertical neighbour vertices.
 */
+
 /*! \var GeoVectorPropertyPtr QuadTreeTerrainBase::_sfHeightVertices
     Precomputed terrain vertices.
 */
+
 /*! \var bool            QuadTreeTerrainBase::_sfGeoMorphing
     
 */
+
 /*! \var Pnt3f           QuadTreeTerrainBase::_sfBoundMin
     Min vertex of AABB.
 */
+
 /*! \var Pnt3f           QuadTreeTerrainBase::_sfBoundMax
     Max vertex of AABB.
 */
+
 /*! \var Pnt3f           QuadTreeTerrainBase::_sfEyePoint
     Eye point of this frame.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfEyeHeight
     Height of eye point above terrain.
 */
+
 /*! \var bool            QuadTreeTerrainBase::_sfEyePointValid
     Eye point set externally, otherwise it is computed internally.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfOriginX
     X-component of terrain lower left point.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfOriginY
     Y-component of terrain lower left point.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfOriginTexX
     Texture X-component of terrain lower left point.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfOriginTexY
     Texture Y-component of terrain lower left point.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfTexSpacing
-    Spacing of texture coordinates for horizontal (and vertical) neighbour
-    vertices.
+    Spacing of texture coordinates for horizontal (and vertical) neighbour vertices.
 */
+
 /*! \var Real32          QuadTreeTerrainBase::_sfTexYSpacing
     Spacing of texture coordinates for vertical neighbour vertices.
 */
+
 /*! \var bool            QuadTreeTerrainBase::_sfUpdateTerrain
     Update terrain in next frame.
 */
+
 /*! \var bool            QuadTreeTerrainBase::_sfPerPixelLighting
-    Do per-pixel lighting with normalmap; otherwise generate per-vertex
-    normals.
+    Do per-pixel lighting with normalmap; otherwise generate per-vertex normals.
 */
+
 
 void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 {

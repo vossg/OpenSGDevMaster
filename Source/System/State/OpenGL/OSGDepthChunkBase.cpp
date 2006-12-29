@@ -73,8 +73,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::DepthChunk
-    The depth chunk contains the parameters that are specific for depth
-    control.
+    The depth chunk contains the parameters that are specific for depth control.
 
     The parameters of the following functions are wrapped here: glDepthFunc
     (OSG::DepthChunk::_sfFunc), glDepthRange (OSG::DepthChunk::_sfNear,
@@ -89,21 +88,23 @@ OSG_BEGIN_NAMESPACE
 /*! \var bool            DepthChunkBase::_sfEnable
     Whether the depth test should be enabled or not.
 */
+
 /*! \var GLenum          DepthChunkBase::_sfFunc
-    The depth function to use. If GL_NONE, it's not changed. The default
-    is GL_LEQUAL.
+    The depth function to use. If GL_NONE, it's not changed. The default is GL_LEQUAL.
 */
+
 /*! \var Real32          DepthChunkBase::_sfNear
-    The near value for glDepthRange. Ignored if less than 0, defaults to
-    -1.
+    The near value for glDepthRange. Ignored if less than 0, defaults to -1.
 */
+
 /*! \var Real32          DepthChunkBase::_sfFar
-    The far value for glDepthRange. Ignored if less than 0, defaults to
-    -1.
+    The far value for glDepthRange. Ignored if less than 0, defaults to -1.
 */
+
 /*! \var bool            DepthChunkBase::_sfReadOnly
     Whether the depth buffer is enabled for writing or not.
 */
+
 
 void DepthChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -303,6 +304,7 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "The depth chunk contains the parameters that are specific for depth control.\n"
+    "\n"
     "The parameters of the following functions are wrapped here: glDepthFunc\n"
     "(OSG::DepthChunk::_sfFunc), glDepthRange (OSG::DepthChunk::_sfNear,\n"
     "OSG::DepthChunk::_sfFar), glEnable(GL_DEPTH_TEST)\n"
@@ -423,6 +425,8 @@ SFBool              *DepthChunkBase::getSFReadOnly       (void)
     return this->editSFReadOnly       ();
 }
 #endif
+
+
 
 
 

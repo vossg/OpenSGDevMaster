@@ -83,9 +83,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var std::string     ContainerPoolBase::_sfName
     The name of the container pool.  Can be used to identify pools.
 */
+
 /*! \var FieldContainerPtr ContainerPoolBase::_mfContainers
     A list of containers held in the pool.
 */
+
 
 void ContainerPoolBase::classDescInserter(TypeObject &oType)
 {

@@ -76,8 +76,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StencilChunk
-    The stencil chunk handles OpenGL stencil tests by wrapping
-    glStencilFunc() and glStencilOp().
+    The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and glStencilOp().
  */
 
 /***************************************************************************\
@@ -85,38 +84,39 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var GLenum          StencilChunkBase::_sfStencilFunc
-    The stencilFunc defines how fragments which do not fulfill a certain
-    condition are handled. See glStencilFunc() for details. GL_NONE is used
-    to disable stencil.
+    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
+
 /*! \var Int32           StencilChunkBase::_sfStencilValue
-    The stencilFunc defines how fragments which do not fulfill a certain
-    condition are handled. See glStencilFunc() for details. GL_NONE is used
-    to disable stencil.
+    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
+
 /*! \var UInt32          StencilChunkBase::_sfStencilMask
-    The stencilFunc defines how fragments which do not fulfill a certain
-    condition are handled. See glStencilFunc() for details. GL_NONE is used
-    to disable stencil.
+    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
+
 /*! \var GLenum          StencilChunkBase::_sfStencilOpFail
-    The stencilFunc defines how fragments which do not fulfill a certain
-    condition are handled. See glStencilFunc() for details. GL_NONE is used
-    to disable stencil.
+    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
+
 /*! \var GLenum          StencilChunkBase::_sfStencilOpZFail
-    The stencilFunc defines how fragments which do not fulfill a certain
-    condition are handled. See glStencilFunc() for details. GL_NONE is used
-    to disable stencil.
+    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
+
 /*! \var GLenum          StencilChunkBase::_sfStencilOpZPass
-    The stencilFunc defines how fragments which do not fulfill a certain
-    condition are handled. See glStencilFunc() for details. GL_NONE is used
-    to disable stencil.
+    The stencilFunc defines how fragments which do not fulfill a certain condition are handled.
+    See glStencilFunc() for details. GL_NONE is used to disable stencil.
 */
+
 /*! \var Int32           StencilChunkBase::_sfClearBuffer
     Clear buffer on activate(1) or deactivate(2).
 */
+
 
 void StencilChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -544,6 +544,8 @@ SFInt32             *StencilChunkBase::getSFClearBuffer    (void)
     return this->editSFClearBuffer    ();
 }
 #endif
+
+
 
 
 

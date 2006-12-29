@@ -728,6 +728,361 @@ class OSG_STATE_DLLMAPPING RegisterCombinersChunkBase : public StateChunk
             void setPerStageConstants(const UInt8 &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+
+    void pushToVariableArgb                (const GLenum    &value   );
+    void insertIntoVariableArgb            (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableArgb             (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableArgb             (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableArgb            (      UInt32     uiIndex );
+    void removeFromVariableArgb            (const GLenum    &value   );
+    void clearVariableArgb                 (      void               );
+
+
+
+    void pushToVariableBrgb                (const GLenum    &value   );
+    void insertIntoVariableBrgb            (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableBrgb             (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableBrgb             (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableBrgb            (      UInt32     uiIndex );
+    void removeFromVariableBrgb            (const GLenum    &value   );
+    void clearVariableBrgb                 (      void               );
+
+
+
+    void pushToVariableCrgb                (const GLenum    &value   );
+    void insertIntoVariableCrgb            (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableCrgb             (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableCrgb             (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableCrgb            (      UInt32     uiIndex );
+    void removeFromVariableCrgb            (const GLenum    &value   );
+    void clearVariableCrgb                 (      void               );
+
+
+
+    void pushToVariableDrgb                (const GLenum    &value   );
+    void insertIntoVariableDrgb            (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableDrgb             (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableDrgb             (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableDrgb            (      UInt32     uiIndex );
+    void removeFromVariableDrgb            (const GLenum    &value   );
+    void clearVariableDrgb                 (      void               );
+
+
+
+    void pushToVariableAalpha              (const GLenum    &value   );
+    void insertIntoVariableAalpha          (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableAalpha           (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableAalpha           (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableAalpha          (      UInt32     uiIndex );
+    void removeFromVariableAalpha          (const GLenum    &value   );
+    void clearVariableAalpha               (      void               );
+
+
+
+    void pushToVariableBalpha              (const GLenum    &value   );
+    void insertIntoVariableBalpha          (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableBalpha           (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableBalpha           (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableBalpha          (      UInt32     uiIndex );
+    void removeFromVariableBalpha          (const GLenum    &value   );
+    void clearVariableBalpha               (      void               );
+
+
+
+    void pushToVariableCalpha              (const GLenum    &value   );
+    void insertIntoVariableCalpha          (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableCalpha           (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableCalpha           (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableCalpha          (      UInt32     uiIndex );
+    void removeFromVariableCalpha          (const GLenum    &value   );
+    void clearVariableCalpha               (      void               );
+
+
+
+    void pushToVariableDalpha              (const GLenum    &value   );
+    void insertIntoVariableDalpha          (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableDalpha           (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableDalpha           (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableDalpha          (      UInt32     uiIndex );
+    void removeFromVariableDalpha          (const GLenum    &value   );
+    void clearVariableDalpha               (      void               );
+
+
+
+    void pushToOutputABrgb                 (const GLenum    &value   );
+    void insertIntoOutputABrgb             (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputABrgb              (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputABrgb              (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromOutputABrgb             (      UInt32     uiIndex );
+    void removeFromOutputABrgb             (const GLenum    &value   );
+    void clearOutputABrgb                  (      void               );
+
+
+
+    void pushToOutputCDrgb                 (const GLenum    &value   );
+    void insertIntoOutputCDrgb             (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputCDrgb              (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputCDrgb              (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromOutputCDrgb             (      UInt32     uiIndex );
+    void removeFromOutputCDrgb             (const GLenum    &value   );
+    void clearOutputCDrgb                  (      void               );
+
+
+
+    void pushToOutputSumrgb                (const GLenum    &value   );
+    void insertIntoOutputSumrgb            (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputSumrgb             (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputSumrgb             (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromOutputSumrgb            (      UInt32     uiIndex );
+    void removeFromOutputSumrgb            (const GLenum    &value   );
+    void clearOutputSumrgb                 (      void               );
+
+
+
+    void pushToScalergb                    (const GLenum    &value   );
+    void insertIntoScalergb                (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInScalergb                 (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInScalergb                 (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromScalergb                (      UInt32     uiIndex );
+    void removeFromScalergb                (const GLenum    &value   );
+    void clearScalergb                     (      void               );
+
+
+
+    void pushToBiasrgb                     (const GLenum    &value   );
+    void insertIntoBiasrgb                 (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInBiasrgb                  (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInBiasrgb                  (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromBiasrgb                 (      UInt32     uiIndex );
+    void removeFromBiasrgb                 (const GLenum    &value   );
+    void clearBiasrgb                      (      void               );
+
+
+
+    void pushToOutputABalpha               (const GLenum    &value   );
+    void insertIntoOutputABalpha           (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputABalpha            (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputABalpha            (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromOutputABalpha           (      UInt32     uiIndex );
+    void removeFromOutputABalpha           (const GLenum    &value   );
+    void clearOutputABalpha                (      void               );
+
+
+
+    void pushToOutputCDalpha               (const GLenum    &value   );
+    void insertIntoOutputCDalpha           (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputCDalpha            (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputCDalpha            (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromOutputCDalpha           (      UInt32     uiIndex );
+    void removeFromOutputCDalpha           (const GLenum    &value   );
+    void clearOutputCDalpha                (      void               );
+
+
+
+    void pushToOutputSumalpha              (const GLenum    &value   );
+    void insertIntoOutputSumalpha          (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputSumalpha           (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInOutputSumalpha           (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromOutputSumalpha          (      UInt32     uiIndex );
+    void removeFromOutputSumalpha          (const GLenum    &value   );
+    void clearOutputSumalpha               (      void               );
+
+
+
+    void pushToDotABrgb                    (const UInt8     &value   );
+    void insertIntoDotABrgb                (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInDotABrgb                 (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInDotABrgb                 (const UInt8     &pOldElem,
+                                            const UInt8     &pNewElem);
+    void removeFromDotABrgb                (      UInt32     uiIndex );
+    void removeFromDotABrgb                (const UInt8     &value   );
+    void clearDotABrgb                     (      void               );
+
+
+
+    void pushToDotCDrgb                    (const UInt8     &value   );
+    void insertIntoDotCDrgb                (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInDotCDrgb                 (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInDotCDrgb                 (const UInt8     &pOldElem,
+                                            const UInt8     &pNewElem);
+    void removeFromDotCDrgb                (      UInt32     uiIndex );
+    void removeFromDotCDrgb                (const UInt8     &value   );
+    void clearDotCDrgb                     (      void               );
+
+
+
+    void pushToMuxSumrgb                   (const UInt8     &value   );
+    void insertIntoMuxSumrgb               (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInMuxSumrgb                (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInMuxSumrgb                (const UInt8     &pOldElem,
+                                            const UInt8     &pNewElem);
+    void removeFromMuxSumrgb               (      UInt32     uiIndex );
+    void removeFromMuxSumrgb               (const UInt8     &value   );
+    void clearMuxSumrgb                    (      void               );
+
+
+
+    void pushToScalealpha                  (const GLenum    &value   );
+    void insertIntoScalealpha              (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInScalealpha               (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInScalealpha               (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromScalealpha              (      UInt32     uiIndex );
+    void removeFromScalealpha              (const GLenum    &value   );
+    void clearScalealpha                   (      void               );
+
+
+
+    void pushToBiasalpha                   (const GLenum    &value   );
+    void insertIntoBiasalpha               (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInBiasalpha                (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInBiasalpha                (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromBiasalpha               (      UInt32     uiIndex );
+    void removeFromBiasalpha               (const GLenum    &value   );
+    void clearBiasalpha                    (      void               );
+
+
+
+    void pushToMuxSumalpha                 (const UInt8     &value   );
+    void insertIntoMuxSumalpha             (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInMuxSumalpha              (      UInt32     uiIndex,
+                                            const UInt8     &value   );
+    void replaceInMuxSumalpha              (const UInt8     &pOldElem,
+                                            const UInt8     &pNewElem);
+    void removeFromMuxSumalpha             (      UInt32     uiIndex );
+    void removeFromMuxSumalpha             (const UInt8     &value   );
+    void clearMuxSumalpha                  (      void               );
+
+
+
+    void pushToVariableE                   (const GLenum    &value   );
+    void insertIntoVariableE               (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableE                (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableE                (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableE               (      UInt32     uiIndex );
+    void removeFromVariableE               (const GLenum    &value   );
+    void clearVariableE                    (      void               );
+
+
+
+    void pushToVariableF                   (const GLenum    &value   );
+    void insertIntoVariableF               (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableF                (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableF                (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableF               (      UInt32     uiIndex );
+    void removeFromVariableF               (const GLenum    &value   );
+    void clearVariableF                    (      void               );
+
+
+
+    void pushToVariableG                   (const GLenum    &value   );
+    void insertIntoVariableG               (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableG                (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInVariableG                (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromVariableG               (      UInt32     uiIndex );
+    void removeFromVariableG               (const GLenum    &value   );
+    void clearVariableG                    (      void               );
+
+
+
+    void pushToCombinerColor0              (const Color4f   &value   );
+    void insertIntoCombinerColor0          (      UInt32     uiIndex,
+                                            const Color4f   &value   );
+    void replaceInCombinerColor0           (      UInt32     uiIndex,
+                                            const Color4f   &value   );
+    void replaceInCombinerColor0           (const Color4f   &pOldElem,
+                                            const Color4f   &pNewElem);
+    void removeFromCombinerColor0          (      UInt32     uiIndex );
+    void removeFromCombinerColor0          (const Color4f   &value   );
+    void clearCombinerColor0               (      void               );
+
+
+
+    void pushToCombinerColor1              (const Color4f   &value   );
+    void insertIntoCombinerColor1          (      UInt32     uiIndex,
+                                            const Color4f   &value   );
+    void replaceInCombinerColor1           (      UInt32     uiIndex,
+                                            const Color4f   &value   );
+    void replaceInCombinerColor1           (const Color4f   &pOldElem,
+                                            const Color4f   &pNewElem);
+    void removeFromCombinerColor1          (      UInt32     uiIndex );
+    void removeFromCombinerColor1          (const Color4f   &value   );
+    void clearCombinerColor1               (      void               );
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

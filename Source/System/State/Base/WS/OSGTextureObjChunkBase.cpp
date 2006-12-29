@@ -88,36 +88,30 @@ OSG_BEGIN_NAMESPACE
     See \ref PageSystemTextureObjChunk for a description.
 
     This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,
-    osg::TextureObjChunk::_sfInternalFormat,
-    osg::TextureObjChunk::_sfExternalFormat), glTexParameter
-    (osg::TextureObjChunk::_sfMinFilter,
+    osg::TextureObjChunk::_sfInternalFormat, osg::TextureObjChunk::_sfExternalFormat),
+    glTexParameter (osg::TextureObjChunk::_sfMinFilter,
     osg::TextureObjChunk::_sfMagFilter, osg::TextureObjChunk::_sfWrapS,
-    osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR),
-    glTexEnv (osg::TextureObjChunk::_sfEnvMode,
-    osg::TextureObjChunk::_sfEnvColor, osg::TextureObjChunk::_sfPriority).
+    osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR), glTexEnv
+    (osg::TextureObjChunk::_sfEnvMode, osg::TextureObjChunk::_sfEnvColor,
+    osg::TextureObjChunk::_sfPriority).
 
-    The ARB combine extension is also supported, where available
-    (osg::TextureObjChunk::_sfEnvCombineRGB,
-    osg::TextureObjChunk::_sfEnvScaleRGB,
-    osg::TextureObjChunk::_sfEnvSource0RGB,
-    osg::TextureObjChunk::_sfEnvSource1RGB,
-    osg::TextureObjChunk::_sfEnvSource2RGB,
-    osg::TextureObjChunk::_sfEnvOperand0RGB,
-    osg::TextureObjChunk::_sfEnvOperand1RGB,
+    The ARB combine extension is also supported,
+    where available (osg::TextureObjChunk::_sfEnvCombineRGB,
+    osg::TextureObjChunk::_sfEnvScaleRGB, osg::TextureObjChunk::_sfEnvSource0RGB,
+    osg::TextureObjChunk::_sfEnvSource1RGB, osg::TextureObjChunk::_sfEnvSource2RGB,
+    osg::TextureObjChunk::_sfEnvOperand0RGB, osg::TextureObjChunk::_sfEnvOperand1RGB,
     osg::TextureObjChunk::_sfEnvOperand2RGB,
-    osg::TextureObjChunk::_sfEnvCombineAlpha,
-    osg::TextureObjChunk::_sfEnvScaleAlpha,
-    osg::TextureObjChunk::_sfEnvSource0Alpha,
-    osg::TextureObjChunk::_sfEnvSource1Alpha,
-    osg::TextureObjChunk::_sfEnvSource2Alpha,
-    osg::TextureObjChunk::_sfEnvOperand0Alpha,
+    osg::TextureObjChunk::_sfEnvCombineAlpha,   osg::TextureObjChunk::_sfEnvScaleAlpha,
+    osg::TextureObjChunk::_sfEnvSource0Alpha, osg::TextureObjChunk::_sfEnvSource1Alpha,
+    osg::TextureObjChunk::_sfEnvSource2Alpha, osg::TextureObjChunk::_sfEnvOperand0Alpha,
     osg::TextureObjChunk::_sfEnvOperand1Alpha,
     osg::TextureObjChunk::_sfEnvOperand2Alpha).
 
-    It is possible to enable the point sprite coordinate replacement
-    (osg::TextureObjChunk::_sfPointSprite), see \ref PageSystemPointChunk
-    for details. The two parameters osg::TextureObjChunk::_sfScale and
-    osg::TextureObjChunk::_sfFrame specify details about the texture.
+    It is possible to enable the point
+    sprite coordinate replacement  (osg::TextureObjChunk::_sfPointSprite), see \ref
+    PageSystemPointChunk for details. The two parameters
+    osg::TextureObjChunk::_sfScale and osg::TextureObjChunk::_sfFrame specify details
+    about the texture.
 
     On hardware that supports it (i.e. NVidia boards) the texture shader
     extension(s) are also available.
@@ -130,13 +124,17 @@ OSG_BEGIN_NAMESPACE
 /*! \var ImagePtr        TextureObjChunkBase::_sfImage
     The texture image.
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfInternalFormat
     The internal texture format.
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfExternalFormat
-    The external texture format - overwrites  external format of image
-    when set to a value not equal to  GL_NONE (which is the default).
+    The external texture format - overwrites 
+    external format of image when set to a value not equal to 
+    GL_NONE (which is the default).
 */
+
 /*! \var bool            TextureObjChunkBase::_sfScale
     Specifies whether the image should be scaled to the next power of two,
     thus filling the whole texture coordinate range, or if it should be put
@@ -144,86 +142,107 @@ OSG_BEGIN_NAMESPACE
     This is mainly used for rapidly changing non power of two textures, to
     get around the scaling overhead.
 */
+
 /*! \var UInt32          TextureObjChunkBase::_sfFrame
     Select the frame of the image to be used. See osg::Image about details
-    concerning multi-frame images. @hint For fast update use GL_LINEAR or
-    GL_NEAREST filters, as mipmap creation is slow right now.
+    concerning multi-frame images.
+    @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfMinFilter
     The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfMagFilter
     The magnification filter, default GL_LINEAR.
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfWrapS
     Texture coordinate S wrapping, default GL_REPEAT.
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfWrapT
     Texture coordinate T wrapping, default GL_REPEAT.
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfWrapR
     Texture coordinate R wrapping, default GL_REPEAT.
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfGLId
     The OpenGL texture id for this texture.
 */
+
 /*! \var Int32           TextureObjChunkBase::_sfIgnoreGLForAspect
     Don't do any GL calls for aspect of given id.
 */
+
 /*! \var Real32          TextureObjChunkBase::_sfPriority
-    Priority of this texture, between 0 and 1, the default is 0.
-    (GL_TEXTURE_PRIORITY)
+    Priority of this texture, between 0 and 1, the default is 0.  (GL_TEXTURE_PRIORITY)
 */
+
 /*! \var Int32           TextureObjChunkBase::_sfDirtyLeft
-    Left coordinate of the dirty rectangle to use for
-    imageContentChanged(). This doesn't make sense to be stored in files,
+    Left coordinate of the dirty rectangle to use for 
+    imageContentChanged(). This doesn't make sense to be stored in files, 
     it does make sense on a cluster, though, that's why it's external.
 */
+
 /*! \var Int32           TextureObjChunkBase::_sfDirtyMinX
-    Minimum X coordinate of the dirty rectangle to use for
-    imageContentChanged(). This doesn't make sense to be stored in files,
+    Minimum X coordinate of the dirty rectangle to use for 
+    imageContentChanged(). This doesn't make sense to be stored in files, 
     it does make sense on a cluster, though, that's why it's external.
 */
+
 /*! \var Int32           TextureObjChunkBase::_sfDirtyMaxX
-    Maximum X coordinate of the dirty rectangle to use for
-    imageContentChanged(). This doesn't make sense to be stored in files,
+    Maximum X coordinate of the dirty rectangle to use for 
+    imageContentChanged(). This doesn't make sense to be stored in files, 
     it does make sense on a cluster, though, that's why it's external.
 */
+
 /*! \var Int32           TextureObjChunkBase::_sfDirtyMinY
-    Minimum Y coordinate of the dirty rectangle to use for
-    imageContentChanged(). This doesn't make sense to be stored in files,
+    Minimum Y coordinate of the dirty rectangle to use for 
+    imageContentChanged(). This doesn't make sense to be stored in files, 
     it does make sense on a cluster, though, that's why it's external.
 */
+
 /*! \var Int32           TextureObjChunkBase::_sfDirtyMaxY
-    Maximum Y coordinate of the dirty rectangle to use for
-    imageContentChanged(). This doesn't make sense to be stored in files,
+    Maximum Y coordinate of the dirty rectangle to use for 
+    imageContentChanged(). This doesn't make sense to be stored in files, 
     it does make sense on a cluster, though, that's why it's external.
 */
+
 /*! \var Int32           TextureObjChunkBase::_sfDirtyMinZ
-    Minimum Z coordinate of the dirty rectangle to use for
-    imageContentChanged(). This doesn't make sense to be stored in files,
+    Minimum Z coordinate of the dirty rectangle to use for 
+    imageContentChanged(). This doesn't make sense to be stored in files, 
     it does make sense on a cluster, though, that's why it's external.
 */
+
 /*! \var Int32           TextureObjChunkBase::_sfDirtyMaxZ
-    Maximum Z coordinate of the dirty rectangle to use for
-    imageContentChanged(). This doesn't make sense to be stored in files,
+    Maximum Z coordinate of the dirty rectangle to use for 
+    imageContentChanged(). This doesn't make sense to be stored in files, 
     it does make sense on a cluster, though, that's why it's external.
 */
+
 /*! \var Real32          TextureObjChunkBase::_sfAnisotropy
     Anisotropic filtering the default 1.0f means isotropic filtering.
 */
+
 /*! \var Color4f         TextureObjChunkBase::_sfBorderColor
     Texture border color
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfCompareMode
     
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfCompareFunc
     
 */
+
 /*! \var GLenum          TextureObjChunkBase::_sfDepthMode
     
 */
+
 
 void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1139,7 +1158,9 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemTextureObjChunk for a description.\n"
+    "\n"
     "This chunk wraps glTexImage[123]D (osg::TextureObjChunk::_sfImage,\n"
     "osg::TextureObjChunk::_sfInternalFormat, osg::TextureObjChunk::_sfExternalFormat),\n"
     "glTexParameter (osg::TextureObjChunk::_sfMinFilter,\n"
@@ -1147,6 +1168,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
     "osg::TextureObjChunk::_sfWrapT, osg::TextureObjChunk::_sfWrapR), glTexEnv\n"
     "(osg::TextureObjChunk::_sfEnvMode, osg::TextureObjChunk::_sfEnvColor,\n"
     "osg::TextureObjChunk::_sfPriority).\n"
+    "\n"
     "The ARB combine extension is also supported,\n"
     "where available (osg::TextureObjChunk::_sfEnvCombineRGB,\n"
     "osg::TextureObjChunk::_sfEnvScaleRGB, osg::TextureObjChunk::_sfEnvSource0RGB,\n"
@@ -1158,11 +1180,13 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(true,
     "osg::TextureObjChunk::_sfEnvSource2Alpha, osg::TextureObjChunk::_sfEnvOperand0Alpha,\n"
     "osg::TextureObjChunk::_sfEnvOperand1Alpha,\n"
     "osg::TextureObjChunk::_sfEnvOperand2Alpha).\n"
+    "\n"
     "It is possible to enable the point\n"
     "sprite coordinate replacement  (osg::TextureObjChunk::_sfPointSprite), see \\ref\n"
     "PageSystemPointChunk for details. The two parameters\n"
     "osg::TextureObjChunk::_sfScale and osg::TextureObjChunk::_sfFrame specify details\n"
     "about the texture.\n"
+    "\n"
     "On hardware that supports it (i.e. NVidia boards) the texture shader\n"
     "extension(s) are also available.\n"
     );

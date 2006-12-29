@@ -84,46 +84,59 @@ OSG_BEGIN_NAMESPACE
 /*! \var ImagePtr        TiledQuadTreeTerrainBase::_mfHeightTiles
     Terrain tile array.
 */
+
 /*! \var MaterialPtr     TiledQuadTreeTerrainBase::_mfHeightTextures
     Terrain textures.
 */
+
 /*! \var UInt32          TiledQuadTreeTerrainBase::_sfSizeX
     x-size of 2-dimensional tile array.
 */
+
 /*! \var UInt32          TiledQuadTreeTerrainBase::_sfSizeY
     y-size of 2-dimensional tile array.
 */
+
 /*! \var Real32          TiledQuadTreeTerrainBase::_sfHeightScale
     
 */
+
 /*! \var Real32          TiledQuadTreeTerrainBase::_sfVertexSpacing
     
 */
+
 /*! \var bool            TiledQuadTreeTerrainBase::_sfGeoMorphing
     
 */
+
 /*! \var Real32          TiledQuadTreeTerrainBase::_sfDetail
     Detail of terrain tesselation.
 */
+
 /*! \var Int32           TiledQuadTreeTerrainBase::_sfCurrentX
     
 */
+
 /*! \var Int32           TiledQuadTreeTerrainBase::_sfCurrentY
     
 */
+
 /*! \var Int32           TiledQuadTreeTerrainBase::_sfSizeROI
     Number of tiles (0, 1, 2, 3) around current eye point.
 */
+
 /*! \var bool            TiledQuadTreeTerrainBase::_sfUpdate
     Perform any updates (tiling, terrain tiles).
 */
+
 /*! \var bool            TiledQuadTreeTerrainBase::_sfUpdateTerrain
     Update terrain tiles in the next frame.
 */
+
 /*! \var bool            TiledQuadTreeTerrainBase::_sfPerPixelLighting
-    Do per-pixel lighting with normalmap; otherwise generate per-vertex
-    normals.
+    Do per-pixel lighting with normalmap; otherwise generate per-vertex normals.
 */
+
 
 void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 {

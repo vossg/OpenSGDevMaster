@@ -123,6 +123,8 @@ UInt32 DrawableBase::getContainerSize(void) const
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 DrawableBase::getBinSize(ConstFieldMaskArg whichField)

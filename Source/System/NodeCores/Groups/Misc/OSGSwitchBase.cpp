@@ -72,9 +72,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Switch
-    This core allows selection of different subtrees with the \c choice
-    field. Depending on its value either all, none or only the specified
-    child is enabled.
+    This core allows selection of different subtrees with the \c choice field.
+    Depending on its value either all, none or only the specified child is enabled.
  */
 
 /***************************************************************************\
@@ -84,6 +83,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var Int32           SwitchBase::_sfChoice
     
 */
+
 
 void SwitchBase::classDescInserter(TypeObject &oType)
 {
@@ -190,6 +190,8 @@ SFInt32             *SwitchBase::getSFChoice         (void)
     return this->editSFChoice         ();
 }
 #endif
+
+
 
 
 

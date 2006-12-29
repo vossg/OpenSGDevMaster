@@ -81,15 +81,16 @@ OSG_BEGIN_NAMESPACE
     The simple textured material class. See \ref
     PageSystemMaterialTexturedSimpleMaterial for a description.
 
-    A OSG::SimpleMaterial with an added texture. It doesn't expose all
-    features  of the texture, just the ones needed most often.
+    A OSG::SimpleMaterial with an added texture. It doesn't expose all features 
+    of the texture, just the ones needed most often.
 
-    OSG::SimpleTexturedMaterial::_sfImage defines the texture,
+    OSG::SimpleTexturedMaterial::_sfImage defines the texture, 
     OSG::SimpleTexturedMaterial::_sfMinFilter and
-    OSG::SimpleTexturedMaterial::_sfMagFilter the used filters and
-    OSG::SimpleTexturedMaterial::_sfEnvMode the environment mode. As a
-    special  case OSG::SimpleTexturedMaterial::_sfEnvMap can be used to use
-    the texture as a spherical environment map.
+    OSG::SimpleTexturedMaterial::_sfMagFilter the used filters and 
+    OSG::SimpleTexturedMaterial::_sfEnvMode the environment mode. As a special 
+    case
+    OSG::SimpleTexturedMaterial::_sfEnvMap can be used to use the texture as a
+    spherical environment map.
  */
 
 /***************************************************************************\
@@ -99,21 +100,26 @@ OSG_BEGIN_NAMESPACE
 /*! \var ImagePtr        SimpleTexturedMaterialBase::_sfImage
     Defines the texture image.
 */
+
 /*! \var GLenum          SimpleTexturedMaterialBase::_sfMinFilter
     Defines the minification filter, see glTexParameter for details.
     Default: GL_LINEAR_MIPMAP_LINEAR.
 */
+
 /*! \var GLenum          SimpleTexturedMaterialBase::_sfMagFilter
     Defines the magnification filter, see glTexParameter for details.
     Default: GL_LINEAR
 */
+
 /*! \var GLenum          SimpleTexturedMaterialBase::_sfEnvMode
-    Sets the environment mode, defining how texture and lighting color
-    interact. Default: GL_REPLACE.
+    Sets the environment mode, defining how texture and lighting color interact.
+    Default: GL_REPLACE.
 */
+
 /*! \var bool            SimpleTexturedMaterialBase::_sfEnvMap
     Defines whether to use the texture as a spherical environment map.
 */
+
 
 void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -321,10 +327,13 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemMaterial\n"
+    "\n"
     "The simple textured material class. See \\ref\n"
     "PageSystemMaterialTexturedSimpleMaterial for a description.\n"
+    "\n"
     "A OSG::SimpleMaterial with an added texture. It doesn't expose all features \n"
     "of the texture, just the ones needed most often.\n"
+    "\n"
     "OSG::SimpleTexturedMaterial::_sfImage defines the texture, \n"
     "OSG::SimpleTexturedMaterial::_sfMinFilter and\n"
     "OSG::SimpleTexturedMaterial::_sfMagFilter the used filters and \n"

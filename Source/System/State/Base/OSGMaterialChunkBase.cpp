@@ -92,50 +92,62 @@ OSG_BEGIN_NAMESPACE
 /*! \var Color4r         MaterialChunkBase::_sfDiffuse
     
 */
+
 /*! \var Color4r         MaterialChunkBase::_sfAmbient
     
 */
+
 /*! \var Color4r         MaterialChunkBase::_sfSpecular
     
 */
+
 /*! \var Color4r         MaterialChunkBase::_sfEmission
     
 */
+
 /*! \var Real            MaterialChunkBase::_sfShininess
     
 */
+
 /*! \var bool            MaterialChunkBase::_sfLit
-    Switch for using this material in lighting calculation.  If not set
-    the diffuse color is used as is.
+    Switch for using this material in lighting calculation. 
+    If not set the diffuse color is used as is.
 */
+
 /*! \var GLenum          MaterialChunkBase::_sfColorMaterial
-    The mode for using Geometry colors in lighting. Defaults to
-    GL_DIFFUSE.
+    The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.
 */
+
 /*! \var bool            MaterialChunkBase::_sfBackMaterial
-    Switch for using separate material properties for front- and back-
-    facing polygons. If set to false the standard parameters will be used
-    for front- and  backfaces.
+    Switch for using separate material properties for front- and back-facing
+    polygons. If set to false the standard parameters will be used for front- and 
+    backfaces.
 */
+
 /*! \var Color4r         MaterialChunkBase::_sfBackDiffuse
     
 */
+
 /*! \var Color4r         MaterialChunkBase::_sfBackAmbient
     
 */
+
 /*! \var Color4r         MaterialChunkBase::_sfBackSpecular
     
 */
+
 /*! \var Color4r         MaterialChunkBase::_sfBackEmission
     
 */
+
 /*! \var Real            MaterialChunkBase::_sfBackShininess
     
 */
+
 /*! \var GLenum          MaterialChunkBase::_sfBackColorMaterial
-    The mode for using Geometry colors in lighting. Defaults to
-    GL_DIFFUSE.
+    The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.
 */
+
 
 void MaterialChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -607,7 +619,9 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(true,
     "\t</Field>       \n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemMaterialChunk for details.\n"
+    "\n"
     "This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,\n"
     "OSG::MaterialChunk::_sfSpecular, OSG::MaterialChunk::_sfEmission,\n"
     "OSG::MaterialChunk::_sfShininess, OSG::MaterialChunk::_sfAmbient),\n"
@@ -900,6 +914,8 @@ SFGLenum            *MaterialChunkBase::getSFBackColorMaterial(void)
     return this->editSFBackColorMaterial();
 }
 #endif
+
+
 
 
 

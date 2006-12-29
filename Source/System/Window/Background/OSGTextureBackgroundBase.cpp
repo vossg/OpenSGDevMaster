@@ -75,8 +75,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::TextureBackground
     \ingroup GrpSystemWindowBackgrounds
 
-    A textured background e.g for distortion corrected fast live video from
-    a camera with known intrinsic parameters.
+    A textured background e.g for distortion corrected fast live video from a
+    camera with known intrinsic parameters.
  */
 
 /***************************************************************************\
@@ -86,24 +86,31 @@ OSG_BEGIN_NAMESPACE
 /*! \var Color4f         TextureBackgroundBase::_sfColor
     
 */
+
 /*! \var TextureObjChunkPtr TextureBackgroundBase::_sfTexture
     
 */
+
 /*! \var Pnt2f           TextureBackgroundBase::_mfTexCoords
     
 */
+
 /*! \var Real32          TextureBackgroundBase::_sfRadialDistortion
     
 */
+
 /*! \var Vec2f           TextureBackgroundBase::_sfCenterOfDistortion
     
 */
+
 /*! \var UInt16          TextureBackgroundBase::_sfHor
     Horizontal subdivision.
 */
+
 /*! \var UInt16          TextureBackgroundBase::_sfVert
     Vertical subdivision.
 */
+
 
 void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -346,6 +353,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
     "A textured background e.g for distortion corrected fast live video from a\n"
     "camera with known intrinsic parameters.\n"
     );

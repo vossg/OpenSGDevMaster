@@ -82,9 +82,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var UInt16          FrameBufferAttachmentBase::_sfWidth
     
 */
+
 /*! \var UInt16          FrameBufferAttachmentBase::_sfHeight
     
 */
+
 
 void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
 {
@@ -236,6 +238,8 @@ SFUInt16            *FrameBufferAttachmentBase::getSFHeight         (void)
     return this->editSFHeight         ();
 }
 #endif
+
+
 
 
 

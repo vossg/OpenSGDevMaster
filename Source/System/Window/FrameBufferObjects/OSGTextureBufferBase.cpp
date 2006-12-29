@@ -73,8 +73,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TextureBuffer
-    Texture buffer.  Wraps support to binding a framebuffer attachment to
-    an OpenSG texture object.
+    Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.
 
     See FramebufferTexture1/2/3DEXT.
  */
@@ -86,16 +85,20 @@ OSG_BEGIN_NAMESPACE
 /*! \var TextureObjChunkPtr TextureBufferBase::_sfTexture
     The texture object to target.
 */
+
 /*! \var GLenum          TextureBufferBase::_sfTexTarget
-    If specified, this is the target value for FramebufferTextureXDEXT. If
-    GL_NONE, automatically determined.
+    If specified, this is the target value for FramebufferTextureXDEXT.
+    If GL_NONE, automatically determined.
 */
+
 /*! \var UInt32          TextureBufferBase::_sfLevel
     The mipmap level in the texture to target.
 */
+
 /*! \var UInt32          TextureBufferBase::_sfZoffset
     UNUSED.
 */
+
 
 void TextureBufferBase::classDescInserter(TypeObject &oType)
 {
@@ -249,6 +252,7 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(true,
     "        </Field>\n"
     "</FieldContainer>\n",
     "Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.\n"
+    "\n"
     "See FramebufferTexture1/2/3DEXT.\n"
     );
 

@@ -74,14 +74,14 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::FileGrabForeground
     \ingroup GrpSystemWindowForegrounds
 
-    The FileGrabForeground is used for grabbing a frame or sequence of
-    frames to disk.  See \ref PageSystemWindowForegroundGrabFile for a
-    description.
+    The FileGrabForeground is used for grabbing a frame or sequence of frames to
+    disk.  See \ref
+    PageSystemWindowForegroundGrabFile for a description.
 
-    The name of the file(s) grabbed to are defined by the _sfName Field,
-    the current frame number by _sfFrame. _sfIncrement can be used to
-    automatically increment the frame number after each image is written.
-    The whole grabber can be activated/deactivated using _sfActive.
+    The name of the file(s) grabbed to are defined by the _sfName Field, the
+    current frame number by _sfFrame. _sfIncrement can be used to automatically
+    increment the frame number after each image is written. The whole grabber can
+    be activated/deactivated using _sfActive.
  */
 
 /***************************************************************************\
@@ -91,12 +91,15 @@ OSG_BEGIN_NAMESPACE
 /*! \var std::string     FileGrabForegroundBase::_sfName
     The filename template. %d is replaced by the frame number.
 */
+
 /*! \var UInt32          FileGrabForegroundBase::_sfFrame
     The frame number to use.
 */
+
 /*! \var bool            FileGrabForegroundBase::_sfIncrement
     Flag to start/stop automatic frame increments after each grab.
 */
+
 
 void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -234,9 +237,11 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegrounds\n"
+    "\n"
     "The FileGrabForeground is used for grabbing a frame or sequence of frames to\n"
     "disk.  See \\ref\n"
     "PageSystemWindowForegroundGrabFile for a description.\n"
+    "\n"
     "The name of the file(s) grabbed to are defined by the _sfName Field, the\n"
     "current frame number by _sfFrame. _sfIncrement can be used to automatically\n"
     "increment the frame number after each image is written. The whole grabber can\n"
@@ -319,6 +324,8 @@ SFBool              *FileGrabForegroundBase::getSFIncrement      (void)
     return this->editSFIncrement      ();
 }
 #endif
+
+
 
 
 

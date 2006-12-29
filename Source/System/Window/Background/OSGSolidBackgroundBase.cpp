@@ -74,8 +74,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::SolidBackground
     \ingroup GrpSystemWindowBackgrounds
 
-    A single colored background, see \ref PageSystemWindowBackgroundSolid
-    for a description.
+    A single colored background, see \ref PageSystemWindowBackgroundSolid for a
+    description.
 
     The color of the background is given by the _sfColor field.
  */
@@ -87,6 +87,7 @@ OSG_BEGIN_NAMESPACE
 /*! \var Color3r         SolidBackgroundBase::_sfColor
     The background color.
 */
+
 
 void SolidBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -153,8 +154,10 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
+    "\n"
     "A single colored background, see \\ref PageSystemWindowBackgroundSolid for a\n"
     "description.\n"
+    "\n"
     "The color of the background is given by the _sfColor field.\n"
     );
 
@@ -196,6 +199,8 @@ SFColor3r           *SolidBackgroundBase::getSFColor          (void)
     return this->editSFColor          ();
 }
 #endif
+
+
 
 
 

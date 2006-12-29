@@ -75,15 +75,15 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::SimpleMaterial
     \ingroup GrpSystemMaterial
 
-    The simple material class. See \ref PageSystemMaterialSimpleMaterial
-    for a description.
+    The simple material class. See \ref PageSystemMaterialSimpleMaterial for a
+    description.
 
     This material wraps the standard calls to glMaterial() in
-    OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse,
-    OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular,
-    OSG::SimpleMaterial::_sfShininess. In addition it supports transparency
-    (OSG::SimpleMaterial::_sfTransparency), can switch lighting
-    (OSG::SimpleMaterial::_sfLit) and the color material
+    OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, 
+    OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, 
+    OSG::SimpleMaterial::_sfShininess. In addition it supports transparency 
+    (OSG::SimpleMaterial::_sfTransparency), can switch lighting 
+    (OSG::SimpleMaterial::_sfLit) and the color material 
     (OSG::SimpleMaterial::_sfColorMaterial).
  */
 
@@ -94,28 +94,35 @@ OSG_BEGIN_NAMESPACE
 /*! \var Color3r         SimpleMaterialBase::_sfAmbient
     The ambient color for the material.
 */
+
 /*! \var Color3r         SimpleMaterialBase::_sfDiffuse
     The diffuse color for the material.
 */
+
 /*! \var Color3r         SimpleMaterialBase::_sfSpecular
     The color used for the specular highlight on the object.
 */
+
 /*! \var Real            SimpleMaterialBase::_sfShininess
-    The shininess value to use when lighting the object.  Higher values
-    equal smaller and brighter highlights.
+    The shininess value to use when lighting the object.  Higher values equal smaller and brighter highlights.
 */
+
 /*! \var Color3r         SimpleMaterialBase::_sfEmission
     
 */
+
 /*! \var Real            SimpleMaterialBase::_sfTransparency
     Defines how transparent objects are rendered with this material.
 */
+
 /*! \var bool            SimpleMaterialBase::_sfLit
     
 */
+
 /*! \var GLenum          SimpleMaterialBase::_sfColorMaterial
     Defines which color material mode this material affects.
 */
+
 
 void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -412,8 +419,10 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
     "\n"
     "\n",
     "\\ingroup GrpSystemMaterial\n"
+    "\n"
     "The simple material class. See \\ref PageSystemMaterialSimpleMaterial for a\n"
     "description.\n"
+    "\n"
     "This material wraps the standard calls to glMaterial() in\n"
     "OSG::SimpleMaterial::_sfAmbient, OSG::SimpleMaterial::_sfDiffuse, \n"
     "OSG::SimpleMaterial::_sfEmission, OSG::SimpleMaterial::_sfSpecular, \n"
@@ -594,6 +603,8 @@ SFGLenum            *SimpleMaterialBase::getSFColorMaterial  (void)
     return this->editSFColorMaterial  ();
 }
 #endif
+
+
 
 
 

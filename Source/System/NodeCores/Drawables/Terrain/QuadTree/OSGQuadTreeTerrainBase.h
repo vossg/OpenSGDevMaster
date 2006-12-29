@@ -505,33 +505,29 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrainBase : public Geometry
     /*! \{                                                                 */
 
 
-    void pushToHeightError           (const Real32& value   );
-    void insertIntoHeightError      (UInt32                uiIndex,
-                                             const Real32& value   );
-    void replaceInHeightError  (UInt32                uiIndex,
-                                             const Real32& value   );
-    void replaceInHeightError (const Real32& pOldElem,
-                                             const Real32& pNewElem);
-    void removeFromHeightError (UInt32                uiIndex );
-    void removeFromHeightError(const Real32& value   );
-    void clearHeightError            (void                          );
+    void pushToHeightError                 (const Real32    &value   );
+    void insertIntoHeightError             (      UInt32     uiIndex,
+                                            const Real32    &value   );
+    void replaceInHeightError              (      UInt32     uiIndex,
+                                            const Real32    &value   );
+    void replaceInHeightError              (const Real32    &pOldElem,
+                                            const Real32    &pNewElem);
+    void removeFromHeightError             (      UInt32     uiIndex );
+    void removeFromHeightError             (const Real32    &value   );
+    void clearHeightError                  (      void               );
 
 
 
-
-
-    void pushToHeightQuad           (const Real32& value   );
-    void insertIntoHeightQuad      (UInt32                uiIndex,
-                                             const Real32& value   );
-    void replaceInHeightQuad  (UInt32                uiIndex,
-                                             const Real32& value   );
-    void replaceInHeightQuad (const Real32& pOldElem,
-                                             const Real32& pNewElem);
-    void removeFromHeightQuad (UInt32                uiIndex );
-    void removeFromHeightQuad(const Real32& value   );
-    void clearHeightQuad            (void                          );
-
-
+    void pushToHeightQuad                  (const Real32    &value   );
+    void insertIntoHeightQuad              (      UInt32     uiIndex,
+                                            const Real32    &value   );
+    void replaceInHeightQuad               (      UInt32     uiIndex,
+                                            const Real32    &value   );
+    void replaceInHeightQuad               (const Real32    &pOldElem,
+                                            const Real32    &pNewElem);
+    void removeFromHeightQuad              (      UInt32     uiIndex );
+    void removeFromHeightQuad              (const Real32    &value   );
+    void clearHeightQuad                   (      void               );
 
 
     /*! \}                                                                 */

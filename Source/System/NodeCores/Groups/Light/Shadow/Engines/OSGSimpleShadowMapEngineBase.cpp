@@ -83,6 +83,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
 void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
@@ -184,6 +185,8 @@ SFInt32             *SimpleShadowMapEngineBase::getSFForceTextureUnit(void)
     return this->editSFForceTextureUnit();
 }
 #endif
+
+
 
 
 

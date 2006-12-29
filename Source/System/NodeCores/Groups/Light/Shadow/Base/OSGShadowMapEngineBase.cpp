@@ -83,24 +83,31 @@ OSG_BEGIN_NAMESPACE
 /*! \var FrameBufferObjectPtr ShadowMapEngineBase::_sfRenderTarget
     
 */
+
 /*! \var Int32           ShadowMapEngineBase::_sfWidth
     
 */
+
 /*! \var Int32           ShadowMapEngineBase::_sfHeight
     
 */
+
 /*! \var Color4f         ShadowMapEngineBase::_sfShadowColor
     
 */
+
 /*! \var Real32          ShadowMapEngineBase::_sfOffsetBias
     
 */
+
 /*! \var Real32          ShadowMapEngineBase::_sfOffsetFactor
     
 */
+
 /*! \var UInt32          ShadowMapEngineBase::_sfUpdateMode
     
 */
+
 
 void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 {

@@ -72,9 +72,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Group
-    Group is the simplest form of a NodeCore. A group carries no
-    predefined data and most actions will only traverse the children list.
-    So usually the group does nothing.
+    Group is the simplest form of a NodeCore. A group
+    carries no predefined data and most actions will only traverse the
+    children list. So usually the group does nothing.
  */
 
 
@@ -127,6 +127,8 @@ UInt32 GroupBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 

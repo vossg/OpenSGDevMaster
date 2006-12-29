@@ -74,8 +74,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::ShearedStereoCameraDecorator
     \ingroup GrpSystemWindowCameraDecorators
 
-    The OSG::CameraDecorator for standard sheared stereo projections, see
-    \ref PageSystemWindowCameraDecoratorsStereoSheared for a description.
+    The OSG::CameraDecorator for standard sheared stereo projections, see \ref
+    PageSystemWindowCameraDecoratorsStereoSheared for a description.
  */
 
 /***************************************************************************\
@@ -85,9 +85,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var Real32          ShearedStereoCameraDecoratorBase::_sfZeroParallaxDistance
     The distance to the zero parallax plane.
 */
+
 /*! \var Real32          ShearedStereoCameraDecoratorBase::_sfOverlap
     The overlap between left and right eye.
 */
+
 
 void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -187,6 +189,7 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameraDecorators\n"
+    "\n"
     "The OSG::CameraDecorator for standard sheared stereo projections, see \\ref\n"
     "PageSystemWindowCameraDecoratorsStereoSheared for a description.\n"
     );
@@ -248,6 +251,8 @@ SFReal32            *ShearedStereoCameraDecoratorBase::getSFOverlap        (void
     return this->editSFOverlap        ();
 }
 #endif
+
+
 
 
 

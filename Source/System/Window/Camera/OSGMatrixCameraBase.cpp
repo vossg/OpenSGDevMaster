@@ -74,8 +74,8 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::MatrixCamera
     \ingroup GrpSystemWindowCameras
 
-    The Matrix Camera class, see \ref PageSystemWindowCameraMatrix for a
-    description.
+    The Matrix Camera class, see \ref PageSystemWindowCameraMatrix for
+    a description.
 
     The used matrices are stored in the _sfModelviewMatrix and
     _sfProjectionMatrix Fields.
@@ -88,9 +88,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var Matrix          MatrixCameraBase::_sfProjectionMatrix
     
 */
+
 /*! \var Matrix          MatrixCameraBase::_sfModelviewMatrix
     
 */
+
 
 void MatrixCameraBase::classDescInserter(TypeObject &oType)
 {
@@ -188,8 +190,10 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameras\n"
+    "\n"
     "The Matrix Camera class, see \\ref PageSystemWindowCameraMatrix for\n"
     "a description.\n"
+    "\n"
     "The used matrices are stored in the _sfModelviewMatrix and\n"
     "_sfProjectionMatrix Fields.\n"
     );
@@ -251,6 +255,8 @@ SFMatrix            *MatrixCameraBase::getSFModelviewMatrix(void)
     return this->editSFModelviewMatrix();
 }
 #endif
+
+
 
 
 

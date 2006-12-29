@@ -82,18 +82,23 @@ OSG_BEGIN_NAMESPACE
 /*! \var Vec3r           ComponentTransformBase::_sfCenter
     
 */
+
 /*! \var Quaternionr     ComponentTransformBase::_sfRotation
     
 */
+
 /*! \var Vec3r           ComponentTransformBase::_sfScale
     
 */
+
 /*! \var Quaternionr     ComponentTransformBase::_sfScaleOrientation
     
 */
+
 /*! \var Vec3r           ComponentTransformBase::_sfTranslation
     
 */
+
 
 void ComponentTransformBase::classDescInserter(TypeObject &oType)
 {
@@ -386,6 +391,8 @@ SFVec3r             *ComponentTransformBase::getSFTranslation    (void)
     return this->editSFTranslation    ();
 }
 #endif
+
+
 
 
 

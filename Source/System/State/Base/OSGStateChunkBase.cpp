@@ -101,6 +101,7 @@ StateChunkBase::TypeObject StateChunkBase::_type(true,
     "See \\ref PageSystemState for the conceptual background.\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemState for the conceptual background.\n"
     );
 
@@ -122,6 +123,8 @@ UInt32 StateChunkBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
 
 
 

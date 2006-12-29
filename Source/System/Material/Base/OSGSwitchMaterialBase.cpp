@@ -73,8 +73,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::SwitchMaterial
-    Material that allows selection of one of the materials in the
-    _mfMaterials field based on the value of the _sfChoice field.
+    Material that allows selection of one of the materials in the _mfMaterials
+    field based on the value of the _sfChoice field.
  */
 
 /***************************************************************************\
@@ -84,9 +84,11 @@ OSG_BEGIN_NAMESPACE
 /*! \var MaterialPtr     SwitchMaterialBase::_mfMaterials
     Materials to choose from.
 */
+
 /*! \var UInt32          SwitchMaterialBase::_sfChoice
     The material to actually use for drawing.
 */
+
 
 void SwitchMaterialBase::classDescInserter(TypeObject &oType)
 {

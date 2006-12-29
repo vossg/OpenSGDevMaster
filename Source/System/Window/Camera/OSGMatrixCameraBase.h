@@ -181,6 +181,10 @@ class OSG_WINDOW_DLLMAPPING MatrixCameraBase : public Camera
             void setModelviewMatrix(const Matrix &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

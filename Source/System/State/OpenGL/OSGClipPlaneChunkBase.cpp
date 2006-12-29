@@ -79,9 +79,8 @@ OSG_BEGIN_NAMESPACE
     See \ref PageSystemClipPlaneChunk for a description.
 
     This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and
-    glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The
-    coordinate system the plane is in is defined by
-    OSG::ClipPlaneChunk::_sfBeacon.
+    glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The coordinate
+    system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
  */
 
 /***************************************************************************\
@@ -89,16 +88,19 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Vec4f           ClipPlaneChunkBase::_sfEquation
-    Defines the equation of the clip plane. Standard format, if (a,b,c,d)
-    is the plane a point (x,y,z) is visible if a*x+b*y+c*z+d >= 0.
+    Defines the equation of the clip plane. Standard format, if (a,b,c,d) is
+    the plane a point (x,y,z) is visible if a*x+b*y+c*z+d >= 0.
 */
+
 /*! \var bool            ClipPlaneChunkBase::_sfEnable
     Defines activation state of the clip plane.
 */
+
 /*! \var NodePtr         ClipPlaneChunkBase::_sfBeacon
     The object that defines the clip planes's coordinate system. The clip
     plane is positioned relative to this system.
 */
+
 
 void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -228,7 +230,9 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemClipPlaneChunk for a description.\n"
+    "\n"
     "This chunk wraps glCLipPlane() (OSG::ClipPlaneChunk::_sfEquation) and\n"
     "glEnable(GL_CLIP_PLANEi) (OSG::ClipPlaneChunk::_sfEnable). The coordinate\n"
     "system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.\n"

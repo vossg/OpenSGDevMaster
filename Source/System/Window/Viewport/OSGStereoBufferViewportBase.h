@@ -181,6 +181,10 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewportBase : public Viewport
             void setRightBuffer    (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

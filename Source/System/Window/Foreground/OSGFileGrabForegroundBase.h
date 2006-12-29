@@ -198,6 +198,10 @@ class OSG_WINDOW_DLLMAPPING FileGrabForegroundBase : public GrabForeground
             void setIncrement      (const bool &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

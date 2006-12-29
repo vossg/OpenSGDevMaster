@@ -77,13 +77,13 @@ OSG_BEGIN_NAMESPACE
 /*! \class OSG::PointChunk
     \ingroup GrpSystemState
 
-    See \ref PageSystemPointChunk for a description.
+    See \ref PageSystemPointChunk for a description. 
 
     This chunk wraps glPointSize() (OSG::PointChunk::_sfSize) and
-    glEnable(GL_POINT_SMOOTH) (OSG::PointChunk::_sfSmooth). It encompasses
-    the ARB_point_parameters extension (OSG::PointChunk::_sfMinSize,
-    OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold,
-    OSG::PointChunk::_sfConstantAttenuation,
+    glEnable(GL_POINT_SMOOTH) (OSG::PointChunk::_sfSmooth). It encompasses the
+    ARB_point_parameters extension (OSG::PointChunk::_sfMinSize, 
+    OSG::PointChunk::_sfMaxSize, OSG::PointChunk::_sfFadeThreshold, 
+    OSG::PointChunk::_sfConstantAttenuation, 
     OSG::PointChunk::_sfLinearAttenuation,
     OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
     (OSG::PointChunk::_sfSprite, OSG::PointChunk::_sfRMode).
@@ -96,36 +96,43 @@ OSG_BEGIN_NAMESPACE
 /*! \var Real32          PointChunkBase::_sfSize
     The point's size in pixel.
 */
+
 /*! \var bool            PointChunkBase::_sfSmooth
     Defines if line antialiasing is used.
 */
+
 /*! \var Real32          PointChunkBase::_sfMinSize
-    Minimum point size for attenuation, less than 0 to disable it. See
-    ARB_point_parameters extension.
+    Minimum point size for attenuation, less than 0 to disable it. See ARB_point_parameters extension.
 */
+
 /*! \var Real32          PointChunkBase::_sfMaxSize
-    Maximum point size for attenuation. See ARB_point_parameters
-    extension.
+    Maximum point size for attenuation. See ARB_point_parameters extension.
 */
+
 /*! \var Real32          PointChunkBase::_sfConstantAttenuation
     The point size's constant attenuation.
 */
+
 /*! \var Real32          PointChunkBase::_sfLinearAttenuation
     The point size's linear attenuation.
 */
+
 /*! \var Real32          PointChunkBase::_sfQuadraticAttenuation
     The point size's quadratic attenuation.
 */
+
 /*! \var Real32          PointChunkBase::_sfFadeThreshold
-    Minimum point size for attenuation. See ARB_point_parameters
-    extension.
+    Minimum point size for attenuation. See ARB_point_parameters extension.
 */
+
 /*! \var bool            PointChunkBase::_sfSprite
     Flag to enable point sprites, see NV_point_sprite for details.
 */
+
 /*! \var GLenum          PointChunkBase::_sfRMode
     
 */
+
 
 void PointChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -491,7 +498,9 @@ PointChunkBase::TypeObject PointChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
     "See \\ref PageSystemPointChunk for a description. \n"
+    "\n"
     "This chunk wraps glPointSize() (OSG::PointChunk::_sfSize) and\n"
     "glEnable(GL_POINT_SMOOTH) (OSG::PointChunk::_sfSmooth). It encompasses the\n"
     "ARB_point_parameters extension (OSG::PointChunk::_sfMinSize, \n"
@@ -711,6 +720,8 @@ SFGLenum            *PointChunkBase::getSFRMode          (void)
     return this->editSFRMode          ();
 }
 #endif
+
+
 
 
 

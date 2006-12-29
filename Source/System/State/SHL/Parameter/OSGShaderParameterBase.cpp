@@ -83,6 +83,7 @@ OSG_BEGIN_NAMESPACE
     parameter name
 */
 
+
 void ShaderParameterBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
@@ -185,6 +186,8 @@ SFString            *ShaderParameterBase::getSFName           (void)
     return this->editSFName           ();
 }
 #endif
+
+
 
 
 

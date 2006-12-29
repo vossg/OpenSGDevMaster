@@ -198,6 +198,10 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
             void setHglrc          (const HGLRC &value);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */

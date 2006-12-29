@@ -124,6 +124,8 @@ UInt32 TwoSidedLightingChunkBase::getContainerSize(void) const
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 TwoSidedLightingChunkBase::getBinSize(ConstFieldMaskArg whichField)
