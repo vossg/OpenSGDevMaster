@@ -60,18 +60,18 @@ bool Window::isResizePending(void)
  */
 
 inline 
-bool Window::hasExtension(UInt32 id)
+bool Window::hasExtension(UInt32 extId)
 {
-    return _availExtensions[id];
+    return _availExtensions[extId];
 }
 
 /*! Check if the window has the indicated extension.
     \warning No error checks are done on the passed index!
  */
 inline 
-bool Window::hasCommonExtension(UInt32 id)
+bool Window::hasCommonExtension(UInt32 extId)
 {
-    bool has = _commonExtensions[id];
+    bool has = _commonExtensions[extId];
     return has;
 }
 
@@ -82,22 +82,22 @@ bool Window::hasCommonExtension(UInt32 id)
  */
 
 inline 
-void *Window::getFunction(UInt32 id)
+void *Window::getFunction(UInt32 funcId)
 {
-    if(id >= _extFunctions.size())
+    if(funcId >= _extFunctions.size())
     {
-        FINFO(("Window::getFunction: illegal id %d!\n", id));
+        FINFO(("Window::getFunction: illegal id %d!\n", funcId));
         return NULL;
     }
 
-    if(_extFunctions[id] == NULL)
+    if(_extFunctions[funcId] == NULL)
     {
         FINFO(("Window::getFunction: function \"%s\" is NULL!\n",
-                    _registeredFunctions[id].c_str()));
+                    _registeredFunctions[funcId].c_str()));
         return NULL;
     }
 
-    return _extFunctions[id];
+    return _extFunctions[funcId];
 }
 
 /*! Get the indicated extension function.
@@ -106,9 +106,9 @@ void *Window::getFunction(UInt32 id)
  */
 
 inline 
-void *Window::getFunctionNoCheck(UInt32 id)
+void *Window::getFunctionNoCheck(UInt32 funcId)
 {
-    return _extFunctions[ id ];
+    return _extFunctions[ funcId ];
 }
 
 /*! Return the value of the registered constant, Inf if not registered 
@@ -116,9 +116,9 @@ void *Window::getFunctionNoCheck(UInt32 id)
 */
 
 inline 
-Real32 Window::getConstantValue(GLenum id)
+Real32 Window::getConstantValue(GLenum val)
 {
-    return getConstantValuev(id)[0];
+    return getConstantValuev(val)[0];
 }
 
 /*! Set the library name where to find OpenGL extension functions. This has
@@ -186,24 +186,24 @@ const std::vector<std::string> &Window::getIgnoredExtensions(void)
 }
 
 inline 
-void Window::setGLObjectId(UInt32 id, UInt32 id2)
+void Window::setGLObjectId(UInt32 osgId, UInt32 id2)
 {
-    if(id < _ids.size())
+    if(osgId < _ids.size())
     {
-        _ids[id] = id2;
+        _ids[osgId] = id2;
     }
     else
     {
         _ids.resize(_glObjects.size());
 
-        if(id < _ids.size())
+        if(osgId < _ids.size())
         {
-            _ids[id] = id2;
+            _ids[osgId] = id2;
         }
         else
         {
             SWARNING << "Window::setGLObjectId: id (" 
-                     << id 
+                     << osgId 
                      << ") is not valid!" 
                      << std::endl;
         }
@@ -211,10 +211,10 @@ void Window::setGLObjectId(UInt32 id, UInt32 id2)
 }
 
 inline
-UInt32 Window::getGLObjectId(UInt32 id)
+UInt32 Window::getGLObjectId(UInt32 osgId)
 {
-    if(id < _ids.size())
-        return _ids[id];
+    if(osgId < _ids.size())
+        return _ids[osgId];
 
     return 0;
 }
@@ -237,9 +237,9 @@ UInt32 Window::getGLObjectsSize(void)
  */
 
 inline 
-UInt32 Window::packIdStatus(UInt32 id, GLObjectStatusE status)
+UInt32 Window::packIdStatus(UInt32 osgId, GLObjectStatusE status)
 {
-    return (id << statusShift) | status;
+    return (osgId << statusShift) | status;
 }
 
 /*! Unpack the id and the status from one UInt32 packed by packIdStatus
@@ -247,10 +247,10 @@ UInt32 Window::packIdStatus(UInt32 id, GLObjectStatusE status)
 
 inline 
 void Window::unpackIdStatus(UInt32           idstatus, 
-                            UInt32          &id,
+                            UInt32          &osgId,
                             GLObjectStatusE &status)
 {
-    id = idstatus >> statusShift;
+    osgId = idstatus >> statusShift;
 
     status = static_cast<GLObjectStatusE>(idstatus & statusMask);
 }
@@ -351,4 +351,4 @@ UInt32 Window::GLObject::decRefCounter(void)
 
 OSG_END_NAMESPACE
 
-#define OSGWINDOW_INLINE_CVSID "@(#)$Id:$"
+#define OSGWINDOW_INLINE_CVSID "@(#)$Id$"

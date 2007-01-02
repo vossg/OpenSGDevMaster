@@ -79,19 +79,19 @@ struct FieldTraitsFCPtrBase :
     static void copyToBin(      BinaryDataHandler &pMem, 
                           const FieldContainerPtr &pObject)
     {
-        UInt32 id;
+        UInt32 containerId;
 
         if(pObject == NullFC)
         {
-            // id=0 indicates an Null Ptr
-            id = 0;
+            // containerId=0 indicates an Null Ptr
+            containerId = 0;
         }
         else
         {
-            id = getContainerId(pObject);
+            containerId = getContainerId(pObject);
         }
 
-        pMem.putValue(id);
+        pMem.putValue(containerId);
     }
 
     static void copyToBin(      BinaryDataHandler &pMem, 
@@ -107,13 +107,13 @@ struct FieldTraitsFCPtrBase :
     static void copyFromBin(BinaryDataHandler &pMem, 
                             FieldContainerPtr &pObject)
     {
-        UInt32 id;
+        UInt32 containerId;
 
-        pMem.getValue(id);
+        pMem.getValue(containerId);
 
-        if(0 != id)
+        if(0 != containerId)
         {
-            pObject = FieldContainerFactory::the()->getMappedContainer(id);
+            pObject = FieldContainerFactory::the()->getMappedContainer(containerId);
         }
         else
         {
@@ -150,19 +150,19 @@ struct FieldTraitsFCPtrBase<ParentFieldContainerPtr, 1> :
     static void copyToBin(      BinaryDataHandler       &pMem, 
                           const ParentFieldContainerPtr &pObject)
     {
-        UInt32 id;
+        UInt32 containerId;
 
         if(pObject == NullFC)
         {
-            // id=0 indicates an Null Ptr
-            id = 0;
+            // containerId=0 indicates an Null Ptr
+            containerId = 0;
         }
         else
         {
-            id = getContainerId(pObject);
+            containerId = getContainerId(pObject);
         }
 
-        pMem.putValue(id);
+        pMem.putValue(containerId);
     }
     static void copyToBin(      BinaryDataHandler       &pMem, 
                           const ParentFieldContainerPtr *pObjectStore,
@@ -177,13 +177,13 @@ struct FieldTraitsFCPtrBase<ParentFieldContainerPtr, 1> :
     static void copyFromBin(BinaryDataHandler       &pMem, 
                             ParentFieldContainerPtr &pObject)
     {
-        UInt32 id;
+        UInt32 containerId;
 
-        pMem.getValue(id);
+        pMem.getValue(containerId);
 
-        if(0 != id)
+        if(0 != containerId)
         {
-            pObject = FieldContainerFactory::the()->getMappedContainer(id);
+            pObject = FieldContainerFactory::the()->getMappedContainer(containerId);
         }
         else
         {

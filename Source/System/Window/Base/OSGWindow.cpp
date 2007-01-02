@@ -555,7 +555,7 @@ void OSG::Window::subPort(UInt32  portIndex)
 
 UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
 {
-    UInt32    id, i; 
+    UInt32    osgId, i; 
     GLObject *pGLObject;
 
     staticAcquire();
@@ -564,20 +564,20 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
     if(_glObjects.empty())
         _glObjects.push_back( NULL );   
 
-    id        = _glObjects.size();
+    osgId     = _glObjects.size();
     pGLObject = new GLObject(functor);
     
     // does the requested block fit into the capacity?
     
-    if(_glObjects.capacity() >= id + num)
+    if(_glObjects.capacity() >= osgId + num)
     {
         _glObjects.insert(_glObjects.end(), num, pGLObject );
         
-        initRegisterGLObject(id, num);
+        initRegisterGLObject(osgId, num);
 
         staticRelease();
 
-        return id;
+        return osgId;
     }
     
     // doesn't fit, try to find a block in the middle
@@ -591,7 +591,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
         {
             if(cnt == 0)
             {
-                id = i;
+                osgId = i;
             }
 
             ++cnt;
@@ -600,17 +600,17 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
             {
                 // block of unused entries found ...
                         
-                while(i >= id) 
+                while(i >= osgId) 
                 {
                     _glObjects[i] = pGLObject;
                     i = i - 1;
                 } 
                 
-                initRegisterGLObject(id, num);
+                initRegisterGLObject(osgId, num);
 
                 staticRelease();
 
-                return id;
+                return osgId;
             }
         }
         else
@@ -622,8 +622,8 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
     // no block found, add at the end
     
     // fill the empty slots at the end 
-    i = id + cnt - 1;
-    while ( i >= id )
+    i = osgId + cnt - 1;
+    while ( i >= osgId )
     {
         _glObjects[i] = pGLObject;
         i = i - 1;
@@ -635,11 +635,11 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
         _glObjects.push_back( pGLObject );
     }
                 
-    initRegisterGLObject(id, num);
+    initRegisterGLObject(osgId, num);
     
     staticRelease();
     
-    return id;
+    return osgId;
 }
 
 /*! Validate the given object, i.e. make sure it is up-to-date in the current
@@ -648,15 +648,15 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
     See \ref PageSystemOGLObjects for a description of the OpenGL object
     concept. 
 */
-void OSG::Window::validateGLObject(UInt32 id, DrawEnv *pEnv)
+void OSG::Window::validateGLObject(UInt32 osgId, DrawEnv *pEnv)
 {
-    if ( id == 0 )
+    if ( osgId == 0 )
     {
         SWARNING << "Window::validateGLObject: id is 0!" << std::endl;
             return;
     }
     
-    GLObject *obj = _glObjects[id];
+    GLObject *obj = _glObjects[osgId];
     
     if(obj == NULL)
     {
@@ -664,10 +664,10 @@ void OSG::Window::validateGLObject(UInt32 id, DrawEnv *pEnv)
         return;
     }
 
-    if(id >= _lastValidate.size()) // can happen if multi-threading
+    if(osgId >= _lastValidate.size()) // can happen if multi-threading
     {
         _lastValidate.insert(_lastValidate.end(), 
-                             id + 1 - _lastValidate.size(),
+                             osgId + 1 - _lastValidate.size(),
                              0);
     }
     
@@ -677,37 +677,37 @@ void OSG::Window::validateGLObject(UInt32 id, DrawEnv *pEnv)
             this, getGlObjectEventCounter(), 
             _mfGlObjectLastReinitialize.size(),
             _mfGlObjectLastRefresh.size(),
-            id, 
-            (_mfGlObjectLastReinitialize.size() > id)?
-                _mfGlObjectLastReinitialize[id]:0xffffffff,
-            _lastValidate[id],
-            (_mfGlObjectLastRefresh.size() > id)?
-                _mfGlObjectLastRefresh[id]:0xffffffff,
-            (_mfGlObjectLastReinitialize[id] == 0)?"init":
-            ((_mfGlObjectLastReinitialize[id] > _lastValidate[id])?"reinit":
-            ((_mfGlObjectLastRefresh[id] > _lastValidate[id])?"refresh":
+            osgId, 
+            (_mfGlObjectLastReinitialize.size() > osgId)?
+                _mfGlObjectLastReinitialize[osgId]:0xffffffff,
+            _lastValidate[osgId],
+            (_mfGlObjectLastRefresh.size() > osgId)?
+                _mfGlObjectLastRefresh[osgId]:0xffffffff,
+            (_mfGlObjectLastReinitialize[osgId] == 0)?"init":
+            ((_mfGlObjectLastReinitialize[osgId] > _lastValidate[osgId])?"reinit":
+            ((_mfGlObjectLastRefresh[osgId] > _lastValidate[osgId])?"refresh":
             "up-to-date"))
           ));
     
-    if(_mfGlObjectLastReinitialize[id] == 0)
+    if(_mfGlObjectLastReinitialize[osgId] == 0)
     {
         editMField( GlObjectLastReinitializeFieldId, 
                    _mfGlObjectLastReinitialize     );
 
         obj->incRefCounter();
-        obj->getFunctor()(pEnv, packIdStatus(id, initialize));
-        _mfGlObjectLastReinitialize[id] = 1;
-        _lastValidate[id] = getGlObjectEventCounter();
+        obj->getFunctor()(pEnv, packIdStatus(osgId, initialize));
+        _mfGlObjectLastReinitialize[osgId] = 1;
+        _lastValidate[osgId] = getGlObjectEventCounter();
     }
-    else if(_mfGlObjectLastReinitialize[id] > _lastValidate[id])
+    else if(_mfGlObjectLastReinitialize[osgId] > _lastValidate[osgId])
     {
-        obj->getFunctor()(pEnv, packIdStatus(id, reinitialize));
-        _lastValidate[id] = getGlObjectEventCounter();
+        obj->getFunctor()(pEnv, packIdStatus(osgId, reinitialize));
+        _lastValidate[osgId] = getGlObjectEventCounter();
     }
-    else if(_mfGlObjectLastRefresh[id] > _lastValidate[id])
+    else if(_mfGlObjectLastRefresh[osgId] > _lastValidate[osgId])
     {
-        obj->getFunctor()(pEnv, packIdStatus(id, needrefresh));
-        _lastValidate[id] = getGlObjectEventCounter();
+        obj->getFunctor()(pEnv, packIdStatus(osgId, needrefresh));
+        _lastValidate[osgId] = getGlObjectEventCounter();
     }
 }
 
@@ -735,9 +735,9 @@ void OSG::Window::validateAllGLObjects(DrawEnv *pEnv)
     concept. 
  */
 
-void OSG::Window::refreshGLObject( UInt32 id )
+void OSG::Window::refreshGLObject( UInt32 osgId )
 {
-    if(id == 0)
+    if(osgId == 0)
     {
         SWARNING << "Window::refreshGLObject: id is 0!" << std::endl;
         return;
@@ -754,12 +754,12 @@ void OSG::Window::refreshGLObject( UInt32 id )
 
         MFUInt32 &field   = (*it)->_mfGlObjectLastRefresh;
 
-        if(field.size() <= id)
+        if(field.size() <= osgId)
         {
-            field.getValues().insert(field.end(), id - field.size() + 1, 0 );
+            field.getValues().insert(field.end(), osgId - field.size() + 1, 0 );
         }
 
-        field[id] = lastinv;
+        field[osgId] = lastinv;
 
         (*it)->setGlObjectEventCounter(lastinv);
     }
@@ -784,9 +784,9 @@ void OSG::Window::refreshAllGLObjects(void)
   concept. 
  */
 
-void OSG::Window::reinitializeGLObject(UInt32 id)
+void OSG::Window::reinitializeGLObject(UInt32 osgId)
 {
-    if ( id == 0 )
+    if ( osgId == 0 )
     {
         SWARNING << "Window::reinitializeGLObject: id is 0!" << std::endl;
         return;
@@ -803,14 +803,14 @@ void OSG::Window::reinitializeGLObject(UInt32 id)
 
         MFUInt32 &field   = (*it)->_mfGlObjectLastReinitialize;
 
-        if(field.size() <= id)
-            field.getValues().insert(field.end(), id - field.size() + 1, 0 );
+        if(field.size() <= osgId)
+            field.getValues().insert(field.end(), osgId - field.size() + 1, 0 );
 
         // is it already validated?
-        if(field[id] == 0)
+        if(field[osgId] == 0)
             continue;
 
-        field[id] = lastinv;
+        field[osgId] = lastinv;
 
         (*it)->setGlObjectEventCounter(lastinv);
     }
@@ -834,9 +834,9 @@ void OSG::Window::reinitializeAllGLObjects(void)
     concept. 
  */
 
-void OSG::Window::initRegisterGLObject(UInt32 id, UInt32 num)
+void OSG::Window::initRegisterGLObject(UInt32 osgId, UInt32 num)
 {
-    if ( id == 0 )
+    if ( osgId == 0 )
     {
         SWARNING << "Window::initRegisterGLObject: id is 0!" << std::endl;
         return;
@@ -846,7 +846,7 @@ void OSG::Window::initRegisterGLObject(UInt32 id, UInt32 num)
 
     for(it = _allWindows.begin(); it != _allWindows.end(); ++it)
     {
-        (*it)->doInitRegisterGLObject(id, num);
+        (*it)->doInitRegisterGLObject(osgId, num);
     }
 }
 
@@ -857,22 +857,22 @@ void OSG::Window::initRegisterGLObject(UInt32 id, UInt32 num)
     concept. 
  */
 
-void OSG::Window::doInitRegisterGLObject(UInt32 id, UInt32 num)
+void OSG::Window::doInitRegisterGLObject(UInt32 osgId, UInt32 num)
 {
     editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
     editMField(GlObjectLastRefreshFieldMask,      _mfGlObjectLastRefresh     );
 
 
-    if(_mfGlObjectLastReinitialize.size() < id + num)
-        _mfGlObjectLastReinitialize.resize(id + num);
+    if(_mfGlObjectLastReinitialize.size() < osgId + num)
+        _mfGlObjectLastReinitialize.resize(osgId + num);
 
-    if(_mfGlObjectLastRefresh.size() < id + num)
-        _mfGlObjectLastRefresh.resize(id + num);
+    if(_mfGlObjectLastRefresh.size() < osgId + num)
+        _mfGlObjectLastRefresh.resize(osgId + num);
 
-    if(_lastValidate.size() < id + num)
-        _lastValidate.resize(id + num);
+    if(_lastValidate.size() < osgId + num)
+        _lastValidate.resize(osgId + num);
 
-    for(UInt32 i = id; i < id + num; ++i)
+    for(UInt32 i = osgId; i < osgId + num; ++i)
     {
         _mfGlObjectLastReinitialize[i] = 0;
         _mfGlObjectLastRefresh     [i] = 0;
@@ -887,25 +887,25 @@ void OSG::Window::doInitRegisterGLObject(UInt32 id, UInt32 num)
    concept. 
  */
 
-void OSG::Window::destroyGLObject(UInt32 id, UInt32 num)
+void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
 {
 #ifdef OSG_DEBUG
-    if(id >= _glObjects.size() || _glObjects[id] == NULL)
+    if(osgId >= _glObjects.size() || _glObjects[osgId] == NULL)
     {
-        FWARNING(("Window::destroyGLObject: object %d is NULL!\n", id));
+        FWARNING(("Window::destroyGLObject: object %d is NULL!\n", osgId));
         return;
     }
 #endif
 
     // Has this object ever been used?
-    if(_glObjects[id] && _glObjects[id]->getRefCounter() == 0)
+    if(_glObjects[osgId] && _glObjects[osgId]->getRefCounter() == 0)
     {
-        if(_glObjects[id])
-            delete _glObjects[id];
+        if(_glObjects[osgId])
+            delete _glObjects[osgId];
         
         for(UInt32 j = 0; j < num ; j++)
         {
-            _glObjects[id + j] = NULL;
+            _glObjects[osgId + j] = NULL;
         }           
 
         return;
@@ -916,18 +916,18 @@ void OSG::Window::destroyGLObject(UInt32 id, UInt32 num)
     for(it = _allWindows.begin(); it != _allWindows.end(); ++it)
     {
 #ifdef OSG_DEBUG
-        if(id + num > (*it)->_mfGlObjectLastReinitialize.size())
+        if(osgId + num > (*it)->_mfGlObjectLastReinitialize.size())
         {
             FWARNING(("Window::destroyGLObject: id %d + num %d exceed"
-                      "registered objects size %d!\n", id, num, 
+                      "registered objects size %d!\n", osgId, num, 
                       (*it)->_mfGlObjectLastReinitialize.size()));
             return;
         }
 #endif
 
         // has the object been used in this context at all?
-        if((*it)->getGlObjectLastReinitialize()[id] != 0) 
-            (*it)->_glObjectDestroyList.push_back(DestroyEntry(id,num));
+        if((*it)->getGlObjectLastReinitialize()[osgId] != 0) 
+            (*it)->_glObjectDestroyList.push_back(DestroyEntry(osgId,num));
     }
 }
 
@@ -1506,14 +1506,14 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
 /*! Return the value of the registered constant, (Inf, Inf) if not
     registered or no value received yet.
 */
-const Vec2f& OSG::Window::getConstantValuev(GLenum id)
+const Vec2f& OSG::Window::getConstantValuev(GLenum val)
 {
     static Vec2f inf(Inf, Inf);
 
-    ConstHash::iterator it = _availConstants.find(id);
+    ConstHash::iterator it = _availConstants.find(val);
 
     if(it != _availConstants.end())
-        return _availConstants[id];
+        return _availConstants[val];
 
     return inf;
 }

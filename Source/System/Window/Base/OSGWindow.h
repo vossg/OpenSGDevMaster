@@ -161,18 +161,18 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name               Extension handling                             */
     /*! \{                                                                 */
 
-    static void                 setGLLibraryName  (const Char8  *s  );
+    static void                 setGLLibraryName  (const Char8  *s     );
 
-    static Int32                getExtensionId    (const Char8  *s  );
-           bool                 hasExtension      (      UInt32  id );
-           bool                 hasExtension      (const Char8  *s  );
-    static bool                 hasCommonExtension(      UInt32  id );
-           void                *getFunction       (      UInt32  id );
-           void                *getFunctionNoCheck(      UInt32  id );
-           void                 dumpExtensions    (      void       );
-           GLExtensionFunction  getFunctionByName (const Char8  *s  );
-           Real32               getConstantValue  (      GLenum  val);
-    const  Vec2f               &getConstantValuev (      GLenum  val);
+    static Int32                getExtensionId    (const Char8  *s     );
+           bool                 hasExtension      (      UInt32  extId );
+           bool                 hasExtension      (const Char8  *s     );
+    static bool                 hasCommonExtension(      UInt32  extId );
+           void                *getFunction       (      UInt32  funcId);
+           void                *getFunctionNoCheck(      UInt32  funcId);
+           void                 dumpExtensions    (      void          );
+           GLExtensionFunction  getFunctionByName (const Char8  *s     );
+           Real32               getConstantValue  (      GLenum  val   );
+    const  Vec2f               &getConstantValuev (      GLenum  val   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -197,28 +197,28 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name               GL object handling                             */
     /*! \{                                                                 */
 
-           void            validateGLObject    (UInt32           id,
+           void            validateGLObject    (UInt32           osgId,
                                                 DrawEnv         *pEnv    );
            void            validateAllGLObjects(DrawEnv         *pEnv    );
 
-           //GLObjectStatusE getGLObjectStatus   (UInt32           id      );
-           void            setGLObjectId       (UInt32           id,
+           //GLObjectStatusE getGLObjectStatus   (UInt32           osgId   );
+           void            setGLObjectId       (UInt32           osgId,
                                                 UInt32           id2     );
-           UInt32          getGLObjectId       (UInt32           id      );
+           UInt32          getGLObjectId       (UInt32           osgId   );
 
 
     static UInt32          getGLObjectsSize    (void                     );
 
-    static void            refreshGLObject         (UInt32           id      );
+    static void            refreshGLObject         (UInt32           osgId   );
     static void            refreshAllGLObjects     (void                     );
 
-    static void            reinitializeGLObject    (UInt32           id      );
+    static void            reinitializeGLObject    (UInt32           osgId   );
     static void            reinitializeAllGLObjects(void                     );
 
-    static void            destroyGLObject         (UInt32           id,
+    static void            destroyGLObject         (UInt32           osgId,
                                                     UInt32           num = 1 );
     static void            unpackIdStatus          (UInt32           idstatus,
-                                                    UInt32          &id,
+                                                    UInt32          &osgId,
                                                     GLObjectStatusE &status  );
 
     /*! \}                                                                 */
@@ -311,13 +311,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                GL object handling                            */
     /*! \{                                                                 */
 
-    static void   initRegisterGLObject  (UInt32          id,
+    static void   initRegisterGLObject  (UInt32          osgId,
                                          UInt32          num   );
 
-    static UInt32 packIdStatus          (UInt32          id,
+    static UInt32 packIdStatus          (UInt32          osgId,
                                          GLObjectStatusE status);
 
-           void   doInitRegisterGLObject(UInt32          id,
+           void   doInitRegisterGLObject(UInt32          osgId,
                                          UInt32          num   );
 
     /*! \}                                                                 */
@@ -459,6 +459,6 @@ OSG_END_NAMESPACE
 #include "OSGWindowBase.inl"
 #include "OSGWindow.inl"
 
-#define OSGWINDOW_HEADER_CVSID "@(#)$Id:$"
+#define OSGWINDOW_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGWINDOW_H_ */
