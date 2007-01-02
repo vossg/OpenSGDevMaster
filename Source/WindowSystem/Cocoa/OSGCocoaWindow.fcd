@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="CocoaWindow"
+	parent="Window"
+	library="WindowCocoa"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The class for MacOS X Cocoa windows.
+	<Field
+		name="context"
+		type="NSOpenGLContextP"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		header="OSGCocoaWindowDataFields.h"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

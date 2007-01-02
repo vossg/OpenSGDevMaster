@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="CarbonWindow"
+	parent="Window"
+	library="WindowCarbon"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The class for MacOS X Carbon windows.
+	<Field
+		name="context"
+		type="AGLContext"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		header="OSGCarbonWindowDataFields.h"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="CoreGLWindow"
+	parent="Window"
+	library="WindowCoreGL"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+The class for MacOS X CoreGL windows.
+	<Field
+		name="context"
+		type="CGLContextObj"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="0"
+		header="OSGCoreGLWindowDataFields.h"
+		access="public"
+	>
+	</Field>
+</FieldContainer>

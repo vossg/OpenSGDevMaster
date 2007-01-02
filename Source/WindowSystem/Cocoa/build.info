@@ -1,0 +1,20 @@
+#!python
+#
+if not "darwin" == platform:
+   stop_traversal = True      
+else:
+   if option_pass:
+      print "Processing option pass"
+   else:
+      library = "OSGWindowCocoa"
+      osg_dep_libs = ['OSGBase', 'OSGSystem']
+
+      frameworks = [ "Cocoa" ]
+      frameworkpath = []
+
+      # Tests' dependencies
+      osg_test_libs = [ 'OSGGroup','OSGDrawable', 'OSGState', 
+                        'OSGFileIO', 'OSGText', 'OSGRenderTraversal',
+                        'OSGUtil']   
+      test_cpppath = []
+      test_libpath = []
