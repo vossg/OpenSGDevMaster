@@ -335,10 +335,10 @@ class BuildInfoScanner(object):
         # Collect source files from all directories and put them into
         # the active library object
         testFiles     = [f for f in files if (os.path.basename(f).startswith("test") and
-                                              f.endswith(".cpp"))];
+                                              os.path.splitext(f)[1] in [".cpp",".cc",".mm"])];
         unittestFiles = [f for f in files if (os.path.basename(f).endswith("Test.cpp") and
                                               os.path.basename(f).startswith("OSG"))];
-        sourceFiles   = [f for f in files if (os.path.splitext(f)[1] in [".cpp", ".cc"] and
+        sourceFiles   = [f for f in files if (os.path.splitext(f)[1] in [".cpp", ".cc", ".mm"] and
                                               os.path.basename(f).startswith("OSG") and
                                               f not in testFiles and f not in unittestFiles)];
         headerFiles   = [f for f in files if (os.path.splitext(f)[1] in [".h", ".inl", ".ins", ".hpp"] and
