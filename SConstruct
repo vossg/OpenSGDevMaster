@@ -562,7 +562,7 @@ else:
 # Options for required external libraries
 required_libs_options = {};
 required_libs_options["boost"] = sca_opts.Boost.Boost(
-    "boost", "1.31.0", libs = ["filesystem"], required = True, useVersion = True);
+    "boost", "1.31.0", libs = ["filesystem"], required = True, useVersion = True, allowLibNameFallbacks=True);
 
 # Options for optional external libraries
 optional_libs_options = {};
