@@ -126,44 +126,29 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     virtual const UInt8  *getData      (void) const;
     virtual       UInt32  size         (void) const;
 
-            const StoredFieldType &operator->() const { return _field; }
+            const StoredFieldType &operator->(      void               ) const;
 
-            StoredType  getValue(const UInt32 index) const;
+                  StoredType       getValue  (const UInt32      index  ) const;
+            void                   getValue  (      StoredType &val,
+                                              const UInt32      index  ) const;
 
-            void        getValue(      StoredType &val,
-                                 const UInt32      index) const;
+            void                   setValue  (const StoredType &val,
+                                              const UInt32      index  );
 
-            void        setValue(const StoredType &val,
-                                 const UInt32      index);
+            void                   addValue  (const StoredType &val    );
 
-            void        addValue(const StoredType &val);
-
-    virtual void        clear();
-
-    virtual void        resize(size_t newsize);
-
-    virtual void        push_back(const StoredType &val);
+    virtual void                   clear     (      void               );
+    virtual void                   resize    (      size_t      newsize);
+    virtual void                   push_back (const StoredType &val    );
 
     template <class ExternalType>
-    ExternalType getValue (const UInt32 index)
+    ExternalType getValue(const UInt32 index)
     {
         return static_cast<ExternalType>(_field[index]);
     }
 
     template <class ExternalType>
-    void setValue (ExternalType val, const UInt32 index)
-    {
-        editMField(GeoPropDataFieldMask, _field);
-
-        _field[index] = static_cast<StoredType>(val);
-    }
-
-    virtual void getValue(MaxTypeT &val, const UInt32 index) const
-    {
-        val = static_cast<MaxTypeT>(_field[index]);
-    }
-
-    virtual void setValue(const MaxTypeT &val, const UInt32 index)
+    void setValue(ExternalType val, const UInt32 index)
     {
         editMField(GeoPropDataFieldMask, _field);
 
@@ -172,9 +157,8 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
 
     // These are copied from OSGGeoIntegralProperty.h
     // They need to be replicated as C++ name lookup won't find them
-        
     template <class ExternalType>
-    void addValue (const ExternalType &val)
+    void addValue(const ExternalType &val)
     {
          push_back(val);
     }
@@ -234,6 +218,14 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*! \{                                                                 */
     
     virtual ~TypedGeoIntegralProperty(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual void getGenericValue(      MaxTypeT &val, const UInt32 index) const;
+    virtual void setGenericValue(const MaxTypeT &val, const UInt32 index);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

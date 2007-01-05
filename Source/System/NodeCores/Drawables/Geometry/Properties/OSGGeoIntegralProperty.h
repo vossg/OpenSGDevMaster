@@ -71,30 +71,29 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     // the code has to be here...
 
     template <class ExternalType>
-    ExternalType getValue (const UInt32 index) const
+    ExternalType getValue(const UInt32 index) const
     {
         MaxTypeT ival;
-        getValue(ival, index);
+        getGenericValue(ival, index);
         return ival;
     }
     
     template <class ExternalType>
-    void getValue (ExternalType &eval, const UInt32 index) const
+    void getValue(ExternalType &eval, const UInt32 index) const
     {
         MaxTypeT val;
-        getValue(val, index);
+        getGenericValue(val, index);
         eval = val;
     }
     
     template <class ExternalType>
-    void setValue (const ExternalType &val, const UInt32 index)
+    void setValue(const ExternalType &val, const UInt32 index)
     {
-        MaxTypeT ival = val;
-        setValue(ival, index);
+        setGenericValue(val, index);
     }
     
     template <class ExternalType>
-    void addValue (const ExternalType &val)
+    void addValue(const ExternalType &val)
     {
         push_back(val);
     }
@@ -103,23 +102,18 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     void push_back(const ExternalType &val)
     {
         resize(size() + 1);
-        setValue(val, size() - 1);
+        setGenericValue(val, size() - 1);
     }
 
-    virtual void clear(void) = 0;
-    virtual void resize(size_t newsize) = 0;
-
-    virtual UInt32 size(void) const = 0;
+    virtual void   clear (void          )       = 0;
+    virtual void   resize(size_t newsize)       = 0;
+    virtual UInt32 size  (void          ) const = 0;
 
     /*---------------------------------------------------------------------*/
 
     // A little fallback to simplify porting of old code
     inline UInt32 getValue(const UInt32 index) const;  
     
-    // This is the fallback, it has to be implemented by the concrete Props!
-    virtual void getValue(      MaxTypeT &val, const UInt32 index ) const = 0;
-    virtual void setValue(const MaxTypeT &val, const UInt32 index )       = 0;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -187,6 +181,17 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     /*! \{                                                                 */
 
     virtual ~GeoIntegralProperty(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Generic Access                              */
+    /*! \{                                                                 */
+    
+    // This is the fallback, it has to be implemented by the concrete Props!
+    virtual void getGenericValue(      MaxTypeT &val,
+                                 const UInt32 index  ) const = 0;
+    virtual void setGenericValue(const MaxTypeT &val,
+                                 const UInt32 index  )       = 0;
 
     /*! \}                                                                 */
 

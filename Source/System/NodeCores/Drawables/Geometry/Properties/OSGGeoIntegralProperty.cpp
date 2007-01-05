@@ -57,6 +57,44 @@ OSG_USING_NAMESPACE
 // To modify it, please change the .fcd file (OSGGeoIntegralProperty.fcd) and
 // regenerate the base file.
 
+/*! \fn void GeoIntegralProperty::clear(void)
+    Removes all values from this property.
+ */
+
+/*! \fn void GeoIntegralProperty::resize(size_t newsize)
+    Changes the size of this property to \a newsize. If the new size is smaller
+    than the current size, excessive elements are deleted; if the new is greater
+    than the current size, new elements are default constructed.
+
+    \param[in] newsize New size for this property.
+ */
+
+/*! \fn UInt32 GeoIntegralProperty::size(void) const
+    \copydoc OSG::GeoProperty::size
+ */
+
+/*! \fn void GeoIntegralProperty::getGenericValue(MaxTypeT &val, const UInt32 index)
+    Retrieves this properties value at index \a index in \a val through the
+    most generic type available (MaxTypeT).
+    The templated access functions will use this internally and then convert to
+    the user specified type, thus the concrete properties derived from this
+    need to override this method.
+
+    \param[out] val The value stored at index \a index.
+    \param[in] index The index of the value to retrieve.
+ */
+
+/*! \fn void GeoIntegralProperty::setGenericValue(const MaxTypeT &val, const UInt32 index)
+    Stores the value \a val in this property at index \a index using the most
+    generic type available (MaxTypeT).
+    The templated access functions will use this internally and then convert to
+    the user specified type, thus the concrete properties derived from this
+    need to override this method.
+
+    \param[in] val The value to store at index \a index.
+    \param[in] index The index of the value to set.
+ */
+
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/

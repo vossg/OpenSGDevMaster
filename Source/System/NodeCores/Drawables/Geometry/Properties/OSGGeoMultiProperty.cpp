@@ -142,63 +142,20 @@ UInt8 *GeoMultiProperty::editData(void)
     return getContainer()->editData() + getOffset();
 }
 
-
-void GeoMultiProperty::getValue(MaxTypeT &eval, const UInt32 index ) const
+GeoMultiProperty::MaxTypeT
+GeoMultiProperty::getValue(const UInt32 index) const
 {
-    UInt16 dim = getDimension();
-    bool norm = getNormalize();
-    UInt32 stride = getStride() ? getStride() : getFormatSize() * dim;    
-    const UInt8 *data = getData() + stride * index;
+    MaxTypeT val;
+    getGenericValue(val, index);
 
-#define getValNormCase(vectype)                                 \
-{                                                               \
-vectype ival(vectype::Null);                                    \
-for (UInt16 i = 0; i < dim; ++i)                                \
-    ival[i] =                                                   \
-        reinterpret_cast<const vectype::ValueType*>(data)[i];   \
-                                                                \
-if(norm)                                                        \
-{                                                               \
-    GeoConvertNormalize::convertOut(eval, ival,              \
-        TypeTraits<vectype::ValueType>::getMax(), 0);           \
-}                                                               \
-else                                                            \
-{                                                               \
-    GeoConvert::convertOut(eval, ival);                      \
-}                                                               \
+    return val;
 }
 
-#define getValCase(vectype)                                     \
-{                                                               \
-vectype ival(vectype::Null);                                    \
-for (UInt16 i = 0; i < dim; ++i)                                \
-    ival[i] =                                                   \
-        reinterpret_cast<const vectype::ValueType*>(data)[i];   \
-                                                                \
-GeoConvert::convertOut(eval, ival);                          \
+void
+GeoMultiProperty::getValue(MaxTypeT &val, const UInt32 index) const
+{
+    getGenericValue(val, index);
 }
-    switch(getFormat())
-    {
-    case GL_BYTE:                   getValNormCase(Vec4b );
-                                    break;
-    case GL_UNSIGNED_BYTE:          getValNormCase(Vec4ub);
-                                    break;
-    case GL_SHORT:                  getValNormCase(Vec4s );
-                                    break;
-    case GL_UNSIGNED_SHORT:         getValNormCase(Vec4us);
-                                    break;
-/*    case GL_INT:                    getValNormCase(Vec4i );
-                                    break;
-    case GL_UNSIGNED_INT:           getValNormCase(Vec4ui);
-                                    break;
-*/    case GL_FLOAT:                  getValCase    (Vec4f );
-                                    break;
-    case GL_DOUBLE:                 getValCase    (Vec4d );
-                                    break;
-    }
-}
-
-
 
 void GeoMultiProperty::clear(void)
 {
@@ -243,63 +200,13 @@ void GeoMultiProperty::setNormalize(bool val)
     setINormalize(val);
 }
 
-
-void GeoMultiProperty::setValue(const MaxTypeT &eval, const UInt32 index )
+void
+GeoMultiProperty::setValue(const MaxTypeT &val, const UInt32 index)
 {
-    UInt16 dim = getDimension();
-    bool norm = getNormalize();
-    UInt32 stride = getStride() ? getStride() : getFormatSize() * dim;    
-    UInt8 *data = editData() + stride * index;
-
-#define setValNormCase(vectype)                                 \
-{                                                               \
-vectype ival;                                                   \
-if(norm)                                                        \
-{                                                               \
-    GeoConvertNormalize::convertIn(ival, eval,               \
-        TypeTraits<vectype::ValueType>::getMax(), 0);           \
-}                                                               \
-else                                                            \
-{                                                               \
-    GeoConvert::convertIn(ival, eval);                       \
-}                                                               \
-for (UInt16 i = 0; i < dim; ++i)                                \
-    reinterpret_cast<vectype::ValueType*>(data)[i] =            \
-        ival[i];                                                \
-}
-
-#define setValCase(vectype)                                     \
-{                                                               \
-vectype ival;                                                   \
-GeoConvert::convertIn(ival, eval);                           \
-for (UInt16 i = 0; i < dim; ++i)                                \
-    reinterpret_cast<vectype::ValueType*>(data)[i] =            \
-        ival[i];                                                \
-}
-    
-    switch(getFormat())
-    {
-    case GL_BYTE:                   setValNormCase(Vec4b );
-                                    break;
-    case GL_UNSIGNED_BYTE:          setValNormCase(Vec4ub);
-                                    break;
-    case GL_SHORT:                  setValNormCase(Vec4s );
-                                    break;
-    case GL_UNSIGNED_SHORT:         setValNormCase(Vec4us);
-                                    break;
-/*    case GL_INT:                    setValNormCase(Vec4i );
-                                    break;
-    case GL_UNSIGNED_INT:           setValNormCase(Vec4ui);
-                                    break;
-*/    case GL_FLOAT:                  setValCase    (Vec4f );
-                                    break;
-    case GL_DOUBLE:                 setValCase    (Vec4d );
-                                    break;
-    }
+    setGenericValue(val, index);
 }
 
 /*! \}                                                                 */
-
 /*---------------------------------------------------------------------*/
 /*! \name                 Chunk Class Access                           */
 /*! \{                                                                 */
@@ -486,6 +393,124 @@ void GeoMultiProperty::dump(      UInt32    ,
     SLOG << "Dump GeoMultiProperty NI" << std::endl;
 }
 
+/*----------------------------- Generic Access ----------------------------*/
+
+void
+GeoMultiProperty::getGenericValue(MaxTypeT &eval, const UInt32 index ) const
+{
+          UInt16  dim    = getDimension();
+          bool    norm   = getNormalize();
+          UInt32  stride = getStride() ? getStride() : getFormatSize() * dim;
+    const UInt8  *data   = getData() + stride * index;
+
+#define getValNormCase(vectype)                                 \
+{                                                               \
+vectype ival(vectype::Null);                                    \
+for (UInt16 i = 0; i < dim; ++i)                                \
+    ival[i] =                                                   \
+        reinterpret_cast<const vectype::ValueType*>(data)[i];   \
+                                                                \
+if(norm)                                                        \
+{                                                               \
+    GeoConvertNormalize::convertOut(eval, ival,              \
+        TypeTraits<vectype::ValueType>::getMax(), 0);           \
+}                                                               \
+else                                                            \
+{                                                               \
+    GeoConvert::convertOut(eval, ival);                      \
+}                                                               \
+}
+
+#define getValCase(vectype)                                     \
+{                                                               \
+vectype ival(vectype::Null);                                    \
+for (UInt16 i = 0; i < dim; ++i)                                \
+    ival[i] =                                                   \
+        reinterpret_cast<const vectype::ValueType*>(data)[i];   \
+                                                                \
+GeoConvert::convertOut(eval, ival);                          \
+}
+    switch(getFormat())
+    {
+    case GL_BYTE:                   getValNormCase(Vec4b );
+                                    break;
+    case GL_UNSIGNED_BYTE:          getValNormCase(Vec4ub);
+                                    break;
+    case GL_SHORT:                  getValNormCase(Vec4s );
+                                    break;
+    case GL_UNSIGNED_SHORT:         getValNormCase(Vec4us);
+                                    break;
+/*    case GL_INT:                    getValNormCase(Vec4i );
+                                    break;
+    case GL_UNSIGNED_INT:           getValNormCase(Vec4ui);
+                                    break;
+*/    case GL_FLOAT:                  getValCase    (Vec4f );
+                                    break;
+    case GL_DOUBLE:                 getValCase    (Vec4d );
+                                    break;
+    }
+
+#undef getValNormCase
+#undef getValCase
+}
+
+void
+GeoMultiProperty::setGenericValue(const MaxTypeT &eval, const UInt32 index )
+{
+    UInt16 dim = getDimension();
+    bool norm = getNormalize();
+    UInt32 stride = getStride() ? getStride() : getFormatSize() * dim;    
+    UInt8 *data = editData() + stride * index;
+
+#define setValNormCase(vectype)                                 \
+{                                                               \
+vectype ival;                                                   \
+if(norm)                                                        \
+{                                                               \
+    GeoConvertNormalize::convertIn(ival, eval,               \
+        TypeTraits<vectype::ValueType>::getMax(), 0);           \
+}                                                               \
+else                                                            \
+{                                                               \
+    GeoConvert::convertIn(ival, eval);                       \
+}                                                               \
+for (UInt16 i = 0; i < dim; ++i)                                \
+    reinterpret_cast<vectype::ValueType*>(data)[i] =            \
+        ival[i];                                                \
+}
+
+#define setValCase(vectype)                                     \
+{                                                               \
+vectype ival;                                                   \
+GeoConvert::convertIn(ival, eval);                           \
+for (UInt16 i = 0; i < dim; ++i)                                \
+    reinterpret_cast<vectype::ValueType*>(data)[i] =            \
+        ival[i];                                                \
+}
+    
+    switch(getFormat())
+    {
+    case GL_BYTE:                   setValNormCase(Vec4b );
+                                    break;
+    case GL_UNSIGNED_BYTE:          setValNormCase(Vec4ub);
+                                    break;
+    case GL_SHORT:                  setValNormCase(Vec4s );
+                                    break;
+    case GL_UNSIGNED_SHORT:         setValNormCase(Vec4us);
+                                    break;
+/*    case GL_INT:                    setValNormCase(Vec4i );
+                                    break;
+    case GL_UNSIGNED_INT:           setValNormCase(Vec4ui);
+                                    break;
+*/    case GL_FLOAT:                  setValCase    (Vec4f );
+                                    break;
+    case GL_DOUBLE:                 setValCase    (Vec4d );
+                                    break;
+    }
+
+#undef setValNormCase
+#undef setValCase
+}
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */

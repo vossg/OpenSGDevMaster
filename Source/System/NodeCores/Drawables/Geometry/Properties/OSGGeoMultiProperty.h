@@ -44,14 +44,15 @@
 
 #include "OSGGeoMultiPropertyData.h"
 #include "OSGGeoMultiPropertyBase.h"
+#include "OSGGeoVectorPropertyConversion.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief GeoMultiProperty class. See \ref 
+/*! \brief GeoMultiProperty class. See \ref
            PageWindowGLUTGeoMultiProperty for a description.
 */
 
-class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty : 
+class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     public GeoMultiPropertyBase
 {
   private:
@@ -66,33 +67,31 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     /*! \name                     Access                                   */
     /*! \{                                                                 */
 
-    virtual       UInt32  getFormat    (void) const;
-    virtual       UInt32  getFormatSize(void) const;
-    virtual       UInt32  getStride    (void) const;
-    virtual       UInt32  getDimension (void) const;
-    virtual       UInt32  getSize      (void) const;
-    virtual       UInt32  size         (void) const;
-    virtual       bool    getNormalize (void) const;
-    virtual const UInt8  *getData      (void) const;
-    virtual       UInt8  *editData     (void);
-   
-    virtual void getValue(MaxTypeT &val, const UInt32 index ) const;
-    
+    virtual       UInt32    getFormat    (      void             ) const;
+    virtual       UInt32    getFormatSize(      void             ) const;
+    virtual       UInt32    getStride    (      void             ) const;
+    virtual       UInt32    getDimension (      void             ) const;
+    virtual       UInt32    getSize      (      void             ) const;
+    virtual       UInt32    size         (      void             ) const;
+    virtual       bool      getNormalize (      void             ) const;
+    virtual const UInt8    *getData      (      void             ) const;
+    virtual       UInt8    *editData     (      void             );
+                  MaxTypeT  getValue     (const UInt32    index  ) const;
+                  void      getValue     (      MaxTypeT &val,
+                                          const UInt32    index  ) const;
 
-    virtual       void    clear(void);
-    virtual       void    resize(size_t newsize);
-    
-    virtual       void    setFormat    (UInt32 val);
-    virtual       void    setStride    (UInt32 val);
-    virtual       void    setDimension (UInt32 val);
-    virtual       void    setSize      (UInt32 val);
-    virtual       void    setNormalize (bool val);
-     
-    
-    virtual void setValue(const MaxTypeT &val, const UInt32 index );
+    virtual       void      clear        (      void             );
+    virtual       void      resize       (      size_t    newsize);
+
+    virtual       void      setFormat    (      UInt32    val    );
+    virtual       void      setStride    (      UInt32    val    );
+    virtual       void      setDimension (      UInt32    val    );
+    virtual       void      setSize      (      UInt32    val    );
+    virtual       void      setNormalize (      bool      val    );
+                  void      setValue     (const MaxTypeT &val,
+                                          const UInt32    index  );
 
     /*! \}                                                                 */
-
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
     /*! \{                                                                 */
@@ -112,14 +111,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
-    virtual void activate      (DrawEnv    *pEnv, 
+    virtual void activate      (DrawEnv    *pEnv,
                                 UInt32      index = 0);
 
-    virtual void changeFrom    (DrawEnv    *pEnv, 
+    virtual void changeFrom    (DrawEnv    *pEnv,
                                 StateChunk *old,
                                 UInt32      index = 0);
 
-    virtual void deactivate    (DrawEnv    *pEnv, 
+    virtual void deactivate    (DrawEnv    *pEnv,
                                 UInt32      index = 0);
 
     virtual bool isTransparent (void) const;
@@ -141,7 +140,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -149,7 +148,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -171,10 +170,16 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiProperty :
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoMultiProperty(void); 
+    virtual ~GeoMultiProperty(void);
 
     /*! \}                                                                 */
-    
+
+    virtual void getGenericValue(      MaxTypeT &val,
+                                 const UInt32    index) const;
+    virtual void setGenericValue(const MaxTypeT &val,
+                                 const UInt32    index);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:

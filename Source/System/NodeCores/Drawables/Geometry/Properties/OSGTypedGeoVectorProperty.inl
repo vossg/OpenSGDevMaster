@@ -47,14 +47,14 @@ OSG_FIELD_CONTAINER_TMPL_DEF(TypedGeoVectorProperty,
                              GeoPropertyDesc)
 
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 TypedGeoVectorProperty<GeoPropertyDesc>::TypedGeoVectorProperty(void) :
      GeoVectorProperty(),
     _field         ()
 {
 }
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 TypedGeoVectorProperty<GeoPropertyDesc>::TypedGeoVectorProperty(
     const TypedGeoVectorProperty &source ) :
 
@@ -63,28 +63,28 @@ TypedGeoVectorProperty<GeoPropertyDesc>::TypedGeoVectorProperty(
 {
 }
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 TypedGeoVectorProperty<GeoPropertyDesc>::~TypedGeoVectorProperty(void)
 {
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-template <class GeoPropertyDesc> inline 
-typename TypedGeoVectorProperty<GeoPropertyDesc>::ObjPtr 
+template <class GeoPropertyDesc> inline
+typename TypedGeoVectorProperty<GeoPropertyDesc>::ObjPtr
     TypedGeoVectorProperty<GeoPropertyDesc>::createAspectCopy(void) const
 {
-    ObjPtr returnValue; 
+    ObjPtr returnValue;
 
-    newAspectCopy(returnValue, 
-                  dynamic_cast<const Self *>(this)); 
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Self *>(this));
 
-    return returnValue; 
+    return returnValue;
 }
 #endif
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 template <class GeoPropertyDesc> inline
-void TypedGeoVectorProperty<GeoPropertyDesc>::execSync(      
+void TypedGeoVectorProperty<GeoPropertyDesc>::execSync(
           Self              *pFrom,
           ConstFieldMaskArg  whichField,
           ConstFieldMaskArg  syncMode  ,
@@ -99,8 +99,8 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::execSync(
     }
 }
 
-template <class GeoPropertyDesc> inline 
-void TypedGeoVectorProperty<GeoPropertyDesc>::execSyncV(      
+template <class GeoPropertyDesc> inline
+void TypedGeoVectorProperty<GeoPropertyDesc>::execSyncV(
           FieldContainer    &oFrom,
           ConstFieldMaskArg  whichField,
           ConstFieldMaskArg  syncMode  ,
@@ -133,7 +133,7 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::execSync(
 }
 
 template <class GeoPropertyDesc> inline
-void TypedGeoVectorProperty<GeoPropertyDesc>::execSyncV(     
+void TypedGeoVectorProperty<GeoPropertyDesc>::execSyncV(
           FieldContainer    &oFrom,
           ConstFieldMaskArg  whichField,
           AspectOffsetStore &oOffsets,
@@ -149,9 +149,9 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::execSyncV(
 #endif
 
 #if 0
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::execBeginEdit (
-    ConstFieldMaskArg whichField, 
+    ConstFieldMaskArg whichField,
     UInt32            uiAspect,
     UInt32            uiContainerSize)
 {
@@ -163,9 +163,9 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::execBeginEdit (
     }
 }
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::execBeginEditV(
-    ConstFieldMaskArg whichField, 
+    ConstFieldMaskArg whichField,
     UInt32            uiAspect,
     UInt32            uiContainerSize)
 {
@@ -173,9 +173,9 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::execBeginEditV(
 }
 #endif
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::changed(
-    ConstFieldMaskArg whichField, 
+    ConstFieldMaskArg whichField,
     UInt32            origin    )
 {
     typedef typename Inherited::ParentField PFieldT;
@@ -195,7 +195,7 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::changed(
     Inherited::changed(whichField, origin);
 }
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getBinSize(
     ConstFieldMaskArg whichField)
 {
@@ -209,7 +209,7 @@ UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getBinSize(
     return returnValue;
 }
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::copyToBin(
     BinaryDataHandler &pMem,
     ConstFieldMaskArg  whichField)
@@ -222,7 +222,7 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::copyToBin(
     }
 }
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::copyFromBin(
     BinaryDataHandler &pMem,
     ConstFieldMaskArg  whichField)
@@ -235,14 +235,16 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::copyFromBin(
     }
 }
 
-/*! Returns a pointer to the Stored field. 
+/*! Returns a pointer to the stored field.
 
-    This allows direct access to the data, which is faster than the access via 
-    the generic Interface that the AbstractTypedGeoVectorProperty provides, but it
+    This allows direct access to the data, which is faster than the access via
+    the generic Interface that GeoVectorProperty provides, but it
     necessitates compile-time knowledge about the involved concrete types.
+
+    \return Pointer to the data field.
 */
-template <class GeoPropertyDesc> inline 
-typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType * 
+template <class GeoPropertyDesc> inline
+typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType *
     TypedGeoVectorProperty<GeoPropertyDesc>::editFieldPtr(void)
 {
     editMField(GeoPropDataFieldMask, _field);
@@ -250,27 +252,31 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType *
     return &_field;
 }
 
-/*! Returns a pointer to the Stored field. 
+/*! Returns a pointer to the stored field.
 
-    This allows direct access to the data, which is faster than the access via 
-    the generic Interface that the AbstractTypedGeoVectorProperty provides, but it
+    This allows direct access to the data, which is faster than the access via
+    the generic Interface that the GeoVectorProperty provides, but it
     necessitates compile-time knowledge about the involved concrete types.
+
+    \return Pointer to the data field.
 */
-template <class GeoPropertyDesc> inline 
-const typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType * 
+template <class GeoPropertyDesc> inline
+const typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType *
     TypedGeoVectorProperty<GeoPropertyDesc>::getFieldPtr(void) const
 {
     return &_field;
 }
 
-/*! Returns a reference to the Stored field. 
+/*! Returns a reference to the stored field.
 
-    This allows direct access to the data, which is faster than the access via 
-    the generic Interface that the AbstractTypedGeoVectorProperty provides, but it
-    necessitates compile-time knowledge about the involved concrete types. 
+    This allows direct access to the data, which is faster than the access via
+    the generic Interface that the GeoVectorProperty provides, but it
+    necessitates compile-time knowledge about the involved concrete types.
+
+    \return Reference to the data field.
 */
-template <class GeoPropertyDesc> inline 
-typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType & 
+template <class GeoPropertyDesc> inline
+typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
     TypedGeoVectorProperty<GeoPropertyDesc>::editField(void)
 {
     editMField(GeoPropDataFieldMask, _field);
@@ -278,14 +284,16 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
     return _field;
 }
 
-/*! Returns a const reference to the Stored field. 
+/*! Returns a const reference to the stored field.
 
-    This allows direct access to the data, which is faster than the access via 
-    the generic Interface that the AbstractTypedGeoVectorProperty provides, but it
-    necessitates compile-time knowledge about the involved concrete types. 
+    This allows direct access to the data, which is faster than the access via
+    the generic Interface that the GeoVectorProperty provides, but it
+    necessitates compile-time knowledge about the involved concrete types.
+
+    \return Reference to the data field.
 */
-template <class GeoPropertyDesc> inline 
-const typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType & 
+template <class GeoPropertyDesc> inline
+const typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
     TypedGeoVectorProperty<GeoPropertyDesc>::getField(void) const
 {
     return _field;
@@ -293,14 +301,14 @@ const typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
 
 
 #ifdef OSG_1_COMPAT
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType *
     TypedGeoVectorProperty<GeoPropertyDesc>::getFieldPtr (void)
 {
     return this->editFieldPtr();
 }
 
-template <class GeoPropertyDesc> inline 
+template <class GeoPropertyDesc> inline
 typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
     TypedGeoVectorProperty<GeoPropertyDesc>::getField(void)
 {
@@ -308,27 +316,44 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
 }
 #endif
 
-template <class GeoPropertyDesc> inline 
+/*! Returns a const reference to the given element of the stored field.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[in] index Index of the element to access.
+    \return Reference to the given element.
+ */
+template <class GeoPropertyDesc> inline
 typename TypedGeoVectorProperty<GeoPropertyDesc>::const_reference
     TypedGeoVectorProperty<GeoPropertyDesc>::operator [](UInt32 index) const
 {
     return _field[index];
 }
 
-template <class GeoPropertyDesc> inline 
-typename TypedGeoVectorProperty<GeoPropertyDesc>::reference 
+/*! Returns a reference to the given element of the stored field.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[in] index Index of the element to access.
+    \return Reference to the given element.
+ */
+template <class GeoPropertyDesc> inline
+typename TypedGeoVectorProperty<GeoPropertyDesc>::reference
     TypedGeoVectorProperty<GeoPropertyDesc>::operator [](UInt32 index)
 {
+    editMField(GeoPropDataFieldMask, _field);
+
     return _field[index];
 }
 
+/*! Returns a copy of this property that holds the same data.
 
+    \return A copy of this property.
+ */
 template <class GeoPropertyDesc> inline
 GeoVectorPropertyPtr
 TypedGeoVectorProperty<GeoPropertyDesc>::clone(void)
 {
     ObjPtr obj = TypedGeoVectorProperty<GeoPropertyDesc>::create();
-    
+
     editMField(GeoPropDataFieldMask, obj->_field);
 
     obj->_field.setValues(_field);
@@ -337,51 +362,76 @@ TypedGeoVectorProperty<GeoPropertyDesc>::clone(void)
 }
 
 
-/*! Returns the format of this property. 
-*/
-
-template <class GeoPropertyDesc> inline 
+/*! \copydoc OSG::GeoVectorProperty::getFormat
+ */
+template <class GeoPropertyDesc> inline
 UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getFormat(void) const
 {
     return GeoPropertyDesc::getFormat();
 }
 
-
-template <class GeoPropertyDesc> inline 
+/*! \copydoc OSG::GeoVectorProperty::getFormatSize
+ */
+template <class GeoPropertyDesc> inline
 UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getFormatSize(void) const
 {
     return GeoPropertyDesc::getFormatSize();
 }
 
-
+/*! \copydoc OSG::GeoVectorProperty::getStride
+ */
 template <class GeoPropertyDesc> inline
 UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getStride(void) const
 {
     return GeoPropertyDesc::getStride();
 }
 
-
+/*! \copydoc OSG::GeoVectorProperty::getDimension
+ */
 template <class GeoPropertyDesc> inline
 UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::getDimension(void) const
 {
     return GeoPropertyDesc::getDimension();
 }
 
-
+/*! \copydoc OSG::GeoVectorProperty::size
+ */
 template <class GeoPropertyDesc> inline
 UInt32 TypedGeoVectorProperty<GeoPropertyDesc>::size(void) const
 {
     return _field.size();
 }
 
-
+/*! \copydoc OSG::GeoVectorProperty::getData
+ */
 template <class GeoPropertyDesc> inline
 const UInt8 *TypedGeoVectorProperty<GeoPropertyDesc>::getData(void) const
 {
     return (const UInt8 *) &(_field[0]);
 }
 
+/*! Returns a const reference to the stored field.
 
+    This allows direct access to the data, which is faster than the access via
+    the generic Interface that the GeoVectorProperty provides, but it
+    necessitates compile-time knowledge about the involved concrete types.
+
+    \return Reference to the data field.
+*/
+template <class GeoPropertyDesc>
+inline
+const typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
+TypedGeoVectorProperty<GeoPropertyDesc>::operator->(void) const
+{
+    return _field;
+}
+
+/*! Returns the value stored at index \a index.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[in] index Index of the element to access.
+    \return Value of the given element.
+ */
 template <class GeoPropertyDesc> inline
 typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredType
     TypedGeoVectorProperty<GeoPropertyDesc>::getValue(const UInt32 index) const
@@ -389,8 +439,13 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredType
     return _field[index];
 }
 
+/*! Returns the value stored at index \a index in \a val.
+    There is no range check for \a index, it must be in [0, size()[.
 
-template <class GeoPropertyDesc> inline 
+    \param[out] val Value at the given index.
+    \param[in] index Index of the element to access.
+ */
+template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::getValue(
           StoredType &val,
     const UInt32             index) const
@@ -398,32 +453,56 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::getValue(
     val = _field[index];
 }
 
+/*! Sets the value stored at index \a index to \a value.
+    There is no range check for \a index, it must be in [0, size()[.
 
-template <class GeoPropertyDesc> inline 
+    \note To change many entries of a property it is more efficient to obtain
+    a pointer or reference to the stored field and modify that directly.
+
+    \param[in] value Value to set the element at the given index to.
+    \param[in] index Index of the element to set.
+ */
+template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::setValue(const StoredType &value,
-                                            const UInt32             index)
+                                                       const UInt32      index)
 {
     editMField(GeoPropDataFieldMask, _field);
 
     _field[index] = value;
 }
 
-template <class GeoPropertyDesc> inline 
-void TypedGeoVectorProperty<GeoPropertyDesc>::addValue(const StoredType & value)
+/*! Appends a value to this property.
+
+    \note To change many entries of a property it is more efficient to obtain
+    a pointer or reference to the stored field and modify that directly.
+
+    \param[in] value Value to append to this property.
+ */
+template <class GeoPropertyDesc> inline
+void TypedGeoVectorProperty<GeoPropertyDesc>::addValue(const StoredType &value)
 {
     editMField(GeoPropDataFieldMask, _field);
 
     _field.push_back(value);
 }
 
+/*! Removes all values from this property.
+ */
 template <class GeoPropertyDesc> inline
-void TypedGeoVectorProperty<GeoPropertyDesc>::clear( void )
+void TypedGeoVectorProperty<GeoPropertyDesc>::clear(void)
 {
     editMField(GeoPropDataFieldMask, _field);
 
     _field.clear();
 }
 
+/*! Appends a value to this property.
+
+    \note To change many entries of a property it is more efficient to obtain
+    a pointer or reference to the stored field and modify that directly.
+
+    \param[in] value Value to append to this property.
+ */
 template <class GeoPropertyDesc> inline
 void TypedGeoVectorProperty<GeoPropertyDesc>::push_back(
     const StoredType &value)
@@ -431,22 +510,69 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::push_back(
     addValue(value);
 }
 
+/*! Changes the size of this property to \a newsize. If the new size is smaller
+    than the current size, excessive elements are deleted; if the new is greater
+    than the current size, new elemnts are default constructed.
+
+    \param[in] newsize New size for this property.
+ */
 template <class GeoPropertyDesc> inline
-void TypedGeoVectorProperty<GeoPropertyDesc>::resize( size_t newsize )
+void TypedGeoVectorProperty<GeoPropertyDesc>::resize(size_t newsize)
 {
     editMField(GeoPropDataFieldMask, _field);
 
     _field.resize(newsize);
 }
 
+/*! Returns if this property stores normalized values.
+
+    \return True if this property stores normalized values.
+ */
 template <class GeoPropertyDesc> inline
 bool TypedGeoVectorProperty<GeoPropertyDesc>::getNormalize(void) const
 {
     return GeoPropertyDesc::normalize;
 }
 
+/*! Returns the value at index \a index in \a val after converting it to the
+    most generic type OSG::GeoVectorProperty::MaxTypeT.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[out] val Value at the given index.
+    \param[in] index Index of the element to access.
+ */
+template <class GeoPropertyDesc>
+void
+TypedGeoVectorProperty<GeoPropertyDesc>::getGenericValue(
+          MaxTypeT &val, const UInt32 index) const
+{
+    Converter::convertOut(val,
+                          _field[index],
+                          GeoPropertyDesc::scale,
+                          GeoPropertyDesc::offset);
+}
+
+/*! Sets the value at index \a index to \a value.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[in] val Value to set the element at the given index to.
+    \param[in] index Index of the element to set.
+*/
+template <class GeoPropertyDesc>
+void
+TypedGeoVectorProperty<GeoPropertyDesc>::setGenericValue(
+    const MaxTypeT &val, const UInt32 index)
+{
+    editMField(GeoPropDataFieldMask, _field);
+
+    Converter::convertIn(_field[index],
+                         val,
+                         GeoPropertyDesc::scale,
+                         GeoPropertyDesc::offset);
+}
+
 template <class GeoPropertyDesc> inline
-void TypedGeoVectorProperty<GeoPropertyDesc>::dump(      UInt32    uiIndent, 
+void TypedGeoVectorProperty<GeoPropertyDesc>::dump(      UInt32    uiIndent,
                                         const BitVector bvFlags) const
 {
     GeoVectorProperty::dump(uiIndent, bvFlags);

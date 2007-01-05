@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
     \hideinhierarchy
     \brief GeoProperty is a specialized form of Attachment, used to
-    define the properties of the geometry node. See \ref 
+    define the properties of the geometry node. See \ref
     PageWINDOWGLUTGeoProperties for a description.
 */
 
@@ -99,7 +99,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
         NextFieldId        = GeoPropDataFieldId + 1
     };
 
-    static const BitVector GeoPropDataFieldMask = 
+    static const BitVector GeoPropDataFieldMask =
                            1 << static_cast<Int32>(GeoPropDataFieldId);
 
 
@@ -147,57 +147,89 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     virtual       UInt32  size         (void) const;
     virtual const UInt8  *getData      (void) const;
 
-            const StoredFieldType &operator->(void) const { return _field; }
+            const StoredFieldType &operator->  (       void              ) const;
 
-            StoredType  getValue(const UInt32 index) const;
+            StoredType             getValue    (const UInt32      index  ) const;
+            void                   getValue    (      StoredType &val,
+                                                const UInt32      index  ) const;
 
-            void        getValue(      StoredType &val,
-                                 const UInt32      index) const;
+            void                   setValue    (const StoredType &val,
+                                                const UInt32      index  );
 
-            void        setValue(const StoredType &val,
-                                 const UInt32      index);
+            void                   addValue    (const StoredType &val    );
 
-            void        addValue(const StoredType &val);
-
-    virtual void        clear();
-
-    virtual void        resize(size_t newsize);
-
-    virtual bool        getNormalize(void) const;
-
-    virtual void        push_back(const StoredType &val);
+    virtual void                   clear       (      void               );
+    virtual void                   resize      (      size_t      newsize);
+    virtual bool                   getNormalize(      void               ) const;
+    virtual void                   push_back   (const StoredType &val    );
 
     template <class ExternalType>
-    ExternalType getValue (const UInt32 index)
+    ExternalType getValue(const UInt32 index) const
     {
-        ExternalType val;        
+        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(%d)\n", index));
+
+        ExternalType val;
 
         if(GeoPropertyDesc::normalize)
         {
             if(TypeTraits<typename  ExternalType::ValueType>::MathProp ==
                IntValue)
             {
-                GeoConvertNormalize::convertOut(val, _field[index], 
-                    static_cast<Real64>(GeoPropertyDesc::scale) / 
-                    TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);   
+                GeoConvertNormalize::convertOut(val, _field[index],
+                    static_cast<Real64>(GeoPropertyDesc::scale) /
+                    TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
             }
             else
             {
-                GeoConvertNormalize::convertOut(val, _field[index], 
-                    static_cast<Real64>(GeoPropertyDesc::scale), 0);   
-            }       
+                GeoConvertNormalize::convertOut(val, _field[index],
+                    static_cast<Real64>(GeoPropertyDesc::scale), 0);
+            }
         }
         else
         {
-            GeoConvert::convertOut(val, _field[index]);    
+            GeoConvert::convertOut(val, _field[index]);
         }
 
         return val;
     }
 
     template <class ExternalType>
+    void getValue(ExternalType &eval, const UInt32 index) const
+    {
+        FDEBUG(("TypedGeoVectorProperty<>::getValue<>(eval, %d)\n", index));
+
+        if(GeoPropertyDesc::normalize)
+        {
+            if(TypeTraits<typename ExternalType::ValueType>::MathProp ==
+               IntValue)
+            {
+                GeoConvertNormalize::convertOut(
+                    eval,
+                    _field[index],
+                    static_cast<Real64>(GeoPropertyDesc::scale) /
+                        TypeTraits<typename ExternalType::ValueType>::getMax(),
+                    0);
+            }
+            else
+            {
+                GeoConvertNormalize::convertOut(
+                    eval,
+                    _field[index],
+                    static_cast<Real64>(GeoPropertyDesc::scale),
+                    0);
+            }
+        }
+        else
+        {
+            GeoConvert::convertOut(eval, _field[index]);
+        }
+    }
+
+    template <class ExternalType>
     void setValue (ExternalType val, const UInt32 index)
     {
+        FDEBUG(("TypedGeoVectorProperty<>::setValue<>(val, %d)\n", index));
+
         StoredType ival;
 
         if(GeoPropertyDesc::normalize)
@@ -205,58 +237,40 @@ class TypedGeoVectorProperty : public GeoVectorProperty
             if(TypeTraits<typename  ExternalType::ValueType>::MathProp ==
                IntValue)
             {
-                GeoConvertNormalize::convertIn(ival, val, 
-                    static_cast<Real64>(GeoPropertyDesc::scale) / 
-                    TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);   
+                GeoConvertNormalize::convertIn(ival, val,
+                    static_cast<Real64>(GeoPropertyDesc::scale) /
+                    TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
             }
             else
             {
-                GeoConvertNormalize::convertIn(ival, val, 
-                    static_cast<Real64>(GeoPropertyDesc::scale), 0);   
-            }       
+                GeoConvertNormalize::convertIn(ival, val,
+                    static_cast<Real64>(GeoPropertyDesc::scale), 0);
+            }
         }
         else
         {
-            GeoConvert::convertIn(ival, val);    
+            GeoConvert::convertIn(ival, val);
         }
 
         setValue(ival, index);
     }
 
-    virtual void getValue(MaxTypeT &val, const UInt32 index) const
-    {
-        Converter::convertOut(val, 
-                              _field[index], 
-                              GeoPropertyDesc::scale, 
-                              GeoPropertyDesc::offset);  
-    }
-
-    virtual void setValue(const MaxTypeT &val, const UInt32 index)
-    {
-        editMField(GeoPropDataFieldMask, _field);
-
-        Converter::convertIn(_field[index], val, 
-                             GeoPropertyDesc::scale, 
-                             GeoPropertyDesc::offset);  
-    }
-
-
     // These are copied from OSGGeoVectorProperty.h
     // They need to be replicated as C++ name lookup won't find them
-        
+
     template <class ExternalType>
     void addValue (const ExternalType &val)
     {
          push_back(val);
     }
-    
+
     template <class ExternalType>
     void push_back(const ExternalType &val)
     {
         resize(size() + 1);
         setValue(val, size() - 1);
     }
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Assigment                               */
@@ -273,7 +287,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/    
+    /*=========================  PROTECTED  ===============================*/
   protected:
 
     template<class ContainerFactoryT>
@@ -281,7 +295,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     template<class ContainerFactoryT>
     friend struct PtrConstructionFunctions;
- 
+
     StoredFieldType _field;
 
     /*---------------------------------------------------------------------*/
@@ -290,13 +304,21 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     TypedGeoVectorProperty(void);
     TypedGeoVectorProperty(const TypedGeoVectorProperty &source);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
-    
+
     virtual ~TypedGeoVectorProperty(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Generic Access                               */
+    /*! \{                                                                 */
+
+    virtual void getGenericValue(      MaxTypeT &val, const UInt32 index) const;
+    virtual void setGenericValue(const MaxTypeT &val, const UInt32 index);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -311,7 +333,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
-    
+
 #ifdef OSG_MT_FIELDCONTAINERPTR
     virtual void execSyncV(      FieldContainer    &oFrom,
                                  ConstFieldMaskArg  whichField,
@@ -345,11 +367,11 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \{                                                                 */
 
 #if 0
-    virtual void execBeginEditV(ConstFieldMaskArg whichField, 
+    virtual void execBeginEditV(ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 
-            void execBeginEdit (ConstFieldMaskArg whichField, 
+            void execBeginEdit (ConstFieldMaskArg whichField,
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
 #endif
@@ -359,9 +381,9 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    virtual void changed        (ConstFieldMaskArg whichField, 
+    virtual void changed        (ConstFieldMaskArg whichField,
                                  UInt32            origin    );
-            
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Binary Operations                       */
@@ -391,13 +413,13 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 struct TypedGeoVectorPropertyDescBase
 {
     typedef GeoVectorProperty       PropertParent;
-    
+
     typedef PropertParent::TypeObject TypeObject;
     typedef TypeObject::InitPhase     InitPhase;
 
-    static const Char8 *getGroupName (void) 
+    static const Char8 *getGroupName (void)
     {
-        return "TypedGeoVectorProperty";  
+        return "TypedGeoVectorProperty";
     }
 
     static void initMethod(InitPhase ePhase) {}
@@ -407,7 +429,7 @@ struct TypedGeoVectorPropertyDescBase
     static const Char8 *getTypeName (void) { return "GeoVectorProperty"; }
 
     /* Don't normalize */
-    typedef GeoConvert Converter;        
+    typedef GeoConvert Converter;
 
     static const bool normalize = false;
     static const int  scale     = 1;
@@ -418,13 +440,13 @@ struct TypedGeoVectorPropertyDescBase
 struct TypedNormGeoVectorPropertyDescBase
 {
     typedef GeoVectorProperty       PropertParent;
-    
+
     typedef PropertParent::TypeObject TypeObject;
     typedef TypeObject::InitPhase     InitPhase;
 
-    static const Char8 *getGroupName (void) 
+    static const Char8 *getGroupName (void)
     {
-        return "TypedNormGeoVectorProperty";  
+        return "TypedNormGeoVectorProperty";
     }
 
     static void initMethod(InitPhase ePhase) {}
@@ -434,7 +456,7 @@ struct TypedNormGeoVectorPropertyDescBase
     static const Char8 *getTypeName (void) { return "GeoVectorProperty"; }
 
     /* Normalize */
-    typedef GeoConvertNormalize     Converter;        
+    typedef GeoConvertNormalize     Converter;
     static const bool normalize = true;
     static const int offset = 0;
 };
@@ -627,7 +649,7 @@ makeProp(Color3fx, GL_FIXED,  GLfixed);
 makeProp(Color4fx, GL_FIXED,  GLfixed);
 #endif
 
-       
+
 #ifdef OSG_DEPRECIATED_PROPS
 /*! \brief Backwards Compatibility Typedefs
 */
@@ -677,7 +699,7 @@ typedef GeoVec3fPropertyPtr GeoNormals3fPtr;
 #endif
 typedef GeoVec3sPropertyPtr GeoNormals3sPtr;
 typedef GeoVec3bPropertyPtr GeoNormals3bPtr;
- 
+
 // Colors
 typedef GeoVectorPropertyPtr         GeoColorsPtr;
 typedef GeoVectorPropertyConstPtr    GeoColorsConstPtr;

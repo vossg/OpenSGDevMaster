@@ -57,6 +57,48 @@ OSG_USING_NAMESPACE
 // To modify it, please change the .fcd file (OSGGeoVectorProperty.fcd) and
 // regenerate the base file.
 
+/*! \fn bool GeoVectorProperty::getNormalize(void)
+    Returns if this property stores normalized vector data.
+ */
+
+/*! \fn void GeoVectorProperty::clear(void)
+    Removes all values from this property.
+ */
+
+/*! \fn void GeoVectorProperty::resize(size_t newsize)
+    Changes the size of this property to \a newsize. If the new size is smaller
+    than the current size, excessive elements are deleted; if the new is greater
+    than the current size, new elements are default constructed.
+
+    \param[in] newsize New size for this property.
+ */
+
+/*! \fn UInt32 GeoIntegralProperty::size(void) const
+    \copydoc OSG::GeoProperty::size
+ */
+
+/*! \fn void GeoVectorProperty::getGenericValue(MaxTypeT &val, const UInt32 index)
+    Retrieves this properties value at index \a index in \a val through the
+    most generic type available (MaxTypeT).
+    The templated access functions will use this internally and then convert to
+    the user specified type, thus the concrete properties derived from this
+    need to override this method.
+
+    \param[out] val The value stored at index \a index.
+    \param[in] index The index of the value to retrieve.
+ */
+
+/*! \fn void GeoVectorProperty::setGenericValue(const MaxTypeT &val, const UInt32 index)
+    Stores the value \a val in this property at index \a index using the most
+    generic type available (MaxTypeT).
+    The templated access functions will use this internally and then convert to
+    the user specified type, thus the concrete properties derived from this
+    need to override this method.
+
+    \param[in] val The value to store at index \a index.
+    \param[in] index The index of the value to set.
+ */
+
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
@@ -124,16 +166,37 @@ GeoVectorProperty::~GeoVectorProperty(void)
 
 /*-------------------- Arbitrary Type Interface Methods ------------------*/
 
+/*! Returns the value at index \a index in \a val after converting it to
+    Vec3f.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \note This is a convenience function and therefore not the most efficient
+    way to access property values. It is more efficient to obtain a pointer
+    or reference to the stored field an modify it directly.
+
+    \param[out] val Value at the given index.
+    \param[in] index Index of the element to access.
+ */
 void GeoVectorProperty::getValue(      Vec3f  &val,
-                                    const UInt32  index ) const
+                                 const UInt32  index) const
 {
     MaxTypeT ival;
     getValue(ival, index);
     GeoConvert::convertOut(val, ival, 1, 0);
 }
 
+/*! Sets the value at index \a index to \a val.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \note This is a convenience function and therefore not the most efficient
+    way to access property values. It is more efficient to obtain a pointer
+    or reference to the stored field an modify it directly.
+
+    \param[in] val Value to set the element at the given index to.
+    \param[in] index Index of the element to set.
+*/
 void GeoVectorProperty::setValue(const Vec3f  &val,
-                                    const UInt32  index )
+                                 const UInt32  index )
 {
     MaxTypeT ival;
     GeoConvert::convertIn(ival, val, 1, 0);

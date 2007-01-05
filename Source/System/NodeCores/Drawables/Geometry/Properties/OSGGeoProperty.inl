@@ -46,12 +46,16 @@ inline UInt32 GeoProperty::getSize(void) const
     return size();
 }
 
+/*! Returns the id of the StateChunkClass of this property.
+ */
 inline
 UInt32 GeoProperty::getStaticClassId(void)
 {
     return getStaticClass()->getId();
 }
 
+/*! Returns StateChunkClass of this property.
+ */
 inline
 const StateChunkClass *GeoProperty::getStaticClass(void)
 {

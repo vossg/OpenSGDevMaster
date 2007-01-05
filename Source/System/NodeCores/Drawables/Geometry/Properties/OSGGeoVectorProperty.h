@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -44,203 +44,15 @@
 
 #include "OSGVector.h"
 #include "OSGGeoVectorPropertyBase.h"
+#include "OSGGeoVectorPropertyConversion.h"
 
 OSG_BEGIN_NAMESPACE
 
-
-/* Helper classes for vector type conversions */
-
-// Converter class for vector conversion
-struct GeoConvert
-{
-    template <class ExternalType, class StoredType>
-    inline static void convertIn(StoredType& dest, const ExternalType& src,
-                                 Real64 scale = 1, Real64 offset = 0)
-    {
-        if(ExternalType::_uiSize >= StoredType::_uiSize)
-        {
-            UInt32 i;
-            for(i = 0; i < StoredType::_uiSize; ++i)
-                dest[i] = static_cast<typename StoredType::ValueType>(src[i]);
-        }
-        else
-        {
-            UInt32 i;
-            for(i = 0; i < ExternalType::_uiSize; ++i)
-                dest[i] = static_cast<typename StoredType::ValueType>(src[i]);
-            for(; i < StoredType::_uiSize; ++i)
-                dest[i] = StoredType::Null[i];
-        }
-    }
-    
-    template <class ExternalType, class StoredType>
-    inline static void convertOut(ExternalType& dest, const StoredType& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        if(StoredType::_uiSize >= ExternalType::_uiSize)
-        {
-            UInt32 i;
-            for(i = 0; i < ExternalType::_uiSize; ++i)
-                dest[i] = static_cast<typename ExternalType::ValueType>(src[i]);
-        }
-        else
-        {
-            UInt32 i;
-            for(i = 0; i < StoredType::_uiSize; ++i)
-                dest[i] = static_cast<typename ExternalType::ValueType>(src[i]);
-            for(; i < ExternalType::_uiSize; ++i)
-                dest[i] = ExternalType::Null[i];
-        }
-    }
-
-    template <class ExternalType, class StoredType>
-    inline static void convertCustomOut(      ExternalType &dest, 
-                                        const StoredType   &src,
-                                              Real64        scale = 1, 
-                                              Real64        offset = 0)
-    {
-        if(StoredType::_uiSize >= ExternalType::_uiSize)
-        {
-            UInt32 i;
-            for(i = 0; i < ExternalType::_uiSize; ++i)
-            {
-                dest[i] = 
-                    static_cast<typename ExternalType::ValueType>(
-                        src[i].getValue());
-            }
-        }
-        else
-        {
-            UInt32 i;
-            for(i = 0; i < StoredType::_uiSize; ++i)
-            {
-                dest[i] = 
-                    static_cast<typename ExternalType::ValueType>(
-                        src[i].getValue());
-            }
-            for(; i < ExternalType::_uiSize; ++i)
-                dest[i] = ExternalType::Null[i];
-        }
-    }
-
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Vec1fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Vec2fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Vec3fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Vec4fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Pnt1fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Pnt2fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Pnt3fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Pnt4fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Color3fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-    template <class ExternalType>
-    inline static void convertOut(ExternalType& dest, const Color4fx& src,
-                                  Real64 scale = 1, Real64 offset = 0)
-    {
-        convertCustomOut(dest, src, scale, offset);
-    }
-
-};
-
-struct GeoConvertNormalize
-{
-    template <class ExternalType, class StoredType>
-    static void convertIn(StoredType& dest, const ExternalType& src,
-                                 Real64 scale = 1, Real64 offset = 0)
-    {
-        if(ExternalType::_uiSize >= StoredType::_uiSize)
-        {
-            UInt32 i;
-            for(i = 0; i < StoredType::_uiSize; ++i)
-                dest[i] = static_cast<typename StoredType::ValueType>(
-                            src[i] * scale + offset);
-        }
-        else
-        {
-            UInt32 i;
-            for(i = 0; i < ExternalType::_uiSize; ++i)
-                dest[i] = static_cast<typename StoredType::ValueType>(
-                            src[i] * scale + offset);
-            for(; i < StoredType::_uiSize; ++i)
-                dest[i] = static_cast<typename StoredType::ValueType>(
-                            StoredType::Null[i] * scale + offset);
-         }
-    }
-    
-    template <class ExternalType, class StoredType>
-    static void convertOut(ExternalType& dest, const StoredType& src,
-                                 Real64 scale = 1, Real64 offset = 0)
-    {
-        if(StoredType::_uiSize >= ExternalType::_uiSize)
-        {
-            UInt32 i;
-            for(i = 0; i < StoredType::_uiSize; ++i)
-                dest[i] = static_cast<typename ExternalType::ValueType>(
-                            (src[i] - offset) / scale);
-        }
-        else
-        {
-            UInt32 i;
-            for(i = 0; i < StoredType::_uiSize; ++i)
-                dest[i] = static_cast<typename ExternalType::ValueType>(
-                            (src[i] - offset) / scale);
-            for(; i < ExternalType::_uiSize; ++i)
-                dest[i] = static_cast<typename ExternalType::ValueType>(
-                            (StoredType::Null[i] - offset) / scale);
-         }
-    }
-};
-
-/*! \brief GeoVectorProperty class. See \ref 
+/*! \brief GeoVectorProperty class. See \ref
            PageWindowGLUTGeoVectorProperty for a description.
 */
 
-class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty : 
+class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     public GeoVectorPropertyBase
 {
   private:
@@ -256,75 +68,75 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \{                                                                 */
 
 #ifndef OSG_WINCE
-    typedef Vec4ld MaxTypeT;
+    typedef Vec4d MaxTypeT;
 #else
-    typedef Vec4f  MaxTypeT;
-#endif    
+    typedef Vec4f MaxTypeT;
+#endif
     // MSVC 7.0 is a little weird about template member methods, that's why
     // the code has to be here...
 
     template <class ExternalType>
-    ExternalType getValue (const UInt32 index) const
+    ExternalType getValue(const UInt32 index) const
     {
         ExternalType eval;
-        MaxTypeT ival;
-        getValue(ival, index);
-        if(getNormalize() && 
-            TypeTraits<typename  ExternalType::ValueType>::MathProp ==
-            IntValue)
+        MaxTypeT     ival;
+        getGenericValue(ival, index);
+        if(getNormalize() &&
+           TypeTraits<typename  ExternalType::ValueType>::MathProp ==
+               IntValue)
         {
-            GeoConvertNormalize::convertOut(eval, ival, 
-                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);   
+            GeoConvertNormalize::convertOut(eval, ival,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
         }
         else
         {
-            GeoConvert::convertOut(eval, ival);    
+            GeoConvert::convertOut(eval, ival);
         }
         return eval;
     }
-    
+
     template <class ExternalType>
-    void getValue (ExternalType &eval, const UInt32 index) const
+    void getValue(ExternalType &eval, const UInt32 index) const
     {
         MaxTypeT ival;
-        getValue(ival, index);
-        if(getNormalize() && 
-            TypeTraits<typename  ExternalType::ValueType>::MathProp ==
-            IntValue)
+        getGenericValue(ival, index);
+        if(getNormalize() &&
+           TypeTraits<typename  ExternalType::ValueType>::MathProp ==
+               IntValue)
         {
-            GeoConvertNormalize::convertOut(eval, ival, 
-                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);   
+            GeoConvertNormalize::convertOut(eval, ival,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
         }
         else
         {
-            GeoConvert::convertOut(eval, ival);    
+            GeoConvert::convertOut(eval, ival);
         }
     }
-    
+
     template <class ExternalType>
-    void setValue (const ExternalType &val, const UInt32 index)
+    void setValue(const ExternalType &val, const UInt32 index)
     {
         MaxTypeT ival;
-        if(getNormalize() && 
-            TypeTraits<typename  ExternalType::ValueType>::MathProp ==
-            IntValue)
+        if(getNormalize() &&
+           TypeTraits<typename  ExternalType::ValueType>::MathProp ==
+               IntValue)
         {
-            GeoConvertNormalize::convertIn(ival, val, 
-                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);   
+            GeoConvertNormalize::convertIn(ival, val,
+                TypeTraits<typename  ExternalType::ValueType>::getMax(), 0);
         }
         else
         {
-            GeoConvert::convertIn(ival, val);    
+            GeoConvert::convertIn(ival, val);
         }
-        setValue(ival, index);
+        setGenericValue(ival, index);
     }
-    
+
     template <class ExternalType>
-    void addValue (const ExternalType &val)
+    void addValue(const ExternalType &val)
     {
          push_back(val);
     }
-    
+
     template <class ExternalType>
     void push_back(const ExternalType &val)
     {
@@ -332,11 +144,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
         setValue(val, size() - 1);
     }
 
-    virtual bool getNormalize(void) const = 0;
-    virtual void clear(void) = 0;
-    virtual void resize(size_t newsize) = 0;
-
-    virtual UInt32 size(void) const = 0;
+    virtual bool   getNormalize(void          ) const = 0;
+    virtual void   clear       (void          )       = 0;
+    virtual void   resize      (size_t newsize)       = 0;
+    virtual UInt32 size        (void          ) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -346,16 +157,12 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     virtual void getValue(      Vec3f    &val, const UInt32 index ) const;
     virtual void setValue(const Vec3f    &val, const UInt32 index );
 
-    // This is the fallback, it has to be implemented by the concrete Props!
-    virtual void getValue(      MaxTypeT &val, const UInt32 index ) const = 0;
-    virtual void setValue(const MaxTypeT &val, const UInt32 index )       = 0;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -363,7 +170,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -386,14 +193,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
-    virtual void activate      (DrawEnv    *pEnv, 
+    virtual void activate      (DrawEnv    *pEnv,
                                 UInt32      index = 0);
 
-    virtual void changeFrom    (DrawEnv    *pEnv, 
+    virtual void changeFrom    (DrawEnv    *pEnv,
                                 StateChunk *old,
                                 UInt32      index = 0);
 
-    virtual void deactivate    (DrawEnv    *pEnv, 
+    virtual void deactivate    (DrawEnv    *pEnv,
                                 UInt32      index = 0);
 
     /*! \}                                                                 */
@@ -415,10 +222,20 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoVectorProperty(void); 
+    virtual ~GeoVectorProperty(void);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Generic Access                             */
+    /*! \{                                                                 */
 
+    // This is the fallback, it has to be implemented by the concrete Props!
+    virtual void getGenericValue(      MaxTypeT &val,
+                                 const UInt32 index  ) const = 0;
+    virtual void setGenericValue(const MaxTypeT &val,
+                                 const UInt32 index  )       = 0;
+
+    /*! \}                                                                 */
 
     virtual GLenum getBufferType(void); // buffer type for VBOs
 
@@ -426,13 +243,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     // extension indices for used extensions;
     static UInt32 _extSecondaryColor;
     static UInt32 _extMultitexture;
-    
+
     // extension indices for used fucntions;
     static UInt32 _funcglSecondaryColorPointer;
     static UInt32 _funcglClientActiveTextureARB;
 
     static void initMethod(InitPhase ePhase);
-    
+
     /*==========================  PRIVATE  ================================*/
   private:
 

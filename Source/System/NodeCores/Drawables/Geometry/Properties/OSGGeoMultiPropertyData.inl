@@ -53,7 +53,7 @@ const StateChunkClass *GeoMultiPropertyData::getStaticClass(void)
 }
 
 inline
-const UInt8 *GeoMultiPropertyData::getData(void)
+const UInt8 *GeoMultiPropertyData::getData(void) const
 {
     return &getIData(0);
 }
@@ -71,7 +71,7 @@ void GeoMultiPropertyData::setSize(UInt32 size)
 }
 
 inline 
-UInt32 GeoMultiPropertyData::getSize(void)
+UInt32 GeoMultiPropertyData::getSize(void) const
 {
     return getIData().size();
 }

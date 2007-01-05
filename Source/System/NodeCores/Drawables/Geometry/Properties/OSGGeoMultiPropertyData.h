@@ -66,11 +66,11 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyData : public GeoMultiPropertyData
     /*! \name                      Access                                  */
     /*! \{                                                                 */
 
-    inline const UInt8 *getData (void);
+    inline const UInt8 *getData (void) const;
     inline       UInt8 *editData(void);
 
-    inline UInt32 getSize(void);
-    inline void setSize(UInt32 size);
+    inline UInt32 getSize(void       ) const;
+    inline void   setSize(UInt32 size);
 
     /*! \}                                                                 */
 

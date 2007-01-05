@@ -234,13 +234,14 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::copyFromBin(
     }
 }
 
-/*! Returns a pointer to the Stored field. 
+/*! Returns a pointer to the stored field. 
 
     This allows direct access to the data, which is faster than the access via 
-    the generic Interface that the AbstractTypedGeoIntegralProperty provides, but it
+    the generic Interface that the GeoIntegralProperty provides, but it
     necessitates compile-time knowledge about the involved concrete types.
-*/
 
+    \return Pointer to the data field.
+*/
 template <class GeoPropertyDesc> inline 
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType * 
     TypedGeoIntegralProperty<GeoPropertyDesc>::editFieldPtr(void)
@@ -250,13 +251,14 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType *
     return &_field;
 }
 
-/*! Returns a pointer to the Stored field. 
+/*! Returns a pointer to the stored field. 
 
     This allows direct access to the data, which is faster than the access via 
-    the generic Interface that the AbstractTypedGeoIntegralProperty provides, but it
+    the generic Interface that the GeoIntegralProperty provides, but it
     necessitates compile-time knowledge about the involved concrete types.
-*/
 
+    \return Pointer to the data field.
+*/
 template <class GeoPropertyDesc> inline 
 const typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType * 
     TypedGeoIntegralProperty<GeoPropertyDesc>::getFieldPtr(void) const
@@ -264,11 +266,13 @@ const typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType *
     return &_field;
 }
 
-/*! Returns a reference to the Stored field. 
+/*! Returns a reference to the stored field. 
 
     This allows direct access to the data, which is faster than the access via 
-    the generic Interface that the AbstractTypedGeoIntegralProperty provides, but it
-    necessitates compile-time knowledge about the involved concrete types. 
+    the generic Interface that the GeoIntegralProperty provides, but it
+    necessitates compile-time knowledge about the involved concrete types.
+
+    \return Reference to the data field.
 */
 template <class GeoPropertyDesc> inline 
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType & 
@@ -279,11 +283,13 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
     return _field;
 }
 
-/*! Returns a const reference to the Stored field. 
+/*! Returns a const reference to the stored field. 
 
     This allows direct access to the data, which is faster than the access via 
-    the generic Interface that the AbstractTypedGeoIntegralProperty provides, but it
-    necessitates compile-time knowledge about the involved concrete types. 
+    the generic Interface that the GeoIntegralProperty provides, but it
+    necessitates compile-time knowledge about the involved concrete types.
+
+    \return Reference to the data field.
 */
 template <class GeoPropertyDesc> inline 
 const typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType & 
@@ -293,6 +299,8 @@ const typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
 }
 
 #ifdef OSG_1_COMPAT
+/*! \copydoc OSG::TypedGeoIntegralProperty<GeoPropertyDesc>::editFieldPtr
+ */
 template <class GeoPropertyDesc> inline 
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType *
     TypedGeoIntegralProperty<GeoPropertyDesc>::getFieldPtr (void)
@@ -300,6 +308,8 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType *
     return this->editFieldPtr();
 }
 
+/*! \copydoc OSG::TypedGeoIntegralProperty<GeoPropertyDesc>::editField
+ */
 template <class GeoPropertyDesc> inline 
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
     TypedGeoIntegralProperty<GeoPropertyDesc>::getField(void)
@@ -308,7 +318,12 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
 }
 #endif
 
+/*! Returns a const reference to the given element of the stored field.
+    There is no range check for \a index, it must be in [0, size()[.
 
+    \param[in] index Index of the element to access.
+    \return Reference to the given element.
+ */
 template <class GeoPropertyDesc> inline 
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::const_reference
     TypedGeoIntegralProperty<GeoPropertyDesc>::operator [](UInt32 index) const
@@ -316,14 +331,25 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::const_reference
     return _field[index];
 }
 
+/*! Returns a reference to the given element of the stored field.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[in] index Index of the element to access.
+    \return Reference to the given element.
+ */
 template <class GeoPropertyDesc> inline 
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::reference 
     TypedGeoIntegralProperty<GeoPropertyDesc>::operator [](UInt32 index)
 {
+    editMField(GeoPropDataFieldMask, _field);
+
     return _field[index];
 }
 
+/*! Returns a copy of this property that holds the same data.
 
+    \return A copy of this property.
+ */
 template <class GeoPropertyDesc> inline
 GeoIntegralPropertyPtr
 TypedGeoIntegralProperty<GeoPropertyDesc>::clone(void)
@@ -337,52 +363,76 @@ TypedGeoIntegralProperty<GeoPropertyDesc>::clone(void)
     return obj;
 }
 
-
-/*! Returns the format of this property. 
-*/
-
+/*! \copydoc OSG::GeoIntegralProperty::getFormat
+ */
 template <class GeoPropertyDesc> inline 
 UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::getFormat(void) const
 {
     return GeoPropertyDesc::getFormat();
 }
 
-
+/*! \copydoc OSG::GeoIntegralProperty::getFormatSize
+ */
 template <class GeoPropertyDesc> inline 
 UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::getFormatSize(void) const
 {
     return GeoPropertyDesc::getFormatSize();
 }
 
-
+/*! \copydoc OSG::GeoIntegralProperty::getStride
+ */
 template <class GeoPropertyDesc> inline
 UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::getStride(void) const
 {
     return GeoPropertyDesc::getStride();
 }
 
-
+/*! \copydoc OSG::GeoIntegralProperty::getDimension
+ */
 template <class GeoPropertyDesc> inline
 UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::getDimension(void) const
 {
     return GeoPropertyDesc::getDimension();
 }
 
-
+/*! \copydoc OSG::GeoIntegralProperty::size
+ */
 template <class GeoPropertyDesc> inline
 UInt32 TypedGeoIntegralProperty<GeoPropertyDesc>::size(void) const
 {
     return _field.size();
 }
 
-
+/*! \copydoc OSG::GeoIntegralProperty::getData
+ */
 template <class GeoPropertyDesc> inline
 const UInt8 *TypedGeoIntegralProperty<GeoPropertyDesc>::getData(void) const
 {
     return (const UInt8 *) &(_field[0]);
 }
 
+/*! Returns a const reference to the stored field.
 
+    This allows direct access to the data, which is faster than the access via
+    the generic Interface that the GeoVectorProperty provides, but it
+    necessitates compile-time knowledge about the involved concrete types.
+
+    \return Reference to the data field.
+*/
+template <class GeoPropertyDesc>
+inline
+const typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
+TypedGeoIntegralProperty<GeoPropertyDesc>::operator->(void) const
+{
+    return _field;
+}
+
+/*! Returns the value stored at index \a index.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[in] index Index of the element to access.
+    \return Value of the given element.
+ */
 template <class GeoPropertyDesc> inline
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredType
     TypedGeoIntegralProperty<GeoPropertyDesc>::getValue(const UInt32 index) const
@@ -390,41 +440,70 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredType
     return _field[index];
 }
 
+/*! Returns the value stored at index \a index in \a val.
+    There is no range check for \a index, it must be in [0, size()[.
 
+    \param[out] val Value at the given index.
+    \param[in] index Index of the element to access.
+ */
 template <class GeoPropertyDesc> inline 
 void TypedGeoIntegralProperty<GeoPropertyDesc>::getValue(
           StoredType &val,
-    const UInt32             index) const
+    const UInt32      index) const
 {
     val = _field[index];
 }
 
+/*! Sets the value stored at index \a index to \a value.
+    There is no range check for \a index, it must be in [0, size()[.
 
+    \note To change many entries of a property it is more efficient to obtain
+    a pointer or reference to the stored field and modify that directly.
+
+    \param[in] value Value to set the element at the given index to.
+    \param[in] index Index of the element to set.
+ */
 template <class GeoPropertyDesc> inline 
 void TypedGeoIntegralProperty<GeoPropertyDesc>::setValue(const StoredType &value,
-                                            const UInt32             index)
+                                                         const UInt32      index)
 {
     editMField(GeoPropDataFieldMask, _field);
 
     _field[index] = value;
 }
 
+/*! Appends a value to this property.
+
+    \note To change many entries of a property it is more efficient to obtain
+    a pointer or reference to the stored field and modify that directly.
+
+    \param[in] value Value to append to this property.
+ */
 template <class GeoPropertyDesc> inline 
-void TypedGeoIntegralProperty<GeoPropertyDesc>::addValue(const StoredType & value)
+void TypedGeoIntegralProperty<GeoPropertyDesc>::addValue(const StoredType &value)
 {
     editMField(GeoPropDataFieldMask, _field);
 
     _field.push_back(value);
 }
 
+/*! Removes all values from this property.
+ */
 template <class GeoPropertyDesc> inline
-void TypedGeoIntegralProperty<GeoPropertyDesc>::clear( void )
+void TypedGeoIntegralProperty<GeoPropertyDesc>::clear(void)
 {
     editMField(GeoPropDataFieldMask, _field);
 
     _field.clear();
 }
 
+/*! Appends a value to this property.
+
+    \note To change many entries of a property it is more efficient to obtain
+    a pointer or reference to the stored field and modify that directly.
+
+    \param[in] value Value to append to this property.
+ */
 template <class GeoPropertyDesc> inline
 void TypedGeoIntegralProperty<GeoPropertyDesc>::push_back(
     const StoredType &value)
@@ -432,12 +511,49 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::push_back(
     addValue(value);
 }
 
+/*! Changes the size of this property to \a newsize. If the new size is smaller
+    than the current size, excessive elements are deleted; if the new is greater
+    than the current size, new elemnts are default constructed.
+
+    \param[in] newsize New size for this property.
+ */
 template <class GeoPropertyDesc> inline
 void TypedGeoIntegralProperty<GeoPropertyDesc>::resize( size_t newsize )
 {
     editMField(GeoPropDataFieldMask, _field);
 
     _field.resize(newsize);
+}
+
+/*! Returns the value at index \a index in \a val after converting it to the
+    most generic type OSG::GeoIntegralProperty::MaxTypeT.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[out] val Value at the given index.
+    \param[in] index Index of the element to access.
+ */
+template <class GeoPropertyDesc>
+void
+TypedGeoIntegralProperty<GeoPropertyDesc>::getGenericValue(
+          MaxTypeT &val, const UInt32 index) const
+{
+    val = static_cast<MaxTypeT>(_field[index]);
+}
+
+/*! Sets the value at index \a index to \a val.
+    There is no range check for \a index, it must be in [0, size()[.
+
+    \param[in] val Value to set the element at the given index to.
+    \param[in] index Index of the element to set.
+*/
+template <class GeoPropertyDesc>
+void
+TypedGeoIntegralProperty<GeoPropertyDesc>::setGenericValue(
+    const MaxTypeT &val, const UInt32 index)
+{
+    editMField(GeoPropDataFieldMask, _field);
+
+    _field[index] = static_cast<StoredType>(val);
 }
 
 template <class GeoPropertyDesc> inline

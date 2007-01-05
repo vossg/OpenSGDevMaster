@@ -62,24 +62,37 @@ OSG_USING_NAMESPACE
 /*! \fn GeoProperty::
 
 /*! \fn UInt32  GeoProperty::getFormat    (void)
+    Returns the OpenGL type constant identifying the data type of the
+    properties values.
 */
 
 /*! \fn UInt32  GeoProperty::getFormatSize(void)
+    Returns the size (as a multiple of <code>sizeof(char)</code>) of the data
+    type of the properties values.
 */
 
 /*! \fn UInt32  GeoProperty::getStride    (void)
+    Returns the stride (the distance between successive values) of the
+    properties values.
 */
 
 /*! \fn UInt32  GeoProperty::getDimension (void)
+    Returns the number of dimensions a single value of the property has.
 */
 
 /*! \fn UInt32  GeoProperty::getSize      (void)
+    Returns the number of values the property holds.
 */
 
 /*! \fn UInt32  GeoProperty::size         (void)
+    Returns the number of values the property holds.
+
+    \return Size of this property.
 */
 
 /*! \fn UInt8* GeoProperty::getData      (void)
+    Returns a pointer to the values stored in this property. This mainly exists
+    to pass arrays to OpenGL.
 */
 
 /***************************************************************************\
