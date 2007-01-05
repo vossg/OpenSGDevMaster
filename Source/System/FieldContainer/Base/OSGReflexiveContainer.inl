@@ -374,5 +374,5 @@ FieldDescriptionBase *ReflexiveContainer::getFieldDescription(
 
 OSG_END_NAMESPACE
 
-#define OSGREFLEXIVECONTAINER_INLINE_CVSID "@(#)$Id:$"
+#define OSGREFLEXIVECONTAINER_INLINE_CVSID "@(#)$Id$"
 

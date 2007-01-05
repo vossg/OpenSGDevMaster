@@ -41,8 +41,8 @@
 
 #define OSG_COMPILEVRMLLOADERINST
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "OSGConfig.h"
 

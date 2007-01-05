@@ -156,6 +156,6 @@ OSG_END_NAMESPACE
 #include "OSGAlgorithmStageBase.inl"
 #include "OSGAlgorithmStage.inl"
 
-#define OSGALGORITHMSTAGE_HEADER_CVSID "@(#)$Id: $"
+#define OSGALGORITHMSTAGE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGALGORITHMSTAGE_H_ */

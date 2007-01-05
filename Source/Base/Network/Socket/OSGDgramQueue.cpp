@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include <vector>
 #include <algorithm>
@@ -153,6 +153,6 @@ bool DgramQueue::empty(void)
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id:$";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSG_DGRAMQUEUEHEADER_CVSID;
 }

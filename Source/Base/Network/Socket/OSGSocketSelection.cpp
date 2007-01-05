@@ -56,7 +56,7 @@
 #include <sys/time.h>
 #endif
 #include <errno.h>
-#include <stdio.h>
+#include <cstdio>
 
 #include <OSGSocketException.h>
 #include <OSGSocket.h>

@@ -40,14 +40,14 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "OSGConfig.h"
 
 #include <iostream>
 
-#include <stdio.h>
+#include <cstdio>
 #include <stdarg.h>
 
 #include "OSGLog.h"

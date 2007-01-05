@@ -39,8 +39,8 @@
 //  Includes
 //-------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <assert.h>
 
 #include "OSGConfig.h"

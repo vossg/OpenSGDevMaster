@@ -212,6 +212,6 @@ OSG_END_NAMESPACE
 #include "OSGMaterialBase.inl"
 #include "OSGMaterial.inl"
 
-#define OSGMATERIAL_HEADER_CVSID "@(#)$Id:$"
+#define OSGMATERIAL_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMATERIAL_H_ */

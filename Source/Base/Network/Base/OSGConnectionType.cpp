@@ -40,8 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "OSGConfig.h"
 #include "OSGConnection.h"
@@ -196,6 +196,6 @@ PointConnection *ConnectionType::createPoint(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id:$";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSG_CONNECTIONTYPEHEADER_CVSID;
 }

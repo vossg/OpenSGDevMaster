@@ -117,6 +117,6 @@ typedef DgramQueue *DgramQueueP;
 
 OSG_END_NAMESPACE
 
-#define OSG_DGRAMQUEUEHEADER_CVSID "@(#)$Id:$"
+#define OSG_DGRAMQUEUEHEADER_CVSID "@(#)$Id$"
 
 #endif /* _DGRAMQUEUE_H_ */

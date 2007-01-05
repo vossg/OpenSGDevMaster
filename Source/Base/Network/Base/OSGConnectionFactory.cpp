@@ -42,8 +42,8 @@
 
 #define OSG_COMPILE_CONNECTIONFACTORY
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "OSGConfig.h"
 #include "OSGLog.h"
@@ -198,7 +198,7 @@ OSG_END_NAMESPACE
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id:$";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSG_CONNECTIONFACTORYHEADER_CVSID;
 }
 

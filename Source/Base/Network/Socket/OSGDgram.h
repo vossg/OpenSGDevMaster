@@ -161,6 +161,6 @@ OSG_END_NAMESPACE
 
 #include "OSGDgram.inl"
 
-#define OSG_DGRAMHEADER_CVSID "@(#)$Id:$"
+#define OSG_DGRAMHEADER_CVSID "@(#)$Id$"
 
 #endif /* _DGRAM_H_ */

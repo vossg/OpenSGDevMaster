@@ -55,7 +55,7 @@
 #endif
 
 #ifdef __sun
-#include <stdlib.h>
+#include <cstdlib>
 #include <ieeefp.h>
 #endif
 

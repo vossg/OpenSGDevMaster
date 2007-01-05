@@ -56,7 +56,7 @@
 #endif
 
 #include <errno.h>
-#include <stdio.h>
+#include <cstdio>
 #include <math.h>
 #include <map>
 #include <OSGSocketAddress.h>

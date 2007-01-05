@@ -43,8 +43,8 @@
 #endif
 
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include <iostream>
 #include <iomanip>

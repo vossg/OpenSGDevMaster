@@ -193,6 +193,6 @@ OSG_END_NAMESPACE
 #include "OSGVTKMapperBase.inl"
 #include "OSGVTKMapper.inl"
 
-#define OSGVTKMAPPER_HEADER_CVSID "@(#)$Id: $"
+#define OSGVTKMAPPER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVTKMAPPER_H_ */

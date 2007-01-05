@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include <vector>
 #include <algorithm>
@@ -86,7 +86,7 @@ Dgram::~Dgram()
 
 namespace 
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id:$";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSG_DGRAMHEADER_CVSID;
     static Char8 cvsid_inl[] = OSG_DGRAMINLINE_CVSID;
 }

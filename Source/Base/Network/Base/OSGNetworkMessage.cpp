@@ -40,8 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "OSGConfig.h"
 #include "OSGNetworkMessage.h"
@@ -113,7 +113,7 @@ NetworkMessage::Header &NetworkMessage::getHeader (void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id:$";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSG_NETWORK_MESSAGE_HEADER_CVSID;
 }
 

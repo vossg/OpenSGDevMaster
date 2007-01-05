@@ -54,7 +54,7 @@
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
 
-/* Define to 1 if you have the <stdlib.h> header file. */
+/* Define to 1 if you have the <cstdlib> header file. */
 #define HAVE_STDLIB_H 1
 
 /* Define to 1 if you have the <stl_hash_fun.h> header file. */

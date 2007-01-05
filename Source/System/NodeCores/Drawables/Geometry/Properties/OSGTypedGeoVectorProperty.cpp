@@ -42,8 +42,8 @@
 
 #define OSG_COMPILENAMEDGEOPROPINST
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "OSGTypedGeoVectorProperty.h"
 

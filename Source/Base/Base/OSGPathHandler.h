@@ -44,7 +44,7 @@
 
 #include "OSGConfig.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 #if !defined(OSG_WINCE)
 #include <fcntl.h>
 #endif

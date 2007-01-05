@@ -53,13 +53,13 @@
 #include <sys/types.h>
 #endif
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <utility>
 
 #include <float.h>
 #include <string>
-#include <stdio.h>
+#include <cstdio>
 #include <cmath>
 
 #if defined(OSG_LINUX_TYPES)

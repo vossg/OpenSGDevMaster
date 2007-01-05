@@ -38,7 +38,7 @@
 
 #include <iostream>
 #include <string.h>
-#include <stdio.h>
+#include <cstdio>
 #include <errno.h>
 #include <OSGSocket.h>
 #include <OSGSocketException.h>

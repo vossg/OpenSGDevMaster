@@ -50,7 +50,7 @@
 #include <netdb.h>
 #include <unistd.h>
 #endif
-#include <stdio.h>
+#include <cstdio>
 #include <string.h>
 #include <ctype.h>
 

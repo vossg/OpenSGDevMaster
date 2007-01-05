@@ -53,8 +53,8 @@
 
 #define OSG_COMPILE@!CLASSNAME!@INST
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <boost/assign/list_of.hpp>
 
 #include <@!HeaderPrefix!@OSGConfig.h>
