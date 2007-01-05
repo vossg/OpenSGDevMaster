@@ -1,7 +1,8 @@
 #!python
 #
 # SCons build script for OpenSG
-
+import os, string, sys, re, glob, copy, types, traceback, pprint, tempfile, shutil
+pj = os.path.join
 
 # If we have wingide, try loading the debugging extenstions
 try:
@@ -10,16 +11,22 @@ try:
 except:
    pass
 
-import os, string, sys, re, glob, copy, types, traceback, pprint, tempfile, shutil
-pj = os.path.join
+# Extend paths for scons-addons and scons-build if needed
+# - this allows a development version of scons-addons to be
+#   in the standard python path and used instead.
+try:
+   import SConsAddons.Util
+   print "Using SConsAddons from: ", os.path.dirname(SConsAddons.Util.__file__)
+except:
+   sys.path.insert(0,pj('Tools','scons-addons','src'))
+   print "Using SConsAddons from: Tools/scons-addons/src"
+
+sys.path.insert(0,pj('Tools','scons-build'))
 
 print "-------------------------------------------------"
 print "WARNING: The build is currently in development.  "
 print "            - It needs the svn version of scons-addons"
 print "WARNING:"
-
-sys.path.insert(0,pj('Tools','scons-addons','src'))
-sys.path.insert(0,pj('Tools','scons-build'))
 
 import SCons.Environment
 import SCons
@@ -241,7 +248,7 @@ class BuildInfoScanner(object):
         - compiler:    The current compiler being used.
         Output variables:
         - library: Name of the library to which the current directory belongs.
-        - stop_traversal: If True, subdirectories are not visited.
+        - stop_traversal: If True, ignore this directory and everything below it.
     
         - osg_dep_libs: List of OpenSG library names, this library depends upon (for linking).
         - libs: List of external library names, this library depends upon.
