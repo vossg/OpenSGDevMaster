@@ -45,6 +45,7 @@
 #endif
 
 #define YY_NEVER_INTERACTIVE 1
+#define YY_NO_UNISTD_H 1       // Makes problems on Windows
 
 #include "OSGScanParseLexer.h"
 
