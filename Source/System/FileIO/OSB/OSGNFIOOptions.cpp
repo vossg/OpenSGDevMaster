@@ -38,7 +38,7 @@
 
 #include <OSGConfig.h>
 
-#include <ctype.h>
+#include <cctype>
 #include <string>
 #include <sstream>
 

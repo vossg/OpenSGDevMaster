@@ -42,8 +42,8 @@
 #include <cstdlib>
 #include <cstdio>
 #include <setjmp.h>
-#include <string.h>
-#include <ctype.h>
+#include <cstring>
+#include <cctype>
 
 #include "OSGConfig.h"
 

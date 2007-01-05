@@ -41,7 +41,7 @@
 *                             Includes                                    *
 \***************************************************************************/
 
-#include <string.h>
+#include <cstring>
 #include <boost/bind.hpp>
 
 #include "OSGGraphOp.h"

@@ -52,15 +52,15 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/time.h>
 #endif
 
 #include <cerrno>
 #include <cstdio>
-#include <math.h>
+#include <cmath>
 #include <map>
 #include <OSGSocketAddress.h>
 #include <OSGStreamSocket.h>
+#include <OSGTime.h>
 
 OSG_USING_NAMESPACE
 

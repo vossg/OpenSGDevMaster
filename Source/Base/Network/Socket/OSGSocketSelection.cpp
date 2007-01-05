@@ -40,7 +40,7 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <string.h>
+#include <cstring>
 #ifdef WIN32
 #include <windows.h>
 #include <io.h>
@@ -53,7 +53,6 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/time.h>
 #endif
 #include <cerrno>
 #include <cstdio>
@@ -61,6 +60,7 @@
 #include <OSGSocketException.h>
 #include <OSGSocket.h>
 #include <OSGSocketSelection.h>
+#include <OSGTime.h>
 
 OSG_USING_NAMESPACE
 

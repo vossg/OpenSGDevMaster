@@ -51,8 +51,8 @@
 #include <unistd.h>
 #endif
 #include <cstdio>
-#include <string.h>
-#include <ctype.h>
+#include <cstring>
+#include <cctype>
 
 #include "OSGSocketAddress.h"
 #include "OSGSocketException.h"

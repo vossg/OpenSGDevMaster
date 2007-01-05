@@ -38,7 +38,7 @@
 
 // System declarations
 
-#include <math.h>
+#include <cmath>
 
 #include "OSGMatrixUtility.h"
 #include "OSGBaseFunctions.h"

@@ -44,9 +44,9 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <math.h>
+#include <cmath>
 
-#include <string.h>
+#include <cstring>
 
 
 #include <vector>

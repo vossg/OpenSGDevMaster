@@ -41,7 +41,7 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <math.h>
+#include <cmath>
 
 #include "OSGConfig.h"
 

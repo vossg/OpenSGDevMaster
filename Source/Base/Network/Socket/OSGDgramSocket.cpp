@@ -55,15 +55,15 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/time.h>
 #endif
 #include <cerrno>
 #include <cstdio>
-#include <math.h>
+#include <cmath>
 #include <map>
 #include <OSGSocketAddress.h>
 #include <OSGDgramSocket.h>
 #include <OSGNetworkMessage.h>
+#include <OSGTime.h>
 
 #include "OSGBaseFunctions.h"
 

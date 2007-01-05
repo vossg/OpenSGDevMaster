@@ -39,7 +39,7 @@
 #include <OSGConfig.h>
 #include "OSGNFIOBitPacker.h"
 
-#include <string.h>
+#include <cstring>
 
 OSG_USING_NAMESPACE
 

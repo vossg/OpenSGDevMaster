@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 #include <iostream>
-#include <string.h>
+#include <cstring>
 #include <cstdio>
 #include <cerrno>
 #include <OSGSocket.h>

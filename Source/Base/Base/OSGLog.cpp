@@ -48,7 +48,7 @@
 #include <iostream>
 
 #include <cstdio>
-#include <stdarg.h>
+#include <cstdarg>
 
 #include "OSGLog.h"
 #include "OSGBaseFunctions.h"

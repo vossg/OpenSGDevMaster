@@ -63,7 +63,7 @@
 /* Define to 1 if you have the <strings.h> header file. */
 #define HAVE_STRINGS_H 1
 
-/* Define to 1 if you have the <string.h> header file. */
+/* Define to 1 if you have the <cstring> header file. */
 #define HAVE_STRING_H 1
 
 /* Define to 1 if you have the <sys/resource.h> header file. */
@@ -72,7 +72,7 @@
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
 
-/* Define to 1 if you have the <sys/time.h> header file. */
+/* Define to 1 if you have the <sys/ctime> header file. */
 #define HAVE_SYS_TIME_H 1
 
 /* Define to 1 if you have the <sys/types.h> header file. */

@@ -38,7 +38,7 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <math.h>
+#include <cmath>
 
 #include "OSGConfig.h"
 

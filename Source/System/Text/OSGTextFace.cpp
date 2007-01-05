@@ -45,7 +45,7 @@
 #include "OSGTextLayoutResult.h"
 #ifdef __sgi
 # include <cassert>
-# include <float.h>
+# include <cfloat>
 #else
 # include <cassert>
 # include <cfloat>

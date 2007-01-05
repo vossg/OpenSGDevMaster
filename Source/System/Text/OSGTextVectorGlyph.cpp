@@ -46,7 +46,7 @@
 
 #ifdef __sgi
 # include <cassert>
-# include <math.h>
+# include <cmath>
 #else
 # include <cassert>
 # include <cmath>

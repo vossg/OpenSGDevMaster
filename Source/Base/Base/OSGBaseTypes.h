@@ -57,7 +57,7 @@
 
 #include <utility>
 
-#include <float.h>
+#include <cfloat>
 #include <string>
 #include <cstdio>
 #include <cmath>

@@ -2,8 +2,8 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include <string.h>
-#include <math.h>
+#include <cstring>
+#include <cmath>
 
 #include "OSG3DSLoader.h"
 

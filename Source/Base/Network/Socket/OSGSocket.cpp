@@ -57,17 +57,17 @@
 #include <netdb.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/time.h>
 #include <sys/ioctl.h>
 #endif
 #include <cerrno>
 #include <cstdio>
-#include <math.h>
+#include <cmath>
 #include <map>
 #include <OSGSocketAddress.h>
 #include <OSGSocket.h>
 #include <OSGSocketSelection.h>
 #include <OSGNetworkMessage.h>
+#include <OSGTime.h>
 #include "OSGBaseFunctions.h"
 
 OSG_USING_NAMESPACE

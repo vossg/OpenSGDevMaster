@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGBaseTypes.h"
-#include <string.h>
+#include <cstring>
 #include <vector>
 #include <iostream>
 

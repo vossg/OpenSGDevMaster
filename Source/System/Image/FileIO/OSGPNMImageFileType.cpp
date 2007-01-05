@@ -58,7 +58,7 @@
 #define INT_MAX numeric_limits<int>::max()
 #endif
 #else
-#include <limits.h>
+#include <climits>
 #endif
 
 OSG_USING_NAMESPACE

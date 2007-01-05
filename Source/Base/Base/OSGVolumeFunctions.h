@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-#include <math.h>
+#include <cmath>
 
 #include "OSGBaseTypes.h"
 

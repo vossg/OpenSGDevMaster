@@ -42,8 +42,8 @@
 
 #include "OSGConfig.h"
 
-#include <string.h>
-#include <ctype.h>
+#include <cstring>
+#include <cctype>
 
 
 #include "OSGIDString.h"

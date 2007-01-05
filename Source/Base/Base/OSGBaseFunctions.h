@@ -43,15 +43,15 @@
 #pragma once
 #endif
 
-#include <math.h>
-#include <string.h>
+#include <cmath>
+#include <cstring>
 
 #ifndef WIN32
 #include <strings.h>
 #include <unistd.h>
 #include <cerrno>
 #include <iostream>
-#include <time.h>
+#include <ctime>
 #endif
 
 #ifdef __sun
