@@ -52,7 +52,7 @@
 #define _SGI_MP_SOURCE
 #include <sys/types.h>
 #include <sys/prctl.h>
-#include <errno.h>
+#include <cerrno>
 
 #include <sys/types.h>
 #include <sys/wait.h>

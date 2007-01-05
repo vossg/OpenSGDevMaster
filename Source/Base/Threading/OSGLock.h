@@ -54,7 +54,7 @@
 
 #if defined (OSG_USE_PTHREADS)
 #include <pthread.h>
-#include <errno.h>
+#include <cerrno>
 #endif
 
 #if defined (OSG_USE_SPROC)

@@ -48,7 +48,7 @@
 #endif
 
 #if defined(__linux) || defined(WIN32)
-#include <assert.h>
+#include <cassert>
 #endif
 
 

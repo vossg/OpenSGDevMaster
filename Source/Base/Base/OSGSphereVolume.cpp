@@ -42,7 +42,7 @@
 
 #include "OSGConfig.h"
 
-#include <assert.h>
+#include <cassert>
 
 #include "OSGSphereVolume.h"
 

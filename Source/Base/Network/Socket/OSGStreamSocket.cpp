@@ -55,7 +55,7 @@
 #include <sys/time.h>
 #endif
 
-#include <errno.h>
+#include <cerrno>
 #include <cstdio>
 #include <math.h>
 #include <map>

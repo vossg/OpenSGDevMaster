@@ -41,7 +41,7 @@
 //---------------------------------------------------------------------------
 #include <cstdlib>
 #include <cstdio>
-#include <assert.h>
+#include <cassert>
 
 #include <set>
 

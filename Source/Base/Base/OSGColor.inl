@@ -42,7 +42,7 @@
 #include "OSGConfig.h"
 
 #include <cstdlib>
-#include <assert.h>
+#include <cassert>
 
 #ifndef WIN32
 #include <unistd.h>

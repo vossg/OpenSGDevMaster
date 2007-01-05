@@ -38,7 +38,7 @@
 
 
 #ifdef __sgi
-# include <assert.h>
+# include <cassert>
 #else
 # include <cassert>
 #endif

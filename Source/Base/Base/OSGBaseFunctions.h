@@ -49,7 +49,7 @@
 #ifndef WIN32
 #include <strings.h>
 #include <unistd.h>
-#include <errno.h>
+#include <cerrno>
 #include <iostream>
 #include <time.h>
 #endif

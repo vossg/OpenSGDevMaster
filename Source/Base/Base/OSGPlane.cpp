@@ -44,7 +44,7 @@
 
 #include "OSGConfig.h"
 
-#include <assert.h>
+#include <cassert>
 
 #include "OSGPlane.h"
 #include "OSGLine.h"

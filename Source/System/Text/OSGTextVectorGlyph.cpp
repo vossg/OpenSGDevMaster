@@ -45,7 +45,7 @@
 #include <OSGGLU.h>
 
 #ifdef __sgi
-# include <assert.h>
+# include <cassert>
 # include <math.h>
 #else
 # include <cassert>

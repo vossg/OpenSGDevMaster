@@ -44,7 +44,7 @@
 //
 //---------------------------------------------------------------------------
 
-#include <assert.h>
+#include <cassert>
 
 #include "OSGBaseTypes.h"
 #include "OSGReal16.h"

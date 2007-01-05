@@ -45,7 +45,7 @@
 
 #include <iostream>
 
-#include <assert.h>
+#include <cassert>
 
 #include "OSGFrustumVolume.h"
 #include "OSGLog.h"

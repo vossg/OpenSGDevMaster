@@ -55,7 +55,7 @@
 #include <fcntl.h>
 #include <sys/time.h>
 #endif
-#include <errno.h>
+#include <cerrno>
 #include <cstdio>
 
 #include <OSGSocketException.h>

@@ -60,7 +60,7 @@
 #include <sys/time.h>
 #include <sys/ioctl.h>
 #endif
-#include <errno.h>
+#include <cerrno>
 #include <cstdio>
 #include <math.h>
 #include <map>

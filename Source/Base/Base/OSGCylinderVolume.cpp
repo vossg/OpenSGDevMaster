@@ -43,7 +43,7 @@
 
 #include "OSGConfig.h"
 
-#include <assert.h>
+#include <cassert>
 
 #include "OSGCylinderVolume.h"
 #include "OSGPlane.h"

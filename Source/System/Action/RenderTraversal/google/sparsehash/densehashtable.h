@@ -102,7 +102,7 @@
 
 // !!! DR changed some <google/...> to "..." due to include path problems...
 #include "config.h"
-#include <assert.h>
+#include <cassert>
 #include <algorithm>            // For swap(), eg
 
 _START_GOOGLE_NAMESPACE_

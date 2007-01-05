@@ -39,7 +39,7 @@
 #include <iostream>
 #include <string.h>
 #include <cstdio>
-#include <errno.h>
+#include <cerrno>
 #include <OSGSocket.h>
 #include <OSGSocketException.h>
 

@@ -45,7 +45,7 @@
 #include "OSGTextLayoutResult.h"
 #include "OSGTextFaceFactory.h"
 #ifdef __sgi
-# include <assert.h>
+# include <cassert>
 #else
 # include <cassert>
 #endif

@@ -42,7 +42,7 @@
 #include "OSGConfig.h"
 
 #if defined(OSG_USE_SPROC)
-#include <errno.h>
+#include <cerrno>
 #endif
 
 #include <iostream>

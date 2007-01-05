@@ -61,7 +61,7 @@
 #if ! defined (OSG_USE_PTHREADS) && ! defined (OSG_USE_WINTHREADS)
 #include <sys/types.h>
 #include <sys/prctl.h>
-#include <errno.h>
+#include <cerrno>
 
 #include <sys/types.h>
 #include <sys/wait.h>

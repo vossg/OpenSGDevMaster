@@ -105,7 +105,7 @@
 
 // !!! DR changed some <google/...> to "..." due to include path problems...
 #include "config.h"
-#include <assert.h>
+#include <cassert>
 #include <algorithm>              // For swap(), eg
 #include "../sparsetable"     // Since that's basically what we are
 
