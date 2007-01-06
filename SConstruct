@@ -120,29 +120,36 @@ def addScanParseSkel(common_env):
       - Dependency management seems to be a little messed up right now in the code or scons.
       - BUGS: Scons does not seem to recognize that the files we are building here are source
               files for the libraries.  This makes it so we have to run the build twice if the files change.
+              Scons cannot recognize whether the existing files are current or not, if they come out of 
+               svn. This can result in spurious regens, which break the code if the wrong versions of 
+               flex/bison are present.
    """
    # Hack to handle the generation of the parser from .y
    # This pretty hacky to allow using a version of the file from the repository if yacc is not installed
    # 1. Call bison: OSGScanParseSkelParser.yy -> OSGScanParseSkelParser.hpp .cpp .output (we don't need the last one)
    if "yacc" in common_env["TOOLS"]:
-      parser_env = common_env.Copy()
-      parser_env.Append(YACCFLAGS = ["-d","-v","-pOSGScanParseSkel_","-bOSGScanParseSkel_"])
-      source_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
-      target_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.cpp"
-      yfiles = parser_env.CXXFile(target=target_file,source=source_file)
-      NoClean(yfiles)
-      #print "yfiles: ", yfiles
+      if common_env["enable_scanparse_regen"]:
+         parser_env = common_env.Copy()
+         parser_env.Append(YACCFLAGS = ["-d","-v","-pOSGScanParseSkel_","-bOSGScanParseSkel_"])
+         source_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.yy"
+         target_file = "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.cpp"
+         yfiles = parser_env.CXXFile(target=target_file,source=source_file)
+         NoClean(yfiles)
+         #print "yfiles: ", yfiles
 
-      # Make sure the parser files have been found for OSGFileIO
-      y_cpp_file = str(yfiles[0]).replace("Source/","",1)
-      y_hpp_file = str(yfiles[1]).replace("Source/","",1)
-      #if not y_cpp_file in lib_map["OSGSystem"].source_files:
-      #   lib_map["OSGSystem"].source_files.append(y_cpp_file)
-      #if not y_hpp_file in lib_map["OSGSystem"].header_files:
-      #   lib_map["OSGSystem"].header_files.append(y_hpp_file)
-      #print " yy source: %s \n header: %s"%(lib_map["OSGSystem"].source_files, lib_map["OSGSystem"].header_files)
+         # Make sure the parser files have been found for OSGFileIO
+         y_cpp_file = str(yfiles[0]).replace("Source/","",1)
+         y_hpp_file = str(yfiles[1]).replace("Source/","",1)
+         #if not y_cpp_file in lib_map["OSGSystem"].source_files:
+         #   lib_map["OSGSystem"].source_files.append(y_cpp_file)
+         #if not y_hpp_file in lib_map["OSGSystem"].header_files:
+         #   lib_map["OSGSystem"].header_files.append(y_hpp_file)
+         #print " yy source: %s \n header: %s"%(lib_map["OSGSystem"].source_files, lib_map["OSGSystem"].header_files)
+      else:
+         print "WARNING: enable_scanparse_regen disabled. If you change .yy files they will not be rebuilt."
+         common_env["TOOLS"].remove('yacc')
    else:
-      print "WARNING: bison not available.  If you change .yy files they will not be built."
+      print "WARNING: bison not available.  If you change .yy files they cannot be rebuilt."
    
    # Hack to handle the generation of the scanner from .lpp
    # This pretty hacky to allow using a version of the file from the repository if lex is not installed
@@ -159,40 +166,44 @@ def addScanParseSkel(common_env):
          open(fname,'w').writelines(contents)
          #print "filter_header: Created ", fname
 
-      lexer_env = common_env.Copy()
-      lexer_env.Append(LEXFLAGS = ["-+","-POSGScanParseSkel_"])
+      if common_env["enable_scanparse_regen"]:
+         lexer_env = common_env.Copy()
+         lexer_env.Append(LEXFLAGS = ["-+","-POSGScanParseSkel_"])
 
-      lexer_dir       = pj('Source','System','FileIO','ScanParseSkel')
-      sys_flexlexer_h = "/usr/include/FlexLexer.h"
-      OSG_flexlexer_h = pj(lexer_dir,"OSGScanParseSkelScanner_FlexLexer.h")
-      source_file     = pj(lexer_dir,"OSGScanParseSkelScanner.ll")
-      target_file     = pj(lexer_dir,"OSGScanParseSkelScanner.cpp")
+         lexer_dir       = pj('Source','System','FileIO','ScanParseSkel')
+         sys_flexlexer_h = "/usr/include/FlexLexer.h"
+         OSG_flexlexer_h = pj(lexer_dir,"OSGScanParseSkelScanner_FlexLexer.h")
+         source_file     = pj(lexer_dir,"OSGScanParseSkelScanner.ll")
+         target_file     = pj(lexer_dir,"OSGScanParseSkelScanner.cpp")
 
-      # Replace lex builder with new action that calls flex and then filters
-      std_lex_action = Action("$LEXCOM", "$LEXCOMSTR")
-      filter_action = Action(filter_header, lambda t,s,e: "Filtering header: %s %s"%(str(t),str(s)))
-      cxx_file_builder = lexer_env['BUILDERS']['CXXFile']
-      cxx_file_builder.add_action('.ll', Action([std_lex_action, filter_action]))
-      lfiles = lexer_env.CXXFile(target=target_file,source=source_file)
-      NoClean(lfiles)
-      #print "lfiles: ", lfiles
-      
-      # If available, copy the system FlexLexer.h file to local source dir
-      if os.path.exists(sys_flexlexer_h):
-         flexlex_cp = lexer_env.Command(OSG_flexlexer_h, sys_flexlexer_h,[Copy('$TARGET','$SOURCE'),])
-         Depends(lfiles, flexlex_cp)
+         # Replace lex builder with new action that calls flex and then filters
+         std_lex_action = Action("$LEXCOM", "$LEXCOMSTR")
+         filter_action = Action(filter_header, lambda t,s,e: "Filtering header: %s %s"%(str(t),str(s)))
+         cxx_file_builder = lexer_env['BUILDERS']['CXXFile']
+         cxx_file_builder.add_action('.ll', Action([std_lex_action, filter_action]))
+         lfiles = lexer_env.CXXFile(target=target_file,source=source_file)
+         NoClean(lfiles)
+         #print "lfiles: ", lfiles
 
-      #Depends(lfiles, "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.hpp") # the scanner includes the token header from the parser...
-      if vars().has_key('yfiles'):
-         Depends(lfiles, yfiles)
-      
-      # Strip off "Source/" since this will be in the build dir
-      scanner_src = target_file.replace("Source/","",1)
-      #if not scanner_src in lib_map["OSGSystem"].source_files:
-      #   lib_map["OSGSystem"].source_files.append(scanner_src)
-      #print "FileIO source files: ", lib_map["OSGSystem"].source_files
+         # If available, copy the system FlexLexer.h file to local source dir
+         if os.path.exists(sys_flexlexer_h):
+            flexlex_cp = lexer_env.Command(OSG_flexlexer_h, sys_flexlexer_h,[Copy('$TARGET','$SOURCE'),])
+            Depends(lfiles, flexlex_cp)
+
+         #Depends(lfiles, "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.hpp") # the scanner includes the token header from the parser...
+         if vars().has_key('yfiles'):
+            Depends(lfiles, yfiles)
+
+         # Strip off "Source/" since this will be in the build dir
+         scanner_src = target_file.replace("Source/","",1)
+         #if not scanner_src in lib_map["OSGSystem"].source_files:
+         #   lib_map["OSGSystem"].source_files.append(scanner_src)
+         #print "FileIO source files: ", lib_map["OSGSystem"].source_files
+      else:
+         print "WARNING: enable_scanparse_regen disabled. If you change .ll files they will not be rebuilt."
+         common_env["TOOLS"].remove('lex')
    else:
-      print "WARNING: flex not available.  If you change .ll files they will not be built."
+      print "WARNING: flex not available.  If you change .ll files they cannot be rebuilt."
 
 # -------------------- #
 # --- OPTION TYPES --- #
@@ -393,7 +404,7 @@ class RevisionTagWriter(object):
         Also checks if pysvn is available - without it tagging is not possible.
         """
         if not have_pysvn:
-            raise "The module pysvn is require to preform revision tagging!"
+            raise "The module pysvn is require to perform revision tagging!"
         
         self.libMap = libMap;
         self.maxRev = 0;
@@ -639,6 +650,9 @@ feature_options["enable_unittests"] = sca_opts.BoolOption(
 feature_options["enable_revision_tags"] = sca_opts.BoolOption(
     "enable_revision_tags", "Enable updating of OSG*Def.cpp files with current svn revision numbers", False);
 
+feature_options["enable_scanparse_regen"] = sca_opts.BoolOption(
+    "enable_scanparse_regen", "Enable regenerating the scanner/parser files using flex and bison", False);
+
 if "win32" == platform:
     feature_options["enable_win_localstorage"] = sca_opts.BoolOption(
         "enable_win_localstorage", "Enable use of local storage instead of __declspec to "+
@@ -845,9 +859,6 @@ if not SConsAddons.Util.hasHelpFlag():
    # in the source tree. Recommended before building anyhting that's distributed (dailybuild, release etc.)
    # This could go into scons-addons at some point...
    if common_env["enable_revision_tags"]:
-      if not have_pysvn:
-         raise "Need pysvn to update revisions!"
-      
       tagWriter = RevisionTagWriter(lib_map);
       tagWriter.run();
       
