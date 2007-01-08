@@ -108,7 +108,7 @@ def registerfcd2codeBuilder(env, required=True):
                               src_suffix = '.fcd',
                               suffix = 'unused.h',
                               emitter = prop_emitter)
-   env.Append(BUILDERS = {'fcd2code' : fcd2code_builder});
+   env.Append(BUILDERS = {'fcd2code' : fcd2code_builder})
    print "[OK]"
 
 
@@ -222,7 +222,7 @@ class SimpleAppendOption(sca_opts.SimpleOption):
       help - Help text about the option object
       """
       sca_opts.SimpleOption.__init__(self, name, name, help + " (Use ':' to separate multiple)", \
-                                     None, None, None, None);
+                                     None, None, None, None)
       self.key = key
 
    """
@@ -277,116 +277,116 @@ class BuildInfoScanner(object):
     """
 
     def __init__(self, baseDir, ignoredDirs = None, verbose = False):
-        self.baseDir       = baseDir;
-        self.ignoredDirs   = ignoredDirs;
-        self.verbose       = verbose;
+        self.baseDir       = baseDir
+        self.ignoredDirs   = ignoredDirs
+        self.verbose       = verbose
         
-        self.libMap        = {};
-        self.libNameStack  = [];
+        self.libMap        = {}
+        self.libNameStack  = []
         self.libAttributes = ["osg_dep_libs", "libs", "frameworks", "cpppath",
                               "libpath", "frameworkpath","osg_test_libs",
-                              "other_test_libs","test_cpppath", "test_libpath"];
+                              "other_test_libs","test_cpppath", "test_libpath"]
     
     def scan(self, scanDir = ""):
         """Scan for build.info files in baseDir/scanDir keeping all file paths
            relative to baseDir.
            Returns the library map constructed from the files.
         """
-        self._recursiveScan(scanDir);
-        return self.libMap;
+        self._recursiveScan(scanDir)
+        return self.libMap
 
     def _recursiveScan(self, scanDir = ""):
         """The actual recursive scanning routine.
         """
-        fullDir = pj(self.baseDir, scanDir);
-        scanDirContents = [pj(scanDir, f) for f in os.listdir(fullDir)];
-        files = [f for f in scanDirContents if os.path.isfile(pj(self.baseDir, f))];
-        dirs  = [d for d in scanDirContents if os.path.isdir(pj(self.baseDir, d))];
+        fullDir = pj(self.baseDir, scanDir)
+        scanDirContents = [pj(scanDir, f) for f in os.listdir(fullDir)]
+        files = [f for f in scanDirContents if os.path.isfile(pj(self.baseDir, f))]
+        dirs  = [d for d in scanDirContents if os.path.isdir(pj(self.baseDir, d))]
         
-        hasBuildInfo = os.path.exists(pj(fullDir, "build.info"));
+        hasBuildInfo = os.path.exists(pj(fullDir, "build.info"))
         
         if hasBuildInfo:
-            biFilename = pj(fullDir, "build.info");
+            biFilename = pj(fullDir, "build.info")
             
             if self.verbose:
-                print "    Reading: ", biFilename;
+                print "    Reading: ", biFilename
             else:
-                sys.stdout.write(".");
+                sys.stdout.write(".")
             
             biDict = dict([("option_pass",    False),
                            ("opts",           opts),
                            ("platform",       platform),
                            ("compiler",       common_env["CXX"]),
-                           ("stop_traversal", False)]);
+                           ("stop_traversal", False)])
             
             for attrib in self.libAttributes:
-                biDict[attrib] = [];
+                biDict[attrib] = []
             
-            execfile(biFilename, biDict);
+            execfile(biFilename, biDict)
             
             if biDict["stop_traversal"]:
                 if self.verbose:
-                    print "    Pruning traversal.";
-                return False;
+                    print "    Pruning traversal."
+                return False
             
             if not biDict.has_key("library") or biDict["library"] == None:
-                print "ERROR: No 'library' specified in build.info file: ", biFilename;
-                sys.exit(1);
+                print "ERROR: No 'library' specified in build.info file: ", biFilename
+                sys.exit(1)
             
-            libName = biDict["library"];
+            libName = biDict["library"]
             if not self.libMap.has_key(libName):
-                self.libMap[libName] = LibraryInfo(name = libName);
+                self.libMap[libName] = LibraryInfo(name = libName)
                 if self.verbose:
-                    print "Created new LibraryInfo: ", libName;
+                    print "Created new LibraryInfo: ", libName
             
-            self.libNameStack.append(libName);
+            self.libNameStack.append(libName)
             
             if self.verbose:
-                print "Library name: ", libName;
+                print "Library name: ", libName
             
             # Add all the lib options from the evaluation
             # - Only add on the unique ones
             for attrib in self.libAttributes:
-                attribList = getattr(self.libMap[libName], attrib);
-                attribList.extend([a for a in biDict[attrib] if a not in attribList]);
+                attribList = getattr(self.libMap[libName], attrib)
+                attribList.extend([a for a in biDict[attrib] if a not in attribList])
         
         # Collect source files from all directories and put them into
         # the active library object
         testFiles     = [f for f in files if (os.path.basename(f).startswith("test") and
                                               os.path.splitext(f)[1] in [".cpp",".cc",".mm"])];
         unittestFiles = [f for f in files if (os.path.basename(f).endswith("Test.cpp") and
-                                              os.path.basename(f).startswith("OSG"))];
+                                              os.path.basename(f).startswith("OSG"))]
         sourceFiles   = [f for f in files if (os.path.splitext(f)[1] in [".cpp", ".cc", ".mm"] and
                                               os.path.basename(f).startswith("OSG") and
-                                              f not in testFiles and f not in unittestFiles)];
+                                              f not in testFiles and f not in unittestFiles)]
         headerFiles   = [f for f in files if (os.path.splitext(f)[1] in [".h", ".inl", ".ins", ".hpp"] and
-                                              os.path.basename(f).startswith("OSG"))];
+                                              os.path.basename(f).startswith("OSG"))]
         
         # Add files to their library object
         if (len(testFiles) or len(unittestFiles) or
             len(sourceFiles) or len(headerFiles)):
             if len(self.libNameStack) == 0 or self.libNameStack[-1] == "":
                 print "ERROR: Attempt to add source files without library.  " + \
-                      "In dir: %s" % fullDir;
-                sys.exit(1);
-            libName = self.libNameStack[-1];
-            self.libMap[libName].source_files   += sourceFiles;
-            self.libMap[libName].header_files   += headerFiles;
-            self.libMap[libName].test_files     += testFiles;
-            self.libMap[libName].unittest_files += unittestFiles;
+                      "In dir: %s" % fullDir
+                sys.exit(1)
+            libName = self.libNameStack[-1]
+            self.libMap[libName].source_files   += sourceFiles
+            self.libMap[libName].header_files   += headerFiles
+            self.libMap[libName].test_files     += testFiles
+            self.libMap[libName].unittest_files += unittestFiles
         
         # Recurse into subdirectories
         for d in dirs:
             if not os.path.basename(d) in self.ignoredDirs:
-                popStack = self._recursiveScan(d);
+                popStack = self._recursiveScan(d)
                 if popStack:
-                    del self.libNameStack[-1];
+                    del self.libNameStack[-1]
         
         # return if anything was added to the libNameStack
         if hasBuildInfo:
-            return True;
+            return True
         else:
-            return False;
+            return False
 
 # ----------------------------- #
 # --- revision tag handling --- #
@@ -406,89 +406,89 @@ class RevisionTagWriter(object):
         if not have_pysvn:
             raise "The module pysvn is require to perform revision tagging!"
         
-        self.libMap = libMap;
-        self.maxRev = 0;
-        self.svnClient = pysvn.Client();
+        self.libMap = libMap
+        self.maxRev = 0
+        self.svnClient = pysvn.Client()
     
     def run(self):
         """
         Write revision tags.
         """
         for (libName, libObj) in self.libMap.iteritems():
-            libMaxRev   = 0;
-            modifiedStr = "";
+            libMaxRev   = 0
+            modifiedStr = ""
             
             for file in libObj.source_files + libObj.header_files:
-                filename = pj("Source", file);
+                filename = pj("Source", file)
                 
-                fileRev, fileModified = self._getSVNInfo(filename);
+                fileRev, fileModified = self._getSVNInfo(filename)
                 
                 if libMaxRev < fileRev:
-                    libMaxRev = fileRev;
+                    libMaxRev = fileRev
                 
                 # we modify the <libname>Def.cpp files ourselves
                 if fileModified and filename[-7:] != "Def.cpp":
-                    print "%s: file %s is modified!" % (libName, filename);
-                    modifiedStr = " !MODIFIED!";
+                    print "%s: file %s is modified!" % (libName, filename)
+                    modifiedStr = " !MODIFIED!"
             
             if modifiedStr != "":
-                print "%s: There are modified files, revision might be inaccurate!" % libName;
-            print "%s: Highest revision: %d." % (libName, libMaxRev);
+                print "%s: There are modified files, revision might be inaccurate!" % libName
+            print "%s: Highest revision: %d." % (libName, libMaxRev)
             
             if self.maxRev < libMaxRev:
-                self.maxRev = libMaxRev;
+                self.maxRev = libMaxRev
             
             for file in libObj.source_files:
                 if file[-7:] == "Def.cpp":
-                    filename = pj("Source", file);
-                    fileInfo = self.svnClient.info(filename);
-                    repoPath = fileInfo.url[len(fileInfo.repos):-len(filename)-1];
+                    filename = pj("Source", file)
+                    fileInfo = self.svnClient.info(filename)
+                    repoPath = fileInfo.url[len(fileInfo.repos):-len(filename)-1]
                     
-                    fileContents = open(filename).readlines();
+                    fileContents = open(filename).readlines()
                     for i in range(len(fileContents)):
                         if fileContents[i][:22] == '#define SVN_REVISION "':
-                            fileContents[i] = '#define SVN_REVISION "%d  (%s)%s"\n' % (libMaxRev, repoPath, modifiedStr);
-                            break;
-                    open(filename, "w").writelines(fileContents);
-            
+                            fileContents[i] = '#define SVN_REVISION "%d  (%s)%s"\n' % (libMaxRev, repoPath, modifiedStr)
+                            break
+                    open(filename, "w").writelines(fileContents)
+        
         # Update the documentation mainfile
         # Find the high version for stuff in Doc/, too
-        modifiedStr = "";
+        modifiedStr = ""
         for file in glob.glob("Doc/*"):
             print file
             fileRev, fileMod = self._getSVNInfo(file)
             
             if self.maxRev < fileRev:
-                self.maxRev = fileRev;
+                self.maxRev = fileRev
             if fileMod:
                 modifiedStr = " !Modified!"
-
+        
         filename     = "Doc/mainpage.dox"
         fileContents = open(filename).readlines()
         for i in range(len(fileContents)):
             if fileContents[i][:7] == 'version':
-                fileContents[i] = 'version %s r%d %s\n' % (opensg_version_string, self.maxRev, modifiedStr);
-                break;
-        open(filename,'w').writelines(fileContents);
+                fileContents[i] = 'version %s r%d %s\n' % (opensg_version_string, self.maxRev, modifiedStr)
+                break
+        open(filename,'w').writelines(fileContents)
 
     def _getSVNInfo(self, filename):
-         """
-            Get the svn info for the given file.
-            Returns a version, modified tuple.
-         """
-         fileInfo   = self.svnClient.info  (filename)
-         fileStatus = self.svnClient.status(filename)
-
-         fileRev = 0
-         fileMod = False
-         
-         # Ignore unversioned files
-         if pysvn.wc_status_kind.unversioned != fileStatus[0].text_status and \
-            pysvn.wc_status_kind.ignored     != fileStatus[0].text_status:
+        """
+           Get the svn info for the given file.
+           Returns a version, modified tuple.
+        """
+        fileInfo   = self.svnClient.info  (filename)
+        fileStatus = self.svnClient.status(filename)
+        
+        fileRev = 0
+        fileMod = False
+        
+        # Ignore unversioned files
+        if pysvn.wc_status_kind.unversioned != fileStatus[0].text_status and \
+           pysvn.wc_status_kind.ignored     != fileStatus[0].text_status:
             fileRev = fileInfo.revision.number
             fileMod = pysvn.wc_status_kind.modified == fileStatus[0].text_status
 
-         return fileRev, fileMod;
+        return fileRev, fileMod
 
 
 # ---------------------------------------------------------------------------- #
@@ -556,99 +556,100 @@ base_bldr = EnvironmentBuilder()
 # --- OPTIONS --- #
 # --------------- #
 
+# Options are stored in one of these groups:
+# - required_libs_options:  Libraries needed to build OpenSG
+# - optional_libs_options:  Libraries needed for/providing additional functionality
+# - build_options:          Options to select build/install directories and
+#                           special build steps.
+# - feature_options:        Options to enable/disable or tweak certain features
+#                           of OpenSG.
+# - misc_options:           Options that do not fit anywhere else.
+# - extra_libs_options:     Should not be changed - it's only to allow building
+#                           with additional libraries that are not integrated into
+#                           the build
+#
+# There is special handling for image formats, because some are directly
+# supported and others require external libs, they may end up in different
+# option groups, but in the help message they should show up together - see below.
+
 #
 # 1) Setup options
+#    Create Option objects and store them in their group.
 
 opts = sca_opts.Options(files = [option_filename, 'options.custom'],
                                    args= ARGUMENTS)
 
 # Handle library name differences between platforms
 if "win32" == platform:
-    glut_libname = "glut32";
-    tiff_libname = "tiff32";
+    glut_libname = "glut32"
+    tiff_libname = "tiff32"
 else:
-    glut_libname = "glut";
-    tiff_libname = "tiff";
+    glut_libname = "glut"
+    tiff_libname = "tiff"
+
+# Build options - source and destination directories etc.
+build_options = {}
+build_options["install_prefix"] = sca_opts.SimpleOption(
+    "prefix", "prefix", "Installation prefix", unspecified_prefix, None, None, None)
+build_options["build_suffix"] = sca_opts.SimpleOption(
+    "build_suffix", "build_suffix",
+    "Suffix to append to build directory.  Useful for compiling multiple variations on the same platform",
+    "", None, None, None)
+build_options["enable_fcd2code"] = sca_opts.BoolOption(
+    "enable_fcd2code", "Enable code generation pass (from .fcd files) during build", False)
+build_options["enable_unittests"] = sca_opts.BoolOption(
+    "enable_unittests", "Enable building and running of the unit tests after build", True)
+build_options["enable_revision_tags"] = sca_opts.BoolOption(
+    "enable_revision_tags", "Enable updating of OSG*Def.cpp files with current svn revision numbers", False)
 
 # Options for required external libraries
-required_libs_options = {};
+required_libs_options = {}
 required_libs_options["boost"] = sca_opts.Boost.Boost(
     "boost", "1.31.0", libs = ["filesystem"], required = True, useVersion = True, allowLibNameFallbacks=True);
 
 # Options for optional external libraries
-optional_libs_options = {};
+optional_libs_options = {}
 optional_libs_options["jpeg"] = sca_opts.StandardPackageOption(
-    "jpeg", "Location of the JPEG library", library = "jpeg", required = False);
+    "jpeg", "Location of the JPEG library", library = "jpeg", required = False)
 
 optional_libs_options["tiff"] = sca_opts.StandardPackageOption(
-    "tiff", "Location of the TIFF library", library = tiff_libname, required = False);
+    "tiff", "Location of the TIFF library", library = tiff_libname, required = False)
 
 optional_libs_options["png"] = sca_opts.StandardPackageOption(
-    "png", "Location of the PNG library", library = "png", required = False);
+    "png", "Location of the PNG library", library = "png", required = False)
 
 optional_libs_options["glut"] = sca_opts.StandardPackageOption(
     "glut", "Location of the GLUT library", library = glut_libname,
-    header = "GL/glut.h", required = False);
+    header = "GL/glut.h", required = False)
 
 optional_libs_options["zlib"] = sca_opts.StandardPackageOption(
     "zlib", "Location of the zlib compression library", library = "z",
-    header = "zlib.h", required = False);
+    header = "zlib.h", required = False)
 
 optional_libs_options["NVPerfSDK"] = sca_opts.StandardPackageOption(
     "NVPerfSDK", "Location of the NVPerfSDK library", library = "NVPerfSDK",
-    header = "NVPerfSDK.h", required = False);
-
-# Options to specify additional library/header search paths and librarys to
-# link agains.
-extra_libs_options = {};
-extra_libs_options["incdir"] = SimpleAppendOption('add_incdir', 'CPPPATH', 'Additional include dir');
-extra_libs_options["libdir"] = SimpleAppendOption('add_libdir', 'LIBPATH', 'Additional library dir');
-extra_libs_options["lib"]    = SimpleAppendOption('add_lib',    'LIBS',    'Additional library');
-
-# Build options - source and destination directories
-build_options = {};
-build_options["install_prefix"] = sca_opts.SimpleOption(
-    "prefix", "prefix", "Installation prefix", unspecified_prefix, None, None, None);
-build_options["build_suffix"] = sca_opts.SimpleOption(
-    "build_suffix", "build_suffix",
-    "Suffix to append to build directory.  Useful for compiling multiple variations on the same platform",
-    "", None, None, None);
-
-# Misc options
-misc_options = {};
-misc_options["gif"] = sca_opts.BoolOption(
-    "enable_gif", "Enable GIF support", True);
-misc_options["icc_compat"] = sca_opts.SimpleOption(
-    "icc_gnu_compat", "icc_gnu_compat", "<GCC Version> Make the binaries built " +
-                      "with icc compatible with the given verion of gcc. (unsupported)",
-                      "", None, None, None);
+    header = "NVPerfSDK.h", required = False)
 
 # Feature options - select library/interface features
-feature_options = {};
+feature_options = {}
+feature_options["gif"] = sca_opts.BoolOption(
+    "enable_gif", "Enable GIF support", True)
+
 feature_options["fcptr_mode"] = sca_opts.EnumOption(
     "fcptr_mode", "Select the mode for field container pointers",
-    "MT_FCPTR", ["SINGLE_THREAD", "MT_CPTR", "MT_FCPTR"]);
+    "MT_FCPTR", ["SINGLE_THREAD", "MT_CPTR", "MT_FCPTR"])
 
 feature_options["disable_deprecated"] = sca_opts.BoolOption(
-    "disable_deprecated", "Disable deprecated interfaces and code", False);
+    "disable_deprecated", "Disable deprecated interfaces and code", False)
 
 feature_options["disable_glut_glsubdir"] = sca_opts.BoolOption(
-    "disable_glut_glsubdir", "Do not use GL subdir when including glut.h", False);
+    "disable_glut_glsubdir", "Do not use GL subdir when including glut.h", False)
 
 feature_options["enable_osg1_compat"] = sca_opts.BoolOption(
-    "enable_osg1_compat", "Enable OpenSG 1.x compatibility", False);
+    "enable_osg1_compat", "Enable OpenSG 1.x compatibility", False)
 
 feature_options["enable_deprecated_props"] = sca_opts.BoolOption(
-    "enable_deprecated_props", "Enable deprecated property types.", False);
-
-feature_options["enable_fcd2code"] = sca_opts.BoolOption(
-    "enable_fcd2code", "Enable code generation pass (from .fcd files) during build", False);
-
-feature_options["enable_unittests"] = sca_opts.BoolOption(
-    "enable_unittests", "Enable building and running of the unit tests after build", True);
-
-feature_options["enable_revision_tags"] = sca_opts.BoolOption(
-    "enable_revision_tags", "Enable updating of OSG*Def.cpp files with current svn revision numbers", False);
+    "enable_deprecated_props", "Enable deprecated property types.", False)
 
 feature_options["enable_scanparse_regen"] = sca_opts.BoolOption(
     "enable_scanparse_regen", "Enable regenerating the scanner/parser files using flex and bison", False);
@@ -656,57 +657,74 @@ feature_options["enable_scanparse_regen"] = sca_opts.BoolOption(
 if "win32" == platform:
     feature_options["enable_win_localstorage"] = sca_opts.BoolOption(
         "enable_win_localstorage", "Enable use of local storage instead of __declspec to "+
-        "get thread local storage on windows", True);
+        "get thread local storage on windows", True)
 
 if "win32" != platform:
     feature_options["enable_elf_localstorage"] = sca_opts.BoolOption(
         "enable_elf_localstorage", "Enable use of elf thread local storage with pthreads",
-        ("linux" == platform));
+        ("linux" == platform))
 
-# Group all image format options together
-image_format_options = {};
-image_format_options["jpeg"] = optional_libs_options["jpeg"];
-image_format_options["tiff"] = optional_libs_options["tiff"];
-image_format_options["png"]  = optional_libs_options["png"];
-image_format_options["gif"]  = misc_options["gif"];
+# Misc options
+misc_options = {}
+misc_options["icc_compat"] = sca_opts.SimpleOption(
+    "icc_gnu_compat", "icc_gnu_compat", "<GCC Version> Make the binaries built " +
+                      "with icc compatible with the given verion of gcc. (unsupported)",
+                      "", None, None, None)
+
+# Options to specify additional library/header search paths and librarys to
+# link agains.
+extra_libs_options = {}
+extra_libs_options["incdir"] = SimpleAppendOption('add_incdir', 'CPPPATH', 'Additional include dir')
+extra_libs_options["libdir"] = SimpleAppendOption('add_libdir', 'LIBPATH', 'Additional library dir')
+extra_libs_options["lib"]    = SimpleAppendOption('add_lib',    'LIBS',    'Additional library')
+
+# Group all image format options together.
+image_format_options = {}
+image_format_options["jpeg"] = optional_libs_options["jpeg"]
+image_format_options["tiff"] = optional_libs_options["tiff"]
+image_format_options["png"]  = optional_libs_options["png"]
+image_format_options["gif"]  = feature_options["gif"]
 
 #
 # 2) Register options
+#    This should not require any changes unless a new option group is added.
 
-opts.AddOption(sca_opts.SeparatorOption("\nBuild/Install settings"));
+opts.AddOption(sca_opts.SeparatorOption("\nBuild/Install settings"))
 for opt in build_options.itervalues():
-    opts.AddOption(opt);
+    if opt not in image_format_options.itervalues():
+        opts.AddOption(opt)
 
-opts.AddOption(sca_opts.SeparatorOption("\nPackage settings (required libs)"));
+opts.AddOption(sca_opts.SeparatorOption("\nPackage settings (required libs)"))
 for opt in required_libs_options.itervalues():
-    opts.AddOption(opt);
+    if opt not in image_format_options.itervalues():
+        opts.AddOption(opt)
 
-opts.AddOption(sca_opts.SeparatorOption("\nPackage settings (optional libs)"));
-# special case the image formats to keep them together in the help message
+opts.AddOption(sca_opts.SeparatorOption("\nPackage settings (optional libs)"))
 for opt in optional_libs_options.itervalues():
     if opt not in image_format_options.itervalues():
-        opts.AddOption(opt);
+        opts.AddOption(opt)
 
 for opt in image_format_options.itervalues():
-    opts.AddOption(opt);
+    opts.AddOption(opt)
 
 for opt in extra_libs_options.itervalues():
-   opts.AddOption(opt)
+    if opt not in image_format_options.itervalues():
+        opts.AddOption(opt)
 
-opts.AddOption(sca_opts.SeparatorOption("\nAdvanced options"));
+opts.AddOption(sca_opts.SeparatorOption("\nAdvanced options"))
 for opt in feature_options.itervalues():
-    opts.AddOption(opt);
+    if opt not in image_format_options.itervalues():
+        opts.AddOption(opt)
 
 for opt in misc_options.itervalues():
-# special case the image formats to keep them together in the help message
     if opt not in image_format_options.itervalues():
-        opts.AddOption(opt);
+        opts.AddOption(opt)
 
 # Add environment builder options
-base_bldr.addOptions(opts);
+base_bldr.addOptions(opts)
 
 # Add variant building options
-variant_helper.addOptions(opts);
+variant_helper.addOptions(opts)
 
 #
 # 3) Process options
@@ -734,9 +752,9 @@ Targets:
 
 Help(help_text)
 
-# ------------------------- #
-# --- MAIN BUILD STEPS ---- #
-# ------------------------- #
+# --------------------------------------------------------------------------- #
+# ---------------------------- MAIN BUILD STEPS ----------------------------- #
+# --------------------------------------------------------------------------- #
 
 # If we are running the build
 if not SConsAddons.Util.hasHelpFlag():
@@ -772,8 +790,8 @@ if not SConsAddons.Util.hasHelpFlag():
    # Trigger recursive scanning of library directorties
    if not verbose_build:
       print "Scanning libraries: ",
-   biScanner = BuildInfoScanner("Source", [".svn", "ES", "EGL"], verbose_build);
-   lib_map   = biScanner.scan();
+   biScanner = BuildInfoScanner("Source", [".svn", "ES", "EGL"], verbose_build)
+   lib_map   = biScanner.scan()
    if not verbose_build:
       print "  found %s libraries" % len(lib_map)
    
@@ -785,7 +803,7 @@ if not SConsAddons.Util.hasHelpFlag():
    base_bldr.readOptions(common_env)
    #base_bldr.enableWarnings()
    base_bldr.enableWarnings(EnvironmentBuilder.MINIMAL)
-  
+   
    # Apply any common package options
    # Update environment for boost options
    required_libs_options["boost"].apply(common_env)
@@ -846,12 +864,12 @@ if not SConsAddons.Util.hasHelpFlag():
    if common_env["enable_unittests"]:
       # Until they have the SConstruct in their svn, let's just copy it over
       SConscript(pj("Tools", "unittest-cpp.SConstruct"))
-   
+      
       # set the needed vars
-      unittest_inc     = pj(os.getcwd(), "Tools", "unittest-cpp", "UnitTest++", "src");
-      unittest_libpath = pj(os.getcwd(), "Tools", "unittest-cpp", "UnitTest++");
-      unittest_lib     = "UnitTest++";
-      unittest_runner  = pj(os.getcwd(), "Tools", "UnitTestRunner.cpp");
+      unittest_inc     = pj(os.getcwd(), "Tools", "unittest-cpp", "UnitTest++", "src")
+      unittest_libpath = pj(os.getcwd(), "Tools", "unittest-cpp", "UnitTest++")
+      unittest_lib     = "UnitTest++"
+      unittest_runner  = pj(os.getcwd(), "Tools", "UnitTestRunner.cpp")
       Export('unittest_inc', 'unittest_lib', 'unittest_libpath', 'unittest_runner')
    
    # Revision tracking
@@ -859,8 +877,8 @@ if not SConsAddons.Util.hasHelpFlag():
    # in the source tree. Recommended before building anyhting that's distributed (dailybuild, release etc.)
    # This could go into scons-addons at some point...
    if common_env["enable_revision_tags"]:
-      tagWriter = RevisionTagWriter(lib_map);
-      tagWriter.run();
+      tagWriter = RevisionTagWriter(lib_map)
+      tagWriter.run()
       
    # ---- FOR EACH VARIANT ----- #
    # This is the core of the build.

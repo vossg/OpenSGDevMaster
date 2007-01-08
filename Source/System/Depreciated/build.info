@@ -1,4 +1,13 @@
 #!/usr/bin/python
 
-stop_traversal = True
-
+if option_pass:
+   print "Processing option pass"
+else:
+    library = "OSGSystem"
+    
+    # ignore this directory if "disable_deprecated" option is true.
+    disable_deprecated = opts.GetOption("disable_deprecated")
+    if disable_deprecated.getSettings()[0][1] == False:
+        stop_traversal = False
+    else:
+        stop_traversal = True
