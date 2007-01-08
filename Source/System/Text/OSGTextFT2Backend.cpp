@@ -973,7 +973,7 @@ static int lineToFunc(const FT_Vector *to, void *user)
 #if ((FREETYPE_MAJOR == 2) && (FREETYPE_MINOR < 2))
 static int conicToFunc(FT_Vector *control, FT_Vector *to, void *user)
 #else
-static int conicToFunc(const FT_Vector *control, FT_Vector *to, void *user)
+static int conicToFunc(const FT_Vector *control, const FT_Vector *to, void *user)
 #endif
 {
     UserData *userData = reinterpret_cast<UserData*>(user);
@@ -1000,7 +1000,7 @@ static int conicToFunc(const FT_Vector *control, FT_Vector *to, void *user)
 #if ((FREETYPE_MAJOR == 2) && (FREETYPE_MINOR < 2))
 static int cubicToFunc(FT_Vector *control1, FT_Vector *control2, FT_Vector *to, void *user)
 #else
-static int cubicToFunc(const FT_Vector *control1, FT_Vector *control2, FT_Vector *to, void *user)
+static int cubicToFunc(const FT_Vector *control1, const FT_Vector *control2, const FT_Vector *to, void *user)
 #endif
 {
     UserData *userData = reinterpret_cast<UserData*>(user);
