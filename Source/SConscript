@@ -103,11 +103,14 @@ for (lib_name, library) in lib_map.iteritems():
                 key = "LD_LIBRARY_PATH"
                 
             if ev.has_key(key):
-                ev[key] = os.pathsep + path + ev[key]
+                ev[key] = path + os.pathsep + ev[key]
             else:
                 ev[key] = path
             
-            os.spawnle(os.P_WAIT, str(target[0]), ev)
+            exit_code = os.spawnle(os.P_WAIT, str(target[0]), ev)
+            
+            if exit_code != 0:
+                Exit(exit_code)
 
          AddPostAction(runner, runTest)
 
