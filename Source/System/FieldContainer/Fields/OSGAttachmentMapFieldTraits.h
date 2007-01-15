@@ -45,6 +45,8 @@
 #include "OSGFieldTraits.h"
 #include "OSGContainerForwards.h"
 
+#include "OSGFieldContainerAttachment.h"
+
 #include "map"
 
 OSG_BEGIN_NAMESPACE
@@ -127,6 +129,119 @@ struct FieldTraits<FieldContainerAttachmentMap> :
     static const Char8    *getMName     (void)
     {
         return "MFFieldContainerAttachmentPtrMap"; 
+    }
+    
+    static UInt32 getBinSize(const FieldContainerAttachmentMap &aMap)
+    {
+        FieldContainerAttachmentMap::const_iterator mapIt  = aMap.begin();
+        FieldContainerAttachmentMap::const_iterator mapEnd = aMap.end  ();
+
+        UInt32 numPublicObjects = 0;
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            if(mapIt->second->getInternal().getValue() == false)
+            {
+                ++numPublicObjects;
+            }
+        }
+
+        // number of elements in map + binding and pointer id for each element
+        return sizeof(UInt32) +
+                numPublicObjects * (sizeof(UInt16) + sizeof(UInt32));
+    }
+
+    static UInt32 getBinSize(const FieldContainerAttachmentMap *aMaps,
+                                   UInt32                       numObjects)
+    {
+        UInt32 size = 0;
+
+        // defaut: individual field sizes
+        for(UInt32 i = 0; i < numObjects; ++i)
+        {
+            size += getBinSize(aMaps[i]);
+        }
+
+        return size;
+    }
+    
+    static void copyToBin(      BinaryDataHandler           &pMem,
+                          const FieldContainerAttachmentMap &aMap )
+    {
+        FieldContainerAttachmentMap::const_iterator mapIt  = aMap.begin();
+        FieldContainerAttachmentMap::const_iterator mapEnd = aMap.end  ();
+        
+        UInt32 numPublicObjects = 0;
+        UInt16 binding;
+        UInt32 fcId;
+        
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            if(mapIt->second->getInternal().getValue() == false)
+            {
+                ++numPublicObjects;
+            }
+        }
+        
+        pMem.putValue(numPublicObjects);
+        
+        for(mapIt = aMap.begin(); mapIt != mapEnd; ++mapIt)
+        {
+            if(mapIt->second->getInternal().getValue() == false)
+            {
+                binding = mapIt->first & 0xFFFF;
+                fcId    = OSG::getContainerId(mapIt->second);
+                
+                pMem.putValue(binding);
+                pMem.putValue(fcId   );
+            }
+        }
+    }
+    
+    static void copyToBin(      BinaryDataHandler &pMem,
+                          const FieldContainerAttachmentMap *aMaps,
+                                UInt32                       numObjects)
+    {
+        for(UInt32 i = 0; i < numObjects; ++i)
+        {
+            copyToBin(pMem, aMaps[i]);
+        }
+    }
+    
+    static void copyFromBin(BinaryDataHandler           &pMem,
+                            FieldContainerAttachmentMap &aMap )
+    {
+        FieldContainerAttachmentPtr attPtr;
+        UInt32                      key;
+        UInt16                      binding;
+        UInt32                      fcId;
+        UInt32                      size;
+        
+        pMem.getValue(size);
+        aMap.clear();
+        
+        for(UInt32 i = 0; i < size; ++i)
+        {
+            pMem.getValue(binding);
+            pMem.getValue(fcId   );
+            
+            attPtr = cast_dynamic<FieldContainerAttachmentPtr>(
+                FieldContainerFactory::the()->getMappedContainer(fcId));
+            
+            key = (static_cast<UInt32>(attPtr->getGroupId()) << 16) | binding;
+            
+            aMap.insert(FieldContainerAttachmentMap::value_type(key, attPtr));
+        }
+    }
+    
+    static void copyFromBin(BinaryDataHandler           &pMem,
+                            FieldContainerAttachmentMap *aMaps,
+                            UInt32                       numObjects)
+    {
+        for(UInt32 i = 0; i < numObjects; ++i)
+        {
+            copyFromBin(pMem, aMaps[i]);
+        }
     }
 };
 
