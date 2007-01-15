@@ -604,8 +604,19 @@ build_options["enable_revision_tags"] = sca_opts.BoolOption(
 
 # Options for required external libraries
 required_libs_options = {}
-required_libs_options["boost"] = sca_opts.Boost.Boost(
-    "boost", "1.31.0", libs = ["filesystem"], required = True, useVersion = True, allowLibNameFallbacks=True);
+if "win32" == platform:
+
+    toolset = "auto"
+
+    if common_env.has_key("MSVS"):
+       toolset = 'vc' + common_env["MSVS"]["VERSION"].replace('.', '')
+
+    required_libs_options["boost"] = sca_opts.Boost.Boost(
+        "boost", "1.31.0", libs = ["filesystem"], required = True, 
+        useVersion = True, allowLibNameFallbacks=True, toolset = toolset);
+else:
+    required_libs_options["boost"] = sca_opts.Boost.Boost(
+        "boost", "1.31.0", libs = ["filesystem"], required = True, useVersion = True, allowLibNameFallbacks=True);
 
 # Options for optional external libraries
 optional_libs_options = {}
@@ -856,6 +867,9 @@ if not SConsAddons.Util.hasHelpFlag():
    
    common_env.DefineBuilder(pj(paths["include"], "OpenSG", "OSGConfigured.h"),
                             Value(definemap), definemap=definemap)
+
+   if "win32" == platform:
+       common_env.Append(LINKFLAGS = SCons.Util.CLVar('/nodefaultlib'))
 
    #common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
    

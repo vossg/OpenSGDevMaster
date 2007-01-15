@@ -28,6 +28,9 @@ for (lib_name, library) in lib_map.iteritems():
    default_lib_settings = LibraryInfo()
    config_info = ConfigInfoAdapter(lib_name, lib_map, default_lib_settings,
                                    osg_lib_suffix=shared_lib_suffix)
+
+#   config_info.dump()
+
    dep_libs = [l for l in config_info.getLibs() if l != full_lib_name]
    lib_env.Append(CPPPATH=config_info.getIncPath(),
                   LIBPATH=[inst_paths["lib_inst_combo"]] + config_info.getLibPath(),
@@ -40,6 +43,15 @@ for (lib_name, library) in lib_map.iteritems():
    # Add the define needed for declspec to know what library we are building
    compile_define = "OSG_COMPILE%sLIB"%lib_name[3:].upper()
    lib_env.Append(CPPDEFINES=[compile_define])
+
+   if GetPlatform() == "win32":
+
+      lib_env.Append(LIBS = ["MSVCPRT$DEBUG_CHAR", "MSVCRT$DEBUG_CHAR"])
+
+      if "debug" == combo["type"] or "hybrid" == combo["type"]: 
+         lib_env["DEBUG_CHAR"]='D'
+      else:
+         lib_env["DEBUG_CHAR"]=''
     
    shared_lib = lib_env.SharedLibrary(full_lib_name, library.source_files)
    shared_lib_inst = lib_env.Install(inst_paths['lib_inst_combo'], shared_lib)

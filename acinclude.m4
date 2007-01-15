@@ -136,7 +136,9 @@ AC_DEFUN(AC_GDZ_FIND_STUDIONET_DIR,
 [
     ac_gdz_find_prog_dir_result=""
 
-    for drive in c d e f g; do
+    ac_gdz_systemdrive=`echo $SYSTEMDRIVE | sed 's/://g'`
+
+    for drive in $ac_gdz_systemdrive c d e f g; do
      for progdir in "Program Files" "Programme"; do
       for vsnet in $1; do
        if test -d "/cygdrive/$drive/$progdir/$vsnet/"; then
