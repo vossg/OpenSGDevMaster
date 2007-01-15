@@ -54,6 +54,9 @@ FieldBundle::TypeObject FieldBundle::_type(
     "FieldBundle",
     NULL,
     "FieldBundle",
+    0,
+    NULL,
+    NULL,
     NULL,
     false);
 

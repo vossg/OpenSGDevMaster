@@ -54,6 +54,7 @@ ReflexiveContainer::TypeObject ReflexiveContainer::_type(
     "ReflexiveContainer",
     NULL,
     "ReflexiveContainer",
+    0,
     NULL,
     false);
 
