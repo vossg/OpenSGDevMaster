@@ -387,11 +387,10 @@ typedef TextureBufferBase *TextureBufferBaseP;
 /** Type specific RefPtr type for TextureBuffer. */
 typedef RefPtr<TextureBufferPtr> TextureBufferRefPtr;
 
-typedef osgIF<
-    TextureBufferBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<TextureBufferBase::isNodeCore>,
     CoredNodePtr<TextureBuffer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         TextureBufferNodePtr;
 

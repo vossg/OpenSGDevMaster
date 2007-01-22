@@ -331,11 +331,10 @@ typedef RenderBufferBase *RenderBufferBaseP;
 /** Type specific RefPtr type for RenderBuffer. */
 typedef RefPtr<RenderBufferPtr> RenderBufferRefPtr;
 
-typedef osgIF<
-    RenderBufferBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<RenderBufferBase::isNodeCore>,
     CoredNodePtr<RenderBuffer>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         RenderBufferNodePtr;
 

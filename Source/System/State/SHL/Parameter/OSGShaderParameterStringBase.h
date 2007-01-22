@@ -313,11 +313,10 @@ typedef ShaderParameterStringBase *ShaderParameterStringBaseP;
 /** Type specific RefPtr type for ShaderParameterString. */
 typedef RefPtr<ShaderParameterStringPtr> ShaderParameterStringRefPtr;
 
-typedef osgIF<
-    ShaderParameterStringBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ShaderParameterStringBase::isNodeCore>,
     CoredNodePtr<ShaderParameterString>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ShaderParameterStringNodePtr;
 

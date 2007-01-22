@@ -349,11 +349,10 @@ typedef WIN32WindowBase *WIN32WindowBaseP;
 /** Type specific RefPtr type for WIN32Window. */
 typedef RefPtr<WIN32WindowPtr> WIN32WindowRefPtr;
 
-typedef osgIF<
-    WIN32WindowBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<WIN32WindowBase::isNodeCore>,
     CoredNodePtr<WIN32Window>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         WIN32WindowNodePtr;
 

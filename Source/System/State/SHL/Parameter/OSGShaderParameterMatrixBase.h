@@ -313,11 +313,10 @@ typedef ShaderParameterMatrixBase *ShaderParameterMatrixBaseP;
 /** Type specific RefPtr type for ShaderParameterMatrix. */
 typedef RefPtr<ShaderParameterMatrixPtr> ShaderParameterMatrixRefPtr;
 
-typedef osgIF<
-    ShaderParameterMatrixBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ShaderParameterMatrixBase::isNodeCore>,
     CoredNodePtr<ShaderParameterMatrix>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ShaderParameterMatrixNodePtr;
 

@@ -363,11 +363,10 @@ typedef SwitchMaterialBase *SwitchMaterialBaseP;
 /** Type specific RefPtr type for SwitchMaterial. */
 typedef RefPtr<SwitchMaterialPtr> SwitchMaterialRefPtr;
 
-typedef osgIF<
-    SwitchMaterialBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<SwitchMaterialBase::isNodeCore>,
     CoredNodePtr<SwitchMaterial>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         SwitchMaterialNodePtr;
 

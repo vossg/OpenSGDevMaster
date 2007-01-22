@@ -263,9 +263,11 @@ void addRef(FieldBundlePConst objectP)
 inline
 void addRef(FieldContainerPtrConst objectP)
 {
-    typedef osgIF<isPtr<FieldContainerPtr>::result,
-                  PointerFuncs,
-                  CPointerFuncs                   >::_IRet Functions;
+    typedef 
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<FieldContainerPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs                   >::type Functions;
 
     Functions::addRef(objectP);
 }
@@ -289,9 +291,11 @@ void subRef(FieldBundlePConst objectP)
 inline
 void subRef(FieldContainerPtrConst objectP)
 {
-    typedef osgIF<isPtr<FieldContainerPtr>::result,
-                  PointerFuncs,
-                  CPointerFuncs                   >::_IRet Functions;
+    typedef 
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<FieldContainerPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs                   >::type Functions;
 
     Functions::subRef(objectP);
 }
@@ -315,9 +319,11 @@ void shallowSubRef(FieldBundlePConst objectP)
 inline
 void shallowSubRef(FieldContainerPtrConst objectP)
 {
-    typedef osgIF<isPtr<FieldContainerPtr>::result,
-                  PointerFuncs,
-                  CPointerFuncs                   >::_IRet Functions;
+    typedef
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<FieldContainerPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs                   >::type Functions;
 
     Functions::shallowSubRef(objectP);
 }
@@ -326,9 +332,11 @@ template <class StoreT, class SourceT> inline
 void setRefd(StoreT  &pTarget,
              SourceT  pSource)
 {
-    typedef typename osgIF<isPtr<SourceT>::result,
-                           PointerFuncs,
-                           CPointerFuncs         >::_IRet Functions;
+    typedef typename 
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<SourceT>::value>,
+            PointerFuncs,
+            CPointerFuncs         >::type Functions;
 
     Functions::setRefd(pTarget, pSource);
 }
@@ -343,9 +351,11 @@ void beginEdit(const PtrT      objectP,
     fprintf(stderr, "beginEditX %p 0x%016llx 0x%08x\n", 
             &(*objectP), whichField, origin);
 
-    typedef typename osgIF<isPtr<PtrT>::result,
-                           PointerFuncs,
-                           CPointerFuncs      >::_IRet Functions;
+    typedef typename 
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<SourceT>::value>,
+            PointerFuncs,
+            CPointerFuncs      >::type Functions;
 
     Functions::beginEdit(objectP, whichField, origin);
 #endif
@@ -360,9 +370,11 @@ void endEdit  (const PtrT      objectP,
     fprintf(stderr, "endEditX %p 0x%016llx 0x%08x\n", 
             &(*objectP), whichField, origin);
 
-    typedef typename osgIF<isPtr<PtrT>::result,
-                           PointerFuncs,
-                           CPointerFuncs      >::_IRet Functions;
+    typedef typename
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<SourceT>::value>,
+            PointerFuncs,
+            CPointerFuncs      >::type Functions;
 
     Functions::endEdit(objectP, whichField, origin);
 #endif
@@ -377,9 +389,11 @@ void executeSync(      FieldContainerPtrConst pTarget,
                        ConstFieldMaskArg      syncMode,
                  const UInt32                 uiSyncInfo  )
 {
-    typedef osgIF<isPtr<FieldContainerPtr>::result,
-                  PointerFuncs,
-                  CPointerFuncs          >::_IRet Functions;
+    typedef 
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<FieldContainerPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs          >::type Functions;
 
     Functions::executeSync(pTarget,
                            uiFromAspect,
@@ -400,9 +414,11 @@ UInt32 getContainerId(FieldBundleConstPConst objectP)
 inline
 UInt32 getContainerId(FieldContainerConstPtrConst objectP)
 {
-    typedef osgIF<isPtr<FieldContainerPtr>::result,
-                  PointerFuncs,
-                  CPointerFuncs          >::_IRet Functions;
+    typedef
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<FieldContainerPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs          >::type Functions;
 
     return Functions::getContainerId(objectP);
 }
@@ -426,9 +442,11 @@ typename PtrStripper<Ptr>::Object *getCPtr(Ptr objectP)
 {
     typedef typename PtrStripper<Ptr>::Ptr InPtr;
 
-    typedef typename osgIF<isPtr<InPtr>::result,
-                           PointerFuncs,
-                           CPointerFuncs          >::_IRet Functions;
+    typedef typename
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<InPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs          >::type Functions;
 
     return Functions::getCPtr(objectP);
 }
@@ -438,9 +456,11 @@ typename PtrStripper<Ptr>::ConstObject *getCConstPtr(Ptr objectP)
 {
     typedef typename PtrStripper<Ptr>::Ptr InPtr;
 
-    typedef typename osgIF<isPtr<InPtr>::result,
-                           PointerFuncs,
-                           CPointerFuncs          >::_IRet Functions;
+    typedef typename 
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<InPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs          >::type Functions;
 
     return Functions::getCPtr(objectP);
 }

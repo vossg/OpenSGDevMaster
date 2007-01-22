@@ -566,11 +566,10 @@ typedef ProxyGroupBase *ProxyGroupBaseP;
 /** Type specific RefPtr type for ProxyGroup. */
 typedef RefPtr<ProxyGroupPtr> ProxyGroupRefPtr;
 
-typedef osgIF<
-    ProxyGroupBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ProxyGroupBase::isNodeCore>,
     CoredNodePtr<ProxyGroup>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ProxyGroupNodePtr;
 

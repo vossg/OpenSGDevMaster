@@ -385,11 +385,10 @@ typedef DepthChunkBase *DepthChunkBaseP;
 /** Type specific RefPtr type for DepthChunk. */
 typedef RefPtr<DepthChunkPtr> DepthChunkRefPtr;
 
-typedef osgIF<
-    DepthChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<DepthChunkBase::isNodeCore>,
     CoredNodePtr<DepthChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         DepthChunkNodePtr;
 

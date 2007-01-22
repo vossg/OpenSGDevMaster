@@ -350,11 +350,10 @@ typedef CameraBase *CameraBaseP;
 /** Type specific RefPtr type for Camera. */
 typedef RefPtr<CameraPtr> CameraRefPtr;
 
-typedef osgIF<
-    CameraBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<CameraBase::isNodeCore>,
     CoredNodePtr<Camera>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         CameraNodePtr;
 

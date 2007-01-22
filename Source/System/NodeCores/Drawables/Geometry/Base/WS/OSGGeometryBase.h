@@ -459,11 +459,10 @@ typedef GeometryBase *GeometryBaseP;
 /** Type specific RefPtr type for Geometry. */
 typedef RefPtr<GeometryPtr> GeometryRefPtr;
 
-typedef osgIF<
-    GeometryBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<GeometryBase::isNodeCore>,
     CoredNodePtr<Geometry>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         GeometryNodePtr;
 

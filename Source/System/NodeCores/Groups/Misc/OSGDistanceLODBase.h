@@ -346,11 +346,10 @@ typedef DistanceLODBase *DistanceLODBaseP;
 /** Type specific RefPtr type for DistanceLOD. */
 typedef RefPtr<DistanceLODPtr> DistanceLODRefPtr;
 
-typedef osgIF<
-    DistanceLODBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<DistanceLODBase::isNodeCore>,
     CoredNodePtr<DistanceLOD>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         DistanceLODNodePtr;
 

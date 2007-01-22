@@ -313,11 +313,10 @@ typedef GLUTWindowBase *GLUTWindowBaseP;
 /** Type specific RefPtr type for GLUTWindow. */
 typedef RefPtr<GLUTWindowPtr> GLUTWindowRefPtr;
 
-typedef osgIF<
-    GLUTWindowBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<GLUTWindowBase::isNodeCore>,
     CoredNodePtr<GLUTWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         GLUTWindowNodePtr;
 

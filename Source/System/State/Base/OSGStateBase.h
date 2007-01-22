@@ -345,11 +345,10 @@ typedef StateBase *StateBaseP;
 /** Type specific RefPtr type for State. */
 typedef RefPtr<StatePtr> StateRefPtr;
 
-typedef osgIF<
-    StateBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<StateBase::isNodeCore>,
     CoredNodePtr<State>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         StateNodePtr;
 

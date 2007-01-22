@@ -294,11 +294,10 @@ typedef MaterialBase *MaterialBaseP;
 /** Type specific RefPtr type for Material. */
 typedef RefPtr<MaterialPtr> MaterialRefPtr;
 
-typedef osgIF<
-    MaterialBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<MaterialBase::isNodeCore>,
     CoredNodePtr<Material>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         MaterialNodePtr;
 

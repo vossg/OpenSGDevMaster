@@ -264,11 +264,10 @@ typedef PassiveWindowBase *PassiveWindowBaseP;
 /** Type specific RefPtr type for PassiveWindow. */
 typedef RefPtr<PassiveWindowPtr> PassiveWindowRefPtr;
 
-typedef osgIF<
-    PassiveWindowBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<PassiveWindowBase::isNodeCore>,
     CoredNodePtr<PassiveWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         PassiveWindowNodePtr;
 

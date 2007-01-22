@@ -421,11 +421,10 @@ typedef StencilChunkBase *StencilChunkBaseP;
 /** Type specific RefPtr type for StencilChunk. */
 typedef RefPtr<StencilChunkPtr> StencilChunkRefPtr;
 
-typedef osgIF<
-    StencilChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<StencilChunkBase::isNodeCore>,
     CoredNodePtr<StencilChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         StencilChunkNodePtr;
 

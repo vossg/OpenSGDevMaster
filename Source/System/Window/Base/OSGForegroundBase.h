@@ -294,11 +294,10 @@ typedef ForegroundBase *ForegroundBaseP;
 /** Type specific RefPtr type for Foreground. */
 typedef RefPtr<ForegroundPtr> ForegroundRefPtr;
 
-typedef osgIF<
-    ForegroundBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ForegroundBase::isNodeCore>,
     CoredNodePtr<Foreground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ForegroundNodePtr;
 

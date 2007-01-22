@@ -49,6 +49,9 @@
 #include "OSGChangeList.h"
 #include "OSGThread.h"
 
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_pointer.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 template <class ContainerFactoryT>    

@@ -264,11 +264,10 @@ typedef LightEnvBase *LightEnvBaseP;
 /** Type specific RefPtr type for LightEnv. */
 typedef RefPtr<LightEnvPtr> LightEnvRefPtr;
 
-typedef osgIF<
-    LightEnvBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<LightEnvBase::isNodeCore>,
     CoredNodePtr<LightEnv>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         LightEnvNodePtr;
 

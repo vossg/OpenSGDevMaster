@@ -313,11 +313,10 @@ typedef ShaderParameterVec4fBase *ShaderParameterVec4fBaseP;
 /** Type specific RefPtr type for ShaderParameterVec4f. */
 typedef RefPtr<ShaderParameterVec4fPtr> ShaderParameterVec4fRefPtr;
 
-typedef osgIF<
-    ShaderParameterVec4fBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ShaderParameterVec4fBase::isNodeCore>,
     CoredNodePtr<ShaderParameterVec4f>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ShaderParameterVec4fNodePtr;
 

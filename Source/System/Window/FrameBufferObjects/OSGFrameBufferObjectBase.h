@@ -450,11 +450,10 @@ typedef FrameBufferObjectBase *FrameBufferObjectBaseP;
 /** Type specific RefPtr type for FrameBufferObject. */
 typedef RefPtr<FrameBufferObjectPtr> FrameBufferObjectRefPtr;
 
-typedef osgIF<
-    FrameBufferObjectBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<FrameBufferObjectBase::isNodeCore>,
     CoredNodePtr<FrameBufferObject>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         FrameBufferObjectNodePtr;
 

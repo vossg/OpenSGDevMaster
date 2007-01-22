@@ -264,11 +264,10 @@ typedef TwoSidedLightingChunkBase *TwoSidedLightingChunkBaseP;
 /** Type specific RefPtr type for TwoSidedLightingChunk. */
 typedef RefPtr<TwoSidedLightingChunkPtr> TwoSidedLightingChunkRefPtr;
 
-typedef osgIF<
-    TwoSidedLightingChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<TwoSidedLightingChunkBase::isNodeCore>,
     CoredNodePtr<TwoSidedLightingChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         TwoSidedLightingChunkNodePtr;
 

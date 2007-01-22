@@ -471,11 +471,10 @@ typedef PolygonBackgroundBase *PolygonBackgroundBaseP;
 /** Type specific RefPtr type for PolygonBackground. */
 typedef RefPtr<PolygonBackgroundPtr> PolygonBackgroundRefPtr;
 
-typedef osgIF<
-    PolygonBackgroundBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<PolygonBackgroundBase::isNodeCore>,
     CoredNodePtr<PolygonBackground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         PolygonBackgroundNodePtr;
 

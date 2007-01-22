@@ -456,11 +456,10 @@ typedef TextureBackgroundBase *TextureBackgroundBaseP;
 /** Type specific RefPtr type for TextureBackground. */
 typedef RefPtr<TextureBackgroundPtr> TextureBackgroundRefPtr;
 
-typedef osgIF<
-    TextureBackgroundBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<TextureBackgroundBase::isNodeCore>,
     CoredNodePtr<TextureBackground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         TextureBackgroundNodePtr;
 

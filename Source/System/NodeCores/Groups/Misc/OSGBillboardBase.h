@@ -385,11 +385,10 @@ typedef BillboardBase *BillboardBaseP;
 /** Type specific RefPtr type for Billboard. */
 typedef RefPtr<BillboardPtr> BillboardRefPtr;
 
-typedef osgIF<
-    BillboardBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<BillboardBase::isNodeCore>,
     CoredNodePtr<Billboard>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         BillboardNodePtr;
 

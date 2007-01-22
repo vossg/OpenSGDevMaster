@@ -753,11 +753,10 @@ typedef SkyBackgroundBase *SkyBackgroundBaseP;
 /** Type specific RefPtr type for SkyBackground. */
 typedef RefPtr<SkyBackgroundPtr> SkyBackgroundRefPtr;
 
-typedef osgIF<
-    SkyBackgroundBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<SkyBackgroundBase::isNodeCore>,
     CoredNodePtr<SkyBackground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         SkyBackgroundNodePtr;
 

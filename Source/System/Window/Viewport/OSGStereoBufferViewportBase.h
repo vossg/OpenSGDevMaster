@@ -331,11 +331,10 @@ typedef StereoBufferViewportBase *StereoBufferViewportBaseP;
 /** Type specific RefPtr type for StereoBufferViewport. */
 typedef RefPtr<StereoBufferViewportPtr> StereoBufferViewportRefPtr;
 
-typedef osgIF<
-    StereoBufferViewportBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<StereoBufferViewportBase::isNodeCore>,
     CoredNodePtr<StereoBufferViewport>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         StereoBufferViewportNodePtr;
 

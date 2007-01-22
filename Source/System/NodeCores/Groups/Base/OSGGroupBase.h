@@ -264,11 +264,10 @@ typedef GroupBase *GroupBaseP;
 /** Type specific RefPtr type for Group. */
 typedef RefPtr<GroupPtr> GroupRefPtr;
 
-typedef osgIF<
-    GroupBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<GroupBase::isNodeCore>,
     CoredNodePtr<Group>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         GroupNodePtr;
 

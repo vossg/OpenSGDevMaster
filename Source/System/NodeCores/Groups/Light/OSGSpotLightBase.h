@@ -349,11 +349,10 @@ typedef SpotLightBase *SpotLightBaseP;
 /** Type specific RefPtr type for SpotLight. */
 typedef RefPtr<SpotLightPtr> SpotLightRefPtr;
 
-typedef osgIF<
-    SpotLightBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<SpotLightBase::isNodeCore>,
     CoredNodePtr<SpotLight>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         SpotLightNodePtr;
 

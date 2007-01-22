@@ -333,11 +333,10 @@ typedef VisitSubTreeBase *VisitSubTreeBaseP;
 /** Type specific RefPtr type for VisitSubTree. */
 typedef RefPtr<VisitSubTreePtr> VisitSubTreeRefPtr;
 
-typedef osgIF<
-    VisitSubTreeBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<VisitSubTreeBase::isNodeCore>,
     CoredNodePtr<VisitSubTree>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         VisitSubTreeNodePtr;
 

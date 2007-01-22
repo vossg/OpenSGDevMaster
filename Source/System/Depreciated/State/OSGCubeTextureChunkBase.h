@@ -387,11 +387,10 @@ typedef CubeTextureChunkBase *CubeTextureChunkBaseP;
 /** Type specific RefPtr type for CubeTextureChunk. */
 typedef RefPtr<CubeTextureChunkPtr> CubeTextureChunkRefPtr;
 
-typedef osgIF<
-    CubeTextureChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<CubeTextureChunkBase::isNodeCore>,
     CoredNodePtr<CubeTextureChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         CubeTextureChunkNodePtr;
 

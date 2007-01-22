@@ -403,11 +403,10 @@ typedef TileCameraDecoratorBase *TileCameraDecoratorBaseP;
 /** Type specific RefPtr type for TileCameraDecorator. */
 typedef RefPtr<TileCameraDecoratorPtr> TileCameraDecoratorRefPtr;
 
-typedef osgIF<
-    TileCameraDecoratorBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<TileCameraDecoratorBase::isNodeCore>,
     CoredNodePtr<TileCameraDecorator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         TileCameraDecoratorNodePtr;
 

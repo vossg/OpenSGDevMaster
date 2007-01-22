@@ -313,11 +313,10 @@ typedef SwitchBase *SwitchBaseP;
 /** Type specific RefPtr type for Switch. */
 typedef RefPtr<SwitchPtr> SwitchRefPtr;
 
-typedef osgIF<
-    SwitchBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<SwitchBase::isNodeCore>,
     CoredNodePtr<Switch>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         SwitchNodePtr;
 

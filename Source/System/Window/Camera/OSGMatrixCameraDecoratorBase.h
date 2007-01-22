@@ -403,11 +403,10 @@ typedef MatrixCameraDecoratorBase *MatrixCameraDecoratorBaseP;
 /** Type specific RefPtr type for MatrixCameraDecorator. */
 typedef RefPtr<MatrixCameraDecoratorPtr> MatrixCameraDecoratorRefPtr;
 
-typedef osgIF<
-    MatrixCameraDecoratorBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<MatrixCameraDecoratorBase::isNodeCore>,
     CoredNodePtr<MatrixCameraDecorator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         MatrixCameraDecoratorNodePtr;
 

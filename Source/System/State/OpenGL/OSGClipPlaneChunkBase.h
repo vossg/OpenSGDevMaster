@@ -369,11 +369,10 @@ typedef ClipPlaneChunkBase *ClipPlaneChunkBaseP;
 /** Type specific RefPtr type for ClipPlaneChunk. */
 typedef RefPtr<ClipPlaneChunkPtr> ClipPlaneChunkRefPtr;
 
-typedef osgIF<
-    ClipPlaneChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ClipPlaneChunkBase::isNodeCore>,
     CoredNodePtr<ClipPlaneChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ClipPlaneChunkNodePtr;
 

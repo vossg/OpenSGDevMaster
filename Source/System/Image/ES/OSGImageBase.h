@@ -741,11 +741,10 @@ typedef ImageBase *ImageBaseP;
 /** Type specific RefPtr type for Image. */
 typedef RefPtr<ImagePtr> ImageRefPtr;
 
-typedef osgIF<
-    ImageBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ImageBase::isNodeCore>,
     CoredNodePtr<Image>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ImageNodePtr;
 

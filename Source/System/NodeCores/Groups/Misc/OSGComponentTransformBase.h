@@ -385,11 +385,10 @@ typedef ComponentTransformBase *ComponentTransformBaseP;
 /** Type specific RefPtr type for ComponentTransform. */
 typedef RefPtr<ComponentTransformPtr> ComponentTransformRefPtr;
 
-typedef osgIF<
-    ComponentTransformBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ComponentTransformBase::isNodeCore>,
     CoredNodePtr<ComponentTransform>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ComponentTransformNodePtr;
 

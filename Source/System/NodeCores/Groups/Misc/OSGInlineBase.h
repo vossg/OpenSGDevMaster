@@ -346,11 +346,10 @@ typedef InlineBase *InlineBaseP;
 /** Type specific RefPtr type for Inline. */
 typedef RefPtr<InlinePtr> InlineRefPtr;
 
-typedef osgIF<
-    InlineBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<InlineBase::isNodeCore>,
     CoredNodePtr<Inline>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         InlineNodePtr;
 

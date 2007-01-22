@@ -313,11 +313,10 @@ typedef CocoaWindowBase *CocoaWindowBaseP;
 /** Type specific RefPtr type for CocoaWindow. */
 typedef RefPtr<CocoaWindowPtr> CocoaWindowRefPtr;
 
-typedef osgIF<
-    CocoaWindowBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<CocoaWindowBase::isNodeCore>,
     CoredNodePtr<CocoaWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         CocoaWindowNodePtr;
 

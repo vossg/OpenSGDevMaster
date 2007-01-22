@@ -294,11 +294,10 @@ typedef TextureBaseChunkBase *TextureBaseChunkBaseP;
 /** Type specific RefPtr type for TextureBaseChunk. */
 typedef RefPtr<TextureBaseChunkPtr> TextureBaseChunkRefPtr;
 
-typedef osgIF<
-    TextureBaseChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<TextureBaseChunkBase::isNodeCore>,
     CoredNodePtr<TextureBaseChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         TextureBaseChunkNodePtr;
 

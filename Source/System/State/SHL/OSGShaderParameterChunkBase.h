@@ -326,11 +326,10 @@ typedef ShaderParameterChunkBase *ShaderParameterChunkBaseP;
 /** Type specific RefPtr type for ShaderParameterChunk. */
 typedef RefPtr<ShaderParameterChunkPtr> ShaderParameterChunkRefPtr;
 
-typedef osgIF<
-    ShaderParameterChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ShaderParameterChunkBase::isNodeCore>,
     CoredNodePtr<ShaderParameterChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ShaderParameterChunkNodePtr;
 

@@ -253,9 +253,10 @@ void PtrCreateMixin<ParentT>::newPtr(     typename ObjectT::ObjPtr &result,
 {
     typedef typename ObjectT::ObjPtr ObjPtr;
 
-    typedef typename osgIF<isPtr<ObjPtr>::result,
-                           PtrConstructionFuncs,
-                           CPtrConstructionFuncs>::_IRet Functions;
+    typedef typename 
+        boost::mpl::if_<boost::mpl::bool_< boost::is_pointer<ObjPtr>::value>,
+                        PtrConstructionFuncs,
+                        CPtrConstructionFuncs>::type Functions;
    
     Functions::template newPtr<ObjectT>(result, pPrototype);
 }
@@ -266,9 +267,10 @@ void PtrCreateMixin<ParentT>::newPtr(typename ObjectT::ObjPtr &result)
 {
     typedef typename ObjectT::ObjPtr ObjPtr;
 
-    typedef typename osgIF<isPtr<ObjPtr>::result,
+    typedef typename 
+        boost::mpl::if_<boost::mpl::bool_<boost::is_pointer<ObjPtr>::value>,
                            PtrConstructionFuncs,
-                           CPtrConstructionFuncs>::_IRet Functions;
+                           CPtrConstructionFuncs>::type Functions;
    
     Functions::template newPtr<ObjectT>(result);
 }
@@ -292,9 +294,10 @@ typename ObjectT::ObjPtr PtrCreateMixin<ParentT>::constructPtr(ObjectT *pObj)
 {
     typedef typename ObjectT::ObjPtr ObjPtr;
 
-    typedef typename osgIF<isPtr<ObjPtr>::result,
-                           PtrConstructionFuncs,
-                           CPtrConstructionFuncs>::_IRet Functions;
+    typedef typename 
+        boost::mpl::if_<boost::mpl::bool_<boost::is_pointer<ObjPtr>::value>,
+                        PtrConstructionFuncs,
+                        CPtrConstructionFuncs>::type Functions;
    
     return Functions::template constructPtr<ObjectT>(pObj);
 }
@@ -307,9 +310,10 @@ typename ObjectT::ObjConstPtr PtrCreateMixin<ParentT>::constructPtr(
 {
     typedef typename ObjectT::ObjPtr ObjPtr;
 
-    typedef typename osgIF<isPtr<ObjPtr>::result,
-                           PtrConstructionFuncs,
-                           CPtrConstructionFuncs>::_IRet Functions;
+    typedef typename 
+        boost::mpl::if_<boost::mpl::bool_<boost::is_pointer<ObjPtr>::value>,
+                        PtrConstructionFuncs,
+                        CPtrConstructionFuncs>::type Functions;
    
     return Functions::template constructPtr<ObjectT>(pObj);
 }

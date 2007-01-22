@@ -331,11 +331,10 @@ typedef ShearedStereoCameraDecoratorBase *ShearedStereoCameraDecoratorBaseP;
 /** Type specific RefPtr type for ShearedStereoCameraDecorator. */
 typedef RefPtr<ShearedStereoCameraDecoratorPtr> ShearedStereoCameraDecoratorRefPtr;
 
-typedef osgIF<
-    ShearedStereoCameraDecoratorBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ShearedStereoCameraDecoratorBase::isNodeCore>,
     CoredNodePtr<ShearedStereoCameraDecorator>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ShearedStereoCameraDecoratorNodePtr;
 

@@ -333,11 +333,10 @@ typedef MaterialGroupBase *MaterialGroupBaseP;
 /** Type specific RefPtr type for MaterialGroup. */
 typedef RefPtr<MaterialGroupPtr> MaterialGroupRefPtr;
 
-typedef osgIF<
-    MaterialGroupBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<MaterialGroupBase::isNodeCore>,
     CoredNodePtr<MaterialGroup>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         MaterialGroupNodePtr;
 

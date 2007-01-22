@@ -133,12 +133,12 @@ void MField<ValueT, iNamespace>::addValueFromCString(const Char8 *str)
 {
     ValueT tmpVal;
 
-    typedef typename osgIF< 
-        static_cast<bool>(MFieldTraits    ::Convertible &
-                          FieldTraitsBase ::FromStringConvertible), 
+    typedef typename boost::mpl::if_<boost::mpl::bool_< 
+        (MFieldTraits    ::Convertible &
+         FieldTraitsBase ::FromStringConvertible)>, 
         MFieldTraits, 
         StringConversionError<ValueT,
-                              iNamespace> >::_IRet Converter;
+                              iNamespace> >::type Converter;
     
     Converter::getFromCString(tmpVal, str);
     
@@ -149,12 +149,12 @@ void MField<ValueT, iNamespace>::addValueFromCString(const Char8 *str)
 template <class ValueT, Int32 iNamespace> inline
 void MField<ValueT, iNamespace>::pushValuesToString(std::string  &str) const
 {
-    typedef typename osgIF< 
-        static_cast<bool>(MFieldTraits    ::Convertible &
-                          FieldTraitsBase ::ToStringConvertible), 
+    typedef typename boost::mpl::if_<boost::mpl::bool_< 
+        (MFieldTraits    ::Convertible &
+         FieldTraitsBase ::ToStringConvertible)>, 
         MFieldTraits, 
         StringConversionError<ValueT,
-                              iNamespace> >::_IRet Converter;
+                              iNamespace> >::type Converter;
 
     for(UInt32 i = 0; i < size(); ++i)
     {
@@ -173,12 +173,12 @@ void MField<ValueT, iNamespace>::pushValuesFromStream(std::istream &str)
 {
     ValueT tmpVal;
 
-    typedef typename osgIF< 
-        static_cast<bool>(MFieldTraits    ::Convertible &
-                          FieldTraitsBase ::FromStreamConvertible), 
+    typedef typename boost::mpl::if_<boost::mpl::bool_<
+        (MFieldTraits    ::Convertible &
+         FieldTraitsBase ::FromStreamConvertible)>, 
         MFieldTraits, 
         StreamConversionError<ValueT,
-                              iNamespace> >::_IRet Converter;
+                              iNamespace> >::type Converter;
     
     Converter::getFromStream(tmpVal, str);
     
@@ -188,12 +188,12 @@ void MField<ValueT, iNamespace>::pushValuesFromStream(std::istream &str)
 template <class ValueT, Int32 iNamespace> inline
 void MField<ValueT, iNamespace>::pushValuesToStream(OutStream &str) const
 {
-    typedef typename osgIF< 
-        static_cast<bool>(MFieldTraits    ::Convertible &
-                          FieldTraitsBase ::ToStreamConvertible), 
+    typedef typename boost::mpl::if_<boost::mpl::bool_< 
+        (MFieldTraits    ::Convertible &
+         FieldTraitsBase ::ToStreamConvertible)>, 
         MFieldTraits, 
         StreamConversionError<ValueT,
-                              iNamespace> >::_IRet Converter;
+                              iNamespace> >::type Converter;
 
     for(UInt32 i = 0; i < size(); ++i)
     {

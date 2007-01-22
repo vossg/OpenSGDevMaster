@@ -314,11 +314,10 @@ typedef MaterialDrawableBase *MaterialDrawableBaseP;
 /** Type specific RefPtr type for MaterialDrawable. */
 typedef RefPtr<MaterialDrawablePtr> MaterialDrawableRefPtr;
 
-typedef osgIF<
-    MaterialDrawableBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<MaterialDrawableBase::isNodeCore>,
     CoredNodePtr<MaterialDrawable>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         MaterialDrawableNodePtr;
 

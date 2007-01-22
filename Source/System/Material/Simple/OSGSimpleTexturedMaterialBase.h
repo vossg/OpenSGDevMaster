@@ -405,11 +405,10 @@ typedef SimpleTexturedMaterialBase *SimpleTexturedMaterialBaseP;
 /** Type specific RefPtr type for SimpleTexturedMaterial. */
 typedef RefPtr<SimpleTexturedMaterialPtr> SimpleTexturedMaterialRefPtr;
 
-typedef osgIF<
-    SimpleTexturedMaterialBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<SimpleTexturedMaterialBase::isNodeCore>,
     CoredNodePtr<SimpleTexturedMaterial>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         SimpleTexturedMaterialNodePtr;
 

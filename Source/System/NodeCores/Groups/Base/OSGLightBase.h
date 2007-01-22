@@ -449,11 +449,10 @@ typedef LightBase *LightBaseP;
 /** Type specific RefPtr type for Light. */
 typedef RefPtr<LightPtr> LightRefPtr;
 
-typedef osgIF<
-    LightBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<LightBase::isNodeCore>,
     CoredNodePtr<Light>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         LightNodePtr;
 

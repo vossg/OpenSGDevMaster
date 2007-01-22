@@ -369,11 +369,10 @@ typedef AlgorithmStageBase *AlgorithmStageBaseP;
 /** Type specific RefPtr type for AlgorithmStage. */
 typedef RefPtr<AlgorithmStagePtr> AlgorithmStageRefPtr;
 
-typedef osgIF<
-    AlgorithmStageBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<AlgorithmStageBase::isNodeCore>,
     CoredNodePtr<AlgorithmStage>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         AlgorithmStageNodePtr;
 

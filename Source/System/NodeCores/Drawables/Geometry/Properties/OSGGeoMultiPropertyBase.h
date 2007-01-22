@@ -441,11 +441,10 @@ typedef GeoMultiPropertyBase *GeoMultiPropertyBaseP;
 /** Type specific RefPtr type for GeoMultiProperty. */
 typedef RefPtr<GeoMultiPropertyPtr> GeoMultiPropertyRefPtr;
 
-typedef osgIF<
-    GeoMultiPropertyBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<GeoMultiPropertyBase::isNodeCore>,
     CoredNodePtr<GeoMultiProperty>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         GeoMultiPropertyNodePtr;
 

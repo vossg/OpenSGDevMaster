@@ -349,11 +349,10 @@ typedef XWindowBase *XWindowBaseP;
 /** Type specific RefPtr type for XWindow. */
 typedef RefPtr<XWindowPtr> XWindowRefPtr;
 
-typedef osgIF<
-    XWindowBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<XWindowBase::isNodeCore>,
     CoredNodePtr<XWindow>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         XWindowNodePtr;
 

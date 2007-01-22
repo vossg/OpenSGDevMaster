@@ -378,11 +378,10 @@ typedef ImageForegroundBase *ImageForegroundBaseP;
 /** Type specific RefPtr type for ImageForeground. */
 typedef RefPtr<ImageForegroundPtr> ImageForegroundRefPtr;
 
-typedef osgIF<
-    ImageForegroundBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ImageForegroundBase::isNodeCore>,
     CoredNodePtr<ImageForeground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ImageForegroundNodePtr;
 

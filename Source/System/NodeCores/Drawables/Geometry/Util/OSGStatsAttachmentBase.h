@@ -245,11 +245,10 @@ typedef StatsAttachmentBase *StatsAttachmentBaseP;
 /** Type specific RefPtr type for StatsAttachment. */
 typedef RefPtr<StatsAttachmentPtr> StatsAttachmentRefPtr;
 
-typedef osgIF<
-    StatsAttachmentBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<StatsAttachmentBase::isNodeCore>,
     CoredNodePtr<StatsAttachment>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         StatsAttachmentNodePtr;
 

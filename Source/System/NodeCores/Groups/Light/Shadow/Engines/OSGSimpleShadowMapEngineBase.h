@@ -313,11 +313,10 @@ typedef SimpleShadowMapEngineBase *SimpleShadowMapEngineBaseP;
 /** Type specific RefPtr type for SimpleShadowMapEngine. */
 typedef RefPtr<SimpleShadowMapEnginePtr> SimpleShadowMapEngineRefPtr;
 
-typedef osgIF<
-    SimpleShadowMapEngineBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<SimpleShadowMapEngineBase::isNodeCore>,
     CoredNodePtr<SimpleShadowMapEngine>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         SimpleShadowMapEngineNodePtr;
 

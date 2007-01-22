@@ -264,11 +264,10 @@ typedef FragmentProgramChunkBase *FragmentProgramChunkBaseP;
 /** Type specific RefPtr type for FragmentProgramChunk. */
 typedef RefPtr<FragmentProgramChunkPtr> FragmentProgramChunkRefPtr;
 
-typedef osgIF<
-    FragmentProgramChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<FragmentProgramChunkBase::isNodeCore>,
     CoredNodePtr<FragmentProgramChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         FragmentProgramChunkNodePtr;
 

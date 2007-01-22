@@ -351,11 +351,10 @@ typedef GrabForegroundBase *GrabForegroundBaseP;
 /** Type specific RefPtr type for GrabForeground. */
 typedef RefPtr<GrabForegroundPtr> GrabForegroundRefPtr;
 
-typedef osgIF<
-    GrabForegroundBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<GrabForegroundBase::isNodeCore>,
     CoredNodePtr<GrabForeground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         GrabForegroundNodePtr;
 

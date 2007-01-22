@@ -363,11 +363,10 @@ typedef ContainerPoolBase *ContainerPoolBaseP;
 /** Type specific RefPtr type for ContainerPool. */
 typedef RefPtr<ContainerPoolPtr> ContainerPoolRefPtr;
 
-typedef osgIF<
-    ContainerPoolBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ContainerPoolBase::isNodeCore>,
     CoredNodePtr<ContainerPool>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ContainerPoolNodePtr;
 

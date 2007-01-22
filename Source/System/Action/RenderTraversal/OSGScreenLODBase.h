@@ -264,11 +264,10 @@ typedef ScreenLODBase *ScreenLODBaseP;
 /** Type specific RefPtr type for ScreenLOD. */
 typedef RefPtr<ScreenLODPtr> ScreenLODRefPtr;
 
-typedef osgIF<
-    ScreenLODBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<ScreenLODBase::isNodeCore>,
     CoredNodePtr<ScreenLOD>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         ScreenLODNodePtr;
 

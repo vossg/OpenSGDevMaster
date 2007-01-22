@@ -50,6 +50,8 @@
 
 #include <iosfwd>
 
+#include <boost/mpl/if.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 class FieldType;
@@ -113,14 +115,14 @@ struct FieldTraitsTemplateBase : public FieldTraitsBase
     static const UInt32 uiTest = TypeTraits<ValueT>::IsPOD == true;
 
     typedef typename
-    osgIF<uiTest == 1,
-          const ValueT  ,
-          const ValueT & >::_IRet  ArgumentType;
+        boost::mpl::if_<boost::mpl::bool_<(uiTest == 1)>,
+                        const ValueT  ,
+                        const ValueT & >::type  ArgumentType;
 #else
     typedef typename
-    osgIF<TypeTraits<ValueT>::IsPOD,
-          const ValueT  ,
-          const ValueT & >::_IRet  ArgumentType;
+    boost::mpl::if_<boost::mpl::bool_<TypeTraits<ValueT>::IsPOD>,
+                    const ValueT  ,
+                    const ValueT & >::type  ArgumentType;
 #endif
 
     typedef      ValueT                ValueType;
@@ -479,11 +481,11 @@ class FieldDescription : public DescT::FieldDescParent
     typedef typename Inherited::StringVector      StringVector;
 
     typedef typename
-        osgIF<(eFieldCard == SingleField),
-               SField<typename DescT::ValueType,
-                               DescT::iNamespace>,
-               MField<typename DescT::ValueType,
-                               DescT::iNamespace> >::_IRet HandledField;
+      boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+                      SField<typename DescT::ValueType,
+                                      DescT::iNamespace>,
+                      MField<typename DescT::ValueType,
+                                      DescT::iNamespace> >::type HandledField;
 
     struct SFieldFunctions
     {
@@ -546,9 +548,9 @@ class FieldDescription : public DescT::FieldDescParent
     };
 
     typedef typename
-        osgIF<(eFieldCard == SingleField),
-               SFieldFunctions,
-               MFieldFunctions>::_IRet FieldFunctions;
+        boost::mpl::if_<boost::mpl::bool_<(eFieldCard == SingleField)>,
+                         SFieldFunctions,
+                         MFieldFunctions>::type FieldFunctions;
 
     void cloneValues(
         const Field                                  *pSrc,

@@ -327,11 +327,10 @@ typedef StatisticsForegroundBase *StatisticsForegroundBaseP;
 /** Type specific RefPtr type for StatisticsForeground. */
 typedef RefPtr<StatisticsForegroundPtr> StatisticsForegroundRefPtr;
 
-typedef osgIF<
-    StatisticsForegroundBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<StatisticsForegroundBase::isNodeCore>,
     CoredNodePtr<StatisticsForeground>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         StatisticsForegroundNodePtr;
 

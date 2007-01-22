@@ -331,11 +331,10 @@ typedef MatrixCameraBase *MatrixCameraBaseP;
 /** Type specific RefPtr type for MatrixCamera. */
 typedef RefPtr<MatrixCameraPtr> MatrixCameraRefPtr;
 
-typedef osgIF<
-    MatrixCameraBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<MatrixCameraBase::isNodeCore>,
     CoredNodePtr<MatrixCamera>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         MatrixCameraNodePtr;
 

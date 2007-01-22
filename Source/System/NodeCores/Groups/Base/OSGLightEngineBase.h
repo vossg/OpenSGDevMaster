@@ -294,11 +294,10 @@ typedef LightEngineBase *LightEngineBaseP;
 /** Type specific RefPtr type for LightEngine. */
 typedef RefPtr<LightEnginePtr> LightEngineRefPtr;
 
-typedef osgIF<
-    LightEngineBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<LightEngineBase::isNodeCore>,
     CoredNodePtr<LightEngine>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         LightEngineNodePtr;
 

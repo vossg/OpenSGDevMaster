@@ -333,11 +333,10 @@ typedef SHLParameterChunkBase *SHLParameterChunkBaseP;
 /** Type specific RefPtr type for SHLParameterChunk. */
 typedef RefPtr<SHLParameterChunkPtr> SHLParameterChunkRefPtr;
 
-typedef osgIF<
-    SHLParameterChunkBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<SHLParameterChunkBase::isNodeCore>,
     CoredNodePtr<SHLParameterChunk>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         SHLParameterChunkNodePtr;
 

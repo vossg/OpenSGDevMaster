@@ -331,11 +331,10 @@ typedef PerspectiveCameraBase *PerspectiveCameraBaseP;
 /** Type specific RefPtr type for PerspectiveCamera. */
 typedef RefPtr<PerspectiveCameraPtr> PerspectiveCameraRefPtr;
 
-typedef osgIF<
-    PerspectiveCameraBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<PerspectiveCameraBase::isNodeCore>,
     CoredNodePtr<PerspectiveCamera>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         PerspectiveCameraNodePtr;
 
