@@ -113,8 +113,8 @@ template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::setValueFromCString(const Char8 *str)
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        (SFieldTraits   ::Convertible &
-         FieldTraitsBase::FromStringConvertible)>, 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::FromStringConvertible)>, 
         SFieldTraits, 
         StringConversionError<ValueT,
                               iNamespace> >::type Converter;
@@ -126,8 +126,8 @@ template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::pushValueToString  (std::string  &str) const
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        (SFieldTraits   ::Convertible &
-         FieldTraitsBase::ToStringConvertible)>, 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::ToStringConvertible)>, 
         SFieldTraits, 
         StringConversionError<ValueT,
                               iNamespace> >::type Converter;
@@ -139,8 +139,8 @@ template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::pushValueFromStream(std::istream &str)
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        (SFieldTraits   ::Convertible &
-         FieldTraitsBase::FromStreamConvertible)>, 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::FromStreamConvertible)>, 
         SFieldTraits, 
         StreamConversionError<ValueT,
                               iNamespace> >::type Converter;
@@ -152,8 +152,8 @@ template <class ValueT, Int32 iNamespace> inline
 void SField<ValueT, iNamespace>::pushValueToStream  (OutStream &str) const
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        (SFieldTraits   ::Convertible &
-         FieldTraitsBase::ToStreamConvertible)>, 
+        static_cast<bool>(SFieldTraits   ::Convertible &
+                          FieldTraitsBase::ToStreamConvertible)>, 
         SFieldTraits, 
         StreamConversionError<ValueT,
                               iNamespace> >::type Converter;

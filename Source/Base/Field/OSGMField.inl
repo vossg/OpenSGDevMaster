@@ -134,8 +134,8 @@ void MField<ValueT, iNamespace>::addValueFromCString(const Char8 *str)
     ValueT tmpVal;
 
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        (MFieldTraits    ::Convertible &
-         FieldTraitsBase ::FromStringConvertible)>, 
+        static_cast<bool>(MFieldTraits    ::Convertible &
+                          FieldTraitsBase ::FromStringConvertible)>, 
         MFieldTraits, 
         StringConversionError<ValueT,
                               iNamespace> >::type Converter;
@@ -150,8 +150,8 @@ template <class ValueT, Int32 iNamespace> inline
 void MField<ValueT, iNamespace>::pushValuesToString(std::string  &str) const
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        (MFieldTraits    ::Convertible &
-         FieldTraitsBase ::ToStringConvertible)>, 
+        static_cast<bool>(MFieldTraits    ::Convertible &
+                          FieldTraitsBase ::ToStringConvertible)>, 
         MFieldTraits, 
         StringConversionError<ValueT,
                               iNamespace> >::type Converter;
@@ -174,8 +174,8 @@ void MField<ValueT, iNamespace>::pushValuesFromStream(std::istream &str)
     ValueT tmpVal;
 
     typedef typename boost::mpl::if_<boost::mpl::bool_<
-        (MFieldTraits    ::Convertible &
-         FieldTraitsBase ::FromStreamConvertible)>, 
+        static_cast<bool>(MFieldTraits    ::Convertible &
+                          FieldTraitsBase ::FromStreamConvertible)>, 
         MFieldTraits, 
         StreamConversionError<ValueT,
                               iNamespace> >::type Converter;
@@ -189,8 +189,8 @@ template <class ValueT, Int32 iNamespace> inline
 void MField<ValueT, iNamespace>::pushValuesToStream(OutStream &str) const
 {
     typedef typename boost::mpl::if_<boost::mpl::bool_< 
-        (MFieldTraits    ::Convertible &
-         FieldTraitsBase ::ToStreamConvertible)>, 
+        static_cast<bool>(MFieldTraits    ::Convertible &
+                          FieldTraitsBase ::ToStreamConvertible)>, 
         MFieldTraits, 
         StreamConversionError<ValueT,
                               iNamespace> >::type Converter;
