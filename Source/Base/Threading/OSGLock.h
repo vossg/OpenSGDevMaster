@@ -61,6 +61,8 @@
 #include <ulocks.h>
 #endif
 
+#include <boost/mpl/if.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 static const UInt32 uiLockPoolSize = 32;
@@ -501,13 +503,15 @@ class OSG_BASE_DLLMAPPING LockPool : public LockCommonBase
 
     struct ErrorCouldNotMatchSize {};
 
-    typedef osgIF<sizeof(void *) == sizeof(UInt32),
-              UInt32,
-              ErrorCouldNotMatchSize              >::_IRet NumericalKeyType32;
+    typedef 
+        boost::mpl::if_<boost::mpl::bool_<(sizeof(void *) == sizeof(UInt32))>,
+                        UInt32,
+                        ErrorCouldNotMatchSize>::type NumericalKeyType32;
 
-    typedef osgIF<sizeof(void *) == sizeof(UInt64),
-                  UInt64,
-                  NumericalKeyType32              >::_IRet NumericalKeyType;
+    typedef 
+        boost::mpl::if_<boost::mpl::bool_<(sizeof(void *) == sizeof(UInt64))>,
+                        UInt64,
+                        NumericalKeyType32>::type NumericalKeyType;
     
     /*---------------------------------------------------------------------*/
     /*! \name                      Create                                  */

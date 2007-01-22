@@ -522,11 +522,10 @@ typedef VTKMapperBase *VTKMapperBaseP;
 /** Type specific RefPtr type for VTKMapper. */
 typedef RefPtr<VTKMapperPtr> VTKMapperRefPtr;
 
-typedef osgIF<
-    VTKMapperBase::isNodeCore,
-
+typedef boost::mpl::if_<
+    boost::mpl::bool_<VTKMapperBase::isNodeCore>,
     CoredNodePtr<VTKMapper>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::_IRet
+    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
 
         VTKMapperNodePtr;
 
