@@ -43,8 +43,6 @@
 #endif
 
 #include "OSGBaseTypes.h"
-#include "OSGCompileTimeFunctions.h"
-
 #include "OSGContainerBase.h"
 
 #ifdef OSG_FIELDBUNDLE

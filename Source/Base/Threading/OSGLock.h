@@ -44,7 +44,6 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGMPBase.h"
-#include "OSGCompileTimeFunctions.h"
 
 #if ! defined (OSG_USE_PTHREADS)   && \
     ! defined (OSG_USE_SPROC)      && \

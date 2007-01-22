@@ -42,7 +42,6 @@
 #pragma once
 #endif
 
-#include "OSGCompileTimeFunctions.h"
 #ifndef OSG_WINCE
 #include "OSGThreadManager.h"
 #endif
