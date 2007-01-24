@@ -47,13 +47,17 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief @!Classname!@ class. See \ref
+@@if isInLibrary
            Page@!Libname!@@!Classname!@ for a description.
+@@else
+           Page@!Classname!@ for a description.
+@@endif
 */
 
 @@if isInLibrary
 class OSG_@!LIBNAME!@_DLLMAPPING @!Classname!@ : public @!Classname!@Base
 @@else
-class OSG_@!LIBNAME!@_DLLMAPPING @!Classname!@ : public @!Classname!@Base
+class @!Classname!@ : public @!Classname!@Base
 @@endif
 {
   protected:

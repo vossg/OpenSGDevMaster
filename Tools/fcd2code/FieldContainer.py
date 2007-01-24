@@ -75,9 +75,15 @@ class FieldContainer(FCDElement):
             self["Libname"]     = self.getFCD("library");
             self["LIBNAME"]     = self.getFCD("library").upper();
         else:
-            self["isInLibrary"] = False;
-            self["Libname"]     = None;
-            self["LIBNAME"]     = None;
+            if self.getFCD("systemcomponent") == "true":
+                self.m_log.error("finalize: \"library\" not set for a systemcomponent.");
+                self["isInLibrary"] = True;
+                self["Libname"]     = "<UNDEF>";
+                self["LIBNAME"]     = "<UNDEF>";
+            else:
+                self["isInLibrary"] = False;
+                self["Libname"]     = None;
+                self["LIBNAME"]     = None;
         
         if self.getFCD("name") != "":
             self["Classname"] = self.getFCD("name");
