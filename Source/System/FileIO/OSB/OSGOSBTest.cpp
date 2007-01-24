@@ -43,7 +43,6 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 
 #include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/operations.hpp>
 
 namespace bf = boost::filesystem;
 
@@ -77,7 +76,7 @@ TEST_FIXTURE(FileFixture, CreateOSBFile)
 
    OSG::NodePtr new_n =
       OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
-   CHECK(new_n != OSG::NullFC);
+   CHECK(new_n != OSG::NullFC);   
 }
 
 
