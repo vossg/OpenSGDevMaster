@@ -1183,6 +1183,11 @@ struct TypeTraits<Real64> : public TypeTraitsTemplateBase<Real64>
     static const  bool               IsPOD       = true;
     static const  MathTypeProperties MathProp    = RealValue;
 
+    static        Real64             ZeroEps(void)
+    {
+        return 1E-30;
+    }
+
     static        Real64             getZeroElement(void)
     {
         return 0.0;
