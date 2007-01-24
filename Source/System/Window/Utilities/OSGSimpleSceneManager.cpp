@@ -52,6 +52,8 @@
 #include <OSGSimpleStatisticsForeground.h>
 //#include <OSGStatElemTypes.h>
 //#include <OSGStatCollector.h>
+#include <OSGTypedGeoIntegralProperty.h>
+#include <OSGTypedGeoVectorProperty.h>
 #include <OSGDrawable.h>
 #include <OSGPointLight.h>
 #include <OSGSpotLight.h>
@@ -193,9 +195,9 @@ SimpleSceneManager::SimpleSceneManager(void) :
     _statforeground (NullFC),
     _statstate      (false),
 
-    /*_highlight      (NullFC),
+    _highlight      (NullFC),
     _highlightNode  (NullFC),
-    _highlightPoints(NullFC),*/
+    _highlightPoints(NullFC),
 
     _internalRoot   (NullFC),
     _headlight      (NullFC),
@@ -303,7 +305,7 @@ void SimpleSceneManager::setWindow(WindowPtr win)
  */
 NodePtr SimpleSceneManager::getHighlight(void)
 {
-    return NullFC; //_highlight;
+    return _highlight;
 }
 
 /*! get the action used to render the scene
@@ -431,10 +433,8 @@ void SimpleSceneManager::turnHeadlightOff(void)
  */
 void SimpleSceneManager::setHighlight(NodePtr highlight)
 {
-#if 0 // amz
     _highlight = highlight;
     highlightChanged();
-#endif
 }
 
 /*! set the statistics setting. Only works after the window has been created.
@@ -683,80 +683,67 @@ void SimpleSceneManager::redraw(void)
  */
 void SimpleSceneManager::highlightChanged(void)
 {
-
   // FDEBUG (("SimpleSceneManager::updateHightlight() called\n"));
-#if 0 // amz
     // init as needed
     if(_highlightMaterial == NullFC)
     {
         _highlightMaterial = SimpleMaterial::create();
-
-        beginEditCP(_highlightMaterial);
         _highlightMaterial->setDiffuse (Color3f(0,1,0));
         _highlightMaterial->setLit     (false);
-        endEditCP(_highlightMaterial);
     }
     if(_highlightNode == NullFC)
     {
-        GeoPTypesPtr type = GeoPTypesUI8::create();
-        beginEditCP(type);
-        type->push_back(GL_LINE_STRIP);
-        type->push_back(GL_LINES);
-        endEditCP(type);
+        GeoUInt8PropertyPtr type = GeoUInt8Property::create();
+        GeoUInt8Property::StoredFieldType* t = type->editFieldPtr();
+        t->push_back(GL_LINE_STRIP);
+        t->push_back(GL_LINES);
 
-        GeoPLengthsPtr lens = GeoPLengthsUI32::create();
-        beginEditCP(lens);
-        lens->push_back(10);
-        lens->push_back(6);
-        endEditCP(lens);
+        GeoUInt32PropertyPtr lens = GeoUInt32Property::create();
+        GeoUInt32Property::StoredFieldType* l = lens->editFieldPtr();
+        l->push_back(10);
+        l->push_back(6);
 
-        GeoIndicesUI32Ptr index = GeoIndicesUI32::create();
-        beginEditCP(index);
-        index->getFieldPtr()->push_back(0);
-        index->getFieldPtr()->push_back(1);
-        index->getFieldPtr()->push_back(3);
-        index->getFieldPtr()->push_back(2);
-        index->getFieldPtr()->push_back(0);
-        index->getFieldPtr()->push_back(4);
-        index->getFieldPtr()->push_back(5);
-        index->getFieldPtr()->push_back(7);
-        index->getFieldPtr()->push_back(6);
-        index->getFieldPtr()->push_back(4);
+        GeoUInt32PropertyPtr index = OSG::GeoUInt32Property::create();
+        GeoUInt32Property::StoredFieldType* idx = index->editFieldPtr();
+        idx->push_back(0);
+        idx->push_back(1);
+        idx->push_back(3);
+        idx->push_back(2);
+        idx->push_back(0);
+        idx->push_back(4);
+        idx->push_back(5);
+        idx->push_back(7);
+        idx->push_back(6);
+        idx->push_back(4);
 
-        index->getFieldPtr()->push_back(1);
-        index->getFieldPtr()->push_back(5);
-        index->getFieldPtr()->push_back(2);
-        index->getFieldPtr()->push_back(6);
-        index->getFieldPtr()->push_back(3);
-        index->getFieldPtr()->push_back(7);
-        endEditCP(index);
+        idx->push_back(1);
+        idx->push_back(5);
+        idx->push_back(2);
+        idx->push_back(6);
+        idx->push_back(3);
+        idx->push_back(7);
 
-        _highlightPoints = GeoPositions3f::create();
-        beginEditCP(_highlightPoints);
-        _highlightPoints->push_back(Pnt3f(-1, -1, -1));
-        _highlightPoints->push_back(Pnt3f( 1, -1, -1));
-        _highlightPoints->push_back(Pnt3f(-1,  1, -1));
-        _highlightPoints->push_back(Pnt3f( 1,  1, -1));
-        _highlightPoints->push_back(Pnt3f(-1, -1,  1));
-        _highlightPoints->push_back(Pnt3f( 1, -1,  1));
-        _highlightPoints->push_back(Pnt3f(-1,  1,  1));
-        _highlightPoints->push_back(Pnt3f( 1,  1,  1));
-        endEditCP(_highlightPoints);
+        _highlightPoints = OSG::GeoPnt3fProperty::create();
+        OSG::GeoPnt3fProperty::StoredFieldType*  p = _highlightPoints->editFieldPtr();
+        p->push_back(Pnt3f(-1, -1, -1));
+        p->push_back(Pnt3f( 1, -1, -1));
+        p->push_back(Pnt3f(-1,  1, -1));
+        p->push_back(Pnt3f( 1,  1, -1));
+        p->push_back(Pnt3f(-1, -1,  1));
+        p->push_back(Pnt3f( 1, -1,  1));
+        p->push_back(Pnt3f(-1,  1,  1));
+        p->push_back(Pnt3f( 1,  1,  1));
 
-        GeometryPtr geo=Geometry::create();
-        beginEditCP(geo);
+        GeometryPtr geo = Geometry::create();
         geo->setTypes     (type);
         geo->setLengths   (lens);
         geo->setIndices   (index);
         geo->setPositions (_highlightPoints);
         geo->setMaterial  (_highlightMaterial);
-        endEditCP(geo);
         addRef(geo);
 
         _highlightNode = Node::create();
-        beginEditCP(_highlightNode);
         _highlightNode->setCore(geo);
-        endEditCP(_highlightNode);
         addRef(_highlightNode);
     }
 
@@ -765,24 +752,19 @@ void SimpleSceneManager::highlightChanged(void)
     {
         if(_highlightNode->getParent() == NullFC)
         {
-            beginEditCP(_internalRoot);
             _internalRoot->addChild(_highlightNode);
-            endEditCP(_internalRoot);
         }
     }
     else
     {
         if(_highlightNode->getParent() != NullFC)
         {
-            beginEditCP(_internalRoot);
             _internalRoot->subChild(_highlightNode);
-            endEditCP(_internalRoot);
         }
 
     }
     // update the highlight geometry
     updateHighlight();
-#endif
 }
 
 /*! Update the highlight for a moved object. Does not handle changing the
@@ -790,7 +772,6 @@ void SimpleSceneManager::highlightChanged(void)
  */
 void SimpleSceneManager::updateHighlight(void)
 {
-#if 0
     if(_highlight==NullFC)
         return;
 
@@ -803,7 +784,6 @@ void SimpleSceneManager::updateHighlight(void)
     Pnt3f min,max;
     vol.getBounds(min, max);
 
-    beginEditCP(_highlightPoints);
     _highlightPoints->setValue(Pnt3f(min[0], min[1], min[2]), 0);
     _highlightPoints->setValue(Pnt3f(max[0], min[1], min[2]), 1);
     _highlightPoints->setValue(Pnt3f(min[0], max[1], min[2]), 2);
@@ -812,11 +792,6 @@ void SimpleSceneManager::updateHighlight(void)
     _highlightPoints->setValue(Pnt3f(max[0], min[1], max[2]), 5);
     _highlightPoints->setValue(Pnt3f(min[0], max[1], max[2]), 6);
     _highlightPoints->setValue(Pnt3f(max[0], max[1], max[2]), 7);
-    endEditCP(_highlightPoints);
-
-    beginEditCP(_highlightNode->getCore(), Geometry::PositionsFieldMask);
-    endEditCP  (_highlightNode->getCore(), Geometry::PositionsFieldMask);
-#endif
 }
 
 /*-------------------------------------------------------------------------*/

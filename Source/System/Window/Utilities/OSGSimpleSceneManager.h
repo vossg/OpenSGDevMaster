@@ -58,8 +58,7 @@
 #include "OSGWindow.h"
 #include "OSGImageForeground.h"
 #include "OSGTransform.h"
-//#include "OSGGeometry.h"
-//#include "OSGGeoPropPtrs.h"
+#include "OSGGeometry.h"
 #include "OSGSimpleMaterial.h"
 #include "OSGPerspectiveCamera.h"
 #include "OSGDirectionalLight.h"
@@ -210,9 +209,10 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     StatisticsForegroundPtr      _statforeground;
     bool                         _statstate;
 
-    //NodePtr                      _highlight;
-    //NodePtr                      _highlightNode;
+    NodePtr                      _highlight;
+    NodePtr                      _highlightNode;
     //GeoPositions3fPtr            _highlightPoints;
+    GeoPnt3fPropertyPtr          _highlightPoints;
      
     NodePtr                      _internalRoot;
     DirectionalLightPtr          _headlight;
