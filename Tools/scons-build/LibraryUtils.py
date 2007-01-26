@@ -87,7 +87,8 @@ class ConfigInfoAdapter(object):
        osg_lib_suffix: Suffix to use for names of OSG libraries.
    """
    def __init__(self, libs, libMap, defaultMergedLib=None,
-                incprefix="-I", libprefix="-l", libpathprefix="-L", osg_lib_suffix=""):
+                incprefix="-I", libprefix="-l", libpathprefix="-L",
+                osg_lib_suffix="", osg_lib_ext=""):
       
       libraries = copy.copy(libs)    # Make a copy so we don't modify the original
       
@@ -112,14 +113,16 @@ class ConfigInfoAdapter(object):
       self.libprefix = libprefix
       self.libpathprefix = libpathprefix
       self.osg_lib_suffix = osg_lib_suffix
+      self.osg_lib_ext = osg_lib_ext
 
    def getIncPath(self):
       return self.merged_lib.cpppath
    def getIncPathStr(self):
       return " ".join(["%s%s"%(self.incprefix,p) for p in self.merged_lib.cpppath])
    def getLibs(self):
-      osg_lib_list = ["%s%s"%(l,self.osg_lib_suffix) for l in self.merged_lib.osg_dep_libs]
-      return osg_lib_list + self.merged_lib.libs
+      osg_lib_list = ["%s%s%s"%(l,self.osg_lib_suffix, self.osg_lib_ext) for l in self.merged_lib.osg_dep_libs]
+      deps_lib_list = ["%s%s"%(l,self.osg_lib_ext) for l in self.merged_lib.libs]
+      return osg_lib_list + deps_lib_list
    def getLibsStr(self):
       return " ".join(["%s%s"%(self.libprefix,l) for l in self.getLibs()])
    def getLibPath(self):

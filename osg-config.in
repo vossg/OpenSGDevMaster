@@ -48,10 +48,12 @@ def main():
    if "win32" == sys.platform:
       def_incprefix = "/I"
       def_libprefix = ""
+      def_libext = ".lib"
       def_libpathprefix = "/LIBPATH:"
    else:
       def_incprefix = "-I"
       def_libprefix = "-l"
+      def_libext = ""
       def_libpathprefix = "-L"
       
    # Create parser
@@ -69,6 +71,8 @@ def main():
                      help="Compiler include path prefix to use. (%s)"%def_incprefix)
    parser.add_option("--lib-prefix",default=def_libprefix, 
                      help="Linker lib prefix to use. (%s)"%def_libprefix)
+   parser.add_option("--lib-ext",default=def_libext, 
+                     help="Linker lib subfix to use. (%s)"%def_libext)
    parser.add_option("--libpath-prefix",default=def_libpathprefix, 
                      help="Linker library path prefix to use. (%s)"%def_libpathprefix)
    parser.add_option("--opt",action="store_true",help="Ignored for backwards compatibility.")
@@ -106,6 +110,7 @@ def main():
    if options.no_prefix_flags:
       options.inc_prefix = ""
       options.lib_prefix = ""
+      options.lib_ext = ""
       options.libpath_prefix = ""
    
    # Create a configuration adapter for the required library
@@ -113,7 +118,8 @@ def main():
    default_lib_settings.libpath.insert(0, inst_lib_path) 
    default_lib_settings.cpppath.insert(0, inst_inc_path)
    config_info = ConfigInfoAdapter(libraries, lib_map, default_lib_settings,
-                     options.inc_prefix, options.lib_prefix, options.libpath_prefix)
+                     options.inc_prefix, options.lib_prefix, options.libpath_prefix,
+                     "", options.lib_ext)
             
    if options.cflags:
       print config_info.getIncPathStr()
