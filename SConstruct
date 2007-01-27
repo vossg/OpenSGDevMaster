@@ -582,10 +582,16 @@ opts = sca_opts.Options(files = [option_filename, 'options.custom'],
 # Handle library name differences between platforms
 if "win32" == platform:
     glut_libname = "glut32"
-    tiff_libname = "tiff32"
+    tiff_libname = "tif32"
+    zlib_libname = "zlib"
+    jpeg_libname = "libjpeg"
+    png_libname = "libpng"
 else:
     glut_libname = "glut"
     tiff_libname = "tiff"
+    zlib_libname = "z"
+    jpeg_libname = "jpeg"
+    png_libname = "png"
 
 # Build options - source and destination directories etc.
 build_options = {}
@@ -621,20 +627,20 @@ else:
 # Options for optional external libraries
 optional_libs_options = {}
 optional_libs_options["jpeg"] = sca_opts.StandardPackageOption(
-    "jpeg", "Location of the JPEG library", library = "jpeg", required = False)
+    "jpeg", "Location of the JPEG library", library = jpeg_libname, required = False)
 
 optional_libs_options["tiff"] = sca_opts.StandardPackageOption(
     "tiff", "Location of the TIFF library", library = tiff_libname, required = False)
 
 optional_libs_options["png"] = sca_opts.StandardPackageOption(
-    "png", "Location of the PNG library", library = "png", required = False)
+    "png", "Location of the PNG library", library = png_libname, required = False)
 
 optional_libs_options["glut"] = sca_opts.StandardPackageOption(
     "glut", "Location of the GLUT library", library = glut_libname,
     header = "GL/glut.h", required = False)
 
 optional_libs_options["zlib"] = sca_opts.StandardPackageOption(
-    "zlib", "Location of the zlib compression library", library = "z",
+    "zlib", "Location of the zlib compression library", library = zlib_libname,
     header = "zlib.h", required = False)
 
 optional_libs_options["NVPerfSDK"] = sca_opts.StandardPackageOption(
@@ -941,6 +947,13 @@ if not SConsAddons.Util.hasHelpFlag():
                             ])
 
          lib_map_str = pprint.pformat(lib_map_build_list)
+
+         # Deal with paths correctly on windows.
+         if GetPlatform() == "win32":
+            common_env["prefix"] = common_env["prefix"].replace('\\', '\\\\')
+            inst_paths["lib"] = inst_paths["lib"].replace('\\', '\\\\')
+            inst_paths["include"] = inst_paths["include"].replace('\\', '\\\\')
+
 
          submap = {'@LIB_MAP_STR@'      : lib_map_str,
                    '@PREFIX@'           : common_env["prefix"],
