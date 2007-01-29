@@ -139,6 +139,8 @@ void keyboard(unsigned char k, int x, int y)
                     
                     mgr->setHighlight(NullFC);
                 }
+
+                commitChanges();
             
                 // free the action
                 delete act;
@@ -242,6 +244,8 @@ int main(int argc, char **argv)
     testgeo->setCore(testgeocore);
     
     scene->addChild(testgeo);
+
+    commitChanges();
 
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;

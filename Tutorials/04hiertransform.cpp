@@ -41,6 +41,8 @@ void display( void )
     
     // set the transform's matrix
     trans->setMatrix(m);
+
+    commitChanges();
      
     mgr->redraw();
 }
@@ -118,7 +120,9 @@ int main(int argc, char **argv)
     }
  
     NodePtr scene = last;
-    
+
+    commitChanges();
+
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;
 

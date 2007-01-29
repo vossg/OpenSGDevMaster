@@ -66,6 +66,7 @@ void display( void )
 
         lightBeacons[i]->setMatrix(m);
     }
+    commitChanges();
     
     mgr->redraw();
 }
@@ -328,7 +329,9 @@ int main(int argc, char **argv)
     }
 
     scene->addChild(lastnode);
-    
+
+    commitChanges();
+
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;
 
@@ -411,6 +414,7 @@ void keyboard(unsigned char k, int x, int y)
                     lights[i]->setOn(true);
                 }
             }
+            commitChanges();
         }
         break;
          
@@ -427,6 +431,7 @@ void keyboard(unsigned char k, int x, int y)
                     lights[i]->setOn(true);
                 }
             }
+            commitChanges();
         }
         break;
          
@@ -443,6 +448,7 @@ void keyboard(unsigned char k, int x, int y)
                     lights[i]->setOn(true);
                 }
             }
+            commitChanges();
         }
         break;
    }

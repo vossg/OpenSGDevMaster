@@ -39,6 +39,8 @@ void display( void )
     
     // set the transform's matrix
     trans->setMatrix(m);
+
+    commitChanges();
    
     mgr->redraw();
 }
@@ -182,6 +184,8 @@ int main(int argc, char **argv)
     trans = Transform::create();
     scene->setCore(trans);
     scene->addChild(n);
+
+    commitChanges();
 
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;

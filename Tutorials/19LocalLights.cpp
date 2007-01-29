@@ -129,6 +129,8 @@ int main(int argc, char **argv)
     _scene->addChild(light3);
     _scene->addChild(light4);
 
+    commitChanges();
+
     // create the SimpleSceneManager helper
     _mgr = new SimpleSceneManager;
 

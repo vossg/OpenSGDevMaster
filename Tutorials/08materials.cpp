@@ -55,6 +55,8 @@ void display(void)
                    Quaternion( Vec3f (0, 0, 1), t / 1000.f));
 
     tortrans->setMatrix(m);
+
+    commitChanges();
     
     mgr->redraw();
 }
@@ -227,7 +229,9 @@ int main(int argc, char **argv)
     
     // assign the material to the geometry
     torusgeo->setMaterial(m2);
-    
+
+    commitChanges();
+
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;
 

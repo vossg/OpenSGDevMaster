@@ -53,6 +53,8 @@ void display( void )
     
         trans[i]->setMatrix(m);
     }
+
+    commitChanges();
     
     mgr->redraw();
 }
@@ -131,6 +133,8 @@ int main(int argc, char **argv)
        
         scene->addChild(transnode);       
     }
+
+    commitChanges();
 
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;

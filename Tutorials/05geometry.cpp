@@ -147,6 +147,8 @@ int main(int argc, char **argv)
     scene->setCore(trans);
     scene->addChild(n);
 
+    commitChanges();
+
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;
 
@@ -213,6 +215,8 @@ void display( void )
         
         pos->setValue(p, i);
     }
+
+    commitChanges();
     
     mgr->redraw();
 }

@@ -48,6 +48,9 @@ void display( void )
     // set the transform's matrix
     
     trans->setMatrix(m);
+
+    commitChanges();
+
     mgr->redraw();
 }
 
@@ -84,6 +87,7 @@ int main(int argc, char **argv)
     // add the torus as a child
     scene->addChild(torus);
     
+    commitChanges();
 
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;

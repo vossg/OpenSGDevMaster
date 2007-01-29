@@ -52,6 +52,8 @@ int main(int argc, char **argv)
     // create the scene
     NodePtr scene = makeTorus(.5, 2, 16, 16);
 
+    commitChanges();
+
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;
 

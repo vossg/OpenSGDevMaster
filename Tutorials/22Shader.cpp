@@ -227,6 +227,8 @@ int main(int argc, char **argv)
     //gwin->addPort(svp);
     gwin->init();
 
+    commitChanges();
+
     // create the SimpleSceneManager helper
     _mgr = new SimpleSceneManager;
 

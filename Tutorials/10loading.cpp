@@ -52,9 +52,6 @@ class NamedNodeFinder
         TraverseEnterFunctor enter =
             boost::bind(&NamedNodeFinder::check, this, _1);
         traverse(root, enter);
-        //traverse(root, osgTypedMethodFunctor1ObjPtrCPtrRef(
-        //                    this, 
-        //                    &NamedNodeFinder::check));
         
         return _found;
     }
@@ -157,6 +154,8 @@ int main(int argc, char **argv)
     {
         SLOG << "Found object " << found << " named TF_DETAIL." << endLog;
     }   
+
+    commitChanges();
 
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;
