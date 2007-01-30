@@ -379,7 +379,7 @@ template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
 osgsin(const FloatTypeT rValue)
 {
-    OSG::osgSin(rValue);
+    return OSG::osgSin(rValue);
 }
 
 /*! \ingroup GrpBaseBaseMathFn
@@ -387,7 +387,7 @@ osgsin(const FloatTypeT rValue)
 inline
 Real32 osgsin(const Real32 rValue)
 {
-    OSG::osgSin(rValue);
+    return OSG::osgSin(rValue);
 }
 
 /*! \ingroup GrpBaseBaseMathFn
@@ -395,7 +395,7 @@ Real32 osgsin(const Real32 rValue)
 inline
 Real64 osgsin(const Real64 rValue)
 {
-    OSG::osgSin(rValue);
+    return OSG::osgSin(rValue);
 }
 
 /*! \ingroup GrpBaseBaseMathFn
@@ -403,7 +403,7 @@ Real64 osgsin(const Real64 rValue)
 inline
 Real128 osgsin(const Real128 rValue)
 {
-    OSG::osgSin(rValue);
+    return OSG::osgSin(rValue);
 }
 
 /*! \ingroup GrpBaseBaseMathFn
@@ -411,7 +411,7 @@ Real128 osgsin(const Real128 rValue)
 inline
 Fixed32 osgsin(const Fixed32 rValue)
 {
-    OSG::osgSin(rValue);
+    return OSG::osgSin(rValue);
 }
 #endif // OSG_1_COMPAT
 
