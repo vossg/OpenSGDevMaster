@@ -172,7 +172,17 @@ struct DestinationManager
 
 static void ostream_init_destination(j_compress_ptr cinfo)
 {
-} // no action necessary
+    DestinationManager* dest= 
+        reinterpret_cast<DestinationManager*>(cinfo->dest);
+
+    // Allocate the output buffer --- it will be released when done with image
+    dest->buffer = (char*)
+        (*cinfo->mem->alloc_small)((j_common_ptr)cinfo, JPOOL_IMAGE, 
+        BUFFERSIZE * sizeof(char));
+
+    dest->pub.next_output_byte = (JOCTET*)dest->buffer;
+    dest->pub.free_in_buffer = BUFFERSIZE;
+}
 
 static boolean ostream_empty_output_buffer(j_compress_ptr cinfo)
 {
@@ -180,8 +190,8 @@ static boolean ostream_empty_output_buffer(j_compress_ptr cinfo)
         reinterpret_cast<DestinationManager*>(cinfo->dest);
 
     destinationManager->os->write(
-        destinationManager->buffer, 
-        BUFFERSIZE - destinationManager->pub.free_in_buffer);
+        (char*)destinationManager->buffer,
+        BUFFERSIZE);
 
     destinationManager->pub.next_output_byte = 
         (JOCTET*)destinationManager->buffer;
@@ -192,7 +202,16 @@ static boolean ostream_empty_output_buffer(j_compress_ptr cinfo)
 
 static void ostream_term_destination(j_compress_ptr cinfo)
 {
-} // no action necessary
+    DestinationManager* dest = 
+        reinterpret_cast<DestinationManager*>(cinfo->dest);
+    
+    size_t datacount = BUFFERSIZE - dest->pub.free_in_buffer;
+    // Write any data remaining in the buffer
+    if (datacount > 0)
+    {
+        dest->os->write((char*)dest->buffer, datacount);
+    }
+}
 
 DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os)
 {
@@ -202,9 +221,6 @@ DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os)
     pub.free_in_buffer = 0; /* forces fill_input_buffer on first read */
     pub.next_output_byte = 0; /* until buffer loaded */
     this->os = &os;
-    buffer = (char*)(*cinfo->mem->alloc_small)((j_common_ptr)cinfo, 
-                                               JPOOL_IMAGE, 
-                                               BUFFERSIZE);
 }
 
 struct osg_jpeg_error_mgr
