@@ -146,6 +146,49 @@ AttachmentContainerMixin<ParentT>::clearField(
 }
 
 /*-------------------------------------------------------------------------*/
+/* Binary access                                                           */
+
+template <class ParentT>
+UInt32
+AttachmentContainerMixin<ParentT>::getBinSize(ConstFieldMaskArg whichField)
+{
+    UInt32 returnValue = Inherited::getBinSize(whichField);
+
+    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
+    {
+        returnValue += _sfAttachments.getBinSize();
+    }
+
+    return returnValue;
+}
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::copyToBin(
+    BinaryDataHandler  &pMem, ConstFieldMaskArg whichField)
+{
+    Inherited::copyToBin(pMem, whichField);
+
+    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
+    {
+        _sfAttachments.copyToBin(pMem);
+    }
+}
+
+template <class ParentT>
+void
+AttachmentContainerMixin<ParentT>::copyFromBin(
+    BinaryDataHandler &pMem, ConstFieldMaskArg whichField)
+{
+    Inherited::copyFromBin(pMem, whichField);
+
+    if(FieldBits::NoField != (AttachmentsFieldMask & whichField))
+    {
+        _sfAttachments.copyFromBin(pMem);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
 /**
