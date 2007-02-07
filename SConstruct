@@ -874,9 +874,6 @@ if not SConsAddons.Util.hasHelpFlag():
    common_env.DefineBuilder(pj(paths["include"], "OpenSG", "OSGConfigured.h"),
                             Value(definemap), definemap=definemap)
 
-   if "win32" == platform:
-       common_env.Append(LINKFLAGS = SCons.Util.CLVar('/nodefaultlib'))
-
    #common_env.Append(CXXFLAGS = "-H") # Use this for pch script generation
    
    # Unit Testing framework

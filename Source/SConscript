@@ -2,6 +2,7 @@
 import os, os.path
 pj = os.path.join
 from LibraryUtils import *
+import SCons
 
 Import('*')
 
@@ -9,7 +10,12 @@ common_lib_env = build_env.Copy()
 
 if verbose_build:
    print "Setting up build for libraries: ",
-   
+
+# On windows we do not want to remove all default libraries from the list of libraries
+# it searches when resolving external references.
+if GetPlatform() == "win32":
+   common_lib_env.Append(LINKFLAGS = SCons.Util.CLVar('/nodefaultlib'))
+
 for (lib_name, library) in lib_map.iteritems():
    if verbose_build:
       print "Library: ", lib_name, "  tests:", library.test_files, "  unittests:", library.unittest_files
