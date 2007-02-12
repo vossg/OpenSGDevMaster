@@ -54,6 +54,7 @@
 OSG_USING_NAMESPACE
 
 #define SILENT
+#define SILENT_CPTR
 
 #if 1
 void ChangeList::addAddRefd(const UInt32 uiContainerId)
@@ -374,6 +375,44 @@ void ChangeList::doApply(void)
 #else
 #ifdef OSG_MT_CPTR_ASPECT
 
+
+    FieldContainerPtr   pSrc = NULL;
+    FieldContainerPtr   pDst = NULL;
+
+    ChangedStoreConstIt ccIt  = _createdStore.begin();
+    ChangedStoreConstIt ccEnd = _createdStore.end  ();
+
+
+    while(ccIt != ccEnd)
+    {
+        AspectStoreP pHandler = 
+            FieldContainerFactory::the()->getContainerHandler(
+                (*ccIt)->uiContainerId);
+
+        if(pHandler == NULL)
+            continue;
+
+        pSrc = pHandler->getPtr(_uiAspect                 );
+        pDst = pHandler->getPtr(Thread::getCurrentAspect());
+
+        if(pSrc == NULL)
+            continue;
+
+        if(pDst == NULL)
+        {
+            pDst = pSrc->getType().createAspectCopy((*ccIt)->uiContainerId);
+
+            pDst->setupAspectStore(pHandler);
+
+#ifndef SILENT_CPTR
+            pHandler->dump();
+#endif
+        }
+
+        ++ccIt;
+    }
+
+
     ChangedStoreIt      cIt  = _changedStore.begin();
     ChangedStoreConstIt cEnd = _changedStore.end  ();
 
@@ -383,8 +422,6 @@ void ChangeList::doApply(void)
             Thread::getCurrentAspect());
 #endif
 
-    FieldContainerPtr pSrc     = NULL;
-    FieldContainerPtr pDst     = NULL;
     BitVector         syncMode = 0;
 
     AspectOffsetStore oOffsets;
@@ -416,11 +453,13 @@ void ChangeList::doApply(void)
 
         if(pDst == NULL)
         {
-            pDst = pSrc->getType().createAspectCopy();
+            pDst = pSrc->getType().createAspectCopy((*cIt)->uiContainerId);
 
             pDst->setupAspectStore(pHandler);
 
+#ifndef SILENT_CPTR
             pHandler->dump();
+#endif
         }
 
 #ifndef SILENT_CPTR
@@ -439,33 +478,17 @@ void ChangeList::doApply(void)
         {
             pSrc->setChangeEntry(NULL);
 
-            pHandler->fillOffsetArray(oOffsets, pDst);
-
-            for(UInt32 i = 0; i < ThreadManager::getNumAspects(); ++i)
-            {
-                fprintf(stderr, "offset %d %d\n", i, oOffsets[i]);
-            }
 #if 1
             if((*cIt)->uiEntryDesc == ContainerChangeEntry::Change)
             {
-/*
-                FieldContainer *pFrom = 
-                    ((FieldContainer *) pTarget.getElemP(uiFromAspect));
+                pHandler->fillOffsetArray(oOffsets, pDst);
 
-                FDEBUG(("Execute sync %u %u %u %016llx\n",
-                        pTarget.getContainerId(),
-                        uiFromAspect,
-                        uiToAspect,
-                        whichField));
-                
-                UInt32 uiSInfo = uiSyncInfo | (uiFromAspect << 24) | (uiToAspect << 16); 
-                
-                pTarget->execSyncV(*pFrom,
-                                   whichField,
-                                   syncMode,
-                                   uiSInfo,
-                                   pTarget.getContainerSize());
- */
+#ifndef SILENT_CPTR
+                for(UInt32 i = 0; i < ThreadManager::getNumAspects(); ++i)
+                {
+                    fprintf(stderr, "offset %d %d\n", i, oOffsets[i]);
+                }
+#endif
 
                UInt32 uiSInfo = 
                    /*uiSyncInfo*/ 0 | 
@@ -546,6 +569,31 @@ void ChangeList::doClear(void)
         ++cIt;
     }
 #else
+#ifdef OSG_MT_CPTR_ASPECT
+    ChangedStoreIt      cIt  = _changedStore.begin();
+    ChangedStoreConstIt cEnd = _changedStore.end  ();
+
+    FieldContainerPtr   pDst = NULL;
+
+    while(cIt != cEnd)
+    {
+        AspectStoreP pHandler = 
+            FieldContainerFactory::the()->getContainerHandler(
+                (*cIt)->uiContainerId);
+
+        if(pHandler == NULL)
+            continue;
+
+        pDst = pHandler->getPtr(Thread::getCurrentAspect());
+
+        if(pDst != NULL)
+        {
+            pDst->setChangeEntry(NULL);
+        }
+
+        ++cIt;
+    }
+#endif
 #endif
 }
 

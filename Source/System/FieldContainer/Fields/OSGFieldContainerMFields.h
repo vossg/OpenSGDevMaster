@@ -83,7 +83,40 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
     const std::vector<UInt16>                    &cloneGroupIds,
     const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
+#ifdef OSG_MT_CPTR_ASPECT
+template<> inline
+void MField<FieldContainerPtr, 
+            0                >::syncWith(
+                MField<FieldContainerPtr, 0> &source, 
+                ConstFieldMaskArg             syncMode,
+                UInt32                        uiSyncInfo,
+                AspectOffsetStore            &oOffsets)
+{
+    if(source.size() != 0)
+    {
+        _values.resize(source.size());
+
+        Self::iterator sIt  = source._values.begin();
+        Self::iterator sEnd = source._values.end  ();
+
+        Self::iterator fIt  = _values.begin();
+        
+        while(sIt != sEnd)
+        {
+            (*fIt) = convertToCurrentAspect(*sIt);
+
+            ++sIt;
+            ++fIt;
+        }
+    }
+    else
+    {
+        _values.clear();
+    }
+}
+#endif
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
 typedef MField<ParentFieldContainerPtr, 1> MFParentFieldContainerPtr;

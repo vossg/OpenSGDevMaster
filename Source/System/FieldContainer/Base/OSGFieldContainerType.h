@@ -233,7 +233,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    FieldContainerPtr createAspectCopy(void) const;
+    FieldContainerPtr createAspectCopy(UInt32 uiContainerId) const;
 #endif
 
     /*! \}                                                                 */

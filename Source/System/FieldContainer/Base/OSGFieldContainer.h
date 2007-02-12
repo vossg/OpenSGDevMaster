@@ -474,6 +474,11 @@ deepClone(      FieldContainerPtrConstArg                src,
           const std::vector<UInt16>                     &ignoreGroupIds    =
               std::vector<UInt16>()                                         );
 
+#ifdef OSG_MT_CPTR_ASPECT
+template<class ContainerPtr> inline
+ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
+#endif
+
 OSG_END_NAMESPACE
 
 #define OSGFIELDCONTAINER_HEADER_CVSID "@(#)$Id$"

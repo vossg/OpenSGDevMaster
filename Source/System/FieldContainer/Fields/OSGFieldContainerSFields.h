@@ -85,7 +85,16 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
     const std::vector<UInt16>                    &cloneGroupIds,
     const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
+#ifdef OSG_MT_CPTR_ASPECT
+template<> inline
+void SField<FieldContainerPtr, 
+            0                >::syncWith(SField<FieldContainerPtr, 0> &source)
+{
+    setValue(convertToCurrentAspect(source.getValue()));
+}
+#endif
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
 typedef SField<

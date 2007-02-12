@@ -368,6 +368,9 @@ void FieldContainer::onCreateAspect(const FieldContainer *,
 inline
 void FieldContainer::onCreate(const FieldContainer *source)
 {
+    registerChangedContainer();
+    
+    _bvChanged = TypeTraits<BitVector>::BitsSet;
 }
 
 inline
@@ -395,6 +398,22 @@ const Char8 *FieldContainer::getClassname(void)
     return "FieldContainer";
 }
 
+#ifdef OSG_MT_CPTR_ASPECT
+template<class ContainerPtr> inline
+ContainerPtr convertToCurrentAspect(ContainerPtr pFC)
+{
+    if(pFC == OSGNullFC)
+    {
+        return OSGNullFC;
+    }
+    
+    ContainerPtr result = 
+        static_cast<ContainerPtr>(
+            pFC->getAspectPtr(Thread::getCurrentAspect()));
+
+    return result;
+}
+#endif
 
 OSG_END_NAMESPACE
 

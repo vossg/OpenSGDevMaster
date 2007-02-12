@@ -224,8 +224,6 @@ void PtrConstructionFunctions<ContainerFactoryT>::newAspectCopy(
 {
     result = new ObjectT(*pPrototype);
 
-    fprintf(stderr, "BARR\n");
-
     result->onCreateAspect(result, pPrototype);
 }
 #endif

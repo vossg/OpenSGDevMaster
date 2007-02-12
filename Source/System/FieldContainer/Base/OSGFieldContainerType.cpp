@@ -128,14 +128,18 @@ FieldContainerPtr FieldContainerType::createContainer(void) const
 }
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr FieldContainerType::createAspectCopy(void) const
+FieldContainerPtr FieldContainerType::createAspectCopy(
+    UInt32 uiContainerId) const
 {
     FieldContainerPtr fc = NullFC;
 
     if(isAbstract() == false)
     {
-        fc = _pPrototype->createAspectCopy();
+        fc = _pPrototype->createAspectCopy();       
     }
+
+    if(fc != NullFC)
+        fc->setId(uiContainerId);
 
     return fc;
 }
