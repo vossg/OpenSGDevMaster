@@ -65,8 +65,6 @@ UInt32 DynFieldAttachment<AttachmentDescT>::addField(
 
     returnValue = _localType.addDescription(fieldDesc);
 
-    fprintf(stderr, "ret : %d %d\n", returnValue, Inherited::NextFieldId);
-
     if(returnValue != 0)
     {
         descP = _localType.getFieldDesc(returnValue);
@@ -122,8 +120,7 @@ template <class AttachmentDescT> inline
 Field *DynFieldAttachment<AttachmentDescT>::editDynamicField(
     UInt32 index) 
 {
-    return NULL;
-//    Field *returnValue = _dynFieldsV[index - Inherited::NextFieldId];
+    return _dynFieldsV[index - Inherited::NextFieldId];
 }
 
 template <class AttachmentDescT> inline
@@ -150,6 +147,21 @@ Field *DynFieldAttachment<AttachmentDescT>::editDynamicFieldByName(
     const Char8  *szName) 
 {
     return NULL;
+}
+
+template <class AttachmentDescT> inline
+FieldContainerPtr DynFieldAttachment<AttachmentDescT>::emptyCopy(void)
+{
+    ObjPtr returnValue = DynFieldAttachment<AttachmentDescT>::createEmpty();
+
+    for(UInt32 i  = Inherited::NextFieldId;
+               i <= _localType.getNumFieldDescs();
+             ++i)
+    {
+        returnValue->addField(*(_localType.getFieldDesc(i)));
+    }
+
+    return returnValue;
 }
 
 template <class AttachmentDescT> inline
