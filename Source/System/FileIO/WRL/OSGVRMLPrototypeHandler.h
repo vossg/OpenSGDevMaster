@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGVRMLNODEFACTORY_H_
-#define _OSGVRMLNODEFACTORY_H_
+#ifndef _OSGVRMLPROTOTYPEHANDLER_H_
+#define _OSGVRMLPROTOTYPEHANDLER_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -45,8 +45,13 @@
 #include "OSGBaseTypes.h"
 #include "OSGBaseFunctions.h"
 
+#include <stack>
+
+#include "OSGVRMLNodeHelper.h"
+
 #ifdef OSG_STL_HAS_HASH_MAP
 #ifdef OSG_HASH_MAP_AS_EXT
+#include <ext/hash_map>
 #else
 #include <hash_map>
 #endif
@@ -54,49 +59,19 @@
 #include <map>
 #endif
 
-#include <stack>
-
-#include "OSGNode.h"
-#include "OSGNodeCore.h"
-#include "OSGFieldContainerAttachment.h"
-#include "OSGGroup.h"
-#include "OSGGeometry.h"
-
-#include "OSGVRMLNodeDescs.h"
-
 OSG_BEGIN_NAMESPACE
 
 //! VRML97 Loader prototype handler 
 //! \ingroup GrpSystemDrawablesGeometrymetryLoaderLib
 
 template <class BaseT>
-class VRMLNodeFactory : public BaseT
+class VRMLNodePrototypeHandler : public BaseT
 {
     /*==========================  PRIVATE  ================================*/
   private:
 
-#ifdef OSG_STL_HAS_HASH_MAP
-#ifdef OSG_USE_HASH_COMPARE
-    typedef 
-        OSG_STDEXTENSION_NAMESPACE::hash_map<
-            const Char8  *,  
-            VRMLNodeDesc *,
-            HashCmpString> NodeNameDescHash;
-#else
-    typedef 
-        OSG_STDEXTENSION_NAMESPACE::hash_map<
-            const Char8  *,  
-            VRMLNodeDesc *, 
-            OSG_STDEXTENSION_NAMESPACE::hash<const Char8 *>, 
-            EQString                                      > NodeNameDescHash;  
-#endif
-#else
-    typedef 
-        std::map<     const Char8 *,  VRMLNodeDesc  *, 
-                                      LTString       > NodeNameDescHash;
-#endif
 
-    typedef VRMLNodeFactory<BaseT> Self;
+    typedef VRMLNodePrototypeHandler<BaseT> Self;
     
     /*==========================  PUBLIC  =================================*/
   public :
@@ -105,14 +80,14 @@ class VRMLNodeFactory : public BaseT
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    VRMLNodeFactory(void);
+    VRMLNodePrototypeHandler(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~VRMLNodeFactory(void); 
+    virtual ~VRMLNodePrototypeHandler(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -120,6 +95,7 @@ class VRMLNodeFactory : public BaseT
     /*! \{                                                                 */
 
     virtual void beginProto            (const Char8 *szProtoname);
+    virtual void endProtoInterface     (      void);
     virtual void endProto              (      void);
 
     virtual void beginEventInDecl      (const Char8 *szEventType,
@@ -142,53 +118,68 @@ class VRMLNodeFactory : public BaseT
 
     virtual void endExposedFieldDecl   (      void);
 
-    virtual void addFieldValue         (const Char8 *szFieldVal);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    void dumpTable(void);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     typedef BaseT Inherited;
+
+#ifdef OSG_STL_HAS_HASH_MAP
+#ifdef OSG_USE_HASH_COMPARE
+    typedef 
+        OSG_STDEXTENSION_NAMESPACE::hash_map<
+            const Char8    *,  
+            VRMLNodeHelper *,
+            HashCmpString                    > NameHelperMap;
+#else
+    typedef 
+        OSG_STDEXTENSION_NAMESPACE::hash_map<
+            const Char8  *,  
+            VRMLNodeHelper *, 
+            OSG_STDEXTENSION_NAMESPACE::hash<
+                const Char8 *>, 
+            EQString                         > NameHelperMap;  
+#endif
+#else
+    typedef 
+        std::map<const Char8 *,  
+                       CreateHelper, 
+                       LTString              > NameHelperMap;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    VRMLNodeDesc     *_pCurrentNodeDesc;
-    NodeNameDescHash  _mNodeDescHash;
-
-    bool              _bInFieldProto;
-    bool              _bIgnoreProto;
+    VRMLNodeHelper     *_pCurrentHelper;
+    NameHelperMap       _mNodeHelperHash;
 
 
-    VRMLNodeDesc *findNodeDesc     (const Char8        *szNodeTypename);
-    void          addNodeDesc      (const Char8        *szNodeTypename,
-                                          VRMLNodeDesc *pDesc);
+    VRMLNodeHelper *findNodeHelper    (const Char8          *szNodeTypename);
 
-    virtual void preStandardProtos (      void);
-    virtual void postStandardProtos(      void);
+    virtual void    preStandardProtos (      void);
+    virtual void    postStandardProtos(      void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    VRMLNodeFactory(const VRMLNodeFactory &source);
+    VRMLNodePrototypeHandler(const VRMLNodePrototypeHandler &source);
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const VRMLNodeFactory &source);
+    void operator =(const VRMLNodePrototypeHandler &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGVRMLNodeFactory.inl"
+#include "OSGVRMLPrototypeHandler.inl"
 
-#define OSGVRMLNODEFACTORY_HEADER_CVSID "@(#)$Id$"
+#define OSGVRMLPROTOTYPEHANDLER_HEADER_CVSID "@(#)$Id$"
 
-#endif /* _OSGVRMLNODEFACTORY_H_ */
+#endif /* _OSGVRMLPROTOTYPEHANDLER_H_ */

@@ -56,34 +56,12 @@
 #include "OSGField.h"
 #include "OSGFieldContainer.h"
 
-#include "OSGVRMLNodeFactory.h"
+#include "OSGVRMLPrototypeHandler.h"
 
 OSG_BEGIN_NAMESPACE
 
-typedef VRMLNodeFactory<ScanParseFieldTypeMapper<ScanParseSkel> > Parent;
-
-#if __GNUC__ >= 3
-#    if __GNUC_MINOR__ >=4
-#        define OSG_GCC_34 1
-#    endif
-#endif
-# if __GNUC__ >= 4
-#    define OSG_GCC_34 1
-#endif
-
-#if __GNUC__ >= 4
-#   define OSG_GCC_4 1
-#endif
-
-#ifndef OSG_COMPILEVRMLLOADERINST
-#if !defined(__sgi) && !defined(__hpux) && !defined(OSG_LINUX_ICC) && \
-    !defined(__sun) && !defined(OSG_GCC_34) && !defined(OSG_GCC_4)
-extern template OSG_FILEIO_DLLMAPPING
-ScanParseFieldTypeMapper<ScanParseSkel>;
-extern template OSG_FILEIO_DLLMAPPING
-VRMLNodeFactory<ScanParseFieldTypeMapper<ScanParseSkel> >;
-#endif
-#endif
+typedef VRMLNodePrototypeHandler<
+    ScanParseFieldTypeMapper<ScanParseSkel> > Parent;
 
 //! VRML97 Loader (Geometry only)
 //! \ingroup GrpSystemDrawablesGeometrymetryLoaderLib
@@ -91,12 +69,14 @@ VRMLNodeFactory<ScanParseFieldTypeMapper<ScanParseSkel> >;
 class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 {
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     typedef Parent   Inherited;
     typedef VRMLFile Self;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     enum
@@ -129,14 +109,17 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 
     virtual void   scanStream    (std::istream &is);
 
-    virtual void   scanFile      (const Char8  *szFilename);
-
     virtual void   handleError   (const Char8  *szErrorText);
+
+    virtual void   beginProto            (const Char8 *szProtoname);
+    virtual void   endProtoInterface     (      void);
+    virtual void   endProto              (      void);
 
     virtual void   beginFieldDecl(const Char8  *szFieldType,
                                   const UInt32  uiFieldTypeId,
                                   const Char8  *szFieldName);
 
+    virtual void   endFieldDecl  (void                      );
 
     virtual void   beginNode     (const Char8 *szNodeTypename,
                                   const Char8 *szNodename);
@@ -177,39 +160,33 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     /*=========================  PROTECTED  ===============================*/
   protected:
 
-    typedef std::pair<BitVector,
-                      BitVector>                  MaskPair;
-
-    typedef std::map<IDString, FieldContainerPtr> NameContainerMap;
-    typedef std::map<IDString, VRMLNodeDesc    *> NameDescriptionMap;
-    typedef std::stack<       MaskPair          > MaskStack;
+    typedef std::map  <IDString, FieldContainerPtr > NameContainerMap;
+    typedef std::map  <IDString, VRMLNodeHelper   *> NameHelperMap;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-//          NodePtr                    _pRoot;
-               NodePtr                    _pSceneRootNode;
+               NodePtr                        _pSceneRootNode;
 
-               NodePtr                    _pLightRoot;
-               NodePtr                    _pCurrentGlobalLight;
+               NodePtr                        _pLightRoot;
+               NodePtr                        _pCurrentGlobalLight;
 
-               VRMLNodeDesc *             _pCurrNodeDesc;
-    std::stack<VRMLNodeDesc *>            _sNodeDescs;
+               VRMLNodeHelper *               _pCurrNodeHelper;
+    std::stack<VRMLNodeHelper *>              _sNodeHelpers;
 
-               FieldContainerPtr          _pCurrentFC;
-               Field                     *_pCurrentField;
-    const      FieldDescriptionBase      *_pCurrentFieldDesc;
+               FieldContainerPtr              _pCurrentFC;
+               FieldContainerPtr              _pCurrentFieldFC;
+               Field                         *_pCurrentField;
+    const      FieldDescriptionBase          *_pCurrentFieldDesc;
 
-    std::stack<      FieldContainerPtr >  _fcStack;
-    std::stack<      Field            *>  _fStack;
+    std::stack<      FieldContainerPtr     >  _fcStack;
+    std::stack<      Field                *>  _fStack;
     std::stack<const FieldDescriptionBase *>  _fdStack;
 
-               MaskPair                    _bvChanged;
-               MaskStack                   _sChangedStack;
+               NameContainerMap               _nameFCMap;
+               NameHelperMap                  _nameHelperMap;
 
-               NameContainerMap            _nameFCMap;
-               NameDescriptionMap          _nameDescMap;
 
     void              initIntExtFieldTypeMapper(void);
     void              initExtIntFieldTypeMapper(void);

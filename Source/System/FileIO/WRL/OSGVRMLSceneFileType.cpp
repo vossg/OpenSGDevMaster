@@ -46,7 +46,7 @@
 #include "OSGVRMLSceneFileType.h"
 #include "OSGVRMLWriteAction.h"
 
-//#include "OSGVRMLFile.h"
+#include "OSGVRMLFile.h"
 
 OSG_USING_NAMESPACE
 
@@ -60,8 +60,8 @@ VRMLSceneFileType VRMLSceneFileType::_the(_suffixA,
                                           sizeof(_suffixA),
                                           false,
                                           10,
-                                          /* OSG_READ_SUPPORTED | */
-                                          OSG_WRITE_SUPPORTED);
+                                          (OSG_READ_SUPPORTED |
+                                           OSG_WRITE_SUPPORTED));
 
 /*-------------------------------------------------------------------------*/
 /*                                The                                      */
@@ -94,7 +94,6 @@ NodePtr VRMLSceneFileType::read(std::istream &is, const Char8 *) const
 {
     NodePtr root = NullFC;
 
-#if 0
     VRMLFile *loader = new VRMLFile();
 
     loader->createStandardPrototypes();
@@ -103,7 +102,6 @@ NodePtr VRMLSceneFileType::read(std::istream &is, const Char8 *) const
     root = loader->getRoot();
 
     delete loader;
-#endif
 
     return root;
 }
@@ -115,7 +113,9 @@ bool VRMLSceneFileType::write(const NodePtr &node, std::ostream &os,
                               const Char8 *fileNameOrExtension) const
 {
     // This is a hack but should be safer.
+
     std::ofstream *osf = dynamic_cast<std::ofstream *>(&os);
+
     if(osf != NULL)
         osf->close();
     

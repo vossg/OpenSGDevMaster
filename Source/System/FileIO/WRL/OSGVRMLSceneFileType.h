@@ -92,8 +92,9 @@ class OSG_FILEIO_DLLMAPPING VRMLSceneFileType : public SceneFileType
     /*! \name                   Write                                      */
     /*! \{                                                                 */
 
-    virtual bool write(const NodePtr &node, std::ostream &os,
-                       const Char8 *fileNameOrExtension) const;
+    virtual bool write(const NodePtr      &node, 
+                             std::ostream &os,
+                       const Char8        *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
