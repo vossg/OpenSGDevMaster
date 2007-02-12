@@ -49,6 +49,21 @@
 
 OSG_USING_NAMESPACE
 
+void osgGetHostname(char *szBuffer, UInt32 uiSize)
+{
+    // get local host name
+    if(getenv("OSG_HOSTNAME") != NULL)
+    {
+        strncpy(szBuffer, getenv("OSG_HOSTNAME"), uiSize);
+    }
+    else
+    {
+        gethostname(szBuffer, uiSize);
+    }
+}
+
+
+
 /*! \class string_token_iterator
 
     \brief Iterator over tokens in a std::string, separated by a specifiable

@@ -368,6 +368,8 @@ inline
 Real32 osgrand(void);
 #endif
 
+OSG_BASE_DLLMAPPING
+void osgGetHostname(char *szBuffer, UInt32 uiSize);
 
 #if defined(WIN32) && defined(_MSC_VER) 
 #if _MSC_VER <= 1200  // VC6

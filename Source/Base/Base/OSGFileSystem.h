@@ -103,11 +103,11 @@ namespace Directory
 #ifndef OSG_WINCE
     static Char8                *getCurrent(void);
 
-    static bool                  setCurrent(const Char8 *szDirname,
-                                            const Char8 *szPattern);
+    static bool                  setCurrent(const Char8 *szDirname);
 #endif
 
-    static std::vector<Char8 *> *getEntries(const Char8 *szDirname);
+    static std::vector<Char8 *> *getEntries(const Char8 *szDirname,
+                                            const Char8 *szPattern);
 }
 
 namespace Path

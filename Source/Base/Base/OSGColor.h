@@ -146,18 +146,6 @@ class Color3 : public VectorInterface< ValueTypeT, VecStorage3<ValueTypeT> >
     /*! \name                        Operators                             */
     /*! \{                                                                 */
 
-/**
-           Color3    operator  *(const ValueType  val      );
-
-            Color3   &operator  =(const Color3    &source   );
-
-            bool      equals     (const Color3    &other, 
-                                  const ValueType  tolerance) const;
-
-            bool      operator ==(const Color3    &other    ) const;
-            bool      operator !=(const Color3    &other    ) const;
-**/
-    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -246,22 +234,7 @@ class Color4 : public VectorInterface< ValueTypeT, VecStorage4<ValueTypeT> >
     /*---------------------------------------------------------------------*/
     /*! \name                       Operators                              */
     /*! \{                                                                 */
-
-/**
-          Color4     operator * (const ValueType  val      );
-
-          ValueType &operator [](const UInt32     uiIndex  );
-    const ValueType &operator [](const UInt32     uiIndex  ) const;
-
-          Color4    &operator = (const Color4    &source   );
-
-          bool       equals     (const Color4    &other, 
-                                 const ValueType  tolerance) const;
-
-          bool       operator ==(const Color4    &other    ) const;
-          bool       operator !=(const Color4    &other    ) const;
-**/
-    
+   
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

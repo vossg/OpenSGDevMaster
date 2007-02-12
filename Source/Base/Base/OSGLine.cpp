@@ -629,7 +629,24 @@ bool Line::intersect(const BoxVolume &box,
     exit  = out;
 
     // Eps: count flat boxes as intersected
-    return ((enter - exit) < Eps);
+
+
+    // BUGFIXED, was:  
+
+    // return enter-exit < Eps;
+
+    // This got unstable with bbox check of huge planes
+    // and if compiled as opt lib (at least with my gcc 4.0.2).
+    // However it worked when compiled as dbg lib. 
+
+    // And now something completely different...
+
+    return in-out < Eps;
+
+    // To get you even more confused: It also works if you leave it
+    // as "enter-exit" but declare in/out as Real64.
+
+    // Now think about it......and if it is not 42, please tell!
 }
 
 #ifdef __sgi

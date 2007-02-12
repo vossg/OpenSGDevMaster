@@ -80,6 +80,154 @@ static std::vector<ExitFuncF>    *osgPostMPExitFunctions      = NULL;
 static std::vector<tstring  >    *osgPreloadSharedObject      = NULL;
 
 
+
+/*! \ingroup GrpBaseBaseInitExit
+    \hideinhierarchy
+    .
+ */
+
+struct OSG_BASE_DLLMAPPING CompileConfig
+{
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Constructors                            */
+    /*! \{                                                                 */
+
+    CompileConfig(UInt16 major, 
+                  UInt16 minor, 
+                  UInt16 release,
+                  bool debug, 
+                  bool dll, 
+                  bool mt);
+
+    bool compare(const CompileConfig& c);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Members                               */
+    /*! \{                                                                 */
+
+    UInt16  _major;
+    UInt16  _minor;
+    UInt16  _release;
+
+    // Windows-specific ones
+ 
+    bool    _mt;
+    bool    _dll;
+    bool    _debug;
+    
+    /*! \}                                                                 */
+};
+
+CompileConfig::CompileConfig(UInt16 major, 
+                             UInt16 minor, 
+                             UInt16 release,
+                             bool debug, 
+                             bool dll, 
+                             bool mt) :
+    _major  (major  ),
+    _minor  (minor  ),
+    _release(release),
+    _debug  (debug  ),
+    _dll    (dll    ),
+    _mt     (mt     )
+{
+}
+
+bool CompileConfig::compare(const CompileConfig &c)
+{
+    FDEBUG(("CompileConfig::compare: lib: version %d.%d.%d, %sdebug, %sdll, "
+            "%smt \n",
+            _major, 
+            _minor, 
+            _release, 
+            _debug ? "" : "non-", 
+            _dll   ? "" : "non-", 
+            _mt    ? "" : "non-"));
+
+    FDEBUG(("CompileConfig::compare: prog: version %d.%d.%d, %sdebug, %sdll, "
+            "%smt \n",
+            c._major, 
+            c._minor, 
+            c._release, 
+            c._debug ? "" : "non-", 
+            c._dll   ? "" : "non-", 
+            c._mt    ? "" : "non-"));
+             
+    if(_major != c._major)
+    {
+        FFATAL(("The program is compiled against version %d headers, "
+                "but the library is version %d! It's a miracle it linked, "
+                "but it will not work.\n", 
+                  _major, 
+                c._major));
+        return true;
+    }
+
+    if(_minor != c._minor)
+    {
+        FWARNING(("The program is compiled against version %d.%d headers, "
+                  "but the library is version %d.%d! This is not recommended "
+                  "use at your own risk.\n", 
+                    _major, 
+                    _minor, 
+                  c._major, 
+                  c._minor));
+    }
+
+    if(_release != c._release)
+    {
+        FNOTICE(("The program is compiled against version %d.%d.%d headers, "
+                 "but the library is version %d.%d.%d! This should "
+                 "work fine, but if you have problems please mention it "
+                 "in your report.\n", 
+                   _major, 
+                   _minor, 
+                   _release,
+                 c._major, 
+                 c._minor, 
+                 c._release));
+    }
+
+    if(_mt != c._mt)
+    {
+        FFATAL(("The program is linked against the %s-threaded runtime lib, "
+                "but the library is linked against the %s-threaded one! "
+                "This will lead to memory corruption, please link the "
+                "%s-threaded lib (use /M%s%s instead of /M%s%s)!\n", 
+                c._mt    ? "multi" : "single", 
+                  _mt    ? "multi" : "single", 
+                  _mt    ? "multi" : "single",
+                  _mt    ? "D"     : "L", 
+                  _debug ? "d"     : "",
+                  _mt    ? "L"     : "D", 
+                  _debug ? "d"     : ""));
+        return true;
+    }
+    
+#ifdef WIN32
+    if(_debug != c._debug)
+    {
+        FFATAL(("The program is linked against the %sdebug runtime lib, "
+                "but the library is linked against the %sdebug one! "
+                "This will lead to memory corruption, please link the "
+                "%sdebug lib (use /M%s%s instead of /M%s%s)!\n", 
+                c._debug ? ""  : "non-", 
+                  _debug ? ""  : "non-", 
+                  _debug ? ""  : "non-",
+                  _mt    ? "D" : "L", 
+                  _debug ? "d" : "", 
+                  _mt    ? "D" : "L", 
+                  _debug ? "d" : ""));
+
+        return true;
+    }
+#endif
+
+    return false;
+}
+
+
 /*! Version string that is composed of each library's version 
     contributions
 */
@@ -281,6 +429,10 @@ void preloadSharedObject(const TChar *szName)
     osgPreloadSharedObject->push_back(tmpString);
 }
 
+
+
+
+
 /*! Add a string to the version output. 
     Mainly used by the libraries to publicise the svn revision they were
     built from.
@@ -318,8 +470,36 @@ void addLibraryVersion(const Char8 *szName)
 
     \ingroup GrpBaseBaseInitExit
  */
-bool osgInit(Int32, Char8 **)
+bool osgInit(Int32, 
+             Char8 **,
+             UInt16   major,
+             UInt16   minor,
+             UInt16   release,
+             bool     debug,
+             bool     dll,
+             bool     mt)
 {
+    CompileConfig prog(major, 
+                       minor, 
+                       release, 
+                       debug, 
+                       dll, 
+                       mt);
+
+    CompileConfig lib (OSG_MAJOR_VERSION, 
+                       OSG_MINOR_VERSION, 
+                       OSG_RELEASE_VERSION,
+                       OSG_INIT_DEBUG,
+                       OSG_INIT_DLL,
+                       OSG_INIT_MT);
+    
+    if(lib.compare(prog))
+    {
+        exit(1);
+    }
+
+
+
     bool returnValue = true;
 
     returnValue = SharedObjectHandler::the()->initialize();
@@ -334,12 +514,19 @@ bool osgInit(Int32, Char8 **)
     }
 
 #ifndef OSG_WINCE
+
+#ifdef WIN32
+    std::string pathSep(";");
+#else
+    std::string pathSep(":");
+#endif
+
     char *szEnvLibs = getenv("OSG_LOAD_LIBS");
 
     if(szEnvLibs != NULL)
     {
         std::string tmpString(szEnvLibs);
-        string_token_iterator libIt(tmpString, ":");
+        string_token_iterator libIt(tmpString, pathSep.c_str());
 
         string_token_iterator libEnd;
 

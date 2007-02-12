@@ -334,7 +334,9 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
 
-    void connect(void);
+    void connect    (void                           );
+
+    bool colorHeader(LogLevel level, const char *sep);
 
     static void terminate(void);
 

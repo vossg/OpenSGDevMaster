@@ -132,8 +132,31 @@ void preloadSharedObject(const TChar *szName);
 OSG_BASE_DLLMAPPING
 void addLibraryVersion(const Char8 *szName);
 
+#ifdef _DEBUG  
+# define OSG_INIT_DEBUG true
+#else
+# define OSG_INIT_DEBUG false
+#endif
+#ifdef _DLL  
+# define OSG_INIT_DLL   true,
+#else
+# define OSG_INIT_DLL   false
+#endif
+#ifdef _MT  
+#define OSG_INIT_MT     true
+#else
+#define OSG_INIT_MT     false
+#endif
+
 OSG_BASE_DLLMAPPING 
-bool osgInit(Int32 argc, Char8 **argv);
+bool osgInit(Int32    argc, 
+             Char8  **argv,
+             UInt16   major   = OSG_MAJOR_VERSION, 
+             UInt16   minor   = OSG_MINOR_VERSION, 
+             UInt16   release = OSG_RELEASE_VERSION,
+             bool     debug   = OSG_INIT_DEBUG,
+             bool     dll     = OSG_INIT_DLL,
+             bool     mt      = OSG_INIT_MT        );
 
 OSG_BASE_DLLMAPPING 
 bool osgExit(void);

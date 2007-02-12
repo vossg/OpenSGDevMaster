@@ -263,6 +263,74 @@ const Char8        *Log::_levelColor[] =
     0
 };
 
+/*! \brief colorHeader which takes the log level for level color
+ */
+bool Log::colorHeader(LogLevel level, const char *sep)
+{
+#if defined (OSG_WIN_TYPES) && !defined(OSG_NO_WINDOWD_H_INCLUDE)
+    bool ok = true;
+    std::string str("");
+    LPSTR colStr;
+    DWORD cWritten; 
+    WORD oldColAttrs, colAttrs;
+    CONSOLE_SCREEN_BUFFER_INFO csbiInfo; 
+    HANDLE hOutput = INVALID_HANDLE_VALUE;
+    
+    switch (_logType) 
+    {
+        case LOG_STDERR:
+            hOutput = GetStdHandle(STD_ERROR_HANDLE);
+            break;
+        case LOG_STDOUT:
+            hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+            break;
+        default:
+            break;
+    }
+    
+    if(hOutput == INVALID_HANDLE_VALUE ||
+       !GetConsoleScreenBufferInfo(hOutput, &csbiInfo) ) 
+    {
+        ok = false;
+    }
+    else 
+    {
+        oldColAttrs = csbiInfo.wAttributes; 
+        
+        switch (level) 
+        {
+            case LOG_FATAL:
+                colAttrs = FOREGROUND_RED | FOREGROUND_INTENSITY;
+                break;
+            case LOG_WARNING:
+                colAttrs = FOREGROUND_RED | FOREGROUND_GREEN;
+                break;
+            default:
+                colAttrs = oldColAttrs;
+                break;
+        }
+
+        if(_levelName[level] != NULL)
+            str = _levelName[level];
+
+        if(sep != NULL)
+            str += sep;
+    
+        colStr = (LPSTR)str.c_str();
+        
+        if(!SetConsoleTextAttribute(hOutput, colAttrs) ||
+           !WriteFile(hOutput, colStr, lstrlen(colStr), &cWritten, NULL) ||  
+           !SetConsoleTextAttribute(hOutput, oldColAttrs) )
+        {
+            ok = false;
+        }
+    }
+    
+    return ok;
+#else
+    return false;
+#endif
+}
 
 Log::Log(LogType logType, LogLevel logLevel) :
      std::ostream  (_nilbufP == NULL ? 
@@ -714,14 +782,52 @@ void Log::setLogFile(const Char8 *fileName, bool force)
 
 void Log::doLog(const Char8 * format, ...)
 {
-    Char8   buffer[4096];
+    static Char8 *buffer      = NULL;
+    static int    buffer_size = 0;
+
     va_list args;
     
     va_start( args, format );
 
-#ifdef OSG_HAS_VSNPRINTF
-    vsnprintf(buffer, sizeof(buffer) - 1, format, args);
+#if defined(OSG_HAS_VSNPRINTF) && !defined(__sgi)
+    int count;
+    
+    if(buffer == NULL)
+    {
+        buffer_size = 8;
+        buffer = new Char8[buffer_size];
+    }
+    
+    // on windows it returns -1 if the output
+    // was truncated due to the buffer size limit.
+    // on irix this returns always buffer_size-1 ????
+
+    count = vsnprintf(buffer, buffer_size, format, args);
+    
+    while(count >= buffer_size || count == -1)
+    {
+        buffer_size = osgMax(buffer_size * 2, count + 1);
+
+        if(buffer != NULL) 
+            delete [] buffer;
+
+        buffer = new Char8[buffer_size];
+
+        va_start(args, format);
+
+        count = vsnprintf(buffer, buffer_size, format, args);
+    }
 #else
+    if(buffer_size < 8192)
+    {
+        buffer_size = 8192;
+
+        if(buffer != NULL) 
+            delete [] buffer;
+
+        buffer = new Char8[buffer_size];
+    }
+
     vsprintf(buffer, format, args);
 #endif
 

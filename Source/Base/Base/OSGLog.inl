@@ -173,6 +173,12 @@ std::ostream &Log::doHeader(      LogLevel  level,
         
         if(_headerElem & LOG_TYPE_HEADER)
         {
+#ifdef WIN32
+            if(!color || !colorHeader(level, sep))
+            {
+                sout << _levelName[level] << sep;
+            }
+#else
             if (color)
                 sout << color;          
 
@@ -180,6 +186,7 @@ std::ostream &Log::doHeader(      LogLevel  level,
 
             if (color)
                 sout << resetColor;
+#endif
         }
 
         if(_headerElem & LOG_TIMESTAMP_HEADER) 

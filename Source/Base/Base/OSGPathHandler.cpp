@@ -101,6 +101,8 @@ std::string PathHandler::findFile(const Char8 *fileName)
 
     PathType     pType   = analysePath(fileName);
 
+    // doesn't work for filenames with ;
+    // the original patch for it looks broken or incomplete
     parsePathList(fileName, tmpList);
 
     if(tmpList.size() != 0)
