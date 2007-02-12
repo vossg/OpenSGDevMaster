@@ -180,6 +180,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
     virtual bool verifyHeader             (const Char8 *szHeader);
 
     virtual void beginProto               (const Char8 *szProtoname);
+    virtual void endProtoInterface        (void);
     virtual void endProto                 (void);
 
     virtual void beginExternProto         (const Char8 *szProtoname);

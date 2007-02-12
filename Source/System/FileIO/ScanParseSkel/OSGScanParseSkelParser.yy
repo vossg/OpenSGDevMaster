@@ -284,7 +284,7 @@ protoStatements:
 
 proto:
     TOK_PROTO nodeTypeId { SKEL->beginProto($2); }
-    '[' interfaceDeclarations ']'
+    '[' interfaceDeclarations ']' { SKEL->endProtoInterface(); }
     '{' protoBody '}' { SKEL->endProto(); };
 
 protoBody:

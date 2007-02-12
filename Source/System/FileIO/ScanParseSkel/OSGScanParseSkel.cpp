@@ -192,6 +192,10 @@ void ScanParseSkel::endProto(void)
 {
 }
 
+void ScanParseSkel::endProtoInterface(void)
+{
+}
+
 void ScanParseSkel::beginExternProto(const Char8 *)
 {
 }
