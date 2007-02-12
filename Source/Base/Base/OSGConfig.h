@@ -901,6 +901,10 @@
 #include "OSGExportDefines.h"
 #include "OSGConfigured.h"
 
+#ifdef OSG_1_COMPAT
+#define osg OSG
+#endif
+
 #if OSG_DISABLE_DEPRECATED == 0
 # define OSG_DEPRECIATED_PROPS 1
 #endif
