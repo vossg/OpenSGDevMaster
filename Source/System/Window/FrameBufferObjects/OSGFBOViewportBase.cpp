@@ -383,15 +383,8 @@ void FBOViewportBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -401,8 +394,8 @@ DataType FieldTraits<FBOViewportPtr>::_type("FBOViewportPtr", "ViewportPtr");
 
 OSG_FIELDTRAITS_GETTYPE(FBOViewportPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, FBOViewportPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, FBOViewportPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, FBOViewportPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, FBOViewportPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

@@ -112,8 +112,7 @@ struct FieldTraits<FBOViewportPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFFBOViewportPtr"; }
     static const char *getMName(void) { return "MFFBOViewportPtr"; }
