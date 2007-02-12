@@ -69,6 +69,13 @@ class SFieldAdaptor : public ParentT
     typedef typename SFieldTraits::ArgumentType     ArgumentType;
 
     /*---------------------------------------------------------------------*/
+    /*! \name                   Class Get                                  */
+    /*! \{                                                                 */
+
+    static const FieldType &getClassType(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
@@ -155,6 +162,8 @@ class SFieldAdaptor : public ParentT
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
+    static FieldType _fieldType;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
@@ -193,6 +202,10 @@ class SFieldAdaptor : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
+
+#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_HELPER_FCT)
+    const FieldType &fieldTypeExportHelper(void);
+#endif
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

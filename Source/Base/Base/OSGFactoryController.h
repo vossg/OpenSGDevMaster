@@ -121,8 +121,8 @@ class OSG_BASE_DLLMAPPING FactoryControllerBase
     //   friend functions                                                    
     //-----------------------------------------------------------------------
 
-    friend  bool OSG::osgInit(Int32 argc, Char8 **argv);
-    friend  bool OSG::osgExit(void                    );
+    friend  bool osgInit(Int32 argc, Char8 **argv);
+    friend  bool osgExit(void                    );
 
     //-----------------------------------------------------------------------
     //   class variables                                                     

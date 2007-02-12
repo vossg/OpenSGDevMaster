@@ -509,17 +509,6 @@ print "Building OpenSG ", opensg_version_string
 
 platform = sca_util.GetPlatform()
 unspecified_prefix = "use-instlinks"
-option_filename = "option.cache." + platform
-
-if ARGUMENTS.has_key("options_file"):
-   opt_file = ARGUMENTS["options_file"]
-   if os.path.exists(opt_file):
-      print "Reading options from: %s" % str(opt_file)
-      option_filename = opt_file
-   else:
-      print "Options file '%s' not found.. will continue with default '%s'" % \
-      (opt_file, option_filename)
-
 
 
 # Create base environment to use for option processing
@@ -544,6 +533,18 @@ else:
 
 SConsignFile('.sconsign.'+GetPlatform()+common_env['CXX'])
 buildDir = "build." + platform + '.' + common_env['CXX']
+
+option_filename = "option.cache." + platform + '.' + common_env['CXX']
+
+if ARGUMENTS.has_key("options_file"):
+   opt_file = ARGUMENTS["options_file"]
+   if os.path.exists(opt_file):
+      print "Reading options from: %s" % str(opt_file)
+      option_filename = opt_file
+   else:
+      print "Options file '%s' not found.. will continue with default '%s'" % \
+      (opt_file, option_filename)
+
 
 # Setup the directories used for sconf processing
 common_env["CONFIGUREDIR"] = '.sconf_temp_'+platform+'_'+common_env['CXX']
