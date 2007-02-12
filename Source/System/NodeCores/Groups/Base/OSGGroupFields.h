@@ -112,8 +112,7 @@ struct FieldTraits<GroupPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFGroupPtr"; }
     static const char *getMName(void) { return "MFGroupPtr"; }

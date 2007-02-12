@@ -71,5 +71,11 @@ int main(int argc, char **argv)
     OSG::TestAtt::getClassType().dump();
     tp->getType().dump();
 
+    OSG::SFNodePtr::getClassType().dump();
+    OSG::MFNodePtr::getClassType().dump();
+
+    OSG::SFFieldContainerPtr::getClassType().dump();
+    OSG::MFFieldContainerPtr::getClassType().dump();
+
     return 0;
 }

@@ -112,8 +112,7 @@ struct FieldTraits<GeometryPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFGeometryPtr"; }
     static const char *getMName(void) { return "MFGeometryPtr"; }

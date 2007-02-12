@@ -419,7 +419,7 @@ int main (int argc, char **argv)
     vp->setRoot( root );
     vp->setSize( 0,0, 1,1 );
 
-    vp->dump();
+//    vp->dump();
 
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
@@ -465,6 +465,12 @@ int main (int argc, char **argv)
     tball.setTranslationMode( Trackball::OSGFree );
     tball.setTranslationScale(scale);
     tball.setRotationCenter(tCenter);
+
+    fprintf(stderr, "%d\n", MFNodePtr          ::getClassType().getId());
+    fprintf(stderr, "%d\n", MFFieldContainerPtr::getClassType().getId());
+
+//    MFNodePtr          ::getClassType().dump();
+//    MFFieldContainerPtr::getClassType().dump();
 
     // run...
     

@@ -112,8 +112,7 @@ struct FieldTraits<ChunkMaterialPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFChunkMaterialPtr"; }
     static const char *getMName(void) { return "MFChunkMaterialPtr"; }

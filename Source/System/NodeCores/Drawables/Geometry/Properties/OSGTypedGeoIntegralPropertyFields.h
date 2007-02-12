@@ -108,7 +108,7 @@ struct FieldTraits<GeoUInt8PropertyPtr> :
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef SFieldAdaptor<GeoUInt8PropertyPtr, 
-                      SFGeoIntegralPropertyPtr> SFGeoUInt8PropertyPtr;
+                      SFFieldContainerPtr> SFGeoUInt8PropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOINTEGRALPROPERTYINST
@@ -121,7 +121,7 @@ OSG_FIELD_DLLEXPORT_DECL1(SField,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef MFieldAdaptor<GeoUInt8PropertyPtr,
-                      MFGeoIntegralPropertyPtr> MFGeoUInt8PropertyPtr;
+                      MFFieldContainerPtr> MFGeoUInt8PropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOINTEGRALPROPERTYINST
@@ -193,7 +193,7 @@ struct FieldTraits<GeoUInt32PropertyPtr> :
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef SFieldAdaptor<GeoUInt32PropertyPtr, 
-                      SFGeoIntegralPropertyPtr> SFGeoUInt32PropertyPtr;
+                      SFFieldContainerPtr> SFGeoUInt32PropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOINTEGRALPROPERTYINST
@@ -206,7 +206,7 @@ OSG_FIELD_DLLEXPORT_DECL1(SField,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef MFieldAdaptor<GeoUInt32PropertyPtr,
-                      MFGeoIntegralPropertyPtr> MFGeoUInt32PropertyPtr;
+                      MFFieldContainerPtr> MFGeoUInt32PropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOINTEGRALPROPERTYINST

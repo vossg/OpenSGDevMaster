@@ -40,7 +40,7 @@
 
 #include <OpenSG/OSGContainerPool.h>
 #include <OpenSG/OSGNode.h>
-#include <OpenSG/OSGTransform.h>
+#include <OpenSG/OSGGroup.h>
 #include <OpenSG/OSGBlendChunk.h>
 
 #include <OpenSG/OSGNameAttachment.h>
@@ -86,8 +86,8 @@ TEST(UsePool)
    OSG::ContainerPoolPtr cp = OSG::ContainerPool::create();
    CHECK(cp != OSG::NullFC);
 
-   OSG::TransformPtr t = OSG::Transform::create();
-   OSG::NodePtr n = OSG::Node::create();
+   OSG::GroupPtr      t  = OSG::Group     ::create();
+   OSG::NodePtr       n  = OSG::Node      ::create();
    OSG::BlendChunkPtr bc = OSG::BlendChunk::create();
 
    cp->setName("cp container");

@@ -565,13 +565,7 @@ void StringAttributeMapBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -581,7 +575,7 @@ DataType FieldTraits<StringAttributeMapPtr>::_type("StringAttributeMapPtr", "Fie
 
 OSG_FIELDTRAITS_GETTYPE(StringAttributeMapPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, StringAttributeMapPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, StringAttributeMapPtr, SFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

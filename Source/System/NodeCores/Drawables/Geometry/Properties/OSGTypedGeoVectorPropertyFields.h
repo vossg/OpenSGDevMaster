@@ -108,7 +108,7 @@ struct FieldTraits<GeoPnt3fPropertyPtr> :
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef SFieldAdaptor<GeoPnt3fPropertyPtr, 
-                      SFGeoVectorPropertyPtr> SFGeoPnt3fPropertyPtr;
+                      SFFieldContainerPtr> SFGeoPnt3fPropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
@@ -121,7 +121,7 @@ OSG_FIELD_DLLEXPORT_DECL1(SField,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef MFieldAdaptor<GeoPnt3fPropertyPtr,
-                      MFGeoVectorPropertyPtr> MFGeoPnt3fPropertyPtr;
+                      MFFieldContainerPtr> MFGeoPnt3fPropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
@@ -193,7 +193,7 @@ struct FieldTraits<GeoVec3fPropertyPtr> :
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef SFieldAdaptor<GeoVec3fPropertyPtr, 
-                      SFGeoVectorPropertyPtr> SFGeoVec3fPropertyPtr;
+                      SFFieldContainerPtr> SFGeoVec3fPropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
@@ -206,7 +206,7 @@ OSG_FIELD_DLLEXPORT_DECL1(SField,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef MFieldAdaptor<GeoVec3fPropertyPtr,
-                      MFGeoVectorPropertyPtr> MFGeoVec3fPropertyPtr;
+                      MFFieldContainerPtr> MFGeoVec3fPropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
@@ -280,7 +280,7 @@ struct FieldTraits<GeoColor4fPropertyPtr> :
 /*! \ingroup GrpDrawableFieldSingle */
 
 typedef SFieldAdaptor<GeoColor4fPropertyPtr, 
-                      SFGeoVectorPropertyPtr> SFGeoColor4fPropertyPtr;
+                      SFFieldContainerPtr  > SFGeoColor4fPropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST
@@ -293,7 +293,7 @@ OSG_FIELD_DLLEXPORT_DECL1(SField,
 /*! \ingroup GrpDrawableFieldMulti */
 
 typedef MFieldAdaptor<GeoColor4fPropertyPtr,
-                      MFGeoVectorPropertyPtr> MFGeoColor4fPropertyPtr;
+                      MFFieldContainerPtr  > MFGeoColor4fPropertyPtr;
 #endif
 
 #ifndef OSG_COMPILETYPEDGEOVECTORPROPERTYINST

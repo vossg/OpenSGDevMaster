@@ -112,8 +112,7 @@ struct FieldTraits<MaterialGroupPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFMaterialGroupPtr"; }
     static const char *getMName(void) { return "MFMaterialGroupPtr"; }

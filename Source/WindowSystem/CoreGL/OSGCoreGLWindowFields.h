@@ -112,8 +112,7 @@ struct FieldTraits<CoreGLWindowPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWCOREGL_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOWCOREGL_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFCoreGLWindowPtr"; }
     static const char *getMName(void) { return "MFCoreGLWindowPtr"; }

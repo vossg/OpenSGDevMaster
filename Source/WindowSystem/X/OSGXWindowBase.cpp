@@ -464,15 +464,8 @@ void XWindowBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -482,8 +475,8 @@ DataType FieldTraits<XWindowPtr>::_type("XWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(XWindowPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, XWindowPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, XWindowPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, XWindowPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, XWindowPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

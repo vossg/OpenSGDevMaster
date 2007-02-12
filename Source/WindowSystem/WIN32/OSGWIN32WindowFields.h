@@ -112,8 +112,7 @@ struct FieldTraits<WIN32WindowPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWWIN32_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOWWIN32_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFWIN32WindowPtr"; }
     static const char *getMName(void) { return "MFWIN32WindowPtr"; }

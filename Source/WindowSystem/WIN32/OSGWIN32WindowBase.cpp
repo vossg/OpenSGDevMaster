@@ -466,15 +466,8 @@ void WIN32WindowBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -484,8 +477,8 @@ DataType FieldTraits<WIN32WindowPtr>::_type("WIN32WindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(WIN32WindowPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, WIN32WindowPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, WIN32WindowPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, WIN32WindowPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, WIN32WindowPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

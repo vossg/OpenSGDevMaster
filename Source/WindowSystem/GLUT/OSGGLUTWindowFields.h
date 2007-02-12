@@ -112,8 +112,7 @@ struct FieldTraits<GLUTWindowPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWGLUT_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOWGLUT_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFGLUTWindowPtr"; }
     static const char *getMName(void) { return "MFGLUTWindowPtr"; }
