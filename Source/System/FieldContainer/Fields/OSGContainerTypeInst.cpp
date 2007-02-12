@@ -67,6 +67,9 @@
 
 #include "OSGFieldContainerPtr.h"
 
+#include <OSGSFieldAdaptor.ins>
+#include <OSGMFieldAdaptor.ins>
+
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
@@ -114,11 +117,11 @@ OSG_FIELD_DLLEXPORT_DEF1(MField, FieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(SField, ParentFieldContainerPtr, 1);
 OSG_FIELD_DLLEXPORT_DEF2(MField, ParentFieldContainerPtr, 1);
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, NodeCorePtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, NodeCorePtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodeCorePtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodeCorePtr, MFFieldContainerPtr);
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, NodePtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, NodePtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodePtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodePtr, MFFieldContainerPtr);
 
 OSG_FIELD_DLLEXPORT_DEF2(SField, ParentNodePtr, 1);
 OSG_FIELD_DLLEXPORT_DEF2(MField, ParentNodePtr, 1);

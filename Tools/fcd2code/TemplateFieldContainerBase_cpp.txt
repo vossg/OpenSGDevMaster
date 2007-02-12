@@ -1338,22 +1338,11 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base
 OSG_END_NAMESPACE
 
     @@if SFPointerField
-#include "@!HeaderPrefix!@OSGSField.ins"
+#include "@!HeaderPrefix!@OSGSFieldAdaptor.ins"
     @@endif // SFPointerField
     @@if MFPointerField
-#include "@!HeaderPrefix!@OSGMField.ins"
+#include "@!HeaderPrefix!@OSGMFieldAdaptor.ins"
     @@endif // MFPointerField
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-    @@if SFPointerField
-#include "@!HeaderPrefix!@OSGSFieldFuncs.ins"
-    @@endif // SFPointerField
-    @@if MFPointerField
-#include "@!HeaderPrefix!@OSGMFieldFuncs.ins"
-    @@endif // MFPointerField
-#endif
 
 OSG_BEGIN_NAMESPACE
 @@endif // PointerField
@@ -1366,10 +1355,10 @@ DataType FieldTraits<@!Classname!@Ptr>::_type("@!Classname!@Ptr", "@!Parent!@Ptr
 OSG_FIELDTRAITS_GETTYPE(@!Classname!@Ptr)
 
     @@if SFPointerField
-OSG_FIELD_DLLEXPORT_DEF1(SField, @!Classname!@Ptr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, @!Classname!@Ptr, SFFieldContainerPtr);
     @@endif // SFPointerField
     @@if MFPointerField
-OSG_FIELD_DLLEXPORT_DEF1(MField, @!Classname!@Ptr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, @!Classname!@Ptr, MFFieldContainerPtr);
     @@endif // MFPointerField
 @@endif // PointerField
 

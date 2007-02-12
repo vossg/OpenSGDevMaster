@@ -112,8 +112,7 @@ struct FieldTraits<XWindowPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWX_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOWX_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFXWindowPtr"; }
     static const char *getMName(void) { return "MFXWindowPtr"; }

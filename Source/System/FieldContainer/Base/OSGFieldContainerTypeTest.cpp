@@ -41,7 +41,7 @@
 // Unit tests for FieldContainerType
 
 #include <OpenSG/OSGNode.h>
-#include <OpenSG/OSGTransform.h>
+#include <OpenSG/OSGGroup.h>
 #include <string>
 
 SUITE(FieldContainerTypeTests)
@@ -56,26 +56,26 @@ TEST(CreateType)
 
 TEST(GetDocs)
 {
-   OSG::TransformPtr tc = OSG::Transform::create();
-   OSG::FieldContainerType& transform_type = tc->getType();
+   OSG::GroupPtr tc = OSG::Group::create();
+   OSG::FieldContainerType& group_type = tc->getType();
 
-   std::string fcd_xml = transform_type.getFcdXML();
+   std::string fcd_xml = group_type.getFcdXML();
    CHECK(fcd_xml != "");
 
-   std::string class_docs = transform_type.getDocumentation();
+   std::string class_docs = group_type.getDocumentation();
    CHECK(class_docs != "");
 }
 
 TEST(GetFieldDocs)
 {
-   OSG::TransformPtr tc = OSG::Transform::create();
-   OSG::FieldContainerType& transform_type(tc->getType());
+   OSG::GroupPtr tc = OSG::Group::create();
+   OSG::FieldContainerType& group_type(tc->getType());
 
-   unsigned num_field_descs = transform_type.getNumFieldDescs();
+   unsigned num_field_descs = group_type.getNumFieldDescs();
 
    for(unsigned i; i < num_field_descs; ++i)
    {
-      OSG::FieldDescriptionBase* fdesc = transform_type.getFieldDesc(i);
+      OSG::FieldDescriptionBase* fdesc = group_type.getFieldDesc(i);
       std::string field_doc = fdesc->getDocumentation();
       CHECK(true);
    }
