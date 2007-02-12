@@ -114,7 +114,11 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    typedef std::vector<std::string> StringVector;
+    typedef std::vector<      std::string         > StringVector;
+    typedef std::vector<const FieldContainerType *> TypePtrVector;
+    typedef std::vector<      UInt16              > TypeIdVector;
+
+    typedef FieldContainerPtrConstArg               FCPtrConstArg;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,22 +236,22 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
                                     Field *pDst  ) const = 0;
 
     virtual void cloneValuesV(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &shareTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &shareGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const = 0;
+        const Field         *pSrc,
+        const UInt32         fieldId,
+              FCPtrConstArg  pDst,
+        const TypePtrVector &shareTypes     = TypePtrVector(), 
+        const TypePtrVector &ignoreTypes    = TypePtrVector(),
+        const TypeIdVector  &shareGroupIds  = TypeIdVector (),
+        const TypeIdVector  &ignoreGroupIds = TypeIdVector ()) const = 0;
 
     virtual void shareValuesV(
-        const Field                                  *pSrc,
-        const UInt32                                  fieldId,
-              FieldContainerPtrConstArg               pDst,
-        const std::vector<const FieldContainerType*> &cloneTypes,
-        const std::vector<const FieldContainerType*> &ignoreTypes,
-        const std::vector<UInt16>                    &cloneGroupIds,
-        const std::vector<UInt16>                    &ignoreGroupIds) const = 0;
+        const Field         *pSrc,
+        const UInt32         fieldId,
+              FCPtrConstArg  pDst,
+        const TypePtrVector &cloneTypes     = TypePtrVector(),
+        const TypePtrVector &ignoreTypes    = TypePtrVector(),
+        const TypeIdVector  &cloneGroupIds  = TypeIdVector (),
+        const TypeIdVector  &ignoreGroupIds = TypeIdVector ()) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
