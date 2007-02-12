@@ -112,8 +112,7 @@ struct FieldTraits<ShearedStereoCameraDecoratorPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFShearedStereoCameraDecoratorPtr"; }
     static const char *getMName(void) { return "MFShearedStereoCameraDecoratorPtr"; }

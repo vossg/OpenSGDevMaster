@@ -112,8 +112,7 @@ struct FieldTraits<CocoaWindowPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWCOCOA_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOWCOCOA_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFCocoaWindowPtr"; }
     static const char *getMName(void) { return "MFCocoaWindowPtr"; }

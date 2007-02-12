@@ -112,8 +112,7 @@ struct FieldTraits<PolygonForegroundPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFPolygonForegroundPtr"; }
     static const char *getMName(void) { return "MFPolygonForegroundPtr"; }

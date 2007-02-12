@@ -112,8 +112,7 @@ struct FieldTraits<MatrixCameraPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFMatrixCameraPtr"; }
     static const char *getMName(void) { return "MFMatrixCameraPtr"; }
