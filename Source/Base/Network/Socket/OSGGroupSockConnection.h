@@ -138,11 +138,12 @@ class OSG_BASE_DLLMAPPING GroupSockConnection : public GroupConnection
     /*! \name                   members                                    */
     /*! \{                                                                 */
 
-    StreamSocket              _acceptSocket;
-    std::vector<StreamSocket> _sockets;
-    ChannelIndex              _readIndex;
-    std::vector<UInt8>        _socketReadBuffer;
-    std::vector<UInt8>        _socketWriteBuffer;
+    StreamSocket               _acceptSocket;
+    std::vector<StreamSocket>  _sockets;
+    std::vector<SocketAddress> _remoteAddresses;
+    ChannelIndex               _readIndex;
+    std::vector<UInt8>         _socketReadBuffer;
+    std::vector<UInt8>         _socketWriteBuffer;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -170,12 +171,14 @@ class OSG_BASE_DLLMAPPING GroupSockConnection : public GroupConnection
     /*! \name                   internal methods                           */
     /*! \{                                                                 */
 
-    static bool connectSocket(StreamSocket &socket,
-                              std::string   address,
-                              Time          timeout);
-    static bool acceptSocket (StreamSocket &accept,
-                              StreamSocket &from,
-                              Time          timeout);
+    static bool connectSocket(StreamSocket  &socket,
+                              std::string    address,
+                              SocketAddress &destination,
+                              Time           timeout);
+    static bool acceptSocket (StreamSocket  &accept,
+                              StreamSocket  &from,
+                              SocketAddress &destination,
+                              Time           timeout);
 
     /*! \}                                                                 */
 

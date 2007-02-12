@@ -102,7 +102,10 @@ Connection::Channel PointSockConnection::connectPoint(
     Time               timeout)
 {
     StreamSocket socket;
-    if(GroupSockConnection::connectSocket(socket,address,timeout))
+    if(GroupSockConnection::connectSocket( socket,
+                                           address,
+                                          _remoteAddress,
+                                           timeout))
     {
         _socket = socket;
         _pointToPoint = true;
@@ -122,7 +125,10 @@ Connection::Channel PointSockConnection::connectGroup(
     Time               timeout)
 {
     StreamSocket socket;
-    if(GroupSockConnection::connectSocket(socket,address,timeout))
+    if(GroupSockConnection::connectSocket( socket,
+                                           address,
+                                          _remoteAddress,
+                                           timeout))
     {
         _socket = socket;
         _pointToPoint = false;
@@ -146,7 +152,10 @@ void PointSockConnection::disconnect(void)
  */
 Connection::Channel PointSockConnection::acceptPoint(Time timeout)
 {
-    if(GroupSockConnection::acceptSocket(_acceptSocket,_socket,timeout))
+    if(GroupSockConnection::acceptSocket(_acceptSocket,
+                                         _socket,
+                                         _remoteAddress,
+                                          timeout))
     {
         _pointToPoint = true;
         return 0;
@@ -162,7 +171,10 @@ Connection::Channel PointSockConnection::acceptPoint(Time timeout)
  */
 Connection::Channel PointSockConnection::acceptGroup(Time timeout)
 {
-    if(GroupSockConnection::acceptSocket(_acceptSocket,_socket,timeout))
+    if(GroupSockConnection::acceptSocket(_acceptSocket,
+                                         _socket,
+                                         _remoteAddress,
+                                          timeout))
     {
         _pointToPoint = false;
         return 0;
@@ -173,7 +185,7 @@ Connection::Channel PointSockConnection::acceptGroup(Time timeout)
     }
 }
 
-/*! bind the connection to an network interface. The address is
+/*! bind the connection to a network interface. The address is
     returned, on wich the port could be connected. The interface
     is determined by the connection interface filed and the
     address parameter. Address can be empty, wich means to use
@@ -186,14 +198,14 @@ std::string PointSockConnection::bind(const std::string &address)
     char        host[256];
     char        portStr[256];
     std::string interf;
-    std::string boundedAddress;
 
     // get local host name
-    gethostname(localhost,255);
+    osgGetHostname(localhost,255);
     if(!getInterface().empty())
         interf = getInterface();
     else
         interf = localhost;
+
     // parse address
     if(!address.empty())
         if(sscanf(address.c_str(),"%*[^:]:%d",&port) != 1)
@@ -201,7 +213,11 @@ std::string PointSockConnection::bind(const std::string &address)
                 port = 0;
     // bind port
     _acceptSocket.setReusePort(true);
-    _acceptSocket.bind(SocketAddress(interf.c_str(),port));
+    if(!getInterface().empty())
+        _acceptSocket.bind(SocketAddress(getInterface().c_str(),port));
+    else
+        _acceptSocket.bind(SocketAddress(SocketAddress::ANY,port));
+
     SINFO << "Connection bound to "
           << _acceptSocket.getAddress().getHost() << ":"
           << _acceptSocket.getAddress().getPort() << std::endl;

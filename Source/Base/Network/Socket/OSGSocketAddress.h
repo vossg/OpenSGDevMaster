@@ -64,11 +64,11 @@ class OSG_BASE_DLLMAPPING SocketAddress
     enum Type { ANY,BROADCAST,MULTICAST };
 
 #if   defined(WIN32)
-    typedef          char       SocketAddrT;
+    typedef              char       SocketAddrT;
 #elif defined(__APPLE__) || defined(__hpux) || defined(__sun)
-    typedef          const char SocketAddrT;
+    typedef        const char       SocketAddrT;
 #else
-    typedef struct socketaddr SocketAddrT;
+    typedef struct       socketaddr SocketAddrT;
 #endif
 
     /*---------------------------------------------------------------------*/
@@ -91,13 +91,13 @@ class OSG_BASE_DLLMAPPING SocketAddress
     /*! \name                   Get/Set                                    */
     /*! \{                                                                 */
 
-    sockaddr    *getSockAddr    (      void             ) const;
-    int          getSockAddrSize(      void             ) const;
-    void         setPort        (      int          port);
-    void         setHost        (const std::string &host);
-    int          getPort        (      void             ) const;
-    std::string  getHost        (      void             ) const;
-    std::string  getHostByName  (      void             ) const;
+    struct sockaddr    *getSockAddr    (      void             ) const;
+           int          getSockAddrSize(      void             ) const;
+           void         setPort        (      int          port);
+           void         setHost        (const std::string &host);
+           int          getPort        (      void             ) const;
+           std::string  getHost        (      void             ) const;
+           std::string  getHostByName  (      void             ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -105,6 +105,13 @@ class OSG_BASE_DLLMAPPING SocketAddress
     /*! \{                                                                 */
 
     bool isMulticast(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Comparision                                */
+    /*! \{                                                                 */
+
+    void operator = (const SocketAddress &other) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -122,7 +129,7 @@ class OSG_BASE_DLLMAPPING SocketAddress
     /*! \name                 static element                               */
     /*! \{                                                                 */
 
-    struct sockaddr_in _sockaddr;
+    struct sockaddr_in *_sockaddr;
 
     /*! \}                                                                 */
 };

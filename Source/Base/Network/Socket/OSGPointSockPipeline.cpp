@@ -228,7 +228,7 @@ void PointSockPipeline::initialize(void)
     std::string   interf;
 
     // get local host name
-    gethostname(localhost,255);
+    osgGetHostname(localhost,255);
     if(!getInterface().empty())
         interf = getInterface();
     else

@@ -117,10 +117,12 @@ GroupConnection::Channel GroupSockConnection::connectPoint(
 {
     Channel channel = -1;
     StreamSocket socket;
-    if(connectSocket(socket,address,timeout))
+    SocketAddress destination;
+    if(connectSocket(socket,address,destination,timeout))
     {
         channel = newChannelIndex(_sockets.size());
         _sockets.push_back(socket);
+        _remoteAddresses.push_back(destination);
         _readIndex = 0;
     }
     return channel;
@@ -149,10 +151,15 @@ void GroupSockConnection::disconnect(Channel channel)
 GroupConnection::Channel GroupSockConnection::acceptPoint(Time timeout)
 {
     StreamSocket from;
-    if(GroupSockConnection::acceptSocket(_acceptSocket,from,timeout))
+    SocketAddress destination;
+    if(GroupSockConnection::acceptSocket(_acceptSocket,
+                                         from,
+                                         destination,
+                                         timeout))
     {
         Channel channel = newChannelIndex(_sockets.size());
         _sockets.push_back(from);
+        _remoteAddresses.push_back(destination);
         _readIndex = 0;
         return channel;
     }
@@ -177,7 +184,7 @@ std::string GroupSockConnection::bind(const std::string &address)
     std::string boundedAddress;
 
     // get local host name
-    gethostname(localhost,255);
+    osgGetHostname(localhost,255);
     if(!getInterface().empty())
         interf = getInterface();
     else
@@ -480,6 +487,7 @@ void GroupSockConnection::writeBuffer(void)
  */
 bool GroupSockConnection::connectSocket(StreamSocket &socket,
                                         std::string   address,
+                                        SocketAddress &destination,
                                         Time          timeout)
 {
     std::string  host="unknown";
@@ -502,12 +510,13 @@ bool GroupSockConnection::connectSocket(StreamSocket &socket,
     socket.setDelay(false);
     socket.setReadBufferSize(1048576);
     socket.setWriteBufferSize(1048576);
+    destination = SocketAddress(host.c_str(),port);
     while(!connected && 
           (timeout == -1 || (getSystemTime()-startTime) < timeout))
     {
         try
         {
-            socket.connect(SocketAddress(host.c_str(),port));
+            socket.connect(destination);
             connected = true;
         }
         catch(...)
@@ -524,11 +533,12 @@ bool GroupSockConnection::connectSocket(StreamSocket &socket,
  */
 bool GroupSockConnection::acceptSocket(StreamSocket &accept,
                                        StreamSocket &from,
+                                       SocketAddress &destination,
                                        Time          timeout)
 {
     if(!accept.waitReadable(timeout))
         return false;
-    from=accept.accept();
+    from=accept.acceptFrom(destination);
     from.setDelay(false);
     from.setReadBufferSize(1048576);
     from.setWriteBufferSize(1048576);

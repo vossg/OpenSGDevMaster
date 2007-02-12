@@ -555,7 +555,6 @@ void GroupMCastConnection::initialize()
     int           pos  = _destination.find(':');
     int           clientPort;
     std::string   clientHost;
-    char          hostname[256];
     UInt32        index;
     UInt32        len;
     UInt32        ackNum = (UInt32) osgSqrt(_sockets.size());
@@ -575,7 +574,9 @@ void GroupMCastConnection::initialize()
     if(pos>=0)
     {
         group = std::string(_destination,0,pos);
-        port  = atoi(std::string(_destination,pos+1,std::string::npos).c_str());
+        port  = atoi(std::string(_destination,
+                                 pos+1,
+                                 std::string::npos).c_str());
     }
     else
     {
@@ -599,9 +600,6 @@ void GroupMCastConnection::initialize()
         // tell the current seq number
         message.putUInt32(_seqNumber);
         // tell the point from wich port requests are comming
-        hostname[255] = '\0';
-        gethostname(hostname,255);
-        message.putString(hostname);
         message.putUInt32(_mcastSocket.getAddress().getPort());
         // send the message
         _sockets[index].send(message);
@@ -611,7 +609,7 @@ void GroupMCastConnection::initialize()
         len = _sockets[index].recv(message);
         if(len == 0)
             throw ReadError("Channel closed\n");
-        clientHost = message.getString();
+        clientHost = _remoteAddresses[index].getHost();
         clientPort = message.getUInt32();
 
         SINFO << "Server:" << clientHost 
@@ -632,7 +630,7 @@ void GroupMCastConnection::initialize()
                 message.putString(_receiver[r].getHost());
                 message.putUInt32(_receiver[r].getPort());
             }
-            message.putString(hostname);
+            message.putString("");
             message.putUInt32(_mcastSocket.getAddress().getPort());
         }
         else

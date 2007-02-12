@@ -49,6 +49,8 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
 void osgGetHostname(char *szBuffer, UInt32 uiSize)
 {
     // get local host name
@@ -62,7 +64,7 @@ void osgGetHostname(char *szBuffer, UInt32 uiSize)
     }
 }
 
-
+OSG_END_NAMESPACE
 
 /*! \class string_token_iterator
 

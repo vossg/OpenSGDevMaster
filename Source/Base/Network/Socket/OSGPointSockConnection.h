@@ -142,6 +142,7 @@ class OSG_BASE_DLLMAPPING PointSockConnection : public PointConnection
 
     StreamSocket              _acceptSocket;
     StreamSocket              _socket;
+    SocketAddress             _remoteAddress;
     std::vector<UInt8>        _socketReadBuffer;
     std::vector<UInt8>        _socketWriteBuffer;
 
