@@ -94,7 +94,9 @@ class FCDProcess:
         if OptionHandler.getOptionActive("compatMode"):
             self.m_log.info("Enabling compatMode");
             lookupDicts.append(dict([("CompatOneSix", True)]));
-        
+        else:
+            lookupDicts.append(dict([("CompatOneSix", False)]));
+            
         # read the .fcd file
         fcdReader = FCDReader();
         fcdFile   = OptionHandler.getOptionArg("fcdFile");
