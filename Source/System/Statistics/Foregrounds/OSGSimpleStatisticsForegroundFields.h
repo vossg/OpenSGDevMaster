@@ -112,8 +112,7 @@ struct FieldTraits<SimpleStatisticsForegroundPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_UTIL_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_UTIL_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFSimpleStatisticsForegroundPtr"; }
     static const char *getMName(void) { return "MFSimpleStatisticsForegroundPtr"; }

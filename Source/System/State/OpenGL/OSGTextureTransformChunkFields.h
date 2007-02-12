@@ -112,8 +112,7 @@ struct FieldTraits<TextureTransformChunkPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_STATE_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFTextureTransformChunkPtr"; }
     static const char *getMName(void) { return "MFTextureTransformChunkPtr"; }

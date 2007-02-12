@@ -328,15 +328,8 @@ void ShaderParameterVec4fBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -346,8 +339,8 @@ DataType FieldTraits<ShaderParameterVec4fPtr>::_type("ShaderParameterVec4fPtr", 
 
 OSG_FIELDTRAITS_GETTYPE(ShaderParameterVec4fPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, ShaderParameterVec4fPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, ShaderParameterVec4fPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ShaderParameterVec4fPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ShaderParameterVec4fPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

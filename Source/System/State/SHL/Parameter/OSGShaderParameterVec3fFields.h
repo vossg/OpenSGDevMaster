@@ -112,8 +112,7 @@ struct FieldTraits<ShaderParameterVec3fPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_STATE_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFShaderParameterVec3fPtr"; }
     static const char *getMName(void) { return "MFShaderParameterVec3fPtr"; }

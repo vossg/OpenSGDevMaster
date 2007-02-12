@@ -112,8 +112,7 @@ struct FieldTraits<SolidBackgroundPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFSolidBackgroundPtr"; }
 };

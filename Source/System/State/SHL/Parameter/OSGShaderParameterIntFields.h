@@ -112,8 +112,7 @@ struct FieldTraits<ShaderParameterIntPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_STATE_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFShaderParameterIntPtr"; }
     static const char *getMName(void) { return "MFShaderParameterIntPtr"; }

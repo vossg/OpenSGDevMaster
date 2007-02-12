@@ -581,13 +581,7 @@ void GradientBackgroundBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -597,7 +591,7 @@ DataType FieldTraits<GradientBackgroundPtr>::_type("GradientBackgroundPtr", "Bac
 
 OSG_FIELDTRAITS_GETTYPE(GradientBackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(MField, GradientBackgroundPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, GradientBackgroundPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/
