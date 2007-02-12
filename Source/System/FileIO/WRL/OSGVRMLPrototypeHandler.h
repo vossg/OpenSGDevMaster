@@ -149,7 +149,7 @@ class VRMLNodePrototypeHandler : public BaseT
 #else
     typedef 
         std::map<const Char8 *,  
-                       CreateHelper, 
+                       VRMLNodeHelper *, 
                        LTString              > NameHelperMap;
 #endif
 
