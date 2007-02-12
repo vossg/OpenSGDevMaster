@@ -112,8 +112,7 @@ struct FieldTraits<InlinePtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFInlinePtr"; }
     static const char *getMName(void) { return "MFInlinePtr"; }

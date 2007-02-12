@@ -112,8 +112,7 @@ struct FieldTraits<VertexProgramChunkPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_STATE_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_STATE_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFVertexProgramChunkPtr"; }
     static const char *getMName(void) { return "MFVertexProgramChunkPtr"; }

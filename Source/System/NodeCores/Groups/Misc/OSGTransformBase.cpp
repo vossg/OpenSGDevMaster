@@ -330,15 +330,8 @@ void TransformBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -348,8 +341,8 @@ DataType FieldTraits<TransformPtr>::_type("TransformPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(TransformPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, TransformPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, TransformPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, TransformPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, TransformPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

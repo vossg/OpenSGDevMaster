@@ -2333,15 +2333,8 @@ void TextureEnvChunkBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -2351,8 +2344,8 @@ DataType FieldTraits<TextureEnvChunkPtr>::_type("TextureEnvChunkPtr", "StateChun
 
 OSG_FIELDTRAITS_GETTYPE(TextureEnvChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, TextureEnvChunkPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, TextureEnvChunkPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, TextureEnvChunkPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, TextureEnvChunkPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

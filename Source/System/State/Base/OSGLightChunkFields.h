@@ -112,8 +112,7 @@ struct FieldTraits<LightChunkPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFLightChunkPtr"; }
     static const char *getMName(void) { return "MFLightChunkPtr"; }

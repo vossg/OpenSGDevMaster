@@ -250,15 +250,8 @@ void InverseTransformBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -268,8 +261,8 @@ DataType FieldTraits<InverseTransformPtr>::_type("InverseTransformPtr", "GroupPt
 
 OSG_FIELDTRAITS_GETTYPE(InverseTransformPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, InverseTransformPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, InverseTransformPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, InverseTransformPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, InverseTransformPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

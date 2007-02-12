@@ -112,8 +112,7 @@ struct FieldTraits<TransformPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_GROUP_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFTransformPtr"; }
     static const char *getMName(void) { return "MFTransformPtr"; }

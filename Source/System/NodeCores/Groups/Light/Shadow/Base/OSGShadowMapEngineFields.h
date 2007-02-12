@@ -112,8 +112,7 @@ struct FieldTraits<ShadowMapEnginePtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_RENDERTRAV_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_RENDERTRAV_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFShadowMapEnginePtr"; }
     static const char *getMName(void) { return "MFShadowMapEnginePtr"; }

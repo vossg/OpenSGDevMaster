@@ -1238,15 +1238,8 @@ void MaterialChunkBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -1256,8 +1249,8 @@ DataType FieldTraits<MaterialChunkPtr>::_type("MaterialChunkPtr", "StateChunkPtr
 
 OSG_FIELDTRAITS_GETTYPE(MaterialChunkPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, MaterialChunkPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, MaterialChunkPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, MaterialChunkPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, MaterialChunkPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/
