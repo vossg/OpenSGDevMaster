@@ -232,7 +232,7 @@ class SimpleAppendOption(sca_opts.SimpleOption):
    """
    def completeProcess(self, env):
       if self.value:
-         for i in self.value.split(':'):
+         for i in self.value.split(os.pathsep):
             exec("env.Append(%s = [i])" % self.key)
 
 # -------------------------------- #
@@ -730,6 +730,10 @@ image_format_options["gif"]  = feature_options["gif"]
 # 2) Register options
 #    This should not require any changes unless a new option group is added.
 
+for opt in extra_libs_options.itervalues():
+    if opt not in image_format_options.itervalues():
+        opts.AddOption(opt)
+
 opts.AddOption(sca_opts.SeparatorOption("\nBuild/Install settings"))
 for opt in build_options.itervalues():
     if opt not in image_format_options.itervalues():
@@ -748,9 +752,6 @@ for opt in optional_libs_options.itervalues():
 for opt in image_format_options.itervalues():
     opts.AddOption(opt)
 
-for opt in extra_libs_options.itervalues():
-    if opt not in image_format_options.itervalues():
-        opts.AddOption(opt)
 
 opts.AddOption(sca_opts.SeparatorOption("\nAdvanced options"))
 for opt in feature_options.itervalues():
@@ -977,10 +978,19 @@ if not SConsAddons.Util.hasHelpFlag():
 
          lib_map_str = pprint.pformat(lib_map_build_list)
 
+         if "win32" == platform:
+             inst_inc_path = inst_paths["include"].replace('\\','\\\\')
+             inst_prefix   = common_env["prefix"].replace('\\','\\\\')
+             inst_lib_path = inst_paths["lib"].replace('\\','\\\\')
+         else:
+             inst_inc_path = inst_paths["include"]
+             inst_prefix   = common_env["prefix"]
+             inst_lib_path = inst_paths["lib"]
+
          submap = {'@LIB_MAP_STR@'      : lib_map_str,
-                   '@PREFIX@'           : common_env["prefix"],
-                   '@LIBPATH@'          : inst_paths["lib"],
-                   '@INCPATH@'          : inst_paths["include"],
+                   '@PREFIX@'           : inst_prefix,
+                   '@LIBPATH@'          : inst_lib_path,
+                   '@INCPATH@'          : inst_inc_path,
                    '@VERSION@'          : opensg_version_string,
                    '@LIBRARY_UTIL_SRC@' : file(pj('Tools','scons-build','LibraryUtils.py')).read()}
          # Install two scripts so we have one with osg2 in the name to let users be sure they get the right version

@@ -79,7 +79,7 @@ def main():
    parser.add_option("--dbg",action="store_true",help="Ignored for backwards compatibility.")
 
    (options, pos_args) = parser.parse_args()  
-   
+
    # Process simple single options
    if options.prefix:
       print inst_prefix
@@ -87,7 +87,7 @@ def main():
    elif options.version:
       print version
       return
-   
+
    # Try to find libname
    # - Try given name and name with OSG or OSGWindow prefix
    libraries = []
@@ -100,7 +100,7 @@ def main():
                libraries.append(lib_map[name_alt])
                break
 
-      
+
    # Make sure we have libraries
    if len(libraries) == 0:
       printUsage()
@@ -112,15 +112,22 @@ def main():
       options.lib_prefix = ""
       options.lib_ext = ""
       options.libpath_prefix = ""
-   
+
    # Create a configuration adapter for the required library
    default_lib_settings = LibraryInfo()
    default_lib_settings.libpath.insert(0, inst_lib_path) 
    default_lib_settings.cpppath.insert(0, inst_inc_path)
+
+   lib_suffix = ""
+
+   if options.dbg:
+       lib_suffix = "_d"
+
+
    config_info = ConfigInfoAdapter(libraries, lib_map, default_lib_settings,
-                     options.inc_prefix, options.lib_prefix, options.libpath_prefix,
-                     "", options.lib_ext)
-            
+                                   options.inc_prefix, options.lib_prefix, 
+                                   options.libpath_prefix, lib_suffix, options.lib_ext)
+
    if options.cflags:
       print config_info.getIncPathStr()
    elif options.libs or options.llibs or options.lflags:
