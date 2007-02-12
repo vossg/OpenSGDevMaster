@@ -2129,7 +2129,7 @@ int yyFlexLexer::yy_get_next_buffer()
 	OSGScanParseSkel_free((void *) b  );
 }
 
-extern "C" int isatty (int );
+extern "C" int isatty (int ) __THROW;
 
 /* Initializes or reinitializes a buffer.
  * This function is sometimes called more than once on the same buffer,

@@ -1143,6 +1143,7 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
     {
         if(pData != NULL)
         {
+            return getZeroElement();
         }
         else
         {

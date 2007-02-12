@@ -498,7 +498,7 @@ class RevisionTagWriter(object):
 EnsureSConsVersion(0,96,92)
 SourceSignatures('MD5')
 #SourceSignatures('timestamp')
-SConsignFile('.sconsign.'+GetPlatform())
+#SConsignFile('.sconsign.'+GetPlatform())
 opensg_version_string = file("VERSION").readline().strip()
 
 print "Building OpenSG ", opensg_version_string
@@ -508,7 +508,6 @@ print "Building OpenSG ", opensg_version_string
 
 platform = sca_util.GetPlatform()
 unspecified_prefix = "use-instlinks"
-buildDir = "build." + platform
 option_filename = "option.cache." + platform
 
 if ARGUMENTS.has_key("options_file"):
@@ -530,10 +529,24 @@ if GetPlatform() == "win32":
    else:
       common_env = Environment()
 else:
-   common_env = Environment(ENV = os.environ)
+   if ARGUMENTS.has_key("icc"):
+      use_cxxlib_icc = False
+
+      if ARGUMENTS.has_key("cxxlib-icc"):
+         use_cxxlib_icc = True
+         
+      common_env = Environment(ENV = os.environ,
+                               tools=['gnulink', 'intelicc', 'intelicpc'],
+                               cxxlib_icc=use_cxxlib_icc)
+   else:
+      common_env = Environment(ENV = os.environ)
+
+SConsignFile('.sconsign.'+GetPlatform()+common_env['CXX'])
+buildDir = "build." + platform + '.' + common_env['CXX']
+
 # Setup the directories used for sconf processing
-common_env["CONFIGUREDIR"] = '.sconf_temp_'+platform
-common_env["CONFIGURELOG"] = 'sconf.log_'+platform
+common_env["CONFIGUREDIR"] = '.sconf_temp_'+platform+'_'+common_env['CXX']
+common_env["CONFIGURELOG"] = 'sconf.log_'+platform+'_'+common_env['CXX']
 if common_env.has_key("MSVS"):
    common_env["CONFIGUREDIR"] += "." + common_env["MSVS"]["VERSION"]
    common_env["CONFIGURELOG"] += "." + common_env["MSVS"]["VERSION"]
@@ -582,16 +595,10 @@ opts = sca_opts.Options(files = [option_filename, 'options.custom'],
 # Handle library name differences between platforms
 if "win32" == platform:
     glut_libname = "glut32"
-    tiff_libname = "tif32"
-    zlib_libname = "zlib"
-    jpeg_libname = "libjpeg"
-    png_libname = "libpng"
+    tiff_libname = "tiff32"
 else:
     glut_libname = "glut"
     tiff_libname = "tiff"
-    zlib_libname = "z"
-    jpeg_libname = "jpeg"
-    png_libname = "png"
 
 # Build options - source and destination directories etc.
 build_options = {}
@@ -627,20 +634,20 @@ else:
 # Options for optional external libraries
 optional_libs_options = {}
 optional_libs_options["jpeg"] = sca_opts.StandardPackageOption(
-    "jpeg", "Location of the JPEG library", library = jpeg_libname, required = False)
+    "jpeg", "Location of the JPEG library", library = "jpeg", required = False)
 
 optional_libs_options["tiff"] = sca_opts.StandardPackageOption(
     "tiff", "Location of the TIFF library", library = tiff_libname, required = False)
 
 optional_libs_options["png"] = sca_opts.StandardPackageOption(
-    "png", "Location of the PNG library", library = png_libname, required = False)
+    "png", "Location of the PNG library", library = "png", required = False)
 
 optional_libs_options["glut"] = sca_opts.StandardPackageOption(
     "glut", "Location of the GLUT library", library = glut_libname,
     header = "GL/glut.h", required = False)
 
 optional_libs_options["zlib"] = sca_opts.StandardPackageOption(
-    "zlib", "Location of the zlib compression library", library = zlib_libname,
+    "zlib", "Location of the zlib compression library", library = "z",
     header = "zlib.h", required = False)
 
 optional_libs_options["NVPerfSDK"] = sca_opts.StandardPackageOption(
@@ -683,10 +690,10 @@ if "win32" != platform:
 
 # Misc options
 misc_options = {}
-misc_options["icc_compat"] = sca_opts.SimpleOption(
-    "icc_gnu_compat", "icc_gnu_compat", "<GCC Version> Make the binaries built " +
-                      "with icc compatible with the given verion of gcc. (unsupported)",
-                      "", None, None, None)
+#misc_options["icc_compat"] = sca_opts.SimpleOption(
+#    "icc_gnu_compat", "icc_gnu_compat", "<GCC Version> Make the binaries built " +
+#                      "with icc compatible with the given verion of gcc. (unsupported)",
+#                      "", None, None, None)
 
 # Options to specify additional library/header search paths and librarys to
 # link agains.
@@ -841,6 +848,9 @@ if not SConsAddons.Util.hasHelpFlag():
    paths['bin']       = pj(paths['base'], 'bin')
    print "Using prefix: ", paths['base']
    common_env.Append(CPPPATH = [paths['include'],pj(paths['include'],"OpenSG")])
+
+   if not common_env.has_key("icc_gnu_compat"):
+      common_env["icc_gnu_compat"] = False
    
    # ---- Generate OSGConfigured.h --- #
    definemap = {"OSG_DISABLE_DEPRECATED"   : (common_env["disable_deprecated"],
@@ -851,6 +861,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_MT_CPTR_ASPECT"       : ("MT_CPTR" == common_env["fcptr_mode"]),
                 "OSG_1_COMPAT"             : common_env["enable_osg1_compat"],
                 "OSG_DEPRECATED_PROPS"     : common_env["enable_deprecated_props"],
+                "OSG_ICC_GNU_COMPAT"       : common_env["icc_gnu_compat"],
                 
                 "OSG_WITH_JPG"       : image_format_options["jpeg"].isAvailable(),
                 "OSG_WITH_TIF"       : image_format_options["tiff"].isAvailable(),
@@ -945,13 +956,6 @@ if not SConsAddons.Util.hasHelpFlag():
 
          lib_map_str = pprint.pformat(lib_map_build_list)
 
-         # Deal with paths correctly on windows.
-         if GetPlatform() == "win32":
-            common_env["prefix"] = common_env["prefix"].replace('\\', '\\\\')
-            inst_paths["lib"] = inst_paths["lib"].replace('\\', '\\\\')
-            inst_paths["include"] = inst_paths["include"].replace('\\', '\\\\')
-
-
          submap = {'@LIB_MAP_STR@'      : lib_map_str,
                    '@PREFIX@'           : common_env["prefix"],
                    '@LIBPATH@'          : inst_paths["lib"],
@@ -973,4 +977,3 @@ if not SConsAddons.Util.hasHelpFlag():
 # ------------------------------------ #
 # --- Helper classes and functions --- #
 # ------------------------------------ #
-
