@@ -299,7 +299,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"texture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -876,13 +876,7 @@ void TextureBackgroundBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -892,7 +886,7 @@ DataType FieldTraits<TextureBackgroundPtr>::_type("TextureBackgroundPtr", "Backg
 
 OSG_FIELDTRAITS_GETTYPE(TextureBackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, TextureBackgroundPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, TextureBackgroundPtr, SFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/

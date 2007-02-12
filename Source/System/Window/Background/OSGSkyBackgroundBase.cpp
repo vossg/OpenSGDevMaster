@@ -627,7 +627,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"backTexture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NullFC\"\n"
@@ -637,7 +637,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"bottomTexture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NullFC\"\n"
@@ -647,7 +647,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"frontTexture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NullFC\"\n"
@@ -657,7 +657,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"leftTexture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NullFC\"\n"
@@ -667,7 +667,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"rightTexture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NullFC\"\n"
@@ -677,7 +677,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"topTexture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NullFC\"\n"
@@ -2424,13 +2424,7 @@ void SkyBackgroundBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -2440,7 +2434,7 @@ DataType FieldTraits<SkyBackgroundPtr>::_type("SkyBackgroundPtr", "BackgroundPtr
 
 OSG_FIELDTRAITS_GETTYPE(SkyBackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(MField, SkyBackgroundPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, SkyBackgroundPtr, MFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/
