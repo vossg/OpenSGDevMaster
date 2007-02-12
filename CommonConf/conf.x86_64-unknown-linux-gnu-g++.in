@@ -1,0 +1,8 @@
+
+ac_gdz_compiler_exe=g++
+ac_gdz_c_compiler_exe=g++
+ac_gdz_compiler_dir=/usr
+ac_gdz_compiler_path=/usr/bin
+ac_gdz_compiler_incl=
+ac_gdz_compiler_lib=
+
