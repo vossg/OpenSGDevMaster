@@ -2449,9 +2449,9 @@ void Image::setAttachmentField(const std::string &key,
             0,
             true,
             Field::SFDefaultFlags,
-            reinterpret_cast<FieldEditMethodSig>(
+            reinterpret_cast<FieldIndexEditMethodSig>(
                 &ImageGenericAtt::editDynamicField),
-            reinterpret_cast<FieldGetMethodSig >(
+            reinterpret_cast<FieldIndexGetMethodSig >(
                 &ImageGenericAtt::getDynamicField ));
 
 

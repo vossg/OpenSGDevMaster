@@ -35,6 +35,7 @@ import SConsAddons.Options as sca_opts
 import SConsAddons.Variants as sca_variants
 import SConsAddons.Builders
 import SConsAddons.Options.Boost
+import SConsAddons.Options.VTK
 from SConsAddons.EnvironmentBuilder import EnvironmentBuilder
 from LibraryUtils import *
 from sets import Set
@@ -654,6 +655,21 @@ optional_libs_options["NVPerfSDK"] = sca_opts.StandardPackageOption(
     "NVPerfSDK", "Location of the NVPerfSDK library", library = "NVPerfSDK",
     header = "NVPerfSDK.h", required = False)
 
+optional_libs_options['vtk'] = sca_opts.VTK.VTK(
+   "vtk",
+   "Location of the vtk libraries",
+   required = False,
+   libList = ['vtkRendering',
+              'vtkIO',
+              'vtkGraphics',
+              'vtkImaging',
+              'vtkFiltering',
+              'vtkCommon',
+              'vtkftgl',
+              'vtkDICOMParser',
+              'vtksys',
+              'vtkMPEG2Encode'])
+
 # Feature options - select library/interface features
 feature_options = {}
 feature_options["gif"] = sca_opts.BoolOption(
@@ -869,7 +885,8 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_WITH_GIF"       : image_format_options["gif"].getValue(),
                 "OSG_WITH_GLUT"      : optional_libs_options["glut"].isAvailable(),
                 "OSG_WITH_ZLIB"      : optional_libs_options["zlib"].isAvailable(),
-                "OSG_WITH_NVPERFSDK" : optional_libs_options["NVPerfSDK"].isAvailable()
+                "OSG_WITH_NVPERFSDK" : optional_libs_options["NVPerfSDK"].isAvailable(),
+                "OSG_WITH_VTK"       : optional_libs_options["vtk"].isAvailable()
                }
    if "win32" == platform:   # Win32 specific defines
       definemap.update(

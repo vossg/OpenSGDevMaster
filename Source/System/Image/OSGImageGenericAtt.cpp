@@ -49,6 +49,12 @@
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
+
+OSG_DYNFIELDATTACHMENT_INST(ImageGenericAttDesc)
+
+OSG_END_NAMESPACE
+
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
 #pragma warning (disable : 383)
 #endif

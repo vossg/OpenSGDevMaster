@@ -82,7 +82,10 @@ struct ImageGenericAttDesc
     typedef FieldContainerAttachmentPtr ParentPtr;
 
     static const Char8 *getTypeName      (void) { return "ImageGenericAtt"; }
-    static const Char8 *getParentTypeName(void) { return "Attachment";      }
+    static const Char8 *getParentTypeName(void) 
+    {
+        return "FieldContainerAttachment";      
+    }
     static const Char8 *getGroupName     (void) { return "ImageGenAtt";     }
 
     static InitContainerF         getInitMethod(void) { return NULL; }

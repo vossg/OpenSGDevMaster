@@ -100,6 +100,8 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerAttachment :
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
+    OSG_ABSTR_FIELD_CONTAINER_DECL;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */

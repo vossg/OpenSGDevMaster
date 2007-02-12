@@ -587,10 +587,10 @@ class FieldDescription : public DescT::FieldDescParent
                      std::string                 documentation,
                      const UInt32                uiFieldId,
                      const BitVector             vFieldMask,
-                           FieldIndexEditMethod  fIndexedEditMethod,
-                           FieldIndexGetMethod   fIndexedGetMethod,
                      const bool                  bInternal,
                      const UInt32                uiFieldFlags,
+                           FieldIndexEditMethod  fIndexedEditMethod,
+                           FieldIndexGetMethod   fIndexedGetMethod,
                      const Char8                *defaultValue = NULL );
 
     FieldDescription(const FieldDescription &source);

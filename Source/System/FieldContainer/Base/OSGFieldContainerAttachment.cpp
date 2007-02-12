@@ -93,6 +93,8 @@ FieldContainerAttachment::~FieldContainerAttachment(void)
 {
 }
 
+OSG_ABSTR_FIELD_CONTAINER_DEF(FieldContainerAttachment)
+
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 

@@ -132,7 +132,7 @@ TypeBase::TypeBase(const TypeBase &source) :
     _szName      (source._szName      ),
     _szParentName(source._szParentName),
 
-    _bInitialized(source._bInitialized)
+    _bInitialized(false               )
 {
 }
 

@@ -256,10 +256,10 @@ FieldDescription<DescT, eFieldCard>::FieldDescription(
     std::string                 documentation,
     const UInt32                uiFieldId,
     const BitVector             vFieldMask,
-          FieldIndexEditMethod  fIndexedEditMethod,
-          FieldIndexGetMethod   fIndexedGetMethod,
     const bool                  bInternal,
     const UInt32                uiFieldFlags,
+          FieldIndexEditMethod  fIndexedEditMethod,
+          FieldIndexGetMethod   fIndexedGetMethod,
     const Char8                *defaultValue      ) :
 
     Inherited(elementType,
@@ -267,10 +267,10 @@ FieldDescription<DescT, eFieldCard>::FieldDescription(
               documentation,
               uiFieldId,
               vFieldMask,
-              fIndexedEditMethod,
-              fIndexedGetMethod,
               bInternal,
               uiFieldFlags,
+              fIndexedEditMethod,
+              fIndexedGetMethod,
               defaultValue)
 {
 }

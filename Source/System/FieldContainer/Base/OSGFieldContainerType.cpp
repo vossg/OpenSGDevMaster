@@ -98,11 +98,12 @@ FieldContainerType::FieldContainerType(const FieldContainerType &source) :
 
     Inherited(source),
 
-    _baseType        (source._baseType        ),
-    _pPrototype      (source._pPrototype      ),
-    _fPrototypeCreate(source._fPrototypeCreate),
-    _fcdXML          (source._fcdXML),
-    _typeDoc         (source._typeDoc)
+    _baseType        (source._baseType   ),
+    _pPrototype      (source._pPrototype ),
+    _fPrototypeCreate(NULL               ),
+    _fInitMethod     (source._fInitMethod),
+    _fcdXML          (source._fcdXML     ),
+    _typeDoc         (source._typeDoc    )
 {
     if(_pPrototype != NullFC)
         addRef(_pPrototype);

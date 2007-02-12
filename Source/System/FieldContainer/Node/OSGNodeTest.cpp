@@ -40,6 +40,8 @@
 
 #include <OpenSG/OSGNode.h>
 #include <OpenSG/OSGNameAttachment.h>
+#include <OpenSG/OSGFieldContainerAttachment.h>
+#include <OpenSG/OSGDynamicAttachmentMixin.h>
 
 #include <OpenSG/OSGBillboard.h>
 #include <OpenSG/OSGGroup.h>
@@ -48,6 +50,33 @@
 
 #include <string>
 #include <vector>
+
+OSG_BEGIN_NAMESPACE
+
+struct TestAttDesc
+{
+    typedef OSG::FieldContainerAttachment    Parent;
+    typedef OSG::FieldContainerAttachmentPtr ParentPtr;
+    
+    // TODO rename it to VRMLGenericAtt ????
+    static const OSG::Char8 *getTypeName        (void) { return "TestAtt";    }
+    static const OSG::Char8 *getParentTypeName  (void) 
+    {
+        return "FieldContainerAttachment"; 
+    }
+    static const OSG::Char8 *getGroupName       (void) { return "TestGenAtt"; }
+    
+    static OSG::InitContainerF     getInitMethod(void) { return NULL; }
+    
+    static OSG::FieldDescriptionBase **getDesc  (void) { return NULL; }
+};
+
+typedef OSG::DynFieldAttachment<TestAttDesc>  TestAtt;
+typedef TestAtt::ObjPtr                       TestAttPtr;
+
+OSG_DYNFIELDATTACHMENT_INST(TestAttDesc)
+
+OSG_END_NAMESPACE
 
 SUITE(NodeTests)
 {
@@ -204,6 +233,42 @@ TEST_FIXTURE(CloneFixture, DeepCloneTree)
     CHECK(clone03->getChild(0)->getChild(0)->getCore() == b01Core);
     CHECK(clone03->getChild(2)->getChild(0)->getCore() == b02Core);
     CHECK(clone03->getChild(2)->getChild(1)->getCore() == OSG::NullFC);
+}
+
+TEST(DynFieldAttachment)
+{
+    OSG::TestAttPtr pT = OSG::TestAtt::create();
+
+    OSG::FieldDescriptionBase *pDesc = NULL;
+
+    pDesc = new OSG::SFInt32::Description(
+        OSG::SFInt32::getClassType(),
+        "foo",
+        "bar",
+        0, 
+        0,
+        false,
+        OSG::Field::SFDefaultFlags,
+        reinterpret_cast<OSG::FieldIndexEditMethodSig>(
+            &OSG::TestAtt::editDynamicField),
+        reinterpret_cast<OSG::FieldIndexGetMethodSig >(
+            &OSG::TestAtt::getDynamicField ));
+
+    CHECK(pT != OSG::NullFC);
+
+    OSG::UInt32 fIndex = pT->addField(*pDesc);
+
+    CHECK(fIndex != 0);
+
+    const OSG::Field *pFI = pT->getDynamicField(fIndex);
+
+    CHECK(pFI != NULL);
+
+    const OSG::Field *pFN = pT->getDynamicFieldByName("foo");
+
+    CHECK(pFN != NULL);
+
+    CHECK(pFN == pFI);
 }
 
 } // SUITE

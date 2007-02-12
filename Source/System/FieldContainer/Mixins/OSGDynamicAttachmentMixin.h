@@ -67,6 +67,7 @@ class DynFieldAttachment : public AttachmentDescT::Parent
 
   public:
 
+    typedef          AttachmentDescT                      Desc;
     typedef typename AttachmentDescT::Parent              Inherited;
     typedef typename AttachmentDescT::Parent              ParentContainer;
 
@@ -84,6 +85,7 @@ class DynFieldAttachment : public AttachmentDescT::Parent
 
     typedef typename Inherited::TypeObject                TypeObject;
     typedef typename TypeObject::InitPhase                InitPhase;
+
 
     typedef          PointerBuilder<Self>                 PtrType;
 
@@ -132,6 +134,8 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    static TypeObject _type;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -212,6 +216,27 @@ class DynFieldAttachment : public AttachmentDescT::Parent
 };
 
 OSG_END_NAMESPACE
+
+#define OSG_DYNFIELDATTACHMENT_INST(DESC)                                     \
+template <>                                                                   \
+DynFieldAttachment< DESC >::TypeObject                                        \
+    DynFieldAttachment< DESC >::_type(                                        \
+        true,                                                                 \
+        Desc::getTypeName      (),                                            \
+        Desc::getParentTypeName(),                                            \
+        Desc::getGroupName     (),                                            \
+        0,                                                                    \
+        (PrototypeCreateF) &Self::createEmpty,                                \
+        NULL,                                                                 \
+        NULL,                                                                 \
+        true);                                                                \
+                                                                              \
+template<>                                                                    \
+DynFieldAttachment< DESC >::TypeObject &                                      \
+    DynFieldAttachment< DESC >::getClassType(void)                            \
+{                                                                             \
+    return Self::_type;                                                       \
+}
 
 #include "OSGDynamicAttachmentMixin.inl"
 

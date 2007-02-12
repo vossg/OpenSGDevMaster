@@ -65,6 +65,8 @@ UInt32 DynFieldAttachment<AttachmentDescT>::addField(
 
     returnValue = _localType.addDescription(fieldDesc);
 
+    fprintf(stderr, "ret : %d %d\n", returnValue, Inherited::NextFieldId);
+
     if(returnValue != 0)
     {
         descP = _localType.getFieldDesc(returnValue);
@@ -182,7 +184,7 @@ void DynFieldAttachment<AttachmentDescT>::dump(
 }
 
 OSG_FIELD_CONTAINER_TMPL_NO_TYPE_DEF  (DynFieldAttachment, AttachmentDescT)
-OSG_RC_GET_STATIC_TYPE_INL_TMPL_DEF   (DynFieldAttachment, AttachmentDescT)
+//OSG_RC_GET_STATIC_TYPE_INL_TMPL_DEF   (DynFieldAttachment, AttachmentDescT)
 OSG_RC_GET_STATIC_TYPE_ID_INL_TMPL_DEF(DynFieldAttachment, AttachmentDescT)
 
 /*-------------------------------------------------------------------------*/
@@ -194,7 +196,8 @@ DynFieldAttachment<AttachmentDescT>::DynFieldAttachment(void) :
     _localType (Self::_type),
     _dynFieldsV(           )
 {
-    _localType.initialize();
+    if(GlobalSystemState == Running)
+        _localType.initialize();
 }
 
 template <class AttachmentDescT> inline
@@ -205,7 +208,8 @@ DynFieldAttachment<AttachmentDescT>::DynFieldAttachment(
     _localType (Self::_type        ),
     _dynFieldsV( source._dynFieldsV) // Do a real copy soon ;-)
 {
-    _localType.initialize();
+    if(GlobalSystemState == Running)
+        _localType.initialize();
 }
 
 /*-------------------------------------------------------------------------*/

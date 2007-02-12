@@ -142,10 +142,10 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
                          const std::string          fieldDocumentation,
                          const UInt32               uiFieldId,
                          const BitVector            vFieldMask,
-                               FieldIndexEditMethod fIndexedEditMethod,
-                               FieldIndexGetMethod  fIndexedGetMethod,
                          const bool                 bInternal,
                          const UInt32               uiFieldFlags,
+                               FieldIndexEditMethod fIndexedEditMethod,
+                               FieldIndexGetMethod  fIndexedGetMethod,
                          const Char8               *defaultValue);
 
     FieldDescriptionBase(const FieldDescriptionBase &source);
