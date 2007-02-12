@@ -73,30 +73,38 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerAttachmentPtr  att       = mapIt->second;
-        const FieldContainerType    &attType   = att->getType();
-        UInt16                       uiBinding = UInt16(mapIt->first &
-                                                        0x0000FFFF    );
+        FieldContainerAttachmentPtr att       = mapIt->second;
+        UInt16                      uiBinding = UInt16(mapIt->first &
+                                                       0x0000FFFF    );
 
-        // test if fc type should NOT be ignored
-        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
-                                            ignoreGroupIds.end(), attType) &&
-           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
-                                            ignoreTypes.end(),    attType)   )
+        if(att != NullFC)
         {
-            // test if fc should NOT be shared
-            if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
-                                                shareGroupIds.end(), attType) &&
-               !TypePredicates::typeDerivedFrom(shareTypes.begin(),
-                                                shareTypes.end(),    attType)   )
-            {
-                att = cast_dynamic<FieldContainerAttachmentPtr>(
-                          OSG::deepClone(att, shareTypes,    ignoreTypes,
-                                              shareGroupIds, ignoreGroupIds));
-            }
+            const FieldContainerType &attType = att->getType();
 
-            pDstAC->addAttachment(att, uiBinding);
+            // test if fc type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                                ignoreGroupIds.end(),
+                                                attType                ) &&
+               !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                                ignoreTypes.end(),
+                                                attType                )   )
+            {
+                // test if fc should NOT be shared
+                if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
+                                                    shareGroupIds.end(),
+                                                    attType               ) &&
+                   !TypePredicates::typeDerivedFrom(shareTypes.begin(),
+                                                    shareTypes.end(),
+                                                    attType               )   )
+                {
+                    att = cast_dynamic<FieldContainerAttachmentPtr>(
+                        OSG::deepClone(att, shareTypes,    ignoreTypes,
+                                            shareGroupIds, ignoreGroupIds));
+                }
+            }
         }
+
+        pDstAC->addAttachment(att, uiBinding);
     }
 }
 
@@ -122,30 +130,38 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FieldContainerAttachmentPtr  att       = mapIt->second;
-        const FieldContainerType    &attType   = att->getType();
-        UInt16                       uiBinding = UInt16(mapIt->first &
-                                                        0x0000FFFF    );
+        FieldContainerAttachmentPtr att       = mapIt->second;
+        UInt16                      uiBinding = UInt16(mapIt->first &
+                                                       0x0000FFFF    );
 
-        // test if att type should NOT be ignored
-        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
-                                            ignoreGroupIds.end(), attType) &&
-           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
-                                            ignoreTypes.end(),    attType)   )
+        if(att != NullFC)
         {
-            // test if att should cloned
-            if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
-                                               cloneGroupIds.end(), attType) ||
-               TypePredicates::typeDerivedFrom(cloneTypes.begin(),
-                                               cloneTypes.end(),    attType)   )
-            {
-                att = cast_dynamic<FieldContainerAttachmentPtr>(
-                          OSG::deepClone(att, cloneTypes,    ignoreTypes,
-                                              cloneGroupIds, ignoreGroupIds));
-            }
+            const FieldContainerType &attType = att->getType();
 
-            pDstAC->addAttachment(att, uiBinding);
+            // test if att type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                                ignoreGroupIds.end(),
+                                                attType                ) &&
+               !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                                ignoreTypes.end(),
+                                                attType                )   )
+            {
+                // test if att should cloned
+                if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
+                                                   cloneGroupIds.end(),
+                                                   attType               ) ||
+                   TypePredicates::typeDerivedFrom(cloneTypes.begin(),
+                                                   cloneTypes.end(),
+                                                   attType               )   )
+                {
+                    att = cast_dynamic<FieldContainerAttachmentPtr>(
+                        OSG::deepClone(att, cloneTypes,    ignoreTypes,
+                                            cloneGroupIds, ignoreGroupIds));
+                }
+            }
         }
+
+        pDstAC->addAttachment(att, uiBinding);
     }
 }
 

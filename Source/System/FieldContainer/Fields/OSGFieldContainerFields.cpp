@@ -60,29 +60,33 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
     const std::vector<UInt16>                    &shareGroupIds,
     const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FieldContainerPtr         fc =
+    FieldContainerPtr fc =
         static_cast<const SFFieldContainerPtr*>(pSrc)->getValue();
-    const FieldContainerType& fcType = fc->getType();
 
-    // test if fc type should NOT be ignored
-    if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
-                                        ignoreGroupIds.end(), fcType) &&
-       !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
-                                        ignoreTypes.end(),    fcType)   )
+    if(fc != NullFC)
     {
-        // test if fc should NOT be shared
-        if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
-                                            shareGroupIds.end(), fcType) &&
-           !TypePredicates::typeDerivedFrom(shareTypes.begin(),
-                                            shareTypes.end(),    fcType)   )
+        const FieldContainerType& fcType = fc->getType();
+
+        // test if fc type should NOT be ignored
+        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                            ignoreGroupIds.end(), fcType) &&
+           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                            ignoreTypes.end(),    fcType)   )
         {
-            fc = OSG::deepClone(fc, shareTypes,    ignoreTypes,
-                                    shareGroupIds, ignoreGroupIds);
+            // test if fc should NOT be shared
+            if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
+                                                shareGroupIds.end(), fcType) &&
+               !TypePredicates::typeDerivedFrom(shareTypes.begin(),
+                                                shareTypes.end(),    fcType)   )
+            {
+                fc = OSG::deepClone(fc, shareTypes,    ignoreTypes,
+                                        shareGroupIds, ignoreGroupIds);
+            }
         }
-    }
-    else
-    {
-        fc = NullFC;
+        else
+        {
+            fc = NullFC;
+        }
     }
 
     pDst->pushToField(fc, fieldId);
@@ -108,27 +112,35 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
     // TODO: Could this be optimized by checking ignore/share just once ?
     for(; fieldIter != fieldEnd; ++fieldIter)
     {
-              FieldContainerPtr   fc     = *fieldIter;
-        const FieldContainerType& fcType = fc->getType();
+        FieldContainerPtr fc = *fieldIter;
 
-        // test if fc type should NOT be ignored
-        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
-                                            ignoreGroupIds.end(), fcType) &&
-           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
-                                            ignoreTypes.end(),    fcType)   )
+        if(fc != NullFC)
         {
-            // test if fc should NOT be shared
-            if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
-                                                shareGroupIds.end(), fcType) &&
-               !TypePredicates::typeDerivedFrom(shareTypes.begin(),
-                                                shareTypes.end(),    fcType)   )
-            {
-                fc = OSG::deepClone(fc, shareTypes,    ignoreTypes,
-                                        shareGroupIds, ignoreGroupIds);
-            }
+            const FieldContainerType& fcType = fc->getType();
 
-            pDst->pushToField(fc, fieldId);
+            // test if fc type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                                ignoreGroupIds.end(),
+                                                fcType                 ) &&
+               !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                                ignoreTypes.end(),
+                                                fcType                 )   )
+            {
+                // test if fc should NOT be shared
+                if(!TypePredicates::typeInGroupIds (shareGroupIds.begin(),
+                                                    shareGroupIds.end(),
+                                                    fcType                ) &&
+                   !TypePredicates::typeDerivedFrom(shareTypes.begin(),
+                                                    shareTypes.end(),
+                                                    fcType                )   )
+                {
+                    fc = OSG::deepClone(fc, shareTypes,    ignoreTypes,
+                                            shareGroupIds, ignoreGroupIds);
+                }
+            }
         }
+
+        pDst->pushToField(fc, fieldId);
     }
 }
 
@@ -144,29 +156,33 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
     const std::vector<UInt16>                    &cloneGroupIds,
     const std::vector<UInt16>                    &ignoreGroupIds) const
 {
-    FieldContainerPtr         fc =
+    FieldContainerPtr fc =
         static_cast<const SFFieldContainerPtr*>(pSrc)->getValue();
-    const FieldContainerType& fcType = fc->getType();
 
-    // test if att type should NOT be ignored
-    if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
-                                        ignoreGroupIds.end(), fcType) &&
-       !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
-                                        ignoreTypes.end(),    fcType)   )
+    if(fc != NullFC)
     {
-        // test if att should cloned
-        if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
-                                           cloneGroupIds.end(), fcType) ||
-           TypePredicates::typeDerivedFrom(cloneTypes.begin(),
-                                           cloneTypes.end(),    fcType)   )
+        const FieldContainerType& fcType = fc->getType();
+
+        // test if att type should NOT be ignored
+        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                            ignoreGroupIds.end(), fcType) &&
+           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                            ignoreTypes.end(),    fcType)   )
         {
-            fc = OSG::deepClone(fc, cloneTypes,    ignoreTypes,
-                                    cloneGroupIds, ignoreGroupIds);
+            // test if att should cloned
+            if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
+                                               cloneGroupIds.end(), fcType) ||
+               TypePredicates::typeDerivedFrom(cloneTypes.begin(),
+                                               cloneTypes.end(),    fcType)   )
+            {
+                fc = OSG::deepClone(fc, cloneTypes,    ignoreTypes,
+                                        cloneGroupIds, ignoreGroupIds);
+            }
         }
-    }
-    else
-    {
-        fc = NullFC;
+        else
+        {
+            fc = NullFC;
+        }
     }
 
     pDst->pushToField(fc, fieldId);
@@ -192,27 +208,35 @@ FieldDescription<FieldTraits<FieldContainerPtr>,
     // TODO: Could this be optimized by checking ignore/clone just once ?
     for(; fieldIter != fieldEnd; ++fieldIter)
     {
-              FieldContainerPtr   fc     = *fieldIter;
-        const FieldContainerType& fcType = fc->getType();
+        FieldContainerPtr fc = *fieldIter;
 
-        // test if att type should NOT be ignored
-        if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
-                                            ignoreGroupIds.end(), fcType) &&
-           !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
-                                            ignoreTypes.end(),    fcType)   )
+        if(fc != NullFC)
         {
-            // test if att should cloned
-            if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
-                                               cloneGroupIds.end(), fcType) ||
-               TypePredicates::typeDerivedFrom(cloneTypes.begin(),
-                                               cloneTypes.end(),    fcType)   )
-            {
-                fc = OSG::deepClone(fc, cloneTypes,    ignoreTypes,
-                                        cloneGroupIds, ignoreGroupIds);
-            }
+            const FieldContainerType& fcType = fc->getType();
 
-            pDst->pushToField(fc, fieldId);
+            // test if att type should NOT be ignored
+            if(!TypePredicates::typeInGroupIds (ignoreGroupIds.begin(),
+                                                ignoreGroupIds.end(),
+                                                fcType                 ) &&
+                !TypePredicates::typeDerivedFrom(ignoreTypes.begin(),
+                                                 ignoreTypes.end(),
+                                                 fcType                )   )
+            {
+                // test if att should cloned
+                if(TypePredicates::typeInGroupIds (cloneGroupIds.begin(),
+                                                   cloneGroupIds.end(),
+                                                   fcType                ) ||
+                   TypePredicates::typeDerivedFrom(cloneTypes.begin(),
+                                                   cloneTypes.end(),
+                                                   fcType                )   )
+                {
+                    fc = OSG::deepClone(fc, cloneTypes,    ignoreTypes,
+                                            cloneGroupIds, ignoreGroupIds);
+                }
+            }
         }
+
+        pDst->pushToField(fc, fieldId);
     }
 }
 
