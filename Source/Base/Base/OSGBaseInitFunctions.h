@@ -138,7 +138,7 @@ void addLibraryVersion(const Char8 *szName);
 # define OSG_INIT_DEBUG false
 #endif
 #ifdef _DLL  
-# define OSG_INIT_DLL   true,
+# define OSG_INIT_DLL   true
 #else
 # define OSG_INIT_DLL   false
 #endif

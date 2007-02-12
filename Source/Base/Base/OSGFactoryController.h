@@ -121,15 +121,15 @@ class OSG_BASE_DLLMAPPING FactoryControllerBase
     //   friend functions                                                    
     //-----------------------------------------------------------------------
 
-    friend  bool osgInit(Int32   argc, 
-                         Char8 **argv,
-                         UInt16  major, 
-                         UInt16  minor, 
-                         UInt16  release,
-                         bool    debug, 
-                         bool    dll, 
-                         bool    mt     );
-    friend  bool osgExit(void           );
+    friend OSG_BASE_DLLMAPPING  bool osgInit(Int32   argc, 
+                                             Char8 **argv,
+                                             UInt16  major, 
+                                             UInt16  minor, 
+                                             UInt16  release,
+                                             bool    debug, 
+                                             bool    dll, 
+                                             bool    mt     );
+    friend OSG_BASE_DLLMAPPING  bool osgExit(void           );
 
     //-----------------------------------------------------------------------
     //   class variables                                                     

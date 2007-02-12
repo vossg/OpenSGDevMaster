@@ -531,10 +531,10 @@ else:
    else:
       common_env = Environment(ENV = os.environ)
 
-SConsignFile('.sconsign.'+GetPlatform()+common_env['CXX'])
-buildDir = "build." + platform + '.' + common_env['CXX']
+SConsignFile('.sconsign.'+GetPlatform()+common_env.subst('$CXX'))
+buildDir = "build." + platform + '.' + common_env.subst('$CXX')
 
-option_filename = "option.cache." + platform + '.' + common_env['CXX']
+option_filename = "option.cache." + platform + '.' + common_env.subst('$CXX')
 
 if ARGUMENTS.has_key("options_file"):
    opt_file = ARGUMENTS["options_file"]
@@ -547,8 +547,8 @@ if ARGUMENTS.has_key("options_file"):
 
 
 # Setup the directories used for sconf processing
-common_env["CONFIGUREDIR"] = '.sconf_temp_'+platform+'_'+common_env['CXX']
-common_env["CONFIGURELOG"] = 'sconf.log_'+platform+'_'+common_env['CXX']
+common_env["CONFIGUREDIR"] = '.sconf_temp_'+platform+'_'+common_env.subst('$CXX')
+common_env["CONFIGURELOG"] = 'sconf.log_'+platform+'_'+common_env.subst('$CXX')
 if common_env.has_key("MSVS"):
    common_env["CONFIGUREDIR"] += "." + common_env["MSVS"]["VERSION"]
    common_env["CONFIGURELOG"] += "." + common_env["MSVS"]["VERSION"]
