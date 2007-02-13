@@ -46,7 +46,7 @@ OSG_BEGIN_NAMESPACE
 
 inline void BinaryMessage::putUInt32(const UInt32  value)
 {
-    Int32 net = osgHostToNet(value);
+    UInt32 net = osgHostToNet<UInt32>(value);
     _buffer.insert(_buffer.end(),
                    reinterpret_cast<UInt8*>(&net),
                    reinterpret_cast<UInt8*>(&net) + sizeof(net));
@@ -54,7 +54,7 @@ inline void BinaryMessage::putUInt32(const UInt32  value)
 
 inline void BinaryMessage::putInt32 (const Int32  value)
 {
-    Int32 net = osgHostToNet(value);
+    Int32 net = osgHostToNet<Int32>(value);
     _buffer.insert(_buffer.end(),
                    reinterpret_cast<UInt8*>(&net),
                    reinterpret_cast<UInt8*>(&net) + sizeof(net));
@@ -62,7 +62,7 @@ inline void BinaryMessage::putInt32 (const Int32  value)
 
 inline void BinaryMessage::putUInt16(const UInt16  value)
 {
-    UInt16 net = osgHostToNet(value);
+    UInt16 net = osgHostToNet<UInt16>(value);
     _buffer.insert(_buffer.end(),
                    reinterpret_cast<UInt8*>(&net),
                    reinterpret_cast<UInt8*>(&net) + sizeof(net));
@@ -70,7 +70,7 @@ inline void BinaryMessage::putUInt16(const UInt16  value)
 
 inline void BinaryMessage::putInt16 (const Int16  value)
 {
-    Int16 net = osgHostToNet(value);
+    Int16 net = osgHostToNet<Int16>(value);
     _buffer.insert(_buffer.end(),
                    reinterpret_cast<UInt8*>(&net),
                    reinterpret_cast<UInt8*>(&net) + sizeof(net));
@@ -112,28 +112,28 @@ inline void BinaryMessage::putReal32(const Real32  value)
 inline void BinaryMessage::getUInt32(UInt32  &value)
 {
     UInt32 net = *reinterpret_cast<UInt32*>(&_buffer[_pos]);
-    value = osgNetToHost(net);
+    value = osgNetToHost<UInt32>(net);
     _pos += sizeof(net);
 }
 
 inline void BinaryMessage::getInt32 (Int32  &value)
 {
     Int32 net = *reinterpret_cast<Int32*>(&_buffer[_pos]);
-    value = osgNetToHost(net);
+    value = osgNetToHost<Int32>(net);
     _pos += sizeof(net);
 }
 
 inline void BinaryMessage::getUInt16(UInt16  &value)
 {
     UInt16 net = *reinterpret_cast<UInt16*>(&_buffer[_pos]);
-    value = osgNetToHost(net);
+    value = osgNetToHost<UInt16>(net);
     _pos += sizeof(net);
 }
 
 inline void BinaryMessage::getInt16 (Int16  &value)
 {
     Int16 net = *reinterpret_cast<Int16*>(&_buffer[_pos]);
-    value = osgNetToHost(net);
+    value = osgNetToHost<Int16>(net);
     _pos += sizeof(net);
 }
 

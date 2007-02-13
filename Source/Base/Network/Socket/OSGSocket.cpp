@@ -311,7 +311,7 @@ int Socket::recv(NetworkMessage &msg)
 {
     NetworkMessage::Header hdr;
     peek(&hdr, sizeof(hdr));
-    msg.setSize(osgNetToHost(hdr.size));
+    msg.setSize(osgNetToHost<UInt32>(hdr.size));
     return recv(msg.getBuffer(), msg.getSize());
 }
 
@@ -404,7 +404,7 @@ int Socket::send(const void *buf, int size)
 int Socket::send(NetworkMessage &msg)
 {
     NetworkMessage::Header &hdr = msg.getHeader();
-    hdr.size = osgHostToNet(msg.getSize());
+    hdr.size = osgHostToNet<UInt32>(msg.getSize());
     return send(msg.getBuffer(), msg.getSize());
 }
 

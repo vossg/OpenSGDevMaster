@@ -53,7 +53,7 @@ UInt32 Dgram::getCapacity(void) const
 inline
 UInt16 Dgram::getId(void) const
 {
-    return osgNetToHost(_buffer._id);
+    return osgNetToHost<UInt16>(_buffer._id);
 }
 
 inline
@@ -122,7 +122,7 @@ void Dgram::setResponseSize(void)
 inline 
 void Dgram::setId(UInt16 id)
 {
-    _buffer._id = osgHostToNet(id);
+    _buffer._id = osgHostToNet<UInt16>(id);
 }
 
 inline

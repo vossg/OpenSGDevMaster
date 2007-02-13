@@ -263,7 +263,7 @@ bool PointSockConnection::wait(Time timeout) throw (ReadError)
         if(!_socket.recv(&tag,sizeof(tag)))
             throw ReadError("Channel closed");
 
-        tag = osgNetToHost(tag);
+        tag = osgNetToHost<UInt32>(tag);
         if(tag != 314156)
         {
             FFATAL(("Stream out of sync in SockConnection\n"));
@@ -281,7 +281,7 @@ bool PointSockConnection::wait(Time timeout) throw (ReadError)
  */
 void PointSockConnection::signal(void) throw (WriteError)
 {
-    UInt32 tag = osgHostToNet(314156);
+    UInt32 tag = osgHostToNet<UInt32>(314156);
     try
     {
         _socket.send(&tag,sizeof(tag));
@@ -341,7 +341,7 @@ void PointSockConnection::readBuffer() throw (ReadError)
     if(len==0)
         throw ReadError("peek got 0 bytes!");
     // read remaining data
-    size=osgNetToHost(((SocketBufferHeader*)&_socketReadBuffer[0])->size);
+    size=osgNetToHost<UInt32>(((SocketBufferHeader*)&_socketReadBuffer[0])->size);
     len=_socket.recv(&_socketReadBuffer[sizeof(SocketBufferHeader)],
                      size);
     if(len==0)
@@ -370,8 +370,11 @@ void PointSockConnection::writeBuffer(void)
 {
     Int32 index;
     UInt32 size = writeBufBegin()->getDataSize();
+
     // write size to header
-    ((SocketBufferHeader*)&_socketWriteBuffer[0])->size=osgHostToNet(size);
+    ((SocketBufferHeader*)&_socketWriteBuffer[0])->size = 
+        osgHostToNet<UInt32>(size);
+
     if(size)
     {
         // write whole block
