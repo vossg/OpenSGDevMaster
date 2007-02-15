@@ -238,6 +238,10 @@ typedef SingletonHolder<VRMLNodeHelperFactoryBase> VRMLNodeHelperFactory;
 //---------------------------------------------------------------------------
 
 /*! \brief General VRML Node Desc
+    \ingroup GrpSystemFileIOVRML
+    This is a helper that knows how to load and handle construction of a single
+    VRML node type.  This class will have one derived class for all node
+    types that can be handled by the loader.
 */
 
 class OSG_FILEIO_DLLMAPPING VRMLNodeHelper 
