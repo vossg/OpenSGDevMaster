@@ -154,8 +154,12 @@ inline void BinaryMessage::getString(std::string &value)
 
     if(size)
     {
-        value.assign(reinterpret_cast<char*>(&_buffer[_pos       ]),
-                     reinterpret_cast<char*>(&_buffer[_pos + size]) );
+// error if [] checks index
+//        value.assign(reinterpret_cast<char*>(&_buffer[_pos       ]),
+//                     reinterpret_cast<char*>(&_buffer[_pos + size]) );
+
+        value.assign(reinterpret_cast<char*>(&(_buffer[_pos])), size);
+
         _pos += size;
     }
     else
