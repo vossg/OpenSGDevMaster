@@ -44,6 +44,8 @@ OSG_BEGIN_NAMESPACE
 //   Base Math Functions
 //---------------------------------------------------------------------------
 
+//#define OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+
 /*---------------------------------------------------------------------*/
 /*! \name sqrt                                                         */
 /*! \{                                                                 */
@@ -56,8 +58,10 @@ OSG_BEGIN_NAMESPACE
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -67,6 +71,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgSqrt(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -114,6 +119,19 @@ Fixed32 osgSqrt(const Fixed32 rValue)
 {
     return Fixed32::sqrt(rValue);
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgSqrt(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgSqrt(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the square root of the argument, i.e. the number \c y that satisfies
@@ -181,8 +199,10 @@ Fixed32 osgsqrt(const Fixed32 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -192,6 +212,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgCos(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -238,6 +259,19 @@ Fixed32 osgCos(const Fixed32 rValue)
 {
     return Fixed32::cos(rValue);
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgCos(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgCos(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the cosine of the argument, which is given in radians.
@@ -304,8 +338,10 @@ Fixed32 osgcos(const Fixed32 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -315,6 +351,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgSin(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -361,6 +398,19 @@ Fixed32 osgSin(const Fixed32 rValue)
 {
     return Fixed32::sin(rValue);
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgSin(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgSin(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the sine of the argument, which is given in radians.
@@ -429,8 +479,10 @@ Fixed32 osgsin(const Fixed32 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -440,6 +492,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgTan(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -486,6 +539,19 @@ Fixed32 osgTan(const Fixed32 rValue)
 {
     return Fixed32::tan(rValue);
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgTan(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgTan(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the tangent of the argument, which is given in radians. The tangent
@@ -556,8 +622,10 @@ Fixed32 osgtan(const Fixed32 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -567,6 +635,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgACos(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -605,6 +674,19 @@ Real128 osgACos(const Real128 rValue)
     return acosl(rValue);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgACos(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgACos(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the arc cosine (in radians) of the argument, i.e. the number \c y
@@ -667,8 +749,10 @@ Real128 osgacos(const Real128 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -678,6 +762,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgASin(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -717,6 +802,19 @@ Real128 osgASin(const Real128 rValue)
     return asinl(rValue);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgASin(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgASin(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the arc sine (in radians) of the argument, i.e. the number \c y such
@@ -781,8 +879,10 @@ Real128 osgasin(const Real128 rValue)
     hence exhibits the respective error behavior.
 
     \sa osgATan2(const FloatTypeT,const FloatTypeT)
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -792,6 +892,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgATan(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -830,6 +931,19 @@ Real128 osgATan(const Real128 rValue)
     return atanl(rValue);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgATan(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgATan(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the arc tangent (in radians) of the argument, i.e. the number \c y
@@ -891,12 +1005,15 @@ Real128 osgatan(const Real128 rValue)
 
     \param[in] rValue1 The numerator of the value to compute atan of.
     \param[in] rValue2 The denominator of the value to compute atan of.
-    \return The arc tangent of <tt>rValue1 / rValue2</tt> in the range [-pi; pi].
+    \return The arc tangent of <tt>rValue1 / rValue2</tt> in the 
+            range [-pi; pi].
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -907,6 +1024,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgATan2(RealType(rValue1), RealType(rValue2));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -952,6 +1070,20 @@ Real128 osgATan2(const Real128 rValue1, const Real128 rValue2)
 #endif
 }
 
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgATan2(const FloatTypeT rValue1,
+             const FloatTypeT rValue2)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgATan2(RealType(rValue1), RealType(rValue2));
+}
+#endif
+
 #ifdef OSG_1_COMPAT
 /*! Return the arc tangent (in radians) of <tt>rValue1 / rValue2</tt> using
     the signs of both arguments to determine the quadrant. This can be used to
@@ -960,7 +1092,8 @@ Real128 osgATan2(const Real128 rValue1, const Real128 rValue2)
 
     \param[in] rValue1 The numerator of the value to compute atan of.
     \param[in] rValue2 The denominator of the value to compute atan of.
-    \return The arc tangent of <tt>rValue1 / rValue2</tt> in the range [-pi; pi].
+    \return The arc tangent of <tt>rValue1 / rValue2</tt> in the 
+            range [-pi; pi].
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
@@ -1015,14 +1148,17 @@ Real128 osgatan2(const Real128 rValue1, const Real128 rValue2)
     \note For floating point arguments this function forwards to an
     appropriate C++ or C library function, hence exhibits the
     respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class TypeT> inline
 TypeT osgAbs(const TypeT rValue)
 {
     return (rValue > 0) ? rValue : -rValue;
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -1069,6 +1205,16 @@ Real128 osgAbs(const Real128 rValue)
     return fabsl(rValue);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class TypeT> inline
+TypeT osgAbs(const TypeT rValue)
+{
+    return (rValue > 0) ? rValue : -rValue;
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the absolute value of the argument.
@@ -1135,8 +1281,10 @@ Real128 osgabs(const Real128 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -1147,6 +1295,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgPow(RealType(rValue), RealType(rExp));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -1186,6 +1335,20 @@ Real128 osgPow(const Real128 rValue, const Real128 rExp)
     return powl(rValue, rExp);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgPow(const FloatTypeT rValue,
+           const FloatTypeT rExp)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgPow(RealType(rValue), RealType(rExp));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return \a rValue to the power of \a rExp.
@@ -1247,8 +1410,10 @@ Real128 osgpow(const Real128 rValue, const Real128 rExp)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -1258,6 +1423,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgLog(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -1296,6 +1462,19 @@ Real128 osgLog(const Real128 rValue)
     return logl(rValue);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgLog(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgLog(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return the natural logarithm of the argument, i.e. the number \c y such that
@@ -1357,8 +1536,10 @@ Real128 osglog(const Real128 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -1368,6 +1549,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgExp(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -1406,6 +1588,19 @@ Real128 osgExp(const Real128 rValue)
     return expl(rValue);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgExp(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgExp(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Return e to the power \a rValue, where e is Euler's number, the base of the
@@ -1472,8 +1667,10 @@ Real128 osgexp(const Real128 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -1483,6 +1680,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  osgFloor(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -1525,6 +1723,19 @@ Real128 osgFloor(const Real128 rValue)
     return floorl(rValue);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgFloor(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  osgFloor(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Returns the argument rounded downwards to the nearest integer, i.e. returns
@@ -1597,8 +1808,10 @@ Real128 osgfloor(const Real128 rValue)
 
     \note This function forwards to an appropriate C++ or C library function,
     hence exhibits the respective error behavior.
+ */
 
-    \ingroup GrpBaseBaseMathFn
+#ifdef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
@@ -1608,6 +1821,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
     return  OSG::osgCeil(RealType(rValue));
 }
+#endif
 
 /*! \ingroup GrpBaseBaseMathFn
  */
@@ -1650,6 +1864,19 @@ Real128 osgCeil(const Real128 rValue)
     return ceill(rValue);
 #endif
 }
+
+#ifndef OSG_GENERAL_TEMPLATE_BEFORE_SPEZ
+/*! \ingroup GrpBaseBaseMathFn
+ */
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgCeil(const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  OSG::osgCeil(RealType(rValue));
+}
+#endif
 
 #ifdef OSG_1_COMPAT
 /*! Returns the argument rounded upwards to the nearest integer, i.e. returns
