@@ -300,6 +300,7 @@ void WinThreadLockBase::shutdown(void)
     if(_pMutex != NULL)
     {
         CloseHandle(_pMutex);
+        _pMutex = NULL;
     }
 #else
     DeleteCriticalSection(&_pCriticalSection);
@@ -452,10 +453,13 @@ bool LockPool::init(void)
 
 void LockPool::shutdown(void)
 {
+#if 0
+    // done by each lock on destruction
     for(UInt32 i = 0; i < uiLockPoolSize; i++)
     {
         _pLocks[i].shutdown();
     }
+#endif
 }
 
 
