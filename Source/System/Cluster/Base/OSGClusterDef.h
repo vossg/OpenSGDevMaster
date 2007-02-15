@@ -46,7 +46,7 @@
 //  Defines
 //---------------------------------------------------------------------------
 
-#if defined(WIN32) && defined(OSG_BUILD_DLL)
+#if defined(WIN32)
 #   ifdef OSG_COMPILECLUSTERLIB
 #       define OSG_CLUSTER_DLLMAPPING  __declspec(dllexport)
 #       define OSG_CLUSTER_EXPIMP_TMPL 
