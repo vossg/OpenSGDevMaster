@@ -61,7 +61,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! VRML97 Loader prototype handler 
+//! VRML97 Loader prototype handler
 //! \ingroup GrpSystemDrawablesGeometrymetryLoaderLib
 
 template <class BaseT>
@@ -72,7 +72,7 @@ class VRMLNodePrototypeHandler : public BaseT
 
 
     typedef VRMLNodePrototypeHandler<BaseT> Self;
-    
+
     /*==========================  PUBLIC  =================================*/
   public :
 
@@ -87,7 +87,7 @@ class VRMLNodePrototypeHandler : public BaseT
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~VRMLNodePrototypeHandler(void); 
+    virtual ~VRMLNodePrototypeHandler(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -100,21 +100,21 @@ class VRMLNodePrototypeHandler : public BaseT
 
     virtual void beginEventInDecl      (const Char8 *szEventType,
                                         const UInt32  uiFieldTypeId,
-                                        const Char8 *szEventName); 
+                                        const Char8 *szEventName);
 
     virtual void beginEventOutDecl     (const Char8 *szEventType,
                                         const UInt32  uiFieldTypeId,
-                                        const Char8 *szEventName); 
+                                        const Char8 *szEventName);
 
     virtual void beginFieldDecl        (const Char8  *szFieldType,
                                         const UInt32  uiFieldTypeId,
-                                        const Char8  *szFieldName); 
+                                        const Char8  *szFieldName);
 
     virtual void endFieldDecl          (      void);
 
     virtual void beginExposedFieldDecl (const Char8  *szFieldType,
                                         const UInt32  uiFieldTypeId,
-                                        const Char8  *szFieldName); 
+                                        const Char8  *szFieldName);
 
     virtual void endExposedFieldDecl   (      void);
 
@@ -132,24 +132,24 @@ class VRMLNodePrototypeHandler : public BaseT
 
 #ifdef OSG_STL_HAS_HASH_MAP
 #ifdef OSG_USE_HASH_COMPARE
-    typedef 
+    typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
-            const Char8    *,  
+            const Char8    *,
             VRMLNodeHelper *,
             HashCmpString                    > NameHelperMap;
 #else
-    typedef 
+    typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
-            const Char8  *,  
-            VRMLNodeHelper *, 
+            const Char8  *,
+            VRMLNodeHelper *,
             OSG_STDEXTENSION_NAMESPACE::hash<
-                const Char8 *>, 
-            EQString                         > NameHelperMap;  
+                const Char8 *>,
+            EQString                         > NameHelperMap;
 #endif
 #else
-    typedef 
-        std::map<const Char8 *,  
-                       VRMLNodeHelper *, 
+    typedef
+        std::map<const Char8 *,
+                       VRMLNodeHelper *,
                        LTString              > NameHelperMap;
 #endif
 
@@ -157,7 +157,10 @@ class VRMLNodePrototypeHandler : public BaseT
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
+    /** The current helper that we are actively adding fields too and building up. */
     VRMLNodeHelper     *_pCurrentHelper;
+
+    /** Map from proto name to the helper to handle that proto type. */
     NameHelperMap       _mNodeHelperHash;
 
 
