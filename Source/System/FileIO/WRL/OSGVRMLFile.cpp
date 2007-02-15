@@ -754,7 +754,8 @@ NodePtr VRMLFile::getRoot(void)
     // now walk through all materials and modify them.
     if(_pSceneRootNode != NullFC)
     {
-        traverse(_pSceneRootNode, modifyMaterial);
+        // Should be handled in appearance
+//        traverse(_pSceneRootNode, modifyMaterial);
     }
     
     return _pSceneRootNode;

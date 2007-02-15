@@ -63,6 +63,8 @@
 #include "OSGMaterialChunk.h"
 #include "OSGBlendChunk.h"
 #include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
+#include "OSGImageFileHandler.h"
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "VRMLLoader"
@@ -229,10 +231,12 @@ VRMLNodeHelper::VRMLNodeHelper(void) :
     _pNodeProto         (NullFC),
     _pNodeCoreProto     (NullFC),
 
-    OSG_INIT_DESC(_sfVec3fDesc,   SFVec3f,             "sfVec3fHelperDesc"),
-    OSG_INIT_DESC(_sfFCPtrDesc,   SFFieldContainerPtr, "sfFCPtrHelperDesc"),
-    OSG_INIT_DESC(_sfReal32Desc,  SFReal32,            "sfReal32HelperDesc"),
-    OSG_INIT_DESC(_sfColor3fDesc, SFColor3f,           "sfColor3fHelperDesc")
+    OSG_INIT_DESC(_sfVec3fDesc,   SFVec3f,             "sfVec3fHelperDesc"  ),
+    OSG_INIT_DESC(_sfFCPtrDesc,   SFFieldContainerPtr, "sfFCPtrHelperDesc"  ),
+    OSG_INIT_DESC(_sfReal32Desc,  SFReal32,            "sfReal32HelperDesc" ),
+    OSG_INIT_DESC(_sfColor3fDesc, SFColor3f,           "sfColor3fHelperDesc"),
+    OSG_INIT_DESC(_mfStringDesc,  MFString,            "mfStringHelperDesc" ),
+    OSG_INIT_DESC(_sfBoolDesc,    SFBool,              "sfBoolDesc"         )
 {
 }
 
@@ -1740,26 +1744,27 @@ void VRMLAppearanceHelper::endNode(FieldContainerPtr pFC)
 
         if(pChunkMat != NullFC)
         {
-            StateChunkPtr cp = 
-                pChunkMat->find(TextureObjChunk::getClassType());
+            TextureObjChunkPtr pTexC = 
+                cast_dynamic<TextureObjChunkPtr>(
+                    pChunkMat->find(TextureObjChunk::getClassType()));
 
-            TextureObjChunkPtr tex = NullFC;
+            TextureEnvChunkPtr pTexE = 
+                cast_dynamic<TextureEnvChunkPtr>(
+                    pChunkMat->find(TextureEnvChunk::getClassType()));
+            
+         
 
-            if(cp != NullFC)
-            {
-                tex = cast_dynamic<TextureObjChunkPtr>(cp);
-            }
 
-            if ((pChunkMat->isTransparent() == true             ) ||
-                (tex                                != NullFC && 
-                 tex->getImage()                    != NullFC &&
-                 tex->getImage()->hasAlphaChannel() == true    ))
+            if ((pChunkMat->isTransparent()           == true)     ||
+                (pTexC                                != NullFC && 
+                 pTexC->getImage()                    != NullFC &&
+                 pTexC->getImage()->hasAlphaChannel() == true    ))
             {
                 BlendChunkPtr pBlendChunk = OSG::BlendChunk::create();
 
-                if(tex                              != NullFC && 
-                   tex->getImage()                  != NullFC &&
-                   tex->getImage()->isAlphaBinary() == true)
+                if(pTexC                              != NullFC && 
+                   pTexC->getImage()                  != NullFC &&
+                   pTexC->getImage()->isAlphaBinary() == true)
                 {
                     pBlendChunk->setAlphaFunc(GL_NOTEQUAL);
                     pBlendChunk->setAlphaValue(0);
@@ -1771,6 +1776,29 @@ void VRMLAppearanceHelper::endNode(FieldContainerPtr pFC)
                 }
 
                 pChunkMat->addChunk(pBlendChunk);
+            }
+
+            if(pTexC != NullFC)
+            {
+                if(pTexE == NullFC)
+                {
+                    pTexE = TextureEnvChunk::create();
+
+                    pChunkMat->addChunk(pTexE);
+                }
+
+                MaterialChunkPtr pMatC = 
+                    cast_dynamic<MaterialChunkPtr>(
+                        pChunkMat->find(MaterialChunk::getClassType()));
+
+                if(pMatC == NullFC)
+                {
+                    pTexE->setEnvMode(GL_REPLACE);
+                }
+                else
+                {
+                    pTexE->setEnvMode(GL_MODULATE);
+                }
             }
         }
     }
@@ -2539,6 +2567,248 @@ VRMLNodeHelperFactoryBase::RegisterHelper
     VRMLGeometryPartHelper::_regHelperTexCoordinate(
         &VRMLGeometryPartHelper::create,
         "TextureCoordinate");
+
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class OSG::VRMLImageTextureHelper
+    \ingroup GrpSystemFileIOVRML
+    VRML Texture description
+*/
+
+VRMLNodeHelper *VRMLImageTextureHelper::create(void)
+{
+    return new VRMLImageTextureHelper();
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+VRMLImageTextureHelper::VRMLImageTextureHelper(void) :
+     Inherited     (),
+
+    _defaultURL    (),
+    _defaultRepeatS(),
+    _defaultRepeatT(),
+
+    _url           (),
+    _repeatS       (),
+    _repeatT       ()
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+VRMLImageTextureHelper::~VRMLImageTextureHelper(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Helper                                    */
+
+/*-------------------------------------------------------------------------*/
+/*                               Field                                     */
+
+bool VRMLImageTextureHelper::prototypeAddField(const Char8  *,
+                                               const UInt32  ,
+                                               const Char8  *szFieldname)
+{
+    bool bFound = false;
+
+    if(osgStringCaseCmp("url", szFieldname) == 0)
+    {
+        bFound = true;
+    }
+    else if(osgStringCaseCmp("repeatS", szFieldname) == 0)
+    {
+        bFound = true;
+    }
+    else if(osgStringCaseCmp("repeatT", szFieldname) == 0)
+    {
+        bFound = true;
+    }
+
+    if(bFound == true)
+    {
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "ImageTextureDesc::prototypeAddField : add part "
+              << szFieldname
+              << std::endl;
+#endif
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+void VRMLImageTextureHelper::getFieldAndDesc(
+          FieldContainerPtr,
+    const Char8                * szFieldname,
+          FieldContainerPtr     &pFieldFC,
+          Field                *&pField,
+    const FieldDescriptionBase *&pDesc)
+{
+    pFieldFC = NullFC;
+    pField   = NULL;
+    pDesc    = NULL;
+
+    if(osgStringCaseCmp("url", szFieldname) == 0)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            pField = &_defaultURL;
+        }
+        else
+        {
+            pField = &_url;
+        }
+
+        pDesc = &_mfStringDesc;
+    }
+    else if(osgStringCaseCmp("repeatS", szFieldname) == 0)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            pField = &_defaultRepeatS;
+        }
+        else
+        {
+            pField = &_repeatS;
+        }
+
+        pDesc = &_sfBoolDesc;
+    }
+    else if(osgStringCaseCmp("repeatT", szFieldname) == 0)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            pField = &_defaultRepeatT;
+        }
+        else
+        {
+            pField = &_repeatT;
+        }
+        
+        pDesc = &_sfBoolDesc;
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Node                                     */
+
+FieldContainerPtr VRMLImageTextureHelper::beginNode(
+    const Char8       *,
+    const Char8       *,
+    FieldContainerPtr  )
+{
+    TextureObjChunkPtr returnValue = TextureObjChunk::create();
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "Begin ImageTexture " << &(*returnValue) << std::endl;
+
+    incIndent();
+#endif
+
+    _url.clear();
+
+    _repeatS = _defaultRepeatS;
+    _repeatT = _defaultRepeatT;
+
+    return returnValue;
+}
+
+void VRMLImageTextureHelper::endNode(FieldContainerPtr pFC)
+{
+    TextureObjChunkPtr  pTexture = NullFC;
+
+    ImagePtr            pImage   = NullFC;
+
+    pTexture = cast_dynamic<TextureObjChunkPtr>(pFC);
+
+
+    if(pTexture != NullFC && _url.size() != 0)
+    {
+#ifdef OSG_DEBUG_VRML
+        PNOTICE << "VRMLImageTextureDesc::endNode : Reading texture "
+                << _url[0].c_str() << std::endl;
+#endif
+
+        pImage = ImageFileHandler::the()->read(_url[0].c_str());
+
+        if(pImage != NullFC)
+        {
+            pImage->setForceAlphaBinary(pImage->calcIsAlphaBinary());
+
+            pTexture->setImage(pImage);
+
+            if(_repeatS.getValue() == true)
+            {
+                pTexture->setWrapS(GL_REPEAT);
+            }
+            else
+            {
+                pTexture->setWrapS(GL_CLAMP);
+            }
+            if(_repeatT.getValue() == true)
+            {
+                pTexture->setWrapT(GL_REPEAT);
+            }
+            else
+            {
+                pTexture->setWrapT(GL_CLAMP);
+            }
+        }
+        else
+        {
+            PWARNING << "VRMLImageTextureDesc::endNode : "
+                     << "Couldn't read texture "
+                     << _url[0].c_str()
+                     << " !!!"
+                     << std::endl;
+
+            subRef(pImage);
+        }
+    }
+    else
+    {
+        PWARNING <<  "VRMLImageTextureDesc::endNode : Invalid texture ptr"
+                 << std::endl;
+    }
+
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+
+    indentLog(getIndent(), PINFO);
+    PINFO << "End ImageTexture "
+          << _url[0].c_str() << " "
+          << _repeatS.getValue()    << " "
+          << _repeatT.getValue()    << " "
+          << &(*pFC) << std::endl;
+#endif
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Dump                                     */
+
+void VRMLImageTextureHelper::dump(const Char8 *)
+{
+}
+
+
+VRMLNodeHelperFactoryBase::RegisterHelper VRMLImageTextureHelper::_regHelper(
+    &VRMLImageTextureHelper::create,
+    "ImageTexture");
+
 
 
 /*-------------------------------------------------------------------------*/
