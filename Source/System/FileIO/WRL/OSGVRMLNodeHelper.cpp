@@ -425,8 +425,14 @@ void VRMLNodeHelper::getFieldAndDesc(      FieldContainerPtr      pFC,
     pDesc    = NULL;
 
     if(pFC == NullFC)
-        return;
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            getField(szFieldname, pFieldFC, pField, pDesc);
+        }
 
+        return;
+    }
 #ifdef OSG_DEBUG_VRML
     indentLog(getIndent(), PINFO);
     PINFO << "VRMLNodeHelper::getFieldAndDesc : looking for "
@@ -617,6 +623,102 @@ const Field *VRMLNodeHelper::getField(      FieldContainerPtr  pFC1,
     return returnValue;
 }
 
+
+void VRMLNodeHelper::getField(const Char8                * szFieldname,
+                                    FieldContainerPtr     &pFieldFC,
+                                    Field                *&pField,
+                              const FieldDescriptionBase *&pDesc      )
+{
+    pFieldFC = NullFC;
+    pField   = NULL;
+    pDesc    = NULL;
+
+    if(szFieldname == NULL)
+    {
+        return;
+    }
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "VRMLNodeDesc::getField " << std::endl;
+
+    incIndent();
+
+    indentLog(getIndent(), PINFO);
+    PINFO << "Trying to find field : " << szFieldname << std::endl;
+#endif
+
+    if(_pNodeProto != NullFC)
+    {
+        pFieldFC = _pNodeProto;
+        pField   = _pNodeProto->editField          (szFieldname);
+        pDesc    = _pNodeProto->getFieldDescription(szFieldname);
+    }
+
+#ifdef OSG_DEBUG_VRML
+    incIndent();
+
+    indentLog(getIndent(), PINFO);
+    PINFO << "Got this from node : " << pDesc << " " << pField << std::endl;
+#endif
+
+    if(pDesc == NULL)
+    {
+        if(_pNodeCoreProto != NullFC)
+        {
+            pFieldFC = _pNodeCoreProto;
+            pField   = _pNodeCoreProto->editField          (szFieldname);
+            pDesc    = _pNodeCoreProto->getFieldDescription(szFieldname);
+
+#ifdef OSG_DEBUG_VRML
+            indentLog(getIndent(), PINFO);
+            PINFO << "Got this from nodecore : "
+                  << pDesc
+                  << " "
+                  << pField
+                  << std::endl;
+#endif
+        }
+        else
+        {
+#ifdef OSG_DEBUG_VRML
+            indentLog(getIndent(), PINFO);
+            PINFO << "No core to check" << std::endl;
+#endif
+        }
+
+
+        if(pDesc == NULL)
+        {
+            if(_pGenAttProto != NullFC)
+            {
+                pFieldFC = _pGenAttProto;
+                pField   = _pGenAttProto->editField          (szFieldname);
+                pDesc    = _pGenAttProto->getFieldDescription(szFieldname);
+            }
+
+#ifdef OSG_DEBUG_VRML
+            indentLog(getIndent(), PINFO);
+            PINFO << "Got this from attachment : "
+                  << pDesc
+                  << " "
+                  << pField
+                  << std::endl;
+#endif
+        }
+    }
+
+
+    if(pDesc == NULL)
+    {
+        pFieldFC = NullFC;
+    }
+
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+    decIndent();
+#endif
+}
 
 // HACK Should be somewhere else and automatic
 
@@ -864,7 +966,14 @@ void VRMLGroupHelper::getFieldAndDesc(
         return;
 
     if(pFC == NullFC)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
         return;
+    }
 
     NodePtr pNode = cast_dynamic<NodePtr>(pFC);
 
@@ -1448,7 +1557,14 @@ void VRMLShapeHelper::getFieldAndDesc(
         return;
 
     if(pFC == NullFC)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
         return;
+    }
 
 #ifdef OSG_DEBUG_VRML
     indentLog(getIndent(), PINFO);
@@ -1673,7 +1789,14 @@ void VRMLAppearanceHelper::getFieldAndDesc(
 #endif
 
     if(pFC == NullFC)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
         return;
+    }
 
     if(szFieldname == NULL)
         return;
@@ -1950,7 +2073,14 @@ void VRMLIndexedGeometryHelper::getFieldAndDesc(
         return;
 
     if(pFC == NullFC)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
         return;
+    }
 
     NodePtr pNode = cast_dynamic<NodePtr>(pFC);
 
@@ -2493,7 +2623,14 @@ void VRMLGeometryPartHelper::getFieldAndDesc(
         return;
 
     if(pFC == NullFC)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            Inherited::getField(szFieldname, pFieldFC, pField, pDesc);
+        }
+
         return;
+    }
 
     incIndent();
 

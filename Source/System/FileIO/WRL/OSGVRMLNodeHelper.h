@@ -347,11 +347,11 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-          bool                  _bProtoInterfaceDone;
+    bool                  _bProtoInterfaceDone;
 
-          VRMLGenericAttPtr     _pGenAttProto;
-          FieldContainerPtr     _pNodeProto;
-          FieldContainerPtr     _pNodeCoreProto;
+    VRMLGenericAttPtr     _pGenAttProto;
+    FieldContainerPtr     _pNodeProto;
+    FieldContainerPtr     _pNodeCoreProto;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -374,6 +374,11 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
                                 FieldContainerPtr  pFC2,
                                 VRMLGenericAttPtr  pGenAtt,
                           const Char8             *szFieldname);
+
+          void   getField(const Char8                * szFieldname,
+                                FieldContainerPtr     &pFieldFC,
+                                Field                *&pField,
+                          const FieldDescriptionBase *&pDesc      );
 
     FieldDescriptionBase *getFieldDescription(const Char8  *szFieldName,
                                               const UInt32  uiFieldTypeId);
