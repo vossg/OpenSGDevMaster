@@ -308,16 +308,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     friend struct PtrConstructionFunctions;
 
     static PumpGroupStorage _pumps;
-
-    inline
-    void fixParents(FieldContainerAttachmentPtrConstArg oldvalue,
-                    FieldContainerAttachmentPtrConstArg newvalue,
-                    FieldContainerPtr                   obj,
-                    UInt32                              fieldId);
-
-    void freeParent(FieldContainerAttachmentPtr  value,
-                    FieldContainerPtr            obj);
-
+    
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Geometry &source);
 };

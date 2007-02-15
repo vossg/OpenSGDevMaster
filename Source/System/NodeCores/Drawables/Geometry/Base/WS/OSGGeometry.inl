@@ -57,27 +57,6 @@ void Geometry::invalidateDlistCache(void)
 
 /*------------------------------ access -----------------------------------*/
 
-// Helper function
-// This should go into Attachment...
-inline
-void Geometry::fixParents(FieldContainerAttachmentPtrConstArg oldvalue,
-                          FieldContainerAttachmentPtrConstArg newvalue,
-                          FieldContainerPtr                   obj,
-                          UInt32                              fieldId)
-{
-    if(oldvalue != NullFC)
-    {
-        oldvalue->subParent(obj);
-
-        subRef(oldvalue);
-    }
-
-    if(newvalue != NullFC)
-    {
-        newvalue->addParent(obj, fieldId);
-    }
-}
-
 //--------------------------
 // Property Access
 //--------------------------
@@ -171,31 +150,13 @@ GeoVectorPropertyPtr Geometry::getTexCoords7(void) const
 inline
 void Geometry::setTypes(GeoIntegralPropertyPtrConstArg value)
 {
-    addRef(value);
-
-    fixParents(_sfTypes.getValue(),
-               value,
-               Inherited::constructPtr<Geometry>(this),
-               TypesFieldId);
-
-    editSField(TypesFieldMask);
-
-    _sfTypes.setValue(value);
+    Inherited::setTypes(value);
 }
 
 inline
 void Geometry::setLengths(GeoIntegralPropertyPtrConstArg value)
 {
-    addRef(value);
-
-    fixParents(_sfLengths.getValue(),
-               value,
-               Inherited::constructPtr<Geometry>(this),
-               LengthsFieldId);
-
-    editSField(LengthsFieldMask);
-
-    _sfLengths.setValue(value);
+    Inherited::setLengths(value);
 }
 
 inline
@@ -278,8 +239,6 @@ void Geometry::setTexCoords7(GeoVectorPropertyPtrConstArg value)
 inline
 void Geometry::setProperty(GeoVectorPropertyPtrConstArg value, UInt16 index)
 {
-    addRef(value);
-
     editMField(PropertiesFieldMask, _mfProperties);
 
     while(_mfProperties.size() <= index)
@@ -287,12 +246,7 @@ void Geometry::setProperty(GeoVectorPropertyPtrConstArg value, UInt16 index)
         _mfProperties.push_back(NullFC);
     }
 
-    fixParents(_mfProperties[index],
-                value,
-                Inherited::constructPtr<Geometry>(this),
-                PropertiesFieldId);
-
-    _mfProperties[index] = value;
+    replaceInProperties(index, value);
 }
 
 /*! Return the vertext property data stored at index. */
@@ -312,8 +266,6 @@ GeoVectorPropertyPtr Geometry::getProperty(UInt16 index) const
 inline
 void Geometry::setIndex(GeoIntegralPropertyPtrConstArg value, UInt16 index)
 {
-    addRef(value);
-
     editMField(PropIndicesFieldMask, _mfPropIndices);
 
     while(_mfPropIndices.size() <= index)
@@ -321,12 +273,7 @@ void Geometry::setIndex(GeoIntegralPropertyPtrConstArg value, UInt16 index)
         _mfPropIndices.push_back(NullFC);
     }
 
-    fixParents(_mfPropIndices[index],
-                value,
-                Inherited::constructPtr<Geometry>(this),
-                PropIndicesFieldId);
-
-    _mfPropIndices[index] = value;
+    replaceInPropIndices(index, value);
 }
 
 /*! Return the list of indices currently being used for the vertex attributes
@@ -394,7 +341,7 @@ inline void Geometry::reservePropIndices(size_t newsize)
 */
 inline void Geometry::setIndices(GeoIntegralPropertyPtrConstArg value)
 {
-    for(UInt16 i = 0; i < 16; ++i)
+    for(UInt16 i = 0; i < MaxAttribs; ++i)
         setIndex(value, i);
 }
 

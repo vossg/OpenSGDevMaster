@@ -136,18 +136,6 @@ Geometry::Geometry(const Geometry &source) :
 {
 }
 
-// This shoudl go into Attachment
-void Geometry::freeParent(FieldContainerAttachmentPtr value,
-                          FieldContainerPtr           obj)
-{
-    if(value != NullFC)
-    {
-        value->subParent(obj);
-
-        subRef(value);
-    }
-}
-
 Geometry::~Geometry(void)
 {
     UInt16 i;
