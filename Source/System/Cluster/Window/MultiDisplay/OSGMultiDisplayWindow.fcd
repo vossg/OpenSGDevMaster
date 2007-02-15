@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="MultiDisplayWindow"
+	parent="ClusterWindow"
+	library="Cluster"
+	pointerfieldtypes="none"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+Cluster rendering configuration for multible displays
+	<Field
+		name="hServers"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	Number of horizontal servers
+	</Field>
+	<Field
+		name="vServers"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	Number of vertical servers
+	</Field>
+	<Field
+		name="manageClientViewports"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	If true, duplicate all viewports into the client window
+	</Field>
+	<Field
+		name="xOverlap"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Horizontal overlap
+	</Field>
+	<Field
+		name="yOverlap"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Vertical overlap
+	</Field>
+</FieldContainer>
