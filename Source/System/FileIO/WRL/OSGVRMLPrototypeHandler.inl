@@ -301,6 +301,7 @@ void VRMLNodePrototypeHandler<BaseT>::beginProto(const Char8 *szProtoname)
 #endif
 
     VRMLNodeHelper::incIndent();
+    VRMLNodeHelper::incIndent();
 }
 
 template <class BaseT> inline

@@ -165,6 +165,32 @@ FieldContainerPtr DynFieldAttachment<AttachmentDescT>::emptyCopy(void)
 }
 
 template <class AttachmentDescT> inline
+FieldContainerPtr DynFieldAttachment<AttachmentDescT>::clone(void)
+{
+    ObjPtr returnValue = DynFieldAttachment<AttachmentDescT>::createEmpty();
+
+    for(UInt32 i  = Inherited::NextFieldId;
+               i <= _localType.getNumFieldDescs();
+             ++i)
+    {
+        returnValue->addField(*(_localType.getFieldDesc(i)));
+    }
+
+    for(UInt32 i  = Inherited::NextFieldId;
+               i <= _localType.getNumFieldDescs();
+             ++i)
+    {
+        FieldDescriptionBase *pDesc =
+            returnValue->getFieldDescription(i);
+
+        pDesc->copyValues(_dynFieldsV[i - Inherited::NextFieldId],
+                           returnValue->editDynamicField(i));
+    }
+
+    return returnValue;
+}
+
+template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::dump(
           UInt32    uiIndent, 
     const BitVector bvFlags ) const

@@ -129,13 +129,15 @@ void VRMLNodeHelperFactoryBase::registerNodeHelper(
     {
         _mRegisteredNodeHelperHash[szNodeName] = fHelper;
 
-        fprintf(stderr, "Helper registered for %s\n",
-                szNodeName);
+        PINFO << "Helper registered for "
+              << szNodeName
+              << std::endl;
     }
     else
     {
-        fprintf(stderr, "Helper already registered for %s\n",
-                szNodeName);
+        PWARNING << "Helper already registered for %s "
+                 << szNodeName
+                 << std::endl;
     }
 }
 
@@ -279,7 +281,7 @@ FieldContainerPtr VRMLNodeHelper::beginNode(
 
         if(_pGenAttProto != NullFC)
         {
-            FieldContainerPtr pAttClone = _pGenAttProto->emptyCopy();
+            FieldContainerPtr pAttClone = _pGenAttProto->clone();
 
             pAtt = cast_dynamic<VRMLGenericAttPtr>(pAttClone);
 
@@ -378,11 +380,19 @@ bool VRMLNodeHelper::prototypeAddField(const Char8  *szFieldType,
     }
     else
     {
-        PWARNING << "VRMLNodeDesc::prototypeAddField | "
-                 << "Could not add field "
-                 << szFieldName
-                 << " a second time"
-                 << std::endl;
+#ifdef OSG_DEBUG_VRML
+        incIndent();
+        indentLog(getIndent(), PINFO);
+#endif
+        PINFO << "VRMLNodeDesc::prototypeAddField | "
+              << "Could not add field "
+              << szFieldName
+              << " a second time"
+              << std::endl;
+
+#ifdef OSG_DEBUG_VRML
+        decIndent();
+#endif
     }
 
     return returnValue;
@@ -1538,7 +1548,7 @@ void VRMLShapeHelper::endNode(FieldContainerPtr pFC)
     }
 
 #ifdef OSG_DEBUG_VRML
-    decIndent();
+//    decIndent();
 
     indentLog(getIndent(), PINFO);
     PINFO << "End Shape " << &(*pFC) << std::endl;
@@ -1767,7 +1777,7 @@ void VRMLAppearanceHelper::endNode(FieldContainerPtr pFC)
 
 
 #ifdef OSG_DEBUG_VRML
-    decIndent();
+//    decIndent();
 
     indentLog(getIndent(), PINFO);
     PINFO << "End Appearance " <<  std::endl;
@@ -2265,7 +2275,7 @@ void VRMLIndexedGeometryHelper::endNode(FieldContainerPtr pFC)
     }
 
 #ifdef OSG_DEBUG_VRML
-    decIndent();
+//    decIndent();
 
     indentLog(getIndent(), PINFO);
     PINFO << "End Geo " << &(*pNode) << std::endl;

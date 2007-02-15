@@ -175,11 +175,7 @@ bool TypeBase::initialize(void)
         _bInitialized = true;
     }
 
-    PNOTICE << "Initialized Type "
-            << _szName.str()
-            << " | "
-            << _bInitialized
-            << endLog;
+    FDEBUG(("Initialized Type %s | %d\n",_szName.str(), _bInitialized));
 
     return _bInitialized;
 }

@@ -237,6 +237,7 @@ PROTO Box [
      addFieldValue ("2 2 2");
      endFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -281,6 +282,7 @@ PROTO Collision [
      beginEventOutDecl      ("SFTime", OSGsfTime, "collideTime");
      endEventDecl           ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -294,6 +296,7 @@ PROTO Color [
      beginExposedFieldDecl("MFColor", Self::OSGmfColor, "color");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -319,6 +322,7 @@ PROTO ColorInterpolator [
      beginEventOutDecl    ("SFColor", Self::OSGsfColor, "value_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -348,6 +352,7 @@ PROTO Cone [
      addFieldValue ("TRUE");
      endFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -361,6 +366,7 @@ PROTO Coordinate [
      beginExposedFieldDecl("MFVec3f", Self::OSGmfVec3f, "point");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -386,6 +392,7 @@ PROTO CoordinateInterpolator [
      beginEventOutDecl    ("MFVec3f", Self::OSGmfVec3f, "value_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -420,6 +427,7 @@ PROTO Cylinder [
      addFieldValue ("TRUE");
      endFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -473,6 +481,7 @@ PROTO CylinderSensor [
      beginEventOutDecl    ("SFVec3f", Self::OSGsfVec3f, "trackPoint_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -507,6 +516,7 @@ PROTO DirectionalLight [
      addFieldValue        ("TRUE");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -585,6 +595,7 @@ PROTO ElevationGrid [
      addFieldValue        ("0.0");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -655,6 +666,7 @@ PROTO Extrusion [
      beginFieldDecl("MFVec3f", Self::OSGmfVec3f, "spine");
      endFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -687,6 +699,7 @@ PROTO Fog [
      beginEventOutDecl    ("SFBool", Self::OSGsfBool, "isBound");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -741,6 +754,7 @@ PROTO FontStyle [
      addFieldValue ("TRUE");
      endFieldDecl  ();
  }
+ endProtoInterface();
  endProto   ();
 
 #if 0
@@ -772,6 +786,7 @@ PROTO Group [
      addFieldValue        ("-1 -1 -1");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -795,6 +810,7 @@ PROTO ImageTexture [
      addFieldValue        ("TRUE");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -886,6 +902,7 @@ PROTO IndexedFaceSet [
      beginFieldDecl       ("MFInt32", Self::OSGmfInt32, "texCoordIndex");
      endFieldDecl();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -926,6 +943,7 @@ PROTO IndexedLineSet [
      beginFieldDecl       ("MFInt32", Self::OSGmfInt32, "coordIndex");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -949,6 +967,7 @@ PROTO Inline [
      addFieldValue        ("-1 -1 -1");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -971,6 +990,7 @@ PROTO LOD [
      beginFieldDecl       ("MFFloat", Self::OSGmfFloat, "range");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1063,6 +1083,7 @@ PROTO MovieTexture [
      beginEventOutDecl    ("SFBool",  Self::OSGsfBool,  "isActive");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1107,6 +1128,7 @@ PROTO NavigationInfo [
      beginEventOutDecl      ("SFBool", Self::OSGsfBool, "isBound");
      endEventDecl           ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1120,6 +1142,7 @@ PROTO Normal [
      beginExposedFieldDecl("MFVec3f", Self::OSGmfVec3f, "vector");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1145,6 +1168,7 @@ PROTO NormalInterpolator [
      beginEventOutDecl    ("MFVec3f",  Self::OSGmfVec3f, "value_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1170,6 +1194,7 @@ PROTO OrientationInterpolator [
      beginEventOutDecl    ("SFRotation", Self::OSGsfRotation, "value_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1194,6 +1219,7 @@ PROTO PixelTexture [
      addFieldValue        ("TRUE");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1240,6 +1266,7 @@ PROTO PlaneSensor [
      beginEventOutDecl    ("SFVec3f", Self::OSGsfVec3f, "translation_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 
@@ -1285,6 +1312,7 @@ PROTO PointLight [
      addFieldValue        ("100");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1304,6 +1332,7 @@ PROTO PointSet [
 //     addFieldValue        ("NULL");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1329,6 +1358,7 @@ PROTO PositionInterpolator [
      beginEventOutDecl    ("SFVec3f", Self::OSGsfVec3f, "value_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1375,6 +1405,7 @@ PROTO ProximitySensor [
      beginEventOutDecl    ("SFTime", Self::OSGsfTime, "exitTime");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1400,6 +1431,7 @@ PROTO ScalarInterpolator [
      beginEventOutDecl    ("SFFloat", Self::OSGsfFloat, "value_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1423,6 +1455,7 @@ PROTO Script [
      addFieldValue        ("FALSE");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1442,6 +1475,7 @@ PROTO Shape [
 //     addFieldValue ("NULL");
      endFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1501,6 +1535,7 @@ PROTO Sound [
      addFieldValue        ("TRUE");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1515,6 +1550,7 @@ PROTO Sphere [
      addFieldValue ("1");
      endFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1553,6 +1589,7 @@ PROTO SphereSensor [
      beginEventOutDecl    ("SFVec3f", Self::OSGsfVec3f, "trackPoint_changed");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1612,6 +1649,7 @@ PROTO SpotLight [
      addFieldValue        ("100");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1630,6 +1668,7 @@ PROTO Switch [
      addFieldValue        ("-1");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1657,6 +1696,7 @@ PROTO Text [
      addFieldValue        ("0.0");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1670,6 +1710,7 @@ PROTO TextureCoordinate [
      beginExposedFieldDecl("MFVec2f", Self::OSGmfVec2f, "point");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1699,6 +1740,7 @@ PROTO TextureTransform [
      addFieldValue        ("0 0");
      endExposedFieldDecl  ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1749,6 +1791,7 @@ PROTO TimeSensor [
      beginEventOutDecl    ("SFTime", Self::OSGsfTime, "time");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1787,6 +1830,7 @@ PROTO TouchSensor [
      beginEventOutDecl    ("SFTime", Self::OSGsfTime, "touchTime");
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1843,6 +1887,7 @@ PROTO Transform [
      addFieldValue        ("-1 -1 -1");
      endFieldDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1889,6 +1934,7 @@ PROTO Viewpoint [
      beginEventOutDecl    ("SFBool", Self::OSGsfBool, "isBound" );
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1925,6 +1971,7 @@ PROTO VisibilitySensor [
      beginEventOutDecl    ("SFBool", Self::OSGsfBool, "isActive" );
      endEventDecl         ();
  }
+ endProtoInterface();
  endProto  ();
 
 #if 0
@@ -1943,6 +1990,7 @@ PROTO WorldInfo [
      addFieldValue("");
      endFieldDecl();
  }
+ endProtoInterface();
  endProto  ();
 
  postStandardProtos();
