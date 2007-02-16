@@ -73,7 +73,7 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
   public:
 
     typedef AttachmentContainer                    Inherited;
-    typedef AttachmentContainer                    ParentContainerx;
+    typedef AttachmentContainer                    ParentContainer;
 
     typedef PointerBuilder<Node>::ObjPtr           ObjPtr;
     typedef PointerBuilder<Node>::ObjPtrConst      ObjPtrConst;
