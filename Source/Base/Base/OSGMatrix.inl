@@ -66,12 +66,12 @@ OSG_BEGIN_NAMESPACE
 */
 
 #if defined(__hpux)
-template<class ValueTypeT> 
+template<class ValueTypeT>
 const UInt32 TransformationMatrix<ValueTypeT>::JacobiRank;
 #endif
 
 template<class ValueTypeT>
-TransformationMatrix<ValueTypeT> 
+TransformationMatrix<ValueTypeT>
     TransformationMatrix<ValueTypeT>::_identityMatrix;
 
 /*-------------------------------------------------------------------------*/
@@ -216,17 +216,17 @@ void TransformationMatrix<ValueTypeT>::setValue(const ValueTypeT rVal00,
                                                 const ValueTypeT rVal10,
                                                 const ValueTypeT rVal20,
                                                 const ValueTypeT rVal30,
-                                                
+
                                                 const ValueTypeT rVal01,
                                                 const ValueTypeT rVal11,
                                                 const ValueTypeT rVal21,
                                                 const ValueTypeT rVal31,
-                                                
+
                                                 const ValueTypeT rVal02,
                                                 const ValueTypeT rVal12,
                                                 const ValueTypeT rVal22,
                                                 const ValueTypeT rVal32,
-                                                
+
                                                 const ValueTypeT rVal03,
                                                 const ValueTypeT rVal13,
                                                 const ValueTypeT rVal23,
@@ -269,7 +269,7 @@ void TransformationMatrix<ValueTypeT>::setValueTransposed(
 //! Set value from an ValueTypeT array, be shure the sizes match
 
 template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::setValue(const ValueTypeT *pMat, 
+void TransformationMatrix<ValueTypeT>::setValue(const ValueTypeT *pMat,
                                                       bool        bTransposed)
 {
     const ValueTypeT *pTmpMat = pMat;
@@ -321,7 +321,7 @@ void TransformationMatrix<ValueTypeT>::setValue(const VectorType3f *pMat)
 
 #endif
 
-/*! \brief Set matrix by a given str (like "1.0 0.0 0.0 0.0 ... 
+/*! \brief Set matrix by a given str (like "1.0 0.0 0.0 0.0 ...
     (16 entries at all)"), be shure the size matches
 */
 
@@ -331,21 +331,21 @@ void TransformationMatrix<ValueTypeT>::setValue(const Char8 *str,
 {
     UInt32 i;
     UInt32 numOfToken = 16;
-    
+
     Char8 *c = const_cast<char*>(str);
 
     Char8 *tokenC = 0;
     Char8  token[256];
 
     ValueTypeT vec[16];
-    
+
     if( (str  == NULL) ||
         (*str == '\0') )
     {
         setIdentity();
         return;
     }
-    
+
     for(i = 0; i < numOfToken; c++)
     {
         switch (*c)
@@ -435,7 +435,7 @@ ValueTypeT TransformationMatrix<ValueTypeT>::rowMulCol4(
 
 
 template<class ValueTypeT> inline
-ValueTypeT TransformationMatrix<ValueTypeT>::det2(
+ValueTypeT TransformationMatrix<ValueTypeT>::det2_calc(
     const ValueTypeT a1, const ValueTypeT a2,
     const ValueTypeT b1, const ValueTypeT b2) const
 {
@@ -443,7 +443,7 @@ ValueTypeT TransformationMatrix<ValueTypeT>::det2(
 }
 
 template<class ValueTypeT> inline
-ValueTypeT TransformationMatrix<ValueTypeT>::det3(
+ValueTypeT TransformationMatrix<ValueTypeT>::det3_calc(
     const ValueTypeT a1,
     const ValueTypeT a2,
     const ValueTypeT a3,
@@ -469,36 +469,36 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
     VectorType3f  evectors[JacobiRank],
     Int32        &rots)
 {
-    Real64  sm;         
-    Real64  theta;      
-    Real64  c, s, t;    
-    Real64  tau;        
-    Real64  h, g;       
-    Real64  thresh;     
-    Real64  b[JacobiRank]; 
-    Real64  z[JacobiRank]; 
+    Real64  sm;
+    Real64  theta;
+    Real64  c, s, t;
+    Real64  tau;
+    Real64  h, g;
+    Real64  thresh;
+    Real64  b[JacobiRank];
+    Real64  z[JacobiRank];
     UInt32  p, q, i, j;
     Real64  a[JacobiRank][JacobiRank];
-    
+
     // initializations
-    for (i = 0; i < JacobiRank; i++) 
+    for (i = 0; i < JacobiRank; i++)
     {
         b[i] = evalues[i] = _matrix[i][i];
         z[i] = 0.0;
 
-        for (j = 0; j < JacobiRank; j++) 
+        for (j = 0; j < JacobiRank; j++)
         {
             evectors[i][j] = (i == j) ? 1.0f : 0.0f;
             a[i][j] = _matrix[i][j];
         }
     }
-    
+
     rots = 0;
 
-    for(i = 0; i < 50; i++) 
+    for(i = 0; i < 50; i++)
     {
         sm = 0.0;
-        
+
         for(p = 0; p < JacobiRank - 1; p++)
         {
             for(q = p+1; q < JacobiRank; q++)
@@ -509,39 +509,39 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
 
         if (sm == 0.0)
             return false;
-        
+
         thresh = (i < 3 ?
                   (.2 * sm / (JacobiRank * JacobiRank)) :
                   0.0);
-        
-        for (p = 0; p < JacobiRank - 1; p++) 
+
+        for (p = 0; p < JacobiRank - 1; p++)
         {
-            for (q = p + 1; q < JacobiRank; q++) 
+            for (q = p + 1; q < JacobiRank; q++)
             {
                 g = 100.0 * osgAbs(a[p][q]);
-                
-                if (i > 3                                          && 
+
+                if (i > 3                                          &&
                     (osgAbs(evalues[p]) + g == osgAbs(evalues[p])) &&
                     (osgAbs(evalues[q]) + g == osgAbs(evalues[q])))
                 {
                     a[p][q] = 0.0;
                 }
-                else if (osgAbs(a[p][q]) > thresh) 
+                else if (osgAbs(a[p][q]) > thresh)
                 {
                     h = evalues[q] - evalues[p];
-                    
+
                     if (osgAbs(h) + g == osgAbs(h))
                     {
                         t = a[p][q] / h;
                     }
-                    else 
+                    else
                     {
                         theta = .5 * h / a[p][q];
                         t = 1.0 / (osgAbs(theta) + osgSqrt(1 + theta * theta));
                         if (theta < 0.0)  t = -t;
                     }
                     // End of computing tangent of rotation angle
-                    
+
                     c = 1.0 / osgSqrt(1.0 + t * t);
                     s = t * c;
 
@@ -555,8 +555,8 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
                     evalues[q] += ValueTypeT(h);
 
                     a[p][q] = 0.0;
-                    
-                    for (j = 0; j < p; j++) 
+
+                    for (j = 0; j < p; j++)
                     {
                         g = a[j][p];
                         h = a[j][q];
@@ -564,8 +564,8 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
                         a[j][p] = g - s * (h + g * tau);
                         a[j][q] = h + s * (g - h * tau);
                     }
-                    
-                    for (j = p+1; j < q; j++) 
+
+                    for (j = p+1; j < q; j++)
                     {
                         g = a[p][j];
                         h = a[j][q];
@@ -573,8 +573,8 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
                         a[p][j] = g - s * (h + g * tau);
                         a[j][q] = h + s * (g - h * tau);
                     }
-                    
-                    for (j = q+1; j < JacobiRank; j++) 
+
+                    for (j = q+1; j < JacobiRank; j++)
                     {
                         g = a[p][j];
                         h = a[q][j];
@@ -582,8 +582,8 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
                         a[p][j] = g - s * (h + g * tau);
                         a[q][j] = h + s * (g - h * tau);
                     }
-                    
-                    for (j = 0; j < JacobiRank; j++) 
+
+                    for (j = 0; j < JacobiRank; j++)
                     {
                         g = evectors[j][p];
                         h = evectors[j][q];
@@ -595,7 +595,7 @@ bool TransformationMatrix<ValueTypeT>::jacobi(
                 rots++;
             }
         }
-        for (p = 0; p < JacobiRank; p++) 
+        for (p = 0; p < JacobiRank; p++)
         {
             evalues[p] = ValueTypeT(b[p] += z[p]);
 
@@ -627,7 +627,7 @@ void TransformationMatrix<ValueTypeT>::setScale(const ValueTypeT s)
 
 template<class ValueTypeT> inline
 void TransformationMatrix<ValueTypeT>::setScale(const ValueTypeT sx,
-                                                const ValueTypeT sy, 
+                                                const ValueTypeT sy,
                                                 const ValueTypeT sz)
 {
     _matrix[0][0] = sx;
@@ -852,19 +852,19 @@ void TransformationMatrix<ValueTypeT>::setTransform(
 {
     typedef TypeTraits<ValueTypeT> ValueTraits;
 
-	Matrixr tmpMat1;
-	Matrixr tmpMat2;
+    Matrixr tmpMat1;
+    Matrixr tmpMat2;
 
     // Concatenate the translations t and c
     VectorType3f tg(translation);
     tg += center;
 
     // Concatenate the rotations r and so
-	QuaternionType rg(rotation);
+    QuaternionType rg(rotation);
     rg *= scaleOrientation;
 
     // Calculate the inverse of so
-	QuaternionType soi(scaleOrientation);
+    QuaternionType soi(scaleOrientation);
     soi.invert();
 
     // Calculate the 3x3 rotation matrix
@@ -978,18 +978,18 @@ void TransformationMatrix<ValueTypeT>::getTransform(
           QuaternionType &scaleOrientation,
     const VectorType3f   &center          ) const
 {
-	TransformationMatrix m;
+    TransformationMatrix m;
     TransformationMatrix c;
 
-	m.setTranslate(-center);
+    m.setTranslate(-center);
 
-	m.mult(*this);
+    m.mult(*this);
 
-	c.setTranslate(center);
+    c.setTranslate(center);
 
-	m.mult(c);
+    m.mult(c);
 
-	m.getTransform(translation, rotation, scaleFactor, scaleOrientation);
+    m.getTransform(translation, rotation, scaleFactor, scaleOrientation);
 }
 
 //! Decomposes the matrix into a translation, rotation  and scale
@@ -1006,7 +1006,7 @@ void TransformationMatrix<ValueTypeT>::getTransform(
     TransformationMatrix proj;
 
     this->factor(so, scaleFactor, rot, translation, proj);
-    
+
     so.transpose();
     scaleOrientation.setValue(so);
 
@@ -1028,8 +1028,8 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
                                               VectorType3f         &t,
                                               TransformationMatrix &proj) const
 {
-    Real64               det;       
-    Real64               det_sign;   
+    Real64               det;
+    Real64               det_sign;
     Real64               scratch;
     Int32                i;
     Int32                j;
@@ -1041,16 +1041,16 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
     TransformationMatrix si;
     ValueTypeT           evalues [3];
     VectorType3f         evectors[3];
-    
+
     a = *this;
 
     proj.setIdentity();
 
     scratch = 1.0;
-    
-    for (i = 0; i < 3; i++) 
+
+    for (i = 0; i < 3; i++)
     {
-        for (j = 0; j < 3; j++) 
+        for (j = 0; j < 3; j++)
         {
             a._matrix[i][j] *= ValueTypeT(scratch);
         }
@@ -1061,7 +1061,7 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
     }
 
     a._matrix[3][3] = 1.0;
-    
+
     /* (3) Compute det A. If negative, set sign = -1, else sign = 1 */
 
     det      = a.det3();
@@ -1070,31 +1070,31 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
 
     if(det_sign * det < 1e-12)
         return false;      // singular
-    
+
     /* (4) B = A * A^  (here A^ means A transpose) */
-    
+
     aT.transposeFrom(a);
     b = a;
     b.mult(aT);
-    
+
     b.jacobi(evalues, evectors, junk);
-    
-    r.setValue(evectors[0][0], evectors[0][1], evectors[0][2], 0.0, 
-               evectors[1][0], evectors[1][1], evectors[1][2], 0.0, 
-               evectors[2][0], evectors[2][1], evectors[2][2], 0.0, 
+
+    r.setValue(evectors[0][0], evectors[0][1], evectors[0][2], 0.0,
+               evectors[1][0], evectors[1][1], evectors[1][2], 0.0,
+               evectors[2][0], evectors[2][1], evectors[2][2], 0.0,
                           0.0,            0.0,            0.0, 1.0);
-    
+
     /* Compute s = sqrt(evalues), with sign. Set si = s-inverse */
 
     si.setIdentity();
 
-    for(i = 0; i < 3; i++) 
+    for(i = 0; i < 3; i++)
     {
         s[i] = ValueTypeT(det_sign * osgSqrt(evalues[i]));
 
         si._matrix[i][i] = 1.0f / s[i];
     }
-    
+
     /* (5) Compute U = RT S! R A. */
 
     rT.transposeFrom(r);
@@ -1102,7 +1102,7 @@ bool TransformationMatrix<ValueTypeT>::factor(TransformationMatrix &r,
     u.mult(si);
     u.mult(rT);
     u.mult(a);
-    
+
     return true;
 }
 
@@ -1181,7 +1181,7 @@ void TransformationMatrix<ValueTypeT>::multFullMatrixPnt(
 }
 
 //! Multiplies matrix by given column point. The full (4x4) matrix is used.
- 
+
 template<class ValueTypeT> inline
 void TransformationMatrix<ValueTypeT>::multFullMatrixPnt(PointType3f &pnt)const
 {
@@ -1316,7 +1316,7 @@ void TransformationMatrix<ValueTypeT>::multPntMatrix(
                             _matrix[2][3]));
 }
 
-//! Multiplies given row point by matrix (pT * M) 
+//! Multiplies given row point by matrix (pT * M)
 
 template<class ValueTypeT> inline
 void TransformationMatrix<ValueTypeT>::multPntMatrix(PointType3f &pnt) const
@@ -1364,7 +1364,7 @@ void TransformationMatrix<ValueTypeT>::multPntFullMatrix(
 }
 
 //! Multiplies given row point by matrix. The full (4x4) matrix is used (pT*M).
- 
+
 template<class ValueTypeT> inline
 void TransformationMatrix<ValueTypeT>::multPntFullMatrix(PointType3f &pnt)const
 {
@@ -1468,10 +1468,10 @@ ValueTypeT TransformationMatrix<ValueTypeT>::det (void) const
     c4 = _matrix[2][3];
     d4 = _matrix[3][3];
 
-    return(   a1 * det3(b2, b3, b4, c2, c3, c4, d2, d3, d4)
-            - b1 * det3(a2, a3, a4, c2, c3, c4, d2, d3, d4)
-            + c1 * det3(a2, a3, a4, b2, b3, b4, d2, d3, d4)
-            - d1 * det3(a2, a3, a4, b2, b3, b4, c2, c3, c4));
+    return(   a1 * det3_calc(b2, b3, b4, c2, c3, c4, d2, d3, d4)
+            - b1 * det3_calc(a2, a3, a4, c2, c3, c4, d2, d3, d4)
+            + c1 * det3_calc(a2, a3, a4, b2, b3, b4, d2, d3, d4)
+            - d1 * det3_calc(a2, a3, a4, b2, b3, b4, c2, c3, c4));
 
 }
 
@@ -1528,41 +1528,41 @@ bool TransformationMatrix<ValueTypeT>::inverse(
 
     rDet = 1.f / rDet;
 
-    result[0][0]  =   det3(b2, b3, b4, c2, c3,
-                           c4, d2, d3, d4) * rDet;
-    result[0][1]  = - det3(a2, a3, a4, c2, c3, c4,
-                           d2, d3, d4) * rDet;
-    result[0][2]  =   det3(a2, a3, a4, b2, b3, b4,
-                           d2, d3, d4) * rDet;
-    result[0][3]  = - det3(a2, a3, a4, b2, b3, b4,
-                           c2, c3, c4) * rDet;
+    result[0][0]  =   det3_calc(b2, b3, b4, c2, c3,
+                                c4, d2, d3, d4) * rDet;
+    result[0][1]  = - det3_calc(a2, a3, a4, c2, c3, c4,
+                                d2, d3, d4) * rDet;
+    result[0][2]  =   det3_calc(a2, a3, a4, b2, b3, b4,
+                                d2, d3, d4) * rDet;
+    result[0][3]  = - det3_calc(a2, a3, a4, b2, b3, b4,
+                                c2, c3, c4) * rDet;
 
-    result[1][0]  = - det3(b1, b3, b4, c1, c3, c4,
-                           d1, d3, d4) * rDet;
-    result[1][1]  =   det3(a1, a3, a4, c1, c3, c4,
-                           d1, d3, d4) * rDet;
-    result[1][2]  = - det3(a1, a3, a4, b1, b3, b4,
-                           d1, d3, d4) * rDet;
-    result[1][3]  =   det3(a1, a3, a4, b1, b3, b4,
-                           c1, c3, c4) * rDet;
+    result[1][0]  = - det3_calc(b1, b3, b4, c1, c3, c4,
+                                d1, d3, d4) * rDet;
+    result[1][1]  =   det3_calc(a1, a3, a4, c1, c3, c4,
+                                d1, d3, d4) * rDet;
+    result[1][2]  = - det3_calc(a1, a3, a4, b1, b3, b4,
+                                d1, d3, d4) * rDet;
+    result[1][3]  =   det3_calc(a1, a3, a4, b1, b3, b4,
+                                c1, c3, c4) * rDet;
 
-    result[2][0]  =   det3(b1, b2, b4, c1, c2, c4,
-                           d1, d2, d4) * rDet;
-    result[2][1]  = - det3(a1, a2, a4, c1, c2, c4,
-                           d1, d2, d4) * rDet;
-    result[2][2]  =   det3(a1, a2, a4, b1, b2, b4,
-                           d1, d2, d4) * rDet;
-    result[2][3]  = - det3(a1, a2, a4, b1, b2, b4,
-                           c1, c2, c4) * rDet;
+    result[2][0]  =   det3_calc(b1, b2, b4, c1, c2, c4,
+                                d1, d2, d4) * rDet;
+    result[2][1]  = - det3_calc(a1, a2, a4, c1, c2, c4,
+                                d1, d2, d4) * rDet;
+    result[2][2]  =   det3_calc(a1, a2, a4, b1, b2, b4,
+                                d1, d2, d4) * rDet;
+    result[2][3]  = - det3_calc(a1, a2, a4, b1, b2, b4,
+                                c1, c2, c4) * rDet;
 
-    result[3][0]  = - det3(b1, b2, b3, c1, c2, c3,
-                           d1, d2, d3) * rDet;
-    result[3][1]  =   det3(a1, a2, a3, c1, c2, c3,
-                           d1, d2, d3) * rDet;
-    result[3][2]  = - det3(a1, a2, a3, b1, b2, b3,
-                           d1, d2, d3) * rDet;
-    result[3][3]  =   det3(a1, a2, a3, b1, b2, b3,
-                           c1, c2, c3) * rDet;
+    result[3][0]  = - det3_calc(b1, b2, b3, c1, c2, c3,
+                                d1, d2, d3) * rDet;
+    result[3][1]  =   det3_calc(a1, a2, a3, c1, c2, c3,
+                                d1, d2, d3) * rDet;
+    result[3][2]  = - det3_calc(a1, a2, a3, b1, b2, b3,
+                                d1, d2, d3) * rDet;
+    result[3][3]  =   det3_calc(a1, a2, a3, b1, b2, b3,
+                                c1, c2, c3) * rDet;
 
     return true;
 }
@@ -1615,43 +1615,43 @@ bool TransformationMatrix<ValueTypeT>::invert(void)
         return false;
     }
 
-	rDet = TypeTraits<Real>::getOneElement() / rDet;
+    rDet = TypeTraits<Real>::getOneElement() / rDet;
 
-    result[0][0]  =   det3(b2, b3, b4, c2, c3,
-                           c4, d2, d3, d4) * rDet;
-    result[0][1]  = - det3(a2, a3, a4, c2, c3, c4,
-                           d2, d3, d4) * rDet;
-    result[0][2]  =   det3(a2, a3, a4, b2, b3, b4,
-                           d2, d3, d4) * rDet;
-    result[0][3]  = - det3(a2, a3, a4, b2, b3, b4,
-                           c2, c3, c4) * rDet;
+    result[0][0]  =   det3_calc(b2, b3, b4, c2, c3,
+                                c4, d2, d3, d4) * rDet;
+    result[0][1]  = - det3_calc(a2, a3, a4, c2, c3, c4,
+                                d2, d3, d4) * rDet;
+    result[0][2]  =   det3_calc(a2, a3, a4, b2, b3, b4,
+                                d2, d3, d4) * rDet;
+    result[0][3]  = - det3_calc(a2, a3, a4, b2, b3, b4,
+                                c2, c3, c4) * rDet;
 
-    result[1][0]  = - det3(b1, b3, b4, c1, c3, c4,
-                           d1, d3, d4) * rDet;
-    result[1][1]  =   det3(a1, a3, a4, c1, c3, c4,
-                           d1, d3, d4) * rDet;
-    result[1][2]  = - det3(a1, a3, a4, b1, b3, b4,
-                           d1, d3, d4) * rDet;
-    result[1][3]  =   det3(a1, a3, a4, b1, b3, b4,
-                           c1, c3, c4) * rDet;
+    result[1][0]  = - det3_calc(b1, b3, b4, c1, c3, c4,
+                                d1, d3, d4) * rDet;
+    result[1][1]  =   det3_calc(a1, a3, a4, c1, c3, c4,
+                                d1, d3, d4) * rDet;
+    result[1][2]  = - det3_calc(a1, a3, a4, b1, b3, b4,
+                                d1, d3, d4) * rDet;
+    result[1][3]  =   det3_calc(a1, a3, a4, b1, b3, b4,
+                                c1, c3, c4) * rDet;
 
-    result[2][0]  =   det3(b1, b2, b4, c1, c2, c4,
-                           d1, d2, d4) * rDet;
-    result[2][1]  = - det3(a1, a2, a4, c1, c2, c4,
-                           d1, d2, d4) * rDet;
-    result[2][2]  =   det3(a1, a2, a4, b1, b2, b4,
-                           d1, d2, d4) * rDet;
-    result[2][3]  = - det3(a1, a2, a4, b1, b2, b4,
-                           c1, c2, c4) * rDet;
+    result[2][0]  =   det3_calc(b1, b2, b4, c1, c2, c4,
+                                d1, d2, d4) * rDet;
+    result[2][1]  = - det3_calc(a1, a2, a4, c1, c2, c4,
+                                d1, d2, d4) * rDet;
+    result[2][2]  =   det3_calc(a1, a2, a4, b1, b2, b4,
+                                d1, d2, d4) * rDet;
+    result[2][3]  = - det3_calc(a1, a2, a4, b1, b2, b4,
+                                c1, c2, c4) * rDet;
 
-    result[3][0]  = - det3(b1, b2, b3, c1, c2, c3,
-                           d1, d2, d3) * rDet;
-    result[3][1]  =   det3(a1, a2, a3, c1, c2, c3,
-                           d1, d2, d3) * rDet;
-    result[3][2]  = - det3(a1, a2, a3, b1, b2, b3,
-                           d1, d2, d3) * rDet;
-    result[3][3]  =   det3(a1, a2, a3, b1, b2, b3,
-                           c1, c2, c3) * rDet;
+    result[3][0]  = - det3_calc(b1, b2, b3, c1, c2, c3,
+                                d1, d2, d3) * rDet;
+    result[3][1]  =   det3_calc(a1, a2, a3, c1, c2, c3,
+                                d1, d2, d3) * rDet;
+    result[3][2]  = - det3_calc(a1, a2, a3, b1, b2, b3,
+                                d1, d2, d3) * rDet;
+    result[3][3]  =   det3_calc(a1, a2, a3, b1, b2, b3,
+                                c1, c2, c3) * rDet;
 
     *this = result;
 
@@ -1708,41 +1708,41 @@ bool TransformationMatrix<ValueTypeT>::invertFrom(
 
     rDet = 1.f / rDet;
 
-    _matrix[0][0]  =   det3(b2, b3, b4, c2, c3,
-                            c4, d2, d3, d4) * rDet;
-    _matrix[0][1]  = - det3(a2, a3, a4, c2, c3, c4,
-                            d2, d3, d4) * rDet;
-    _matrix[0][2]  =   det3(a2, a3, a4, b2, b3, b4,
-                            d2, d3, d4) * rDet;
-    _matrix[0][3]  = - det3(a2, a3, a4, b2, b3, b4,
-                            c2, c3, c4) * rDet;
+    _matrix[0][0]  =   det3_calc(b2, b3, b4, c2, c3,
+                                 c4, d2, d3, d4) * rDet;
+    _matrix[0][1]  = - det3_calc(a2, a3, a4, c2, c3, c4,
+                                 d2, d3, d4) * rDet;
+    _matrix[0][2]  =   det3_calc(a2, a3, a4, b2, b3, b4,
+                                 d2, d3, d4) * rDet;
+    _matrix[0][3]  = - det3_calc(a2, a3, a4, b2, b3, b4,
+                                 c2, c3, c4) * rDet;
 
-    _matrix[1][0]  = - det3(b1, b3, b4, c1, c3, c4,
-                            d1, d3, d4) * rDet;
-    _matrix[1][1]  =   det3(a1, a3, a4, c1, c3, c4,
-                            d1, d3, d4) * rDet;
-    _matrix[1][2]  = - det3(a1, a3, a4, b1, b3, b4,
-                            d1, d3, d4) * rDet;
-    _matrix[1][3]  =   det3(a1, a3, a4, b1, b3, b4,
-                            c1, c3, c4) * rDet;
+    _matrix[1][0]  = - det3_calc(b1, b3, b4, c1, c3, c4,
+                                 d1, d3, d4) * rDet;
+    _matrix[1][1]  =   det3_calc(a1, a3, a4, c1, c3, c4,
+                                 d1, d3, d4) * rDet;
+    _matrix[1][2]  = - det3_calc(a1, a3, a4, b1, b3, b4,
+                                 d1, d3, d4) * rDet;
+    _matrix[1][3]  =   det3_calc(a1, a3, a4, b1, b3, b4,
+                                 c1, c3, c4) * rDet;
 
-    _matrix[2][0]  =   det3(b1, b2, b4, c1, c2, c4,
-                            d1, d2, d4) * rDet;
-    _matrix[2][1]  = - det3(a1, a2, a4, c1, c2, c4,
-                            d1, d2, d4) * rDet;
-    _matrix[2][2]  =   det3(a1, a2, a4, b1, b2, b4,
-                            d1, d2, d4) * rDet;
-    _matrix[2][3]  = - det3(a1, a2, a4, b1, b2, b4,
-                            c1, c2, c4) * rDet;
+    _matrix[2][0]  =   det3_calc(b1, b2, b4, c1, c2, c4,
+                                 d1, d2, d4) * rDet;
+    _matrix[2][1]  = - det3_calc(a1, a2, a4, c1, c2, c4,
+                                 d1, d2, d4) * rDet;
+    _matrix[2][2]  =   det3_calc(a1, a2, a4, b1, b2, b4,
+                                 d1, d2, d4) * rDet;
+    _matrix[2][3]  = - det3_calc(a1, a2, a4, b1, b2, b4,
+                                 c1, c2, c4) * rDet;
 
-    _matrix[3][0]  = - det3(b1, b2, b3, c1, c2, c3,
-                            d1, d2, d3) * rDet;
-    _matrix[3][1]  =   det3(a1, a2, a3, c1, c2, c3,
-                            d1, d2, d3) * rDet;
-    _matrix[3][2]  = - det3(a1, a2, a3, b1, b2, b3,
-                            d1, d2, d3) * rDet;
-    _matrix[3][3]  =   det3(a1, a2, a3, b1, b2, b3,
-                            c1, c2, c3) * rDet;
+    _matrix[3][0]  = - det3_calc(b1, b2, b3, c1, c2, c3,
+                                 d1, d2, d3) * rDet;
+    _matrix[3][1]  =   det3_calc(a1, a2, a3, c1, c2, c3,
+                                 d1, d2, d3) * rDet;
+    _matrix[3][2]  = - det3_calc(a1, a2, a3, b1, b2, b3,
+                                 d1, d2, d3) * rDet;
+    _matrix[3][3]  =   det3_calc(a1, a2, a3, b1, b2, b3,
+                                 c1, c2, c3) * rDet;
 
     return true;
 }
@@ -1766,44 +1766,44 @@ bool TransformationMatrix<ValueTypeT>::inverse3(
 
     rDet = 1.0f / rDet;
 
-    result[0][0]  =   det2(_matrix[1][1],
-                           _matrix[1][2],
+    result[0][0]  =   det2_calc(_matrix[1][1],
+                                _matrix[1][2],
                            _matrix[2][1],
                            _matrix[2][2]) * rDet;
-    result[0][1]  = - det2(_matrix[0][1],
-                           _matrix[0][2],
-                           _matrix[2][1],
-                           _matrix[2][2]) * rDet;
-    result[0][2]  =   det2(_matrix[0][1],
-                           _matrix[0][2],
-                           _matrix[1][1],
-                           _matrix[1][2]) * rDet;
+    result[0][1]  = - det2_calc(_matrix[0][1],
+                                _matrix[0][2],
+                                _matrix[2][1],
+                                _matrix[2][2]) * rDet;
+    result[0][2]  =   det2_calc(_matrix[0][1],
+                                _matrix[0][2],
+                                _matrix[1][1],
+                                _matrix[1][2]) * rDet;
 
-    result[1][0]  = - det2(_matrix[1][0],
-                           _matrix[1][2],
-                           _matrix[2][0],
-                           _matrix[2][2]) * rDet;
-    result[1][1]  =   det2(_matrix[0][0],
-                           _matrix[0][2],
-                           _matrix[2][0],
-                           _matrix[2][2]) * rDet;
-    result[1][2]  = - det2(_matrix[0][0],
-                           _matrix[0][2],
-                           _matrix[1][0],
-                           _matrix[1][2]) * rDet;
+    result[1][0]  = - det2_calc(_matrix[1][0],
+                                _matrix[1][2],
+                                _matrix[2][0],
+                                _matrix[2][2]) * rDet;
+    result[1][1]  =   det2_calc(_matrix[0][0],
+                                _matrix[0][2],
+                                _matrix[2][0],
+                                _matrix[2][2]) * rDet;
+    result[1][2]  = - det2_calc(_matrix[0][0],
+                                _matrix[0][2],
+                                _matrix[1][0],
+                                _matrix[1][2]) * rDet;
 
-    result[2][0]  =   det2(_matrix[1][0],
-                           _matrix[1][1],
-                           _matrix[2][0],
-                           _matrix[2][1]) * rDet;
-    result[2][1]  = - det2(_matrix[0][0],
-                           _matrix[0][1],
-                           _matrix[2][0],
-                           _matrix[2][1]) * rDet;
-    result[2][2]  =   det2(_matrix[0][0],
-                           _matrix[0][1],
-                           _matrix[1][0],
-                           _matrix[1][1]) * rDet;
+    result[2][0]  =   det2_calc(_matrix[1][0],
+                                _matrix[1][1],
+                                _matrix[2][0],
+                                _matrix[2][1]) * rDet;
+    result[2][1]  = - det2_calc(_matrix[0][0],
+                                _matrix[0][1],
+                                _matrix[2][0],
+                                _matrix[2][1]) * rDet;
+    result[2][2]  =   det2_calc(_matrix[0][0],
+                                _matrix[0][1],
+                                _matrix[1][0],
+                                _matrix[1][1]) * rDet;
 
     result[3][0] =
         result[3][1] =
@@ -1832,44 +1832,44 @@ bool TransformationMatrix<ValueTypeT>::invert3(void)
 
     rDet = 1.0f / rDet;
 
-    result[0][0]  =   det2(_matrix[1][1],
-                           _matrix[1][2],
-                           _matrix[2][1],
-                           _matrix[2][2]) * rDet;
-    result[0][1]  = - det2(_matrix[0][1],
-                           _matrix[0][2],
-                           _matrix[2][1],
-                           _matrix[2][2]) * rDet;
-    result[0][2]  =   det2(_matrix[0][1],
-                           _matrix[0][2],
-                           _matrix[1][1],
-                           _matrix[1][2]) * rDet;
+    result[0][0]  =   det2_calc(_matrix[1][1],
+                                _matrix[1][2],
+                                _matrix[2][1],
+                                _matrix[2][2]) * rDet;
+    result[0][1]  = - det2_calc(_matrix[0][1],
+                                _matrix[0][2],
+                                _matrix[2][1],
+                                _matrix[2][2]) * rDet;
+    result[0][2]  =   det2_calc(_matrix[0][1],
+                                _matrix[0][2],
+                                _matrix[1][1],
+                                _matrix[1][2]) * rDet;
 
-    result[1][0]  = - det2(_matrix[1][0],
-                           _matrix[1][2],
-                           _matrix[2][0],
-                           _matrix[2][2]) * rDet;
-    result[1][1]  =   det2(_matrix[0][0],
-                           _matrix[0][2],
-                           _matrix[2][0],
-                           _matrix[2][2]) * rDet;
-    result[1][2]  = - det2(_matrix[0][0],
-                           _matrix[0][2],
-                           _matrix[1][0],
-                           _matrix[1][2]) * rDet;
+    result[1][0]  = - det2_calc(_matrix[1][0],
+                                _matrix[1][2],
+                                _matrix[2][0],
+                                _matrix[2][2]) * rDet;
+    result[1][1]  =   det2_calc(_matrix[0][0],
+                                _matrix[0][2],
+                                _matrix[2][0],
+                                _matrix[2][2]) * rDet;
+    result[1][2]  = - det2_calc(_matrix[0][0],
+                                _matrix[0][2],
+                                _matrix[1][0],
+                                _matrix[1][2]) * rDet;
 
-    result[2][0]  =   det2(_matrix[1][0],
-                           _matrix[1][1],
-                           _matrix[2][0],
-                           _matrix[2][1]) * rDet;
-    result[2][1]  = - det2(_matrix[0][0],
-                           _matrix[0][1],
-                           _matrix[2][0],
-                           _matrix[2][1]) * rDet;
-    result[2][2]  =   det2(_matrix[0][0],
-                           _matrix[0][1],
-                           _matrix[1][0],
-                           _matrix[1][1]) * rDet;
+    result[2][0]  =   det2_calc(_matrix[1][0],
+                                _matrix[1][1],
+                                _matrix[2][0],
+                                _matrix[2][1]) * rDet;
+    result[2][1]  = - det2_calc(_matrix[0][0],
+                                _matrix[0][1],
+                                _matrix[2][0],
+                                _matrix[2][1]) * rDet;
+    result[2][2]  =   det2_calc(_matrix[0][0],
+                                _matrix[0][1],
+                                _matrix[1][0],
+                                _matrix[1][1]) * rDet;
 
     result[3][0] =
         result[3][1] =
@@ -1901,44 +1901,44 @@ bool TransformationMatrix<ValueTypeT>::invertFrom3(
 
     rDet = 1.0f / rDet;
 
-    _matrix[0][0]  =   det2(matrix._matrix[1][1],
-                            matrix._matrix[1][2],
-                            matrix._matrix[2][1],
-                            matrix._matrix[2][2]) * rDet;
-    _matrix[0][1]  = - det2(matrix._matrix[0][1],
-                            matrix._matrix[0][2],
-                            matrix._matrix[2][1],
-                            matrix._matrix[2][2]) * rDet;
-    _matrix[0][2]  =   det2(matrix._matrix[0][1],
-                            matrix._matrix[0][2],
-                            matrix._matrix[1][1],
-                            matrix._matrix[1][2]) * rDet;
+    _matrix[0][0]  =   det2_calc(matrix._matrix[1][1],
+                                 matrix._matrix[1][2],
+                                 matrix._matrix[2][1],
+                                 matrix._matrix[2][2]) * rDet;
+    _matrix[0][1]  = - det2_calc(matrix._matrix[0][1],
+                                 matrix._matrix[0][2],
+                                 matrix._matrix[2][1],
+                                 matrix._matrix[2][2]) * rDet;
+    _matrix[0][2]  =   det2_calc(matrix._matrix[0][1],
+                                 matrix._matrix[0][2],
+                                 matrix._matrix[1][1],
+                                 matrix._matrix[1][2]) * rDet;
 
-    _matrix[1][0]  = - det2(matrix._matrix[1][0],
-                            matrix._matrix[1][2],
-                            matrix._matrix[2][0],
-                            matrix._matrix[2][2]) * rDet;
-    _matrix[1][1]  =   det2(matrix._matrix[0][0],
-                            matrix._matrix[0][2],
-                            matrix._matrix[2][0],
-                            matrix._matrix[2][2]) * rDet;
-    _matrix[1][2]  = - det2(matrix._matrix[0][0],
-                            matrix._matrix[0][2],
-                            matrix._matrix[1][0],
-                            matrix._matrix[1][2]) * rDet;
+    _matrix[1][0]  = - det2_calc(matrix._matrix[1][0],
+                                 matrix._matrix[1][2],
+                                 matrix._matrix[2][0],
+                                 matrix._matrix[2][2]) * rDet;
+    _matrix[1][1]  =   det2_calc(matrix._matrix[0][0],
+                                 matrix._matrix[0][2],
+                                 matrix._matrix[2][0],
+                                 matrix._matrix[2][2]) * rDet;
+    _matrix[1][2]  = - det2_calc(matrix._matrix[0][0],
+                                 matrix._matrix[0][2],
+                                 matrix._matrix[1][0],
+                                 matrix._matrix[1][2]) * rDet;
 
-    _matrix[2][0]  =   det2(matrix._matrix[1][0],
-                            matrix._matrix[1][1],
-                            matrix._matrix[2][0],
-                            matrix._matrix[2][1]) * rDet;
-    _matrix[2][1]  = - det2(matrix._matrix[0][0],
-                            matrix._matrix[0][1],
-                            matrix._matrix[2][0],
-                            matrix._matrix[2][1]) * rDet;
-    _matrix[2][2]  =   det2(matrix._matrix[0][0],
-                            matrix._matrix[0][1],
-                            matrix._matrix[1][0],
-                            matrix._matrix[1][1]) * rDet;
+    _matrix[2][0]  =   det2_calc(matrix._matrix[1][0],
+                                 matrix._matrix[1][1],
+                                 matrix._matrix[2][0],
+                                 matrix._matrix[2][1]) * rDet;
+    _matrix[2][1]  = - det2_calc(matrix._matrix[0][0],
+                                 matrix._matrix[0][1],
+                                 matrix._matrix[2][0],
+                                 matrix._matrix[2][1]) * rDet;
+    _matrix[2][2]  =   det2_calc(matrix._matrix[0][0],
+                                 matrix._matrix[0][1],
+                                 matrix._matrix[1][0],
+                                 matrix._matrix[1][1]) * rDet;
 
     _matrix[3][0] =
         _matrix[3][1] =
@@ -1986,7 +1986,7 @@ bool TransformationMatrix<ValueTypeT>::transposeFrom(
         matrix[0][1], matrix[1][1], matrix[2][1], matrix[3][1],
         matrix[0][2], matrix[1][2], matrix[2][2], matrix[3][2],
         matrix[0][3], matrix[1][3], matrix[2][3], matrix[3][3]);
-    
+
     return true;
 }
 
@@ -2139,7 +2139,7 @@ void TransformationMatrix<ValueTypeT>::scale(ValueTypeT s)
 
 template<class ValueTypeT> inline
 void TransformationMatrix<ValueTypeT>::addScaled(
-    const TransformationMatrix &matrix, 
+    const TransformationMatrix &matrix,
           ValueTypeT            s)
 {
     _matrix[0][0] += s*matrix._matrix[0][0];
@@ -2252,37 +2252,37 @@ ValueTypeT TransformationMatrix<ValueTypeT>::normInfinity(void) const
     ValueTypeT m = 0.;
     ValueTypeT t;
 
-    if((t = osgAbs(_matrix[0][0])) > m) 
+    if((t = osgAbs(_matrix[0][0])) > m)
         m = t;
     if((t = osgAbs(_matrix[0][1])) > m)
         m = t;
-    if((t = osgAbs(_matrix[0][2])) > m) 
+    if((t = osgAbs(_matrix[0][2])) > m)
         m = t;
-    if((t = osgAbs(_matrix[0][3])) > m) 
+    if((t = osgAbs(_matrix[0][3])) > m)
         m = t;
-    if((t = osgAbs(_matrix[1][0])) > m) 
+    if((t = osgAbs(_matrix[1][0])) > m)
         m = t;
-    if((t = osgAbs(_matrix[1][1])) > m) 
+    if((t = osgAbs(_matrix[1][1])) > m)
         m = t;
-    if((t = osgAbs(_matrix[1][2])) > m) 
+    if((t = osgAbs(_matrix[1][2])) > m)
         m = t;
-    if((t = osgAbs(_matrix[1][3])) > m) 
+    if((t = osgAbs(_matrix[1][3])) > m)
         m = t;
-    if((t = osgAbs(_matrix[2][0])) > m) 
+    if((t = osgAbs(_matrix[2][0])) > m)
         m = t;
-    if((t = osgAbs(_matrix[2][1])) > m) 
+    if((t = osgAbs(_matrix[2][1])) > m)
         m = t;
-    if((t = osgAbs(_matrix[2][2])) > m) 
+    if((t = osgAbs(_matrix[2][2])) > m)
         m = t;
-    if((t = osgAbs(_matrix[2][3])) > m) 
+    if((t = osgAbs(_matrix[2][3])) > m)
         m = t;
-    if((t = osgAbs(_matrix[3][0])) > m) 
+    if((t = osgAbs(_matrix[3][0])) > m)
         m = t;
-    if((t = osgAbs(_matrix[3][1])) > m) 
+    if((t = osgAbs(_matrix[3][1])) > m)
         m = t;
-    if((t = osgAbs(_matrix[3][2])) > m) 
+    if((t = osgAbs(_matrix[3][2])) > m)
         m = t;
-    if((t = osgAbs(_matrix[3][3])) > m) 
+    if((t = osgAbs(_matrix[3][3])) > m)
         m = t;
 
     return m;
@@ -2554,7 +2554,7 @@ bool TransformationMatrix<ValueTypeT>::exp(TransformationMatrix &result) const
 
     j += Int32(osgLog(A.normInfinity() / 0.693));
 
-    if(j < 0) 
+    if(j < 0)
         j = 0;
 
     A.scale(ValueTypeT(1.0f / (1 << j)));
@@ -2569,7 +2569,7 @@ bool TransformationMatrix<ValueTypeT>::exp(TransformationMatrix &result) const
 
         N.addScaled(result, c);
 
-        if(k % 2) 
+        if(k % 2)
         {
             D.addScaled(result, -c);
         }
@@ -2609,7 +2609,7 @@ bool TransformationMatrix<ValueTypeT>::expOf(
 
     j += int(osgLog(A.normInfinity() / 0.693));
 
-    if(j < 0) 
+    if(j < 0)
         j = 0;
 
     A.scale(1.0 / (ValueTypeT(1 << j)));
@@ -2624,11 +2624,11 @@ bool TransformationMatrix<ValueTypeT>::expOf(
 
         N.addScaled(*this,c);
 
-        if(k % 2) 
+        if(k % 2)
         {
             D.addScaled(*this, -c);
         }
-        else 
+        else
         {
             D.addScaled(*this,  c);
         }
@@ -2717,7 +2717,7 @@ std::ostream &operator <<(      std::ostream                     &os,
     UInt32 i;
     UInt32 j;
 
-    std::ios::fmtflags oldflags = os.flags(std::ios::showpoint | 
+    std::ios::fmtflags oldflags = os.flags(std::ios::showpoint |
                                            std::ios::fixed);
 
     Int32 pr    = os.precision(3  );

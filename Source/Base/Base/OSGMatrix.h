@@ -80,15 +80,15 @@ class TransformationMatrix
     /*! \{                                                                 */
 
     typedef                 ValueTypeT                ValueType;
-    typedef VectorInterface<ValueTypeT, 
+    typedef VectorInterface<ValueTypeT,
                             VecStorage4<ValueTypeT> > VectorType;
 
     typedef QuaternionBase <ValueType>                QuaternionType;
 
-    typedef VectorInterface<ValueTypeT, 
+    typedef VectorInterface<ValueTypeT,
                             VecStorage3<ValueTypeT> > VectorType3f;
 
-    typedef PointInterface<ValueTypeT, 
+    typedef PointInterface<ValueTypeT,
                            VecStorage3<ValueTypeT>  > PointType3f;
 
     /*! \}                                                                 */
@@ -108,45 +108,45 @@ class TransformationMatrix
 
     TransformationMatrix(const VectorType3f         &vector1,
                          const VectorType3f         &vector2,
-                         const VectorType3f         &vector3);    
+                         const VectorType3f         &vector3);
 
     TransformationMatrix(const VectorType3f         &vector1,
                          const VectorType3f         &vector2,
                          const VectorType3f         &vector3,
-                         const VectorType3f         &vector4);    
+                         const VectorType3f         &vector4);
 
     TransformationMatrix(const ValueTypeT            rVal00,
                          const ValueTypeT            rVal10,
                          const ValueTypeT            rVal20,
                          const ValueTypeT            rVal30,
-                         
+
                          const ValueTypeT            rVal01,
                          const ValueTypeT            rVal11,
                          const ValueTypeT            rVal21,
                          const ValueTypeT            rVal31,
-                         
+
                          const ValueTypeT            rVal02,
                          const ValueTypeT            rVal12,
                          const ValueTypeT            rVal22,
                          const ValueTypeT            rVal32,
-                         
+
                          const ValueTypeT            rVal03,
                          const ValueTypeT            rVal13,
                          const ValueTypeT            rVal23,
                          const ValueTypeT            rVal33);
- 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
-   
-    ~TransformationMatrix(void); 
+
+    ~TransformationMatrix(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Set                                        */
     /*! \{                                                                 */
-   
+
     void setIdentity       (void                                           );
 
     void setValue          (const TransformationMatrix &mat                );
@@ -164,17 +164,17 @@ class TransformationMatrix
                             const ValueTypeT            rVal10,
                             const ValueTypeT            rVal20,
                             const ValueTypeT            rVal30,
-                            
+
                             const ValueTypeT            rVal01,
                             const ValueTypeT            rVal11,
                             const ValueTypeT            rVal21,
                             const ValueTypeT            rVal31,
-                            
+
                             const ValueTypeT            rVal02,
                             const ValueTypeT            rVal12,
                             const ValueTypeT            rVal22,
                             const ValueTypeT            rVal32,
-                            
+
                             const ValueTypeT            rVal03,
                             const ValueTypeT            rVal13,
                             const ValueTypeT            rVal23,
@@ -184,17 +184,17 @@ class TransformationMatrix
                             const ValueTypeT            rVal01,
                             const ValueTypeT            rVal02,
                             const ValueTypeT            rVal03,
-                            
+
                             const ValueTypeT            rVal10,
                             const ValueTypeT            rVal11,
                             const ValueTypeT            rVal12,
                             const ValueTypeT            rVal13,
-                            
+
                             const ValueTypeT            rVal20,
                             const ValueTypeT            rVal21,
                             const ValueTypeT            rVal22,
                             const ValueTypeT            rVal23,
-                            
+
                             const ValueTypeT            rVal30,
                             const ValueTypeT            rVal31,
                             const ValueTypeT            rVal32,
@@ -219,7 +219,7 @@ class TransformationMatrix
 
           ValueTypeT *getValues(void);
     const ValueTypeT *getValues(void) const;
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Set Transformations                        */
@@ -228,7 +228,7 @@ class TransformationMatrix
     void setScale    (const ValueTypeT      s               );
 
     void setScale    (const ValueTypeT      sx,
-                      const ValueTypeT      sy, 
+                      const ValueTypeT      sy,
                       const ValueTypeT      sz              );
 
     void setScale    (const VectorType3f   &s               );
@@ -250,16 +250,16 @@ class TransformationMatrix
 
     void setTransform(const QuaternionType &r               );
 
-    void setTransform(const VectorType3f   &t, 
+    void setTransform(const VectorType3f   &t,
                       const QuaternionType &r               );
 
-    void setTransform(const VectorType3f   &t, 
+    void setTransform(const VectorType3f   &t,
                       const QuaternionType &r,
                       const VectorType3f   &s               );
 
-    void setTransform(const VectorType3f   &t, 
+    void setTransform(const VectorType3f   &t,
                       const QuaternionType &r,
-                      const VectorType3f   &s, 
+                      const VectorType3f   &s,
                       const QuaternionType &so              );
 
     void setTransform(const VectorType3f   &translation,
@@ -273,60 +273,60 @@ class TransformationMatrix
     /*! \name                   Get Transformations                        */
     /*! \{                                                                 */
 
-    void getTransform(      VectorType3f         &translation, 
+    void getTransform(      VectorType3f         &translation,
                             QuaternionType       &rotation,
-                            VectorType3f         &scaleFactor, 
+                            VectorType3f         &scaleFactor,
                             QuaternionType       &scaleOrientation,
                       const VectorType3f         &center) const;
 
-    void getTransform(      VectorType3f         &translation, 
+    void getTransform(      VectorType3f         &translation,
                             QuaternionType       &rotation,
-                            VectorType3f         &scaleFactor, 
+                            VectorType3f         &scaleFactor,
                             QuaternionType       &scaleOrientation) const;
 
-    bool factor      (      TransformationMatrix &r, 
-                            VectorType3f         &s, 
+    bool factor      (      TransformationMatrix &r,
+                            VectorType3f         &s,
                             TransformationMatrix &u,
-                            VectorType3f         &t, 
+                            VectorType3f         &t,
                             TransformationMatrix &proj) const;
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Transform                                  */
     /*! \{                                                                 */
 
-    void multMatrixPnt    (const PointType3f  &src, 
+    void multMatrixPnt    (const PointType3f  &src,
                                  PointType3f  &dst) const;
     void multMatrixPnt    (      PointType3f  &pnt) const;
-    void multFullMatrixPnt(const PointType3f  &src, 
+    void multFullMatrixPnt(const PointType3f  &src,
                                  PointType3f  &dst) const;
     void multFullMatrixPnt(      PointType3f  &pnt) const;
 
-    void multMatrixVec    (const VectorType3f &src, 
+    void multMatrixVec    (const VectorType3f &src,
                                  VectorType3f &dst) const;
     void multMatrixVec    (      VectorType3f &vec) const;
 
-    void mult             (const PointType3f  &src, 
+    void mult             (const PointType3f  &src,
                                  PointType3f  &dst) const;
     void mult             (      PointType3f  &vec) const;
-    void mult             (const VectorType3f &src, 
+    void mult             (const VectorType3f &src,
                                  VectorType3f &dst) const;
     void mult             (      VectorType3f &vec) const;
 
 
-    void multPntMatrix    (const PointType3f  &src, 
+    void multPntMatrix    (const PointType3f  &src,
                                  PointType3f  &dst) const;
     void multPntMatrix    (      PointType3f  &pnt) const;
-    void multPntFullMatrix(const PointType3f  &src, 
+    void multPntFullMatrix(const PointType3f  &src,
                                  PointType3f  &dst) const;
     void multPntFullMatrix(      PointType3f  &pnt) const;
 
-    void multVecMatrix    (const VectorType3f &src, 
+    void multVecMatrix    (const VectorType3f &src,
                                  VectorType3f &dst) const;
     void multVecMatrix    (      VectorType3f &vec) const;
 
 
-    void multMatrixVec    (const VectorType &src, 
+    void multMatrixVec    (const VectorType &src,
                                  VectorType &dst) const;
     void multMatrixVec    (      VectorType &vec) const;
 
@@ -335,7 +335,7 @@ class TransformationMatrix
     /*! \name                   Math                                       */
     /*! \{                                                                 */
 
-    bool       equals       (const TransformationMatrix &matrix, 
+    bool       equals       (const TransformationMatrix &matrix,
                              const ValueType             tol   ) const;
 
     ValueTypeT det3         (      void                        ) const;
@@ -355,24 +355,24 @@ class TransformationMatrix
 
     void       mult         (const TransformationMatrix &matrix);
     void       multLeft     (const TransformationMatrix &matrix);
-    
+
     void       add          (const TransformationMatrix &matrix);
     void       scale        (      ValueTypeT            s     );
-    void       addScaled    (const TransformationMatrix &matrix, 
+    void       addScaled    (const TransformationMatrix &matrix,
                                    ValueTypeT            s     );
     void       negate       (      void                        );
-    
+
     ValueTypeT norm1        (      void                        ) const;
     ValueTypeT norm2        (      void                        ) const;
     ValueTypeT normInfinity (      void                        ) const;
-    
+
     bool       sqrt         (      TransformationMatrix &result) const;
     bool       sqrtOf       (const TransformationMatrix &matrix);
     bool       sqrt         (      void                        );
-    
+
     bool       log          (      TransformationMatrix &result) const;
     bool       logOf        (const TransformationMatrix &matrix);
-    
+
     bool       exp          (      TransformationMatrix &result) const;
     bool       expOf        (const TransformationMatrix &matrix);
 
@@ -415,23 +415,23 @@ class TransformationMatrix
     /*! \name                   Internal Math                              */
     /*! \{                                                                 */
 
-    ValueTypeT rowMulCol4(const TransformationMatrix &gRowMat, 
-                                UInt32                iRow, 
-                          const TransformationMatrix &gColMat, 
+    ValueTypeT rowMulCol4(const TransformationMatrix &gRowMat,
+                                UInt32                iRow,
+                          const TransformationMatrix &gColMat,
                                 UInt32                iColumn) const;
 
-    ValueTypeT det2      (const ValueTypeT            a1, 
+    ValueTypeT det2_calc (const ValueTypeT            a1,
                           const ValueTypeT            a2,
-                          const ValueTypeT            b1, 
+                          const ValueTypeT            b1,
                           const ValueTypeT            b2     ) const;
-    ValueTypeT det3      (const ValueTypeT            a1, 
-                          const ValueTypeT            a2, 
+    ValueTypeT det3_calc (const ValueTypeT            a1,
+                          const ValueTypeT            a2,
                           const ValueTypeT            a3,
-                          const ValueTypeT            b1, 
-                          const ValueTypeT            b2, 
+                          const ValueTypeT            b1,
+                          const ValueTypeT            b2,
                           const ValueTypeT            b3,
-                          const ValueTypeT            c1, 
-                          const ValueTypeT            c2, 
+                          const ValueTypeT            c1,
+                          const ValueTypeT            c2,
                           const ValueTypeT            c3     ) const;
 
 #ifdef __sgi
@@ -449,7 +449,7 @@ class TransformationMatrix
 #ifdef __sgi
 #pragma reset woff 1424
 #endif
-    
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
@@ -513,7 +513,7 @@ typedef Matrix4fx Matrixr;
 
 #endif
 
-template<class ValueTypeT> 
+template<class ValueTypeT>
 std::ostream &operator <<(      std::ostream                     &os,
                           const TransformationMatrix<ValueTypeT> &obj);
 
