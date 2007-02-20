@@ -87,13 +87,22 @@ class OSG_SYSTEM_DLLMAPPING StatElemDescBase
     const IDString &getName       (void);
     const IDString &getDescription(void);
 
+    typedef enum { 
+              RESET_NEVER = 0, //!< Never reset by the system
+              RESET_DRAW,      //!< Reset when drawing
+              RESET_ALWAYS     //!< Reset when StatCollector::reset is called
+            } ResetMode; 
+             
+    ResetMode getResetMode(void          ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Constructors                              */
     /*! \{                                                                 */
 
     StatElemDescBase(const Char8 *name, 
-                     const Char8 *description);
+                     const Char8 *description,
+                     ResetMode reset = RESET_DRAW);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -117,14 +126,15 @@ class OSG_SYSTEM_DLLMAPPING StatElemDescBase
     /*==========================  PRIVATE  ================================*/
   private:
     friend class StatCollector;
-      
+
     typedef std::vector<StatElemDescBase*> DescStorage;
-    
+
     static DescStorage *_descVec;
-           
-           Int32         _id;
-           IDString      _name;
-           IDString      _description;
+    
+    Int32           _id;
+    IDString        _name;
+    IDString        _description;
+    ResetMode       _resetMode;
 
     // only called by OSGStatCollector friend
     virtual StatElem *createElem(void) = 0;
@@ -145,7 +155,8 @@ class StatElemDesc : public StatElemDescBase
     /*! \{                                                                 */
 
     StatElemDesc(const Char8 *name, 
-                 const Char8 *description);
+                 const Char8 *description,
+                 ResetMode    reset = RESET_DRAW);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

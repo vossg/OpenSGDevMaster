@@ -77,7 +77,8 @@ class OSG_SYSTEM_DLLMAPPING StatCollector
     void   refitElemNum (void        );
     void   clearElems   (void        );
     bool   isValidID    (Int32 elemId) const;
-    void   reset        (void        );
+    void   reset        (StatElemDescBase::ResetMode mode =
+                                StatElemDescBase::RESET_DRAW);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -108,7 +108,8 @@ void StatTimeElem::putToString(std::string &str, const Char8 *format) const
             if(! strncmp(proc, "%ms", 3))
             {
                 std::string fcopy(format);
-                fcopy.insert((proc - format) + 1,".2f ");
+                fcopy.erase((proc - format) + 1, 2);
+                fcopy.insert((proc - format) + 1,".2f");
                 sprintf(temp, fcopy.c_str(), ((double)_time)*1000.);
             }
             else if(! strncmp(proc, "%r", 2))

@@ -122,7 +122,9 @@ void StatCollector::refitElemNum(void)
     UInt32 dN = StatElemDescBase::getNumOfDescs();
 
     if(eN != dN)
+    {
         _elemVec.resize(dN, 0);
+    }
 }
 
 /*! Convert the current contents into a string. This
@@ -249,14 +251,14 @@ void StatCollector::clearElems(void)
 
 /*! Reset all elements to the start value.
  */
-void StatCollector::reset(void)
+void StatCollector::reset(StatElemDescBase::ResetMode mode)
 {
     StatElemStoreIt      it    = _elemVec.begin();
     StatElemStoreConstIt endIt = _elemVec.end();
 
     for(; it != endIt; ++it)
     {
-        if(*it != NULL)
+        if(*it != NULL && (*it)->getDesc()->getResetMode() >= mode)
         {
             (*it)->reset();
         }

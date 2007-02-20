@@ -126,10 +126,12 @@ StatElemDescBase *StatElemDescBase::findDescByName(const Char8 *name)
         descriptor belongs to.
  */
 StatElemDescBase::StatElemDescBase(const Char8 *name, 
-                                   const Char8 *description) :
+                                   const Char8 *description,
+                                   ResetMode    reset) :
     _id         (         -1),
     _name       (       name),
-    _description(description)
+    _description(description),
+    _resetMode  (reset)
 {
     StatElemDescBase *desc = 0;
     

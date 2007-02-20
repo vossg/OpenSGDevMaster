@@ -86,14 +86,22 @@ const IDString &StatElemDescBase::getDescription(void)
     return _description; 
 }
 
+/*-------------------------------------------------------------------------*/
+
+inline
+StatElemDescBase::ResetMode StatElemDescBase::getResetMode(void) const
+{ 
+    return _resetMode; 
+}
 
 
 // The templated StatElemDesc
 
 template <class T> inline
 StatElemDesc<T>::StatElemDesc(const Char8 *name, 
-                              const Char8 *description) :
-    StatElemDescBase(name, description)
+                              const Char8 *description,
+                              ResetMode reset) :
+    StatElemDescBase(name, description, reset)
 {
 }
 
