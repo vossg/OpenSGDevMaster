@@ -112,8 +112,7 @@ struct FieldTraits<VTKMapperPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_CONTRIB_DLLMAPPING
-                     DataType &getType (void);
+    static OSG_CONTRIB_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFVTKMapperPtr"; }
     static const char *getMName(void) { return "MFVTKMapperPtr"; }

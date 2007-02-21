@@ -299,7 +299,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"texture\"\n"
-    "\t\ttype=\"TextureBaseChunkPtr\"\n"
+    "\t\ttype=\"TextureObjChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"

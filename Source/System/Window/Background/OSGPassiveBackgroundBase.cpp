@@ -252,13 +252,7 @@ void PassiveBackgroundBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -268,7 +262,7 @@ DataType FieldTraits<PassiveBackgroundPtr>::_type("PassiveBackgroundPtr", "Backg
 
 OSG_FIELDTRAITS_GETTYPE(PassiveBackgroundPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, PassiveBackgroundPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, PassiveBackgroundPtr, SFFieldContainerPtr);
 
 
 /*------------------------------------------------------------------------*/
