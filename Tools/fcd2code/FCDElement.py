@@ -160,6 +160,7 @@ class FCDElement(object):
             line = line.replace("\\",  "\\\\");
             line = line.replace("\t",  "\\t");
             line = line.replace("\n",  "");
+            line = line.replace("\r",  "");
             line = line.replace("\"",  "\\\"");
             
             if lineNum == 0:
