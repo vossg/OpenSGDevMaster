@@ -74,6 +74,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::TextureSelectChunk
     \ingroup GrpSystemState
+
+    The TextureSelectChunk allows choosing from a field of textures. It can be 
+    used to change between a set of textures more easily than adding/removing 
+    chunks the the used material, and can be used in places where only chunks
+    are allowed.
  */
 
 /***************************************************************************\
@@ -152,6 +157,12 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(true,
     "\tdecoratable=\"false\"\n"
     ">\n"
     "\\ingroup GrpSystemState\n"
+    "\n"
+    "The TextureSelectChunk allows choosing from a field of textures. It can be \n"
+    "used to change between a set of textures more easily than adding/removing \n"
+    "chunks the the used material, and can be used in places where only chunks\n"
+    "are allowed.\n"
+    "\n"
     "\t<Field\n"
     "\t\tname=\"choice\"\n"
     "\t\ttype=\"UInt32\"\n"
@@ -173,6 +184,11 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(true,
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
+    "\n"
+    "The TextureSelectChunk allows choosing from a field of textures. It can be \n"
+    "used to change between a set of textures more easily than adding/removing \n"
+    "chunks the the used material, and can be used in places where only chunks\n"
+    "are allowed.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

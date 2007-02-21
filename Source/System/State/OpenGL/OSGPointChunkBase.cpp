@@ -102,7 +102,7 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var Real32          PointChunkBase::_sfMinSize
-    Minimum point size for attenuation, less than 0 to disable it. See ARB_point_parameters extension.
+    Minimum point size for attenuation, use less than 0 to disable it. See ARB_point_parameters extension.
 */
 
 /*! \var Real32          PointChunkBase::_sfMaxSize
@@ -192,7 +192,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "minSize",
-        "Minimum point size for attenuation, less than 0 to disable it. See ARB_point_parameters extension.\n",
+        "Minimum point size for attenuation, use less than 0 to disable it. See ARB_point_parameters extension.\n",
         MinSizeFieldId, MinSizeFieldMask,
         false,
         Field::SFDefaultFlags,
@@ -423,7 +423,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(true,
     "\t\tdefaultValue=\"-1.f\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
-    "\tMinimum point size for attenuation, less than 0 to disable it. See ARB_point_parameters extension.\n"
+    "\tMinimum point size for attenuation, use less than 0 to disable it. See ARB_point_parameters extension.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"maxSize\"\n"

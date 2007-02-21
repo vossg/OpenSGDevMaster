@@ -11,6 +11,12 @@
 	decoratable="false"
 >
 \ingroup GrpSystemState
+
+The TextureSelectChunk allows choosing from a field of textures. It can be 
+used to change between a set of textures more easily than adding/removing 
+chunks the the used material, and can be used in places where only chunks
+are allowed.
+
 	<Field
 		name="choice"
 		type="UInt32"

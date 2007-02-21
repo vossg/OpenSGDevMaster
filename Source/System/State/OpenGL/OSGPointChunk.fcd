@@ -51,7 +51,7 @@ OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
 		defaultValue="-1.f"
 		access="public"
 	>
-	Minimum point size for attenuation, less than 0 to disable it. See ARB_point_parameters extension.
+	Minimum point size for attenuation, use less than 0 to disable it. See ARB_point_parameters extension.
 	</Field>
 	<Field
 		name="maxSize"

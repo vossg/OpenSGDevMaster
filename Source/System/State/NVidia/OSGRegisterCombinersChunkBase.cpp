@@ -76,6 +76,9 @@ OSG_BEGIN_NAMESPACE
 
     See \ref PageSystemRegisterCombinersChunk for a description.
 
+    Try to avoid using this chunk, as it is very non-portable. Using a shader 
+    instead is recommend, and much easier to do.
+
     This chunk wraps nVidia's register combiners. The
     OSG::RegisterCombinersChunk::setCombinerRGB and
     OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions
@@ -945,6 +948,9 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(true,
     "\n"
     "See \\ref PageSystemRegisterCombinersChunk for a description.\n"
     "\n"
+    "Try to avoid using this chunk, as it is very non-portable. Using a shader \n"
+    "instead is recommend, and much easier to do.\n"
+    "\n"
     "This chunk wraps nVidia's register combiners. The\n"
     "OSG::RegisterCombinersChunk::setCombinerRGB and\n"
     "OSG::RegisterCombinersChunk::setCombinerAlpha convenience functions\n"
@@ -1223,6 +1229,9 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(true,
     "\\ingroup GrpSystemState\n"
     "\n"
     "See \\ref PageSystemRegisterCombinersChunk for a description.\n"
+    "\n"
+    "Try to avoid using this chunk, as it is very non-portable. Using a shader \n"
+    "instead is recommend, and much easier to do.\n"
     "\n"
     "This chunk wraps nVidia's register combiners. The\n"
     "OSG::RegisterCombinersChunk::setCombinerRGB and\n"
