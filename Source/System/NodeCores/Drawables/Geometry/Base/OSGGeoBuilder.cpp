@@ -161,7 +161,7 @@ UInt32 GeoBuilder::finishVertex(void)
     
     // Are we in a begin/end loop? Then add current vertex to index
     if(_actType != -1)
-        addIndex(possize - 1);
+        index(possize - 1);
     
     _actLen++;
     return possize - 1;
@@ -189,8 +189,14 @@ void GeoBuilder::addLength(UInt32 length)
     _geo->getLengths()->addValue(length);
 }
 
-void GeoBuilder::addIndex(UInt32 index)
+void GeoBuilder::index(UInt32 index)
 {
+    if(_actType == -1)
+    {
+        FWARNING(("GeoBuilder::index: called outside begin/end block!\n"));
+        return;
+    }
+     
     if(_geo->getIndices() == NullFC)
     {
         GeoIntegralPropertyPtr i = GeoUInt32Property::create();
@@ -219,46 +225,70 @@ void GeoBuilder::end(void)
     _actType = -1;   
 }
 
+void GeoBuilder::line(UInt32 start)
+{
+    begin(GL_LINES);
+
+    index(start    );
+    index(start + 1);
+    
+    end();
+}
+
+void GeoBuilder::line(UInt32 i1, UInt32 i2)
+{
+    begin(GL_LINES);
+
+    index(i1);
+    index(i2);
+    
+    end();
+}
+
 void GeoBuilder::tri(UInt32 start)
 {
-    addType(GL_QUADS);
-    addLength(3);
+    begin(GL_TRIANGLES);
 
-    addIndex(start    );
-    addIndex(start + 1);
-    addIndex(start + 2);
+    index(start    );
+    index(start + 1);
+    index(start + 2);
+    
+    end();
 }
 
 void GeoBuilder::tri(UInt32 i1, UInt32 i2, UInt32 i3)
 {
-    addType(GL_TRIANGLES);
-    addLength(3);
+    begin(GL_TRIANGLES);
 
-    addIndex(i1);
-    addIndex(i2);
-    addIndex(i3);
+    index(i1);
+    index(i2);
+    index(i3);
+    
+    end();
 }
 
 void GeoBuilder::quad(UInt32 start)
 {
-    addType(GL_QUADS);
-    addLength(4);
+    begin(GL_QUADS);
 
-    addIndex(start    );
-    addIndex(start + 1);
-    addIndex(start + 2);
-    addIndex(start + 3);
+    index(start    );
+    index(start + 1);
+    index(start + 2);
+    index(start + 3);
+    
+    end();
 }
 
 void GeoBuilder::quad(UInt32 i1, UInt32 i2, UInt32 i3, UInt32 i4)
 {
-    addType(GL_QUADS);
-    addLength(4);
+    begin(GL_QUADS);
 
-    addIndex(i1);
-    addIndex(i2);
-    addIndex(i3);
-    addIndex(i4);
+    index(i1);
+    index(i2);
+    index(i3);
+    index(i4);
+    
+    end();
 }
 
     

@@ -137,7 +137,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     
     void begin(UInt32 type);
     
+    void index(UInt32 index);
+    
     void end(void);
+    
+    void line(UInt32 start);
+    
+    void line(UInt32 i1, UInt32 i2);
     
     void tri(UInt32 start);
     
@@ -170,7 +176,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
    
     void addType(Int32 type);
     void addLength(UInt32 length);
-    void addIndex(UInt32 index);
     
     /*! \}                                                                 */
 

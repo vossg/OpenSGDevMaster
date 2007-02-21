@@ -348,7 +348,7 @@ void initPlaneSetup(void)
     mat->setDiffuse(Color3f(1,1,1));
     mat->setLit    (false         );
 #ifdef USE_DEPTH_TEXTURE
-    mat->addChunk(txDepth);
+    mat->addChunk  (txDepth       );
 #else
     mat->addChunk  (tx1o          );
 #endif
