@@ -318,9 +318,30 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                     }
                     else if (meshIndexMask != indexMask)
                     {
-                        FFATAL (( "IndexMask unmatch, can not create geo\n"));
-                        meshIndexMask = 0;
-                        break;
+                        // consider this real-world example:
+                       // [...]
+                       // f 1603//1747 1679//1744 1678//1743
+                       // s 1
+                       // f 9/1/10 5/2/9 1680/3/1748 1681/4/174
+                       // [...]
+                       // Some faces contain texture coords and others do not.
+                       // The old version did just skip this geometry.
+                       // This version should continue if there's at least
+                       // the vertex index
+                       // I've seen the change in the maskIndex only after a smooth group,
+                       // so it's perhaps smarter to not ignore the smooth group further up in this code
+                       if( !(indexMask & 1) )  
+                       {
+                         // if there are vertex indices there's no reason to get in here
+                          FFATAL (( "IndexMask unmatch, can not create geo\n"));
+                          meshIndexMask = 0;
+                          break;
+                       }
+                       else
+                       {
+                         // consider the minimum similarities of mesh masks
+                         meshIndexMask &= indexMask;
+                       }
                     }
                 }
             }
@@ -339,7 +360,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                 geoPtr->setLengths   ( lensPtr );
                 geoPtr->setTypes     ( typePtr );
 
-                if ( texCoordPtr->size() > 0 )
+                if ( (meshIndexMask & 2) && texCoordPtr->size() > 0 )
                 {
                     geoPtr->setTexCoords ( texCoordPtr );
                     texIndexPtr = GeoUInt32Property::create();
@@ -351,7 +372,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
                     geoPtr->setTexCoords ( NullFC );
                 }
 
-                if ( normalPtr->size() > 0 )
+                if ( (meshIndexMask & 4) && normalPtr->size() > 0 )
                 {
                     geoPtr->setNormals   ( normalPtr );
                     normalIndexPtr = GeoUInt32Property::create();
