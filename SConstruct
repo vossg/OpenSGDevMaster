@@ -105,7 +105,7 @@ def registerfcd2codeBuilder(env, required=True):
       return (target, source)
    
    
-   fcd2code_builder = Builder(action = fcd2code_cmd + ' -c -b -d $SOURCE -p ${TARGET.dir}',
+   fcd2code_builder = Builder(action = " ".join([sys.executable, fcd2code_cmd]) + ' -c -b -d $SOURCE -p ${TARGET.dir}',
                               src_suffix = '.fcd',
                               suffix = 'unused.h',
                               emitter = prop_emitter)
