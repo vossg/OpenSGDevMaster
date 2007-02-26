@@ -54,7 +54,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::RemoteAspect
+/** \class OSG::RemoteAspect
  *  \ingroup GrpSystemCluster
  *  \brief Remote aspect controll class
  *
@@ -982,6 +982,6 @@ UInt32 RemoteAspectFieldContainerMapper::map(UInt32 uiId)
 
 namespace
 {
-    static Char8    cvsid_cpp[] = "@(#)$Id:$";
+    static Char8    cvsid_cpp[] = "@(#)$Id$";
     static Char8    cvsid_hpp[] = OSGREMOTEASPECT_HEADER_CVSID;
 }

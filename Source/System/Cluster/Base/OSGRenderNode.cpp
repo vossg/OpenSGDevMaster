@@ -54,7 +54,7 @@
 
 OSG_USING_NAMESPACE using namespace std;
 
-/** \class osg::RenderNode
+/** \class OSG::RenderNode
  *  \ingroup GrpSystemCluster
  *  \brief cluster node information
  **/
@@ -586,7 +586,7 @@ double RenderNode::runRasterBench(void)
 
 namespace
 {
-    static Char8    cvsid_cpp[] = "@(#)$Id:$";
+    static Char8    cvsid_cpp[] = "@(#)$Id$";
     static Char8    cvsid_hpp[] = OSG_CLUSTERNODE_HEADER_CVSID;
     static Char8    cvsid_inl[] = OSG_CLUSTERNODE_INLINE_CVSID;
 }

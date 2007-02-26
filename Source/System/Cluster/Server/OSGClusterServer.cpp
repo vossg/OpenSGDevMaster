@@ -63,7 +63,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::ClusterServer
+/** \class OSG::ClusterServer
  *  \ingroup GrpSystemCluster
  *  \brief Cluster rendering server
  *
@@ -623,6 +623,6 @@ void ClusterServer::acceptClient(void)
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id:$";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSG_CLUSTERSERVERHEADER_CVSID;
 }

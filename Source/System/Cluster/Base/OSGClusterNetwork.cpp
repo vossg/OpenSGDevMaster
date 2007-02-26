@@ -51,7 +51,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ClusterNetwork
+/*! \class OSG::ClusterNetwork
     \ingroup GrpSystemCluster
     \brief Refcounted structure to hold all cluster connections
 
@@ -560,7 +560,7 @@ ClusterNetwork::ConnectionInfoMapT ClusterNetwork::_map;
 
 namespace
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id:$";
+    static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSG_CLUSTERCONNECTINFOHEADER_CVSID;
 }
 

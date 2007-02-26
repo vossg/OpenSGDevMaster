@@ -55,7 +55,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::ClusterViewBuffer
+/*! \class OSG::ClusterViewBuffer
    \ingroup GrpSystemCluster
    \brief Viewbuffer functions
 
@@ -486,6 +486,6 @@ UInt32 ClusterViewBuffer::getBufferHeight(void)
 
 namespace
 {
-    static Char8    cvsid_cpp[] = "@(#)$Id:$";
+    static Char8    cvsid_cpp[] = "@(#)$Id$";
     static Char8    cvsid_hpp[] = OSG_CLUSTERVIEWBUFFER_HEADER_CVSID;
 }

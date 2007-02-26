@@ -63,7 +63,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PassiveBackground
+/*! \class OSG::PassiveBackground
     \ingroup GrpSystemWindowBackgrounds
 
 A passive background, see \ref PageSystemWindowBackgroundPassive for a

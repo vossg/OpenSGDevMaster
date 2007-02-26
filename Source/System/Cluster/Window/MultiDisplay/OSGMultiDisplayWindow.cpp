@@ -59,7 +59,7 @@
 
 OSG_USING_NAMESPACE
 
-/*! \class osg::MultiDisplayWindow
+/*! \class OSG::MultiDisplayWindow
  *  \ingroup GrpSystemCluster
  */
 

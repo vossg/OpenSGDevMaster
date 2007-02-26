@@ -59,7 +59,7 @@ OSG_USING_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::PassiveViewport
+/*! \class OSG::PassiveViewport
     \ingroup GrpSystemWindowViewports
 
 A PassiveViewport is a basic Viewport for integration into other OpenGL

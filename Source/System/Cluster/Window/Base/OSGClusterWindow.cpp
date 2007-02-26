@@ -64,7 +64,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::ClusterWindow
+/** \class OSG::ClusterWindow
  *  \ingroup GrpSystemCluster
  *  \brief Abstract base class for cluster configurations
  *

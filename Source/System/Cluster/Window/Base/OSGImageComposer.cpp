@@ -50,7 +50,7 @@
 
 OSG_USING_NAMESPACE
 
-/** \class osg::ImageComposer
+/** \class OSG::ImageComposer
  *  \ingroup GrpSystemCluster
  *  \brief Cluster image composition implementation
  *
