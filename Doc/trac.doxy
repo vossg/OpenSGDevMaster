@@ -13,5 +13,8 @@ SEARCHENGINE           = YES
 OUTPUT_DIRECTORY       = tracdocs
 
 
+INPUT = $(DOX_INPUT)
+
 # Small set for testing...
-# INPUT                  = ../Source/Base mainpage.dox
+# RECURSIVE              = YES
+# INPUT                  = ../Source/System mainpage.dox

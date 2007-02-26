@@ -39,6 +39,7 @@ import SConsAddons.Options.VTK
 from SConsAddons.EnvironmentBuilder import EnvironmentBuilder
 from LibraryUtils import *
 from sets import Set
+from socket import gethostname
 
 # If we have pysvn, load it
 try:
@@ -456,7 +457,6 @@ class RevisionTagWriter(object):
         # Find the high version for stuff in Doc/, too
         modifiedStr = ""
         for file in glob.glob("Doc/*"):
-            print file
             fileRev, fileMod = self._getSVNInfo(file)
             
             if self.maxRev < fileRev:
@@ -499,7 +499,6 @@ class RevisionTagWriter(object):
 EnsureSConsVersion(0,96,92)
 SourceSignatures('MD5')
 #SourceSignatures('timestamp')
-#SConsignFile('.sconsign.'+GetPlatform())
 opensg_version_string = file("VERSION").readline().strip()
 
 print "Building OpenSG ", opensg_version_string
@@ -515,9 +514,11 @@ unspecified_prefix = "use-instlinks"
 if GetPlatform() == "win32":
    # XXX: Temp hack to get msvs version setting
    if ARGUMENTS.has_key("MSVS_VERSION"):
-      common_env = Environment(MSVS_VERSION=ARGUMENTS["MSVS_VERSION"])
+      common_env = Environment(MSVS_VERSION=ARGUMENTS["MSVS_VERSION"], 
+                                tools = ['default', 'doxygen'], 
+                                toolpath = '.')
    else:
-      common_env = Environment()
+      common_env = Environment(tools = ['default', 'doxygen'], toolpath = '.')
 else:
    if ARGUMENTS.has_key("icc"):
       use_cxxlib_icc = False
@@ -526,10 +527,13 @@ else:
          use_cxxlib_icc = True
          
       common_env = Environment(ENV = os.environ,
-                               tools=['gnulink', 'intelicc', 'intelicpc'],
-                               cxxlib_icc=use_cxxlib_icc)
+                               tools=['gnulink', 'intelicc', 'intelicpc', 'doxygen'],
+                               cxxlib_icc=use_cxxlib_icc, 
+                               toolpath = '.')
    else:
-      common_env = Environment(ENV = os.environ)
+      common_env = Environment(ENV = os.environ, 
+                               toolpath = '.',
+                               tools = ['default', 'doxygen'])
 
 SConsignFile('.sconsign.'+GetPlatform()+common_env.subst('$CXX'))
 buildDir = "build." + platform + '.' + common_env.subst('$CXX')
@@ -702,6 +706,10 @@ feature_options["enable_deprecated_props"] = sca_opts.BoolOption(
 feature_options["enable_scanparse_regen"] = sca_opts.BoolOption(
     "enable_scanparse_regen", "Enable regenerating the scanner/parser files using flex and bison", False);
 
+feature_options["docs_mode"] = sca_opts.EnumOption(
+    "docs_mode", "Select the mode for documentation generation",
+    "NONE", ["NONE", "STANDALONE", "TRAC"])
+
 if "win32" == platform:
     feature_options["enable_win_localstorage"] = sca_opts.BoolOption(
         "enable_win_localstorage", "Enable use of local storage instead of __declspec to "+
@@ -845,8 +853,8 @@ if not SConsAddons.Util.hasHelpFlag():
       print "  found %s libraries" % len(lib_map)
    
    # Add lexer to the build
-   addScanParseSkel(common_env)
-
+   addScanParseSkel(common_env)      
+      
    # -- Common builder settings
    variant_helper.readOptions(common_env)
    base_bldr.readOptions(common_env)
@@ -931,11 +939,39 @@ if not SConsAddons.Util.hasHelpFlag():
    
    # Revision tracking
    # For each library, find its Def.cpp file(s) and set the revision to the highest one found
-   # in the source tree. Recommended before building anyhting that's distributed (dailybuild, release etc.)
+   # in the source tree. Recommended before building anything that's distributed (dailybuild, release etc.)
    # This could go into scons-addons at some point...
    if common_env["enable_revision_tags"]:
       tagWriter = RevisionTagWriter(lib_map)
       tagWriter.run()
+      
+   # Documentation
+   if "NONE" != common_env["docs_mode"]:
+      # Todo: 
+      #   - put output into build dir
+      #   - handle different doc levels
+      #   - handle different output types
+
+      # Get all used source/header files
+      dox_inp = ""
+      for (name,lib) in lib_map.iteritems():
+         for i in lib.source_files:
+            dox_inp += "../Source/" + i + " "
+         for i in lib.header_files:
+            dox_inp += "../Source/" + i + " "
+      
+      # Need to use my private doxygen version until the parameter macro patch is in
+      if "dream.lite3d.com" == gethostname():
+         common_env["DOXYGEN"] = "/home/reiners/software/DocumentationTools/doxygen-cvs/doxygen-070225/bin//doxygen"
+      common_env["DOX_INPUT"] = dox_inp
+      common_env["DOX_VERSION"] = opensg_version_string
+      
+      if "STANDALONE" == common_env["docs_mode"]:
+         common_env.Doxygen("Doc/standalone.doxy")
+      elif "TRAC" == common_env["docs_mode"]:
+         common_env.Doxygen("Doc/trac.doxy")
+      else:
+         raise "Unknown docs_mode %s" % common_env["docs_mode"]
       
    # ---- FOR EACH VARIANT ----- #
    # This is the core of the build.
@@ -945,8 +981,11 @@ if not SConsAddons.Util.hasHelpFlag():
       print "archs: ",    variant_helper.variants["arch"]
       
    # We tread the first variant type special (auto link from libs here)
-   default_combo_type = variant_helper.variants["type"][0][0]
-   
+   try:
+      default_combo_type = variant_helper.variants["type"][0][0]
+   except:
+      default_combo_type = None
+      
    for combo in variant_helper.iterate(locals(), base_bldr, common_env):
       #baseEnv = env_bldr.applyToEnvironment(common_env.Copy(), variant=combo,options=opts)
       print "   Processing combo: ", ", ".join(['%s:%s'%(i[0],i[1]) for i in combo.iteritems()])
@@ -970,7 +1009,7 @@ if not SConsAddons.Util.hasHelpFlag():
       full_build_dir = pj(buildDir, combo_dir)
       for d in sub_dirs:
          SConscript(pj(d, 'SConscript'), build_dir = pj(full_build_dir, d), duplicate = 0)
-         
+      
       # Build -config file based on first set installed
       if 0 == variant_pass:
          # - Create string using pprint.pformat that can build libmap (see osg-config.in for read)

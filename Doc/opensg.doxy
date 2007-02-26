@@ -14,6 +14,14 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 
+# This tag specifies the encoding used for all characters in the config file that 
+# follow. The default is UTF-8 which is also the encoding used for all text before 
+# the first occurrence of this tag. Doxygen uses libiconv (or the iconv built into 
+# libc) for the transcoding. See http://www.gnu.org/software/libiconv for the list of 
+# possible encodings.
+
+DOXYFILE_ENCODING      = UTF-8
+
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
 # by quotes) that should identify the project.
 
@@ -23,7 +31,7 @@ PROJECT_NAME           = OpenSG
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = 2.0
+PROJECT_NUMBER         = $(DOX_VERSION)
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) 
 # base path where the generated documentation will be put. 
@@ -53,16 +61,6 @@ CREATE_SUBDIRS         = NO
 
 OUTPUT_LANGUAGE        = English
 
-# This tag can be used to specify the encoding used in the generated output. 
-# The encoding is not always determined by the language that is chosen, 
-# but also whether or not the output is meant for Windows or non-Windows users. 
-# In case there is a difference, setting the USE_WINDOWS_ENCODING tag to YES 
-# forces the Windows encoding (this is the default for the Windows binary), 
-# whereas setting the tag to NO uses a Unix-style encoding (the default for 
-# all platforms other than Windows).
-
-USE_WINDOWS_ENCODING   = NO
-
 # If the BRIEF_MEMBER_DESC tag is set to YES (the default) Doxygen will 
 # include brief member descriptions after the members that are listed in 
 # the file and class documentation (similar to JavaDoc). 
@@ -75,7 +73,7 @@ BRIEF_MEMBER_DESC      = YES
 # Note: if both HIDE_UNDOC_MEMBERS and BRIEF_MEMBER_DESC are set to NO, the 
 # brief descriptions will be completely suppressed.
 
-REPEAT_BRIEF           = YES
+REPEAT_BRIEF           = NO
 
 # This tag implements a quasi-intelligent brief description abbreviator 
 # that is used to form the text in various listings. Each string 
@@ -103,7 +101,7 @@ ABBREVIATE_BRIEF       = "The $name class" \
 # Doxygen will generate a detailed section even if there is only a brief 
 # description.
 
-ALWAYS_DETAILED_SEC    = NO
+ALWAYS_DETAILED_SEC    = YES
 
 # If the INLINE_INHERITED_MEMB tag is set to YES, doxygen will show all 
 # inherited members of a class in the documentation of that class as if those 
@@ -125,7 +123,7 @@ FULL_PATH_NAMES        = YES
 # If left blank the directory from which doxygen is run is used as the 
 # path to strip.
 
-STRIP_FROM_PATH        = /home/allenb/Source/OpenSG2/Doc/
+STRIP_FROM_PATH        = 
 
 # The STRIP_FROM_INC_PATH tag can be used to strip a user-defined part of 
 # the path mentioned in the documentation of a class, which tells 
@@ -148,7 +146,7 @@ SHORT_NAMES            = NO
 # comments will behave just like the Qt-style comments (thus requiring an 
 # explicit @brief command for a brief description.
 
-JAVADOC_AUTOBRIEF      = YES
+JAVADOC_AUTOBRIEF      = NO
 
 # The MULTILINE_CPP_IS_BRIEF tag can be set to YES to make Doxygen 
 # treat a multi-line C++ special comment block (i.e. a block of //! or /// 
@@ -176,7 +174,7 @@ INHERIT_DOCS           = YES
 # member in the group (if any) for the other members of the group. By default 
 # all members of a group must be documented explicitly.
 
-DISTRIBUTE_GROUP_DOC   = NO
+DISTRIBUTE_GROUP_DOC   = YES
 
 # If the SEPARATE_MEMBER_PAGES tag is set to YES, then doxygen will produce 
 # a new page for each member. If set to NO, the documentation of a member will 
@@ -187,7 +185,7 @@ SEPARATE_MEMBER_PAGES  = NO
 # The TAB_SIZE tag can be used to set the number of spaces in a tab. 
 # Doxygen uses this value to replace tabs by spaces in code fragments.
 
-TAB_SIZE               = 8
+TAB_SIZE               = 4
 
 # This tag can be used to specify a number of aliases that acts 
 # as commands in the documentation. An alias has the form "name=value". 
@@ -202,8 +200,8 @@ ALIASES                = "hint=<em>Hint! " \
                          enddev=\n\endif \
                          "ext=\if ext\n<b>Ext:</b> " \
                          endext=\n\endif \
-                         guide="<A HREF='http://opensg.vrsource.org/trac/wiki/DevGuide/^1^'>^1^</A>" \
-                         wiki="<A HREF='http://opensg.vrsource.org/trac/wiki/^1^'>^1^</A>" \                        
+                         "guide=<A HREF='http://opensg.vrsource.org/trac/wiki/DevGuide/^1^'>^1^</A>" \
+                         "wiki=<A HREF='http://opensg.vrsource.org/trac/wiki/^1^'>^1^</A>" \                        
                          
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C 
@@ -219,6 +217,20 @@ OPTIMIZE_OUTPUT_FOR_C  = NO
 # will look different, etc.
 
 OPTIMIZE_OUTPUT_JAVA   = NO
+
+# If you use STL classes (i.e. std::string, std::vector, etc.) but do not want to 
+# include (a tag file for) the STL sources as input, then you should 
+# set this tag to YES in order to let doxygen match functions declarations and 
+# definitions whose arguments contain STL classes (e.g. func(std::string); v.s. 
+# func(std::string) {}). This also make the inheritance and collaboration 
+# diagrams that involve STL classes more complete and accurate.
+
+BUILTIN_STL_SUPPORT    = YES
+
+# If you use Microsoft's C++/CLI language, you should set this option to YES to
+# enable parsing support.
+
+CPP_CLI_SUPPORT        = NO
 
 # Set the SUBGROUPING tag to YES (the default) to allow class member groups of 
 # the same type (for instance a group of public functions) to be put as a 
@@ -296,7 +308,7 @@ HIDE_IN_BODY_DOCS      = NO
 # to NO (the default) then the documentation will be excluded. 
 # Set it to YES to include the internal documentation.
 
-INTERNAL_DOCS          = YES
+INTERNAL_DOCS          = NO
 
 # If the CASE_SENSE_NAMES tag is set to NO then Doxygen will only generate 
 # file names in lower-case letters. If set to YES upper-case letters are also 
@@ -328,7 +340,7 @@ INLINE_INFO            = YES
 # alphabetically by member name. If set to NO the members will appear in 
 # declaration order.
 
-SORT_MEMBER_DOCS       = YES
+SORT_MEMBER_DOCS       = NO
 
 # If the SORT_BRIEF_DOCS tag is set to YES then doxygen will sort the 
 # brief documentation of file, namespace and class members alphabetically 
@@ -468,8 +480,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT                  = ../Source/ \
-                         mainpage.dox
+INPUT                  = $(DOX_INPUT)
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
@@ -487,7 +498,7 @@ FILE_PATTERNS          = OSG*.cpp \
 # should be searched for input files as well. Possible values are YES and NO. 
 # If left blank NO is used.
 
-RECURSIVE              = YES
+RECURSIVE              = NO
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
 # excluded from the INPUT source files. This way you can easily exclude a 
@@ -598,6 +609,13 @@ REFERENCED_BY_RELATION = YES
 
 REFERENCES_RELATION    = YES
 
+# If the REFERENCES_LINK_SOURCE tag is set to YES (the default)
+# and SOURCE_BROWSER tag is set to YES, then the hyperlinks from
+# functions in REFERENCES_RELATION and REFERENCED_BY_RELATION lists will
+# link to the source code.  Otherwise they will link to the documentstion.
+
+REFERENCES_LINK_SOURCE = YES
+
 # If the USE_HTAGS tag is set to YES then the references to source code 
 # will point to the HTML generated by the htags(1) tool instead of doxygen 
 # built-in source browser. The htags tool is part of GNU's global source 
@@ -620,20 +638,20 @@ VERBATIM_HEADERS       = YES
 # of all compounds will be generated. Enable this if the project 
 # contains a lot of classes, structs, unions or interfaces.
 
-ALPHABETICAL_INDEX     = NO
+ALPHABETICAL_INDEX     = YES
 
 # If the alphabetical index is enabled (see ALPHABETICAL_INDEX) then 
 # the COLS_IN_ALPHA_INDEX tag can be used to specify the number of columns 
 # in which this list will be split (can be a number in the range [1..20])
 
-COLS_IN_ALPHA_INDEX    = 5
+COLS_IN_ALPHA_INDEX    = 1
 
 # In case all classes in a project start with a common prefix, all 
 # classes will be put under the same header in the alphabetical index. 
 # The IGNORE_PREFIX tag can be used to specify one or more prefixes that 
 # should be ignored while generating the index headers.
 
-IGNORE_PREFIX          = 
+IGNORE_PREFIX          = osg OSG
 
 #---------------------------------------------------------------------------
 # configuration options related to the HTML output
@@ -688,7 +706,10 @@ HTML_ALIGN_MEMBERS     = YES
 # Microsoft HTML help workshop to generate a compressed HTML help file (.chm) 
 # of the generated HTML documentation.
 
-GENERATE_HTMLHELP      = YES
+### !!! This crashes and breaks the whole doc on 1.5.1 !!!
+# GENERATE_HTMLHELP      = YES
+GENERATE_HTMLHELP      = NO
+
 
 # If the GENERATE_HTMLHELP tag is set to YES, the CHM_FILE tag can 
 # be used to specify the file name of the resulting .chm file. You 
@@ -702,7 +723,7 @@ CHM_FILE               =
 # the HTML help compiler (hhc.exe). If non-empty doxygen will try to run 
 # the HTML help compiler on the generated index.hhp.
 
-HHC_LOCATION           = 
+HHC_LOCATION           = /bin/echo
 
 # If the GENERATE_HTMLHELP tag is set to YES, the GENERATE_CHI flag 
 # controls if a separate .chi index file is generated (YES) or that 
@@ -788,7 +809,7 @@ PAPER_TYPE             = a4wide
 # The EXTRA_PACKAGES tag can be to specify one or more names of LaTeX 
 # packages that should be included in the LaTeX output.
 
-EXTRA_PACKAGES         = 
+EXTRA_PACKAGES         = times
 
 # The LATEX_HEADER tag can be used to specify a personal LaTeX header for 
 # the generated latex document. The header should contain everything until 
@@ -802,7 +823,7 @@ LATEX_HEADER           =
 # contain links (just like the HTML output) instead of page references 
 # This makes the output suitable for online browsing using a pdf viewer.
 
-PDF_HYPERLINKS         = NO
+PDF_HYPERLINKS         = YES
 
 # If the USE_PDFLATEX tag is set to YES, pdflatex will be used instead of 
 # plain latex in the generated Makefile. Set this option to YES to get a 
@@ -964,7 +985,7 @@ PERLMOD_LATEX          = NO
 # tag is set to NO the size of the Perl module output will be much smaller 
 # and Perl will parse it just the same.
 
-PERLMOD_PRETTY         = YES
+PERLMOD_PRETTY         = NO
 
 # The names of the make variables in the generated doxyrules.make file 
 # are prefixed with the string contained in PERLMOD_MAKEVAR_PREFIX. 
@@ -994,7 +1015,7 @@ MACRO_EXPANSION        = YES
 # then the macro expansion is limited to the macros specified with the 
 # PREDEFINED and EXPAND_AS_PREDEFINED tags.
 
-EXPAND_ONLY_PREDEF     = NO
+EXPAND_ONLY_PREDEF     = YES
 
 # If the SEARCH_INCLUDES tag is set to YES (the default) the includes files 
 # in the INCLUDE_PATH (see below) will be search if a #include is found.
@@ -1032,14 +1053,16 @@ PREDEFINED             = DOC_LEVEL=3 \
                         "OSG_USING_NAMESPACE=namespace OSG {} using namespace OSG;" \
                         OSG_DEBUG_ARG                     \
                         OSG_DO_DOC                        \
-                        DOXYGEN_SHOULD_SKIP_THIS          \
+                        DOXYGEN_SHOULD_SKIP_THIS
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then 
 # this tag can be used to specify a list of macro names that should be expanded. 
 # The macro definition that is found in the sources will be used. 
 # Use the PREDEFINED tag if you want to use a different macro definition.
 
-EXPAND_AS_DEFINED      = 
+EXPAND_AS_DEFINED      =    OSG_CHECK_ARG \
+                            OSG_BASELIB_DLLMAPPING \
+                            OSG_SYSTEMLIB_DLLMAPPING
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES (the default) then 
 # doxygen's preprocessor will remove all function-like macros that are alone 
@@ -1123,7 +1146,7 @@ HAVE_DOT               = NO
 # indirect inheritance relations. Setting this tag to YES will force the 
 # the CLASS_DIAGRAMS tag to NO.
 
-CLASS_GRAPH            = NO
+CLASS_GRAPH            = YES
 
 # If the COLLABORATION_GRAPH and HAVE_DOT tags are set to YES then doxygen 
 # will generate a graph for each documented class showing the direct and 
@@ -1153,14 +1176,14 @@ TEMPLATE_RELATIONS     = YES
 # file showing the direct and indirect include dependencies of the file with 
 # other documented files.
 
-INCLUDE_GRAPH          = NO
+INCLUDE_GRAPH          = YES
 
 # If the ENABLE_PREPROCESSING, SEARCH_INCLUDES, INCLUDED_BY_GRAPH, and 
 # HAVE_DOT tags are set to YES then doxygen will generate a graph for each 
 # documented header file showing the documented files that directly or 
 # indirectly include this file.
 
-INCLUDED_BY_GRAPH      = NO
+INCLUDED_BY_GRAPH      = YES
 
 # If the CALL_GRAPH and HAVE_DOT tags are set to YES then doxygen will 
 # generate a call dependency graph for every global function or class method. 
@@ -1170,10 +1193,18 @@ INCLUDED_BY_GRAPH      = NO
 
 CALL_GRAPH             = NO
 
+# If the CALLER_GRAPH and HAVE_DOT tags are set to YES then doxygen will 
+# generate a caller dependency graph for every global function or class method. 
+# Note that enabling this option will significantly increase the time of a run. 
+# So in most cases it will be better to enable caller graphs for selected 
+# functions only using the \callergraph command.
+
+CALLER_GRAPH           = NO
+
 # If the GRAPHICAL_HIERARCHY and HAVE_DOT tags are set to YES then doxygen 
 # will graphical hierarchy of all classes instead of a textual one.
 
-GRAPHICAL_HIERARCHY    = NO
+GRAPHICAL_HIERARCHY    = YES
 
 # If the DIRECTORY_GRAPH, SHOW_DIRECTORIES and HAVE_DOT tags are set to YES 
 # then doxygen will show the dependencies a directory has on other directories 
@@ -1199,33 +1230,13 @@ DOT_PATH               =
 
 DOTFILE_DIRS           = 
 
-# The MAX_DOT_GRAPH_WIDTH tag can be used to set the maximum allowed width 
-# (in pixels) of the graphs generated by dot. If a graph becomes larger than 
-# this value, doxygen will try to truncate the graph, so that it fits within 
-# the specified constraint. Beware that most browsers cannot cope with very 
-# large images.
+# The MAX_DOT_GRAPH_MAX_NODES tag can be used to set the maximum number of 
+# nodes that will be shown in the graph. If the number of nodes in a graph 
+# becomes larger than this value, doxygen will truncate the graph, which is 
+# visualized by representing a node as a red box. Note that doxygen will always 
+# show the root nodes and its direct children regardless of this setting.
 
-MAX_DOT_GRAPH_WIDTH    = 1024
-
-# The MAX_DOT_GRAPH_HEIGHT tag can be used to set the maximum allows height 
-# (in pixels) of the graphs generated by dot. If a graph becomes larger than 
-# this value, doxygen will try to truncate the graph, so that it fits within 
-# the specified constraint. Beware that most browsers cannot cope with very 
-# large images.
-
-MAX_DOT_GRAPH_HEIGHT   = 1024
-
-# The MAX_DOT_GRAPH_DEPTH tag can be used to set the maximum depth of the 
-# graphs generated by dot. A depth value of 3 means that only nodes reachable 
-# from the root by following a path via at most 3 edges will be shown. Nodes 
-# that lay further from the root node will be omitted. Note that setting this 
-# option to 1 or 2 may greatly reduce the computation time needed for large 
-# code bases. Also note that a graph may be further truncated if the graph's 
-# image dimensions are not sufficient to fit the graph (see MAX_DOT_GRAPH_WIDTH 
-# and MAX_DOT_GRAPH_HEIGHT). If 0 is used for the depth value (the default), 
-# the graph is not depth-constrained.
-
-MAX_DOT_GRAPH_DEPTH    = 1000
+DOT_GRAPH_MAX_NODES    = 50
 
 # Set the DOT_TRANSPARENT tag to YES to generate images with a transparent 
 # background. This is disabled by default, which results in a white background. 
