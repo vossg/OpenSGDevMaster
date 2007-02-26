@@ -138,6 +138,8 @@ for (lib_name, library) in lib_map.iteritems():
             ev = os.environ
             if GetPlatform() == "win32":
                 key = "PATH"
+            elif GetPlatform() == "darwin":
+                key = "DYLD_LIBRARY_PATH"
             else:
                 key = "LD_LIBRARY_PATH"
                 
@@ -146,7 +148,8 @@ for (lib_name, library) in lib_map.iteritems():
             else:
                 ev[key] = path
             
-            exit_code = os.spawnle(os.P_WAIT, str(target[0]), ev)
+            prog = str(target[0])
+            exit_code = os.spawnle(os.P_WAIT, prog, prog, ev)
             
             if exit_code != 0:
                 Exit(exit_code)

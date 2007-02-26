@@ -171,7 +171,7 @@ inline void BinaryMessage::getString(std::string &value)
 inline void BinaryMessage::getReal32(Real32  &value)
 {
     Real32 net = *reinterpret_cast<Real32*>(&_buffer[_pos]);
-    value = osgNetToHost(net);
+    value = osgNetToHost<UInt32>(net);
     _pos += sizeof(net);
 }
 
