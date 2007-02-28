@@ -210,4 +210,3 @@ typedef PointerBuilder<ContainerPool>::ObjPtrConstArg  ContainerPoolPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERPOOLBASE_INLINE_CVSID "@(#)$Id$"

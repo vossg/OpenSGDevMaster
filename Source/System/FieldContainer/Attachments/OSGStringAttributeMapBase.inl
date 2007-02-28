@@ -268,4 +268,3 @@ typedef PointerBuilder<StringAttributeMap>::ObjPtrConstArg  StringAttributeMapPt
 
 OSG_END_NAMESPACE
 
-#define OSGSTRINGATTRIBUTEMAPBASE_INLINE_CVSID "@(#)$Id$"

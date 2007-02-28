@@ -430,6 +430,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGGEOSTATSATTACHMENTBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGEOSTATSATTACHMENTBASE_H_ */

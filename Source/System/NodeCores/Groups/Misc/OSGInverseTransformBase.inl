@@ -140,4 +140,3 @@ typedef PointerBuilder<InverseTransform>::ObjPtrConstArg  InverseTransformPtrCon
 
 OSG_END_NAMESPACE
 
-#define OSGINVERSETRANSFORMBASE_INLINE_CVSID "@(#)$Id$"

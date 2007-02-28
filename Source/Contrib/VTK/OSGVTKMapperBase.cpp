@@ -2333,25 +2333,4 @@ OSG_FIELDTRAITS_GETTYPE(VTKMapperPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, VTKMapperPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, VTKMapperPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGVTKMAPPERBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGVTKMAPPERBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGVTKMAPPERFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

@@ -507,25 +507,4 @@ OSG_FIELDTRAITS_GETTYPE(StatisticsForegroundPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, StatisticsForegroundPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, StatisticsForegroundPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGSTATISTICSFOREGROUNDBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGSTATISTICSFOREGROUNDBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGSTATISTICSFOREGROUNDFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

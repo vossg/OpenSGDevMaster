@@ -210,4 +210,3 @@ typedef PointerBuilder<SwitchMaterial>::ObjPtrConstArg  SwitchMaterialPtrConstAr
 
 OSG_END_NAMESPACE
 
-#define OSGSWITCHMATERIALBASE_INLINE_CVSID "@(#)$Id$"

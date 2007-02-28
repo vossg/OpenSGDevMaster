@@ -174,22 +174,4 @@ const Matrix &TreeBuilderBase::topMatrix(void)
     return _accMatrix;
 }
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSGTreeBuilderBase.cpp 142 2006-09-18 08:49:39Z vossg $";
-    static Char8 cvsid_hpp[] = OSGTREEBUILDERBASE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGTREEBUILDERBASE_INLINE_CVSID;
-}
-
 #endif

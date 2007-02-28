@@ -296,4 +296,3 @@ typedef PointerBuilder<ColorMaskChunk>::ObjPtrConstArg  ColorMaskChunkPtrConstAr
 
 OSG_END_NAMESPACE
 
-#define OSGCOLORMASKCHUNKBASE_INLINE_CVSID "@(#)$Id$"

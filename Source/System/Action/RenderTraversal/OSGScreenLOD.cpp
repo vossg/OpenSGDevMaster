@@ -116,29 +116,3 @@ void ScreenLOD::dump(      UInt32    ,
 {
     SLOG << "Dump ScreenLOD NI" << std::endl;
 }
-
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCTemplate_cpp.h 106 2006-09-14 03:15:53Z dirk $";
-    static Char8 cvsid_hpp       [] = OSGSCREENLODBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGSCREENLODBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGSCREENLODFIELDS_HEADER_CVSID;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174
-#endif
-

@@ -251,25 +251,4 @@ DataType FieldTraits<ScreenLODPtr>::_type("ScreenLODPtr", "GroupPtr");
 #endif
 
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 403 2006-11-09 12:34:33Z PatrickDaehne $";
-    static Char8 cvsid_hpp       [] = OSGSCREENLODBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGSCREENLODBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGSCREENLODFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

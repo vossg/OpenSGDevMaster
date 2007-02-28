@@ -285,25 +285,4 @@ OSG_FIELDTRAITS_GETTYPE(VertexProgramChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, VertexProgramChunkPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, VertexProgramChunkPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGVERTEXPROGRAMCHUNKBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGVERTEXPROGRAMCHUNKBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGVERTEXPROGRAMCHUNKFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

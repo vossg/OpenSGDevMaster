@@ -468,6 +468,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGGEOMETRYBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGEOMETRYBASE_H_ */

@@ -553,4 +553,3 @@ typedef PointerBuilder<LightChunk>::ObjPtrConstArg  LightChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTCHUNKBASE_INLINE_CVSID "@(#)$Id$"

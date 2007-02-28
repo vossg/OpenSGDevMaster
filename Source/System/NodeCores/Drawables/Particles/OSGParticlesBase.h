@@ -604,6 +604,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGPARTICLESBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGPARTICLESBASE_H_ */

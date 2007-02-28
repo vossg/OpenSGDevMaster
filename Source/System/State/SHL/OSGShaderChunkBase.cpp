@@ -380,25 +380,4 @@ OSG_FIELDTRAITS_GETTYPE(ShaderChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, ShaderChunkPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, ShaderChunkPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGSHADERCHUNKBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGSHADERCHUNKBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGSHADERCHUNKFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

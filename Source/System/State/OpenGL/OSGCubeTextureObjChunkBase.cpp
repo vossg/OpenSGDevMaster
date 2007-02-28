@@ -722,25 +722,4 @@ OSG_FIELDTRAITS_GETTYPE(CubeTextureObjChunkPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, CubeTextureObjChunkPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, CubeTextureObjChunkPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGCUBETEXTUREOBJCHUNKBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGCUBETEXTUREOBJCHUNKBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGCUBETEXTUREOBJCHUNKFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

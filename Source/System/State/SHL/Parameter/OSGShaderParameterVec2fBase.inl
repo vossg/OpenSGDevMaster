@@ -179,4 +179,3 @@ typedef PointerBuilder<ShaderParameterVec2f>::ObjPtrConstArg  ShaderParameterVec
 
 OSG_END_NAMESPACE
 
-#define OSGSHADERPARAMETERVEC2FBASE_INLINE_CVSID "@(#)$Id$"

@@ -179,4 +179,3 @@ typedef PointerBuilder<SimpleShadowMapEngine>::ObjPtrConstArg  SimpleShadowMapEn
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESHADOWMAPENGINEBASE_INLINE_CVSID "@(#)$Id$"

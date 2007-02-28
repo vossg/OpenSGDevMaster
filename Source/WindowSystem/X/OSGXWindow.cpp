@@ -212,24 +212,3 @@ OSG_FIELD_DLLEXPORT_DEF2(SField, GLXContext, 1);
 OSG_FIELD_DLLEXPORT_DEF2(MField, GLXContext, 1);
 
 OSG_END_NAMESPACE
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id$";
-    static char cvsid_hpp[] = OSGXWINDOW_HEADER_CVSID;
-    static char cvsid_inl[] = OSGXWINDOW_INLINE_CVSID;
-
-    static char cvsid_fields_hpp[] = OSGWINDOWXFIELDS_HEADER_CVSID;
-}
-

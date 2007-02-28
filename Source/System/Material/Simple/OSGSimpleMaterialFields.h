@@ -125,6 +125,4 @@ struct FieldTraits<SimpleMaterialPtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLEMATERIALFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSIMPLEMATERIALFIELDS_H_ */

@@ -140,4 +140,3 @@ typedef PointerBuilder<PassiveViewport>::ObjPtrConstArg  PassiveViewportPtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGPASSIVEVIEWPORTBASE_INLINE_CVSID "@(#)$Id: FCBaseTemplate_inl.h 106 2006-09-14 03:15:53Z dirk $"

@@ -303,6 +303,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGMATERIALBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGMATERIALBASE_H_ */

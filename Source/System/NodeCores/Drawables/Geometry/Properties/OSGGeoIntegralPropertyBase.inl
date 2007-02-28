@@ -126,4 +126,3 @@ typedef PointerBuilder<GeoIntegralProperty>::ObjPtrConstArg  GeoIntegralProperty
 
 OSG_END_NAMESPACE
 
-#define OSGGEOINTEGRALPROPERTYBASE_INLINE_CVSID "@(#)$Id$"

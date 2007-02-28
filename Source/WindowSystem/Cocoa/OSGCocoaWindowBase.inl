@@ -179,4 +179,3 @@ typedef PointerBuilder<CocoaWindow>::ObjPtrConstArg  CocoaWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGCOCOAWINDOWBASE_INLINE_CVSID "@(#)$Id: FCBaseTemplate_inl.h 106 2006-09-14 03:15:53Z dirk $"

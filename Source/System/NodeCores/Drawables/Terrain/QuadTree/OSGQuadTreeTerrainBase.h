@@ -798,6 +798,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGQUADTREETERRAINBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGQUADTREETERRAINBASE_H_ */

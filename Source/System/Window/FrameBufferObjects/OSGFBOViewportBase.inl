@@ -163,4 +163,3 @@ typedef PointerBuilder<FBOViewport>::ObjPtrConstArg  FBOViewportPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGFBOVIEWPORTBASE_INLINE_CVSID "@(#)$Id$"

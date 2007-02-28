@@ -140,4 +140,3 @@ typedef PointerBuilder<ScreenLOD>::ObjPtrConstArg  ScreenLODPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSCREENLODBASE_INLINE_CVSID "@(#)$Id: FCBaseTemplate_inl.h 106 2006-09-14 03:15:53Z dirk $"

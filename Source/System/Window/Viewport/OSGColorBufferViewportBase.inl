@@ -296,4 +296,3 @@ typedef PointerBuilder<ColorBufferViewport>::ObjPtrConstArg  ColorBufferViewport
 
 OSG_END_NAMESPACE
 
-#define OSGCOLORBUFFERVIEWPORTBASE_INLINE_CVSID "@(#)$Id$"

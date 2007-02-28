@@ -243,4 +243,3 @@ typedef PointerBuilder<DistanceLOD>::ObjPtrConstArg  DistanceLODPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGDISTANCELODBASE_INLINE_CVSID "@(#)$Id$"

@@ -303,6 +303,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGSHADERPARAMETERBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSHADERPARAMETERBASE_H_ */

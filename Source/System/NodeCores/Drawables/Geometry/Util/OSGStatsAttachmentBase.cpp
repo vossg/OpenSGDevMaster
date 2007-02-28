@@ -233,25 +233,4 @@ OSG_FIELDTRAITS_GETTYPE(StatsAttachmentPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, StatsAttachmentPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, StatsAttachmentPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGSTATSATTACHMENTBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGSTATSATTACHMENTBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGSTATSATTACHMENTFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

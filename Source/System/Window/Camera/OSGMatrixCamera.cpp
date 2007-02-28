@@ -113,28 +113,3 @@ void MatrixCamera::getViewing(Matrix& result, UInt32 OSG_CHECK_ARG(width),
 	result = getModelviewMatrix();
 }
  
-    
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning(disable : 177)
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGMATRIXCAMERA_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGMATRIXCAMERA_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGMATRIXCAMERAFIELDS_HEADER_CVSID;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174
-#endif
-

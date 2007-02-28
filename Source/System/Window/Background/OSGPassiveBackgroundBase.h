@@ -273,6 +273,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGPASSIVEBACKGROUNDBASE_HEADER_CVSID "@(#)$Id: FCBaseTemplate_h.h 313 2006-10-18 22:54:24Z allenb $"
-
 #endif /* _OSGPASSIVEBACKGROUNDBASE_H_ */

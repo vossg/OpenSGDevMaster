@@ -442,4 +442,3 @@ typedef PointerBuilder<VTKMapper>::ObjPtrConstArg  VTKMapperPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGVTKMAPPERBASE_INLINE_CVSID "@(#)$Id$"

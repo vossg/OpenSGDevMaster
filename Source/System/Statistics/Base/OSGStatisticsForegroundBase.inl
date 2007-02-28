@@ -229,4 +229,3 @@ typedef PointerBuilder<StatisticsForeground>::ObjPtrConstArg  StatisticsForegrou
 
 OSG_END_NAMESPACE
 
-#define OSGSTATISTICSFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"

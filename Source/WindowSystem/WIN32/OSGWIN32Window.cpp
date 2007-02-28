@@ -159,18 +159,4 @@ bool WIN32Window::swap( void )
     return SwapBuffers(getHdc());
 }
 
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id$";
-    static char cvsid_hpp[] = OSGWIN32WINDOW_HEADER_CVSID;
-    static char cvsid_inl[] = OSGWIN32WINDOW_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGWIN32WINDOWFIELDS_HEADER_CVSID;
-}
-
 #endif // WIN32

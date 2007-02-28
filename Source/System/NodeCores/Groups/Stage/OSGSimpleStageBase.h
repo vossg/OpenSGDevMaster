@@ -444,6 +444,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESTAGEBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSIMPLESTAGEBASE_H_ */

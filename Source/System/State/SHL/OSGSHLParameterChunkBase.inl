@@ -163,4 +163,3 @@ typedef PointerBuilder<SHLParameterChunk>::ObjPtrConstArg  SHLParameterChunkPtrC
 
 OSG_END_NAMESPACE
 
-#define OSGSHLPARAMETERCHUNKBASE_INLINE_CVSID "@(#)$Id$"

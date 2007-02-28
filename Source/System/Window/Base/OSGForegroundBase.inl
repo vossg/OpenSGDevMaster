@@ -165,4 +165,3 @@ typedef PointerBuilder<Foreground>::ObjPtrConstArg  ForegroundPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"

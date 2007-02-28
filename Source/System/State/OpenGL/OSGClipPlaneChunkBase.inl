@@ -241,4 +241,3 @@ typedef PointerBuilder<ClipPlaneChunk>::ObjPtrConstArg  ClipPlaneChunkPtrConstAr
 
 OSG_END_NAMESPACE
 
-#define OSGCLIPPLANECHUNKBASE_INLINE_CVSID "@(#)$Id$"

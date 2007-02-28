@@ -372,4 +372,3 @@ typedef PointerBuilder<@!Classname!@>::ObjPtrConstArg  @!Classname!@PtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSG@!CLASSNAME!@BASE_INLINE_CVSID "@(#)$Id: FCBaseTemplate_inl.h 106 2006-09-14 03:15:53Z dirk $"

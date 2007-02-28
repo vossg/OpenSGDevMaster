@@ -203,23 +203,3 @@ void ImageForeground::draw(DrawEnv *, Viewport *vp)
     glPolygonMode(GL_FRONT, fill[0]);
     glPolygonMode(GL_BACK , fill[1]);
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning(disable : 177)
-#endif
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id$";
-    static char cvsid_hpp[] = OSGIMAGEFOREGROUND_HEADER_CVSID;
-    static char cvsid_inl[] = OSGIMAGEFOREGROUND_INLINE_CVSID;
-}
-
-

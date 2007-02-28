@@ -204,4 +204,3 @@ typedef PointerBuilder<ShaderChunk>::ObjPtrConstArg  ShaderChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSHADERCHUNKBASE_INLINE_CVSID "@(#)$Id$"

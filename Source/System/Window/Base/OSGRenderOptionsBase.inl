@@ -803,4 +803,3 @@ typedef PointerBuilder<RenderOptions>::ObjPtrConstArg  RenderOptionsPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGRENDEROPTIONSBASE_INLINE_CVSID "@(#)$Id$"

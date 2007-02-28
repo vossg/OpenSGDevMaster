@@ -394,6 +394,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGMULTIDISPLAYWINDOWBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGMULTIDISPLAYWINDOWBASE_H_ */

@@ -204,4 +204,3 @@ typedef PointerBuilder<ImageComposer>::ObjPtrConstArg  ImageComposerPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGIMAGECOMPOSERBASE_INLINE_CVSID "@(#)$Id$"

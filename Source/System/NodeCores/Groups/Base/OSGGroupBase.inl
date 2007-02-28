@@ -140,4 +140,3 @@ typedef PointerBuilder<Group>::ObjPtrConstArg  GroupPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGGROUPBASE_INLINE_CVSID "@(#)$Id$"

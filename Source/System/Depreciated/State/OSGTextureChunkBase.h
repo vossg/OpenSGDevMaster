@@ -1293,6 +1293,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTURECHUNKBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTURECHUNKBASE_H_ */

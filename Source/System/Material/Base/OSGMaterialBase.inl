@@ -165,4 +165,3 @@ typedef PointerBuilder<Material>::ObjPtrConstArg  MaterialPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGMATERIALBASE_INLINE_CVSID "@(#)$Id$"

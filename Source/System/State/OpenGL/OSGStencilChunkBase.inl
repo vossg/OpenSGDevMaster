@@ -413,4 +413,3 @@ typedef PointerBuilder<StencilChunk>::ObjPtrConstArg  StencilChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSTENCILCHUNKBASE_INLINE_CVSID "@(#)$Id$"

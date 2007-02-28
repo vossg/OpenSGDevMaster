@@ -179,4 +179,3 @@ typedef PointerBuilder<DirectionalLight>::ObjPtrConstArg  DirectionalLightPtrCon
 
 OSG_END_NAMESPACE
 
-#define OSGDIRECTIONALLIGHTBASE_INLINE_CVSID "@(#)$Id$"

@@ -376,6 +376,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGCOLORMASKCHUNKBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGCOLORMASKCHUNKBASE_H_ */

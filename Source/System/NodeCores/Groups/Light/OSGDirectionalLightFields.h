@@ -125,6 +125,4 @@ struct FieldTraits<DirectionalLightPtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGDIRECTIONALLIGHTFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGDIRECTIONALLIGHTFIELDS_H_ */

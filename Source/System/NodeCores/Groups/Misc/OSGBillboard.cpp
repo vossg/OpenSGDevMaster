@@ -390,22 +390,3 @@ ActionBase::ResultE Billboard::renderLeave(Action *action)
 
     return ActionBase::Continue;
 }
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id$";
-    static char cvsid_hpp[] = OSGBILLBOARD_HEADER_CVSID;
-    static char cvsid_inl[] = OSGBILLBOARD_INLINE_CVSID;
-}

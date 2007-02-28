@@ -441,4 +441,3 @@ typedef PointerBuilder<Window>::ObjPtrConstArg  WindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGWINDOWBASE_INLINE_CVSID "@(#)$Id$"

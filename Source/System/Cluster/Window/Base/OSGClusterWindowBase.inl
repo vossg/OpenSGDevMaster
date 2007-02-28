@@ -626,4 +626,3 @@ typedef PointerBuilder<ClusterWindow>::ObjPtrConstArg  ClusterWindowPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGCLUSTERWINDOWBASE_INLINE_CVSID "@(#)$Id$"

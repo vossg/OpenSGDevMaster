@@ -263,25 +263,4 @@ OSG_FIELDTRAITS_GETTYPE(PassiveViewportPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, PassiveViewportPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, PassiveViewportPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 403 2006-11-09 12:34:33Z PatrickDaehne $";
-    static Char8 cvsid_hpp       [] = OSGPASSIVEVIEWPORTBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGPASSIVEVIEWPORTBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGPASSIVEVIEWPORTFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

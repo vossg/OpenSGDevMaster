@@ -511,26 +511,3 @@ for (UInt16 i = 0; i < dim; ++i)                                \
 #undef setValNormCase
 #undef setValCase
 }
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGGEOMULTIPROPERTY_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGGEOMULTIPROPERTY_INLINE_CVSID;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174
-#endif
-

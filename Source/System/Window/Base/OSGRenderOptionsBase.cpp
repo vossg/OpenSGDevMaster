@@ -1429,25 +1429,4 @@ OSG_FIELDTRAITS_GETTYPE(RenderOptionsPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, RenderOptionsPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, RenderOptionsPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGRENDEROPTIONSBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGRENDEROPTIONSBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGRENDEROPTIONSFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

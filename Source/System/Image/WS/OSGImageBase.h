@@ -750,6 +750,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGIMAGEBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGIMAGEBASE_H_ */

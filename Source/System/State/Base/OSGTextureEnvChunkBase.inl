@@ -1257,4 +1257,3 @@ typedef PointerBuilder<TextureEnvChunk>::ObjPtrConstArg  TextureEnvChunkPtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREENVCHUNKBASE_INLINE_CVSID "@(#)$Id$"

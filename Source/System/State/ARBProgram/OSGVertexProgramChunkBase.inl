@@ -140,4 +140,3 @@ typedef PointerBuilder<VertexProgramChunk>::ObjPtrConstArg  VertexProgramChunkPt
 
 OSG_END_NAMESPACE
 
-#define OSGVERTEXPROGRAMCHUNKBASE_INLINE_CVSID "@(#)$Id$"

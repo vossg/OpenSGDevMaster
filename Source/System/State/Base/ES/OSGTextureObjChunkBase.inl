@@ -2255,4 +2255,3 @@ typedef PointerBuilder<TextureObjChunk>::ObjPtrConstArg  TextureObjChunkPtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREOBJCHUNKBASE_INLINE_CVSID "@(#)$Id$"

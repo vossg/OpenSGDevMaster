@@ -413,4 +413,3 @@ typedef PointerBuilder<GeoStatsAttachment>::ObjPtrConstArg  GeoStatsAttachmentPt
 
 OSG_END_NAMESPACE
 
-#define OSGGEOSTATSATTACHMENTBASE_INLINE_CVSID "@(#)$Id$"

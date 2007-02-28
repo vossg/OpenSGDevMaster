@@ -352,24 +352,3 @@ void ProxyGroup::loadProc(void *)
 Thread                   *ProxyGroup::_loadThread = NULL;
 std::queue<ProxyGroupPtr> ProxyGroup::_loadQueue  =std::queue<ProxyGroupPtr>();
 Lock                     *ProxyGroup::_loadLock   = NULL;
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGPROXYGROUP_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGPROXYGROUP_INLINE_CVSID;
-}
-
-    
-

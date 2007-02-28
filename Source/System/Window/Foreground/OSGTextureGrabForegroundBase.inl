@@ -280,4 +280,3 @@ typedef PointerBuilder<TextureGrabForeground>::ObjPtrConstArg  TextureGrabForegr
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREGRABFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"

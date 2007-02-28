@@ -396,6 +396,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREBUFFERBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTUREBUFFERBASE_H_ */

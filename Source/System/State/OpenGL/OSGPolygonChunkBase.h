@@ -517,6 +517,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGPOLYGONCHUNKBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGPOLYGONCHUNKBASE_H_ */

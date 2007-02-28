@@ -459,6 +459,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGFRAMEBUFFEROBJECTBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGFRAMEBUFFEROBJECTBASE_H_ */

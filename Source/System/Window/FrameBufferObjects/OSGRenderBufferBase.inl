@@ -218,4 +218,3 @@ typedef PointerBuilder<RenderBuffer>::ObjPtrConstArg  RenderBufferPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERBUFFERBASE_INLINE_CVSID "@(#)$Id$"

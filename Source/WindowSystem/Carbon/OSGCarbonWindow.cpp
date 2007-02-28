@@ -145,30 +145,4 @@ bool CarbonWindow::swap( void )
     return true;
 }
 
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCTemplate_cpp.h 106 2006-09-14 03:15:53Z dirk $";
-    static Char8 cvsid_hpp       [] = OSGCARBONWINDOWBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGCARBONWINDOWBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGCARBONWINDOWFIELDS_HEADER_CVSID;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174
-#endif
-
-OSG_END_NAMESPACE
-
 #endif // __APPLE__

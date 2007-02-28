@@ -594,4 +594,3 @@ typedef PointerBuilder<PolygonChunk>::ObjPtrConstArg  PolygonChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGPOLYGONCHUNKBASE_INLINE_CVSID "@(#)$Id$"

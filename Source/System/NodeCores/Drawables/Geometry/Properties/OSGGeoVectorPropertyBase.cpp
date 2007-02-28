@@ -239,25 +239,4 @@ OSG_FIELDTRAITS_GETTYPE(GeoVectorPropertyPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, GeoVectorPropertyPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, GeoVectorPropertyPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGGEOVECTORPROPERTYBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGGEOVECTORPROPERTYBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGGEOVECTORPROPERTYFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

@@ -120,29 +120,3 @@ void PassiveBackground::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 }
 
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCTemplate_cpp.h,v 1.13 2002/06/01 10:37:25 vossg Exp $";
-    static Char8 cvsid_hpp       [] = OSGPASSIVEBACKGROUND_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGPASSIVEBACKGROUND_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGPASSIVEBACKGROUNDFIELDS_HEADER_CVSID;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174
-#endif
-
-

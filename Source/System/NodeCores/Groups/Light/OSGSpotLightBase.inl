@@ -257,4 +257,3 @@ typedef PointerBuilder<SpotLight>::ObjPtrConstArg  SpotLightPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGSPOTLIGHTBASE_INLINE_CVSID "@(#)$Id$"

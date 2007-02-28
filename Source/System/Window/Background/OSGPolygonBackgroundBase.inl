@@ -447,4 +447,3 @@ typedef PointerBuilder<PolygonBackground>::ObjPtrConstArg  PolygonBackgroundPtrC
 
 OSG_END_NAMESPACE
 
-#define OSGPOLYGONBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"

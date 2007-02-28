@@ -282,29 +282,3 @@ void Viewport::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
 }
 
 
-
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGVIEWPORT_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGVIEWPORT_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGVIEWPORTFIELDS_HEADER_CVSID;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174
-#endif
-

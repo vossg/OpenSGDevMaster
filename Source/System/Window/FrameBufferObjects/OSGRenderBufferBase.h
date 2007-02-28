@@ -340,6 +340,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGRENDERBUFFERBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGRENDERBUFFERBASE_H_ */

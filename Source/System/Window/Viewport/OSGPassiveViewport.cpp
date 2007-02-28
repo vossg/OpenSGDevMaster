@@ -159,21 +159,3 @@ void PassiveViewport::render(RenderTraversalActionBase *action)
     Inherited::render(action);
 }
 #endif
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id: OSGPassiveViewport.cpp,v 1.6 2002/06/30 05:04:24 vossg Exp $";
-    static char cvsid_hpp[] = OSGPASSIVEVIEWPORT_HEADER_CVSID;
-    static char cvsid_inl[] = OSGPASSIVEVIEWPORT_INLINE_CVSID;
-}

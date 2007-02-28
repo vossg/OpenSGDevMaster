@@ -383,4 +383,3 @@ typedef PointerBuilder<ShadowMapEngine>::ObjPtrConstArg  ShadowMapEnginePtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGSHADOWMAPENGINEBASE_INLINE_CVSID "@(#)$Id$"

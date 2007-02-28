@@ -126,4 +126,3 @@ typedef PointerBuilder<Algorithm>::ObjPtrConstArg  AlgorithmPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGALGORITHMBASE_INLINE_CVSID "@(#)$Id$"

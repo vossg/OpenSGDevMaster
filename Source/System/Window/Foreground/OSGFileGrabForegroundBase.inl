@@ -257,4 +257,3 @@ typedef PointerBuilder<FileGrabForeground>::ObjPtrConstArg  FileGrabForegroundPt
 
 OSG_END_NAMESPACE
 
-#define OSGFILEGRABFOREGROUNDBASE_INLINE_CVSID "@(#)$Id$"

@@ -152,22 +152,3 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
         glPixelStorei(GL_PACK_ROW_LENGTH, 0);
 }
 
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGGRABFOREGROUND_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGGRABFOREGROUND_INLINE_CVSID;
-}
-

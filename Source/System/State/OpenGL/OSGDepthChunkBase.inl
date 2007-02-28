@@ -335,4 +335,3 @@ typedef PointerBuilder<DepthChunk>::ObjPtrConstArg  DepthChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGDEPTHCHUNKBASE_INLINE_CVSID "@(#)$Id$"

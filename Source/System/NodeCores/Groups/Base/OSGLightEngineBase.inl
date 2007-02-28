@@ -165,4 +165,3 @@ typedef PointerBuilder<LightEngine>::ObjPtrConstArg  LightEnginePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTENGINEBASE_INLINE_CVSID "@(#)$Id$"

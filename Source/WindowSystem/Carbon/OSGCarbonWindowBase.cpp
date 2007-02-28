@@ -342,25 +342,4 @@ OSG_FIELDTRAITS_GETTYPE(CarbonWindowPtr)
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, CarbonWindowPtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, CarbonWindowPtr, MFFieldContainerPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 403 2006-11-09 12:34:33Z PatrickDaehne $";
-    static Char8 cvsid_hpp       [] = OSGCARBONWINDOWBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGCARBONWINDOWBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGCARBONWINDOWFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE

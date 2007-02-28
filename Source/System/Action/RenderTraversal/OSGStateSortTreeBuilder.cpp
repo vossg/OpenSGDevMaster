@@ -173,22 +173,4 @@ void StateSortTreeBuilder::add(DrawEnv &denv,
     }
 }
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSGStateSortTreeBuilder.cpp 142 2006-09-18 08:49:39Z vossg $";
-    static Char8 cvsid_hpp[] = OSGSTATESORTTREEBUILDER_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGSTATESORTTREEBUILDER_INLINE_CVSID;
-}
-
 #endif

@@ -147,18 +147,4 @@ bool EGLWindow::swap( void )
     return eglSwapBuffers(getDisplay(), getWindow());
 }
 
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id$";
-    static char cvsid_hpp[] = OSGEGLWINDOW_HEADER_CVSID;
-    static char cvsid_inl[] = OSGEGLWINDOW_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGEGLWINDOWFIELDS_HEADER_CVSID;
-}
-
 #endif // OSG_USE_EGL

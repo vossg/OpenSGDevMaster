@@ -321,6 +321,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGSHADERCHUNKBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSHADERCHUNKBASE_H_ */

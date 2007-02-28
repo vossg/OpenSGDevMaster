@@ -710,4 +710,3 @@ typedef PointerBuilder<Particles>::ObjPtrConstArg  ParticlesPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGPARTICLESBASE_INLINE_CVSID "@(#)$Id$"

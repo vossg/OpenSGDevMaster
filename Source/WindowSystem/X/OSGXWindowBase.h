@@ -358,6 +358,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGXWINDOWBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGXWINDOWBASE_H_ */

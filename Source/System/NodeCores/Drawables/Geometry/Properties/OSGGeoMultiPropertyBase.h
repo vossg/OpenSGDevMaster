@@ -450,6 +450,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGGEOMULTIPROPERTYBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGEOMULTIPROPERTYBASE_H_ */

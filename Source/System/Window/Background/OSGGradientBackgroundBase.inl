@@ -268,4 +268,3 @@ typedef PointerBuilder<GradientBackground>::ObjPtrConstArg  GradientBackgroundPt
 
 OSG_END_NAMESPACE
 
-#define OSGGRADIENTBACKGROUNDBASE_INLINE_CVSID "@(#)$Id$"

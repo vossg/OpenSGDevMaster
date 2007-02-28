@@ -273,6 +273,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGINVERSETRANSFORMBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGINVERSETRANSFORMBASE_H_ */

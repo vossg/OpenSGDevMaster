@@ -458,6 +458,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGLIGHTBASE_H_ */

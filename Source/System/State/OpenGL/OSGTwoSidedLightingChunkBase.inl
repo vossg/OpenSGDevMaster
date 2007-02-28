@@ -140,4 +140,3 @@ typedef PointerBuilder<TwoSidedLightingChunk>::ObjPtrConstArg  TwoSidedLightingC
 
 OSG_END_NAMESPACE
 
-#define OSGTWOSIDEDLIGHTINGCHUNKBASE_INLINE_CVSID "@(#)$Id$"

@@ -670,4 +670,3 @@ typedef PointerBuilder<TiledQuadTreeTerrain>::ObjPtrConstArg  TiledQuadTreeTerra
 
 OSG_END_NAMESPACE
 
-#define OSGTILEDQUADTREETERRAINBASE_INLINE_CVSID "@(#)$Id$"

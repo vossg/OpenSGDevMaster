@@ -125,6 +125,4 @@ struct FieldTraits<LightPtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGLIGHTFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGLIGHTFIELDS_H_ */

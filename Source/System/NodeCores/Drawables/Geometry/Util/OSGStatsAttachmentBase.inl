@@ -126,4 +126,3 @@ typedef PointerBuilder<StatsAttachment>::ObjPtrConstArg  StatsAttachmentPtrConst
 
 OSG_END_NAMESPACE
 
-#define OSGSTATSATTACHMENTBASE_INLINE_CVSID "@(#)$Id$"

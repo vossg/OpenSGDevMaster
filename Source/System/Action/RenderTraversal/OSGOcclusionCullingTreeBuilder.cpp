@@ -869,23 +869,4 @@ void OcclusionCullingTreeBuilder::add(DrawEnv &denv,
             break;
     }
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id: OSGOcclusionCullingTreeBuilder.cpp 142 2006-09-18 08:49:39Z vossg $";
-    static Char8 cvsid_hpp[] = OSGOCCLUSIONCULLINGTREEBUILDER_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGOCCLUSIONCULLINGTREEBUILDER_INLINE_CVSID;
-}
-
 #endif

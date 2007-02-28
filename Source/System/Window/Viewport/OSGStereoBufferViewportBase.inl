@@ -218,4 +218,3 @@ typedef PointerBuilder<StereoBufferViewport>::ObjPtrConstArg  StereoBufferViewpo
 
 OSG_END_NAMESPACE
 
-#define OSGSTEREOBUFFERVIEWPORTBASE_INLINE_CVSID "@(#)$Id$"

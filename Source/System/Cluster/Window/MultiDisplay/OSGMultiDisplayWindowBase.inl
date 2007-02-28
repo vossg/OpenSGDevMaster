@@ -335,4 +335,3 @@ typedef PointerBuilder<MultiDisplayWindow>::ObjPtrConstArg  MultiDisplayWindowPt
 
 OSG_END_NAMESPACE
 
-#define OSGMULTIDISPLAYWINDOWBASE_INLINE_CVSID "@(#)$Id$"

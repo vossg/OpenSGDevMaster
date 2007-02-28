@@ -258,28 +258,3 @@ void GeoIntegralProperty::dump(      UInt32 i,
     Inherited::dump(i,v);
 }
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id$";
-    static Char8 cvsid_hpp       [] = OSGGEOINTEGRALPROPERTYBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGGEOINTEGRALPROPERTYBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGGEOINTEGRALPROPERTYFIELDS_HEADER_CVSID;
-}
-
-#ifdef __sgi
-#pragma reset woff 1174
-#endif
-

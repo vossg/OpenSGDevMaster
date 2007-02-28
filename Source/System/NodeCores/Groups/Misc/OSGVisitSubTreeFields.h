@@ -125,6 +125,4 @@ struct FieldTraits<VisitSubTreePtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGVISITSUBTREEFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGVISITSUBTREEFIELDS_H_ */

@@ -280,4 +280,3 @@ typedef PointerBuilder<TextureBuffer>::ObjPtrConstArg  TextureBufferPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREBUFFERBASE_INLINE_CVSID "@(#)$Id$"

@@ -125,6 +125,4 @@ struct FieldTraits<SimpleStagePtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLESTAGEFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGSIMPLESTAGEFIELDS_H_ */

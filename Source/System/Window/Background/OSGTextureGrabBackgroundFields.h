@@ -125,6 +125,4 @@ struct FieldTraits<TextureGrabBackgroundPtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTUREGRABBACKGROUNDFIELDS_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTEXTUREGRABBACKGROUNDFIELDS_H_ */

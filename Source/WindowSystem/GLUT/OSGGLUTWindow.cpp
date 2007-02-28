@@ -138,23 +138,3 @@ bool GLUTWindow::swap(void)
 
 #endif // OSG_WITH_GLUT
 
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static char cvsid_cpp[] = "@(#)$Id$";
-    static char cvsid_hpp[] = OSGGLUTWINDOW_HEADER_CVSID;
-    static char cvsid_inl[] = OSGGLUTWINDOW_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGGLUTWINDOWFIELDS_HEADER_CVSID;
-}

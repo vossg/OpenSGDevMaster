@@ -319,4 +319,3 @@ typedef PointerBuilder<SimpleTexturedMaterial>::ObjPtrConstArg  SimpleTexturedMa
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLETEXTUREDMATERIALBASE_INLINE_CVSID "@(#)$Id$"

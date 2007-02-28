@@ -976,4 +976,3 @@ typedef PointerBuilder<Image>::ObjPtrConstArg  ImagePtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGIMAGEBASE_INLINE_CVSID "@(#)$Id$"

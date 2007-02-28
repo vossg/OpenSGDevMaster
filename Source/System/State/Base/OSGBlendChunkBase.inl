@@ -452,4 +452,3 @@ typedef PointerBuilder<BlendChunk>::ObjPtrConstArg  BlendChunkPtrConstArg;
 
 OSG_END_NAMESPACE
 
-#define OSGBLENDCHUNKBASE_INLINE_CVSID "@(#)$Id$"

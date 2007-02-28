@@ -210,4 +210,3 @@ typedef PointerBuilder<TextureSelectChunk>::ObjPtrConstArg  TextureSelectChunkPt
 
 OSG_END_NAMESPACE
 
-#define OSGTEXTURESELECTCHUNKBASE_INLINE_CVSID "@(#)$Id$"

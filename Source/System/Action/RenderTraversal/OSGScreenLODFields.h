@@ -125,6 +125,4 @@ struct FieldTraits<ScreenLODPtr> :
 
 OSG_END_NAMESPACE
 
-#define OSGSCREENLODFIELDS_HEADER_CVSID "@(#)$Id: FCFieldsTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
-
 #endif /* _OSGSCREENLODFIELDS_H_ */

@@ -254,6 +254,4 @@ typedef boost::mpl::if_<
 
 OSG_END_NAMESPACE
 
-#define OSGGEOVECTORPROPERTYBASE_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGGEOVECTORPROPERTYBASE_H_ */
