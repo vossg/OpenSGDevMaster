@@ -41,6 +41,6 @@
    field type header. 
 */
 
-#include "OSGFieldContainerSFields.h"
-#include "OSGFieldContainerMFields.h"
+#include "OSGFieldContainerAttachmentSFields.h"
+#include "OSGFieldContainerAttachmentMFields.h"
 

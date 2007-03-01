@@ -45,7 +45,7 @@
 #include "OSGFieldContainer.h"
 #include "OSGAttachmentMixin.h"
 #include "OSGContainerMixinHead.h"
-#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerAttachmentFields.h"
 
 OSG_BEGIN_NAMESPACE
 

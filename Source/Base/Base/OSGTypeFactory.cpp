@@ -95,9 +95,10 @@ template class SingletonHolder<TypeFactoryBase>;
 void TypeFactoryBase::writeTypeDot(FILE     *pOut,
                                    TypeBase *pTypeBase)
 {
-    fprintf(pOut, "    OpenSG%s [shape=record,label=\"%s\"]\n", 
+    fprintf(pOut, "    OpenSG%s [shape=record,label=\"%s - %s\"]\n", 
             pTypeBase->getCName(),
-            pTypeBase->getCName());
+            pTypeBase->getCName(),
+            pTypeBase->isInitialized() ? "Init" : "UnInit");
 
     if(pTypeBase->getCParentName() != NULL)
     {
@@ -158,6 +159,17 @@ TypeFactoryBase::~TypeFactoryBase(void)
 
 bool TypeFactoryBase::initialize(void)
 {
+    TypeStoreIt typeIt  = _vTypeStore.begin();
+    TypeStoreIt typeEnd = _vTypeStore.end  ();
+
+    while(typeIt != typeEnd)
+    {
+        if((*typeIt) != NULL)
+            (*typeIt)->initialize();
+
+        ++typeIt;
+    }
+
     return true;
 }
 
@@ -313,7 +325,7 @@ void TypeFactoryBase::writeTypeGraph(FILE *pOut)
  */
 
     fprintf(pOut, "    rankdir=LR;\n");
-    fprintf(pOut, "    size=\"8,60\";\n");
+    fprintf(pOut, "    size=\"120,200\";\n");
     fprintf(pOut, "    page=\"8.2677,11.69\";\n");
     fprintf(pOut, "    radio=auto;\n");
 

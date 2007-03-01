@@ -522,7 +522,7 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------- field instantiations -------------------------*/
 
 DataType FieldTraits<ParticleBSPTree>::_type("ParticleBSPTree", 
-                                             "None");
+                                             "TypeRoot");
 
 OSG_FIELDTRAITS_GETTYPE(ParticleBSPTree)
 

@@ -341,7 +341,7 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------- field instantiations -------------------------*/
 
 DataType FieldTraits<StatCollector>::_type("StatCollector",
-                                           "None");
+                                           "TypeRoot");
 
 #endif
 

@@ -72,6 +72,18 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
+namespace
+{
+    // Type objects for "abstract" types in the type hierarchy.
+    // These types do not correspond with any real types, but are used to
+    // group the concrete types.
+    DataType typeObjTypeRoot    ("TypeRoot",     NULL      );
+    DataType typeObjBaseType    ("BaseType",     "TypeRoot");
+    DataType typeObjIntegralType("IntegralType", "TypeRoot");
+    DataType typeObjField       ("Field",        "TypeRoot");
+}
+
+
 DataType FieldTraits<bool,      2 >::_type("bool"  ,       "IntegralType");
 DataType FieldTraits< Int8        >::_type("Int8"  ,       "IntegralType");
 DataType FieldTraits<UInt8        >::_type("UInt8" ,       "IntegralType");

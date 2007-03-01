@@ -57,6 +57,12 @@
 #include "OSGFieldContainerSFields.h"
 #include "OSGFieldContainerMFields.h"
 
+#include "OSGFieldContainerAttachmentSFields.h"
+#include "OSGFieldContainerAttachmentMFields.h"
+
+#include "OSGAttachmentContainerSFields.h"
+#include "OSGAttachmentContainerMFields.h"
+
 #include "OSGNodeSFields.h"
 #include "OSGNodeMFields.h"
 
@@ -82,13 +88,21 @@ DataType FieldTraits<ParentFieldContainerPtr,  1>::_type(
     "ParentFieldContainerPtr",
     NULL);
 
+DataType FieldTraits<FieldContainerAttachmentPtr>::_type(
+    "FieldContainerAttachmentPtr",
+    "FieldContainerPtr");
+
+DataType FieldTraits<AttachmentContainerPtr     >::_type(
+    "AttachmentContainerPtr",
+    "FieldContainerPtr");
+
 DataType FieldTraits<NodeCorePtr                >::_type(
     "NodeCorePtr",
-    "FieldContainerPtr");
+    "AttachmentContainerPtr");
 
 DataType FieldTraits<NodePtr                    >::_type(
     "NodePtr",
-    "FieldContainerPtr");
+    "AttachmentContainerPtr");
 
 DataType FieldTraits<ParentNodePtr,            1>::_type(
     "ParentNodePtr",
@@ -109,13 +123,16 @@ DataType FieldTraits<ChangedFunctorCallback     >::_type(
 OSG_FIELDTRAITS_GETTYPE   (FieldContainerPtr          )
 OSG_FIELDTRAITS_GETTYPE_NS(ParentFieldContainerPtr,  1)
 
-#endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, FieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, FieldContainerPtr);
 
 OSG_FIELD_DLLEXPORT_DEF2(SField, ParentFieldContainerPtr, 1);
 OSG_FIELD_DLLEXPORT_DEF2(MField, ParentFieldContainerPtr, 1);
+
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, FieldContainerAttachmentPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, FieldContainerAttachmentPtr, MFFieldContainerPtr);
 
 OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, NodeCorePtr, SFFieldContainerPtr);
 OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodeCorePtr, MFFieldContainerPtr);

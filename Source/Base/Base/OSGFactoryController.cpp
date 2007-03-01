@@ -122,12 +122,6 @@ bool FactoryControllerBase::initialize(void)
 {
     bool returnValue = true;
 
-    if(_pTypeFactory != NULL)
-        returnValue = _pTypeFactory->initialize();
-
-    if(returnValue == false)
-        return returnValue;
-
     FactoryMapIt mapIt  = _mFactoryMap.begin();
     FactoryMapIt mapEnd = _mFactoryMap.end  ();
 
@@ -141,12 +135,15 @@ bool FactoryControllerBase::initialize(void)
         mapIt++;
     }
 
+    if(returnValue == false)
+        return returnValue;
 
     if(_pTypeFactory != NULL)
-        returnValue = _pTypeFactory->initializeFactoryPost();
+        returnValue = _pTypeFactory->initialize();
 
     if(returnValue == false)
         return returnValue;
+
 
     mapIt  = _mFactoryMap.begin();
     mapEnd = _mFactoryMap.end  ();
@@ -160,6 +157,12 @@ bool FactoryControllerBase::initialize(void)
 
         mapIt++;
     }
+
+    if(returnValue == false)
+        return returnValue;
+
+    if(_pTypeFactory != NULL)
+        returnValue = _pTypeFactory->initializeFactoryPost();
 
     return returnValue;
 }
@@ -191,12 +194,6 @@ bool FactoryControllerBase::initializePendingElements(void)
 {
     bool returnValue = true;
 
-    if(_pTypeFactory != NULL)
-        returnValue = _pTypeFactory->initializePendingElements();
-
-    if(returnValue == false)
-        return returnValue;
-
     FactoryMapIt mapIt  = _mFactoryMap.begin();
     FactoryMapIt mapEnd = _mFactoryMap.end  ();
 
@@ -210,13 +207,11 @@ bool FactoryControllerBase::initializePendingElements(void)
         mapIt++;
     }
 
-
+    if(returnValue == false)
+        return returnValue;
 
     if(_pTypeFactory != NULL)
-    {
-        returnValue = 
-            _pTypeFactory->initializePendingElementsFactoryPost();
-    }
+        returnValue = _pTypeFactory->initializePendingElements();
 
     if(returnValue == false)
         return returnValue;
@@ -233,6 +228,16 @@ bool FactoryControllerBase::initializePendingElements(void)
             break;
 
         mapIt++;
+    }
+
+
+    if(returnValue == false)
+        return returnValue;
+
+    if(_pTypeFactory != NULL)
+    {
+        returnValue = 
+            _pTypeFactory->initializePendingElementsFactoryPost();
     }
 
     return returnValue;

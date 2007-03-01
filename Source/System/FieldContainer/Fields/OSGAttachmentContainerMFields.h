@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                   Copyright (C) 2007 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,62 +36,37 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#define OSG_IMAGEGENERICATT
-        
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-
-#include <iostream>
-
-#include "OSGImageGenericAtt.h"
-
-OSG_USING_NAMESPACE
-
-OSG_BEGIN_NAMESPACE
-
-OSG_DYNFIELDATTACHMENT_INST(ImageGenericAttDesc)
-
-OSG_END_NAMESPACE
-
-#if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
-#pragma warning (disable : 383)
-#endif
-
-#include <OSGSField.ins>
-#include <OSGMField.ins>
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
-
-OSG_BEGIN_NAMESPACE
-
-DataType FieldTraits<ImageGenericAttPtr>::_type("ImageGenericAttPtr",
-                                                "FieldContainerAttachmentPtr");
-
-OSG_FIELD_DLLEXPORT_DEF1(SField, ImageGenericAttPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, ImageGenericAttPtr);
-
-OSG_END_NAMESPACE
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
+#ifndef _OSGATTACHMENTCONTAINERMFIELDS_H_
+#define _OSGATTACHMENTCONTAINERMFIELDS_H_
 #ifdef __sgi
-#pragma set woff 1174
+#pragma once
 #endif
 
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
+#include "OSGMField.h"
+#include "OSGMFieldAdaptor.h"
+#include "OSGAttachmentContainerFieldTraits.h"
+#include "OSGFieldContainerMFields.h"
+
+OSG_BEGIN_NAMESPACE
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+/*! \ingroup  */
+
+typedef MFieldAdaptor   <AttachmentContainerPtr,
+                         MFFieldContainerPtr     >
+    MFAttachmentContainerPtr;
+
+#ifdef FDFOO
+typedef FieldDescription<AttachmentContainerPtr,
+                         MultiField              >
+    MAttachmentContainerPtrFieldDescription;
+#endif
 #endif
 
-namespace 
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGIMAGEGENERICATT_HEADER_CVSID;
-}
+#ifndef OSG_COMPILECONTAINERFIELDINST
+OSG_FIELD_DLLEXPORT_DECL1(MField, AttachmentContainerPtr, OSG_SYSTEM_DLLTMPLMAPPING)
+#endif
+
+OSG_END_NAMESPACE
+
+#endif /* _OSGATTACHMENTCONTAINERMFIELDS_H_ */

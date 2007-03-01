@@ -282,7 +282,7 @@ struct FieldTraits<ParentFieldContainerPtr, 1> :
 typedef PointerFwdBuilder<
     FieldContainerPtr, 
     FieldContainerConstPtr,
-    FieldContainerAttachment>::ObjPtr      FieldContainerAttachmentChunkPtr;
+    FieldContainerAttachment>::ObjPtr      FieldContainerAttachmentPtr;
 
 typedef PointerFwdBuilder<
     FieldContainerPtr, 
