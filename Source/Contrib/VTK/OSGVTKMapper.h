@@ -58,7 +58,7 @@ class vtkCellArray;
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIB_DLLMAPPING VTKMapper : public VTKMapperBase
+class OSG_CONTRIBVTK_DLLMAPPING VTKMapper : public VTKMapperBase
 {
     /*==========================  PUBLIC  =================================*/
 

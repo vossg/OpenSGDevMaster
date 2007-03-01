@@ -37,8 +37,8 @@
 \*---------------------------------------------------------------------------*/
 
 
-#ifndef _OSGCONTRIBDEF_H_
-#define _OSGCONTRIBDEF_H_
+#ifndef _OSGCONTRIBVTKDEF_H_
+#define _OSGCONTRIBVTKDEF_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -48,16 +48,16 @@
 //---------------------------------------------------------------------------
 
 #if defined(WIN32)
-#   ifdef OSG_COMPILECONTRIBLIB
-#       define OSG_CONTRIB_DLLMAPPING     __declspec(dllexport)
-#       define OSG_CONTRIB_DLLTMPLMAPPING __declspec(dllexport)
+#   ifdef OSG_COMPILECONTRIBVTKLIB
+#       define OSG_CONTRIBVTK_DLLMAPPING     __declspec(dllexport)
+#       define OSG_CONTRIBVTK_DLLTMPLMAPPING __declspec(dllexport)
 #   else
-#       define OSG_CONTRIB_DLLMAPPING     __declspec(dllimport)
-#       define OSG_CONTRIB_DLLTMPLMAPPING __declspec(dllimport)
+#       define OSG_CONTRIBVTK_DLLMAPPING     __declspec(dllimport)
+#       define OSG_CONTRIBVTK_DLLTMPLMAPPING __declspec(dllimport)
 #   endif
 #else
-#define OSG_CONTRIB_DLLMAPPING
-#define OSG_CONTRIB_DLLTMPLMAPPING
+#define OSG_CONTRIBVTK_DLLMAPPING
+#define OSG_CONTRIBVTK_DLLTMPLMAPPING
 #endif
 
-#endif /* _OSGCONTRIBDEF_H_ */
+#endif /* _OSGCONTRIBVTKDEF_H_ */

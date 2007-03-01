@@ -271,7 +271,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(true,
     "<FieldContainer\n"
     "\tname=\"VTKMapper\"\n"
     "\tparent=\"Group\"\n"
-    "\tlibrary=\"Contrib\"\n"
+    "\tlibrary=\"ContribVTK\"\n"
     "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"

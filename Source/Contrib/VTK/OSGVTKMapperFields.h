@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribDef.h"
+#include "OSGContribVTKDef.h"
 
 #include "OSGGroupFields.h"
 
@@ -92,7 +92,7 @@ typedef PointerFwdBuilder<GroupPtr,
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpContribFieldTraits
+/*! \ingroup GrpContribVTKFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -112,7 +112,7 @@ struct FieldTraits<VTKMapperPtr> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_CONTRIB_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBVTK_DLLMAPPING DataType &getType(void);
 
     static const char *getSName(void) { return "SFVTKMapperPtr"; }
     static const char *getMName(void) { return "MFVTKMapperPtr"; }
@@ -128,23 +128,23 @@ struct FieldTraits<VTKMapperPtr> :
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribFieldSingle */
+/*! \ingroup GrpContribVTKFieldSingle */
 
 typedef SFieldAdaptor<VTKMapperPtr, SFFieldContainerPtr> SFVTKMapperPtr;
 #endif
 
 #ifndef OSG_COMPILEVTKMAPPERINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, VTKMapperPtr, OSG_CONTRIB_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, VTKMapperPtr, OSG_CONTRIBVTK_DLLTMPLMAPPING)
 #endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribFieldMulti */
+/*! \ingroup GrpContribVTKFieldMulti */
 
 typedef MFieldAdaptor<VTKMapperPtr, MFFieldContainerPtr> MFVTKMapperPtr;
 #endif
 
 #ifndef OSG_COMPILEVTKMAPPERINST
-OSG_FIELD_DLLEXPORT_DECL1(MField, VTKMapperPtr, OSG_CONTRIB_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(MField, VTKMapperPtr, OSG_CONTRIBVTK_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE

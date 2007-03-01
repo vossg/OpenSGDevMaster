@@ -3,7 +3,7 @@
 <FieldContainer
 	name="VTKMapper"
 	parent="Group"
-	library="Contrib"
+	library="ContribVTK"
 	structure="concrete"
 	pointerfieldtypes="both"
 	systemcomponent="true"

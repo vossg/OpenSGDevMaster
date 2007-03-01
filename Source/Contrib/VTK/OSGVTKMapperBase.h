@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribDef.h"
+#include "OSGContribVTKDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -84,7 +84,7 @@ class VTKMapper;
 
 //! \brief VTKMapper Base Class.
 
-class OSG_CONTRIB_DLLMAPPING VTKMapperBase : public Group
+class OSG_CONTRIBVTK_DLLMAPPING VTKMapperBase : public Group
 {
   public:
 
