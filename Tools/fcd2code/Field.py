@@ -219,7 +219,7 @@ class Field(FCDElement):
         
         if self.getFCD("defaultValue") != "":
             self["TypedDefault"] = \
-                self["TypeNamespace"] + self["Type"] + "(" + \
+                self["Type"] + "(" + \
                 self.getFCD("defaultValue") + ")";
         else:
             self["TypedDefault"] = "";
