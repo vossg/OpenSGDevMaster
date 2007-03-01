@@ -41,6 +41,8 @@ from LibraryUtils import *
 from sets import Set
 from socket import gethostname
 
+import OpenSG.AddOnHacks
+
 from BuildInfoScanner import BuildInfoScanner
 from RevisionTagWriter import RevisionTagWriter
 
@@ -272,11 +274,13 @@ else:
 
       if ARGUMENTS.has_key("cxxlib-icc"):
          use_cxxlib_icc = True
-         
+
+      OpenSG.AddOnHacks.apply()
+      
       common_env = Environment(ENV = os.environ,
                                tools=['gnulink', 'intelicc', 'intelicpc', 'doxygen'],
                                cxxlib_icc=use_cxxlib_icc, 
-                               toolpath = '.')
+                               toolpath = ['.', 'Tools/scons-build/OpenSG/Tools'])
    else:
       common_env = Environment(ENV = os.environ, 
                                toolpath = '.',
