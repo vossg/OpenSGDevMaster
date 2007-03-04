@@ -1,0 +1,20 @@
+Index: Tools/scons-addons/src/SConsAddons/Variants.py
+===================================================================
+--- Tools/scons-addons/src/SConsAddons/Variants.py	(revision 283)
++++ Tools/scons-addons/src/SConsAddons/Variants.py	(working copy)
+@@ -23,6 +23,8 @@
+ # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ #
+ 
++from __future__ import generators
++
+ __revision__ = "__FILE__ __REVISION__ __DATE__ __DEVELOPER__"
+ 
+ import os, sys, re, types
+@@ -247,4 +249,4 @@
+    
+    return ret_combos
+ 
+-   
+\ No newline at end of file
++

@@ -85,12 +85,16 @@ def generate(env):
 
         
         cxxlib_icc = env['cxxlib_icc']
-        
+
+        print "XXXXX", cxxlib_icc
+
         if cxxlib_icc == True:
-            env['SHCXXFLAGS'] = SCons.Util.CLVar('$CXXFLAGS -fPIC -cxxlib-icc')
+            env['CXXFLAGS']   = SCons.Util.CLVar('$CXXFLAGS -cxxlib-icc')
+            env['SHCXXFLAGS'] = SCons.Util.CLVar('$CXXFLAGS -fPIC')
             env['icc_gnu_compat'] = False
         else:
-            env['SHCXXFLAGS'] = SCons.Util.CLVar('$CXXFLAGS -fPIC -cxxlib-gcc -gcc-version='+gcc_version)
+            env['CXXFLAGS']   = SCons.Util.CLVar('$CXXFLAGS -cxxlib-gcc -gcc-version='+gcc_version)
+            env['SHCXXFLAGS'] = SCons.Util.CLVar('$CXXFLAGS -fPIC')
             env['icc_gnu_compat'] = True
             
         # Original line from Christian Engel added -DPIC:
