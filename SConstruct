@@ -374,6 +374,8 @@ build_options["build_suffix"] = sca_opts.SimpleOption(
     "", None, None, None)
 build_options["enable_fcd2code"] = sca_opts.BoolOption(
     "enable_fcd2code", "Enable code generation pass (from .fcd files) during build", False)
+build_options["enable_distcc"] = sca_opts.BoolOption(
+    "enable_distcc", "Enable use of distcc during build. (distcc must be in your path)", False)
 build_options["enable_unittests"] = sca_opts.BoolOption(
     "enable_unittests", "Enable building and running of the unit tests after build", True)
 build_options["enable_revision_tags"] = sca_opts.BoolOption(
@@ -594,6 +596,10 @@ if not SConsAddons.Util.hasHelpFlag():
       for f in fcd_files:
          fcd_targets = common_env.fcd2code(source=f)
          NoClean(fcd_targets)
+   
+   # Distcc enable
+   if common_env["enable_distcc"] and WhereIs("distcc"):
+      common_env.Prepend(CXX = "distcc ", CC = "distcc ")
    
    # Trigger recursive scanning of library directorties
    if not verbose_build:
