@@ -146,9 +146,10 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
                                   BitVector mask   );
     static void subFieldFilter   (UInt32    typeId,
                                   BitVector mask   );
-    
+#if 0
     static void restoreChangeList(ChangeList *tocl);
     static void storeChangeList  (ChangeList *cl  );
+#endif
     static UInt32 getStoreSize   (void            );
 
     static clStoreMap &getStore  (void            );
@@ -268,6 +269,6 @@ struct RemoteAspectFieldContainerMapper : public FieldContainerMapper
 
 OSG_END_NAMESPACE
 
-#define OSGREMOTEASPECT_HEADER_CVSID "@(#)$Id:$"
+#define OSGREMOTEASPECT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _REMOTEASPECT_H_ */

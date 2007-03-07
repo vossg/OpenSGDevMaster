@@ -247,6 +247,8 @@ void ClusterServer::stop()
     _clusterWindow= NullFC;
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
+
 /*! sync with client and render scenegraph
  */
 
@@ -256,6 +258,22 @@ void ClusterServer::render(DrawActionBase *action)
     doRender(action);
     doSwap  (      );
 }
+
+#endif
+
+#ifdef OSG_CLEANED_RENDERACTION
+
+/*! sync with client and render scenegraph
+ */
+
+void ClusterServer::render(RenderTraversalActionBase *action)
+{
+    doSync  (false );
+    doRender(action);
+    doSwap  (      );
+}
+
+#endif
 
 /*! Synchronize all field containers with the client and call 
  *  <code>serverInit</code>, <code>serverRender</code> and
@@ -334,6 +352,8 @@ void ClusterServer::doSync(bool applyToChangelist)
     }
 }
 
+#ifdef OSG_OLD_RENDER_ACTION
+
 /*! render server window
  */
 
@@ -354,6 +374,33 @@ void ClusterServer::doRender(DrawActionBase *action)
 
     _clusterWindow->serverRender(_window, _serverId, action);
 }
+
+#endif
+
+#ifdef OSG_CLEANED_RENDERACTION
+
+/*! render server window
+ */
+
+void ClusterServer::doRender(RenderTraversalActionBase *action)
+{
+    OSG::IndentFileOutStream outFileStream("/tmp/cluster.osg");
+
+    if(outFileStream)
+    {
+        std::cerr << "STARTING PRINTOUT:" << std::endl;
+
+        OSG::OSGWriter writer(outFileStream, 4);
+
+        writer.write(_clusterWindow);
+
+        outFileStream.close();
+    } 
+
+    _clusterWindow->serverRender(_window, _serverId, action);
+}
+
+#endif
 
 /*! swap server window
  */
