@@ -173,7 +173,7 @@ class PThreadCondVarBase : public CondVarCommonBase
     void acquire(void);
     void release(void);
     bool request(void);
-    bool wait(const float seconds = -1.0);
+    bool wait(const Int32 timeToWait = -1);
     void signal();
     void broadcast();
 
@@ -257,7 +257,7 @@ class SprocCondVarBase : public CondVarCommonBase
     void acquire(void);
     void release(void);
     bool request(void);
-    bool wait(const float seconds = -1.0);
+    bool wait(const Int32 timeToWait = -1);
     void signal();
     void broadcast();
 
@@ -292,44 +292,36 @@ typedef SprocCondVarBase CondVarBase;
 
 #if defined (OSG_USE_WINTHREADS)
 
-//#if _WIN32_WINNT < 0x0400
-#define OSG_WINLOCK_USE_MUTEX
-//#endif
-
 typedef struct
 {
-  int waiters_count_;
-  // Number of waiting threads.
+    int waiters_count_;
+    // Number of waiting threads.
 
-  CRITICAL_SECTION waiters_count_lock_;
-  // Serialize access to <waiters_count_>.
+    CRITICAL_SECTION waiters_count_lock_;
+    // Serialize access to <waiters_count_>.
 
-  HANDLE sema_;
-  // Semaphore used to queue up threads waiting for the condition to
-  // become signaled. 
+    HANDLE sema_;
+    // Semaphore used to queue up threads waiting for the condition to
+    // become signaled. 
 
-  HANDLE waiters_done_;
-  // An auto-reset event used by the broadcast/signal thread to wait
-  // for all the waiting thread(s) to wake up and be released from the
-  // semaphore. 
+    HANDLE waiters_done_;
+    // An auto-reset event used by the broadcast/signal thread to wait
+    // for all the waiting thread(s) to wake up and be released from the
+    // semaphore. 
 
-  size_t was_broadcast_;
-  // Keeps track of whether we were broadcasting or signaling.  This
-  // allows us to optimize the code if we're just signaling.
+    size_t was_broadcast_;
+    // Keeps track of whether we were broadcasting or signaling.  This
+    // allows us to optimize the code if we're just signaling.
 } pthread_cond_t;
 
 typedef HANDLE pthread_mutex_t;
 
-int 
-pthread_cond_init (pthread_cond_t *cv, void* dummy);
-int
-pthread_cond_wait (pthread_cond_t *cv, 
-                   pthread_mutex_t *external_mutex);
-int
-pthread_cond_signal (pthread_cond_t *cv);
+int pthread_cond_init(pthread_cond_t *cv, void* dummy);
+int pthread_cond_wait(pthread_cond_t *cv, 
+                      pthread_mutex_t *external_mutex);
+int pthread_cond_signal(pthread_cond_t *cv);
 
-int
-pthread_cond_broadcast (pthread_cond_t *cv);
+int pthread_cond_broadcast(pthread_cond_t *cv);
 
 /*! \ingroup GrpBaseBaseMultiThreading
  */
@@ -382,7 +374,7 @@ class OSG_BASE_DLLMAPPING WinThreadCondVarBase : public CondVarCommonBase
     void acquire(void);
     void release(void);
     bool request(void);
-    bool wait(const float seconds = -1.0);
+    bool wait(const Int32 timeToWait = -1);
     void signal();
     void broadcast();
     
@@ -390,30 +382,26 @@ class OSG_BASE_DLLMAPPING WinThreadCondVarBase : public CondVarCommonBase
     /*==========================  PRIVATE  ================================*/
   private:
 
-#ifdef OSG_WINLOCK_USE_MUTEX
     Handle  _pMutex;
-#else
-    CRITICAL_SECTION _pCriticalSection;
-#endif
 
-   int waiters_count_;
-   // Number of waiting threads.
+    int waiters_count_;
+    // Number of waiting threads.
 
-   CRITICAL_SECTION waiters_count_lock_;
-   // Serialize access to <waiters_count_>.
+    CRITICAL_SECTION waiters_count_lock_;
+    // Serialize access to <waiters_count_>.
 
-   HANDLE sema_;
-   // Semaphore used to queue up threads waiting for the condition to
-   // become signaled. 
+    HANDLE sema_;
+    // Semaphore used to queue up threads waiting for the condition to
+    // become signaled. 
 
-   HANDLE waiters_done_;
-   // An auto-reset event used by the broadcast/signal thread to wait
-   // for all the waiting thread(s) to wake up and be released from the
-   // semaphore. 
+    HANDLE waiters_done_;
+    // An auto-reset event used by the broadcast/signal thread to wait
+    // for all the waiting thread(s) to wake up and be released from the
+    // semaphore. 
 
-   // Keeps track of whether we were broadcasting or signaling.  This
-   // allows us to optimize the code if we're just signaling.
-   size_t was_broadcast_;
+    // Keeps track of whether we were broadcasting or signaling.  This
+    // allows us to optimize the code if we're just signaling.
+    size_t was_broadcast_;
 
 
     /*!\brief prohibit default function (move to 'public' if needed) */
@@ -463,7 +451,7 @@ class OSG_BASE_DLLMAPPING CondVar : public CondVarBase
     void acquire(void);
     void release(void);
     bool request(void);
-    bool wait(const float seconds = -1.0);
+    bool wait(const Int32 timeToWait = -1);
     void signal();
     void broadcast();
     

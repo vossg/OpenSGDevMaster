@@ -126,6 +126,24 @@ bool SprocCondVarBase::request(void)
     return returnValue;
 }
 
+inline
+bool SprocCondVarBase::wait(const Int32 timeToWait)
+{
+   OSG_ASSERT(false && "Not implemented.");
+}
+
+inline
+void SprocCondVarBase::signal()
+{
+   OSG_ASSERT(false && "Not implemented.");
+}
+
+inline
+void SprocCondVarBase::broadcast()
+{
+   OSG_ASSERT(false && "Not implemented.");
+}
+
 #endif /* OSG_USE_SPROC */
 
 
@@ -140,11 +158,7 @@ void WinThreadCondVarBase::acquire(void)
     fprintf(stderr, "CondVar::acquire %p\n", this);
 #endif
 
-#ifdef OSG_WINLOCK_USE_MUTEX
     WaitForSingleObject(_pMutex, INFINITE);
-#else
-    EnterCriticalSection(&_pCriticalSection);
-#endif
 }
 
 inline
@@ -154,17 +168,12 @@ void WinThreadCondVarBase::release(void)
     fprintf(stderr, "CondVar::release %p\n", this);
 #endif
 
-#ifdef OSG_WINLOCK_USE_MUTEX
     ReleaseMutex(_pMutex);
-#else
-    LeaveCriticalSection(&_pCriticalSection);
-#endif
 }
 
 inline
 bool WinThreadCondVarBase::request(void)
 {
-#ifdef OSG_WINLOCK_USE_MUTEX
     DWORD rc;
     rc = WaitForSingleObject(_pMutex, 0);
 
@@ -176,9 +185,6 @@ bool WinThreadCondVarBase::request(void)
     {
         return false;
     }
-#else
-    return (TryEnterCriticalSection(&_pCriticalSection) != FALSE);
-#endif
 }
 
 #endif /* OSG_USE_WINTHREADS */
@@ -219,9 +225,9 @@ bool CondVar::request(void)
 }
 
 inline
-bool CondVar::wait(const float seconds)
+bool CondVar::wait(const Int32 timeToWait)
 {
-    return Inherited::wait(seconds);
+    return Inherited::wait(timeToWait);
 }
 
 inline
