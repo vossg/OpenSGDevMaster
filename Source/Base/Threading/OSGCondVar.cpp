@@ -39,6 +39,11 @@
 #include <cstdlib>
 #include <cstdio>
 
+// If we are on windows and not WinCE, then target Windows NT 4.0
+#if defined (WIN32) && !defined(_WIN32_WINNT) && !defined(_WIN32_WCE)
+#define _WIN32_WINNT 0x0400
+#endif
+
 #include "OSGConfig.h"
 
 #include <iostream>
@@ -133,8 +138,6 @@ void PThreadCondVarBase::shutdown(void)
     pthread_mutex_destroy(&(_pLowLevelLock));
     pthread_cond_destroy(&(_pLowLevelCondVar));
 }
-
-#include <sstream>
 
 bool PThreadCondVarBase::wait(const Int32 timeToWait)
 {
@@ -308,7 +311,7 @@ void SprocCondVarBase::shutdown(void)
 
 #if defined (OSG_USE_WINTHREADS)
 
-#define _WIN32_WINNT 0x0400
+#if defined _WIN32_WINNT && _WIN32_WINNT >= 0x0400
 
 int pthread_cond_init(pthread_cond_t *cv, void *dummy)
 {
@@ -421,6 +424,7 @@ int pthread_cond_broadcast (pthread_cond_t *cv)
   return 0;
 }
 
+#endif
 
 //---------------------------------------------------------------------------
 //  Class
@@ -451,31 +455,37 @@ WinThreadCondVarBase::~WinThreadCondVarBase(void)
 
 bool WinThreadCondVarBase::init(void)
 {
-   _pMutex = CreateMutex( NULL,     // no security attributes
+#if defined _WIN32_WINNT && _WIN32_WINNT >= 0x0400
+    _pMutex = CreateMutex(NULL,     // no security attributes
                           FALSE,    // initially not owned
-                         _szName);  // name of mutex
+                          _szName);  // name of mutex
 
-   if(_pMutex == NULL)
-   {
-      return false;
-   }
+    if(_pMutex == NULL)
+    {
+        return false;
+    }
 
-   waiters_count_ = 0;
-   was_broadcast_ = 0;
-   sema_ = CreateSemaphore (NULL,       // no security
+    waiters_count_ = 0;
+    was_broadcast_ = 0;
+    sema_ = CreateSemaphore(NULL,       // no security
                             0,          // initially 0
                             0x7fffffff, // max count
                             NULL);      // unnamed 
-   InitializeCriticalSection (&waiters_count_lock_);
-   waiters_done_ = CreateEvent (NULL,  // no security
+    InitializeCriticalSection(&waiters_count_lock_);
+    waiters_done_ = CreateEvent(NULL,  // no security
                                 FALSE, // auto-reset
                                 FALSE, // non-signaled initially
                                 NULL); // unnamed
-   return true;
+    return true;
+#else
+    OSG_ASSERT(false && "CondVar::init() Not implemented for versions of Windows < 4.0");
+    return false;
+#endif
 }
 
 bool WinThreadCondVarBase::wait(const Int32 timeToWait)
 {
+#if defined _WIN32_WINNT && _WIN32_WINNT >= 0x0400
     // Avoid race conditions.
     EnterCriticalSection (&waiters_count_lock_);
     waiters_count_++;
@@ -513,12 +523,15 @@ bool WinThreadCondVarBase::wait(const Int32 timeToWait)
         // give to our callers. 
         WaitForSingleObject(_pMutex, INFINITE);
     }
-
+#else
+    OSG_ASSERT(false && "CondVar::wait() Not implemented for versions of Windows < 4.0");
+#endif
     return 0;
 }
 
 void WinThreadCondVarBase::signal()
 {
+#if defined _WIN32_WINNT && _WIN32_WINNT >= 0x0400
     EnterCriticalSection(&waiters_count_lock_);
     int have_waiters = waiters_count_ > 0;
     LeaveCriticalSection(&waiters_count_lock_);
@@ -528,10 +541,14 @@ void WinThreadCondVarBase::signal()
     {
         ReleaseSemaphore(sema_, 1, 0);
     }
+#else
+    OSG_ASSERT(false && "CondVar::signal() Not implemented for versions of Windows < 4.0");
+#endif
 }
 
 void WinThreadCondVarBase::broadcast()
 {
+#if defined _WIN32_WINNT && _WIN32_WINNT >= 0x0400
     // This is needed to ensure that <waiters_count_> and <was_broadcast_> are
     // consistent relative to each other.
     EnterCriticalSection(&waiters_count_lock_);
@@ -564,12 +581,16 @@ void WinThreadCondVarBase::broadcast()
     {
         LeaveCriticalSection(&waiters_count_lock_);
     }
+#else
+    OSG_ASSERT(false && "CondVar::broadcast() Not implemented for versions of Windows < 4.0");
+#endif
 }
 
 /*-------------------------- Destruction ----------------------------------*/
 
 void WinThreadCondVarBase::shutdown(void)
 {
+#if defined _WIN32_WINNT && _WIN32_WINNT >= 0x0400
     if(_pMutex != NULL)
     {
         CloseHandle(_pMutex);
@@ -583,6 +604,9 @@ void WinThreadCondVarBase::shutdown(void)
     {
         CloseHandle(waiters_done_);
     }
+#else
+    OSG_ASSERT(false && "CondVar::shutdown() Not implemented for versions of Windows < 4.0");
+#endif
 }
 
 #endif /* OSG_USE_WINTHREADS */
