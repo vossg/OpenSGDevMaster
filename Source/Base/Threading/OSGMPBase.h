@@ -50,12 +50,15 @@ OSG_BEGIN_NAMESPACE
 class MPBase;
 class BaseThread;
 class Barrier;
+class CondVar;
 class Lock;
 class LockPool;
 
 typedef BaseThread *(*CreateThreadF  )(const Char8  *szName,
                                              UInt32  uiId);
 typedef Barrier    *(*CreateBarrierF )(const Char8  *szName,
+                                             UInt32  uiId);
+typedef CondVar    *(*CreateCondVarF )(const Char8  *szName,
                                              UInt32  uiId);
 typedef Lock       *(*CreateLockF    )(const Char8  *szName,
                                              UInt32  uiId);
@@ -249,6 +252,69 @@ class OSG_BASE_DLLMAPPING MPBarrierType : public MPType
     void operator =(const MPBarrierType &source);
 };
 
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \ingroup GrpBaseBaseMultiThreading
+ */
+
+class OSG_BASE_DLLMAPPING MPCondVarType : public MPType
+{
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*==========================  PUBLIC  =================================*/
+
+  public :
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructor                                */
+    /*! \{                                                                 */
+
+    MPCondVarType(const Char8           *szName, 
+                  const Char8           *szParentName,
+                        CreateCondVarF  fCreateCondVar,
+                  const UInt32          uiNamespace = GlobalNamespace);
+                     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+                 
+    virtual ~MPCondVarType(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    CondVar *create(const Char8 *szName);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+
+    typedef MPType Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Class Specific                              */
+    /*! \{                                                                 */
+
+    static UInt32          _uiCondVarCount;
+           CreateCondVarF  _fCreateCondVar;
+    
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    MPCondVarType(const MPCondVarType &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const MPCondVarType &source);
+};
 
 
 

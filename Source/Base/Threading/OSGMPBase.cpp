@@ -130,6 +130,57 @@ BaseThread *MPThreadType::create(const Char8 *szName)
 }
 
 
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class OSG::MPCondVarType
+ */
+
+UInt32 MPCondVarType::_uiCondVarCount = 0;
+
+
+MPCondVarType::MPCondVarType(const Char8       *szName, 
+                             const Char8       *szParentName,
+                             CreateCondVarF     fCreateCondVar,
+                             const UInt32       uiNamespace ) :
+     Inherited  (szName, szParentName, uiNamespace),
+    _fCreateCondVar(fCreateCondVar                      )
+{
+    ThreadManager::the()->registerCondVarType(this);
+}
+
+
+MPCondVarType::~MPCondVarType(void)
+{
+}
+
+
+CondVar *MPCondVarType::create(const Char8 *szName)
+{
+    Char8   *szTmp;
+    UInt32   uiNewId     = _uiCondVarCount++;
+    CondVar *returnValue = NULL;
+
+    if(szName == NULL)
+    {
+        szTmp = new Char8[16];
+        sprintf(szTmp, "OSGCondVar_%u", uiNewId);
+    }
+    else
+    {
+        szTmp = const_cast<Char8 *>(szName);
+    }
+
+    if(_fCreateCondVar != NULL)
+        returnValue = _fCreateCondVar(szTmp, uiNewId);
+
+    if(szTmp != szName)
+        delete [] szTmp;
+
+    return returnValue;
+}
+
 
 
 //---------------------------------------------------------------------------
@@ -373,4 +424,5 @@ namespace
     static Char8 cvsid_cpp[] = "@(#)$Id$";
     static Char8 cvsid_hpp[] = OSGMPBASE_HEADER_CVSID;
 }
+
 

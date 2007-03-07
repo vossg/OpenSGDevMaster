@@ -5,6 +5,7 @@ if option_pass:
 else:
    library = "OSGBase"
    osg_dep_libs = []
+   osg_test_libs = ['OSGSystem']
    if "win32" == platform:
       libs = ["opengl32","glu32","gdi32","user32", "kernel32", "winmm",
               "wsock32", "oldnames"]

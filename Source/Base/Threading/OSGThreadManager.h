@@ -54,6 +54,7 @@
 
 #include "OSGBaseThread.h"
 #include "OSGBarrier.h"
+#include "OSGCondVar.h"
 #include "OSGLock.h"
 
 OSG_BEGIN_NAMESPACE
@@ -173,6 +174,7 @@ class OSG_BASE_DLLMAPPING ThreadManager
 
     typedef MPFieldStore<BaseThread> ThreadStore;
     typedef MPFieldStore<Barrier   > BarrierStore;
+    typedef MPFieldStore<CondVar   > CondVarStore;
     typedef MPFieldStore<Lock      > LockStore;
     typedef MPFieldStore<LockPool  > LockPoolStore;
 
@@ -199,6 +201,8 @@ class OSG_BASE_DLLMAPPING ThreadManager
                                const Char8 *szTypeName = "OSGThread");
     Barrier      *getBarrier  (const Char8 *szName,
                                const Char8 *szTypeName = "OSGBarrier");
+    CondVar      *getCondVar  (const Char8 *szName,
+                               const Char8 *szTypeName = "OSGCondVar");
     Lock         *getLock     (const Char8 *szName,
                                const Char8 *szTypeName = "OSGLock");
     LockPool     *getLockPool (const Char8 *szName,
@@ -206,6 +210,7 @@ class OSG_BASE_DLLMAPPING ThreadManager
 
     BaseThread   *findThread  (const Char8 *szName);
     Barrier      *findBarrier (const Char8 *szName);
+    CondVar      *findCondVar (const Char8 *szName);
     Lock         *findLock    (const Char8 *szName);
     LockPool     *findLockPool(const Char8 *szName);
 
@@ -228,11 +233,13 @@ class OSG_BASE_DLLMAPPING ThreadManager
 
            void   removeThread        (BaseThread     *pThread  );
            void   removeBarrier       (Barrier        *pBarrier );
+           void   removeCondVar       (CondVar        *pCondVar );
            void   removeLock          (Lock           *pLock    );
            void   removeLockPool      (LockPool       *pLockPool);
 
            UInt32 registerThreadType  (MPThreadType   *pType    );
            UInt32 registerBarrierType (MPBarrierType  *pType    );
+           UInt32 registerCondVarType (MPCondVarType  *pType    );
            UInt32 registerLockType    (MPLockType     *pType    );
            UInt32 registerLockPoolType(MPLockPoolType *pType    );
 
@@ -263,11 +270,13 @@ class OSG_BASE_DLLMAPPING ThreadManager
 
     friend class MPThreadType;
     friend class MPBarrierType;
+    friend class MPCondVarType;
     friend class MPLockType;
     friend class MPLockPoolType;
 
     friend class BaseThread;
     friend class Barrier;
+    friend class CondVar;
     friend class Lock;
     friend class LockPool;
 
@@ -300,6 +309,7 @@ class OSG_BASE_DLLMAPPING ThreadManager
 
            ThreadStore    _sThreadStore;
            BarrierStore   _sBarrierStore;
+           CondVarStore   _sCondVarStore;
            LockStore      _sLockStore;
            LockPoolStore  _sLockPoolStore;
 

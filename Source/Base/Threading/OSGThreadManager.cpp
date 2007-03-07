@@ -129,6 +129,20 @@ Barrier *ThreadManager::getBarrier(const Char8 *szName,
     return returnValue;
 }
 
+CondVar *ThreadManager::getCondVar(const Char8 *szName,
+                                   const Char8 *szTypeName)
+{
+    CondVar *returnValue = NULL;
+
+    _storePLock->acquire();
+
+    returnValue = _sCondVarStore.getMPField(szName, szTypeName);
+
+    _storePLock->release();
+
+    return returnValue;
+}
+
 Lock *ThreadManager::getLock(const Char8 *szName,
                              const Char8 *szTypeName)
 {
@@ -177,6 +191,19 @@ Barrier *ThreadManager::findBarrier(const Char8 *szName)
     _storePLock->acquire();
     
     returnValue = _sBarrierStore.findMPField(szName);
+
+    _storePLock->release();
+
+    return returnValue;
+}
+
+CondVar *ThreadManager::findCondVar(const Char8 *szName)
+{
+    CondVar *returnValue = NULL;
+
+    _storePLock->acquire();
+    
+    returnValue = _sCondVarStore.findMPField(szName);
 
     _storePLock->release();
 
@@ -260,6 +287,18 @@ void ThreadManager::removeBarrier(Barrier *pBarrier)
     _storePLock->release();
 }
 
+void ThreadManager::removeCondVar(CondVar *pCondVar)
+{
+    if(_bShutdownInProgress == true)
+        return;
+
+    _storePLock->acquire();
+
+    _sCondVarStore.removeMPField(pCondVar);
+    
+    _storePLock->release();
+}
+
 void ThreadManager::removeLock(Lock *pLock)
 {
     if(_bShutdownInProgress == true)
@@ -292,6 +331,11 @@ UInt32 ThreadManager::registerThreadType(MPThreadType *pType)
 UInt32 ThreadManager::registerBarrierType(MPBarrierType *pType)
 {
     return _sBarrierStore.registerMPType(pType);
+}
+
+UInt32 ThreadManager::registerCondVarType(MPCondVarType *pType)
+{
+    return _sCondVarStore.registerMPType(pType);
 }
 
 UInt32 ThreadManager::registerLockType(MPLockType *pType)
@@ -384,15 +428,17 @@ bool ThreadManager::shutdown(void)
 
     _pAppThread->shutdown();
 
-    FDEBUG(("Sizes: ThreadStore: %d BarrierStore: %d "
+    FDEBUG(("Sizes: ThreadStore: %d BarrierStore: %d CondVarStore: %d"
             "LockStore: %d LockPoolStore: %d\n",
             _sThreadStore._mFieldMap.size(),
             _sBarrierStore._mFieldMap.size(),
+            _sCondVarStore._mFieldMap.size(),
             _sLockStore._mFieldMap.size(),
             _sLockPoolStore._mFieldMap.size()));
           
     _sThreadStore  .clear();
     _sBarrierStore .clear();
+    _sCondVarStore .clear();
     _sLockStore    .clear();
     _sLockPoolStore.clear();
 
@@ -409,6 +455,7 @@ bool ThreadManager::shutdown(void)
 ThreadManager::ThreadManager(void) :
     _sThreadStore  (    ),
     _sBarrierStore (    ),
+    _sCondVarStore    (    ),
     _sLockStore    (    ),
     _sLockPoolStore(    ),
 
