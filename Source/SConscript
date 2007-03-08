@@ -148,6 +148,7 @@ for (lib_name, library) in lib_map.iteritems():
             else:
                 ev[key] = path
             
+            print "TEST SUITE: [%s]"%(target[0],)
             prog = str(target[0])
             exit_code = os.spawnle(os.P_WAIT, prog, prog, ev)
             
