@@ -299,7 +299,7 @@ bool FrustumVolume::intersect(const Pnt3r &point) const
     {
         if((_planeVec[i].getNormal().x() * point.x() +
             _planeVec[i].getNormal().y() * point.y() +
-            _planeVec[i].getNormal().z() * point.z() +
+            _planeVec[i].getNormal().z() * point.z() -
             _planeVec[i].getDistanceFromOrigin()     ) < 0.f) 
         {
             retCode = false;
