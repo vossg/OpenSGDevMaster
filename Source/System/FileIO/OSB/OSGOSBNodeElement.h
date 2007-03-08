@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                   Copyright (C) 2007 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,98 +36,79 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNFIOSCENEFILETYPE_H_
-#define _OSGNFIOSCENEFILETYPE_H_
-#ifdef  __sgi
-#pragma  once
+#ifndef _OSGOSBNODEELEMENT_H_
+#define _OSGOSBNODEELEMENT_H_
+#ifdef __sgi
+#pragma once
 #endif
 
+#include "OSGConfig.h"
 #include "OSGFileIODef.h"
-#include "OSGSceneFileType.h"
+#include "OSGOSBCommonElement.h"
+#include "OSGOSBElementFactoryHelper.h"
+
+#include "OSGFieldContainer.h"
+
+#include <string>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief NFIOSceneFileType
-*/
+class OSBRootElement;
 
-class OSG_FILEIO_DLLMAPPING NFIOSceneFileType : public SceneFileType
+class OSG_FILEIO_DLLMAPPING OSBNodeElement : public OSBCommonElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Static Get                                 */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    static NFIOSceneFileType &the(void);
+    typedef OSBCommonElement Inherited;
+    typedef OSBNodeElement   Self;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructor                                                  */
     /*! \{                                                                 */
 
-    virtual ~NFIOSceneFileType(void);
+    OSBNodeElement(OSBRootElement *root);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Get                                        */
+    /*! \name Destructor                                                   */
     /*! \{                                                                 */
 
-    virtual const Char8 *getName(void) const;
+    virtual ~OSBNodeElement(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
+    /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual NodePtr read(      std::istream &is,
-                         const Char8        *fileNameOrExtension) const;
+    virtual void read    (const std::string &typeName);
+    virtual void postRead(      void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
+    /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    virtual bool write(const NodePtr      &node,
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    static const Char8            *_suffixA[];
-    static       NFIOSceneFileType  _the;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    NFIOSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
-
-    NFIOSceneFileType(const NFIOSceneFileType &obj);
+    virtual void preWrite(const FieldContainerPtr &fc);
+    virtual void write   (      void                 );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
+    /*!\brief prohibit default function (move to 'public' if needed)       */
+    OSBNodeElement(const OSBNodeElement &source);
+    /*!\brief prohibit default function (move to 'public' if needed)       */
+    void operator =(const OSBNodeElement &source);
 
-    typedef SceneFileType Inherited;
+    /*---------------------------------------------------------------------*/
 
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const NFIOSceneFileType &source);
+    static OSBElementRegistrationHelper<OSBNodeElement> _regHelper;
 };
-
-typedef NFIOSceneFileType* NFIOSceneFileTypeP;
 
 OSG_END_NAMESPACE
 
-#endif // _OSGNFIOSCENEFILETYPE_H_
+#endif /* _OSGOSBNODEELEMENT_H_ */

@@ -1,39 +1,39 @@
 /*---------------------------------------------------------------------------*\
- *                                OpenSG                                     * 
- *                                                                           * 
- *                                                                           * 
- *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                * 
- *                                                                           * 
- *                            www.opensg.org                                 * 
- *                                                                           * 
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          * 
- *                                                                           * 
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
- *                                License                                    * 
- *                                                                           * 
- * This library is free software; you can redistribute it and/or modify it   * 
- * under the terms of the GNU Library General Public License as published    * 
- * by the Free Software Foundation, version 2.                               * 
- *                                                                           * 
- * This library is distributed in the hope that it will be useful, but       * 
- * WITHOUT ANY WARRANTY; without even the implied warranty of                * 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         * 
- * Library General Public License for more details.                          * 
- *                                                                           * 
- * You should have received a copy of the GNU Library General Public         * 
- * License along with this library; if not, write to the Free Software       * 
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 * 
- *                                                                           * 
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
- *                                Changes                                    * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 
 #include <OSGConfig.h>
@@ -67,78 +67,82 @@ const Int32 BitPacker::BITS_PER_WORD = 32;
 
 /*----------------------------- constructors  -----------------------------*/
 
-BitPacker::BitPacker(UInt32 size, UInt32 range_max) :
-    _num_bits_to_pack(1),
-    _next_bit_to_write(0)
+BitPacker::BitPacker(UInt32 size, UInt32 max)
+    : _numBitsToPack(1),
+      _nextBit      (0)
 {
     while(true)
     {
-        UInt32 max_value = (UInt32) (1 << _num_bits_to_pack) - 1;
-        if (max_value >= range_max)
+        UInt32 maxValue = (UInt32) (1 << _numBitsToPack) - 1;
+        if (maxValue >= max)
             break;
-    
-        ++_num_bits_to_pack;
+
+        ++_numBitsToPack;
     }
 
     // calc buffer size.
-    UInt32 len_in_bytes = (_num_bits_to_pack * size + 7) / 8;
+    UInt32 lenInBytes = (_numBitsToPack * size + 7) / 8;
 
-    _buffer.resize(len_in_bytes);
-    memset(&_buffer[0], 0, len_in_bytes * sizeof(UInt8));
+    _buffer.resize(lenInBytes);
+    memset(&_buffer[0], 0, lenInBytes * sizeof(UInt8)); // unneccessary ?
 }
 
 void BitPacker::pack(UInt32 value)
 {
-    UInt32 num_bits_to_pack = _num_bits_to_pack;
-    
+    UInt32 numBitsToPack = _numBitsToPack;
+
     // Scoot the value bits up to the top of the word; this makes
     // them easier to work with.
-
-    value <<= (BITS_PER_WORD - num_bits_to_pack);
+    value <<= (BITS_PER_WORD - numBitsToPack);
 
     // First we do the hard part: pack bits into the first u8,
     // which may already have bits in it.
 
-    Int32 byte_index = (_next_bit_to_write / 8);
-    Int32 bit_index = (_next_bit_to_write % 8);
-    Int32 empty_space_this_byte = (8 - bit_index) & 0x7;
+    Int32 byteIndex     = (_nextBit / 8);
+    Int32 bitIndex      = (_nextBit % 8);
+    Int32 spaceCurrByte = (8 - bitIndex) & 0x7;
 
-    // Update next_bit_to_write for the next call; we don't need 
-    // the old value any more.
+    // Update _nextBit for the next call; we don't need
+    // the old value any more
+    _nextBit += numBitsToPack;
 
-    _next_bit_to_write += num_bits_to_pack;
+    UInt8 *dest = &_buffer[0] + byteIndex;
 
-    UInt8 *dest = &_buffer[0] + byte_index;
-
-    if (empty_space_this_byte)
+    if(spaceCurrByte)
     {
-        Int32 to_copy = empty_space_this_byte;
-    
-        if (to_copy > num_bits_to_pack)
+        Int32 toCopy = spaceCurrByte;
+
+        if(toCopy > numBitsToPack)
         {
             // We don't have enough bits to fill up this u8.
-            to_copy = num_bits_to_pack;
+            toCopy = numBitsToPack;
         }
-    
-        UInt32 fill_bits = value >> (BITS_PER_WORD - empty_space_this_byte);
-        *dest |= fill_bits;
-    
-        num_bits_to_pack -= to_copy;
+
+        UInt32 fillBits = value >> (BITS_PER_WORD - spaceCurrByte);
+        *dest |= fillBits;
+
+        numBitsToPack -= toCopy;
         dest++;
-        value <<= to_copy;
+        value <<= toCopy;
     }
 
     // Now we do the fast and easy part for what is hopefully
     // the bulk of the data.
-
-    while (value)
+    while(value)
     {
         *dest++ = value >> (BITS_PER_WORD - 8);
         value <<= 8;
     }
 }
 
-std::vector<UInt8> &BitPacker::getBuffer(void)
+const BitPacker::BufferType &
+BitPacker::getBuffer(void) const
+{
+    return _buffer;
+}
+
+BitPacker::BufferType &
+BitPacker::getBuffer(void)
 {
     return _buffer;
 }
@@ -154,42 +158,41 @@ std::vector<UInt8> &BitPacker::getBuffer(void)
 
 /*----------------------------- constructors  -----------------------------*/
 
-BitUnpacker::BitUnpacker(const std::vector<UInt8> &buffer, UInt32 range_max) :
-    _num_bits_to_unpack(1),
-    _num_bits_remaining(buffer.size() * 8),
-    _next_bit_to_read(0),
-    _buffer(buffer)
+BitUnpacker::BitUnpacker(const std::vector<UInt8> &buffer, UInt32 max) :
+    _numBitsToUnpack (1                ),
+    _numBitsRemaining(buffer.size() * 8),
+    _nextBit         (0                ),
+    _buffer          (buffer           )
 {
     while(true)
     {
-        UInt32 max_value = (UInt32) (1 << _num_bits_to_unpack) - 1;
-        if (max_value >= range_max)
+        UInt32 maxValue = (UInt32) (1 << _numBitsToUnpack) - 1;
+        if (maxValue >= max)
             break;
-    
-        ++_num_bits_to_unpack;
+
+        ++_numBitsToUnpack;
     }
 }
 
 UInt32 BitUnpacker::unpack(void)
 {
-    UInt32 result = 0;
-    UInt32 num_bits_to_unpack = _num_bits_to_unpack;
-    
-    while(num_bits_to_unpack)
+    UInt32 result          = 0;
+    UInt32 numBitsToUnpack = _numBitsToUnpack;
+
+    while(numBitsToUnpack)
     {
-        UInt32 byte_index = (_next_bit_to_read / 8);
-        UInt32 bit_index = (_next_bit_to_read % 8);
-        
-        UInt32 src_mask = (1 << (7 - bit_index));
-        UInt32 dest_mask = (1 << (num_bits_to_unpack - 1));
-    
-        if(_buffer[byte_index] & src_mask)
-            result |= dest_mask;
-        num_bits_to_unpack--;
-        _next_bit_to_read++;
+        UInt32 byteIndex = (_nextBit / 8);
+        UInt32 bitIndex  = (_nextBit % 8);
+        UInt32 srcMask   = (1 << (7 - bitIndex));
+        UInt32 destMask  = (1 << (numBitsToUnpack - 1));
+
+        if(_buffer[byteIndex] & srcMask)
+            result |= destMask;
+        numBitsToUnpack--;
+        _nextBit++;
     }
 
-    _num_bits_remaining -= num_bits_to_unpack;
+    _numBitsRemaining -= numBitsToUnpack;
 
     return result;
 }

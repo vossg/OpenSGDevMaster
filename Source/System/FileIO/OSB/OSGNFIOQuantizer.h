@@ -46,7 +46,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/* \brief Quantizer class.
+/*! \brief Quantizer class.
           quantize reals into 8, 16, or 24 bit integers.
           round then left-reconstruct
 */
@@ -60,15 +60,15 @@ public:
     /*! \name                  Constructor                                 */
     /*! \{                                                                 */
     
-    Quantizer(Real32 input_min, Real32 input_max, UInt8 res);
+    Quantizer(Real32 inputMin, Real32 inputMax, UInt8 res);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Encode/Decode                               */
     /*! \{                                                                 */
 
-    UInt32 encode(Real32 input);
-    Real32 decode(UInt32 encoded_value);
+    UInt32 encode(Real32 input       );
+    Real32 decode(UInt32 encodedValue);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -85,13 +85,13 @@ public:
 
 private:
     
-    Real32 normalize_input(Real32 input, Real32 input_min,
-                           Real32 input_scale);
+    Real32 normalizeInput(Real32 input, Real32 inputMin, Real32 inputScale);
 
-    Real32 _input_min, _input_max;
+    Real32 _inputMin;
+    Real32 _inputMax;
     UInt32 _resolution;
-    Real32 _interval_size;
-    Real32 _input_scale;
+    Real32 _intervalSize;
+    Real32 _inputScale;
 };
 
 OSG_END_NAMESPACE

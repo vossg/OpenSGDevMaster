@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                   Copyright (C) 2007 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,98 +36,112 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNFIOSCENEFILETYPE_H_
-#define _OSGNFIOSCENEFILETYPE_H_
-#ifdef  __sgi
-#pragma  once
+#ifndef _OSGOSBGEOMETRYELEMENT_H_
+#define _OSGOSBGEOMETRYELEMENT_H_
+#ifdef __sgi
+#pragma once
 #endif
 
+#include "OSGConfig.h"
 #include "OSGFileIODef.h"
-#include "OSGSceneFileType.h"
+#include "OSGGeoIntegralProperty.h"
+
+#include "OSGOSBCommonElement.h"
+#include "OSGOSBElementFactoryHelper.h"
+
+#include <vector>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief NFIOSceneFileType
-*/
-
-class OSG_FILEIO_DLLMAPPING NFIOSceneFileType : public SceneFileType
+class OSG_FILEIO_DLLMAPPING OSBGeometryElement : public OSBCommonElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Static Get                                 */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    static NFIOSceneFileType &the(void);
+    typedef OSBCommonElement   Inherited;
+    typedef OSBGeometryElement Self;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constants                                                    */
     /*! \{                                                                 */
 
-    virtual ~NFIOSceneFileType(void);
+    static const UInt16 MapPosition;
+    static const UInt16 MapNormal;
+    static const UInt16 MapColor;
+    static const UInt16 MapSecondaryColor;
+    static const UInt16 MapTexCoords;
+    static const UInt16 MapTexCoords1;
+    static const UInt16 MapTexCoords2;
+    static const UInt16 MapTexCoords3;
+    static const UInt16 MapTexCoords4;
+    static const UInt16 MapTexCoords5;
+    static const UInt16 MapTexCoords6;
+    static const UInt16 MapTexCoords7;
+    static const UInt16 MapEmpty;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Get                                        */
+    /*! \name Constructor                                                  */
     /*! \{                                                                 */
 
-    virtual const Char8 *getName(void) const;
+    OSBGeometryElement(OSBRootElement *root);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
+    /*! \name Destructor                                                   */
     /*! \{                                                                 */
 
-    virtual NodePtr read(      std::istream &is,
-                         const Char8        *fileNameOrExtension) const;
+    virtual ~OSBGeometryElement(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
+    /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual bool write(const NodePtr      &node,
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    static const Char8            *_suffixA[];
-    static       NFIOSceneFileType  _the;
+    virtual void read    (const std::string &typeName);
+    virtual void postRead(      void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    NFIOSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
-
-    NFIOSceneFileType(const NFIOSceneFileType &obj);
+    virtual void preWrite(const FieldContainerPtr &fc);
+    virtual void write   (      void                 );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
+    /*!\brief prohibit default function (move to 'public' if needed)       */
+    OSBGeometryElement(const OSBGeometryElement &source);
+    /*!\brief prohibit default function (move to 'public' if needed)       */
+    void operator =(const OSBGeometryElement &source);
 
-    typedef SceneFileType Inherited;
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading Helper Functions                                     */
+    /*! \{                                                                 */
 
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const NFIOSceneFileType &source);
+    void readV100    (void);
+    void postReadV100(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    static OSBElementRegistrationHelper<OSBGeometryElement> _regHelper;
+
+    std::vector<UInt16>    _indexMapping;
+    UInt32                 _indicesId;
+    GeoIntegralPropertyPtr _indices;
+    bool                   _indices16Bit;
+    bool                   _indicesPacked;
+
+    UInt16                 _version;
 };
-
-typedef NFIOSceneFileType* NFIOSceneFileTypeP;
 
 OSG_END_NAMESPACE
 
-#endif // _OSGNFIOSCENEFILETYPE_H_
+#endif /* _OSGOSBGEOMETRYELEMENT_H_ */

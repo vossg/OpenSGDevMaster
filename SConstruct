@@ -456,6 +456,9 @@ feature_options["enable_osg1_compat"] = sca_opts.BoolOption(
 feature_options["enable_deprecated_props"] = sca_opts.BoolOption(
     "enable_deprecated_props", "Enable deprecated property types.", False)
 
+feature_options["enable_new_osb_io"] = sca_opts.BoolOption(
+    "enable_new_osb_io", "Enable the new OSB IO facilities.", False)
+
 feature_options["enable_scanparse_regen"] = sca_opts.BoolOption(
     "enable_scanparse_regen", "Enable regenerating the scanner/parser files using flex and bison", False);
 
@@ -652,6 +655,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_MT_CPTR_ASPECT"       : ("MT_CPTR" == common_env["fcptr_mode"]),
                 "OSG_1_COMPAT"             : common_env["enable_osg1_compat"],
                 "OSG_DEPRECATED_PROPS"     : common_env["enable_deprecated_props"],
+                "OSG_NEW_OSB_IO"           : common_env["enable_new_osb_io"],
                 "OSG_ICC_GNU_COMPAT"       : common_env["icc_gnu_compat"],
                 
                 "OSG_WITH_JPG"       : image_format_options["jpeg"].isAvailable(),

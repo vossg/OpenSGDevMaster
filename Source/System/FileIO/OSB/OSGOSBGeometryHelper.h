@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                   Copyright (C) 2007 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,98 +36,81 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNFIOSCENEFILETYPE_H_
-#define _OSGNFIOSCENEFILETYPE_H_
-#ifdef  __sgi
-#pragma  once
+#ifndef _OSGOSBGEOMETRYHELPER_H_
+#define _OSGOSBGEOMETRYHELPER_H_
+#ifdef __sgi
+#pragma once
 #endif
 
+#include "OSGConfig.h"
 #include "OSGFileIODef.h"
-#include "OSGSceneFileType.h"
+
+#include "OSGOSBElementBase.h"
+#include "OSGGeometry.h"
+
+#include <vector>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief NFIOSceneFileType
-*/
-
-class OSG_FILEIO_DLLMAPPING NFIOSceneFileType : public SceneFileType
+class OSG_FILEIO_DLLMAPPING OSBGeometryHelper
 {
     /*==========================  PUBLIC  =================================*/
   public:
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Static Get                                 */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    static NFIOSceneFileType &the(void);
+    typedef OSBElementBase::BinaryReadHandler  BinaryReadHandler;
+    typedef OSBElementBase::BinaryWriteHandler BinaryWriteHandler;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Reading Helper Functions                                     */
     /*! \{                                                                 */
 
-    virtual ~NFIOSceneFileType(void);
+    void readPackedIntegralPropertyHeader(BinaryReadHandler *rh,
+                                          UInt32            &maxValue,
+                                          UInt32            &propSize,
+                                          UInt32            &byteSize  );
+
+    template <class GeoPropPtrTypeT>
+    void readPackedIntegralProperty   (      BinaryReadHandler *rh,
+                                       const GeoPropPtrTypeT   &prop,
+                                       const UInt32             maxValue,
+                                       const UInt32             propSize,
+                                       const UInt32             byteSize );
+
+    void readQuantizedVectorPropertyHeader(BinaryReadHandler *rh,
+                                           UInt8             &resolution,
+                                           Real32            &minValue,
+                                           Real32            &maxValue,
+                                           UInt32            &propSize   );
+
+    template <class GeoPropPtrTypeT>
+    void readQuantizedVectorProperty(      BinaryReadHandler *rh,
+                                     const GeoPropPtrTypeT   &prop,
+                                     const UInt32             fieldSize,
+                                     const UInt8              resolution,
+                                     const Real32             minValue,
+                                     const Real32             maxValue,
+                                     const UInt32             propSize   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Get                                        */
+    /*! \name Conversion Helper Functions                                  */
     /*! \{                                                                 */
 
-    virtual const Char8 *getName(void) const;
+    template <class OutIndexPtrTypeT, class InIndexPtrTypeT>
+    void splitMultiIndex(const std::vector<UInt16>           &indexMapping,
+                         const InIndexPtrTypeT               &inIndex,
+                         const GeometryPtr                   &geo          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
-    /*! \{                                                                 */
-
-    virtual NodePtr read(      std::istream &is,
-                         const Char8        *fileNameOrExtension) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
-    /*! \{                                                                 */
-
-    virtual bool write(const NodePtr      &node,
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    static const Char8            *_suffixA[];
-    static       NFIOSceneFileType  _the;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    NFIOSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
-
-    NFIOSceneFileType(const NFIOSceneFileType &obj);
-
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-  private:
-
-    typedef SceneFileType Inherited;
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const NFIOSceneFileType &source);
 };
-
-typedef NFIOSceneFileType* NFIOSceneFileTypeP;
 
 OSG_END_NAMESPACE
 
-#endif // _OSGNFIOSCENEFILETYPE_H_
+#include "OSGOSBGeometryHelper.inl"
+
+#endif /* _OSGOSBGEOMETRYHELPER_H_ */

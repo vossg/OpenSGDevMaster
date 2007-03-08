@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                   Copyright (C) 2006 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,98 +36,138 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNFIOSCENEFILETYPE_H_
-#define _OSGNFIOSCENEFILETYPE_H_
-#ifdef  __sgi
-#pragma  once
+#ifndef _OSGOSBELEMENTFACTORY_H_
+#define _OSGOSBELEMENTFACTORY_H_
+#ifdef __sgi
+#pragma once
 #endif
 
+#include "OSGConfig.h"
 #include "OSGFileIODef.h"
-#include "OSGSceneFileType.h"
+#include "OSGSingletonHolder.h"
+
+#include <map>
+#include <string>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief NFIOSceneFileType
-*/
+class OSBElementBase;
+class OSBRootElement;
 
-class OSG_FILEIO_DLLMAPPING NFIOSceneFileType : public SceneFileType
+struct OSBElementCreatorBase
+{
+    /*---------------------------------------------------------------------*/
+    /*! \name Destructor                                                   */
+    /*! \{                                                                 */
+
+    virtual ~OSBElementCreatorBase(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create/Destroy                                               */
+    /*! \{                                                                 */
+
+    virtual OSBElementBase *create(OSBRootElement *root) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+};
+
+template <class ElementTypeT>
+struct OSBElementCreator : public OSBElementCreatorBase
+{
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef ElementTypeT ElementType;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Destructor                                                   */
+    /*! \{                                                                 */
+
+    virtual ~OSBElementCreator(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create/Destroy                                               */
+    /*! \{                                                                 */
+
+    virtual OSBElementBase *create(OSBRootElement *root);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+};
+
+class OSG_FILEIO_DLLMAPPING OSBElementFactorySingleton
 {
     /*==========================  PUBLIC  =================================*/
   public:
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Static Get                                 */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    static NFIOSceneFileType &the(void);
+    typedef std::map<std::string, OSBElementCreatorBase *> RegistryMap;
+    typedef RegistryMap::iterator                          RegistryMapIt;
+    typedef RegistryMap::const_iterator                    RegistryMapConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Registration                                                 */
     /*! \{                                                                 */
 
-    virtual ~NFIOSceneFileType(void);
+    bool registerElement  (const std::string            &typeName,
+                                 OSBElementCreatorBase *creator  );
+    bool unregisterElement(const std::string &typeName            );
+
+    bool registerDefault  (      OSBElementCreatorBase *creator  );
+    bool unregisterDefault(      void                             );
+
+    const RegistryMap &getRegistryMap (void) const;
+          RegistryMap &editRegistryMap(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Get                                        */
+    /*! \name Acquire/Release                                              */
     /*! \{                                                                 */
 
-    virtual const Char8 *getName(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
-    /*! \{                                                                 */
-
-    virtual NodePtr read(      std::istream &is,
-                         const Char8        *fileNameOrExtension) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
-    /*! \{                                                                 */
-
-    virtual bool write(const NodePtr      &node,
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    static const Char8            *_suffixA[];
-    static       NFIOSceneFileType  _the;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    NFIOSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
-
-    NFIOSceneFileType(const NFIOSceneFileType &obj);
+    inline OSBElementBase *acquire(const std::string     &typeName,
+                                         OSBRootElement *root     );
+    inline void            release(      OSBElementBase *element  );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
 
-    typedef SceneFileType Inherited;
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructor                                                  */
+    /*! \{                                                                 */
 
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const NFIOSceneFileType &source);
+    OSBElementFactorySingleton(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Destructor                                                   */
+    /*! \{                                                                 */
+
+    ~OSBElementFactorySingleton(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    template <class SingletonT>
+    friend class SingletonHolder;
+
+    RegistryMap             _registry;
+    OSBElementCreatorBase *_defaultCreator;
 };
 
-typedef NFIOSceneFileType* NFIOSceneFileTypeP;
+typedef SingletonHolder<OSBElementFactorySingleton> OSBElementFactory;
 
 OSG_END_NAMESPACE
 
-#endif // _OSGNFIOSCENEFILETYPE_H_
+#include "OSGOSBElementFactory.inl"
+
+#endif /* _OSGOSBELEMENTFACTORY_H_ */

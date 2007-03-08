@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                   Copyright (C) 2007 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,98 +36,75 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNFIOSCENEFILETYPE_H_
-#define _OSGNFIOSCENEFILETYPE_H_
-#ifdef  __sgi
-#pragma  once
+#ifndef _OSGOSBGEOPROPERTYCONVERSIONELEMENT_H_
+#define _OSGOSBGEOPROPERTYCONVERSIONELEMENT_H_
+#ifdef __sgi
+#pragma once
 #endif
 
+#include "OSGConfig.h"
 #include "OSGFileIODef.h"
-#include "OSGSceneFileType.h"
+
+#include "OSGOSBCommonElement.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief NFIOSceneFileType
-*/
+class OSBRootElement;
 
-class OSG_FILEIO_DLLMAPPING NFIOSceneFileType : public SceneFileType
+template <class GeoPropertyTypeT>
+class OSG_FILEIO_DLLMAPPING OSBGeoPropertyConversionElement
+    : public OSBCommonElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Static Get                                 */
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    static NFIOSceneFileType &the(void);
+    typedef          GeoPropertyTypeT                  GeoPropertyType;
+    typedef typename GeoPropertyType::ObjPtr           GeoPropertyPtrType;
+    typedef typename GeoPropertyType::StoredFieldType  GeoPropertyFieldType;
+
+    typedef OSBGeoPropertyConversionElement<GeoPropertyType> Self;
+    typedef OSBCommonElement                                 Inherited;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructor                                                  */
     /*! \{                                                                 */
 
-    virtual ~NFIOSceneFileType(void);
+    OSBGeoPropertyConversionElement(OSBRootElement *root);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Get                                        */
+    /*! \name Destructor                                                   */
     /*! \{                                                                 */
 
-    virtual const Char8 *getName(void) const;
+    virtual ~OSBGeoPropertyConversionElement(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Read                                       */
+    /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual NodePtr read(      std::istream &is,
-                         const Char8        *fileNameOrExtension) const;
+    virtual void read    (const std::string &typeName);
+    virtual void postRead(      void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
+    /*! \name Writing                                                      */
     /*! \{                                                                 */
 
-    virtual bool write(const NodePtr      &node,
-                             std::ostream &os,
-                       const Char8        *fileNameOrExtension) const;
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    static const Char8            *_suffixA[];
-    static       NFIOSceneFileType  _the;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    NFIOSceneFileType(const Char8  *suffixArray[],
-                           UInt16  suffixByteCount,
-                           bool    override,
-                           UInt32  overridePriority,
-                           UInt32  flags);
-
-    NFIOSceneFileType(const NFIOSceneFileType &obj);
+    virtual void preWrite(const FieldContainerPtr &fc);
+    virtual void write   (      void                 );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
-
-    typedef SceneFileType Inherited;
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const NFIOSceneFileType &source);
 };
-
-typedef NFIOSceneFileType* NFIOSceneFileTypeP;
 
 OSG_END_NAMESPACE
 
-#endif // _OSGNFIOSCENEFILETYPE_H_
+#include "OSGOSBGeoPropertyConversionElement.inl"
+
+#endif /* _OSGOSBGEOPROPERTYCONVERSIONELEMENT_H_ */

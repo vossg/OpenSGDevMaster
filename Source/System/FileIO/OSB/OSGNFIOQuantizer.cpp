@@ -54,8 +54,8 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-const UInt8 Quantizer::QRES_OFF = 0;
-const UInt8 Quantizer::QRES_8BIT = 1;
+const UInt8 Quantizer::QRES_OFF   = 0;
+const UInt8 Quantizer::QRES_8BIT  = 1;
 const UInt8 Quantizer::QRES_16BIT = 2;
 const UInt8 Quantizer::QRES_24BIT = 3;
 
@@ -70,10 +70,10 @@ const UInt8 Quantizer::QRES_24BIT = 3;
 
 /*----------------------------- constructors  -----------------------------*/
 
-Quantizer::Quantizer(Real32 input_min, Real32 input_max, UInt8 res)
+Quantizer::Quantizer(Real32 inputMin, Real32 inputMax, UInt8 res)
 {
-    _input_min = input_min;
-    _input_max = input_max;
+    _inputMin = inputMin;
+    _inputMax = inputMax;
 
     switch(res)
     {
@@ -90,12 +90,12 @@ Quantizer::Quantizer(Real32 input_min, Real32 input_max, UInt8 res)
 
 #if 1
     // RL
-    _input_scale = 1.0f / (_input_max - _input_min);
-    _interval_size = 1.0f / (Real32)(_resolution - 1);
+    _inputScale   = 1.0f / (_inputMax - _inputMin);
+    _intervalSize = 1.0f / (Real32)(_resolution - 1);
 #else
     // TC
-    _input_scale = 1.0f / (_input_max - _input_min);
-    _interval_size = 1.0f / (Real32)(_resolution);
+    _inputScale   = 1.0f / (_inputMax - _inputMin);
+    _intervalSize = 1.0f / (Real32)(_resolution);
 #endif
 }
 
@@ -103,36 +103,36 @@ UInt32 Quantizer::encode(Real32 input)
 {
 #if 1
     // RL
-    Real32 normalized = normalize_input(input, _input_min, _input_scale);
-    UInt32 result = (UInt32)((normalized * (_resolution - 1)) + 0.5f);
+    Real32 normalized = normalizeInput(input, _inputMin, _inputScale);
+    UInt32 result     = static_cast<UInt32>((normalized * (_resolution - 1)) + 0.5f);
     if(result > _resolution - 1)
         result = _resolution - 1;
 #else
     // TC
-    Real32 normalized = normalize_input(input, _input_min, _input_scale);
-    int result = (UInt32)(normalized * _resolution);
+    Real32 normalized = normalizeInput(input, _inputMin, _inputScale);
+    UInt32 result     = static_cast<UInt32>(normalized * _resolution);
     if (result > _resolution - 1)
         result = _resolution - 1;
 #endif
     return result;
 }
 
-Real32 Quantizer::decode(UInt32 encoded)
+Real32 Quantizer::decode(UInt32 encodedValue)
 {
 #if 1
     // RL
-    Real32 normalized = encoded * _interval_size;
-    return normalized * (_input_max - _input_min) + _input_min;
+    Real32 normalized = encodedValue * _intervalSize;
+    return normalized * (_inputMax - _inputMin) + _inputMin;
 #else
     // TC
-    Real32 normalized = (encoded + 0.5f) * _interval_size;
-    return normalized * (_input_max - _input_min) + _input_min;
+    Real32 normalized = (encodedValue + 0.5f) * _intervalSize;
+    return normalized * (_inputMax - _inputMin) + _inputMin;
 #endif
 }
 
-Real32 Quantizer::normalize_input(Real32 input, Real32 input_min, Real32 input_scale)
+Real32 Quantizer::normalizeInput(Real32 input, Real32 inputMin, Real32 inputScale)
 {
-    Real32 normalized = (input - input_min) * input_scale;
+    Real32 normalized = (input - inputMin) * inputScale;
     if (normalized < 0)
         normalized = 0;
 

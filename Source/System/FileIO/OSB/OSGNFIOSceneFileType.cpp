@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *           Copyright (C) 2000-2002,2007 by the OpenSG Forum                *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -51,7 +51,12 @@
 #include <OSGSimpleMaterial.h>
 
 #include "OSGNFIOSceneFileType.h"
+
+#ifdef OSG_NEW_OSB_IO
+#include "OSGOSBDriver.h"
+#else
 #include "OSGNFIOBase.h"
+#endif
 
 OSG_USING_NAMESPACE
 
@@ -68,7 +73,7 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                            static get                                   */
 
-/*! get instance
+/*! Returns the singleton instance.
  */
 NFIOSceneFileType &NFIOSceneFileType::the(void)
 {
@@ -78,11 +83,10 @@ NFIOSceneFileType &NFIOSceneFileType::the(void)
 /*-------------------------------------------------------------------------*/
 /*                            destructor                                   */
 
-/*! destructor
+/*! Destructor, does nothing.
  */
 NFIOSceneFileType::~NFIOSceneFileType(void)
 {
-    return;
 }
 
 #ifdef __sgi
@@ -92,12 +96,16 @@ NFIOSceneFileType::~NFIOSceneFileType(void)
 /*-------------------------------------------------------------------------*/
 /*                            read                                         */
 
-/*! read file stream.
- * \see OSG::NFIOBase
+/*! Read from the given input stream.
+    \see OSG::NFIODriver
  */
 NodePtr NFIOSceneFileType::read(std::istream &is, const Char8 *) const
 {
+#ifdef OSG_NEW_OSB_IO
+    return OSBDriver::read(is, _options);
+#else
     return NFIOBase::read(is, _options);
+#endif
 }
 
 #ifdef __sgi
@@ -107,39 +115,48 @@ NodePtr NFIOSceneFileType::read(std::istream &is, const Char8 *) const
 /*-------------------------------------------------------------------------*/
 /*                            write                                        */
 
-/*! write node and its subtree to the given file stream.
- * \see OSG::NFIOBase
+/*! Writes the given \a node and its subtree to the given output stream.
+    \see OSG::NFIOBase
+
+    \param[in] node Root of the subtree to write.
+    \param[in] os Output stream to write to.
+    \return True if the operation succeeded, false otherwise.
  */
-bool NFIOSceneFileType::write(const NodePtr &node,
-                             std::ostream &os, const Char8 *) const
+bool NFIOSceneFileType::write(const NodePtr      &node,
+                                    std::ostream &os,
+                              const Char8        *     ) const
 {
+#ifdef OSG_NEW_OSB_IO
+    return OSBDriver::write(node, os, _options);
+#else
     return NFIOBase::write(node, os, _options);
+#endif
 }
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-/*! constructor
- * \see SceneFileType::SceneFileType
+/*! Constructor.
+    \see SceneFileType::SceneFileType
  */
-NFIOSceneFileType::NFIOSceneFileType(const Char8 *suffixArray[],
-                                     UInt16 suffixByteCount, bool override,
-                                     UInt32 overridePriority,
-                                     UInt32 flags) :
-        SceneFileType(suffixArray, suffixByteCount, override,
-                      overridePriority, flags)
+NFIOSceneFileType::NFIOSceneFileType(const Char8  *suffixArray[],
+                                           UInt16  suffixByteCount,
+                                           bool    override,
+                                           UInt32  overridePriority,
+                                           UInt32  flags            )
+    : SceneFileType(suffixArray, suffixByteCount, override,
+                    overridePriority, flags)
 {
 }
 
-/*! copy constructor
+/*! Copy constructor.
  */
 NFIOSceneFileType::NFIOSceneFileType(const NFIOSceneFileType &obj) :
     SceneFileType(obj)
 {
-    return;
 }
 
-/*! get name
+/*! Returns a descriptive name for the type of files read.
  */
 const Char8 *NFIOSceneFileType::getName(void) const
 {
@@ -149,24 +166,8 @@ const Char8 *NFIOSceneFileType::getName(void) const
 /*-------------------------------------------------------------------------*/
 /*                              static elements                            */
 
-const Char8 *    NFIOSceneFileType::_suffixA[] = { "osb" };
-NFIOSceneFileType NFIOSceneFileType:: _the(_suffixA,
+const Char8 *     NFIOSceneFileType::_suffixA[] = { "osb" };
+NFIOSceneFileType NFIOSceneFileType::_the(_suffixA,
                                          sizeof(_suffixA), false, 10,
                                          OSG_READ_SUPPORTED |
                                          OSG_WRITE_SUPPORTED);
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-#ifdef OSG_LINUX_ICC
-#pragma warning(disable : 177)
-#endif
-
-namespace
-{
-    static Char8    cvsid_cpp[] = "@(#)$Id$";
-    static Char8    cvsid_hpp[] = OSGBINSCENEFILETYPE_HEADER_CVSID;
-}

@@ -1,39 +1,39 @@
 /*---------------------------------------------------------------------------*\
- *                                OpenSG                                     * 
- *                                                                           * 
- *                                                                           * 
- *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                * 
- *                                                                           * 
- *                            www.opensg.org                                 * 
- *                                                                           * 
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          * 
- *                                                                           * 
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
- *                                License                                    * 
- *                                                                           * 
- * This library is free software; you can redistribute it and/or modify it   * 
- * under the terms of the GNU Library General Public License as published    * 
- * by the Free Software Foundation, version 2.                               * 
- *                                                                           * 
- * This library is distributed in the hope that it will be useful, but       * 
- * WITHOUT ANY WARRANTY; without even the implied warranty of                * 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         * 
- * Library General Public License for more details.                          * 
- *                                                                           * 
- * You should have received a copy of the GNU Library General Public         * 
- * License along with this library; if not, write to the Free Software       * 
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 * 
- *                                                                           * 
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
- *                                Changes                                    * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
- *                                                                           * 
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
 \*---------------------------------------------------------------------------*/
 
 #ifndef _OSGNFIOBITPACKER_H_
@@ -48,7 +48,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/* \brief BitPacker class.
+/*! \brief BitPacker class.
           packs and unpacks UInt32
 */
 
@@ -56,29 +56,37 @@ class BitPacker
 {
     /*==========================  PUBLIC  =================================*/
 public:
-    
     /*---------------------------------------------------------------------*/
-    /*! \name                  Constructor                                 */
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef std::vector<UInt8> BufferType;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructor                                                  */
     /*! \{                                                                 */
 
     BitPacker(UInt32 size, UInt32 max);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Pack/get                                  */
+    /*! \name Pack/get                                                     */
     /*! \{                                                                 */
 
     void pack(UInt32 value);
-    std::vector<UInt8> &getBuffer(void);
 
-    /*! \}                                                                 */ 
+    const BufferType &getBuffer(void) const;
+          BufferType &getBuffer(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
 private:
 
-    UInt32 _num_bits_to_pack;
-    Int32 _next_bit_to_write;
-    std::vector<UInt8> _buffer;
+    UInt32     _numBitsToPack;
+    Int32      _nextBit;
+    BufferType _buffer;
 
     static const Int32 BITS_PER_WORD;
 };
@@ -86,31 +94,36 @@ private:
 class BitUnpacker
 {
     /*==========================  PUBLIC  =================================*/
-public:
-    
-/*---------------------------------------------------------------------*/
-    /*! \name                  Constructor                                 */
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    BitUnpacker(const std::vector<UInt8> &buffer, UInt32 range_max);
+    typedef std::vector<UInt8> BufferType;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Unpack                                    */
+    /*! \name Constructor                                                  */
+    /*! \{                                                                 */
+
+    BitUnpacker(const BufferType &buffer, UInt32 max);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Unpack                                                       */
     /*! \{                                                                 */
 
     UInt32 unpack(void);
 
-    /*! \}                                                                 */ 
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
 private:
-    
-    UInt32 _num_bits_to_unpack;
-    Int32 _num_bits_remaining;
-    Int32 _next_bit_to_read;
+    UInt32            _numBitsToUnpack;
+    Int32             _numBitsRemaining;
+    Int32             _nextBit;
 
-    const std::vector<UInt8> &_buffer;
+    const BufferType &_buffer;
 };
 
 OSG_END_NAMESPACE
