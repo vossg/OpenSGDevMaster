@@ -115,7 +115,7 @@ TEST(checkMemoryCleanup)
 {
    // Check to make sure the memory is cleaned up correctly with an FCPtr
    OSG::NodeRefPtr  node(OSG::Node::create());
-   OSG::UInt32   node_id   = node.get().getId();
+   OSG::UInt32   node_id   = OSG::getContainerId(node.get());
    OSG::Int32    ref_count = node.get().getRefCount();
    OSG::commitChanges();
    CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) != OSG::NullFC);
