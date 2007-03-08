@@ -40,6 +40,7 @@
 #include <OpenSG/OSGNode.h>
 #include <OpenSG/OSGNodeCore.h>
 
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -108,6 +109,21 @@ TEST(appendTypesString)
     CHECK_EQUAL(types.size(), 1);
     CHECK(OSG::osgStringCmp(types[0]->getCName(),
                             OSG::Node::getClassType().getCName()) == 0);
+}
+
+TEST(checkMemoryCleanup)
+{
+   // Check to make sure the memory is cleaned up correctly with an FCPtr
+   OSG::NodeRefPtr  node(OSG::Node::create());
+   OSG::UInt32   node_id   = node.get().getId();
+   OSG::Int32    ref_count = node.get().getRefCount();
+   OSG::commitChanges();
+   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) != OSG::NullFC);
+
+   // Now release the ref and check that it was collected
+   node = OSG::NullFC;
+   OSG::commitChanges();
+   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == OSG::NullFC);
 }
 
 } // SUITE
