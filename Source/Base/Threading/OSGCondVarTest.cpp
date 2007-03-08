@@ -44,7 +44,7 @@
 #include <OpenSG/OSGCondVar.h>
 #include <OpenSG/OSGLock.h>
 #include <OpenSG/OSGLog.h>
-#include <OpenSG/OSGThread.h>
+#include <OpenSG/OSGBaseThread.h>
 
 OSG_USING_NAMESPACE
 
@@ -69,7 +69,7 @@ struct condition_test_data
 #ifdef OSG_CONDVAR_DEBUG
 #  define OUTPUT_BEGIN(data)                    \
       (data)->mOutputLock->acquire();           \
-      PWARNING << OSG::Thread::getCurrent()->getCName()
+      PWARNING << OSG::BaseThread::getCurrent()->getCName()
 #  define OUTPUT_END(data)                      \
       std::endl;                                \
       (data)->mOutputLock->release();
@@ -132,8 +132,8 @@ TEST(TestSignal)
 {
    condition_test_data data;
 
-   OSG::Thread* thread = OSG::Thread::get(NULL);
-   thread->runFunction(&condition_test_thread, OSG::Thread::getCurrentAspect(), &data);
+   OSG::BaseThread* thread = OSG::BaseThread::get(NULL);
+   thread->runFunction(&condition_test_thread, &data);
    OSG::osgSleep(250);
    {
 #ifdef OSG_CONDVAR_DEBUG
@@ -169,13 +169,13 @@ TEST(TestSignal)
 TEST(TestBroadcast)
 {
    const int NUMTHREADS = 5;
-   std::vector<OSG::Thread*> threads;
+   std::vector<OSG::BaseThread*> threads;
    condition_test_data data;
 
    for (int i = 0; i < NUMTHREADS; ++i)
    {
-      OSG::Thread* thread = OSG::Thread::get(NULL);
-      thread->runFunction(&condition_test_thread, OSG::Thread::getCurrentAspect(), &data);
+      OSG::BaseThread* thread = OSG::BaseThread::get(NULL);
+      thread->runFunction(&condition_test_thread, &data);
       threads.push_back(thread);
    }
 
