@@ -59,8 +59,7 @@ OSG_BEGIN_NAMESPACE
 class StatElem;
 class StatElemDescBase;
 
-/*! \brief Manager for Stat elements, see \ref PageSystemStatistics for
-    details.
+/*! \brief Manager for Stat elements, see \guide(Statistics) for details.
 */
 class OSG_SYSTEM_DLLMAPPING StatCollector
 {

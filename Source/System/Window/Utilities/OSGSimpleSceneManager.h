@@ -47,7 +47,7 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGWindow.h"
-       
+
 #include "OSGDrawActionBase.h"
 #include "OSGRenderAction.h"
 #ifdef OSG_CLEANED_RENDERACTION
@@ -81,16 +81,16 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     /*! \name                      Enums                                   */
     /*! \{                                                                 */
 
-    enum 
-    {  
+    enum
+    {
         MouseLeft   =  0,
-        MouseMiddle =  1, 
+        MouseMiddle =  1,
         MouseRight  =  2,
         MouseUp     =  3,
         MouseDown   =  4,
         NoButton    = -1
     };
-         
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -147,7 +147,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     virtual void  showAll          (void                    );
 
     virtual void  useOpenSGLogo    (void                    );
-    
+
             void  setNavigationMode(Navigator::Mode new_mode);
     inline  bool  setClickCenter   (bool            mode    );
 
@@ -213,14 +213,15 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     NodePtr                      _highlightNode;
     //GeoPositions3fPtr            _highlightPoints;
     GeoPnt3fPropertyPtr          _highlightPoints;
-     
+
     NodePtr                      _internalRoot;
     DirectionalLightPtr          _headlight;
-    RenderAction *               _action;
+    RenderAction *               _renderAction;   /**< The RenderAction to use if using RenderActions. */
     RenderAction *               _ownAction;
 
 #ifdef OSG_CLEANED_RENDERACTION
-    RenderTraversalAction *      _taction;
+    /** The RenderTraversalAction to use if using render traversals. */
+    RenderTraversalAction *      _rtaction;
 #endif
 
     TransformPtr                 _cart;
@@ -235,11 +236,11 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     bool                         _traversalAction;
 
     static  SimpleMaterialPtr    _highlightMaterial;
- 
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
-   
+
     /* prohibit default function (move to 'public' if needed) */
 
     SimpleSceneManager(const SimpleSceneManager &source);
