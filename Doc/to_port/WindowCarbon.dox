@@ -1,0 +1,42 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpWindowCarbon OpenSG MacOS X Carbon Window System Library
+    \ingroup GrpWindowSystems
+    
+    \brief The library for MacOS X Carbon windows.
+
+    See \ref PageWindowCarbon for details.
+*/
+
+/*! \defgroup GrpWindowCarbonField Fields
+    \ingroup GrpWindowCarbon
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpWindowCarbonFieldTraits Field Data Traits
+    \ingroup GrpWindowCarbonField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpWindowCarbonFieldSingle Single-Element Fields
+    \ingroup GrpWindowCarbonField
+
+    ToDo
+*/
+
+/*! \defgroup GrpWindowCarbonFieldMulti Multi-Element Fields
+    \ingroup GrpWindowCarbonField
+
+    ToDo
+*/
+
+/*! \page PageWindowCarbon MacOS X Carbon Window System Library
+
+    ToDo
+*/

@@ -1,0 +1,263 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \page PageBaseConnection Connection
+
+\section BaseConnectionOverview Overview
+
+Connections are used to provide an abstract kommunikation layer for the
+communication in a cluster system. The abstract framework provides functions
+for architecture independen encoding, unicasting, multicast and
+synchronisation. A concrete hardware is choosen by creating concrete 
+instances of connections through a connection factory. New hardware can be
+integrated by adding new connection types to the factory. Currentliy there is
+support for the following ethernet communication models.
+
+* Ethernet Multicast
+* Stream Sockets
+* pipelined Stream Sockets
+
+If somebody has access to infiniband or myrinet, it would be great to have
+support for this networks.
+
+In a cluster system often a huge amount of data has to be sent to a lot of
+receivers. For example in OpenSG the change list has to be sent to all
+rendering nodes in each frame. As there is a wide variety to do this best 
+with different networks, there is a special connection type that encapsulates
+multipoint and single point connections.
+
+Communication is the most critical point in clustering. This the 
+communication overhead has to be as small as possible. Because of this we do
+no special encoding to guarantee that a receiver gets the data it expects.
+For example if a sender sends Real32 values and a receiver reads Int32 
+values, this will not be detected by any mechanism of the communication
+framework. So if you send data over a connection, the receiver must exactly
+know how many data it has to read and in wich type the data is encoded. This
+makes debugging of communications sometimes very difficult but the advantage
+is that the available bandwidth is fully available for the data transfer.
+
+There are two types of connections. A PointConnection is used to send and
+receive with one communication endpoint. A GroupConnection is used to send 
+and receive from one or more communication endpoints. GroupConnections can be
+used to multicast data simultaniously to many destinations. It is possible to
+communicate between two PointConnections and between a GroupConnection and
+many PointConnections.
+
+\section BaseConnectionCreate Creating connections
+
+A connection is created by the ConnectionFactory or by instanciating 
+concrete connection types. If the factory is used, then the type of 
+connection can be configured at runtime. Connections can be destroied 
+with the delete command.
+
+\code
+GroupConnection *group = ConnectionFactory::the().createGroup("Multicast");
+PointConnection *point = ConnectionFactory::the().createPoint("Multicast");
+PointConnection *group = new GroupSockConnection();
+PointConnection *point = new PointSockConnection();
+\endcode
+
+\section BaseConnectionConnect Connecting
+
+A connection is established with the connectPoint and connectGroup
+method. This methos has two parameters. First is the address that identifies
+the destination. The syntax of the addresse depends on the type of a 
+connection. Multicast, StreamSock and SockPipeline are using the format
+host::port.
+
+Connecting two PointConnections:
+\code
+// Host 1
+Connection::Channel c = point.connectPoint("196.168.1.22:1234");
+if(c < 0)
+  return -1;
+
+// Host 2
+point.bind(":1234");
+Connection::Channel c = point.acceptPoint();
+if(c < 0)
+  return -1;
+
+\endcode
+
+Connecting tree PointConnections with one GroupConnection
+\code
+// Host 1
+if(point.connectGroup("196.168.1.22:1234") < 0)
+  return -1;
+
+// Host 2
+if(point.connectGroup("196.168.1.22:1234") < 0)
+  return -1;
+
+// Host 3
+if(point.connectGroup("196.168.1.22:1234") < 0)
+  return -1;
+
+// Host 4
+point.bind(":1234");
+Connection::Channel c;
+if(point.acceptPoint() < 0)
+    return -1
+if(point.acceptPoint() < 0)
+    return -1
+if(point.acceptPoint() < 0)
+    return -1
+\endcode
+
+Connecting one GroupConnection with tree PointConnections
+\code
+// Host 1
+point.bind(":1234");
+if(point.acceptGroup() < 0)
+  return -1;
+
+// Host 2
+point.bind(":1234");
+if(point.acceptGroup() < 0)
+  return -1;
+
+// Host 3
+point.bind(":1234");
+if(point.acceptGroup() < 0)
+  return -1;
+
+// Host 4
+point.bind(":1234");
+Connection::Channel c;
+// wait a maximum of 40 seconds for each connection
+if(point.connectPoint("196.168.1.30:1234",40) < 0)
+    return -1
+if(point.connectPoint("196.168.1.31:1234",40) < 0)
+    return -1
+if(point.connectPoint("196.168.1.32:1234",40) < 0)
+    return -1
+\endcode
+
+All methods that establish a connection return a Channel id or -1 on
+error. Channel ids can be used in GroupConnections to distinguish incomming
+messages.
+
+\section BaseConnectionData Data transmission
+
+Data is transferred with putValue and getValue. Per default data is buffered
+and will be sent if the buffer is full or the flush method is called. As a
+connection can be connected to more then one endpoint, a source has to be
+selected with selectChannel. After a channel is selected, only data from this
+channel is processed by getValue and getValues.
+
+\code
+UInt32 count;
+Real32 values[100];
+
+connection->putValue(count);
+connection->putValues(values,100);
+connection->flush();
+..
+connection->selectChannel();
+connection->getValue(count);
+connection->getValues(values,100);
+\endcode
+
+putValue, putValues, getValue and getValues are doing a network byte order 
+encoding if both endpoints are based on different architectures. This can be
+switched off if a homogenious cluster is used.
+
+\code
+connection->setNetworkOrder(false);
+\endcode
+
+By default a connection tries to minimize the number of data that is
+copyied. To do this, for lage memory blocks only a tag is written in the
+output buffer. If the buffer is full or flush is called, then first the 
+buffer is send and afterwards the large memory blocks. Thise technique
+provides buffering for mall data blocks and unbufferd transmission for large
+blocks. This is very efficient and works fine as long as the data is not
+modified between putValue and the actual data transmission. If this can not 
+be guaranteed, then a copy operation can be forced. This option must be set 
+by both communication endpoints.
+
+\code
+connection->forceCopy();
+\endcode
+
+In forceCopy mode the whole data is bufferd. In contrast an unbuffered mode
+can be enabled with forceDirectIO method.
+
+\code
+connection->forceDirectIO();
+\endcode
+
+It is not possible to change the transmission mode for connected Connections.
+
+\section BaseConnectionReadMany Reading from many sources
+
+Sometimes it is important to read some data exactly once from each endpoint
+of a GroupConnection. To do this a selection mechanism is available.
+
+\code
+Connection::Channel channel;
+while(group->getSelectionCount() > 0)
+{
+    channel = mConnection->selectChannel();
+    group->getValue(result);      // Getting data
+    group->subSelection(channel);
+}
+mConnection->resetSelection();
+\endcode
+
+\section BaseConnectionSync Synchronisation
+
+In a cluster environment it is often neccessary to synchronize two ore more
+nodes. To do this sync and wait operations are available.
+
+\code
+// Host 1
+point->wait();
+
+// Host 2
+point->wait();
+
+// Host 3
+point->wait();
+
+// Host 4
+group->signal();
+\endcode
+
+
+\section BaseConnectionInterface Selecting an Interface
+
+The bind method of a connection binds a connection to a hardware ressource.
+If more then one ressource is available, then you have to define the 
+interface on which incomming connections are expected. This is done mit the
+interface mothod.
+
+\code
+connectionA->setInterface("196.168.10.22");
+connectionB->setInterface("134.213.21.11");
+
+// accept from network 1
+connectionA->bind(":1234");
+connectionA->accept();
+
+// accept from network 2
+connectionB->bind(":1234");
+connectionB->accept();
+\endcode
+
+\section BaseConnectionDestination Setting the Multicast address
+
+If a group connection is based on a hardware that is able to do multicast,
+then the destination address is used to selection a multicast channel of the
+network layer. For ethernet this is the multicast address. 
+
+\code
+group->setDestination("237.32.12.22");
+group->bind(":4432")
+if(group->acceptPoint() < 0)
+  return -1;
+\endcode
+
+*/

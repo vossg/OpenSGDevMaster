@@ -1,0 +1,59 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpWindowGlut OpenSG GLUT Window System Library
+    \ingroup GrpWindowSystems
+    
+    \brief The library for GLUT windows.
+
+    See \ref PageWindowGlut for details.
+*/
+
+/*! \defgroup GrpWindowGLUTField Fields
+    \ingroup GrpWindowGlut
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpWindowGlutFieldTraits Field Data Traits
+    \ingroup GrpWindowGLUTField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpWindowGLUTFieldSingle Single-Element Fields
+    \ingroup GrpWindowGLUTField
+
+    ToDo
+*/
+
+/*! \defgroup GrpWindowGLUTFieldMulti Multi-Element Fields
+    \ingroup GrpWindowGLUTField
+
+    ToDo
+*/
+
+/*! \page PageWindowGlut GLUT Window System Library
+
+GLUT is the OpenGL Utility Toolkit developed by Mark Kilgard for his columns in
+the X journal, but it has sort of established itself as the toolkit of choice
+for a large number of programs that only need OpenGL. It is avilable on Unix
+and Windows and contains some wrappers to simplify writing software that works
+on both platforms. See
+http://www.opengl.org/developers/documentation/glut/index.html for general
+information and documentation about GLUT.
+
+The GLUT window is the simplest of the OpenSG windows, as GLUT takes care of
+almost everything. The only parameter is the integer Window ID that GLUT uses,
+but most GLUT applications only use the default window anyway and thus don't
+have to setup anything except for calling init() after creating the Window.
+
+activate() calls glutSetWindow, eactivate() is a nop, as GLUT can't be witched
+off, and swap() directly calls glutSwapBuffers(). The osg::GLUTWindow is very
+simple, but very useful nonetheless. Most of the test and tutorial programs are
+written using GLUT.
+
+*/

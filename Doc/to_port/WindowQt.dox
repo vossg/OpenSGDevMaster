@@ -1,0 +1,86 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpWindowQT OpenSG QT Window System Library
+    \ingroup GrpWindowSystems
+    
+    \brief The library for QT windows.
+
+    See \ref PageWindowQT for details.
+*/
+
+/*! \defgroup GrpWindowQTField Fields
+    \ingroup GrpWindowQT
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpWindowQTFieldTraits Field Data Traits
+    \ingroup GrpWindowQTField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpWindowQTFieldSingle Single-Element Fields
+    \ingroup GrpWindowQTField
+
+    ToDo
+*/
+
+/*! \defgroup GrpWindowQTFieldMulti Multi-Element Fields
+    \ingroup GrpWindowQTField
+
+    ToDo
+*/
+
+/*! \page PageWindowQT QT Window System Library
+
+QT is a portable GUI toolkit written by Trolltech (www.trolltech.com), which is
+used for a large number of Linux applications, especially the KDE project.
+Current versions do much more than windowing, but OpenSG is only concerned about
+that.
+
+The osg::QTWindow itself is only the OpenSG half of using OpenSG in QT, it has
+to be accompanied by an OSGQGLWidget, which is the QT half. Usually, in
+standard QT style, an application would derive its own widget from the
+OSGQGLWidget and add its data to the widget. The QTWindow needs to know which
+OSGQGLWidget it is associated with. 
+
+The main purpose of the special QGLWidget
+is to prevent QT from taking over the OpenGL context and let the osg::QTWindow
+handle that. The standard QT methods for OpenGL handling (makeCurrent,
+swapBuffers, initializeGL, paintGL, resizeGL) need to be redirected to the
+QTWindow, see testWindowQT_qt.cpp for an example.
+
+\anchor PageOSGQGLManagedWidget As a convenience class there is a
+osg::OSGQGLManagedWidget, which is derived from osg::QGLWidget and implements
+all the necessary functions. Furthermore it has an osg::SimpleSceneManager
+built in to provide some basic interaction features. 
+
+
+<h3>Using the QT Window System Library as a QT Designer plugin</h3>
+The WindowQT library can also be used as a plugin for the QT Designer. The
+plugin offers a widget usable in QT Designer or any other application 
+utilizing the QT plugin interface. The widget coming with the plugin is named:
+- OSGQGLManagedDesignerWidget
+
+This class is a wrapper for the osg::OSGQGLManagedWidget widget. 
+Wrapping is necessary since QT doesn't fully 
+support namespaces when the QT Designer is used and thus the wrapper class
+is \b not within the osg namespace.
+
+<h4>Installing the QT Designer plugin</h4>
+In order to use the plugin within QT Designer copy the library to 
+$QTDIR/plugins/designer or symlink it. When starting QT Designer the next time, 
+the plugin widget is filed under the OpenSG tab. You can now use it like any 
+other widget offered by QT Designer.
+
+There are other ways to integrate a QT plugin into designer (and some pitfalls,
+too). For a full documentation on QT plugins and how to use them in your own 
+application (non Designer usage) refer to QTs plugin documentation at 
+<a target="_blank" href="http://doc.trolltech.com/3.1/plugins-howto.html">Qt plugins-howto</a>
+
+*/

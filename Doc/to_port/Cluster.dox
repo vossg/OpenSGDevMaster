@@ -1,0 +1,143 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemCluster Cluster
+    \ingroup GrpSystem
+    
+    See \ref PageSystemCluster for details.
+*/
+
+/*! \page PageSystemCluster Cluster
+
+Clustering
+
+The clustering part of OpenSG is used to transfer FieldContainers over
+a network and to render an Image on an arbitrary number of
+computers. The replication of FieldContaienrs is implemented as an
+extension of the multithread aspect model of OpenSG. 
+
+\section PageSystemClusterRemoteAspect RemoteAspect
+
+There are distinct field values for each thread. Changes between these
+fields are propagated when the changes stored in the changelist are
+applied to another aspect. The RemoteAspect class is used to transfer
+changes over a network connection to a number of remote computers. The
+RemoteAspect class has two methods for change distribution. Changes
+are sent with sendSync and received with receiveSync. It is important,
+that changes are transferred only once. The current changelist must be
+cleared before the next call of sendSync. In some situations it is
+useful to have a callback when a FieldContainer of a given type is
+created, changed ore destroyed. The methods registerCreated,
+registerChanged and registerDestroyed are used to register a
+functor. The ClusterServer uses this feature to be informed of new or
+changed ClusterWindows
+
+\section PageSystemClusterWindow ClusterWindow
+
+As there are many approaches to do rendering in a cluster (e.g. Sort-first,
+sort-middle, sort-last), OpenSG provides a base framework to implement special
+algorithms. Each algorithm is implemented in a class, derived from
+ClusterWindow. The idea of this window is, that a window describes the
+context, in which rendering is done. There is a GLUT-Window to redner with
+GLUT, X-Winow to render in an X11 environment and a ClusterWindow to render in
+a cluster. When ClusterWindow::init is called, the a connection is established
+to all servers stored in the servers field. This connection is used to
+transfer changes to all servers. As all fieldcontainers are synced with the
+RemoteAspect to all cluster node, there is an instance of the ClusterWindow on
+all cluster-nodes. The ClusterWindow has a couple of virtual methods that are
+called for the client and for the servers. In this context a server is a
+renderer and the client is the application. 
+
+On the client side the following methods are called by the
+ClusterWindow, when ClusterWindow::render is called.
+
+
+\li ClientInit: Is called when ClusterWindow::render is called for the first time
+
+\li clientPreSync: Is called before the changes in the current changelist are transferred to the servers
+
+\li clientRender: Is called after chanelist sync.
+
+\li ClientSwap: Called after clientRender and serverRender was called
+
+On the server side the following methods are called when ClusterServer::render is called. The ClusterServer is described in the following section.
+
+\li ServerInit: Called after an initial sync. 
+
+\li ServerRender: Called after the changelist sync.
+
+\li ServerSwap: Called after clientRender and serverRender 
+
+
+\section PageSystemClusterServer ClusterServer
+
+A ClusterServer is responsible for server side rendering. Each server
+has its unique name. If a server request with this name is received, a
+connection to the client is established. After this all changes to the
+scenegraph from the client are received through the RemoteAspect.
+When a new ClusterWindow is found in the data stream, server side
+rendering is initialized. As a cluster window has no GL context, you
+have to initialize a GLUT, Qt, X or WIN32 window with a valid GL
+context. This window is passed to ClusterWindow::serverRender and
+ClusterWindow::serverSwap. The second parameter of the ClusterServer
+constructor is a name. With this name the client finds the
+servers. The third parameter is the type of connection you want to
+use. e.g. StreamSocket or Multicast. The last parameter is an address
+string. If address is an empty string, then a default address is
+used. With the method server->start, the server starts waiting for
+incoming connections. In your rendering callback (for GLUT
+glutIdelFunc or glutDisplayFunc) you have to call server->render with
+a valid render action.
+
+\section PageSystemClusterMultiDisplayWindow MultiDisplayWindow
+
+The MultiDisplayWindow is derived from ClusterWindow. It is used to
+render one virtual window on a number of cluster servers. The whole
+window is split in equal sized regions. Each region is assigned to one
+server. With the fields hServers and vServers it is possible to set
+the number of rows and columns to which the whole window is split. For
+example if you want to drive a wall with 9 projectors you have to
+assign the name of 9 rendering servers to the servers field and set
+hServers and vServers to 3. The MultiDisplayWindow can have an
+arbitrary number of viewports. If a viewport is invisible on a server,
+this viewport is ignored for this server.  With this it is possible to
+use the MultiDisplayWindow for more complicated setups then a tiled
+wall. 
+
+If you want to drive a cave, you could set the servers to six cave rendering servers. Then you have to set hServers to 6 and vServers to 1. For each cave side, assign one viewport with the following size settings:
+<pre>
+vp0->setSize(     0,0, 1.0/6 ,1)
+vp1->setSize( 1.0/6,0, 2.0/6 ,1)
+vp2->setSize( 2.0/6,0, 3.0/6 ,1)
+vp3->setSize( 3.0/6,0, 4.0/6 ,1)
+vp4->setSize( 4.0/6,0, 5.0/6 ,1)
+vp5->setSize( 5.0/6,0, 6.0/6 ,1)
+</pre>
+If you have a resolution of 1024x1024 on each cave wall, you have to
+set the multiDisplayWindow->setSize(1024*6,1024). The
+MultiDisplayWindow assigns each viewport to one rendering
+server. After this, you have to setup the camera parameters for each
+cave wall. This is done with camera decorators e.g. the
+ShearedStereoCameraDecorator. 
+
+Example client and server
+
+There are two test programs that can be used to setup a test cluster
+environment. testClusterServer hast to be started on each  rendering
+server. 
+
+<pre>
+testClusterServer -m MyServer1
+</pre>
+
+This starts a server with the name MyServer1 that uses Multicast for
+communication. A simple scene viewer is started with:
+
+<pre>
+testClusterServer -m MyServer1 MyServer2 -fscene.wrl
+</pre>
+
+The client tries to connect to the servers MyServer1 and MyServer2. testClusterClient opens a local window for navigation.
+
+*/

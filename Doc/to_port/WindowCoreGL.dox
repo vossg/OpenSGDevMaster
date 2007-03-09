@@ -1,0 +1,42 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpWindowCoreGL OpenSG MacOS X CoreGL Window System Library
+    \ingroup GrpWindowSystems
+    
+    \brief The library for MacOS X CoreGL windows.
+
+    See \ref PageWindowCoreGL for details.
+*/
+
+/*! \defgroup GrpWindowCoreGLField Fields
+    \ingroup GrpWindowCoreGL
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpWindowCoreGLFieldTraits Field Data Traits
+    \ingroup GrpWindowCoreGLField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpWindowCoreGLFieldSingle Single-Element Fields
+    \ingroup GrpWindowCoreGLField
+
+    ToDo
+*/
+
+/*! \defgroup GrpWindowCoreGLFieldMulti Multi-Element Fields
+    \ingroup GrpWindowCoreGLField
+
+    ToDo
+*/
+
+/*! \page PageWindowCoreGL MacOS X CoreGL Window System Library
+
+    ToDo
+*/

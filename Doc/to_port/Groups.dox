@@ -1,0 +1,157 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemNodeCoresGroups Groups
+    \ingroup GrpSystemNodeCores
+    
+See \ref PageSystemNCGroups for details.
+ 
+*/
+
+/*! \page PageSystemNCGroups Groups
+
+\latexonly Starter:NewChapter \endlatexonly
+
+Groups are all the NodeCores who can be used as interior nodes in the graph.
+These nodes can have and actually use their children.
+
+\section NCGroupsGroup Group
+
+A Group is the simplest NodeCore, it doesn't do much. If asked to do something
+it calls its children to do the same thing, if asked for information it
+gathers it from the children. It does not intoduce a new transformation.
+
+\section NCGroupsSwitch Switch
+
+A Switch node allows to select one of its children for 
+traversal instead of all of them (as for the other nodes).
+The Switch grouping node traverses zero, all or one of the children.
+
+\section NCGroupsTransform Transform
+
+The Transform node is a grouping node that defines a coordinate system for its 
+children that is relative to the coordinate systems of its ancestors.
+A Transform Core is the basic means of moving objects around the scene. It
+keeps a single Matrix that is applied to all its children.
+
+\section NCGroupsComponentTransform ComponentTransform
+
+A ComponentTransform is close to a Transform, but the transformation is
+defined in an easier to use way, the same way it is done in systems like
+OpenInventor or VRML: 
+
+The center field specifies a translation offset from the origin of the local coordinate system (0,0,0). 
+The rotation field specifies a rotation of the coordinate system. 
+The scale field specifies a non-uniform scale of the coordinate system. 
+scale values shall be greater than zero. 
+The scaleOrientation specifies a rotation of the coordinate system before 
+the scale (to specify scales in arbitrary orientations). 
+The scaleOrientation applies only to the scale operation. 
+The translation field specifies a translation to the coordinate system.
+
+Given a 3-dimensional point P and Transform node, P is transformed into point P' in its parent's 
+coordinate system by a series of intermediate transformations. In matrix transformation notation, 
+where C (center), SR (scaleOrientation), T (translation), R (rotation), and S (scale) 
+are the equivalent transformation matrices,
+
+P' = T × C × R × SR × S × -SR × -C × P
+
+\section NCGroupsDistanceLOD DistanceLOD
+
+Levels of Detail are a simple way of increasing rendering performance. The
+basic idea is to have a number of differently detailed versions of an object
+and use low-res versions for objects that are far away. 
+
+A DistanceLOD is the simplest version, which switches versions based on
+distance to the viewer. The children is selected based on the
+center and range settings.
+
+The center field is a translation offset in the local coordinate system that
+specifies the centre of the LOD node for distance calculations.
+
+The number of children shall exceed the number of values in the range field by
+one (i.e., N+1 children for N range values). The range field contains
+monotonic increasing values that shall be greater than 0. In order to
+calculate which level to display, the distance is calculated from the viewer's
+location, transformed into the local coordinate system of the LOD node
+(including any scaling transformations), to the center point of the LOD node. 
+
+\image html distanceLOD.png "DistanceLOD example"
+\image latex distanceLOD.eps "DistanceLOD example" width=8cm
+
+\section NCGroupsLights Lights
+
+A Light defines a source of light in the scene. Generally, two types of
+information are of interest: The position of the light source (geometry), and
+what elements of the scene are lit (semantics). 
+
+Using the position of the light in the graph for geometry allows moving the
+Light just like any other node, by putting it below a osg::Transform Node and
+changing the transformation. This consistency also simplifies attaching Lights
+to moving parts in the scene: just put them below the same Transform and they
+will move with the object.
+
+The semantic interpretation also makes sense, it lets you restrict the
+influence area of the light to a subgraph of the scene. This can be used for
+efficiency, as every active light increases the amount of calculations
+necessary per vertex, even if the light doesn't influence the vertex, because
+it is too far away. It can also be used to overcome the restrictions on the
+number of lights. OpenSG currently only allows 8 concurrently active lights.
+
+It is also not difficult to imagine situations where both interpretations are
+necessary at the same time. Take for example a car driving through a night
+scene. You'd want to headlights to be fixed to the car and move together with
+it. But at the same time they should light the houses you're driving by, and
+not the mountains in the distance. 
+
+Thus there should be a way to do both at the same time. OpenSG solves this by
+splitting the two tasks to two Nodes. The Light's Node is for the sematntic
+part, it defines which object are lit by the Light. FOr the geometrc part the
+Light keeps a SFNodePtr to a different Node, the so called beacon. The local
+coordinate system of the beacon provides the reference coordinate system for
+the light's position.
+
+Thus the typical setup of an OpenSG scenegraph starts with a set of lights,
+which light the whole scene, followed by the actual geometry.
+
+Tip: Using the beacon of the camera (see \ref PageSystemWindowCamera)
+as the beacon of a light source creates a headlight.
+
+NOTE: Currently OpenSG does not implement the restricted influence area. All
+Light sources are global and light the whole scene. Expect that to change
+soon! 
+
+Every light is closely related to OpenGL's light specification. It has a
+diffuse, specular and ambient color. Additionally it can be switched on and
+off using the on field.
+
+\subsection NCGroupsDirectionalLight DirectionalLight
+
+The DirectionalLight just has a direction. 
+
+To use it as a headlight use
+(0,0,-1) as a direction. it is the computationally cheapest light source. Thus
+for the fastest lit rendering, just a single directional light source. The
+osg::SimpleSceneManager's headlight is a directional light source.
+
+\subsection NCGroupsPointLight PointLight
+
+The PointLight has a position to define its location. In addition, as it
+really is located in the scene, it has attenuation parameters to change the
+light's intensity depending on the distance to the light.
+
+Point lights are more expesinve to compute than directional lights, but not
+quite as expesive as spot lights. If you need to see the localized effects of
+the light, a point light is a good compromise between speed and quality.
+
+\subsection NCGroupsSpotLight SpotLight
+
+The SpotLight adds a direction to the PointLight and a spotCutOff angle to
+define the area that's lit. To define the light intensity fallof within that
+area the spotExponent field is used.
+
+Spot lights are very expensive to compute, use them sparingly.
+
+
+*/

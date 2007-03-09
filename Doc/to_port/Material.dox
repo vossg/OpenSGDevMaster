@@ -1,0 +1,101 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemMaterial Materials
+    \ingroup GrpSystem
+
+Materials define the surface properties of the geometry and abstract the actual
+implementation from the user.
+
+See \ref PageSystemMaterial for a detailed description.
+*/
+
+/*! \page PageSystemMaterial Materials
+
+\latexonly Starter:NewChapter \endlatexonly
+
+Materials define the surface properties of the geometry. For the standard
+Phong lighting model that OpenGL uses these are ambient, diffuse and specular
+color as well as shininess. However, this is an area where extensions are
+added at an amazing pace. The purpose of materials is to add a level of
+abstraction and give the user an easy to use interface to define surface
+properties without having to worry about the details of realizing them (e.g.
+how to use multiple passes, when and how to calculate derived information like
+tangents and binormals etc.).
+
+This area is quickly expanding, so what we have right now is just the
+beginning.
+
+\ext To use a Material the geometry will call the Material's
+osg::Material::draw() method, which decides what to do. Right now all it can
+do is directly draw itself or pass itself to the Rendering Backend to be
+rendered later. To actually be used by the renderer Materials have a method to
+give out a osg::State to be used to render their associated geometry. For
+efficiency reasons this State should be kept ready to use in the Material and
+returned when needed.
+
+This whole interface is a bit convoluted, unclear, can't handle all the cases
+that it should and thus will change pretty soon. Stay tuned.\endext
+
+
+\section PageSystemMaterialTypes Material types
+
+\subsection PageSystemMaterialChunkMaterial ChunkMaterial
+
+The osg::ChunkMaterial is a material that is just a collection of \ref
+StateChunk "osg::StateChunks". This allows adding and using new
+extensions in the form of state chunks pretty easily. 
+
+It is also the base class for the simple materials given below.
+
+\subsection PageSystemMaterialSimpleMaterial SimpleMaterial
+
+The osg::SimpleMaterial is a pretty direct mapping of the OpenGL light model.
+It has colors for ambient, diffuse, specular and emission properties, and a
+shininess value. In addition to that it has a transparency setting, ranging
+from 0 for opaque to 1 for fully transparent. 
+
+There are two other attributes in a SimpleMaterial that control the appearance
+of an object. One is the lit attribute, which defines if the material is
+influenced by light sources at all. If it isn't, the color is directly taken
+from the diffuseColor component and other color attributes are ignored. 
+
+The other attribute is the colorMaterial field, which defines how colors that
+are given in the geometry influence the lighting calculation. By default they
+replace the diffuse color only. Possible values are taken from the
+glColorMaterial() call, the most useful being GL_DIFFUSE_AND_SPECULAR. One
+possible value that is not used by glColorMaterial() is GL_NONE, which
+switches off the color material handling and thus ignores colors that are
+given in the geometry.
+
+As SimpleMaterial is derived from osg::ChunkMaterial, other attributes can be
+added in the form of \ref StateChunk "StateChunks".
+
+\subsection PageSystemMaterialTexturedSimpleMaterial TexturedSimpleMaterial
+
+osg::SimpleTexturedMaterial is derived from osg::SimpleMaterial and adds a
+texture. The texture is defined by an image (see \ref PageSystemImage for details on
+how to define or load an image). 
+
+Additionally there are some parameters to define the behavior of a texture.
+magFilter and minFilter define how to scale the texture image up or down,
+legal values taken from glTexParameter(). The most useful ones are GL_NEAREST
+or GL_LINEAR for magFilter, and additionally GL_LINEAR_MIPMAP_LINEAR for
+minFilter. 
+
+envMode defines how a color from the texture is combined with a color from the
+lighting calculation. The default is GL_REPLACE which completely ignores the
+lighting color. Other useful values are GL_MODULATE, which just multiplies the
+two, and GL_DECAL, which interpolates between lighting and texture based on
+the texture's alpha channel.
+
+Finally, a texture can be used as a spherical environment map to simulate a
+reflective object by setting the envMap field to true. Spherical environment
+maps need to display the image of a reflective sphere in the middle of the
+environment that is being reflected. 
+
+As TexturedSimpleMaterial is derived from osg::ChunkMaterial, other attributes
+can be added in the form of \ref StateChunk "StateChunks".
+
+*/

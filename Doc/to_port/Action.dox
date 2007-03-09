@@ -1,0 +1,93 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemAction Action
+    \ingroup GrpSystem
+    
+The Actions are the active components that traverse the tree of nodes and 
+perform function (or rather functors) on them. 
+
+*/
+
+/*! \page PageSystemAction Action
+
+\latexonly Starter:NewChapter \endlatexonly
+
+Creating the scene-graph is just the first step, and not really useful in
+itself. Something needs to be done with it. Actions on the graph usually take
+the form of a traversal which goes through the nodes one by one and calls an
+appropriate action for each one on the way.
+
+These are called Actions in OpenSG, and there are a number of predefined
+actions:
+
+\li Render
+
+\li Intersect
+
+
+\section PageSystemActionUsage Usage
+
+Actions use the same syntax for creating as actions that FieldContainers use,
+as they also use a prototype for that. Thus you need to call
+ActionType::create to get a new one. They are not FieldContainers, though, so
+simple pointers are OK.
+
+To execute an action on a graph you apply it to the graph
+(action->apply(graph);) or to a list of nodes
+(action->apply(vector<NodePtr>::iterator begin, vector<NodePtr>::iterator
+end);).
+
+\section PageSystemActionRenderAction RenderAction
+
+RenderAction is the primary means of transforming the scene-graph into an
+image. It does view volume culling and state sorting by building a draw tree.
+It also handles transparent objects by rendering them last and back to front
+sorted. Put simple it does what a decent scene-graph needs to do. 
+
+To use it just create one and pass it to the OpenSG Window object (see 
+\ref PageSystemWindow).
+
+It is possible to turn the view volume culling off using the
+setFrustumCulling() method. For debugging it is possible to turn the frustum
+update off (setAutoFrustum()) and to make the system render the tested
+bounding volumes (setVolumeDraw()).
+
+\section PageSystemActionIntersectAction IntersectAction
+
+IntersectAction is used for sending rays into the scene and retrieving the
+first object hit. Right now, intersection testing is not very optimized, which
+is OK for selecting an object, but probably too slow for programmatic use.
+
+A ray is defined by a Line (see \ref osg::Line) and optionally a maximum
+distance. It can either be set at construction time or by setLine(). To test
+the ray for intersection, apply the action to the root of the possible
+intersection objects.
+
+If the ray hits an object didHit() will return true. In that case, detailed
+info about what was hit and where can be accessed through getHitT(),
+getHitPoint(), getHitObject() and getHitTriangle().
+
+\section PageSystemActionSimpleTraversal Simple Traversal
+
+Actions are somewhat complicated to derive and, furthermore, they manage
+callback functors on a NodeCore basis. Sometimes it's easier to just define a
+function that is called for every node in a graph. That's what traverse() is
+for.
+
+traverse() takes a NodePtr to define the graph and a functor to define the
+function to be called for every node as parameters. The functor just gets the
+traversed node as a parameter 
+
+\section PageSystemActionOwn Write your own action handler
+
+Don't. Actions are being completely redesigned for 1.1 to become more flexible
+and clean. Use the available actions and try to stay with the traverse()
+function for now. 
+
+If you really need to do your own action take a look at IntersectAction, it
+shows what you need to implement. Talk to us before you do it, though, maybe
+the redesign is already usable so you can base your new stuff on that.
+
+*/

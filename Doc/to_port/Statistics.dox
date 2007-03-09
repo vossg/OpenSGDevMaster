@@ -1,0 +1,63 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemStatistics Statistics
+    \ingroup GrpSystem
+    
+Statistics contains general facilities for recording and collecting 
+statistical data like counts and times. It is mainly used for collecting 
+rendering statistics like the amount of time need for a frame or the number of 
+visible polygons, but it can be used for any kind of statistics.
+See \ref PageSystemStatistics for more details
+
+The \link osg::StatElem StatElem \endlink osg::StatElem is the basic unit that 
+keeps a single statistical value.
+
+*/
+
+/*! \page PageSystemStatistics Statistics 
+
+\latexonly Starter:NewChapter \endlatexonly
+
+Statistics contains general facilities for recording and collecting 
+statistical data like counts and times. It is mainly used for collecting 
+rendering statistics like the amount of time need for a frame or the number of 
+visible polygons, but it can be used for any kind of statistics.
+
+The statistics data is collected in the form of single osg::StatElem
+structures  which are bundled in a osg::StatCollector. Every StatElem element
+can have one of a  number of different types, the predefined ones are Int
+(osg::StatIntElem), Real32 (osg::StatRealElem), Time (osg::StatTimeElem) and
+String (osg::StatStringElem). Every StatElement also has a description in the
+form of a StatElemDesc  that describes the actual use of the element. The
+StatCollector can hold an  arbitrary subset of all known elements. The
+StatElemDesc obj holding the element type and ID must exist as long as any
+collector holds a corresponding elem object. The StatElemDesc  constructor
+creates a unique ID which can be used to create/access an correspondent Elem
+(which holds the value) in any collector.
+
+The contents of the StatCollector can be accessed either for every StatElem 
+separately or can be output as a whole in the form of a string. For
+displaying  the contents of a StatCollector on screen the
+osg::SimpleStatisticsForground and  osg::GraphicStatisticsForeground can be
+used.  The various StatElem objects provide methods to access or change the
+value (e.g get/set increase/decrease) In addition, every StatElem holds a
+on-flag to activate/deactivate the statistic element.
+
+The main idea of the Statistics structure lies in high flexibility. Thus the
+set of variables that are statistically relevant is not fixed, new ones can be
+added by the application if necessary.
+
+\image html stat-obj.png "Stat Elem/Desc/Collector relation"
+\image latex stat-obj.eps "Stat Elem/Desc/Collector relation" width=8cm
+
+\dev
+To extend the Statistics you just need to create an instance of the 
+osg::StatElemDesc class. It is templated and parametrized by the osg::StatElem
+that the new variable should have. 
+
+\endext
+
+\enddev
+*/

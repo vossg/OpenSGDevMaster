@@ -1,0 +1,32 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpBaseFunctors Functors
+    \ingroup GrpBase
+
+    \brief ToDo
+*/
+
+/*! \defgroup GrpBaseFunctorsHelper Functor Helper
+    \ingroup GrpBaseFunctors
+
+    \brief ToDo
+*/
+
+/*! \defgroup GrpBaseFunctors1Helper Functor1 Helper
+    \ingroup GrpBaseFunctors
+
+    \brief ToDo
+*/
+
+/*! \defgroup GrpBaseFunctors2Helper Functor2 Helper
+    \ingroup GrpBaseFunctors
+
+    \brief ToDo
+*/
+
+
+/*! \page PageBaseFunctorsPage  Base Functors
+
+*/

@@ -1,0 +1,119 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemFileIO File Input/Output
+    \ingroup GrpSystem
+    
+Reader/Writer
+
+See \ref PageSystemFileIO for details.
+*/
+
+/*! \page PageSystemFileIO File Input/Output
+
+\latexonly Starter:NewChapter \endlatexonly
+
+As OpenSG user/developer you can always instantiate all your nodes, cores or
+whatever objects you need one by one in your application code. 
+
+In addition OpenSG also provides - as most scene-graph libraries - a set of
+loaders, which create a scene tree or image from a given file. The system
+creates singleton Handlers for both types (SceneFileHandler and
+ImageFileHandler), which handle all abstract requests. The concrete loaders
+are coded in mime/file type handlers (e.g.
+OSGTIFImageFileType.h/OSGTIFImageFileType.cpp) and are automatically
+registered. 
+
+The system architecture is designed to handle built-in types and to fetch
+loaders for a specific type on request. In the current version (1.0) only
+built-in types are provided since the meta interfaces may not be final yet.
+However the 1.0 version comes with a sufficient set of built-in loaders and
+you can always extend the library to handle you own file format.
+
+\section PageSystemFileIOUsage Usage
+
+You can always use a specific loader directly, but in most cases you would ask
+the Handler (e.g. SceneFileHandler) to load a file independent of the file
+type. There is always just one handler (it is a singleton object) you can
+access the object using the static the() method (e.g.
+osg::SceneFileType::the()). The Handler knows all the valid suffixes for every
+mime/file type and can pick the correct loader automatically. 
+
+If you would like to get a loader for a specific type or suffix you can just
+ask the handler to find it (e.g. SceneFileHandler::the().getFileType("wrl")).
+
+\subsection PageSystemFileIOUsageScene Scene
+
+The Scene Handler provides two interfaces to load a scene: read (returns a
+single root node or NullFC on failure) or readTopNodes (does not create an
+extra root but returns all top nodes ). 
+
+Just use the Handler to find and use the correct type for the given suffix:
+osg::NodePtr rootPtr =
+osg::SceneFileTypeSceneFileHandler::the().read("test.wrl") for example would
+pick the VRML loader (suffix is "wrl"), parse the file and return the result. 
+
+\subsection PageSystemFileIOUsageImage Image
+
+The image loader works more or less the same way as the scene loader. Let the
+singleton handler pick the mime type and just check the return value:
+osg::ImageFileHandler::the().read("test.tif") for example would pick the tif
+loader (suffix "tif" ), start loading the file, and return the new Image or
+Null.
+
+\ext
+
+\section PageSystemFileIOWrite Write our own
+
+For every new mime/file you have to write a new "Type" class (e.g.
+FooImageType.h/FooImageType.cpp). Every Type is handled as a singleton object
+and must provide a the() method to access the static instance. The class must
+be derived from the base Type (e.g. ImageFileType) to be registered. You don't
+have to register the new type in any extra class. Just included it in the
+OpenSG source tree and it should work with the Handler.
+
+\subsection PageSystemFileIOWriteScene Scene
+
+Since scene loaders are usually more complex and require sometimes some extra
+library they have extra directories for their sources (e.g.
+OpenSG/Loader/WRL). To write your own scene handler perform the following
+steps:
+
+\li Create a new directory for your mime type (e.g. OpenSG/Loader/FOO)
+
+\li Copy the code from a simple loader (e.g. Loader/RAW)
+
+\li Change the file file/class name to match your type.
+
+\li Change the _suffixA values in the *.cpp file (e.g {"foo"} ), you can
+includes as many valid suffixes as you want
+
+\li Write the read() methods to load your type
+
+\li configure/make opensg libs
+
+\subsection PageSystemFileIOWriteImage Image
+
+Image loaders are usually not too complex. They usually just use some external
+library (e.g. tifflib) to load the image data. Since the extra lib is usually
+not included in the opensg source tree we do not store the code in an extra,
+mime type specific directory. They are all stored in OpenSG/Image. 
+
+To write you own image loader perform the following steps:
+
+\li Copy the code from a simple loader (e.g. Image/PNMImageFileType.*)
+
+\li Change the file file/class name to match you type.
+
+\li Change the _suffixA values in the *.cpp file (e.g {"foo"} ), you can
+includes as many valid suffixes as you want
+
+\li Change the getMimeType() method in *.h to return the new mime type.
+
+\li Write the read()/write() methods to load/write your type
+
+\li configure/make opensg libs
+
+
+*/

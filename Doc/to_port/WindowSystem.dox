@@ -1,0 +1,34 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpWindowSystems Window System Libraries
+
+    \brief The Window System Libraries contain the parts for using OpenSG in 
+    specific Window systems liek X, QT, etc.
+
+    See \ref PageWindowSystems for details.
+*/
+
+/*! \page PageWindowSystems Window System Libraries
+
+\latexonly Starter:NewChapter \endlatexonly
+
+OpenSG doesn't have its own windowing system, it depends on the client-specific
+window systems. In many cases the rendering window is going to be integrated
+into another GUI anyway, and for the full-screen cases there's always GLUT. It
+is also possible to use the osg::PassiveWindow, which leaves the responsibility
+for the OpenGL context activation/deactivation and buffer swaps with the
+application. This allows easy integration into systems that have an OpenGL
+rendering context anyway. In general these systems do not support
+asynchronous rendering, i.e. having a separate thread that does OpenGL
+rendering, separate from the user interface thread. For that it is necessary to
+use the specific Window types for Win32, X or QT.
+
+There is a specific class derived from osg::Window for every window system,
+which needs to be initialized with the window system specific parameters, and
+which wraps the specifics for context activation, deactivation and buffer swaps
+for the specific window system. For some systems (e.g. QT) there is also a
+Widget that can be integrated more directly.
+
+*/

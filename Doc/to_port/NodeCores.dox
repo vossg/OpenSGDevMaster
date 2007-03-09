@@ -1,0 +1,138 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemNodeCores NodeCores
+    \ingroup GrpSystem
+   
+See \ref PageSystemNodesNCores for details.
+
+*/
+
+/*! \page PageSystemNodesNCores Nodes & NodeCores
+
+\latexonly Starter:NewChapter \endlatexonly
+
+Of course the most important structures in a scene-graph are the actual nodes
+that make up the graph.
+
+OpenSG uses a somewhat different approach than many other systems. A
+node is split into two parts: the Node and a NodeCore, both of which
+are FieldContainers, so all that has been said before applies to them.
+
+A Node keeps the general information: a children list, a parent pointer, a
+bounding volume and a core pointer. Note that the node itself contains no
+information about its type (e.g. transform, group, etc.). A Node cannot be
+shared, every node can only be at one place in the graph, thus a single parent
+pointer is enough. All nodes together define the topology of the graph,
+without defining any content. Actions that depend on a position in the graph,
+like accessing the accumulated matrix to the world coordinate system or the
+world bounding volume, have to be done on the node, as it uniquely defines and
+identifies the position in the graph.
+
+Additionally, Nodes contain a traversal mask. When traversing a graph (see 
+\ref PageActions) some parts of the graph can be left out. To do that the
+logical and of the Node's traversal mask and the Action's traversal mask is
+checked if it's 0. If it is, the Node and all its descendents are not
+traversed, otherwise they are. This allows splitting the graph into logical
+partitions, that are only use for some actions (e.g. have a separate set of
+moedls for ray intersection). To use this for rendering the osg::Viewport also
+has a traversal mask that is used for rendering it.
+
+A NodeCore carries the differentiating information for a node. There are
+NodeCores for all the different functions needed in the tree: groups,
+transformations, geometry and many more. NodeCores can be shared between
+different nodes, thus they keep an array or actually a MultiField of Node
+pointers.
+
+\image html node_core_share.png "Node & Node Core Sharing"
+\image latex node_core_share.eps "Node & Node Core Sharing" width=8cm
+
+The types of NodeCores using in OpenSG are divided into two large groups:
+Groups (\ref PageSystemNCGroups) and Drawables (\ref PageSystemNCDrawables). 
+
+Thus to create a node to be put into a scene graph you need both a osg::Node
+as well as a osg::NodeCore. To simplify creating these there are two
+convenience functions.
+
+osg::makeCoredNode is a templated function to creates a NodeCore of the
+given type as well as a Node that goes with it and returns the NodePtr.
+
+\example To create a Group node you need to do this:
+
+\code
+NodePtr gr = makeCoredNode<Group>();
+\endcode
+
+\endexample
+
+\example It is
+also possible to get access to the created NodeCore:
+
+\code
+TransformPtr tr;
+NodePtr gr = makeCoredNode<Transform>(&tr);
+\endcode
+
+\endexample
+
+makeCoredNode allows the creation from scratch, in addition to that
+there is makeNodeFor(), which allows creating a new Node for an existing
+NodeCore, that might come from somewhere else:
+
+\code
+TransformPtr tr = Transform::create();
+NodePtr gr = makeNodeFor(tr);
+\endcode
+
+Even with these convenience functions it is still necessary to carry
+around two objects and two variable to manipulate the Node and the
+NodeCore. As this can becomne rather tedious in larger applications,
+there is a wrapper class that combines the two, the CoredNodePtr.
+
+As the name implies, the CoredNodePtr is an extended NodeCorePtr that
+internally handles the NodePtr. Due to cast operators it can be used
+everywhere a normal NodeCorePtr can. 
+
+In addition to that, the CoredNodePtr features automatic refernce
+counting in the way of s smart pointer. Thus the user doesn't have to
+and shouldn't explicitly change the reference counts of the objects
+assigned to a CoredNodePtr, a simple NullFC assignment will be enough to
+clear them out.
+
+It can not totally hide the distinction between Nodes and Cores, thus in
+places where the NodePtr is needed (e.g. to add children to it), it has
+to be accessed explicitly using the node() member function. Also the
+begin/endEdit calls on the CoredNodePtr are not as efficient as the
+calls on the NodePtr or NodeCorePtr, as they have to begin/end both the
+Node and the Core using the given mask, which might result in
+unnecessary changes being recorded.
+
+\example The following code creates a torus geometry with a
+transformation on top and deletes it afterwards:
+
+\code
+typedef CoredNodePtr<Transform> TransformNodePtr;
+typedef CoredNodePtr<Geometry>  GeometryNodePtr;
+
+GeometryNodePtr torus = makeTorusGeo( .5, 2, 8, 12 );
+TransformNodePtr t = TransformNodePtr::create();
+
+beginEditCP(t, Transform::MatrixFieldMask | Node::ChildrenFieldMask);
+{
+    t->setMatrix(Matrix::identity());
+    t.node()->addChild(torus.node());
+}
+endEditCP(t, Transform::MatrixFieldMask | Node::ChildrenFieldMask);
+
+// This keeps the torus in the graph still alive, due to refcounts
+torus = NullFC;
+
+// This kills the whole graph, includiong the torus
+t = NullFC;
+
+\endcode
+
+\endexample
+
+*/

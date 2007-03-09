@@ -1,0 +1,49 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpWindowX OpenSG X Window System Library
+    \ingroup GrpWindowSystems
+    
+    \brief The library for X windows.
+
+    See \ref PageWindowX for details.
+*/
+
+/*! \defgroup GrpWindowXField Fields
+    \ingroup GrpWindowX
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpWindowXFieldTraits Field Data Traits
+    \ingroup GrpWindowXField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpWindowXFieldSingle Single-Element Fields
+    \ingroup GrpWindowXField
+
+    ToDo
+*/
+
+/*! \defgroup GrpWindowXFieldMulti Multi-Element Fields
+    \ingroup GrpWindowXField
+
+    ToDo
+*/
+
+/*! \page PageWindowX X Window System Library
+
+The X Window System (www.x.org) is the base for the graphical user interfaces
+of nearly all Unix systems. 
+
+The OpenSG X Window needs the X Display and the X Window it should render
+into. It creates the OpenGL context itself during init(), but the X Window
+needs to have been created with a Visual that is OpenGL-capable. activate(),
+deactivate() and swap() do just that. ;)
+
+*/

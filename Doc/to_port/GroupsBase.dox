@@ -1,0 +1,8 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemNodeCoresGroupsBase Base Groups
+    \ingroup GrpSystemNodeCoresGroups
+    
+*/

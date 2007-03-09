@@ -1,0 +1,71 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemImage Image
+    \ingroup GrpSystem
+    
+    See \ref PageSystemImage for a description.
+*/
+
+/*! \page PageSystemImage Image
+
+\latexonly Starter:NewChapter \endlatexonly
+
+Defines and holds a 1D/2D/3D image and optionally a mipmap pyramid and/or a
+list of equally sized frames with a single frameDelay. Various pixelTypes are
+supported to handle gray and RGB color images with or without alpha channel.
+
+An Image is only a container for the pixel data and image description. It does
+not create or handle any OpenGL state elements. However, image objects are
+utilized to handle the data for texture (e.g. osg::SimpleTextureMaterial or
+osg::TextureChunk) or  bitmap objects (e.g. osg::ImageForeground).
+
+The image object holds some describing fields (e.g. width/height/depth),
+and a single block of memory for all the raster data. 
+
+\image html image-mmm.png "Mem layout for Multi-Frame mip-map image data"
+\image latex image-mmm.eps "Mem layout for Multi-Frame mip-map image data" width=14cm
+
+The image data starts in the lower left (front) corner and all bytes for a
+single pixel (e.g. RGB) are stored sequentially in memory. They are not
+organized in separate layers or channels. 
+
+The optional mipmap-level are stored directly after the Image
+data. The dimensions (width/height/depth) are always reduced to 50%
+of the previous level but stay at least 1. The Image object can hold
+just a number of levels and must not be complete (end with a 1x1x1 level).
+
+If there are any additional mipmap-levels defined, OpenSG will use 
+the data turing the texture-upload process.
+If the image does not contain mipmap levels, which is true in
+most cases, OpenSG will use OpenGL functions to create the level
+direclty as OpenGL objects. The System will not change the
+image object for rendering. Therefore, the ability to define
+the mipmap levels is rarely needed but very usefull 
+(e.g. Real-Time Hatching).
+
+The pyramid (at least one Level) defines a frame. All frames
+are stored after each other separately starting with frame 0.
+
+If the user loads a multi-frame image and assigns the 
+object to a osg::TextureChunk
+it is not played automatically as movie.
+The Application has to set and change the 'current' frame in the
+TextureChunk.
+
+The Image Class implementation does not include Image-Processing 
+functionality, but provides some simple funktions to scale and crop 
+and to set subregions of the data.
+
+The system provides loaders and writers for various formats including
+png, jpeg, tiff, gif and sgi. In addition a specific mtd
+(multi texture data) reader/writer is included. The mtd file
+format is a simple platform independent header and binary
+dump of the Image object data. It is the only format which can
+hold all field and data properties of the OpenSG Image.
+
+The graph loaders (e.g. OSGLoader, VRMLLoader) use the image loaders 
+to fetch the raster data.
+
+*/

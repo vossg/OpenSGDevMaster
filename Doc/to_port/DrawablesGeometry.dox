@@ -1,0 +1,544 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+// the used groups
+
+/*! \defgroup GrpSystemNodeCoresDrawablesGeometry Geometry
+    \ingroup GrpSystemNodeCoresDrawables
+    
+    Geometry is the primary leaf node of the tree. It wraps polygonal
+    primitives as defined by OpenGLs glBegin()/glEnd() loops. See \ref
+    PageSystemGeometry for a description. 
+*/
+
+/*! \defgroup GrpSystemDrawablesGeometryIterators Geometry Iterators
+    \ingroup GrpSystemNodeCoresDrawablesGeometry
+    
+    Helpers to access Geometry in a generic way. See \ref PageSystemGeometryIterators 
+    for a description.
+*/
+
+/*! \defgroup GrpSystemDrawablesGeometryFunctions Geometry Functions
+    \ingroup GrpSystemNodeCoresDrawablesGeometry
+
+    The GeoFunctions group contains different different functions to
+    manipulate geometry. See \ref PageSystemGeoFunctions for a description.
+*/
+
+/*! \defgroup GrpSystemDrawablesGeometryProperties Geometry Properties
+    \ingroup GrpSystemNodeCoresDrawablesGeometry
+
+    osg::GeoProperty is the wrapper class for the geometry's attributes. They
+    encapsulate and abstract the specific types of the attributes and offer an
+    interface that is targeted at glVertexArrays. To simplify usage they also
+    have a generic interface, which is easy to use, but not as efficient as
+    the specific one.   
+
+    The class hierarchy for the Properties looks very complicated, but
+    isn't really, templates and traits are just not easy to handle in doxygen.
+    See \ref PageSystemGeoPropertyClasses for a description.
+    
+*/
+
+/*! \defgroup GrpSystemDrawablesGeometrySimpleGeometry Simple Geometry
+    \ingroup GrpSystemNodeCoresDrawablesGeometry  
+
+    SimpleGeometry combines a number of functions to create some specialized 
+    geometry very easily. See \ref PageSystemSimpleGeometry for a description.
+*/
+
+// the page(s)
+
+/*! \page PageSystemGeometry Geometry
+
+Geometries in most cases define what's being rendered. Note that Geometries
+don't necessarily have to be leaves of the tree, as due the Node/Core divison
+every Node keeping a osg::Geometry Corehas children anyway, which are used
+just as all other osg::Node's children. Geometry has to be flexible, to
+accommodate the needs of the application. Different data types for the data
+that defines the geometry are useful, as well as different indexing
+capabilities to reuse data as much as possible. On the other hand, it also has
+to be efficient to render. Flexibility and performance don't always go well
+together, thus, there are some simplifications to make.
+
+\section PageSystemGeoProperties Properties
+
+OpenSG geometry is modeled closely following OpenGL. The data that make up the
+geometry are stored in separate arrays. Positions, Colors, Normals and Texture
+Coordinates all have their own arrays, (or osg::MField, to stay in OpenSG
+terminology). As OpenGL can handle a lot of different formats for the data,
+some of which might be more appropriate due to speed and memory consumption
+than others, depending on the application, OpenSG features different versions
+of this data, allowing pretty much all the variants that OpenGL can handle. To
+allow that with type safety and without having a separate geometry class for
+every possible combination the data fields are stored in separate field
+containers, a so called osg::GeoProperty. There are separate osg::GeoProperty for
+different attributes, and variants for different data types for each kind of
+osg::GeoProperty. The most prominent types are probably osg::GeoPositions3f for osg::Pnt3f
+positions, osg::GeoNormals3f for osg::Vec3f normals, osg::GeoColors3f for osg::Color3f colors and
+osg::GeoTexCoords2f for osg::Vec2f texture coordinates, but other variants are
+possible. 
+
+As properties only have a single field they can mimic that field by exposing
+parts of the standard osg::MField interface for their contents, so you can use
+a GeoProperty pretty much just like an osg::MField. One problem with the type
+variety is that writing functions that work on every type of property can
+become tedious, as you have to have a big switch for every kind of data that
+could arrive. To make that easier for every property there is defined generic
+format, e.g. for Positions the format is osg::Pnt3f. A property has a
+getValue()/setValue() interface for these generic types, i.e. every property,
+no matter in what format it stores the data, can be used as if it used the
+generic format. Of course, this is not as efficient as directly accessing the
+data, but if speed is not the highest priority or as a fall-back it's quite
+useful. And, finally, osg::GeoProperty features an interface for OpenGL vertex
+arrays, giving access to the data and the types involved, which is used for
+rendering.
+
+In addition to the above-mentioned data there are some other osg::GeoProperty.
+OpenSG allows multiple primitive types per geometry, i.e. you can freely mix
+triangles, triangle strips and polygons in a single geometry node. The
+osg::GeoPTypes property defines the type of the primitives used. Right now, it only
+exists as a osg::GeoPTypesUI8 variant, but others may follow. The number of
+vertices per primitive is defined by another property, the osg::GeoPLengths
+property. This, too, only exists in a osg::GeoPLengthsUI32 variant right now. 
+
+\subsection PageSystemGeoPropertyClasses Class Structure 
+
+The basic idea of the GeoProperty class structure is very simple. The actual
+implementation looks complicated, but is primarily so to simplify reuse of
+code and simplify extensions. If the ideas behind the structure are
+understood, the actual code doesn't look so bad any more. 
+
+All properties are derived from osg::Attachment, so they can directly be used as
+attachments and attached to an osg::AttachmentContainer.
+
+There are two primary types of GeoProperties: osg::AbstractGeoProperty and
+osg::GeoProperty.
+
+osg::AbstractGeoProperty describes the different kinds of attributes a Geometry
+can have: Positions, Colors, Normals, TexCoords, Indices, Types and
+Lengths. These are abstract, they have no specified data type and thus
+cannot be instantiated. They are the kinds of properties, not the actual
+properties. Use them in cases where you want to be able to use any actual type
+of data for a specific kind of property.
+
+osg::GeoProperty describes the concrete versions of the properties. These are
+typed, can be instantiated, and these are the versions normally used by an
+application to set up their osg::Geometry node cores. All the concrete classes
+like osg::GeoPositions3f and osg::GeoTexCoords2f are typedefs of this class.
+
+The actual interface to access the Properties has been factored out into
+separate classes, osg::GeoPropertyArrayInterface and
+osg::GeoPropertyInterface. Both of these are supported by all kinds and types
+of properties, the distinction is made for future extensions.
+
+osg::GeoPropertyArrayInterface defines a general, type-independent interface to
+all kinds of properties. It is very similar to the interface used by
+OpenGL's Vertex Arrays, i.e. it is possible to access the type,
+dimensionality and stride of the data, as well as getting access to the
+base pointer. This interface is primarily used for rendering. \dev The main
+reason for this interface is future extensibility to allow non-Property
+data to be used in osg::Geometry nodes, e.g. to use data that is stored in
+external libraries inside OpenSG. \enddev 
+
+osg::GeoPropertyInterface is the typed interface. Thus there are specific
+classes for every kind of property, which use the GenericType of the specific
+kind in their interface. This interface is the one that models the osg::MField
+interface, it has functions to add values to and change values of the property.
+
+\dev 
+
+Do we need a subValue here? DR 
+
+\enddev
+
+\hint 
+
+Some rules of thumb:
+
+- Everywhere you actually want to create a new property you have to use the
+  typed versions like osg::GeoPositions3f, as they are the only ones that
+  actually contain data.
+
+- To write functions that can handle arbitrary types of data, use abstract
+  property pointers and the generic interface to access the data.
+  \code
+  GeoColorsPtr col = GeoColorsPtr::dcast(geo->getColors());
+  if(col == NullFC)
+  {
+      FWARNING(("Downcast failed!\n"));
+      return;
+  }
+  beginEditCP(col, Geometry::ColorsFieldMask);
+  col->push_back(Color3f(1, 0, 1));
+  ...
+  endEditCP(col, Geometry::ColorsFieldMask);
+  \endcode
+  This may incur some overhead, as the data might have to be converted to the
+  actual data type of the property.
+
+- If you know that all the geometry your function has to work on has been
+  created yourself using a single type of property you can just downcast to
+  that type and use the interface of the osg::MField that holds the data
+  directly. For safety reasons you should make sure the downcast suceeded.
+  \code 
+  GeoColors3ubPtr col = GeoColors3ubPtr::dcast(geo->getColors());
+  if(col == NullFC)
+  {
+      FWARNING(("Downcast failed!\n"));
+      return;
+  }
+  MFColor3ub *c = col->getFieldPtr();
+  beginEditCP(col, Geometry::ColorsFieldMask);
+  c->push_back(Color3ub(255, 0, 255));
+  ...
+  endEditCP(col, Geometry::ColorsFieldMask);
+  \endcode
+  This is the most efficient way to access the data.
+  
+- The most general is the osg::GeoPropertyArrayInterface. If you want to be
+  able to support all kinds of osg::Geometry properties this is the way to go.
+  It doesn't differentiate between property types, so this is as general as it
+  gets. There are probably not many situations that need this kind of
+  generality, the renderer and some very generic osg::Geometry optimizations
+  like the osg::createSharedIndex and osg::createSingleIndex are the only
+  places where it's used right now.
+
+\endhint
+
+\section PageSystemGeoIndexing Indexing
+
+Using these properties it is possible to define geometry. Note that OpenSG
+inherits the constraints and specifications that concern geometry from OpenGL.
+Vertex orientation is counterclockwise when seen from the outside, and concave
+polygons are not supported.
+
+\image html geo_nonindexed.png "Non-Indexed Geometry"
+
+\image latex geo_nonindexed.eps "Non-Indexed Geometry" width=8cm
+
+One additional advantage of separating properties from Geometry is the ability
+to share properties between geometry osg::NodeCore s. As geometries can only
+have one material right now that's useful for simplifying the handling of
+objects with multiple materials.
+
+This simple geometry has one problem: there is no way to reuse vertex data.
+When a vertex is to be used multiple times, it has to be replicated, which can
+increase the amount of memory needed significantly. Thus, some sort of
+indexing to reuse vertices is needed. You can guess what's coming? Right,
+another property.
+
+Indices are stored in the osg::GeoIndices property, which only exists in the
+osg::GeoIndicesUI32 variant right now. When indices are present the given lengths
+define how many indices are used to define the primitive, while that actual
+data is indexed by the indices.
+
+\image html geo_indexed.png "Indexed Geometry"
+
+\image latex geo_indexed.eps "Indexed Geometry" width=8cm
+
+Indexed geometry is very close to OpenGL, and probably the most often used
+type of geometry. It doesn't handle all the cases, though.
+
+Sometimes vertices need different additional attributes, even though they have
+the same position. One example are discontinuities in texture coordinates,
+e.g. when texturing a simple cube. The edges of the cube don't necessarily use
+the same texture coordinate. To support that a single indexed geometry has to
+replicate the vertices.
+
+To get around that you need multiple indices per vertex to index the different
+attributes. Adding an index for every attribute would blow up the geometry
+significantly and not necessarily make it easier to use. We decided to use
+another way: interleaved indices.
+
+\image html geo_multiindexed.png "Multi-Indexed Geometry"
+
+\image latex geo_multiindexed.eps "Multi-Indexed Geometry" width=8cm
+
+Interleaved indices require every vertex to hold multiple indices. Which index
+is used for what attribute is defined by a separate indexMapping field. The
+indexMapping field is a osg::UInt32 osg::MField. The possible values are bitwise
+combinations of the available attribute masks: osg::Geometry::MapPosition,
+osg::Geometry::MapNormal etc. The length of the indexMapping defines how many
+indices are used per vertex. If it's not set a single index for all available
+properties is used (or none at all).
+
+In addition to the properties geometry keeps a osg::MaterialPtr to define the
+material that's used for rendering the geometry (see \ref PageSystemMaterial) and
+a flag that activates caching the geometry in OpenGL display lists. As
+geometry rendering is not optimized very much right now that's the best way to
+get decent performance. Display lists are turned on by default.
+
+\section PageSystemGeometryIterators Geometry Iterators
+
+The osg::Geometry setup is very nice and flexible to define: you can mix different
+kinds of primitives in an object, you can have properties and different kinds
+and the indexing allows the reuse of some or all of the data.
+
+From the other side of the fence things look different: if you want to walk
+over all triangles of a geometry to calculate the average triangle size or the
+surface area, or for calculating face normals or for whatever reason you have
+to take care of all the flexibility and be prepared for lots of different ways
+to define geometry.
+
+To simplify that the concept of a geometry iterator has been introduced. A
+geometry iterator allows to iterate over a given geometry primitive by
+primitive, face by face (a face being a triangle or quad), or triangle by
+triangle. 
+
+All of them are used like STL iterators: the osg::Geometry has methods to return
+the first or last+1th iterator, and to step from one
+element to the next. They can also unify the different indexing
+variants: when using an iterator you can access the index value for each
+attribute of each vertex of the iterator separately. Or you can directly
+access the data that's behind the index in its generic form, which is probably
+the easiest way of accessing the data of the osg::Geometry.
+
+\example The following loop prints all the vertices and normals of all the
+triangles of a geometry:
+
+\code
+for(it = geo->beginTriangles(); it != geo->endTriangles(); ++it)
+{
+    std::cout << "Triangle " << it.getIndex() << ":" << std::endl;
+    std::cout << it.getPosition(0) << " " << it.getNormal(0) << std::endl;
+    std::cout << it.getPosition(1) << " " << it.getNormal(1) << std::endl;
+    std::cout << it.getPosition(2) << " " << it.getNormal(2) << std::endl;
+}
+\endcode
+
+\endexample
+
+If you're used to having a separate Face object that keeps all the data for a
+face, the Iterators pretty much mimic that behavior. The one thing you can't
+do using iterators is changing the data. To do that you have to use the Indices
+the Iterators give you and access the Properties directly. Be aware that the
+Iterators hide all data sharing, so manipulating data for a face the iterator
+gives you can influence an arbitrary set of other faces.
+
+\subsection PageSystemPrimitiveIterator Primitive Iterator
+
+The osg::PrimitiveIterator is the basic iterator that just iterates through the
+osg::GeoPTypes property and gives access to the primitive's data. It is useful
+to solve the index mapping complications and to get access to the generic
+data, but it's primarily a base class for the following two iterator types.
+
+\subsection PageSystemFaceIterator Face Iterator
+
+The osg::FaceIterator only iterates over polygonal geometry and ignores
+points, lines and polygonal primitives with less than three vertices. It also
+splits the geometry into triangles or quads. 
+
+\subsection PageSystemTriangleIterator Triangle Iterator
+
+The osg::TriangleIterator behaves like the osg::FaceIterator, but it also splits
+Quads into two triangles, thus it does an implicit triangulation. As OpenSG
+just like OpenGL doesn't support concave geometry that's not as hard as it
+sounds.
+
+\subsection PageSystemLineIterator Line Iterator
+
+The osg::LineIterator only iterates over line geometry and ignores points,
+polygonal primitives and line primitives with less than two vertices. It
+splits line strips and loops into single lines.
+
+\subsection PageSystemEdgeIterator Edge Iterator
+
+The osg::EdgeIterator (currently) only iterates over line geometry and ignores
+points, polygonal primitives and line primitives with less than two
+vertices like the osg::LineIterator does, but it leaves line strips and loops
+as they are. This iterator will make more sense in a future version, where it
+returns the edges of the other primitives as single lines or line loops as
+well.
+
+\dev For all polygonal primitives probably except GL_POLYGON itself the edges
+could be returned as single lines conceptually similar to the implicit
+triangulation of the osg::TriangleIterator. For a polygon it seems reasonable
+to me to reinterpret it as line loop. Shouldn't we overload getType() to return
+the interpretation? \enddef
+
+The iterators can also be used to indicate a specific primitive/face/triangle/line.
+Each of these has an associated index that the iterator keeps and that can be
+accessed using getIndex(). A new iterator can be used to seek() a given
+primitive/face/triangle again and work on it. This is used for example in the
+osg::IntersectAction.
+
+
+\subsection PageSystemSimpleGeometry Simple Geometry
+
+OpenSG does not have NodeCores for geometric primitives like spheres, cones,
+cylinders etc. Instead there are a number of utility functions that can create
+these objects. They can be created as a ready-to-use node and as a naked node
+core. In most cases we tried to mimic the VRML primitive semantics, so if
+you're familiar with VRML you will feel right at home.
+
+\dev We definitely need a Teapot here... :) \enddev
+
+\subsubsection PageSystemSimpleGeometryPlane Plane
+
+osg::makePlane creates a single subdivided quad.
+
+\subsubsection PageSystemSimpleGeometryBox Box
+
+osg::makeBox creates a box around the origin with subdivided sides.
+
+\subsubsection SimpleGeometryCone Cone
+
+osg::makeCone create a cone at the origin.
+
+\subsubsection PageSystemSimpleGeometryCylinder Cylinder
+
+osg::makeCylinder create a cylinder at the origin.
+
+\subsubsection PageSystemSimpleGeometryTorus Torus
+
+osg::makeTorus create a torus at the origin.
+
+\subsubsection PageSystemSimpleGeometryConicalFrustum ConicalFrustum
+
+osg::makeConicalFrustum creates a truncated cone at the origin.
+
+\subsubsection PageSystemSimpleGeometrySphere Sphere
+
+There are two ways to create a sphere. osg::makeSphere uses a icosahedron as a
+base and subdivides it. This gives a sphere with equilateral triangles, but
+they do not correspond to latitude or longitude, which makes it hard to get
+good texture mapping on it. As every subdivision step quadruples the number of
+triangles, it is also hard to control the complexity of these kinds of spheres.
+
+osg::makeLatLongSphere on the other hand creates a
+sphere by simply usign a regular subdivision of latitude and longitude. This
+creates very small polygons near the poles, but is more amendable to texture
+mapping and gives finer control of the resoltuion of the sphere. 
+
+\subsubsection PageSystemSimpleGeometryExtrusion Extrusion Geometry
+
+osg::makeExtrusion creates a pretty general extruded geometry. It works by sweeping a given cross
+section, which can be given clockwise or counterclockwise, across a spine. For
+every spine point an orientation and a scale factor are specified. The
+beginning and the end of the object can be closed by caps, but for the capping
+to work the cross section has to be convex. The resulting geometry can
+be refined as a subdivision surface (no idea which subdivision scheme is
+applied, anyone care who knows care to take a look?). Optionally normals and
+texture coordinates can be generated
+
+
+\subsection PageSystemGeoFunctions Helper Functions
+
+A number of helper functions can be used in conjunction with manipulating and
+optimizing geometry.
+
+\subsubsection PageSystemGeoFunctionsCalcNormals Normal Calculation
+
+A common problem for self-created geometry or for geometry loaded from simple
+file formats are missing normals. Normals are needed for proper lighting,
+without them objects will either be black or uniformly colored.
+
+Normals can be calculated either for every face or for every vertex.
+
+Face normals, as calculated by osg::calcFaceNormals, are only unique for a given
+triangle or quad. The resulting object will look faceted, whcih may or may not
+be the desired effect. This will also work for striped or fanned models, as
+OpenSG doesn't have a per-face binding and uses multi-indexed per-vertex
+normals for this.
+
+Vertex normals are calculated for every vertex and allow a shape to look
+smooth, as the lighting calculation is done using the vertex normals and
+interpolated across the surface. They can be calculated using two different
+methods.
+
+osg::calcVertexNormals(GeometryPtr geo) will just average all the normals of
+the faces touching a vertex. It does not unify the vertices, i.e. it does not
+check if a vertex with given coordinates appears in the position property
+multiple times, the geometry has to be created correctly or be run thrugh
+osg::createSharedIndex.
+
+The disadvantage of osg::calcVertexNormals(GeometryPtr geo) is its
+indiscriminative nature, it will average out all the edges in the object. The
+alternative is osg::calcVertexNormals(GeometryPtr geo,  Real32 creaseAngle),
+which uses a crease angle criterion to define which edges to keep. Edges that
+have an angle larger than \a creaseAngle will not be averaged out. It won't
+always work for striped geometry. It will process it, but if a stripe point
+needs to be split because it has two normals, that won't be done. The same
+sharing caveat as given above applies. 
+
+Calculating vertex normals with a crease angle sounds simpler than it is,
+especially if the calculation should be independent of the triangulation of the
+object. Thus the algorithm is relatively expensive and should be avoided in a
+per-frame loop.  There are some ideas to do the expesive calculations once and
+quickly reaverage the normals when needed. These have not been realized, if you
+need this or even better want to implement it, notify us at info@opensg.org.
+
+\subsubsection PageSystemGeoFunctionsMakeGeo Geometry Creation
+
+Setting up all the objects needed to fully specify an OpenSG Geometry can be a
+bit tedious. So to simplify the process there are some functions that take data
+in other formats and create the corresponding OpenSG Geometry data.
+
+Right now there is only one function to help with this,
+osg::setIndexFromVRMLData. It takes separate indices for the different
+attributes, as given in the VRML97 specification, together with the flags that
+influence the interpretation of these indices, and sets up the indices, lengths
+and types properties of the given geometry. 
+
+
+\subsubsection PageSystemGeoFunctionsOptimizeGeo Geometry Optimization
+
+OpenSG's Geometry structure is very flexible and pretty closed modeled on
+OpenGL. But not all of the Geometry data specification variants are similarly
+efficient to render. The functions in this group help optimizie different
+aspects of the Geometry.
+
+osg::createOptimizedPrimitives takes a Geometry and tries to change it so that
+it can be rendered using the minimum number of vertex transformations. To do
+that it connects triangles to strips and fans (optionally). It does not change
+the actual property values, it just creates new indices, types and lengths. The
+algorithm realized here does not try a high-level optimization, instead it is
+optimized for speed. Due to its pseudo-random nature it can be run multiple
+times in the same time a more complex algorithm needs, allowing it to try
+different variants and keeping the best one found. Or, if execution time is a
+problem, it can be run only once and create a very quick result that is good,
+but not optimal.
+
+osg::createSharedIndex tries to find identical elements in the Geometries
+Properties and remove the copies. It will not actually change the Property
+data, it will just change the indexing to only use one version of the data.
+This is a necessary preparation step to allow osg::createOptimizedPrimitives to
+identify the triangles it can connect to form stripes and fans.
+
+osg::createSingleIndex resorts the Geometry's Property values to allow using
+a single index (in contrast to interleaved multi-indices) to represent the
+Geometry. To do that it might have to remap and copy Property values, as well
+as index values. While multi-indexing can be very efficient datawise, as as
+much of possible is shared, for rendering it is problematic. OpenGL doesn't
+know multi-indexing, thus for multi-indexed Geometry the more efficient OpenGL
+geometry specifiers like VertexArrays can't be used, which can have a
+significant impact on performance, especially for dynamic objects.
+
+UInt32 calcPrimitiveCount ( GeometryPtr geo,
+                            UInt32 &triangle, UInt32 &line, UInt32 &point );
+
+
+\subsubsection PageSystemGeoFunctionsShowNormals Normal Visualisation
+
+For debugging it can be useful to actually see the normals of an object, as
+that allows making sure that the normals point in the expected direction and
+that normals are really identical and not just pretty close. Every normal is
+represented by a line of a user-defined length. 
+
+As OpenSG doesn't have an explicit face/vertex binding mode there are two
+different functions to create an object representing the vertex or face
+normals. The application should know whether face or vertex normals are used in
+the given geometry. In general it is safe to assume vertex normals are used.
+
+osg::calcVertexNormalsGeo creates an object that shows the vertex normals of
+the given geometry, while osg::calcFaceNormalsGeo creates an object that shows
+the face normals.
+
+\dev We should add something more general here. Forcing the app to know is not
+nice. calcVertexNormalsGeo can already calc normals at the vertices and at the
+centers of the tris, but the decision when to use which and which normal to use
+is not clear. \enddev
+
+*/

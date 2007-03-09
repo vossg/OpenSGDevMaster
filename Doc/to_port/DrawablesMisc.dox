@@ -1,0 +1,29 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemNodeCoresDrawablesMisc Miscellaneous Drawables
+    \ingroup GrpSystemNodeCoresDrawables
+*/
+
+/*! \page PageSystemSlices Slices
+
+Slices is a simple volume rendering core. 
+The Slicer just creates and renders 
+viewer-oriented slices from back to front through a rectangular volume, 
+which is centered around the origin and specified using the
+size in the three dimensions. The numberOfSlices parameter defines
+the number of slices which should be utilizes along the diagonal. 
+Therefore it is more the max number of slices rendered and should be
+set to match the texture sampling rate. The slice distance is uniform 
+for different camera positions which is necessary to minimize the re-sampling 
+artifacts. 
+
+\image html slicer.png "Polygon slices using various slice numbers"
+\image latex slicer.eps "Polygon slices using various slice numbers" width=8cm
+
+The core depends on the material to setup a 3D texture and BlendMode. 
+You have to provide the voxelgrid-data as 3D-Texture. Check out
+the testSlicer programm as example.
+
+*/

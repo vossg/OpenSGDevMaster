@@ -1,0 +1,15 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpBaseStringConversion StringConversion
+    \ingroup GrpBase
+    
+    See \ref PageStringConversion for details.
+*/
+
+/*! \page PageStringConversion StringConversion
+
+TODO
+
+*/

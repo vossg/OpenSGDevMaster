@@ -1,0 +1,42 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpWindowCocoa OpenSG MacOS X Cocoa Window System Library
+    \ingroup GrpWindowSystems
+    
+    \brief The library for MacOS X Cocoa windows.
+
+    See \ref PageWindowCocoa for details.
+*/
+
+/*! \defgroup GrpWindowCocoaField Fields
+    \ingroup GrpWindowCocoa
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpWindowCocoaFieldTraits Field Data Traits
+    \ingroup GrpWindowCocoaField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpWindowCocoaFieldSingle Single-Element Fields
+    \ingroup GrpWindowCocoaField
+
+    ToDo
+*/
+
+/*! \defgroup GrpWindowCocoaFieldMulti Multi-Element Fields
+    \ingroup GrpWindowCocoaField
+
+    ToDo
+*/
+
+/*! \page PageWindowCocoa MacOS X Cocoa Window System Library
+
+    ToDo
+*/

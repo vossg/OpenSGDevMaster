@@ -1,0 +1,42 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystem OpenSG System Library
+
+    \brief The System Library contains the main system-independent parts of OpenSG.
+
+    See \ref PageSystem for details.
+*/
+
+/*! \defgroup GrpSystemField Fields
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpSystemFieldTraits Field Data Traits
+    \ingroup GrpSystemField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpSystemFieldSingle Single-Element Fields
+    \ingroup GrpSystemField
+
+    ToDo
+*/
+
+/*! \defgroup GrpSystemFieldMulti Multi-Element Fields
+    \ingroup GrpSystemField
+
+    ToDo
+*/
+
+/*! \page PageSystem System
+
+SystemLib: everything not base and winsys
+
+*/

@@ -1,0 +1,20 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemNodeCoresDrawables Drawables
+    \ingroup GrpSystemNodeCores
+
+See \ref PageSystemNCDrawables for details.
+
+*/
+
+/*! \page PageSystemNCDrawables Drawables
+
+\latexonly Starter:NewChapter \endlatexonly
+
+Drawables are the leaf nodes of the graph. They do not use their children, even
+if they have some. Drawables contain the actual rendered geometry in the
+different forms it can be specified in.
+
+*/

@@ -1,0 +1,108 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemNodeCoresDrawablesParticles Particles
+    \ingroup GrpSystemNodeCoresDrawables
+    
+Particles are used for large numbers of simple, similar geometries. 
+
+See \ref PageSystemParticles for a description.
+
+*/
+
+/*! \page PageSystemParticles Particles 
+
+The main idea of particles is to give a way of easily rendering large numbers
+of simple geometric objects. Particles are mostly used together with partially
+transparent textures to simulate fuzzy objects, but other uses are possible,
+e.g. molecules as stick-and-sphere models, stars or arrows for flow-field
+visualisations.
+
+The Particles core can display different styles of particles and keeps all the
+data needed to do all of them. Not every style uses all the data, and using
+simpler setups can result in vastly improved performance\ext (if it doesn't, add a
+fast path to Particles::findDrawer ;) \endext.
+
+The supported styles are:
+ - Points
+ - Lines
+ - ViewDirQuads
+ - Arrows
+ - ViewerArrows
+
+The available attributes are:
+
+ - Positions
+ - secPositions
+ - Colors
+ - Normals
+ - Sizes
+ - textureZs
+ - Indices
+
+The first 4 are realized similarly to the Geometry Properties, to allow
+unified manipulation of data and sharing with geometry nodes. They can handle
+the same data formats the geometry can handle.
+
+The only attribute every particle needs is the position. Some styles need
+other attributes, too, but most are optional. Colors, Normals, Sizes and
+textureZs can either be left empty, have a single element or have as many
+elements as there are positions. If only a single element is given, it is used
+by all particles, otherwise every particle has its own element. 
+
+The different types interpret the data as follows:
+
+osg::Particles::ModeE::Points are rendered as simple GL_POINTS. Points use the
+positions, colors and textureZs attributes. A single size can (and should!) be
+given, but size per particle is not supported (yet). \dev The problem is that
+to be efficient it is necessary to sort the points by size and minimize the
+state changes. That's just not done yet. \enddev
+
+osg::Particles::ModeE::Lines are two-point lines between a position and the
+corresponding secPosition, i.e. there have to be as many positions as
+secPositions. Colors and texture coordinates are used, too. A single size can
+(and should!) be given, but width per line is not supported (yet). \dev Same
+reason as for the points. \enddev
+
+osg::Particles::ModeE::ViewDirQuads draw a single quad at the given position
+with the given size, color and texture Z. Only the X component of the size is
+used, and the given texture is used to fill the quad totally. The orientation
+of the quad is chosen to be parallel to the viewing direction, i.e. particles
+that are to the side of the viewer will be seen as a line.
+
+osg::Particles::ModeE::ViewerQuads use just the same parameters as
+ViewDirQuads, but the particles are oriented to turn towards the viewer
+position, i.e. they always face the viewer, no matter where they are.
+
+osg::Particles::ModeE::Arrows draws simple flat arrows. The coordinate system
+of the arrows is defined by the position, the secondary position and the
+normal. The tip of the arrow is at the position, the axis of the arrow points
+to the secondary position and the it is perpendicular to the normal. There
+need to be positions and secondary positions for every arrow, a single normal
+is possible, or a separate normal for every arrow.
+
+osg::Particles::ModeE::ShaderQuads are designed to be rendered by a shader.
+The Particles core only supplies the data but does not try to do any kind of
+transformation on it, that's left to the shader. The data is passed to the
+shader as follows: the particle's position as texture coordinate 1, the
+secondary position as 2, the size as 3. Color and normal just use the regular
+OpenGL attributes. The vertices of the quad are fixed at (-.5,-.5), (.5,-.5), 
+(.5,.5) and (-.5,.5), the texture coordinates 0 at (0,0), (1,0), (1,1) and
+(0,1). If set, the textureZs of the particles are set in the texture
+coordinate 0.
+
+osg::Particles::ModeE::ShaderStrips are similar to the ShaderQuads. They also
+render a rectangle between (-.5,-.5) and (.5,.5), but they split it up into
+multiple slices, the number of slices is set by the z coordinate of the size
+attribute. For example setting size[2] to 2 would render two quads, with
+vertices (-.5,-.5), (.5,-.5), (.5,0), (-.5,0) and  (-.5,0), (.5,0), (.5,.5), 
+(-.5,.5) (and corresponsing texture coordinates).
+
+There is also a single material that is used to draw the particles, and an
+attribute to change the draw order of the particles.
+
+\ext
+To extend the particles nodecore for rendering new things, do the following: XXX
+\endext
+*/

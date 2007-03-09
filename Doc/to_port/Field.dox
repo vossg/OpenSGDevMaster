@@ -1,0 +1,163 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpBaseField Fields
+    \ingroup GrpBase
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpBaseFieldTraits Field Data Traits
+    \ingroup GrpBaseField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpBaseFieldSingle Single-Element Fields
+    \ingroup GrpBaseField
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseFieldMulti Multi-Element Fields
+    \ingroup GrpBaseField
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseFieldHelper Field Helper
+    \ingroup GrpBaseFieldHelper
+
+    ToDo
+*/
+
+/*! \page PageBaseField Fields
+
+All data in FieldContainers is organized in fields. There are two general
+types of fields, fields for single values (SFields) and fields for multiple
+values (MFields). For the standard types and most pointer and ptr types there
+are predefined instances of both types of fields.
+
+\section SFields Single Fields
+
+Single fields hold, as the name says, a single value. Their content can be
+accessed directly using getValue(); and setValue();. It can also be copied
+from another field of the same type by setValue(); (for fields of the same
+type) or by setAbstrValue(); (for fields which have the same type, but are
+given as an abstract field).
+
+\section MFields Multi Fields
+
+Multi fields hold multiple values. They are realized as STL vectors and offer
+a similar interface. The field defines types for iterators and references, and
+the standard begin(), end(), front(), back(), push_back(), insert(), erase(),
+clear(), size(), resize(), reserve() and other functions.
+
+In addition, Multi fields have an interface reminiscent of single fields. It
+features the setValue() variants mentioned above and indexed variants like
+getValue(const UInt32 index) and setValue(const FieldTypeT &value, const
+UInt32 index) methods. It also features an OpenSG-style getSize() method.
+
+\section  FCFields FieldContainer Fields
+
+Each attribute has a name, e.g. someValue, and every field container has a set
+of standard access functions to access its fields. The field itself can be
+accessed via getSFSomeValue() or getMFSomeValue() for single or multiple value
+fields respectively.
+
+For SFields containers features getSomeValue() and setSomeValue() direct
+access methods. The MField getSomeValue() method returns the whole field, just
+like the getMFSomeValue() method. Some field containers have more access
+functions, often something like an addSomeValue() method to simplify adding
+data to multi fields. See the field container docs for details.
+
+*/
+
+#if !defined(OSG_DO_DOC) || OSG_DOC_LEVEL > 1
+
+/*! \page PageBaseFieldExt Creating New Field Types
+
+All the data that is kept in FieldConatiners has to be in Fields. Fields
+provide the interface for the reflecivity and generic access methods to work.
+They come in the two known variants single and multi field. To simplify
+creating new field types, they do not have to created explicitly. Instead
+there are templates SField and MField who take care of the implementation. All
+you need to provide is a Trait structure that defines the types needed and
+some type-specific functions.
+
+Note that field types for new FieldContainers (actually pointers to
+FieldContainers, as you can't instantiate them) can be created by fcdEdit
+automatically. So if you need fields for pointers to your containers, you
+don't have to follow the descriptions in this section.
+
+The trait has to be a concrete version (What's the right name for this?) of
+FieldDataTrait<class type> and has to provide the following functions/types:
+
+\li a DataType _type; which is used to uniquely identify the Field's type
+
+\li an access method for the type: DataType &getType(void)
+
+\li two methods to return the names of the field types: Char8 *getSName(void)
+and Char8 *getMName(void). The names are usually created by capitalizing the
+type name and prepending SF or MF, e.g. the matrix field names are SFMatrix
+and MFMatrix.
+
+\li a method to get a default object to initialize the values: type
+getDefault(void).
+
+\li two methods to convert a data element to and from a string: Bool
+getFromString(type &outVal, const Char8 *&inVal); and void putToString(const
+type &inVal, string &outVal);. Note that these are optional in the sense that
+the system will work without them, but some important features will not work
+without them, so it's highly recommended to implement them.
+
+\li In any case, if they are implemented or not, this has to be announced by
+adding an anonymous enum value for StringConvertable which can be a binary
+combination of ToStringConvertable and FromStringConvertable.
+
+Note that all functions have to be static, as the Trait class is not
+instanced, and that the Trait cannot have any virtual functions or data
+memebrs. It is not used to create actual objects, it's just a convenience
+container for the needed types/functions.
+
+The fields also need to be able to store themselves in a binary form. If the
+data structures used are contiguous in memory and don't use pointers this can
+easily be accomplished by deriving the FieldDataTrait<class type> from
+FieldTraitsRecurseBase<type>. It will copy the contents of the data types
+verbatim and back.
+
+This approach will not work as soon as there are pointers in the new
+structures, even simple things like STL vectors will not work that way.
+
+In these cases you need to implement the binary interface in the trait. It
+consists of three method, which exist for single and multiple elements of the
+type:
+
+\li a method to calculate the size of the packed object: UInt32
+getBinSize(const type &object); 
+
+\li a method to put the object into a binary block: void
+copyToBin(BinaryDataHandler &mem, const type &object);
+
+\li a method to receive the object from a binary memory block: void
+copyFromBin(BinaryDataHandler &mem, type &object);
+
+The last two methods work via a BinaryDataHandler, which abstracts a memory
+block. 
+
+There are some details that have to be done in order for all the static
+elements to be available and all necessary templates to be instatiated.
+Especially for types that are to be used in libraries on Windows some
+constraints need to be satisfied.
+
+For an example on how to implement new Field types, see Examples/NewTypes in 
+the source code or source distribution.
+
+*/
+
+#endif
+
+ 

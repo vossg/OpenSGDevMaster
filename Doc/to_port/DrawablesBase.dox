@@ -1,0 +1,41 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemNodeCoresDrawablesBase Base Drawables
+    \ingroup GrpSystemNodeCoresDrawables
+
+See \ref PageSystemDrawablesBase for details.
+
+*/
+
+/*! \page PageSystemDrawablesBase Base Drawables
+
+To simplify implementation there are two base Drawables that can be used as
+parent classes for derivation: osg::Drawable and osg::MaterialDrawable.
+
+\section PageSystemDrawablesBaseDrawable Drawable
+
+The simple Drawable is the root class of all renderable NodeCores. It
+contains the Statistics element descriptors that can be used to collect
+information about renderable geometry.
+
+\ext Use a Drawable pointer whenever you need to keep something that can be
+rendered, but don't need access to the Material. \endext
+
+\dev Not sure the name is right, because I don't know if and how I would render
+something that doesn't have a material. Maybe if we get multi-material nodes
+later? It keeps the inheritance hierarchy cleaner anyway. \enddev
+
+\section PageSystemDrawablesBaseMaterialDrawable MaterialDrawable
+
+The MaterialDrawable contains a pointer to a osg::Material that is used to
+render the node. It is abstract, but the base for most renderable classes.
+
+\ext It also contains a simple framework for extending the system in the sense
+of adding node cores that render OpenGL geometry. The drawPrimitives method
+needs to call the necessary OpenGL commands. Register the MaterialDrawables
+action methods in the initMethod and that's it, see OSGSlicer.cpp or the Cubes
+example for an example. \endext
+
+*/

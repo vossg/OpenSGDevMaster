@@ -1,0 +1,10 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemNodeCoresGroupsLight Lights
+    \ingroup GrpSystemNodeCoresGroups 
+    
+    Lights are the light sources for lighting the scene. 
+    See \ref NCGroupsLights for a description.
+*/

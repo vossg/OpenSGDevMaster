@@ -1,0 +1,50 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpWindowWin32 OpenSG Win32 Window System Library
+    \ingroup GrpWindowSystems
+    
+    \brief The library for Win32 windows.
+
+    See \ref PageWindowWin32 for details.
+*/
+
+/*! \defgroup GrpWindowWin32Field Fields
+    \ingroup GrpWindowWin32
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpWindowWin32FieldTraits Field Data Traits
+    \ingroup GrpWindowWin32Field
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpWindowWin32FieldSingle Single-Element Fields
+    \ingroup GrpWindowWin32Field
+
+    ToDo
+*/
+
+/*! \defgroup GrpWindowWin32FieldMulti Multi-Element Fields
+    \ingroup GrpWindowWin32Field
+
+    ToDo
+*/
+
+/*! \page PageWindowWin32 Win32 Window System Library
+
+Win32 are the native Microsoft Windows windows. 
+
+It needs the HWND before init() can be called. It gets the HDC itself and
+creates the HGLRC.
+
+Note: we don't really know much about the intricacies of Windows programming.
+Thus the way we do things might be suboptimal, or maybe even illegal. Comments
+welcome.
+
+*/

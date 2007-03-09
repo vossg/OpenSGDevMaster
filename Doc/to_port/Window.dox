@@ -1,0 +1,719 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+//---------------------- Groups ---------------------
+
+/*! \defgroup GrpSystemWindow Window
+    \ingroup GrpSystem
+    
+The Window group contains everything related to the actual windows where the
+final rendered image is shown. This includes all the different partsnecessary
+to set up a window like Cameras Viewports, Forgrounds and Backgrounds.
+
+See \ref PageSystemWindow for a description.
+*/
+
+/*! \defgroup GrpSystemWindowForegrounds Foregrounds
+    \ingroup GrpSystemWindow
+    
+Foregrounds are used to add information after the viewport is rendered.
+
+See \ref PageSystemWindowForegrounds for a description.
+*/
+
+/*! \defgroup GrpSystemWindowStatisticsForegrounds Statistics Foregrounds
+    \ingroup Foregrounds
+    
+Statistics Foregrounds are used to add statistics information after the
+viewport is rendered.
+
+See \ref PageSystemWindowForegroundStatistics for a description.
+*/
+
+/*! \defgroup GrpSystemWindowBackgrounds Backgrounds
+    \ingroup GrpSystemWindow
+    
+Backgrounds are responsible for clearing the viewport before rendering. 
+
+See \ref PageSystemWindowBackground for a description.
+*/
+
+/*! \defgroup GrpSystemWindowCameras Cameras
+    \ingroup GrpSystemWindow
+    
+The Camera group includes all the Camera and camera enhancement objects.
+
+See \ref PageSystemWindowCamera for a description.
+*/
+
+/*! \defgroup GrpSystemWindowCameraDecorators Camera Decorators
+    \ingroup GrpSystemWindowCameras
+    
+The Camera Decorators group includes all the Camera Decorators for camera
+manipulation.
+
+See \ref PageSystemWindowCameraDecorators for a description.
+*/
+
+/*! \defgroup GrpSystemWindowCameraDecoratorsStereo Stereo Camera Decorators
+    \ingroup GrpSystemWindowCameraDecorators
+    
+Camera Decorators group including the decorators needed to generate left/right
+image pairs for three-dimensional stereo display.
+
+See \ref PageSystemWindowCameraDecoratorsStereo for a description.
+*/
+
+/*! \defgroup GrpSystemWindowViewports Viewports
+    \ingroup GrpSystemWindow
+    
+Viewports define how parts of the actual window are rendered, allowing
+splitting up Windows into smaller parts for rendering.
+
+See \ref PageSystemWindowViewports for a description.
+*/
+
+/*! \defgroup GrpSystemWindowNavigators Navigators
+    \ingroup GrpSystemWindow
+    
+Navigators are helper classes to map mouse or keyboard events to manipulations
+of the camera. 
+
+See \ref PageSystemWindowNavigators for a description.
+*/
+
+
+//---------------------- Pages ---------------------
+
+
+/*! \page PageSystemWindow Window
+
+\latexonly Starter:NewChapter \endlatexonly
+
+Windows are the general connection between OpenSG and the windowing system
+used by the application/platform. OpenSG itself does not open its own windows,
+that has to be done by the application. Using GLUT it's pretty trivial, take a
+look at the tutorial examples on how to do that. For other window systems its
+a little more work, but the goal is to have wrapper classes for the usual GUI
+toolkits like QT, Motif etc. that simplify the task. We have one for QT,
+OSGQGLManagedWidget, and are interested in similar ones for other Window
+systems.
+
+\section PageSystemWindowWindow Window
+
+A osg::Window is the connection between OpenSG and the window system used.
+There are variants for different supported window systems like X, WIN32, GLUT
+and QT. The OpenSG Window object handles OpenGL context creation and
+activation/deactivation, and needs to be informed about resizes. It manages
+OpenGL objects like display lists and texture objects and is also responsible
+for OpenGL extension detection and functions.
+
+It doesn't do any input event handling or similar things, it's only for output
+and keeping the osg::Viewport instances that fill the window and keep all the
+rendering parameters. See \ref PageSystemWindowSimpleSceneManager for an
+easy-to-use wrapper for setting these up. 
+
+There should be a 1:1 relation between an osg::Window and a window-system
+window. As such the osg::Window is responsible for handlng the OpenGL related
+tasks such as OpenGL object and extensions management (see \ref
+PageSystemOGLObjects for details on that). 
+
+\subsection PageSystemWindowWindowPassive Passive Window
+
+The osg::PassiveWindow is a helper class for integration into other OpenGL
+programs. It does not manage its own OpenGL context, it expects the context to
+be active whenever it is called. It also ignores swap commands, as these are
+window system-specific. Thus the osg::PassiveWindow can be used in any window
+system and GUI system to simplify integration. If the same OpenGL context is
+active whenever it is initialised/called it will work nicely.
+
+\section PageSystemWindowViewports Viewport
+
+A osg::Viewport is a part of the window that is being rendered into. It can cover
+the whole window, but doesn't have to. Every Window can handle an arbitrary
+number of viewports, e.g. to allow the typical front/left/right/perspective
+views in a single window. Every osg::Viewport can only be attached to one
+osg::Window.
+
+The size of the viewport is defined by its left, right, bottom and top
+coordinates, given in OpenGL conventions, i.e. the bottom of the screen has
+the vertical coordinate 0. If the value is bigger than 1, it's a position in
+pixel. That's independent of the window size, if the window is smaller, parts
+of the viewport will be cut, if it's bigger parts of the window will not be
+covered. If they are between 0 and 1 (inclusively) they are relative to the
+window and are rescaled when the window is resized. If they are -1 they use
+the extreme applicable value, i.e. 0 for left and bottom, 1 for right and top.
+For relative sizes the actual value used for right and top is value * size -
+1. This allows abutting viewports by using the same relative values for right
+and left of the viewports that should fit. See the image for an example.
+
+\image html viewports.png "Viewports in differently sized windows"
+
+\image latex viewports.eps "Viewports in differently sized windows" width=8cm
+
+An exception to this size definition is the osg::PassiveViewport. It is meant
+to be used for integrating OpenSG into other applications and takes the size
+from the currently active OpenGL viewport and thus ignores its settings. This
+is pretty extreme, in most cases it will probably be enough to use a
+osg::PassiveWindow and set the Viewport parameters to not interfere with
+whatever other OpenGL rendering is taking place.
+
+To define what is being rendered a viewport stores the root osg::Node of the scene
+graph to be displayed, the osg::Camera, the osg::Background and
+osg::Foreground instances to use. Of these, only the osg::Foreground is
+optional, all others are needed to draw or render the osg::Viewport.
+
+There are some special kinds of viewports for specific purposes. The default
+osg::Viewport is for single buffered rendering, the osg::StereoBufferViewport
+is used for quad-buffer stereo rendering and the osg::ColorBufferViewport
+allows rendering to specific color channels only. 
+
+\hint
+
+The osg::StereoBufferViewport only works if the selected window actually has
+the four buffers. So make sure that your graphics card supports quad-buffer
+rendering (i.e. has Visuals that are stereo) and that the selected Visual is
+one of those.
+
+\endhint
+
+\anchor PageSystemWindowViewportsPassive The osg::PassiveViewport is totally
+passive. It ignores its set size and position and instead takes the current
+OpenGL settings. This allows pretty simple integratino into other OpenGL
+programs, but the OpenGL context must be active and the viewport set correctly
+for it to work.
+
+\section PageSystemWindowCamera Camera
+
+A osg::Camera defines the parts of the scene that are actually being rendered. The
+definition can be split in two parts: position and orientation, and internal
+parameters.
+
+Position and orientation of the camera are defined by a node in the
+scene graph, a beacon, similarly to the definition used by light sources. The
+camera uses the OpenGL defaults for specifying the used coordinate system,
+i.e. the camera looks along the negative Z coordinate, X points to the right
+and Y is up. Thus, to use a camera you need a beacon node in the scene to
+define its position. This can be an object you want to attach the camera to,
+but in general you'll probably have a Transform node somewhere close to the
+root to handle it.
+
+This gives full flexibility to use a simple matrix to define camera position
+and orientation, but can be tedious to specify. Many systems use a from-at-up
+convention to define camera parameters, i.e. you specify a viewer position, a
+point that should be in the center of the screen and the direction that should
+be up on the screen. The osg::MatrixLookAt functions from OSGMatrixUtility.h can
+convert these settings into a matrix that can directly be used to specify the
+camera.
+
+The internal parameters of the camera can vary between different kinds of
+cameras. The only constant thing that a camera for OpenGL needs are the near
+and far clip distances, which are defined in the general Camera class. The
+others are defined in the specific camera classes.
+
+The camera parameters needed for rendering are split into three matrices. The
+first is for viewing, representing teh viewing part of the OpenGL GL_MODELVIEW
+matrix. The GL_PROJECTION matrix is split into two. The first is the real
+projection matrix, the second is a projection transformation matrix. The
+projection transformation is used to add a coordinate system for non-coplanar
+multi-screen projection setups like CAVEs. See "High-Quality High-Performance 
+Rendering for Multi-Screen Projection Systems" by Dirk Reiners, in Proceedings 
+of the 3 rd International Immersive Projection Technology Workshop for a
+motivation of this additional coordinate system.
+
+The camera has a bunch of functions to access its parameters and derived values
+like its viewing frustum, and also to calculate rays through viewport pixel for
+picking etc.
+
+\ext
+
+To add a new camera it is necessary to derive from Camera (or one of its
+descendents) and to override the getProjection() method. It might make sense to
+also override the getViewing() and/or getProjectionTranslation() methods, in
+many cases that won't be necessary.
+
+\endext
+
+\subsection PageSystemWindowCameraPerspective Perspective Camera
+
+osg::PerspectiveCamera is the standard camera used for OpenGL rendering. The
+only additional attribute it has is the vertical field of view, in radians.
+The horizontal field of view is automatically adjusted to the window size to
+create a square aspect ratio.
+
+\dev 
+
+It is a little lenient in that it interprets angles > Pi as degrees. Dont know
+if we should make that official, though. We also need some provisions for
+non-square aspect ratios.
+ 
+\enddev
+
+\subsection PageSystemWindowCameraMatrix Matrix Camera
+
+The osg::MatrixCamera is a very low-level camera class that keeps the 
+ModelView and Projection matrices directly. It ignores all other parameters it
+has and just uses the given matrices.
+
+Note: The MatrixCamera ignores the beacon's transformation. It really fully 
+replaces the modelview and projection matrices.
+
+Note: The MatrixCamera also ignores the near and far fields for calculating 
+the projection. Nonetheless, other components of the system (e.g. the 
+osg::SkyBackground) may still depend on them. Given that they're necessary
+to calculate the matrix they should be available in the providing system,
+and they should be set on the MatrixCamera to prevent problems.
+
+\subsection PageSystemWindowCameraDecorators Camera Decorators
+
+A osg::CameraDecorator is object that can be used instead of a osg::Camera and
+replaces/enhances some of its functionality. It is an implementation of the
+standard Decorator pattern (see the Design Patterns book), in which a special
+object, the decorator, is placed between the original object and a user of the
+original object.
+
+The main idea is to allow enhancing/manipulating arbitrary cameras for new
+features with minimal impact on applications. The osg::ShearedStereoDecorator
+for example allows using any camera, whether it's a perspective, orthographic
+or whatever camera, to control a stereo projection. Todo that it is only
+necessary to create two viewports, one for the left and right eye, and use two
+decorators to decorate the single camera for the left and right eye. Changes
+to the camera's parameters can be done just like in a single view application
+and automatically influence all affected viewports, and the difference
+neccessary to create the different images for the left and right eye are
+managed by the decorators.
+
+\ext
+
+To create a new osg::CameraDecorator it is just necessary to derive from
+osg::CameraDecorator and override the function that needs to change. To access
+the parameters of the decorated object the osg::CameraDecorator::_sfDecoratee
+field can be used. See osg::ShearedStereoCameraDecorator for an example.
+
+\endext
+
+\subsubsection PageSystemWindowCameraDecoratorsTile Tiled Rendering
+
+The osg::TileCameraDecorator is used to select a rectangular part of the image
+and scale it to the full viewport. The primary application area is distrbuting
+the rendering of a large image over several screens. The viewing parameters can
+be defined as if it was a single large viewport, and the
+osg::TileCameraDecorator will pick the part it needs to render. This is
+different from having multiple independent cameras positioned side by side, as
+the center of projection needs to be the same for all parts of the image
+calculated.
+
+The part of the image displayed is defined by its left/right/bottom top
+coordinates and the width/height of the full image.
+
+\hint
+
+Pixel-based osg::Background instances like \ref
+PageSystemWindowBackgroundGradient will not work with the
+osg::TileCameraDecorator, as they directly access the physical viewport right
+now.
+
+\endhint
+
+\subsubsection PageSystemWindowCameraDecoratorsMatrix Additional Matrices
+
+The osg::MatrixCameraDecorator allows you to modify the matrices used for
+rendering. It features separate matrices that are pre- and appended to the
+viewing, projectionTranslation and projection matrices. 
+
+The main use is to manipulate the viewing matrix to allow a single camera to
+look into different directions in different viewports. Note that if you want to
+use a head-tracked environment, the \ref
+PageSystemWindowCameraDecoratorsStereoProjection makes that a lot easier.
+
+\subsubsection PageSystemWindowCameraDecoratorsStereo Stereo
+
+An interesting applications of CameraDecorators is the use to generate the
+left/right image pairs that are needed to display three-dimensional stereo
+images.
+
+The osg::StereoCameraDecorator is the base class for all the Decorators that
+are able to do this. It keeps the generic parameters that are needed for every
+stereo image: the eye separation and the left/right eye distinction. 
+
+The eye separation defines the distance between the two eyes, given in the
+units used in the models, not some global unit like centimeters.
+
+The left/right eye distinction is handled by a simple bool, which is true for
+the left eye decorators, and false for the right eye's.
+
+The actual algorithm to generate the images is defined by the specific
+decorator.
+
+\paragraph PageSystemWindowCameraDecoratorsStereoSheared Sheared Stereo
+
+The osg::ShearedStereoCameraDecorator can be used to generate the left/right
+image pair needed for stereoscopic displays. It uses the sheared frustum stereo
+model, which is most appropriate for situations with a non-headtracked user or
+multiple users, for head-tracked users see \ref
+PageSystemWindowCameraDecoratorsStereoProjection. 
+
+The only parameters it needs is the zero parallax plane distance, which
+defines the distance to a plane where left and right eye images perfectly
+overlap (i.e. they have zero parallax). This is the plane that the eye will
+associate with the projection screen or monitor, and the distance should be
+accurate, as far as possible, to create the most realistic result. It is
+defined in model units, just like the eye separation.
+
+\paragraph PageSystemWindowCameraDecoratorsStereoProjection
+Projection Screen
+
+The osg::ProjectionStereoCameraDecorator is used to calculate the
+viewing and projection matrices needed for head-tracked stereo
+setups like some power-walls or, mostly, CAVEs.
+
+The main difference to standard stereo stems from the fact that
+the user can now move in front of the screen. Thus the projection
+matrix needs to be created so that the center of projection is at
+the user's eye position and the frustum encloses the projection
+screen. As OpenGL viewports can only be rectangular, this only
+works right for rectangular projection screens conceptually. This
+rectangular projection screen is defined by its four corners,
+which have to be given to the
+osg::ProjectionStereoCameraDecorator. The order for the four
+corners is lower-left, lower-right, upper-right and finally
+upper-left.
+
+\dev
+
+Internally the corners are used to calculate a local coordinate
+system of the screen, defined by a left, bottom and normal vector.
+In addition the width and height of the projection screen are
+calculated. All of these are used to quickly calculate the
+projection matrix. When looking at the parameters for glWindow
+that is actually pretty simple and left as an exercise for the
+reader. ;)
+
+\enddev
+
+The other information needed to calculate the matrices is the
+position of the user's head. This is usually delivered by a
+mechanical/magnetic/optical tracking system, which has its own
+coordinate system. This is coordinate system to be used for the
+user's head position as well as the corners of the projection
+screen.
+
+The is an additional coordinate system that needs to be taken into
+account, that's the relation between the projection system and the
+world. As most projection system setups are smaller than the
+scenes they depict there is a way to move the whole system in the
+world, in addition to the user moving inside the projection
+system. This is conceptually equivalent to the standard user
+navigation in a scene.  To hide the specifics of the
+osg::ProjectionStereoCameraDecorator from an application that
+should also be used for standard screens, those two coordinate
+systems are defined by the coordinate systems of two osg::Node
+instances.
+
+One of them is the osg::Camera's beacon Node. This is used to move
+the projection system in the scene, just as if it was a simple
+user. 
+
+The other is the osg::ProjectionStereoCameraDecorator's user Node,
+which should define the world position of the user's head. As the
+tracker generates relative coordinates, this node should be a
+descendant of the beacon node.
+
+Thus the sub-graph for a head-tracked projected stereo should best
+look like this:
+
+beacon->user (need a real picture here)
+
+This allows simple switching between standard and head-tracked
+mode, in which the eye position in standard mode is the origin of
+the coordinate system in head-tracked mode. 
+
+\section PageSystemWindowBackground Background
+
+A background defines how the window is cleared before anything is rendered.
+There are a couple of different backgrounds.There can be only one background
+per viewport.
+
+\subsection PageSystemWindowBackgroundSolid Solid Background
+
+osg::SolidBackground is the simplest variant, it just fills the background with a
+single color.
+
+\subsection PageSystemWindowBackgroundGradient Gradient Background
+
+osg::GradientBackground fills the background with a color gradient. To specify the
+gradient a color has to be associated with a vertical position in the viewport
+(0 being at the bottom, 1 being at the top). An arbitrary number of gradient
+steps can be used, if only one is given it is used for the whole screen, if
+none is given black is used. Areas outside the secified gradient borders are
+filled with black, too.
+
+\subsection PageSystemWindowBackgroundImage Image Background
+
+osg::ImageBackground draws an osg::Image to clear the background. The image can
+be scaled to fill the viewport, or it can be kept in the lower left corner of
+the viewport. The area not filled by the image can be cleared to a simple
+color. The image is really used as an image and not as a texture, thus
+clearing, especially with scaling, is not blindingly fast.
+
+\subsection PageSystemWindowBackgroundPassive Passive Background
+
+osg::PassiveBackground does nothing within the clear call, thus it also has no
+Fields at all. It is mainly used to stack viewports on top of each other, i.e.
+it makes it possible to have two viewports on top of each other to generate a
+single combined image.
+
+\subsection PageSystemWindowBackgroundDepthClear Depth Clear Background
+
+osg::DepthClearBackground only clears the depth buffer, leaving the color
+buffer untouched. It is mainly used to stack viewports on top of each other,
+i.e. it makes it possible to have two viewports on top of each other to
+generate a single combined image, where the second image lies on top of
+everything in the first image.
+
+\subsection PageSystemWindowBackgroundSky Sky Background
+
+osg::SkyBackground is a sky/ground and skybox background, inspired by the VRML
+Background node. See
+http://www.vrml.org/technicalinfo/specifications/vrml97/part1/nodesRef.html#Background
+for a description on the parameter restrictions. 
+
+In general it has a set of increasing sky angles and a set of sky colors (one
+more than angles, for the apex). It has a similar set of parameters for the
+ground. The sky box is defined by 6 (optional) textures, one for each side of
+the cube. 
+
+\section PageSystemWindowForegrounds Foreground
+
+A foreground can be used to render something on top of the scene-graph image,
+or manipulate the image if necessary. There can be an arbitrary number of
+active foregrounds, which are evaluated in the order they are given in the
+osg::Viewport.
+
+\subsection PageSystemWindowForegroundImage Image Foreground
+
+ImageForeground renders images on top of the scene-graph image. The typical
+use is adding a logo to the image. The can be RGB or RGBA images, correct alpha
+blending is performed.
+
+Images have to be loaded as osg::Image instances, their position has to be
+defined as a 2D position in the [0,1]x[0,1] range.
+
+\subsection PageSystemPolygonForeground Polygon Foreground
+
+The PolygonForeground renders a single polygon on top of the viewport using a
+given Material. The main purpose of the PolygonForeground is using a texture
+instead of an image for rendering, but it's general enough for other things. 
+
+The polygon is specified using a set of 3D texture coordinates and a set of
+2D positions. Both have to contain the same number of entries. The positions
+can be interpreted in different ways. Values larger or equal to 0 are
+interpreted starting from the left/bottom border of the viewport, values less
+or equal to -1 are interpreted starting from the right/top border of the
+viewport, which -1 being the right/topmost pixel of the viewport. Whether
+these values are relative to the viewport size or represent absolute pixel
+values is determined by the normalizedX/normalizedY fields. If set to true,
+the calculated position is relative, with a 0 to 1 (or -2 to -1) range
+covering the whole viewport. Otherwise they are direct pixel positions.
+
+\subsection PageSystemWindowForegroundGrab Grab Foreground
+
+The osg::GrabForeground can be used to grab the rendered viewport into an
+osg::Image. The osg::Image has to be given to the foreground, if it is not set
+nothing is grabbed. 
+
+The size of the osg::Image is used to define the size of the grabbed area. If
+the image is set, but its size is 1 pixel in one dimension it is
+resized to the size of the viewport (The 1 is needed as it's impossible to
+create 0x0 pixel images).  
+
+\subsection PageSystemWindowForegroundGrabFile File Grab Foreground
+
+The osg::FileGrabForeground is used to grab rendered viewports into a single
+file or into a sequence of files.
+
+It can be activated/deactivated using a flag, per default it is active. There's
+no need to set the image on the osg::FileGrabForeground, it is created
+automatically on first use. 
+
+To actually write the image the target file name needs to be set. To write a
+sequence of frames it also keeps a frame counter, which can be automatically
+incremented after each grabbed image. The name is used for a printf-style
+command, thus "%d" in the name is replaced by the frame number. 
+
+\hint 
+
+Use "%04d" to create file names with leading zeros.
+
+\endhint
+
+\subsection PageSystemWindowForegroundStatistics Statistics Foregrounds
+
+The descendents of osg::StatisticsForeground can be used to print or draw
+Statistics elements on the rendered image. 
+
+The osg::StatisticsCollector that is used to collect the elements needs to be
+set in the foreground, as well as the list of osg::StatElemDesc IDs that
+should be displayed.
+
+\subsection PageSystemWindowForegroundStatisticsSimple Simple Statistics Foreground
+
+\b NOTE: The osg::SimpleStatisticsForeground is still considered experimental
+and can and probably will change!
+
+osg::SimpleStatisticsForeground displays the statistics info as simple text
+lines. They are displayed using a compiled-in font that can use an arbitrary
+color and that can be arbitrarily resized, with the size per line given in
+pixel. 
+
+The format of every element is given by a format string for every element that
+is directly passed to osg::StatElem::putToString(), so go there to see the
+possible options.
+
+If no elementIDs are given all elements in the osg::StatCollector are display,
+using the default format.
+
+\subsection PageSystemWindowForegroundStatisticsGraphic Graphic Statistics Foreground
+
+\b NOTE: The osg::GraphicStatisticsForeground is still considered experimental
+and can and probably will change!
+
+osg::GraphicStatisticsForeground displays the statistics info as one of a set
+of graphical elements. The possible elements are: 
+
+<ul>
+
+<li>an analog rotary display</li>
+
+<li>a single-bar display</li>
+
+<li>a block chart</li>
+
+<li>a line chart</li>
+
+<li>a simple text line</li>
+
+</ul>
+
+Every display can be put at an arbitrary position on screen, defined by a
+position in X-Window style, i.e. negative positive are taken to be relative to
+the right edge of the screen. The size of every element can be given either in
+pixel or relative to the viewport size, similar to the viewport itself, i.e.
+sizes <=1 are taken to be relative. Every display can have up to three
+independent colors. The min and max displayable values can either be set
+directly, or they can be adapted dynamically. To control that adaption there
+are two flags (Overflow Resize and Underflow Resize), which can be set for
+every display. 
+
+Other flags allow the display the min and max values as text, the display of
+the reciprocal value instead of the actual value, the display of dots at the
+positions of data points and the smoothing of the display. The smoothing is
+done using a running average filter of selectable length. If filtering is used
+the displays show two indicators, one for the current, one for the filtered
+value.
+
+Some general attributes for all displays can be set: the line width used, the
+background color used and if the displays should have a drawn background
+and/or drawn border at all.
+
+\section PageSystemWindowNavigators Navigators
+
+The Navigators are utility classes to manage the transformation of a camera. 
+There are different navigation models, which are handled by specific navigator 
+classes. The general Navigator features a default mouse and keyboard button 
+binding and a simple to use interface and can switch between these specific 
+navigators.
+
+\subsection PageSystemWindowNavigatorsNavigator General Navigator
+
+The osg::Navigator is a helper class that wraps an instance of all the
+different low-level navigators and provides functions to map mouse/key event
+interaction to the lower-level navigator interfaces.
+
+As a consequence the osg::Navigator is the most useful of the navigators and
+should be used in applications.
+
+Navigators can be run in absolute or relative mode. In absolute mode (the default) 
+they will try to counteract any changes made to matrices above the camera beacon.
+In non-absolute mode they will not do anything about them.
+
+The default active navigator is the osg::TrackballNavigator. For this
+navigator the osg::Navigator will map a left mouse click with motion to a
+rotation, a left mouse click without motion will set the center of rotation to
+the hit point. A middle mouse click or move will translate in screen x/y, while
+keeping the hit point under the mouse. A right mouse click with vertical
+motion as well as using a mouse wheel (if configured to generate button 4 & 5
+events) will move the viewer in the z direction.
+
+The osg::FlyNavigator uses fly forward on left mouse button, backwards on right
+mouse button and stay still on middle mouse button. In all modes mouse motion
+is mapped to rotation.
+
+\subsection PageSystemWindowNavigatorsTrackball Trackball Navigator
+
+The osg::TrackballNavigator mimics a model enclosed in a glass sphere and 
+manipulated by dragging the sphere. The primary application area of the 
+osg::TrackballNavigator is examining a given object by looking at it from all 
+directions, it's an outside-in exploration.
+
+Rotation is done by dragging a point on the sphere, translation by focussing the 
+sphere on a different position in space or by dragging the whole sphere. The 
+size of the sphere can be changed, by default it is 80% of the screen size. It 
+is also possible to click and drag outside the sphere. A useful special case is 
+clicking and dragging at the extreme left and right edges of the screen, which 
+can be used to rotate the model around the screen z-axis.
+
+The
+distance between the center of rotation and the viewer can also be changed by 
+dragging, resulting in a changing zoom. 
+
+\subsection PageSystemWindowNavigatorsFly Fly Navigator
+
+The osg::FlyNavigator mimics a simple flying model. The user can move forwards 
+and backwards along the viewing direction and he can turn left/right and 
+up/down. The primary application area for the osg::FlyNavigator is models with 
+rather large extends like buildings, cities and landscape, that should be 
+explored from the inside rather than from the outside.
+
+The primary parametrisation is a from/at/up point/vector triple, which 
+can be used to initialize and read from the navigator.
+
+\subsection PageSystemWindowNavigatorsWalk Walk Navigator 
+
+The osg::WalkNavigator is an extension of the osg::FlyNavigator. It uses the 
+same interaction model, but in addition constrains the viewer to keep a specific 
+distance from a specified ground. It can also prevent him from walking through 
+walls and objects as well as preventing him from passing through too narrow 
+openings.
+
+The main application area are architecture walkthroughs, where the user walks 
+on 
+a ground through one or more buildings.
+
+
+\section PageSystemWindowSimpleSceneManager SimpleSceneManager
+
+The SimpleSceneManager (SSM) is a utility class to simplify the creation of
+simple applications. It manages a single window with a single viewport and a
+minimal scene-graph with a beacon for the camera and a headlight. It keeps a
+Trackball to interactively manipulate the camera.
+
+It does not open a window itself, that is left to the user to keep the SSM
+useful for arbitrary window systems. The window has to be passed to the SSM by
+using setWindow(). That's one half of the necessary initialization. It can't
+handle input itself, the application has to pass it user input events. It's a
+lot simpler than it sounds, take a look at the tutorials to see how it works.
+
+The other half of the necessary initialization is telling SSM what to draw by
+calling setRoot(). That's it. It might be useful to call showAll() to position
+the camera at a reasonable position, but that's not mandatory.
+
+The SSM can be used in conjunction with any window system, it has been
+integrated into an easy-to-use QT widget called OSGQGLWidget. See
+testManagedWindowQT_qt.cpp for an example on how to use it.
+
+As a little bonus, the SSM can display the "Powered by OpenSG" logo. Just call
+useOpenSGLogo() and you're done. ;)
+
+*/

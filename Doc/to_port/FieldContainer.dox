@@ -1,0 +1,411 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpSystemFieldContainer Field Container
+    \ingroup GrpSystem
+ */
+
+/*! \defgroup GrpSystemFieldContainerFuncs Field Container Functions
+    \ingroup GrpSystem
+ */
+
+/*! \defgroup GrpSystemMultithreading Multithreading
+    \ingroup GrpSystem
+ */
+
+/*! \page PageSystemFieldsNFieldContainers Fields & Field Containers
+
+\latexonly Starter:NewChapter \endlatexonly
+
+One central goal in OpenSG's design is easy to use thread-safe data. To do
+that right, you need to replicate the data so that every thread can have its
+private copy (called aspect) to work on. At some point these different copies
+will have to be synchronized, and then the parts that actually changed need to
+be copied from one aspect to another. To do that, the system needs to know
+what actually changed. As C++ is not reflective, i.e. the classes cannot tell
+the system which members they have, OpenSG needs to keep track of the changes.
+That's what Fields and FieldContainers are for.
+
+\section PageSystemFCInstance Creating a FieldContainer instance
+
+FieldContainer can be created in two ways: By using the FieldContainerFactory
+or from the class's prototype. You cannot create instances of FieldContainers
+neither by creating automatic or static variables nor by calling new. You have
+to use the mentioned two ways.
+
+For generic loaders it is useful to create an object by name, and this is what
+the factory is for. The factory is a singleton, the single instance can be
+accessed via FieldContainerFactory::the(), which has functions to create
+arbitrary field containers, with some special versions to directly create
+different subsets of field containers (Nodes, NodeCores, Attachments).
+
+For reasons connected to multi-threading (s. [threadsafety]) specific kinds of
+pointers have to be used. For every FieldContainer type fc there is a specific
+pointer type fcPtr. It has all the features of a standard pointer, i.e. it can
+be dereferenced via -> and it can be downcasted to a derived type by
+DerivedPtr.dcast( ParentPtr );.
+
+Creating a new instance of a specific class is done by calling fcPtr
+var=fcPtr::create(). 
+
+\section PageSystemRefCount Reference counting
+
+FieldContainers are reference-counted. They are created with a reference count
+of 0, and the reference count can be manipulated through addRefCP() and
+subRefCP(). 
+
+The system increases the reference count only when it stores a reference to an
+object in the system, e.g. when a node is attached to another node. It does
+not increase the reference counter for every parameter that is passed around,
+the pointers mentioned in [fcinstance] are not smart pointers.
+
+The reference count is decreased when an object is removed from the system,
+e.g. when a node is detached from another node, or explicitly using
+subRefCP(). If the reference count goes to or below 0, the object is removed.
+Note that objects are created with a reference count of zero, so if a new
+object (refCnt: 0) is attached to a node (increasing the refCnt to 1) and
+removed later on (decreasing it to 0), it will be destroyed. Increasing the
+reference count before removing it is needed to prevent the destruction.
+
+\section PageSystemFCManip Manipulation
+
+The FieldContainer is the basic unit for multi-thread safety. To synchronize
+changes between different copies of the data the system needs to know when and
+what changed. 
+
+This has to be done explicitly by the program. Thus, before changing a
+FieldContainer beginEditCP(fcPtr, fieldMask); has to be called. After the
+changes to the FieldContainer are done this also has to be communicated by
+calling endEditCP(fcPtr, fieldMask);. Here, fcPtr is the pointer to the
+FieldContainer being changed, fieldMask is a bit mask describing the fields
+that are changed. 
+
+Every FieldContainer defines constants for all its fields that can be used to
+set up this mask. The naming convention is
+[FieldContainer]::[FieldName]FieldMask, e.g. Geometry::PositionsFieldMask.
+These masks can be or-ed together to create the full mask of fields that are
+changed.
+
+To simplify the begin/endEdit sequences and make it easier to not forget closing
+the edit (which can result in pretty surprising error) there is a helper class
+osg::CPEditor.
+
+The CPEditor is an equivalent to the std::auto_ptr in the sense that as it calls
+the beginEdit as soon as it is created and calls the endEdit as soon as it goes
+out of scope.
+
+\example Use CPEditor for begin/endEdit:
+
+\code
+
+    GeoPTypesPtr type = GeoPTypesUI8::create();        
+    {
+        CPEditor te(type, GeoPTypesUI8::GeoPropDataFieldMask);
+        
+        type->addValue(GL_POLYGON  );
+        type->addValue(GL_TRIANGLES);
+        type->addValue(GL_QUADS    );
+    }
+
+\endcode
+
+\endexample
+
+As a further (small) simplification there is a CPEdit macro that creates the
+CPEditor instance automatically.
+
+\example Use CPEdit for begin/endEdit:
+
+\code
+
+    GeoPTypesPtr type = GeoPTypesUI8::create();        
+    {
+        CPEdit(type, GeoPTypesUI8::GeoPropDataFieldMask);
+        
+        type->addValue(GL_POLYGON  );
+        type->addValue(GL_TRIANGLES);
+        type->addValue(GL_QUADS    );
+    }
+
+\endcode
+
+\endexample
+
+
+
+\section PageSystemAttachments FieldContainer attachments
+
+OpenSG field containers and nodes do not feature an unused pointer to attach
+data, usually called user data in other systems. Instead, many field
+containers feature a map to attach specific kinds of field containers called
+attachments. The most important ones are Nodes and NodeCores, but many other
+like Window, Viewport, Camera, etc. are derived from AttachmentContainer and,
+therefore, can carry attachments.
+
+Attachments have to be derived from Attachment (see 
+\ref PageSystemFieldContainerExt for
+details on how to do that). There are also predefined attachments, right now the
+only one is NameAttachment, which allows assigning a name to the field
+containers.
+
+Every AttachmentContainer can hold an arbitrary number of attachments.
+Attachments are divided into separate groups, and there can be only one
+attachment of every group attached to an AC. Most attachments are a group, but
+if needed new ones can be used as replacements for their parents.
+
+\section PageSystemFCThreadsafety Data separation & Thread safety
+
+One of the primary design goals of OpenSG is supporting multi-threaded
+applications. For asynchronous threads that means that every thread might need
+its private copy of the data. To combine that with easy usability and
+efficient access we decided to replicate at the field container level. 
+
+When a field container is created not only one instance is created but
+multiple, per default 2. These are called aspects, and every running thread is
+associated with one of them. Whenever data is changed in a thread, only the
+aspect that's associated with it is changed, the rest is left as is.
+
+*/
+
+#if defined(OSG_DO_DOC) || OSG_DOC_LEVEL > 1
+
+/*! \page PageSystemFieldContainerExt Creating New FieldContainer Classes
+
+Most developers who use OpenSG as a scene-graph library will probable never
+create their own OpenSG FieldContainer classes. Similar to widget libs (e.g.
+qt, gtk) people just use instances (the widgets) but never create new
+classes. 
+
+However, you can always extend the type system of OpenSG to integrate new
+cores (e.g. a fancy LOD switch) or application specific FieldContainers.
+
+FieldContainers are the system's central mechanisms to deal with any kind of
+thread safe data (see \ref PageSystemFieldsNFieldContainers). Therefore, the
+class declaration must include various extra meta information for the field
+and FieldContainer type handling. 
+
+In most systems (e.g. Inventor), you would probably start writing a new class
+or node by just 'copy and paste'-ing an existing implementation. However,
+since OpenSG needs all this extra meta data it is not a simple but very error
+prone process to create the field container source by hand. Instead, we
+provide a graphical tool to create and manage the FieldContainer description
+and implementation.
+
+The basic idea is that you use the 'field container description editor'
+($OSGROOT/Tools/fcdEdit) to create an XML file including the description of
+your FieldContainer fields and interfaces.
+
+The tool is also able to create all necessary C++ source files. The
+FieldContainer code is split into classes (e.g. for a Foo FieldContainer:
+FooBase and Foo). This strategy has various advantages:
+
+\li Type system changes: If the OpenSG core team decides to change the code
+interface for the FieldContainer type management we can just recreate the base
+classes from the XML description. No adaptations 'by hand' are needed.
+
+\li Interface changes: If you would like to change the interface of your
+FieldContainer (e.g. add another field) later on you can just re-edit the XML
+file in fcdEdit and recreate the base classes. All necessary access methods
+are created automatically.
+
+\section PageSystemFieldContainerExtFCD XML Description (Foo.fcd)
+
+Includes all field and meta descriptions for a single FieldContainer. Can be
+read and written by the fcdEdit tool. You should only change it by hand when
+you're sure of what you're doing. 
+
+\section PageSystemFieldContainerExtFieldTypes Field Types (FooFields.h)
+
+Include the field and pointer declarations the the FieldContainer to be used
+in other FieldContainers as reference. You should not change the file by hand.
+
+\section PageSystemFieldContainerExtBase Base/Meta Type (FooBase.h, FooBase.inl,
+FooBase.cpp)
+
+Holds all the meta and field information. Do not change it by hand. Use the
+fcdEdit tool to create the files anew whenever you change the XML
+description. 
+
+\section PageSystemFieldContainerExtUser 'User Code' implementation (Foo.h,
+Foo.inl, Foo.cpp)
+
+Holds the 'user code'. The fcdEdit is able to create a skeleton for your
+FieldContainer implementation. The code does not include any meta information,
+therefore, it is not necessary to create it anew whenever you change the
+interface. 
+
+Include new action handlers or whatever you need as functionality. 
+
+\image html fcdEdit-numbered.png "fcdEdit"
+
+\image latex fcdEdit-numbered.eps "fcdEdit" width=8cm
+
+A quick explanation of the different buttons/input fields:
+
+<ol>
+
+<li>The name of the FieldContainer. Should follow the capitalization rules.</li>
+
+<li>Defines whether the FC is a part of the OpenSG system. This mainly
+influences the way system headers are included (with or without the OpenSG/
+prefix). </li>
+
+<li>Defines whether the FC can be decorated. Currentl only used for
+osg::CameraDecorator classes, but usable in general. The main effect is to turn
+all Field access emthods into virtual functions, to allow overriding them, and
+creating the necessary default Decorator classes.</li>
+
+<li>The name of the parent class of the FC.</li>
+
+<li>Defines if the parent class is a system component.</li>
+
+<li>The name of the library this FC will be included in. If it is only to be
+used in application programs, just leave it blank and the appropriate code for
+an application component will be generated.</li>
+
+<li>Define whether Field types for pointers to this type of FC should be
+created.</li>
+
+<li>Defines whether this FC is abstract or concrete (i.e. whether it can be
+instantiated or not).</li>
+
+<li>A general description of this FC. It will be included in the actual FC
+code. As this code cannot be regenerated changing this description after the
+code has been generated will not make a difference.</li>
+
+<li>A list of the Fields of this FC.</li>
+
+<li>The name of the currently selected Field.</li>
+
+<li>The type of the currently selected Field. There is a list of predefined
+types that can be selected from, but it is also possible to just write the type
+of the Field here.</li>
+
+<li>The cardinality of the Field, i.e. if it's a single (osg::SField) or multi
+element (osg::MField) field.</li>
+
+<li>The access type of the field: private, protected or public. In general
+Fields should be public, if they are internal they should be protected.</li>
+
+<li>The visibility of the Field mainly influences whether the Field is written
+to files etc. Fields that have no meaning beyond the current execution of the
+program should be internal, Fields that hold configuration data should be
+external.</li>
+
+<li>The header containing the declaration of the Field's type. If left empty a
+name is guessed, using the name <tt>OSG<type>Fields.h</tt>. For type names
+ending in \c Ptr (the default for FieldContainerPtr types) the \c Ptr is
+removed. This works for all system types and for standard user-defined types.
+For other types, just enter the header file name into this field, excluding the "
+delimiters. </li>
+
+<li>The default value of the Field. Used to initialize the Field, and put
+verbatim into the constructor definition for the given Field (e.g. <tt>FC::FC() :
+Field(default) { }</tt>) </li>
+
+<li>The header needed to declare the default value. Useful to access enum or
+constants from external files (like opengl.h).</li>
+
+<li>A short description of the Field's contents and function. Will be put into
+the code documentation.</li>
+
+<li>Creates a new Field.</li>
+
+<li>Deletes a Field.</li>
+
+<li>Clones a Field.</li>
+
+<li>Moves the Field up in the list.</li>
+
+<li>Moves the Field down in the list.</li>
+
+<li>Clear the whole system, start from scratch.</li>
+
+<li>Load an .fcd file.</li>
+
+<li>Currently unused.</li>
+
+<li>Save the current settings to the .fcd file.</li>
+
+<li>Write the FieldContainer Base code. This can also be done by calling
+fcdEdit with the <tt>-b</tt> command line option and the .fcd file. It is safe
+to do that, as no user changes should be done to the Base code.</li>
+
+<li>Currently unused.</li>
+
+<li>Currently unused.</li>
+
+<li>Save the current settings to a different .fcd file.</li>
+
+<li>Write the actual FieldContainer code. This can also be done by calling
+fcdEdit with the <tt>-f</tt> command line option and the .fcd file. This will
+not keep any changes made to the FC code, and thus can quickly destroy whatever
+work has been done to it. To prevent that from happening on accident, it will not
+overwrite existing files.</li>
+
+<li>Minimal info about the progam.</li>
+
+<li>Leave the program.</li>
+
+</ol>
+
+\section PageSystemFieldContainerExtPrototype Prototype Replacement
+
+If you create a replacement for a system component, e.g. a smarter DistanceLOD
+node that can handle predictive LOD selection, and want the system to use your
+version of the DistanceLOD from now on you can do that. Internally all field
+container instances are created by cloning a prototype instance. You can
+access the prototype for a given FieldContainer via its class type which you
+can access using FC::getClassType(). The class type has a setPrototype()
+method to assign the prototype. 
+
+Be careful to only replace the prototype with classes derived from the
+original class, or the behavior of the system is undefined.
+
+\section PageSystemFieldContainerExtInit Initialization / Deinitalization
+
+As OpenSG uses object replication for thread-safe data, constructors and
+destructors are not always the right place for initialisation and deletion
+anymore. They are called for every aspect, which usually is more than once.
+For initialisation that should be done only once per object, the onCreate()
+method can be used. Similarly, onDestroy() is called once, when the object is
+destroyed.
+
+There is also a difference between the constructors. The copy constructor is
+called for every aspect of an object, the default constructor is only called
+once, during the static init phase, to create the initial prototype instance
+for the class. As code running in the static init phase faces some
+restrictions (e.g. the order of initializations is undefined, thus any other
+object might not yet have been initialized) a saver way to do class-global
+initializations was added. The initMethod() method is called during osgInit(),
+which is after all static inits are done.
+
+As a summary here's a list of when which method is called:
+
+\li default constructor: once, during static init, to create the initial
+prototype
+
+\li initMethod(): once, during osgInit()
+
+\li copy constructor: during object instance creation, once for every aspect
+
+\li onCreate(): during object instance creation, once
+
+\li onDestroy(): during object instance deletion, once
+
+\li destructor: during object instance deletion, once for every aspect
+
+onCreate() and on Destroy() are also called for the initial prototype
+creation. Not all prototypes might need the resources a real instance needs,
+and initial prototype creation is run during static init, where it might not
+be safe to access other classes. To allow a destinction between prototype
+creation and the standard running state of the system there's a global
+variable GlobalSystemState, which will be set to Startup during static init
+and Running after osgInit() is finished. During osgExit() it will be set to
+Shutdown.
+
+*/
+
+#endif
+
