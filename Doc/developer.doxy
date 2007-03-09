@@ -1,0 +1,38 @@
+@INCLUDE = opensg.doxy
+
+# The INTERNAL_DOCS tag determines if documentation 
+# that is typed after a \internal command is included. If the tag is set 
+# to NO (the default) then the documentation will be excluded. 
+# Set it to YES to include the internal documentation.
+
+INTERNAL_DOCS          = YES
+
+
+
+# Setting the STRIP_CODE_COMMENTS tag to YES (the default) will instruct 
+# doxygen to hide any special comment blocks from generated source code 
+# fragments. Normal C and C++ comments will always remain visible.
+
+STRIP_CODE_COMMENTS    = NO
+
+# If the GENERATE_TREEVIEW tag is set to YES, a side panel will be
+# generated containing a tree-like index structure (just like the one that 
+# is generated for HTML Help). For this to work a browser that supports 
+# JavaScript, DHTML, CSS and frames is required (for instance Mozilla 1.0+, 
+# Netscape 6.0+, Internet explorer 5.0+, or Konqueror). Windows users are 
+# probably better off using the HTML help feature.
+
+GENERATE_TREEVIEW      = YES
+
+# If the treeview is enabled (see GENERATE_TREEVIEW) then this tag can be 
+# used to set the initial width (in pixels) of the frame in which the tree 
+# is shown.
+
+TREEVIEW_WIDTH         = 250
+
+# If you set the HAVE_DOT tag to YES then doxygen will assume the dot tool is 
+# available from the path. This tool is part of Graphviz, a graph visualization 
+# toolkit from AT&T and Lucent Bell Labs. The other options in this section 
+# have no effect if this option is set to NO (the default)
+
+HAVE_DOT               = NO

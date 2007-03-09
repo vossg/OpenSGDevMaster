@@ -464,7 +464,7 @@ feature_options["enable_scanparse_regen"] = sca_opts.BoolOption(
 
 feature_options["docs_mode"] = sca_opts.EnumOption(
     "docs_mode", "Select the mode for documentation generation",
-    "NONE", ["NONE", "STANDALONE", "TRAC"])
+    "NONE", ["NONE", "STANDALONE", "TRAC", "DEVELOPER"])
 
 if "win32" == platform:
     feature_options["enable_win_localstorage"] = sca_opts.BoolOption(
@@ -732,6 +732,8 @@ if not SConsAddons.Util.hasHelpFlag():
          common_env.Doxygen("Doc/standalone.doxy")
       elif "TRAC" == common_env["docs_mode"]:
          common_env.Doxygen("Doc/trac.doxy")
+      elif "DEVELOPER" == common_env["docs_mode"]:
+         common_env.Doxygen("Doc/developer.doxy")
       else:
          raise "Unknown docs_mode %s" % common_env["docs_mode"]
       
