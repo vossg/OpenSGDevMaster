@@ -10,8 +10,6 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-\ingroup GrpSystemWindowForegrounds
-
 StatisticsForeground is the base class for all foregrounds that process
 statistics.  Decendents of this class can be used to print or draw Statistics
 elements on the rendered image.
@@ -25,7 +23,14 @@ Statistics presentation is done as a foreground so it can be drawn on top of a
 currently rendering scene.  This does not mean you could not collect statistics
 directly and present them to the user in another way such as a GUI or text output.
 
-See \ref PageSystemWindowForegroundStatistics for a description.
+The format of every element is given by a format string for every element that
+is directly passed to osg::StatElem::putToString(), so go there to see the
+possible options.
+
+If no elementIDs are given all elements in the osg::StatCollector are display,
+using the default format.
+
+See \guide(Statistics) for further details.
 	<Field
 		name="elementIDs"
 		type="Int32"

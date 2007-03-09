@@ -46,11 +46,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Statistics Foregrounds base class. See \ref 
-    PageSystemWindowForegroundStatistics for a description.
+/*! \brief Statistics Foregrounds base class.
 */
-
-class OSG_SYSTEM_DLLMAPPING StatisticsForeground : 
+class OSG_SYSTEM_DLLMAPPING StatisticsForeground :
     public StatisticsForegroundBase
 {
     /*==========================  PUBLIC  =================================*/
@@ -63,7 +61,7 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForeground :
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -71,7 +69,7 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForeground :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -100,7 +98,7 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForeground :
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~StatisticsForeground(void); 
+    virtual ~StatisticsForeground(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

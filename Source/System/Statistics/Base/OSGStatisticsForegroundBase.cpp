@@ -72,8 +72,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StatisticsForeground
-    \ingroup GrpSystemWindowForegrounds
-
     StatisticsForeground is the base class for all foregrounds that process
     statistics.  Decendents of this class can be used to print or draw Statistics
     elements on the rendered image.
@@ -87,7 +85,14 @@ OSG_BEGIN_NAMESPACE
     currently rendering scene.  This does not mean you could not collect statistics
     directly and present them to the user in another way such as a GUI or text output.
 
-    See \ref PageSystemWindowForegroundStatistics for a description.
+    The format of every element is given by a format string for every element that
+    is directly passed to osg::StatElem::putToString(), so go there to see the
+    possible options.
+
+    If no elementIDs are given all elements in the osg::StatCollector are display,
+    using the default format.
+
+    See \guide(Statistics) for further details.
  */
 
 /***************************************************************************\
@@ -175,8 +180,6 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
     ">\n"
-    "\\ingroup GrpSystemWindowForegrounds\n"
-    "\n"
     "StatisticsForeground is the base class for all foregrounds that process\n"
     "statistics.  Decendents of this class can be used to print or draw Statistics\n"
     "elements on the rendered image.\n"
@@ -190,7 +193,14 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     "currently rendering scene.  This does not mean you could not collect statistics\n"
     "directly and present them to the user in another way such as a GUI or text output.\n"
     "\n"
-    "See \\ref PageSystemWindowForegroundStatistics for a description.\n"
+    "The format of every element is given by a format string for every element that\n"
+    "is directly passed to osg::StatElem::putToString(), so go there to see the\n"
+    "possible options.\n"
+    "\n"
+    "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
+    "using the default format.\n"
+    "\n"
+    "See \\guide(Statistics) for further details.\n"
     "\t<Field\n"
     "\t\tname=\"elementIDs\"\n"
     "\t\ttype=\"Int32\"\n"
@@ -210,8 +220,6 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     "        The OSG::StatCollector that keeps the displayed statistics.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowForegrounds\n"
-    "\n"
     "StatisticsForeground is the base class for all foregrounds that process\n"
     "statistics.  Decendents of this class can be used to print or draw Statistics\n"
     "elements on the rendered image.\n"
@@ -225,7 +233,14 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     "currently rendering scene.  This does not mean you could not collect statistics\n"
     "directly and present them to the user in another way such as a GUI or text output.\n"
     "\n"
-    "See \\ref PageSystemWindowForegroundStatistics for a description.\n"
+    "The format of every element is given by a format string for every element that\n"
+    "is directly passed to osg::StatElem::putToString(), so go there to see the\n"
+    "possible options.\n"
+    "\n"
+    "If no elementIDs are given all elements in the osg::StatCollector are display,\n"
+    "using the default format.\n"
+    "\n"
+    "See \\guide(Statistics) for further details.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

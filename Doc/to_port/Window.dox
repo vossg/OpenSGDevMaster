@@ -22,23 +22,6 @@ Foregrounds are used to add information after the viewport is rendered.
 See \ref PageSystemWindowForegrounds for a description.
 */
 
-/*! \defgroup GrpSystemWindowStatisticsForegrounds Statistics Foregrounds
-    \ingroup Foregrounds
-    
-Statistics Foregrounds are used to add statistics information after the
-viewport is rendered.
-
-See \ref PageSystemWindowForegroundStatistics for a description.
-*/
-
-/*! \defgroup GrpSystemWindowBackgrounds Backgrounds
-    \ingroup GrpSystemWindow
-    
-Backgrounds are responsible for clearing the viewport before rendering. 
-
-See \ref PageSystemWindowBackground for a description.
-*/
-
 /*! \defgroup GrpSystemWindowCameras Cameras
     \ingroup GrpSystemWindow
     
@@ -548,39 +531,6 @@ Use "%04d" to create file names with leading zeros.
 
 \endhint
 
-\subsection PageSystemWindowForegroundStatistics Statistics Foregrounds
-
-The descendents of osg::StatisticsForeground can be used to print or draw
-Statistics elements on the rendered image. 
-
-The osg::StatisticsCollector that is used to collect the elements needs to be
-set in the foreground, as well as the list of osg::StatElemDesc IDs that
-should be displayed.
-
-\subsection PageSystemWindowForegroundStatisticsSimple Simple Statistics Foreground
-
-\b NOTE: The osg::SimpleStatisticsForeground is still considered experimental
-and can and probably will change!
-
-osg::SimpleStatisticsForeground displays the statistics info as simple text
-lines. They are displayed using a compiled-in font that can use an arbitrary
-color and that can be arbitrarily resized, with the size per line given in
-pixel. 
-
-The format of every element is given by a format string for every element that
-is directly passed to osg::StatElem::putToString(), so go there to see the
-possible options.
-
-If no elementIDs are given all elements in the osg::StatCollector are display,
-using the default format.
-
-\subsection PageSystemWindowForegroundStatisticsGraphic Graphic Statistics Foreground
-
-\b NOTE: The osg::GraphicStatisticsForeground is still considered experimental
-and can and probably will change!
-
-osg::GraphicStatisticsForeground displays the statistics info as one of a set
-of graphical elements. The possible elements are: 
 
 <ul>
 
