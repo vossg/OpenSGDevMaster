@@ -145,4 +145,6 @@ bool CarbonWindow::swap( void )
     return true;
 }
 
+OSG_END_NAMESPACE
+
 #endif // __APPLE__

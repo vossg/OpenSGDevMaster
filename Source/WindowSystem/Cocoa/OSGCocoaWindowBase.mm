@@ -349,25 +349,4 @@ OSG_FIELDTRAITS_GETTYPE(CocoaWindowPtr)
 OSG_FIELD_DLLEXPORT_DEF1(SField, CocoaWindowPtr);
 OSG_FIELD_DLLEXPORT_DEF1(MField, CocoaWindowPtr);
 
-
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp       [] = "@(#)$Id: FCBaseTemplate_cpp.h 403 2006-11-09 12:34:33Z PatrickDaehne $";
-    static Char8 cvsid_hpp       [] = OSGCOCOAWINDOWBASE_HEADER_CVSID;
-    static Char8 cvsid_inl       [] = OSGCOCOAWINDOWBASE_INLINE_CVSID;
-
-    static Char8 cvsid_fields_hpp[] = OSGCOCOAWINDOWFIELDS_HEADER_CVSID;
-}
-
 OSG_END_NAMESPACE
