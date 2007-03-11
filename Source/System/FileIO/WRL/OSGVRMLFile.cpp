@@ -92,7 +92,7 @@ VRMLFile::VRMLFile(void) :
     _pLightRoot         (NullFC),
     _pCurrentGlobalLight(NullFC),
 
-    _pCurrNodeHelper(NULL),
+    _pCurrNodeHelper(),
     _sNodeHelpers   (),
 
     _pCurrentFC       (NullFC),
@@ -178,11 +178,11 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
     VRMLNodeHelper::incIndent();
 #endif
 
-    VRMLNodeHelper *pOldHelper = _pCurrNodeHelper;
+    VRMLNodeHelperPtr pOldHelper = _pCurrNodeHelper;
 
     _pCurrNodeHelper = findNodeHelper(szNodeTypename);
 
-    if(_pCurrNodeHelper == NULL)
+    if(_pCurrNodeHelper.get() == NULL)
         return;
 
     _sNodeHelpers.push(_pCurrNodeHelper);
@@ -346,7 +346,7 @@ void VRMLFile::endNode(void)
 {
     SceneFileHandler::the()->updateReadProgress();
 
-    if(_pCurrNodeHelper == NULL)
+    if(_pCurrNodeHelper.get() == NULL)
     {
 #ifdef OSG_DEBUG_VRML
         VRMLNodeHelper::decIndent();
@@ -389,7 +389,7 @@ void VRMLFile::endNode(void)
     }
     else
     {
-        _pCurrNodeHelper = NULL;
+        _pCurrNodeHelper = VRMLNodeHelperPtr();
     }
 
     if(_pCurrentFC != NullFC)
@@ -499,7 +499,7 @@ void VRMLFile::endField(void)
 
 void VRMLFile::addFieldValue(const Char8 *szFieldVal)
 {
-    if(_pCurrNodeHelper != NULL)
+    if(_pCurrNodeHelper.get() != NULL)
     {
         _pCurrNodeHelper->addFieldValue(_pCurrentField, 
                                         _pCurrentFieldDesc,
@@ -553,7 +553,7 @@ UInt32 VRMLFile::getFieldType(const Char8 *szFieldname)
 {
     UInt32   returnValue = 0;
 
-    if(_pCurrNodeHelper == NULL)
+    if(_pCurrNodeHelper.get() == NULL)
         return returnValue;
 
     if(szFieldname == NULL)
@@ -1076,7 +1076,7 @@ FieldContainerPtr VRMLFile::findReference(const Char8 *szName)
 
 void VRMLFile::setContainerFieldValue(const FieldContainerPtr &pFC)
 {
-    if(_pCurrNodeHelper != NULL)
+    if(_pCurrNodeHelper.get() != NULL)
     {
         _pCurrNodeHelper->setContainerFieldValue( pFC,
                                                  _pCurrentFieldDesc,

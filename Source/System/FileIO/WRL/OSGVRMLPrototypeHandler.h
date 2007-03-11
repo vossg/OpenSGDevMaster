@@ -135,13 +135,13 @@ class VRMLNodePrototypeHandler : public BaseT
     typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
             const Char8    *,
-            VRMLNodeHelper *,
+            VRMLNodeHelperPtr,
             HashCmpString                    > NameHelperMap;
 #else
     typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
             const Char8  *,
-            VRMLNodeHelper *,
+            VRMLNodeHelperPtr,
             OSG_STDEXTENSION_NAMESPACE::hash<
                 const Char8 *>,
             EQString                         > NameHelperMap;
@@ -149,7 +149,7 @@ class VRMLNodePrototypeHandler : public BaseT
 #else
     typedef
         std::map<const Char8 *,
-                       VRMLNodeHelper *,
+                       VRMLNodeHelperPtr,
                        LTString              > NameHelperMap;
 #endif
 
@@ -158,13 +158,13 @@ class VRMLNodePrototypeHandler : public BaseT
     /*! \{                                                                 */
 
     /** The current helper that we are actively adding fields too and building up. */
-    VRMLNodeHelper     *_pCurrentHelper;
+    VRMLNodeHelperPtr   _pCurrentHelper;
 
     /** Map from proto name to the helper to handle that proto type. */
     NameHelperMap       _mNodeHelperHash;
 
 
-    VRMLNodeHelper *findNodeHelper    (const Char8          *szNodeTypename);
+    VRMLNodeHelperPtr findNodeHelper    (const Char8          *szNodeTypename);
 
     virtual void    preStandardProtos (      void);
     virtual void    postStandardProtos(      void);

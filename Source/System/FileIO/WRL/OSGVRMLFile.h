@@ -161,7 +161,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
   protected:
 
     typedef std::map  <IDString, FieldContainerPtr > NameContainerMap;
-    typedef std::map  <IDString, VRMLNodeHelper   *> NameHelperMap;
+    typedef std::map  <IDString, VRMLNodeHelperPtr > NameHelperMap;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -172,8 +172,8 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
                NodePtr                        _pLightRoot;
                NodePtr                        _pCurrentGlobalLight;
 
-               VRMLNodeHelper *               _pCurrNodeHelper;
-    std::stack<VRMLNodeHelper *>              _sNodeHelpers;
+               VRMLNodeHelperPtr              _pCurrNodeHelper;
+    std::stack<VRMLNodeHelperPtr>             _sNodeHelpers;
 
                FieldContainerPtr              _pCurrentFC;
                FieldContainerPtr              _pCurrentFieldFC;

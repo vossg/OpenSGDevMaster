@@ -143,11 +143,11 @@ void VRMLNodeHelperFactoryBase::registerNodeHelper(
     }
 }
 
-VRMLNodeHelper *VRMLNodeHelperFactoryBase::createHelper(
+VRMLNodeHelperPtr VRMLNodeHelperFactoryBase::createHelper(
     const Char8 *szNodeName)
 {
     if(szNodeName == NULL) 
-        return NULL;
+        return VRMLNodeHelperPtr();
 
     NameHelperCreateMap::iterator mNodeHelperIt =
         _mRegisteredNodeHelperHash.find(szNodeName);
@@ -159,7 +159,7 @@ VRMLNodeHelper *VRMLNodeHelperFactoryBase::createHelper(
     }
     else
     {
-        return NULL;
+        return VRMLNodeHelperPtr();
     }
 }
 
@@ -817,9 +817,9 @@ void VRMLNodeHelper::setContainerFieldValue(
     VRML Group description
 */
 
-VRMLNodeHelper *VRMLDefaultHelper::create(void)
+VRMLNodeHelperPtr VRMLDefaultHelper::create(void)
 {
-    return new VRMLDefaultHelper();
+    return VRMLNodeHelperPtr(new VRMLDefaultHelper());
 }
 
 /*-------------------------------------------------------------------------*/
@@ -877,9 +877,9 @@ void VRMLDefaultHelper::dump(const Char8 *)
     VRML Group description
 */
 
-VRMLNodeHelper *VRMLGroupHelper::create(void)
+VRMLNodeHelperPtr VRMLGroupHelper::create(void)
 {
-    return new VRMLGroupHelper();
+    return VRMLNodeHelperPtr(new VRMLGroupHelper());
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1095,9 +1095,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLGroupHelper::_regHelper(
     VRML Material description
 */
 
-VRMLNodeHelper *VRMLMaterialHelper::create(void)
+VRMLNodeHelperPtr VRMLMaterialHelper::create(void)
 {
-    return new VRMLMaterialHelper();
+    return VRMLNodeHelperPtr(new VRMLMaterialHelper());
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1438,9 +1438,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLMaterialHelper::_regHelper(
     VRML Shape description
 */
 
-VRMLNodeHelper *VRMLShapeHelper::create(void)
+VRMLNodeHelperPtr VRMLShapeHelper::create(void)
 {
-    return new VRMLShapeHelper();
+    return VRMLNodeHelperPtr(new VRMLShapeHelper());
 }
 
 
@@ -1449,7 +1449,7 @@ VRMLNodeHelper *VRMLShapeHelper::create(void)
 
 VRMLShapeHelper::VRMLShapeHelper(void) :
      Inherited      (    ),
-    _pMaterialHelper(NULL)
+    _pMaterialHelper()
 {
 }
 
@@ -1479,7 +1479,7 @@ void VRMLShapeHelper::init(const Char8 *szName)
     _pGenAttProto->setInternal(true);
 }
 
-void VRMLShapeHelper::setMaterialHelper(VRMLMaterialHelper *pMaterialHelper)
+void VRMLShapeHelper::setMaterialHelper(VRMLMaterialHelperPtr pMaterialHelper)
 {
     _pMaterialHelper = pMaterialHelper;
 }
@@ -1698,9 +1698,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLShapeHelper::_regHelper(
     VRML Appearance description
 */
 
-VRMLNodeHelper *VRMLAppearanceHelper::create(void)
+VRMLNodeHelperPtr VRMLAppearanceHelper::create(void)
 {
-    return new VRMLAppearanceHelper();
+    return VRMLNodeHelperPtr(new VRMLAppearanceHelper());
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1708,7 +1708,7 @@ VRMLNodeHelper *VRMLAppearanceHelper::create(void)
 
 VRMLAppearanceHelper::VRMLAppearanceHelper(void) :
      Inherited      (    ),
-    _pMaterialHelper(NULL)
+    _pMaterialHelper(    )
 {
 }
 
@@ -1738,7 +1738,7 @@ void VRMLAppearanceHelper::init(const Char8 *szName)
 }
 
 void VRMLAppearanceHelper::setMaterialHelper(
-    VRMLMaterialHelper *pMaterialHelper)
+    VRMLMaterialHelperPtr pMaterialHelper)
 {
     _pMaterialHelper = pMaterialHelper;
 }
@@ -1961,9 +1961,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLAppearanceHelper::_regHelper(
     VRML Geometry description
 */
 
-VRMLNodeHelper *VRMLIndexedGeometryHelper::create(void)
+VRMLNodeHelperPtr VRMLIndexedGeometryHelper::create(void)
 {
-    return new VRMLIndexedGeometryHelper();
+    return VRMLNodeHelperPtr(new VRMLIndexedGeometryHelper());
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2493,9 +2493,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper
     VRML Geometry Part Set description
 */
 
-VRMLNodeHelper *VRMLGeometryPartHelper::create(void)
+VRMLNodeHelperPtr VRMLGeometryPartHelper::create(void)
 {
-    return new VRMLGeometryPartHelper();
+    return VRMLNodeHelperPtr(new VRMLGeometryPartHelper());
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2716,9 +2716,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper
     VRML Texture description
 */
 
-VRMLNodeHelper *VRMLImageTextureHelper::create(void)
+VRMLNodeHelperPtr VRMLImageTextureHelper::create(void)
 {
-    return new VRMLImageTextureHelper();
+    return VRMLNodeHelperPtr(new VRMLImageTextureHelper());
 }
 
 /*-------------------------------------------------------------------------*/

@@ -62,7 +62,7 @@ template <class BaseT> inline
 VRMLNodePrototypeHandler<BaseT>::VRMLNodePrototypeHandler(void) :
      Inherited      (    ),
 
-    _pCurrentHelper (NULL),
+    _pCurrentHelper (    ),
     _mNodeHelperHash(    )
 {
 }
@@ -93,7 +93,7 @@ void VRMLNodePrototypeHandler<BaseT>::beginProto(const Char8 *szProtoname)
 
     if(mNodeHelperIt == _mNodeHelperHash.end())
     {
-        VRMLNodeHelper *pNewHelper = 
+        VRMLNodeHelperPtr pNewHelper = 
             VRMLNodeHelperFactory::the()->createHelper(szProtoname);
 
         if(pNewHelper == NULL)
@@ -400,10 +400,10 @@ void VRMLNodePrototypeHandler<BaseT>::endExposedFieldDecl(void)
 /*                               Helper                                    */
 
 template <class BaseT> inline
-VRMLNodeHelper *VRMLNodePrototypeHandler<BaseT>::findNodeHelper(
+VRMLNodeHelperPtr VRMLNodePrototypeHandler<BaseT>::findNodeHelper(
     const Char8 *szNodeTypename)
 {
-    VRMLNodeHelper *returnValue = NULL;
+    VRMLNodeHelperPtr returnValue;
 
     NameHelperMap::iterator mNodeHelperIt =
         _mNodeHelperHash.find(szNodeTypename);
@@ -432,38 +432,38 @@ void VRMLNodePrototypeHandler<BaseT>::preStandardProtos (void)
 template <class BaseT> inline
 void VRMLNodePrototypeHandler<BaseT>::postStandardProtos(void)
 {
-    VRMLNodeHelper         *pNodeHelper         = NULL;
-    VRMLShapeHelper        *pShapeHelper        = NULL;
-    VRMLAppearanceHelper   *pAppearanceHelper   = NULL;
-    VRMLMaterialHelper     *pMaterialHelper     = NULL;
+    VRMLNodeHelperPtr       pNodeHelper;
+    VRMLShapeHelperPtr      pShapeHelper;
+    VRMLAppearanceHelperPtr pAppearanceHelper;
+    VRMLMaterialHelperPtr   pMaterialHelper;
 
     pNodeHelper = findNodeHelper("Shape");
 
-    if(pNodeHelper != NULL)
+    if(pNodeHelper.get() != NULL)
     {
-        pShapeHelper = dynamic_cast<VRMLShapeHelper *>(pNodeHelper);
+        pShapeHelper = boost::dynamic_pointer_cast<VRMLShapeHelper>(pNodeHelper);
     }
 
     pNodeHelper = findNodeHelper("Appearance");
 
-    if(pNodeHelper != NULL)
+    if(pNodeHelper.get() != NULL)
     {
-        pAppearanceHelper = dynamic_cast<VRMLAppearanceHelper *>(pNodeHelper);
+        pAppearanceHelper = boost::dynamic_pointer_cast<VRMLAppearanceHelper>(pNodeHelper);
     }
 
     pNodeHelper = findNodeHelper("Material");
 
-    if(pNodeHelper != NULL)
+    if(pNodeHelper.get() != NULL)
     {
-        pMaterialHelper = dynamic_cast<VRMLMaterialHelper *>(pNodeHelper);
+        pMaterialHelper = boost::dynamic_pointer_cast<VRMLMaterialHelper>(pNodeHelper);
     }
 
-    if(pShapeHelper != NULL)
+    if(pShapeHelper.get() != NULL)
     {
         pShapeHelper->setMaterialHelper(pMaterialHelper);
     }
 
-    if(pAppearanceHelper != NULL)
+    if(pAppearanceHelper.get() != NULL)
     {
         pAppearanceHelper->setMaterialHelper(pMaterialHelper);
     }
