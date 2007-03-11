@@ -39,6 +39,7 @@
 // Unit tests for OSB file io.
 
 #include <OpenSG/OSGNode.h>
+#include <OpenSG/OSGGroup.h>
 #include <OpenSG/OSGNameAttachment.h>
 #include <OpenSG/OSGSceneFileHandler.h>
 
@@ -76,7 +77,28 @@ TEST_FIXTURE(FileFixture, CreateOSBFile)
 
    OSG::NodePtr new_n =
       OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
-   CHECK(new_n != OSG::NullFC);   
+   CHECK(new_n != OSG::NullFC);
+}
+
+TEST_FIXTURE(FileFixture, CreateOSBTree)
+{
+   // Test larger tree
+   OSG::NodePtr base_node  = OSG::Node::create();
+   base_node->setCore(OSG::Group::create());
+   OSG::NodePtr child_node = OSG::Node::create();
+   child_node->setCore(OSG::Group::create());
+
+   CHECK(!bf::exists(test_file));
+   OSG::SceneFileHandler::the()->write(base_node, test_file.native_file_string().c_str());
+   CHECK(bf::exists(test_file));
+
+   OSG::NodePtr new_n =
+      OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
+   CHECK(new_n != OSG::NullFC);
+   CHECK(new_n->getCore() != OSG::NullFC);
+   CHECK(new_n->getNChildren() == 1);
+   CHECK(new_n->getChild(0) != OSG::NullFC);
+   CHECK(new_n->getChild(0)->getCore() != OSG::NullFC);
 }
 
 
