@@ -172,7 +172,7 @@ inline
 void subRef(const AspectStoreP pObject)
 {
     if(pObject != NULL)
-        pObject->addRef();
+        pObject->subRef();
 }
 
 

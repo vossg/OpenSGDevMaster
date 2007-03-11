@@ -100,7 +100,7 @@ inline
 void subRef(const MemoryObjectP pObject)
 {
     if(pObject != NULL)
-        pObject->addRef();
+        pObject->subRef();
 }
 
 inline 
