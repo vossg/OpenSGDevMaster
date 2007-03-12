@@ -1486,8 +1486,6 @@ template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::inverse(
     TransformationMatrix &result) const
 {
-    ValueTypeT rDet;
-
     ValueTypeT
         a1, a2, a3, a4,
         b1, b2, b3, b4,
@@ -1514,7 +1512,7 @@ bool TransformationMatrix<ValueTypeT>::inverse(
     c4 = _matrix[2][3];
     d4 = _matrix[3][3];
 
-    rDet = det();
+    ValueTypeT rDet( det() );
 
     if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {
@@ -1574,7 +1572,6 @@ bool TransformationMatrix<ValueTypeT>::inverse(
 template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::invert(void)
 {
-    ValueTypeT           rDet;
     TransformationMatrix result;
 
     ValueTypeT
@@ -1603,7 +1600,7 @@ bool TransformationMatrix<ValueTypeT>::invert(void)
     c4 = _matrix[2][3];
     d4 = _matrix[3][3];
 
-    rDet = det();
+    ValueTypeT rDet( det() );
 
     if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {
@@ -1666,8 +1663,6 @@ template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::invertFrom(
     const TransformationMatrix &matrix)
 {
-    ValueTypeT rDet;
-
     ValueTypeT
         a1, a2, a3, a4,
         b1, b2, b3, b4,
@@ -1694,7 +1689,7 @@ bool TransformationMatrix<ValueTypeT>::invertFrom(
     c4 = matrix._matrix[2][3];
     d4 = matrix._matrix[3][3];
 
-    rDet = matrix.det();
+    ValueTypeT rDet( matrix.det() );
 
     if (osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
     {

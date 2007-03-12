@@ -35,6 +35,9 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+#include <valgrind/memcheck.h>
+#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -175,11 +178,11 @@ Int32  FieldContainerPtrBase::getElemOff(UInt32 uiElemNum) const
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-inline 
+inline
 FieldContainerPtrBase::FieldContainerPtrBase(void) :
     _containerSize(0               ),
     _uiParentEPos(InvalidParentEPos),
-    _storeP      (NULL             ) 
+    _storeP      (NULL             )
 #ifdef OSG_FCPTR_TYPED_STORE
     ,_typedStoreP(NULL)
 #endif
@@ -213,7 +216,7 @@ FieldContainerPtrBase::FieldContainerPtrBase(
 #ifdef OSG_FCPTR_TYPED_STORE
     _typedStoreP = reinterpret_cast<FieldContainer *>(
         getElemP(Thread::getCurrentAspect()));
-#endif   
+#endif
 }
 
 /*-------------------------------------------------------------------------*/
@@ -299,6 +302,10 @@ void FieldContainerPtrBase::operator =(const NilFieldContainerPtr &)
 inline
 void FieldContainerPtrBase::operator =(const FieldContainerPtrBase &source)
 {
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+   VALGRIND_CHECK_VALUE_IS_DEFINED(source);
+#endif
+
     if (this == &source)
         return;
 
@@ -413,7 +420,7 @@ FieldContainerPtrBase::FieldContainerPtrBase(const FieldContainer &source,
         getElemP(Thread::getCurrentAspect()));
 #endif
 }
-                   
+
 inline
 FieldContainerPtrBase::FieldContainerPtrBase(const FieldContainer *source,
                                              const UInt16          uiSize) :
@@ -475,14 +482,14 @@ void FieldContainerPtrBase::subReference(void) const
 
         UInt8 *pTmp = getFirstElemP();
 
-        ReflexiveContainer *pRC = 
+        ReflexiveContainer *pRC =
             reinterpret_cast<ReflexiveContainer *>(
                 getElemP(Thread::getCurrentAspect()));
 
 
         pRC->onDestroy   (*(getIdP()));
         pRC->resolveLinks(           );
-        
+
 #ifdef OSG_ASPECT_REFCOUNT
         if((*getARefCountP()) <= 0)
         {
@@ -498,12 +505,12 @@ void FieldContainerPtrBase::subReference(void) const
             for(UInt32 i = 0; i < ThreadManager::getNumAspects(); i++)
             {
                 ((ReflexiveContainer *) pTmp)->onDestroyAspect(*(getIdP()), i);
-                
+
                 ((ReflexiveContainer *) pTmp)->~ReflexiveContainer();
-                
+
                 pTmp += _containerSize;
             }
-    
+
             operator delete(_storeP + getMemStartOff());
 #ifdef OSG_ASPECT_REFCOUNT
         }
@@ -539,10 +546,10 @@ void FieldContainerPtrBase::subAReference(void) const
             ((ReflexiveContainer *) pTmp)->onDestroyAspect(*(getIdP()), i);
 
             ((ReflexiveContainer *) pTmp)->~ReflexiveContainer();
-            
+
             pTmp += _containerSize;
         }
-    
+
         operator delete(_storeP + getMemStartOff());
     }
     else
@@ -559,7 +566,7 @@ void FieldContainerPtrBase::setNil(void)
     _uiParentEPos  = InvalidParentEPos;
     _storeP        = NULL;
 #ifdef OSG_FCPTR_TYPED_STORE
-    _typedStoreP   = NULL; 
+    _typedStoreP   = NULL;
 #endif
 }
 
@@ -617,7 +624,7 @@ FieldContainer *FieldContainerPtr::operator->(void) const
 
 inline
 FieldContainer &FieldContainerPtr::operator *(void)
-{ 
+{
     return *((FieldContainer *) (getElemP(Thread::getCurrentAspect())));
 }
 
@@ -837,7 +844,7 @@ FCPtr<ParentPtrTypeT, FieldContainerTypeT>::FCPtr(const FCPtr &source):
 }
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-FCPtr<ParentPtrTypeT, 
+FCPtr<ParentPtrTypeT,
       FieldContainerTypeT>::FCPtr(const NilFieldContainerPtr &) :
 
     Inherited()
@@ -902,7 +909,7 @@ typename FCPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject *
 /*                             Assignment                                  */
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-void FCPtr<ParentPtrTypeT, 
+void FCPtr<ParentPtrTypeT,
            FieldContainerTypeT>::operator = (const Self &source)
 {
     // copy parts inherited from parent
@@ -920,7 +927,7 @@ void FCPtr<ParentPtrTypeT, FieldContainerTypeT>::operator = (
 /*                            Constructors                                 */
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-FCPtr<ParentPtrTypeT, 
+FCPtr<ParentPtrTypeT,
       FieldContainerTypeT>::FCPtr(const FieldContainerTypeT &source,
                                   const UInt16               uiSize) :
 
@@ -929,7 +936,7 @@ FCPtr<ParentPtrTypeT,
 }
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-FCPtr<ParentPtrTypeT, 
+FCPtr<ParentPtrTypeT,
       FieldContainerTypeT>::FCPtr(const FieldContainerTypeT *source,
                                   const UInt16               uiSize) :
 
@@ -938,7 +945,7 @@ FCPtr<ParentPtrTypeT,
 }
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-FCPtr<ParentPtrTypeT, 
+FCPtr<ParentPtrTypeT,
       FieldContainerTypeT>::FCPtr(const FieldContainerTypeT *source,
                                   const UInt16               uiSize,
                                   const UInt16               uiParentEPos) :
@@ -1046,7 +1053,7 @@ const typename FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject *
 /*                             Assignment                                  */
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-void FCConstPtr<ParentPtrTypeT, 
+void FCConstPtr<ParentPtrTypeT,
                 FieldContainerTypeT>::operator = (const NonConstPtr &source)
 {
     // copy parts inherited from parent
@@ -1054,7 +1061,7 @@ void FCConstPtr<ParentPtrTypeT,
 }
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-void FCConstPtr<ParentPtrTypeT, 
+void FCConstPtr<ParentPtrTypeT,
                 FieldContainerTypeT>::operator = (const FCConstPtr &source)
 {
     // copy parts inherited from parent
@@ -1072,7 +1079,7 @@ void FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::operator = (
 /*                            Constructors                                 */
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-FCConstPtr<ParentPtrTypeT, 
+FCConstPtr<ParentPtrTypeT,
            FieldContainerTypeT>::FCConstPtr(const FieldContainerTypeT &source,
                                             const UInt16               uiSize):
 
@@ -1081,7 +1088,7 @@ FCConstPtr<ParentPtrTypeT,
 }
 
 template <class ParentPtrTypeT, class FieldContainerTypeT> inline
-FCConstPtr<ParentPtrTypeT, 
+FCConstPtr<ParentPtrTypeT,
            FieldContainerTypeT>::FCConstPtr(const FieldContainerTypeT *source,
                                             const UInt16               uiSize):
 
@@ -1110,7 +1117,7 @@ FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::FCConstPtr(
 /*                            Constructors                                 */
 
 inline
-NilFieldContainerPtr::NilFieldContainerPtr(void) : 
+NilFieldContainerPtr::NilFieldContainerPtr(void) :
     Inherited()
 {
 }

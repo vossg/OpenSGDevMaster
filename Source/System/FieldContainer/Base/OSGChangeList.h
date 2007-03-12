@@ -89,14 +89,17 @@ struct OSG_SYSTEM_DLLMAPPING ContainerChangeEntry
     {
         uiEntryDesc   = 0;
         uiContainerId = 0;
-        pFieldFlags   = 0;
-        whichField    = 0;        
+        pFieldFlags   = NULL;
+        whichField    = 0;
     }
 
     ContainerChangeEntry(void) :
         uncommitedChanges(defaultVec)
     {
+        uiEntryDesc   = 0;
         uiContainerId = 0;
+        pFieldFlags   = NULL;
+        whichField    = 0;
     }
 
     void operator =(const ContainerChangeEntry &)
@@ -253,7 +256,7 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -268,7 +271,7 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \{                                                                 */
 
     ChangeEntryPool    _entryPool;
-    
+
     ChangeEntryPoolIt  _currentPoolElement;
     ChangeEntryStoreIt _currentEntry;
 
@@ -319,7 +322,7 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \{                                                                 */
 
     void setAspect(UInt32 uiAspectId);
-    
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

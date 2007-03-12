@@ -466,6 +466,9 @@ feature_options["docs_mode"] = sca_opts.EnumOption(
     "docs_mode", "Select the mode for documentation generation",
     "NONE", ["NONE", "STANDALONE", "TRAC", "DEVELOPER"])
 
+feature_options["enable_valgrind_checks"] = sca_opts.BoolOption(
+    "enable_valgrind_checks", "Enable valgrind check code embedded in OpenSG.", False)
+
 if "win32" == platform:
     feature_options["enable_win_localstorage"] = sca_opts.BoolOption(
         "enable_win_localstorage", "Enable use of local storage instead of __declspec to "+
@@ -657,6 +660,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_DEPRECATED_PROPS"     : common_env["enable_deprecated_props"],
                 "OSG_NEW_OSB_IO"           : common_env["enable_new_osb_io"],
                 "OSG_ICC_GNU_COMPAT"       : common_env["icc_gnu_compat"],
+                "OSG_ENABLE_VALGRIND_CHECKS" : common_env["enable_valgrind_checks"],
                 
                 "OSG_WITH_JPG"       : image_format_options["jpeg"].isAvailable(),
                 "OSG_WITH_TIF"       : image_format_options["tiff"].isAvailable(),
