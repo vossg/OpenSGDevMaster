@@ -162,6 +162,7 @@ OSBElementFactorySingleton::unregisterDefault(void)
         delete _defaultCreator;
         _defaultCreator = 0;
     }
+    return returnValue;
 }
 
 const OSBElementFactorySingleton::RegistryMap &
