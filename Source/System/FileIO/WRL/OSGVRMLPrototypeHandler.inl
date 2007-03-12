@@ -62,7 +62,7 @@ template <class BaseT> inline
 VRMLNodePrototypeHandler<BaseT>::VRMLNodePrototypeHandler(void) :
      Inherited      (    ),
 
-    _pCurrentHelper (    ),
+    _pCurrentHelper (NULL),
     _mNodeHelperHash(    )
 {
 }
@@ -73,6 +73,15 @@ VRMLNodePrototypeHandler<BaseT>::VRMLNodePrototypeHandler(void) :
 template <class BaseT> inline
 VRMLNodePrototypeHandler<BaseT>::~VRMLNodePrototypeHandler(void)
 {
+    NameHelperMap::iterator mNodeHelperIt  = _mNodeHelperHash.begin();
+    NameHelperMap::iterator mNodeHelperEnd = _mNodeHelperHash.end  ();
+
+    while(mNodeHelperIt != mNodeHelperEnd)
+    {
+        delete (mNodeHelperIt)->second;
+
+        ++mNodeHelperIt;
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -93,7 +102,7 @@ void VRMLNodePrototypeHandler<BaseT>::beginProto(const Char8 *szProtoname)
 
     if(mNodeHelperIt == _mNodeHelperHash.end())
     {
-        VRMLNodeHelperPtr pNewHelper = 
+        VRMLNodeHelper *pNewHelper = 
             VRMLNodeHelperFactory::the()->createHelper(szProtoname);
 
         if(pNewHelper == NULL)
@@ -400,10 +409,10 @@ void VRMLNodePrototypeHandler<BaseT>::endExposedFieldDecl(void)
 /*                               Helper                                    */
 
 template <class BaseT> inline
-VRMLNodeHelperPtr VRMLNodePrototypeHandler<BaseT>::findNodeHelper(
+VRMLNodeHelper *VRMLNodePrototypeHandler<BaseT>::findNodeHelper(
     const Char8 *szNodeTypename)
 {
-    VRMLNodeHelperPtr returnValue;
+    VRMLNodeHelper *returnValue = NULL;
 
     NameHelperMap::iterator mNodeHelperIt =
         _mNodeHelperHash.find(szNodeTypename);
@@ -432,43 +441,41 @@ void VRMLNodePrototypeHandler<BaseT>::preStandardProtos (void)
 template <class BaseT> inline
 void VRMLNodePrototypeHandler<BaseT>::postStandardProtos(void)
 {
-    VRMLNodeHelperPtr       pNodeHelper;
-    VRMLShapeHelperPtr      pShapeHelper;
-    VRMLAppearanceHelperPtr pAppearanceHelper;
-    VRMLMaterialHelperPtr   pMaterialHelper;
+    VRMLNodeHelper         *pNodeHelper         = NULL;
+    VRMLShapeHelper        *pShapeHelper        = NULL;
+    VRMLAppearanceHelper   *pAppearanceHelper   = NULL;
+    VRMLMaterialHelper     *pMaterialHelper     = NULL;
 
     pNodeHelper = findNodeHelper("Shape");
 
-    if(pNodeHelper.get() != NULL)
+    if(pNodeHelper != NULL)
     {
-        pShapeHelper = boost::dynamic_pointer_cast<VRMLShapeHelper>(pNodeHelper);
+        pShapeHelper = dynamic_cast<VRMLShapeHelper *>(pNodeHelper);
     }
 
     pNodeHelper = findNodeHelper("Appearance");
 
-    if(pNodeHelper.get() != NULL)
+    if(pNodeHelper != NULL)
     {
-        pAppearanceHelper = boost::dynamic_pointer_cast<VRMLAppearanceHelper>(pNodeHelper);
+        pAppearanceHelper = dynamic_cast<VRMLAppearanceHelper *>(pNodeHelper);
     }
 
     pNodeHelper = findNodeHelper("Material");
 
-    if(pNodeHelper.get() != NULL)
+    if(pNodeHelper != NULL)
     {
-        pMaterialHelper = boost::dynamic_pointer_cast<VRMLMaterialHelper>(pNodeHelper);
+        pMaterialHelper = dynamic_cast<VRMLMaterialHelper *>(pNodeHelper);
     }
 
-    if(pShapeHelper.get() != NULL)
+    if(pShapeHelper != NULL)
     {
         pShapeHelper->setMaterialHelper(pMaterialHelper);
     }
 
-    if(pAppearanceHelper.get() != NULL)
+    if(pAppearanceHelper != NULL)
     {
         pAppearanceHelper->setMaterialHelper(pMaterialHelper);
     }
 }
 
 OSG_END_NAMESPACE
-
-#define OSGVRMLPROTOTYPEHANDLER_INLINE_CVSID "@(#)$Id$"
