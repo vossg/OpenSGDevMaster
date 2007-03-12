@@ -258,7 +258,8 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
-    virtual Field *createField(void) const = 0;
+    virtual Field *createField(void          ) const = 0;
+    virtual void   destroyField(Field *pField) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -374,8 +375,6 @@ struct FieldDescriptionBasePLT
 
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDDESCRIPTIONBASE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldDescriptionBase.inl"
 

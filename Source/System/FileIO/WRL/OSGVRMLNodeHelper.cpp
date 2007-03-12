@@ -143,11 +143,11 @@ void VRMLNodeHelperFactoryBase::registerNodeHelper(
     }
 }
 
-VRMLNodeHelperPtr VRMLNodeHelperFactoryBase::createHelper(
+VRMLNodeHelper *VRMLNodeHelperFactoryBase::createHelper(
     const Char8 *szNodeName)
 {
     if(szNodeName == NULL) 
-        return VRMLNodeHelperPtr();
+        return NULL;
 
     NameHelperCreateMap::iterator mNodeHelperIt =
         _mRegisteredNodeHelperHash.find(szNodeName);
@@ -159,7 +159,7 @@ VRMLNodeHelperPtr VRMLNodeHelperFactoryBase::createHelper(
     }
     else
     {
-        return VRMLNodeHelperPtr();
+        return NULL;
     }
 }
 
@@ -245,6 +245,9 @@ VRMLNodeHelper::VRMLNodeHelper(void) :
 
 VRMLNodeHelper::~VRMLNodeHelper(void)
 {
+    subRef(_pNodeProto    );
+    subRef(_pNodeCoreProto);
+    subRef(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -306,6 +309,10 @@ FieldContainerPtr VRMLNodeHelper::beginNode(
                 if(pAttCnt != NULL)
                 {
                     pAttCnt->addAttachment(pAtt);
+                }
+                else
+                {
+                    subRef(pAttClone);
                 }
             }
         }
@@ -817,9 +824,9 @@ void VRMLNodeHelper::setContainerFieldValue(
     VRML Group description
 */
 
-VRMLNodeHelperPtr VRMLDefaultHelper::create(void)
+VRMLNodeHelper *VRMLDefaultHelper::create(void)
 {
-    return VRMLNodeHelperPtr(new VRMLDefaultHelper());
+    return new VRMLDefaultHelper();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -853,6 +860,10 @@ void VRMLDefaultHelper::init(const Char8 *szName)
 
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
+
+    addRef(_pNodeProto    );
+    addRef(_pNodeCoreProto);
+    addRef(_pGenAttProto  );
 }
 
 
@@ -877,9 +888,9 @@ void VRMLDefaultHelper::dump(const Char8 *)
     VRML Group description
 */
 
-VRMLNodeHelperPtr VRMLGroupHelper::create(void)
+VRMLNodeHelper *VRMLGroupHelper::create(void)
 {
-    return VRMLNodeHelperPtr(new VRMLGroupHelper());
+    return new VRMLGroupHelper();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -919,6 +930,10 @@ void VRMLGroupHelper::init(const Char8 *szName)
 
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
+
+    addRef(_pNodeProto    );
+    addRef(_pNodeCoreProto);
+    addRef(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1095,9 +1110,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLGroupHelper::_regHelper(
     VRML Material description
 */
 
-VRMLNodeHelperPtr VRMLMaterialHelper::create(void)
+VRMLNodeHelper *VRMLMaterialHelper::create(void)
 {
-    return VRMLNodeHelperPtr(new VRMLMaterialHelper());
+    return new VRMLMaterialHelper();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1438,9 +1453,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLMaterialHelper::_regHelper(
     VRML Shape description
 */
 
-VRMLNodeHelperPtr VRMLShapeHelper::create(void)
+VRMLNodeHelper *VRMLShapeHelper::create(void)
 {
-    return VRMLNodeHelperPtr(new VRMLShapeHelper());
+    return new VRMLShapeHelper();
 }
 
 
@@ -1449,7 +1464,7 @@ VRMLNodeHelperPtr VRMLShapeHelper::create(void)
 
 VRMLShapeHelper::VRMLShapeHelper(void) :
      Inherited      (    ),
-    _pMaterialHelper()
+    _pMaterialHelper(NULL)
 {
 }
 
@@ -1477,9 +1492,13 @@ void VRMLShapeHelper::init(const Char8 *szName)
 
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
+
+    addRef(_pNodeProto    );
+    addRef(_pNodeCoreProto);
+    addRef(_pGenAttProto  );
 }
 
-void VRMLShapeHelper::setMaterialHelper(VRMLMaterialHelperPtr pMaterialHelper)
+void VRMLShapeHelper::setMaterialHelper(VRMLMaterialHelper *pMaterialHelper)
 {
     _pMaterialHelper = pMaterialHelper;
 }
@@ -1698,9 +1717,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLShapeHelper::_regHelper(
     VRML Appearance description
 */
 
-VRMLNodeHelperPtr VRMLAppearanceHelper::create(void)
+VRMLNodeHelper *VRMLAppearanceHelper::create(void)
 {
-    return VRMLNodeHelperPtr(new VRMLAppearanceHelper());
+    return new VRMLAppearanceHelper();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1708,7 +1727,7 @@ VRMLNodeHelperPtr VRMLAppearanceHelper::create(void)
 
 VRMLAppearanceHelper::VRMLAppearanceHelper(void) :
      Inherited      (    ),
-    _pMaterialHelper(    )
+    _pMaterialHelper(NULL)
 {
 }
 
@@ -1735,10 +1754,13 @@ void VRMLAppearanceHelper::init(const Char8 *szName)
 
     _pGenAttProto  = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
+
+    addRef(_pNodeProto    );
+    addRef(_pGenAttProto  );
 }
 
 void VRMLAppearanceHelper::setMaterialHelper(
-    VRMLMaterialHelperPtr pMaterialHelper)
+    VRMLMaterialHelper *pMaterialHelper)
 {
     _pMaterialHelper = pMaterialHelper;
 }
@@ -1961,9 +1983,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLAppearanceHelper::_regHelper(
     VRML Geometry description
 */
 
-VRMLNodeHelperPtr VRMLIndexedGeometryHelper::create(void)
+VRMLNodeHelper *VRMLIndexedGeometryHelper::create(void)
 {
-    return VRMLNodeHelperPtr(new VRMLIndexedGeometryHelper());
+    return new VRMLIndexedGeometryHelper();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2000,6 +2022,10 @@ void VRMLIndexedGeometryHelper::init(const Char8 *szName)
 
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
+
+    addRef(_pNodeProto    );
+    addRef(_pNodeCoreProto);
+    addRef(_pGenAttProto  );
 
     if(osgStringCaseCmp("IndexedFaceSet", szName) == 0)
     {
@@ -2493,9 +2519,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper
     VRML Geometry Part Set description
 */
 
-VRMLNodeHelperPtr VRMLGeometryPartHelper::create(void)
+VRMLNodeHelper *VRMLGeometryPartHelper::create(void)
 {
-    return VRMLNodeHelperPtr(new VRMLGeometryPartHelper());
+    return new VRMLGeometryPartHelper();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2569,6 +2595,9 @@ void VRMLGeometryPartHelper::init(const Char8 *szName)
 
     _pGenAttProto = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
+
+    addRef(_pNodeProto    );
+    addRef(_pGenAttProto  );
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2716,9 +2745,9 @@ VRMLNodeHelperFactoryBase::RegisterHelper
     VRML Texture description
 */
 
-VRMLNodeHelperPtr VRMLImageTextureHelper::create(void)
+VRMLNodeHelper *VRMLImageTextureHelper::create(void)
 {
-    return VRMLNodeHelperPtr(new VRMLImageTextureHelper());
+    return new VRMLImageTextureHelper();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2946,22 +2975,4 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLImageTextureHelper::_regHelper(
     &VRMLImageTextureHelper::create,
     "ImageTexture");
 
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGVRMLNODEHELPER_HEADER_CVSID;
-}
 

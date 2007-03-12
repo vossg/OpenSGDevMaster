@@ -94,7 +94,9 @@ UInt32 DynFieldAttachment<AttachmentDescT>::addField(
 template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::subField(UInt32 fieldId)
 {
-    if(_localType.subDescription(fieldId) == true)
+    FieldDescriptionBase *descP = _localType.getFieldDesc(fieldId);
+    
+    if(descP != NULL)
     {
         std::vector<Field *>::iterator vIt = _dynFieldsV.begin();
 
@@ -102,10 +104,12 @@ void DynFieldAttachment<AttachmentDescT>::subField(UInt32 fieldId)
 
         if(vIt != _dynFieldsV.end())
         {
-            delete (*vIt);
+            descP->destroyField(*vIt);
 
             (*vIt) = NULL;
         }
+
+        _localType.subDescription(fieldId);
     }
 }
 
@@ -256,6 +260,12 @@ DynFieldAttachment<AttachmentDescT>::DynFieldAttachment(
 template <class AttachmentDescT> inline
 DynFieldAttachment<AttachmentDescT>::~DynFieldAttachment(void)
 {
+    for(UInt32 i  = Inherited::NextFieldId;
+               i <= _localType.getNumFieldDescs();
+             ++i)
+    {
+        this->subField(i);
+    }
 }
  
 template <class AttachmentDescT> inline

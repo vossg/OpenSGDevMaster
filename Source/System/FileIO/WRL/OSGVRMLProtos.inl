@@ -125,7 +125,6 @@ PROTO AudioClip [
  endProtoInterface();
  endProto         ();
 
-
 #if 0
 PROTO Background [
   eventIn      SFBool   set_bind

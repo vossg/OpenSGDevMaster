@@ -92,7 +92,7 @@ VRMLFile::VRMLFile(void) :
     _pLightRoot         (NullFC),
     _pCurrentGlobalLight(NullFC),
 
-    _pCurrNodeHelper(),
+    _pCurrNodeHelper(NULL),
     _sNodeHelpers   (),
 
     _pCurrentFC       (NullFC),
@@ -178,11 +178,11 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
     VRMLNodeHelper::incIndent();
 #endif
 
-    VRMLNodeHelperPtr pOldHelper = _pCurrNodeHelper;
+    VRMLNodeHelper *pOldHelper = _pCurrNodeHelper;
 
     _pCurrNodeHelper = findNodeHelper(szNodeTypename);
 
-    if(_pCurrNodeHelper.get() == NULL)
+    if(_pCurrNodeHelper == NULL)
         return;
 
     _sNodeHelpers.push(_pCurrNodeHelper);
@@ -346,7 +346,7 @@ void VRMLFile::endNode(void)
 {
     SceneFileHandler::the()->updateReadProgress();
 
-    if(_pCurrNodeHelper.get() == NULL)
+    if(_pCurrNodeHelper == NULL)
     {
 #ifdef OSG_DEBUG_VRML
         VRMLNodeHelper::decIndent();
@@ -389,7 +389,7 @@ void VRMLFile::endNode(void)
     }
     else
     {
-        _pCurrNodeHelper = VRMLNodeHelperPtr();
+        _pCurrNodeHelper = NULL;
     }
 
     if(_pCurrentFC != NullFC)
@@ -418,6 +418,10 @@ void VRMLFile::endNode(void)
         _pCurrentFC = NullFC;
     }
 
+    if(_pCurrentFieldDesc != NULL)
+    {
+        _pCurrentFieldFC = _pCurrentFC;
+    }
 #ifdef OSG_DEBUG_VRML
     VRMLNodeHelper::decIndent();
 
@@ -499,7 +503,7 @@ void VRMLFile::endField(void)
 
 void VRMLFile::addFieldValue(const Char8 *szFieldVal)
 {
-    if(_pCurrNodeHelper.get() != NULL)
+    if(_pCurrNodeHelper != NULL)
     {
         _pCurrNodeHelper->addFieldValue(_pCurrentField, 
                                         _pCurrentFieldDesc,
@@ -553,7 +557,7 @@ UInt32 VRMLFile::getFieldType(const Char8 *szFieldname)
 {
     UInt32   returnValue = 0;
 
-    if(_pCurrNodeHelper.get() == NULL)
+    if(_pCurrNodeHelper == NULL)
         return returnValue;
 
     if(szFieldname == NULL)
@@ -1076,7 +1080,7 @@ FieldContainerPtr VRMLFile::findReference(const Char8 *szName)
 
 void VRMLFile::setContainerFieldValue(const FieldContainerPtr &pFC)
 {
-    if(_pCurrNodeHelper.get() != NULL)
+    if(_pCurrNodeHelper != NULL)
     {
         _pCurrNodeHelper->setContainerFieldValue( pFC,
                                                  _pCurrentFieldDesc,
@@ -1085,21 +1089,3 @@ void VRMLFile::setContainerFieldValue(const FieldContainerPtr &pFC)
 }
 
 #include "OSGVRMLProtos.inl"
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGVRMLFILE_HEADER_CVSID;
-}
-

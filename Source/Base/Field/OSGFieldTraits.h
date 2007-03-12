@@ -649,9 +649,10 @@ class FieldDescription : public DescT::FieldDescParent
     virtual bool equal(const Field *lhs,
                        const Field *rhs) const;
 
-    virtual Field                *createField(void) const;
+    virtual Field                *createField (void         ) const;
+    virtual void                  destroyField(Field *pField) const;
 
-    virtual FieldDescriptionBase *clone      (void) const;
+    virtual FieldDescriptionBase *clone       (void         ) const;
 };
 
 template <class T, Int32 iNamespace = 0>
@@ -693,8 +694,6 @@ struct StringConversionError
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDTRAITS_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGFieldTraits.inl"
 

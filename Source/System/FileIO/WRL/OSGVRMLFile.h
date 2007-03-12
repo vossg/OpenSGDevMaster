@@ -161,7 +161,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
   protected:
 
     typedef std::map  <IDString, FieldContainerPtr > NameContainerMap;
-    typedef std::map  <IDString, VRMLNodeHelperPtr > NameHelperMap;
+    typedef std::map  <IDString, VRMLNodeHelper   *> NameHelperMap;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -172,8 +172,8 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
                NodePtr                        _pLightRoot;
                NodePtr                        _pCurrentGlobalLight;
 
-               VRMLNodeHelperPtr              _pCurrNodeHelper;
-    std::stack<VRMLNodeHelperPtr>             _sNodeHelpers;
+               VRMLNodeHelper *               _pCurrNodeHelper;
+    std::stack<VRMLNodeHelper *>              _sNodeHelpers;
 
                FieldContainerPtr              _pCurrentFC;
                FieldContainerPtr              _pCurrentFieldFC;
@@ -209,7 +209,5 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 };
 
 OSG_END_NAMESPACE
-
-#define OSGVRMLFILE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVRMLFILE_H_ */

@@ -454,6 +454,13 @@ Field *FieldDescription<DescT, eFieldCard>::createField(void) const
     return new HandledField();
 }
 
+template<class DescT, enum FieldCardinality eFieldCard> inline
+void FieldDescription<DescT, eFieldCard>::destroyField(Field *pField) const
+{
+    HandledField *pDelField = dcast(pField);
+
+    delete pDelField;
+}
 
 template<class DescT, enum FieldCardinality eFieldCard> inline
 FieldDescriptionBase *FieldDescription<DescT, eFieldCard>::clone(void) const
@@ -463,6 +470,4 @@ FieldDescriptionBase *FieldDescription<DescT, eFieldCard>::clone(void) const
 
 
 OSG_END_NAMESPACE
-
-#define OSGFIELDTRAITS_INLINE_CVSID "@(#)$Id$"
 

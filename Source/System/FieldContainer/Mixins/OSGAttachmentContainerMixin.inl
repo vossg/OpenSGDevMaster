@@ -265,7 +265,6 @@ void AttachmentContainerMixin<ParentT>::subAttachment(
 
     if(fcI != _sfAttachments.getValue().end())
     {
-
         (*fcI).second->subParent(Inherited::getPtr());
 
         subRef((*fcI).second);
@@ -404,6 +403,24 @@ void AttachmentContainerMixin<ParentT>::execSync(
     }
 }
 #endif
+
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+
+    AttachmentObjPtrMapIt fcI = _sfAttachments.getValue().begin();
+    AttachmentObjPtrMapIt fcE = _sfAttachments.getValue().end  ();
+
+    while(fcI != fcE)
+    {
+        (*fcI).second->subParent(Inherited::getPtr());
+
+        subRef((*fcI).second);
+
+        ++fcI;
+    }
+}
 
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */

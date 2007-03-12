@@ -63,12 +63,9 @@
 #include <map>
 #endif
 
-#include <boost/shared_ptr.hpp>
-
 OSG_BEGIN_NAMESPACE
 
 class VRMLNodeHelper;
-typedef boost::shared_ptr<VRMLNodeHelper>       VRMLNodeHelperPtr;  /**< Smart ptr to a node helper. */
 
 //---------------------------------------------------------------------------
 //  Class
@@ -98,7 +95,7 @@ struct VRMLGenericAttDesc
 
 typedef DynFieldAttachment<VRMLGenericAttDesc>  VRMLGenericAtt;
 typedef VRMLGenericAtt::ObjPtr                  VRMLGenericAttPtr;
-    
+
 
 
 //---------------------------------------------------------------------------
@@ -113,7 +110,8 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
     /*==========================  PUBLIC  =================================*/
 
   public :
-    typedef boost::function< boost::shared_ptr<VRMLNodeHelper> (void)> CreateHelper;
+
+    typedef boost::function<VRMLNodeHelper *(void)> CreateHelper;
 
     class RegisterHelper
     {
@@ -146,7 +144,7 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
     /*! \name                   Prototypes                                 */
     /*! \{                                                                 */
 
-    VRMLNodeHelperPtr createHelper(const Char8 *szNodeName);
+    VRMLNodeHelper *createHelper(const Char8 *szNodeName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -420,7 +418,7 @@ class OSG_FILEIO_DLLMAPPING VRMLDefaultHelper : public VRMLNodeHelper
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    static VRMLNodeHelperPtr create(void);
+    static VRMLNodeHelper *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -552,7 +550,7 @@ class OSG_FILEIO_DLLMAPPING VRMLGroupHelper : public VRMLNodeHelper
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    static VRMLNodeHelperPtr create(void);
+    static VRMLNodeHelper *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -598,8 +596,6 @@ class OSG_FILEIO_DLLMAPPING VRMLGroupHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-class VRMLMaterialHelper;
-typedef boost::shared_ptr<VRMLMaterialHelper>       VRMLMaterialHelperPtr;
 
 /*! \brief VRML Material Desc
 */
@@ -670,7 +666,7 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    static VRMLNodeHelperPtr create(void);
+    static VRMLNodeHelper *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -727,8 +723,6 @@ class OSG_FILEIO_DLLMAPPING VRMLMaterialHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-class VRMLShapeHelper;
-typedef boost::shared_ptr<VRMLShapeHelper>  VRMLShapeHelperPtr;
 
 /*! \brief VRML Shape Helper
 */
@@ -752,7 +746,7 @@ class OSG_FILEIO_DLLMAPPING VRMLShapeHelper : public VRMLNodeHelper
 
     virtual void init             (const Char8              *szName         );
 
-            void setMaterialHelper(VRMLMaterialHelperPtr pMaterialHelper);
+            void setMaterialHelper(      VRMLMaterialHelper *pMaterialHelper);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -793,7 +787,7 @@ class OSG_FILEIO_DLLMAPPING VRMLShapeHelper : public VRMLNodeHelper
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    static VRMLNodeHelperPtr create(void);
+    static VRMLNodeHelper *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -807,7 +801,7 @@ class OSG_FILEIO_DLLMAPPING VRMLShapeHelper : public VRMLNodeHelper
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    VRMLMaterialHelperPtr _pMaterialHelper;
+    VRMLMaterialHelper *_pMaterialHelper;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -836,8 +830,6 @@ class OSG_FILEIO_DLLMAPPING VRMLShapeHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
-class VRMLAppearanceHelper;
-typedef boost::shared_ptr<VRMLAppearanceHelper>  VRMLAppearanceHelperPtr;
 
 /*! \brief VRML Appearance Helper
 */
@@ -861,7 +853,7 @@ class OSG_FILEIO_DLLMAPPING VRMLAppearanceHelper : public VRMLNodeHelper
 
     virtual void init             (const Char8              *szName       );
 
-    virtual void setMaterialHelper(VRMLMaterialHelperPtr pMaterialDesc);
+    virtual void setMaterialHelper(      VRMLMaterialHelper *pMaterialDesc);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -906,7 +898,7 @@ class OSG_FILEIO_DLLMAPPING VRMLAppearanceHelper : public VRMLNodeHelper
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    static VRMLNodeHelperPtr create(void);
+    static VRMLNodeHelper *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -920,7 +912,7 @@ class OSG_FILEIO_DLLMAPPING VRMLAppearanceHelper : public VRMLNodeHelper
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    VRMLMaterialHelperPtr _pMaterialHelper;
+    VRMLMaterialHelper *_pMaterialHelper;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1020,7 +1012,7 @@ class OSG_FILEIO_DLLMAPPING VRMLIndexedGeometryHelper :
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    static VRMLNodeHelperPtr create(void);
+    static VRMLNodeHelper *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1122,7 +1114,7 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryPartHelper : public VRMLNodeHelper
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    static VRMLNodeHelperPtr create(void);
+    static VRMLNodeHelper *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1230,7 +1222,7 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    static VRMLNodeHelperPtr create(void);
+    static VRMLNodeHelper *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1273,8 +1265,6 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
 
 
 OSG_END_NAMESPACE
-
-#define OSGVRMLNODEHELPER_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGVRMLNODEHELPER_H_ */
 

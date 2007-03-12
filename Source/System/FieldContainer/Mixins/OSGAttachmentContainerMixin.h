@@ -257,6 +257,8 @@ class AttachmentContainerMixin  : public ParentT
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
+    virtual void resolveLinks(void);
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
