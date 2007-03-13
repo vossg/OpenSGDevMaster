@@ -68,16 +68,19 @@ template <>
 struct FieldTraits<FieldContainerAttachmentPtr>
     : public FieldTraitsFCPtrBase<FieldContainerAttachmentPtr>
 {
+  private:
+
     static  DataType                                  _type;
+
+  public:
+
     typedef FieldTraits<FieldContainerAttachmentPtr>  Self;
 
 
     enum             { Convertible = Self::NotConvertible              };
 
-    static       DataType &getType      (void)
-    {
-        return _type;
-    }
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
 
     static const Char8    *getSName     (void)
     {

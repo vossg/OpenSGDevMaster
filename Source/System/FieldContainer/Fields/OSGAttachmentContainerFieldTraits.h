@@ -74,10 +74,8 @@ struct FieldTraits<AttachmentContainerPtr>
 
     enum             { Convertible = Self::NotConvertible              };
 
-    static       DataType &getType      (void)
-    {
-        return _type;
-    }
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
 
     static const Char8    *getSName     (void)
     {

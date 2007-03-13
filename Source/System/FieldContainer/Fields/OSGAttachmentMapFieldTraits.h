@@ -75,16 +75,19 @@ template <>
 struct FieldTraits<FieldBundleAttachmentMap> : 
     public FieldTraitsTemplateBase<FieldBundleAttachmentMap>
 {
+  private:
+
     static  DataType                              _type;
+
+  public:
+
     typedef FieldTraits<FieldBundleAttachmentMap>  Self;
 
 
     enum             { Convertible = Self::NotConvertible };
 
-    static       DataType &getType      (void) 
-    {
-        return _type;             
-    }
+    static  OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
 
     static const Char8    *getSName     (void) 
     {
@@ -113,13 +116,19 @@ template <>
 struct FieldTraits<FieldContainerAttachmentMap> : 
     public FieldTraitsTemplateBase<FieldContainerAttachmentMap>
 {
+  private:
+
     static  DataType                                 _type;
+
+  public:
+
     typedef FieldTraits<FieldContainerAttachmentMap>  Self;
 
 
     enum             { Convertible = Self::NotConvertible                  };
 
-    static       DataType &getType      (void) { return _type;             }
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
 
     static const Char8    *getSName     (void) 
     {

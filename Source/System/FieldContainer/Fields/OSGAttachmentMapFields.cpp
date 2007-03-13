@@ -49,6 +49,18 @@
 #include <OSGTypeBasePredicates.h>
 #include <OSGReflexiveContainerTypePredicates.h>
 
+#include <OSGSField.ins>
+
+#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
+    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
+
+#include <OSGSFieldFuncs.ins>
+
+#endif
+
+#include <OSGSFieldAdaptor.ins>
+
+
 OSG_BEGIN_NAMESPACE
 
 template <>
@@ -164,5 +176,23 @@ FieldDescription<SFFieldContainerAttachmentPtrMap::SFieldTraits,
         pDstAC->addAttachment(att, uiBinding);
     }
 }
+
+#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+
+DataType FieldTraits<FieldBundleAttachmentMap   >::_type(
+    "FieldBundleAttachmentMap",
+    NULL);
+
+DataType FieldTraits<FieldContainerAttachmentMap>::_type(
+    "FieldContainerAttachmentMap",
+    NULL);
+
+OSG_FIELDTRAITS_GETTYPE(FieldBundleAttachmentMap   )
+OSG_FIELDTRAITS_GETTYPE(FieldContainerAttachmentMap)
+
+#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+
+OSG_FIELD_DLLEXPORT_DEF1(SField, FieldBundleAttachmentMap);
+OSG_FIELD_DLLEXPORT_DEF1(SField, FieldContainerAttachmentMap);
 
 OSG_END_NAMESPACE

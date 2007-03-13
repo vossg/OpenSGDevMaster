@@ -67,13 +67,19 @@ OSG_BEGIN_NAMESPACE
 template <>
 struct FieldTraits<NodePtr> : public FieldTraitsFCPtrBase<NodePtr>
 {
+  private:
+
     static  DataType             _type;
+
+  public:
+
     typedef FieldTraits<NodePtr>  Self;
 
 
     enum             { Convertible = Self::NotConvertible              };
 
-    static       DataType &getType      (void) { return _type;         }
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
 
     static const Char8    *getSName     (void) { return "SFNodePtr";   }
 
@@ -95,12 +101,18 @@ template <>
 struct FieldTraits<ParentNodePtr, 1> : 
     public FieldTraitsFCPtrBase<ParentNodePtr, 1>
 {
+  private:
+
     static  DataType                      _type;
+
+  public:
+
     typedef FieldTraits<ParentNodePtr, 1>  Self;
 
     enum             { Convertible = Self::NotConvertible                  };
 
-    static       DataType &getType      (void) { return _type;             }
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
 
     static const Char8    *getSName     (void) { return "SFParentNodePtr"; }
 

@@ -68,13 +68,19 @@ template <>
 struct FieldTraits<ChangedFunctorCallback> : 
     public FieldTraitsTemplateBase<ChangedFunctorCallback>
 {
+  private:
+
     static  DataType                            _type;
+
+  public:
+
     typedef FieldTraits<ChangedFunctorCallback>  Self;
 
 
     enum             { Convertible = Self::NotConvertible                  };
 
-    static       DataType &getType      (void) { return _type;             }
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
 
     static const Char8    *getSName     (void) 
     {

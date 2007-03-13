@@ -69,8 +69,6 @@
 #include "OSGNodeCoreSFields.h"
 #include "OSGNodeCoreMFields.h"
 
-#include "OSGAttachmentMapSFields.h"
-
 #include "OSGFieldContainerPtr.h"
 
 #include <OSGSFieldAdaptor.ins>
@@ -108,20 +106,19 @@ DataType FieldTraits<ParentNodePtr,            1>::_type(
     "ParentNodePtr",
     NULL);
 
-DataType FieldTraits<FieldBundleAttachmentMap   >::_type(
-    "FieldBundleAttachmentMap",
-    NULL);
-
-DataType FieldTraits<FieldContainerAttachmentMap>::_type(
-    "FieldContainerAttachmentMap",
-    NULL);
-
 DataType FieldTraits<ChangedFunctorCallback     >::_type(
     "ChangedFunctorCallback",
     NULL);
  
 OSG_FIELDTRAITS_GETTYPE   (FieldContainerPtr          )
 OSG_FIELDTRAITS_GETTYPE_NS(ParentFieldContainerPtr,  1)
+
+OSG_FIELDTRAITS_GETTYPE   (FieldContainerAttachmentPtr)
+OSG_FIELDTRAITS_GETTYPE   (AttachmentContainerPtr     )
+OSG_FIELDTRAITS_GETTYPE   (NodeCorePtr                )
+OSG_FIELDTRAITS_GETTYPE   (NodePtr                    )
+OSG_FIELDTRAITS_GETTYPE_NS(ParentNodePtr, 1           )
+OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback     )
 
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
@@ -142,9 +139,6 @@ OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, NodePtr, MFFieldContainerPtr);
 
 OSG_FIELD_DLLEXPORT_DEF2(SField, ParentNodePtr, 1);
 OSG_FIELD_DLLEXPORT_DEF2(MField, ParentNodePtr, 1);
-
-OSG_FIELD_DLLEXPORT_DEF1(SField, FieldBundleAttachmentMap);
-OSG_FIELD_DLLEXPORT_DEF1(SField, FieldContainerAttachmentMap);
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
 OSG_FIELD_DLLEXPORT_DEF1(MField, ChangedFunctorCallback);

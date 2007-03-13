@@ -68,13 +68,19 @@ template <>
 struct FieldTraits<NodeCorePtr> : 
     public FieldTraitsTemplateBase<NodeCorePtr>
 {
+  private:
+
     static  DataType                 _type;
+
+  public:
+
     typedef FieldTraits<NodeCorePtr>  Self;
 
 
     enum             { Convertible = Self::NotConvertible                  };
 
-    static       DataType &getType      (void) { return _type;             }
+    static OSG_SYSTEM_DLLMAPPING
+                 DataType &getType      (void);
 
     static const Char8    *getSName     (void) { return "SFNodeCorePtr";   }
 
