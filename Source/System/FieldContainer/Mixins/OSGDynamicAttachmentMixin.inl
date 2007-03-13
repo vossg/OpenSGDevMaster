@@ -266,6 +266,8 @@ DynFieldAttachment<AttachmentDescT>::~DynFieldAttachment(void)
     {
         this->subField(i);
     }
+
+    _localType.terminate();
 }
  
 template <class AttachmentDescT> inline
