@@ -91,7 +91,7 @@ The action class for writing VRML files.
 VRMLWriteAction::ActionInitializer::ActionInitializer(void)
 {
     addPostFactoryInitFunction(&VRMLWriteAction::initializeAction);
-    addPreFactoryExitFunction(&VRMLWriteAction::terminateAction );
+    addPreFactoryExitFunction (&VRMLWriteAction::terminateAction );
 }
 
 VRMLWriteAction::ActionInitializer::~ActionInitializer(void)
@@ -1809,6 +1809,9 @@ bool VRMLWriteAction::initializeAction(void)
 bool VRMLWriteAction::terminateAction(void)
 {
     FINFO(( "Terminate VRMLWriter\n" ));
+
+    delete _defaultEnterFunctors;
+    delete _defaultLeaveFunctors;
 
     return true;
 }

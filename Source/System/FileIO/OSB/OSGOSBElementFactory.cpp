@@ -193,4 +193,14 @@ OSBElementFactorySingleton::~OSBElementFactorySingleton(void)
 {
     // deleting 0 is harmless
     delete _defaultCreator;
+
+    RegistryMapIt regIt  = _registry.begin();
+    RegistryMapIt regEnd = _registry.end  ();
+
+    while(regIt != regEnd)
+    {
+        delete (*regIt).second;
+
+        ++regIt;
+    }
 }

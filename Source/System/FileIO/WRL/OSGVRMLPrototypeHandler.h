@@ -59,6 +59,8 @@
 #include <map>
 #endif
 
+#include <string>
+
 OSG_BEGIN_NAMESPACE
 
 //! VRML97 Loader prototype handler
@@ -130,34 +132,43 @@ class VRMLNodePrototypeHandler : public BaseT
 
     typedef BaseT Inherited;
 
+#ifndef WIN32
+    struct string_hash
+    {
+        size_t operator()(const std::string &s) const
+        {
+            return OSG_STDEXTENSION_NAMESPACE::__stl_hash_string(s.c_str());
+        }
+    };
+#endif
+
 #ifdef OSG_STL_HAS_HASH_MAP
 #ifdef OSG_USE_HASH_COMPARE
     typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
             const Char8    *,
-            VRMLNodeHelper *,
-            HashCmpString                    > NameHelperMap;
+                  VRMLNodeHelper *,
+                  HashCmpString                   > NameHelperMap;
 #else
     typedef
         OSG_STDEXTENSION_NAMESPACE::hash_map<
-            const Char8  *,
-            VRMLNodeHelper *,
-            OSG_STDEXTENSION_NAMESPACE::hash<
-                const Char8 *>,
-            EQString                         > NameHelperMap;
+              const std::string,
+                    VRMLNodeHelper *,
+                    string_hash                   > NameHelperMap;
 #endif
 #else
     typedef
-        std::map<const Char8 *,
-                       VRMLNodeHelper *,
-                       LTString              > NameHelperMap;
+        std::map<const std::string,
+                       VRMLNodeHelper *           > NameHelperMap;
 #endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    /** The current helper that we are actively adding fields too and building up. */
+    /** The current helper that we are actively adding fields too and 
+        building up. */
+
     VRMLNodeHelper     *_pCurrentHelper;
 
     /** Map from proto name to the helper to handle that proto type. */

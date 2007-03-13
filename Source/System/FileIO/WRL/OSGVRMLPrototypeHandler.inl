@@ -73,8 +73,8 @@ VRMLNodePrototypeHandler<BaseT>::VRMLNodePrototypeHandler(void) :
 template <class BaseT> inline
 VRMLNodePrototypeHandler<BaseT>::~VRMLNodePrototypeHandler(void)
 {
-    NameHelperMap::iterator mNodeHelperIt  = _mNodeHelperHash.begin();
-    NameHelperMap::iterator mNodeHelperEnd = _mNodeHelperHash.end  ();
+    typename NameHelperMap::iterator mNodeHelperIt  = _mNodeHelperHash.begin();
+    typename NameHelperMap::iterator mNodeHelperEnd = _mNodeHelperHash.end  ();
 
     while(mNodeHelperIt != mNodeHelperEnd)
     {
@@ -95,9 +95,9 @@ void VRMLNodePrototypeHandler<BaseT>::beginProto(const Char8 *szProtoname)
     PINFO << "Begin Proto " << szProtoname << std::endl;
 #endif
 
-    Char8 *szName = NULL;
+    std::string szName;
 
-    NameHelperMap::iterator mNodeHelperIt = 
+    typename NameHelperMap::iterator mNodeHelperIt = 
         _mNodeHelperHash.find(szProtoname);
 
     if(mNodeHelperIt == _mNodeHelperHash.end())
@@ -107,7 +107,7 @@ void VRMLNodePrototypeHandler<BaseT>::beginProto(const Char8 *szProtoname)
 
         if(pNewHelper == NULL)
         {
-            osgStringDup(szProtoname, szName);
+            szName.assign(szProtoname);
 
             _pCurrentHelper = VRMLDefaultHelper::create();
 
@@ -117,7 +117,7 @@ void VRMLNodePrototypeHandler<BaseT>::beginProto(const Char8 *szProtoname)
         }
         else
         {
-            osgStringDup(szProtoname, szName);
+            szName.assign(szProtoname);
 
             _pCurrentHelper = pNewHelper;
 
@@ -414,7 +414,7 @@ VRMLNodeHelper *VRMLNodePrototypeHandler<BaseT>::findNodeHelper(
 {
     VRMLNodeHelper *returnValue = NULL;
 
-    NameHelperMap::iterator mNodeHelperIt =
+    typename NameHelperMap::iterator mNodeHelperIt =
         _mNodeHelperHash.find(szNodeTypename);
 
     if(mNodeHelperIt != _mNodeHelperHash.end())

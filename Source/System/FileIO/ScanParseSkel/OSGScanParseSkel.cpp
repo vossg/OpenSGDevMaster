@@ -81,6 +81,8 @@ ScanParseSkel::~ScanParseSkel(void)
         subRef(_image);
 
     delete _pLexer;
+
+    delete [] _szReferenceHeader;
 }
 
 /*-------------------------------------------------------------------------*/
