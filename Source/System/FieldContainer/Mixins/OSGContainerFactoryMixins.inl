@@ -35,6 +35,10 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+#include <valgrind/memcheck.h>
+#endif
+
 
 OSG_BEGIN_NAMESPACE
 
@@ -498,6 +502,10 @@ template <class ParentT> inline
 UInt32 ContainerStoreFactoryMixin<ParentT>::registerContainer(
     const ContainerPtr &pContainer)
 {
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+    VALGRIND_CHECK_VALUE_IS_DEFINED(pContainer);
+#endif
+
     UInt32 returnValue = 0;
 
 #ifndef OSG_WINCE
