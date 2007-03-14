@@ -73,7 +73,7 @@ TEST(GetFieldDocs)
 
    unsigned num_field_descs = group_type.getNumFieldDescs();
 
-   for(unsigned i; i < num_field_descs; ++i)
+   for(unsigned i = 1; i < num_field_descs; ++i)
    {
       OSG::FieldDescriptionBase* fdesc = group_type.getFieldDesc(i);
       std::string field_doc = fdesc->getDocumentation();

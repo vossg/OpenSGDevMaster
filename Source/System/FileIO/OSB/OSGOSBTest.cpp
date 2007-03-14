@@ -88,6 +88,8 @@ TEST_FIXTURE(FileFixture, CreateOSBTree)
    OSG::NodePtr child_node = OSG::Node::create();
    child_node->setCore(OSG::Group::create());
 
+   base_node->addChild(child_node);
+
    CHECK(!bf::exists(test_file));
    OSG::SceneFileHandler::the()->write(base_node, test_file.native_file_string().c_str());
    CHECK(bf::exists(test_file));
