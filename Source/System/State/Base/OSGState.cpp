@@ -151,7 +151,7 @@ State::State(const State &source) :
 
 State::~State(void)
 {
-    clearChunks();
+//    clearChunks();
 }
 
 void State::rebuildSortKey(void)

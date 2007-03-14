@@ -141,11 +141,6 @@ void ContainerChangeEntry::commitChanges(void)
 #ifdef OSG_ENABLE_VALGRIND_CHECKS
     VALGRIND_CHECK_VALUE_IS_DEFINED(uiContainerId);
 #endif
-
-#ifndef SILENT
-    fprintf(stderr, "ContainerChangeEntry::commitChanges: [%x] [%u]\n", this, uiContainerId);
-#endif
-
     FieldContainerPtr pTmp =
         FieldContainerFactory::the()->getContainer(uiContainerId);
 
@@ -194,9 +189,9 @@ void ContainerChangeEntry::commitChangesAndClear(void)
 
 ChangeList::ChangeList(void) :
      Inherited         (                   ),
-    //_entryPool         (                   ),
-    //_currentPoolElement(                   ),
-    //_currentEntry      (                   ),
+    _entryPool         (                   ),
+    _currentPoolElement(                   ),
+    _currentEntry      (                   ),
     _changedStore      (                   ),
     _createdStore      (                   ),
     _uncommitedChanges (                   ),
@@ -204,13 +199,13 @@ ChangeList::ChangeList(void) :
     _uiAspect          (                  0),
     _iSubRefLevel      (                  0)
 {
-    //_entryPool.push_back(ChangeEntryStore());
+    _entryPool.push_back(ChangeEntryStore());
 
-    //_currentPoolElement = _entryPool.begin();
+    _currentPoolElement = _entryPool.begin();
 
-    //_currentPoolElement->resize(32);
+    _currentPoolElement->resize(32);
 
-    //_currentEntry = _currentPoolElement->begin();
+    _currentEntry = _currentPoolElement->begin();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -225,7 +220,6 @@ ChangeList::~ChangeList(void)
 
 ContainerChangeEntry *ChangeList::createNewEntry(void)
 {
-#if 0
     if(_currentEntry == _currentPoolElement->end())
     {
         ++_currentPoolElement;
@@ -248,13 +242,6 @@ ContainerChangeEntry *ChangeList::createNewEntry(void)
     ++_currentEntry;
 
     return returnValue;
-#else
-    ContainerChangeEntry* new_entry(new ContainerChangeEntry);
-    _allocatedChangeEntries.push_back(new_entry);
-    return new_entry;
-    //return new ContainerChangeEntry;
-#endif
-
 }
 
 

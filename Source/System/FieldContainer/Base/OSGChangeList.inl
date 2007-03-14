@@ -42,11 +42,8 @@ OSG_BEGIN_NAMESPACE
 inline
 void ChangeList::clearPool(void)
 {
-    //_currentPoolElement = _entryPool          .begin();
-    //_currentEntry       = _currentPoolElement->begin();
-    for(unsigned i=0;i<_allocatedChangeEntries.size();i++)
-    { delete _allocatedChangeEntries[i]; }
-    _allocatedChangeEntries.clear();
+    _currentPoolElement = _entryPool          .begin();
+    _currentEntry       = _currentPoolElement->begin();
 
     _changedStore     .clear();
     _createdStore     .clear();
@@ -57,10 +54,10 @@ void ChangeList::clearPool(void)
 inline
 void ChangeList::addAddRefd(const UInt32 uiContainerId)
 {
-    FieldContainerPtr pTmp =
+    FieldContainerPtr pTmp = 
         FieldContainerFactory::the()->getContainer(uiContainerId);
 
-    fprintf(stderr, "Add AddRef %u %s\n",
+    fprintf(stderr, "Add AddRef %u %s\n", 
             uiContainerId, pTmp->getType().getCName());
 
     ContainerChangeEntry *pEntry = getNewEntry();
@@ -83,10 +80,10 @@ void ChangeList::addSubRefd(const UInt32 uiContainerId)
 inline
 void ChangeList::addCreated(const UInt32 uiContainerId)
 {
-    FieldContainerPtr pTmp =
+    FieldContainerPtr pTmp = 
         FieldContainerFactory::the()->getContainer(uiContainerId);
 
-    fprintf(stderr, "Add Create %u %s\n",
+    fprintf(stderr, "Add Create %u %s\n", 
             uiContainerId, pTmp->getType().getCName());
 
     ContainerChangeEntry *pEntry = getNewEntry();
@@ -166,7 +163,7 @@ void ChangeList::decSubRefLevel(void)
     --_iSubRefLevel;
 }
 
-inline
+inline 
 void commitChanges(void)
 {
     Thread::getCurrentChangeList()->commitChanges();

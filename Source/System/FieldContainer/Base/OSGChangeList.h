@@ -62,9 +62,9 @@ class PThreadBase;
 class SprocBase;
 class WinThreadBase;
 
-/** Class to hold change details for a given container.
- *  \ingroup GrpSystemMultithreading
+/*! \ingroup GrpSystemMultithreading
  */
+
 struct OSG_SYSTEM_DLLMAPPING ContainerChangeEntry
 {
     enum EntryType
@@ -76,9 +76,9 @@ struct OSG_SYSTEM_DLLMAPPING ContainerChangeEntry
         Change          = 0x0010
     };
 
-    UInt32      uiEntryDesc;     /**< The entry type.  One of EntryType values. */
-    UInt32      uiContainerId;   /**< The container id that we hold changes for. */
-    FieldFlags *pFieldFlags;     /**< Pointer to the field flags in the fc we reference. */
+    UInt32      uiEntryDesc;
+    UInt32      uiContainerId;
+    FieldFlags *pFieldFlags;
     BitVector   whichField;
     BitVector  &uncommitedChanges;
 
@@ -270,11 +270,10 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    //ChangeEntryPool    _entryPool;
+    ChangeEntryPool    _entryPool;
 
-    //ChangeEntryPoolIt  _currentPoolElement;
-    //ChangeEntryStoreIt _currentEntry;
-    std::vector<ContainerChangeEntry*>   _allocatedChangeEntries;   /**< Allocated change entries. */
+    ChangeEntryPoolIt  _currentPoolElement;
+    ChangeEntryStoreIt _currentEntry;
 
     ChangedStore       _changedStore;
     ChangedStore       _createdStore;
