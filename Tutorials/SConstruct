@@ -4,15 +4,29 @@
 #
 
 # Import everything under the sun
+import sys
+import os
+pj = os.path.join
+
+
 import SCons.Environment     # Get the environment crap
 #import SCons
+
+# Extend paths for scons-addons and scons-build if needed
+# - this allows a development version of scons-addons to be
+#   in the standard python path and used instead.
+try:
+   import SConsAddons.Util
+   print "Using SConsAddons from: ", os.path.dirname(SConsAddons.Util.__file__)
+except:
+   sys.path.insert(0,pj('../Tools','scons-addons','src'))
+   print "Using SConsAddons from: ../Tools/scons-addons/src"
+
 import SConsAddons.Options as sca_opts   # Get the modular options stuff
 import SConsAddons.Options.OpenSG2
 import SConsAddons.Options.Boost
 from SConsAddons.EnvironmentBuilder import EnvironmentBuilder
 import SConsAddons.Util as sca_util      # Get the utils
-import sys, os
-pj = os.path.join
 
 # Setup base scons options and settings
 EnsureSConsVersion(0,96)
@@ -51,7 +65,7 @@ opts.Add(sca_opts.EnumOption('type','Types of run-times to build.(comma separate
 # OpenSG options.
 opensg2_options = SConsAddons.Options.OpenSG2.OpenSG2("opensg", "2.0", required=True)
 opensg2_options.verbose = True
-boost_options = sca_opts.Boost.Boost("boost", "1.31.0", libs = ["filesystem"],
+boost_options = sca_opts.Boost.Boost("boost", "1.31.0", libs = [],
                                      required = True , useVersion = True, useDebug=True, autoLink=True)
 
 
