@@ -239,10 +239,10 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
         const Field         *pSrc,
         const UInt32         fieldId,
               FCPtrConstArg  pDst,
-        const TypePtrVector &shareTypes     = TypePtrVector(), 
+        const TypePtrVector &shareTypes     = TypePtrVector(),
         const TypePtrVector &ignoreTypes    = TypePtrVector(),
         const TypeIdVector  &shareGroupIds  = TypeIdVector (),
-        const TypeIdVector  &ignoreGroupIds = TypeIdVector ()) const = 0;
+        const TypeIdVector  &ignoreGroupIds = TypeIdVector ()) const;
 
     virtual void shareValuesV(
         const Field         *pSrc,
@@ -251,7 +251,7 @@ class OSG_SYSTEM_DLLMAPPING FieldDescriptionBase
         const TypePtrVector &cloneTypes     = TypePtrVector(),
         const TypePtrVector &ignoreTypes    = TypePtrVector(),
         const TypeIdVector  &cloneGroupIds  = TypeIdVector (),
-        const TypeIdVector  &ignoreGroupIds = TypeIdVector ()) const = 0;
+        const TypeIdVector  &ignoreGroupIds = TypeIdVector ()) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

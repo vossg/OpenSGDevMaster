@@ -150,3 +150,26 @@ FieldDescriptionBase::~FieldDescriptionBase(void)
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 
+void FieldDescriptionBase::cloneValuesV(
+     const Field         *pSrc,
+     const UInt32         fieldId,
+           FCPtrConstArg  pDst,
+     const TypePtrVector &shareTypes,
+     const TypePtrVector &ignoreTypes,
+     const TypeIdVector  &shareGroupIds,
+     const TypeIdVector  &ignoreGroupIds) const
+{
+   OSG_ASSERT(false && "Must define cloneValuesV");
+}
+
+void FieldDescriptionBase::shareValuesV(
+     const Field         *pSrc,
+     const UInt32         fieldId,
+           FCPtrConstArg  pDst,
+     const TypePtrVector &cloneTypes,
+     const TypePtrVector &ignoreTypes,
+     const TypeIdVector  &cloneGroupIds,
+     const TypeIdVector  &ignoreGroupIds) const
+{
+   OSG_ASSERT(false && "Must define shareValuesV");
+}
