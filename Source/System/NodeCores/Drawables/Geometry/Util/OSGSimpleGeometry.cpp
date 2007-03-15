@@ -1912,6 +1912,7 @@ GeometryPtr makeCoordAxisGeo(Real32 length, Real32 lineWidth, bool showAxisName)
     geo->setPositions(pnts);
     geo->setTypes(types);
     geo->setLengths(lens);
+    geo->setColors(colors);
 
     return geo;
 }
