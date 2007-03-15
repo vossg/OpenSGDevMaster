@@ -53,19 +53,19 @@ OSG_BEGIN_NAMESPACE
 /*! \name                   Construction functions                     */
 /*! \{                                                                 */
 
-OSG_DRAWABLE_DLLMAPPING 
-GeometryPtr               makePlaneGeo          (Real32 xsize, 
+OSG_DRAWABLE_DLLMAPPING
+GeometryPtr               makePlaneGeo          (Real32 xsize,
                                                  Real32 ysize,
-                                                 UInt16 hor,   
+                                                 UInt16 hor,
                                                  UInt16 vert);
 
-OSG_DRAWABLE_DLLMAPPING 
-NodePtr                   makePlane             (Real32 xsize, 
+OSG_DRAWABLE_DLLMAPPING
+NodePtr                   makePlane             (Real32 xsize,
                                                  Real32 ysize,
-                                                 UInt16 hor,   
+                                                 UInt16 hor,
                                                  UInt16 vert);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeBoxGeo            (Real32 xsize,
                                                  Real32 ysize,
                                                  Real32 zsize,
@@ -73,7 +73,7 @@ GeometryPtr               makeBoxGeo            (Real32 xsize,
                                                  UInt16 vert,
                                                  UInt16 depth);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 NodePtr                   makeBox               (Real32 xsize,
                                                  Real32 ysize,
                                                  Real32 zsize,
@@ -81,21 +81,21 @@ NodePtr                   makeBox               (Real32 xsize,
                                                  UInt16 vert,
                                                  UInt16 depth);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeConeGeo           (Real32 height,
                                                  Real32 botradius,
                                                  UInt16 sides,
                                                  bool   doSide,
                                                  bool   doBottom);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 NodePtr                   makeCone              (Real32 height,
                                                  Real32 botradius,
                                                  UInt16 sides,
                                                  bool   doSide,
                                                  bool   doBottom);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeCylinderGeo       (Real32 height,
                                                  Real32 radius,
                                                  UInt16 sides,
@@ -103,7 +103,7 @@ GeometryPtr               makeCylinderGeo       (Real32 height,
                                                  bool   doTop,
                                                  bool   doBottom);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 NodePtr                   makeCylinder          (Real32 height,
                                                  Real32 radius,
                                                  UInt16 sides,
@@ -111,38 +111,38 @@ NodePtr                   makeCylinder          (Real32 height,
                                                  bool   doTop,
                                                  bool   doBottom);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeTorusGeo          (Real32 innerRadius,
                                                  Real32 outerRadius,
-                                                 UInt16 sides, 
+                                                 UInt16 sides,
                                                  UInt16 rings );
 
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 NodePtr                   makeTorus             (Real32 innerRadius,
                                                  Real32 outerRadius,
-                                                 UInt16 sides, 
+                                                 UInt16 sides,
                                                  UInt16 rings);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeSphereGeo         (UInt16 depth,
                                                  Real32 radius);
 
-OSG_DRAWABLE_DLLMAPPING 
-NodePtr                   makeSphere            (UInt16 depth, 
+OSG_DRAWABLE_DLLMAPPING
+NodePtr                   makeSphere            (UInt16 depth,
                                                  Real32 radius);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeLatLongSphereGeo  (UInt16 latres,
                                                  UInt16 longres,
                                                  Real32 radius);
 
-OSG_DRAWABLE_DLLMAPPING 
-NodePtr                   makeLatLongSphere     (UInt16 latres, 
+OSG_DRAWABLE_DLLMAPPING
+NodePtr                   makeLatLongSphere     (UInt16 latres,
                                                  UInt16 longres,
                                                  Real32 radius);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeConicalFrustumGeo (Real32 height,
                                                  Real32 topradius,
                                                  Real32 botradius,
@@ -151,7 +151,7 @@ GeometryPtr               makeConicalFrustumGeo (Real32 height,
                                                  bool   doTop,
                                                  bool   doBottom);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 NodePtr                   makeConicalFrustum    (Real32 height,
                                                  Real32 topradius,
                                                  Real32 botradius,
@@ -159,11 +159,20 @@ NodePtr                   makeConicalFrustum    (Real32 height,
                                                  bool   doSide,
                                                  bool   doTop,
                                                  bool   doBottom);
+OSG_DRAWABLE_DLLMAPPING
+NodePtr                   makeCoordAxis(Real32 length,
+                                        Real32 lineWidth,
+                                        bool showAxisName);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
+GeometryPtr               makeCoordAxisGeo(Real32 length,
+                                           Real32 lineWidth,
+                                           bool showAxisName);
+
+OSG_DRAWABLE_DLLMAPPING
 GeometryPtr               makeTeapotGeo(UInt16 depth);
 
-OSG_DRAWABLE_DLLMAPPING 
+OSG_DRAWABLE_DLLMAPPING
 NodePtr                   makeTeapot         (UInt16 depth);
 
 /*! \}                                                                 */

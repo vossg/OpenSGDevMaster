@@ -46,6 +46,7 @@
 #include <OSGQuaternion.h>
 #include <OSGMaterial.h>
 #include <OSGSimpleMaterial.h>
+#include <OSGLineChunk.h>
 #include <OSGGeoProperties.h>
 #include "OSGSimpleGeometry.h"  // for DefaultMaterials
 #include "OSGTypedGeoIntegralProperty.h"
@@ -1803,6 +1804,112 @@ GeometryPtr makeTeapotGeo(UInt16 depth)
     geo->setMaterial(getDefaultMaterial());
     geo->setPositions(pnts);
     geo->setNormals(norms);
+    geo->setTypes(types);
+    geo->setLengths(lens);
+
+    return geo;
+}
+
+NodePtr makeCoordAxis(Real32 length, Real32 lineWidth, bool showAxisName)
+{
+    GeometryPtr pGeo = makeCoordAxisGeo(length, lineWidth, showAxisName);
+
+    if(pGeo == NullFC)
+    {
+        return NullFC;
+    }
+
+    NodePtr node = Node::create();
+
+    node->setCore(pGeo);
+
+    return node;
+}
+
+GeometryPtr makeCoordAxisGeo(Real32 length, Real32 lineWidth, bool showAxisName)
+{
+    GeoPnt3fPropertyPtr   pnts    = GeoPnt3fProperty ::create();
+    GeoUInt32PropertyPtr  lens    = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr   types   = GeoUInt8Property ::create();
+    GeoColor3fPropertyPtr colors  = GeoColors3f::create();
+
+    Int32 pntCnt=0;
+
+    GeoPnt3fProperty::StoredFieldType   *p = pnts ->editFieldPtr();
+    GeoUInt32Property::StoredFieldType  *l = lens ->editFieldPtr();
+    GeoUInt8Property::StoredFieldType   *t = types->editFieldPtr();
+    GeoColor3fProperty::StoredFieldType *c = colors->editFieldPtr();
+
+    // the x-axis coords and colors
+    p->push_back( Pnt3f(0,0,0) );
+    p->push_back( Pnt3f(length,0,0) );
+    pntCnt += 2;
+    c->push_back( Color3f(1,0,0) );
+    c->push_back( Color3f(1,0,0) );
+
+    // the y-axis coords and colors
+    p->push_back( Pnt3f(0,0,0) );
+    p->push_back( Pnt3f(0,length,0) );
+    pntCnt += 2;
+    c->push_back( Color3f(0,1,0) );
+    c->push_back( Color3f(0,1,0) );
+
+    // the z-axis coords and colors
+    p->push_back( Pnt3f(0,0,0) );
+    p->push_back( Pnt3f(0,0,length) );
+    pntCnt += 2;
+    c->push_back( Color3f(0,0,1) );
+    c->push_back( Color3f(0,0,1) );
+
+    if( showAxisName )
+    {
+       // the x text (drawn with lines)
+       p->push_back( Pnt3f(length,         0.125,    0) );
+       p->push_back( Pnt3f(length+0.25,    -0.125,    0) );
+       p->push_back( Pnt3f(length,-0.125,0) );
+       p->push_back( Pnt3f(length+0.25,0.125,0) );
+       pntCnt += 4;
+       for (unsigned i=0;i<4;i++)
+       { c->push_back( Color3f(1,0,0) ); }
+
+       // the y text (drawn with lines)
+       p->push_back( Pnt3f(-0.125, length,        0) );
+       p->push_back( Pnt3f( 0.125, length+0.25,    0) );
+       p->push_back( Pnt3f(-0.125, length+0.25,        0) );
+       p->push_back( Pnt3f( 0.000, length+0.125,0) );
+       pntCnt += 4;
+       for (unsigned i=0;i<4;i++)
+       { c->push_back( Color3f(0,1,0) ); }
+
+       // the z text (drawn with lines)
+       p->push_back( Pnt3f(-0.125, 0,    length) );
+       p->push_back( Pnt3f( 0.125, 0,    length) );
+       p->push_back( Pnt3f( 0.125, 0,    length) );
+       p->push_back( Pnt3f(-0.125, 0,    length+0.25) );
+       p->push_back( Pnt3f(-0.125, 0,    length+0.25) );
+       p->push_back( Pnt3f( 0.125, 0,    length+0.25) );
+       pntCnt += 6;
+       for (unsigned i=0;i<6;i++)
+       { c->push_back( Color3f(0,0,1) ); }
+    }
+
+
+    //SLOG << "CoordAxis has " << pntCnt << " points.\n" << endl;
+    t->push_back(GL_LINES);
+    l->push_back(pntCnt);
+
+    LineChunkPtr        lineChunk = LineChunk::create();
+    lineChunk->setWidth(lineWidth);
+
+    SimpleMaterialPtr    mat      = SimpleMaterial::create();
+    mat->setLit(false);
+    mat->addChunk(lineChunk);
+    mat->setColorMaterial(GL_AMBIENT_AND_DIFFUSE);
+
+
+    GeometryPtr geo = Geometry::create();
+    geo->setMaterial(mat);
+    geo->setPositions(pnts);
     geo->setTypes(types);
     geo->setLengths(lens);
 
