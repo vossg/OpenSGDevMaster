@@ -2782,7 +2782,7 @@ template <>
 inline Int16
 osgSwapBytes<Int16>(Int16 src)
 {
-    return static_cast<Int16>(osgSwapBytes(static_cast<UInt16>(src)));
+    return static_cast<Int16>(osgSwapBytes<UInt16>(static_cast<UInt16>(src)));
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
@@ -2803,7 +2803,7 @@ template <>
 inline Int32
 osgSwapBytes<Int32>(Int32 src)
 {
-    return static_cast<Int32>(osgSwapBytes(static_cast<UInt32>(src)));
+    return static_cast<Int32>(osgSwapBytes<UInt32>(static_cast<UInt32>(src)));
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
@@ -2828,7 +2828,7 @@ template <>
 inline Int64
 osgSwapBytes<Int64>(Int64 src)
 {
-    return static_cast<Int64>(osgSwapBytes(static_cast<UInt64>(src)));
+    return static_cast<Int64>(osgSwapBytes<UInt64>(static_cast<UInt64>(src)));
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
@@ -3086,7 +3086,7 @@ osgNetToHost(const TypeT src)
 inline
 UInt16 osghtons(UInt16 src)
 {
-    return OSG::osgHostToNet(src);
+    return OSG::osgHostToNet<UInt16>(src);
 }
 
 /*! Convert a UInt32 from host byte order to network byte order.
@@ -3104,7 +3104,7 @@ UInt16 osghtons(UInt16 src)
 inline
 UInt32 osghtonl(UInt32 src)
 {
-    return OSG::osgHostToNet(src);
+    return OSG::osgHostToNet<UInt32>(src);
 }
 
 /*! Convert a UInt64 from host byte order to network byte order.
@@ -3122,7 +3122,7 @@ UInt32 osghtonl(UInt32 src)
 inline
 UInt64 osghtonll(UInt64 src)
 {
-    return OSG::osgHostToNet(src);
+    return OSG::osgHostToNet<UInt64>(src);
 }
 
 /*! Convert a Real32 from host byte order to network byte order.
@@ -3140,7 +3140,7 @@ UInt64 osghtonll(UInt64 src)
 inline
 Real32 osghtonf(Real32 src)
 {
-    return OSG::osgHostToNet(src);
+    return OSG::osgHostToNet<Real32>(src);
 }
 
 /*! Convert a Real64 from host byte order to network byte order.
@@ -3158,7 +3158,7 @@ Real32 osghtonf(Real32 src)
 inline
 Real64 osghtond(Real64 src)
 {
-    return OSG::osgHostToNet(src);
+    return OSG::osgHostToNet<Real64>(src);
 }
 
 /*! Convert a Real128 from host byte order to network byte order.
@@ -3176,7 +3176,7 @@ Real64 osghtond(Real64 src)
 inline
 Real128 osghtondd(Real128 src)
 {
-    return OSG::osgHostToNet(src);
+    return OSG::osgHostToNet<Real128>(src);
 }
 
 // network to host
@@ -3196,7 +3196,7 @@ Real128 osghtondd(Real128 src)
 inline
 UInt16 osgntohs(UInt16 src)
 {
-    return OSG::osgNetToHost(src);
+    return OSG::osgNetToHost<UInt16>(src);
 }
 
 /*! Convert a UInt32 from network byte order to host byte order.
@@ -3214,7 +3214,7 @@ UInt16 osgntohs(UInt16 src)
 inline
 UInt32 osgntohl(UInt32 src)
 {
-    return OSG::osgNetToHost(src);
+    return OSG::osgNetToHost<UInt32>(src);
 }
 
 /*! Convert a UInt64 from network byte order to host byte order.
@@ -3232,7 +3232,7 @@ UInt32 osgntohl(UInt32 src)
 inline
 UInt64 osgntohll(UInt64 src)
 {
-    return OSG::osgNetToHost(src);
+    return OSG::osgNetToHost<UInt64>(src);
 }
 
 /*! Convert a Real32 from network byte order to host byte order.
@@ -3250,7 +3250,7 @@ UInt64 osgntohll(UInt64 src)
 inline
 Real32 osgntohf(Real32 src)
 {
-    return OSG::osgNetToHost(src);
+    return OSG::osgNetToHost<Real32>(src);
 }
 
 /*! Convert a Real64 from network byte order to host byte order.
@@ -3268,7 +3268,7 @@ Real32 osgntohf(Real32 src)
 inline
 Real64 osgntohd(Real64 src)
 {
-    return OSG::osgNetToHost(src);
+    return OSG::osgNetToHost<Real64>(src);
 }
 
 /*! Convert a Real128 from network byte order to host byte order.
@@ -3286,7 +3286,7 @@ Real64 osgntohd(Real64 src)
 inline
 Real128 osgntohdd(Real128 src)
 {
-    return OSG::osgNetToHost(src);
+    return OSG::osgNetToHost<Real128>(src);
 }
 
 

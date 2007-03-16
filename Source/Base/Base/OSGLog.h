@@ -113,6 +113,14 @@ enum LogModuleHandling
     LOG_MODULE_ALL            = 7
 };
 
+#ifndef OSG_DEFAULT_LOG_LEVEL
+#    define OSG_DEFAULT_LOG_LEVEL LOG_WARNING
+#endif
+
+#ifndef OSG_DEFAULT_LOG_TYPE
+#    define OSG_DEFAULT_LOG_TYPE LOG_STDERR
+#endif
+
 /*! \ingroup GrpBaseLog
     Logger ostream, required to fix some problems between the different
     plattforms
@@ -221,13 +229,18 @@ class OSG_BASE_DLLMAPPING LogBuf : public std::streambuf
 };
 
 /*! \ingroup GrpBaseLog
- *  Message logger class, handles info,warning and error messages
- *
- * Logging is controlled by several environment variables.
- *  - OSG_LOG_LEVEL: "log","fatal", "warning", "notice", "debug_gv","info", "debug"
- *  - OSG_LOG_TYPE: "none","-","stdout", "stderr", "file", "buffer"
- *  - OSG_LOG_FILE: Name of file to write log to.
- *  - OSG_LOG_HEADER: ???
+    Message logger class, handles info,warning and error messages
+
+    Logging is controlled by several environment variables.
+    - OSG_LOG_LEVEL_STARTUP:
+        The level a message has to have to be emitted during system startup,
+        one of: "log", "fatal", "warning", "notice", debug_gv", "info", "debug"
+    - OSG_LOG_LEVEL:
+        The level a message has to have to be emitted, one of "log", "fatal",
+        "warning", "notice", "debug_gv","info", "debug"
+    - OSG_LOG_TYPE: "none","-","stdout", "stderr", "file", "buffer"
+    - OSG_LOG_FILE: Name of file to write log to.
+    - OSG_LOG_HEADER: ???
  */
 class OSG_BASE_DLLMAPPING Log : public std::ostream
 {

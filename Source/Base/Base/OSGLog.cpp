@@ -52,16 +52,9 @@
 
 #include "OSGLog.h"
 #include "OSGBaseFunctions.h"
+#include "OSGBaseInitFunctions.h"
 
 OSG_USING_NAMESPACE
-
-#ifndef OSG_DEFAULT_LOG_LEVEL
-#    define OSG_DEFAULT_LOG_LEVEL LOG_WARNING
-#endif
-
-#ifndef OSG_DEFAULT_LOG_TYPE
-#    define OSG_DEFAULT_LOG_TYPE LOG_STDERR 
-#endif
 
 //---------------------------------------------------------------------------
 //  LogBuf
@@ -69,15 +62,15 @@ OSG_USING_NAMESPACE
 
 
 LogBuf::LogBuf(UInt32 bufferSize) :
-     std::streambuf(    ), 
-    _enabled       (true), 
+     std::streambuf(    ),
+    _enabled       (true),
     _chunkBag      (    ),
-    _callback      (NULL), 
+    _callback      (NULL),
     _clientData    (NULL)
 {
     setg(0, 0, 0);
 
-    if(bufferSize > 0) 
+    if(bufferSize > 0)
     {
         Char8 *buffer = new Char8[bufferSize];
 
@@ -99,7 +92,7 @@ LogBuf::~LogBuf(void)
 /*! \brief clear the chunk bag
  */
 
-void LogBuf::clearChunkBag(void) 
+void LogBuf::clearChunkBag(void)
 {
     std::list<LogBuf::Chunk*>::iterator cI;
 
@@ -110,17 +103,17 @@ void LogBuf::clearChunkBag(void)
 }
 
 
-void LogBuf::setCallback ( LogBuf::Callback cb, void *clientData, 
+void LogBuf::setCallback ( LogBuf::Callback cb, void *clientData,
                            bool flushData )
 {
     std::list<LogBuf::Chunk*>::iterator  cI;
     LogBuf::Chunk                       *chunk;
 
-    if(cb) 
+    if(cb)
     {
-        if(flushData) 
+        if(flushData)
         {
-            for(cI = _chunkBag.begin(); cI != _chunkBag.end(); cI++) 
+            for(cI = _chunkBag.begin(); cI != _chunkBag.end(); cI++)
             {
                 if((chunk = *cI))
                     cb(chunk->data,chunk->size,clientData);
@@ -155,7 +148,7 @@ void LogBuf::write(const Char8 *buffer, std::streamsize size)
 
         _chunkBag.push_back(chunk);
     }
-    
+
     if ((cb = _callback))
         cb(buffer,size, _clientData);
 }
@@ -164,11 +157,11 @@ int LogBuf::overflow(Int32 c)
 {
     if(!pptr())
         return EOF;
-    
-    if(c != EOF) 
+
+    if(c != EOF)
     {
         // Put character into write buffer
-        *pptr() = c; 
+        *pptr() = c;
 
         pbump(1);
 
@@ -181,7 +174,7 @@ int LogBuf::overflow(Int32 c)
             pbump(-size);
         }
     }
-  
+
     return 0;
 }
 
@@ -193,7 +186,7 @@ int LogBuf::sync(void)
     // Flush write buffer
     std::streamsize size = pptr() -  pbase();
 
-    if(size > 0) 
+    if(size > 0)
     {
         write(pbase(), size);
         pbump(-size);
@@ -211,18 +204,18 @@ std::streamsize LogBuf::xsputn(const Char8 *buffer, std::streamsize size)
 
         std::streamsize s = epptr() - pptr();
 
-        if(s >= size) 
+        if(s >= size)
         {
             // Put it into the write buffer
             memcpy(pptr(), buffer, size);
             pbump(size);
         }
-        else 
+        else
         {
             // Flush write buffer
             s = pptr() - pbase();
 
-            if (s > 0) 
+            if (s > 0)
             {
                 write(pbase(), s);
                 pbump(-s);
@@ -240,18 +233,18 @@ std::streamsize LogBuf::xsputn(const Char8 *buffer, std::streamsize size)
 //  Log
 //---------------------------------------------------------------------------
 
-/*! \brief holds the nil buffer 
+/*! \brief holds the nil buffer
  */
 
       Log::nilbuf  *Log::_nilbufP     = NULL;
       std::ostream *Log::_nilstreamP  = NULL;
 
-const Char8        *Log::_levelName[] = 
+const Char8        *Log::_levelName[] =
 {
     "LOG", "FATAL", "WARNING", "NOTICE", "DEBUG_GV", "INFO", "DEBUG", 0
 };
 
-const Char8        *Log::_levelColor[] = 
+const Char8        *Log::_levelColor[] =
 {
     0,          // LOG
     "\x1b[31m", // FATAL
@@ -271,12 +264,12 @@ bool Log::colorHeader(LogLevel level, const char *sep)
     bool ok = true;
     std::string str("");
     LPSTR colStr;
-    DWORD cWritten; 
+    DWORD cWritten;
     WORD oldColAttrs, colAttrs;
-    CONSOLE_SCREEN_BUFFER_INFO csbiInfo; 
+    CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
     HANDLE hOutput = INVALID_HANDLE_VALUE;
-    
-    switch (_logType) 
+
+    switch (_logType)
     {
         case LOG_STDERR:
             hOutput = GetStdHandle(STD_ERROR_HANDLE);
@@ -287,17 +280,17 @@ bool Log::colorHeader(LogLevel level, const char *sep)
         default:
             break;
     }
-    
+
     if(hOutput == INVALID_HANDLE_VALUE ||
-       !GetConsoleScreenBufferInfo(hOutput, &csbiInfo) ) 
+       !GetConsoleScreenBufferInfo(hOutput, &csbiInfo) )
     {
         ok = false;
     }
-    else 
+    else
     {
-        oldColAttrs = csbiInfo.wAttributes; 
-        
-        switch (level) 
+        oldColAttrs = csbiInfo.wAttributes;
+
+        switch (level)
         {
             case LOG_FATAL:
                 colAttrs = FOREGROUND_RED | FOREGROUND_INTENSITY;
@@ -315,17 +308,17 @@ bool Log::colorHeader(LogLevel level, const char *sep)
 
         if(sep != NULL)
             str += sep;
-    
+
         colStr = (LPSTR)str.c_str();
-        
+
         if(!SetConsoleTextAttribute(hOutput, colAttrs) ||
-           !WriteFile(hOutput, colStr, lstrlen(colStr), &cWritten, NULL) ||  
+           !WriteFile(hOutput, colStr, lstrlen(colStr), &cWritten, NULL) ||
            !SetConsoleTextAttribute(hOutput, oldColAttrs) )
         {
             ok = false;
         }
     }
-    
+
     return ok;
 #else
     return false;
@@ -333,15 +326,15 @@ bool Log::colorHeader(LogLevel level, const char *sep)
 }
 
 Log::Log(LogType logType, LogLevel logLevel) :
-     std::ostream  (_nilbufP == NULL ? 
-                        _nilbufP = new Log::nilbuf() : _nilbufP), 
-    _logType       (logType       ), 
-    _logLevel      (logLevel      ), 
+     std::ostream  (_nilbufP == NULL ?
+                        _nilbufP = new Log::nilbuf() : _nilbufP),
+    _logType       (logType       ),
+    _logLevel      (logLevel      ),
     _fileStream    (              ),
     _logBuf        (              ),
     _headerElem    (             0),
     _moduleHandling(LOG_MODULE_ALL)
-{   
+{
     if(_nilstreamP == NULL)
         _nilstreamP = new std::ostream(_nilbufP);
 
@@ -365,10 +358,10 @@ Log::Log(LogType logType, LogLevel logLevel) :
  */
 
 Log::Log(const Char8 *fileName, LogLevel logLevel) :
-     std::ostream  (_nilbufP == NULL ? 
-                        _nilbufP = new Log::nilbuf() : _nilbufP), 
-    _logType       (LOG_FILE      ), 
-    _logLevel      (logLevel      ), 
+     std::ostream  (_nilbufP == NULL ?
+                        _nilbufP = new Log::nilbuf() : _nilbufP),
+    _logType       (LOG_FILE      ),
+    _logLevel      (logLevel      ),
     _fileStream    (              ),
     _logBuf        (              ),
     _headerElem    (             0),
@@ -423,8 +416,8 @@ void Log::setHeaderElem(UInt32 elemMask, bool force)
 
     if(!force && (this == osgLogP) && (env = getenv( "OSG_LOG_HEADER" )))
     {
-        osgLog() << "Log::setHeaderElem: overriden by envvar OSG_LOG_HEADER '" 
-                 << env << "'." << endLog;  
+        osgLog() << "Log::setHeaderElem: overriden by envvar OSG_LOG_HEADER '"
+                 << env << "'." << endLog;
 
         elemMask = LogHeaderElem(atoi(env));
     }
@@ -451,18 +444,18 @@ void Log::delHeaderElem(LogHeaderElem elem, bool force)
 /*! \brief check for a single headerElem
  */
 
-bool Log::hasHeaderElem(LogHeaderElem elem) 
+bool Log::hasHeaderElem(LogHeaderElem elem)
 {
     return (_headerElem & elem) != 0;
 }
 
-void Log::addModuleHandling(LogModuleHandling handling, 
+void Log::addModuleHandling(LogModuleHandling handling,
                             bool              OSG_CHECK_ARG(force))
 {
     _moduleHandling |= handling;
 }
 
-void Log::delModuleHandling(LogModuleHandling handling, 
+void Log::delModuleHandling(LogModuleHandling handling,
                             bool              OSG_CHECK_ARG(force))
 {
     _moduleHandling &= ~handling;
@@ -473,16 +466,16 @@ void Log::addModuleName(const Char8 *module, bool isStatic)
     Module m;
     int    len;
 
-    if(module && *module) 
+    if(module && *module)
     {
         _moduleList.push_back(m);
 
-        if(isStatic) 
+        if(isStatic)
         {
             _moduleList.back().name     = module;
             _moduleList.back().isStatic = true;
         }
-        else 
+        else
         {
             len = strlen(module);
 
@@ -490,7 +483,7 @@ void Log::addModuleName(const Char8 *module, bool isStatic)
 
             strcpy(const_cast<Char8 *>(_moduleList.back().name), module);
 
-            _moduleList.back().isStatic = false;            
+            _moduleList.back().isStatic = false;
         }
     }
 }
@@ -504,13 +497,13 @@ bool Log::hasModule(const Char8 *module)
     bool                        retCode = false;
     std::list<Module>::iterator mI;
 
-    if(module && *module) 
+    if(module && *module)
     {
         for(  mI = _moduleList.begin();
-              retCode || (mI != _moduleList.end()); 
-            ++mI) 
+              retCode || (mI != _moduleList.end());
+            ++mI)
         {
-            retCode = (mI->isStatic) ? 
+            retCode = (mI->isStatic) ?
                 (module == mI->name) : (!strcmp(module,mI->name));
         }
     }
@@ -523,22 +516,22 @@ bool Log::checkModule(const Char8 *module)
     bool                        retCode = false;
     std::list<Module>::iterator mI;
 
-    if(_moduleHandling != LOG_MODULE_NONE) 
+    if(_moduleHandling != LOG_MODULE_NONE)
     {
-        if(_moduleHandling == LOG_MODULE_ALL) 
+        if(_moduleHandling == LOG_MODULE_ALL)
         {
             retCode = true;
         }
         else
         {
-            if(module && &module) 
+            if(module && &module)
             {
                 if(hasModule(module))
                 {
                     if(_moduleHandling & LOG_MODULE_KNOWN)
                         retCode = true;
                 }
-                else 
+                else
                 {
                     if(_moduleHandling & LOG_MODULE_UNKNOWN)
                         retCode = true;
@@ -557,33 +550,33 @@ bool Log::checkModule(const Char8 *module)
 
 
 LogType Log::getLogType(void)
-{ 
-    return _logType; 
+{
+    return _logType;
 }
 
 /*! \brief set method for attribute logType, checks OSG_LOG_TYPE env var
            if not forced.
  */
 
-void Log::setLogType(LogType logType, bool force) 
+void Log::setLogType(LogType logType, bool force)
 {
-    static Char8   *typenames[] = 
+    static Char8   *typenames[] =
     {
-        "none", 
+        "none",
         "-",
-        "stdout", 
-        "stderr", 
+        "stdout",
+        "stderr",
         "file",
         "buffer",
         NULL
     };
 
-    static LogType  types    [] = 
+    static LogType  types    [] =
     {
-        LOG_NONE, 
-        LOG_STDOUT, 
-        LOG_STDOUT, 
-        LOG_STDERR, 
+        LOG_NONE,
+        LOG_STDOUT,
+        LOG_STDOUT,
+        LOG_STDERR,
         LOG_FILE,
         LOG_BUFFER
     };
@@ -592,15 +585,15 @@ void Log::setLogType(LogType logType, bool force)
 
     Char8 *et;
     Int32  lt;
-    Int32  i;                               
+    Int32  i;
 
     if(!force && (this == osgLogP) && (et = getenv("OSG_LOG_TYPE")))
     {
-        osgLog() << "Log::setLogType: overriden by envvar OSG_LOG_TYPE '" 
-                 << et << "'." << std::endl; 
+        osgLog() << "Log::setLogType: overriden by envvar OSG_LOG_TYPE '"
+                 << et << "'." << std::endl;
 
         if(sscanf(et, "%d", &lt) != 1)
-        {               
+        {
             for(i = 0; typenames[i]; i++)
             {
                 if(!osgStringCaseCmp(et, typenames[i]))
@@ -615,17 +608,17 @@ void Log::setLogType(LogType logType, bool force)
                 _logType = LOG_STDERR;
 
                 osgLog() << "Log::setLogType: couldn't interpret envvar, "
-                         << "set to LOG_STDERR!" 
-                         << std::endl; 
+                         << "set to LOG_STDERR!"
+                         << std::endl;
             }
         }
-        else 
+        else
         {
             if(lt < 0)
             {
                 lt = 0;
             }
-            else 
+            else
             {
                 if(lt >= typeCount)
                     lt = typeCount - 1;
@@ -636,42 +629,45 @@ void Log::setLogType(LogType logType, bool force)
     }
     else
     {
-        _logType = logType; 
+        _logType = logType;
     }
 
-    connect(); 
+    connect();
 }
 
 
-LogLevel Log::getLogLevel(void) 
+LogLevel Log::getLogLevel(void)
 {
-    return _logLevel; 
+    return _logLevel;
 }
 
 
-/*! \brief set method for attribute logLevel, checks OSG_LOG_LEVEL env var
-           if not forced.
- */
+/*! Set method for attribute logLevel, checks the env vars
+    OSG_LOG_LEVEL_STARTUP and OSG_LOG_LEVEL and uses their value, unless
+    \a force is true.
 
+    \param[in] logLevel The level for log messages to be emitted.
+    \param[in] force If true, ignore env variables and set level to \a logLevel.
+ */
 void Log::setLogLevel(LogLevel logLevel, bool force)
-{ 
-    static Char8    *levelnames[] = 
+{
+    static Char8    *levelnames[] =
     {
-        "log", 
-        "fatal", 
-        "warning", 
-        "notice", 
+        "log",
+        "fatal",
+        "warning",
+        "notice",
         "debug_gv",
-        "info", 
-        "debug", 
-        NULL 
+        "info",
+        "debug",
+        NULL
     };
 
-    static LogLevel  levels    [] = 
+    static LogLevel  levels    [] =
     {
-        LOG_LOG, 
+        LOG_LOG,
         LOG_FATAL,
-        LOG_WARNING, 
+        LOG_WARNING,
         LOG_NOTICE,
         LOG_DEBUG_GV,
         LOG_INFO,
@@ -682,59 +678,88 @@ void Log::setLogLevel(LogLevel logLevel, bool force)
 
     Char8 *el;
     Int32  ll;
-    Int32  i;                               
+    Int32  i;
 
-    if(!force && (this == osgLogP) && (el = getenv("OSG_LOG_LEVEL")))
+    // unless forced, envvars override the argument
+    if(!force && (this == osgLogP))
     {
-        osgLog() << "OSGLog::setLogLevel: overriden by envvar OSG_LOG_LEVEL '" 
-                 << el << "'." << std::endl; 
-
-        if(sscanf(el, "%d", &ll) != 1)
+        // startup allows different log level
+        if(GlobalSystemState == Startup)
         {
-            for(i = 0; levelnames[i]; i++)
+            if((el = getenv("OSG_LOG_LEVEL_STARTUP")) != 0)
             {
-                if(!osgStringCaseCmp(el, levelnames[i]))
+                // OSG_LOG_LEVEL_STARTUP has highest precedence
+                osgLog() << "OSGLog::setLogLevel: overridden by envvar "
+                         << "OSG_LOG_LEVEL_STARTUP '" << el << "'."
+                         << std::endl;
+            }
+            else if((el = getenv("OSG_LOG_LEVEL")) != 0)
+            {
+                // fallback to OSG_LOG_LEVEL
+                osgLog() << "OSGLog::setLogLevel: overridden by envvar "
+                         << "OSG_LOG_LEVEL '" << el << "'."
+                         << std::endl;
+            }
+        }
+        else
+        {
+            if((el = getenv("OSG_LOG_LEVEL")) != 0)
+            {
+                osgLog() << "OSGLog::setLogLevel: overridden by envvar "
+                         << "OSG_LOG_LEVEL '" << el << "'."
+                         << std::endl;
+            }
+        }
+
+        // if an envvar was set, interpret its value
+        if(el != 0)
+        {
+            if(sscanf(el, "%d", &ll) != 1)
+            {
+                // interpret the value as name of a level
+                for(i = 0; levelnames[i]; ++i)
                 {
-                    _logLevel = levels[i];
-                    break;
+                    if(!osgStringCaseCmp(el, levelnames[i]))
+                    {
+                        logLevel = levels[i];
+                        break;
+                    }
+                }
+
+                if(!levelnames[i])
+                {
+                    logLevel = LOG_DEBUG;
+
+                    osgLog() << "OSGLog::setLogLevel: Could not interpret "
+                             << "envvar, setting to LOG_DEBUG."
+                             << std::endl;
                 }
             }
-
-            if(! levelnames[i])
+            else
             {
-                _logLevel = LOG_DEBUG;
-
-                osgLog() << "Log::setLogLevel: couldn't interpret envvar, "
-                         << "set to LOG_DEBUG!"
-                         << std::endl; 
-            }
-        }
-        else 
-        {
-            if (ll < 0)
-            {
-                ll = 0;
-            }
-            else 
-            {
-                if (ll >= levelCount)
+                // interpret value as numerical level
+                if(ll < 0)
+                {
+                    ll = 0;
+                }
+                else if(ll >= levelCount)
+                {
                     ll = levelCount - 1;
-            }
+                }
 
-            _logLevel = levels[ll];
+                logLevel = levels[ll];
+            }
         }
     }
-    else
-    {
-        _logLevel = logLevel; 
-    }    
 
-    connect() ; 
+    // if force is true this is the unmodified argument, otherwise envvars
+    // might have changed the value of logLevel
+    _logLevel = logLevel;
+    connect();
 }
 
-
 /*! \brief method to set and activate the log file, checks OSG_LOG_FILE env
-           var if not forced 
+           var if not forced
  */
 
 void Log::setLogFile(const Char8 *fileName, bool force)
@@ -750,22 +775,22 @@ void Log::setLogFile(const Char8 *fileName, bool force)
         _fileStream.close();
     }
 
-    if(!force && (this == osgLogP) && (name = getenv("OSG_LOG_FILE"))) 
+    if(!force && (this == osgLogP) && (name = getenv("OSG_LOG_FILE")))
     {
-        osgLog() << "Log::setLogFile: overriden by envvar OSG_LOG_FILE '" 
-                 << name << "'." << std::endl;                            
+        osgLog() << "Log::setLogFile: overriden by envvar OSG_LOG_FILE '"
+                 << name << "'." << std::endl;
     }
     else
     {
         name = fileName;
     }
 
-    if(name && *name) 
+    if(name && *name)
     {
         _fileStream.open(name, std::ios::out);
 
 #ifdef OSG_STREAM_HAS_ISOPEN
-        if(_fileStream.is_open()) 
+        if(_fileStream.is_open())
 #else
         if(_fileStream.rdbuf()->is_open())
 #endif
@@ -777,7 +802,7 @@ void Log::setLogFile(const Char8 *fileName, bool force)
 }
 
 
-/*! \brief print for C-interface helper method 
+/*! \brief print for C-interface helper method
  */
 
 void Log::doLog(const Char8 * format, ...)
@@ -786,29 +811,29 @@ void Log::doLog(const Char8 * format, ...)
     static int    buffer_size = 0;
 
     va_list args;
-    
+
     va_start( args, format );
 
 #if defined(OSG_HAS_VSNPRINTF) && !defined(__sgi)
     int count;
-    
+
     if(buffer == NULL)
     {
         buffer_size = 8;
         buffer = new Char8[buffer_size];
     }
-    
+
     // on windows it returns -1 if the output
     // was truncated due to the buffer size limit.
     // on irix this returns always buffer_size-1 ????
 
     count = vsnprintf(buffer, buffer_size, format, args);
-    
+
     while(count >= buffer_size || count == -1)
     {
         buffer_size = osgMax(buffer_size * 2, count + 1);
 
-        if(buffer != NULL) 
+        if(buffer != NULL)
             delete [] buffer;
 
         buffer = new Char8[buffer_size];
@@ -822,7 +847,7 @@ void Log::doLog(const Char8 * format, ...)
     {
         buffer_size = 8192;
 
-        if(buffer != NULL) 
+        if(buffer != NULL)
             delete [] buffer;
 
         buffer = new Char8[buffer_size];
@@ -837,21 +862,21 @@ void Log::doLog(const Char8 * format, ...)
     std::ostream& os = *this;
     os << buffer;
     os << std::flush;
- 
+
 
     va_end(args);
 }
 
 
-/*! \brief reconnects the streams for the current settings 
+/*! \brief reconnects the streams for the current settings
  */
 
-void Log::connect(void)  
+void Log::connect(void)
 {
     Int32 i;
 
 #ifndef OSG_STREAM_RDBUF_HAS_PARAM
-    switch(_logType) 
+    switch(_logType)
     {
         case LOG_STDOUT:
             this->bp = std::cout.rdbuf();
@@ -871,7 +896,7 @@ void Log::connect(void)
             break;
     }
 #else
-    switch(_logType) 
+    switch(_logType)
     {
         case LOG_STDOUT:
             this->rdbuf(std::cout.rdbuf());
@@ -892,7 +917,7 @@ void Log::connect(void)
     }
 #endif
 
-    for(i = 0; i < int(sizeof(_streamVec)/sizeof(std::ostream*)); ++i) 
+    for(i = 0; i < int(sizeof(_streamVec)/sizeof(std::ostream*)); ++i)
     {
         if (i <= _logLevel)
         {
@@ -913,7 +938,7 @@ void Log::terminate(void)
 {
 #ifdef OSG_HAS_NILBUF
     delete Log::_nilbufP;
-    
+
     Log::_nilbufP = NULL;
 #else
     if(Log::_nilstreamP != NULL)
@@ -925,7 +950,7 @@ void Log::terminate(void)
         Log::_nilstreamP = NULL;
     }
 #endif
-    
+
     delete osgLogP;
 }
 
@@ -938,7 +963,7 @@ void Log::terminate(void)
  */
 
 /** \var fstream Log::_fileStream;
- *  \brief file stream 
+ *  \brief file stream
  */
 
 /** \var LogOStream *Log::_streamVec[6];

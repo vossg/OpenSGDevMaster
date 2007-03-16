@@ -668,6 +668,8 @@ bool osgInit(Int32,
 
     atexit(osgExitWrapper);
 
+    osgLog().setLogLevel(OSG_DEFAULT_LOG_LEVEL);
+
     return returnValue;
 }
 
