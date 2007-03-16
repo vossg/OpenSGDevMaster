@@ -150,7 +150,7 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \name                   Exceptions                                 */
     /*! \{                                                                 */
 
-    class AsyncCancel : public Exception 
+    class OSG_CLUSTER_DLLMAPPING AsyncCancel : public Exception 
     {
       public:
         AsyncCancel();
