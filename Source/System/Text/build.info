@@ -13,6 +13,21 @@ else:
       libs = []
       cpppath = []
 
+      freetype_option = opts.GetOption('freetype')
+      if freetype_option.isAvailable():
+         libs.append(freetype_option.library)
+         if freetype_option.incDir:
+            cpppath.append(freetype_option.incDir)
+         if freetype_option.libDir:
+            libpath.append(freetype_option.libDir)
+
+      fontconfig_option = opts.GetOption('fontconfig')
+      if fontconfig_option.isAvailable():
+         libs.append(fontconfig_option.library)
+         if fontconfig_option.incDir:
+            cpppath.append(fontconfig_option.incDir)
+         if fontconfig_option.libDir:
+            libpath.append(fontconfig_option.libDir)
 
    # Tests' dependencies
 

@@ -44,7 +44,7 @@
 #include <OSGBaseTypes.h>
 
 
-#ifdef FT2_LIB
+#ifdef OSG_WITH_FT2
 
 
 #include "OSGTextPixmapFace.h"
@@ -59,7 +59,7 @@
 #include <iostream>
 #include <algorithm>
 #include <set>
-#ifdef FONTCONFIG_LIB
+#ifdef OSG_WITH_FONTCONFIG
 # include <fontconfig/fontconfig.h>
 #else
 # ifdef _WIN32
@@ -214,7 +214,7 @@ public:
 //----------------------------------------------------------------------
 TextFT2Backend::TextFT2Backend()
 : TextBackend(), _library(0)
-#ifndef FONTCONFIG_LIB
+#ifndef OSG_WITH_FONTCONFIG
   ,
 # ifdef FONT_SEARCHPATH
  _pathList(FONT_SEARCHPATH),
@@ -231,13 +231,13 @@ _pathList(),
         // the library - we simply will not be able to create any font
         _library = 0;
 
-#ifdef FONTCONFIG_LIB
+#ifdef OSG_WITH_FONTCONFIG
 
     // Initialize FontConfig library
     FcInit();
     // Again, we do not check for errors - see comment above
 
-#endif // FONTCONFIG_LIB
+#endif // OSG_WITH_FONTCONFIG
 
 }
 
@@ -252,7 +252,7 @@ TextFT2Backend::~TextFT2Backend()
     if (_library != 0)
         FT_Done_FreeType(_library);
 
-#ifdef FONTCONFIG_LIB
+#ifdef OSG_WITH_FONTCONFIG
 
     // Deinitialize FontConfig library
     // Hmmm, this is mentioned in the documentation, but nowhere
@@ -260,7 +260,7 @@ TextFT2Backend::~TextFT2Backend()
     // library)
     //FcFini();
 
-#endif // FONTCONFIG_LIB
+#endif // OSG_WITH_FONTCONFIG
 }
 
 
@@ -275,7 +275,7 @@ bool TextFT2Backend::findPath(const string &family, TextFace::Style style,
     path.erase();
     index = -1;
 
-#ifdef FONTCONFIG_LIB
+#ifdef OSG_WITH_FONTCONFIG
 
     // Handle generic family names
     string f;
@@ -376,7 +376,7 @@ bool TextFT2Backend::findPath(const string &family, TextFace::Style style,
     // Destroy the match pattern
     FcPatternDestroy(match);
 
-#else // !FONTCONFIG_LIB
+#else // !OSG_WITH_FONTCONFIG
 
     // Scan the font search path for fonts
     scanForFonts();
@@ -400,7 +400,7 @@ bool TextFT2Backend::findPath(const string &family, TextFace::Style style,
     path = bestMatchIt->second.path;
     index = bestMatchIt->second.index;
 
-#endif // !FONTCONFIG_LIB
+#endif // !OSG_WITH_FONTCONFIG
 
     return true;
 }
@@ -523,7 +523,7 @@ void TextFT2Backend::getFontFamilies(vector<string> &families)
     // Initialize the result vector
     families.clear();
 
-#ifdef FONTCONFIG_LIB
+#ifdef OSG_WITH_FONTCONFIG
 
     // Create a pattern that matches all fonts
     FcPattern *pattern = FcPatternCreate();
@@ -561,7 +561,7 @@ void TextFT2Backend::getFontFamilies(vector<string> &families)
     FcObjectSetDestroy(objectSet);
     FcPatternDestroy(pattern);
 
-#else // !FONTCONFIG_LIB
+#else // !OSG_WITH_FONTCONFIG
 
     // Scan the font search path for fonts
     scanForFonts();
@@ -573,7 +573,7 @@ void TextFT2Backend::getFontFamilies(vector<string> &families)
         families.push_back(it->first);
     unique(families.begin(), families.end());
 
-#endif // !FONTCONFIG_LIB
+#endif // !OSG_WITH_FONTCONFIG
 }
 
 
@@ -581,7 +581,7 @@ void TextFT2Backend::getFontFamilies(vector<string> &families)
 // Scans the font search path for fonts
 // Author: pdaehne
 //----------------------------------------------------------------------
-#ifndef FONTCONFIG_LIB
+#ifndef OSG_WITH_FONTCONFIG
 void TextFT2Backend::scanForFonts()
 {
     // We scan the font directory only once
@@ -618,14 +618,14 @@ void TextFT2Backend::scanForFonts()
         }
     }
 }
-#endif // !FONTCONFIG_LIB
+#endif // !OSG_WITH_FONTCONFIG
 
 
 //----------------------------------------------------------------------
 // Scans a directory and its subdirectories for fonts
 // Author: pdaehne
 //----------------------------------------------------------------------
-#ifndef FONTCONFIG_LIB
+#ifndef OSG_WITH_FONTCONFIG
 void TextFT2Backend::scanDir(const string &path)
 {
 #ifdef _WIN32
@@ -715,14 +715,14 @@ void TextFT2Backend::scanDir(const string &path)
 #endif // !_WIN32
 
 }
-#endif // !FONTCONFIG_LIB
+#endif // !OSG_WITH_FONTCONFIG
 
 
 //----------------------------------------------------------------------
 // Checks if a file is a font file
 // Author: pdaehne
 //----------------------------------------------------------------------
-#ifndef FONTCONFIG_LIB
+#ifndef OSG_WITH_FONTCONFIG
 void TextFT2Backend::checkFile(const string &fullname)
 {
     // Try to open the file as a font
@@ -752,7 +752,7 @@ void TextFT2Backend::checkFile(const string &fullname)
         ++index;
     }
 }
-#endif // !FONTCONFIG_LIB
+#endif // !OSG_WITH_FONTCONFIG
 
 
 //----------------------------------------------------------------------
@@ -1453,7 +1453,7 @@ TextFT2TXFGlyph::~TextFT2TXFGlyph() {}
 OSG_END_NAMESPACE
 
 
-#endif // FT2_LIB
+#endif // OSG_WITH_FT2
 
 
 /*------------------------------------------------------------------------*/

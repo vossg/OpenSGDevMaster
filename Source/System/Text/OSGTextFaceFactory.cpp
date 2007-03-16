@@ -81,7 +81,7 @@ TextFaceFactoryBase::TextFaceFactoryBase()
 #elif defined(__APPLE__)
     _backend = new TextMacBackend();
     //_backend = new TextFT2Backend();
-#elif defined(FT2_LIB)
+#elif defined(OSG_WITH_FT2)
     _backend = new TextFT2Backend();
 #else
     _backend = 0;

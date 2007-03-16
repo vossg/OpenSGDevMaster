@@ -48,11 +48,11 @@
 #include "OSGTextDef.h"
 
 
-#ifdef FT2_LIB
+#ifdef OSG_WITH_FT2
 
 
 #include "OSGTextBackend.h"
-#ifndef FONTCONFIG_LIB
+#ifndef OSG_WITH_FONTCONFIG
 # include <map>
 #endif
 #include <ft2build.h>
@@ -136,7 +136,7 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
     /** Freetype library object */
     FT_Library _library;
 
-#ifndef FONTCONFIG_LIB
+#ifndef OSG_WITH_FONTCONFIG
 
     /** The list of directories that get scanned for fonts */
     std::string _pathList;
@@ -174,7 +174,7 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
      */
     void checkFile(const std::string &fullname);
 
-#endif // !FONTCONFIG_LIB
+#endif // !OSG_WITH_FONTCONFIG
 
 };
 
@@ -182,7 +182,7 @@ class OSG_TEXT_DLLMAPPING TextFT2Backend: public TextBackend
 OSG_END_NAMESPACE
 
 
-#endif // FT2_LIB
+#endif // OSG_WITH_FT2
 
 
 #include "OSGTextFT2Backend.inl"

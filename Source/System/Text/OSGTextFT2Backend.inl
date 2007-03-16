@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 
-#ifdef FT2_LIB
+#ifdef OSG_WITH_FT2
 
 
 OSG_BEGIN_NAMESPACE
@@ -46,7 +46,7 @@ OSG_BEGIN_NAMESPACE
 OSG_END_NAMESPACE
 
 
-#endif // FT2_LIB
+#endif // OSG_WITH_FT2
 
 
 #define OSGTEXTFT2BACKEND_INLINE_CVSID "@(#)$Id$"

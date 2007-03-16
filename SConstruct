@@ -412,6 +412,17 @@ optional_libs_options["glut"] = sca_opts.StandardPackageOption(
     "glut", "Location of the GLUT library", library = glut_libname,
     header = "GL/glut.h", required = False)
 
+optional_libs_options["freetype"] = sca_opts.StandardPackageOption(
+    "freetype", "Location of freetype2 library", library = "freetype",
+    header = "freetype/config/ftheader.h", required = False)
+
+if "win32" != platform:
+   optional_libs_options["freetype"].incDir = '/usr/include/freetype2'
+
+optional_libs_options["fontconfig"] = sca_opts.StandardPackageOption(
+    "fontconfig", "Location of fontconfig library", library = "fontconfig",
+    header = "fontconfig/fontconfig.h", required = False)
+
 optional_libs_options["zlib"] = sca_opts.StandardPackageOption(
     "zlib", "Location of the zlib compression library", library = zlib_libname,
     header = "zlib.h", required = False)
@@ -669,7 +680,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_WITH_GLUT"      : optional_libs_options["glut"].isAvailable(),
                 "OSG_WITH_ZLIB"      : optional_libs_options["zlib"].isAvailable(),
                 "OSG_WITH_NVPERFSDK" : optional_libs_options["NVPerfSDK"].isAvailable(),
-                "OSG_WITH_VTK"       : optional_libs_options["vtk"].isAvailable()
+                "OSG_WITH_VTK"       : optional_libs_options["vtk"].isAvailable(),
                }
    if "win32" == platform:   # Win32 specific defines
       definemap.update(
@@ -677,8 +688,11 @@ if not SConsAddons.Util.hasHelpFlag():
                                                  "Enable use of local storage instead of __declspec."),} )
    else:
       definemap.update(
-         {"OSG_PTHREAD_ELF_TLS" : (common_env["enable_elf_localstorage"],
-                                   "Use elf tls with pthreads."),} )
+         {"OSG_PTHREAD_ELF_TLS" : (common_env["enable_elf_localstorage"], "Use elf tls with pthreads."),
+          "OSG_WITH_FT2"        : optional_libs_options["freetype"].isAvailable(),
+          "OSG_WITH_FONTCONFIG" : optional_libs_options["fontconfig"].isAvailable()
+         } )
+
    if "darwin" == platform:
       definemap.update( {"OSG_WITH_GLUT" : True,} )
    
