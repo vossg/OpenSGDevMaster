@@ -277,10 +277,7 @@ ActionBase::ResultE BillboardRenderEnter(const NodeCorePtr &pCore, Action *actio
         dynamic_cast<RenderTraversalAction *>(action);
 
     Matrix mMat;
-    //Matrix cam_to_world = pAction->getCameraToWorld();
-    Matrix cam_to_world;
-
-    std::cout << "Calculating matrix: " << std::endl;
+    Matrix cam_to_world = pAction->getCameraToWorld();
 
     pBillboard->calcMatrix(cam_to_world, pAction->topMatrix(), mMat);
 

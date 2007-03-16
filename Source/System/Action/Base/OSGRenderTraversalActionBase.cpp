@@ -50,6 +50,7 @@
 #include "OSGCamera.h"
 #include "OSGStatCollector.h"
 #include "OSGDrawable.h"
+#include "OSGViewport.h"
 #include "OSGVolumeDraw.h"
 
 OSG_USING_NAMESPACE
@@ -82,7 +83,8 @@ RenderTraversalActionBase::RenderTraversalActionBase(void) :
     _bFrustumCulling(true ),
     _bVolumeDrawing (false),
     _bAutoFrustum   (true ),
-    _oFrustum       (     )
+    _oFrustum       (     ),
+    _mCameraToWorld (     )
 {
 }
 
@@ -99,7 +101,8 @@ RenderTraversalActionBase::RenderTraversalActionBase(
     _bFrustumCulling(source._bFrustumCulling),
     _bVolumeDrawing (source._bVolumeDrawing ),
     _bAutoFrustum   (source._bAutoFrustum   ),
-    _oFrustum       (source._oFrustum       )
+    _oFrustum       (source._oFrustum       ),
+    _mCameraToWorld (source._mCameraToWorld )
 {
 }
 
@@ -128,6 +131,14 @@ ActionBase::ResultE RenderTraversalActionBase::start(void)
     {
         _pStatistics = StatCollector::create();
         _bOwnStat    = true;
+    }
+
+    if(getCamera() != NULL && getViewport() != NULL)
+    {
+        getCamera()->getViewing( _mCameraToWorld,
+                                 getViewport()->getPixelWidth(),
+                                 getViewport()->getPixelHeight() );
+        _mCameraToWorld.invert();
     }
 
     _pStatistics->reset();

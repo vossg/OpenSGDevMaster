@@ -86,6 +86,12 @@ Camera *RenderTraversalActionBase::getCamera(void) const
 }
 
 inline
+const Matrixr &RenderTraversalActionBase::getCameraToWorld(void)
+{
+    return _mCameraToWorld;
+}
+
+inline
 Background *RenderTraversalActionBase::getBackground(void) const
 {
     return _pBackground;

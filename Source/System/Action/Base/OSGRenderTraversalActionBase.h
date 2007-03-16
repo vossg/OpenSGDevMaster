@@ -85,6 +85,7 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : public Action
     
           Camera        *getCamera       (void                      ) const;
           void           setCamera       (Camera        *pCamera    );
+    const Matrixr       &getCameraToWorld(void                      );
 
           Background    *getBackground   (void                      ) const;
           void           setBackground   (Background    *pBackground);
@@ -181,6 +182,8 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : public Action
     bool          _bVolumeDrawing;
     bool          _bAutoFrustum;
     FrustumVolume _oFrustum;
+
+    Matrixr        _mCameraToWorld;
 
     /*==========================  PRIVATE  ================================*/
 
