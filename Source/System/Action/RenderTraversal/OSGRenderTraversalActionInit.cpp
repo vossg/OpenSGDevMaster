@@ -269,6 +269,40 @@ Action::ResultE SwitchRenderLeave(const NodeCorePtr &pCore,
     return GroupRenderLeave(pCore, action);
 }
 
+
+ActionBase::ResultE BillboardRenderEnter(const NodeCorePtr &pCore, Action *action)
+{
+    BillboardPtr pBillboard = cast_dynamic<BillboardPtr>(pCore);
+    RenderTraversalAction *pAction = 
+        dynamic_cast<RenderTraversalAction *>(action);
+
+    Matrix mMat;
+    //Matrix cam_to_world = pAction->getCameraToWorld();
+    Matrix cam_to_world;
+
+    std::cout << "Calculating matrix: " << std::endl;
+
+    pBillboard->calcMatrix(cam_to_world, pAction->topMatrix(), mMat);
+
+    pAction->pushMatrix(mMat);
+
+// !!! can't use visibles, as ToWorld gives garbage leading to wrong culling
+//    pAction->selectVisibles();
+
+    return ActionBase::Continue;
+}
+
+ActionBase::ResultE BillboardRenderLeave(const NodeCorePtr &pCore, Action *action)
+{
+    RenderTraversalAction *pAction = 
+        dynamic_cast<RenderTraversalAction *>(action);
+
+    pAction->popMatrix();
+
+    return ActionBase::Continue;
+}
+
+
 ActionBase::ResultE TransformRenderEnter(const NodeCorePtr &pCore,
                                                Action      *action)
 {
@@ -1072,21 +1106,13 @@ bool RenderTraversalActionInitialize(void)
         Group::getClassType(), 
         GroupRenderLeave);
 
-#if 0
-    ShadingAction::registerEnterDefault(
-        Billboard::getClassType(), 
-        osgTypedFunctionFunctor2CPtrRef<
-            Action::ResultE      ,
-            CNodePtr             ,  
-            Action               *>(&ShadingCallbacks::billboardRenderEnter));
+    RenderTraversalAction::registerEnterDefault( 
+        Billboard::getClassType(),
+        BillboardRenderEnter);
 
-    ShadingAction::registerLeaveDefault(
+    RenderTraversalAction::registerLeaveDefault( 
         Billboard::getClassType(), 
-        osgTypedFunctionFunctor2CPtrRef<
-            Action::ResultE,
-            CNodePtr             ,  
-            Action               *>(&ShadingCallbacks::billboardRenderLeave));
-#endif
+        BillboardRenderLeave);
 
     RenderTraversalAction::registerEnterDefault(
         Switch::getClassType(),

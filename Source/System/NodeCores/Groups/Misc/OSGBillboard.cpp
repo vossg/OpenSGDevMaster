@@ -96,21 +96,21 @@ void Billboard::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        IntersectAction::registerEnterDefault( 
-            getClassType(), 
+        IntersectAction::registerEnterDefault(
+            getClassType(),
             reinterpret_cast<Action::Callback>(&Billboard::intersectEnter));
 
-        IntersectAction::registerLeaveDefault( 
-            getClassType(), 
+        IntersectAction::registerLeaveDefault(
+            getClassType(),
             reinterpret_cast<Action::Callback>(&Billboard::intersectLeave));
 
 
         RenderAction::registerEnterDefault(
-            getClassType(), 
+            getClassType(),
             reinterpret_cast<Action::Callback>(&Billboard::renderEnter));
 
         RenderAction::registerLeaveDefault(
-            getClassType(), 
+            getClassType(),
             reinterpret_cast<Action::Callback>(&Billboard::renderLeave));
     }
 }
@@ -124,7 +124,7 @@ void Billboard::changed(ConstFieldMaskArg whichField, UInt32 origin)
 
 //! output the instance for debug purposes
 
-void Billboard::dump(      UInt32    uiIndent, 
+void Billboard::dump(      UInt32    uiIndent,
                      const BitVector bvFlags ) const
 {
     Inherited::dump(uiIndent, bvFlags);
@@ -136,21 +136,21 @@ void Billboard::dump(      UInt32    uiIndent,
 void Billboard::adjustVolume( Volume & volume )
 {
     Inherited::adjustVolume(volume);
-    
+
     // enlarge the volume to adjust for rotations
-    // keep the center, but make it a cube big enough to contain the 
+    // keep the center, but make it a cube big enough to contain the
     // billboard in all orientations
-    
+
     Pnt3f min, max;
-    
+
     volume.getBounds(min, max);
-    
+
     Vec3f  dia    = max - min;
     Pnt3f  center = min + dia * .5;
     Real32 extend = dia.maxValue();
-    
+
     dia.setValues(extend * Sqrt2, extend * Sqrt2, extend * Sqrt2);
-    
+
     volume.extendBy( center - dia );
     volume.extendBy( center + dia );
 }
@@ -160,7 +160,7 @@ void Billboard::accumulateMatrix(Matrix &result)
     result.mult(_camTransform);
 }
 
-void Billboard::calcMatrix(      DrawActionBase *pAction, 
+void Billboard::calcMatrix(const Matrix         &camToWorld,
                            const Matrix         &mToWorld,
                                  Matrix         &mResult)
 {
@@ -172,10 +172,8 @@ void Billboard::calcMatrix(      DrawActionBase *pAction,
 
     Quaternion q1;
 
-    Matrix mCamToWorld = pAction->getCameraToWorld();
-
     mResult.invertFrom(mToWorld);
-    
+
     mToWorld.mult(n);
 
     if(getAxisOfRotation() == Vec3f::Null)
@@ -186,13 +184,13 @@ void Billboard::calcMatrix(      DrawActionBase *pAction,
             Vec3f uW;
             Vec3f vX;
 
-            mCamToWorld.mult(eyepos);
+            camToWorld.mult(eyepos);
             mToWorld   .mult(objpos);
-            
+
             vDir = eyepos - objpos;
-            
-            vUp.setValue (mCamToWorld[0]);
-            
+
+            vUp.setValue (camToWorld[0]);
+
             vUp = vDir.cross(vUp);
 
             vUp.normalize();
@@ -222,24 +220,24 @@ void Billboard::calcMatrix(      DrawActionBase *pAction,
                 Vec3f u  (0.f, 1.f, 0.f);
                 Vec3f vUp;
                 Vec3f uW;
-                
-                mCamToWorld.mult(eyepos);
+
+                camToWorld.mult(eyepos);
                 mToWorld   .mult(objpos);
-                
+
                 vDir = eyepos - objpos;
-                
-//            vDir.setValue(mCamToWorld[2]);
-                
-                vUp.setValue (mCamToWorld[1]);
-                
+
+//            vDir.setValue(camToWorld[2]);
+
+                vUp.setValue (camToWorld[1]);
+
                 Quaternion qN(n, vDir);
-                
+
                 mToWorld.mult(u);
-                
+
                 qN.multVec(u, uW);
-                
+
                 q1.setValue(uW, vUp);
-                
+
                 q1.mult(qN);
             }
             else
@@ -247,19 +245,19 @@ void Billboard::calcMatrix(      DrawActionBase *pAction,
                 Vec3f u  (0.f, 1.f, 0.f);
                 Vec3f vUp;
                 Vec3f uW;
-                
-                vDir.setValue(mCamToWorld[2]);
-                
-                vUp.setValue (mCamToWorld[1]);
-                
+
+                vDir.setValue(camToWorld[2]);
+
+                vUp.setValue (camToWorld[1]);
+
                 Quaternion qN(n, vDir);
-                
+
                 mToWorld.mult(u);
-                
+
                 qN.multVec(u, uW);
-            
+
                 q1.setValue(uW, vUp);
-                
+
                 q1.mult(qN);
             }
         }
@@ -270,7 +268,7 @@ void Billboard::calcMatrix(      DrawActionBase *pAction,
         Vec3f s;
         Vec3f tDir;
 
-        mCamToWorld.mult(eyepos);
+        camToWorld.mult(eyepos);
 
         mToWorld.mult(objpos);
 
@@ -280,14 +278,14 @@ void Billboard::calcMatrix(      DrawActionBase *pAction,
 
         s    = vDir.cross(wUp);
         tDir = wUp .cross(s  );
-        
+
         q1.setValue(n, tDir);
 
         // clamp angle to [min; max]
         Vec3f  axis;
         Real32 angle;
 
-        if(getMinAngle() <= getMaxAngle()) 
+        if(getMinAngle() <= getMaxAngle())
         {
             q1.getValueAsAxisRad(axis, angle);
 
@@ -303,7 +301,7 @@ void Billboard::calcMatrix(      DrawActionBase *pAction,
 
     Matrix mTrans;
     Matrix mMat;
-    
+
     mTrans[3][0] = mToWorld[3][0];
     mTrans[3][1] = mToWorld[3][1];
     mTrans[3][2] = mToWorld[3][2];
@@ -343,7 +341,7 @@ ActionBase::ResultE Billboard::intersectEnter(Action *action)
     ia->setLine(Line(pos, dir), ia->getMaxDist());
     ia->scale(dir.length());
 
-    return ActionBase::Continue; 
+    return ActionBase::Continue;
 }
 
 ActionBase::ResultE Billboard::intersectLeave(Action *action)
@@ -371,8 +369,9 @@ ActionBase::ResultE Billboard::renderEnter(Action *action)
     RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
     Matrix mMat;
+    Matrix cam_to_world = pAction->getCameraToWorld();
 
-    calcMatrix(pAction, pAction->top_matrix(), mMat);
+    calcMatrix(cam_to_world, pAction->top_matrix(), mMat);
 
     pAction->push_matrix(mMat);
 
@@ -390,3 +389,5 @@ ActionBase::ResultE Billboard::renderLeave(Action *action)
 
     return ActionBase::Continue;
 }
+
+

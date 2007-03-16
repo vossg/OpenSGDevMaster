@@ -49,7 +49,7 @@ OSG_BEGIN_NAMESPACE
 
 class DrawActionBase;
 
-/*! \brief *put brief class description here* 
+/*! \brief *put brief class description here*
  */
 
 class OSG_GROUP_DLLMAPPING Billboard : public BillboardBase
@@ -62,7 +62,7 @@ class OSG_GROUP_DLLMAPPING Billboard : public BillboardBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin    );
 
     /*! \}                                                                 */
@@ -70,7 +70,7 @@ class OSG_GROUP_DLLMAPPING Billboard : public BillboardBase
     /*! \name               calc the model matrix                          */
     /*! \{                                                                 */
 
-    void calcMatrix(      DrawActionBase *pAction, 
+    void calcMatrix(const Matrix         &camToWorld,
                     const Matrix         &mToWorld,
                           Matrix         &mResult);
 
@@ -79,7 +79,7 @@ class OSG_GROUP_DLLMAPPING Billboard : public BillboardBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -103,7 +103,7 @@ class OSG_GROUP_DLLMAPPING Billboard : public BillboardBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~Billboard(void); 
+    virtual ~Billboard(void);
 
     /*! \}                                                                 */
 
