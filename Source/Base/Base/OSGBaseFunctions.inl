@@ -2890,7 +2890,7 @@ osgHostToBigEndian<Real128>(Real128 src)
 
     std::swap(p[0], p[15]);
     std::swap(p[1], p[14]);
-    std::swap(p[2], p[14]);
+    std::swap(p[2], p[13]);
     std::swap(p[3], p[12]);
     std::swap(p[4], p[11]);
     std::swap(p[5], p[10]);
@@ -2936,7 +2936,7 @@ osgHostToLittleEndian<Real128>(Real128 src)
 
     std::swap(p[0], p[15]);
     std::swap(p[1], p[14]);
-    std::swap(p[2], p[14]);
+    std::swap(p[2], p[13]);
     std::swap(p[3], p[12]);
     std::swap(p[4], p[11]);
     std::swap(p[5], p[10]);
@@ -2978,7 +2978,7 @@ osgBigEndianToHost<Real128>(Real128 src)
 
     std::swap(p[0], p[15]);
     std::swap(p[1], p[14]);
-    std::swap(p[2], p[14]);
+    std::swap(p[2], p[13]);
     std::swap(p[3], p[12]);
     std::swap(p[4], p[11]);
     std::swap(p[5], p[10]);
@@ -3024,7 +3024,7 @@ osgLittleEndianToHost<Real128>(Real128 src)
 
     std::swap(p[0], p[15]);
     std::swap(p[1], p[14]);
-    std::swap(p[2], p[14]);
+    std::swap(p[2], p[13]);
     std::swap(p[3], p[12]);
     std::swap(p[4], p[11]);
     std::swap(p[5], p[10]);
