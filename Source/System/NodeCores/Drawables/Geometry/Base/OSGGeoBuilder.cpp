@@ -60,7 +60,7 @@ OSG_USING_NAMESPACE
 
 /* \class OSG::GeoBuilder
    \ingroup GrpSystemNodeCoresDrawablesGeometry
-    
+
 */
 
 
@@ -68,21 +68,21 @@ OSG_USING_NAMESPACE
 char* GeoBuilder::_defaultPropTypes[Geometry::MaxAttribs] =
 {
     "GeoPnt3fProperty",  // Positions            = 0
-    "GeoVec3fProperty",  // 1 unused  
-    "GeoVec3fProperty",  // NormalsIndex         = 2 
-    "GeoColor4fProperty",// ColorsIndex          = 3 
-    "GeoColor4fProperty",// SecondaryColorsIndex = 4 
-    "GeoVec3fProperty",  // 5 unused  
-    "GeoVec3fProperty",  // 6 unused  
-    "GeoVec3fProperty",  // 7 unused  
-    "GeoVec2fProperty",  // TexCoordsIndex       = 8 
-    "GeoVec2fProperty",  // TexCoords1Index      = 9 
-    "GeoVec2fProperty",  // TexCoords2Index      = 10 
-    "GeoVec2fProperty",  // TexCoords3Index      = 11 
-    "GeoVec2fProperty",  // TexCoords4Index      = 12 
-    "GeoVec2fProperty",  // TexCoords5Index      = 13 
-    "GeoVec2fProperty",  // TexCoords6Index      = 14 
-    "GeoVec2fProperty",  // TexCoords7Index      = 15 
+    "GeoVec3fProperty",  // 1 unused
+    "GeoVec3fProperty",  // NormalsIndex         = 2
+    "GeoColor4fProperty",// ColorsIndex          = 3
+    "GeoColor4fProperty",// SecondaryColorsIndex = 4
+    "GeoVec3fProperty",  // 5 unused
+    "GeoVec3fProperty",  // 6 unused
+    "GeoVec3fProperty",  // 7 unused
+    "GeoVec2fProperty",  // TexCoordsIndex       = 8
+    "GeoVec2fProperty",  // TexCoords1Index      = 9
+    "GeoVec2fProperty",  // TexCoords2Index      = 10
+    "GeoVec2fProperty",  // TexCoords3Index      = 11
+    "GeoVec2fProperty",  // TexCoords4Index      = 12
+    "GeoVec2fProperty",  // TexCoords5Index      = 13
+    "GeoVec2fProperty",  // TexCoords6Index      = 14
+    "GeoVec2fProperty",  // TexCoords7Index      = 15
 };
 
 GeoBuilder::GeoBuilder(void) :
@@ -101,55 +101,55 @@ void GeoBuilder::reset(void)
 {
     if(_geo != NullFC)
         subRef(_geo);
-        
+
     _geo = Geometry::create();
     addRef(_geo);
-    
+
     MaterialPtr mat = getDefaultMaterial();
 
     _geo->setMaterial(mat);
 
     _actLen = 0;
-    _actType = -1; 
+    _actType = -1;
 }
 
 // Property Helper
 GeoVectorPropertyPtr GeoBuilder::getProperty(UInt32 index)
 {
     GeoVectorPropertyPtr att;
-    
+
     if(index >= _geo->getProperties().size() ||
        _geo->getProperty(index) == NullFC)
     {
         att = cast_dynamic<GeoVectorPropertyPtr>(
                 FieldContainerFactory::the()->createContainer(
                     _defaultPropTypes[index]));
-                    
+
         _geo->setProperty(att, index);
     }
     else
     {
         att = _geo->getProperty(index);
     }
-     
+
     return att;
 }
-    
-// Finish the vertex. Make sure all Properties have the same number of 
+
+// Finish the vertex. Make sure all Properties have the same number of
 // attributes and adjust the index, if necessary
 UInt32 GeoBuilder::finishVertex(void)
 {
     UInt32 possize = _geo->getProperty(Geometry::PositionsIndex)->size();
-    
+
     for(UInt16 i = 1; i < _geo->getProperties().size(); ++i)
     {
         if(_geo->getProperty(i) != NullFC)
         {
             GeoVectorProperty::MaxTypeT val;
-            
+
             _geo->getProperty(i)->getValue(val,
                         _geo->getProperty(i)->size() - 1);
-                        
+
             for(UInt32 propsize = _geo->getProperty(i)->size();
                 propsize < possize;
                 ++propsize)
@@ -158,11 +158,11 @@ UInt32 GeoBuilder::finishVertex(void)
             }
         }
     }
-    
+
     // Are we in a begin/end loop? Then add current vertex to index
     if(_actType != -1)
         index(possize - 1);
-    
+
     _actLen++;
     return possize - 1;
 }
@@ -174,7 +174,7 @@ void GeoBuilder::addType(Int32 type)
     {
         GeoIntegralPropertyPtr t = GeoUInt8Property::create();
         _geo->setTypes(t);
-       
+
     }
     _geo->getTypes()->addValue(type);
 }
@@ -196,14 +196,14 @@ void GeoBuilder::index(UInt32 index)
         FWARNING(("GeoBuilder::index: called outside begin/end block!\n"));
         return;
     }
-     
+
     if(_geo->getIndices() == NullFC)
     {
         GeoIntegralPropertyPtr i = GeoUInt32Property::create();
         _geo->setIndices(i);
     }
-    
-    _geo->getIndices()->push_back(index);           
+
+    _geo->getIndices()->push_back(index);
 }
 
 // Face Creation
@@ -213,7 +213,7 @@ void GeoBuilder::begin(UInt32 type)
 {
     _actLen = 0;
     _actType = type;
-    
+
     addType(type);
 }
 
@@ -222,7 +222,7 @@ void GeoBuilder::end(void)
     addLength(_actLen);
 
     _actLen = 0;
-    _actType = -1;   
+    _actType = -1;
 }
 
 void GeoBuilder::line(UInt32 start)
@@ -231,7 +231,9 @@ void GeoBuilder::line(UInt32 start)
 
     index(start    );
     index(start + 1);
-    
+
+    _actLen += 2;
+
     end();
 }
 
@@ -241,7 +243,9 @@ void GeoBuilder::line(UInt32 i1, UInt32 i2)
 
     index(i1);
     index(i2);
-    
+
+    _actLen += 2;
+
     end();
 }
 
@@ -252,7 +256,9 @@ void GeoBuilder::tri(UInt32 start)
     index(start    );
     index(start + 1);
     index(start + 2);
-    
+
+    _actLen += 3;
+
     end();
 }
 
@@ -263,7 +269,9 @@ void GeoBuilder::tri(UInt32 i1, UInt32 i2, UInt32 i3)
     index(i1);
     index(i2);
     index(i3);
-    
+
+    _actLen += 3;
+
     end();
 }
 
@@ -275,7 +283,9 @@ void GeoBuilder::quad(UInt32 start)
     index(start + 1);
     index(start + 2);
     index(start + 3);
-    
+
+    _actLen += 4;
+
     end();
 }
 
@@ -287,11 +297,13 @@ void GeoBuilder::quad(UInt32 i1, UInt32 i2, UInt32 i3, UInt32 i4)
     index(i2);
     index(i3);
     index(i4);
-    
+
+    _actLen += 4;
+
     end();
 }
 
-    
+
 GeometryPtr GeoBuilder::getGeometry(void)
 {
     return _geo;

@@ -57,62 +57,62 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
     /*---------------------------------------------------------------------*/
     /*! \name                Con/Destructors                               */
     /*! \{                                                                 */
-    
+
     GeoBuilder(void);
-    
+
     ~GeoBuilder();
-    
+
     void reset(void);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name               Property Access                               */
     /*! \{                                                                 */
-    
+
     template <class Type>
     UInt32 vertex(Type data)
     {
         getProperty(Geometry::PositionsIndex)->addValue(data);
-        
+
         return finishVertex();
     }
-    
+
     template <class Type>
     void normal(Type data)
     {
         getProperty(Geometry::NormalsIndex)->addValue(data);
     }
-    
+
     template <class Type>
     void color(Type data)
     {
         getProperty(Geometry::ColorsIndex)->addValue(data);
     }
-    
+
     template <class Type>
     void texcoord(UInt16 unit, Type data)
     {
         getProperty(Geometry::TexCoordsIndex + unit)->addValue(data);
     }
-    
+
     template <class Type>
     UInt32 prop(UInt16 index, Type data)
     {
         getProperty(index)->addValue(data);
-        
+
         if(index == 0)
             return finishVertex();
         else
             return 0;
     }
-    
+
     template <class VType, class NType>
     UInt32 fullVertex(VType vert, NType norm)
     {
         normal(norm);
         return vertex(vert);
     }
-    
+
     template <class VType, class NType, class CType>
     UInt32 fullVertex(VType vert, NType norm, CType col)
     {
@@ -120,7 +120,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
         normal(norm);
         return vertex(vert);
     }
-    
+
     template <class VType, class NType, class CType, class TType>
     UInt32 fullVertex(VType vert, NType norm, CType col, TType tc)
     {
@@ -129,66 +129,58 @@ class OSG_DRAWABLE_DLLMAPPING GeoBuilder
         texcoord(0, tc);
         return vertex(vert);
     }
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Face Creation                               */
     /*! \{                                                                 */
-    
+
     void begin(UInt32 type);
-    
+
     void index(UInt32 index);
-    
+
     void end(void);
-    
-    void line(UInt32 start);
-    
+
+    void line(UInt32 start        );
     void line(UInt32 i1, UInt32 i2);
-    
-    void tri(UInt32 start);
-    
+
+    void tri(UInt32 start                   );
     void tri(UInt32 i1, UInt32 i2, UInt32 i3);
-    
-    void quad(UInt32 start);
-    
+
+    void quad(UInt32 start                              );
     void quad(UInt32 i1, UInt32 i2, UInt32 i3, UInt32 i4);
-       
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Object Access                               */
     /*! \{                                                                 */
-    
+
     GeometryPtr getGeometry(void);
-       
+
     /*! \}                                                                 */
-
-
-
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
     /*! \name               Property Helper                               */
     /*! \{                                                                 */
-    
+
     GeoVectorPropertyPtr getProperty(UInt32 index);
-    
+
     UInt32 finishVertex(void);
-   
+
     void addType(Int32 type);
     void addLength(UInt32 length);
-    
-    /*! \}                                                                 */
 
-    
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
 
-    GeometryPtr _geo;   
+    GeometryPtr _geo;
 
     UInt32 _actLen;
      Int32 _actType;
-    
-    static char* _defaultPropTypes[Geometry::MaxAttribs]; 
+
+    static char* _defaultPropTypes[Geometry::MaxAttribs];
 };
 
 OSG_END_NAMESPACE
