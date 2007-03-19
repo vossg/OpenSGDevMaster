@@ -113,7 +113,7 @@ StatElemDesc<StatIntElem > RenderTraversalAction::statNShaderParams(
     "RT-ShaderParams",
     "number of shader params changes");
 StatElemDesc<StatIntElem > RenderTraversalAction::statNTriangles   (
-    "RT-Triangles", 
+    "RT-Triangles",
     "number of triangles");
 
 /*
@@ -253,8 +253,8 @@ RenderTraversalAction::RenderTraversalAction(void) :
     _bUseGLFinish         (false),
     _occlusionCulling     (false),
     _occlusionCullingDebug(false),
-    _occDMTested          (0xffffffff), 
-    _occDMCulled          (0xffffffff), 
+    _occDMTested          (0xffffffff),
+    _occDMCulled          (0xffffffff),
     _occDMVisible         (0xffffffff),
     _occMinFeatureSize    (0),
     _occVisibilityThreshold(0),
@@ -314,8 +314,8 @@ RenderTraversalAction::RenderTraversalAction(
     _bUseGLFinish         (source._bUseGLFinish),
     _occlusionCulling     (source._occlusionCulling),
     _occlusionCullingDebug(source._occlusionCullingDebug),
-    _occDMTested          (source._occDMTested), 
-    _occDMCulled          (source._occDMCulled), 
+    _occDMTested          (source._occDMTested),
+    _occDMCulled          (source._occDMCulled),
     _occDMVisible         (source._occDMVisible),
     _occMinFeatureSize    (source._occMinFeatureSize),
     _occVisibilityThreshold(source._occVisibilityThreshold),

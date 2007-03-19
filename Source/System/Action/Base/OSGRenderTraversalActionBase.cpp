@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGRenderTraversalActionBase.h"
+//#include "OSGRenderTraversalAction.h"
 
 #include "OSGCamera.h"
 #include "OSGStatCollector.h"
@@ -55,17 +56,17 @@
 
 OSG_USING_NAMESPACE
 
-StatElemDesc<StatTimeElem> 
-   RenderTraversalActionBase::statTravTime       ("RT-TravTime", 
+StatElemDesc<StatTimeElem>
+   RenderTraversalActionBase::statTravTime       ("RT-TravTime",
                                                   "time for traversal"       );
 
 /*
-StatElemDesc<StatIntElem>  
-   RenderTraversalActionBase::statCullTestedNodes("rtCullTestedNodes", 
+StatElemDesc<StatIntElem>
+   RenderTraversalActionBase::statCullTestedNodes("rtCullTestedNodes",
                                                   "nodes tested"             );
 
-StatElemDesc<StatIntElem>   
-   RenderTraversalActionBase::statCulledNodes    ("rtCulledNodes", 
+StatElemDesc<StatIntElem>
+   RenderTraversalActionBase::statCulledNodes    ("rtCulledNodes",
                                                   "nodes culled from frustum");
  */
 
@@ -136,7 +137,9 @@ ActionBase::ResultE RenderTraversalActionBase::start(void)
     getStatistics()->getElem(statTravTime       )->start();
 //    getStatistics()->getElem(statCullTestedNodes)->reset();
 //    getStatistics()->getElem(statCulledNodes    )->reset();
-   
+    //getStatistics()->getElem(RenderTraversalAction::statNTextures)->reset();
+    //getStatistics()->getElem(RenderTraversalAction::statNTexBytes)->reset();
+
     // this really doesn't belong here, but don't know a better place to put it
     if(getStatistics()->getElem(Drawable::statNTriangles,false) != NULL)
     {
@@ -153,8 +156,8 @@ ActionBase::ResultE RenderTraversalActionBase::start(void)
 ActionBase::ResultE RenderTraversalActionBase::stop(ActionBase::ResultE res)
 {
     getStatistics()->getElem(statTravTime)->stop();
-  
-    return res; 
+
+    return res;
 }
 
 void RenderTraversalActionBase::setViewport(Viewport *pViewport)
@@ -179,7 +182,7 @@ void RenderTraversalActionBase::setWindow(Window *pWindow)
 
 void RenderTraversalActionBase::setStatistics(StatCollector *pStatistics)
 {
-    if(_bOwnStat == true) 
+    if(_bOwnStat == true)
     {
        delete _pStatistics;
     }
@@ -231,7 +234,7 @@ UInt32 RenderTraversalActionBase::selectVisibles(void)
     useNodeList();
 
     Color3f col;
-    
+
     UInt32 count = 0;
 
     for(UInt32 i = 0; i < getNNodes(); i++)

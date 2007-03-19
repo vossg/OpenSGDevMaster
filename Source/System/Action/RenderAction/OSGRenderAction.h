@@ -95,12 +95,12 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
         Matrixr acc;
     }
     MatrixStore;
-    
+
     typedef std::map <Material   *,      DrawTreeNode *> MaterialMap;
     typedef std::pair<LightChunk *,      Matrixr       > LightStore;
 
     //-----------------------------------------------------------------------
-    //   constants                                                            
+    //   constants
     //-----------------------------------------------------------------------
 
     static StatElemDesc<StatTimeElem   > statDrawTime;
@@ -108,43 +108,41 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     static StatElemDesc<StatIntElem    > statNMatrices;
     static StatElemDesc<StatIntElem    > statNGeometries;
     static StatElemDesc<StatIntElem    > statNTransGeometries;
-    static StatElemDesc<StatIntOnceElem> statNTextures;
-    static StatElemDesc<StatIntOnceElem> statNTexBytes;
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
-  
+
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
     static RenderAction *create      (void                    );
-    
+
     static void          setPrototype(RenderAction *pPrototype);
     static RenderAction *getPrototype(void                    );
 
 
-    static void registerEnterDefault (const FieldContainerType &type, 
+    static void registerEnterDefault (const FieldContainerType &type,
                                       const Action::Functor    &func);
-    
-    static void registerLeaveDefault (const FieldContainerType &type, 
+
+    static void registerLeaveDefault (const FieldContainerType &type,
                                       const Action::Functor    &func);
 
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 
-    virtual ~RenderAction(void); 
+    virtual ~RenderAction(void);
 
     /*------------------------- your_category -------------------------------*/
-    
+
     virtual Action::ResultE start(void       );
-    virtual Action::ResultE stop (ResultE res); 
+    virtual Action::ResultE stop (ResultE res);
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -163,8 +161,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
 
     void dropLightEnv  (LightEnv  *pLightEnv);
     void undropLightEnv(LightEnv  *pLightEnv);
-    
-    
+
+
 
     void setStateSorting(bool s);
     bool getStateSorting(void);
@@ -200,25 +198,25 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
 
     // test a single node
     bool            isVisible( Node* node );
-    
+
     // visibility levels
     bool  pushVisibility(void);
     void  popVisibility(void);
-    
+
   protected:
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
 
     typedef DrawActionBase Inherited;
 
     //-----------------------------------------------------------------------
-    //   class variables                                                     
+    //   class variables
     //-----------------------------------------------------------------------
 
     static RenderAction    *_pPrototype;
@@ -227,14 +225,14 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     static std::vector<Functor> *_vDefaultLeaveFunctors;
 
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
     static bool terminateEnter(void);
     static bool terminateLeave(void);
 
     //-----------------------------------------------------------------------
-    //   instance variables                                                  
+    //   instance variables
     //-----------------------------------------------------------------------
 
     DrawTreeNodeFactory      *_pNodeFactory;
@@ -247,11 +245,11 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     std::vector<MatrixStore>  _vMatrixStack;
 
     MaterialMap               _mMatMap;
-    
+
     //DrawTreeNode             *_pRoot;
     typedef std::map<Int32, DrawTreeNode *> SortKeyMap;
     SortKeyMap                  _pMatRoots;
-    
+
     typedef std::map<Real,  DrawTreeNode *> TransSortMap;
     typedef std::map<Int32, TransSortMap  > TransSortKeyMap;
     TransSortKeyMap             _pTransMatRoots;
@@ -269,7 +267,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     UInt32                    _uiNumMatrixChanges;
     UInt32                    _uiNumGeometries;
     UInt32                    _uiNumTransGeometries;
- 
+
     bool                      _bSortTrans;
     bool                      _bZWriteTrans;
     bool                      _bLocalLights;
@@ -318,7 +316,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
 //    Time                 _tMatSlot
 
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 
     // prohibit default functions (move to 'public' if you need one)
@@ -345,37 +343,37 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
   private:
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   friend classes                                                      
+    //   friend classes
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   friend functions                                                    
+    //   friend functions
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   class variables                                                     
+    //   class variables
     //-----------------------------------------------------------------------
 
     static char cvsid[];
-    
+
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   instance variables                                                  
+    //   instance variables
     //-----------------------------------------------------------------------
-    
+
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 };
 

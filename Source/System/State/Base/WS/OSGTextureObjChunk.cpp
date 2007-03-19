@@ -52,10 +52,11 @@
 #include <OSGGLEXT.h>
 #include <OSGImage.h>
 
-#include "OSGDrawActionBase.h"
-#include "OSGDrawEnv.h"
+#include <OSGRenderTraversalActionBase.h>
+#include <OSGDrawActionBase.h>
+#include <OSGDrawEnv.h>
 
-#include "OSGTextureObjChunk.h"
+#include <OSGTextureObjChunk.h>
 
 //#define OSG_DUMP_TEX
 
@@ -101,6 +102,12 @@ UInt32 TextureObjChunk::_funcCompressedTexSubImage3D = Win::invalidFunctionID;
 #endif
 
 
+StatElemDesc<StatIntOnceElem > TextureObjChunk::statNTextures("NTextures",
+"number of texture changes");
+StatElemDesc<StatIntOnceElem > TextureObjChunk::statNTexBytes("NTexBytes",
+"sum of all used textures' sizes (approx., in bytes)");
+
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -121,13 +128,13 @@ void TextureObjChunk::initMethod(InitPhase ePhase)
             Window::registerExtension("GL_ARB_texture_cube_map");
         _sgisGenerateMipmap  =
             Window::registerExtension("GL_SGIS_generate_mipmap"  );
-        _arbTextureCompression  = 
+        _arbTextureCompression  =
             Window::registerExtension("GL_ARB_texture_compression"  );
-        _arbTextureRectangle  = 
+        _arbTextureRectangle  =
             Window::registerExtension("GL_ARB_texture_rectangle"    );
-        _arbTextureNonPowerOfTwo  = 
+        _arbTextureNonPowerOfTwo  =
             Window::registerExtension("GL_ARB_texture_non_power_of_two" );
-        _extTextureFilterAnisotropic = 
+        _extTextureFilterAnisotropic =
             Window::registerExtension("GL_EXT_texture_filter_anisotropic" );
 
         _extShadow =
@@ -136,39 +143,39 @@ void TextureObjChunk::initMethod(InitPhase ePhase)
             Window::registerExtension("GL_ARB_dept_texture"  );
 
         _funcTexImage3D    =
-            Window::registerFunction (GL_FUNC_TEXIMAGE3D, 
+            Window::registerFunction (GL_FUNC_TEXIMAGE3D,
                                       _extTex3D);
         _funcTexSubImage3D =
-            Window::registerFunction (GL_FUNC_TEXSUBIMAGE3D, 
+            Window::registerFunction (GL_FUNC_TEXSUBIMAGE3D,
                                       _extTex3D);
-        
+
         _funcCompressedTexImage1D    = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glCompressedTexImage1DARB"             , 
+            OSG_DLSYM_UNDERSCORE"glCompressedTexImage1DARB"             ,
             _arbTextureCompression);
 
         _funcCompressedTexSubImage1D = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glCompressedTexSubImage1DARB"          , 
+            OSG_DLSYM_UNDERSCORE"glCompressedTexSubImage1DARB"          ,
             _arbTextureCompression);
 
         _funcCompressedTexImage2D    = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glCompressedTexImage2DARB"             , 
+            OSG_DLSYM_UNDERSCORE"glCompressedTexImage2DARB"             ,
             _arbTextureCompression);
 
         _funcCompressedTexSubImage2D = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glCompressedTexSubImage2DARB"          , 
+            OSG_DLSYM_UNDERSCORE"glCompressedTexSubImage2DARB"          ,
             _arbTextureCompression);
 
         _funcCompressedTexImage3D    = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glCompressedTexImage3DARB"             , 
+            OSG_DLSYM_UNDERSCORE"glCompressedTexImage3DARB"             ,
             _arbTextureCompression);
 
         _funcCompressedTexSubImage3D = Window::registerFunction(
-            OSG_DLSYM_UNDERSCORE"glCompressedTexSubImage3DARB"          , 
+            OSG_DLSYM_UNDERSCORE"glCompressedTexSubImage3DARB"          ,
             _arbTextureCompression);
-        
+
         Window::registerConstant(GL_MAX_TEXTURE_UNITS_ARB      );
         Window::registerConstant(GL_MAX_TEXTURE_IMAGE_UNITS_ARB);
-        Window::registerConstant(GL_MAX_TEXTURE_COORDS_ARB     );    
+        Window::registerConstant(GL_MAX_TEXTURE_COORDS_ARB     );
     }
 }
 
@@ -218,7 +225,7 @@ void TextureObjChunk::changed(BitVector whichField, UInt32 origin)
             TextureObjChunkPtr tmpPtr(*this);
 
             beginEditCP(tmpPtr, TextureObjChunk::GLIdFieldMask);
-            
+
             setGLId(
                 Window::registerGLObject(
                     osgTypedMethodVoidFunctor2ObjCPtrPtr<
@@ -228,7 +235,7 @@ void TextureObjChunk::changed(BitVector whichField, UInt32 origin)
                         tmpPtr,
                         &TextureObjChunk::handleGL),
                     1));
-            
+
             endEditCP(tmpPtr, TextureObjChunk::GLIdFieldMask);
         }
     }
@@ -270,7 +277,7 @@ void TextureObjChunk::changed(BitVector whichField, UInt32 origin)
 #ifdef GV_CHECK
         }
 #endif
-    }  
+    }
     else
     {
 #ifdef GV_CHECK
@@ -307,9 +314,9 @@ void TextureObjChunk::onCreate(const TextureObjChunk *source)
     if(Thread::getAspect() != _sfIgnoreGLForAspect.getValue())
     {
 #endif
-        TextureObjChunkPtr tmpPtr = 
+        TextureObjChunkPtr tmpPtr =
             Inherited::constructPtr<TextureObjChunk>(this);
-        
+
         setGLId(Window::registerGLObject(
                     boost::bind(&TextureObjChunk::handleGL, tmpPtr, _1, _2),
                     1));
@@ -335,12 +342,12 @@ void TextureObjChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 
 
-void TextureObjChunk::handleTexture(Window *win, 
+void TextureObjChunk::handleTexture(Window *win,
                                     UInt32 id,
                                     GLenum bindtarget,
                                     GLenum paramtarget,
                                     GLenum imgtarget,
-                                    Window::GLObjectStatusE mode, 
+                                    Window::GLObjectStatusE mode,
                                     ImagePtr img,
                                     Int32    side)
 {
@@ -355,25 +362,25 @@ void TextureObjChunk::handleTexture(Window *win,
             return;
         }
 
-        if(imgtarget == GL_TEXTURE_RECTANGLE_ARB && 
+        if(imgtarget == GL_TEXTURE_RECTANGLE_ARB &&
            !win->hasExtension(_arbTextureRectangle))
         {
-            FNOTICE(("Rectangular textures not supported on Window %p!\n", 
+            FNOTICE(("Rectangular textures not supported on Window %p!\n",
                      win));
             return;
         }
 
-        if(paramtarget == GL_TEXTURE_CUBE_MAP_ARB && 
+        if(paramtarget == GL_TEXTURE_CUBE_MAP_ARB &&
            !win->hasExtension(_arbCubeTex))
         {
             FNOTICE(("Cube textures not supported on Window %p!\n", win));
             return;
         }
 
-        if(img->hasCompressedData() && 
+        if(img->hasCompressedData() &&
            !win->hasExtension(_arbTextureCompression))
         {
-            FNOTICE(("Compressed textures not supported on Window %p!\n", 
+            FNOTICE(("Compressed textures not supported on Window %p!\n",
                      win));
             return;
         }
@@ -385,24 +392,24 @@ void TextureObjChunk::handleTexture(Window *win,
         }
 
         // 3D texture functions
-        void (OSG_APIENTRY *TexImage3D)(GLenum target, 
-                                        GLint level, 
+        void (OSG_APIENTRY *TexImage3D)(GLenum target,
+                                        GLint level,
                                         GLenum internalformat,
-                                        GLsizei width, 
-                                        GLsizei height, 
+                                        GLsizei width,
+                                        GLsizei height,
                                         GLsizei depth,
-                                        GLint border, 
-                                        GLenum format, 
+                                        GLint border,
+                                        GLenum format,
                                         GLenum type,
                                         const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
+            (void (OSG_APIENTRY*)(GLenum target,
+                                  GLint level,
                                   GLenum internalformat,
-                                  GLsizei width, 
-                                  GLsizei height, 
+                                  GLsizei width,
+                                  GLsizei height,
                                   GLsizei depth,
-                                  GLint border, 
-                                  GLenum format, 
+                                  GLint border,
+                                  GLenum format,
                                   GLenum type,
                                   const GLvoid *pixels))
             win->getFunction(_funcTexImage3D);
@@ -420,119 +427,119 @@ void TextureObjChunk::handleTexture(Window *win,
 
 
         // Compressed texture functions
-        void (OSG_APIENTRY*CompressedTexImage1D)(GLenum target, 
-                                                 GLint level, 
-                                                 GLenum internalformat, 
-                                                 GLsizei width, GLint border, 
-                                                 GLsizei imageSize, 
+        void (OSG_APIENTRY*CompressedTexImage1D)(GLenum target,
+                                                 GLint level,
+                                                 GLenum internalformat,
+                                                 GLsizei width, GLint border,
+                                                 GLsizei imageSize,
                                                  const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLenum internalformat, 
-                                  GLsizei width, 
-                                  GLint border,  
-                                  GLsizei imageSize, 
+            (void (OSG_APIENTRY*)(GLenum target,
+                                  GLint level,
+                                  GLenum internalformat,
+                                  GLsizei width,
+                                  GLint border,
+                                  GLsizei imageSize,
                                   const GLvoid *pixels))
             win->getFunction(_funcCompressedTexImage1D);
-        
-        void (OSG_APIENTRY*CompressedTexSubImage1D)(GLenum target, 
-                                                    GLint level, 
-                                                    GLint xoffset, 
+
+        void (OSG_APIENTRY*CompressedTexSubImage1D)(GLenum target,
+                                                    GLint level,
+                                                    GLint xoffset,
                                                     GLsizei width,
-                                                    GLenum format, 
-                                                    GLsizei imageSize, 
+                                                    GLenum format,
+                                                    GLsizei imageSize,
                                                     const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLint xoffset, 
+            (void (OSG_APIENTRY*)(GLenum target,
+                                  GLint level,
+                                  GLint xoffset,
                                   GLsizei width,
-                                  GLenum format, 
-                                  GLsizei imageSize, 
+                                  GLenum format,
+                                  GLsizei imageSize,
                                   const GLvoid *pixels))
             win->getFunction(_funcCompressedTexSubImage1D);
-        
-        void (OSG_APIENTRY*CompressedTexImage2D)(GLenum target, 
-                                                 GLint level, 
-                                                 GLenum internalformat, 
-                                                 GLsizei width, 
-                                                 GLsizei height, 
-                                                 GLint border, 
-                                                 GLsizei imageSize, 
+
+        void (OSG_APIENTRY*CompressedTexImage2D)(GLenum target,
+                                                 GLint level,
+                                                 GLenum internalformat,
+                                                 GLsizei width,
+                                                 GLsizei height,
+                                                 GLint border,
+                                                 GLsizei imageSize,
                                                  const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLenum internalformat, 
-                                  GLsizei width, 
-                                  GLsizei height, 
-                                  GLint border, 
-                                  GLsizei imageSize, 
+            (void (OSG_APIENTRY*)(GLenum target,
+                                  GLint level,
+                                  GLenum internalformat,
+                                  GLsizei width,
+                                  GLsizei height,
+                                  GLint border,
+                                  GLsizei imageSize,
                                   const GLvoid *pixels))
             win->getFunction(_funcCompressedTexImage2D);
-        
-        void (OSG_APIENTRY*CompressedTexSubImage2D)(GLenum target, 
-                                                    GLint level, 
-                                                    GLint xoffset, 
-                                                    GLint yoffset, 
-                                                    GLsizei width, 
-                                                    GLsizei height, 
+
+        void (OSG_APIENTRY*CompressedTexSubImage2D)(GLenum target,
+                                                    GLint level,
+                                                    GLint xoffset,
+                                                    GLint yoffset,
+                                                    GLsizei width,
+                                                    GLsizei height,
                                                     GLenum format,
-                                                    GLsizei imageSize, 
+                                                    GLsizei imageSize,
                                                     const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLint xoffset, 
-                                  GLint yoffset, 
-                                  GLsizei width, 
-                                  GLsizei height, 
+            (void (OSG_APIENTRY*)(GLenum target,
+                                  GLint level,
+                                  GLint xoffset,
+                                  GLint yoffset,
+                                  GLsizei width,
+                                  GLsizei height,
                                   GLenum format,
-                                  GLsizei imageSize, 
+                                  GLsizei imageSize,
                                   const GLvoid *pixels))
             win->getFunction(_funcCompressedTexSubImage2D);
 
-        void (OSG_APIENTRY*CompressedTexImage3D)(GLenum target, 
-                                                 GLint level, 
+        void (OSG_APIENTRY*CompressedTexImage3D)(GLenum target,
+                                                 GLint level,
                                                  GLenum internalformat,
-                                                 GLsizei width, 
-                                                 GLsizei height, 
+                                                 GLsizei width,
+                                                 GLsizei height,
                                                  GLsizei depth,
                                                  GLint border,
-                                                 GLsizei imageSize, 
+                                                 GLsizei imageSize,
                                                  const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
+            (void (OSG_APIENTRY*)(GLenum target,
+                                  GLint level,
                                   GLenum internalformat,
-                                  GLsizei width, 
-                                  GLsizei height, 
+                                  GLsizei width,
+                                  GLsizei height,
                                   GLsizei depth,
                                   GLint border,
-                                  GLsizei imageSize, 
+                                  GLsizei imageSize,
                                   const GLvoid *pixels))
             win->getFunction(_funcCompressedTexImage3D);
-        
-        void (OSG_APIENTRY*CompressedTexSubImage3D)(GLenum target, 
-                                                    GLint level, 
-                                                    GLint xoffset, 
-                                                    GLint yoffset, 
-                                                    GLint zoffset, 
-                                                    GLsizei width, 
-                                                    GLsizei height, 
-                                                    GLsizei depth, 
-                                                    GLenum format, 
-                                                    GLsizei imageSize, 
+
+        void (OSG_APIENTRY*CompressedTexSubImage3D)(GLenum target,
+                                                    GLint level,
+                                                    GLint xoffset,
+                                                    GLint yoffset,
+                                                    GLint zoffset,
+                                                    GLsizei width,
+                                                    GLsizei height,
+                                                    GLsizei depth,
+                                                    GLenum format,
+                                                    GLsizei imageSize,
                                                     const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, 
-                                  GLint level, 
-                                  GLint xoffset, 
-                                  GLint yoffset, 
-                                  GLint zoffset, 
-                                  GLsizei width, 
-                                  GLsizei height, 
-                                  GLsizei depth, 
-                                  GLenum format, 
-                                  GLsizei imageSize, 
+            (void (OSG_APIENTRY*)(GLenum target,
+                                  GLint level,
+                                  GLint xoffset,
+                                  GLint yoffset,
+                                  GLint zoffset,
+                                  GLsizei width,
+                                  GLsizei height,
+                                  GLsizei depth,
+                                  GLenum format,
+                                  GLsizei imageSize,
                                   const GLvoid *pixels))
             win->getFunction(_funcCompressedTexSubImage3D);
-        
+
         // as we're not allocating anything here, the same code can be used
         // for reinitialization
         if(! img || ! img->getDimension()) // no image ?
@@ -541,7 +548,7 @@ void TextureObjChunk::handleTexture(Window *win,
         glErr("TextureObjChunk::initialize precheck");
 
         FDEBUG(("texture (re-)initialize\n"));
-        
+
         glBindTexture(bindtarget, id);
 
         if(paramtarget != GL_NONE)
@@ -568,12 +575,12 @@ void TextureObjChunk::handleTexture(Window *win,
              if(getAnisotropy() > 1.0f &&
                 win->hasExtension(_extTextureFilterAnisotropic))
              {
-                glTexParameterf(paramtarget, 
-                                GL_TEXTURE_MAX_ANISOTROPY_EXT, 
+                glTexParameterf(paramtarget,
+                                GL_TEXTURE_MAX_ANISOTROPY_EXT,
                                 getAnisotropy());
              }
 
-             glTexParameterfv(paramtarget, 
+             glTexParameterfv(paramtarget,
                               GL_TEXTURE_BORDER_COLOR,
                               (GLfloat *) getBorderColor().getValuesRGBA());
 
@@ -595,7 +602,7 @@ void TextureObjChunk::handleTexture(Window *win,
                                  GL_DEPTH_TEXTURE_MODE,
                                  getDepthMode());
              }
-             
+
             glErr("TextureObjChunk::initialize params");
         }
 
@@ -653,8 +660,8 @@ void TextureObjChunk::handleTexture(Window *win,
                     internalFormat = GL_INTENSITY;
                     externalFormat = GL_LUMINANCE;
                     break;
-                    
-                default:    
+
+                default:
                     internalFormat = externalFormat;
                     break;
             }
@@ -662,7 +669,7 @@ void TextureObjChunk::handleTexture(Window *win,
 
         if(getExternalFormat() != GL_NONE)
             externalFormat = getExternalFormat();
-        
+
         if(imgtarget == GL_TEXTURE_RECTANGLE_ARB && needMipmaps)
         {
             SWARNING << "TextureObjChunk::initialize1: Can't do mipmaps"
@@ -670,7 +677,7 @@ void TextureObjChunk::handleTexture(Window *win,
                      << std::endl;
             needMipmaps= false;
         }
-        
+
         // do we need mipmaps?
         if(needMipmaps)
         {
@@ -709,7 +716,7 @@ void TextureObjChunk::handleTexture(Window *win,
                         case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                             CompressedTexImage2D(imgtarget, i, internalFormat,
                                             w, h, 0,
-                                            img->calcMipmapLevelSize(i), 
+                                            img->calcMipmapLevelSize(i),
                                             img->getData(i, frame, side));
                             break;
                         case GL_TEXTURE_3D:
@@ -843,7 +850,7 @@ void TextureObjChunk::handleTexture(Window *win,
                     else
                     {
                         data = const_cast<void *>(
-                            static_cast<const void *>(img->getData(0, 
+                            static_cast<const void *>(img->getData(0,
                                                                    frame,
                                                                    side)));
                     }
@@ -908,7 +915,7 @@ void TextureObjChunk::handleTexture(Window *win,
               )
             {
                 // No, need to scale or cut
-                
+
                 // should we scale to next power of 2?
                 if(doScale)
                 {
@@ -933,9 +940,9 @@ void TextureObjChunk::handleTexture(Window *win,
 
                         data = malloc(outw * outh * img->getBpp());
                         datasize = outw * outh * img->getBpp();
-                        
+
                         GLint res = gluScaleImage(externalFormat,
-                                        width, height, type, 
+                                        width, height, type,
                                         img->getData(0, frame, side),
                                         outw, outh, type, data);
 
@@ -965,8 +972,8 @@ void TextureObjChunk::handleTexture(Window *win,
                            CompressedTexImage1D(GL_TEXTURE_1D, 0, internalFormat,
                                            osgNextPower2(width), 0, 0, NULL);
                            CompressedTexSubImage1D(GL_TEXTURE_1D, 0, 0, width,
-                                           externalFormat, 
-                                           img->getFrameSize(), 
+                                           externalFormat,
+                                           img->getFrameSize(),
                                            img->getData(0, frame, side));
                            break;
                        case GL_TEXTURE_2D:
@@ -976,7 +983,7 @@ void TextureObjChunk::handleTexture(Window *win,
                                            0, NULL);
                            CompressedTexSubImage2D(imgtarget, 0, 0, 0, width, height,
                                            externalFormat,
-                                           img->getFrameSize(), 
+                                           img->getFrameSize(),
                                            img->getData(0, frame, side));
                            break;
                        case GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB:
@@ -992,13 +999,13 @@ void TextureObjChunk::handleTexture(Window *win,
                            CompressedTexSubImage2D(imgtarget, 0, 0, 0, width, height,
                                            externalFormat,
                                            (img->getSideCount() > 1) ? img->getSideSize() :
-                                                img->getFrameSize(), 
+                                                img->getFrameSize(),
                                            img->getData(0, frame, side));
                            break;
                        case GL_TEXTURE_RECTANGLE_ARB:
                            CompressedTexImage2D( GL_TEXTURE_RECTANGLE_ARB, 0, internalFormat,
                                            width, height, 0,
-                                           img->getFrameSize(), 
+                                           img->getFrameSize(),
                                            img->getData(0, frame, side));
                            break;
                        case GL_TEXTURE_3D:
@@ -1010,7 +1017,7 @@ void TextureObjChunk::handleTexture(Window *win,
                            CompressedTexSubImage3D(GL_TEXTURE_3D, 0,  0, 0, 0,
                                            width, height, depth,
                                            externalFormat,
-                                           img->getFrameSize(), 
+                                           img->getFrameSize(),
                                            img->getData(0, frame, side));
                            break;
                        default:
@@ -1069,26 +1076,26 @@ void TextureObjChunk::handleTexture(Window *win,
                                       << imgtarget << "!!!" << std::endl;
                        } // switch imgtarget
                    } // compressed data?
-                   
+
                    defined = true;
-               } // do scale               
-            } 
-	        else // can we use it directly?
+               } // do scale
+            }
+            else // can we use it directly?
             {
                 data = const_cast<void *>(
-                    static_cast<const void *>(img->getData(0, 
+                    static_cast<const void *>(img->getData(0,
                                                            frame,
                                                            side)));
 
                datasize = (img->getSideCount() > 1) ? img->getSideSize() :
                                                       img->getFrameSize();
             } // can we use it directly?
-            
+
             if(!defined) // either we can use the texture directly, or it was scaled
             {
                 // A image without data is quite handy if you need the
                 // texture only on the graphics card. So don't check for data here
-               
+
                  if(compressedData)
                  {
                      switch (imgtarget)
@@ -1163,7 +1170,7 @@ void TextureObjChunk::handleTexture(Window *win,
                                    << imgtarget << "!!!" << std::endl;
                         }
                     }
-                
+
             }
 
             if(data != img->getData(0, frame, side))
@@ -1193,24 +1200,24 @@ void TextureObjChunk::handleTexture(Window *win,
             win->getFunction(_funcCompressedTexSubImage1D);
 
         void (OSG_APIENTRY*CompressedTexSubImage2D)
-                          (GLenum target, GLint level, 
-                           GLint xoffset, GLint yoffset, 
+                          (GLenum target, GLint level,
+                           GLint xoffset, GLint yoffset,
                            GLsizei width, GLsizei height, GLenum format,
                            GLsizei imageSize, const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, GLint level, 
-                           GLint xoffset, GLint yoffset, 
+            (void (OSG_APIENTRY*)(GLenum target, GLint level,
+                           GLint xoffset, GLint yoffset,
                            GLsizei width, GLsizei height, GLenum format,
                            GLsizei imageSize, const GLvoid *pixels))
             win->getFunction(_funcCompressedTexSubImage2D);
 
         void (OSG_APIENTRY*CompressedTexSubImage3D)
-                          (GLenum target, GLint level, 
-                           GLint xoffset, GLint yoffset, GLint zoffset, 
-                           GLsizei width, GLsizei height, GLsizei depth, 
+                          (GLenum target, GLint level,
+                           GLint xoffset, GLint yoffset, GLint zoffset,
+                           GLsizei width, GLsizei height, GLsizei depth,
                            GLenum format, GLsizei imageSize, const GLvoid *pixels) =
-            (void (OSG_APIENTRY*)(GLenum target, GLint level, 
-                           GLint xoffset, GLint yoffset, GLint zoffset, 
-                           GLsizei width, GLsizei height, GLsizei depth, 
+            (void (OSG_APIENTRY*)(GLenum target, GLint level,
+                           GLint xoffset, GLint yoffset, GLint zoffset,
+                           GLsizei width, GLsizei height, GLsizei depth,
                            GLenum format, GLsizei imageSize, const GLvoid *pixels))
             win->getFunction(_funcCompressedTexSubImage3D);
 
@@ -1218,7 +1225,7 @@ void TextureObjChunk::handleTexture(Window *win,
         GLenum type           = img->getDataType();
         bool   compressedData = img->hasCompressedData();
         bool   has3DTex       = win->hasExtension(_extTex3D);
-        
+
         if(bindtarget == GL_TEXTURE_3D && !has3DTex)
         {
             FINFO(("3D textures not supported on Window %p!\n", win));
@@ -1232,7 +1239,7 @@ void TextureObjChunk::handleTexture(Window *win,
             externalFormat = getExternalFormat();
 
         if(!getScale() || imgtarget == GL_TEXTURE_RECTANGLE_ARB
-                       || win->hasExtension(_arbTextureNonPowerOfTwo) 
+                       || win->hasExtension(_arbTextureNonPowerOfTwo)
                        ||  (osgIsPower2(img->getWidth() ) &&
                             osgIsPower2(img->getHeight()) &&
                             osgIsPower2(img->getDepth() )
@@ -1249,7 +1256,7 @@ void TextureObjChunk::handleTexture(Window *win,
             ay = (getDirtyMaxY()!=-1) ? getDirtyMaxY() : img->getHeight() - 1;
             iz = (getDirtyMinZ()!=-1) ? getDirtyMinZ() : 0;
             az = (getDirtyMaxZ()!=-1) ? getDirtyMaxZ() : img->getDepth() - 1;
-            
+
             UInt32 w, h, d;
             w = ax - ix + 1;
             h = ay - iy + 1;
@@ -1263,7 +1270,7 @@ void TextureObjChunk::handleTexture(Window *win,
                 glPixelStorei(GL_UNPACK_SKIP_ROWS,   iy);
             if(has3DTex && iz != 0)
                 glPixelStorei(GL_UNPACK_SKIP_IMAGES, iz);
-            
+
             if(compressedData)
             {
                 switch (imgtarget)
@@ -1285,13 +1292,13 @@ void TextureObjChunk::handleTexture(Window *win,
                 case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                 case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                     CompressedTexSubImage2D(imgtarget, 0, ix, iy, w, h,
-                                    externalFormat,     
+                                    externalFormat,
                                     (img->getSideCount() > 1) ? img->getSideSize() :
-                                                                img->getFrameSize(), 
+                                                                img->getFrameSize(),
                                     img->getData( 0, getFrame(), side ) );
                     break;
                 case GL_TEXTURE_RECTANGLE_ARB:
-                    CompressedTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, 
+                    CompressedTexSubImage2D(GL_TEXTURE_RECTANGLE_ARB, 0,
                                     ix, iy, w, h,
                                     externalFormat, img->getFrameSize(),
                                     img->getData( 0, getFrame(), side ) );
@@ -1354,7 +1361,7 @@ void TextureObjChunk::handleTexture(Window *win,
                 glPixelStorei(GL_UNPACK_SKIP_ROWS,   0);
             if(has3DTex && iz != 0)
                 glPixelStorei(GL_UNPACK_SKIP_IMAGES, 0);
-           
+
             if(paramtarget != GL_NONE)
                 glTexParameterf(paramtarget, GL_TEXTURE_PRIORITY,
                                   getPriority());
@@ -1429,7 +1436,7 @@ void TextureObjChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
                             return;
                         }
                     }
-                    else if(img->getHeight() > 1)        
+                    else if(img->getHeight() > 1)
                     {
                         target = GL_TEXTURE_2D;
                     }
@@ -1438,43 +1445,43 @@ void TextureObjChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
                         target = GL_TEXTURE_1D;
                     }
                 }
-                
+
                 handleTexture(win, id, target, target, target, mode, img);
             }
             else
             {
-                handleTexture(win, id, 
-                              GL_TEXTURE_CUBE_MAP_ARB, 
-                              GL_TEXTURE_CUBE_MAP_ARB, 
-                              GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB, 
-                              mode, getImage(), 5); 
+                handleTexture(win, id,
+                              GL_TEXTURE_CUBE_MAP_ARB,
+                              GL_TEXTURE_CUBE_MAP_ARB,
+                              GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB,
+                              mode, getImage(), 5);
                 // Have to use initialize mode here, otherwise the
-                // texture is destroyed for every side      
-                handleTexture(win, id, 
-                              GL_TEXTURE_CUBE_MAP_ARB, 
-                              GL_NONE, 
-                              GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB, 
-                              Window::initialize, getImage(), 4);        
-                handleTexture(win, id, 
-                              GL_TEXTURE_CUBE_MAP_ARB, 
-                              GL_NONE, 
-                              GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB, 
-                              Window::initialize, getImage(), 3);        
-                handleTexture(win, id, 
-                              GL_TEXTURE_CUBE_MAP_ARB, 
-                              GL_NONE, 
-                              GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB, 
-                              Window::initialize, getImage(), 2);        
-                handleTexture(win, id, 
-                              GL_TEXTURE_CUBE_MAP_ARB, 
-                              GL_NONE, 
-                              GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB, 
-                              Window::initialize, getImage(), 1);        
-                handleTexture(win, id, 
-                              GL_TEXTURE_CUBE_MAP_ARB, 
-                              GL_NONE, 
-                              GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB, 
-                              Window::initialize, getImage(), 0);        
+                // texture is destroyed for every side
+                handleTexture(win, id,
+                              GL_TEXTURE_CUBE_MAP_ARB,
+                              GL_NONE,
+                              GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB,
+                              Window::initialize, getImage(), 4);
+                handleTexture(win, id,
+                              GL_TEXTURE_CUBE_MAP_ARB,
+                              GL_NONE,
+                              GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB,
+                              Window::initialize, getImage(), 3);
+                handleTexture(win, id,
+                              GL_TEXTURE_CUBE_MAP_ARB,
+                              GL_NONE,
+                              GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB,
+                              Window::initialize, getImage(), 2);
+                handleTexture(win, id,
+                              GL_TEXTURE_CUBE_MAP_ARB,
+                              GL_NONE,
+                              GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB,
+                              Window::initialize, getImage(), 1);
+                handleTexture(win, id,
+                              GL_TEXTURE_CUBE_MAP_ARB,
+                              GL_NONE,
+                              GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB,
+                              Window::initialize, getImage(), 0);
 
             }
         }
@@ -1488,13 +1495,13 @@ void TextureObjChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
 }
 
 void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
-{    
+{
 #ifdef OSG_DUMP_TEX
     fprintf(stderr, "Activate %d\n", _uiChunkId);
 #endif
 
     Window *win = pEnv->getWindow();
-    
+
     Real32 nteximages, ntexcoords;
 
     if((nteximages = win->getConstantValue(GL_MAX_TEXTURE_IMAGE_UNITS_ARB)) ==
@@ -1524,7 +1531,7 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
                   " but Window %p only supports %d!\n",
                   idx, win, nteximages));
 #endif
-        return;        
+        return;
     }
 
     if(activateTexture(win, idx))
@@ -1557,11 +1564,11 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
                     return;
                 }
             }
-            else if(img->getHeight() > 1)   
+            else if(img->getHeight() > 1)
             {
                 target = GL_TEXTURE_2D;
             }
-            else                            
+            else
             {
                 target = GL_TEXTURE_1D;
             }
@@ -1573,6 +1580,20 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     }
 
     FDEBUG(("TextureObjChunk::activate - %d\n", getGLId()));
+
+    // Update the texture statistics
+    StatCollector* coll(NULL);
+    if(NULL != pEnv->getRTAction())
+    { coll = pEnv->getRTAction()->getStatistics();  }
+    else if(NULL != pEnv->getRAction())
+    { coll = pEnv->getRAction()->getStatistics();  }
+
+    if(NULL != coll)
+    {
+       coll->getElem(statNTextures)->inc(idx);
+       coll->getElem(statNTexBytes)->add(idx, img->getSize(true,true,true));
+    }
+
 
     glBindTexture(target, win->getGLObjectId(getGLId()));
 
@@ -1625,7 +1646,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
     GLenum        oldtarget = oldp->getTarget();
     bool          oldused   = (oldp->getImage() != NullFC &&
                                oldp->getImage()->getDimension());
-    
+
     if(img == NullFC || img->getDimension() == 0)
     {
         oldp->deactivate(pEnv, idx);
@@ -1634,7 +1655,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
 
     glErr("TextureObjChunk::changeFrom precheck");
 
-    Window *win = pEnv->getWindow();   
+    Window *win = pEnv->getWindow();
 
     if(activateTexture(win, idx))
         return; // trying to use too many textures
@@ -1662,7 +1683,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
     {
         nteximages = static_cast<UInt32>(dummy);
     }
-    
+
     if((dummy = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
        Window::unknownConstant
       )
@@ -1681,7 +1702,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
                   " but Window %p only supports %d!\n",
                   idx, win, nteximages));
 #endif
-        return;        
+        return;
     }
 
     if(img->getSideCount() == 1)
@@ -1755,7 +1776,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
             glEnable(target);
         }
     }
-    
+
     glErr("TextureObjChunk::changeFrom");
 }
 
@@ -1765,7 +1786,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     fprintf(stderr, "Deactivate %d\n", _uiChunkId);
 #endif
 
-    Window *win = pEnv->getWindow();   
+    Window *win = pEnv->getWindow();
 
     Real32 nteximages, ntexcoords;
     if((nteximages = win->getConstantValue(GL_MAX_TEXTURE_IMAGE_UNITS_ARB)) ==
@@ -1796,7 +1817,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
                   " but Window %p only supports %d!\n",
                   idx, win, nteximages));
 #endif
-        return;        
+        return;
     }
 
     ImagePtr img = getImage();
@@ -1817,7 +1838,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 
     if(idx >= static_cast<UInt32>(ntexunits))
         return; // tetxures >= MTU are not enabled and don't have an env
-        
+
     if(!isActive)
         activateTexture(win, idx);
 
@@ -1858,11 +1879,11 @@ GLenum TextureObjChunk::determineTextureTarget(Window *pWindow) const
     GLenum target = GL_NONE;
 
     ImagePtr img = getImage();
-    
+
     if(img != NullFC)
     {
         target = getTarget();
-        
+
         if(target == GL_NONE)
         {
             if(img->getDepth() > 1)
@@ -1878,7 +1899,7 @@ GLenum TextureObjChunk::determineTextureTarget(Window *pWindow) const
                     return target;
                 }
             }
-            else if(img->getHeight() > 1) 
+            else if(img->getHeight() > 1)
             {
                 target = GL_TEXTURE_2D;
             }
@@ -1906,7 +1927,7 @@ bool TextureObjChunk::operator < (const StateChunk &other) const
 
 bool TextureObjChunk::operator == (const StateChunk &other) const
 {
-    TextureObjChunk const *tother = 
+    TextureObjChunk const *tother =
         dynamic_cast<TextureObjChunk const*>(&other);
 
     if(!tother)

@@ -73,64 +73,64 @@ class State;
 /*! \brief RenderTraversalAction class
  */
 
-class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction : 
+class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     public RenderTraversalActionBase
 {
   public:
 
     //-----------------------------------------------------------------------
-    //   constants                                                             
+    //   constants
     //-----------------------------------------------------------------------
 
-    static StatElemDesc<StatTimeElem> statDrawTime;
-    static StatElemDesc<StatIntElem > statNStates;
-    static StatElemDesc<StatIntElem > statNMatrices;
-    static StatElemDesc<StatIntElem > statNGeometries;
+    static StatElemDesc<StatTimeElem>     statDrawTime;
+    static StatElemDesc<StatIntElem >     statNStates;
+    static StatElemDesc<StatIntElem >     statNMatrices;
+    static StatElemDesc<StatIntElem >     statNGeometries;
 //    static StatElemDesc<StatIntElem > statNTransGeometries;
-    static StatElemDesc<StatIntElem > statNTriangles;
-    static StatElemDesc<StatIntElem > statNShaders;
-    static StatElemDesc<StatIntElem > statNShaderParams;
+    static StatElemDesc<StatIntElem >     statNTriangles;
+    static StatElemDesc<StatIntElem >     statNShaders;
+    static StatElemDesc<StatIntElem >     statNShaderParams;
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
-  
+
     typedef std::vector<RenderPartition *> RenderPartitionStore;
     typedef std::stack <RenderPartition *> RenderPartitionStack;
 
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
-    static 
+    static
     RenderTraversalAction *create      (void                             );
-    
-    static 
+
+    static
     void                   setPrototype(RenderTraversalAction *pPrototype);
 
-    static 
+    static
     RenderTraversalAction *getPrototype(void                             );
 
 
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
-    static void registerEnterDefault (const FieldContainerType &type, 
-                                      const Action::Functor    &func      );
-    
-    static void registerLeaveDefault (const FieldContainerType &type, 
+    static void registerEnterDefault (const FieldContainerType &type,
                                       const Action::Functor    &func      );
 
+    static void registerLeaveDefault (const FieldContainerType &type,
+                                      const Action::Functor    &func      );
+
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 
-    virtual ~RenderTraversalAction(void); 
+    virtual ~RenderTraversalAction(void);
 
     /*------------------------- your_category -------------------------------*/
 
@@ -139,11 +139,11 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     /*------------------------- your_operators ------------------------------*/
 
     virtual Action::ResultE start(void       );
-    virtual Action::ResultE stop (ResultE res); 
+    virtual Action::ResultE stop (ResultE res);
 
     /*------------------------- your_operators ------------------------------*/
 
-    void dropFunctor(Material::DrawFunctor &func, 
+    void dropFunctor(Material::DrawFunctor &func,
                      State                 *pState,
                      UInt32                 uiSortKey);
 
@@ -155,10 +155,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     void addOverride(UInt32 uiSlot, StateChunk *pChunk);
 
     /*---------------------------- state ------------------------------------*/
-    
+
     Int32 allocateLightIndex(void);
     void  releaseLightIndex (void);
-    
+
     /*--------------------------- matrix ------------------------------------*/
 
           void    pushMatrix (const Matrix &matrix);
@@ -170,7 +170,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
 
     // test a single node
     virtual bool isVisible      (Node *node);
-    
+
     // visibility levels
             bool  pushVisibility(void      );
             void  popVisibility (void      );
@@ -180,10 +180,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     // control activation of frustum culling
     virtual bool                 getFrustumCulling(void                ) const;
     virtual void                 setFrustumCulling(bool val = true     );
-    
+
     // control frustum
     virtual const FrustumVolume &getFrustum       (void                ) const;
-    virtual void                 setFrustum       (FrustumVolume &frust);    
+    virtual void                 setFrustum       (FrustumVolume &frust);
 
     /*------------------------- comparison ----------------------------------*/
 
@@ -197,28 +197,28 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     /*------------------------- comparison ----------------------------------*/
 
 
-    void pushPartition(UInt32 uiCopyOnPush = 0x0000, 
-                       RenderPartition::Mode eMode = 
+    void pushPartition(UInt32 uiCopyOnPush = 0x0000,
+                       RenderPartition::Mode eMode =
                                                 RenderPartition::StateSorting);
     void popPartition (void                        );
 
     RenderPartition *getActivePartition(void);
 
     /*----------- multi-frame buffering / split cull/draw -------------------*/
-    
+
     void      addPassMask(BitVector bvMask);
     void      subPassMask(BitVector bvMask);
     BitVector getPassMask(void            );
 
     /*----------- multi-frame buffering / split cull/draw -------------------*/
-    
+
     void    setDoCullOnly(bool val);
     bool    getDoCullOnly(void);
     void    setNumBuffers(UInt32 n);
     UInt32  getNumBuffers(void);
     void    setCurrentBuffer(UInt32 b);
     UInt32  getCurrentBuffer(void);
-   
+
     // use with care. Should probably be more protected
     void    drawBuffer(UInt32 buf);
 
@@ -269,17 +269,17 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
   protected:
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
 
     typedef RenderTraversalActionBase Inherited;
 
     //-----------------------------------------------------------------------
-    //   class variables                                                     
+    //   class variables
     //-----------------------------------------------------------------------
 
     static RenderTraversalAction *_pPrototype;
@@ -289,14 +289,14 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
 
 
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
     static bool terminateEnter(void);
     static bool terminateLeave(void);
 
     //-----------------------------------------------------------------------
-    //   instance variables                                                  
+    //   instance variables
     //-----------------------------------------------------------------------
 
     bool                    _doCullOnly;
@@ -310,7 +310,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     std::vector<RenderTreeNodePool  *> _pNodePools;
     std::vector<StateOverridePool   *> _pStatePools;
     std::vector<TreeBuilderPool     *> _pTreeBuilderPools;
-    
+
     std::vector<RenderPartitionStore > _vRenderPartitions;
 
     RenderPartition        *_pActivePartition;
@@ -321,7 +321,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     bool                    _bUseGLFinish;
 
     // Occlusion Culling
-    
+
     bool                    _occlusionCulling;
     bool                    _occlusionCullingDebug;
     UInt32                  _occDMTested, _occDMCulled, _occDMVisible;
@@ -336,7 +336,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     Real32 _scrlodDegradationFactor;
 
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 
     // prohibit default functions (move to 'public' if you need one)
@@ -355,36 +355,36 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
   private:
 
     //-----------------------------------------------------------------------
-    //   enums                                                               
+    //   enums
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   types                                                               
+    //   types
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   friend classes                                                      
+    //   friend classes
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   friend functions                                                    
+    //   friend functions
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   class variables                                                     
+    //   class variables
     //-----------------------------------------------------------------------
 
-   
+
     //-----------------------------------------------------------------------
-    //   class functions                                                     
+    //   class functions
     //-----------------------------------------------------------------------
 
     //-----------------------------------------------------------------------
-    //   instance variables                                                  
+    //   instance variables
     //-----------------------------------------------------------------------
-    
+
     //-----------------------------------------------------------------------
-    //   instance functions                                                  
+    //   instance functions
     //-----------------------------------------------------------------------
 
     /*!\brief prohibit default function (move to 'public' if needed) */

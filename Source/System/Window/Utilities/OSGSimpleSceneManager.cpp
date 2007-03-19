@@ -58,6 +58,7 @@
 #include <OSGPointLight.h>
 #include <OSGSpotLight.h>
 #include <OSGDirectionalLight.h>
+#include <OSGTextureObjChunk.h>
 
 #include "OSGSimpleSceneManager.h"
 
@@ -462,6 +463,12 @@ void SimpleSceneManager::setStatistics(bool on)
     }
 }
 
+/*! Return true if stats are currently enabled. */
+bool SimpleSceneManager::getStatistics(void)
+{
+   return _statstate;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                               Updates                                   */
 
@@ -534,6 +541,8 @@ void SimpleSceneManager::initialize(void)
         sf->addElement(RenderTraversalAction::statNStates,       " State changes: %d");
         sf->addElement(RenderTraversalAction::statNShaders,      "Shader changes: %d");
         sf->addElement(RenderTraversalAction::statNShaderParams, "Shader param changes: %d");
+        sf->addElement(TextureObjChunk::statNTextures, "Textures: %d");
+        sf->addElement(TextureObjChunk::statNTexBytes, " Tex Mem: %d bytes");
 
         sf->addElement(RenderTraversalAction::statNGeometries,   "    Geom nodes: %d");
         sf->addElement(RenderTraversalAction::statNMatrices,     "Matrix changes: %d");

@@ -45,10 +45,12 @@
 #include "OSGConfig.h"
 #include "OSGImage.h"
 #include "OSGTextureObjChunkBase.h"
+#include "OSGStatElemDesc.h"
+#include "OSGStatElemTypes.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief State chunk for textures. See \ref PageSystemTextureObjChunk 
+/*! \brief State chunk for textures. See \ref PageSystemTextureObjChunk
     for a description.
  */
 
@@ -57,6 +59,9 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+     static StatElemDesc<StatIntOnceElem > statNTextures;
+     static StatElemDesc<StatIntOnceElem > statNTexBytes;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
@@ -93,14 +98,14 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
     /*! \name                       State                                  */
     /*! \{                                                                 */
 
-    virtual void activate   (DrawEnv    *pEnv, 
+    virtual void activate   (DrawEnv    *pEnv,
                              UInt32      index = 0);
 
-    virtual void changeFrom (DrawEnv    *pEnv, 
+    virtual void changeFrom (DrawEnv    *pEnv,
                              StateChunk *pOld,
                              UInt32      index = 0);
 
-    virtual void deactivate (DrawEnv    *pEnv, 
+    virtual void deactivate (DrawEnv    *pEnv,
                              UInt32      index = 0);
 
     virtual bool isTransparent (void) const;
@@ -129,7 +134,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
     /*! \name                Texture specific                              */
     /*! \{                                                                 */
 
-    void imageContentChanged  (Int32 minx = -1, Int32 maxx = -1, 
+    void imageContentChanged  (Int32 minx = -1, Int32 maxx = -1,
                                Int32 miny = -1, Int32 maxy = -1,
                                Int32 minz = -1, Int32 maxz = -1);
 
@@ -178,16 +183,16 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleTexture(Window                  *win, 
-                       UInt32                   id, 
+    void handleTexture(Window                  *win,
+                       UInt32                   id,
                        GLenum                   bindtarget,
                        GLenum                   paramtarget,
-                       GLenum                   imgtarget, 
-                       Window::GLObjectStatusE  mode, 
+                       GLenum                   imgtarget,
+                       Window::GLObjectStatusE  mode,
                        ImagePtr                 img,
                        Int32                    side = 0);
 
-    /*! \}                                                                 */ 
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     // extension indices for used extensions;
@@ -233,7 +238,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
     /*! \{                                                                 */
 
     void handleGL(DrawEnv *pEnv, UInt32 id);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 

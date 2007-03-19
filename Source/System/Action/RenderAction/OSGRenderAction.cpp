@@ -115,20 +115,16 @@ std::vector<Action::Functor> *RenderAction::_vDefaultEnterFunctors = NULL;
 std::vector<Action::Functor> *RenderAction::_vDefaultLeaveFunctors = NULL;
 
 
-StatElemDesc<StatTimeElem> RenderAction::statDrawTime("drawTime", 
+StatElemDesc<StatTimeElem> RenderAction::statDrawTime("drawTime",
 "time for draw tree traversal");
-StatElemDesc<StatIntElem > RenderAction::statNMaterials("NMaterials", 
+StatElemDesc<StatIntElem > RenderAction::statNMaterials("NMaterials",
 "number of material changes");
-StatElemDesc<StatIntElem > RenderAction::statNMatrices("NMatrices",  
+StatElemDesc<StatIntElem > RenderAction::statNMatrices("NMatrices",
 "number of matrix changes");
-StatElemDesc<StatIntElem > RenderAction::statNGeometries("NGeometries", 
+StatElemDesc<StatIntElem > RenderAction::statNGeometries("NGeometries",
 "number of Geometry nodes");
 StatElemDesc<StatIntElem > RenderAction::statNTransGeometries("NTransGeometries",
 "number of transformed Geometry nodes");
-StatElemDesc<StatIntOnceElem > RenderAction::statNTextures("NTextures",
-"number of texture changes");
-StatElemDesc<StatIntOnceElem > RenderAction::statNTexBytes("NTexBytes",
-"sum of all used textures' sizes (approx., in bytes)");
 
 
 UInt32 RenderAction::_arbOcclusionQuery;
@@ -172,7 +168,7 @@ bool RenderAction::terminateLeave(void)
 /*! \brief Default registration. static, so it can be called during static init
  */
 
-void RenderAction::registerEnterDefault(const FieldContainerType &type, 
+void RenderAction::registerEnterDefault(const FieldContainerType &type,
                                         const Action::Functor    &func)
 {
     if(_vDefaultEnterFunctors == NULL)
@@ -193,11 +189,11 @@ void RenderAction::registerEnterDefault(const FieldContainerType &type,
         _vDefaultEnterFunctors->push_back(&NodeCore::defaultEnter);
     }
 #endif
-    
+
     (*_vDefaultEnterFunctors)[type.getId()] = func;
 }
 
-void RenderAction::registerLeaveDefault(const FieldContainerType &type, 
+void RenderAction::registerLeaveDefault(const FieldContainerType &type,
                                         const Action::Functor    &func)
 {
     if(_vDefaultLeaveFunctors == NULL)
@@ -218,7 +214,7 @@ void RenderAction::registerLeaveDefault(const FieldContainerType &type,
         _vDefaultLeaveFunctors->push_back(&NodeCore::defaultLeave);
     }
 #endif
-    
+
     (*_vDefaultLeaveFunctors)[type.getId()] = func;
 }
 
@@ -311,7 +307,7 @@ RenderAction::RenderAction(void) :
 
     _stateSorting(true),
     _visibilityStack(),
-     
+
     _occlusionQuery         (0),
     _glGenQueriesARB        (NULL),
     _glDeleteQueriesARB     (NULL),
@@ -417,7 +413,7 @@ RenderAction::RenderAction(const RenderAction &source) :
 
     _stateSorting        (source._stateSorting),
     _visibilityStack     (source._visibilityStack),
- 
+
     _occlusionQuery         (source._occlusionQuery),
     _glGenQueriesARB        (source._glGenQueriesARB),
     _glDeleteQueriesARB     (source._glDeleteQueriesARB),
@@ -438,7 +434,7 @@ RenderAction::RenderAction(const RenderAction &source) :
 RenderAction * RenderAction::create(void)
 {
     RenderAction *returnValue;
-    
+
     if(_pPrototype)
     {
         returnValue = new RenderAction(*_pPrototype);
@@ -549,7 +545,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
     Int32 sortKey = pMat->getSortKey();
 
     if(!_stateSorting ||
-       (sortKey == Material::NoStateSorting && 
+       (sortKey == Material::NoStateSorting &&
         (!_bSortTrans || !pMat->isTransparent())))
     {
         for(UInt32 mpi=0;mpi<mpMatPasses;++mpi)
@@ -557,7 +553,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
             pState = states[mpi];
 
             DrawTreeNode *pNewElem = _pNodeFactory->create();
-    
+
             pNewElem->setNode       (getActNode());
             pNewElem->setGeometry   (pGeo);
             pNewElem->setMatrixStore(_currMatrix);
@@ -565,7 +561,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
             pNewElem->setState(pState);
             if(sortKey == Material::NoStateSorting)
                 pNewElem->setNoStateSorting();
-        
+
             if(isMultiPass)
             {
                 if(mpi == mpMatPasses-1)
@@ -616,10 +612,10 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
             _currMatrix.second.mult(objPos);
 
             pNewElem->setNode       (getActNode());
-                
+
             pNewElem->setGeometry   (pGeo);
             pNewElem->setMatrixStore(_currMatrix);
-                
+
             pNewElem->setState      (pState);
             pNewElem->setScalar     (objPos[2]);
             pNewElem->setLightsState(_lightsState);
@@ -650,19 +646,19 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
         else
         {
             DrawTreeNode *pNewElem = _pNodeFactory->create();
-     
+
             if(it == _mMatMap.end())
             {
                 DrawTreeNode *pNewMatElem = _pNodeFactory->create();
-    
+
                 //_mMatMap[pMat].push_back(pNewMatElem);
                 _mMatMap[pMat] = pNewMatElem;
-                
-                pNewElem->setNode       (getActNode());           
+
+                pNewElem->setNode       (getActNode());
                 pNewElem->setGeometry   (pGeo);
                 pNewElem->setMatrixStore(_currMatrix);
                 pNewElem->setLightsState(_lightsState);
-    
+
                 if(isMultiPass)
                 {
                     // for multipass we have a different state in all draw node
@@ -696,7 +692,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
                 pNewElem->setGeometry   (pGeo);
                 pNewElem->setMatrixStore(_currMatrix);
                 pNewElem->setLightsState(_lightsState);
-    
+
                 if(isMultiPass)
                 {
                     pNewElem->setState(pState);
@@ -811,13 +807,13 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
                         else
                             pNewElem->setMultiPass();
                     }
-        
+
                     if(_pTransMatRoots.find(sortKey) == _pTransMatRoots.end())
                     {
                         TransSortMap ts;
                         _pTransMatRoots.insert(std::make_pair(sortKey, ts));
                     }
-        
+
                     TransSortMap &ts = _pTransMatRoots[sortKey];
                     TransSortMap::iterator it = ts.find(pNewElem->getScalar());
                     if(it == ts.end())
@@ -840,7 +836,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
     }
 
     if(!_stateSorting ||
-       (sortKey == Material::NoStateSorting && 
+       (sortKey == Material::NoStateSorting &&
         (!_bSortTrans || !pMat->isTransparent())))
     {
         for(UInt32 mpi=0;mpi<mpMatPasses;++mpi)
@@ -908,10 +904,10 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
             _currMatrix.second.mult(objPos);
 
             pNewElem->setNode       (getActNode());
-                
+
             pNewElem->setFunctor    (func);
             pNewElem->setMatrixStore(_currMatrix);
-                
+
             pNewElem->setState      (pState);
             pNewElem->setScalar     (objPos[2]);
             pNewElem->setLightsState(_lightsState);
@@ -953,7 +949,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
                 pNewElem->setFunctor    (func);
                 pNewElem->setMatrixStore(_currMatrix);
                 pNewElem->setLightsState(_lightsState);
-                
+
                 if(isMultiPass)
                 {
                     // for multipass we have a different state in all draw node
@@ -989,7 +985,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
                 pNewElem->setFunctor    (func);
                 pNewElem->setMatrixStore(_currMatrix);
                 pNewElem->setLightsState(_lightsState);
-                
+
                 // FIXME call pNewElem->setState(pState); if the _lightsState
                 // is different to the one from the last added child! Without it
                 // activate or changeFrom is never called and the OSGActiveLightsMask in
@@ -1006,7 +1002,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
                     else
                         pNewElem->setMultiPass();
                 }
-                
+
                 it->second->addChild(pNewElem);
             }
         }
@@ -1026,7 +1022,7 @@ void RenderAction::dropLight(Light *pLight)
 //    oStore.second = _currMatrix.second;
 
     Matrixr fromworld,tobeacon;
-    
+
 //        getActNode()->getToWorld(fromworld);
 
 //    fromworld = top_matrix();
@@ -1047,7 +1043,7 @@ void RenderAction::dropLight(Light *pLight)
         beacon->getToWorld(tobeacon);
 
 //        tobeacon.mult(fromworld);
-        
+
         fromworld.mult(tobeacon);
 
         oStore.second = fromworld;
@@ -1120,7 +1116,7 @@ std::vector<Light *> RenderAction::getActiveLights(void)
         if(_activeLightsState > 0)
         {
             const std::vector<UInt32> &light_ids = _lightsTable[_activeLightsState - 1];
-        
+
             for(UInt32 i=0;i<light_ids.size();++i)
             {
                 UInt32 light_id = light_ids[i];
@@ -1147,7 +1143,7 @@ bool RenderAction::isVisible( Node* node )
         return true;
 
     getStatistics()->getElem(statCullTestedNodes)->inc();
-    
+
     DynamicVolume vol;
 
 //    node->getWorldVolume( vol );
@@ -1162,7 +1158,7 @@ bool RenderAction::isVisible( Node* node )
 // fprintf(stderr,"%p: node 0x%p vis\n", Thread::getCurrent(), node);
         return true;
     }
-    
+
     getStatistics()->getElem(statCulledNodes)->inc();
 
 // fprintf(stderr,"%p: node 0x%p invis\n", Thread::getCurrent(), node);
@@ -1177,7 +1173,7 @@ bool RenderAction::pushVisibility(void)
 {
     if(getFrustumCulling() == false)
         return true;
-    
+
     FrustumVolume::PlaneSet inplanes = _visibilityStack.back();
 
     // HACK but light sources beneath a LightEnv node can also
@@ -1196,24 +1192,24 @@ bool RenderAction::pushVisibility(void)
 
     Color3r col;
     bool result = true;
-    
+
     NodePtr node = getActNode();
-    
+
     DynamicVolume vol = node->editVolume(true);
     FrustumVolume frustum = _frustum;
 
 #if 1
     vol.transform(top_matrix());
-#else   
-    // not quite working 
+#else
+    // not quite working
     Matrix m = top_matrix();
     m.invert();
-    
+
     frustum.transform(m);
 #endif
 
     getStatistics()->getElem(statCullTestedNodes)->inc();
-    
+
     if ( !intersect( frustum, vol, inplanes ) )
     {
         result = false;
@@ -1225,11 +1221,11 @@ bool RenderAction::pushVisibility(void)
     {
         if(inplanes == FrustumVolume::P_ALL)
         {
-            col.setValuesRGB(0.f,1.f,0.f);            
+            col.setValuesRGB(0.f,1.f,0.f);
         }
         else
         {
-            col.setValuesRGB(0.f,0.f,1.f);            
+            col.setValuesRGB(0.f,0.f,1.f);
         }
     }
 
@@ -1255,7 +1251,7 @@ void RenderAction::popVisibility(void)
     {
         SWARNING << "RenderAction::popVisibility: visibility stack is "
                  << "empty looks like a pushVisibility and popVisibility "
-                 << "mismatch!" 
+                 << "mismatch!"
                  << std::endl;
     }
 }
@@ -1272,7 +1268,7 @@ void RenderAction::dump(DrawTreeNode *pRoot, UInt32 uiIndent)
 
     indentLog(uiIndent, PWARNING);
 
-    PWARNING << "Node : "   << pRoot                         << " | " 
+    PWARNING << "Node : "   << pRoot                         << " | "
              << "Geo : "    << pRoot->getGeometry()          << " | "
              << "State : "  << pRoot->getState()             << " | "
              << "Node : "   << pRoot->getNode()              << " | "
@@ -1358,11 +1354,11 @@ bool RenderAction::isSmallFeature(const NodePtr &node)
 
     Pnt3r         p[8];
     vol.getBounds(p[0], p[4]);
-    
+
     p[1].setValues(p[0][0], p[4][1], p[0][2]);
     p[2].setValues(p[4][0], p[4][1], p[0][2]);
     p[3].setValues(p[4][0], p[0][1], p[0][2]);
-    
+
     p[5].setValues(p[4][0], p[0][1], p[4][2]);
     p[6].setValues(p[0][0], p[0][1], p[4][2]);
     p[7].setValues(p[0][0], p[4][1], p[4][2]);
@@ -1377,13 +1373,13 @@ bool RenderAction::isSmallFeature(const NodePtr &node)
     {
         if(p[i][0] < min[0])
             min[0] = p[i][0];
-    
+
         if(p[i][1] < min[1])
             min[1] = p[i][1];
-    
+
         if(p[i][0] > max[0])
             max[0] = p[i][0];
-    
+
         if(p[i][1] > max[1])
             max[1] = p[i][1];
     }
@@ -1391,9 +1387,9 @@ bool RenderAction::isSmallFeature(const NodePtr &node)
     //for(int i=0;i<8;++i)
     //    printf("p%d: %f %f\n", i, p[i][0], p[i][1]);
 
-    Real w = 
+    Real w =
         ((max[0] - min[0]) / 2.0f) * Real32(_viewport->getPixelWidth());
-    Real h = 
+    Real h =
         ((max[1] - min[1]) / 2.0f) * Real32(_viewport->getPixelHeight());
     Real f = w * h;
 
@@ -1467,7 +1463,7 @@ void RenderAction::draw(DrawTreeNode *pRoot)
                 else
                     glFrontFace(GL_CCW);
             }
-            
+
     #ifdef PRINT_MAT
             fprintf(stderr, "pushed to gl %d\n", _uiActiveMatrix);
 
@@ -1496,7 +1492,7 @@ void RenderAction::draw(DrawTreeNode *pRoot)
                 // we need this cgfx test because for multipass cgfx materials
                 // the state doesn't change.
                 if(pNewState != _pActiveState                   ||
-                   (_cgfxChunkId != -1 && 
+                   (_cgfxChunkId != -1 &&
                      pNewState->getChunk(_cgfxChunkId) != NULL) ||
                    pRoot->isNoStateSorting())
                 {
@@ -1554,7 +1550,7 @@ void RenderAction::draw(DrawTreeNode *pRoot)
 
             bool foundSmallFeature = false;
             if(_bSmallFeatureCulling && pos_size > _smallFeaturesThreshold)
-            {    
+            {
                 foundSmallFeature = isSmallFeature(pRoot->getNode());
                 if(foundSmallFeature)
                 {
@@ -1571,12 +1567,12 @@ void RenderAction::draw(DrawTreeNode *pRoot)
                     //getStatistics()->getElem(statCullTestedNodes)->inc();
                     glDepthMask(GL_FALSE);
                     glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
-                    
+
                     if(_occlusionQuery == 0)
                         _glGenQueriesARB(1, &_occlusionQuery);
-    
+
                     _glBeginQueryARB(GL_SAMPLES_PASSED_ARB, _occlusionQuery);
-    
+
                     const DynamicVolume& vol = pRoot->getNode()->getVolume();
                     Pnt3f min,max;
                     vol.getBounds(min, max);
@@ -1590,7 +1586,7 @@ void RenderAction::draw(DrawTreeNode *pRoot)
                     glVertex3f( min[0], min[1], min[2]);
                     glVertex3f( max[0], min[1], min[2]);
                     glEnd();
-            
+
                     glBegin( GL_TRIANGLE_STRIP);
                     glVertex3f( max[0], max[1], min[2]);
                     glVertex3f( max[0], max[1], max[2]);
@@ -1601,15 +1597,15 @@ void RenderAction::draw(DrawTreeNode *pRoot)
                     glVertex3f( min[0], max[1], min[2]);
                     glVertex3f( min[0], max[1], max[2]);
                     glEnd();
-    
+
                     _glEndQueryARB(GL_SAMPLES_PASSED_ARB);
-    
+
                     glDepthMask(GL_TRUE);
                     glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
-    
+
                     GLuint pixels = 0;
                     _glGetQueryObjectuivARB(_occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
-    
+
                     if(pixels > 0)
                     {
                         pRoot->getFunctor()(_pDrawEnv);
@@ -1745,7 +1741,7 @@ bool RenderAction::getUseGLFinish(void)
 Action::ResultE RenderAction::start(void)
 {
     glErr("RenderAction: precheck");
-    
+
     Inherited::start();
 
     if(_window != NULL)
@@ -1769,12 +1765,12 @@ Action::ResultE RenderAction::start(void)
 
     _visibilityStack.clear();
     _visibilityStack.push_back(FrustumVolume::P_NONE);
-    
+
     _pDrawEnv->setViewport (_viewport);
     _pDrawEnv->setWindow   (_window  );
 
     bool full = false;
-    
+
     if(_viewport != NULL)
     {
         GLint pl  = _viewport->getPixelLeft();
@@ -1783,7 +1779,7 @@ Action::ResultE RenderAction::start(void)
         GLint pt  = _viewport->getPixelTop();
         GLint pw  = pr - pl + 1;
         GLint ph  = pt - pb + 1;
-        
+
         full = _viewport->isFullWindow();
 
         glViewport(pl, pb, pw, ph);
@@ -1804,19 +1800,19 @@ Action::ResultE RenderAction::start(void)
             Matrixr m, t;
 
             // set the projection
-            _camera->getProjection          ( m, 
-                                              _viewport->getPixelWidth (), 
+            _camera->getProjection          ( m,
+                                              _viewport->getPixelWidth (),
                                               _viewport->getPixelHeight());
 
-            _camera->getProjectionTranslation( t, 
-                                               _viewport->getPixelWidth (), 
+            _camera->getProjectionTranslation( t,
+                                               _viewport->getPixelWidth (),
                                                _viewport->getPixelHeight());
 
             _pDrawEnv->setupProjection(m, t);
 
             // set the viewing
-            
-            _camera->getViewing(_currMatrix.second, 
+
+            _camera->getViewing(_currMatrix.second,
                                 _viewport->getPixelWidth (),
                                 _viewport->getPixelHeight());
 
@@ -1826,7 +1822,7 @@ Action::ResultE RenderAction::start(void)
             _pDrawEnv->setCameraFar (_camera->getFar ());
 
             _camInverse.invertFrom(_currMatrix.second);
-            
+
             glMatrixMode(GL_MODELVIEW);
         }
 
@@ -1835,7 +1831,7 @@ Action::ResultE RenderAction::start(void)
             _background->clear(_pDrawEnv, _viewport);
         }
     }
-    
+
     updateTopMatrix();
 
     _mMatMap.clear();
@@ -1913,13 +1909,13 @@ Action::ResultE RenderAction::stop(ResultE res)
     Inherited::stop(res);
 
     getStatistics()->getElem(statDrawTime)->start();
-    
+
     UInt32 i;
 
 //    dump(_pMatRoot, 0);
 //    dump(_pTransMatRoot, 0);
 
-    //    _pNodeFactory->printStat();    
+    //    _pNodeFactory->printStat();
 
     if(!_bLocalLights)
     {
@@ -1998,12 +1994,12 @@ Action::ResultE RenderAction::stop(ResultE res)
                 {
                     if(!_bZWriteTrans)
                         glDepthMask(false);
-        
+
                     TransSortMap &ts = (*transMatRootsIt).second;
                     for(TransSortMap::iterator it = ts.begin();it != ts.end();++it)
                         draw((*it).second);
                     //printf("draw transparent %d\n", transSortKey);
-        
+
                     if(!_bZWriteTrans)
                         glDepthMask(true);
                     ++transMatRootsIt;
@@ -2013,12 +2009,12 @@ Action::ResultE RenderAction::stop(ResultE res)
             {
                 if(!_bZWriteTrans)
                     glDepthMask(false);
-    
+
                 TransSortMap &ts = (*transMatRootsIt).second;
                 for(TransSortMap::iterator it = ts.begin();it != ts.end();++it)
                     draw((*it).second);
                 //printf("draw transparent %d\n", transSortKey);
-    
+
                 if(!_bZWriteTrans)
                     glDepthMask(true);
                 ++transMatRootsIt;
@@ -2056,7 +2052,7 @@ Action::ResultE RenderAction::stop(ResultE res)
     elemDraw->stop();
 
     _viewport->setDrawTime((Real32)elemDraw->getTime());
-    if(!_ownStat) 
+    if(!_ownStat)
     {
         getStatistics()->getElem(statNMaterials      )->set(
             _uiNumMaterialChanges);
@@ -2070,13 +2066,13 @@ Action::ResultE RenderAction::stop(ResultE res)
 
 
 //    FINFO (("Material %d Matrix %d Geometry %d Transparent %d\r",
-//            _uiNumMaterialChanges, 
-//            _uiNumMatrixChanges, 
+//            _uiNumMaterialChanges,
+//            _uiNumMatrixChanges,
 //            _uiNumGeometries,
 //            _uiNumTransGeometries));
 
     if(getVolumeDrawing())
-        drawVolume(_frustum);  
+        drawVolume(_frustum);
 
     return res;
 }
@@ -2084,7 +2080,7 @@ Action::ResultE RenderAction::stop(ResultE res)
 void RenderAction::push_matrix(const Matrixr &matrix)
 {
     _vMatrixStack.push_back(_currMatrix);
-    
+
 #ifdef PRINT_MAT
     fprintf(stderr, "pushed %d\n", _currMatrix.first);
 
@@ -2101,7 +2097,7 @@ void RenderAction::push_matrix(const Matrixr &matrix)
     _currMatrix.first = ++_uiMatrixId;
     _currMatrix.second.mult(matrix);
     updateTopMatrix();
-    
+
 #ifdef PRINT_MAT
     fprintf(stderr, "current %d\n", _currMatrix.first);
 
@@ -2179,30 +2175,30 @@ std::vector<RenderAction::Functor> *RenderAction::getDefaultLeaveFunctors(void)
 
 
 ///---------------------------------------------------------------------------
-///  FUNCTION: 
+///  FUNCTION:
 ///---------------------------------------------------------------------------
 //:  Example for the head comment of a function
 ///---------------------------------------------------------------------------
 ///
-//p: Paramaters: 
-//p: 
+//p: Paramaters:
+//p:
 ///
 //g: GlobalVars:
-//g: 
+//g:
 ///
 //r: Return:
-//r: 
+//r:
 ///
 //c: Caution:
-//c: 
+//c:
 ///
 //a: Assumptions:
-//a: 
+//a:
 ///
 //d: Description:
-//d: 
+//d:
 ///
 //s: SeeAlso:
-//s: 
+//s:
 ///---------------------------------------------------------------------------
 

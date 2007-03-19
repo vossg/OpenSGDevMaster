@@ -35,36 +35,36 @@ int setupGLUT( int *argc, char *argv[] );
 #include <OpenSG/OSGSimpleAttachments.h>
 
 // There are two convenience functions for name access: getName() and
-// setName(). For details about general attachment handling see the 
+// setName(). For details about general attachment handling see the
 // attachments tutorial
 
 class NamedNodeFinder
 {
   public:
-  
+
     NamedNodeFinder(void) : _name(), _found() {}
 
     NodePtr operator() (NodePtr root, std::string name)
     {
         _name=&name;
         _found=NullFC;
-        
+
         TraverseEnterFunctor enter =
             boost::bind(&NamedNodeFinder::check, this, _1);
         traverse(root, enter);
-        
+
         return _found;
     }
- 
+
     static NodePtr find(NodePtr root, std::string name)
     {
-        NamedNodeFinder f;      
-        
+        NamedNodeFinder f;
+
         return f(root,name);
     }
-   
+
   private:
-     
+
     Action::ResultE check(NodePtr node)
     {
         if(getName(node) && *_name == getName(node))
@@ -73,9 +73,9 @@ class NamedNodeFinder
             return Action::Quit;
         }
 
-        return Action::Continue;        
+        return Action::Continue;
     }
- 
+
     NodePtr  _found;
     std::string  *_name;
 };
@@ -97,16 +97,16 @@ int main(int argc, char **argv)
     // load the scene
 
     NodePtr scene;
-    
+
     if(argc < 2)
     {
         FWARNING(("No file given!\n"));
         FWARNING(("Supported file formats:\n"));
-        
+
         std::list<const char*> suffixes;
         SceneFileHandler::the()->getSuffixList(suffixes);
         //SceneFileHandler::the()->print();
-        
+
         for(std::list<const char*>::iterator it  = suffixes.begin();
                                              it != suffixes.end();
                                            ++it)
@@ -124,36 +124,36 @@ int main(int argc, char **argv)
         scene = SceneFileHandler::the()->read(argv[1]);
     }
 
-    
+
     NodePtr found;
-    
+
     NamedNodeFinder f;
-    
-    // Try to find the Scene object. As it hasn't been named yet, 
+
+    // Try to find the Scene object. As it hasn't been named yet,
     // it's not expected to be found.
-    found = f(scene, "Scene");  
+    found = f(scene, "Scene");
     if(found == NullFC)
     {
         SLOG << "Found no object named Scene." << endLog;
     }
     else
     {
-        SLOG << "Found object " << found << " named Scene. How did that happen?" 
+        SLOG << "Found object " << found << " named Scene. How did that happen?"
              << endLog;
-    }   
-    
+    }
+
     // Try to find the TF_DETAIL object. An object in Data/tie.wrl is called
     // TF_DETAIL, so we might find it.
-    found = NamedNodeFinder::find(scene, "TF_DETAIL"); 
+    found = NamedNodeFinder::find(scene, "TF_DETAIL");
     if(found == NullFC)
     {
-        SLOG << "Found no object named TF_DETAIL (did you load the tie?)." 
+        SLOG << "Found no object named TF_DETAIL (did you load the tie?)."
              << endLog;
     }
     else
     {
         SLOG << "Found object " << found << " named TF_DETAIL." << endLog;
-    }   
+    }
 
     commitChanges();
 
@@ -199,7 +199,7 @@ void mouse(int button, int state, int x, int y)
         mgr->mouseButtonRelease(button, x, y);
     else
         mgr->mouseButtonPress(button, x, y);
-        
+
     glutPostRedisplay();
 }
 
@@ -216,24 +216,29 @@ void keyboard(unsigned char k, int , int )
 {
     switch(k)
     {
-        case 27:    
+        case 27:
         {
             OSG::osgExit();
             exit(0);
         }
         break;
-        
-        case 'f': 
-        {  
+
+        case 'f':
+        {
             mgr->setNavigationMode(Navigator::FLY);
         }
         break;
-        
-        case 't':   
+
+        case 't':
         {
             mgr->setNavigationMode(Navigator::TRACKBALL);
         }
         break;
+
+    case 's':
+       {
+          mgr->setStatistics(!mgr->getStatistics());
+       }
     }
 }
 
@@ -242,9 +247,9 @@ int setupGLUT(int *argc, char *argv[])
 {
     glutInit(argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
-    
+
     int winid = glutCreateWindow("OpenSG");
-    
+
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
     glutIdleFunc(display);

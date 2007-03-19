@@ -152,6 +152,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     inline  bool  setClickCenter   (bool            mode    );
 
     virtual void  setStatistics    (bool on                 );
+    bool          getStatistics    (void                    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
