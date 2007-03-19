@@ -256,6 +256,9 @@ const Char8        *Log::_levelColor[] =
     0
 };
 
+Char8 *Log::_buffer      = NULL;
+int    Log::_buffer_size =  0;
+
 /*! \brief colorHeader which takes the log level for level color
  */
 bool Log::colorHeader(LogLevel level, const char *sep)
@@ -807,8 +810,6 @@ void Log::setLogFile(const Char8 *fileName, bool force)
 
 void Log::doLog(const Char8 * format, ...)
 {
-    static Char8 *buffer      = NULL;
-    static int    buffer_size = 0;
 
     va_list args;
 
@@ -817,50 +818,50 @@ void Log::doLog(const Char8 * format, ...)
 #if defined(OSG_HAS_VSNPRINTF) && !defined(__sgi)
     int count;
 
-    if(buffer == NULL)
+    if(_buffer == NULL)
     {
-        buffer_size = 8;
-        buffer = new Char8[buffer_size];
+        _buffer_size = 8;
+        _buffer = new Char8[_buffer_size];
     }
 
     // on windows it returns -1 if the output
     // was truncated due to the buffer size limit.
     // on irix this returns always buffer_size-1 ????
 
-    count = vsnprintf(buffer, buffer_size, format, args);
+    count = vsnprintf(_buffer, _buffer_size, format, args);
 
-    while(count >= buffer_size || count == -1)
+    while(count >= _buffer_size || count == -1)
     {
-        buffer_size = osgMax(buffer_size * 2, count + 1);
+        _buffer_size = osgMax(_buffer_size * 2, count + 1);
 
-        if(buffer != NULL)
-            delete [] buffer;
+        if(_buffer != NULL) 
+            delete [] _buffer;
 
-        buffer = new Char8[buffer_size];
+        _buffer = new Char8[_buffer_size];
 
         va_start(args, format);
 
-        count = vsnprintf(buffer, buffer_size, format, args);
+        count = vsnprintf(_buffer, _buffer_size, format, args);
     }
 #else
-    if(buffer_size < 8192)
+    if(_buffer_size < 8192)
     {
-        buffer_size = 8192;
+        _buffer_size = 8192;
 
-        if(buffer != NULL)
-            delete [] buffer;
+        if(_buffer != NULL) 
+            delete [] _buffer;
 
-        buffer = new Char8[buffer_size];
+        _buffer = new Char8[_buffer_size];
     }
 
-    vsprintf(buffer, format, args);
+    vsprintf(_buffer, format, args);
 #endif
 
 //    *this << buffer;
 //    *this << std::flush;
 //  Work around VC71. Patch by Chad Austin.
     std::ostream& os = *this;
-    os << buffer;
+    os << _buffer;
     os << std::flush;
 
 
@@ -952,6 +953,11 @@ void Log::terminate(void)
 #endif
 
     delete osgLogP;
+
+    delete [] Log::_buffer;
+
+    Log::_buffer_size = 0;
+    Log::_buffer      = NULL;
 }
 
 /** \var LogType Log::_logType;
