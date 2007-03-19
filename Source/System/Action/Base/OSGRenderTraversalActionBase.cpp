@@ -83,8 +83,7 @@ RenderTraversalActionBase::RenderTraversalActionBase(void) :
     _bFrustumCulling(true ),
     _bVolumeDrawing (false),
     _bAutoFrustum   (true ),
-    _oFrustum       (     ),
-    _mCameraToWorld (     )
+    _oFrustum       (     )
 {
 }
 
@@ -101,8 +100,7 @@ RenderTraversalActionBase::RenderTraversalActionBase(
     _bFrustumCulling(source._bFrustumCulling),
     _bVolumeDrawing (source._bVolumeDrawing ),
     _bAutoFrustum   (source._bAutoFrustum   ),
-    _oFrustum       (source._oFrustum       ),
-    _mCameraToWorld (source._mCameraToWorld )
+    _oFrustum       (source._oFrustum       )
 {
 }
 
@@ -131,14 +129,6 @@ ActionBase::ResultE RenderTraversalActionBase::start(void)
     {
         _pStatistics = StatCollector::create();
         _bOwnStat    = true;
-    }
-
-    if(getCamera() != NULL && getViewport() != NULL)
-    {
-        getCamera()->getViewing( _mCameraToWorld,
-                                 getViewport()->getPixelWidth(),
-                                 getViewport()->getPixelHeight() );
-        _mCameraToWorld.invert();
     }
 
     _pStatistics->reset();

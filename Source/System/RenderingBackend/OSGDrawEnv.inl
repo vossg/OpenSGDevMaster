@@ -194,6 +194,72 @@ GLenum DrawEnv::getActiveTexTarget(UInt32 uiSlot) const
 }
 
 inline
+const Matrixr &DrawEnv::getVPCameraFullProjection(void) const
+{
+    return _vpCameraFullProjection;
+}
+
+inline
+const Matrixr &DrawEnv::getVPCameraProjection(void) const
+{
+    return _vpCameraProjection;
+}
+
+
+inline
+const Matrixr &DrawEnv::getVPCameraProjectionTrans(void) const
+{
+    return _vpCameraProjectionTrans;
+}
+
+
+inline
+const Matrixr &DrawEnv::getVPCameraViewing(void) const
+{
+    return _vpCameraViewing;
+}
+
+inline
+const Matrixr &DrawEnv::getVPCameraToWorld(void) const
+{
+    return _vpCameraToWorld;
+}
+
+inline
+const Matrixr &DrawEnv::getVPWorldToScreen(void) const
+{
+    return _vpWorldToScreen;
+}
+
+inline
+void DrawEnv::setVPCameraMatrices(const Matrixr &mFullprojection,
+                                  const Matrixr &mProjection,
+                                  const Matrixr &mProjectionTrans,
+                                  const Matrixr &mViewing,
+                                  const Matrixr &mToWorld,
+                                  const Matrixr &mWorldToScreen  )
+{
+    _vpCameraFullProjection  = mFullprojection;
+    _vpCameraProjection      = mProjection;
+    _vpCameraProjectionTrans = mProjectionTrans;
+    _vpCameraViewing         = mViewing;
+    _vpCameraToWorld         = mToWorld;
+    _vpWorldToScreen         = mWorldToScreen;
+}
+
+
+inline
+void DrawEnv::initVPMatricesFromCamera(void) 
+{
+    _vpCameraFullProjection  = _cameraFullProjection;
+    _vpCameraProjection      = _cameraProjection;
+    _vpCameraProjectionTrans = _cameraProjectionTrans;
+    _vpCameraViewing         = _cameraViewing;
+    _vpCameraToWorld         = _cameraToWorld;
+    _vpWorldToScreen         = _worldToScreen;
+}
+
+inline
 UInt32 DrawEnv::getNumStateChanges(void) const
 {
     return _uiNumStateChanges;

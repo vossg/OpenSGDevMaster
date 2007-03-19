@@ -64,6 +64,14 @@ DrawEnv::DrawEnv(void) :
     _cameraViewing          (     ),
     _cameraToWorld          (     ),
     _objectToWorld          (     ),
+
+    _vpCameraFullProjection (     ),
+    _vpCameraProjection     (     ),
+    _vpCameraProjectionTrans(     ),
+    _vpCameraViewing        (     ),
+    _vpCameraToWorld        (     ),
+    _vpWorldToScreen        (     ),
+
     _cameraNear             (1.f  ),
     _cameraFar              (100.f), 
 
@@ -75,12 +83,19 @@ DrawEnv::DrawEnv(void) :
     _uiNumShaderChanges     (0    ),
     _uiNumShaderParamChanges(0    )
 {
-    _cameraFullProjection .setIdentity();
-    _cameraProjection     .setIdentity();
-    _cameraProjectionTrans.setIdentity();
-    _cameraViewing        .setIdentity();
-    _cameraToWorld        .setIdentity();
-    _objectToWorld        .setIdentity();
+    _cameraFullProjection   .setIdentity();
+    _cameraProjection       .setIdentity();
+    _cameraProjectionTrans  .setIdentity();
+    _cameraViewing          .setIdentity();
+    _cameraToWorld          .setIdentity();
+    _objectToWorld          .setIdentity();
+
+    _vpCameraFullProjection .setIdentity();
+    _vpCameraProjection     .setIdentity();
+    _vpCameraProjectionTrans.setIdentity();
+    _vpCameraViewing        .setIdentity();
+    _vpCameraToWorld        .setIdentity();
+    _vpWorldToScreen        .setIdentity();
 }
 
 /*-------------------------------------------------------------------------*/

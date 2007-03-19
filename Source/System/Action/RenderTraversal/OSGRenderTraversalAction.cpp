@@ -552,6 +552,8 @@ Action::ResultE RenderTraversalAction::start(void)
             _pActivePartition->setFar (_pCamera->getFar ());
         }
 
+        _pActivePartition->initVPMatricesFromCamera();
+
         _pActivePartition->setBackground(_pBackground);
     }
 
@@ -711,6 +713,7 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
     _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
 
     _pActivePartition->initFrom(_sRenderPartitionStack.top(),
+                                _vRenderPartitions[_currentBuffer][0],
                                  uiCopyOnPush               );
 }
 

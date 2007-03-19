@@ -192,6 +192,24 @@ const Matrix4f &RenderPartition::getProjectionTrans(void)
 }
 
 inline
+const Matrix4f &RenderPartition::getVPFullProjection(void)
+{
+    return _oDrawEnv.getVPCameraFullProjection();
+}
+
+inline
+const Matrix4f &RenderPartition::getVPProjection(void)
+{
+    return _oDrawEnv.getVPCameraProjection();
+}
+
+inline
+const Matrix4f &RenderPartition::getVPProjectionTrans(void)
+{
+    return _oDrawEnv.getVPCameraProjectionTrans();
+}
+
+inline
 void RenderPartition::setupViewing(const Matrix4f &matrix)
 {
     _oDrawEnv.setupViewing(matrix);
@@ -205,6 +223,24 @@ inline
 const Matrix4f &RenderPartition::getViewing(void)
 {
     return _oDrawEnv.getCameraViewing();
+}
+
+inline
+const Matrix4f &RenderPartition::getCameraToWorld(void)
+{
+    return _oDrawEnv.getCameraToWorld();
+}
+
+inline 
+const Matrix4f &RenderPartition::getVPViewing(void)
+{
+    return _oDrawEnv.getVPCameraViewing();
+}
+
+inline
+const Matrix4f &RenderPartition::getVPCameraToWorld(void)
+{
+    return _oDrawEnv.getCameraToWorld();
 }
 
 inline 

@@ -277,7 +277,8 @@ ActionBase::ResultE BillboardRenderEnter(const NodeCorePtr &pCore, Action *actio
         dynamic_cast<RenderTraversalAction *>(action);
 
     Matrix mMat;
-    Matrix cam_to_world = pAction->getCameraToWorld();
+    Matrix cam_to_world = 
+        pAction->getActivePartition()->getVPCameraToWorld();
 
     pBillboard->calcMatrix(cam_to_world, pAction->topMatrix(), mMat);
 

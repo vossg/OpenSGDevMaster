@@ -800,6 +800,7 @@ void RenderPartition::init(void)
 }
 
 void RenderPartition::initFrom(RenderPartition *pSource,
+                               RenderPartition *pInitial,
                                Int32            uiCopyOnPush)
 {
     if(uiCopyOnPush == 0x0000 || pSource == NULL)
@@ -867,6 +868,22 @@ void RenderPartition::initFrom(RenderPartition *pSource,
         this->setNear(pSource->getNear());
         this->setFar (pSource->getFar ());
     }
+
+    if(0x0000 != (uiCopyOnPush & CopyVPCamera) && pInitial != NULL)
+    {
+        _oDrawEnv.setVPCameraMatrices(
+            pInitial->_oDrawEnv.getVPCameraFullProjection (),
+            pInitial->_oDrawEnv.getVPCameraProjection     (),
+            pInitial->_oDrawEnv.getVPCameraProjectionTrans(),
+            pInitial->_oDrawEnv.getVPCameraViewing        (),
+            pInitial->_oDrawEnv.getVPCameraToWorld        (),
+            pInitial->_oDrawEnv.getVPWorldToScreen        ());
+    }
+}
+
+void RenderPartition::initVPMatricesFromCamera(void)
+{
+    _oDrawEnv.initVPMatricesFromCamera();
 }
 
 void RenderPartition::exit(void)

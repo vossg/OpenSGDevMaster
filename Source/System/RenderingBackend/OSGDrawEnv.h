@@ -119,6 +119,35 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
           GLenum    getActiveTexTarget      (UInt32 uiSlot) const;
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    const Matrixr  &getVPCameraFullProjection (void         ) const;
+    const Matrixr  &getVPCameraProjection     (void         ) const;
+    const Matrixr  &getVPCameraProjectionTrans(void         ) const;
+
+    const Matrixr  &getVPCameraViewing        (void         ) const;
+
+    //VPCamViewing^-1
+    const Matrixr  &getVPCameraToWorld        (void         ) const; 
+
+    const Matrixr  &getVPWorldToScreen        (void         ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void setVPCameraMatrices     (const Matrixr &mFullprojection,
+                                  const Matrixr &mProjection,
+                                  const Matrixr &mProjectionTrans,
+                                  const Matrixr &mViewing,
+                                  const Matrixr &mToWorld,
+                                  const Matrixr &mWorldToScreen  );
+    
+    void initVPMatricesFromCamera(void                           );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -178,6 +207,13 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     Matrixr        _cameraToWorld;
     Matrixr        _objectToWorld;
     Matrixr        _worldToScreen;
+
+    Matrixr        _vpCameraFullProjection;
+    Matrixr        _vpCameraProjection;
+    Matrixr        _vpCameraProjectionTrans;
+    Matrixr        _vpCameraViewing;
+    Matrixr        _vpCameraToWorld;
+    Matrixr        _vpWorldToScreen;
 
     Real           _cameraNear;
     Real           _cameraFar;

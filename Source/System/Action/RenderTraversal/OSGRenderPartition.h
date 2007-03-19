@@ -120,6 +120,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
         CopyNearFar       = 0x0100,
 
+        CopyVPCamera      = 0x0200,
+
         CopyAll           = 0xFFFF
     };
 
@@ -219,8 +221,15 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     const Matrix4f &getProjection(void);
     const Matrix4f &getProjectionTrans(void);
 
+    const Matrix4f &getVPFullProjection(void);
+    const Matrix4f &getVPProjection(void);
+    const Matrix4f &getVPProjectionTrans(void);
+
     void setupViewing   (const Matrix4f &matrix);
     const Matrix4f &getViewing(void);
+    const Matrix4f &getCameraToWorld(void);
+    const Matrix4f &getVPViewing(void);
+    const Matrix4f &getVPCameraToWorld(void);
 
     void setNear(Real32 camNear);
     void setFar (Real32 camFar );
@@ -252,7 +261,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     /*------------------------- your_operators ------------------------------*/
 
     void initFrom(RenderPartition *pSource,
+                  RenderPartition *pInitial,
                   Int32            uiCopyOnPush);
+
+    void initVPMatricesFromCamera(void);
 
     /*------------------------- your_operators ------------------------------*/
 
