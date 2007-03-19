@@ -73,7 +73,7 @@ DrawEnv::DrawEnv(void) :
     _vpWorldToScreen        (     ),
 
     _cameraNear             (1.f  ),
-    _cameraFar              (100.f), 
+    _cameraFar              (100.f),
 
     _pWindow                (NULL ),
     _pViewport              (NULL ),
@@ -123,11 +123,11 @@ void DrawEnv::activate(State         *pState,
 
     MFStateChunkPtr::const_iterator it;
     StateOverride::ChunkStoreIt     overIt = pOverride->begin();
-     
+
     Int32                     ind  = 0;
     UInt32                    cind = 0;
 
-    for(  it  = pState->getChunks().begin(); 
+    for(  it  = pState->getChunks().begin();
           it != pState->getChunks().end  ();
         ++it, ++cind)
     {
@@ -150,8 +150,8 @@ void DrawEnv::activate(State         *pState,
 
     while(overIt != pOverride->end())
     {
-        overIt->second->activate(this, 
-                                 UInt32(overIt->first - 
+        overIt->second->activate(this,
+                                 UInt32(overIt->first -
                                         overIt->second->getClassId()));
         ++overIt;
     }
@@ -159,7 +159,7 @@ void DrawEnv::activate(State         *pState,
     ++_uiNumStateChanges;
 }
 
-void DrawEnv::changeTo(State         *pState, 
+void DrawEnv::changeTo(State         *pState,
                        State         *pOld)
 {
     if(pState != pOld)
@@ -170,7 +170,7 @@ void DrawEnv::changeTo(State         *pState,
     }
 }
 
-void DrawEnv::changeTo(State         *pState, 
+void DrawEnv::changeTo(State         *pState,
                        State         *pOld,
                        StateOverride *pOldOverride)
 {
@@ -187,7 +187,7 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    i;
     UInt32                    cind = 0;
 
-    for(  it  = pState->getChunks().begin(); 
+    for(  it  = pState->getChunks().begin();
           it != pState->getChunks().end();
         ++it, ++cind)
     {
@@ -224,8 +224,8 @@ void DrawEnv::changeTo(State         *pState,
 
     while(overIt != pOldOverride->end())
     {
-        overIt->second->deactivate(this, 
-                                   UInt32(overIt->first - 
+        overIt->second->deactivate(this,
+                                   UInt32(overIt->first -
                                           overIt->second->getClassId()));
         ++overIt;
     }
@@ -250,8 +250,8 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    i;
     UInt32                    cind = 0;
     StateChunk               *n    = NULL;
- 
-    for(  it  = pState->getChunks().begin(); 
+
+    for(  it  = pState->getChunks().begin();
           it != pState->getChunks().end();
         ++it, ++cind)
     {
@@ -325,8 +325,8 @@ void DrawEnv::changeTo(State         *pState,
 
     while(overIt != pOverride->end())
     {
-        overIt->second->activate(this, 
-                                 UInt32(overIt->first - 
+        overIt->second->activate(this,
+                                 UInt32(overIt->first -
                                         overIt->second->getClassId()));
         ++overIt;
     }
@@ -334,7 +334,7 @@ void DrawEnv::changeTo(State         *pState,
     ++_uiNumStateChanges;
 }
 
-void DrawEnv::changeTo(State         *pState, 
+void DrawEnv::changeTo(State         *pState,
                        StateOverride *pOverride,
                        State         *pOld,
                        StateOverride *pOldOverride)
@@ -360,7 +360,7 @@ void DrawEnv::changeTo(State         *pState,
     UInt32                    cind = 0;
     StateChunk               *n    = NULL;
 
-    for(  it  = pState->getChunks().begin(); 
+    for(  it  = pState->getChunks().begin();
           it != pState->getChunks().end();
         ++it, ++cind)
     {
@@ -449,7 +449,7 @@ void DrawEnv::changeTo(State         *pState,
     {
         n = NULL;
 
-        if(newOverIt        != pOverride->end() && 
+        if(newOverIt        != pOverride->end() &&
            newOverIt->first == oldOverIt->first  )
         {
             n = newOverIt->second;
@@ -458,16 +458,16 @@ void DrawEnv::changeTo(State         *pState,
 
         if(n != NULL)
         {
-            n->changeFrom(this, 
-                          oldOverIt->second, 
-                          UInt32(oldOverIt->first - 
+            n->changeFrom(this,
+                          oldOverIt->second,
+                          UInt32(oldOverIt->first -
                                  oldOverIt->second->getClassId()));
         }
         else
         {
             oldOverIt->second->deactivate(
-                this, 
-                  UInt32(oldOverIt->first - 
+                this,
+                  UInt32(oldOverIt->first -
                          oldOverIt->second->getClassId()));
         }
 
@@ -477,8 +477,8 @@ void DrawEnv::changeTo(State         *pState,
 
     while(newOverIt != pOverride->end())
     {
-        newOverIt->second->activate(this, 
-                                    UInt32(newOverIt->first - 
+        newOverIt->second->activate(this,
+                                    UInt32(newOverIt->first -
                                            newOverIt->second->getClassId()));
         ++newOverIt;
     }
@@ -503,11 +503,11 @@ void DrawEnv::deactivate(State         *pState,
 
     MFStateChunkPtr::const_iterator it;
     StateOverride::ChunkStoreIt     overIt = pOverride->begin();
-     
+
     Int32                     ind  = 0;
     UInt32                    cind = 0;
 
-    for(  it  = pState->getChunks().begin(); 
+    for(  it  = pState->getChunks().begin();
           it != pState->getChunks().end  ();
         ++it, ++cind)
     {
@@ -526,17 +526,34 @@ void DrawEnv::deactivate(State         *pState,
 
         if(++ind >= StateChunkClass::getNumSlots(cind))
             ind = 0;
-    }    
+    }
 
     while(overIt !=  pOverride->end())
     {
-        overIt->second->deactivate(this, 
-                                   UInt32(overIt->first - 
+        overIt->second->deactivate(this,
+                                   UInt32(overIt->first -
                                           overIt->second->getClassId()));
 
         ++overIt;
     }
 }
+
+/** Return the stat collector for the currently active traversal.
+ * If RTAction() != NULL, returns RTAction->getStatistics()
+ * else if RACtion() != NULL, returns RAction->getStatistics()
+ */
+/*
+StatCollector* DrawEnv::getStatistics(void)
+{
+    StatCollector* coll(NULL);
+    if(NULL != getRTAction())
+    { coll = getRTAction()->getStatistics();  }
+    else if(NULL != getRAction())
+    { coll = getRAction()->getStatistics();  }
+
+    return coll;
+}
+*/
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */

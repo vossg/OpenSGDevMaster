@@ -102,7 +102,7 @@ void DrawEnv::setCameraFar(const Real &camFar)
     _cameraFar = camFar;
 }
 
-inline 
+inline
 void DrawEnv::setActiveTexTarget(UInt32    uiSlot,
                                  GLenum    uiTarget)
 {
@@ -278,13 +278,13 @@ UInt32 DrawEnv::getNumShaderParamChanges(void) const
 }
 
 inline
-void DrawEnv::incNumShaderChanges(void) 
+void DrawEnv::incNumShaderChanges(void)
 {
     ++_uiNumShaderChanges;
 }
 
 inline
-void DrawEnv::incNumShaderParamChanges(void) 
+void DrawEnv::incNumShaderParamChanges(void)
 {
     ++_uiNumShaderParamChanges;
 }
@@ -314,14 +314,14 @@ void DrawEnv::activateState(State         *pNewState,
     {
         if(_pActiveState != NULL)
         {
-            if(pNewState         != _pActiveState        || 
+            if(pNewState         != _pActiveState        ||
                pNewStateOverride != _pActiveStateOverride )
             {
                 changeTo( pNewState,
-                          pNewStateOverride, 
+                          pNewStateOverride,
                          _pActiveState,
                          _pActiveStateOverride);
-                
+
                 _pActiveState         = pNewState;
                 _pActiveStateOverride = pNewStateOverride;
             }
@@ -329,7 +329,7 @@ void DrawEnv::activateState(State         *pNewState,
         else
         {
             activate(pNewState, pNewStateOverride);
-            
+
             _pActiveState         = pNewState;
             _pActiveStateOverride = pNewStateOverride;
         }

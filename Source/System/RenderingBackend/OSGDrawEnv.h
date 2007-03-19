@@ -47,6 +47,7 @@
 #include "OSGSystemDef.h"
 #include "OSGSystemProfile.h"
 #include "OSGGLEXT.h"
+#include "OSGStatCollector.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -62,7 +63,7 @@ class StateOverride;
 /*! \ingroup GrpSystemRenderingBackend
 */
 
-class OSG_SYSTEM_DLLMAPPING DrawEnv 
+class OSG_SYSTEM_DLLMAPPING DrawEnv
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -85,8 +86,8 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     void setupViewing      (const Matrixr  &matrix     );
     void setObjectToWorld  (const Matrixr  &matrix     );
 
-    void setCameraNear     (const Real     &camNear    ); 
-    void setCameraFar      (const Real     &camFar     ); 
+    void setCameraNear     (const Real     &camNear    );
+    void setCameraFar      (const Real     &camFar     );
 
     void setActiveTexTarget(      UInt32    uiSlot,
                                   GLenum    uiTarget   );
@@ -96,29 +97,29 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    const Matrixr  &getCameraFullProjection (void         ) const;
-    const Matrixr  &getCameraProjection     (void         ) const;
-    const Matrixr  &getCameraProjectionTrans(void         ) const;
+    const Matrixr       &getCameraFullProjection (void         ) const;
+    const Matrixr       &getCameraProjection     (void         ) const;
+    const Matrixr       &getCameraProjectionTrans(void         ) const;
 
-    const Matrixr  &getCameraViewing        (void         ) const;
+    const Matrixr       &getCameraViewing        (void         ) const;
 
     //CamViewing^-1
-    const Matrixr  &getCameraToWorld        (void         ) const; 
+    const Matrixr       &getCameraToWorld        (void         ) const;
 
-    const Matrixr  &getObjectToWorld        (void         ) const;
+    const Matrixr       &getObjectToWorld        (void         ) const;
 
-    const Matrixr  &getWorldToScreen        (void         ) const;
+    const Matrixr       &getWorldToScreen        (void         ) const;
 
-          Real      getCameraNear           (void         ) const;
-          Real      getCameraFar            (void         ) const;
+          Real           getCameraNear           (void         ) const;
+          Real           getCameraFar            (void         ) const;
 
-          RAction  *getRAction              (void         ) const;
-          RTAction *getRTAction             (void         ) const;
-          Viewport *getViewport             (void         ) const;
-          Window   *getWindow               (void         ) const;
+          RAction       *getRAction              (void         ) const;
+          RTAction      *getRTAction             (void         ) const;
+          Viewport      *getViewport             (void         ) const;
+          Window        *getWindow               (void         ) const;
 
-          GLenum    getActiveTexTarget      (UInt32 uiSlot) const;
-    
+          GLenum         getActiveTexTarget      (UInt32 uiSlot) const;
+          //StatCollector *getStatistics           (void         );
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
@@ -186,7 +187,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~DrawEnv(void); 
+    virtual ~DrawEnv(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -220,7 +221,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
     Window        *_pWindow;
     Viewport      *_pViewport;
-    
+
     State         *_pActiveState;
     StateOverride *_pActiveStateOverride;
 
@@ -239,18 +240,18 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     void activate  (State         *pState,
                     StateOverride *pOverride  );
 
-    void changeTo  (State         *pState, 
+    void changeTo  (State         *pState,
                     State         *old        );
 
-    void changeTo  (State         *pState, 
+    void changeTo  (State         *pState,
                     State         *old,
                     StateOverride *oldOverride);
 
-    void changeTo  (State         *pState, 
+    void changeTo  (State         *pState,
                     StateOverride *pOverride,
                     State         *old);
 
-    void changeTo  (State         *pState, 
+    void changeTo  (State         *pState,
                     StateOverride *pOverride,
                     State         *old,
                     StateOverride *oldOverride);
