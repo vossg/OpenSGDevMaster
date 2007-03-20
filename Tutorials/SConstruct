@@ -142,10 +142,10 @@ if not sca_util.hasHelpFlag():
    build_app = True
 
    if not opensg2_options.isAvailable():
-      print "OpenSG not available: Skiping viewer."
+      print "OpenSG not available: Skipping viewer."
       build_app = False
    if not boost_options.isAvailable():
-      print "Boost not available: Skiping viewer."
+      print "Boost not available: Skipping viewer."
       build_app = False
 
    if build_app:
@@ -155,7 +155,14 @@ if not sca_util.hasHelpFlag():
 
       for file in tutorials:
          name = file.split('.')[0]
+         local_env = base_env.Copy()
+         mylibs = local_env['LIBS']
+         for l in open(file).readlines():
+            if l.startswith("// Libs:"):
+                mylibs += ["OSG"+m for m in l[8:].split()]
+         
+         print file, mylibs
          # Build the test program and install into tree
-         loader = base_env.Program(name+runtime_suffix, file)
+         loader = local_env.Program(name+runtime_suffix, file, LIBS = mylibs)
 
 Default(".")
