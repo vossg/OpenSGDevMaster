@@ -542,7 +542,7 @@ void SimpleSceneManager::initialize(void)
         sf->addElement(RenderTraversalAction::statNShaders,      "Shader changes: %d");
         sf->addElement(RenderTraversalAction::statNShaderParams, "Shader param changes: %d");
         sf->addElement(TextureObjChunk::statNTextures, "Textures: %d");
-        sf->addElement(TextureObjChunk::statNTexBytes, " Tex Mem: %d bytes");
+        sf->addElement(TextureObjChunk::statNTexBytes, " Tex Mem: %MB MB");
 
         sf->addElement(RenderTraversalAction::statNGeometries,   "    Geom nodes: %d");
         sf->addElement(RenderTraversalAction::statNMatrices,     "Matrix changes: %d");
