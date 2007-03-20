@@ -116,9 +116,8 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLOD : public ScreenLODBase
     /*---------------------------------------------------------------------*/
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
-
-    template<class RenderTraversalActionT>
-    ActionBase::ResultE render( Action* action );
+    
+    ActionBase::ResultE renderEnter( Action* action );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

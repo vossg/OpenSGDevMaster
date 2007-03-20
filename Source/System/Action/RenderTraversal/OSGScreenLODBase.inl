@@ -74,6 +74,53 @@ OSG::UInt16 ScreenLODBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
+//! Get the value of the \a index element the ScreenLOD::_mfCoverageOverride field.
+inline
+const Real32 &ScreenLODBase::getCoverageOverride(const UInt32 index) const
+{
+    return _mfCoverageOverride[index];
+}
+
+inline
+Real32 &ScreenLODBase::editCoverageOverride(const UInt32 index)
+{
+    editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+    return _mfCoverageOverride[index];
+}
+
+//! Get the ScreenLOD::_mfCoverageOverride field.
+inline
+MFReal32 &ScreenLODBase::editCoverageOverride(void)
+{
+    editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+    return _mfCoverageOverride;
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Real32              &ScreenLODBase::getCoverageOverride(const UInt32 index)
+{
+    return this->editCoverageOverride(index);
+}
+
+inline
+MFReal32            &ScreenLODBase::getCoverageOverride(void)
+{
+    return this->editCoverageOverride();
+}
+
+#endif
+
+
+//! Get the ScreenLOD::_mfCoverageOverride field.
+inline
+const MFReal32 &ScreenLODBase::getCoverageOverride(void) const
+{
+    return _mfCoverageOverride;
+}
+
 //! create a new instance of the class
 inline
 ScreenLODPtr ScreenLODBase::create(void)
@@ -98,6 +145,12 @@ void ScreenLODBase::execSync(      ScreenLODBase *pOther,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
+
+    if(FieldBits::NoField != (CoverageOverrideFieldMask & whichField))
+        _mfCoverageOverride.syncWith(pOther->_mfCoverageOverride,
+                                syncMode,
+                                uiSyncInfo,
+                                uiCopyOffset);
 }
 #endif
 
@@ -110,6 +163,12 @@ void ScreenLODBase::execSync (      ScreenLODBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (CoverageOverrideFieldMask & whichField))
+        _mfCoverageOverride.syncWith(pFrom->_mfCoverageOverride,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 
@@ -120,6 +179,11 @@ void ScreenLODBase::execBeginEdit(ConstFieldMaskArg whichField,
                                       UInt32            uiContainerSize)
 {
     Inherited::execBeginEdit(whichField, uiAspect, uiContainerSize);
+
+    if(FieldBits::NoField != (CoverageOverrideFieldMask & whichField))
+    {
+        _mfCoverageOverride.beginEdit(uiAspect, uiContainerSize);
+    }
 }
 #endif
 

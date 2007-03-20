@@ -65,6 +65,7 @@
 
 #include "OSGGroup.h" // Parent
 
+#include "OSGReal32Fields.h" // CoverageOverride type
 
 #include "OSGScreenLODFields.h"
 
@@ -107,6 +108,16 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
 
   public:
 
+    enum
+    {
+        CoverageOverrideFieldId = Inherited::NextFieldId,
+        NextFieldId = CoverageOverrideFieldId + 1
+    };
+
+    static const OSG::BitVector CoverageOverrideFieldMask =
+        (TypeTraits<BitVector>::One << CoverageOverrideFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -125,6 +136,52 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+#ifdef OSG_1_COMPAT
+                  MFReal32            *getMFCoverageOverride (void);
+#endif
+                  MFReal32            *editMFCoverageOverride(void);
+            const MFReal32            *getMFCoverageOverride (void) const;
+
+
+#ifdef OSG_1_COMPAT
+                  Real32              &getCoverageOverride (const UInt32 index);
+                  MFReal32            &getCoverageOverride(void);
+#endif
+                  Real32              &editCoverageOverride(const UInt32 index);
+            const Real32              &getCoverageOverride (const UInt32 index) const;
+                  MFReal32            &editCoverageOverride(void);
+            const MFReal32            &getCoverageOverride(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+
+    void pushToCoverageOverride            (const Real32    &value   );
+    void insertIntoCoverageOverride        (      UInt32     uiIndex,
+                                            const Real32    &value   );
+    void replaceInCoverageOverride         (      UInt32     uiIndex,
+                                            const Real32    &value   );
+    void replaceInCoverageOverride         (const Real32    &pOldElem,
+                                            const Real32    &pNewElem);
+    void removeFromCoverageOverride        (      UInt32     uiIndex );
+    void removeFromCoverageOverride        (const Real32    &value   );
+    void clearCoverageOverride             (      void               );
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -163,6 +220,13 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     static void   classDescInserter(TypeObject &oType);
     static Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    MFReal32          _mfCoverageOverride;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */

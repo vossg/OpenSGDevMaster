@@ -72,8 +72,56 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ScreenLOD
-    
+    A ScreenLOD node enables smart LOD selection based on screen size.  It must be used in combination with 
+    the RenderTraversal Action.
+
+    See Ref:ScreenLOD
  */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Real32          ScreenLODBase::_mfCoverageOverride
+    A list of percentages to override the default LOD behavior.  These percentages are used
+    to determine which lod to use based on screen size percentage.  If the percentage covered by
+    the node bounding volume is less then entry 0, we use child 0.  If is is greater then entry 0
+    less then entry 1, then we use child 1 and so on.
+    Ex: [0.05, 0.01, 0.001]
+*/
+
+
+void ScreenLODBase::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc = NULL;
+
+
+#ifdef OSG_1_COMPAT
+    typedef const MFReal32 *(ScreenLODBase::*GetMFCoverageOverrideF)(void) const;
+
+    GetMFCoverageOverrideF GetMFCoverageOverride = &ScreenLODBase::getMFCoverageOverride;
+#endif
+
+    pDesc = new MFReal32::Description(
+        MFReal32::getClassType(),
+        "coverageOverride",
+        "A list of percentages to override the default LOD behavior.  These percentages are used\n"
+        "to determine which lod to use based on screen size percentage.  If the percentage covered by\n"
+        "the node bounding volume is less then entry 0, we use child 0.  If is is greater then entry 0\n"
+        "less then entry 1, then we use child 1 and so on.\n"
+        "Ex: [0.05, 0.01, 0.001]\n",
+        CoverageOverrideFieldId, CoverageOverrideFieldMask,
+        false,
+        Field::MFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&ScreenLODBase::editMFCoverageOverride),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetMFCoverageOverride));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&ScreenLODBase::getMFCoverageOverride));
+#endif
+
+    oType.addInitialDesc(pDesc);
+}
 
 
 ScreenLODBase::TypeObject ScreenLODBase::_type(true,
@@ -83,7 +131,7 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(true,
     0,
     (PrototypeCreateF) &ScreenLODBase::createEmpty,
     ScreenLOD::initMethod,
-    NULL,
+    (InitalInsertDescFunc) &ScreenLODBase::classDescInserter,
     false,
     "<?xml version=\"1.0\"?>\n"
     "\n"
@@ -97,8 +145,28 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(true,
     "\tparentsystemcomponent=\"true\"\n"
     "        isNodeCore=\"true\"\n"
     ">\n"
+    "A ScreenLOD node enables smart LOD selection based on screen size.  It must be used in combination with \n"
+    "the RenderTraversal Action.\n"
+    "\n"
+    "See Ref:ScreenLOD\n"
+    "\t<Field\n"
+    "\t\tname=\"coverageOverride\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tA list of percentages to override the default LOD behavior.  These percentages are used\n"
+    "       to determine which lod to use based on screen size percentage.  If the percentage covered by\n"
+    "       the node bounding volume is less then entry 0, we use child 0.  If is is greater then entry 0\n"
+    "       less then entry 1, then we use child 1 and so on.\n"
+    "       Ex: [0.05, 0.01, 0.001]\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
-    ""
+    "A ScreenLOD node enables smart LOD selection based on screen size.  It must be used in combination with \n"
+    "the RenderTraversal Action.\n"
+    "\n"
+    "See Ref:ScreenLOD\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -121,8 +189,109 @@ UInt32 ScreenLODBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+MFReal32 *ScreenLODBase::editMFCoverageOverride(void)
+{
+    editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+    return &_mfCoverageOverride;
+}
+
+const MFReal32 *ScreenLODBase::getMFCoverageOverride(void) const
+{
+    return &_mfCoverageOverride;
+}
+
+#ifdef OSG_1_COMPAT
+MFReal32            *ScreenLODBase::getMFCoverageOverride(void)
+{
+    return this->editMFCoverageOverride();
+}
+#endif
 
 
+
+/*********************************** Non-ptr code ********************************/
+void ScreenLODBase::pushToCoverageOverride(const Real32& value)
+{
+    editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+    _mfCoverageOverride.push_back(value);
+}
+
+void ScreenLODBase::insertIntoCoverageOverride(UInt32                uiIndex,
+                                                   const Real32& value   )
+{
+    editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+    MFReal32::iterator fieldIt = _mfCoverageOverride.begin();
+
+    fieldIt += uiIndex;
+
+    _mfCoverageOverride.insert(fieldIt, value);
+}
+
+void ScreenLODBase::replaceInCoverageOverride(UInt32                uiIndex,
+                                                       const Real32& value   )
+{
+    if(uiIndex >= _mfCoverageOverride.size())
+        return;
+
+    editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+    _mfCoverageOverride[uiIndex] = value;
+}
+
+void ScreenLODBase::replaceInCoverageOverride(const Real32& pOldElem,
+                                                        const Real32& pNewElem)
+{
+    Int32  elemIdx = _mfCoverageOverride.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+        MFReal32::iterator fieldIt = _mfCoverageOverride.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void ScreenLODBase::removeFromCoverageOverride(UInt32 uiIndex)
+{
+    if(uiIndex < _mfCoverageOverride.size())
+    {
+        editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+        MFReal32::iterator fieldIt = _mfCoverageOverride.begin();
+
+        fieldIt += uiIndex;
+        _mfCoverageOverride.erase(fieldIt);
+    }
+}
+
+void ScreenLODBase::removeFromCoverageOverride(const Real32& value)
+{
+    Int32 iElemIdx = _mfCoverageOverride.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+        MFReal32::iterator fieldIt = _mfCoverageOverride.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfCoverageOverride.erase(fieldIt);
+    }
+}
+
+void ScreenLODBase::clearCoverageOverride(void)
+{
+    editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
+
+    _mfCoverageOverride.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/
@@ -131,6 +300,10 @@ UInt32 ScreenLODBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (CoverageOverrideFieldMask & whichField))
+    {
+        returnValue += _mfCoverageOverride.getBinSize();
+    }
 
     return returnValue;
 }
@@ -140,6 +313,10 @@ void ScreenLODBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (CoverageOverrideFieldMask & whichField))
+    {
+        _mfCoverageOverride.copyToBin(pMem);
+    }
 }
 
 void ScreenLODBase::copyFromBin(BinaryDataHandler &pMem,
@@ -147,6 +324,10 @@ void ScreenLODBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (CoverageOverrideFieldMask & whichField))
+    {
+        _mfCoverageOverride.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -173,12 +354,14 @@ FieldContainerPtr ScreenLODBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 ScreenLODBase::ScreenLODBase(void) :
-    Inherited()
+    Inherited(),
+    _mfCoverageOverride       ()
 {
 }
 
 ScreenLODBase::ScreenLODBase(const ScreenLODBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _mfCoverageOverride       (source._mfCoverageOverride       )
 {
 }
 
