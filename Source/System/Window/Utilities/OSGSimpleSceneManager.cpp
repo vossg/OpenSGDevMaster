@@ -211,9 +211,9 @@ SimpleSceneManager::SimpleSceneManager(void) :
     _lasty          (TypeTraits<Int16>::getMax()),
     _mousebuttons   (0                             ),
 #ifdef OSG_CLEANED_RENDERACTION
-    _traversalAction(false                         )
+    _traversalAction(true                         )
 #else
-    _traversalAction(true                          )
+    _traversalAction(false                          )
 #endif
 {
 }
