@@ -180,10 +180,6 @@ GeoProperty::GeoProperty(const GeoProperty &source) :
 
 GeoProperty::~GeoProperty(void)
 {
-    if(getGLId() > 0)
-    {
-        Window::destroyGLObject(getGLId(), 1);
-    }
 }
 
 
@@ -200,6 +196,14 @@ void GeoProperty::onCreate(const GeoProperty *)
         Window::registerGLObject(
             boost::bind(&GeoProperty::handleGL, tmpPtr, _1, _2),
             1));
+}
+
+void GeoProperty::onDestroy(UInt32)
+{
+    if(getGLId() > 0)
+    {
+        Window::destroyGLObject(getGLId(), 1);
+    }
 }
 
 /*------------------------- Chunk Class Access ---------------------------*/

@@ -138,12 +138,6 @@ Geometry::Geometry(const Geometry &source) :
 
 Geometry::~Geometry(void)
 {
-    UInt16 i;
-
-    if(getClassicGLId() > 0)
-        Window::destroyGLObject(getClassicGLId(), 1);
-    if(getAttGLId() > 0)
-        Window::destroyGLObject(getAttGLId(), 1);
 }
 
 void Geometry::onCreate(const Geometry *)
@@ -163,6 +157,14 @@ void Geometry::onCreate(const Geometry *)
         Window::registerGLObject(
             boost::bind(&Geometry::handleAttGL, tmpPtr, _1, _2),
             1));
+}
+
+void Geometry::onDestroy(UInt32)
+{
+    if(getClassicGLId() > 0)
+        Window::destroyGLObject(getClassicGLId(), 1);
+    if(getAttGLId() > 0)
+        Window::destroyGLObject(getAttGLId(), 1);
 }
 
 /*------------------------------ access -----------------------------------*/

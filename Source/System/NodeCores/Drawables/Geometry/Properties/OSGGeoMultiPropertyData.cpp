@@ -119,10 +119,6 @@ GeoMultiPropertyData::GeoMultiPropertyData(const GeoMultiPropertyData &source) :
 
 GeoMultiPropertyData::~GeoMultiPropertyData(void)
 {
-    if(getGLId() > 0)
-    {
-        Window::destroyGLObject(getGLId(), 1);
-    }
 }
 
 /*----------------------------- onCreate --------------------------------*/
@@ -139,6 +135,14 @@ void GeoMultiPropertyData::onCreate(const GeoMultiPropertyData *)
         Window::registerGLObject(
             boost::bind(&GeoMultiPropertyData::handleGL, tmpPtr, _1, _2),
             1));
+}
+
+void GeoMultiPropertyData::onDestroy(UInt32)
+{
+    if(getGLId() > 0)
+    {
+        Window::destroyGLObject(getGLId(), 1);
+    }
 }
 
 /*------------------------- Chunk Class Access ---------------------------*/

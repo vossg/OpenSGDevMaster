@@ -286,6 +286,7 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     void handleAttGL    (DrawEnv *pEnv, UInt32 id);
 
     void onCreate(const Geometry *source = NULL);
+    void onDestroy(UInt32 id);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

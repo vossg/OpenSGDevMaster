@@ -159,6 +159,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     GeoProperty(const GeoProperty &source);
 
     void onCreate(const GeoProperty *p = NULL);
+    void onDestroy(UInt32 uiContainerId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

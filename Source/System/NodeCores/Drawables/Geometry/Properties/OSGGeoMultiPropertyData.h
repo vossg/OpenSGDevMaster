@@ -147,6 +147,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyData : public GeoMultiPropertyData
     GeoMultiPropertyData(const GeoMultiPropertyData &source);
 
     void onCreate(const GeoMultiPropertyData *p = NULL);
+    void onDestroy(UInt32 uiContainerId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
