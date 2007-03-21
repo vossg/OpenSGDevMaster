@@ -104,8 +104,7 @@ VRMLFile::VRMLFile(void) :
     _fStack   (),
     _fdStack  (),
 
-    _nameFCMap    (),
-    _nameHelperMap()
+    _nameFCMap    ()
 {
     Self::setReferenceHeader("#VRML V2.0 ");
 
@@ -194,125 +193,37 @@ void VRMLFile::beginNode(const Char8 *szNodeTypename,
                                            _pCurrentFC);
 
 
-#if 0
     if(szNodename != NULL)
     {
         if(pNewNode != NullFC)
         {
-            if(pNewNode->getType().isNode() == true)
+            std::string szKey = szNodename;
+
+            AttachmentContainerPtr pAttC = 
+                cast_dynamic<AttachmentContainerPtr>(pNewNode);
+
+            if(pAttC != NULL)
             {
-#ifdef OSG_DEBUG_VRML
-                indentLog(VRMLNodeDesc::getIndent(), PINFO);
-                PINFO << "Node named : " << szNodename << std::endl;
-#endif
-
-                NodePtr pNode     = cast_dynamic<NodePtr>(pNewNode);
-                NamePtr pNodename = Name::create();
-
-                pNodename->editFieldPtr()->getValue().assign(szNodename);
-
-                pNode->addAttachment(pNodename);
-
-                NameContainerMap::iterator mIt =
-                    _nameFCMap.find(IDStringLink(szNodename));
-
-                if(mIt == _nameFCMap.end())
-                {
-                    _nameFCMap[IDString(szNodename)] = pNewNode;
-
-#ifdef OSG_DEBUG_VRML
-                    indentLog(VRMLNodeDesc::getIndent(), PINFO);
-                    PINFO << "Fieldcontainer " << szNodename
-                          << " added to map " << std::endl;
-#endif
-                }
+                setName(pAttC, szKey);
             }
-            else if(pNewNode->getType().isNodeCore() == true)
+
+
+            NameContainerMap::iterator mIt = _nameFCMap.find(szKey);
+
+            if(mIt == _nameFCMap.end())
             {
-#ifdef OSG_DEBUG_VRML
-                indentLog(VRMLNodeDesc::getIndent(), PINFO);
-                PINFO << "Nodecore named : " << szNodename << std::endl;
-#endif
-                NodeCorePtr pNodeCore = cast_dynamic<NodeCorePtr>(pNewNode);
-                NamePtr     pNodename = Name::create();
-
-                pNodename->editFieldPtr()->getValue().assign(szNodename);
-                pNodeCore->addAttachment(pNodename);
-
-                NameContainerMap::iterator mIt =
-                    _nameFCMap.find(IDStringLink(szNodename));
-
-                if(mIt == _nameFCMap.end())
-                {
-                    _nameFCMap[IDString(szNodename)] = pNewNode;
-
-#ifdef OSG_DEBUG_VRML
-                    indentLog(VRMLNodeDesc::getIndent(), PINFO);
-                    PINFO << "Fieldcontainer " << szNodename
-                          << " added to map " << std::endl;
-#endif
-                }
+                _nameFCMap[szKey] = pNewNode;
             }
             else
             {
-#ifdef OSG_DEBUG_VRML
-                indentLog(VRMLNodeDesc::getIndent(), PINFO);
-                PINFO << "Fieldcontainer " << szNodeTypename
-                      << " is neither node nor nodecore " << std::endl;
-#endif
-
-                NameContainerMap::iterator mIt =
-                    _nameFCMap.find(IDStringLink(szNodename));
-
-                if(mIt == _nameFCMap.end())
-                {
-                    _nameFCMap[IDString(szNodename)] = pNewNode;
-
-#ifdef OSG_DEBUG_VRML
-                    indentLog(VRMLNodeDesc::getIndent(), PINFO);
-                    PINFO << "Fieldcontainer " << szNodename
-                          << " added to map " << std::endl;
-#endif
-                }
-
+                PWARNING << "Did not add fieldContainer with name "
+                         << szKey
+                         << " a second time"
+                         << std::endl;
             }
 
-            _nameDescMap[IDString(szNodename)] = _pCurrNodeDesc;
-
-#ifdef OSG_DEBUG_VRML
-            indentLog(VRMLNodeDesc::getIndent(), PINFO);
-            PINFO << "Desc for "
-                  << szNodename
-                  << " added to map "
-                  << std::endl;
-#endif
-        }
-        else
-        {
-#ifdef OSG_DEBUG_VRML
-            indentLog(VRMLNodeDesc::getIndent(), PINFO);
-            PINFO << "Fieldcontainer "
-                  << szNodeTypename
-                  << "is empty, save on end "
-                  << std::endl;
-#endif
-
-            if(_pCurrNodeDesc != NULL)
-                _pCurrNodeDesc->setOnEndSave(szNodename);
-
-            _nameDescMap[IDString(szNodename)] = _pCurrNodeDesc;
-
-#ifdef OSG_DEBUG_VRML
-            indentLog(VRMLNodeDesc::getIndent(), PINFO);
-            PINFO << "Desc for "
-                  << szNodename
-                  << " added to map "
-                  << std::endl;
-#endif
         }
     }
-
-#endif
 
     if(pOldHelper != NULL)
     {
@@ -358,28 +269,6 @@ void VRMLFile::endNode(void)
     }
 
     _pCurrNodeHelper->endNode(_pCurrentFC);
-
-#if 0
-    if(_pCurrNodeDesc->getOnEndSave() == true)
-    {
-        SLOG << "Fieldcontainer " <<  _pCurrNodeDesc->getSavename()
-             << " on end Save " << std::endl;
-
-        NameContainerMap::iterator mIt =
-            _nameFCMap.find(IDStringLink(_pCurrNodeDesc->getSavename()));
-
-        if(mIt == _nameFCMap.end())
-        {
-            _nameFCMap[IDString(_pCurrNodeDesc->getSavename())] =
-                _pCurrNodeDesc->getSaveFieldContainer();
-
-            SLOG << "Fieldcontainer " << _pCurrNodeDesc->getSavename()
-                 << " added to map " << std::endl;
-        }
-
-        _pCurrNodeDesc->clearOnEndSave();
-    }
-#endif
 
     _sNodeHelpers.pop();
 
@@ -610,8 +499,6 @@ void VRMLFile::use(const Char8 *szName)
     VRMLNodeHelper::incIndent();
 #endif
 
-#if 0
-
     pUsedFC = findReference(szName);
 
     if(pUsedFC == NullFC)
@@ -624,36 +511,20 @@ void VRMLFile::use(const Char8 *szName)
     {
         // assign nodepointer to current sf|mf field
 
-        VRMLNodeDesc *pDesc = NULL;
-
-        NameDescriptionMap::iterator mIt         =
-            _nameDescMap.find(IDStringLink(szName));
-
-        if(mIt != _nameDescMap.end())
+        if(_pCurrNodeHelper != NULL)
         {
-            pDesc = mIt->second;
-        }
-
-        if(pUsedFC->getType().isNode())
-        {
-            NodePtr pRootNode = cast_dynamic<NodePtr>(pUsedFC);
-
-            pUsedFC = cloneTree(pRootNode);
-        }
-
-        if(pDesc != NULL)
-        {
-            if(pDesc->use(pUsedFC) == false)
+            if(pUsedFC->getType().isNode())
             {
-                setContainerFieldValue(pUsedFC);
+                NodePtr pRootNode = cast_dynamic<NodePtr>(pUsedFC);
+                
+                pUsedFC = cloneTree(pRootNode);
             }
-        }
-        else
-        {
-            setContainerFieldValue(pUsedFC);
+            
+            _pCurrNodeHelper->setContainerFieldValue( pUsedFC,
+                                                     _pCurrentFieldDesc,
+                                                     _pCurrentFieldFC  );
         }
     }
-#endif
 
 #ifdef OSG_DEBUG_VRML
     VRMLNodeHelper::decIndent();
@@ -1056,9 +927,9 @@ FieldContainerPtr VRMLFile::findReference(const Char8 *szName)
     // search reference in this file
     FieldContainerPtr          returnValue = NullFC;
 
-#if 0
-    NameContainerMap::iterator mIt         =
-        _nameFCMap.find(IDStringLink(szName));
+    std::string                szKey       = szName;
+
+    NameContainerMap::iterator mIt         = _nameFCMap.find(szKey);
 
     if(mIt != _nameFCMap.end())
     {
@@ -1073,19 +944,9 @@ FieldContainerPtr VRMLFile::findReference(const Char8 *szName)
             returnValue = findFCByName(szName, _pLightRoot);
         }
     }
-#endif
 
     return returnValue;
 }
 
-void VRMLFile::setContainerFieldValue(const FieldContainerPtr &pFC)
-{
-    if(_pCurrNodeHelper != NULL)
-    {
-        _pCurrNodeHelper->setContainerFieldValue( pFC,
-                                                 _pCurrentFieldDesc,
-                                                 _pCurrentFieldFC);
-    }
-}
 
 #include "OSGVRMLProtos.inl"

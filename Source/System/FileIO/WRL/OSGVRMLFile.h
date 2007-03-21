@@ -160,8 +160,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     /*=========================  PROTECTED  ===============================*/
   protected:
 
-    typedef std::map  <IDString, FieldContainerPtr > NameContainerMap;
-    typedef std::map  <IDString, VRMLNodeHelper   *> NameHelperMap;
+    typedef std::map<std::string, FieldContainerPtr> NameContainerMap;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -184,8 +183,7 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
     std::stack<      Field                *>  _fStack;
     std::stack<const FieldDescriptionBase *>  _fdStack;
 
-               NameContainerMap               _nameFCMap;
-               NameHelperMap                  _nameHelperMap;
+    NameContainerMap                          _nameFCMap;
 
 
     void              initIntExtFieldTypeMapper(void);
@@ -193,8 +191,6 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 
     FieldContainerPtr findFCByName             (const Char8  *szName,
                                                       NodePtr pNode);
-
-    void              setContainerFieldValue   (const FieldContainerPtr &pFC);
 
     FieldContainerPtr findReference            (const Char8 *szName);
 
