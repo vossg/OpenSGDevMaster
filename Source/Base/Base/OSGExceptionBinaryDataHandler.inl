@@ -569,7 +569,7 @@ void ExceptionBinaryDataHandler::getValue(Real128 &value) throw (ReadError)
 inline 
 void ExceptionBinaryDataHandler::getValue(std::string &value) throw (ReadError)
 {
-    UInt32  len;
+    UInt32  len(0);
     Char8  *str = NULL;
 
     getValue(len);
