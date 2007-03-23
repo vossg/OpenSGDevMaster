@@ -263,12 +263,12 @@ bool OSG::Window::terminate(void)
 #ifndef OSG_WINCE
     if(_staticWindowLock != NULL)
     {
-        _staticWindowLock->subRef();
+        OSG::subRef(_staticWindowLock);
     }
 
     if(_GLObjectLock != NULL)
     {
-        _GLObjectLock->subRef();
+        OSG::subRef(_GLObjectLock);
     }
 #endif
 

@@ -67,10 +67,6 @@ struct PointerFuncs
     template <class PtrT> 
     static void shallowSubRef (const PtrT objectP);
 
-    template <class PtrT>
-    static void setRefd(      PtrT &pTarget, 
-                        const PtrT  pSource);
-
     template <class PtrT> 
     static void beginEdit(const PtrT      objectP,
                                 BitVector whichField,
@@ -110,10 +106,6 @@ struct CPointerFuncs
     template <class PtrT> 
     static void shallowSubRef (const PtrT objectP);
 
-    template <class PtrT, class ConstPtrT>
-    static void setRefd(     PtrT &pTarget, 
-                        ConstPtrT  pSource);
-
     template <class PtrT> 
     static void beginEdit(const PtrT      objectP,
                                 BitVector whichField,
@@ -147,7 +139,7 @@ struct CPointerFuncs
 
 #ifdef OSG_FIELDBUNDLE
 inline
-void addRef(FieldBundlePConst      objectP);
+void addRef(FieldBundlePConst objectP);
 #endif
 
 inline
@@ -163,7 +155,7 @@ void addRef(ParentFieldContainerPtrConst objectP);
 
 #ifdef OSG_FIELDBUNDLE
 inline
-void subRef(FieldBundlePConst      objectP);
+void subRef(FieldBundlePConst objectP);
 #endif
 
 inline

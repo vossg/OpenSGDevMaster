@@ -151,8 +151,8 @@ Light::Light(const Light &source) :
 
 Light::~Light(void)
 {
-    subRef(_pChunk     );
-    subRef(_pEngineData);
+    OSG::subRef(_pChunk     );
+    OSG::subRef(_pEngineData);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -178,11 +178,7 @@ Action::ResultE Light::renderLeave(Action *action)
 
 void Light::setLightEngineData(LightEngineData *pData)
 {
-    addRef( pData      );
-    subRef(_pEngineData);
-
-    _pEngineData = pData;
-    
+    OSG::setRefd(_pEngineData, pData);
 }
 
 /*-------------------------------------------------------------------------*/

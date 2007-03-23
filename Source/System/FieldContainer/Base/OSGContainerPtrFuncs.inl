@@ -54,23 +54,6 @@ void PointerFuncs::subRef(const PtrT objectP)
         objectP->subReference();
 }
 
-
-template <class PtrT> inline
-void PointerFuncs::setRefd(      PtrT &pTarget, 
-                           const PtrT  pSource)
-{
-    if(pTarget != pSource)
-    {
-        if(pTarget != NilP)
-            pTarget->subReference();
- 
-        pTarget = pSource;
- 
-        if(pTarget != NilP)
-            pTarget->addReference();
-    }
-}
-
 template <class PtrT> inline
 void PointerFuncs::beginEdit(const PtrT     ,
                                    BitVector,
@@ -150,22 +133,6 @@ void CPointerFuncs::subRef(const PtrT objectP)
 {
     if(objectP != NullFC)
         objectP.subReference();
-}
-
-template <class PtrT, class ConstPtrT> inline
-void CPointerFuncs::setRefd(     PtrT &pTarget, 
-                            ConstPtrT  pSource)
-{
-    if(pTarget != pSource)
-    {
-        if(pTarget != NullFC)
-            pTarget.subReference();
- 
-        pTarget = pSource;
- 
-        if(pTarget != NullFC)
-            pTarget.addReference  ();
-    }
 }
 
 template <class PtrT> inline
@@ -263,6 +230,7 @@ typename Ptr::StoredObject *CPointerFuncs::getCPtr(Ptr pObject)
     return pObject.getCPtr();
 }
 
+
 #ifdef OSG_FIELDBUNDLE
 inline
 void addRef(FieldBundlePConst objectP)
@@ -344,13 +312,10 @@ template <class StoreT, class SourceT> inline
 void setRefd(StoreT  &pTarget,
              SourceT  pSource)
 {
-    typedef typename 
-        boost::mpl::if_<
-            boost::mpl::bool_<boost::is_pointer<SourceT>::value>,
-            PointerFuncs,
-            CPointerFuncs         >::type Functions;
-
-    Functions::setRefd(pTarget, pSource);
+    OSG::addRef(pSource);
+    OSG::subRef(pTarget);
+    
+    pTarget = pSource;
 }
 
 #ifndef OSG_DISABLE_DEPRECATED

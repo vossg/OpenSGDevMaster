@@ -729,7 +729,7 @@ RemoteAspect::clStoreMap &RemoteAspect::getStore(void)
 
 void RemoteAspect::setStatistics(StatCollector *statistics)
 {
-    _statistics = statistics;
+    OSG::setRefd(_statistics, statistics);
 }
 
 /*-------------------------------------------------------------------------*/
