@@ -125,7 +125,6 @@ DrawActionBase::DrawActionBase(void) :
     _window        (NULL  ),
     _viewport      (NULL  ),
     _statistics    (NULL  ),
-    _ownStat       (false ),
     _frustumCulling(true  ),
     _volumeDrawing (false ),
     _autoFrustum   (true  ),
@@ -145,8 +144,6 @@ DrawActionBase::DrawActionBase(const DrawActionBase &source) :
     _background    (source._background     ),
     _window        (source._window         ),
     _viewport      (source._viewport       ),
-    _statistics    (source._statistics     ),
-    _ownStat       (source._ownStat        ),
     _frustumCulling(source._frustumCulling ),
     _volumeDrawing (source._volumeDrawing  ),
     _autoFrustum   (source._autoFrustum    ),
@@ -157,6 +154,8 @@ DrawActionBase::DrawActionBase(const DrawActionBase &source) :
     _pDrawEnv      (NULL                   )
 {
     _pDrawEnv = new DrawEnv;
+
+    OSG::setRefd(_statistics, source._statistics);
 }
 
 /** \brief Destructor
@@ -166,13 +165,7 @@ DrawActionBase::~DrawActionBase(void)
 {
     delete _pDrawEnv;
 
-#if 0 // Altered for last frame time
-
-#else
-  if (_ownStat) {
-     delete _statistics;
-  }
-#endif
+    OSG::subRef(_statistics);
 }
 
 /*------------------------------ start -----------------------------------*/
@@ -206,32 +199,32 @@ ActionBase::ResultE DrawActionBase::start(void)
     if(_statistics == NULL)
     {
         _statistics = StatCollector::create();
+
+        OSG::addRef(_statistics);
+
         _ownStat = true;
     }
     else
     {
         _ownStat = false;        
     }
-#else
-    if(_statistics == NULL)
-    {
-        _statistics = StatCollector::create();
-        _ownStat = true;
-    }
 #endif
 
-    getStatistics()->getElem(statTravTime)->start();
-    getStatistics()->getElem(statCullTestedNodes)->reset();
-    getStatistics()->getElem(statCulledNodes)->reset();
-   
-    // this really doesn't belong here, but don't know a better place to put it
-    if(getStatistics()->getElem(Drawable::statNTriangles,false))
+    if(_statistics != NULL)
     {
-        getStatistics()->getElem(Drawable::statNTriangles )->set(0);
-        getStatistics()->getElem(Drawable::statNLines     )->set(0);
-        getStatistics()->getElem(Drawable::statNPoints    )->set(0);
-        getStatistics()->getElem(Drawable::statNVertices  )->set(0);
-        getStatistics()->getElem(Drawable::statNPrimitives)->set(0);
+        _statistics->getElem(statTravTime)->start();
+        _statistics->getElem(statCullTestedNodes)->reset();
+        _statistics->getElem(statCulledNodes)->reset();
+        
+        // this really doesn't belong here, but don't know a better place to put it
+        if(_statistics->getElem(Drawable::statNTriangles,false))
+        {
+            _statistics->getElem(Drawable::statNTriangles )->set(0);
+            _statistics->getElem(Drawable::statNLines     )->set(0);
+            _statistics->getElem(Drawable::statNPoints    )->set(0);
+            _statistics->getElem(Drawable::statNVertices  )->set(0);
+            _statistics->getElem(Drawable::statNPrimitives)->set(0);
+        }
     }
 
     return Action::Continue;
@@ -239,24 +232,21 @@ ActionBase::ResultE DrawActionBase::start(void)
 
 ActionBase::ResultE DrawActionBase::stop(ActionBase::ResultE res)
 {
-    getStatistics()->getElem(statTravTime)->stop();
-  
+    if(_statistics != NULL)
+    {
+        _statistics->getElem(statTravTime)->stop();
+    }
+
 #if 0 // Altered for last frame time
     if(_ownStat)
     {
-        delete _statistics;
+        OSG::subRef(_statistics);
 
         _statistics = NULL;
     }
     else
     {
         _ownStat = false;        
-    }
-#else
-    if(_ownStat)
-    {
-        delete _statistics;
-        _statistics = NULL;
     }
 #endif
         
@@ -285,19 +275,13 @@ void DrawActionBase::setWindow(Window *window)
     _window = window;
 }
 
-void DrawActionBase::setStatistics(StatCollector *statistics)
+void DrawActionBase::setStatCollector(StatCollector *statistics)
 {
 #if 0 // Altered for last frame time
-    _statistics = statistics;
+    OSG::setRefd(_statistics, statistics);
     _ownStat    = false;
 #else
-    if(_ownStat == true) 
-    {
-       delete _statistics;
-    }
-
-    _statistics = statistics;
-    _ownStat    = false;
+    OSG::setRefd(_statistics, statistics);
 #endif
 }
 
@@ -367,23 +351,4 @@ UInt32 DrawActionBase::selectVisibles(void)
     }
 
     return count;
-}
-
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGDRAWACTIONBASE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGDRAWACTIONBASE_INLINE_CVSID;
 }

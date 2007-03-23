@@ -498,34 +498,38 @@ void updateFace()
 
     // Update information on the screen
     family = face->getFamily();
-    statfg->editCollector().getElem(familyDesc)->set(family);
-    filename = family;
-    string::size_type i;
-    for (i = 0; i < filename.size(); )
-        if (isalnum(filename[i]) == false)
-            filename.erase(i, 1);
-        else
-            ++i;
-    style = face->getStyle();
-    StatStringElem *statElem = statfg->editCollector().getElem(styleDesc);
-    switch (style)
+
+    if(statfg->getCollector() != NULL)
     {
-        case TextFace::STYLE_PLAIN:
-            statElem->set("Plain");
-            filename.append("-Plain.txf");
-            break;
-        case TextFace::STYLE_BOLD:
-            statElem->set("Bold");
-            filename.append("-Bold.txf");
-            break;
-        case TextFace::STYLE_ITALIC:
-            statElem->set("Italic");
-            filename.append("-Italic.txf");
-            break;
-        case TextFace::STYLE_BOLDITALIC:
-            statElem->set("Bold & Italic");
-            filename.append("-BoldItalic.txf");
-            break;
+        statfg->getCollector()->getElem(familyDesc)->set(family);
+        filename = family;
+        string::size_type i;
+        for (i = 0; i < filename.size(); )
+            if (isalnum(filename[i]) == false)
+                filename.erase(i, 1);
+            else
+                ++i;
+        style = face->getStyle();
+        StatStringElem *statElem = statfg->getCollector()->getElem(styleDesc);
+        switch (style)
+        {
+            case TextFace::STYLE_PLAIN:
+                statElem->set("Plain");
+                filename.append("-Plain.txf");
+                break;
+            case TextFace::STYLE_BOLD:
+                statElem->set("Bold");
+                filename.append("-Bold.txf");
+                break;
+            case TextFace::STYLE_ITALIC:
+                statElem->set("Italic");
+                filename.append("-Italic.txf");
+                break;
+            case TextFace::STYLE_BOLDITALIC:
+                statElem->set("Bold & Italic");
+                filename.append("-BoldItalic.txf");
+                break;
+        }
     }
     glutSetMenu(mainMenuID);
     glutChangeToMenuEntry(8, (string("Write to ") + filename).c_str(), COMMAND_WRITE_TO_FILE);
@@ -550,11 +554,14 @@ const char *alignmentToString(TextLayoutParam::Alignment alignment)
 
 void updateScene()
 {
-    statfg->editCollector().getElem(majorAlignDesc)->set(alignmentToString(layoutParam.majorAlignment));
-    statfg->editCollector().getElem(minorAlignDesc)->set(alignmentToString(layoutParam.minorAlignment));
-    statfg->editCollector().getElem(dirDesc)->set(layoutParam.horizontal ? "Horizontal" : "Vertical");
-    statfg->editCollector().getElem(horiDirDesc)->set(layoutParam.leftToRight ? "Left to right" : "Right to left");
-    statfg->editCollector().getElem(vertDirDesc)->set(layoutParam.topToBottom ? "Top to bottom" : "Bottom to top");
+    if(statfg->getCollector() != NULL)
+    {
+        statfg->getCollector()->getElem(majorAlignDesc)->set(alignmentToString(layoutParam.majorAlignment));
+        statfg->getCollector()->getElem(minorAlignDesc)->set(alignmentToString(layoutParam.minorAlignment));
+        statfg->getCollector()->getElem(dirDesc)->set(layoutParam.horizontal ? "Horizontal" : "Vertical");
+        statfg->getCollector()->getElem(horiDirDesc)->set(layoutParam.leftToRight ? "Left to right" : "Right to left");
+        statfg->getCollector()->getElem(vertDirDesc)->set(layoutParam.topToBottom ? "Top to bottom" : "Bottom to top");
+    }
 
     if(face == NULL)
         return;

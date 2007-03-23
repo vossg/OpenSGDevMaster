@@ -191,11 +191,16 @@ void display(void)
             
             for(int i = 0; nvStatElems[i] != NULL; ++i)
             {
-                sprintf(str, "%s: %f", nvStatElems[i]->getDescription().str(),
-                         nvDataProvider->value(i)); 
-                StatStringElem *e = dynamic_cast<StatStringElem*>(
-                                        collector->getElem(*nvStatElems[i]));  
-                e->set(str);
+                if(collector != NULL)
+                {
+                    sprintf(str, "%s: %f", nvStatElems[i]->getDescription().str(),
+                            nvDataProvider->value(i)); 
+
+                    StatStringElem *e = dynamic_cast<StatStringElem*>(
+                        collector->getElem(*nvStatElems[i]));  
+
+                    e->set(str);
+                }
             }
         }
         
@@ -317,7 +322,10 @@ void motion(int x, int y)
 
 void initElements(void)
 {
-    collector->clearElems();
+    if(collector != NULL)
+    {
+        collector->clearElems();
+    }
 
     // add optional elements
 //    collector->getElem(Drawable::statNTriangles);
@@ -796,10 +804,10 @@ int main(int argc, char **argv)
     statfg->addElement(OcclusionCullingTreeBuilder::statNOccTriangles, 
                        "Triangles culled: %d");
    
-    collector = &statfg->editCollector();
+    collector = statfg->getCollector();
 
-    tact->setStatistics(collector);
-    act ->setStatistics(collector);
+    tact->setStatCollector(collector);
+    act ->setStatCollector(collector);
 
     mgr->setAction(tact);
     mgr->setAction( act);

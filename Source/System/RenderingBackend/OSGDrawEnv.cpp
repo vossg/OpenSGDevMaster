@@ -81,7 +81,8 @@ DrawEnv::DrawEnv(void) :
     _pActiveStateOverride   (NULL ),
     _uiNumStateChanges      (0    ),
     _uiNumShaderChanges     (0    ),
-    _uiNumShaderParamChanges(0    )
+    _uiNumShaderParamChanges(0    ),
+    _pStatCollector         (NULL )
 {
     _cameraFullProjection   .setIdentity();
     _cameraProjection       .setIdentity();
@@ -538,37 +539,3 @@ void DrawEnv::deactivate(State         *pState,
     }
 }
 
-/** Return the stat collector for the currently active traversal.
- * If RTAction() != NULL, returns RTAction->getStatistics()
- * else if RACtion() != NULL, returns RAction->getStatistics()
- */
-/*
-StatCollector* DrawEnv::getStatistics(void)
-{
-    StatCollector* coll(NULL);
-    if(NULL != getRTAction())
-    { coll = getRTAction()->getStatistics();  }
-    else if(NULL != getRAction())
-    { coll = getRAction()->getStatistics();  }
-
-    return coll;
-}
-*/
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGDRAWENV_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGDRAWENV_INLINE_CVSID;
-}

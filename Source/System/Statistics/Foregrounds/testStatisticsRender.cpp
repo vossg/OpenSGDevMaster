@@ -72,7 +72,10 @@ void motion(int x, int y)
 
 void initElements(void)
 {
-    collector->clearElems();
+    if(collector != NULL)
+    {
+        collector->clearElems();
+    }
 
     // add optional elements
 //    collector->getElem(Drawable::statNTriangles);
@@ -95,8 +98,8 @@ void setStatMethod(StatMethod method)
     {
         std::cerr << "Setting to custom stats.\n";
         pwin->getPort(0)->addForeground(statfg);
-        act->setStatistics(collector);
-        tact->setStatistics(collector);
+        act ->setStatCollector(collector);
+        tact->setStatCollector(collector);
     }
     else if(method == USE_SIMPLE)
     {
@@ -317,15 +320,15 @@ int main(int argc, char **argv)
     statfg->addElement(RenderAction::statNTexBytes, "%d bytes of texture used");
 #endif
 
-    collector = &statfg->editCollector();
+    collector = statfg->getCollector();
 
     mgr->setUseTraversalAction(true);
 
     tact = RenderTraversalAction::create();
     act  = RenderAction::create();
 
-    tact->setStatistics(collector);
-    act ->setStatistics(collector);
+    tact->setStatCollector(collector);
+    act ->setStatCollector(collector);
 
     mgr->setAction(tact);
     mgr->setAction( act);

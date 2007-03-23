@@ -125,7 +125,11 @@ Action::ResultE SpotLight::renderEnter(Action *action)
         return Action::Continue;
 
     DrawActionBase *da    = dynamic_cast<DrawActionBase *>(action);
-    da->getStatistics()->getElem(SpotLight::statNSpotLights)->inc();
+
+    if(da->getStatCollector() != NULL)
+    {
+        da->getStatCollector()->getElem(SpotLight::statNSpotLights)->inc();
+    }
 
     return PointLight::renderEnter(action);
 }

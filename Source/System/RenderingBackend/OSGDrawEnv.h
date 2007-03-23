@@ -59,7 +59,6 @@ class Viewport;
 class State;
 class StateOverride;
 
-
 /*! \ingroup GrpSystemRenderingBackend
 */
 
@@ -119,7 +118,15 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
           Window        *getWindow               (void         ) const;
 
           GLenum         getActiveTexTarget      (UInt32 uiSlot) const;
-          //StatCollector *getStatistics           (void         );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void           setStatCollector(StatCollector *pStatCollector);
+    StatCollector *getStatCollector(void                         );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
@@ -228,6 +235,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     UInt32         _uiNumStateChanges;
     UInt32         _uiNumShaderChanges;
     UInt32         _uiNumShaderParamChanges;
+    StatCollector *_pStatCollector;
 
     GLenum         _aActiveTexTargets[osgMaxTexImages];
 
@@ -277,7 +285,5 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 OSG_END_NAMESPACE
 
 #include "OSGDrawEnv.inl"
-
-#define OSGDRAWENV_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGDRAWENV_H_ */

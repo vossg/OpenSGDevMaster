@@ -362,6 +362,7 @@ void SimpleSceneManager::setAction(RenderTraversalAction *action)
     }
 
     _rtaction = action;
+
     if(statstate)
         setStatistics(true);
 }
@@ -449,14 +450,16 @@ void SimpleSceneManager::setStatistics(bool on)
         if(on)
         {
             vp->addForeground(_statforeground);
-            _renderAction->setStatistics(&_statforeground->editCollector());
-            _rtaction->setStatistics(&_statforeground->editCollector());
+
+            _renderAction->setStatCollector(_statforeground->getCollector());
+            _rtaction    ->setStatCollector(_statforeground->getCollector());
         }
         else
         {
             vp->removeFromForegrounds(_statforeground);
-            _renderAction->setStatistics(NULL);
-            _rtaction->setStatistics(NULL);
+
+            _renderAction->setStatCollector(NULL);
+            _rtaction    ->setStatCollector(NULL);
         }
 
         _statstate = on;
@@ -552,9 +555,12 @@ void SimpleSceneManager::initialize(void)
         sf->addElement(Drawable::statNLines,        " lines: %d");
         sf->addElement(Drawable::statNPoints,       "points: %d");
         sf->addElement(Drawable::statNVertices,     " verts: %d");
-
-        // add optional elements
-        sf->editCollector().getElem(Drawable::statNTriangles);
+        
+        if(sf->getCollector() != NULL)
+        {
+            // add optional elements
+            sf->getCollector()->getElem(Drawable::statNTriangles);
+        }
 #else
         // Render action
         sf->addElement(RenderAction::statDrawTime,      "Draw FPS: %r.3f");
@@ -586,8 +592,11 @@ void SimpleSceneManager::initialize(void)
         sf->addElement(RenderAction::statNTextures, "%d textures used");
         sf->addElement(RenderAction::statNTexBytes, "%d bytes of texture used");
 
-        // add optional elements
-        sf->editCollector().getElem(Drawable::statNTriangles);
+        if(sf->getCollector() != NULL)
+        {
+            // add optional elements
+            sf->editCollector()->getElem(Drawable::statNTriangles);
+        }
 #endif
 
         _statforeground = sf;

@@ -75,13 +75,15 @@ OSG_USING_NAMESPACE
  -  public                                                                -
 \*-------------------------------------------------------------------------*/
 
-StatCollector::StatCollector(void)
+StatCollector::StatCollector(void) :
+    Inherited()
 {
     refitElemNum();
 }
 
 StatCollector::StatCollector(const StatCollector &source) :
-    _elemVec()
+     Inherited(source),
+    _elemVec  (      )
 {
     _elemVec.resize(source._elemVec.size());
 
@@ -340,30 +342,12 @@ OSG_BEGIN_NAMESPACE
 
 /*-------------------------- field instantiations -------------------------*/
 
-DataType FieldTraits<StatCollector>::_type("StatCollector",
-                                           "TypeRoot");
+DataType FieldTraits<StatCollectorP>::_type("StatCollectorP",
+                                            "TypeRoot");
 
 #endif
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, StatCollector);
+OSG_FIELD_DLLEXPORT_DEF1(SField, StatCollectorP);
 
 OSG_END_NAMESPACE
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGSTATCOLLECTOR_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGSTATCOLLECTOR_INLINE_CVSID;
-}
 

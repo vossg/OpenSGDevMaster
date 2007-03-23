@@ -155,5 +155,3 @@ T *StatCollector::getElem(StatElemDesc<T> &desc, bool create)
 }
 
 OSG_END_NAMESPACE
-
-#define OSGSTATCOLLECTOR_INLINE_CVSID "@(#)$Id$"

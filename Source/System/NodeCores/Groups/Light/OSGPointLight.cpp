@@ -148,7 +148,10 @@ Action::ResultE PointLight::renderEnter(Action *action)
 
     DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
 
-    da->getStatistics()->getElem(PointLight::statNPointLights)->inc();
+    if(da->getStatCollector() != NULL)
+    {
+        da->getStatCollector()->getElem(PointLight::statNPointLights)->inc();
+    }
 
     return Light::renderEnter(action);
 }

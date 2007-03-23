@@ -103,7 +103,7 @@ OSG_BEGIN_NAMESPACE
     The StatElemDesc IDs to use. If not set, use all in the descriptor.
 */
 
-/*! \var StatCollector   StatisticsForegroundBase::_sfCollector
+/*! \var StatCollectorP  StatisticsForegroundBase::_sfCollector
     The OSG::StatCollector that keeps the displayed statistics.
 */
 
@@ -136,13 +136,13 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 #ifdef OSG_1_COMPAT
-    typedef const SFStatCollector *(StatisticsForegroundBase::*GetSFCollectorF)(void) const;
+    typedef const SFStatCollectorP *(StatisticsForegroundBase::*GetSFCollectorF)(void) const;
 
     GetSFCollectorF GetSFCollector = &StatisticsForegroundBase::getSFCollector;
 #endif
 
-    pDesc = new SFStatCollector::Description(
-        SFStatCollector::getClassType(),
+    pDesc = new SFStatCollectorP::Description(
+        SFStatCollectorP::getClassType(),
         "collector",
         "The OSG::StatCollector that keeps the displayed statistics.\n",
         CollectorFieldId, CollectorFieldMask,
@@ -212,7 +212,7 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"collector\"\n"
-    "\t\ttype=\"StatCollector\"\n"
+    "\t\ttype=\"StatCollectorP\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -282,20 +282,20 @@ MFInt32             *StatisticsForegroundBase::getMFElementIDs     (void)
 }
 #endif
 
-SFStatCollector *StatisticsForegroundBase::editSFCollector(void)
+SFStatCollectorP *StatisticsForegroundBase::editSFCollector(void)
 {
     editSField(CollectorFieldMask);
 
     return &_sfCollector;
 }
 
-const SFStatCollector *StatisticsForegroundBase::getSFCollector(void) const
+const SFStatCollectorP *StatisticsForegroundBase::getSFCollector(void) const
 {
     return &_sfCollector;
 }
 
 #ifdef OSG_1_COMPAT
-SFStatCollector     *StatisticsForegroundBase::getSFCollector      (void)
+SFStatCollectorP    *StatisticsForegroundBase::getSFCollector      (void)
 {
     return this->editSFCollector      ();
 }

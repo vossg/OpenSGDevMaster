@@ -139,21 +139,9 @@ const FrustumVolume& DrawActionBase::getFrustum(void) const
 }
     
 inline
-StatCollector* DrawActionBase::getStatistics(void) 
+StatCollector* DrawActionBase::getStatCollector(void) 
 {
-    if(_statistics == NULL)
-    {
-        _statistics = StatCollector::create();
-        _ownStat = true;
-    }
-
     return _statistics;
-}
-
-inline
-bool DrawActionBase::hasOwnStat(void)
-{
-    return _ownStat;
 }
 
 inline 
@@ -191,5 +179,3 @@ DrawEnv *DrawActionBase::getDrawEnv(void) const
 \*-------------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
-
-#define OSGDRAWACTIONBASE_INLINE_CVSID "@(#)$Id$"

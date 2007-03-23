@@ -170,41 +170,46 @@ void updateFace()
 
     // Update information on the screen
     family = face->getFamily();
-    statfg->editCollector().getElem(familyDesc)->set(family);
-    filename = family;
-    string::size_type i;
-    for (i = 0; i < filename.size(); )
-        if (isalnum(filename[i]) == false)
-            filename.erase(i, 1);
-        else
-            ++i;
-    style = face->getStyle();
-    StatStringElem *statElem = statfg->editCollector().getElem(styleDesc);
-    switch (style)
+
+    if(statfg->getCollector() != NULL)
     {
-        case TextFace::STYLE_PLAIN:
-            statElem->set("Plain");
-            filename.append("-Plain.txf");
-            break;
-        case TextFace::STYLE_BOLD:
-            statElem->set("Bold");
-            filename.append("-Bold.txf");
-            break;
-        case TextFace::STYLE_ITALIC:
-            statElem->set("Italic");
-            filename.append("-Italic.txf");
-            break;
-        case TextFace::STYLE_BOLDITALIC:
-            statElem->set("Bold & Italic");
-            filename.append("-BoldItalic.txf");
-            break;
+        statfg->getCollector()->getElem(familyDesc)->set(family);
+        filename = family;
+        string::size_type i;
+        for (i = 0; i < filename.size(); )
+            if (isalnum(filename[i]) == false)
+                filename.erase(i, 1);
+            else
+                ++i;
+        style = face->getStyle();
+        StatStringElem *statElem = statfg->getCollector()->getElem(styleDesc);
+        switch (style)
+        {
+            case TextFace::STYLE_PLAIN:
+                statElem->set("Plain");
+                filename.append("-Plain.txf");
+                break;
+            case TextFace::STYLE_BOLD:
+                statElem->set("Bold");
+                filename.append("-Bold.txf");
+                break;
+            case TextFace::STYLE_ITALIC:
+                statElem->set("Italic");
+                filename.append("-Italic.txf");
+                break;
+            case TextFace::STYLE_BOLDITALIC:
+                statElem->set("Bold & Italic");
+                filename.append("-BoldItalic.txf");
+                break;
+        }
+        statfg->getCollector()->getElem(sizeDesc)->set(face->getParam().size);
+        statfg->getCollector()->getElem(gapDesc)->set(face->getParam().gap);
+        ImagePtr imagePtr = face->getTexture();
+        ostringstream os;
+        os << imagePtr->getWidth() << 'x' << imagePtr->getHeight();
+        statfg->getCollector()->getElem(textureSizeDesc)->set(os.str());
     }
-    statfg->editCollector().getElem(sizeDesc)->set(face->getParam().size);
-    statfg->editCollector().getElem(gapDesc)->set(face->getParam().gap);
-    ImagePtr imagePtr = face->getTexture();
-    ostringstream os;
-    os << imagePtr->getWidth() << 'x' << imagePtr->getHeight();
-    statfg->editCollector().getElem(textureSizeDesc)->set(os.str());
+
     glutSetMenu(mainMenuID);
     glutChangeToMenuEntry(6, (string("Write to ") + filename).c_str(), COMMAND_WRITE_TO_FILE);
 }

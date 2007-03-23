@@ -505,6 +505,7 @@ Action::ResultE RenderTraversalAction::start(void)
     _pActivePartition->setNodePool       (_pNodePools       [_currentBuffer]);
     _pActivePartition->setStatePool      (_pStatePools      [_currentBuffer]);
     _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
+    _pActivePartition->setStatCollector  (_pStatistics                      );
 
     _pActivePartition->setFrustum        (_oFrustum        );
 
@@ -575,35 +576,45 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
         if(getVolumeDrawing())
             drawVolume(_oFrustum);
 
-        UInt32 uiNMatrix      = 0;
-        UInt32 uiNState       = 0;
-        UInt32 uiNShader      = 0;
-        UInt32 uiNShaderParam = 0;
-        UInt32 uiNTriangles   = 0;
-
-        for(Int32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
+        if(_pStatistics != NULL)
         {
-            uiNMatrix +=
-                _vRenderPartitions[_currentBuffer][i]->getNumMatrixChanges();
+            UInt32 uiNMatrix      = 0;
+            UInt32 uiNState       = 0;
+            UInt32 uiNShader      = 0;
+            UInt32 uiNShaderParam = 0;
+            UInt32 uiNTriangles   = 0;
+            
+            for(Int32 i = 0; 
+                      i < _vRenderPartitions[_currentBuffer].size(); 
+                    ++i)
+            {
+                uiNMatrix +=
+                    _vRenderPartitions[
+                        _currentBuffer][i]->getNumMatrixChanges();
+                
+                uiNState  +=
+                    _vRenderPartitions[
+                        _currentBuffer][i]->getNumStateChanges();
+                
+                uiNShader +=
+                    _vRenderPartitions[
+                        _currentBuffer][i]->getNumShaderChanges();
+                
+                uiNShaderParam +=
+                    _vRenderPartitions[
+                        _currentBuffer][i]->getNumShaderParamChanges();
+                
+                uiNTriangles +=
+                    _vRenderPartitions[_currentBuffer][i]->getNumTriangles();
+            }
 
-            uiNState  +=
-                _vRenderPartitions[_currentBuffer][i]->getNumStateChanges();
 
-            uiNShader +=
-                _vRenderPartitions[_currentBuffer][i]->getNumShaderChanges();
-
-            uiNShaderParam +=
-                _vRenderPartitions[_currentBuffer][i]->getNumShaderParamChanges();
-
-            uiNTriangles +=
-                _vRenderPartitions[_currentBuffer][i]->getNumTriangles();
+            _pStatistics->getElem(statNMatrices    )->set(uiNMatrix     );
+            _pStatistics->getElem(statNStates      )->set(uiNState      );
+            _pStatistics->getElem(statNShaders     )->set(uiNShader     );
+            _pStatistics->getElem(statNShaderParams)->set(uiNShaderParam);
+            _pStatistics->getElem(statNTriangles   )->set(uiNTriangles);
         }
-
-        getStatistics()->getElem(statNMatrices    )->set(uiNMatrix     );
-        getStatistics()->getElem(statNStates      )->set(uiNState      );
-        getStatistics()->getElem(statNShaders     )->set(uiNShader     );
-        getStatistics()->getElem(statNShaderParams)->set(uiNShaderParam);
-        getStatistics()->getElem(statNTriangles   )->set(uiNTriangles);
     }
 
     return Action::Continue;
@@ -611,7 +622,10 @@ Action::ResultE RenderTraversalAction::stop(ResultE res)
 
 void RenderTraversalAction::drawBuffer(UInt32 buf)
 {
-    getStatistics()->getElem(statDrawTime)->start();
+    if(_pStatistics != NULL)
+    {
+        _pStatistics->getElem(statDrawTime)->start();
+    }
 
     _vRenderPartitions[buf][0]->setupExecution();
 
@@ -636,7 +650,10 @@ void RenderTraversalAction::drawBuffer(UInt32 buf)
         glFinish();
     }
 
-    getStatistics()->getElem(statDrawTime)->stop();
+    if(_pStatistics != NULL)
+    {
+        _pStatistics->getElem(statDrawTime)->stop();
+    }
 }
 
 void RenderTraversalAction::dropFunctor(Material::DrawFunctor &func,
@@ -711,6 +728,7 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
     _pActivePartition->setNodePool       (_pNodePools       [_currentBuffer]);
     _pActivePartition->setStatePool      (_pStatePools      [_currentBuffer]);
     _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
+    _pActivePartition->setStatCollector  (_pStatistics                      );
 
     _pActivePartition->initFrom(_sRenderPartitionStack.top(),
                                 _vRenderPartitions[_currentBuffer][0],
@@ -784,208 +802,6 @@ void RenderTraversalAction::setFrustum(FrustumVolume &frust)
     else
         Inherited::setFrustum(frust);
 }
-
-#if 0
-
-// initialisation
-
-Action::ResultE ShadingAction::start(void)
-{
-    Inherited::start();
-
-    if(_window != NULL)
-    {
-        _window->resizeGL();
-    }
-
-    _uiMatrixId = 1;
-
-    _currMatrix.first = 1;
-    _currMatrix.second.setIdentity();
-
-    bool full = true;
-
-    if(_viewport != NULL)
-    {
-        GLint pl  = _viewport->getPixelLeft();
-        GLint pr  = _viewport->getPixelRight();
-        GLint pb  = _viewport->getPixelBottom();
-        GLint pt  = _viewport->getPixelTop();
-
-        GLint pw  = pr - pl + 1;
-        GLint ph  = pt - pb + 1;
-
-        full = _viewport->isFullWindow();
-
-        glViewport(pl, pb, pw, ph);
-
-        if(full == false)
-        {
-            glScissor (pl, pb, pw, ph);
-            glEnable(GL_SCISSOR_TEST);
-        }
-
-        if(_camera != NULL)
-        {
-            _camera->setupProjection(this, *_viewport);
-
-            // set the viewing
-
-            _camera->getViewing(_currMatrix.second,
-                                _viewport->getPixelWidth (),
-                                _viewport->getPixelHeight());
-
-            _camInverse.invertFrom(_currMatrix.second);
-
-            glMatrixMode(GL_MODELVIEW);
-        }
-
-        if(_background != NULL)
-        {
-            _background->clear(this, _viewport);
-        }
-    }
-
-#if 0
-    _mMatMap.clear();
-
-#if defined(OSG_OPT_DRAWTREE)
-    _pNodePool->freeAll();
-#else
-    subRefP(_pRoot);
-    subRefP(_pMatRoot);
-    subRefP(_pTransMatRoot);
-#endif
-
-/*
-    if(_pRoot != NULL)
-    {
-        fprintf(stderr, "CDN %d DDN %d ODN %d ",
-                DrawTreeNode::_iCreateCount,
-                DrawTreeNode::_iDeleteCount,
-                DrawTreeNode::_iCreateCount - DrawTreeNode::_iDeleteCount);
-    }
-    */
-
-    DrawTreeNode::_iCreateCount = 0;
-    DrawTreeNode::_iDeleteCount = 0;
-
-#if defined(OSG_OPT_DRAWTREE)
-    _pRoot = _pNodePool->create();
-#else
-    _pRoot         = new DrawTreeNode;
-    addRefP(_pRoot);
-#endif
-
-#if defined(OSG_OPT_DRAWTREE)
-    _pMatRoot = _pNodePool->create();
-#else
-    _pMatRoot      = new DrawTreeNode;
-
-//    _pRoot->addChild(_pMatRoot);
-    addRefP(_pMatRoot);
-#endif
-
-#if defined(OSG_OPT_DRAWTREE)
-    _pTransMatRoot = _pNodePool->create();
-#else
-    _pTransMatRoot = new DrawTreeNode;
-
-//    _pRoot->addChild(_pTransMatRoot);
-    addRefP(_pTransMatRoot);
-#endif
-
-    _pActiveState   = NULL;
-
-    _uiActiveMatrix = 0;
-
-    _uiNumMaterialChanges = 0;
-    _uiNumMatrixChanges   = 0;
-    _uiNumGeometries      = 0;
-    _uiNumTransGeometries = 0;
-
-    _vLights.clear();
-#endif
-
-    if(_viewport != NULL && full == false)
-    {
-        glDisable(GL_SCISSOR_TEST);
-    }
-
-    return Action::Continue;
-}
-
-Action::ResultE ShadingAction::stop(ResultE res)
-{
-    if(!_ownStat)
-       getStatistics()->getElem(statDrawTime)->start();
-
-#if 0
-    UInt32 i;
-
-//    dump(_pRoot, 0);
-//    dump(_pMatRoot, 0);
-//    dump(_pTransMatRoot, 0);
-
-#if defined(OSG_OPT_DRAWTREE)
-    //    _pNodePool->printStat();
-#endif
-
-    for(i = 0; i < _vLights.size(); i++)
-    {
-        glLoadMatrixf(_vLights[i].second.getValues());
-        _vLights[i].first->activate(this, i);
-    }
-
-    draw(_pMatRoot->getFirstChild());
-
-    if(!_bZWriteTrans)
-        glDepthMask(false);
-
-    draw(_pTransMatRoot->getFirstChild());
-
-    if(!_bZWriteTrans)
-        glDepthMask(true);
-
-    if(_pActiveState != NULL)
-    {
-        _pActiveState->deactivate(this);
-    }
-
-    for(i = 0; i < _vLights.size(); i++)
-    {
-        _vLights[i].first->deactivate(this, i);
-    }
-
-    if(!_ownStat)
-    {
-        glFinish();
-        getStatistics()->getElem(statDrawTime)->stop();
-
-        getStatistics()->getElem(statNMaterials      )->set(
-            _uiNumMaterialChanges);
-        getStatistics()->getElem(statNMatrices       )->set(
-            _uiNumMatrixChanges);
-        getStatistics()->getElem(statNGeometries     )->set(
-            _uiNumGeometries);
-        getStatistics()->getElem(statNTransGeometries)->set(
-            _uiNumTransGeometries);
-    }
-
-
-//    FINFO (("Material %d Matrix %d Geometry %d Transparent %d\r",
-//            _uiNumMaterialChanges,
-//            _uiNumMatrixChanges,
-//            _uiNumGeometries,
-//            _uiNumTransGeometries));
-#endif
-
-    Inherited::stop(res);
-    return res;
-}
-
-#endif
-
 
 
 /*------------------------ Occlusion Culling -----------------------------*/

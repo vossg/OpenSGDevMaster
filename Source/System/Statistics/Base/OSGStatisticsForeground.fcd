@@ -42,7 +42,7 @@ See \guide(Statistics) for further details.
 	</Field>
 	<Field
 		name="collector"
-		type="StatCollector"
+		type="StatCollectorP"
 		cardinality="single"
 		visibility="external"
 		access="public"

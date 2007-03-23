@@ -107,6 +107,15 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForeground :
 
     static void initMethod(InitPhase ePhase);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    void onCreateAspect(const StatisticsForeground *createAspect,
+                        const StatisticsForeground *source      = NULL);
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 

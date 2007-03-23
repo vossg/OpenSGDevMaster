@@ -1142,7 +1142,10 @@ bool RenderAction::isVisible( Node* node )
     if(!_lightEnvsLightsState.empty())
         return true;
 
-    getStatistics()->getElem(statCullTestedNodes)->inc();
+    if(_statistics != NULL)
+    {
+        _statistics->getElem(statCullTestedNodes)->inc();
+    }
 
     DynamicVolume vol;
 
@@ -1159,7 +1162,10 @@ bool RenderAction::isVisible( Node* node )
         return true;
     }
 
-    getStatistics()->getElem(statCulledNodes)->inc();
+    if(_statistics != NULL)
+    {
+        _statistics->getElem(statCulledNodes)->inc();
+    }
 
 // fprintf(stderr,"%p: node 0x%p invis\n", Thread::getCurrent(), node);
 // _frustum.dump();
@@ -1208,13 +1214,21 @@ bool RenderAction::pushVisibility(void)
     frustum.transform(m);
 #endif
 
-    getStatistics()->getElem(statCullTestedNodes)->inc();
+    if(_statistics != NULL)
+    {
+        _statistics->getElem(statCullTestedNodes)->inc();
+    }
 
     if ( !intersect( frustum, vol, inplanes ) )
     {
         result = false;
         col.setValuesRGB(1.f,0.f,0.f);
-        getStatistics()->getElem(statCulledNodes)->inc();
+
+        if(_statistics != NULL)
+        {
+            _statistics->getElem(statCulledNodes)->inc();
+        }
+
         useNodeList(); // ignore all children
     }
     else
@@ -1554,7 +1568,10 @@ void RenderAction::draw(DrawTreeNode *pRoot)
                 foundSmallFeature = isSmallFeature(pRoot->getNode());
                 if(foundSmallFeature)
                 {
-                    getStatistics()->getElem(statCulledNodes)->inc();
+                    if(_statistics != NULL)
+                    {
+                        _statistics->getElem(statCulledNodes)->inc();
+                    }
                 }
             }
 
@@ -1613,7 +1630,10 @@ void RenderAction::draw(DrawTreeNode *pRoot)
                     }
                     else
                     {
-                        getStatistics()->getElem(statCulledNodes)->inc();
+                        if(_statistics != NULL)
+                        {
+                            _statistics->getElem(statCulledNodes)->inc();
+                        }
                     }
                 }
                 else
@@ -1867,7 +1887,10 @@ Action::ResultE RenderAction::start(void)
     _uiNumGeometries      = 0;
     _uiNumTransGeometries = 0;
 
-    getStatistics()->reset();
+    if(_statistics != NULL)
+    {
+        _statistics->reset();
+    }
 
     _vLights.clear();
     _lightsMap.clear();
@@ -1908,7 +1931,10 @@ Action::ResultE RenderAction::stop(ResultE res)
 {
     Inherited::stop(res);
 
-    getStatistics()->getElem(statDrawTime)->start();
+    if(_statistics != NULL)
+    {
+        _statistics->getElem(statDrawTime)->start();
+    }
 
     UInt32 i;
 
@@ -2048,19 +2074,24 @@ Action::ResultE RenderAction::stop(ResultE res)
     if(_useGLFinish)
         glFinish();
 
-    StatTimeElem* elemDraw = getStatistics()->getElem(statDrawTime);
-    elemDraw->stop();
-
-    _viewport->setDrawTime((Real32)elemDraw->getTime());
-    if(!_ownStat)
+    if(_statistics != NULL)
     {
-        getStatistics()->getElem(statNMaterials      )->set(
+        StatTimeElem* elemDraw = _statistics->getElem(statDrawTime);
+
+        elemDraw->stop();
+
+        _viewport->setDrawTime((Real32)elemDraw->getTime());
+
+        _statistics->getElem(statNMaterials      )->set(
             _uiNumMaterialChanges);
-        getStatistics()->getElem(statNMatrices       )->set(
+
+        _statistics->getElem(statNMatrices       )->set(
             _uiNumMatrixChanges);
-        getStatistics()->getElem(statNGeometries     )->set(
+
+        _statistics->getElem(statNGeometries     )->set(
             _uiNumGeometries);
-        getStatistics()->getElem(statNTransGeometries)->set(
+
+        _statistics->getElem(statNTransGeometries)->set(
             _uiNumTransGeometries);
     }
 

@@ -133,9 +133,12 @@ Action::ResultE DirectionalLight::renderEnter(Action *action)
 
     DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
 
-    da->getStatistics()->getElem(
-        DirectionalLight::statNDirectionalLights)->inc();
-    
+    if(da->getStatCollector() != NULL)
+    {
+        da->getStatCollector()->getElem(
+            DirectionalLight::statNDirectionalLights)->inc();
+    }
+
     return Light::renderEnter(action);
 }
 

@@ -92,8 +92,8 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : public Action
           Window        *getWindow       (void                      ) const;
           void           setWindow       (Window        *pWindow    );
     
-          StatCollector *getStatistics   (void                      ) const;
-          void           setStatistics   (StatCollector *pStat      );
+          StatCollector *getStatCollector(void                      ) const;
+          void           setStatCollector(StatCollector *pStat      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -173,7 +173,6 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : public Action
     Viewport      *_pViewport;
 
     StatCollector *_pStatistics;
-    bool           _bOwnStat;
 
     // frustum culling attributes
     
@@ -193,8 +192,6 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : public Action
 };
 
 OSG_END_NAMESPACE
-
-#define OSGRENDERTRAVERSALACTIONBASE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGRenderTraversalActionBase.inl"
 

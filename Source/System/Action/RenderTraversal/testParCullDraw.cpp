@@ -81,7 +81,10 @@ void doDraw(void)
     if(0)
     {
         std::string stats;
-        rentravact->getStatistics()->putToString(stats);
+
+        if(rentravact->getStatCollector() != NULL)
+            rentravact->getStatCollector()->putToString(stats);
+
         std::cout << stats << std::endl;
     }
     

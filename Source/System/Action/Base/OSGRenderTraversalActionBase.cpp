@@ -80,7 +80,6 @@ RenderTraversalActionBase::RenderTraversalActionBase(void) :
     _pWindow        (NULL ),
     _pViewport      (NULL ),
     _pStatistics    (NULL ),
-    _bOwnStat       (false),
     _bFrustumCulling(true ),
     _bVolumeDrawing (false),
     _bAutoFrustum   (true ),
@@ -96,13 +95,13 @@ RenderTraversalActionBase::RenderTraversalActionBase(
     _pBackground    (source._pBackground    ),
     _pWindow        (source._pWindow        ),
     _pViewport      (source._pViewport      ),
-    _pStatistics    (source._pStatistics    ),
-    _bOwnStat       (source._bOwnStat       ),
+    _pStatistics    (NULL                   ),
     _bFrustumCulling(source._bFrustumCulling),
     _bVolumeDrawing (source._bVolumeDrawing ),
     _bAutoFrustum   (source._bAutoFrustum   ),
     _oFrustum       (source._oFrustum       )
 {
+    OSG::setRefd(_pStatistics, source._pStatistics);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -110,10 +109,7 @@ RenderTraversalActionBase::RenderTraversalActionBase(
 
 RenderTraversalActionBase::~RenderTraversalActionBase(void)
 {
-    if(_bOwnStat == true)
-    {
-        delete _pStatistics;
-    }
+    OSG::subRef(_pStatistics);
 }
 
 ActionBase::ResultE RenderTraversalActionBase::start(void)
@@ -126,28 +122,26 @@ ActionBase::ResultE RenderTraversalActionBase::start(void)
         getCamera()->getFrustum(_oFrustum, *getViewport());
     }
 
-    if(_pStatistics == NULL)
+    if(_pStatistics != NULL)
     {
-        _pStatistics = StatCollector::create();
-        _bOwnStat    = true;
-    }
+        _pStatistics->reset();
 
-    _pStatistics->reset();
 
-    getStatistics()->getElem(statTravTime       )->start();
+        _pStatistics->getElem(statTravTime       )->start();
 //    getStatistics()->getElem(statCullTestedNodes)->reset();
 //    getStatistics()->getElem(statCulledNodes    )->reset();
     //getStatistics()->getElem(RenderTraversalAction::statNTextures)->reset();
     //getStatistics()->getElem(RenderTraversalAction::statNTexBytes)->reset();
 
     // this really doesn't belong here, but don't know a better place to put it
-    if(getStatistics()->getElem(Drawable::statNTriangles,false) != NULL)
-    {
-        getStatistics()->getElem(Drawable::statNTriangles )->set(0);
-        getStatistics()->getElem(Drawable::statNLines     )->set(0);
-        getStatistics()->getElem(Drawable::statNPoints    )->set(0);
-        getStatistics()->getElem(Drawable::statNVertices  )->set(0);
-        getStatistics()->getElem(Drawable::statNPrimitives)->set(0);
+        if(_pStatistics->getElem(Drawable::statNTriangles,false) != NULL)
+        {
+            _pStatistics->getElem(Drawable::statNTriangles )->set(0);
+            _pStatistics->getElem(Drawable::statNLines     )->set(0);
+            _pStatistics->getElem(Drawable::statNPoints    )->set(0);
+            _pStatistics->getElem(Drawable::statNVertices  )->set(0);
+            _pStatistics->getElem(Drawable::statNPrimitives)->set(0);
+    }
     }
 
     return Action::Continue;
@@ -155,7 +149,10 @@ ActionBase::ResultE RenderTraversalActionBase::start(void)
 
 ActionBase::ResultE RenderTraversalActionBase::stop(ActionBase::ResultE res)
 {
-    getStatistics()->getElem(statTravTime)->stop();
+    if(_pStatistics != NULL)
+    {
+        _pStatistics->getElem(statTravTime)->stop();
+    }
 
     return res;
 }
@@ -180,15 +177,9 @@ void RenderTraversalActionBase::setWindow(Window *pWindow)
     _pWindow = pWindow;
 }
 
-void RenderTraversalActionBase::setStatistics(StatCollector *pStatistics)
+void RenderTraversalActionBase::setStatCollector(StatCollector *pStatistics)
 {
-    if(_bOwnStat == true)
-    {
-       delete _pStatistics;
-    }
-
-    _pStatistics = pStatistics;
-    _bOwnStat    = false;
+    OSG::setRefd(_pStatistics, pStatistics);
 }
 
 
@@ -261,21 +252,3 @@ UInt32 RenderTraversalActionBase::selectVisibles(void)
     return count;
 }
 #endif
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGRENDERTRAVERSALACTIONBASE_HEADER_CVSID;
-}
-

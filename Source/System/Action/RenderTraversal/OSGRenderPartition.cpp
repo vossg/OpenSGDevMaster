@@ -173,7 +173,6 @@ RenderPartition::RenderPartition(Mode eMode) :
     _iPixelTop               (     1),
     _bFull                   (  true),
 
-    _oStatistics             (      ),
     _uiNumMatrixChanges      (     0),
     _uiNumTriangles          (     0),
     _visibilityStack         (      ),
@@ -467,8 +466,12 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 
     st->validate();
 
-    _oStatistics.getElem(RenderTraversalAction::statNTriangles)->
-        add(st->getTriangles());
+    if(_oDrawEnv.getStatCollector() != NULL)
+    {
+        _oDrawEnv.getStatCollector()->getElem(
+            RenderTraversalAction::statNTriangles)->add(st->getTriangles());
+    }
+
     _uiNumTriangles += st->getTriangles();
 
     
@@ -688,9 +691,14 @@ bool RenderPartition::isVisible(Node *pNode)
 {
     if(getFrustumCulling() == false)
         return true;
-      
-    _oStatistics.getElem(statCullTestedNodes)->inc(); 
-    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
+     
+    
+    if(_oDrawEnv.getStatCollector() != NULL)
+    {
+        _oDrawEnv.getStatCollector()->getElem(statCullTestedNodes)->inc(); 
+    }
+
+//    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
     
     DynamicVolume vol;
 
@@ -706,8 +714,12 @@ bool RenderPartition::isVisible(Node *pNode)
         return true;
     }
     
-    _oStatistics.getElem(statCulledNodes)->inc();
-    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCulledNodes)->inc();
+    if(_oDrawEnv.getStatCollector() != NULL)
+    {
+        _oDrawEnv.getStatCollector()->getElem(statCulledNodes)->inc();
+    }
+
+//    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCulledNodes)->inc();
 
 // fprintf(stderr,"%p: node 0x%p invis\n", Thread::getCurrent(), node);
 // _frustum.dump();
@@ -747,8 +759,13 @@ bool RenderPartition::pushVisibility(NodePtrConstArg pNode)
     frustum.transform(m);
 #endif
 
-    _oStatistics.getElem(statCullTestedNodes)->inc();
-    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
+  
+    if(_oDrawEnv.getStatCollector() != NULL)
+    {
+        _oDrawEnv.getStatCollector()->getElem(statCullTestedNodes)->inc();
+    }
+
+//    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
 
     if(intersect(frustum, vol, inplanes) == false)
     {
@@ -756,8 +773,12 @@ bool RenderPartition::pushVisibility(NodePtrConstArg pNode)
 
          col.setValuesRGB(1,0,0);
 
-        _oStatistics.getElem(statCulledNodes)->inc();
-        _oDrawEnv.getRTAction()->getStatistics()->getElem(statCulledNodes)->inc();
+         if(_oDrawEnv.getStatCollector() != NULL)
+         {
+             _oDrawEnv.getStatCollector()->getElem(statCulledNodes)->inc();
+         }
+
+//        _oDrawEnv.getRTAction()->getStatistics()->getElem(statCulledNodes)->inc();
 
 //        fprintf(stderr,"node 0x%p invis %0xp\n", &(*pNode), this);
     }

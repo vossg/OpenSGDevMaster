@@ -315,8 +315,9 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
 //DRAW / TEST / RE-DRAW ON BUFFER FULL
     testNode(_pRoot, denv, part, screen_covered_percentage);
     
-    StatCollector *sc = _rt->getStatistics();
-    sc->getElem(statNOccNodes    )->add(uNumNodes);
+    StatCollector *sc = _rt->getStatCollector();
+    if(sc != NULL)
+        sc->getElem(statNOccNodes    )->add(uNumNodes);
     uNumNodes=0;
     _uiActiveMatrix = 0;
     
@@ -331,10 +332,11 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
     //std::cout << "Calc Pixels" << std::endl;
 
 
- 
-    Real32 percentage = (Real32)sc->getElem(statNOccInvisible)->get() / (Real32)sc->getElem(statNOccTests)->get();
-    sc->getElem(statNOccSuccessTestPer)->set(percentage);
-
+    if(sc != NULL)
+    {
+        Real32 percentage = (Real32)sc->getElem(statNOccInvisible)->get() / (Real32)sc->getElem(statNOccTests)->get();
+        sc->getElem(statNOccSuccessTestPer)->set(percentage);
+    }
     
     //std::cout << "Real pixels " << std::endl;
     //std::cout << std::endl;
@@ -454,8 +456,9 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode *pNode, DrawEnv &denv,
 
                     if(cbb * _vpWidth * _vpHeight < _minFeatureSize) //small feature culling
                     {                
-                        StatCollector *sc = _rt->getStatistics();
-                        _rt->getStatistics()->getElem(statNOccTriangles)->
+                        StatCollector *sc = _rt->getStatCollector();
+                        if(sc != NULL)
+                            sc->getElem(statNOccTriangles)->
                                 add(triangles);
                         if(_rt->getOcclusionCullingDebug() && pNode->getNode())
                         {
@@ -556,8 +559,9 @@ void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode *pNode, DrawEnv &d
     }
     _currSample++;
 
-    StatCollector *sc = _rt->getStatistics();
-    sc->getElem(statNOccTests    )->inc();
+    StatCollector *sc = _rt->getStatCollector();
+    if(sc != NULL)
+        sc->getElem(statNOccTests    )->inc();
 
     enterTesting(denv, part);
     BeginQueryT beginq = (BeginQueryT) win->getFunction(_funcBeginQueryARB);
@@ -674,15 +678,17 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv &denv, RenderPartition
             }
             else
             {
-                StatCollector *sc = _rt->getStatistics();
-                sc->getElem(statNOccInvisible)->inc();
+                StatCollector *sc = _rt->getStatCollector();
+                if(sc != NULL)
+                    sc->getElem(statNOccInvisible)->inc();
 
                 GeoStatsAttachmentPtr st =
                         GeoStatsAttachment::get(pNode->getNode());
                 
                 st->validate();
                 
-                _rt->getStatistics()->getElem(statNOccTriangles)->
+                if(sc != NULL)
+                    sc->getElem(statNOccTriangles)->
                         add(st->getTriangles());
                 
                 if(_rt->getOcclusionCullingDebug() && pNode->getNode())

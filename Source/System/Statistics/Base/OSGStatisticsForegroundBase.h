@@ -66,7 +66,7 @@
 #include "OSGForeground.h" // Parent
 
 #include "OSGInt32Fields.h" // ElementIDs type
-#include "OSGStatCollectorFields.h" // Collector type
+#include "OSGStatCollectorPFields.h" // Collector type
 
 #include "OSGStatisticsForegroundFields.h"
 
@@ -154,10 +154,10 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
             const MFInt32             *getMFElementIDs      (void) const;
 
 #ifdef OSG_1_COMPAT
-                  SFStatCollector     *getSFCollector       (void);
+                  SFStatCollectorP    *getSFCollector       (void);
 #endif
-                  SFStatCollector     *editSFCollector      (void);
-            const SFStatCollector     *getSFCollector       (void) const;
+                  SFStatCollectorP    *editSFCollector      (void);
+            const SFStatCollectorP    *getSFCollector       (void) const;
 
 
 #ifdef OSG_1_COMPAT
@@ -170,17 +170,17 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
             const MFInt32             &getElementIDs     (void) const;
 
 #ifdef OSG_1_COMPAT
-                  StatCollector       &getCollector       (void);
+                  StatCollectorP      &getCollector       (void);
 #endif
-                  StatCollector       &editCollector      (void);
-            const StatCollector       &getCollector       (void) const;
+                  StatCollectorP      &editCollector      (void);
+            const StatCollectorP      &getCollector       (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setCollector      (const StatCollector &value);
+            void setCollector      (const StatCollectorP &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -227,7 +227,7 @@ class OSG_SYSTEM_DLLMAPPING StatisticsForegroundBase : public Foreground
     /*! \{                                                                 */
 
     MFInt32           _mfElementIDs;
-    SFStatCollector   _sfCollector;
+    SFStatCollectorP  _sfCollector;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

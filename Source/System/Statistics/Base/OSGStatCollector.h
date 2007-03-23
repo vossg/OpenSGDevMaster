@@ -53,6 +53,7 @@
 #include "OSGSField.h"
 
 #include "OSGStatElemDesc.h"
+#include "OSGMemoryObject.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -61,12 +62,14 @@ class StatElemDescBase;
 
 /*! \brief Manager for Stat elements, see \guide(Statistics) for details.
 */
-class OSG_SYSTEM_DLLMAPPING StatCollector
+class OSG_SYSTEM_DLLMAPPING StatCollector : public MemoryObject
 {
 
     /*==========================  PUBLIC  =================================*/
 
   public:
+
+    typedef MemoryObject Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                     Instance                                 */
@@ -118,13 +121,6 @@ class OSG_SYSTEM_DLLMAPPING StatCollector
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~StatCollector(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                    Create                                    */
     /*! \{                                                                 */
 
@@ -151,9 +147,18 @@ class OSG_SYSTEM_DLLMAPPING StatCollector
 
   protected:
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~StatCollector(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
+
     typedef std::vector<StatElem*>        StatElemStore;
     typedef StatElemStore::iterator       StatElemStoreIt;
     typedef StatElemStore::const_iterator StatElemStoreConstIt;
@@ -173,58 +178,62 @@ typedef StatCollector *StatCollectorP;
 #endif
 
 template <>
-struct FieldTraits<StatCollector> :
-    public FieldTraitsTemplateBase<StatCollector>
+struct FieldTraits<StatCollectorP> :
+    public FieldTraitsTemplateBase<StatCollectorP>
 {
-    static  DataType                   _type;
-    typedef FieldTraits<StatCollector>  Self;
+    static  DataType                    _type;
+    typedef FieldTraits<StatCollectorP>  Self;
 
     enum                  { Convertible = Self::ToStringConvertible  |
                                           Self::FromStringConvertible };
 
     static DataType       &getType      (void) { return _type;          }
 
-    static Char8          *getSName     (void) { return "SFStatCollector"; }
-    static Char8          *getMName     (void) { return "MFStatCollector"; }
+    static Char8          *getSName     (void) { return "SFStatCollectorP"; }
+    static Char8          *getMName     (void) { return "MFStatCollectorP"; }
 
-    static StatCollector   getDefault   (void) { return StatCollector();   }
+    static StatCollectorP  getDefault   (void) { return new StatCollector();   }
 
-    static bool            getFromCString(      StatCollector  &outVal,
-                                          const Char8         *&inVal)
+    static bool            getFromCString(      StatCollectorP  &outVal,
+                                          const Char8          *&inVal)
     {
-        return outVal.getFromCString(inVal);
+        if(outVal != NULL)
+            return outVal->getFromCString(inVal);
+        else
+            return true;
     }
 
-    static void            putToString   (const StatCollector &inVal,
-                                                std::string   &outVal)
+    static void            putToString   (const StatCollectorP &inVal,
+                                                std::string    &outVal)
     {
-        inVal.putToString(outVal);
+        if(inVal != NULL)
+            inVal->putToString(outVal);
     }
 
 
-    static UInt32 getBinSize(const StatCollector &)
+    static UInt32 getBinSize(const StatCollectorP &)
     {
         return 0;
     }
 
     static void copyToBin(      BinaryDataHandler &pMem,
-                          const StatCollector     &oObject)
+                          const StatCollectorP    &oObject)
     {
     }
 
     static void copyToBin(      BinaryDataHandler &pMem,
-                          const StatCollector     *pObjectStore,
+                          const StatCollectorP    *pObjectStore,
                                 UInt32             uiNumObjects)
     {
     }
 
     static void copyFromBin(BinaryDataHandler &pMem,
-                            StatCollector     &oObject)
+                            StatCollectorP    &oObject)
     {
     }
 
     static void copyFromBin(BinaryDataHandler &pMem,
-                            StatCollector     *pObjectStore,
+                            StatCollectorP    *pObjectStore,
                             UInt32             uiNumObjects)
     {
     }
@@ -241,17 +250,15 @@ struct FieldTraits<StatCollector> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SField<StatCollector> SFStatCollector;
+typedef SField<StatCollectorP> SFStatCollectorP;
 #endif
 
 #ifndef OSG_COMPILESTATCOLLECTORINST
-OSG_FIELD_DLLEXPORT_DECL1(SField, StatCollector, OSG_SYSTEM_DLLTMPLMAPPING)
+OSG_FIELD_DLLEXPORT_DECL1(SField, StatCollectorP, OSG_SYSTEM_DLLTMPLMAPPING)
 #endif
 
 OSG_END_NAMESPACE
 
 #include "OSGStatCollector.inl"
-
-#define OSGSTATCOLLECTOR_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGSTATCOLLECTOR_H_ */

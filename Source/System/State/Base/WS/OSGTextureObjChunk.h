@@ -60,8 +60,8 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
 
   public:
 
-     static StatElemDesc<StatIntOnceElem > statNTextures;
-     static StatElemDesc<StatIntOnceElem > statNTexBytes;
+     static StatElemDesc<StatIntOnceElem> statNTextures;
+     static StatElemDesc<StatIntOnceElem> statNTexBytes;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */

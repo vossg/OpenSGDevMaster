@@ -289,6 +289,17 @@ void DrawEnv::incNumShaderParamChanges(void)
     ++_uiNumShaderParamChanges;
 }
 
+inline
+void DrawEnv::setStatCollector(StatCollector *pStatCollector)
+{
+    OSG::setRefd(_pStatCollector, pStatCollector);
+}
+
+inline
+StatCollector* DrawEnv::getStatCollector(void)
+{
+    return _pStatCollector;
+}
 
 inline
 void DrawEnv::clearState(void)
@@ -337,5 +348,3 @@ void DrawEnv::activateState(State         *pNewState,
 }
 
 OSG_END_NAMESPACE
-
-#define OSGDRAWENV_INLINE_CVSID "@(#)$Id$"

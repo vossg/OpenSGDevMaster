@@ -102,10 +102,13 @@ UInt32 TextureObjChunk::_funcCompressedTexSubImage3D = Win::invalidFunctionID;
 #endif
 
 
-StatElemDesc<StatIntOnceElem > TextureObjChunk::statNTextures("NTextures",
-"number of texture changes");
-StatElemDesc<StatIntOnceElem > TextureObjChunk::statNTexBytes("NTexBytes",
-"sum of all used textures' sizes (approx., in bytes)");
+StatElemDesc<StatIntOnceElem> TextureObjChunk::statNTextures(
+    "NTextures",
+    "number of texture changes");
+
+StatElemDesc<StatIntOnceElem> TextureObjChunk::statNTexBytes(
+    "NTexBytes",
+    "sum of all used textures' sizes (approx., in bytes)");
 
 
 /***************************************************************************\
@@ -1582,16 +1585,12 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     FDEBUG(("TextureObjChunk::activate - %d\n", getGLId()));
 
     // Update the texture statistics
-    StatCollector* coll(NULL);
-    if(NULL != pEnv->getRTAction())
-    { coll = pEnv->getRTAction()->getStatistics();  }
-    else if(NULL != pEnv->getRAction())
-    { coll = pEnv->getRAction()->getStatistics();  }
-
-    if(NULL != coll)
+    StatCollectorP pColl = pEnv->getStatCollector();
+    
+    if(NULL != pColl)
     {
-       coll->getElem(statNTextures)->inc(idx);
-       coll->getElem(statNTexBytes)->add(idx, img->getSize(true,true,true));
+        pColl->getElem(statNTextures)->inc(idx);
+        pColl->getElem(statNTexBytes)->add(idx, img->getSize(true,true,true));
     }
 
 

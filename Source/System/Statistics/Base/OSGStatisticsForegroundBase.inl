@@ -76,7 +76,7 @@ OSG::UInt16 StatisticsForegroundBase::getClassGroupId(void)
 //! Get the value of the StatisticsForeground::_sfCollector field.
 
 inline
-StatCollector &StatisticsForegroundBase::editCollector(void)
+StatCollectorP &StatisticsForegroundBase::editCollector(void)
 {
     editSField(CollectorFieldMask);
 
@@ -85,14 +85,14 @@ StatCollector &StatisticsForegroundBase::editCollector(void)
 
 //! Get the value of the StatisticsForeground::_sfCollector field.
 inline
-const StatCollector &StatisticsForegroundBase::getCollector(void) const
+const StatCollectorP &StatisticsForegroundBase::getCollector(void) const
 {
     return _sfCollector.getValue();
 }
 
 #ifdef OSG_1_COMPAT
 inline
-StatCollector       &StatisticsForegroundBase::getCollector      (void)
+StatCollectorP      &StatisticsForegroundBase::getCollector      (void)
 {
     return this->editCollector      ();
 }
@@ -100,7 +100,7 @@ StatCollector       &StatisticsForegroundBase::getCollector      (void)
 
 //! Set the value of the StatisticsForeground::_sfCollector field.
 inline
-void StatisticsForegroundBase::setCollector(const StatCollector &value)
+void StatisticsForegroundBase::setCollector(const StatCollectorP &value)
 {
     editSField(CollectorFieldMask);
 

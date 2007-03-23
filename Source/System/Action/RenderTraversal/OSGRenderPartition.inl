@@ -136,6 +136,12 @@ void RenderPartition::setTreeBuilderPool(TreeBuilderPool *pTreeBuilderPool)
 }
 
 inline
+void RenderPartition::setStatCollector(StatCollectorP pStatCollector)
+{
+    _oDrawEnv.setStatCollector(pStatCollector);
+}
+
+inline
 void RenderPartition::setViewport(Viewport *pViewport)
 {
     _oDrawEnv.setViewport(pViewport);

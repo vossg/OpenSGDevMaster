@@ -148,7 +148,11 @@ void SimpleStatisticsForeground::clearElems(void)
 {
     editElementIDs().clear();
     editFormats().clear();
-    editCollector().clearElems();
+
+    if(getCollector() != NULL)
+    {
+        getCollector()->clearElems();
+    }
 }
 
 /*! Initialize the text used. It is compiled into the library as
@@ -199,7 +203,7 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     if (_face == 0)
         initText(getFamily(), getSize());
 
-    if (!getCollector().getNumOfElems() && !getElementIDs().size())
+    if ((getCollector() == NULL) || (!getCollector()->getNumOfElems() && !getElementIDs().size()))
         return; // nothing to do
 
     Real32  pw = Real32(pPort->getPixelWidth ());
@@ -233,7 +237,7 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     // retrieve text
     std::vector < std::string > stat;
 
-    StatCollector *col = &(this->editCollector());
+    StatCollector *col = this->getCollector();
     StatElem      *el;
 
     if(getElementIDs().size() != 0)

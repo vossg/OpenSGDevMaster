@@ -128,7 +128,7 @@ const FrustumVolume& RenderTraversalActionBase::getFrustum(void) const
 }
     
 inline
-StatCollector* RenderTraversalActionBase::getStatistics(void) const
+StatCollector* RenderTraversalActionBase::getStatCollector(void) const
 {
     return _pStatistics;
 }
@@ -142,6 +142,3 @@ StatCollector* RenderTraversalActionBase::getStatistics(void) const
 \*-------------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
-
-#define OSGRENDERTRAVERSALACTIONBASE_INLINE_CVSID "@(#)$Id$"
-

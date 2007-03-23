@@ -121,9 +121,8 @@ class OSG_SYSTEM_DLLMAPPING DrawActionBase : public Action
           Window        *getWindow       (void                  ) const;
           void           setWindow       (Window * window       );
     
-          StatCollector *getStatistics   (void                  );
-          void           setStatistics   (StatCollector * stat  );
-          bool           hasOwnStat      (void                  );
+          StatCollector *getStatCollector(void                  );
+          void           setStatCollector(StatCollector * stat  );
 
     // frustum culling functions
     // these are just temporary, sooner or later they'll move into a 
@@ -195,7 +194,6 @@ class OSG_SYSTEM_DLLMAPPING DrawActionBase : public Action
     Window        *_window;
     Viewport      *_viewport;
     StatCollector *_statistics;
-    bool           _ownStat;
 
     // frustum culling attributes
     
@@ -271,8 +269,6 @@ class OSG_SYSTEM_DLLMAPPING DrawActionBase : public Action
 typedef DrawActionBase *DrawActionBaseP;
 
 OSG_END_NAMESPACE
-
-#define OSGDRAWACTIONBASE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGDrawActionBase.inl"
 

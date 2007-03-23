@@ -57,7 +57,6 @@
 #include "OSGViewport.h"
 #include "OSGBackground.h"
 #include "OSGMaterial.h"
-#include "OSGStatCollector.h"
 #include "OSGNamedPool.h"
 
 #include <stack>
@@ -204,6 +203,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     void setNodePool       (RenderTreeNodePool    *pNodePool       );
     void setStatePool      (StateOverridePool     *pStatePool      );
     void setTreeBuilderPool(TreeBuilderPool       *pTreeBuilderPool);
+    void setStatCollector  (StatCollectorP         pStatCollector  );
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -430,7 +430,6 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     // Stat
 
-    StatCollector       _oStatistics;
     UInt32              _uiNumMatrixChanges;
     UInt32              _uiNumTriangles;
 
