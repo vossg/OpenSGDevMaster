@@ -51,7 +51,7 @@ SUITE(ContainerPoolTests)
 TEST(CreatePool)
 {
    OSG::ContainerPoolPtr cp = OSG::ContainerPool::create();
-   CHECK(cp != OSG::NullFC);
+   CHECK(cp != OSGNullFC);
 }
 
 TEST(SettingName)
@@ -60,9 +60,9 @@ TEST(SettingName)
                          cp2(OSG::ContainerPool::create()),
                          cp3(OSG::ContainerPool::create());
 
-   CHECK(cp1 != OSG::NullFC);
-   CHECK(cp2 != OSG::NullFC);
-   CHECK(cp3 != OSG::NullFC);
+   CHECK(cp1 != OSGNullFC);
+   CHECK(cp2 != OSGNullFC);
+   CHECK(cp3 != OSGNullFC);
 
    CHECK(cp1 != cp2);
    CHECK(cp1 != cp3);
@@ -84,7 +84,7 @@ TEST(SettingName)
 TEST(UsePool)
 {
    OSG::ContainerPoolPtr cp = OSG::ContainerPool::create();
-   CHECK(cp != OSG::NullFC);
+   CHECK(cp != OSGNullFC);
 
    OSG::GroupPtr      t  = OSG::Group     ::create();
    OSG::NodePtr       n  = OSG::Node      ::create();
@@ -118,14 +118,14 @@ TEST(UsePool)
    OSG::NodePtr root_node = OSG::Node::create();
 
    OSG::ContainerPoolPtr cp2;
-   CHECK(root_node->findAttachment(OSG::ContainerPool::getClassType()) == OSG::NullFC);
+   CHECK(root_node->findAttachment(OSG::ContainerPool::getClassType()) == OSGNullFC);
 
    root_node->addAttachment(cp);
 
    // now find it
    cp2 = OSG::cast_dynamic<OSG::ContainerPoolPtr>(
                         root_node->findAttachment(OSG::ContainerPool::getClassType()));
-   CHECK(cp2 != OSG::NullFC);
+   CHECK(cp2 != OSGNullFC);
    CHECK(cp2 == cp);
 
    // Name it and find it by name
@@ -142,14 +142,14 @@ TEST(UsePool)
    root_node->addAttachment(named_cp, 7);
 
    unsigned x = 0;
-   OSG::ContainerPoolPtr cp3(OSG::NullFC);
+   OSG::ContainerPoolPtr cp3(OSGNullFC);
 
-   while(OSG::NullFC == cp3)
+   while(OSGNullFC == cp3)
    {
       OSG::ContainerPoolPtr temp_cp;
       temp_cp = OSG::cast_dynamic<OSG::ContainerPoolPtr>(
                         root_node->findAttachment(OSG::ContainerPool::getClassType(), x));
-      if((OSG::NullFC != temp_cp) && (temp_cp->getName() == "MyPool"))
+      if((OSGNullFC != temp_cp) && (temp_cp->getName() == "MyPool"))
       {
          cp3 = temp_cp;
          CHECK(cp3 == named_cp);

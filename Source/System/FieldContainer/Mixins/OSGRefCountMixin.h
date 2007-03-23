@@ -158,8 +158,9 @@ class RefCountMixin : public ParentT
 
     virtual ~RefCountMixin(void);
 
-    void addReference(void);
-    void subReference(void);
+    void  addReference(void);
+    void  subReference(void);
+    Int32 getRefCount (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

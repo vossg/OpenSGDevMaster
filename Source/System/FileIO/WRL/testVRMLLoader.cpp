@@ -10,10 +10,12 @@ int main (int argc, char **argv)
     OSG::NodePtr              file;
     std::vector<OSG::NodePtr> vFile;
 
+#ifdef OSG_MT_FIELDCONTAINERPTR
     OSG::UInt32 iPre = 
         OSG::FieldContainerFactory::the()->getContainerStore().size();
     
     fprintf(stderr, "FCs pre : %d\n", iPre);
+#endif
 
     if(argc > 1)
     {
@@ -33,7 +35,7 @@ int main (int argc, char **argv)
             fprintf(stderr, "[%d] : ", i);
             
             if(OSG::FieldContainerFactory::the()->getContainerStore()[i] != 
-               OSG::NullFC)
+               OSGNullFC)
             {
                 fprintf(stderr, "%s\n", 
                         OSG::FieldContainerFactory::the()->
@@ -52,6 +54,7 @@ int main (int argc, char **argv)
         }
     }
 
+#ifdef OSG_MT_FIELDCONTAINERPTR
     OSG::UInt32 iPost = 
         OSG::FieldContainerFactory::the()->getContainerStore().size();
 
@@ -62,7 +65,7 @@ int main (int argc, char **argv)
         fprintf(stderr, "[%d] : ", i);
 
         if(OSG::FieldContainerFactory::the()->getContainerStore()[i] != 
-                                                                   OSG::NullFC)
+                                                                   OSGNullFC)
         {
             fprintf(stderr, "%s\n", 
                     OSG::FieldContainerFactory::the()->
@@ -73,6 +76,7 @@ int main (int argc, char **argv)
             fprintf(stderr, "NullFC\n");
         }
     }
+#endif
 
     OSG::osgExit();
 }

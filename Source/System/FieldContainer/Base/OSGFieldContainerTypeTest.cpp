@@ -51,7 +51,7 @@ TEST(CreateType)
 {
    OSG::NodePtr n = OSG::Node::create();
    OSG::FieldContainerType& n_type(n->getType());
-   CHECK(n != OSG::NullFC);
+   CHECK(n != OSGNullFC);
 }
 
 TEST(GetDocs)

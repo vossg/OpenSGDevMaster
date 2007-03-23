@@ -77,7 +77,7 @@ TEST_FIXTURE(FileFixture, CreateOSBFile)
 
    OSG::NodePtr new_n =
       OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
-   CHECK(new_n != OSG::NullFC);
+   CHECK(new_n != OSGNullFC);
 }
 
 TEST_FIXTURE(FileFixture, CreateOSBTree)
@@ -96,11 +96,11 @@ TEST_FIXTURE(FileFixture, CreateOSBTree)
 
    OSG::NodePtr new_n =
       OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
-   CHECK(new_n != OSG::NullFC);
-   CHECK(new_n->getCore() != OSG::NullFC);
+   CHECK(new_n != OSGNullFC);
+   CHECK(new_n->getCore() != OSGNullFC);
    CHECK(new_n->getNChildren() == 1);
-   CHECK(new_n->getChild(0) != OSG::NullFC);
-   CHECK(new_n->getChild(0)->getCore() != OSG::NullFC);
+   CHECK(new_n->getChild(0) != OSGNullFC);
+   CHECK(new_n->getChild(0)->getCore() != OSGNullFC);
 }
 
 
@@ -116,7 +116,7 @@ TEST_FIXTURE(FileFixture, TestNameRetention)
 
    OSG::NodePtr new_n =
       OSG::SceneFileHandler::the()->read(test_file.native_file_string().c_str());
-   CHECK(new_n != OSG::NullFC);
+   CHECK(new_n != OSGNullFC);
    CHECK(OSG::getName(new_n) != NULL);
    std::string cur_name = std::string(OSG::getName(new_n));
 

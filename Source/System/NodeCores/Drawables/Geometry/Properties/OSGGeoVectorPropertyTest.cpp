@@ -48,7 +48,7 @@ struct GeoVectorPropertyFixture
         p3f_0(1.0, 2.0, 3.0),
         p3f_1(2.0, 3.0, 4.0),
         p3f_2(3.0, 4.0, 5.0),
-        propP3f(OSG::NullFC)
+        propP3f(OSGNullFC)
     {
         propP3f = OSG::GeoPnt3fProperty::create();
 

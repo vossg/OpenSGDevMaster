@@ -92,8 +92,11 @@ struct PointerFuncs
     template <class PtrT> 
     static UInt32 getContainerId(PtrT objectP);
 
+    template <class PtrT> 
+    static Int32  getRefCount   (PtrT objectP);
+
     template <class Ptr>
-    static Ptr getCPtr(Ptr pObject);
+    static Ptr    getCPtr       (Ptr pObject );
 };
 
 struct CPointerFuncs
@@ -131,6 +134,9 @@ struct CPointerFuncs
 
     template <class PtrT> 
     static UInt32 getContainerId(PtrT objectP);
+
+    template <class PtrT> 
+    static Int32  getRefCount   (PtrT objectP);
 
     template <class Ptr>
     static typename Ptr::StoredObject *getCPtr(Ptr pObject);
@@ -210,10 +216,16 @@ void executeSync(      FieldContainerPtrConst pTarget,
 #ifdef OSG_FIELDBUNDLE
 inline
 UInt32 getContainerId(FieldBundleConstPConst      objectP);
+
+inline
+Int32  getRefCount   (FieldBundleConstPConst      objectP);
 #endif
 
 inline
 UInt32 getContainerId(FieldContainerConstPtrConst objectP);
+
+inline
+Int32  getRefCount   (FieldContainerConstPtrConst objectP);
 
 #ifdef OSG_FIELDBUNDLE
 inline 

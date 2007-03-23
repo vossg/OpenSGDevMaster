@@ -165,6 +165,16 @@ class DynFieldAttachment : public AttachmentDescT::Parent
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual ObjPtr createAspectCopy(void) const;
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
+
+#ifdef OSG_MT_FIELDCONTAINERPTR
     virtual void execSyncV(      FieldContainer     &oFrom,
                                  ConstFieldMaskArg   whichField,
                                  ConstFieldMaskArg   syncMode  ,
@@ -176,12 +186,27 @@ class DynFieldAttachment : public AttachmentDescT::Parent
                                  ConstFieldMaskArg   syncMode  ,
                            const UInt32              uiSyncInfo,
                                  UInt32              uiCopyOffset);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual void execSyncV(      FieldContainer     &oFrom,
+                                 ConstFieldMaskArg   whichField,
+                                 AspectOffsetStore  &oOffsets,
+                                 ConstFieldMaskArg   syncMode  ,
+                           const UInt32              uiSyncInfo);
+
+            void execSync (      DynFieldAttachment *pFrom,
+                                 ConstFieldMaskArg   whichField,
+                                 AspectOffsetStore  &oOffsets,
+                                 ConstFieldMaskArg   syncMode  ,
+                           const UInt32              uiSyncInfo);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
+#if 0
     virtual void execBeginEditV(ConstFieldMaskArg whichField, 
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
@@ -189,6 +214,7 @@ class DynFieldAttachment : public AttachmentDescT::Parent
             void execBeginEdit (ConstFieldMaskArg whichField, 
                                 UInt32            uiAspect,
                                 UInt32            uiContainerSize);
+#endif
 
 
     /*! \}                                                                 */

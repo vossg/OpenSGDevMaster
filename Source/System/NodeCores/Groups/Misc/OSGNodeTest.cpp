@@ -84,7 +84,7 @@ SUITE(NodeTests)
 TEST(CreateNode)
 {
    OSG::NodePtr n = OSG::Node::create();
-   CHECK(n != OSG::NullFC);
+   CHECK(n != OSGNullFC);
 }
 
 // --- Cloning --- //
@@ -199,9 +199,9 @@ TEST_FIXTURE(CloneFixture, CloneTree)
 
     CHECK(clone03->getCore() == g01Core);
     CHECK(clone03->getChild(0)->getChild(0)->getCore() != b01Core);
-    CHECK(clone03->getChild(0)->getCore() == OSG::NullFC);
+    CHECK(clone03->getChild(0)->getCore() == OSGNullFC);
     CHECK(clone03->getChild(2)->getChild(0)->getCore() != b02Core);
-    CHECK(clone03->getChild(2)->getChild(1)->getCore() == OSG::NullFC);
+    CHECK(clone03->getChild(2)->getChild(1)->getCore() == OSGNullFC);
 }
 
 TEST_FIXTURE(CloneFixture, DeepCloneTree)
@@ -229,10 +229,10 @@ TEST_FIXTURE(CloneFixture, DeepCloneTree)
     OSG::NodePtr clone03 = OSG::deepCloneTree(g01Node, "Billboard", "Switch");
 
     CHECK(clone03->getCore()                           != g01Core);
-    CHECK(clone03->getChild(0)->getCore()              == OSG::NullFC);
+    CHECK(clone03->getChild(0)->getCore()              == OSGNullFC);
     CHECK(clone03->getChild(0)->getChild(0)->getCore() == b01Core);
     CHECK(clone03->getChild(2)->getChild(0)->getCore() == b02Core);
-    CHECK(clone03->getChild(2)->getChild(1)->getCore() == OSG::NullFC);
+    CHECK(clone03->getChild(2)->getChild(1)->getCore() == OSGNullFC);
 }
 
 TEST(DynFieldAttachment)
@@ -254,7 +254,7 @@ TEST(DynFieldAttachment)
         reinterpret_cast<OSG::FieldIndexGetMethodSig >(
             &OSG::TestAtt::getDynamicField ));
 
-    CHECK(pT != OSG::NullFC);
+    CHECK(pT != OSGNullFC);
 
     OSG::UInt32 fIndex = pT->addField(*pDesc);
 

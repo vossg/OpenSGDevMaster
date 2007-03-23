@@ -554,7 +554,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             // remove tree
             while(root->getNChildren())
             {
-                root->subChild(0);
+                root->subChild(0u);
             }
             break;
         case '+':

@@ -270,6 +270,7 @@ DynFieldAttachment<AttachmentDescT>::~DynFieldAttachment(void)
     _localType.terminate();
 }
  
+#ifdef OSG_MT_FIELDCONTAINERPTR
 template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::execSyncV(
           FieldContainer     &oFrom,
@@ -281,6 +282,7 @@ void DynFieldAttachment<AttachmentDescT>::execSyncV(
     OSG_ASSERT(false);
 }
 
+#if 0
 template <class AttachmentDescT> inline
 void DynFieldAttachment<AttachmentDescT>::execBeginEditV(
     ConstFieldMaskArg whichField, 
@@ -289,6 +291,47 @@ void DynFieldAttachment<AttachmentDescT>::execBeginEditV(
 {
     OSG_ASSERT(false);
 }
+#endif
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+template <class AttachmentDescT> inline
+typename DynFieldAttachment<AttachmentDescT>::ObjPtr 
+    DynFieldAttachment<AttachmentDescT>::createAspectCopy(void) const
+{
+    ObjPtr returnValue;
+
+    newAspectCopy(returnValue,
+                  dynamic_cast<const Self *>(this));
+
+    return returnValue;
+}
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+template <class AttachmentDescT> inline
+void DynFieldAttachment<AttachmentDescT>::execSyncV(
+          FieldContainer     &oFrom,
+          ConstFieldMaskArg   whichField,
+          AspectOffsetStore  &oOffsets,
+          ConstFieldMaskArg   syncMode  ,
+    const UInt32              uiSyncInfo)
+{
+    OSG_ASSERT(false);
+}
+
+template <class AttachmentDescT> inline
+void DynFieldAttachment<AttachmentDescT>::execSync (
+          DynFieldAttachment *pFrom,
+          ConstFieldMaskArg   whichField,
+          AspectOffsetStore  &oOffsets,
+          ConstFieldMaskArg   syncMode  ,
+    const UInt32              uiSyncInfo)
+{
+    OSG_ASSERT(false);
+}
+
+#endif
 
 OSG_END_NAMESPACE
 

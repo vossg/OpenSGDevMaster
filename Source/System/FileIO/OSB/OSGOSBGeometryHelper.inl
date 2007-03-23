@@ -60,10 +60,10 @@ OSBGeometryHelper::readPackedIntegralProperty(
 {
     FDEBUG(("OSBGeometryHelper::readPackedIntegralProperty<>:\n"));
 
-    typedef          GeoPropPtrTypeT              GeoPropPtrType;
-    typedef typename GeoPropPtrType::StoredObject GeoPropType;
-    typedef typename GeoPropType::StoredFieldType GeoPropFieldType;
-    typedef typename GeoPropFieldType::StoredType IntegralType;
+    typedef          GeoPropPtrTypeT                     GeoPropPtrType;
+    typedef typename PtrStripper<GeoPropPtrType>::Object GeoPropType;
+    typedef typename GeoPropType::StoredFieldType        GeoPropFieldType;
+    typedef typename GeoPropFieldType::StoredType        IntegralType;
 
     // read packed values into a buffer
     BitUnpacker::BufferType buffer;
@@ -99,11 +99,11 @@ OSBGeometryHelper::readQuantizedVectorProperty(
 {
     FDEBUG(("OSBGeometryHelper::readQuantizedVectorProperty<>:\n"));
 
-    typedef          GeoPropPtrTypeT              GeoPropPtrType;
-    typedef typename GeoPropPtrType::StoredObject GeoPropType;
-    typedef typename GeoPropType::StoredFieldType GeoPropFieldType;
-    typedef typename GeoPropFieldType::StoredType VectorType;
-    typedef typename VectorType::ValueType        ElementType;
+    typedef          GeoPropPtrTypeT                     GeoPropPtrType;
+    typedef typename PtrStripper<GeoPropPtrType>::Object GeoPropType;
+    typedef typename GeoPropType::StoredFieldType        GeoPropFieldType;
+    typedef typename GeoPropFieldType::StoredType        VectorType;
+    typedef typename VectorType::ValueType               ElementType;
 
     UInt32            propDim   = prop->getDimension();
     GeoPropFieldType *propField = prop->editFieldPtr();
@@ -193,10 +193,10 @@ OSBGeometryHelper::splitMultiIndex(
     const InIndexPtrTypeT     &inIndex,
     const GeometryPtr         &geo          )
 {
-    typedef          InIndexPtrTypeT               InIndexPtrType;
-    typedef          OutIndexPtrTypeT              OutIndexPtrType;
-    typedef typename OutIndexPtrType::StoredObject OutIndexType;
-    typedef typename OutIndexType::StoredFieldType OutIndexFieldType;
+    typedef          InIndexPtrTypeT                      InIndexPtrType;
+    typedef          OutIndexPtrTypeT                     OutIndexPtrType;
+    typedef typename PtrStripper<OutIndexPtrType>::Object OutIndexType;
+    typedef typename OutIndexType::StoredFieldType        OutIndexFieldType;
 
     UInt32 indexMappingSize = indexMapping.size();
     UInt32 inIndexSize      = inIndex->size();

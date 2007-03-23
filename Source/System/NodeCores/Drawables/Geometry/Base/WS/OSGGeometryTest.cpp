@@ -50,28 +50,28 @@ SUITE(GeometryTests)
 TEST(CreateGeometry)
 {
     OSG::GeometryPtr g = OSG::Geometry::create();
-    CHECK(g != OSG::NullFC);
+    CHECK(g != OSGNullFC);
 }
 
 TEST(TestInitialValues)
 {
     OSG::GeometryPtr g = OSG::Geometry::create();
-    CHECK(g != OSG::NullFC);
+    CHECK(g != OSGNullFC);
 
     for(unsigned i=0;i<OSG::Geometry::MaxAttribs;i++)
     {
-        CHECK(g->getProperty(i) == OSG::NullFC);
-        CHECK(g->getIndex(i) == OSG::NullFC);
+        CHECK(g->getProperty(i) == OSGNullFC);
+        CHECK(g->getIndex(i) == OSGNullFC);
     }
 
-    CHECK(g->getMaterial() == OSG::NullFC);
+    CHECK(g->getMaterial() == OSGNullFC);
 }
 
 // Test using the generic vector interfaces on geometry
 TEST(TestGenericInterfaces)
 {
     OSG::GeometryPtr g = OSG::Geometry::create();
-    CHECK(g != OSG::NullFC);
+    CHECK(g != OSGNullFC);
 
     OSG::GeoPnt3fPropertyPtr  pnts  = OSG::GeoPnt3fProperty ::create();
     pnts->addValue(OSG::Pnt3f(0,0,0));
@@ -94,7 +94,7 @@ TEST(TestSettingVecAttribs)
 {
     // Test setting attributes to all possible value types
     OSG::GeometryPtr g = OSG::Geometry::create();
-    CHECK(g != OSG::NullFC);
+    CHECK(g != OSGNullFC);
 
     // Copied-and-macroed from OSGTypedGeoVectorPropertyFields
     char* allowed_vec_prop_types[] =

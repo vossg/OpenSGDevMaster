@@ -88,22 +88,26 @@ class RefPtr
     
     operator Ref(void) const;
     
-    typename ContainerPtr::StoredObject* operator->(void) const;
+    typename PtrStripper<ContainerPtr>::Object* operator->(void) const;
     
     Ref get(void) const;
     
     RefPtr &operator =(const Ref                  &pContainer);
     RefPtr &operator =(const RefPtr               &refPtr    );
+#ifdef OSG_MT_FIELDCONTAINERPTR
     RefPtr &operator =(const NilFieldContainerPtr &          );
-   
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_FIELDCONTAINERPTR
     bool operator <  (const NilFieldContainerPtr &     ) const;   
     bool operator == (const NilFieldContainerPtr &other) const;
     bool operator != (const NilFieldContainerPtr &other) const;
+#endif
 
     bool operator <  (const FieldContainerPtr    &other) const;
     bool operator == (const FieldContainerPtr    &other) const;

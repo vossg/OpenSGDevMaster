@@ -185,8 +185,10 @@ class CoredNodePtr : public CoredNodePtrBase
     
     void        setCore   (const          NodeCorePtr           &pCore);
     void        setCore   (const typename Core::ObjPtr          &pCore);
+#ifdef OSG_MT_FIELDCONTAINERPTR
     void        setCore   (const          NilFieldContainerPtr  &     );
-    
+#endif
+
     void        updateNode(               void                        );
     
     /*! \}                                                                 */

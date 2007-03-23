@@ -78,7 +78,7 @@ RefPtr<ContainerPtr>::operator ContainerPtr(void) const
 
 template<class ContainerPtr> inline
 typename 
-ContainerPtr::StoredObject *RefPtr<ContainerPtr>::operator->(void) const
+PtrStripper<ContainerPtr>::Object *RefPtr<ContainerPtr>::operator->(void) const
 {
     return &(*_pRef);
 }
@@ -105,6 +105,7 @@ RefPtr<ContainerPtr> &RefPtr<ContainerPtr>::operator =(const RefPtr &refPtr)
     return *this;
 }
 
+#ifdef OSG_MT_FIELDCONTAINERPTR
 template<class ContainerPtr> inline
 RefPtr<ContainerPtr>& RefPtr<ContainerPtr>::operator =(
     const NilFieldContainerPtr&)
@@ -131,7 +132,7 @@ bool RefPtr<ContainerPtr>::operator !=(const NilFieldContainerPtr&) const
 {
     return _pRef != NullFC;
 }
-
+#endif
 
 template<class ContainerPtr> inline
 bool RefPtr<ContainerPtr>::operator < (const FieldContainerPtr &other) const

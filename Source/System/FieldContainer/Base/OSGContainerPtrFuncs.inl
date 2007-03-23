@@ -125,6 +125,12 @@ UInt32 PointerFuncs::getContainerId(PtrT objectP)
     return objectP->getId();
 }
 
+template <class PtrT> inline 
+Int32 PointerFuncs::getRefCount(PtrT objectP)
+{
+    return objectP->getRefCount();
+}
+
 template <class Ptr> inline
 Ptr PointerFuncs::getCPtr(Ptr pObject)
 {
@@ -242,6 +248,12 @@ template <class PtrT> inline
 UInt32 CPointerFuncs::getContainerId(PtrT objectP)
 {
     return objectP.getContainerId();
+}
+
+template <class PtrT> inline
+Int32 CPointerFuncs::getRefCount(PtrT objectP)
+{
+    return objectP.getRefCount();
 }
 
 
@@ -409,6 +421,11 @@ UInt32 getContainerId(FieldBundleConstPConst objectP)
 {
     return PointerFuncs::getContainerId(objectP);
 }
+
+Int32 getRefCount(FieldBundleConstPConst objectP)
+{
+    return PointerFuncs::getRefCount(objectP);
+}
 #endif
 
 inline
@@ -421,6 +438,18 @@ UInt32 getContainerId(FieldContainerConstPtrConst objectP)
             CPointerFuncs          >::type Functions;
 
     return Functions::getContainerId(objectP);
+}
+
+inline
+Int32 getRefCount(FieldContainerConstPtrConst objectP)
+{
+    typedef
+        boost::mpl::if_<
+            boost::mpl::bool_<boost::is_pointer<FieldContainerPtr>::value>,
+            PointerFuncs,
+            CPointerFuncs          >::type Functions;
+
+    return Functions::getRefCount(objectP);
 }
 
 #ifdef OSG_FIELDBUNDLE

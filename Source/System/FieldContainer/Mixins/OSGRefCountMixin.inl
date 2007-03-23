@@ -82,6 +82,12 @@ void RefCountMixin<ParentT>::subReference(void)
     }
 }
 
+template <class ParentT>
+Int32 RefCountMixin<ParentT>::getRefCount(void) const
+{
+    return _iRefCount;
+}
+
 OSG_END_NAMESPACE
 
 #define OSGREFCOUNTMIXIN_INLINE_CVSID "@(#)$Id$"
