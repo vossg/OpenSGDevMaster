@@ -117,6 +117,15 @@ class OSG_SYSTEM_DLLMAPPING StatCollector : public MemoryObject
     StatCollector(void);
     StatCollector(const StatCollector &source);
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~StatCollector(void);
+
+    /*! \}                                                                 */
+
+
     const StatCollector& operator =(const StatCollector &source);
 
     /*! \}                                                                 */
@@ -147,14 +156,6 @@ class OSG_SYSTEM_DLLMAPPING StatCollector : public MemoryObject
 
   protected:
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~StatCollector(void);
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
