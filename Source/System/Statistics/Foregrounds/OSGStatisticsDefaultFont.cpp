@@ -606,7 +606,7 @@ StatisticsDefaultFontBase::StatisticsDefaultFontBase():
     std::istrstream is(statisticsDefaultFontData, dataSize);
 #endif
     _face = TextTXFFace::createFromStream(is, "Bitstream Vera Sans Mono", TextFace::STYLE_PLAIN);
-    addRefP(_face);
+    OSG::addRef(_face);
 
     _texObjChunk = TextureObjChunk::create();
     addRef(_texObjChunk);
@@ -628,7 +628,7 @@ StatisticsDefaultFontBase::~StatisticsDefaultFontBase()
         subRef(_texObjChunk);
     if (_face != 0)
     {
-        subRefP(_face);
+        OSG::subRef(_face);
         _face = 0;
     }
 }

@@ -68,7 +68,7 @@ SimpleStatisticsForeground::SimpleStatisticsForeground(void) :
     Inherited(), _face(0), _texchunk(NullFC), _texenvchunk(NullFC)
 {
     _texenvchunk = TextureEnvChunk::create();
-    addRef(_texenvchunk);
+    OSG::addRef(_texenvchunk);
     _texenvchunk->setEnvMode(GL_MODULATE);
 }
 
@@ -80,22 +80,22 @@ SimpleStatisticsForeground::SimpleStatisticsForeground(
     _texchunk(source._texchunk), _texenvchunk(source._texenvchunk)
 {
     if (_face != 0)
-        addRefP(_face);
+        OSG::addRef(_face);
     if (_texchunk != NullFC)
-        addRef(_texchunk);
+        OSG::addRef(_texchunk);
     if (_texenvchunk != NullFC)
-        addRef(_texenvchunk);
+        OSG::addRef(_texenvchunk);
 }
 
 /* */
 SimpleStatisticsForeground::~SimpleStatisticsForeground(void)
 {
     if (_face != 0)
-        subRefP(_face);
+        OSG::subRef(_face);
     if (_texchunk != NullFC)
-        subRef(_texchunk);
+        OSG::subRef(_texchunk);
     if (_texenvchunk != NullFC)
-        subRef(_texenvchunk);
+        OSG::subRef(_texenvchunk);
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -158,9 +158,9 @@ void SimpleStatisticsForeground::initText(const std::string &family, Real32 size
 {
     // Cleanup
     if (_face != 0)
-        subRefP(_face);
+        OSG::subRef(_face);
     if (_texchunk != NullFC)
-        subRef(_texchunk);
+        OSG::subRef(_texchunk);
 
     // Create the font
     if (family.empty() == false)
@@ -188,8 +188,8 @@ void SimpleStatisticsForeground::initText(const std::string &family, Real32 size
     }
 
     // Increment reference counters
-    addRefP(_face);
-    addRef(_texchunk);
+    OSG::addRef(_face);
+    OSG::addRef(_texchunk);
 }
 
 /*! Draw the statistics lines.

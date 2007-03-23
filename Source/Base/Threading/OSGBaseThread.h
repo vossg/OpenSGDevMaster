@@ -694,12 +694,7 @@ class OSG_BASE_DLLMAPPING BaseThread : public BaseThreadBase
     void operator =(const BaseThread &source);
 };
 
-void setRefd(BaseThread *&pObject, 
-             BaseThread * pNewObject);
-
 OSG_END_NAMESPACE
-
-#define OSGBASETHREAD_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGBaseThread.inl"
 

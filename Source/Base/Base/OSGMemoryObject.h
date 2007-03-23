@@ -96,21 +96,20 @@ class OSG_BASE_DLLMAPPING MemoryObject
     void operator =(const MemoryObject &source);
 };
 
-typedef MemoryObject *MemoryObjectP;
+typedef MemoryObject *       MemoryObjectP;
+typedef MemoryObject * const MemoryObjectPConst;
 
 inline 
-void addRef(const MemoryObjectP pObject);
+void addRef(MemoryObjectPConst pObject);
 
 inline
-void subRef(const MemoryObjectP pObject);
+void subRef(MemoryObjectPConst pObject);
 
-inline 
-void setRefd(MemoryObjectP &pTarget, MemoryObjectP pSource);
-
+template <class T> inline
+void setRefd(T *&pObject, T * const pNewObject);
+ 
 OSG_END_NAMESPACE
 
 #include "OSGMemoryObject.inl"
-
-#define OSGMEMORYOBJECT_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMEMORYOBJECT_H_ */

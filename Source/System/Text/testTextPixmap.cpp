@@ -468,9 +468,9 @@ void updateFace()
     TextPixmapFace *newFace = TextPixmapFace::create(family, style, 78);
     if (newFace == 0)
         return;
-    subRefP(face);
+    OSG::subRef(face);
     face = newFace;
-    addRefP(face);
+    OSG::addRef(face);
 
     // Update information on the screen
     family = face->getFamily();

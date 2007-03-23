@@ -276,8 +276,6 @@ class PtrCreateMixin : public ParentT
 
 OSG_END_NAMESPACE
 
-#define OSGCONTAINERCREATEMIXIN_HEADER_CVSID "@(#)$Id$"
-
 #include "OSGContainerCreateMixin.inl"
 
 #endif /* _OSGCONTAINERCREATEMIXIN_H_ */

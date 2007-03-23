@@ -337,7 +337,7 @@ void SharedObjectHandler::terminate(void)
     {
         soIt->second->close();
 
-        soIt->second->subRef();
+        OSG::subRef(soIt->second);
 
         ++soIt;
     }
@@ -363,8 +363,9 @@ SharedObjectP SharedObjectHandler::getSharedObject(
     {
         returnValue = new SharedObject(szName);
 
-        returnValue->open  ();
-        returnValue->addRef();
+        returnValue->open        ();
+
+        OSG::addRef(returnValue);
 
         _mSharedObjects[returnValue->getName()] = returnValue;
 
@@ -483,7 +484,8 @@ bool SharedObjectHandler::initialize(void)
         FLOG(("Preloaded %s %p\n", _vLoadedNames[i].c_str(), pAppHandle));
 
 		_mSharedObjects[_vLoadedNames[i]] = pAppHandle;
-        pAppHandle->addRef();
+
+        OSG::addRef(pAppHandle);
     }
 
     _vLoadedNames.clear();
@@ -505,24 +507,3 @@ void SharedObjectHandler::dump(void)
         ++soIt;
     }
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-
-#ifdef OSG_SGI_CC
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace 
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGSHAREDOBJECTHANDLER_HEADER_CVSID;
-}
-
-#endif

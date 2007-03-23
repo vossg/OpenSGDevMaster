@@ -52,8 +52,6 @@
 #include "OSGLog.h"
 #include "OSGContainerForwards.h"
 
-//#include "OSGContainerPtrFuncs.h"
-
 #include "map"
 #include "vector"
 

@@ -80,7 +80,7 @@ bool FieldContainerPtrBase::initialize(void)
     {
         _pRefCountLock = pManager->getLockPool("DSPTRRefCountLockPool");
 
-        addRefP(_pRefCountLock);
+        addRef(_pRefCountLock);
 
         if(_pRefCountLock != NULL)
             returnValue = true;
@@ -98,7 +98,7 @@ bool FieldContainerPtrBase::terminate(void)
     if(pManager == NULL)
         return false;
 
-    subRefP(_pRefCountLock);
+    subRef(_pRefCountLock);
 
     return true;
 }

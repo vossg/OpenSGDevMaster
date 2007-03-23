@@ -646,9 +646,6 @@ class OSG_SYSTEM_DLLMAPPING ExternalThread : public ThreadBase
     void operator =(const ExternalThread &source);
 };
 
-void setRefd(Thread *&pObject, 
-             Thread * pNewObject);
-
 #else /* OSG_WIN_CE */
 
 class ChangeList;
@@ -724,8 +721,6 @@ class OSG_SYSTEM_DLLMAPPING Thread
 #endif /* OSG_WIN_CE  */
 
 OSG_END_NAMESPACE
-
-#define OSGTHREAD_HEADER_CVSID "@(#)$Id$"
 
 #ifndef OSG_WINCE
 #include "OSGThread.inl"

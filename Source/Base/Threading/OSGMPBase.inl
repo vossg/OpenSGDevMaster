@@ -38,21 +38,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline 
-void addRef(const MPBaseP objectP)
-{
-    if(objectP != NULL)
-        objectP->addRef();
-}
-
-inline
-void subRef(const MPBaseP objectP)
-{
-    if(objectP != NULL)
-        objectP->subRef();
-}
-
 OSG_END_NAMESPACE
 
-#define OSG_INLINE_CVSID "@(#)$Id$"
 

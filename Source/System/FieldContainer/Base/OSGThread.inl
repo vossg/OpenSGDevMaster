@@ -215,20 +215,5 @@ void Thread::setAspectTo(UInt32 uiNewAspect)
 }
 #endif
 
-inline
-void setRefd(Thread *&pObject, 
-             Thread * pNewObject)
-{
-    if(pNewObject != NULL)
-        pNewObject->addRef();
-
-    if(pObject != NULL)
-        pObject->subRef();
-
-    pObject = pNewObject;
-}
-
 OSG_END_NAMESPACE
-
-#define OSGTHREAD_INLINE_CVSID "@(#)$Id$"
 

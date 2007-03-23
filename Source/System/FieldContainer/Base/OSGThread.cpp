@@ -81,7 +81,7 @@ const UInt32 ThreadCommonBase::InvalidAspect =
 
 void ThreadCommonBase::setChangeList(ChangeList *pChangeList)
 {
-    setRefP(_pChangeList, pChangeList);
+    OSG::setRefd(_pChangeList, pChangeList);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -103,7 +103,7 @@ ThreadCommonBase::ThreadCommonBase(const Char8  *szName,
 
 ThreadCommonBase::~ThreadCommonBase(void)
 {
-    subRefP(_pChangeList);
+    OSG::subRef(_pChangeList);
 }
 
 
@@ -675,20 +675,3 @@ ChangeList *Thread::getCurrentChangeList(void)
     return theList;
 }
 #endif
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGTHREAD_HEADER_CVSID;
-}

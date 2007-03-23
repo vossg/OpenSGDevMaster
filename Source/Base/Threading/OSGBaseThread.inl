@@ -327,21 +327,5 @@ void BaseThread::kill(void)
     Inherited::kill();
 }
 
-
-inline
-void setRefd(BaseThread *&pObject, 
-             BaseThread * pNewObject)
-{
-    if(pNewObject != NULL)
-        pNewObject->addRef();
-
-    if(pObject != NULL)
-        pObject->subRef();
-
-    pObject = pNewObject;
-}
-
 OSG_END_NAMESPACE
-
-#define OSGBASETHREAD_INLINE_CVSID "@(#)$Id$"
 

@@ -635,19 +635,8 @@ class indirector
 };
 
 /*---------------------------------------------------------------------*/
-/*                MemoryObject Reference Count Functions               */
+/*                PtrStripper Helper                                   */
 
-template <class T> inline
-void setRefP  (T *&pObject, T *&pNewObject);
-
-template <class T> inline
-void addRefP  (T *&pObject);
-
-template <class T> inline
-void subRefP  (T *&pObject);
-
-template <class T> inline
-void clearRefP(T *&pObject);
 
 template<class PtrT>
 struct PtrStripper
@@ -680,7 +669,5 @@ struct PtrStripper<PtrT * const>
 OSG_END_NAMESPACE
 
 #include "OSGBaseFunctions.inl"
-
-#define OSGBASEFUNCTIONS_HEADER_CVSID "@(#)$Id$"
 
 #endif /* OSGBASEFUNCTIONS_H */

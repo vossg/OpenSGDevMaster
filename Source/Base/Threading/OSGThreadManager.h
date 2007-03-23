@@ -334,8 +334,6 @@ OSG_END_NAMESPACE
 
 #include "OSGThreadManager.inl"
 
-#define OSGTHREADMANAGER_HEADER_CVSID "@(#)$Id$"
-
 #endif /* _OSGTHREADMANAGER_H_ */
 
 

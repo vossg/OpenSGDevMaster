@@ -161,9 +161,9 @@ void updateFace()
         TextTXFFace *newFace = TextTXFFace::create(family, style, param);
         if (newFace == 0)
             return;
-        subRefP(face);
+        OSG::subRef(face);
         face = newFace;
-        addRefP(face);
+        OSG::addRef(face);
     }
     if (face == 0)
         return;
@@ -294,7 +294,7 @@ int main(int argc, char **argv)
             family = "SANS";
         else
         {
-            addRefP(face);
+            OSG::addRef(face);
             family.erase();
         }
     }

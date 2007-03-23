@@ -90,35 +90,31 @@ MemoryObject::MemoryObject(const MemoryObject &) :
 }
 
 inline 
-void addRef(const MemoryObjectP pObject)
+void addRef(MemoryObjectPConst pObject)
 {
     if(pObject != NULL)
-        pObject->addRef();
-}
-
-inline
-void subRef(const MemoryObjectP pObject)
-{
-    if(pObject != NULL)
-        pObject->subRef();
-}
-
-inline 
-void setRefd(MemoryObjectP &pTarget, const MemoryObjectP pSource)
-{
-    if(pTarget != pSource)
     {
-        if(pTarget != NULL)
-            pTarget->subRef();
- 
-        pTarget = pSource;
- 
-        if(pTarget != NULL)
-            pTarget->addRef();
+        pObject->addRef();
     }
 }
 
-OSG_END_NAMESPACE
+inline
+void subRef(MemoryObjectPConst pObject)
+{
+    if(pObject != NULL)
+    {
+        pObject->subRef();
+    }
+}
 
-#define OSGMEMORYOBJECT_INLINE_CVSID "@(#)$Id$"
+template <class T> inline
+void setRefd(T *&pObject, T * const pNewObject)
+{
+    OSG::addRef(pNewObject);
+    OSG::subRef(pObject   );
+    
+    pObject = pNewObject;
+}
+
+OSG_END_NAMESPACE
 

@@ -3556,79 +3556,9 @@ bool indirector<ContentT, IndexT>::operator()(IndexT a, IndexT b)
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name Reference Count                                              */
-/*! \{                                                                 */
-
-/*! Assigns \a pNewObject to \a pObject and adjusts the ref counts, i.e.
-    the ref count of \a pObject is decreased and the ref count of \a pNewObject
-    is increased. Both arguments must point to a ref counted object or be NULL.
-
-    \param[in,out] pObject Pointer that is assigned to, may be NULL.
-    \param[in]     pNewObject Pointer that is assigned, may be NULL.
-
-    \ingroup GrpBaseBaseRefCountFn
- */
-template <class T> inline
-void setRefP(T *&pObject, T *&pNewObject)
-{
-    if(pNewObject != NULL)
-        pNewObject->addRef();
-
-    if(pObject != NULL)
-        pObject->subRef();
-
-    pObject = pNewObject;
-}
-
-/*! Increase the ref count of the object pointed to by \a pObject.
-
-    \param[in] pObject Pointer to a ref counted object or NULL.
-
-    \ingroup GrpBaseBaseRefCountFn
- */
-template <class T> inline
-void addRefP(T *&pObject)
-{
-    if(pObject != NULL)
-        pObject->addRef();
-}
-
-/*! Decrease the ref count of the object pointed to by \a pObject.
-
-    \param[in] pObject Pointer to a ref counted object or NULL.
-
-    \ingroup GrpBaseBaseRefCountFn
- */
-template <class T> inline
-void subRefP(T *&pObject)
-{
-    if(pObject != NULL)
-        pObject->subRef();
-}
-
-/*! Clear the pointer \a pObject, i.e. decrease the ref count of the pointee and
-    assign NULL to the pointer. The argument must point to a ref counted
-    object or be NULL.
-
-    \param[in,out] pObject Pointer to a ref counted object or NULL.
-
-    \ingroup GrpBaseBaseRefCountFn
- */
-template <class T> inline
-void clearRefP(T *&pObject)
-{
-    if(pObject != NULL)
-        pObject->subRef();
-
-    pObject = NULL;
-}
-
-/*! \}                                                                 */
-/*---------------------------------------------------------------------*/
 
 #undef OSG_UINT64_LITERAL
 #undef OSG_INT64_LITERAL
 
 OSG_END_NAMESPACE
 
-#define OSGBASEFUNCTIONS_INLINE_CVSID "@(#)$Id$"

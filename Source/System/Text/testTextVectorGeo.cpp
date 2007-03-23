@@ -472,9 +472,9 @@ void updateFace()
     TextVectorFace *newFace = TextVectorFace::create(family, style);
     if (newFace == 0)
         return;
-    subRefP(face);
+    OSG::subRef(face);
     face = newFace;
-    addRefP(face);
+    OSG::addRef(face);
 
     // Update information on the screen
     family = face->getFamily();

@@ -424,7 +424,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
     UInt32 num_glyphs = readLong(is, swap);
     if (is.good() == false)
     {
-        subRefP(face);
+        OSG::subRef(face);
         return 0;
     }
 
@@ -488,7 +488,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
 
         if (is.good() == false)
         {
-            subRefP(face);
+            OSG::subRef(face);
             return 0;
         }
     }
@@ -512,7 +512,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
 
                 if (is.good() == false)
                 {
-                    subRefP(face);
+                    OSG::subRef(face);
                     return 0;
                 }
             }
@@ -527,7 +527,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
                 {
                     delete [] buffer;
 
-                    subRefP(face);
+                    OSG::subRef(face);
                     return 0;
                 }
                 assert(face->_texture->getSize() == textureWidth * textureHeight);
@@ -542,7 +542,7 @@ TextTXFFace *TextTXFFace::createFromStream(istream &is, const string &family, St
             break;
         default:
 
-            subRefP(face);
+            OSG::subRef(face);
             return 0;
     }
 

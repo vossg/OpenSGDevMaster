@@ -521,16 +521,8 @@ class OSG_BASE_DLLMAPPING MPBase : public MemoryObject
 
 typedef MPBase *MPBaseP;
 
-inline 
-void addRef(const MPBaseP objectP);
-
-inline
-void subRef(const MPBaseP objectP);
-
 OSG_END_NAMESPACE
 
 #include "OSGMPBase.inl"
-
-#define OSGMPBASE_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGMPBASE_H_ */

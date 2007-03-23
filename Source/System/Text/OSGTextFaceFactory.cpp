@@ -124,7 +124,7 @@ TextVectorFace *TextFaceFactoryBase::createVectorFace(const string &family,
     if (face == 0)
         return 0;
     _vectorFaceMap.insert(VectorFaceMap::value_type(family, face));
-    addRefP(face);
+    OSG::addRef(face);
     return face;
 }
 
@@ -154,7 +154,7 @@ TextPixmapFace *TextFaceFactoryBase::createPixmapFace(const string &family,
     if (face == 0)
         return 0;
     _pixmapFaceMap.insert(PixmapFaceMap::value_type(family, face));
-    addRefP(face);
+    OSG::addRef(face);
     return face;
 }
 
@@ -184,7 +184,7 @@ TextTXFFace *TextFaceFactoryBase::createTXFFace(const string &family,
     if (face == 0)
         return 0;
     _txfFaceMap.insert(TXFFaceMap::value_type(family, face));
-    addRefP(face);
+    OSG::addRef(face);
     return face;
 }
 
@@ -200,7 +200,7 @@ void TextFaceFactoryBase::clearCache()
     for (vIt = _vectorFaceMap.begin(); vIt != _vectorFaceMap.end(); ++vIt)
     {
         assert(vIt->second != 0);
-        subRefP(vIt->second);
+        OSG::subRef(vIt->second);
     }
     _vectorFaceMap.clear();
 
@@ -209,7 +209,7 @@ void TextFaceFactoryBase::clearCache()
     for (pIt = _pixmapFaceMap.begin(); pIt != _pixmapFaceMap.end(); ++pIt)
     {
         assert(pIt->second != 0);
-        subRefP(pIt->second);
+        OSG::subRef(pIt->second);
     }
     _pixmapFaceMap.clear();
 
@@ -218,7 +218,7 @@ void TextFaceFactoryBase::clearCache()
     for (tIt = _txfFaceMap.begin(); tIt != _txfFaceMap.end(); ++tIt)
     {
         assert(tIt->second != 0);
-        subRefP(tIt->second);
+        OSG::subRef(tIt->second);
     }
     _txfFaceMap.clear();
 }

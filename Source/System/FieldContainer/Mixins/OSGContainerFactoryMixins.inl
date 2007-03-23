@@ -655,7 +655,7 @@ bool ContainerStoreFactoryMixin<ParentT>::terminate (void)
     bool returnValue = Inherited::terminate();
 
 #ifndef OSG_WINCE
-    subRefP(_pStoreLock);
+    subRef(_pStoreLock);
 #endif
 
     this->_bInitialized = false;
@@ -823,7 +823,7 @@ bool HandledContainerStoreFactoryMixin<ParentT>::terminate (void)
 {
     bool returnValue = Inherited::terminate();
 
-    subRefP(_pStoreLock);
+    subRef(_pStoreLock);
 
     this->_bInitialized = false;
 

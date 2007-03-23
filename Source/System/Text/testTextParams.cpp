@@ -153,9 +153,9 @@ public:
        {
           std::cerr << "ERROR: Failed to allocate face." << std::endl;
        }
-       OSG::subRefP(mFace);
+       OSG::subRef(mFace);
        mFace = new_face;
-       OSG::addRefP(mFace);
+       OSG::addRef(mFace);
 
        OSG::ImagePtr face_image = mFace->getTexture();
        mTextureObjChunk->setImage(face_image);
