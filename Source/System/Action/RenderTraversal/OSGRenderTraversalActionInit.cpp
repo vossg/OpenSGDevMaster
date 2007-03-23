@@ -380,10 +380,10 @@ ActionBase::ResultE MaterialGroupRenderLeave(const NodeCorePtr &pCore,
 
 Action::ResultE LightRenderEnter(const NodeCorePtr              &pCore,
                                        LightEngine::LightTypeE   eType,
-                                       Action                   *action)
+                                       RenderTraversalAction    *action)
 {
     Action::ResultE        r = Action::Continue;
-    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
+//    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
     
     LightPtr      pLight      = cast_dynamic<LightPtr>(pCore);
 
@@ -394,7 +394,7 @@ Action::ResultE LightRenderEnter(const NodeCorePtr              &pCore,
 
     if(pLightEngine != NullFC && pLightEngine->getEnabled() == true)
     {
-        r = pLightEngine->runOnEnter(pLight, eType, a);
+        r = pLightEngine->runOnEnter(pLight, eType, action);
     }
     else
     {
@@ -402,13 +402,13 @@ Action::ResultE LightRenderEnter(const NodeCorePtr              &pCore,
         
         UInt32        uiSlot          = pChunk->getClassId();
         
-        Int32         iLightIndex     = a->allocateLightIndex();
+        Int32         iLightIndex     = action->allocateLightIndex();
         
-        a->pushState();
+        action->pushState();
         
         if(iLightIndex >= 0)
         {
-            a->addOverride(uiSlot + iLightIndex, getCPtr(pChunk));
+            action->addOverride(uiSlot + iLightIndex, getCPtr(pChunk));
         }
         else
         {
@@ -458,19 +458,15 @@ Action::ResultE DirectionalLightRenderEnter(const NodeCorePtr &pCore,
     FDEBUG_GV(("Enter DirLight %p\n", &(*pCore)));
 #endif
 
-#if 0
-    if(getOn() == false)
-        return Action::Continue;
+    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
-    DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
+    if(a->getActivePartition()->getStatCollector() != NULL)
+    {
+        a->getActivePartition()->getStatCollector()->getElem(
+            DirectionalLight::statNDirectionalLights)->inc();
+    }
 
-    da->getStatistics()->getElem(
-        DirectionalLight::statNDirectionalLights)->inc();
-    
-    return Light::renderEnter(action);
-#endif
-
-    return LightRenderEnter(pCore, LightEngine::Directional, action);
+    return LightRenderEnter(pCore, LightEngine::Directional, a);
 }
 
 Action::ResultE DirectionalLightRenderLeave(const NodeCorePtr &pCore,
@@ -497,20 +493,17 @@ Action::ResultE PointLightRenderEnter(const NodeCorePtr &pCore,
     FDEBUG_GV(("Enter PointLight %p\n", &(*pCore)));
 #endif
 
-#if 0
-    if(getOn() == false)
-        return Action::Continue;
+    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
-    DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
-
-    da->getStatistics()->getElem(PointLight::statNPointLights)->inc();
-
-    return Light::renderEnter(action);
-#endif
+    if(a->getActivePartition()->getStatCollector() != NULL)
+    {
+        a->getActivePartition()->getStatCollector()->getElem(
+            PointLight::statNPointLights)->inc();
+    }
 
     return LightRenderEnter(pCore,
                             LightEngine::Point,
-                            action);
+                            a);
 }
 
 Action::ResultE PointLightRenderLeave(const NodeCorePtr &pCore,
@@ -539,19 +532,17 @@ Action::ResultE SpotLightRenderEnter(const NodeCorePtr &pCore,
     FDEBUG_GV(("Enter SpotLight %p\n", &(*pCore)));
 #endif
 
-#if 0
-    if(getOn() == false)
-        return Action::Continue;
+    RenderTraversalAction *a = dynamic_cast<RenderTraversalAction *>(action);
 
-    DrawActionBase *da    = dynamic_cast<DrawActionBase *>(action);
-    da->getStatistics()->getElem(SpotLight::statNSpotLights)->inc();
-
-    return PointLight::renderEnter(action);
-#endif
+    if(a->getActivePartition()->getStatCollector() != NULL)
+    {
+        a->getActivePartition()->getStatCollector()->getElem(
+            SpotLight::statNSpotLights)->inc();
+    }
 
     return LightRenderEnter(pCore,
                             LightEngine::Spot,
-                            action);
+                            a);
 }
 
 Action::ResultE SpotLightRenderLeave(const NodeCorePtr &pCore,

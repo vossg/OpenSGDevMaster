@@ -539,18 +539,37 @@ void SimpleSceneManager::initialize(void)
 
 #ifdef OSG_CLEANED_RENDERACTION
         // Render traversal stats action
-        sf->addElement(RenderTraversalAction::statDrawTime,      "Draw FPS: %r.3f");
-        sf->addElement(RenderTraversalAction::statTravTime,      "Trav FPS: %r.3f");
-        sf->addElement(RenderTraversalAction::statNStates,       " State changes: %d");
-        sf->addElement(RenderTraversalAction::statNShaders,      "Shader changes: %d");
-        sf->addElement(RenderTraversalAction::statNShaderParams, "Shader param changes: %d");
-        sf->addElement(TextureObjChunk::statNTextures, "Textures: %d");
-        sf->addElement(TextureObjChunk::statNTexBytes, " Tex Mem: %MB MB");
+        sf->addElement(RenderTraversalAction::statDrawTime,  
+                       "Draw FPS: %r.3f");
+        sf->addElement(RenderTraversalAction::statTravTime,     
+                       "Trav FPS: %r.3f");
+        sf->addElement(RenderTraversalAction::statNStates,       
+                       " State changes: %d");
+        sf->addElement(RenderTraversalAction::statNShaders,
+                       "Shader changes: %d");
+        sf->addElement(RenderTraversalAction::statNShaderParams, 
+                       "Shader param changes: %d");
+        sf->addElement(TextureObjChunk::statNTextures, 
+                       "Textures: %d");
+        sf->addElement(TextureObjChunk::statNTexBytes, 
+                       " Tex Mem: %MB MB");
 
-        sf->addElement(RenderTraversalAction::statNGeometries,   "    Geom nodes: %d");
-        sf->addElement(RenderTraversalAction::statNMatrices,     "Matrix changes: %d");
-        sf->addElement(RenderTraversalAction::statNTriangles,    "     Triangles: %d");
-        sf->addText(                                             "Drawables: (drawn)");
+        sf->addElement(RenderTraversalAction::statNGeometries,   
+                       "    Geom nodes: %d");
+        sf->addElement(RenderTraversalAction::statNMatrices,     
+                       "Matrix changes: %d");
+        sf->addElement(RenderTraversalAction::statNTriangles,
+                       "     Triangles: %d");
+
+        sf->addElement(PointLight::statNPointLights,
+                           "%d active point lights");
+        sf->addElement(DirectionalLight::statNDirectionalLights,
+                           "%d active directional lights");
+        sf->addElement(SpotLight::statNSpotLights,
+                           "%d active spot lights");
+
+        sf->addText   ("Drawables: (drawn)");
+
         sf->addElement(Drawable::statNTriangles,    "  tris: %d");
         sf->addElement(Drawable::statNLines,        " lines: %d");
         sf->addElement(Drawable::statNPoints,       "points: %d");

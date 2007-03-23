@@ -142,6 +142,12 @@ void RenderPartition::setStatCollector(StatCollectorP pStatCollector)
 }
 
 inline
+StatCollectorP RenderPartition::getStatCollector(void)
+{
+    return _oDrawEnv.getStatCollector();
+}
+
+inline
 void RenderPartition::setViewport(Viewport *pViewport)
 {
     _oDrawEnv.setViewport(pViewport);

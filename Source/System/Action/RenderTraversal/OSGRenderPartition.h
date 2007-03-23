@@ -207,6 +207,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     /*------------------------- your_operators ------------------------------*/
 
+    StatCollectorP getStatCollector(void);
+
+    /*------------------------- your_operators ------------------------------*/
+
     void      setViewport(Viewport   *pViewport  );
     Viewport *getViewport(void                   );
 
