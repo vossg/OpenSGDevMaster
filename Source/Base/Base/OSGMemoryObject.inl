@@ -110,8 +110,8 @@ void subRef(MemoryObjectPConst pObject)
 template <class T> inline
 void setRefd(T *&pObject, T * const pNewObject)
 {
-    OSG::addRef(pNewObject);
-    OSG::subRef(pObject   );
+    addRef(pNewObject);
+    subRef(pObject   );
     
     pObject = pNewObject;
 }
