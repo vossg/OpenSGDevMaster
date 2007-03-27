@@ -57,6 +57,20 @@ OSG_END_NAMESPACE
 
 OSG_USING_NAMESPACE
 
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum)
+{
+    ((FieldContainer *)(_storeP + (_containerSize * uiElemNum)))->_assert_not_deleted();
+    return (_storeP + (_containerSize * uiElemNum));
+}
+
+UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum) const
+{
+    ((FieldContainer *)(_storeP + (_containerSize * uiElemNum)))->_assert_not_deleted();
+    return (_storeP + (_containerSize * uiElemNum));
+}
+#endif
+
 bool FieldContainerPtrBase::addFCPtrInit(void)
 {
     addPreFactoryInitFunction (FieldContainerPtrBase::initialize);

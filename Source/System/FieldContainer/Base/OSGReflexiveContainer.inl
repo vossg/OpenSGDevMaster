@@ -191,7 +191,21 @@ ReflexiveContainer::ReflexiveContainer(const ReflexiveContainer &source) :
 inline
 ReflexiveContainer::~ReflexiveContainer(void)
 {
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+   _bvChanged         = 0xDEADBEEF;
+   _pContainerChanges = (ContainerChangeEntry*)(0xDEADBEEF);
+#endif
 }
+
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+inline 
+void ReflexiveContainer::_assert_not_deleted()
+{
+   OSG_ASSERT((_bvChanged != 0xDEADBEEF) && 
+              (_pContainerChanges != (ContainerChangeEntry*)(0xDEADBEEF)) );
+}
+#endif
+
 
 inline
 void ReflexiveContainer::initMethod(InitPhase ePhase)

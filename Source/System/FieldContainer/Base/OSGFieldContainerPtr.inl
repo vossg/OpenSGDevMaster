@@ -106,6 +106,7 @@ UInt32 *FieldContainerPtrBase::getIdP(void) const
     return (UInt32 *) (_storeP + IdOffset);
 }
 
+#ifndef OSG_ENABLE_MEMORY_DEBUGGING
 inline
 UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum)
 {
@@ -117,6 +118,7 @@ UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum) const
 {
     return (_storeP + (_containerSize * uiElemNum));
 }
+#endif
 
 inline
 UInt8 *FieldContainerPtrBase::getFirstElemP(void)

@@ -126,4 +126,32 @@ TEST(checkMemoryCleanup)
    CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == OSGNullFC);
 }
 
+// ---- Memory Debugging Tests ---- //
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+
+TEST(checkDanglingFcPtr)
+{
+   // Check to make sure that dangling FCPtrs are detected.
+   OSG::NodePtr node(OSG::Node::create());
+   OSG::NodePtr node_copy = node;
+   OSG::FieldContainer*  the_fc = node.getBaseCPtr();
+   OSG::UInt32        kids = node->getNChildren();
+
+   OSG::UInt32   node_id = OSG::getContainerId(node);
+   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) != OSGNullFC);
+   OSG::UInt8* base_ptr = node._storeP;
+   CHECK((base_ptr != NULL) && (base_ptr == node_copy._storeP));
+
+   OSG::subRef(node);
+   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == OSGNullFC);
+   CHECK(NULL     == node._storeP);       // Subref clears the main one by default
+   CHECK(base_ptr == node_copy._storeP);  // Still points to an invalid object
+
+   // Now try some things that should fail
+   the_fc = node_copy.getBaseCPtr();
+   kids = node_copy->getNChildren();
+}
+
+#endif
+
 } // SUITE

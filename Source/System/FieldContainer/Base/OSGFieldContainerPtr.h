@@ -191,7 +191,11 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING    
+  public:
+#else
   protected:
+#endif
 
     static       StaticInitFuncWrapper  _initFuncWrapper;
     static       LockPool              *_pRefCountLock;
