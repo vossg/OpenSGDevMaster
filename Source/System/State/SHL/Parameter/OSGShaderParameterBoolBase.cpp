@@ -113,7 +113,7 @@ void ShaderParameterBoolBase::classDescInserter(TypeObject &oType)
 }
 
 
-ShaderParameterBoolBase::TypeObject ShaderParameterBoolBase::_type(true,
+ShaderParameterBoolBase::TypeObject ShaderParameterBoolBase::_type(
     ShaderParameterBoolBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ ShaderParameterBoolBase::TypeObject ShaderParameterBoolBase::_type(true,
     ShaderParameterBool::initMethod,
     (InitalInsertDescFunc) &ShaderParameterBoolBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

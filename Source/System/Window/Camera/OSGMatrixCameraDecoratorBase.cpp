@@ -263,7 +263,7 @@ void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 }
 
 
-MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(true,
+MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(
     MatrixCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -272,6 +272,7 @@ MatrixCameraDecoratorBase::TypeObject MatrixCameraDecoratorBase::_type(true,
     MatrixCameraDecorator::initMethod,
     (InitalInsertDescFunc) &MatrixCameraDecoratorBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

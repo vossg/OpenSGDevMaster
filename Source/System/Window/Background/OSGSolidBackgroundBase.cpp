@@ -118,7 +118,7 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(true,
+SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     SolidBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -127,6 +127,7 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(true,
     SolidBackground::initMethod,
     (InitalInsertDescFunc) &SolidBackgroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

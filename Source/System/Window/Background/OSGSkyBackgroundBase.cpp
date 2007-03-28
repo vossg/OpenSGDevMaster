@@ -541,7 +541,7 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
+SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     SkyBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -550,6 +550,7 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(true,
     SkyBackground::initMethod,
     (InitalInsertDescFunc) &SkyBackgroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

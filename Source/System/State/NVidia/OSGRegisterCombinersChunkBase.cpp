@@ -923,7 +923,7 @@ void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(true,
+RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(
     RegisterCombinersChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -932,6 +932,7 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(true,
     RegisterCombinersChunk::initMethod,
     (InitalInsertDescFunc) &RegisterCombinersChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

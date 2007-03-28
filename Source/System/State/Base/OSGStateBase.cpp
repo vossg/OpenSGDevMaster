@@ -106,7 +106,7 @@ void StateBase::classDescInserter(TypeObject &oType)
 }
 
 
-StateBase::TypeObject StateBase::_type(true,
+StateBase::TypeObject StateBase::_type(
     StateBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -115,6 +115,7 @@ StateBase::TypeObject StateBase::_type(true,
     State::initMethod,
     (InitalInsertDescFunc) &StateBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

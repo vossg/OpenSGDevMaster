@@ -113,7 +113,7 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-GLUTWindowBase::TypeObject GLUTWindowBase::_type(true,
+GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     GLUTWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(true,
     GLUTWindow::initMethod,
     (InitalInsertDescFunc) &GLUTWindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

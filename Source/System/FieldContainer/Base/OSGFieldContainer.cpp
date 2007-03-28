@@ -72,7 +72,7 @@ void FieldContainer::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 }
 
-FieldContainer::TypeObject FieldContainer::_type(true,
+FieldContainer::TypeObject FieldContainer::_type(
     FieldContainer::getClassname(),
     NULL,
     NULL,
@@ -80,7 +80,8 @@ FieldContainer::TypeObject FieldContainer::_type(true,
     NULL,
     NULL,
     (InitalInsertDescFunc) &FieldContainer::classDescInserter,
-    false);
+    false,
+    0);
 
 
 FieldContainer::TypeObject &FieldContainer::getType(void)

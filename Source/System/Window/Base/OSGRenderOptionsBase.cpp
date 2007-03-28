@@ -530,7 +530,7 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 }
 
 
-RenderOptionsBase::TypeObject RenderOptionsBase::_type(true,
+RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     RenderOptionsBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -539,6 +539,7 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(true,
     RenderOptions::initMethod,
     (InitalInsertDescFunc) &RenderOptionsBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

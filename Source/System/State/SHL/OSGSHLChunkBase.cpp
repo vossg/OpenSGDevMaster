@@ -196,7 +196,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-SHLChunkBase::TypeObject SHLChunkBase::_type(true,
+SHLChunkBase::TypeObject SHLChunkBase::_type(
     SHLChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -205,6 +205,7 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(true,
     SHLChunk::initMethod,
     (InitalInsertDescFunc) &SHLChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

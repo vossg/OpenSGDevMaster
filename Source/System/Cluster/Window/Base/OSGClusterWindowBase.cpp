@@ -381,7 +381,7 @@ void ClusterWindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-ClusterWindowBase::TypeObject ClusterWindowBase::_type(true,
+ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     ClusterWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -390,6 +390,7 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(true,
     ClusterWindow::initMethod,
     (InitalInsertDescFunc) &ClusterWindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

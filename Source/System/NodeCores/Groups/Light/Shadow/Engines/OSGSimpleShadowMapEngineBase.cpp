@@ -113,7 +113,7 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
 }
 
 
-SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(true,
+SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(
     SimpleShadowMapEngineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(true,
     SimpleShadowMapEngine::initMethod,
     (InitalInsertDescFunc) &SimpleShadowMapEngineBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

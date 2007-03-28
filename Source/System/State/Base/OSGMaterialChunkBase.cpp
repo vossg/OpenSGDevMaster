@@ -467,7 +467,7 @@ void MaterialChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-MaterialChunkBase::TypeObject MaterialChunkBase::_type(true,
+MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     MaterialChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -476,6 +476,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(true,
     MaterialChunk::initMethod,
     (InitalInsertDescFunc) &MaterialChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

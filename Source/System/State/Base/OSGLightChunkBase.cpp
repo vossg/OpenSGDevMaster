@@ -377,7 +377,7 @@ void LightChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-LightChunkBase::TypeObject LightChunkBase::_type(true,
+LightChunkBase::TypeObject LightChunkBase::_type(
     LightChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -386,6 +386,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(true,
     LightChunk::initMethod,
     (InitalInsertDescFunc) &LightChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

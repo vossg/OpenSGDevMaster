@@ -367,7 +367,7 @@ void ViewportBase::classDescInserter(TypeObject &oType)
 }
 
 
-ViewportBase::TypeObject ViewportBase::_type(true,
+ViewportBase::TypeObject ViewportBase::_type(
     ViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -376,6 +376,7 @@ ViewportBase::TypeObject ViewportBase::_type(true,
     Viewport::initMethod,
     (InitalInsertDescFunc) &ViewportBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

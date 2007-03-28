@@ -78,7 +78,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(true,
+FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     FragmentProgramChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -87,6 +87,7 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(true,
     FragmentProgramChunk::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

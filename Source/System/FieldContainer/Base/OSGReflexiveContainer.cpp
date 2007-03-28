@@ -50,13 +50,13 @@
 OSG_USING_NAMESPACE
 
 ReflexiveContainer::TypeObject ReflexiveContainer::_type(
-    false,
     "ReflexiveContainer",
     NULL,
     "ReflexiveContainer",
     0,
     NULL,
-    false);
+    false,
+    0);
 
 
 ReflexiveContainer::TypeObject &ReflexiveContainer::getType(void)

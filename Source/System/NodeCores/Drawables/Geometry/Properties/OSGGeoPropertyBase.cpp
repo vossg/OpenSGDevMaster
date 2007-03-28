@@ -166,7 +166,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
 }
 
 
-GeoPropertyBase::TypeObject GeoPropertyBase::_type(true,
+GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     GeoPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -175,6 +175,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(true,
     GeoProperty::initMethod,
     (InitalInsertDescFunc) &GeoPropertyBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

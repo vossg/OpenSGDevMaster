@@ -55,7 +55,7 @@ void AttachmentContainer::classDescInserter(TypeObject &oType)
     Inherited::classDescInserter(oType);
 }
 
-AttachmentContainer::TypeObject AttachmentContainer::_type(true,
+AttachmentContainer::TypeObject AttachmentContainer::_type(
     AttachmentContainer::getClassname(),
     Inherited          ::getClassname(),
     NULL,
@@ -63,7 +63,8 @@ AttachmentContainer::TypeObject AttachmentContainer::_type(true,
     NULL,
     NULL,
     (InitalInsertDescFunc) &AttachmentContainer::classDescInserter,
-    false);
+    false,
+    0);
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */

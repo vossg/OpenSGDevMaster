@@ -320,7 +320,7 @@ void BlendChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-BlendChunkBase::TypeObject BlendChunkBase::_type(true,
+BlendChunkBase::TypeObject BlendChunkBase::_type(
     BlendChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -329,6 +329,7 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(true,
     BlendChunk::initMethod,
     (InitalInsertDescFunc) &BlendChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -249,7 +249,7 @@ void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 }
 
 
-FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(true,
+FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(
     FrameBufferObjectBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -258,6 +258,7 @@ FrameBufferObjectBase::TypeObject FrameBufferObjectBase::_type(true,
     FrameBufferObject::initMethod,
     (InitalInsertDescFunc) &FrameBufferObjectBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

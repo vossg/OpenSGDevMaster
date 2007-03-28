@@ -202,7 +202,7 @@ void ProgramChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-ProgramChunkBase::TypeObject ProgramChunkBase::_type(true,
+ProgramChunkBase::TypeObject ProgramChunkBase::_type(
     ProgramChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -211,6 +211,7 @@ ProgramChunkBase::TypeObject ProgramChunkBase::_type(true,
     ProgramChunk::initMethod,
     (InitalInsertDescFunc) &ProgramChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

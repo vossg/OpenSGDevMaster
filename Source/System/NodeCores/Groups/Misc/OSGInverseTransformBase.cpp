@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-InverseTransformBase::TypeObject InverseTransformBase::_type(true,
+InverseTransformBase::TypeObject InverseTransformBase::_type(
     InverseTransformBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ InverseTransformBase::TypeObject InverseTransformBase::_type(true,
     InverseTransform::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

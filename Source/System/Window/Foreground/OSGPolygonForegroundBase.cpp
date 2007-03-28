@@ -217,7 +217,7 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(true,
+PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     PolygonForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -226,6 +226,7 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(true,
     PolygonForeground::initMethod,
     (InitalInsertDescFunc) &PolygonForegroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -104,7 +104,7 @@ void StageBase::classDescInserter(TypeObject &oType)
 }
 
 
-StageBase::TypeObject StageBase::_type(true,
+StageBase::TypeObject StageBase::_type(
     StageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -113,6 +113,7 @@ StageBase::TypeObject StageBase::_type(true,
     Stage::initMethod,
     (InitalInsertDescFunc) &StageBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-LightEnvBase::TypeObject LightEnvBase::_type(true,
+LightEnvBase::TypeObject LightEnvBase::_type(
     LightEnvBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ LightEnvBase::TypeObject LightEnvBase::_type(true,
     LightEnv::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

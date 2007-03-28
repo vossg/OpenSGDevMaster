@@ -114,7 +114,7 @@ void TransformBase::classDescInserter(TypeObject &oType)
 }
 
 
-TransformBase::TypeObject TransformBase::_type(true,
+TransformBase::TypeObject TransformBase::_type(
     TransformBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -123,6 +123,7 @@ TransformBase::TypeObject TransformBase::_type(true,
     Transform::initMethod,
     (InitalInsertDescFunc) &TransformBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

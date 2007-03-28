@@ -55,45 +55,48 @@ OSG_USING_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
-ReflexiveContainerType::ReflexiveContainerType(bool foo,
+ReflexiveContainerType::ReflexiveContainerType(
     const Char8                *szName,
     const Char8                *szParentName,
     const Char8                *szGroupName,
     const UInt32                uiNameSpace,
           InitalInsertDescFunc  descInsertFunc,
-          bool                  bDescsAddable) :
+          bool                  bDescsAddable,
+          BitVector             bvUnmarkedOnCreate) :
 
-      Inherited    (        szName,
-                      szParentName,
-                       uiNameSpace),
+     Inherited        (             szName,
+                              szParentName,
+                               uiNameSpace),
 
-    _uiGroupId     (             0),
-    _bDescsAddable ( bDescsAddable),
-    _szGroupName   (   szGroupName),
+    _uiGroupId        (                  0),
+    _bDescsAddable    (      bDescsAddable),
+    _szGroupName      (        szGroupName),
 
-    _vInitialDescs (              ),
+    _vInitialDescs    (                   ),
 
-    _mDescMap      (              ),
-    _vDescVec      (              ),
+    _mDescMap         (                   ),
+    _vDescVec         (                   ),
 
-    _descInsertFunc(descInsertFunc)
+   _descInsertFunc    (descInsertFunc     ),
+   _bvUnmarkedOnCreate(~bvUnmarkedOnCreate)      
 {
 }
 
 ReflexiveContainerType::ReflexiveContainerType(
     const ReflexiveContainerType &source) :
-      Inherited    (source                ),
+     Inherited         (source                    ),
 
-    _uiGroupId     (source._uiGroupId     ),
-    _bDescsAddable (source._bDescsAddable ),
-    _szGroupName   (source._szGroupName   ),
+    _uiGroupId         (source._uiGroupId         ),
+    _bDescsAddable     (source._bDescsAddable     ),
+    _szGroupName       (source._szGroupName       ),
 
-    _vInitialDescs (                      ),
+    _vInitialDescs     (                          ),
 
-    _mDescMap      (                      ),
-    _vDescVec      (                      ),
+    _mDescMap          (                          ),
+    _vDescVec          (                          ),
 
-    _descInsertFunc(source._descInsertFunc)
+    _descInsertFunc    (source._descInsertFunc    ),
+    _bvUnmarkedOnCreate(source._bvUnmarkedOnCreate)      
 {
 }
 
@@ -357,22 +360,3 @@ bool ReflexiveContainerType::subDescription(UInt32 uiFieldId)
 
     return returnValue;
 }
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGREFLEXIVECONTAINERTYPE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGREFLEXIVECONTAINERTYPE_INLINE_CVSID;
-}
-

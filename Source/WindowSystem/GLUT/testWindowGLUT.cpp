@@ -199,7 +199,11 @@ void key(unsigned char key, int x, int y)
 {
     switch ( key )
     {
-        case 27:    osgExit(); exit(0);
+        case 27:    
+            subRef(win);
+            delete renact;
+            osgExit(); 
+            exit(0);
         case 'a':   glDisable( GL_LIGHTING );
             std::cerr << "Lighting disabled." << std::endl;
             break;
@@ -355,6 +359,7 @@ int main (int argc, char **argv)
 
 //    file->dump();
 
+#if 0
     char *outFileName = "/tmp/foo.osg";
 
     OSG::IndentFileOutStream outFileStream(outFileName);
@@ -372,6 +377,9 @@ int main (int argc, char **argv)
     writer.write( file );
 
     outFileStream.close();
+
+    OSG::SceneFileHandler::the()->write(file, "/tmp/foo.osb");
+#endif    
 
 //    subRefCP(file);
 

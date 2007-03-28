@@ -70,7 +70,7 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::classDescInserter(
 
 template <class GeoPropertyDesc>
 typename TypedGeoVectorProperty<GeoPropertyDesc>::TypeObject
-    TypedGeoVectorProperty<GeoPropertyDesc>::_type(true,
+    TypedGeoVectorProperty<GeoPropertyDesc>::_type(
         Desc     ::getTypeName (),
         Inherited::getClassname(),
         Desc     ::getGroupName(),
@@ -78,6 +78,7 @@ typename TypedGeoVectorProperty<GeoPropertyDesc>::TypeObject
         (PrototypeCreateF) &Self::createEmpty,
         &Self::initMethod,
         (InitalInsertDescFunc) &Self::classDescInserter,
-        false);
+        false,
+        0);
 
 OSG_END_NAMESPACE

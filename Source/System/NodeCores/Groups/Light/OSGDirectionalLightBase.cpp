@@ -114,7 +114,7 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
 }
 
 
-DirectionalLightBase::TypeObject DirectionalLightBase::_type(true,
+DirectionalLightBase::TypeObject DirectionalLightBase::_type(
     DirectionalLightBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -123,6 +123,7 @@ DirectionalLightBase::TypeObject DirectionalLightBase::_type(true,
     DirectionalLight::initMethod,
     (InitalInsertDescFunc) &DirectionalLightBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

@@ -418,7 +418,7 @@ void SimpleStatisticsForegroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type(true,
+SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type(
     SimpleStatisticsForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -427,6 +427,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     SimpleStatisticsForeground::initMethod,
     (InitalInsertDescFunc) &SimpleStatisticsForegroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

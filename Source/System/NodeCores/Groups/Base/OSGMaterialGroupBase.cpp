@@ -107,7 +107,7 @@ void MaterialGroupBase::classDescInserter(TypeObject &oType)
 }
 
 
-MaterialGroupBase::TypeObject MaterialGroupBase::_type(true,
+MaterialGroupBase::TypeObject MaterialGroupBase::_type(
     MaterialGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -116,6 +116,7 @@ MaterialGroupBase::TypeObject MaterialGroupBase::_type(true,
     MaterialGroup::initMethod,
     (InitalInsertDescFunc) &MaterialGroupBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

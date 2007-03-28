@@ -307,7 +307,7 @@ void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 }
 
 
-SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
+SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(
     SimpleMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -316,6 +316,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(true,
     SimpleMaterial::initMethod,
     (InitalInsertDescFunc) &SimpleMaterialBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

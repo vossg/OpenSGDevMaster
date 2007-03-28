@@ -113,7 +113,7 @@ void CarbonWindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-CarbonWindowBase::TypeObject CarbonWindowBase::_type(true,
+CarbonWindowBase::TypeObject CarbonWindowBase::_type(
     CarbonWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ CarbonWindowBase::TypeObject CarbonWindowBase::_type(true,
     CarbonWindow::initMethod,
     (InitalInsertDescFunc) &CarbonWindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -113,7 +113,7 @@ void ShaderParameterVec2fBase::classDescInserter(TypeObject &oType)
 }
 
 
-ShaderParameterVec2fBase::TypeObject ShaderParameterVec2fBase::_type(true,
+ShaderParameterVec2fBase::TypeObject ShaderParameterVec2fBase::_type(
     ShaderParameterVec2fBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ ShaderParameterVec2fBase::TypeObject ShaderParameterVec2fBase::_type(true,
     ShaderParameterVec2f::initMethod,
     (InitalInsertDescFunc) &ShaderParameterVec2fBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

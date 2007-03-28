@@ -124,7 +124,7 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
 }
 
 
-ScreenLODBase::TypeObject ScreenLODBase::_type(true,
+ScreenLODBase::TypeObject ScreenLODBase::_type(
     ScreenLODBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -133,6 +133,7 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(true,
     ScreenLOD::initMethod,
     (InitalInsertDescFunc) &ScreenLODBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

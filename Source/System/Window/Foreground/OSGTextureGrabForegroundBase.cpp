@@ -187,7 +187,7 @@ void TextureGrabForegroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-TextureGrabForegroundBase::TypeObject TextureGrabForegroundBase::_type(true,
+TextureGrabForegroundBase::TypeObject TextureGrabForegroundBase::_type(
     TextureGrabForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -196,6 +196,7 @@ TextureGrabForegroundBase::TypeObject TextureGrabForegroundBase::_type(true,
     TextureGrabForeground::initMethod,
     (InitalInsertDescFunc) &TextureGrabForegroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -165,7 +165,7 @@ void EGLWindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-EGLWindowBase::TypeObject EGLWindowBase::_type(true,
+EGLWindowBase::TypeObject EGLWindowBase::_type(
     EGLWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -174,6 +174,7 @@ EGLWindowBase::TypeObject EGLWindowBase::_type(true,
     EGLWindow::initMethod,
     (InitalInsertDescFunc) &EGLWindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

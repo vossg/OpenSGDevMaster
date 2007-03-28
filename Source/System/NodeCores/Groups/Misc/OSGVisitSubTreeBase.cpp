@@ -111,7 +111,7 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
 }
 
 
-VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(true,
+VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     VisitSubTreeBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -120,6 +120,7 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(true,
     VisitSubTree::initMethod,
     (InitalInsertDescFunc) &VisitSubTreeBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

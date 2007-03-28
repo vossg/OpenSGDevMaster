@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(true,
+DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     DepthClearBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(true,
     DepthClearBackground::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

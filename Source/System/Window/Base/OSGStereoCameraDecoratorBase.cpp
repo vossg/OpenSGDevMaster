@@ -144,7 +144,7 @@ void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 }
 
 
-StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(true,
+StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(
     StereoCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -153,6 +153,7 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(true,
     StereoCameraDecorator::initMethod,
     (InitalInsertDescFunc) &StereoCameraDecoratorBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

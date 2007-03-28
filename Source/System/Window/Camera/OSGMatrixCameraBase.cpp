@@ -145,7 +145,7 @@ void MatrixCameraBase::classDescInserter(TypeObject &oType)
 }
 
 
-MatrixCameraBase::TypeObject MatrixCameraBase::_type(true,
+MatrixCameraBase::TypeObject MatrixCameraBase::_type(
     MatrixCameraBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -154,6 +154,7 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(true,
     MatrixCamera::initMethod,
     (InitalInsertDescFunc) &MatrixCameraBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

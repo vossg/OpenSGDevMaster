@@ -142,7 +142,7 @@ void ShearedStereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 }
 
 
-ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_type(true,
+ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_type(
     ShearedStereoCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -151,6 +151,7 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     ShearedStereoCameraDecorator::initMethod,
     (InitalInsertDescFunc) &ShearedStereoCameraDecoratorBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

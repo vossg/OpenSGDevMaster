@@ -433,7 +433,7 @@ void TiledQuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 }
 
 
-TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(true,
+TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(
     TiledQuadTreeTerrainBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -442,6 +442,7 @@ TiledQuadTreeTerrainBase::TypeObject TiledQuadTreeTerrainBase::_type(true,
     TiledQuadTreeTerrain::initMethod,
     (InitalInsertDescFunc) &TiledQuadTreeTerrainBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -10,6 +10,7 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 	useLocalIncludes="false"
+    fieldsUnmarkedOnCreate="(ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask)"
 >
 1D/2D/3D Image with various pixel types data, optionally also can hold
 mipMap and simple multi-frame data.

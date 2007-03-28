@@ -117,7 +117,7 @@ void PointLightBase::classDescInserter(TypeObject &oType)
 }
 
 
-PointLightBase::TypeObject PointLightBase::_type(true,
+PointLightBase::TypeObject PointLightBase::_type(
     PointLightBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -126,6 +126,7 @@ PointLightBase::TypeObject PointLightBase::_type(true,
     PointLight::initMethod,
     (InitalInsertDescFunc) &PointLightBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

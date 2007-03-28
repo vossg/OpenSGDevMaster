@@ -113,7 +113,7 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
 }
 
 
-LightEngineBase::TypeObject LightEngineBase::_type(true,
+LightEngineBase::TypeObject LightEngineBase::_type(
     LightEngineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ LightEngineBase::TypeObject LightEngineBase::_type(true,
     LightEngine::initMethod,
     (InitalInsertDescFunc) &LightEngineBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

@@ -217,7 +217,7 @@ void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-MultiDisplayWindowBase::TypeObject MultiDisplayWindowBase::_type(true,
+MultiDisplayWindowBase::TypeObject MultiDisplayWindowBase::_type(
     MultiDisplayWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -226,6 +226,7 @@ MultiDisplayWindowBase::TypeObject MultiDisplayWindowBase::_type(true,
     MultiDisplayWindow::initMethod,
     (InitalInsertDescFunc) &MultiDisplayWindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -186,7 +186,7 @@ void TextureBufferBase::classDescInserter(TypeObject &oType)
 }
 
 
-TextureBufferBase::TypeObject TextureBufferBase::_type(true,
+TextureBufferBase::TypeObject TextureBufferBase::_type(
     TextureBufferBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -195,6 +195,7 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(true,
     TextureBuffer::initMethod,
     (InitalInsertDescFunc) &TextureBufferBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

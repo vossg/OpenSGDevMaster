@@ -217,7 +217,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 }
 
 
-GeometryBase::TypeObject GeometryBase::_type(true,
+GeometryBase::TypeObject GeometryBase::_type(
     GeometryBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -226,6 +226,7 @@ GeometryBase::TypeObject GeometryBase::_type(true,
     Geometry::initMethod,
     (InitalInsertDescFunc) &GeometryBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

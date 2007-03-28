@@ -104,7 +104,7 @@ void SHLParameterChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(true,
+SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(
     SHLParameterChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -113,6 +113,7 @@ SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(true,
     SHLParameterChunk::initMethod,
     (InitalInsertDescFunc) &SHLParameterChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

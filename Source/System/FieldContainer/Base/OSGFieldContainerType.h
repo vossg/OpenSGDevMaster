@@ -82,17 +82,17 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerType : public ReflexiveContainerType
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    FieldContainerType(bool foo,
-                       const Char8                *szName,
-                       const Char8                *szParentName     = NULL,
-                       const Char8                *szGroupName      = NULL,
-                       const UInt32                uiNameSpace      =    0,
-                             PrototypeCreateF      fPrototypeCreate = NULL,
-                             InitContainerF        fInitMethod      = NULL,
-                             InitalInsertDescFunc  descInsertFunc   = NULL,
-                             bool                  bDescsAddable    = false,
-                             std::string           fcdXML           = "",
-                             std::string           typeDoc          = "");
+    FieldContainerType(const Char8                *szName,
+                       const Char8                *szParentName       = NULL,
+                       const Char8                *szGroupName        = NULL,
+                       const UInt32                uiNameSpace        =    0,
+                             PrototypeCreateF      fPrototypeCreate   = NULL,
+                             InitContainerF        fInitMethod        = NULL,
+                             InitalInsertDescFunc  descInsertFunc     = NULL,
+                             bool                  bDescsAddable      = false,
+                             BitVector             bvUnmarkedOnCreate = 0,
+                             std::string           fcdXML             = "",
+                             std::string           typeDoc            = "");
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

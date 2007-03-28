@@ -70,7 +70,7 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::classDescInserter(
 
 template <class GeoPropertyDesc>
 typename TypedGeoIntegralProperty<GeoPropertyDesc>::TypeObject
-    TypedGeoIntegralProperty<GeoPropertyDesc>::_type(true,
+    TypedGeoIntegralProperty<GeoPropertyDesc>::_type(
         Desc     ::getTypeName (),
         Inherited::getClassname(),
         Desc     ::getGroupName(),
@@ -78,6 +78,7 @@ typename TypedGeoIntegralProperty<GeoPropertyDesc>::TypeObject
         (PrototypeCreateF) &Self::createEmpty,
         &Self::initMethod,
         (InitalInsertDescFunc) &Self::classDescInserter,
-        false);
+        false,
+        0);
 
 OSG_END_NAMESPACE

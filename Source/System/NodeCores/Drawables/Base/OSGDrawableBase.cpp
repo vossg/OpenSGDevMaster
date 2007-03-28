@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-DrawableBase::TypeObject DrawableBase::_type(true,
+DrawableBase::TypeObject DrawableBase::_type(
     DrawableBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ DrawableBase::TypeObject DrawableBase::_type(true,
     Drawable::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

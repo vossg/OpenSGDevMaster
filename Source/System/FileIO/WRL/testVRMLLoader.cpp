@@ -24,6 +24,7 @@ int main (int argc, char **argv)
             file = OSG::SceneFileHandler::the()->read(argv[1], NULL);
             
             vFile.push_back(file);
+            OSG::commitChanges();
         }
 
 #if 0

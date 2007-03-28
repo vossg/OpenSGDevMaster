@@ -285,7 +285,7 @@ void GeoStatsAttachmentBase::classDescInserter(TypeObject &oType)
 }
 
 
-GeoStatsAttachmentBase::TypeObject GeoStatsAttachmentBase::_type(true,
+GeoStatsAttachmentBase::TypeObject GeoStatsAttachmentBase::_type(
     GeoStatsAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -294,6 +294,7 @@ GeoStatsAttachmentBase::TypeObject GeoStatsAttachmentBase::_type(true,
     GeoStatsAttachment::initMethod,
     (InitalInsertDescFunc) &GeoStatsAttachmentBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

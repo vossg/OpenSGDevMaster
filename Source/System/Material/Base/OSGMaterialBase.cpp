@@ -126,7 +126,7 @@ void MaterialBase::classDescInserter(TypeObject &oType)
 }
 
 
-MaterialBase::TypeObject MaterialBase::_type(true,
+MaterialBase::TypeObject MaterialBase::_type(
     MaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -135,6 +135,7 @@ MaterialBase::TypeObject MaterialBase::_type(true,
     Material::initMethod,
     (InitalInsertDescFunc) &MaterialBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

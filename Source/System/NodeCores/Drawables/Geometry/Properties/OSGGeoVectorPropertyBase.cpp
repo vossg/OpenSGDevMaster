@@ -78,7 +78,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(true,
+GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     GeoVectorPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -87,6 +87,7 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(true,
     GeoVectorProperty::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

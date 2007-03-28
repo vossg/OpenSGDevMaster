@@ -361,7 +361,7 @@ void PointChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-PointChunkBase::TypeObject PointChunkBase::_type(true,
+PointChunkBase::TypeObject PointChunkBase::_type(
     PointChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -370,6 +370,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(true,
     PointChunk::initMethod,
     (InitalInsertDescFunc) &PointChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

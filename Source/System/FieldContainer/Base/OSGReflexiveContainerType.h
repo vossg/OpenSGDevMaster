@@ -78,13 +78,13 @@ class OSG_SYSTEM_DLLMAPPING ReflexiveContainerType : public DataType
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ReflexiveContainerType(bool  foo,
-                           const Char8                *szName,
+    ReflexiveContainerType(const Char8                *szName,
                            const Char8                *szParentName   = NULL,
                            const Char8                *szGroupName    = NULL,
                            const UInt32                uiNameSpace    =    0,
                                  InitalInsertDescFunc  descInsertFunc = NULL,
-                                 bool                  bDescsAddable  = false);
+                                 bool                  bDescsAddable  = false,
+                                 BitVector             bvUnmarkedOnCreate = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -117,6 +117,8 @@ class OSG_SYSTEM_DLLMAPPING ReflexiveContainerType : public DataType
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
+
+    BitVector getUnmarkedOnCreate(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -200,6 +202,8 @@ class OSG_SYSTEM_DLLMAPPING ReflexiveContainerType : public DataType
 
     InitalInsertDescFunc _descInsertFunc;
 
+    BitVector            _bvUnmarkedOnCreate;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
@@ -234,8 +238,6 @@ class OSG_SYSTEM_DLLMAPPING ReflexiveContainerType : public DataType
 };
 
 OSG_END_NAMESPACE
-
-#define OSGREFLEXIVECONTAINERTYPE_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGReflexiveContainerType.inl"
 

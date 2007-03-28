@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(true,
+TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     TwoSidedLightingChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(true,
     TwoSidedLightingChunk::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

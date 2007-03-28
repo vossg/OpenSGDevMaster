@@ -174,7 +174,7 @@ void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(true,
+FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(
     FileGrabForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -183,6 +183,7 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(true,
     FileGrabForeground::initMethod,
     (InitalInsertDescFunc) &FileGrabForegroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

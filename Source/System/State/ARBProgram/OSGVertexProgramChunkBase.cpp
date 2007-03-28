@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(true,
+VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     VertexProgramChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -89,6 +89,7 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(true,
     VertexProgramChunk::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

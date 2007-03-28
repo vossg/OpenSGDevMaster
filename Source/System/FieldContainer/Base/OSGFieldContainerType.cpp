@@ -61,7 +61,7 @@ OSG_USING_NAMESPACE
 /*! Constructor for a new field container type.
 *
 */
-FieldContainerType::FieldContainerType(bool foo,
+FieldContainerType::FieldContainerType(
     const Char8                *szName,
     const Char8                *szParentName,
     const Char8                *szGroupName,
@@ -70,23 +70,25 @@ FieldContainerType::FieldContainerType(bool foo,
           InitContainerF        fInitMethod,
           InitalInsertDescFunc  descInsertFunc,
           bool                  bDescsAddable,
+          BitVector             bvUnmarkedOnCreate,
           std::string           fcdXML,
           std::string           typeDoc) :
 
-     Inherited       (foo, szName,
+     Inherited       (szName,
                       szParentName,
                       szGroupName,
                       uiNameSpace,
                       descInsertFunc,
-                      bDescsAddable    ),
+                      bDescsAddable,
+                      bvUnmarkedOnCreate),
 
 
-    _baseType        (IsFieldContainer ),
-    _pPrototype      (NullFC           ),
-    _fPrototypeCreate(fPrototypeCreate ),
-    _fInitMethod     (fInitMethod      ),
-    _fcdXML          (fcdXML),
-    _typeDoc         (typeDoc)
+    _baseType        (IsFieldContainer  ),
+    _pPrototype      (NullFC            ),
+    _fPrototypeCreate(fPrototypeCreate  ),
+    _fInitMethod     (fInitMethod       ),
+    _fcdXML          (fcdXML            ),
+    _typeDoc         (typeDoc           )
 {
     registerType();
 

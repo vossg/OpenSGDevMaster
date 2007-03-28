@@ -133,7 +133,7 @@ void GrabForegroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-GrabForegroundBase::TypeObject GrabForegroundBase::_type(true,
+GrabForegroundBase::TypeObject GrabForegroundBase::_type(
     GrabForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -142,6 +142,7 @@ GrabForegroundBase::TypeObject GrabForegroundBase::_type(true,
     GrabForeground::initMethod,
     (InitalInsertDescFunc) &GrabForegroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

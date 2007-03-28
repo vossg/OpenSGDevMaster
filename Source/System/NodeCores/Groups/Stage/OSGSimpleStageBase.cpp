@@ -258,7 +258,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
 }
 
 
-SimpleStageBase::TypeObject SimpleStageBase::_type(true,
+SimpleStageBase::TypeObject SimpleStageBase::_type(
     SimpleStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -267,6 +267,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(true,
     SimpleStage::initMethod,
     (InitalInsertDescFunc) &SimpleStageBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

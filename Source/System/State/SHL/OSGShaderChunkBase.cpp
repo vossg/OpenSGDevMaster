@@ -139,7 +139,7 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-ShaderChunkBase::TypeObject ShaderChunkBase::_type(true,
+ShaderChunkBase::TypeObject ShaderChunkBase::_type(
     ShaderChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -148,6 +148,7 @@ ShaderChunkBase::TypeObject ShaderChunkBase::_type(true,
     ShaderChunk::initMethod,
     (InitalInsertDescFunc) &ShaderChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

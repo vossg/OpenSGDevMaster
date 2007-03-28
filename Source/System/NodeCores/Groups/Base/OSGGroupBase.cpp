@@ -78,7 +78,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-GroupBase::TypeObject GroupBase::_type(true,
+GroupBase::TypeObject GroupBase::_type(
     GroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -87,6 +87,7 @@ GroupBase::TypeObject GroupBase::_type(true,
     Group::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

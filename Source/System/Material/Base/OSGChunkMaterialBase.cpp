@@ -138,7 +138,7 @@ void ChunkMaterialBase::classDescInserter(TypeObject &oType)
 }
 
 
-ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(true,
+ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     ChunkMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -147,6 +147,7 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(true,
     ChunkMaterial::initMethod,
     (InitalInsertDescFunc) &ChunkMaterialBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

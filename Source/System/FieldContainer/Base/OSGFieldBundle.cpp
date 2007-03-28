@@ -50,7 +50,6 @@
 OSG_USING_NAMESPACE
 
 FieldBundle::TypeObject FieldBundle::_type(
-    false,
     "FieldBundle",
     NULL,
     "FieldBundle",
@@ -58,7 +57,8 @@ FieldBundle::TypeObject FieldBundle::_type(
     NULL,
     NULL,
     NULL,
-    false);
+    false,
+    0);
 
 FieldBundle::TypeObject &FieldBundle::getType(void)
 {

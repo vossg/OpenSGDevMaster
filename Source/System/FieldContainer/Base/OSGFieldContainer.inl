@@ -370,7 +370,8 @@ void FieldContainer::onCreate(const FieldContainer *source)
 {
     registerChangedContainer();
     
-    _bvChanged = TypeTraits<BitVector>::BitsSet;
+    _bvChanged = 
+        TypeTraits<BitVector>::BitsSet & getType().getUnmarkedOnCreate();
 }
 
 inline

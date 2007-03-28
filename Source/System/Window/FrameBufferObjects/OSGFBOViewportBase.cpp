@@ -106,7 +106,7 @@ void FBOViewportBase::classDescInserter(TypeObject &oType)
 }
 
 
-FBOViewportBase::TypeObject FBOViewportBase::_type(true,
+FBOViewportBase::TypeObject FBOViewportBase::_type(
     FBOViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -115,6 +115,7 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(true,
     FBOViewport::initMethod,
     (InitalInsertDescFunc) &FBOViewportBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

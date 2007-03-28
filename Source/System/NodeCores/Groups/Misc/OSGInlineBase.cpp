@@ -139,7 +139,7 @@ void InlineBase::classDescInserter(TypeObject &oType)
 }
 
 
-InlineBase::TypeObject InlineBase::_type(true,
+InlineBase::TypeObject InlineBase::_type(
     InlineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -148,6 +148,7 @@ InlineBase::TypeObject InlineBase::_type(true,
     Inline::initMethod,
     (InitalInsertDescFunc) &InlineBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

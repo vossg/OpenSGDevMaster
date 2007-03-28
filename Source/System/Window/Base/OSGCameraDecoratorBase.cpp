@@ -106,7 +106,7 @@ void CameraDecoratorBase::classDescInserter(TypeObject &oType)
 }
 
 
-CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(true,
+CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(
     CameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -115,6 +115,7 @@ CameraDecoratorBase::TypeObject CameraDecoratorBase::_type(true,
     CameraDecorator::initMethod,
     (InitalInsertDescFunc) &CameraDecoratorBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

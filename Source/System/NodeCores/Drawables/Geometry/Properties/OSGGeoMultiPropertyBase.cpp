@@ -260,7 +260,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 }
 
 
-GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(true,
+GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(
     GeoMultiPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -269,6 +269,7 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(true,
     GeoMultiProperty::initMethod,
     (InitalInsertDescFunc) &GeoMultiPropertyBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

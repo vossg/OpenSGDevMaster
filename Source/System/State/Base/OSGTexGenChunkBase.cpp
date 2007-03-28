@@ -380,7 +380,7 @@ void TexGenChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-TexGenChunkBase::TypeObject TexGenChunkBase::_type(true,
+TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     TexGenChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -389,6 +389,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(true,
     TexGenChunk::initMethod,
     (InitalInsertDescFunc) &TexGenChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

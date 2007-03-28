@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-AlgorithmBase::TypeObject AlgorithmBase::_type(true,
+AlgorithmBase::TypeObject AlgorithmBase::_type(
     AlgorithmBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ AlgorithmBase::TypeObject AlgorithmBase::_type(true,
     Algorithm::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

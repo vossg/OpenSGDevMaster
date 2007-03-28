@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-PassiveWindowBase::TypeObject PassiveWindowBase::_type(true,
+PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     PassiveWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(true,
     PassiveWindow::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

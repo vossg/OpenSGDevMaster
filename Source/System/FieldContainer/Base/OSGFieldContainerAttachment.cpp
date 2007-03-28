@@ -62,7 +62,7 @@ Char8 *FieldContainerAttachment::getClassname(void)
     return "FieldContainerAttachment";
 }
 
-FieldContainerAttachment::TypeObject FieldContainerAttachment::_type(true,
+FieldContainerAttachment::TypeObject FieldContainerAttachment::_type(
     FieldContainerAttachment::getClassname(),
     Inherited               ::getClassname(),
     "FieldContainer",
@@ -70,7 +70,8 @@ FieldContainerAttachment::TypeObject FieldContainerAttachment::_type(true,
     NULL,
     NULL,
     (InitalInsertDescFunc) &FieldContainerAttachment::classDescInserter,
-    false);
+    false,
+    0);
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */

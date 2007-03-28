@@ -142,7 +142,7 @@ void RenderBufferBase::classDescInserter(TypeObject &oType)
 }
 
 
-RenderBufferBase::TypeObject RenderBufferBase::_type(true,
+RenderBufferBase::TypeObject RenderBufferBase::_type(
     RenderBufferBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -151,6 +151,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(true,
     RenderBuffer::initMethod,
     (InitalInsertDescFunc) &RenderBufferBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

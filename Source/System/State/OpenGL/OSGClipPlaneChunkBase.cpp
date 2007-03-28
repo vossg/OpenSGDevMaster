@@ -167,7 +167,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(true,
+ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     ClipPlaneChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -176,6 +176,7 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(true,
     ClipPlaneChunk::initMethod,
     (InitalInsertDescFunc) &ClipPlaneChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

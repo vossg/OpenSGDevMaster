@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(true,
+GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(
     GeoIntegralPropertyBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(true,
     GeoIntegralProperty::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -190,7 +190,7 @@ void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(true,
+TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(
     TextureGrabBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -199,6 +199,7 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(true,
     TextureGrabBackground::initMethod,
     (InitalInsertDescFunc) &TextureGrabBackgroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -257,7 +257,7 @@ void VTKMapperBase::classDescInserter(TypeObject &oType)
 }
 
 
-VTKMapperBase::TypeObject VTKMapperBase::_type(true,
+VTKMapperBase::TypeObject VTKMapperBase::_type(
     VTKMapperBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -266,6 +266,7 @@ VTKMapperBase::TypeObject VTKMapperBase::_type(true,
     VTKMapper::initMethod,
     (InitalInsertDescFunc) &VTKMapperBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

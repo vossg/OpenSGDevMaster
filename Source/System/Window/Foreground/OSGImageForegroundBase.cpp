@@ -136,7 +136,7 @@ void ImageForegroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-ImageForegroundBase::TypeObject ImageForegroundBase::_type(true,
+ImageForegroundBase::TypeObject ImageForegroundBase::_type(
     ImageForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -145,6 +145,7 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(true,
     ImageForeground::initMethod,
     (InitalInsertDescFunc) &ImageForegroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

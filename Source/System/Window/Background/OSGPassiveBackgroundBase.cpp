@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(true,
+PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     PassiveBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(true,
     PassiveBackground::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

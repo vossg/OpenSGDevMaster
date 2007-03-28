@@ -172,7 +172,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
 }
 
 
-SpotLightBase::TypeObject SpotLightBase::_type(true,
+SpotLightBase::TypeObject SpotLightBase::_type(
     SpotLightBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -181,6 +181,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(true,
     SpotLight::initMethod,
     (InitalInsertDescFunc) &SpotLightBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

@@ -124,7 +124,7 @@ void Node::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 }
 
-Node::TypeObject Node::_type(true,
+Node::TypeObject Node::_type(
     Node     ::getClassname(),
     Inherited::getClassname(),
     "Node",
@@ -132,7 +132,8 @@ Node::TypeObject Node::_type(true,
     (PrototypeCreateF) &Node::createEmpty,
     NULL,
     (InitalInsertDescFunc) &Node::classDescInserter,
-    false);
+    false,
+    0);
 
 
 OSG_FIELD_CONTAINER_DEF(Node)

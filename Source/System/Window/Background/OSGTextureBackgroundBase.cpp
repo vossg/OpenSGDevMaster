@@ -263,7 +263,7 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(true,
+TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(
     TextureBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -272,6 +272,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(true,
     TextureBackground::initMethod,
     (InitalInsertDescFunc) &TextureBackgroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

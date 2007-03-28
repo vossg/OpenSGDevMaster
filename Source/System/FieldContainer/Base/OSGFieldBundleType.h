@@ -81,15 +81,15 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleType : public ReflexiveContainerType
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    FieldBundleType(bool  foo,
-                    const Char8                *szName,
-                    const Char8                *szParentName     = NULL,
-                    const Char8                *szGroupName      = NULL,
-                    const UInt32                uiNameSpace      =    0,
-                          ProtoBundleCreateF    fPrototypeCreate = NULL,
-                          InitBundleF           fInitMethod      = NULL,
-                          InitalInsertDescFunc  descInsertFunc   = NULL,
-                          bool                  bDescsAddable    = false);
+    FieldBundleType(const Char8                *szName,
+                    const Char8                *szParentName       = NULL,
+                    const Char8                *szGroupName        = NULL,
+                    const UInt32                uiNameSpace        =    0,
+                          ProtoBundleCreateF    fPrototypeCreate   = NULL,
+                          InitBundleF           fInitMethod        = NULL,
+                          InitalInsertDescFunc  descInsertFunc     = NULL,
+                          bool                  bDescsAddable      = false,
+                          BitVector             bvUnmarkedOnCreate = 0    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

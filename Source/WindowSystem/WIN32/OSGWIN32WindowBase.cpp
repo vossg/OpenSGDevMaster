@@ -165,7 +165,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-WIN32WindowBase::TypeObject WIN32WindowBase::_type(true,
+WIN32WindowBase::TypeObject WIN32WindowBase::_type(
     WIN32WindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -174,6 +174,7 @@ WIN32WindowBase::TypeObject WIN32WindowBase::_type(true,
     WIN32Window::initMethod,
     (InitalInsertDescFunc) &WIN32WindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

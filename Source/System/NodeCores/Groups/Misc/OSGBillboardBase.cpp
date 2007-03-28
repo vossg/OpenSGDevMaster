@@ -217,7 +217,7 @@ void BillboardBase::classDescInserter(TypeObject &oType)
 }
 
 
-BillboardBase::TypeObject BillboardBase::_type(true,
+BillboardBase::TypeObject BillboardBase::_type(
     BillboardBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -226,6 +226,7 @@ BillboardBase::TypeObject BillboardBase::_type(true,
     Billboard::initMethod,
     (InitalInsertDescFunc) &BillboardBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

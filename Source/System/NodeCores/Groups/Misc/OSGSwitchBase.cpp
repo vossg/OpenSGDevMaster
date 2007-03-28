@@ -114,7 +114,7 @@ void SwitchBase::classDescInserter(TypeObject &oType)
 }
 
 
-SwitchBase::TypeObject SwitchBase::_type(true,
+SwitchBase::TypeObject SwitchBase::_type(
     SwitchBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -123,6 +123,7 @@ SwitchBase::TypeObject SwitchBase::_type(true,
     Switch::initMethod,
     (InitalInsertDescFunc) &SwitchBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

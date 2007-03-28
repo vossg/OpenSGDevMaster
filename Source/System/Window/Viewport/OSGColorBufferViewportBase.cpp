@@ -197,7 +197,7 @@ void ColorBufferViewportBase::classDescInserter(TypeObject &oType)
 }
 
 
-ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(true,
+ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(
     ColorBufferViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -206,6 +206,7 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(true,
     ColorBufferViewport::initMethod,
     (InitalInsertDescFunc) &ColorBufferViewportBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

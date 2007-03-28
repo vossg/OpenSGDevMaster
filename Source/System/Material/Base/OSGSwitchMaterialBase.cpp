@@ -131,7 +131,7 @@ void SwitchMaterialBase::classDescInserter(TypeObject &oType)
 }
 
 
-SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(true,
+SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(
     SwitchMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -140,6 +140,7 @@ SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(true,
     SwitchMaterial::initMethod,
     (InitalInsertDescFunc) &SwitchMaterialBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

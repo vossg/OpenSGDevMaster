@@ -174,7 +174,7 @@ void DistanceLODBase::classDescInserter(TypeObject &oType)
 }
 
 
-DistanceLODBase::TypeObject DistanceLODBase::_type(true,
+DistanceLODBase::TypeObject DistanceLODBase::_type(
     DistanceLODBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -183,6 +183,7 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(true,
     DistanceLOD::initMethod,
     (InitalInsertDescFunc) &DistanceLODBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -223,7 +223,7 @@ void DepthChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-DepthChunkBase::TypeObject DepthChunkBase::_type(true,
+DepthChunkBase::TypeObject DepthChunkBase::_type(
     DepthChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -232,6 +232,7 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(true,
     DepthChunk::initMethod,
     (InitalInsertDescFunc) &DepthChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

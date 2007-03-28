@@ -285,7 +285,7 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-StencilChunkBase::TypeObject StencilChunkBase::_type(true,
+StencilChunkBase::TypeObject StencilChunkBase::_type(
     StencilChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -294,6 +294,7 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(true,
     StencilChunk::initMethod,
     (InitalInsertDescFunc) &StencilChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

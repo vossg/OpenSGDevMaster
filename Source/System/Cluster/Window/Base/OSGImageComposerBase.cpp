@@ -139,7 +139,7 @@ void ImageComposerBase::classDescInserter(TypeObject &oType)
 }
 
 
-ImageComposerBase::TypeObject ImageComposerBase::_type(true,
+ImageComposerBase::TypeObject ImageComposerBase::_type(
     ImageComposerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -148,6 +148,7 @@ ImageComposerBase::TypeObject ImageComposerBase::_type(true,
     ImageComposer::initMethod,
     (InitalInsertDescFunc) &ImageComposerBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

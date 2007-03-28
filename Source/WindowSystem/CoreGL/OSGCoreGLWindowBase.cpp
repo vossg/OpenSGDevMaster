@@ -113,7 +113,7 @@ void CoreGLWindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-CoreGLWindowBase::TypeObject CoreGLWindowBase::_type(true,
+CoreGLWindowBase::TypeObject CoreGLWindowBase::_type(
     CoreGLWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ CoreGLWindowBase::TypeObject CoreGLWindowBase::_type(true,
     CoreGLWindow::initMethod,
     (InitalInsertDescFunc) &CoreGLWindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

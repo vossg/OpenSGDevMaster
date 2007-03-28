@@ -159,7 +159,7 @@ void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
+StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     StatisticsForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -168,6 +168,7 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(true,
     StatisticsForeground::initMethod,
     (InitalInsertDescFunc) &StatisticsForegroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

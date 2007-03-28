@@ -66,7 +66,7 @@ void NodeCore::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 }
 
-NodeCore::TypeObject NodeCore::_type(true,
+NodeCore::TypeObject NodeCore::_type(
     NodeCore ::getClassname(),
     Inherited::getClassname(),
     "NodeCores",
@@ -75,6 +75,7 @@ NodeCore::TypeObject NodeCore::_type(true,
     NULL,
     (InitalInsertDescFunc) &NodeCore::classDescInserter,
     false,
+    0,
     "",
     "Base type for all objects that can be cores for a Node.");
 

@@ -274,7 +274,7 @@ void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 }
 
 
-ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(true,
+ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(
     ProjectionCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -283,6 +283,7 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(t
     ProjectionCameraDecorator::initMethod,
     (InitalInsertDescFunc) &ProjectionCameraDecoratorBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

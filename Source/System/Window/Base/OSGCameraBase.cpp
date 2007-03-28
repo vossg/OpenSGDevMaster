@@ -162,7 +162,7 @@ void CameraBase::classDescInserter(TypeObject &oType)
 }
 
 
-CameraBase::TypeObject CameraBase::_type(true,
+CameraBase::TypeObject CameraBase::_type(
     CameraBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -171,6 +171,7 @@ CameraBase::TypeObject CameraBase::_type(true,
     Camera::initMethod,
     (InitalInsertDescFunc) &CameraBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

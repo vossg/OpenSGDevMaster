@@ -156,7 +156,7 @@ void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 }
 
 
-AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(true,
+AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     AlgorithmStageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -165,6 +165,7 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(true,
     AlgorithmStage::initMethod,
     (InitalInsertDescFunc) &AlgorithmStageBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

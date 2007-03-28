@@ -130,7 +130,7 @@ void ContainerPoolBase::classDescInserter(TypeObject &oType)
 }
 
 
-ContainerPoolBase::TypeObject ContainerPoolBase::_type(true,
+ContainerPoolBase::TypeObject ContainerPoolBase::_type(
     ContainerPoolBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -139,6 +139,7 @@ ContainerPoolBase::TypeObject ContainerPoolBase::_type(true,
     ContainerPool::initMethod,
     (InitalInsertDescFunc) &ContainerPoolBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

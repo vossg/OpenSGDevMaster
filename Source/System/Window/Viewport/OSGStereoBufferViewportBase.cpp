@@ -145,7 +145,7 @@ void StereoBufferViewportBase::classDescInserter(TypeObject &oType)
 }
 
 
-StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(true,
+StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(
     StereoBufferViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -154,6 +154,7 @@ StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(true,
     StereoBufferViewport::initMethod,
     (InitalInsertDescFunc) &StereoBufferViewportBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -260,7 +260,7 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 }
 
 
-ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(true,
+ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     ShadowMapEngineBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -269,6 +269,7 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(true,
     ShadowMapEngine::initMethod,
     (InitalInsertDescFunc) &ShadowMapEngineBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

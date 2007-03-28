@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-PassiveViewportBase::TypeObject PassiveViewportBase::_type(true,
+PassiveViewportBase::TypeObject PassiveViewportBase::_type(
     PassiveViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ PassiveViewportBase::TypeObject PassiveViewportBase::_type(true,
     PassiveViewport::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

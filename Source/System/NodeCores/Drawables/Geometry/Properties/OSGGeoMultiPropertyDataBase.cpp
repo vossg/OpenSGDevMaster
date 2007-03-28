@@ -139,7 +139,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
 }
 
 
-GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(true,
+GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(
     GeoMultiPropertyDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -148,6 +148,7 @@ GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(true,
     GeoMultiPropertyData::initMethod,
     (InitalInsertDescFunc) &GeoMultiPropertyDataBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

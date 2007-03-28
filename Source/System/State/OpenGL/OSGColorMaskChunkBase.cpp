@@ -191,7 +191,7 @@ void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(true,
+ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(
     ColorMaskChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -200,6 +200,7 @@ ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(true,
     ColorMaskChunk::initMethod,
     (InitalInsertDescFunc) &ColorMaskChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

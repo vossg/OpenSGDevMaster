@@ -151,13 +151,15 @@ void ContainerChangeEntry::commitChanges(void)
                 uiContainerId, pTmp->getType().getCName());
 #endif
 
-        pTmp->changed      (uncommitedChanges, ChangedOrigin::Commit);
+        BitVector tmpChanges = uncommitedChanges;
 
         // moved to FieldContainer::changed()
         // pTmp->callChangedFunctors(uncommitedChanges);
 
         whichField        |= uncommitedChanges;
         uncommitedChanges  = TypeTraits<BitVector>::BitsClear;
+
+        pTmp->changed      (tmpChanges, ChangedOrigin::Commit);
     }
 }
 

@@ -247,7 +247,6 @@ OSG_END_NAMESPACE
 template <>                                                                   \
 DynFieldAttachment< DESC >::TypeObject                                        \
     DynFieldAttachment< DESC >::_type(                                        \
-        true,                                                                 \
         Desc::getTypeName      (),                                            \
         Desc::getParentTypeName(),                                            \
         Desc::getGroupName     (),                                            \
@@ -255,7 +254,8 @@ DynFieldAttachment< DESC >::TypeObject                                        \
         (PrototypeCreateF) &Self::createEmpty,                                \
         NULL,                                                                 \
         NULL,                                                                 \
-        true);                                                                \
+        true,                                                                 \
+        0);                                                                   \
                                                                               \
 template<>                                                                    \
 DynFieldAttachment< DESC >::TypeObject &                                      \

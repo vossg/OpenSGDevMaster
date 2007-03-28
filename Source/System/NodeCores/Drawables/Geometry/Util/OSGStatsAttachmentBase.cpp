@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(true,
+StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(
     StatsAttachmentBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(true,
     StatsAttachment::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

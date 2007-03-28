@@ -87,7 +87,11 @@ UInt32 ReflexiveContainerType::getNumFieldDescs(void) const
     return _vDescVec.size();
 }
 
-OSG_END_NAMESPACE
+inline
+BitVector ReflexiveContainerType::getUnmarkedOnCreate(void)
+{
+    return _bvUnmarkedOnCreate;
+}
 
-#define OSGREFLEXIVECONTAINERTYPE_INLINE_CVSID "@(#)$Id$"
+OSG_END_NAMESPACE
 

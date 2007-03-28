@@ -217,7 +217,7 @@ void ComponentTransformBase::classDescInserter(TypeObject &oType)
 }
 
 
-ComponentTransformBase::TypeObject ComponentTransformBase::_type(true,
+ComponentTransformBase::TypeObject ComponentTransformBase::_type(
     ComponentTransformBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -226,6 +226,7 @@ ComponentTransformBase::TypeObject ComponentTransformBase::_type(true,
     ComponentTransform::initMethod,
     (InitalInsertDescFunc) &ComponentTransformBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

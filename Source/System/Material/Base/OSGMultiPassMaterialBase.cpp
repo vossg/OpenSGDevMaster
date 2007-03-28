@@ -104,7 +104,7 @@ void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
 }
 
 
-MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(true,
+MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     MultiPassMaterialBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -113,6 +113,7 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(true,
     MultiPassMaterial::initMethod,
     (InitalInsertDescFunc) &MultiPassMaterialBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

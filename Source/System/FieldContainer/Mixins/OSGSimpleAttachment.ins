@@ -61,7 +61,6 @@ void SimpleAttachment<AttachmentDescT>::classDescInserter(TypeObject &oType)
 template <typename AttachmentDescT> 
 typename SimpleAttachment<AttachmentDescT>::TypeObject 
     SimpleAttachment<AttachmentDescT>::_type(
-        true,
         Desc::getTypeName      (),
         Desc::getParentTypeName(),
         Desc::getGroupName     (),
@@ -69,6 +68,7 @@ typename SimpleAttachment<AttachmentDescT>::TypeObject
         (PrototypeCreateF) &Self::createEmpty,
         NULL,
         (InitalInsertDescFunc) &Self::classDescInserter,
-        false);                                 
+        false,
+        0);                                 
            
 OSG_END_NAMESPACE

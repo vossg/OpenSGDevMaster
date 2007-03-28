@@ -260,7 +260,7 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(true,
+PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(
     PolygonBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -269,6 +269,7 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(true,
     PolygonBackground::initMethod,
     (InitalInsertDescFunc) &PolygonBackgroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

@@ -144,7 +144,7 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
 }
 
 
-PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(true,
+PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(
     PerspectiveCameraBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -153,6 +153,7 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(true,
     PerspectiveCamera::initMethod,
     (InitalInsertDescFunc) &PerspectiveCameraBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

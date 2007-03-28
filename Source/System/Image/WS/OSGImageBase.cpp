@@ -636,7 +636,7 @@ void ImageBase::classDescInserter(TypeObject &oType)
 }
 
 
-ImageBase::TypeObject ImageBase::_type(true,
+ImageBase::TypeObject ImageBase::_type(
     ImageBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -645,6 +645,7 @@ ImageBase::TypeObject ImageBase::_type(true,
     Image::initMethod,
     (InitalInsertDescFunc) &ImageBase::classDescInserter,
     false,
+    (ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask),
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
@@ -657,6 +658,7 @@ ImageBase::TypeObject ImageBase::_type(true,
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"false\"\n"
+    "    fieldsUnmarkedOnCreate=\"(ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask)\"\n"
     ">\n"
     "1D/2D/3D Image with various pixel types data, optionally also can hold\n"
     "mipMap and simple multi-frame data.\n"

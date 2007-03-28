@@ -113,7 +113,7 @@ void ShaderParameterStringBase::classDescInserter(TypeObject &oType)
 }
 
 
-ShaderParameterStringBase::TypeObject ShaderParameterStringBase::_type(true,
+ShaderParameterStringBase::TypeObject ShaderParameterStringBase::_type(
     ShaderParameterStringBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ ShaderParameterStringBase::TypeObject ShaderParameterStringBase::_type(true,
     ShaderParameterString::initMethod,
     (InitalInsertDescFunc) &ShaderParameterStringBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

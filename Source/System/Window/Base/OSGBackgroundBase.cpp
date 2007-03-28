@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-BackgroundBase::TypeObject BackgroundBase::_type(true,
+BackgroundBase::TypeObject BackgroundBase::_type(
     BackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -94,6 +94,7 @@ BackgroundBase::TypeObject BackgroundBase::_type(true,
     Background::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

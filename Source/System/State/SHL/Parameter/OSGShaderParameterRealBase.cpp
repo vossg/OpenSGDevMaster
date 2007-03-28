@@ -113,7 +113,7 @@ void ShaderParameterRealBase::classDescInserter(TypeObject &oType)
 }
 
 
-ShaderParameterRealBase::TypeObject ShaderParameterRealBase::_type(true,
+ShaderParameterRealBase::TypeObject ShaderParameterRealBase::_type(
     ShaderParameterRealBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ ShaderParameterRealBase::TypeObject ShaderParameterRealBase::_type(true,
     ShaderParameterReal::initMethod,
     (InitalInsertDescFunc) &ShaderParameterRealBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

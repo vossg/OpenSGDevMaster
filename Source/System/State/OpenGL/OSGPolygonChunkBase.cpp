@@ -400,7 +400,7 @@ void PolygonChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
+PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     PolygonChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -409,6 +409,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(true,
     PolygonChunk::initMethod,
     (InitalInsertDescFunc) &PolygonChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

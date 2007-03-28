@@ -146,7 +146,7 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(true,
+GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     GradientBackgroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -155,6 +155,7 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(true,
     GradientBackground::initMethod,
     (InitalInsertDescFunc) &GradientBackgroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

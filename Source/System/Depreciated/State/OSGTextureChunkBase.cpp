@@ -1570,7 +1570,7 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-TextureChunkBase::TypeObject TextureChunkBase::_type(true,
+TextureChunkBase::TypeObject TextureChunkBase::_type(
     TextureChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -1579,6 +1579,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(true,
     TextureChunk::initMethod,
     (InitalInsertDescFunc) &TextureChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

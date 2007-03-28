@@ -693,7 +693,7 @@ void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 }
 
 
-QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(true,
+QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(
     QuadTreeTerrainBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -702,6 +702,7 @@ QuadTreeTerrainBase::TypeObject QuadTreeTerrainBase::_type(true,
     QuadTreeTerrain::initMethod,
     (InitalInsertDescFunc) &QuadTreeTerrainBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

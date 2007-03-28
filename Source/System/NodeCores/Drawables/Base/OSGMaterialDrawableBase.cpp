@@ -104,7 +104,7 @@ void MaterialDrawableBase::classDescInserter(TypeObject &oType)
 }
 
 
-MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(true,
+MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(
     MaterialDrawableBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -113,6 +113,7 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(true,
     MaterialDrawable::initMethod,
     (InitalInsertDescFunc) &MaterialDrawableBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

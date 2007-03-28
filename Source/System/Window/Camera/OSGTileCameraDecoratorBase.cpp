@@ -251,7 +251,7 @@ void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 }
 
 
-TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(true,
+TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(
     TileCameraDecoratorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -260,6 +260,7 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(true,
     TileCameraDecorator::initMethod,
     (InitalInsertDescFunc) &TileCameraDecoratorBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

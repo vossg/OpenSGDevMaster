@@ -207,7 +207,7 @@ void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-CubeTextureObjChunkBase::TypeObject CubeTextureObjChunkBase::_type(true,
+CubeTextureObjChunkBase::TypeObject CubeTextureObjChunkBase::_type(
     CubeTextureObjChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -216,6 +216,7 @@ CubeTextureObjChunkBase::TypeObject CubeTextureObjChunkBase::_type(true,
     CubeTextureObjChunk::initMethod,
     (InitalInsertDescFunc) &CubeTextureObjChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

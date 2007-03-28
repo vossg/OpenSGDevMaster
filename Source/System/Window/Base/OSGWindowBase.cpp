@@ -272,7 +272,7 @@ void WindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-WindowBase::TypeObject WindowBase::_type(true,
+WindowBase::TypeObject WindowBase::_type(
     WindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -281,6 +281,7 @@ WindowBase::TypeObject WindowBase::_type(true,
     Window::initMethod,
     (InitalInsertDescFunc) &WindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

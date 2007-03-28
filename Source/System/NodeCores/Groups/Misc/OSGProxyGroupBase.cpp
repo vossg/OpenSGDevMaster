@@ -395,7 +395,7 @@ void ProxyGroupBase::classDescInserter(TypeObject &oType)
 }
 
 
-ProxyGroupBase::TypeObject ProxyGroupBase::_type(true,
+ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     ProxyGroupBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -404,6 +404,7 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(true,
     ProxyGroup::initMethod,
     (InitalInsertDescFunc) &ProxyGroupBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

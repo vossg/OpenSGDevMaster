@@ -203,7 +203,7 @@ void LineChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-LineChunkBase::TypeObject LineChunkBase::_type(true,
+LineChunkBase::TypeObject LineChunkBase::_type(
     LineChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -212,6 +212,7 @@ LineChunkBase::TypeObject LineChunkBase::_type(true,
     LineChunk::initMethod,
     (InitalInsertDescFunc) &LineChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

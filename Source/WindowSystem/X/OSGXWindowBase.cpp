@@ -165,7 +165,7 @@ void XWindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-XWindowBase::TypeObject XWindowBase::_type(true,
+XWindowBase::TypeObject XWindowBase::_type(
     XWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -174,6 +174,7 @@ XWindowBase::TypeObject XWindowBase::_type(true,
     XWindow::initMethod,
     (InitalInsertDescFunc) &XWindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

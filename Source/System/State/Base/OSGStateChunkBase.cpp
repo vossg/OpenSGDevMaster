@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-StateChunkBase::TypeObject StateChunkBase::_type(true,
+StateChunkBase::TypeObject StateChunkBase::_type(
     StateChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ StateChunkBase::TypeObject StateChunkBase::_type(true,
     StateChunk::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

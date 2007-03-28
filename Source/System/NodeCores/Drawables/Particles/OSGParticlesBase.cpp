@@ -419,7 +419,7 @@ void ParticlesBase::classDescInserter(TypeObject &oType)
 }
 
 
-ParticlesBase::TypeObject ParticlesBase::_type(true,
+ParticlesBase::TypeObject ParticlesBase::_type(
     ParticlesBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -428,6 +428,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(true,
     Particles::initMethod,
     (InitalInsertDescFunc) &ParticlesBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

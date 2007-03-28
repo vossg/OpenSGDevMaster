@@ -141,7 +141,7 @@ void StringAttributeMapBase::classDescInserter(TypeObject &oType)
 }
 
 
-StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(true,
+StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     StringAttributeMapBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -150,6 +150,7 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(true,
     StringAttributeMap::initMethod,
     (InitalInsertDescFunc) &StringAttributeMapBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

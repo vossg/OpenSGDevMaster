@@ -54,7 +54,7 @@ OSG_USING_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-FieldBundleType::FieldBundleType(bool foo,
+FieldBundleType::FieldBundleType(
     const Char8                *szName,
     const Char8                *szParentName,
     const Char8                *szGroupName,
@@ -62,18 +62,20 @@ FieldBundleType::FieldBundleType(bool foo,
           ProtoBundleCreateF    fPrototypeCreate,
           InitBundleF           fInitMethod,
           InitalInsertDescFunc  descInsertFunc,
-          bool                  bDescsAddable) :
+          bool                  bDescsAddable,
+          BitVector             bvUnmarkedOnCreate) :
 
-     Inherited       (foo, szName,
+     Inherited       (szName,
                       szParentName,
                       szGroupName,
                       uiNameSpace,
                       descInsertFunc,
-                      bDescsAddable    ),
+                      bDescsAddable,
+                      bvUnmarkedOnCreate),
     
 
-    _pPrototype      (NULL             ),
-    _fPrototypeCreate(fPrototypeCreate )
+    _pPrototype      (NULL              ),
+    _fPrototypeCreate(fPrototypeCreate  )
 {
     registerType();
 

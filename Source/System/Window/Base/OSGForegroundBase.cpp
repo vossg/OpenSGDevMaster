@@ -124,7 +124,7 @@ void ForegroundBase::classDescInserter(TypeObject &oType)
 }
 
 
-ForegroundBase::TypeObject ForegroundBase::_type(true,
+ForegroundBase::TypeObject ForegroundBase::_type(
     ForegroundBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -133,6 +133,7 @@ ForegroundBase::TypeObject ForegroundBase::_type(true,
     Foreground::initMethod,
     (InitalInsertDescFunc) &ForegroundBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

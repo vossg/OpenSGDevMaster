@@ -117,7 +117,7 @@ void TransformChunkBase::classDescInserter(TypeObject &oType)
 }
 
 
-TransformChunkBase::TypeObject TransformChunkBase::_type(true,
+TransformChunkBase::TypeObject TransformChunkBase::_type(
     TransformChunkBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -126,6 +126,7 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(true,
     TransformChunk::initMethod,
     (InitalInsertDescFunc) &TransformChunkBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"

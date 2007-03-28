@@ -125,20 +125,31 @@ void Image::changed(ConstFieldMaskArg whichField, UInt32 origin)
         ++parentsIt;
     }
 
-    // Update internals
-    Int32 mapSizeType = sizeof(_typeDic) / sizeof(UInt32[2]);
-    UInt32 typeFormat  = 0;
-    Int32 i;
-
-    for(i = 0; i < mapSizeType; i++)
+    if(0x0000 == (whichField & ComponentSizeFieldMask))
     {
-        if(_typeDic[i][0] == getDataType())
-            typeFormat = _typeDic[i][1];
+        // Update internals
+        Int32 mapSizeType = sizeof(_typeDic) / sizeof(UInt32[2]);
+        UInt32 typeFormat  = 0;
+        Int32 i;
+        
+        for(i = 0; i < mapSizeType; i++)
+        {
+            if(_typeDic[i][0] == getDataType())
+                typeFormat = _typeDic[i][1];
+        }
+        
+        setComponentSize( typeFormat );
     }
 
-    setComponentSize( typeFormat );
-    setSideSize ( calcMipmapSumSize(getMipMapCount()) );
-    setFrameSize( getSideSize() * getSideCount() );
+    if(0x0000 == (whichField & SideSizeFieldMask))
+    {
+        setSideSize ( calcMipmapSumSize(getMipMapCount()) );
+    }
+
+    if(0x0000 == (whichField & FrameSizeFieldMask))
+    {
+        setFrameSize( getSideSize() * getSideCount() );
+    }
 
     Inherited::changed(whichField, origin);
 }
