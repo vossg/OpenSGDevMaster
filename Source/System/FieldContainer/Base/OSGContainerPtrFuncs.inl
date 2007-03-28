@@ -482,11 +482,18 @@ PointerT cast_dynamic(FieldContainer::ObjPtrConst pIn)
 {
 #ifdef OSG_MT_FIELDCONTAINERPTR
 
+   if (NULL == pIn._storeP)
+   {
+      return PointerT(OSG::NullFC);
+   }
+   else
+   {
     return PointerT(
         (dynamic_cast<const typename PointerT::StoredObject *>(
             pIn.getCPtr())),
         pIn.getContainerSize (),
         pIn.getParentFieldPos());
+   }
 #else
     return dynamic_cast<PointerT>(pIn);
 #endif
@@ -506,11 +513,18 @@ template<> inline
 ParentFieldContainerPtr cast_dynamic(FieldContainer::ObjPtrConst pIn)
 {
 #ifdef OSG_MT_FIELDCONTAINERPTR
+   if (NULL == pIn._storeP)
+   {
+      return ParentFieldContainerPtr(OSG::NullFC);
+   }
+   else
+   {
     return ParentFieldContainerPtr(
         (dynamic_cast<const ParentFieldContainerPtr::StoredObject *>(
             pIn.getCPtr())),
         pIn.getContainerSize (),
         pIn.getParentFieldPos());
+   }
 #else
     return ParentFieldContainerPtr(
         dynamic_cast<ParentFieldContainerPtr::Pointer>(pIn));

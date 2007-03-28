@@ -39,6 +39,7 @@
 #include <OpenSG/OSGFieldContainer.h>
 #include <OpenSG/OSGNode.h>
 #include <OpenSG/OSGNodeCore.h>
+#include <OpenSG/OSGTransform.h>
 
 #include <iostream>
 #include <string>
@@ -128,6 +129,17 @@ TEST(checkMemoryCleanup)
 
 // ---- Memory Debugging Tests ---- //
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
+
+TEST(checkMemWithCoredNodes)
+{
+   OSG::TransformNodePtr xnode;
+   xnode = OSG::TransformNodePtr::create();
+
+   OSG::TransformNodePtr xnode2;
+   xnode2 = OSG::TransformNodePtr::create();
+   xnode2 = xnode;
+   xnode  = OSG::NullFC;   
+}
 
 TEST(checkDanglingFcPtr)
 {

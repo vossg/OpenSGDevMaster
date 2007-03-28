@@ -21,7 +21,7 @@ else:
             libpath.append(option.libDir)
 
    # Tests' dependencies
-   osg_test_libs = ['OSGBase', 'OSGSystem' ]
+   osg_test_libs = ['OSGBase', 'OSGSystem', 'OSGGroup' ]
    test_cpppath = []
    test_libpath = []
      
