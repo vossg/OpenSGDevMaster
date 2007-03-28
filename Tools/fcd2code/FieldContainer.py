@@ -17,23 +17,24 @@ class FieldContainer(FCDElement):
     def initFCDDict(self):
         """Sets the fcd dictionary to default values.
         """
-        self.setFCD("name",                  "");
-        self.setFCD("parent",                "");
-        self.setFCD("library",               "");
-        self.setFCD("pointerfieldtypes",     "");
-        self.setFCD("structure",             "");
-        self.setFCD("systemcomponent",       "true");
-        self.setFCD("parentsystemcomponent", "true");
-        self.setFCD("decoratable",           "false");
-        self.setFCD("useLocalIncludes",      "false");
-        self.setFCD("isNodeCore",            "false");
-        self.setFCD("description",           "");
-        self.setFCD("group",                 "NULL");
-        self.setFCD("namespace",             "");
-        self.setFCD("decorateeFieldFlags",   "");
-        self.setFCD("additionalIncludes",    "");
-        self.setFCD("fcdFileLines",          []);
-    
+        self.setFCD("name",                   "");
+        self.setFCD("parent",                 "");
+        self.setFCD("library",                "");
+        self.setFCD("pointerfieldtypes",      "");
+        self.setFCD("structure",              "");
+        self.setFCD("systemcomponent",        "true");
+        self.setFCD("parentsystemcomponent",  "true");
+        self.setFCD("decoratable",            "false");
+        self.setFCD("useLocalIncludes",       "false");
+        self.setFCD("isNodeCore",             "false");
+        self.setFCD("description",            "");
+        self.setFCD("group",                  "NULL");
+        self.setFCD("namespace",              "");
+        self.setFCD("decorateeFieldFlags",    "");
+        self.setFCD("additionalIncludes",     "");
+        self.setFCD("fcdFileLines",           []);
+        self.setFCD("fieldsUnmarkedOnCreate", "0")
+
     #
     # Access fields
     
@@ -212,7 +213,9 @@ class FieldContainer(FCDElement):
             self["Namespace"] = self.getFCD("namespace");
         else:
             self["Namespace"] = "0";
-        
+
+        self["FieldsUnmarkedOnCreate"] = self.getFCD("fieldsUnmarkedOnCreate");   
+
         decorateeFieldFlags = self.getFCD("decorateeFieldFlags");
         if decorateeFieldFlags == "":
             self["DecorateeFieldFlags"] = "Field::SFDefaultFlags";
@@ -245,7 +248,7 @@ class FieldContainer(FCDElement):
             include = include.strip();
             if include != "":
                 self["AdditionalIncludes"].append(include);
-    
+
     def setFCDContents(self, fcdContents):
         self.setFCD("fcdFileLines", fcdContents);
         if fcdContents == []:
