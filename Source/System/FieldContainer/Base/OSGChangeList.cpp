@@ -51,6 +51,8 @@
 #include "OSGFieldContainer.h"
 #include "OSGFieldContainerType.h"
 
+#include "OSGStatCollector.h"
+
 #ifdef OSG_ENABLE_VALGRIND_CHECKS
 #include <valgrind/memcheck.h>
 #endif
@@ -185,6 +187,28 @@ void ContainerChangeEntry::commitChangesAndClear(void)
         uncommitedChanges  = TypeTraits<BitVector>::BitsClear;
     }
 }
+
+
+StatElemDesc<StatIntElem> ChangeList::statNChangedStoreSize(
+    "changedStoreSize",
+    "number of elements in the changed store",
+    StatElemDescBase::RESET_NEVER);
+
+StatElemDesc<StatIntElem> ChangeList::statNCreatedStoreSize(
+    "createdStoreSize",
+    "number of elements in the created store",
+    StatElemDescBase::RESET_NEVER);
+
+StatElemDesc<StatIntElem> ChangeList::statNUnCommittedStoreSize(
+    "uncommittedStoreSize",
+    "number of elements in the uncommitted store",
+    StatElemDescBase::RESET_NEVER);
+
+StatElemDesc<StatIntElem> ChangeList::statNPoolSize(
+    "poolSize",
+    "number of elements in the entry pool",
+    StatElemDescBase::RESET_NEVER);
+
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
@@ -718,22 +742,24 @@ void ChangeList::dump(      UInt32    uiIndent,
     }
 }
 
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
+void ChangeList::dumpListSizes(void) const
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGCHANGELIST_HEADER_CVSID;
-//    static Char8 cvsid_inl[] = OSGCHANGELIST_INLINE_CVSID;
+    fprintf(stderr, "CL : CH_S : %d | CR_S : %d | UC_S : %d | P_S %d\n",
+            _changedStore.size(),
+            _createdStore.size(),
+            _uncommitedChanges.size(),
+            _entryPool.size() * 32 );
+}
+
+void ChangeList::fillStatistic(StatCollector *pColl) const
+{
+    if(pColl == NULL)
+        return;
+
+    pColl->getElem(statNChangedStoreSize    )->set(_changedStore     .size());
+    pColl->getElem(statNCreatedStoreSize    )->set(_createdStore     .size());
+    pColl->getElem(statNUnCommittedStoreSize)->set(_uncommitedChanges.size());
+    pColl->getElem(statNPoolSize            )->set(_entryPool.size() * 32   );
+
 }
 

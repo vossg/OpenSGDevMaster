@@ -580,6 +580,18 @@ void SimpleSceneManager::initialize(void)
             // add optional elements
             sf->getCollector()->getElem(Drawable::statNTriangles);
         }
+
+        sf->addText   ("ChangeList: ");
+        sf->addElement(ChangeList::statNChangedStoreSize, 
+                       "    %d entries in changedStore");
+        sf->addElement(ChangeList::statNCreatedStoreSize, 
+                       "    %d entries in createdStore");
+        sf->addElement(ChangeList::statNUnCommittedStoreSize, 
+                       "    %d entries in uncommitedStore");
+        sf->addElement(ChangeList::statNPoolSize, 
+                       "    %d entries in pool");
+
+
 #else
         // Render action
         sf->addElement(RenderAction::statDrawTime,      "Draw FPS: %r.3f");
@@ -610,7 +622,6 @@ void SimpleSceneManager::initialize(void)
         sf->addElement(Drawable::statNVertices,     "%d vertices transformed");
         sf->addElement(RenderAction::statNTextures, "%d textures used");
         sf->addElement(RenderAction::statNTexBytes, "%d bytes of texture used");
-
         if(sf->getCollector() != NULL)
         {
             // add optional elements
@@ -719,6 +730,9 @@ void SimpleSceneManager::update(void)
     _navigator.updateCameraTransformation();
 
     updateHighlight();
+
+    Thread::getCurrentChangeList()->fillStatistic(
+        _rtaction->getStatCollector()); 
 
     Thread::getCurrentChangeList()->commitChanges();
 }

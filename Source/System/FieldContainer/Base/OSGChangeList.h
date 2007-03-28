@@ -52,6 +52,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGMemoryObject.h"
 #include "OSGThread.h"
+#include "OSGStatElemTypes.h"
 
 #include <list>
 #include <vector>
@@ -61,6 +62,7 @@ OSG_BEGIN_NAMESPACE
 class PThreadBase;
 class SprocBase;
 class WinThreadBase;
+class StatCollector;
 
 /*! \ingroup GrpSystemMultithreading
  */
@@ -140,6 +142,11 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
+
+    static StatElemDesc<StatIntElem> statNChangedStoreSize;
+    static StatElemDesc<StatIntElem> statNCreatedStoreSize;
+    static StatElemDesc<StatIntElem> statNUnCommittedStoreSize;
+    static StatElemDesc<StatIntElem> statNPoolSize;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -256,8 +263,12 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0,
-                      const BitVector bvFlags  = 0) const;
+    virtual void dump         (      UInt32    uiIndent = 0,
+                               const BitVector bvFlags  = 0) const;
+
+            void dumpListSizes(void                        ) const;
+
+            void fillStatistic(StatCollector *pColl        ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -345,8 +356,6 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
 inline void commitChanges(void);
 
 OSG_END_NAMESPACE
-
-#define OSGCHANGELIST_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGChangeList.inl"
 
