@@ -451,6 +451,12 @@ void keyboard(unsigned char k, int x, int y)
             commitChanges();
         }
         break;
+
+        case 'S':
+        {
+            mgr->setStatistics(!mgr->getStatistics());
+        }
+        break;
    }
 }
 

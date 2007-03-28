@@ -243,6 +243,12 @@ void keyboard(unsigned char k, int x, int y)
             exit(0);
         }
         break;
+
+        case 's':
+        {
+            mgr->setStatistics(!mgr->getStatistics());
+        }
+        break;
     }
 }
 

@@ -292,6 +292,12 @@ void keyboard(unsigned char k, int x, int y)
             SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
             printf("wrote scene.\n");
         break;
+
+        case 's':
+        {
+            _mgr->setStatistics(!_mgr->getStatistics());
+        }
+        break;
     }
 }
 

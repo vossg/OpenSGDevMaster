@@ -150,6 +150,12 @@ void keyboard(unsigned char k, int x, int y)
                 glutPostRedisplay();           
                 }
                 break;
+
+        case 's':
+        {
+            mgr->setStatistics(!mgr->getStatistics());
+        }
+        break;
     }
 }
 
