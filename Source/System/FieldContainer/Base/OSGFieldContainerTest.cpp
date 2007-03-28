@@ -144,12 +144,45 @@ TEST(checkDanglingFcPtr)
 
    OSG::subRef(node);
    CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == OSGNullFC);
-   CHECK(NULL     == node._storeP);       // Subref clears the main one by default
+   //CHECK(NULL == node._storeP);       // Subref clears the main one by default
    CHECK(base_ptr == node_copy._storeP);  // Still points to an invalid object
 
    // Now try some things that should fail
+   //CHECK_ASSERT( node_copy.getBaseCPtr() );
+   //CHECK_ASSERT( node_copy->getNChildren() );
+   /*  If it works, these should assert
    the_fc = node_copy.getBaseCPtr();
-   kids = node_copy->getNChildren();
+   kids   = node_copy->getNChildren();
+   */
+}
+
+TEST(checkDanglingFcPtrFreelist)
+{
+   // Check to make sure that dangling FCPtrs are detected even when memory is allocated in the middle
+   OSG::NodePtr node(OSG::Node::create());
+   OSG::NodePtr node_copy = node;
+   OSG::UInt32   node_id = OSG::getContainerId(node);
+   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) != OSGNullFC);
+
+   OSG::UInt8* base_ptr = node._storeP;
+   CHECK((base_ptr != NULL) && (base_ptr == node_copy._storeP));
+
+   OSG::subRef(node);
+   CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == OSGNullFC);
+   CHECK(base_ptr == node_copy._storeP);  // Still points to an invalid object
+
+   // Allocate and deallocate some memory
+   for (unsigned i=0; i<1000;i++)
+   {
+      OSG::NodeRefPtr       n(OSG::Node::create());
+   }
+
+   // Now try some things that should fail
+   /*  If it works, these should assert.
+   OSG::FieldContainer* the_fc = node_copy.getBaseCPtr();
+   OSG::UInt32          kids   = node_copy->getNChildren();
+   */
+
 }
 
 #endif

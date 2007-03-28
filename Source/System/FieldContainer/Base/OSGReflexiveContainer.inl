@@ -46,7 +46,7 @@ FieldHandle::FieldHandle(const FieldHandle &source) :
 }
 
 inline
-FieldHandle::FieldHandle(const Field                *pField, 
+FieldHandle::FieldHandle(const Field                *pField,
                          const FieldDescriptionBase *pDescription) :
     _pField      (const_cast<Field *>(pField)),
     _pDescription(pDescription               )
@@ -118,7 +118,7 @@ EditFieldHandle::EditFieldHandle(const EditFieldHandle &source) :
 }
 
 inline
-EditFieldHandle::EditFieldHandle(      Field                *pField, 
+EditFieldHandle::EditFieldHandle(      Field                *pField,
                                  const FieldDescriptionBase *pDescription) :
     Inherited(pField, pDescription)
 {
@@ -198,11 +198,12 @@ ReflexiveContainer::~ReflexiveContainer(void)
 }
 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
-inline 
+inline
 void ReflexiveContainer::_assert_not_deleted()
 {
-   OSG_ASSERT((_bvChanged != 0xDEADBEEF) && 
-              (_pContainerChanges != (ContainerChangeEntry*)(0xDEADBEEF)) );
+   OSG_ASSERT((_bvChanged != 0xDEADBEEF) &&
+              (_pContainerChanges != (ContainerChangeEntry*)(0xDEADBEEF)) &&
+              "Attempted to reference deleted container.");
 }
 #endif
 
@@ -333,7 +334,7 @@ EditFieldHandle ReflexiveContainer::editHandledField(UInt32 fieldId)
 
     return EditFieldHandle(NULL, NULL);
 }
-    
+
 inline
 EditFieldHandle ReflexiveContainer::editHandledField(const Char8 *fieldName)
 {
@@ -362,7 +363,7 @@ FieldHandle ReflexiveContainer::getHandledField(UInt32 fieldId) const
     return FieldHandle((desc != NULL) ? desc->getField(*this) : NULL,
                        desc);
 }
-    
+
 inline
 FieldHandle ReflexiveContainer::getHandledField(const Char8 *fieldName) const
 {
@@ -378,7 +379,7 @@ FieldDescriptionBase *ReflexiveContainer::getFieldDescription(UInt32 fieldId)
 {
     return getType().getFieldDesc(fieldId);
 }
-    
+
 inline
 FieldDescriptionBase *ReflexiveContainer::getFieldDescription(
     const Char8 *fieldName)

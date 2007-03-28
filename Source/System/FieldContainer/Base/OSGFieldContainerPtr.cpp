@@ -79,6 +79,11 @@ bool FieldContainerPtrBase::addFCPtrInit(void)
     return true;
 }
 
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+std::deque<UInt8*>   FieldContainerPtrBase::_memDebug_DelayedFreeList;
+OSG::UInt32          FieldContainerPtrBase::_memDebug_MaxFreeListSize = 10000000;
+#endif
+
 LockPool              *FieldContainerPtrBase::_pRefCountLock  = NULL;
 
 StaticInitFuncWrapper  FieldContainerPtrBase::_initFuncWrapper(addFCPtrInit);
@@ -139,10 +144,10 @@ std::ostream &OSG::operator <<(      std::ostream       &os,
 {
     if(fc == NullFC)
     {
-        os << std::hex 
-           << "FieldContainerPtr 0x" 
-           << &fc 
-           << std::dec 
+        os << std::hex
+           << "FieldContainerPtr 0x"
+           << &fc
+           << std::dec
            << ":NullFC";
     }
     else

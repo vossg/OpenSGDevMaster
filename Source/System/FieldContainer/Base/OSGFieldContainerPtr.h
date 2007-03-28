@@ -55,6 +55,7 @@
 #include "OSGChangeList.h"
 #include "OSGReflexiveContainer.h"
 #include "OSGThreadManager.h"
+#include <deque>
 
 OSG_BEGIN_NAMESPACE
 
@@ -73,7 +74,7 @@ struct CPtrConstructionFunctions;
 //! Brief
 //! \ingroup baselib
 
-class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase 
+class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -95,7 +96,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    FieldContainerPtrBase(      void                         ); 
+    FieldContainerPtrBase(      void                         );
     FieldContainerPtrBase(const NilFieldContainerPtr  &      );
     FieldContainerPtrBase(const FieldContainerPtrBase &source);
 
@@ -104,7 +105,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    ~FieldContainerPtrBase(void); 
+    ~FieldContainerPtrBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -167,7 +168,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
     /*! \{                                                                 */
 
     bool operator <  (const NilFieldContainerPtr  &     ) const;
-    
+
     bool operator == (const NilFieldContainerPtr  &other) const;
     bool operator != (const NilFieldContainerPtr  &other) const;
 
@@ -191,10 +192,16 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
-#ifdef OSG_ENABLE_MEMORY_DEBUGGING    
-  public:
-#else
+#ifndef OSG_ENABLE_MEMORY_DEBUGGING
   protected:
+
+#else
+  public:
+     /** Buffer to store list of blocks that have been release by OpenSG, but
+     *    not yet freed.
+     */
+    static std::deque<UInt8*>    _memDebug_DelayedFreeList;
+    static OSG::UInt32           _memDebug_MaxFreeListSize;
 #endif
 
     static       StaticInitFuncWrapper  _initFuncWrapper;
@@ -202,17 +209,17 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
 
 #ifdef OSG_ASPECT_REFCOUNT
     static const Int32                   ARefCountOffset = - (Int32)
-							     (sizeof(Int32) + 
+                                 (sizeof(Int32) +
                                                               sizeof(Int32) +
                                                               sizeof(UInt32));
 #endif
 
     static const Int32                   RefCountOffset  = - (Int32)
-							     (sizeof(Int32) + 
+                                 (sizeof(Int32) +
                                                               sizeof(UInt32));
 
     static const Int32                   IdOffset        = - (Int32)
-							     (sizeof(UInt32));
+                                 (sizeof(UInt32));
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
@@ -265,13 +272,13 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
     Int32  *getARefCountP(void            );
     Int32  *getARefCountP(void            ) const;
 #endif
-    
-    UInt32 *getIdP       (void            );    
-    UInt32 *getIdP       (void            ) const;    
-    
+
+    UInt32 *getIdP       (void            );
+    UInt32 *getIdP       (void            ) const;
+
     UInt8  *getFirstElemP(void            );
     UInt8  *getFirstElemP(void            ) const;
-    
+
     UInt8  *getElemP     (UInt32 uiElemNum);
     UInt8  *getElemP     (UInt32 uiElemNum) const;
 
@@ -359,8 +366,8 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtr : public FieldContainerPtrBase
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
- 
-    ~FieldContainerPtr(void); 
+
+    ~FieldContainerPtr(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -372,7 +379,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtr : public FieldContainerPtrBase
 
     FieldContainer &operator *(void);
     FieldContainer &operator *(void) const;
- 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
@@ -453,7 +460,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtr : public FieldContainerPtrBase
     FieldContainerPtr(const FieldContainer *source,
                       const UInt16          uiSize,
                       const UInt16          uiParentEPos);
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
@@ -481,7 +488,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtr : public FieldContainerPtrBase
 
     friend struct CPointerFuncs;
 
-    template<class PointerT> 
+    template<class PointerT>
     friend PointerT cast_dynamic(const FieldContainerPtr in);
 
     template<class ContainerFactoryT>
@@ -496,7 +503,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtr : public FieldContainerPtrBase
    \ingroup GrpSystemFieldContainer
  */
 
-class OSG_SYSTEM_DLLMAPPING FieldContainerConstPtr : 
+class OSG_SYSTEM_DLLMAPPING FieldContainerConstPtr :
     public FieldContainerPtrBase
 {
     /*==========================  PUBLIC  =================================*/
@@ -531,7 +538,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerConstPtr :
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    ~FieldContainerConstPtr(void); 
+    ~FieldContainerConstPtr(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -543,7 +550,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerConstPtr :
 
     const FieldContainer &operator *(void);
     const FieldContainer &operator *(void) const;
- 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
@@ -659,7 +666,7 @@ PointerT cast_dynamic(const FieldContainerPtr in);
 //! Brief
 //! \ingroup baselib
 
-template <class ParentPtrTypeT, class FieldContainerTypeT> 
+template <class ParentPtrTypeT, class FieldContainerTypeT>
 class FCPtr : public ParentPtrTypeT
 {
     /*==========================  PUBLIC  =================================*/
@@ -687,7 +694,7 @@ class FCPtr : public ParentPtrTypeT
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    FCPtr(      void                        ); 
+    FCPtr(      void                        );
     FCPtr(const NilFieldContainerPtr &      );
     FCPtr(const FCPtr                &source);
 
@@ -696,7 +703,7 @@ class FCPtr : public ParentPtrTypeT
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    ~FCPtr(void); 
+    ~FCPtr(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -726,7 +733,7 @@ class FCPtr : public ParentPtrTypeT
 
 #ifdef OSG_1_COMPAT
     template <class InTypeT> inline
-    static FCPtr dcast(const InTypeT oIn) 
+    static FCPtr dcast(const InTypeT oIn)
     {
         return FCPtr(
             (dynamic_cast<const typename FCPtr::StoredObject *>(
@@ -833,7 +840,7 @@ class FCPtr : public ParentPtrTypeT
 #ifdef OSG_LINUX_ICC
 #pragma warning( disable : 488 )
 #endif
-    template<class PointerT> 
+    template<class PointerT>
     friend PointerT cast_dynamic(const FieldContainerPtr in);
 #ifdef OSG_LINUX_ICC
 #pragma warning( default : 488 )
@@ -846,7 +853,7 @@ class FCPtr : public ParentPtrTypeT
 //! Brief
 //! \ingroup baselib
 
-template <class ParentPtrTypeT, class FieldContainerTypeT> 
+template <class ParentPtrTypeT, class FieldContainerTypeT>
 class FCConstPtr : public ParentPtrTypeT
 {
     /*==========================  PUBLIC  =================================*/
@@ -878,7 +885,7 @@ class FCConstPtr : public ParentPtrTypeT
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    FCConstPtr(      void                        ); 
+    FCConstPtr(      void                        );
     FCConstPtr(const NilFieldContainerPtr &      );
     FCConstPtr(const NonConstPtr          &source);
     FCConstPtr(const FCConstPtr           &source);
@@ -888,7 +895,7 @@ class FCConstPtr : public ParentPtrTypeT
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    ~FCConstPtr(void); 
+    ~FCConstPtr(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

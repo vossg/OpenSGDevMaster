@@ -513,13 +513,30 @@ void FieldContainerPtrBase::subReference(void) const
                 pTmp += _containerSize;
             }
 
+#ifndef OSG_ENABLE_MEMORY_DEBUGGING
+            // If no memory debugging, just delete immediately
             operator delete(_storeP + getMemStartOff());
+#else
+            // Otherwise delay it for a while by storing the buffer until we reach the set limit
+            OSG::UInt8* buf = (_storeP + getMemStartOff());
+            _memDebug_DelayedFreeList.push_back(buf);
+            while(_memDebug_DelayedFreeList.size() > _memDebug_MaxFreeListSize)
+            {
+               buf = _memDebug_DelayedFreeList.front();
+               _memDebug_DelayedFreeList.pop_front();
+               operator delete(buf);
+            }
+#endif
+
 #ifdef OSG_ASPECT_REFCOUNT
         }
 #endif
 
-         // Clean up a little.
+#ifndef OSG_ENABLE_MEMORY_DEBUGGING
+         // Clean up a little. (don't do this when debugging memory, because then it is
+         // helpful to know the difference between a NullFC and a deallocated one)
         const_cast<FieldContainerPtrBase *>(this)->_storeP = NULL;
+#endif
     }
     else
     {
@@ -552,7 +569,20 @@ void FieldContainerPtrBase::subAReference(void) const
             pTmp += _containerSize;
         }
 
+#ifndef OSG_ENABLE_MEMORY_DEBUGGING
+        // If no memory debugging, just delete immediately
         operator delete(_storeP + getMemStartOff());
+#else
+        // Otherwise delay it for a while by storing the buffer until we reach the set limit
+        OSG::UInt8* buf = (_storeP + getMemStartOff());
+        _memDebug_DelayedFreeList.push_back(buf);
+        while(_memDebug_DelayedFreeList.size() > _memDebug_MaxFreeListSize)
+        {
+           buf = _memDebug_DelayedFreeList.front();
+           _memDebug_DelayedFreeList.pop_front();
+           operator delete(buf);
+        }
+#endif
     }
     else
     {
