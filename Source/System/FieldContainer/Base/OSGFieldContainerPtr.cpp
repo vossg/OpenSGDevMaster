@@ -60,12 +60,18 @@ OSG_USING_NAMESPACE
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
 UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum)
 {
+    if(NULL == _storeP)
+    {  return NULL; }
+
     ((FieldContainer *)(_storeP + (_containerSize * uiElemNum)))->_assert_not_deleted();
     return (_storeP + (_containerSize * uiElemNum));
 }
 
 UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum) const
 {
+    if(NULL == _storeP)
+    {  return NULL; }
+
     ((FieldContainer *)(_storeP + (_containerSize * uiElemNum)))->_assert_not_deleted();
     return (_storeP + (_containerSize * uiElemNum));
 }
