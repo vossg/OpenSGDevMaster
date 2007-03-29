@@ -51,6 +51,8 @@
 #include <OpenSG/OSGFieldContainer.h>
 #include <OpenSG/OSGBaseFunctions.h>
 #include <OpenSG/OSGContainerPtrFuncs.h>
+#include <OpenSG/OSGAttachmentContainer.h>
+#include <OpenSG/OSGNameAttachment.h>
 
 OSG_BEGIN_NAMESPACE
 const NilFieldContainerPtr NullFC;
@@ -70,7 +72,8 @@ UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum)
        FcPtrInfo info;
        if (_memDebug_FcPtrInfoMap.find(_storeP) != _memDebug_FcPtrInfoMap.end() )
        { info = _memDebug_FcPtrInfoMap[_storeP]; }
-       std::cout << "FC Ptr failure: FC of type: " << info.type_name                 
+       std::cout << "FC Ptr failure: FC of type: " << info.type_name
+                 << "   named: [" << info.fc_name << "] "
                  << "\n allocated: " << info.allocation_stack_trace
                  << "\n deallocated: " << info.deallocation_stack_trace 
                  << "\n accessed: " << OSG::getCallStack() << "\n" << std::endl;
@@ -90,7 +93,8 @@ UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum) const
        if (_memDebug_FcPtrInfoMap.find(_storeP) != _memDebug_FcPtrInfoMap.end() )
        { info = _memDebug_FcPtrInfoMap[_storeP]; }
        std::cout << "FC Ptr failure: FC of type: " << info.type_name 
-       		 << "\n allocated: " << info.allocation_stack_trace
+                 << "   named: [" << info.fc_name << "] "
+       		     << "\n allocated: " << info.allocation_stack_trace
                  << "\n deallocated: " << info.deallocation_stack_trace 
                  << "\n accessed: " << OSG::getCallStack() << "\n" << std::endl;
        OSG_ASSERT(false && "Attempted to access deallocated field container.");
@@ -108,10 +112,11 @@ void FieldContainerPtrBase::memDebugTrackFcAllocate  (OSG::UInt8* storePVal, std
 }
 
 /** Call with an fcptr is dellocate and thus invalidated. */
-void FieldContainerPtrBase::memDebugTrackFcDeallocate(OSG::UInt8* storePVal)
+void FieldContainerPtrBase::memDebugTrackFcDeallocate(OSG::UInt8* storePVal, std::string fcName)
 {
    if (_memDebug_FcPtrInfoMap.find(storePVal) != _memDebug_FcPtrInfoMap.end())
    {
+      _memDebug_FcPtrInfoMap[storePVal].fc_name                  = fcName;
       _memDebug_FcPtrInfoMap[storePVal].deallocation_stack_trace = OSG::getCallStack();
    }   
 }
@@ -145,6 +150,18 @@ void FieldContainerPtrBase::subReference(void) const
             reinterpret_cast<ReflexiveContainer *>(
                 getElemP(Thread::getCurrentAspect()));
 
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+        std::string fc_name("unknown");
+#if 0
+        OSG::UInt32 container_id       = getContainerId();
+        FieldContainerPtr fc_ptr       = FieldContainerFactory::the()->getContainer(container_id);
+        AttachmentContainerPtr att_ptr = cast_dynamic<AttachmentContainerPtr>(fc_ptr);
+        if (OSG::NullFC != att_ptr)
+        {
+           fc_name = OSG::getName(att_ptr);           
+        }
+#endif        
+#endif
 
         pRC->onDestroy   (*(getIdP()));
         pRC->resolveLinks(           );
@@ -176,7 +193,7 @@ void FieldContainerPtrBase::subReference(void) const
 #else
             // Otherwise delay it for a while by storing the buffer until we reach the set limit            
             _memDebug_DelayedFreeList.push_back(_storeP);
-            FieldContainerPtrBase::memDebugTrackFcDeallocate(_storeP);
+            FieldContainerPtrBase::memDebugTrackFcDeallocate(_storeP, fc_name);
 
             while(_memDebug_DelayedFreeList.size() > _memDebug_MaxFreeListSize)
             {
@@ -218,6 +235,19 @@ void FieldContainerPtrBase::subAReference(void) const
 
         UInt8 *pTmp = getFirstElemP();
 
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+        std::string fc_name("unknown");
+#if 0        
+        OSG::UInt32 container_id       = getContainerId();
+        FieldContainerPtr fc_ptr       = FieldContainerFactory::the()->getContainer(container_id);
+        AttachmentContainerPtr att_ptr = cast_dynamic<AttachmentContainerPtr>(fc_ptr);
+        if (OSG::NullFC != att_ptr)
+        {
+           fc_name = OSG::getName(att_ptr);           
+        }
+#endif        
+#endif
+
         for(UInt32 i = 0; i < ThreadManager::getNumAspects(); i++)
         {
             ((ReflexiveContainer *) pTmp)->onDestroyAspect(*(getIdP()), i);
@@ -233,7 +263,7 @@ void FieldContainerPtrBase::subAReference(void) const
 #else
         // Otherwise delay it for a while by storing the buffer until we reach the set limit            
         _memDebug_DelayedFreeList.push_back(_storeP);
-        FieldContainerPtrBase::memDebugTrackFcDeallocate(_storeP);
+        FieldContainerPtrBase::memDebugTrackFcDeallocate(_storeP, fc_name);
 
         while(_memDebug_DelayedFreeList.size() > _memDebug_MaxFreeListSize)
         {
