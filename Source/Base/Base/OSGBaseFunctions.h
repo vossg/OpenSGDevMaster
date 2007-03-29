@@ -381,6 +381,10 @@ std::ostream &operator<<(std::ostream &os, Int64  v);
 #endif
 #endif 
 
+OSG_BASE_DLLMAPPING
+std::string getCallStack();
+
+
 /*---------------------------------------------------------------------*/
 /*               big/little endian conversion functions                */
 
