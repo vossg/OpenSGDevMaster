@@ -199,6 +199,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
   public:
      struct FcPtrInfo
      {
+        std::string type_name;                /**< The name of the fc type allocate. */
         std::string allocation_stack_trace;   /**< Point where the data was allocated. */
         std::string deallocation_stack_trace;  /**< Point where it was deallocated. */
      };
@@ -210,7 +211,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
     static OSG::UInt32                      _memDebug_MaxFreeListSize;
     static std::map<UInt8*, FcPtrInfo>      _memDebug_FcPtrInfoMap;
 
-    static void memDebugTrackFcAllocate  (OSG::UInt8* storePVal);
+    static void memDebugTrackFcAllocate  (OSG::UInt8* storePVal, std::string typeName);
     static void memDebugTrackFcDeallocate(OSG::UInt8* storePVal);
     static void memDebugTrackFcFree      (OSG::UInt8* storePVal);
 #endif

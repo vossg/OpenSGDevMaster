@@ -43,13 +43,14 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
+#include <OpenSG/OSGConfig.h>
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
 
-#include "OSGFieldContainerPtr.h"
-#include "OSGFieldContainer.h"
-#include "OSGBaseFunctions.h"
+#include <OpenSG/OSGFieldContainerPtr.h>
+#include <OpenSG/OSGFieldContainer.h>
+#include <OpenSG/OSGBaseFunctions.h>
+#include <OpenSG/OSGContainerPtrFuncs.h>
 
 OSG_BEGIN_NAMESPACE
 const NilFieldContainerPtr NullFC;
@@ -69,7 +70,8 @@ UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum)
        FcPtrInfo info;
        if (_memDebug_FcPtrInfoMap.find(_storeP) != _memDebug_FcPtrInfoMap.end() )
        { info = _memDebug_FcPtrInfoMap[_storeP]; }
-       std::cout << "FC Ptr failure: \n allocated: " << info.allocation_stack_trace
+       std::cout << "FC Ptr failure: FC of type: " << info.type_name                 
+                 << "\n allocated: " << info.allocation_stack_trace
                  << "\n deallocated: " << info.deallocation_stack_trace 
                  << "\n accessed: " << OSG::getCallStack() << "\n" << std::endl;
        OSG_ASSERT(false && "Attempted to access deallocated field container.");
@@ -87,7 +89,8 @@ UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum) const
        FcPtrInfo info;
        if (_memDebug_FcPtrInfoMap.find(_storeP) != _memDebug_FcPtrInfoMap.end() )
        { info = _memDebug_FcPtrInfoMap[_storeP]; }
-       std::cout << "FC Ptr failure: \n allocated: " << info.allocation_stack_trace
+       std::cout << "FC Ptr failure: FC of type: " << info.type_name 
+       		 << "\n allocated: " << info.allocation_stack_trace
                  << "\n deallocated: " << info.deallocation_stack_trace 
                  << "\n accessed: " << OSG::getCallStack() << "\n" << std::endl;
        OSG_ASSERT(false && "Attempted to access deallocated field container.");
@@ -96,9 +99,10 @@ UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum) const
 }
 
 /** Call when a new fc is allocated for an fc ptr. */
-void FieldContainerPtrBase::memDebugTrackFcAllocate  (OSG::UInt8* storePVal)
+void FieldContainerPtrBase::memDebugTrackFcAllocate  (OSG::UInt8* storePVal, std::string typeName)
 {
    FcPtrInfo allocate_info;
+   allocate_info.type_name              = typeName;
    allocate_info.allocation_stack_trace = OSG::getCallStack();
    _memDebug_FcPtrInfoMap[storePVal] = allocate_info;
 }
