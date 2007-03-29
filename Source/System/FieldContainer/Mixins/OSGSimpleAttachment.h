@@ -69,8 +69,8 @@ class SimpleAttachment : public FieldContainerAttachment
 
   public:
 
-    typedef          AttachmentDescT                   Desc;
-    typedef typename Desc::FieldTypeT                  StoredFieldType;
+    typedef          AttachmentDescT                   SimpleDesc;
+    typedef typename SimpleDesc::FieldTypeT            StoredFieldType;
 
     typedef          SimpleAttachment<AttachmentDescT> Self;
 

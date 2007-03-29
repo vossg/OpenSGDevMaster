@@ -78,7 +78,7 @@ const typename SimpleAttachment<AttachmentDescT>::StoredFieldType &
 template <class AttachmentDescT> inline
 Char8 *SimpleAttachment<AttachmentDescT>::getClassname(void)
 {
-    return Desc::getTypeName();
+    return SimpleDesc::getTypeName();
 }
 
 template <class AttachmentDescT> inline

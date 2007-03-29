@@ -69,7 +69,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     typedef          GeoIntegralProperty                       Inherited;
     typedef          GeoIntegralProperty                       ParentContainer;
     
-    typedef          GeoPropertyDesc                           Desc;
+    typedef          GeoPropertyDesc                           PropDesc;
 
     typedef typename Inherited::TypeObject                     TypeObject;
     typedef typename TypeObject::InitPhase                     InitPhase;

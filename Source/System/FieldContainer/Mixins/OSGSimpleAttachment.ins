@@ -47,7 +47,7 @@ void SimpleAttachment<AttachmentDescT>::classDescInserter(TypeObject &oType)
 
     pDesc = new SFDesc(
         StoredFieldType::getClassType(),
-        Desc::getFieldName(),
+        SimpleDesc::getFieldName(),
         "",
         OSG_RC_FIELD_DESC(Self::Simple),
         false,
@@ -61,9 +61,9 @@ void SimpleAttachment<AttachmentDescT>::classDescInserter(TypeObject &oType)
 template <typename AttachmentDescT> 
 typename SimpleAttachment<AttachmentDescT>::TypeObject 
     SimpleAttachment<AttachmentDescT>::_type(
-        Desc::getTypeName      (),
-        Desc::getParentTypeName(),
-        Desc::getGroupName     (),
+        SimpleDesc::getTypeName      (),
+        SimpleDesc::getParentTypeName(),
+        SimpleDesc::getGroupName     (),
         0,
         (PrototypeCreateF) &Self::createEmpty,
         NULL,

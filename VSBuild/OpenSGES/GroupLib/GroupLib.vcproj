@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;..\BaseLib;..\..\..\Source\Base\Base;..\..\..\Source\Base\Field;..\..\..\Source\Base\Field\Wrapper;..\..\..\Source\System\FieldContainer\Base;..\..\..\Source\System\FieldContainer\Mixins;..\..\..\Source\System\FieldContainer\Node;..\..\..\Source\System\FieldContainer\Fields;..\..\..\Source\System\FieldContainer\Fields\Wrapper;..\..\..\Source\System\Action\Base;..\..\..\Source\System\Action\RenderAction;..\..\..\Source\System\Action\IntersectAction;..\..\..\Source\System\Material\Base;..\..\..\Source\System\Material\Simple;..\..\..\Source\System\State\Base;..\..\..\Source\System\State\Base\ES;..\..\..\Source\System\NodeCores\Drawables\Base;..\..\..\Source\System\NodeCores\Groups\Base;..\..\..\Source\System\NodeCores\Groups\Misc;..\..\..\Source\System\RenderingBackend;..\..\..\Source\System\Image;..\..\..\Source\System\Image\ES;..\..\..\Source\System\Statistics\Base;..\..\..\Source\System\Window\Base;..\..\..\Source\System\FileIO\Base"
+				AdditionalIncludeDirectories=".;..\BaseLib;..\include;..\include\OpenSG"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_WINDOWS;_USRDLL;GROUPLIB_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;_OSG_HAVE_CONFIGURED_H_;OSG_BUILD_DLL;OSG_COMPILEGROUPLIB"
 				MinimalRebuild="true"
 				RuntimeLibrary="3"

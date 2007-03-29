@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;..\BaseLib;..\..\..\Source\Base\Base;..\..\..\Source\Base\Field;..\..\..\Source\Base\Field\Wrapper;..\..\..\Source\System\FieldContainer\Base;..\..\..\Source\System\FieldContainer\Mixins;..\..\..\Source\System\FieldContainer\Node;..\..\..\Source\System\FieldContainer\Fields;..\..\..\Source\System\FieldContainer\Fields\Wrapper;..\..\..\Source\System\Action\Base;..\..\..\Source\System\Action\RenderAction;..\..\..\Source\System\Action\IntersectAction;..\..\..\Source\System\Material\Base;..\..\..\Source\System\Material\Simple;..\..\..\Source\System\State\Base;..\..\..\Source\System\State\Base\ES;..\..\..\Source\System\NodeCores\Drawables\Base;..\..\..\Source\System\NodeCores\Groups\Base;..\..\..\Source\System\RenderingBackend;..\..\..\Source\System\Image;..\..\..\Source\System\Image\ES;..\..\..\Source\System\Statistics\Base;..\..\..\Source\System\Window\Base;..\..\..\Source\System\FileIO\Base"
+				AdditionalIncludeDirectories=".;..\BaseLib;..\include;..\include\OpenSG"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_WINDOWS;_USRDLL;SYSTEMLIB_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;_OSG_HAVE_CONFIGURED_H_;OSG_BUILD_DLL;OSG_COMPILESYSTEMLIB"
 				MinimalRebuild="true"
 				RuntimeLibrary="3"
@@ -397,6 +397,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGReflexiveContainerTypePredicates.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGThread.cpp"
 					>
 				</File>
@@ -572,14 +576,6 @@
 			<Filter
 				Name="FileIOBase"
 				>
-				<File
-					RelativePath="..\..\..\Source\System\FileIO\Base\OSGSceneFileHandler.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\System\FileIO\Base\OSGSceneFileType.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -1081,14 +1077,68 @@
 				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGChangedFunctorFieldTraits.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGChangedFunctorMFields.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGChangedFunctorSFields.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGChangeList.h"
@@ -1576,6 +1626,72 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Fields\Wrapper\OSGFieldContainerAttachmentFields.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGFieldContainerAttachmentFieldTraits.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGFieldContainerAttachmentMFields.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Fields\OSGFieldContainerAttachmentSFields.h"
 					>
 					<FileConfiguration
 						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
@@ -2323,6 +2439,50 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGReflexiveContainerTypePredicates.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGReflexiveContainerTypePredicates.inl"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Base\OSGRefPtr.h"
 					>
 					<FileConfiguration
@@ -2390,6 +2550,28 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\FieldContainer\Mixins\OSGSimpleAttachment.inl"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\FieldContainer\Mixins\OSGSimpleAttachment.ins"
 					>
 					<FileConfiguration
 						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
@@ -4425,44 +4607,268 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\..\..\Source\System\State\Base\OSGStateOverride.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\State\Base\OSGStateOverride.inl"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunk.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunk.inl"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunkBase.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunkBase.inl"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\OSGTextureBaseChunkFields.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunk.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunk.inl"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunkBase.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunkBase.inl"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\State\Base\ES\OSGTextureObjChunkFields.h"
 					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 			<Filter
@@ -5467,20 +5873,306 @@
 				Name="FileIOBase"
 				>
 				<File
-					RelativePath="..\..\..\Source\System\FileIO\Base\OSGSceneFileHandler.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\System\FileIO\Base\OSGSceneFileType.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\Source\System\FileIO\Base\OSGZStream.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\Source\System\FileIO\Base\OSGZStream.inl"
 					>
+				</File>
+			</Filter>
+			<Filter
+				Name="RenderingBackend"
+				>
+				<File
+					RelativePath="..\..\..\Source\System\RenderingBackend\OSGDrawEnv.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\RenderingBackend\OSGDrawEnv.inl"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\RenderingBackend\OSGDrawTreeNode.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\RenderingBackend\OSGDrawTreeNode.inl"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\RenderingBackend\OSGDrawTreeNodeFactory.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\RenderingBackend\OSGDrawTreeNodeFactory.inl"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\RenderingBackend\OSGPassMaskPool.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="Image"
+				>
+				<File
+					RelativePath="..\..\..\Source\System\Image\ES\OSGImage.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\Image\ES\OSGImage.inl"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\Image\ES\OSGImageBase.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\Image\ES\OSGImageBase.inl"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\Image\ES\OSGImageFields.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\System\Image\OSGImageGenericAtt.h"
+					>
+					<FileConfiguration
+						Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							CommandLine="copy $(InputPath) ..\include\OpenSG&#x0D;&#x0A;"
+							Outputs="..\include\OpenSG\$(InputFileName)"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>

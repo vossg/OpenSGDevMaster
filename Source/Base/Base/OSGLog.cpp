@@ -263,7 +263,7 @@ int    Log::_buffer_size =  0;
  */
 bool Log::colorHeader(LogLevel level, const char *sep)
 {
-#if defined (OSG_WIN_TYPES) && !defined(OSG_NO_WINDOWD_H_INCLUDE)
+#if defined (OSG_WIN_TYPES) && !defined(OSG_NO_WINDOWD_H_INCLUDE) && !defined(OSG_WINCE)
     bool ok = true;
     std::string str("");
     LPSTR colStr;

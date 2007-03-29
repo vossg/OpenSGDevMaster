@@ -71,9 +71,9 @@ void TypedGeoVectorProperty<GeoPropertyDesc>::classDescInserter(
 template <class GeoPropertyDesc>
 typename TypedGeoVectorProperty<GeoPropertyDesc>::TypeObject
     TypedGeoVectorProperty<GeoPropertyDesc>::_type(
-        Desc     ::getTypeName (),
+        PropDesc ::getTypeName (),
         Inherited::getClassname(),
-        Desc     ::getGroupName(),
+        PropDesc ::getGroupName(),
         0,
         (PrototypeCreateF) &Self::createEmpty,
         &Self::initMethod,

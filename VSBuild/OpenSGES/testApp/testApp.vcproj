@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;..\..\..\Source\Base\Base;..\..\..\Source\Base\Field;..\..\..\Source\Base\Field\Wrapper;..\..\..\Source\System\FieldContainer\Base;..\..\..\Source\System\FieldContainer\Mixins;..\..\..\Source\System\FieldContainer\Fields;..\..\..\Source\System\FieldContainer\Fields\Wrapper;..\..\..\Source\System\FieldContainer\Node;..\..\..\Source\System\NodeCores\Groups\Base;..\..\..\Source\System\NodeCores\Groups\Misc;..\..\..\Source\System\NodeCores\Drawables\Base;..\..\..\Source\System\NodeCores\Groups\Light;..\..\..\Source\System\NodeCores\Drawables\Geometry\Base;..\..\..\Source\System\NodeCores\Drawables\Geometry\Properties;..\..\..\Source\System\NodeCores\Drawables\Geometry\Base\ES;..\..\..\Source\System\State\Base;..\..\..\Source\System\State\Base\ES;..\..\..\Source\System\Material\Base;..\..\..\Source\System\Material\Simple;..\..\..\Source\System\Action\Base;..\..\..\Source\System\Action\RenderAction;..\..\..\Source\System\Window\Base;..\..\..\Source\System\Window\Camera;..\..\..\Source\System\Window\Background;..\..\..\Source\System\Statistics\Base;..\..\..\Source\WindowSystem\EGL;..\BaseLib"
+				AdditionalIncludeDirectories=".;..\BaseLib;..\include;..\include\OpenSG"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_WINDOWS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;POCKETPC2003_UI_MODEL;_OSG_HAVE_CONFIGURED_H_;OSG_BUILD_DLL"
 				MinimalRebuild="true"
 				RuntimeLibrary="3"
@@ -97,8 +97,6 @@
 				AdditionalFiles="$(BINDIR)\msvcr80d.dll"
 			/>
 			<DebuggerTool
-				RemoteExecutable="%CSIDL_PROGRAM_FILES%\testAppD\testAppD.exe"
-				Arguments=""
 			/>
 		</Configuration>
 		<Configuration

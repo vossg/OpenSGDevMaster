@@ -70,7 +70,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     typedef          GeoVectorProperty                       Inherited;
     typedef          GeoVectorProperty                       ParentContainer;
 
-    typedef          GeoPropertyDesc                         Desc;
+    typedef          GeoPropertyDesc                         PropDesc;
 
     typedef typename Inherited ::TypeObject                  TypeObject;
     typedef typename TypeObject::InitPhase                   InitPhase;
