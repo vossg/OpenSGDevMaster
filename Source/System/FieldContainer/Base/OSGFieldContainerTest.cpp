@@ -193,8 +193,7 @@ TEST(checkDanglingFcPtrFreelist)
    /*  If it works, these should assert.
    OSG::FieldContainer* the_fc = node_copy.getBaseCPtr();
    OSG::UInt32          kids   = node_copy->getNChildren();
-   */
-
+   */   
 }
 
 #endif

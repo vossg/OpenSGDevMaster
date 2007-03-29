@@ -197,11 +197,22 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
 
 #else
   public:
+     struct FcPtrInfo
+     {
+        std::string allocation_stack_trace;   /**< Point where the data was allocated. */
+        std::string deallocation_stack_trace;  /**< Point where it was deallocated. */
+     };
+
      /** Buffer to store list of blocks that have been release by OpenSG, but
      *    not yet freed.
      */
-    static std::deque<UInt8*>    _memDebug_DelayedFreeList;
-    static OSG::UInt32           _memDebug_MaxFreeListSize;
+    static std::deque<UInt8*>               _memDebug_DelayedFreeList;
+    static OSG::UInt32                      _memDebug_MaxFreeListSize;
+    static std::map<UInt8*, FcPtrInfo>      _memDebug_FcPtrInfoMap;
+
+    static void memDebugTrackFcAllocate  (OSG::UInt8* storePVal);
+    static void memDebugTrackFcDeallocate(OSG::UInt8* storePVal);
+    static void memDebugTrackFcFree      (OSG::UInt8* storePVal);
 #endif
 
     static       StaticInitFuncWrapper  _initFuncWrapper;

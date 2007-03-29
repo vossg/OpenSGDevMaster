@@ -317,7 +317,7 @@ typedef const Field *(ReflexiveContainer::*FieldGetMethod )(void) const;
     /*=========================  PROTECTED  ===============================*/
 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
-    void _assert_not_deleted();
+    bool _check_is_deleted();
 #endif
 
   protected:

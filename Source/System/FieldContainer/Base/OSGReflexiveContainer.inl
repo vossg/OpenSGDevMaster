@@ -197,16 +197,6 @@ ReflexiveContainer::~ReflexiveContainer(void)
 #endif
 }
 
-#ifdef OSG_ENABLE_MEMORY_DEBUGGING
-inline
-void ReflexiveContainer::_assert_not_deleted()
-{
-   OSG_ASSERT((_bvChanged != 0xDEADBEEF) &&
-              (_pContainerChanges != (ContainerChangeEntry*)(0xDEADBEEF)) &&
-              "Attempted to reference deleted container.");
-}
-#endif
-
 
 inline
 void ReflexiveContainer::initMethod(InitPhase ePhase)

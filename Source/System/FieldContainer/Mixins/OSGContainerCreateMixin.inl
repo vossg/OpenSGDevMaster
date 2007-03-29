@@ -35,6 +35,7 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
+#include <OpenSG/OSGBaseFunctions.h>
 
 OSG_BEGIN_NAMESPACE
 
@@ -70,6 +71,10 @@ void CPtrConstructionFunctions<ContainerFactoryT>::newPtr(
     pTmp += sizeof(Int32);
     
     result._storeP = (pTmp + sizeof(UInt32));
+
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+    FieldContainerPtrBase::memDebugTrackFcAllocate(result._storeP);    
+#endif
 
     *(reinterpret_cast<UInt32 *>(pTmp)) = 
         ContainerFactoryT::the()->registerContainer(result);
@@ -128,6 +133,9 @@ void CPtrConstructionFunctions<ContainerFactoryT>::newPtr(
     pTmp  += sizeof(Int32);
     
     result._storeP = (pTmp + sizeof(UInt32));
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+    FieldContainerPtrBase::memDebugTrackFcAllocate(result._storeP);    
+#endif
     
     *(reinterpret_cast<UInt32 *>(pTmp)) = 
         ContainerFactoryT::the()->registerContainer(result);

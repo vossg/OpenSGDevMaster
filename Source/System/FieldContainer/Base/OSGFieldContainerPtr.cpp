@@ -49,6 +49,7 @@
 
 #include "OSGFieldContainerPtr.h"
 #include "OSGFieldContainer.h"
+#include "OSGBaseFunctions.h"
 
 OSG_BEGIN_NAMESPACE
 const NilFieldContainerPtr NullFC;
@@ -63,7 +64,16 @@ UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum)
     if(NULL == _storeP)
     {  return NULL; }
 
-    ((FieldContainer *)(_storeP + (_containerSize * uiElemNum)))->_assert_not_deleted();
+    if( ((FieldContainer *)(_storeP + (_containerSize * uiElemNum)))->_check_is_deleted() )
+    {
+       FcPtrInfo info;
+       if (_memDebug_FcPtrInfoMap.find(_storeP) != _memDebug_FcPtrInfoMap.end() )
+       { info = _memDebug_FcPtrInfoMap[_storeP]; }
+       std::cout << "FC Ptr failure: \n allocated: " << info.allocation_stack_trace
+                 << "\n deallocated: " << info.deallocation_stack_trace 
+                 << "\n accessed: " << OSG::getCallStack() << "\n" << std::endl;
+       OSG_ASSERT(false && "Attempted to access deallocated field container.");
+    }
     return (_storeP + (_containerSize * uiElemNum));
 }
 
@@ -72,10 +82,171 @@ UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum) const
     if(NULL == _storeP)
     {  return NULL; }
 
-    ((FieldContainer *)(_storeP + (_containerSize * uiElemNum)))->_assert_not_deleted();
+    if( ((FieldContainer *)(_storeP + (_containerSize * uiElemNum)))->_check_is_deleted() )
+    {
+       FcPtrInfo info;
+       if (_memDebug_FcPtrInfoMap.find(_storeP) != _memDebug_FcPtrInfoMap.end() )
+       { info = _memDebug_FcPtrInfoMap[_storeP]; }
+       std::cout << "FC Ptr failure: \n allocated: " << info.allocation_stack_trace
+                 << "\n deallocated: " << info.deallocation_stack_trace 
+                 << "\n accessed: " << OSG::getCallStack() << "\n" << std::endl;
+       OSG_ASSERT(false && "Attempted to access deallocated field container.");
+    }
     return (_storeP + (_containerSize * uiElemNum));
 }
+
+/** Call when a new fc is allocated for an fc ptr. */
+void FieldContainerPtrBase::memDebugTrackFcAllocate  (OSG::UInt8* storePVal)
+{
+   FcPtrInfo allocate_info;
+   allocate_info.allocation_stack_trace = OSG::getCallStack();
+   _memDebug_FcPtrInfoMap[storePVal] = allocate_info;
+}
+
+/** Call with an fcptr is dellocate and thus invalidated. */
+void FieldContainerPtrBase::memDebugTrackFcDeallocate(OSG::UInt8* storePVal)
+{
+   if (_memDebug_FcPtrInfoMap.find(storePVal) != _memDebug_FcPtrInfoMap.end())
+   {
+      _memDebug_FcPtrInfoMap[storePVal].deallocation_stack_trace = OSG::getCallStack();
+   }   
+}
+
+/** Call when we actually free the memory and don't need to track it any more. */
+void FieldContainerPtrBase::memDebugTrackFcFree      (OSG::UInt8* storePVal)
+{
+   _memDebug_FcPtrInfoMap.erase(storePVal);
+}
+
 #endif
+
+
+void FieldContainerPtrBase::subReference(void) const
+{
+    Thread::getCurrentChangeList()->addSubRefd(*(getIdP()));
+
+    Thread::getCurrentChangeList()->incSubRefLevel();
+
+    _pRefCountLock->acquire(_storeP);
+
+    (*getRefCountP())--;
+
+    if((*getRefCountP()) <= 0)
+    {
+        _pRefCountLock->release(_storeP);
+
+        UInt8 *pTmp = getFirstElemP();
+
+        ReflexiveContainer *pRC =
+            reinterpret_cast<ReflexiveContainer *>(
+                getElemP(Thread::getCurrentAspect()));
+
+
+        pRC->onDestroy   (*(getIdP()));
+        pRC->resolveLinks(           );
+
+#ifdef OSG_ASPECT_REFCOUNT
+        if((*getARefCountP()) <= 0)
+        {
+#endif
+            if(((ReflexiveContainer *) pTmp)->deregister(*(getIdP())) == true)
+            {
+                // Clean up a little.
+                const_cast<FieldContainerPtrBase *>(this)->_storeP = NULL;
+
+                return;
+            }
+
+            for(UInt32 i = 0; i < ThreadManager::getNumAspects(); i++)
+            {
+                ((ReflexiveContainer *) pTmp)->onDestroyAspect(*(getIdP()), i);
+
+                ((ReflexiveContainer *) pTmp)->~ReflexiveContainer();
+
+                pTmp += _containerSize;
+            }
+
+#ifndef OSG_ENABLE_MEMORY_DEBUGGING
+            // If no memory debugging, just delete immediately
+            operator delete(_storeP + getMemStartOff());
+#else
+            // Otherwise delay it for a while by storing the buffer until we reach the set limit            
+            _memDebug_DelayedFreeList.push_back(_storeP);
+            FieldContainerPtrBase::memDebugTrackFcDeallocate(_storeP);
+
+            while(_memDebug_DelayedFreeList.size() > _memDebug_MaxFreeListSize)
+            {
+               OSG::UInt8* buf = _memDebug_DelayedFreeList.front();
+               _memDebug_DelayedFreeList.pop_front();
+               FieldContainerPtrBase::memDebugTrackFcFree(buf);
+               operator delete(buf + getMemStartOff());
+            }
+#endif
+
+#ifdef OSG_ASPECT_REFCOUNT
+        }
+#endif
+
+#ifndef OSG_ENABLE_MEMORY_DEBUGGING
+         // Clean up a little. (don't do this when debugging memory, because then it is
+         // helpful to know the difference between a NullFC and a deallocated one)
+        const_cast<FieldContainerPtrBase *>(this)->_storeP = NULL;
+#endif
+    }
+    else
+    {
+        _pRefCountLock->release(_storeP);
+    }
+
+    Thread::getCurrentChangeList()->decSubRefLevel();
+}
+
+#ifdef OSG_ASPECT_REFCOUNT
+void FieldContainerPtrBase::subAReference(void) const
+{
+    _pRefCountLock->acquire(_storeP);
+
+    (*getARefCountP())--;
+
+    if((*getRefCountP()) <= 0 && (*getARefCountP()) <= 0)
+    {
+        _pRefCountLock->release(_storeP);
+
+        UInt8 *pTmp = getFirstElemP();
+
+        for(UInt32 i = 0; i < ThreadManager::getNumAspects(); i++)
+        {
+            ((ReflexiveContainer *) pTmp)->onDestroyAspect(*(getIdP()), i);
+
+            ((ReflexiveContainer *) pTmp)->~ReflexiveContainer();
+
+            pTmp += _containerSize;
+        }
+
+#ifndef OSG_ENABLE_MEMORY_DEBUGGING
+        // If no memory debugging, just delete immediately
+        operator delete(_storeP + getMemStartOff());
+#else
+        // Otherwise delay it for a while by storing the buffer until we reach the set limit            
+        _memDebug_DelayedFreeList.push_back(_storeP);
+        FieldContainerPtrBase::memDebugTrackFcDeallocate(_storeP);
+
+        while(_memDebug_DelayedFreeList.size() > _memDebug_MaxFreeListSize)
+        {
+           OSG::UInt8* buf = _memDebug_DelayedFreeList.front();
+           _memDebug_DelayedFreeList.pop_front();
+           FieldContainerPtrBase::memDebugTrackFcFree(buf);
+           operator delete(buf + getMemStartOff());
+        }
+#endif
+    }
+    else
+    {
+        _pRefCountLock->release(_storeP);
+    }
+}
+#endif
+
 
 bool FieldContainerPtrBase::addFCPtrInit(void)
 {
@@ -86,8 +257,9 @@ bool FieldContainerPtrBase::addFCPtrInit(void)
 }
 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
-std::deque<UInt8*>   FieldContainerPtrBase::_memDebug_DelayedFreeList;
-OSG::UInt32          FieldContainerPtrBase::_memDebug_MaxFreeListSize = 10000000;
+std::deque<UInt8*>            FieldContainerPtrBase::_memDebug_DelayedFreeList;
+OSG::UInt32                   FieldContainerPtrBase::_memDebug_MaxFreeListSize = 10000000;
+std::map<UInt8*, FieldContainerPtrBase::FcPtrInfo>   FieldContainerPtrBase::_memDebug_FcPtrInfoMap;
 #endif
 
 LockPool              *FieldContainerPtrBase::_pRefCountLock  = NULL;

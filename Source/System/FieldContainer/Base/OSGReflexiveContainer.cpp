@@ -95,6 +95,15 @@ const Field *ReflexiveContainer::invalidGetField(void) const
     return NULL;
 }
 
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+bool ReflexiveContainer::_check_is_deleted()
+{
+   return ((_bvChanged == 0xDEADBEEF) &&
+           (_pContainerChanges == (ContainerChangeEntry*)(0xDEADBEEF)));
+}
+#endif
+
+
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */
 
