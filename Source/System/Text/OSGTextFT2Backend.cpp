@@ -313,6 +313,8 @@ bool TextFT2Backend::findPath(const string &family, TextFace::Style style,
     switch (style)
     {
     default:
+        FWARNING(("Invalid font style parameter.\n"));
+        // intentionally fall through
     case TextFace::STYLE_PLAIN:
         slant = FC_SLANT_ROMAN;
         weight = FC_WEIGHT_MEDIUM;

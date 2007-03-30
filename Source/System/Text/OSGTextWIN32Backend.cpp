@@ -306,6 +306,9 @@ void TextWIN32Backend::createFonts(const string &family, UInt32 size, TextFace::
     LONG weight;
     switch (style)
     {
+        default:
+            FWARNING(("Invalid font style parameter.\n"));
+            // intentionally fall through
         case TextFace::STYLE_PLAIN:
             italic = FALSE;
             weight = FW_NORMAL;

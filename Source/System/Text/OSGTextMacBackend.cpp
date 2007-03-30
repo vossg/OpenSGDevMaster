@@ -331,6 +331,8 @@ static ATSUStyle findFont(const string &family, TextFace::Style style, UInt32 si
     switch (style)
     {
         default:
+            FWARNING(("Invalid font style parameter.\n"));
+            // intentionally fall through
         case TextFace::STYLE_PLAIN:      fStyle = normal;        break;
         case TextFace::STYLE_BOLD:       fStyle = bold;          break;
         case TextFace::STYLE_ITALIC:     fStyle = italic;        break;
