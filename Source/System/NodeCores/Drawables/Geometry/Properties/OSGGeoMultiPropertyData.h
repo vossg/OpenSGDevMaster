@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGGeoMultiPropertyDataBase.h"
+#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -177,7 +178,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyData : public GeoMultiPropertyData
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleGL(DrawEnv *pEnv, UInt32 id);
+    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    static void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

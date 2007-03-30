@@ -239,14 +239,12 @@ void TextureChunk::changed(BitVector whichField, UInt32 origin)
 
             beginEditCP(tmpPtr, TextureChunk::GLIdFieldMask);
             
-            setGLId(
+            setGLId(               
                 Window::registerGLObject(
-                    osgTypedMethodVoidFunctor2ObjCPtrPtr<TextureChunkPtr,
-                                                 Window ,
-                                                 UInt32>(
-                                                     tmpPtr,
-                                                     &TextureChunk::handleGL),
-                    1));
+                    boost::bind(&TextureChunk::handleGL, tmpPtr, 
+                                    _1, _2, _3),
+                    &TextureChunk::handleDestroyGL
+                    ));
             
             endEditCP(tmpPtr, TextureChunk::GLIdFieldMask);
         }
@@ -328,9 +326,12 @@ void TextureChunk::onCreate(const TextureChunk *source)
 #endif
         TextureChunkPtr tmpPtr = Inherited::constructPtr<TextureChunk>(this);
         
-        setGLId(Window::registerGLObject(
-                    boost::bind(&TextureChunk::handleGL, tmpPtr, _1, _2),
-                    1));
+        setGLId(               
+            Window::registerGLObject(
+                boost::bind(&TextureChunk::handleGL, tmpPtr, 
+                                _1, _2, _3),
+                &TextureChunk::handleDestroyGL
+                ));
 
 #ifdef GV_CHECK
     }
@@ -1519,28 +1520,17 @@ void TextureChunk::handleTexture(Window *win,
 /*! GL object handler
     create the texture and destroy it
 */
-void TextureChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void TextureChunk::handleGL(DrawEnv                 *pEnv, 
+                               UInt32                   osgid, 
+                               Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE mode;
-    UInt32 osgid;
     GLuint id;
 
     Window *win = pEnv->getWindow();
 
-    Window::unpackIdStatus(idstatus, osgid, mode);
-
     id = win->getGLObjectId(osgid);
 
-    if(mode == Window::destroy)
-    {
-        glDeleteTextures(1, &id);
-        win->setGLObjectId(osgid, 0);
-    }
-    else if(mode == Window::finaldestroy)
-    {
-        //SWARNING << "Last texture user destroyed" << std::endl;
-    }
-    else if(mode == Window::initialize || mode == Window::reinitialize ||
+    if(mode == Window::initialize || mode == Window::reinitialize ||
             mode == Window::needrefresh )
     {
         if(mode == Window::initialize)
@@ -1627,6 +1617,36 @@ void TextureChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
     else
     {
         SWARNING << "TextureChunk(" << this << "::handleGL: Illegal mode: "
+             << mode << " for id " << id << std::endl;
+    }
+
+}
+
+/*! GL object handler
+    destroy it
+*/
+void TextureChunk::handleDestroyGL(DrawEnv                 *pEnv, 
+                               UInt32                   osgid, 
+                               Window::GLObjectStatusE  mode)
+{
+    GLuint id;
+
+    Window *win = pEnv->getWindow();
+
+    id = win->getGLObjectId(osgid);
+
+    if(mode == Window::destroy)
+    {
+        glDeleteTextures(1, &id);
+        win->setGLObjectId(osgid, 0);
+    }
+    else if(mode == Window::finaldestroy)
+    {
+        //SWARNING << "Last texture user destroyed" << std::endl;
+    }
+    else
+    {
+        SWARNING << "TextureChunk::handleDestroyGL: Illegal mode: "
              << mode << " for id " << id << std::endl;
     }
 

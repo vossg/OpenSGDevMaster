@@ -44,6 +44,7 @@
 
 #include "OSGFrameBufferObjectBase.h"
 #include "OSGFrameBufferAttachment.h"
+#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -138,7 +139,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     static UInt32 _uiFuncFramebufferRenderbuffer;
     static UInt32 _uiFuncDrawBuffers;
 
-    void handleGL(DrawEnv *pEnv, UInt32 id);
+    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    static void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

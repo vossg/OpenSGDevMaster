@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGFragmentProgramChunkBase.h"
+#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -162,7 +163,8 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunk :
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleGL(DrawEnv *pEnv, UInt32 id);
+    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -99,13 +99,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
         invalidFunctionID  = 0x7fffffff
     };
 
-    // max status value = 7, 3 bit shift is enough
-    enum
-    {
-        statusShift = 3,
-        statusMask  = 7
-    };
-
     static const Real32 unknownConstant;
 
     /*! \}                                                                 */
@@ -113,7 +106,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                       Typedefs                               */
     /*! \{                                                                 */
 
-    typedef boost::function<void (DrawEnv *, UInt32)> GLObjectFunctor;
+    typedef boost::function<void (DrawEnv *, UInt32, GLObjectStatusE)> 
+                                                        GLObjectFunctor;
 
     typedef void (*GLExtensionFunction)(void);
 
@@ -190,6 +184,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \{                                                                 */
 
     static UInt32 registerGLObject(GLObjectFunctor functor,
+                                   GLObjectFunctor destroyFunctor,
                                    UInt32          num = 1);
 
     /*! \}                                                                 */
@@ -217,9 +212,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     static void            destroyGLObject         (UInt32           osgId,
                                                     UInt32           num = 1 );
-    static void            unpackIdStatus          (UInt32           idstatus,
-                                                    UInt32          &osgId,
-                                                    GLObjectStatusE &status  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -314,9 +306,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     static void   initRegisterGLObject  (UInt32          osgId,
                                          UInt32          num   );
 
-    static UInt32 packIdStatus          (UInt32          osgId,
-                                         GLObjectStatusE status);
-
            void   doInitRegisterGLObject(UInt32          osgId,
                                          UInt32          num   );
 
@@ -333,10 +322,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     {
       public:
 
-        GLObject(GLObjectFunctor funct);
+        GLObject(GLObjectFunctor funct, GLObjectFunctor destroy);
 
         GLObjectFunctor& getFunctor(void                 );
         void             setFunctor(GLObjectFunctor funct);
+
+        GLObjectFunctor& getDestroyFunctor(void                 );
+        void             setDestroyFunctor(GLObjectFunctor funct);
 
         UInt32 getLastValidate(void      );
         void   setLastValidate(UInt32 val);
@@ -348,6 +340,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
       protected:
 
         GLObjectFunctor _functor;
+        GLObjectFunctor _destroy;
         volatile UInt32 _refCounter;
                  UInt32 _lastValidate;
     };

@@ -174,10 +174,12 @@ void RenderBuffer::onCreate(const RenderBuffer *source)
 {
     RenderBufferPtr tmpPtr = Inherited::constructPtr<RenderBuffer>(this);
 
-    setGLId(
+    setGLId(               
         Window::registerGLObject(
-            boost::bind(&RenderBuffer::handleGL, tmpPtr, _1, _2),
-            1));
+            boost::bind(&RenderBuffer::handleGL, tmpPtr, 
+                            _1, _2, _3),
+            &RenderBuffer::handleDestroyGL
+            ));
 }
 
 void RenderBuffer::changed(ConstFieldMaskArg whichField, UInt32 origin)
@@ -196,11 +198,10 @@ void RenderBuffer::dump(      UInt32    ,
     SLOG << "Dump RenderBuffer NI" << std::endl;
 }
 
-void RenderBuffer::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void RenderBuffer::handleGL(DrawEnv                 *pEnv, 
+                               UInt32                   id, 
+                               Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE mode;
-
-    UInt32  id;
     Window *pWindow = pEnv->getWindow();
     
     fprintf(stderr, "RenderBuffer handleGL %p, %p, %d\n", 
@@ -208,23 +209,7 @@ void RenderBuffer::handleGL(DrawEnv *pEnv, UInt32 idstatus)
             pWindow,
             id);
 
-    Window::unpackIdStatus(idstatus, id, mode);
-
-    if(mode == Window::destroy)
-    {
-        GLuint tex = id;
-
-        GLDeleteRenderbuffersEXTProcT glDeleteRenderbuffersEXTProc =
-            (GLDeleteRenderbuffersEXTProcT) pWindow->getFunction(
-                _uiFuncDeleteRenderbuffers);
-
-        glDeleteRenderbuffersEXTProc(1, &tex);
-    }
-    else if(mode == Window::finaldestroy)
-    {
-        //SWARNING << "Last texture user destroyed" << std::endl;
-    }
-    else if(mode == Window::initialize || mode == Window::reinitialize ||
+    if(mode == Window::initialize || mode == Window::reinitialize ||
             mode == Window::needrefresh )
     {
         GLBindRenderbufferEXTProcT glBindRenderbufferEXTProc =
@@ -243,6 +228,33 @@ void RenderBuffer::handleGL(DrawEnv *pEnv, UInt32 idstatus)
                                      getInternalFormat(), 
                                      getWidth(), 
                                      getHeight());
+    }
+}
+ 
+
+void RenderBuffer::handleDestroyGL(DrawEnv                 *pEnv, 
+                               UInt32                   id, 
+                               Window::GLObjectStatusE  mode)
+{
+    Window *pWindow = pEnv->getWindow();
+    
+    fprintf(stderr, "RenderBuffer handleDestroyGL %p, %d\n", 
+            pWindow,
+            id);
+
+    if(mode == Window::destroy)
+    {
+        GLuint tex = id;
+
+        GLDeleteRenderbuffersEXTProcT glDeleteRenderbuffersEXTProc =
+            (GLDeleteRenderbuffersEXTProcT) pWindow->getFunction(
+                _uiFuncDeleteRenderbuffers);
+
+        glDeleteRenderbuffersEXTProc(1, &tex);
+    }
+    else if(mode == Window::finaldestroy)
+    {
+        //SWARNING << "Last texture user destroyed" << std::endl;
     }
 }
  

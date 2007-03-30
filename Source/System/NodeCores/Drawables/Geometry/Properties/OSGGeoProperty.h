@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGGeoPropertyBase.h"
+#include "OSGWindow.h"
 
 #ifdef OSG_WINCE
 #define GL_STATIC_DRAW_ARB 0x88E4
@@ -214,7 +215,8 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleGL(DrawEnv *pEnv, UInt32 id);
+    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    static void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
 
    /*! \}                                                                 */
 

@@ -148,15 +148,19 @@ void Geometry::onCreate(const Geometry *)
 
     GeometryPtr tmpPtr = Inherited::constructPtr<Geometry>(this);
 
-    setClassicGLId(
+    setClassicGLId(               
         Window::registerGLObject(
-            boost::bind(&Geometry::handleClassicGL, tmpPtr, _1, _2),
-            1));
+            boost::bind(&Geometry::handleClassicGL, tmpPtr, 
+                            _1, _2, _3),
+            &Geometry::handleClassicDestroyGL
+            ));
 
-    setAttGLId(
+    setAttGLId(               
         Window::registerGLObject(
-            boost::bind(&Geometry::handleAttGL, tmpPtr, _1, _2),
-            1));
+            boost::bind(&Geometry::handleAttGL, tmpPtr, 
+                            _1, _2, _3),
+            &Geometry::handleAttDestroyGL
+            ));
 }
 
 void Geometry::onDestroy(UInt32)
@@ -195,14 +199,12 @@ void Geometry::adjustVolume(Volume & volume)
 
 /*! OpenGL object handler. Used for DisplayList caching.
 */
-void Geometry::handleClassicGL(DrawEnv *pEnv, UInt32 idstatus)
+void Geometry::handleClassicGL(DrawEnv                 *pEnv, 
+                        UInt32                   id, 
+                        Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE  mode;
-    UInt32                   id;
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
-
-    Window::unpackIdStatus(idstatus, id, mode);
 
     if(mode == Window::initialize || mode == Window::needrefresh ||
        mode == Window::reinitialize)
@@ -240,7 +242,22 @@ void Geometry::handleClassicGL(DrawEnv *pEnv, UInt32 idstatus)
 
         glEndList();
     }
-    else if(mode == Window::destroy)
+    else
+    {
+        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+                 << mode << " for id " << id << std::endl;
+    }
+
+}
+
+void Geometry::handleClassicDestroyGL(DrawEnv                 *pEnv, 
+                        UInt32                   id, 
+                        Window::GLObjectStatusE  mode)
+{
+    UInt32                   glid;
+    Window                  *pWin = pEnv->getWindow();
+
+    if(mode == Window::destroy)
     {
         glid = pWin->getGLObjectId(id);
 
@@ -252,19 +269,18 @@ void Geometry::handleClassicGL(DrawEnv *pEnv, UInt32 idstatus)
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+        SWARNING << "Geometry::handleClassicDestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 
 }
-void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
+
+void Geometry::handleAttGL(DrawEnv                 *pEnv, 
+                        UInt32                   id, 
+                        Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE  mode;
-    UInt32                   id;
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
-
-    Window::unpackIdStatus(idstatus, id, mode);
 
     if(mode == Window::initialize || mode == Window::needrefresh ||
        mode == Window::reinitialize)
@@ -303,7 +319,21 @@ void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
 
         glEndList();
     }
-    else if(mode == Window::destroy)
+    else
+    {
+        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+                 << mode << " for id " << id << std::endl;
+    }
+
+}
+void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv, 
+                        UInt32                   id, 
+                        Window::GLObjectStatusE  mode)
+{
+    UInt32                   glid;
+    Window                  *pWin = pEnv->getWindow();
+
+    if(mode == Window::destroy)
     {
         glid = pWin->getGLObjectId(id);
 
@@ -315,7 +345,7 @@ void Geometry::handleAttGL(DrawEnv *pEnv, UInt32 idstatus)
     }
     else
     {
-        SWARNING << "Geometry(" << this << "::handleGL: Illegal mode: "
+        SWARNING << "Geometry::handleAttDestroyGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 
@@ -466,17 +496,21 @@ void Geometry::changed(ConstFieldMaskArg whichField, UInt32 origin)
 
         if(getClassicGLId() == 0)
         {
-            setClassicGLId(
+            setClassicGLId(               
                 Window::registerGLObject(
-                    boost::bind(&Geometry::handleClassicGL, tmpPtr, _1, _2),
-                    1));
+                    boost::bind(&Geometry::handleClassicGL, tmpPtr, 
+                                    _1, _2, _3),
+                    &Geometry::handleClassicDestroyGL
+                    ));
         }
         if(getAttGLId() == 0)
         {
-            setAttGLId(
+            setAttGLId(               
                 Window::registerGLObject(
-                    boost::bind(&Geometry::handleAttGL, tmpPtr, _1, _2),
-                    1));
+                    boost::bind(&Geometry::handleAttGL, tmpPtr, 
+                                    _1, _2, _3),
+                    &Geometry::handleAttDestroyGL
+                    ));
         }
 
         Window::refreshGLObject(getClassicGLId());

@@ -235,11 +235,13 @@ void FrameBufferObject::onCreate(const FrameBufferObject *source)
 {
     FrameBufferObjectPtr tmpPtr = 
         Inherited::constructPtr<FrameBufferObject>(this);
-
-    setGLId(
+            
+    setGLId(               
         Window::registerGLObject(
-            boost::bind(&FrameBufferObject::handleGL, tmpPtr, _1, _2),
-            1));
+            boost::bind(&FrameBufferObject::handleGL, tmpPtr, 
+                            _1, _2, _3),
+            &FrameBufferObject::handleDestroyGL
+            ));
 }
 
 void FrameBufferObject::changed(ConstFieldMaskArg whichField, UInt32 origin)
@@ -336,28 +338,13 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
     glBindFramebufferEXTProc(GL_FRAMEBUFFER_EXT, 0);
 }
 
-void FrameBufferObject::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void FrameBufferObject::handleGL(DrawEnv                 *pEnv, 
+                               UInt32                   osgid, 
+                               Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE mode;
-    UInt32 osgid;
     Window *win = pEnv->getWindow();
 
-    Window::unpackIdStatus(idstatus, osgid, mode);
-
-    if(mode == Window::destroy)
-    {
-        GLuint uiFBOId = win->getGLObjectId(osgid);
-
-        if(win->hasExtension(_uiFramebuffer_object_extension) == false)
-        {
-            GLDeleteFramebuffersEXTProcT glDeleteFramebuffersEXTProc =
-                (GLDeleteFramebuffersEXTProcT) win->getFunction(
-                    _uiFuncDeleteFramebuffers);
-            
-            glDeleteFramebuffersEXTProc(1, &uiFBOId);
-        }
-    }
-    else if(mode == Window::initialize || mode == Window::reinitialize ||
+    if(mode == Window::initialize || mode == Window::reinitialize ||
             mode == Window::needrefresh )
     {
         GLuint uiFBOId;
@@ -461,6 +448,31 @@ void FrameBufferObject::handleGL(DrawEnv *pEnv, UInt32 idstatus)
 
     fprintf(stderr, "FBO handleGL %p, %p, %d\n", 
             this,
+            win,
+            osgid);
+}
+
+void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv, 
+                               UInt32                   osgid, 
+                               Window::GLObjectStatusE  mode)
+{
+    Window *win = pEnv->getWindow();
+
+    if(mode == Window::destroy)
+    {
+        GLuint uiFBOId = win->getGLObjectId(osgid);
+
+        if(win->hasExtension(_uiFramebuffer_object_extension) == false)
+        {
+            GLDeleteFramebuffersEXTProcT glDeleteFramebuffersEXTProc =
+                (GLDeleteFramebuffersEXTProcT) win->getFunction(
+                    _uiFuncDeleteFramebuffers);
+            
+            glDeleteFramebuffersEXTProc(1, &uiFBOId);
+        }
+    }
+
+    fprintf(stderr, "FBO handleDestroyGL %p, %d\n", 
             win,
             osgid);
 }

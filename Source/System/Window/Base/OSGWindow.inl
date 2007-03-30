@@ -225,42 +225,12 @@ UInt32 Window::getGLObjectsSize(void)
     return _glObjects.size();
 }
 
-/*! Pack the id and the status into one UInt32. Used to pass the id and status
-  to the actual implementation functions.
-
-  \dev
-
-  This packing is not really necessary and just done because I didn't want to
-  change all the prototypes and implementations everywhere. Do it for 1.3.
-  
-  \enddev
- */
-
-inline 
-UInt32 Window::packIdStatus(UInt32 osgId, GLObjectStatusE status)
-{
-    return (osgId << statusShift) | status;
-}
-
-/*! Unpack the id and the status from one UInt32 packed by packIdStatus
- */
-
-inline 
-void Window::unpackIdStatus(UInt32           idstatus, 
-                            UInt32          &osgId,
-                            GLObjectStatusE &status)
-{
-    osgId = idstatus >> statusShift;
-
-    status = static_cast<GLObjectStatusE>(idstatus & statusMask);
-}
-
-
 /* GLObject helper class */
 
 inline 
-Window::GLObject::GLObject(GLObjectFunctor funct) :
+Window::GLObject::GLObject(GLObjectFunctor funct, GLObjectFunctor destroy) :
     _functor     (funct),
+    _destroy     (destroy),
     _refCounter  (    0),
     _lastValidate(    0)
 {
@@ -276,6 +246,18 @@ inline
 void Window::GLObject::setFunctor(GLObjectFunctor funct)
 {
     _functor = funct;
+}
+
+inline 
+Window::GLObjectFunctor &Window::GLObject::getDestroyFunctor(void)
+{
+    return _destroy;
+}
+
+inline 
+void Window::GLObject::setDestroyFunctor(GLObjectFunctor funct)
+{
+    _destroy = funct;
 }
 
 inline 

@@ -192,10 +192,12 @@ void GeoProperty::onCreate(const GeoProperty *)
 
     GeoPropertyPtr tmpPtr = Inherited::constructPtr<GeoProperty>(this);
 
-    setGLId(
+    setGLId(               
         Window::registerGLObject(
-            boost::bind(&GeoProperty::handleGL, tmpPtr, _1, _2),
-            1));
+            boost::bind(&GeoProperty::handleGL, tmpPtr, 
+                            _1, _2, _3),
+            &GeoProperty::handleDestroyGL
+            ));
 }
 
 void GeoProperty::onDestroy(UInt32)
@@ -240,33 +242,15 @@ void GeoProperty::dump(      UInt32    ,
 /*! GL object handler
     create the VBO and destroy it
 */
-void GeoProperty::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void GeoProperty::handleGL(DrawEnv                 *pEnv, 
+                               UInt32                   id, 
+                               Window::GLObjectStatusE  mode)
 {
 #ifndef OSG_WINCE
-    Window::GLObjectStatusE mode;
-    UInt32 id;
     GLuint glid;
     Window *win = pEnv->getWindow();
 
-    Window::unpackIdStatus(idstatus, id, mode);
-
-    if(mode == Window::destroy)
-    {   
-        // get "glDeleteBuffersARB" function pointer
-        void (OSG_APIENTRY*_glDeleteBuffers)
-            (GLsizei n, const GLuint *buffers) =
-            (void (OSG_APIENTRY*)(GLsizei n, const GLuint *buffers))
-            win->getFunction(_funcDeleteBuffers);
-
-        glid = win->getGLObjectId(id);
-
-        _glDeleteBuffers(1, &glid);
-    }
-    else if(mode == Window::finaldestroy)
-    {
-        //SWARNING << "Last texture user destroyed" << std::endl;
-    }
-    else if(mode == Window::initialize || mode == Window::reinitialize ||
+    if(mode == Window::initialize || mode == Window::reinitialize ||
             mode == Window::needrefresh )
     {
         if(mode == Window::initialize)
@@ -303,6 +287,38 @@ void GeoProperty::handleGL(DrawEnv *pEnv, UInt32 idstatus)
     else
     {
         SWARNING << "GeoProperty(" << this << "::handleGL: Illegal mode: "
+             << mode << " for id " << id << std::endl;
+    }
+#endif
+}
+
+void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv, 
+                               UInt32                   id, 
+                               Window::GLObjectStatusE  mode)
+{
+#ifndef OSG_WINCE
+    GLuint glid;
+    Window *win = pEnv->getWindow();
+
+    if(mode == Window::destroy)
+    {   
+        // get "glDeleteBuffersARB" function pointer
+        void (OSG_APIENTRY*_glDeleteBuffers)
+            (GLsizei n, const GLuint *buffers) =
+            (void (OSG_APIENTRY*)(GLsizei n, const GLuint *buffers))
+            win->getFunction(_funcDeleteBuffers);
+
+        glid = win->getGLObjectId(id);
+
+        _glDeleteBuffers(1, &glid);
+    }
+    else if(mode == Window::finaldestroy)
+    {
+        //SWARNING << "Last texture user destroyed" << std::endl;
+    }
+    else
+    {
+        SWARNING << "GeoProperty::handleDestroyGL: Illegal mode: "
              << mode << " for id " << id << std::endl;
     }
 #endif

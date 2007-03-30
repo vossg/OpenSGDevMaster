@@ -282,8 +282,10 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
 
-    void handleClassicGL(DrawEnv *pEnv, UInt32 id);
-    void handleAttGL    (DrawEnv *pEnv, UInt32 id);
+    void handleClassicGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    static void handleClassicDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    void handleAttGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    static void handleAttDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
 
     void onCreate(const Geometry *source = NULL);
     void onDestroy(UInt32 id);

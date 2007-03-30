@@ -553,7 +553,9 @@ void OSG::Window::subPort(UInt32  portIndex)
     concept. 
 */
 
-UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
+UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, 
+                                     GLObjectFunctor destroy, 
+                                     UInt32 num)
 {
     UInt32    osgId, i; 
     GLObject *pGLObject;
@@ -565,7 +567,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, UInt32 num)
         _glObjects.push_back( NULL );   
 
     osgId     = _glObjects.size();
-    pGLObject = new GLObject(functor);
+    pGLObject = new GLObject(functor, destroy);
     
     // does the requested block fit into the capacity?
     
@@ -695,18 +697,18 @@ void OSG::Window::validateGLObject(UInt32 osgId, DrawEnv *pEnv)
                    _mfGlObjectLastReinitialize     );
 
         obj->incRefCounter();
-        obj->getFunctor()(pEnv, packIdStatus(osgId, initialize));
+        obj->getFunctor()(pEnv, osgId, initialize);
         _mfGlObjectLastReinitialize[osgId] = 1;
         _lastValidate[osgId] = getGlObjectEventCounter();
     }
     else if(_mfGlObjectLastReinitialize[osgId] > _lastValidate[osgId])
     {
-        obj->getFunctor()(pEnv, packIdStatus(osgId, reinitialize));
+        obj->getFunctor()(pEnv, osgId, reinitialize);
         _lastValidate[osgId] = getGlObjectEventCounter();
     }
     else if(_mfGlObjectLastRefresh[osgId] > _lastValidate[osgId])
     {
-        obj->getFunctor()(pEnv, packIdStatus(osgId, needrefresh));
+        obj->getFunctor()(pEnv, osgId, needrefresh);
         _lastValidate[osgId] = getGlObjectEventCounter();
     }
 }
@@ -1322,14 +1324,12 @@ void OSG::Window::frameExit(void)
         // has the object been used in this context at all?
         if(getGlObjectLastReinitialize()[i] != 0) 
         {                  
-            _glObjects[i]->getFunctor()(&oEnv, packIdStatus(i, destroy));
+            _glObjects[i]->getDestroyFunctor()(&oEnv, i, destroy);
 
             if((rc = _glObjects[ i ]->decRefCounter()) <= 0)
             {           
                 // call functor with the final-flag
-                _glObjects[i]->getFunctor()(&oEnv, 
-                                             packIdStatus(i, 
-                                                          finaldestroy));
+                _glObjects[i]->getDestroyFunctor()(&oEnv, i, finaldestroy);
             }
         }
 

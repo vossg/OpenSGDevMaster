@@ -252,7 +252,8 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleGL(DrawEnv *pEnv, UInt32 id);
+    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    static void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

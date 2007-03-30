@@ -124,10 +124,11 @@ void FragmentProgramChunk::onCreate(const FragmentProgramChunk *chunk)
         Inherited::constructPtr<FragmentProgramChunk>(this);
         
     setGLId(Window::registerGLObject(
-                boost::bind(&FragmentProgramChunk::handleGL, 
-                            tmpPtr, _1, _2),
-                1));
-
+                    boost::bind(&FragmentProgramChunk::handleGL, tmpPtr, 
+                                    _1, _2, _3),
+                    boost::bind(&FragmentProgramChunk::handleDestroyGL, tmpPtr, 
+                                    _1, _2, _3)
+           ));
 }
 
 
@@ -168,10 +169,24 @@ const char *FragmentProgramChunk::getTargetName(void) const
     return "Fragment Program";
 }
 
-void FragmentProgramChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void FragmentProgramChunk::handleGL(DrawEnv                 *pEnv, 
+                                    UInt32                   osgid, 
+                                    Window::GLObjectStatusE  mode)
 {
     Inherited::handleGL(pEnv, 
-                        idstatus, 
+                        osgid,
+                        mode, 
+                        GL_FRAGMENT_PROGRAM_ARB, 
+                        _arbFragmentProgram);
+}
+
+void FragmentProgramChunk::handleDestroyGL(DrawEnv                 *pEnv, 
+                                    UInt32                   osgid, 
+                                    Window::GLObjectStatusE  mode)
+{
+    Inherited::handleDestroyGL(pEnv, 
+                        osgid,
+                        mode, 
                         GL_FRAGMENT_PROGRAM_ARB, 
                         _arbFragmentProgram);
 }

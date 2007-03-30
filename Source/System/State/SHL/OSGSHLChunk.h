@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGSHLChunkBase.h"
+#include "OSGWindow.h"
 
 #include <string>
 #include <vector>
@@ -276,7 +277,8 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     static void initMethod(InitPhase ePhase);
 
-    void handleGL(DrawEnv *pEnv, UInt32 id);
+    void handleGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
+    void handleDestroyGL(DrawEnv *pEnv, UInt32 id, Window::GLObjectStatusE mode);
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SHLChunk &source);

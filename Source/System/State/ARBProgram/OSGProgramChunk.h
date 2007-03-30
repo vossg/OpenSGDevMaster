@@ -45,6 +45,7 @@
 #include <istream>
 
 #include "OSGProgramChunkBase.h"
+#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -189,14 +190,21 @@ class OSG_STATE_DLLMAPPING ProgramChunk : public ProgramChunkBase
     virtual const char   *getTargetName(void) const; 
 
                   void    printCompileError(Window  *win, 
-                                            UInt32  idstatus);
+                                            UInt32  id);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                         GL                                   */
     /*! \{                                                                 */
 
-    void handleGL(DrawEnv *pEnv, UInt32 id, GLenum Target, UInt32 extension);
+    void handleGL(DrawEnv *pEnv, UInt32 id, 
+                    Window::GLObjectStatusE mode, 
+                    GLenum Target, 
+                    UInt32 extension);
+    void handleDestroyGL(DrawEnv *pEnv, UInt32 id, 
+                    Window::GLObjectStatusE mode, 
+                    GLenum Target, 
+                    UInt32 extension);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -136,7 +136,7 @@ ProgramChunk::ProgramChunk(const ProgramChunk &source) :
 ProgramChunk::~ProgramChunk(void)
 {
     if(getGLId() > 0)
-        Window::destroyGLObject(getGLId(), 1);
+        Window::destroyGLObject(getGLId());
 }
 
 /*----------------------------- onCreate --------------------------------*/
@@ -297,13 +297,10 @@ Int16 ProgramChunk::findParameter(const std::string &name)
 
 /*! Print the error message if compilation fails
 */
-void ProgramChunk::printCompileError(Window *win, UInt32 idstatus)
+void ProgramChunk::printCompileError(Window *win, UInt32 id)
 {
     Window::GLObjectStatusE mode;
-    UInt32 id;
-    
-    Window::unpackIdStatus(idstatus, id, mode);
-    
+        
     GLint pos;   
     glGetIntegerv(GL_PROGRAM_ERROR_POSITION_ARB, &pos);
     
@@ -349,19 +346,15 @@ void ProgramChunk::printCompileError(Window *win, UInt32 idstatus)
 }
 
 /*! GL object handler
-    create the program and destroy it
+    create the program
 */
-void ProgramChunk::handleGL(DrawEnv *pEnv, 
-                            UInt32   idstatus, 
-                            GLenum   target,
-                            UInt32   extension)
+void ProgramChunk::handleGL(DrawEnv *pEnv, UInt32 osgid, 
+                    Window::GLObjectStatusE mode, 
+                    GLenum target, 
+                    UInt32 extension)
 {
-    Window::GLObjectStatusE mode;
-    UInt32 osgid;
     GLuint id;
     Window *win = pEnv->getWindow();
-
-    Window::unpackIdStatus(idstatus, osgid, mode);
 
     // get the program-specific specifics from the derived chunks
     //GLenum target = getTarget();
@@ -372,23 +365,8 @@ void ProgramChunk::handleGL(DrawEnv *pEnv,
 
     id = win->getGLObjectId(osgid);
 
-    if(mode == Window::destroy)
-    {
-        // get "glDeleteProgramsARB" function pointer
-        void (OSG_APIENTRY* deletePrograms)(GLsizei num, const GLuint *progs) =
-            (void (OSG_APIENTRY*)(GLsizei num, const GLuint *progs))
-            win->getFunction(_funcDeletePrograms);
-
-        deletePrograms(1, &id);
-
-        win->setGLObjectId(osgid, 0);
-    }
-    else if(mode == Window::finaldestroy)
-    {
-        //SWARNING << "Last program user destroyed" << std::endl;
-    }
-    else if(mode == Window::initialize || mode == Window::reinitialize ||
-            mode == Window::needrefresh)
+    if(mode == Window::initialize || mode == Window::reinitialize ||
+       mode == Window::needrefresh)
     {
         if(mode == Window::initialize)
         {
@@ -434,7 +412,7 @@ void ProgramChunk::handleGL(DrawEnv *pEnv,
             
             if(err == GL_INVALID_OPERATION)
             {
-                printCompileError(win, idstatus);
+                printCompileError(win, osgid);
             }
             else if (err != GL_NO_ERROR)
             {
@@ -465,6 +443,49 @@ void ProgramChunk::handleGL(DrawEnv *pEnv,
         }      
              
         glErr("ProgramChunk::handleGL: programLocalParameter postcheck");
+    }
+    else
+    {
+        SWARNING << "ProgramChunk(" << this << "::handleGL: Illegal mode: "
+             << mode << " for id " << id << std::endl;
+    }
+
+}
+
+/*! GL object handler
+    destroy it
+*/
+void ProgramChunk::handleDestroyGL(DrawEnv *pEnv, UInt32 osgid, 
+                    Window::GLObjectStatusE mode, 
+                    GLenum Target, 
+                    UInt32 extension)
+{
+    GLuint id;
+    Window *win = pEnv->getWindow();
+
+    // get the program-specific specifics from the derived chunks
+    //GLenum target = getTarget();
+    //UInt32 extension = getExtension();
+
+    if(!win->hasExtension(extension))
+        return;
+
+    id = win->getGLObjectId(osgid);
+
+    if(mode == Window::destroy)
+    {
+        // get "glDeleteProgramsARB" function pointer
+        void (OSG_APIENTRY* deletePrograms)(GLsizei num, const GLuint *progs) =
+            (void (OSG_APIENTRY*)(GLsizei num, const GLuint *progs))
+            win->getFunction(_funcDeletePrograms);
+
+        deletePrograms(1, &id);
+
+        win->setGLObjectId(osgid, 0);
+    }
+    else if(mode == Window::finaldestroy)
+    {
+        //SWARNING << "Last program user destroyed" << std::endl;
     }
     else
     {

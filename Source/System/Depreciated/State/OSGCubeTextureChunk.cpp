@@ -114,10 +114,12 @@ void CubeTextureChunk::onCreate(const CubeTextureChunk *)
     CubeTextureChunkPtr tmpPtr = 
         Inherited::constructPtr<CubeTextureChunk>(this);
 
-    setGLId(
+    setGLId(               
         Window::registerGLObject(
-            boost::bind(&CubeTextureChunk::handleGL, tmpPtr, _1, _2),
-            1));
+            boost::bind(&CubeTextureChunk::handleGL, tmpPtr, 
+                            _1, _2, _3),
+            &CubeTextureChunk::handleDestroyGL
+            ));
 }
 
 /*------------------------------ Output ----------------------------------*/
@@ -131,11 +133,10 @@ void CubeTextureChunk::dump(      UInt32    ,
 
 /*-------------------------------- GL ------------------------------------*/
 
-void CubeTextureChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void CubeTextureChunk::handleGL(DrawEnv                 *pEnv, 
+                               UInt32                   osgid, 
+                               Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE mode;
-
-    UInt32  osgid;
     GLuint  id;
 
     Window *win = pEnv->getWindow();
@@ -143,20 +144,10 @@ void CubeTextureChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
     // does the window support cubemaps?
     if(win->hasExtension(_arbCubeTex) == false)
         return;
-        
-    Window::unpackIdStatus(idstatus, osgid, mode);
 
     id = win->getGLObjectId(osgid);
 
-    if(mode == Window::destroy)
-    {
-        glDeleteTextures(1, &id);
-    }
-    else if(mode == Window::finaldestroy)
-    {
-        //SWARNING << "Last texture user destroyed" << std::endl;
-    }
-    else if(mode == Window::initialize || mode == Window::reinitialize)
+    if(mode == Window::initialize || mode == Window::reinitialize)
     {
         if(mode == Window::initialize)
         {
@@ -233,6 +224,36 @@ void CubeTextureChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
     {
         SWARNING << "Win:" << win << "TextureChunk(" << this 
                  << "::handleGL: Illegal mode: "
+                 << mode << " for id " << id << std::endl;
+    }
+}
+
+
+void CubeTextureChunk::handleDestroyGL(DrawEnv                 *pEnv, 
+                               UInt32                   osgid, 
+                               Window::GLObjectStatusE  mode)
+{
+    GLuint  id;
+
+    Window *win = pEnv->getWindow();
+
+    // does the window support cubemaps?
+    if(win->hasExtension(_arbCubeTex) == false)
+        return;
+
+    id = win->getGLObjectId(osgid);
+
+    if(mode == Window::destroy)
+    {
+        glDeleteTextures(1, &id);
+    }
+    else if(mode == Window::finaldestroy)
+    {
+        //SWARNING << "Last texture user destroyed" << std::endl;
+    }
+    else
+    {
+        SWARNING << "Win:" << win << "CubeTextureChunk::handleGL: Illegal mode: "
                  << mode << " for id " << id << std::endl;
     }
 }

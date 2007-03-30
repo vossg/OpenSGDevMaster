@@ -340,10 +340,13 @@ void SHLChunk::onCreate(const SHLChunk *source)
 
     SHLChunkPtr tmpPtr = Inherited::constructPtr<SHLChunk>(this);;
 
-    setGLId(
+    setGLId(               
         Window::registerGLObject(
-            boost::bind(&SHLChunk::handleGL, tmpPtr, _1, _2),
-            1));
+            boost::bind(&SHLChunk::handleGL, tmpPtr, 
+                            _1, _2, _3),
+            boost::bind(&SHLChunk::handleDestroyGL, tmpPtr, 
+                            _1, _2, _3)
+            ));
 
     _uiChunkId = _uiChunkCounter++;
 }
@@ -400,16 +403,58 @@ void SHLChunk::dump(      UInt32    ,
 }
 
 /*! GL object handler
-    create the program and destroy it
+    create the program
 */
-
-void SHLChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
+void SHLChunk::handleGL(DrawEnv                 *pEnv, 
+                               UInt32                   osgid, 
+                               Window::GLObjectStatusE  mode)
 {
-    Window::GLObjectStatusE mode;
-    UInt32 id;
     Window *win = pEnv->getWindow();
 
-    Window::unpackIdStatus(idstatus, id, mode);
+    if(!win->hasExtension(_shl_extension))
+    {
+        FWARNING(("OpenGL Shading Language is not supported, couldn't find "
+                  "extension 'GL_ARB_shading_language_100'!\n"));
+
+        win->setGLObjectId(getGLId(), 0);
+
+        return;
+    }
+
+    // BUG this is not called for every window!
+    if(mode == Window::initialize || mode == Window::reinitialize ||
+       mode == Window::needrefresh)
+    {
+        if(mode != Window::needrefresh)
+        {
+            updateProgram(win);
+        }
+
+        updateParameters(win,
+                         getParameters(),
+                         true,
+                         true /*mode != Window::needrefresh*/);
+    }
+    else
+    {
+        SWARNING << "SHLChunk("
+                 << this
+                 << "::handleGL: Illegal mode: "
+                 << mode
+                 << " for id "
+                 << osgid
+                 << std::endl;
+    }
+}
+
+/*! GL object handler
+    destroy it
+*/
+void SHLChunk::handleDestroyGL(DrawEnv                 *pEnv, 
+                               UInt32                   id, 
+                               Window::GLObjectStatusE  mode)
+{
+    Window *win = pEnv->getWindow();
 
     if(!win->hasExtension(_shl_extension))
     {
@@ -445,19 +490,6 @@ void SHLChunk::handleGL(DrawEnv *pEnv, UInt32 idstatus)
     else if(mode == Window::finaldestroy)
     {
         ;//SWARNING << "Last program user destroyed" << std::endl;
-    }
-    else if(mode == Window::initialize || mode == Window::reinitialize ||
-            mode == Window::needrefresh)
-    {
-        if(mode != Window::needrefresh)
-        {
-            updateProgram(win);
-        }
-
-        updateParameters(win,
-                         getParameters(),
-                         true,
-                         true /*mode != Window::needrefresh*/);
     }
     else
     {
