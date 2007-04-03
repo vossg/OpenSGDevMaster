@@ -173,13 +173,14 @@ void ContainerChangeEntry::commitChangesAndClear(void)
     FieldContainerPtr pTmp =
         FieldContainerFactory::the()->getContainer(uiContainerId);
 
+
+    if(pTmp != NullFC)
+    {
 #ifndef SILENT
     fprintf(stderr, "Commit for and clear %u %s\n",
             uiContainerId, pTmp->getType().getCName());
 #endif
 
-    if(pTmp != NullFC)
-    {
         pTmp->setChangeEntry(NULL);
         pTmp->changed(uncommitedChanges, ChangedOrigin::Commit);
 
@@ -321,9 +322,14 @@ void ChangeList::doCommitChanges(void)
         fprintf(stderr, "warning non empty workstore found\n");
     }
 
+
+    const unsigned loop_detection_limit(15);
+    unsigned loop_count(0);
+    bool  detected_loop(false);
+    
     _workStore.clear();
 
-    while(_uncommitedChanges.empty() == false)
+    while((_uncommitedChanges.empty() == false) && !detected_loop)
     {
         _workStore.swap(_uncommitedChanges);
         _uncommitedChanges.clear();
@@ -331,15 +337,21 @@ void ChangeList::doCommitChanges(void)
         ChangedStore::iterator       changesIt  = _workStore.begin();
         ChangedStore::const_iterator changesEnd = _workStore.end  ();
 
-        while(changesIt != changesEnd)
+        while(changesIt != changesEnd )
         {
             ((*changesIt)->*func)();
-
             ++changesIt;
         }
 
         _workStore.clear();
+        if(loop_count++ > loop_detection_limit)
+        {
+           detected_loop = true;
+           std::cerr << "------------- DETECTED LOOP --------------" << std::endl;
+           dump();
+        }        
     }
+
 }
 
 void ChangeList::commitChanges(void)
@@ -724,6 +736,27 @@ void ChangeList::dump(      UInt32    uiIndent,
     cEnd = _uncommitedChanges.end  ();
 
     fprintf(stderr, "CL uncommited dump\n");
+
+    while(cIt != cEnd)
+    {
+        for(UInt32 i = 0; i < uiIndent + 4; ++i)
+        {
+            fprintf(stderr, " ");
+        }
+
+        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx\n",
+                (*cIt)->uiEntryDesc,
+                (*cIt)->uiContainerId,
+                (*cIt)->uncommitedChanges,
+                (*cIt)->whichField);
+
+        ++cIt;
+    }
+
+    cIt  = _workStore.begin();
+    cEnd = _workStore.end  ();
+
+    fprintf(stderr, "CL workstore dump\n");
 
     while(cIt != cEnd)
     {
