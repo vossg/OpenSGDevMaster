@@ -929,12 +929,12 @@ struct TypeTraits<Real16> : public TypeTraitsTemplateBase<Real16>
 
     static        Real16             getMax        (void)
     {
-        return REAL16_MAX;
+        return  REAL16_MAX;
     }
 
     static        Real16             getMin        (void)
     {
-        return REAL16_MIN;
+        return -REAL16_MAX;
     }
 
 
@@ -1007,12 +1007,12 @@ struct TypeTraits<Real32> : public TypeTraitsTemplateBase<Real32>
 
     static        Real32             getMax        (void)
     {
-        return FLT_MAX;
+        return  FLT_MAX;
     }
 
     static        Real32             getMin        (void)
     {
-        return FLT_MIN;
+        return -FLT_MAX;
     }
 
 
@@ -1093,7 +1093,7 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
 
     static        Real32             getMin        (void)
     {
-        return FLT_MIN;
+        return -FLT_MAX;
     }
 
 
@@ -1201,12 +1201,12 @@ struct TypeTraits<Real64> : public TypeTraitsTemplateBase<Real64>
 
     static        Real64             getMax        (void)
     {
-        return DBL_MAX;
+        return  DBL_MAX;
     }
 
     static        Real64             getMin        (void)
     {
-        return DBL_MIN;
+        return -DBL_MAX;
     }
 
 
@@ -1270,12 +1270,12 @@ struct TypeTraits<Real128> : public TypeTraitsTemplateBase<Real128>
 
     static        Real128             getMax        (void)
     {
-        return DBL_MAX;
+        return  DBL_MAX;
     }
 
     static        Real128             getMin        (void)
     {
-        return DBL_MIN;
+        return -DBL_MAX;
     }
 
 
