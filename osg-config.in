@@ -77,6 +77,8 @@ def main():
                      help="Linker library path prefix to use. (%s)"%def_libpathprefix)
    parser.add_option("--opt",action="store_true",help="Ignored for backwards compatibility.")
    parser.add_option("--dbg",action="store_true",help="Ignored for backwards compatibility.")
+   if "win32" == sys.platform:
+      parser.add_option("--hybrid",action="store_true",help="Ignored for backwards compatibility.")
 
    (options, pos_args) = parser.parse_args()  
 
@@ -122,7 +124,8 @@ def main():
 
    if options.dbg:
        lib_suffix = "_d"
-
+   elif "win32" == sys.platform and options.hybrid:
+       lib_suffix = "_h"
 
    config_info = ConfigInfoAdapter(libraries, lib_map, default_lib_settings,
                                    options.inc_prefix, options.lib_prefix, 
