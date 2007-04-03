@@ -1602,8 +1602,8 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     
     if(NULL != pColl)
     {
-        pColl->getElem(statNTextures)->inc(idx);
-        pColl->getElem(statNTexBytes)->add(idx, img->getSize(true,true,true));
+        pColl->getElem(statNTextures)->inc(getGLId());
+        pColl->getElem(statNTexBytes)->add(getGLId(), img->getSize(true,true,true));
     }
 
 
@@ -1775,6 +1775,17 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
     }
 
     win->validateGLObject(getGLId(), pEnv);
+
+
+    // Update the texture statistics
+    StatCollectorP pColl = pEnv->getStatCollector();
+    
+    if(NULL != pColl)
+    {
+        pColl->getElem(statNTextures)->inc(getGLId());
+        pColl->getElem(statNTexBytes)->add(getGLId(), img->getSize(true,true,true));
+    }
+
 
     glBindTexture(target, win->getGLObjectId(getGLId()));
 
