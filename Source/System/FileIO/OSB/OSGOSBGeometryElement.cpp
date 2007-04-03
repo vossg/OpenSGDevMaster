@@ -574,7 +574,7 @@ OSBGeometryElement::postReadV100(void)
         cast_dynamic<GeometryPtr>(getContainer());
     UInt32           indexMappingSize = _indexMapping.size();
 
-    if(indexMappingSize == 1)
+    if(indexMappingSize <= 1)
     {
         FDEBUG(("OSBGeometryElement::postReadV100: "
                 "Converting single index.\n"          ));
