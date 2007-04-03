@@ -393,6 +393,9 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     static std::vector<WindowPtr> _allWindows;
     static UInt32                 _currentWindowId;
 
+    //! Does init() not to be called?
+    bool    _initNeeded;
+    
     /*---------------------------------------------------------------------*/
     /*! \name   Static GL Object / Extension variables                     */
     /*! \{                                                                 */

@@ -295,8 +295,9 @@ bool OSG::Window::terminate(void)
  */
 
 OSG::Window::Window(void) :
-     Inherited( ),
-    _windowId (0)
+     Inherited (    ),
+    _windowId  (   0),
+    _initNeeded(true)
 {
     // only called for prototypes, no need to init them
 }
@@ -314,7 +315,8 @@ OSG::Window::Window(const Window &source) :
     _extFunctions       (                              ),
     _availConstants     (                              ),
     _numAvailConstants  (                             0),
-    _windowId           (                             0)
+    _windowId           (                             0),
+    _initNeeded         (                          true)
 {       
 }
 
@@ -1186,6 +1188,14 @@ void OSG::Window::frameInit(void)
         if(p)
             ignoreExtensions(p);
 #endif
+    }
+    
+    // Do we need to call init()
+    if(_initNeeded)
+    {
+        _initNeeded = false;
+        
+        init();
     }
     
     // get extensions and split them
