@@ -100,7 +100,7 @@ inline void BinaryMessage::putString(const std::string &value)
 
 inline void BinaryMessage::putReal32(const Real32  value)
 {
-    Real32 net = osgHostToNet(value);
+    Real32 net = osgHostToNet<Real32>(value);
     _buffer.insert(_buffer.end(),
                    reinterpret_cast<UInt8*>(&net),
                    reinterpret_cast<UInt8*>(&net) + sizeof(net));
@@ -171,7 +171,7 @@ inline void BinaryMessage::getString(std::string &value)
 inline void BinaryMessage::getReal32(Real32  &value)
 {
     Real32 net = *reinterpret_cast<Real32*>(&_buffer[_pos]);
-    value = osgNetToHost<UInt32>(net);
+    value = osgNetToHost<Real32>(net);
     _pos += sizeof(net);
 }
 
