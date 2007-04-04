@@ -154,6 +154,4 @@ OSG_END_NAMESPACE
 #include "OSG@!Classname!@Base.inl"
 #include "OSG@!Classname!@.inl"
 
-#define OSG@!CLASSNAME!@_HEADER_CVSID "@(#)$Id: FCTemplate_h.h 106 2006-09-14 03:15:53Z dirk $"
-
 #endif /* _OSG@!CLASSNAME!@_H_ */
