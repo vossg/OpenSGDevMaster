@@ -527,7 +527,7 @@ CDDSImage::~CDDSImage()
 // Swap the bytes in a 32 bit value
 inline void CDDSImage::swap_endian(void *val)
 {
-#ifdef MACOS
+#if BYTE_ORDER == BIG_ENDIAN
     unsigned int *ival = (unsigned int *)val;
 
     *ival = ((*ival >> 24) & 0x000000ff) |
@@ -580,6 +580,7 @@ bool CDDSImage::load(std::istream &is,
     swap_endian(&ddsh.dwHeight);
     swap_endian(&ddsh.dwWidth);
     swap_endian(&ddsh.dwPitchOrLinearSize);
+    swap_endian(&ddsh.dwDepth);
     swap_endian(&ddsh.dwMipMapCount);
     swap_endian(&ddsh.ddspf.dwSize);
     swap_endian(&ddsh.ddspf.dwFlags);
@@ -1017,7 +1018,7 @@ void CDDSImage::flip_dxt5_alpha(DXT5AlphaBlock *block)
 
     pBits = ((unsigned long*) &(block->row[3]));
 
-#ifdef MACOS
+#if BYTE_ORDER == BIG_ENDIAN
     *pBits &= 0x000000ff;
 #else
     *pBits &= 0xff000000;
