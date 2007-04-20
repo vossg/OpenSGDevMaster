@@ -292,7 +292,7 @@ bool FieldContainerPtrBase::addFCPtrInit(void)
 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
 std::deque<UInt8*>            FieldContainerPtrBase::_memDebug_DelayedFreeList;
-OSG::UInt32                   FieldContainerPtrBase::_memDebug_MaxFreeListSize = 10000000;
+OSG::UInt32                   FieldContainerPtrBase::_memDebug_MaxFreeListSize = 10000;
 std::map<UInt8*, FieldContainerPtrBase::FcPtrInfo>   FieldContainerPtrBase::_memDebug_FcPtrInfoMap;
 #endif
 
@@ -316,6 +316,16 @@ bool FieldContainerPtrBase::initialize(void)
         if(_pRefCountLock != NULL)
             returnValue = true;
     }
+
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+    // Initialize memory debugging settings
+    char* fl_size_p = getenv("OSG_MAX_FREELIST_SIZE");
+    if (fl_size_p != NULL)
+    {
+       sscanf(fl_size_p, "%d", &_memDebug_MaxFreeListSize);
+       std::cout << "Setting OSG_MAX_FREELIST_SIZE to: " << _memDebug_MaxFreeListSize << std::endl;
+    }
+#endif    
 
     return returnValue;
 }
