@@ -110,12 +110,18 @@ UInt32 *FieldContainerPtrBase::getIdP(void) const
 inline
 UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum)
 {
+    if(NULL == _storeP)
+    {  return NULL; }
+
     return (_storeP + (_containerSize * uiElemNum));
 }
 
 inline
 UInt8 *FieldContainerPtrBase::getElemP(UInt32 uiElemNum) const
 {
+    if(NULL == _storeP)
+    {  return NULL; }
+
     return (_storeP + (_containerSize * uiElemNum));
 }
 #endif
