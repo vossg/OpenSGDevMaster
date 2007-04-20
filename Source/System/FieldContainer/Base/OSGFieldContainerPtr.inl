@@ -528,24 +528,28 @@ FieldContainerPtr::~FieldContainerPtr(void)
 inline
 FieldContainer *FieldContainerPtr::operator->(void)
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return (FieldContainer *) (getElemP(Thread::getCurrentAspect()));
 }
 
 inline
 FieldContainer *FieldContainerPtr::operator->(void) const
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return (FieldContainer *) (getElemP(Thread::getCurrentAspect()));
 }
 
 inline
 FieldContainer &FieldContainerPtr::operator *(void)
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return *((FieldContainer *) (getElemP(Thread::getCurrentAspect())));
 }
 
 inline
 FieldContainer &FieldContainerPtr::operator *(void) const
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return *((FieldContainer *) (getElemP(Thread::getCurrentAspect())));
 }
 
@@ -655,24 +659,28 @@ FieldContainerConstPtr::~FieldContainerConstPtr(void)
 inline
 const FieldContainer *FieldContainerConstPtr::operator->(void)
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return (const FieldContainer *) (getElemP(Thread::getCurrentAspect()));
 }
 
 inline
 const FieldContainer *FieldContainerConstPtr::operator->(void) const
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return (const FieldContainer *) (getElemP(Thread::getCurrentAspect()));
 }
 
 inline
 const FieldContainer &FieldContainerConstPtr::operator *(void)
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return *((const FieldContainer *) (getElemP(Thread::getCurrentAspect())));
 }
 
 inline
 const FieldContainer &FieldContainerConstPtr::operator *(void) const
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return *((const FieldContainer *) (getElemP(Thread::getCurrentAspect())));
 }
 
@@ -781,6 +789,7 @@ template <class ParentPtrTypeT, class FieldContainerTypeT> inline
 typename FCPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject *
     FCPtr<ParentPtrTypeT, FieldContainerTypeT>::operator ->(void)
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return (StoredObject *) Self::getElemP(Thread::getCurrentAspect());
 }
 
@@ -788,6 +797,7 @@ template <class ParentPtrTypeT, class FieldContainerTypeT> inline
 typename FCPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject *
     FCPtr<ParentPtrTypeT, FieldContainerTypeT>::operator ->(void) const
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return (StoredObject *) Self::getElemP(Thread::getCurrentAspect());
 }
 
@@ -795,6 +805,7 @@ template <class ParentPtrTypeT, class FieldContainerTypeT> inline
 typename FCPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject &
     FCPtr<ParentPtrTypeT, FieldContainerTypeT>::operator *(void)
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return *((StoredObject *) Self::getElemP(Thread::getCurrentAspect()));
 }
 
@@ -802,6 +813,7 @@ template <class ParentPtrTypeT, class FieldContainerTypeT> inline
 typename FCPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject &
     FCPtr<ParentPtrTypeT, FieldContainerTypeT>::operator *(void) const
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return *((StoredObject *) Self::getElemP(Thread::getCurrentAspect()));
 }
 
@@ -924,6 +936,7 @@ template <class ParentPtrTypeT, class FieldContainerTypeT> inline
 const typename FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject *
     FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::operator ->(void)
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return (const StoredObject *) Self::getElemP(Thread::getCurrentAspect());
 }
 
@@ -931,6 +944,7 @@ template <class ParentPtrTypeT, class FieldContainerTypeT> inline
 const typename FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject *
     FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::operator ->(void) const
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
     return (const StoredObject *) Self::getElemP(Thread::getCurrentAspect());
 }
 
@@ -938,6 +952,7 @@ template <class ParentPtrTypeT, class FieldContainerTypeT> inline
 const typename FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject &
     FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::operator *(void)
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
    return *((const StoredObject *) Self::getElemP(Thread::getCurrentAspect()));
 }
 
@@ -945,6 +960,7 @@ template <class ParentPtrTypeT, class FieldContainerTypeT> inline
 const typename FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::StoredObject &
     FCConstPtr<ParentPtrTypeT, FieldContainerTypeT>::operator *(void) const
 {
+    OSG_ASSERT(OSG::NullFC != *this && "Can't dereference NULL field container.");
    return *((const StoredObject *) Self::getElemP(Thread::getCurrentAspect()));
 }
 
