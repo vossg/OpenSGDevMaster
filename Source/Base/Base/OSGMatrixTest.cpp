@@ -52,4 +52,16 @@ TEST(InstantiateAllMatrixTypes)
     CHECK(true);
 }
 
+TEST(ConvertFloatToDoubleMatrix)
+{
+    Matrix4f mf;
+    Matrix4d md;
+
+    mf.convertFrom(md);
+    md.convertFrom(mf);
+    md.convertFrom(md);
+    mf.convertFrom(mf);
+}
+
+
 } // SUITE

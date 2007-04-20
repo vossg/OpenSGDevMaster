@@ -150,6 +150,9 @@ class TransformationMatrix
     void setIdentity       (void                                           );
 
     void setValue          (const TransformationMatrix &mat                );
+    
+    template<class ValueTypeR>
+    void convertFrom       (const TransformationMatrix<ValueTypeR>& mat    );
 
     void setValue          (const VectorType3f         &vector1,
                             const VectorType3f         &vector2,
@@ -211,7 +214,7 @@ class TransformationMatrix
 
     void setValue           (const Char8               *string,
                                    bool                 bTransposed = true );
-
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Get                                        */

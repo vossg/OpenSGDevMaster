@@ -189,6 +189,22 @@ void TransformationMatrix<ValueTypeT>::setValue(
     }
 }
 
+template<class ValueTypeT>
+template<class ValueTypeR>
+inline
+void TransformationMatrix<ValueTypeT>::convertFrom(
+    const TransformationMatrix<ValueTypeR>& mat)
+{
+    for(UInt32 i = 0; i < 4; i++)
+    {
+        for(UInt32 j =0; j<4; j++)
+        { 
+           (*this)[i][j] = mat[i][j];
+        }
+    }
+}
+
+
 template<class ValueTypeT> inline
 void TransformationMatrix<ValueTypeT>::setValue(const VectorType3f &vector1,
                                                 const VectorType3f &vector2,
