@@ -210,6 +210,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerPtrBase
      */
     static std::deque<UInt8*>               _memDebug_DelayedFreeList;
     static OSG::UInt32                      _memDebug_MaxFreeListSize;
+    static bool                             _memDebug_StoreStackTrace;
     static std::map<UInt8*, FcPtrInfo>      _memDebug_FcPtrInfoMap;
 
     static void memDebugTrackFcAllocate  (OSG::UInt8* storePVal, std::string typeName);

@@ -107,7 +107,8 @@ void FieldContainerPtrBase::memDebugTrackFcAllocate  (OSG::UInt8* storePVal, std
 {
    FcPtrInfo allocate_info;
    allocate_info.type_name              = typeName;
-   allocate_info.allocation_stack_trace = OSG::getCallStack();
+   if (_memDebug_StoreStackTrace)
+   { allocate_info.allocation_stack_trace = OSG::getCallStack(); }
    _memDebug_FcPtrInfoMap[storePVal] = allocate_info;
 }
 
@@ -117,7 +118,8 @@ void FieldContainerPtrBase::memDebugTrackFcDeallocate(OSG::UInt8* storePVal, std
    if (_memDebug_FcPtrInfoMap.find(storePVal) != _memDebug_FcPtrInfoMap.end())
    {
       _memDebug_FcPtrInfoMap[storePVal].fc_name                  = fcName;
-      _memDebug_FcPtrInfoMap[storePVal].deallocation_stack_trace = OSG::getCallStack();
+      if (_memDebug_StoreStackTrace)
+      { _memDebug_FcPtrInfoMap[storePVal].deallocation_stack_trace = OSG::getCallStack(); }
    }   
 }
 
@@ -292,6 +294,7 @@ bool FieldContainerPtrBase::addFCPtrInit(void)
 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
 std::deque<UInt8*>            FieldContainerPtrBase::_memDebug_DelayedFreeList;
+bool                          FieldContainerPtrBase::_memDebug_StoreStackTrace = true;
 OSG::UInt32                   FieldContainerPtrBase::_memDebug_MaxFreeListSize = 10000;
 std::map<UInt8*, FieldContainerPtrBase::FcPtrInfo>   FieldContainerPtrBase::_memDebug_FcPtrInfoMap;
 #endif
@@ -325,6 +328,15 @@ bool FieldContainerPtrBase::initialize(void)
        sscanf(fl_size_p, "%d", &_memDebug_MaxFreeListSize);
        std::cout << "Setting OSG_MAX_FREELIST_SIZE to: " << _memDebug_MaxFreeListSize << std::endl;
     }
+    char* ignore_stack_trace_p = getenv("OSG_MEM_DEBUG_NO_STACKTRACE");
+    if (ignore_stack_trace_p != NULL)
+    {
+       _memDebug_StoreStackTrace = false;
+    }
+
+    SLOG << "OpenSG Memory Debugging enabled and initialized:" << std::endl
+         << "   OSG_MAX_FREELIST_SIZE: " << _memDebug_MaxFreeListSize << std::endl
+         << "   OSG_MEM_DEBUG_NO_STACKTRACE: " << !_memDebug_StoreStackTrace << std::endl;
 #endif    
 
     return returnValue;
