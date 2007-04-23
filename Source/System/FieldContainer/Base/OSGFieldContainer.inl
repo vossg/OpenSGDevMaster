@@ -116,7 +116,11 @@ FieldContainer::FieldContainer(const FieldContainer &source) :
 inline
 FieldContainer::~FieldContainer(void)
 {
-    delete _pFieldFlags;
+    if (NULL != _pFieldFlags)
+    {
+       delete _pFieldFlags;
+       _pFieldFlags = NULL;
+    }
 }
 
 inline
