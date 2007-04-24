@@ -168,12 +168,12 @@ void FieldContainer::registerChangedContainer(void)
 
     if(_pContainerChanges == NULL)
     {
-        _pContainerChanges =
-            Thread::getCurrentChangeList()->getNewEntry(_bvChanged);
+        _pContainerChanges = Thread::getCurrentChangeList()->getNewEntry();
 
         _pContainerChanges->uiEntryDesc   = ContainerChangeEntry::Change;
         _pContainerChanges->pFieldFlags   = _pFieldFlags;
         _pContainerChanges->uiContainerId = getContainerId(thisP);
+        _pContainerChanges->bvUncommittedChanges = &_bvChanged;
     }
 
     Thread::getCurrentChangeList()->addUncommited(_pContainerChanges);

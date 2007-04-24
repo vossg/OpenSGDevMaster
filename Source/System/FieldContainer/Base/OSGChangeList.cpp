@@ -129,14 +129,14 @@ void ChangeList::addUncommited(ContainerChangeEntry *pEntry)
 #ifndef SILENT
     fprintf(stderr, "Added changed %d\n", pEntry->uiContainerId);
 #endif
-
+    OSG_ASSERT(NULL != pEntry);
     _uncommitedChanges.push_back(pEntry);
 }
 #endif
 
 
 
-BitVector ContainerChangeEntry::defaultVec = TypeTraits<BitVector>::BitsClear;
+//BitVector ContainerChangeEntry::defaultVec = TypeTraits<BitVector>::BitsClear;
 
 void ContainerChangeEntry::commitChanges(void)
 {
@@ -152,14 +152,20 @@ void ContainerChangeEntry::commitChanges(void)
         fprintf(stderr, "Commit for %u %s\n",
                 uiContainerId, pTmp->getType().getCName());
 #endif
-
-        BitVector tmpChanges = uncommitedChanges;
+        
+        BitVector tmpChanges;
+        if (NULL != bvUncommittedChanges)
+        { 
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+           OSG_ASSERT(*bvUncommittedChanges != 0xDEADBEEF);
+#endif
+           tmpChanges             = *bvUncommittedChanges; 
+           whichField            |= *bvUncommittedChanges;
+           *bvUncommittedChanges  = TypeTraits<BitVector>::BitsClear;
+        }
 
         // moved to FieldContainer::changed()
         // pTmp->callChangedFunctors(uncommitedChanges);
-
-        whichField        |= uncommitedChanges;
-        uncommitedChanges  = TypeTraits<BitVector>::BitsClear;
 
         pTmp->changed      (tmpChanges, ChangedOrigin::Commit);
     }
@@ -180,12 +186,24 @@ void ContainerChangeEntry::commitChangesAndClear(void)
     fprintf(stderr, "Commit for and clear %u %s\n",
             uiContainerId, pTmp->getType().getCName());
 #endif
+        
+        BitVector tmpChanges;
+        if (NULL != bvUncommittedChanges)
+        { 
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+           OSG_ASSERT(*bvUncommittedChanges != 0xDEADBEEF);
+#endif
+           tmpChanges = *bvUncommittedChanges; 
+        }
 
         pTmp->setChangeEntry(NULL);
-        pTmp->changed(uncommitedChanges, ChangedOrigin::Commit);
+        pTmp->changed(tmpChanges, ChangedOrigin::Commit);
 
-        whichField        |= uncommitedChanges;
-        uncommitedChanges  = TypeTraits<BitVector>::BitsClear;
+        if(NULL != bvUncommittedChanges)
+        {
+           whichField            |= *bvUncommittedChanges;
+           *bvUncommittedChanges  = TypeTraits<BitVector>::BitsClear;
+        }
     }
 }
 
@@ -277,37 +295,18 @@ ContainerChangeEntry *ChangeList::createNewEntry(void)
 ContainerChangeEntry *ChangeList::getNewEntry(void)
 {
     ContainerChangeEntry *returnValue = createNewEntry();
-
-
-    _changedStore.push_back(returnValue);
-
-
     returnValue->clear();
 
-    return returnValue;
-}
-
-ContainerChangeEntry *ChangeList::getNewEntry(BitVector &bv)
-{
-    ContainerChangeEntry *returnValue = createNewEntry();
-
-
     _changedStore.push_back(returnValue);
 
-
-    new (returnValue) ContainerChangeEntry(bv);
-
     return returnValue;
 }
+
 
 ContainerChangeEntry *ChangeList::getNewCreatedEntry(void)
 {
-
     ContainerChangeEntry *returnValue = createNewEntry();
-
-
     returnValue->clear();
-
 
     _createdStore.push_back(returnValue);
 
@@ -339,6 +338,7 @@ void ChangeList::doCommitChanges(void)
 
         while(changesIt != changesEnd )
         {
+           OSG_ASSERT(NULL != (*changesIt));
             ((*changesIt)->*func)();
             ++changesIt;
         }
@@ -351,7 +351,6 @@ void ChangeList::doCommitChanges(void)
            dump();
         }        
     }
-
 }
 
 void ChangeList::commitChanges(void)
@@ -722,10 +721,13 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
+        BitVector tmpChanges;
+        if((*cIt)->bvUncommittedChanges != NULL)
+        { tmpChanges = *((*cIt)->bvUncommittedChanges); }
         fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
-                (*cIt)->uncommitedChanges,
+                tmpChanges,
                 (*cIt)->whichField);
 
         ++cIt;
@@ -744,10 +746,14 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
+        BitVector tmpChanges;
+        if((*cIt)->bvUncommittedChanges != NULL)
+        { tmpChanges = *((*cIt)->bvUncommittedChanges); }
+
         fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
-                (*cIt)->uncommitedChanges,
+                tmpChanges,
                 (*cIt)->whichField);
 
         ++cIt;
@@ -765,10 +771,14 @@ void ChangeList::dump(      UInt32    uiIndent,
             fprintf(stderr, " ");
         }
 
+        BitVector tmpChanges;
+        if((*cIt)->bvUncommittedChanges != NULL)
+        { tmpChanges = *((*cIt)->bvUncommittedChanges); }
+
         fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
-                (*cIt)->uncommitedChanges,
+                tmpChanges,
                 (*cIt)->whichField);
 
         ++cIt;

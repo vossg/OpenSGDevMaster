@@ -79,30 +79,19 @@ struct OSG_SYSTEM_DLLMAPPING ContainerChangeEntry
     };
 
     UInt32      uiEntryDesc;
-    UInt32      uiContainerId;
+    UInt32      uiContainerId;         /**< The id of the container we hold changes for. */
     FieldFlags *pFieldFlags;
-    BitVector   whichField;
-    BitVector  &uncommitedChanges;
+    BitVector   whichField;            /**< Bit vector of fields have have changed and need commited. */
+    BitVector  *bvUncommittedChanges;  /**< Bit vector of changes that still need to be committed for this entry. */
 
-    static BitVector defaultVec;
-
-    ContainerChangeEntry(BitVector &bv) :
-        uncommitedChanges(bv)
+    ContainerChangeEntry()        
     {
         uiEntryDesc   = 0;
         uiContainerId = 0;
         pFieldFlags   = NULL;
         whichField    = 0;
-    }
-
-    ContainerChangeEntry(void) :
-        uncommitedChanges(defaultVec)
-    {
-        uiEntryDesc   = 0;
-        uiContainerId = 0;
-        pFieldFlags   = NULL;
-        whichField    = 0;
-    }
+        bvUncommittedChanges = NULL;
+    }    
 
     void operator =(const ContainerChangeEntry &)
     {
@@ -114,6 +103,7 @@ struct OSG_SYSTEM_DLLMAPPING ContainerChangeEntry
         uiContainerId = 0;
         pFieldFlags   = NULL;
         whichField    = 0;
+        bvUncommittedChanges = NULL;
     }
 
     void commitChanges        (void);
@@ -188,7 +178,6 @@ class OSG_SYSTEM_DLLMAPPING ChangeList : public MemoryObject
     /*! \{                                                                 */
 
     ContainerChangeEntry *getNewEntry       (void         );
-    ContainerChangeEntry *getNewEntry       (BitVector &bv);
     ContainerChangeEntry *getNewCreatedEntry(void         );
 
     /*! \}                                                                 */
