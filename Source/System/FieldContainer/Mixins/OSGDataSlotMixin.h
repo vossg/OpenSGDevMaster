@@ -51,14 +51,21 @@ class DataSlotMixin : public ParentT
 
   public:
 
+    typedef ParentT Inherited;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
+
+    template<class ValuePtr>
+    ValuePtr getData(Int32 iSlotId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
+
+    void setData(FieldBundleP pBundle, Int32 iSlotId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -129,10 +136,16 @@ class DataSlotMixin : public ParentT
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
+    typedef typename Inherited::Desc      Desc;
+
+    typedef typename Desc     ::DataStore DataStore;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
+
+    DataStore _mfData;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -163,8 +176,6 @@ class DataSlotMixin : public ParentT
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    typedef ParentT Inherited;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const DataSlotMixin &source);

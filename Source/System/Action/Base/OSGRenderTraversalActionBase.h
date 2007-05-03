@@ -47,6 +47,11 @@
 #include "OSGStatElemTypes.h"
 #include "OSGFrustumVolume.h"
 
+#include "OSGMixinHead.h"
+#include "OSGDataSlotMixin.h"
+
+#include "OSGFieldBundleMFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 class DrawEnv;
@@ -56,10 +61,21 @@ class Background;
 class Window;
 class StatCollector;
 
+struct RenderTravDataSlotDesc
+{
+    typedef Action         ParentT;
+    typedef MFFieldBundleP DataStore;
+};
+
+typedef DataSlotMixin< 
+            MixinHead < 
+                RenderTravDataSlotDesc > > RenderTravActionBaseParent;
+
 /*! \brief Base class using the render action interface of window
  */
 
-class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : public Action
+class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : 
+    public RenderTravActionBaseParent
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -185,11 +201,12 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase : public Action
 
   private:
 
-    typedef Action Inherited;
+    typedef RenderTravActionBaseParent Inherited;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const RenderTraversalActionBase &source);
 };
+
 
 OSG_END_NAMESPACE
 

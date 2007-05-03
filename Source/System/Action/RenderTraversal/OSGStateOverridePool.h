@@ -47,7 +47,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-typedef SimplePool<StateOverride> StateOverridePool;
+typedef SimplePool<StateOverride, PoolDefaultTag> StateOverridePool;
 
 OSG_END_NAMESPACE
 

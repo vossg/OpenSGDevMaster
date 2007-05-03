@@ -39,20 +39,56 @@
 OSG_BEGIN_NAMESPACE
 
 template <class ParentT>
+template <class ValuePtr>  inline
+ValuePtr DataSlotMixin<ParentT>::getData(Int32 iSlotId)
+{
+    ValuePtr returnValue = NULL;
+
+    if(iSlotId >= 0 && iSlotId < _mfData.size())
+    {
+        FieldBundleP pTmp = _mfData[iSlotId];
+
+        returnValue = dynamic_cast<ValuePtr>(pTmp);
+    }
+
+    return returnValue;
+}
+
+template <class ParentT> inline
+void DataSlotMixin<ParentT>::setData(FieldBundleP pBundle, Int32 iSlotId)
+{
+    if(iSlotId < 0)
+        return;
+
+    if(iSlotId <= _mfData.size())
+    {
+        _mfData.resize(iSlotId + 1, NULL);
+    }
+
+    OSG::setRefd(_mfData[iSlotId], pBundle);
+}
+
+template <class ParentT> inline
 DataSlotMixin<ParentT>::DataSlotMixin(void) :
-    Inherited()
+     Inherited(),
+    _mfData   ()
 {
 }
 
-template <class ParentT>
+template <class ParentT> inline
 DataSlotMixin<ParentT>::DataSlotMixin(const DataSlotMixin &source) :
-    Inherited(source)
+     Inherited(source),
+    _mfData   (      )
 {
 }
 
-template <class ParentT>
+template <class ParentT> inline
 DataSlotMixin<ParentT>::~DataSlotMixin(void)
 {
+    for(UInt32 i = 0; i < _mfData.size(); ++i)
+    {
+        OSG::subRef(_mfData[i]);
+    }
 }
 
 OSG_END_NAMESPACE

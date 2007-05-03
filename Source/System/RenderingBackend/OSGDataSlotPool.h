@@ -43,13 +43,21 @@
 #endif
 
 #include "OSGTaggedSingletonHolder.h"
-#include "OSGNamedPool.h"
+#include "OSGSimplePool.h"
 
 OSG_BEGIN_NAMESPACE
 
-typedef NamedPool<Int32> DataSlotPoolBase;
+struct DataSlotPoolTag;
 
-struct ActionSlotTag {};
+typedef SimplePool<Int32, DataSlotPoolTag> DataSlotPoolBase;
+
+template<> inline
+void SimplePool<Int32, DataSlotPoolTag>::initializeValue(void)
+{
+    _currentValue = 0;
+}
+
+struct ActionSlotTag;
 
 typedef TaggedSingletonHolder<DataSlotPoolBase, 
                               ActionSlotTag   > ActionDataSlotPool;

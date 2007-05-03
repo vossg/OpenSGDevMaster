@@ -487,7 +487,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //   friend classes                                                      
     //-----------------------------------------------------------------------
 
-    friend class SimplePool<RenderPartition>;
+    friend class SimplePool<RenderPartition, PoolDefaultTag>;
     friend class RenderTraversalAction;
     friend class TreeBuilderBase;
     friend class OcclusionCullingTreeBuilder;

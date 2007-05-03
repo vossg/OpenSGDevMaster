@@ -48,10 +48,12 @@
 
 OSG_BEGIN_NAMESPACE
 
+class PoolDefaultTag;
+
 /*! \ingroup GrpSystemRenderingBackend
 */
 
-template <class ValueT>
+template <class ValueT, class PoolTag = PoolDefaultTag>
 class SimplePool 
 {
     /*==========================  PUBLIC  =================================*/
@@ -114,6 +116,76 @@ class SimplePool
 
     UInt32       _uiAllocated;
     UInt32       _uiReused;
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    SimplePool(const SimplePool &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const SimplePool &source);
+};
+
+template<class PoolTag>
+class SimplePool<Int32, PoolTag>
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    SimplePool(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~SimplePool(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      create                                  */
+    /*! \{                                                                 */
+
+    Int32 create(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       free                                   */
+    /*! \{                                                                 */
+    
+//    void freeAll(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       stat                                   */
+    /*! \{                                                                 */
+    
+    void printStat(void);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    void initializeValue(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    volatile Int32 _currentValue;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

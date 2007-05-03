@@ -151,6 +151,12 @@ void FieldBundleType::registerType(void)
         _szGroupName.str() != NULL ? _szGroupName.str() : _szName.str());
 }
 
+FieldBundleP FieldBundleType::getPrototype(void) const
+{
+    return _pPrototype;
+}
+
+
 FieldBundleP FieldBundleType::createContainer(void) const
 {
     FieldBundleP fp = NilP;

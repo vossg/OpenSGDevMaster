@@ -38,8 +38,42 @@
 
 OSG_BEGIN_NAMESPACE
 
-template <class ValueT> inline
-ValueT *SimplePool<ValueT>::create(void)
+
+template <class PoolTag> inline
+SimplePool<Int32, PoolTag>::SimplePool(void) :
+    _currentValue(0)
+{
+    initializeValue();
+}
+
+template <class PoolTag> inline
+SimplePool<Int32, PoolTag>::~SimplePool(void)
+{
+    
+}
+
+template <class PoolTag> inline
+Int32 SimplePool<Int32, PoolTag>::create(void)
+{
+    Int32 returnValue = _currentValue;
+
+    ++_currentValue;
+
+    return returnValue;
+}
+
+    
+template <class PoolTag> inline
+void SimplePool<Int32, PoolTag>::printStat(void)
+{
+    fprintf(stderr, "\n%d\n", _currentValue());
+}
+
+
+
+
+template <class ValueT, class PoolTag> inline
+ValueT *SimplePool<ValueT, PoolTag>::create(void)
 {
     ValueT *returnValue = NULL;
 
@@ -67,9 +101,9 @@ ValueT *SimplePool<ValueT>::create(void)
     return returnValue;
 }
 
-template <class ValueT> 
+template <class ValueT, class PoolTag> 
 template<class ParameterT> inline
-ValueT *SimplePool<ValueT>::create(ParameterT oParam)
+ValueT *SimplePool<ValueT, PoolTag>::create(ParameterT oParam)
 {
     ValueT *returnValue = NULL;
 
@@ -97,8 +131,8 @@ ValueT *SimplePool<ValueT>::create(ParameterT oParam)
     return returnValue;
 }
 
-template <class ValueT> inline
-void SimplePool<ValueT>::freeAll(void)
+template <class ValueT, class PoolTag> inline
+void SimplePool<ValueT, PoolTag>::freeAll(void)
 {
     _currentFreeElement = _elementStore.begin();
 
@@ -109,8 +143,8 @@ void SimplePool<ValueT>::freeAll(void)
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-template <class ValueT> inline
-SimplePool<ValueT>::SimplePool(void) :
+template <class ValueT, class PoolTag> inline
+SimplePool<ValueT, PoolTag>::SimplePool(void) :
     _elementStore      ( ),
     _currentFreeElement( ),
     _uiAllocated       (0),
@@ -122,8 +156,8 @@ SimplePool<ValueT>::SimplePool(void) :
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-template <class ValueT> inline
-SimplePool<ValueT>::~SimplePool(void)
+template <class ValueT, class PoolTag> inline
+SimplePool<ValueT, PoolTag>::~SimplePool(void)
 {
     for(UInt32 i = 0; i < _elementStore.size(); ++i)
     {
@@ -131,8 +165,8 @@ SimplePool<ValueT>::~SimplePool(void)
     }
 }
 
-template <class ValueT> inline
-void SimplePool<ValueT>::printStat(void)
+template <class ValueT, class PoolTag> inline
+void SimplePool<ValueT, PoolTag>::printStat(void)
 {
     fprintf(stderr, "\n%d | %d | %d\n", 
             _uiAllocated, 
