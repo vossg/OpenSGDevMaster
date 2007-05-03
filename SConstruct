@@ -119,6 +119,51 @@ def registerfcd2codeBuilder(env, required=True):
    print "[OK]"
 
 
+# fbd2code builder
+# - Custom builder for fbd2code
+def registerfbd2codeBuilder(env, required=True):
+   print "Setting up fbd2code builder...",
+   
+   fbd2code_cmd = pj("Tools", "fcd2code","fcd2code")
+   fbd2code_cmd = os.path.abspath(fbd2code_cmd)
+   if not os.path.isfile(fbd2code_cmd):
+      print " Warning: fcd2code not found at: ", fbd2code_cmd
+      if required:
+         sys.exit(1)
+      return
+   
+   template_files = glob.glob(pj("Tools","fcd2code","*Template*"))
+   
+   
+   def prop_emitter(target,source,env, template_files=template_files):
+      """ Returns a list of files including all output forms and
+          The input templates as sources.
+      """
+      assert str(source[0]).endswith(".fbd")
+      assert len(source) == 1
+
+      base_name = os.path.splitext(str(source[0]))[0]
+
+      # Targets are all the files that we build
+      target = []
+      for ext in ["Base.cpp","Base.h","Base.inl","Fields.h"]:
+         target.append(base_name+ext)
+      
+      # Sources are the fbd file and all the template files
+      source.extend(template_files)
+
+      return (target, source)
+   
+   
+   fbd2code_builder = Builder(action = " ".join([sys.executable,
+                              fbd2code_cmd]) + ' -c -b -B -d $SOURCE -p ${TARGET.dir}',
+                              src_suffix = '.fbd',
+                              suffix = 'unused.h',
+                              emitter = prop_emitter)
+   env.Append(BUILDERS = {'fbd2code' : fbd2code_builder})
+   print "[OK]"
+
+
 def addScanParseSkel(common_env):
    """ This is an ugly hack to add the lex/yacc support into the build.  It is ugly because of a couple of things.
       - We use some very custom flags
@@ -374,12 +419,16 @@ build_options["build_suffix"] = sca_opts.SimpleOption(
     "", None, None, None)
 build_options["enable_fcd2code"] = sca_opts.BoolOption(
     "enable_fcd2code", "Enable code generation pass (from .fcd files) during build", False)
+build_options["enable_fbd2code"] = sca_opts.BoolOption(
+    "enable_fbd2code", "Enable code generation pass (from .fbd files) during build", False)
 build_options["enable_distcc"] = sca_opts.BoolOption(
     "enable_distcc", "Enable use of distcc during build. (distcc must be in your path)", False)
 build_options["enable_unittests"] = sca_opts.BoolOption(
     "enable_unittests", "Enable building and running of the unit tests after build", True)
 build_options["enable_revision_tags"] = sca_opts.BoolOption(
     "enable_revision_tags", "Enable updating of OSG*Def.cpp files with current svn revision numbers", False)
+build_options["enable_gv_beta"] = sca_opts.BoolOption(
+    "enable_gv_beta", "Enable gv testing stuff", False)
 
 # Options for required external libraries
 required_libs_options = {}
@@ -617,10 +666,23 @@ if not SConsAddons.Util.hasHelpFlag():
          fcd_targets = common_env.fcd2code(source=f)
          NoClean(fcd_targets)
    
+   # .fbd processing
+   if common_env["enable_fbd2code"]:
+      registerfbd2codeBuilder(common_env)
+      
+      fbd_files = []
+      for root, dirs, files in os.walk(pj(os.getcwd(),'Source')):
+         fbd_files += [pj(root,f) for f in files if f.endswith(".fbd")]
+      
+      for f in fbd_files:
+         fbd_targets = common_env.fbd2code(source=f)
+         NoClean(fbd_targets)
+
    # Distcc enable
    if common_env["enable_distcc"] and WhereIs("distcc"):
       common_env.Prepend(CXX = "distcc ", CC = "distcc ")
-   
+
+
    # Trigger recursive scanning of library directorties
    if not verbose_build:
       print "Scanning libraries: ",
@@ -685,6 +747,7 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_WITH_ZLIB"      : optional_libs_options["zlib"].isAvailable(),
                 "OSG_WITH_NVPERFSDK" : optional_libs_options["NVPerfSDK"].isAvailable(),
                 "OSG_WITH_VTK"       : optional_libs_options["vtk"].isAvailable(),
+                "OSG_GV_BETA"        : common_env["enable_gv_beta"]
                }
    if "win32" == platform:   # Win32 specific defines
       definemap.update(
