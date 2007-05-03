@@ -49,10 +49,12 @@ OSG_BEGIN_NAMESPACE
 
 struct DataSlotPoolTag;
 
-typedef SimplePool<Int32, DataSlotPoolTag> DataSlotPoolBase;
+typedef SimplePool<Int32, DataSlotPoolTag, NoLockPolicy> DataSlotPoolBase;
 
 template<> inline
-void SimplePool<Int32, DataSlotPoolTag>::initializeValue(void)
+void SimplePool<Int32, 
+                DataSlotPoolTag, 
+                NoLockPolicy  >::initializeValue(void)
 {
     _currentValue = 0;
 }

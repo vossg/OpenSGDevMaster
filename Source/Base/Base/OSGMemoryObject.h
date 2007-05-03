@@ -107,6 +107,9 @@ void subRef(MemoryObjectPConst pObject);
 
 template <class T> inline
 void setRefd(T *&pObject, T * const pNewObject);
+
+template <class T> inline
+void clearRef(T *&pObject);
  
 OSG_END_NAMESPACE
 

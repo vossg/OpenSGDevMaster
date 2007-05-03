@@ -116,5 +116,13 @@ void setRefd(T *&pObject, T * const pNewObject)
     pObject = pNewObject;
 }
 
+template <class T> inline
+void clearRef(T *&pObject)
+{
+    subRef(pObject);
+
+    pObject = NULL;
+}
+
 OSG_END_NAMESPACE
 

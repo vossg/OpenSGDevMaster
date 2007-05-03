@@ -45,6 +45,7 @@
 #include "OSGBaseTypes.h"
 
 #include <vector>
+#include <boost/function.hpp>
 
 OSG_BEGIN_NAMESPACE
 
@@ -71,7 +72,7 @@ extern OSG_BASE_DLLMAPPING SystemState GlobalSystemState;
 // * Factories       internal call
 // * PostFactories
 
-typedef bool (*InitFuncF)(void);
+typedef boost::function<bool (void)> InitFuncF;
 
 // Shutdown sequence:
 //
@@ -81,7 +82,7 @@ typedef bool (*InitFuncF)(void);
 // * MP              internal call
 // * PostMP
 
-typedef bool (*ExitFuncF)(void);
+typedef boost::function<bool (void)> ExitFuncF;
 
 struct OSG_BASE_DLLMAPPING InitFuncWrapper
 {
@@ -122,6 +123,9 @@ void addPreFactoryExitFunction (ExitFuncF exitFunc);
 
 OSG_BASE_DLLMAPPING 
 void addPostFactoryExitFunction(ExitFuncF exitFunc);
+
+OSG_BASE_DLLMAPPING 
+void addPreMPExitFunction      (ExitFuncF exitFunc);
 
 OSG_BASE_DLLMAPPING 
 void addPostMPExitFunction     (ExitFuncF exitFunc);

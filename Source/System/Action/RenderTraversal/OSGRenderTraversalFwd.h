@@ -48,11 +48,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-template <class ValueT, class PoolTag> 
+template <class ValueT, class PoolTag, class LockPolicy> 
 class SimplePool;
 
 class PoolDefaultTag;
-
+class NoLockPolicy;
 class RenderTraversalAction;
 
 class RenderTreeNode;
@@ -60,9 +60,18 @@ class StateOverride;
 class RenderPartition;
 class TreeBuilderBase;
 
-typedef SimplePool<RenderTreeNode , PoolDefaultTag> RenderTreeNodePool;
-typedef SimplePool<RenderPartition, PoolDefaultTag> RenderPartitionPool;
-typedef SimplePool<StateOverride  , PoolDefaultTag> StateOverridePool;
+typedef SimplePool<RenderTreeNode, 
+                   PoolDefaultTag,
+                   NoLockPolicy   > RenderTreeNodePool;
+
+typedef SimplePool<RenderPartition, 
+                   PoolDefaultTag,
+                   NoLockPolicy   > RenderPartitionPool;
+
+typedef SimplePool<StateOverride  , 
+                   PoolDefaultTag,
+                   NoLockPolicy   > StateOverridePool;
+
 typedef MultiPool <TreeBuilderBase                > TreeBuilderPool;
 
 OSG_END_NAMESPACE

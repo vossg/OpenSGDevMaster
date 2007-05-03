@@ -38,8 +38,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-template<class SingletonT, typename TagT>
-SingletonT *TaggedSingletonHolder<SingletonT, TagT>::_the = NULL;
+template<class SingletonT, typename TagT, class LockPolicy>
+SingletonT *TaggedSingletonHolder<SingletonT, TagT, LockPolicy>::_the = NULL;
+
+template<class SingletonT, typename TagT, class LockPolicy>
+LockPolicy TaggedSingletonHolder<SingletonT, TagT, LockPolicy>::_oLock;
+
 
 #define OSG_TAGGEDSINGLETON_INST(OSG_CLASS, OSG_TAG)              \
 template <> OSG_DLL_EXPORT                                        \
@@ -57,12 +61,16 @@ bool TaggedSingletonHolder< OSG_CLASS, OSG_TAG >::destroy(void)   \
 template<> OSG_DLL_EXPORT                                         \
 OSG_CLASS *TaggedSingletonHolder< OSG_CLASS, OSG_TAG >::the(void) \
 {                                                                 \
+    _oLock.acquire();                                             \
+                                                                  \
     if(_the == NULL)                                              \
     {                                                             \
         _the = new OSG_CLASS();                                   \
                                                                   \
         addPostFactoryExitFunction(&Self::destroy);               \
     }                                                             \
+                                                                  \
+    _oLock.release();                                             \
                                                                   \
     return _the;                                                  \
 }                                                                 \

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003, by the OpenSG Forum                         *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,72 +36,133 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTAGGEDSINGLETONHOLDER_H_
-#define _OSGTAGGEDSINGLETONHOLDER_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGBaseTypes.h"
-#include "OSGLog.h"
-#include "OSGLockPolicies.h"
-
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseMixinLib
- */
 
-template<class SingletonT, typename TagT, class LockPolicy = NoLockPolicy>
-class TaggedSingletonHolder
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+inline
+NoLockPolicy::NoLockPolicy(void)
 {
-    /*==========================  PUBLIC  =================================*/
+}
 
-    typedef TaggedSingletonHolder<SingletonT, TagT, LockPolicy> Self;
 
-  public:
+inline
+NoLockPolicy::~NoLockPolicy(void)
+{
+}
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                      access                                  */
-    /*! \{                                                                 */
+/*-------------------------------------------------------------------------*/
+/*                        Reference Counting                               */
 
-    static SingletonT *the    (void);
-    static bool        destroy(void);
+inline
+void NoLockPolicy::acquire(void)
+{
+}
 
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
+inline
+void NoLockPolicy::release(void)
+{
+}
 
-  protected:
+inline
+bool NoLockPolicy::request(void)
+{
+}
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
 
-    static SingletonT *_the;
-    static LockPolicy  _oLock;
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
+inline
+SingleLockPolicy::SingleLockPolicy(void) :
+    _pLock(NULL)
+{
+    _pLock = Lock::create();
+}
 
-  private:
 
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    TaggedSingletonHolder(const TaggedSingletonHolder &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const TaggedSingletonHolder &source);
-};
+inline
+SingleLockPolicy::~SingleLockPolicy(void)
+{
+    OSG::subRef(_pLock);
+}
+
+inline
+void SingleLockPolicy::acquire(void)
+{
+    _pLock->acquire();
+}
+
+inline
+void SingleLockPolicy::release(void)
+{
+    _pLock->release();
+}
+
+inline
+bool SingleLockPolicy::request(void)
+{
+    return _pLock->request();
+}
+
+
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+
+inline
+SingleStaticInitLockPolicy::SingleStaticInitLockPolicy(void) :
+    _pLock(NULL)
+{
+    addPreFactoryInitFunction(
+        boost::bind(&SingleStaticInitLockPolicy::init, this));
+
+    addPreMPExitFunction(
+        boost::bind(&SingleStaticInitLockPolicy::shutdown, this));
+}
+
+
+inline
+SingleStaticInitLockPolicy::~SingleStaticInitLockPolicy(void)
+{
+}
+
+inline
+bool SingleStaticInitLockPolicy::init(void)
+{
+    _pLock = Lock::create();
+}
+
+inline
+bool SingleStaticInitLockPolicy::shutdown(void)
+{
+    OSG::clearRef(_pLock);
+}
+
+inline
+void SingleStaticInitLockPolicy::acquire(void)
+{
+    _pLock->acquire();
+}
+
+inline
+void SingleStaticInitLockPolicy::release(void)
+{
+    _pLock->release();
+}
+
+inline
+bool SingleStaticInitLockPolicy::request(void)
+{
+    return _pLock->request();
+}
+
 
 OSG_END_NAMESPACE
 
-#define OSGTAGGEDSINGLETONHOLDER_HEADER_CVSID "@(#)$Id$"
 
-#endif /* _OSGTAGGEDSINGLETONHOLDER_H_ */

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,109 +36,170 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTATEOVERRIDE_H_
-#define _OSGSTATEOVERRIDE_H_
-
+#ifndef _OSGLOCKPOLICIES_H_
+#define _OSGLOCKPOLICIES_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
-#include "OSGSimplePool.h"
+#include "OSGBaseFunctions.h"
+#include "OSGBaseInitFunctions.h"
+#include "OSGLock.h"
 
-#include <vector>
-#include <utility>
-#include <algorithm>
+#include <boost/bind.hpp>
 
 OSG_BEGIN_NAMESPACE
 
-class StateChunk;
+/*! Memory, simple reference counted memory object. Parent of
+    everything that should be shared, but must not be thread safe.
+    \ingroup GrpBaseBase
+ */
 
-/*! \ingroup GrpSystemRenderingBackend
-*/
-
-class OSG_SYSTEM_DLLMAPPING StateOverride 
+class OSG_BASE_DLLMAPPING NoLockPolicy
 {
+
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef std::pair  <UInt32, StateChunk *>           ChunkElement;
-
-    typedef std::vector<ChunkElement        >           ChunkStore;
-    typedef std::vector<ChunkElement        >::iterator ChunkStoreIt;
-
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
-
-    StateOverride(void);
+ 
+    NoLockPolicy(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~StateOverride(void); 
+    virtual ~NoLockPolicy(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Statistic                                  */
+    /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    void fillFrom(StateOverride *pState);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Statistic                                  */
-    /*! \{                                                                 */
-
-    ChunkStoreIt begin(void);
-    ChunkStoreIt end  (void);
-    UInt32       size (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Access                                    */
-    /*! \{                                                                 */
-
-    void reset      (void             );
-    void addOverride(UInt32      uiSlot, 
-                     StateChunk *pChunk);
-    bool empty      (void              );
-
+    void acquire(void);
+    void release(void);
+    bool request(void);
+ 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    ChunkStore _vChunks;
-
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
+   /*==========================  PRIVATE  ================================*/
 
   private:
 
-    template <class T, class Tag, class LockPolicy> friend class SimplePool;
-
-    /*! \brief prohibit default function (move to 'public' if needed) */
-    StateOverride(const StateOverride &source);
-    /*! \brief prohibit default function (move to 'public' if needed) */
-    void operator =(const StateOverride &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    NoLockPolicy(const  NoLockPolicy &source);
+    void operator =(const NoLockPolicy &source);
 };
 
-bool operator <(const StateOverride::ChunkElement &lhs, 
-                const StateOverride::ChunkElement &rhs);
+class OSG_BASE_DLLMAPPING SingleLockPolicy
+{
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+ 
+    SingleLockPolicy(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~SingleLockPolicy(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    void acquire(void);
+    void release(void);
+    bool request(void);
+ 
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    Lock *_pLock;
+
+   /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    SingleLockPolicy(const  SingleLockPolicy &source);
+    void operator =(const SingleLockPolicy &source);
+};
+
+
+class OSG_BASE_DLLMAPPING SingleStaticInitLockPolicy
+{
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+ 
+    SingleStaticInitLockPolicy(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~SingleStaticInitLockPolicy(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    void acquire(void);
+    void release(void);
+    bool request(void);
+ 
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    Lock *_pLock;
+
+    bool init    (void);
+    bool shutdown(void);
+
+   /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    SingleStaticInitLockPolicy(const  SingleStaticInitLockPolicy &source);
+    void operator =(const SingleStaticInitLockPolicy &source);
+};
 
 OSG_END_NAMESPACE
 
-#include "OSGStateOverride.inl"
+#include "OSGLockPolicies.inl"
 
-#define OSGSTATEOVERRIDE_HEADER_CVSID "@(#)$Id$"
-
-#endif /* _OSGSTATEOVERRIDE_H_ */
+#endif /* _OSGLOCKPOLICIES_H_ */

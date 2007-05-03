@@ -75,6 +75,7 @@ static std::vector<InitFuncF>    *osgPostFactoryInitFunctions = NULL;
 
 static std::vector<ExitFuncF>    *osgPreFactoryExitFunctions  = NULL;
 static std::vector<ExitFuncF>    *osgPostFactoryExitFunctions = NULL;
+static std::vector<ExitFuncF>    *osgPreMPExitFunctions       = NULL;
 static std::vector<ExitFuncF>    *osgPostMPExitFunctions      = NULL;
 
 static std::vector<tstring  >    *osgPreloadSharedObject      = NULL;
@@ -385,6 +386,25 @@ void addPostFactoryExitFunction(ExitFuncF exitFunc)
     osgPostFactoryExitFunctions->push_back(exitFunc);
 }
 
+
+/*! Adds a callback function that is called by \c osgExit after the factories,
+    and just before multithreading are terminated.
+
+    \param[in] exitFunc Callback function to add.
+
+    \sa ExitFuncF
+
+    \ingroup GrpBaseBaseInitExit
+ */
+void addPreMPExitFunction(ExitFuncF exitFunc)
+{
+    if(osgPreMPExitFunctions == NULL)
+    {
+        osgPreMPExitFunctions = new std::vector<ExitFuncF>(0);
+    }
+
+    osgPreMPExitFunctions->push_back(exitFunc);
+}
 
 /*! Adds a callback function that is called by \c osgExit after the factories,
     and multithreading are terminated.
@@ -735,6 +755,20 @@ bool osgExit(void)
     }
 
     delete osgPostFactoryExitFunctions;
+
+    if(returnValue == false)
+        return returnValue;
+
+    if(osgPreMPExitFunctions != NULL)
+    {
+        for(Int32 i = osgPreMPExitFunctions->size() - 1; i >= 0; i--)
+        {
+            returnValue &= (*osgPreMPExitFunctions)[i]();
+
+            if(returnValue == false)
+                break;
+        }
+    }
 
     if(returnValue == false)
         return returnValue;

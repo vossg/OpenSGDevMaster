@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,77 +36,139 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTATEOVERRIDE_H_
-#define _OSGSTATEOVERRIDE_H_
-
+#ifndef _OSGSIMPLEREUSEPOOL_H_
+#define _OSGSIMPLEREUSEPOOL_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
-#include "OSGSimplePool.h"
 
 #include <vector>
-#include <utility>
-#include <algorithm>
 
 OSG_BEGIN_NAMESPACE
 
-class StateChunk;
+class PoolDefaultTag;
 
 /*! \ingroup GrpSystemRenderingBackend
 */
 
-class OSG_SYSTEM_DLLMAPPING StateOverride 
+template <class ValueT, 
+          class PoolTag    = PoolDefaultTag>
+class SimpleReusePool 
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef std::pair  <UInt32, StateChunk *>           ChunkElement;
-
-    typedef std::vector<ChunkElement        >           ChunkStore;
-    typedef std::vector<ChunkElement        >::iterator ChunkStoreIt;
-
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    StateOverride(void);
+    SimpleReusePool(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~StateOverride(void); 
+    virtual ~SimpleReusePool(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Statistic                                  */
+    /*! \name                      create                                  */
     /*! \{                                                                 */
 
-    void fillFrom(StateOverride *pState);
+    ValueT *create(void);
+
+    template<class ParameterT>
+    ValueT *create(ParameterT oParam);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Statistic                                  */
+    /*! \name                       free                                   */
     /*! \{                                                                 */
-
-    ChunkStoreIt begin(void);
-    ChunkStoreIt end  (void);
-    UInt32       size (void);
+    
+    void freeAll(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Access                                    */
+    /*! \name                       stat                                   */
+    /*! \{                                                                 */
+    
+    void printStat(void);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef          std::vector<ValueT *>           ValueStore;
+
+    typedef typename std::vector<ValueT *>::iterator ValueStoreIt;
+
+    
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    void reset      (void             );
-    void addOverride(UInt32      uiSlot, 
-                     StateChunk *pChunk);
-    bool empty      (void              );
+    ValueStore   _elementStore;
+    ValueStoreIt _currentFreeElement;
+
+    UInt32       _uiAllocated;
+    UInt32       _uiReused;
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    SimpleReusePool(const SimpleReusePool &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const SimpleReusePool &source);
+};
+
+template<class PoolTag>
+class SimpleReusePool<Int32, PoolTag>
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    SimpleReusePool(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~SimpleReusePool(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      create                                  */
+    /*! \{                                                                 */
+
+    Int32 create(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       free                                   */
+    /*! \{                                                                 */
+    
+//    void freeAll(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       stat                                   */
+    /*! \{                                                                 */
+    
+    void printStat(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -117,28 +179,30 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    ChunkStore _vChunks;
+    void initializeValue(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    volatile Int32 _currentValue;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    template <class T, class Tag, class LockPolicy> friend class SimplePool;
-
-    /*! \brief prohibit default function (move to 'public' if needed) */
-    StateOverride(const StateOverride &source);
-    /*! \brief prohibit default function (move to 'public' if needed) */
-    void operator =(const StateOverride &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    SimpleReusePool(const SimpleReusePool &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const SimpleReusePool &source);
 };
-
-bool operator <(const StateOverride::ChunkElement &lhs, 
-                const StateOverride::ChunkElement &rhs);
 
 OSG_END_NAMESPACE
 
-#include "OSGStateOverride.inl"
+#define OSGSIMPLEREUSEPOOL_HEADER_CVSID "@(#)$Id$"
 
-#define OSGSTATEOVERRIDE_HEADER_CVSID "@(#)$Id$"
+#include "OSGSimpleReusePool.inl"
 
-#endif /* _OSGSTATEOVERRIDE_H_ */
+#endif /* _OSGSIMPLEREUSEPOOL_H_ */

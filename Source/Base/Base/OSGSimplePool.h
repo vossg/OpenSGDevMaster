@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
+#include "OSGLockPolicies.h"
 
 #include <vector>
 
@@ -53,7 +53,9 @@ class PoolDefaultTag;
 /*! \ingroup GrpSystemRenderingBackend
 */
 
-template <class ValueT, class PoolTag = PoolDefaultTag>
+template <class ValueT, 
+          class PoolTag    = PoolDefaultTag,
+          class LockPolicy = NoLockPolicy>
 class SimplePool 
 {
     /*==========================  PUBLIC  =================================*/
@@ -128,8 +130,8 @@ class SimplePool
     void operator =(const SimplePool &source);
 };
 
-template<class PoolTag>
-class SimplePool<Int32, PoolTag>
+template<class PoolTag, class LockPolicy>
+class SimplePool<Int32, PoolTag, LockPolicy>
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -153,7 +155,8 @@ class SimplePool<Int32, PoolTag>
     /*! \name                      create                                  */
     /*! \{                                                                 */
 
-    Int32 create(void);
+    Int32 create (void       );
+    void  release(Int32 uiVal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
