@@ -65,6 +65,10 @@
 
 #include "OSGGeoStatsAttachment.h"
 
+#ifdef OSG_DEBUG
+#define OSG_TRACE_PARTITION
+#endif
+
 OSG_USING_NAMESPACE
 
 /***************************************************************************\
@@ -132,56 +136,58 @@ void RenderPartition::setAction(RenderTraversalAction *pAction)
 /*------------- constructors & destructors --------------------------------*/
 
 RenderPartition::RenderPartition(Mode eMode) :
-    _oDrawEnv                (      ),
-
-    _eMode                   (eMode ),
+    _eMode                   (eMode    ),
     _eSetupMode              (FullSetup),
 
-    _pBackground             (  NULL),
+    _oDrawEnv                (         ),
+    _oSimpleDrawCallback     (     NULL),
+    _pBackground             (     NULL),
 
-    _uiMatrixId              (     0),
-    _currMatrix              (      ),
-    _accMatrix               (      ),
-    _vMatrixStack            (      ),
+    _uiMatrixId              (        0),
+    _currMatrix              (         ),
+    _accMatrix               (         ),
+    _vMatrixStack            (         ),
     
-    _pNodePool               (  NULL),
+    _pNodePool               (     NULL),
     
-    _mMatRoots               (      ),
-    _mTransMatRoots          (      ),
+    _mMatRoots               (         ),
+    _mTransMatRoots          (         ),
     
-    _bSortTrans              ( true ),
-    _bZWriteTrans            ( false),
-    _bCorrectTwoSidedLighting( false),
+    _bSortTrans              (    true ),
+    _bZWriteTrans            (    false),
+    _bCorrectTwoSidedLighting(    false),
 
-    _uiActiveMatrix          (     0),
+    _uiActiveMatrix          (        0),
 
-    _pStatePool              (  NULL),   
-    _sStateOverrides         (      ),
+    _pStatePool              (     NULL),   
+    _sStateOverrides         (         ),
 
-    _pTreeBuilderPool        (  NULL),
+    _pTreeBuilderPool        (     NULL),
+ 
+    _iNextLightIndex         (        0),
+    _uiKeyGen                (        0),
 
-    _iNextLightIndex         (     0),
-    _uiKeyGen                (     0),
+    _pMaterial               (     NULL),
+    _pMaterialNode           (   NullFC),
 
-    _pMaterial               (  NULL),
-    _pMaterialNode           (NullFC),
+    _pRenderTarget           (     NULL),
+    _iPixelLeft              (        0),
+    _iPixelRight             (        1),
+    _iPixelBottom            (        0),
+    _iPixelTop               (        1),
+    _bFull                   (     true),
+ 
+    _uiNumMatrixChanges      (        0),
+    _uiNumTriangles          (        0),
 
-    _pRenderTarget           (  NULL),
-    _iPixelLeft              (     0),
-    _iPixelRight             (     1),
-    _iPixelBottom            (     0),
-    _iPixelTop               (     1),
-    _bFull                   (  true),
-
-    _uiNumMatrixChanges      (     0),
-    _uiNumTriangles          (     0),
-    _visibilityStack         (      ),
-
-    _bFrustumCulling          (  true),
-    _bVolumeDrawing           ( false),
-    _bAutoFrustum             (  true),
-    _oFrustum                 (      ),
-    _oSimpleDrawCallback      (NULL  )
+    _visibilityStack         (         ),
+    _bFrustumCulling         (    true ),
+    _bVolumeDrawing          (    false),
+    _bAutoFrustum            (    true ),
+    _oFrustum                (         )
+#ifdef OSG_DEBUG
+   ,_szDebugString           (         )
+#endif
 {
 }
 
@@ -339,6 +345,15 @@ void RenderPartition::calcViewportDimension(Real32 rLeft,
 
 void RenderPartition::setupExecution(void)
 {
+#ifdef OSG_TRACE_PARTITION
+    if(_szDebugString.size() != 0)
+    {
+        fprintf(stderr, 
+                "RenderPartition::setupExecution %s\n", 
+                _szDebugString.c_str());
+    }
+#endif
+
     if(_pRenderTarget != NULL)
         _pRenderTarget->activate(&_oDrawEnv);
 
@@ -377,6 +392,15 @@ void RenderPartition::setupExecution(void)
 
 void RenderPartition::doExecution   (void)
 {
+#ifdef OSG_TRACE_PARTITION
+    if(_szDebugString.size() != 0)
+    {
+        fprintf(stderr, 
+                "RenderPartition::doExecution %s\n", 
+                _szDebugString.c_str());
+    }
+#endif
+
     if(_eMode == SimpleCallback)
     {
         _oSimpleDrawCallback(&_oDrawEnv);
@@ -450,7 +474,8 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
     if(_eMode == SimpleCallback)
         return;
         
-    RenderTraversalAction *rt = dynamic_cast<RenderTraversalAction *>(_oDrawEnv.getRTAction());
+    RenderTraversalAction *rt = 
+        dynamic_cast<RenderTraversalAction *>(_oDrawEnv.getRTAction());
 
     NodePtr actNode = rt->getActNode();
     
@@ -493,9 +518,10 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         
         if(mapIt->second == NULL)
         {
-            mapIt->second = _pTreeBuilderPool->create(ScalarSortTreeBuilder::Proto);
+            mapIt->second = 
+                _pTreeBuilderPool->create(ScalarSortTreeBuilder::Proto);
             
-            mapIt->second->setNodePool(_pNodePool             );
+            mapIt->second->setNodePool(_pNodePool);
         }
         
         RenderTreeNode *pNewElem = _pNodePool->create();
@@ -518,13 +544,13 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         }
 
         mapIt->second->add(_oDrawEnv,
-                           this,
-                           pNewElem,
-                           NULL,
-                           NULL,
-                           0);
+                            this,
+                            pNewElem,
+                            NULL,
+                            NULL,
+                            0);
     }
-    else if(rt && rt->getOcclusionCulling())
+    else if(rt != NULL && rt->getOcclusionCulling() == true)
     {
         BuildKeyMapIt mapIt = _mMatRoots.lower_bound(iSortKey);
         
@@ -536,28 +562,33 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             pBuilder->setNodePool(_pNodePool);
             
             mapIt = _mMatRoots.insert(mapIt, 
-                                           std::make_pair(iSortKey, pBuilder));
+                                      std::make_pair(iSortKey, pBuilder));
         }
         
         if(mapIt->second == NULL)
         {
-            mapIt->second = _pTreeBuilderPool->create(OcclusionCullingTreeBuilder::Proto);
+            mapIt->second = 
+                _pTreeBuilderPool->create(OcclusionCullingTreeBuilder::Proto);
             
-            mapIt->second->setNodePool(_pNodePool             );
+            mapIt->second->setNodePool(_pNodePool);
         }
         
         RenderTreeNode *pNewElem = _pNodePool->create();
         
-        Pnt3f         objPos;
+        Pnt3f           objPos;
         
         //_oDrawEnv.getRTAction()->getActNode()->getVolume().getCenter(objPos);
         
         //_currMatrix.second.mult(objPos);
 
         DynamicVolume     objVol;
+
         objVol = actNode->getVolume();
+
         Pnt3r min,max;
+
         objVol.getBounds(min,max);
+
         Pnt3r p[8];
         p[0].setValues(min[0],min[1],min[2]);
         p[1].setValues(max[0],min[1],min[2]);
@@ -567,25 +598,31 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         p[5].setValues(max[0],min[1],max[2]);
         p[6].setValues(min[0],max[1],max[2]);
         p[7].setValues(max[0],max[1],max[2]);
-        for(UInt32 i = 0; i<8;i++)
+
+        for(UInt32 i = 0; i < 8; i++)
         {
             _currMatrix.second.mult(p[i]);
         }
+
         objPos = p[0];
-        for(UInt32 i = 1; i<8; i++)
+
+        for(UInt32 i = 1; i < 8; i++)
         {
             if(p[0][2] < objPos[2])
+            {
                 objPos[2] = p[0][2];
+            }
         }
         
         //std::cout << objPos[2] << std::endl;
 
-        pNewElem->setVol        ( objVol );
-        pNewElem->setNode       (&*actNode);
+        pNewElem->setVol        ( objVol                   );
+        pNewElem->setNode       (&*actNode                 );
 
-        pNewElem->setFunctor    ( func      );
-        pNewElem->setMatrixStore(_currMatrix);
-        pNewElem->setState      ( pState    );
+        pNewElem->setFunctor    ( func                     );
+        pNewElem->setMatrixStore(_currMatrix               );
+        pNewElem->setState      ( pState                   );
+
         // Normalize scalar to 0..1 for bucket sorting
         pNewElem->setScalar     ( (-objPos[2] - getNear()) / 
                                   (getFar()   - getNear()) ); 
@@ -595,11 +632,11 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             pNewElem->setStateOverride(_sStateOverrides.top());
         }
         mapIt->second->add(_oDrawEnv,
-                           this,
-                           pNewElem,
-                           NULL,
-                           NULL,
-                           0);
+                            this,
+                            pNewElem,
+                            NULL,
+                            NULL,
+                            0);
     }
     else
     {    
@@ -613,12 +650,13 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             pBuilder->setNodePool(_pNodePool);
             
             mapIt = _mMatRoots.insert(mapIt, 
-                                           std::make_pair(iSortKey, pBuilder));
+                                      std::make_pair(iSortKey, pBuilder));
         }
 
         if(mapIt->second == NULL)
         {
-            mapIt->second = _pTreeBuilderPool->create(StateSortTreeBuilder::Proto);
+            mapIt->second = _pTreeBuilderPool->create(
+                StateSortTreeBuilder::Proto);
 
             mapIt->second->setNodePool(_pNodePool);
         }
@@ -626,9 +664,9 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         RenderTreeNode *pNewElem  = _pNodePool->create();
         StateOverride  *pOverride = NULL;
 
-        pNewElem->setNode       (&*actNode);
-        pNewElem->setFunctor    (func        );
-        pNewElem->setMatrixStore(_currMatrix );
+        pNewElem->setNode       (&* actNode   );
+        pNewElem->setFunctor    (   func      );
+        pNewElem->setMatrixStore(  _currMatrix);
                
         if(_sStateOverrides.top()->empty() == false)
         {
@@ -691,7 +729,6 @@ bool RenderPartition::isVisible(Node *pNode)
 {
     if(getFrustumCulling() == false)
         return true;
-     
     
     if(_oDrawEnv.getStatCollector() != NULL)
     {

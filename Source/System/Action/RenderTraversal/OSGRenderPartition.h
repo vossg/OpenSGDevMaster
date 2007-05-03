@@ -211,64 +211,74 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     /*------------------------- your_operators ------------------------------*/
 
-    void      setViewport(Viewport   *pViewport  );
-    Viewport *getViewport(void                   );
+    void      setViewport  (Viewport   *pViewport  );
+    Viewport *getViewport  (void                   );
 
-    void      setWindow  (Window     *pWindow    );
-    Window   *getWindow  (void                   );
+    void      setWindow    (Window     *pWindow    );
+    Window   *getWindow    (void                   );
+
+    void      setBackground(Background *pBackground);
   
-    void setBackground  (Background *pBackground);
+    /*------------------------- your_operators ------------------------------*/
 
-    void setupProjection(const Matrix4f &projection,
-                         const Matrix4f &translation);
-    const Matrix4f &getFullProjection(void);
-    const Matrix4f &getProjection(void);
-    const Matrix4f &getProjectionTrans(void);
 
-    const Matrix4f &getVPFullProjection(void);
-    const Matrix4f &getVPProjection(void);
-    const Matrix4f &getVPProjectionTrans(void);
+          void      setupProjection     (const Matrix4f &projection,
+					 const Matrix4f &translation);
 
-    void setupViewing   (const Matrix4f &matrix);
-    const Matrix4f &getViewing(void);
-    const Matrix4f &getCameraToWorld(void);
-    const Matrix4f &getVPViewing(void);
-    const Matrix4f &getVPCameraToWorld(void);
+    const Matrix4f &getFullProjection   (      void                 );
+    const Matrix4f &getProjection       (      void                 );
+    const Matrix4f &getProjectionTrans  (      void                 );
 
-    void setNear(Real32 camNear);
-    void setFar (Real32 camFar );
+    const Matrix4f &getVPFullProjection (      void                 );
+    const Matrix4f &getVPProjection     (      void                 );
+    const Matrix4f &getVPProjectionTrans(      void                 );
 
-    Real32 getNear(void);
-    Real32 getFar (void);
+          void      setupViewing        (const Matrix4f &matrix     );
 
-    void calcFrustum    (      void            );
-    
-    void setViewportDimension(Int32 iPixelLeft,
-                              Int32 iPixelBottom,
-                              Int32 iPixelRight,
-                              Int32 iPixelTop,
-                              bool  bFull       );
-
-    void calcViewportDimension(Real32 rLeft,
-                               Real32 rBottom,
-                               Real32 rRight,
-                               Real32 rTop,
-
-                               UInt16 iTargetWidth,
-                               UInt16 iTargetHeight);
-
-    Int32 getViewportWidth (void);
-    Int32 getViewportHeight(void);
-
-    void setSetupMode(SetupMode eSetupMode);
+    const Matrix4f &getViewing          (      void                 );
+    const Matrix4f &getCameraToWorld    (      void                 );
+    const Matrix4f &getVPViewing        (      void                 );
+    const Matrix4f &getVPCameraToWorld  (      void                 );
 
     /*------------------------- your_operators ------------------------------*/
 
-    void initFrom(RenderPartition *pSource,
-                  RenderPartition *pInitial,
-                  Int32            uiCopyOnPush);
+    void   setNear(Real32 camNear);
+    void   setFar (Real32 camFar );
 
-    void initVPMatricesFromCamera(void);
+    Real32 getNear(void          );
+    Real32 getFar (void          );
+
+    /*------------------------- your_operators ------------------------------*/
+
+    void  calcFrustum          (void                );
+    
+    void  setViewportDimension (Int32  iPixelLeft,
+                                Int32  iPixelBottom,
+                                Int32  iPixelRight,
+                                Int32  iPixelTop,
+                                bool   bFull        );
+
+    void  calcViewportDimension(Real32 rLeft,
+                                Real32 rBottom,
+                                Real32 rRight,
+                                Real32 rTop,
+                                
+                                UInt16 iTargetWidth,
+                                UInt16 iTargetHeight);
+
+    Int32 getViewportWidth     (void                );
+    Int32 getViewportHeight    (void                );
+
+
+    /*------------------------- your_operators ------------------------------*/
+
+    void setSetupMode            (SetupMode        eSetupMode  );
+
+    void initFrom                (RenderPartition *pSource,
+				  RenderPartition *pInitial,
+				  Int32            uiCopyOnPush);
+
+    void initVPMatricesFromCamera(void                         );
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -291,24 +301,27 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     /*------------------------- comparison ----------------------------------*/
 
-    void pushState  (void                             );
-    void popState   (void                             );
+    void pushState  (void              );
+    void popState   (void              );
 
-    void addOverride(UInt32 uiSlot, StateChunk *pChunk);
+    void addOverride(UInt32      uiSlot, 
+                     StateChunk *pChunk);
    
     /*-------------------------- comparison ---------------------------------*/
 
     Int32 allocateLightIndex(void);
     void  releaseLightIndex (void);
 
+    /*-------------------------- comparison ---------------------------------*/
+
     void setKeyGen(UInt32 uiKeyGen);
 
     /*-------------------------- comparison ---------------------------------*/
 
-    void overrideMaterial(Material        *pMaterial,
-                          NodePtrConstArg  pNode    );
+    void      overrideMaterial(Material        *pMaterial,
+                               NodePtrConstArg  pNode    );
 
-    Material *getMaterial(void);
+    Material *getMaterial     (void                      );
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -317,11 +330,11 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     /*-------------------------- comparison ---------------------------------*/
 
     // test a single node
-    bool isVisible      (Node *pNode);
+    bool isVisible      (Node            *pNode);
     
     // visibility levels
-    bool  pushVisibility(NodePtrConstArg pNode);
-    void  popVisibility (void      );
+    bool  pushVisibility(NodePtrConstArg  pNode);
+    void  popVisibility (void                  );
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -350,6 +363,12 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     void init(void);
     void exit(void);
 
+    /*-------------------------- comparison ---------------------------------*/
+
+#ifdef OSG_DEBUG
+    void setDebugString(std::string szDebugString);
+#endif
+
   protected:
 
     //-----------------------------------------------------------------------
@@ -360,17 +379,13 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //   types                                                               
     //-----------------------------------------------------------------------
 
-    // !!! Unused, needed?
-    //typedef      NamedPool<Int32            > DataSlotIdPool;
-    //typedef std::vector   <void            *> DataSlot;
-    //typedef std::vector   <RenderPartition *> SubPartitions;
-
     //-----------------------------------------------------------------------
     //   class variables                                                     
     //-----------------------------------------------------------------------
 
     Mode                _eMode;
     SetupMode           _eSetupMode;
+
     DrawEnv             _oDrawEnv;
 
     SimpleDrawCallback  _oSimpleDrawCallback;
@@ -446,6 +461,13 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     bool                _bAutoFrustum;
     FrustumVolume       _oFrustum;
 
+
+#ifdef OSG_DEBUG
+     // Debug
+
+    std::string         _szDebugString;
+#endif
+
     //-----------------------------------------------------------------------
     //   class functions                                                     
     //-----------------------------------------------------------------------
@@ -458,15 +480,17 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
-    // prohibit default functions (move to 'public' if you need one)
     RenderPartition(Mode eMode = StateSorting);
 
     virtual ~RenderPartition(void); 
+
+    /*-------------------------- comparison ---------------------------------*/
 
     void reset(Mode eMode = StateSorting);
 
     void updateTopMatrix(void);
 
+    /*-------------------------- comparison ---------------------------------*/
 
     // Roots
 
@@ -513,6 +537,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     //-----------------------------------------------------------------------
 
     /*!\brief prohibit default function (move to 'public' if needed) */
+    RenderPartition(const RenderPartition &source);
     void operator =(const RenderPartition &source);
 };
 
@@ -521,8 +546,6 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 //---------------------------------------------------------------------------
 
 OSG_END_NAMESPACE
-
-#define OSGRENDERPARTITION_HEADER_CVSID "@(#)$Id$"
 
 #include "OSGRenderPartition.inl"
 

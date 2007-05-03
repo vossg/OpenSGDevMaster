@@ -111,6 +111,11 @@ struct FieldTraits<StagePtr> :
     typedef FieldTraits<StagePtr>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_GROUP_DLLMAPPING DataType &getType(void);
+
+    static const char *getSName(void) { return "SFStagePtr"; }
+    static const char *getMName(void) { return "MFStagePtr"; }
 };
 
 #if !defined(OSG_DOC_DEV_TRAITS)
@@ -122,6 +127,25 @@ struct FieldTraits<StagePtr> :
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
+/*! \ingroup GrpGroupFieldSingle */
+
+typedef SFieldAdaptor<StagePtr, SFFieldContainerPtr> SFStagePtr;
+#endif
+
+#ifndef OSG_COMPILESTAGEINST
+OSG_FIELD_DLLEXPORT_DECL1(SField, StagePtr, OSG_GROUP_DLLTMPLMAPPING)
+#endif
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
+/*! \ingroup GrpGroupFieldMulti */
+
+typedef MFieldAdaptor<StagePtr, MFFieldContainerPtr> MFStagePtr;
+#endif
+
+#ifndef OSG_COMPILESTAGEINST
+OSG_FIELD_DLLEXPORT_DECL1(MField, StagePtr, OSG_GROUP_DLLTMPLMAPPING)
+#endif
 
 OSG_END_NAMESPACE
 

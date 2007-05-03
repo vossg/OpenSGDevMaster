@@ -120,7 +120,7 @@ StageBase::TypeObject StageBase::_type(
     "        name=\"Stage\"\n"
     "        parent=\"Group\"\n"
     "        library=\"Group\"\n"
-    "        pointerfieldtypes=\"none\"\n"
+    "        pointerfieldtypes=\"both\"\n"
     "        structure=\"concrete\"\n"
     "        systemcomponent=\"true\"\n"
     "        parentsystemcomponent=\"true\"\n"
@@ -379,9 +379,20 @@ void StageBase::resolveLinks(void)
 }
 
 
+OSG_END_NAMESPACE
+
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
+
+OSG_BEGIN_NAMESPACE
+
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<StagePtr>::_type("StagePtr", "GroupPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(StagePtr)
+
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, StagePtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, StagePtr, MFFieldContainerPtr);
 
 OSG_END_NAMESPACE

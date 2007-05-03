@@ -239,18 +239,22 @@ RenderTraversalAction::RenderTraversalAction(void) :
     _doCullOnly              (     false),
     _numBuffers              (         0),
     _currentBuffer           (         0),
+
     _uiKeyGen                (         0),
+
     _pPartitionPools         (          ),
     _pNodePools              (          ),
     _pStatePools             (          ),
     _pTreeBuilderPools       (          ),
-
-    _pActivePartition        (NULL      ),
-    _iActivePartitionIdx     (-1        ),
-
     _vRenderPartitions       (          ),
+
+    _iActivePartitionIdx     (-1        ),
+    _bInPartitionGroup       (false     ),
+    _pActivePartition        (NULL      ),
+
     _sRenderPartitionStack   (          ),
     _sRenderPartitionIdxStack(          ),
+    _sRenderPartitionGrpStack(          ),
 
     _bvPassMask              (          ),
     _bUseGLFinish            (false     ),
@@ -265,8 +269,9 @@ RenderTraversalAction::RenderTraversalAction(void) :
     _occCoveredThreshold     (      0.7f),
     _occQueryBufferSize      (      1000),
     _occMinimumTriangleCount (       500),
+
     _scrlodCoverageThreshold (      0.01),
-    _scrlodNumLODsToUse      (        0 ),
+    _scrlodNumLODsToUse      (         0),
     _scrlodDegradationFactor (       1.0)
 {
     if(_vDefaultEnterFunctors != NULL)
@@ -522,6 +527,11 @@ Action::ResultE RenderTraversalAction::start(void)
 
     _pActivePartition->init();
 
+#ifdef OSG_DEBUG
+    _pActivePartition->setDebugString("DefaultPartition");
+#endif
+
+
     bool full = true;
 
     if(_pViewport != NULL)
@@ -727,7 +737,9 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
 {
     _sRenderPartitionIdxStack.push(_iActivePartitionIdx);
     _sRenderPartitionStack   .push(_pActivePartition   );
+    _sRenderPartitionGrpStack.push(_bInPartitionGroup  );
 
+    _bInPartitionGroup   = false;
     _pActivePartition    = _pPartitionPools  [_currentBuffer]->create(eMode);
     _iActivePartitionIdx = _vRenderPartitions[_currentBuffer].size();
     
@@ -749,9 +761,11 @@ void RenderTraversalAction::popPartition(void)
 {
     _pActivePartition    = _sRenderPartitionStack   .top();
     _iActivePartitionIdx = _sRenderPartitionIdxStack.top();
+    _bInPartitionGroup   = _sRenderPartitionGrpStack.top();
 
     _sRenderPartitionStack   .pop();
     _sRenderPartitionIdxStack.pop();
+    _sRenderPartitionGrpStack.pop();
 }
 
 RenderPartition *RenderTraversalAction::getActivePartition(void)

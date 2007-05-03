@@ -394,6 +394,14 @@ UInt32 RenderPartition::getNumTriangles(void)
 
 /*-------------------------- your_category---------------------------------*/
 
+#ifdef OSG_DEBUG
+inline
+void RenderPartition::setDebugString(std::string szDebugString)
+{
+    _szDebugString = szDebugString;
+}
+#endif
+
 /*-------------------------- assignment -----------------------------------*/
 
 /*-------------------------- comparison -----------------------------------*/
@@ -407,5 +415,3 @@ UInt32 RenderPartition::getNumTriangles(void)
 \*-------------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
-
-#define OSGRENDERPARTITION_INLINE_CVSID "@(#)$Id$"
