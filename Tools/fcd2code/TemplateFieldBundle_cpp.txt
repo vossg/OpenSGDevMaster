@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -43,98 +43,76 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
+@@if !isSystemComponent
+@@if isInLibrary
+#define OSG_COMPILE@!LIBNAME!@LIB
 
-#include "OSGFieldBundle.h"
+@@endif
+@@endif
+#include <@!HeaderPrefix!@OSGConfig.h>
 
-OSG_USING_NAMESPACE
+#include "OSG@!Classname!@.h"
 
-void FieldBundle::classDescInserter(TypeObject &)
+OSG_BEGIN_NAMESPACE
+
+// Documentation for this class is emitted in the
+// OSG@!Classname!@Base.cpp file.
+// To modify it, please change the .fcd file (OSG@!Classname!@.fcd) and
+// regenerate the base file.
+
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
+
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
+
+void @!Classname!@::initMethod(InitPhase ePhase)
+{
+    Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
+}
+
+
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
+
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
+
+/*----------------------- constructors & destructors ----------------------*/
+
+@!Classname!@::@!Classname!@(void) :
+    Inherited()
 {
 }
 
-FieldBundle::TypeObject FieldBundle::_type(
-    "FieldBundle",
-    NULL,
-    "FieldBundle",
-    0,
-    NULL,
-    NULL,
-    NULL,
-    false,
-    0);
-
-FieldBundle::TypeObject &FieldBundle::getType(void)
-{
-    return _type;
-}
-    
-const FieldBundle::TypeObject &FieldBundle::getType(void) const
-{
-    return _type;
-}
-
-void FieldBundle::pushToField(      FieldBundlePConstArg pNewElement,
-                              const UInt32               uiFieldId  )
+@!Classname!@::@!Classname!@(const @!Classname!@ &source) :
+    Inherited(source)
 {
 }
 
-void FieldBundle::insertIntoMField(const UInt32               uiIndex,
-                                         FieldBundlePConstArg pNewElement,
-                                   const UInt32               uiFieldId  )
+@!Classname!@::~@!Classname!@(void)
 {
 }
 
-void FieldBundle::replaceInMField(const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  )
+/*----------------------------- class specific ----------------------------*/
+
+void @!Classname!@::changed(ConstFieldMaskArg whichField, UInt32 origin)
 {
+    Inherited::changed(whichField, origin);
 }
 
-void FieldBundle::replaceInMField(      FieldBundlePConstArg pOldElement,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  )
+void @!Classname!@::dump(      UInt32    ,
+                         const BitVector ) const
 {
+    SLOG << "Dump @!Classname!@ NI" << std::endl;
 }
 
-void FieldBundle::removeFromMField(const UInt32 uiIndex,
-                                   const UInt32 uiFieldId)
-{
-}
-
-void FieldBundle::removeFromMField(      FieldBundlePConstArg pElement,
-                                   const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::clearField(const UInt32 uiFieldId)
-{
-}
-
-bool FieldBundle::deregister(UInt32 uiBundleId)
-{
-    return false;
-}
-
-void FieldBundle::registerChangedContainerV(void)
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDBUNDLE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDBUNDLE_INLINE_CVSID;
-}
-
+OSG_END_NAMESPACE

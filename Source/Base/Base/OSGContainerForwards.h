@@ -380,6 +380,11 @@ struct BundlePointerBuilder
     typedef       ContainerT *       ObjPtr;
     typedef       ContainerT * const ObjPtrConst;
     typedef const ContainerT *       ObjConstPtr;
+    typedef const ContainerT * const ObjConstPtrConst;
+
+    typedef       ContainerT *       ObjPtrArg;
+    typedef       ContainerT * const ObjPtrConstArg;
+    typedef const ContainerT *       ObjConstPtrArg;
 };
 
 typedef PointerBuilder<

@@ -36,105 +36,71 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
-
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-
-#include "OSGFieldBundle.h"
-
-OSG_USING_NAMESPACE
-
-void FieldBundle::classDescInserter(TypeObject &)
-{
-}
-
-FieldBundle::TypeObject FieldBundle::_type(
-    "FieldBundle",
-    NULL,
-    "FieldBundle",
-    0,
-    NULL,
-    NULL,
-    NULL,
-    false,
-    0);
-
-FieldBundle::TypeObject &FieldBundle::getType(void)
-{
-    return _type;
-}
-    
-const FieldBundle::TypeObject &FieldBundle::getType(void) const
-{
-    return _type;
-}
-
-void FieldBundle::pushToField(      FieldBundlePConstArg pNewElement,
-                              const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::insertIntoMField(const UInt32               uiIndex,
-                                         FieldBundlePConstArg pNewElement,
-                                   const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::replaceInMField(const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::replaceInMField(      FieldBundlePConstArg pOldElement,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::removeFromMField(const UInt32 uiIndex,
-                                   const UInt32 uiFieldId)
-{
-}
-
-void FieldBundle::removeFromMField(      FieldBundlePConstArg pElement,
-                                   const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::clearField(const UInt32 uiFieldId)
-{
-}
-
-bool FieldBundle::deregister(UInt32 uiBundleId)
-{
-    return false;
-}
-
-void FieldBundle::registerChangedContainerV(void)
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
+#ifndef _OSGFIELDBUNDLESFIELDS_H_
+#define _OSGFIELDBUNDLESFIELDS_H_
 #ifdef __sgi
-#pragma set woff 1174
+#pragma once
 #endif
 
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
+#include "OSGSField.h"
+#include "OSGFieldBundleFieldTraits.h"
+
+OSG_BEGIN_NAMESPACE
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
+/*! \ingroup  */
+
+typedef SField<FieldBundleP> SFFieldBundleP;
 #endif
 
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDBUNDLE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDBUNDLE_INLINE_CVSID;
-}
+#ifndef OSG_COMPILEBUNDLEFIELDINST
+//OSG_FIELD_DLLEXPORT_DECL1(SField,
+//                          FieldContainerPtr,
+//                          OSG_SYSTEM_DLLTMPLMAPPING)
+#endif
 
+template <>
+OSG_SYSTEM_DLLMAPPING
+void
+FieldDescription<FieldTraits<FieldBundleP>,
+                 SingleField             >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
+
+template <>
+OSG_SYSTEM_DLLMAPPING
+void
+FieldDescription<FieldTraits<FieldBundleP>,
+                 SingleField             >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+/*! \ingroup  */
+
+typedef SField<
+    ParentFieldBundleP,
+    1                 > SFParentFieldBundleP;
+
+#endif
+
+#ifndef OSG_COMPILECONTAINERFIELDINST
+//OSG_FIELD_DLLEXPORT_DECL2(SField,
+//                          ParentFieldContainerPtr,
+//                          1,
+//                          OSG_SYSTEM_DLLTMPLMAPPING)
+#endif
+
+OSG_END_NAMESPACE
+
+#endif /* _OSGFIELDBUNDLESFIELDS_H_ */

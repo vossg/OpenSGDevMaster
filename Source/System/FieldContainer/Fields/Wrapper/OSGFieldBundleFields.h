@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,105 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+/* 
+   This is a dummy header to allow automatic inference from the type to the 
+   field type header. 
+*/
 
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-
-#include "OSGFieldBundle.h"
-
-OSG_USING_NAMESPACE
-
-void FieldBundle::classDescInserter(TypeObject &)
-{
-}
-
-FieldBundle::TypeObject FieldBundle::_type(
-    "FieldBundle",
-    NULL,
-    "FieldBundle",
-    0,
-    NULL,
-    NULL,
-    NULL,
-    false,
-    0);
-
-FieldBundle::TypeObject &FieldBundle::getType(void)
-{
-    return _type;
-}
-    
-const FieldBundle::TypeObject &FieldBundle::getType(void) const
-{
-    return _type;
-}
-
-void FieldBundle::pushToField(      FieldBundlePConstArg pNewElement,
-                              const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::insertIntoMField(const UInt32               uiIndex,
-                                         FieldBundlePConstArg pNewElement,
-                                   const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::replaceInMField(const UInt32               uiIndex,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::replaceInMField(      FieldBundlePConstArg pOldElement,
-                                        FieldBundlePConstArg pNewElement,
-                                  const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::removeFromMField(const UInt32 uiIndex,
-                                   const UInt32 uiFieldId)
-{
-}
-
-void FieldBundle::removeFromMField(      FieldBundlePConstArg pElement,
-                                   const UInt32               uiFieldId  )
-{
-}
-
-void FieldBundle::clearField(const UInt32 uiFieldId)
-{
-}
-
-bool FieldBundle::deregister(UInt32 uiBundleId)
-{
-    return false;
-}
-
-void FieldBundle::registerChangedContainerV(void)
-{
-}
-
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGFIELDBUNDLE_HEADER_CVSID;
-    static Char8 cvsid_inl[] = OSGFIELDBUNDLE_INLINE_CVSID;
-}
-
+#include "OSGFieldBundleSFields.h"
+#include "OSGFieldBundleMFields.h"

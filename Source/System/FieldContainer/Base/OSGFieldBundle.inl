@@ -94,6 +94,42 @@ FieldBundle::~FieldBundle(void)
 {
 }
 
+inline
+const Char8 *FieldBundle::getClassname(void)
+{
+    return "FieldBundle";
+}
+
+template <class ObjectT> inline
+void FieldBundle::newPtr(      typename ObjectT::ObjPtr &result, 
+                         const          ObjectT         *prototypeP)
+{
+    result = new ObjectT(*prototypeP);
+
+    result->onCreate(prototypeP);
+}
+
+template <class ObjectT> inline
+void FieldBundle::newPtr(typename ObjectT::ObjPtr &result)
+{
+    result = new ObjectT();
+
+    result->onCreate();
+}
+
+
+template <class ObjectT> inline
+typename ObjectT::ObjPtr FieldBundle::constructPtr(ObjectT *pObj)
+{
+    return pObj;
+}
+
+template <class ObjectT> inline
+typename ObjectT::ObjConstPtr FieldBundle::constructPtr(const ObjectT *pObj)
+{
+    return pObj;
+}
+
 
 OSG_END_NAMESPACE
 

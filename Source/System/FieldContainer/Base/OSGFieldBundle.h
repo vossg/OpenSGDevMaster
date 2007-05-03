@@ -120,6 +120,36 @@ class FieldBundle : public FieldBundleParent
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
+    OSG_SYSTEM_DLLMAPPING
+    virtual void pushToField     (      FieldBundlePConstArg pNewElement,
+                                  const UInt32               uiFieldId  );
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual void insertIntoMField(const UInt32               uiIndex,
+                                        FieldBundlePConstArg pNewElement,
+                                  const UInt32               uiFieldId  );
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual void replaceInMField (const UInt32               uiIndex,
+                                        FieldBundlePConstArg pNewElement,
+                                  const UInt32               uiFieldId  );
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual void replaceInMField (      FieldBundlePConstArg pOldElement,
+                                        FieldBundlePConstArg pNewElement,
+                                  const UInt32               uiFieldId  );
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual void removeFromMField(const UInt32               uiIndex,
+                                  const UInt32               uiFieldId  );
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual void removeFromMField(      FieldBundlePConstArg pElement,
+                                  const UInt32               uiFieldId  );
+
+    OSG_SYSTEM_DLLMAPPING
+    virtual void clearField      (const UInt32               uiFieldId  );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
@@ -166,6 +196,9 @@ class FieldBundle : public FieldBundleParent
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    static       void   classDescInserter(TypeObject &oType);
+    static const Char8 *getClassname     (void             );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -190,10 +223,23 @@ class FieldBundle : public FieldBundleParent
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
+    template <class ObjectT>
+    static void newPtr       (      typename ObjectT::ObjPtr &result, 
+                              const          ObjectT         *prototypeP);
+
+    template <class ObjectT>
+    static void newPtr       (      typename ObjectT::ObjPtr &result);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
+
+    template <class ObjectT>
+    static typename ObjectT::     ObjPtr constructPtr(      ObjectT *pObj);
+
+    template <class ObjectT>
+    static typename ObjectT::ObjConstPtr constructPtr(const ObjectT *pObj);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -207,6 +253,9 @@ class FieldBundle : public FieldBundleParent
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
+    
+    OSG_SYSTEM_DLLMAPPING
+    virtual void registerChangedContainerV(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

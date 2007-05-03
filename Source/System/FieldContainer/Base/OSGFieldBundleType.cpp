@@ -63,7 +63,9 @@ FieldBundleType::FieldBundleType(
           InitBundleF           fInitMethod,
           InitalInsertDescFunc  descInsertFunc,
           bool                  bDescsAddable,
-          BitVector             bvUnmarkedOnCreate) :
+          BitVector             bvUnmarkedOnCreate,
+          std::string           szFcdXML,
+          std::string           szTypeDoc) :
 
      Inherited       (szName,
                       szParentName,
@@ -72,10 +74,11 @@ FieldBundleType::FieldBundleType(
                       descInsertFunc,
                       bDescsAddable,
                       bvUnmarkedOnCreate),
-    
-
-    _pPrototype      (NULL              ),
-    _fPrototypeCreate(fPrototypeCreate  )
+    _pPrototype      (NULL             ),
+    _fPrototypeCreate(fPrototypeCreate ),
+    _fInitMethod     (fInitMethod      ),
+    _szFcdXML        (szFcdXML         ),
+    _szTypeDoc       (szTypeDoc        )
 {
     registerType();
 
@@ -96,12 +99,21 @@ bool FieldBundleType::initialize(void)
     if(_bInitialized == true)
         return true;
 
+    if(_fInitMethod != NULL)
+        _fInitMethod(SystemPre);
+
     _bInitialized = Inherited::initialize();
 
     if(_bInitialized == false)
         return false;
 
     _bInitialized = initPrototype   ();
+
+    if(_bInitialized == false)
+        return false;
+
+    if(_fInitMethod != NULL)
+        _fInitMethod(SystemPost);
 
     return _bInitialized;
 }
@@ -113,15 +125,15 @@ void FieldBundleType::terminate(void)
 
 bool FieldBundleType::initialize(InitPhase ePhase)
 {
-//    if(_fInitMethod != NULL)
-//        _fInitMethod(ePhase);
+    if(_fInitMethod != NULL)
+        _fInitMethod(ePhase);
 
     return true;
 }
 
 bool FieldBundleType::initPrototype(void)
 {
-    if(_fPrototypeCreate != NULL)
+    if(_fPrototypeCreate != NULL && _pPrototype == NULL)
     {
         _pPrototype = _fPrototypeCreate();
 

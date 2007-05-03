@@ -142,9 +142,9 @@ class ReflexiveContainer
     typedef ReflexiveContainerType TypeObject;
     typedef TypeObject::InitPhase  InitPhase;
 
-typedef       Field *(ReflexiveContainer::*FieldEditMethod)(void);
+    typedef       Field *(ReflexiveContainer::*FieldEditMethod)(void);
 
-typedef const Field *(ReflexiveContainer::*FieldGetMethod )(void) const;
+    typedef const Field *(ReflexiveContainer::*FieldGetMethod )(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -348,11 +348,14 @@ typedef const Field *(ReflexiveContainer::*FieldGetMethod )(void) const;
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
-public:
+
+  public:
+
     OSG_SYSTEM_DLLMAPPING 
     virtual ~ReflexiveContainer(void);
 
-protected:
+  protected:
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */

@@ -107,7 +107,13 @@ class OptionHandler:
             action="store_true",
             dest="compatMode",
             help="enable 1.x compatibility mode. [default: false].");
-        
+
+        OptionHandler.m_parser.add_option(
+            "-B", "--bundle",
+            action="store_true",
+            dest="bundleMode",
+            help="create field bundle. [default: false].");
+
         OptionHandler.m_parser.set_defaults(writeBase=False);
         OptionHandler.m_parser.set_defaults(writeFC=False);
         OptionHandler.m_parser.set_defaults(verbose=False);

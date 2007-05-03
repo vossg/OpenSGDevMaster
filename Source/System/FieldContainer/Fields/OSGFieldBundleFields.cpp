@@ -54,6 +54,7 @@
 
 #endif
 
+#include "OSGFieldBundleSFields.h"
 #include "OSGFieldBundleMFields.h"
 
 OSG_USING_NAMESPACE
@@ -75,6 +76,9 @@ OSG_FIELDTRAITS_GETTYPE_NS(ParentFieldBundleP, 1)
 
 OSG_FIELD_DLLEXPORT_DEF1(MField,   FieldBundleP         )
 OSG_FIELD_DLLEXPORT_DEF2(MField,   ParentFieldBundleP, 1)
+
+OSG_FIELD_DLLEXPORT_DEF1(SField,   FieldBundleP         )
+OSG_FIELD_DLLEXPORT_DEF2(SField,   ParentFieldBundleP, 1)
 
 template<>
 void
@@ -104,6 +108,36 @@ FieldDescription<FieldTraits<FieldBundleP>,
     const std::vector<UInt16>                    &ignoreGroupIds) const
 {
     FWARNING(("FieldDescription<FieldTraits<FieldBundleP>, MultiField>::shareValues NIY\n"));
+}
+
+template<>
+void
+FieldDescription<FieldTraits<FieldBundleP>,
+                 SingleField             >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
+{
+    FWARNING(("FieldDescription<FieldTraits<FieldBundleP>, SingleField>::cloneValues NIY\n"));
+}
+
+template <>
+void
+FieldDescription<FieldTraits<FieldBundleP>,
+                 SingleField             >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const
+{
+    FWARNING(("FieldDescription<FieldTraits<FieldBundleP>, SingleField>::shareValues NIY\n"));
 }
 
 OSG_END_NAMESPACE

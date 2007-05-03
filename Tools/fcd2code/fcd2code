@@ -35,7 +35,25 @@ class FCDProcess:
         self.m_decFileSuffix = ".h";
         self.m_inlFileSuffix = ".inl";
         self.m_impFileSuffix = ".cpp";
-    
+
+    def setupBundleTemplates(self):
+        self.m_log = logging.getLogger("FCDProcess");
+        
+        self.m_decBaseTemplateName    = "TemplateFieldBundleBase_h.txt";
+        self.m_inlBaseTemplateName    = "TemplateFieldBundleBase_inl.txt";
+        self.m_impBaseTemplateName    = "TemplateFieldBundleBase_cpp.txt";
+        
+        self.m_fieldsBaseTemplateName = "TemplateFieldBundleFields_h.txt";
+        
+        self.m_decTemplateName        = "TemplateFieldBundle_h.txt";
+        self.m_inlTemplateName        = "TemplateFieldBundle_inl.txt";
+        self.m_impTemplateName        = "TemplateFieldBundle_cpp.txt";
+        
+        self.m_filePrefix    = "OSG";
+        self.m_decFileSuffix = ".h";
+        self.m_inlFileSuffix = ".inl";
+        self.m_impFileSuffix = ".cpp";
+
     def run(self):
         """Handles the complete program invocation.
         """
@@ -96,6 +114,10 @@ class FCDProcess:
             lookupDicts.append(dict([("CompatOneSix", True)]));
         else:
             lookupDicts.append(dict([("CompatOneSix", False)]));
+
+
+        if OptionHandler.getOptionActive("bundleMode"):
+            self.setupBundleTemplates();
             
         # read the .fcd file
         fcdReader = FCDReader();

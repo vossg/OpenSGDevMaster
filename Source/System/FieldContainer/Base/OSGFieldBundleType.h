@@ -89,7 +89,9 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleType : public ReflexiveContainerType
                           InitBundleF           fInitMethod        = NULL,
                           InitalInsertDescFunc  descInsertFunc     = NULL,
                           bool                  bDescsAddable      = false,
-                          BitVector             bvUnmarkedOnCreate = 0    );
+                          BitVector             bvUnmarkedOnCreate = 0,
+                          std::string           szFcdXML           = "",
+                          std::string           szTypeDoc          = "");
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -110,7 +112,7 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleType : public ReflexiveContainerType
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    //FieldBundleP getPrototype(void                   ) const;
+    FieldBundleP getPrototype(void                   ) const;
     //bool         setPrototype(FieldBundleP pPrototype);
 
     /*! \}                                                                 */
@@ -166,6 +168,10 @@ class OSG_SYSTEM_DLLMAPPING FieldBundleType : public ReflexiveContainerType
 
     FieldBundleP       _pPrototype;
     ProtoBundleCreateF _fPrototypeCreate;
+
+    InitBundleF        _fInitMethod;
+    std::string        _szFcdXML;   
+    std::string        _szTypeDoc;  
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

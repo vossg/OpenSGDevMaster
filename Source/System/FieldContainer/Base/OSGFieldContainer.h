@@ -253,6 +253,7 @@ class FieldContainer : public FieldContainerParent
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
+
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
