@@ -270,13 +270,13 @@ def EnvironmentBuilderDetectValidArchs():
    
    cur_arch = SConsAddons.Util.GetArch()
    if "ia32" == cur_arch:
-      valid_archs.append(EnvironmentBuilder.IA32_ARCH)
+      valid_archs.append(SConsAddons.EnvironmentBuilder.EnvironmentBuilder.IA32_ARCH)
    elif "x64" == cur_arch:
-      valid_archs.append(EnvironmentBuilder.X64_ARCH)
+      valid_archs.append(SConsAddons.EnvironmentBuilder.EnvironmentBuilder.X64_ARCH)
    elif "ppc" == cur_arch:
-      valid_archs.append(EnvironmentBuilder.PPC_ARCH)   
+      valid_archs.append(SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC_ARCH)   
    elif "ppc64" == cur_arch:
-      valid_archs.append(EnvironmentBuilder.PPC64_ARCH)      
+      valid_archs.append(SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC64_ARCH)      
    
    # Only handle case of non-windows and using gcc compiler for now
    test_env = SConsAddons.EnvironmentBuilder.EnvironmentBuilder().buildEnvironment()
@@ -287,19 +287,19 @@ def EnvironmentBuilderDetectValidArchs():
    # if the build works, then we add that one to valid possible architectures
    arch_checks = []
    if GetPlatform() == "darwin":    # Treat Darwin specially
-      arch_checks = [EnvironmentBuilder.PPC_ARCH,
-                     EnvironmentBuilder.PPC64_ARCH,
-                     EnvironmentBuilder.IA32_ARCH]
+      arch_checks = [SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC_ARCH,
+                     SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC64_ARCH,
+                     SConsAddons.EnvironmentBuilder.EnvironmentBuilder.IA32_ARCH]
    elif cur_arch in ["ia32","x64"]: # Check x86 platforms
-      arch_checks = [EnvironmentBuilder.IA32_ARCH,
-                     EnvironmentBuilder.X64_ARCH]
+      arch_checks = [SConsAddons.EnvironmentBuilder.EnvironmentBuilder.IA32_ARCH,
+                     SConsAddons.EnvironmentBuilder.EnvironmentBuilder.X64_ARCH]
    elif cur_arch in ["ppc","ppc64"]:   # Check PowerPC architectures
-      arch_checks = [EnvironmentBuilder.PPC_ARCH,
-                     EnvironmentBuilder.PPC64_ARCH]
+      arch_checks = [SConsAddons.EnvironmentBuilder.EnvironmentBuilder.PPC_ARCH,
+                     SConsAddons.EnvironmentBuilder.EnvironmentBuilder.xPPC64_ARCH]
 
    for test_arch in arch_checks:
       if test_arch not in valid_archs:
-         env_bldr = EnvironmentBuilder()
+         env_bldr = SConsAddons.EnvironmentBuilder.EnvironmentBuilder()
          env_bldr.setCpuArch(test_arch)
          conf_env = env_bldr.buildEnvironment()
          conf_ctxt = conf_env.Configure(custom_tests={"CheckArch":CheckArch})
