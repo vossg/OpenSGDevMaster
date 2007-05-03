@@ -294,7 +294,7 @@ bool FieldContainerPtrBase::addFCPtrInit(void)
 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
 std::deque<UInt8*>            FieldContainerPtrBase::_memDebug_DelayedFreeList;
-bool                          FieldContainerPtrBase::_memDebug_StoreStackTrace = true;
+bool                          FieldContainerPtrBase::_memDebug_StoreStackTrace = false;
 OSG::UInt32                   FieldContainerPtrBase::_memDebug_MaxFreeListSize = 10000;
 std::map<UInt8*, FieldContainerPtrBase::FcPtrInfo>   FieldContainerPtrBase::_memDebug_FcPtrInfoMap;
 #endif
@@ -328,15 +328,15 @@ bool FieldContainerPtrBase::initialize(void)
        sscanf(fl_size_p, "%d", &_memDebug_MaxFreeListSize);
        std::cout << "Setting OSG_MAX_FREELIST_SIZE to: " << _memDebug_MaxFreeListSize << std::endl;
     }
-    char* ignore_stack_trace_p = getenv("OSG_MEM_DEBUG_NO_STACKTRACE");
+    char* ignore_stack_trace_p = getenv("OSG_MEM_DEBUG_STACKTRACE");
     if (ignore_stack_trace_p != NULL)
     {
-       _memDebug_StoreStackTrace = false;
+       _memDebug_StoreStackTrace = true;
     }
 
     SLOG << "OpenSG Memory Debugging enabled and initialized:" << std::endl
          << "   OSG_MAX_FREELIST_SIZE: " << _memDebug_MaxFreeListSize << std::endl
-         << "   OSG_MEM_DEBUG_NO_STACKTRACE: " << !_memDebug_StoreStackTrace << std::endl;
+         << "   OSG_MEM_DEBUG_STACKTRACE: " << _memDebug_StoreStackTrace << std::endl;
 #endif    
 
     return returnValue;
