@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTPASSMASKPOOL_H_
-#define _OSGTPASSMASKPOOL_H_
+#ifndef _OSGPASSMASKPOOL_H_
+#define _OSGPASSMASKPOOL_H_
 #ifdef __sgi
 #pragma once
 #endif

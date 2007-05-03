@@ -63,23 +63,4 @@ template class TaggedSingletonHolder<PassMaskPoolBase,
 
 OSG_END_NAMESPACE
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
 #endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
-{
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGPASSMASKPOOL_HEADER_CVSID;
-}
-
-#endif
-
-
