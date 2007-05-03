@@ -121,6 +121,26 @@ bool RenderTraversalAction::getUseGLFinish(void)
     return _bUseGLFinish;
 }
 
+inline
+void RenderTraversalAction::beginPartitionGroup(void)
+{
+    _sRenderPartitionIdxStack.push(_iActivePartitionIdx);
+
+    _iActivePartitionIdx = _vRenderPartitions[_currentBuffer].size();
+
+    _bInPartitionGroup = true;
+}
+
+inline
+void RenderTraversalAction::endPartitionGroup(void)
+{
+    _iActivePartitionIdx = _sRenderPartitionIdxStack.top();
+
+    _sRenderPartitionIdxStack.pop();
+
+    _bInPartitionGroup = false;
+}
+
 /*-------------------------- your_category---------------------------------*/
 
 /*-------------------------- assignment -----------------------------------*/
@@ -136,5 +156,3 @@ bool RenderTraversalAction::getUseGLFinish(void)
 \*-------------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
-
-#define OSGRENDERTRAVERSALACTION_INLINE_CVSID "@(#)$Id$"

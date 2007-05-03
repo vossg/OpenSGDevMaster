@@ -513,6 +513,8 @@ Action::ResultE RenderTraversalAction::start(void)
 
     _vRenderPartitions[_currentBuffer].push_back(_pActivePartition);
 
+    _iActivePartitionIdx = 0;
+
     _pActivePartition->setKeyGen         (_uiKeyGen                         );
     _pActivePartition->setAction         ( this                             );
     _pActivePartition->setNodePool       (_pNodePools       [_currentBuffer]);
@@ -739,11 +741,28 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
     _sRenderPartitionStack   .push(_pActivePartition   );
     _sRenderPartitionGrpStack.push(_bInPartitionGroup  );
 
-    _bInPartitionGroup   = false;
-    _pActivePartition    = _pPartitionPools  [_currentBuffer]->create(eMode);
-    _iActivePartitionIdx = _vRenderPartitions[_currentBuffer].size();
+    if(_bInPartitionGroup == false)
+    {
+        _pActivePartition    = 
+            _pPartitionPools  [_currentBuffer]->create(eMode);
+        _iActivePartitionIdx = _vRenderPartitions[_currentBuffer].size();
     
-    _vRenderPartitions[_currentBuffer].push_back(_pActivePartition);
+        _vRenderPartitions[_currentBuffer].push_back(_pActivePartition);
+    }
+    else
+    {
+        RenderPartitionStore::iterator it = 
+            _vRenderPartitions[_currentBuffer].begin();
+
+        it += _iActivePartitionIdx;
+
+        _pActivePartition    = 
+            _pPartitionPools  [_currentBuffer]->create(eMode);
+
+        _vRenderPartitions[_currentBuffer].insert(it, _pActivePartition);
+
+        _bInPartitionGroup   = false;
+    }
 
     _pActivePartition->setKeyGen         (_uiKeyGen                         );
     _pActivePartition->setAction         ( this                             );
