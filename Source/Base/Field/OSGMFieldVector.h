@@ -129,7 +129,7 @@ class MFieldVector : public std::vector<Tp, Alloc>
     void shareValues (Self &other, bool bDeleteOld);
     void resolveShare(void                        );
 
-    void dump(      UInt32    uiIndent = 0, 
+    void dump(      UInt32    uiIndent = 0,
               const BitVector bvFlags  = 0) const;
 };
 
@@ -176,6 +176,9 @@ class MFieldVector : public std::vector<Ty, A>
 
     void shareValues (Self &other, bool bDeleteOld);
     void resolveShare(void                        );
+
+    void dump(      UInt32    uiIndent = 0,
+              const BitVector bvFlags  = 0) const;
 };
 
 #endif

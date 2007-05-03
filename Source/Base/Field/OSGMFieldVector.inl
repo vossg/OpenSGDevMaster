@@ -154,15 +154,15 @@ MFieldVector<Tp, Alloc>::~MFieldVector()
 }
 
 template <> inline
-void MFieldVector<UInt32>::dump(      UInt32    uiIndent, 
+void MFieldVector<UInt32>::dump(      UInt32    uiIndent,
                                 const BitVector bvFlags ) const
 {
     for(UInt32 i = 0; i < uiIndent; ++i)
         fprintf(stderr, " ");
 
-    fprintf(stderr, "first : %p | last : %p | end : %p\n", 
-            this->MYFIRST, 
-            this->MYLAST, 
+    fprintf(stderr, "first : %p | last : %p | end : %p\n",
+            this->MYFIRST,
+            this->MYLAST,
             this->MYEND);
 }
 
@@ -222,6 +222,20 @@ void MFieldVector<Tp, A>::resolveShare(void)
     this->MYLAST  = NULL;
     this->MYEND   = NULL;
 }
+
+template <> inline
+void MFieldVector<UInt32>::dump(      UInt32    uiIndent,
+                                const BitVector bvFlags ) const
+{
+    for(UInt32 i = 0; i < uiIndent; ++i)
+        fprintf(stderr, " ");
+
+    fprintf(stderr, "first : %p | last : %p | end : %p\n",
+            this->MYFIRST,
+            this->MYLAST,
+            this->MYEND);
+}
+
 #endif
 
 OSG_END_NAMESPACE
