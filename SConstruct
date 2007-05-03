@@ -88,8 +88,19 @@ def registerfcd2codeBuilder(env, required=True):
          sys.exit(1)
       return
    
-   template_files = glob.glob(pj("Tools","fcd2code","*Template*"))
-   
+   template_files = glob.glob(pj("Tools",
+                                 "fcd2code",
+                                 "*TemplateFieldContainer*Base*.txt"))
+
+   template_files.append(glob.glob(pj("Tools",
+                                      "fcd2code",
+                                      "*TemplateFieldContainer*Field*.txt")))
+
+   template_files.append(glob.glob(pj("Tools",
+                                      "fcd2code",
+                                      "*Template*.py")))
+
+
    
    def prop_emitter(target,source,env, template_files=template_files):
       """ Returns a list of files including all output forms and
@@ -132,8 +143,17 @@ def registerfbd2codeBuilder(env, required=True):
          sys.exit(1)
       return
    
-   template_files = glob.glob(pj("Tools","fcd2code","*Template*"))
-   
+   template_files = glob.glob(pj("Tools",
+                                 "fcd2code",
+                                 "*TemplateFieldBundle*Base*.txt"))
+
+   template_files.append(glob.glob(pj("Tools",
+                                      "fcd2code",
+                                      "*TemplateFieldBundle*Field*.txt")))
+
+   template_files.append(glob.glob(pj("Tools",
+                                      "fcd2code",
+                                      "*Template*.py")))
    
    def prop_emitter(target,source,env, template_files=template_files):
       """ Returns a list of files including all output forms and
@@ -521,6 +541,9 @@ feature_options["enable_new_osb_io"] = sca_opts.BoolOption(
 
 feature_options["enable_scanparse_regen"] = sca_opts.BoolOption(
     "enable_scanparse_regen", "Enable regenerating the scanner/parser files using flex and bison", False);
+
+feature_options["enable_testcontainer"] = sca_opts.BoolOption(
+    "enable_testcontainer", "Enable container used for testing (from Source/Test)", False)
 
 feature_options["docs_mode"] = sca_opts.EnumOption(
     "docs_mode", "Select the mode for documentation generation",
