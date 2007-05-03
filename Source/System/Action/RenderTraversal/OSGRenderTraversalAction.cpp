@@ -235,35 +235,39 @@ RenderTraversalAction *RenderTraversalAction::getPrototype(void)
 /*------------- constructors & destructors --------------------------------*/
 
 RenderTraversalAction::RenderTraversalAction(void) :
-     Inherited            (    ),
-    _doCullOnly           (false),
-    _numBuffers           (0),
-    _currentBuffer        (0),
-    _uiKeyGen             (0),
-    _pPartitionPools      (),
-    _pNodePools           (),
-    _pStatePools          (),
-    _pTreeBuilderPools    (),
+     Inherited               (          ),
+    _doCullOnly              (     false),
+    _numBuffers              (         0),
+    _currentBuffer           (         0),
+    _uiKeyGen                (         0),
+    _pPartitionPools         (          ),
+    _pNodePools              (          ),
+    _pStatePools             (          ),
+    _pTreeBuilderPools       (          ),
 
-    _pActivePartition     (NULL),
+    _pActivePartition        (NULL      ),
+    _iActivePartitionIdx     (-1        ),
 
-    _vRenderPartitions    (    ),
-    _sRenderPartitionStack(    ),
-    _bvPassMask           (    ),
-    _bUseGLFinish         (false),
-    _occlusionCulling     (false),
-    _occlusionCullingDebug(false),
-    _occDMTested          (0xffffffff),
-    _occDMCulled          (0xffffffff),
-    _occDMVisible         (0xffffffff),
-    _occMinFeatureSize    (0),
-    _occVisibilityThreshold(0),
-    _occCoveredThreshold  (0.7f),
-    _occQueryBufferSize   (1000),
-    _occMinimumTriangleCount(500),
-    _scrlodCoverageThreshold(0.01),
-    _scrlodNumLODsToUse(0),
-    _scrlodDegradationFactor(1.0)
+    _vRenderPartitions       (          ),
+    _sRenderPartitionStack   (          ),
+    _sRenderPartitionIdxStack(          ),
+
+    _bvPassMask              (          ),
+    _bUseGLFinish            (false     ),
+
+    _occlusionCulling        (false     ),
+    _occlusionCullingDebug   (false     ),
+    _occDMTested             (0xffffffff), 
+    _occDMCulled             (0xffffffff), 
+    _occDMVisible            (0xffffffff),
+    _occMinFeatureSize       (         0),
+    _occVisibilityThreshold  (         0),
+    _occCoveredThreshold     (      0.7f),
+    _occQueryBufferSize      (      1000),
+    _occMinimumTriangleCount (       500),
+    _scrlodCoverageThreshold (      0.01),
+    _scrlodNumLODsToUse      (        0 ),
+    _scrlodDegradationFactor (       1.0)
 {
     if(_vDefaultEnterFunctors != NULL)
         _enterFunctors = *_vDefaultEnterFunctors;
@@ -296,35 +300,39 @@ RenderTraversalAction::RenderTraversalAction(void) :
 RenderTraversalAction::RenderTraversalAction(
     const RenderTraversalAction &source) :
 
-     Inherited            (source),
-    _doCullOnly           (false),
-    _numBuffers           (0),
-    _currentBuffer        (0),
-    _uiKeyGen             (source._uiKeyGen),
-    _pPartitionPools      (),
-    _pNodePools           (),
-    _pStatePools          (),
-    _pTreeBuilderPools    (),
+     Inherited               (source                         ),
+    _doCullOnly              (false                          ),
+    _numBuffers              (0                              ),
+    _currentBuffer           (0                              ),
+    _uiKeyGen                (source._uiKeyGen               ),
+    _pPartitionPools         (                               ),
+    _pNodePools              (                               ),
+    _pStatePools             (                               ),
+    _pTreeBuilderPools       (                               ),
 
-    _pActivePartition     (NULL),
+    _pActivePartition        (NULL                           ),
+    _iActivePartitionIdx     (-1                             ),
 
-    _vRenderPartitions    (    ),
-    _sRenderPartitionStack(    ),
-    _bvPassMask           (source._bvPassMask),
-    _bUseGLFinish         (source._bUseGLFinish),
-    _occlusionCulling     (source._occlusionCulling),
-    _occlusionCullingDebug(source._occlusionCullingDebug),
-    _occDMTested          (source._occDMTested),
-    _occDMCulled          (source._occDMCulled),
-    _occDMVisible         (source._occDMVisible),
-    _occMinFeatureSize    (source._occMinFeatureSize),
-    _occVisibilityThreshold(source._occVisibilityThreshold),
-    _occCoveredThreshold  (source._occCoveredThreshold),
-    _occQueryBufferSize   (source._occQueryBufferSize),
-    _occMinimumTriangleCount(source._occMinimumTriangleCount),
-    _scrlodCoverageThreshold(source._scrlodCoverageThreshold),
-    _scrlodNumLODsToUse(source._scrlodNumLODsToUse),
-    _scrlodDegradationFactor(source._scrlodDegradationFactor)
+    _vRenderPartitions       (                               ),
+    _sRenderPartitionStack   (                               ),
+    _sRenderPartitionIdxStack(                               ),
+
+    _bvPassMask              (source._bvPassMask             ),
+    _bUseGLFinish            (source._bUseGLFinish           ),
+
+    _occlusionCulling        (source._occlusionCulling       ),
+    _occlusionCullingDebug   (source._occlusionCullingDebug  ),
+    _occDMTested             (source._occDMTested            ), 
+    _occDMCulled             (source._occDMCulled            ), 
+    _occDMVisible            (source._occDMVisible           ),
+    _occMinFeatureSize       (source._occMinFeatureSize      ),
+    _occVisibilityThreshold  (source._occVisibilityThreshold ),
+    _occCoveredThreshold     (source._occCoveredThreshold    ),
+    _occQueryBufferSize      (source._occQueryBufferSize     ),
+    _occMinimumTriangleCount (source._occMinimumTriangleCount),
+    _scrlodCoverageThreshold (source._scrlodCoverageThreshold),
+    _scrlodNumLODsToUse      (source._scrlodNumLODsToUse     ),
+    _scrlodDegradationFactor (source._scrlodDegradationFactor)
 {
     setNumBuffers(source._numBuffers);
 }
@@ -717,10 +725,12 @@ Material *RenderTraversalAction::getMaterial(void)
 void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
                                           RenderPartition::Mode eMode       )
 {
-    _sRenderPartitionStack.push(_pActivePartition);
+    _sRenderPartitionIdxStack.push(_iActivePartitionIdx);
+    _sRenderPartitionStack   .push(_pActivePartition   );
 
-    _pActivePartition = _pPartitionPools[_currentBuffer]->create(eMode);
-
+    _pActivePartition    = _pPartitionPools  [_currentBuffer]->create(eMode);
+    _iActivePartitionIdx = _vRenderPartitions[_currentBuffer].size();
+    
     _vRenderPartitions[_currentBuffer].push_back(_pActivePartition);
 
     _pActivePartition->setKeyGen         (_uiKeyGen                         );
@@ -737,9 +747,11 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
 
 void RenderTraversalAction::popPartition(void)
 {
-    _pActivePartition = _sRenderPartitionStack.top();
+    _pActivePartition    = _sRenderPartitionStack   .top();
+    _iActivePartitionIdx = _sRenderPartitionIdxStack.top();
 
-    _sRenderPartitionStack.pop();
+    _sRenderPartitionStack   .pop();
+    _sRenderPartitionIdxStack.pop();
 }
 
 RenderPartition *RenderTraversalAction::getActivePartition(void)

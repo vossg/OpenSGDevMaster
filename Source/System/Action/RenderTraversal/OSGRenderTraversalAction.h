@@ -101,6 +101,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
 
     typedef std::vector<RenderPartition *> RenderPartitionStore;
     typedef std::stack <RenderPartition *> RenderPartitionStack;
+    typedef std::stack <Int32            > RenderPartitionIdxStack;
 
     //-----------------------------------------------------------------------
     //   class functions
@@ -313,9 +314,11 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
 
     std::vector<RenderPartitionStore > _vRenderPartitions;
 
+    Int32                   _iActivePartitionIdx;
     RenderPartition        *_pActivePartition;
 
     RenderPartitionStack    _sRenderPartitionStack;
+    RenderPartitionIdxStack _sRenderPartitionIdxStack;
 
     BitVector               _bvPassMask;
     bool                    _bUseGLFinish;
