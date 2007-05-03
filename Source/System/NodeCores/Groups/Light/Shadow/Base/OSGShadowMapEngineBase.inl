@@ -107,13 +107,6 @@ const Int32 &ShadowMapEngineBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
-inline
-Int32               &ShadowMapEngineBase::getWidth          (void)
-{
-    return this->editWidth          ();
-}
-#endif
 
 //! Set the value of the ShadowMapEngine::_sfWidth field.
 inline
@@ -140,13 +133,6 @@ const Int32 &ShadowMapEngineBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
-inline
-Int32               &ShadowMapEngineBase::getHeight         (void)
-{
-    return this->editHeight         ();
-}
-#endif
 
 //! Set the value of the ShadowMapEngine::_sfHeight field.
 inline
@@ -173,13 +159,6 @@ const Color4f &ShadowMapEngineBase::getShadowColor(void) const
     return _sfShadowColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
-inline
-Color4f             &ShadowMapEngineBase::getShadowColor    (void)
-{
-    return this->editShadowColor    ();
-}
-#endif
 
 //! Set the value of the ShadowMapEngine::_sfShadowColor field.
 inline
@@ -206,13 +185,6 @@ const Real32 &ShadowMapEngineBase::getOffsetBias(void) const
     return _sfOffsetBias.getValue();
 }
 
-#ifdef OSG_1_COMPAT
-inline
-Real32              &ShadowMapEngineBase::getOffsetBias     (void)
-{
-    return this->editOffsetBias     ();
-}
-#endif
 
 //! Set the value of the ShadowMapEngine::_sfOffsetBias field.
 inline
@@ -239,13 +211,6 @@ const Real32 &ShadowMapEngineBase::getOffsetFactor(void) const
     return _sfOffsetFactor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
-inline
-Real32              &ShadowMapEngineBase::getOffsetFactor   (void)
-{
-    return this->editOffsetFactor   ();
-}
-#endif
 
 //! Set the value of the ShadowMapEngine::_sfOffsetFactor field.
 inline
@@ -254,39 +219,6 @@ void ShadowMapEngineBase::setOffsetFactor(const Real32 &value)
     editSField(OffsetFactorFieldMask);
 
     _sfOffsetFactor.setValue(value);
-}
-//! Get the value of the ShadowMapEngine::_sfUpdateMode field.
-
-inline
-UInt32 &ShadowMapEngineBase::editUpdateMode(void)
-{
-    editSField(UpdateModeFieldMask);
-
-    return _sfUpdateMode.getValue();
-}
-
-//! Get the value of the ShadowMapEngine::_sfUpdateMode field.
-inline
-const UInt32 &ShadowMapEngineBase::getUpdateMode(void) const
-{
-    return _sfUpdateMode.getValue();
-}
-
-#ifdef OSG_1_COMPAT
-inline
-UInt32              &ShadowMapEngineBase::getUpdateMode     (void)
-{
-    return this->editUpdateMode     ();
-}
-#endif
-
-//! Set the value of the ShadowMapEngine::_sfUpdateMode field.
-inline
-void ShadowMapEngineBase::setUpdateMode(const UInt32 &value)
-{
-    editSField(UpdateModeFieldMask);
-
-    _sfUpdateMode.setValue(value);
 }
 
 
@@ -317,9 +249,6 @@ void ShadowMapEngineBase::execSync(      ShadowMapEngineBase *pOther,
 
     if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
         _sfOffsetFactor.syncWith(pOther->_sfOffsetFactor);
-
-    if(FieldBits::NoField != (UpdateModeFieldMask & whichField))
-        _sfUpdateMode.syncWith(pOther->_sfUpdateMode);
 }
 #endif
 
@@ -350,9 +279,6 @@ void ShadowMapEngineBase::execSync (      ShadowMapEngineBase *pFrom,
 
     if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
         _sfOffsetFactor.syncWith(pFrom->_sfOffsetFactor);
-
-    if(FieldBits::NoField != (UpdateModeFieldMask & whichField))
-        _sfUpdateMode.syncWith(pFrom->_sfUpdateMode);
 }
 #endif
 

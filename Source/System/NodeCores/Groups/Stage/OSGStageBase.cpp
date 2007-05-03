@@ -89,6 +89,8 @@ void StageBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
+    Inherited::classDescInserter(oType);
+
 
     pDesc = new SFFrameBufferObjectPtr::Description(
         SFFrameBufferObjectPtr::getClassType(),
@@ -119,6 +121,7 @@ StageBase::TypeObject StageBase::_type(
     "<FieldContainer\n"
     "        name=\"Stage\"\n"
     "        parent=\"Group\"\n"
+    "        mixinparent=\"StageParent\"\n"
     "        library=\"Group\"\n"
     "        pointerfieldtypes=\"both\"\n"
     "        structure=\"concrete\"\n"

@@ -71,9 +71,10 @@
 #include "OSGColor4fFields.h" // ShadowColor type
 #include "OSGReal32Fields.h" // OffsetBias type
 #include "OSGReal32Fields.h" // OffsetFactor type
-#include "OSGUInt32Fields.h" // UpdateMode type
 
 #include "OSGShadowMapEngineFields.h"
+
+#include "OSGShadowMapEngineParent.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -81,11 +82,11 @@ class ShadowMapEngine;
 
 //! \brief ShadowMapEngine Base Class.
 
-class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
+class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
 {
   public:
 
-    typedef LightEngine Inherited;
+    typedef ShadowMapEngineParent Inherited;
     typedef LightEngine ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
@@ -122,8 +123,7 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
         ShadowColorFieldId = HeightFieldId + 1,
         OffsetBiasFieldId = ShadowColorFieldId + 1,
         OffsetFactorFieldId = OffsetBiasFieldId + 1,
-        UpdateModeFieldId = OffsetFactorFieldId + 1,
-        NextFieldId = UpdateModeFieldId + 1
+        NextFieldId = OffsetFactorFieldId + 1
     };
 
     static const OSG::BitVector RenderTargetFieldMask =
@@ -138,8 +138,6 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
         (TypeTraits<BitVector>::One << OffsetBiasFieldId);
     static const OSG::BitVector OffsetFactorFieldMask =
         (TypeTraits<BitVector>::One << OffsetFactorFieldId);
-    static const OSG::BitVector UpdateModeFieldMask =
-        (TypeTraits<BitVector>::One << UpdateModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -168,80 +166,38 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
 
             const SFFrameBufferObjectPtr *getSFRenderTarget    (void) const;
 
-#ifdef OSG_1_COMPAT
-                  SFInt32             *getSFWidth           (void);
-#endif
                   SFInt32             *editSFWidth          (void);
             const SFInt32             *getSFWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
-                  SFInt32             *getSFHeight          (void);
-#endif
                   SFInt32             *editSFHeight         (void);
             const SFInt32             *getSFHeight          (void) const;
 
-#ifdef OSG_1_COMPAT
-                  SFColor4f           *getSFShadowColor     (void);
-#endif
                   SFColor4f           *editSFShadowColor    (void);
             const SFColor4f           *getSFShadowColor     (void) const;
 
-#ifdef OSG_1_COMPAT
-                  SFReal32            *getSFOffsetBias      (void);
-#endif
                   SFReal32            *editSFOffsetBias     (void);
             const SFReal32            *getSFOffsetBias      (void) const;
 
-#ifdef OSG_1_COMPAT
-                  SFReal32            *getSFOffsetFactor    (void);
-#endif
                   SFReal32            *editSFOffsetFactor   (void);
             const SFReal32            *getSFOffsetFactor    (void) const;
-
-#ifdef OSG_1_COMPAT
-                  SFUInt32            *getSFUpdateMode      (void);
-#endif
-                  SFUInt32            *editSFUpdateMode     (void);
-            const SFUInt32            *getSFUpdateMode      (void) const;
 
 
                   FrameBufferObjectPtrConst getRenderTarget   (void) const;
 
-#ifdef OSG_1_COMPAT
-                  Int32               &getWidth           (void);
-#endif
                   Int32               &editWidth          (void);
             const Int32               &getWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
-                  Int32               &getHeight          (void);
-#endif
                   Int32               &editHeight         (void);
             const Int32               &getHeight          (void) const;
 
-#ifdef OSG_1_COMPAT
-                  Color4f             &getShadowColor     (void);
-#endif
                   Color4f             &editShadowColor    (void);
             const Color4f             &getShadowColor     (void) const;
 
-#ifdef OSG_1_COMPAT
-                  Real32              &getOffsetBias      (void);
-#endif
                   Real32              &editOffsetBias     (void);
             const Real32              &getOffsetBias      (void) const;
 
-#ifdef OSG_1_COMPAT
-                  Real32              &getOffsetFactor    (void);
-#endif
                   Real32              &editOffsetFactor   (void);
             const Real32              &getOffsetFactor    (void) const;
-
-#ifdef OSG_1_COMPAT
-                  UInt32              &getUpdateMode      (void);
-#endif
-                  UInt32              &editUpdateMode     (void);
-            const UInt32              &getUpdateMode      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -254,7 +210,6 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
             void setShadowColor    (const Color4f &value);
             void setOffsetBias     (const Real32 &value);
             void setOffsetFactor   (const Real32 &value);
-            void setUpdateMode     (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -321,7 +276,6 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public LightEngine
     SFColor4f         _sfShadowColor;
     SFReal32          _sfOffsetBias;
     SFReal32          _sfOffsetFactor;
-    SFUInt32          _sfUpdateMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

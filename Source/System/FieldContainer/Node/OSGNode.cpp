@@ -776,6 +776,8 @@ void Node::dump(      UInt32    uiIndent,
 
 SFDynamicVolume *Node::editSFVolume(void)
 {
+    editSField(VolumeFieldMask);
+
     return &_sfVolume;
 }
 
@@ -786,6 +788,8 @@ const SFDynamicVolume *Node::getSFVolume(void) const
 
 SFUInt32 *Node::editSFTravMask(void)
 {
+    editSField(TravMaskFieldMask);
+
     return &_sfTravMask;
 }
 

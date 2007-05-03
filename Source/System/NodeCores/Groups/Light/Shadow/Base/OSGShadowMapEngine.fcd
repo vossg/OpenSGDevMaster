@@ -3,6 +3,7 @@
 <FieldContainer
 	name="ShadowMapEngine"
 	parent="LightEngine"
+    mixinparent="ShadowMapEngineParent"
 	library="RenderTrav"
 	structure="abstract"
 	pointerfieldtypes="both"
@@ -61,15 +62,6 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="10.f"
-		access="public"
-	>
-	</Field>
-	<Field
-		name="updateMode"
-		type="UInt32"
-		cardinality="single"
-		visibility="external"
-		defaultValue="1"
 		access="public"
 	>
 	</Field>

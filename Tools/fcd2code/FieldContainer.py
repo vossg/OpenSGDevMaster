@@ -19,6 +19,7 @@ class FieldContainer(FCDElement):
         """
         self.setFCD("name",                   "");
         self.setFCD("parent",                 "");
+        self.setFCD("mixinparent",            "");
         self.setFCD("library",                "");
         self.setFCD("pointerfieldtypes",      "");
         self.setFCD("structure",              "");
@@ -99,6 +100,14 @@ class FieldContainer(FCDElement):
         else:
             self.m_log.error("finalize: \"parent\" has no valid value.");
             self["Parent"] = "<UNDEF>";
+
+        if self.getFCD("mixinparent") != "":
+            self["MixinParent"] = self.getFCD("mixinparent");
+            self["hasMixinParent"] = True
+        else:
+            self["MixinParent"] = ""
+            self["hasMixinParent"] = False
+        
         
         if self.getFCD("decoratable") == "true":
             self["isDecoratable"] = True;

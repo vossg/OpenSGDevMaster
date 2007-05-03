@@ -63,9 +63,8 @@ void AttachmentContainerMixin<ParentT>::classDescInserter(TypeObject &oType)
 /*-------------------------------------------------------------------------*/
 /*                                Set                                      */
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::pushToField(
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::pushToField(
           FieldContainerPtrConstArg pNewElement,
     const UInt32                    uiFieldId   )
 {
@@ -77,9 +76,8 @@ AttachmentContainerMixin<ParentT>::pushToField(
     }
 }
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::insertIntoMField(
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::insertIntoMField(
     const UInt32                    uiIndex,
           FieldContainerPtrConstArg pNewElement,
     const UInt32                    uiFieldId   )
@@ -89,9 +87,8 @@ AttachmentContainerMixin<ParentT>::insertIntoMField(
     FWARNING(("AttachmentContainerMixin::insertIntoMField: NIY\n"));
 }
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::replaceInMField (
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::replaceInMField (
     const UInt32                    uiIndex,
           FieldContainerPtrConstArg pNewElement,
     const UInt32                    uiFieldId   )
@@ -101,9 +98,8 @@ AttachmentContainerMixin<ParentT>::replaceInMField (
     FWARNING(("AttachmentContainerMixin::replaceInMField: NIY\n"));
 }
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::replaceInMField (
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::replaceInMField (
           FieldContainerPtrConstArg pOldElement,
           FieldContainerPtrConstArg pNewElement,
     const UInt32                    uiFieldId  )
@@ -113,9 +109,8 @@ AttachmentContainerMixin<ParentT>::replaceInMField (
     FWARNING(("AttachmentContainerMixin::replaceInMField: NIY\n"));
 }
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::removeFromMField(
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::removeFromMField(
     const UInt32                    uiIndex,
     const UInt32                    uiFieldId )
 {
@@ -124,9 +119,8 @@ AttachmentContainerMixin<ParentT>::removeFromMField(
     FWARNING(("AttachmentContainerMixin::removeFromMField: NIY\n"));
 }
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::removeFromMField(
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::removeFromMField(
           FieldContainerPtrConstArg pElement,
     const UInt32                    uiFieldId )
 {
@@ -135,9 +129,8 @@ AttachmentContainerMixin<ParentT>::removeFromMField(
     FWARNING(("AttachmentContainerMixin::removeFromMField: NIY\n"));
 }
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::clearField(
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::clearField(
     const UInt32                    uiFieldId )
 {
     Inherited::clearField(uiFieldId);
@@ -148,9 +141,9 @@ AttachmentContainerMixin<ParentT>::clearField(
 /*-------------------------------------------------------------------------*/
 /* Binary access                                                           */
 
-template <class ParentT>
-UInt32
-AttachmentContainerMixin<ParentT>::getBinSize(ConstFieldMaskArg whichField)
+template <class ParentT> inline
+UInt32 AttachmentContainerMixin<ParentT>::getBinSize(
+    ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -162,9 +155,8 @@ AttachmentContainerMixin<ParentT>::getBinSize(ConstFieldMaskArg whichField)
     return returnValue;
 }
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::copyToBin(
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::copyToBin(
     BinaryDataHandler  &pMem, ConstFieldMaskArg whichField)
 {
     Inherited::copyToBin(pMem, whichField);
@@ -175,9 +167,8 @@ AttachmentContainerMixin<ParentT>::copyToBin(
     }
 }
 
-template <class ParentT>
-void
-AttachmentContainerMixin<ParentT>::copyFromBin(
+template <class ParentT> inline
+void AttachmentContainerMixin<ParentT>::copyFromBin(
     BinaryDataHandler &pMem, ConstFieldMaskArg whichField)
 {
     Inherited::copyFromBin(pMem, whichField);

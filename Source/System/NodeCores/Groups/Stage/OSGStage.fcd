@@ -3,6 +3,7 @@
 <FieldContainer
         name="Stage"
         parent="Group"
+        mixinparent="StageParent"
         library="Group"
         pointerfieldtypes="both"
         structure="concrete"

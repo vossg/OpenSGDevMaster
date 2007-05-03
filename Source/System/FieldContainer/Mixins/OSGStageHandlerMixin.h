@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,88 +36,199 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSIMPLEREUSEPOOL_H_
-#define _OSGSIMPLEREUSEPOOL_H_
+#ifndef _OSGSTAGEHANDLERMIXIN_H_
+#define _OSGSTAGEHANDLERMIXIN_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
-
-#include <vector>
+#include "OSGDataSlotPool.h"
 
 OSG_BEGIN_NAMESPACE
 
-class PoolDefaultTag;
-
-/*! \ingroup GrpSystemRenderingBackend
+/*! Mixin for creating Stages.
+* \ingroup baselib
+* \param ParentT  The type to derive from for mixing.
 */
-
-template <class ValueT, 
-          class PoolTag    = PoolDefaultTag,
-          class LockPolicy = NoLockPolicy>
-class SimpleReusePool 
+template <class ParentT>
+class StageHandlerMixin  : public ParentT
 {
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    typedef ParentT Inherited;
+
     /*==========================  PUBLIC  =================================*/
 
   public:
 
+    typedef          StageHandlerMixin<ParentT>        Self;
+
+    typedef typename ParentT::Desc                     Desc;
+    typedef typename Desc::TypeObject                  TypeObject;
+
+    enum UpdateMode
+    {
+        PerWindow    = 0x0001,
+        PerViewport  = 0x0002,
+        PerTraversal = 0x0003
+    };
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      dcast                                   */
+    /*! \{                                                                 */
+
+    OSG_RC_FIRST_FIELD_DECL(UpdateMode);
+
+    OSG_RC_LAST_FIELD_DECL (UpdateMode);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name        General Fieldcontainer Declaration                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
-
-    SimpleReusePool(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~SimpleReusePool(void);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Helper                                    */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      create                                  */
+    /*! \name                      Get                                     */
     /*! \{                                                                 */
-
-    ValueT *create(void);
-
-    template<class ParameterT>
-    ValueT *create(ParameterT oParam);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       free                                   */
+    /*! \name                      Set                                     */
     /*! \{                                                                 */
-    
-    void freeAll(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       stat                                   */
+    /*! \name                   your_category                              */
     /*! \{                                                                 */
-    
-    void printStat(void);
+
+          void      setUpdateMode   (UpdateMode eMode);
+          UInt32    getUpdateMode   (void            ) const;
+
+          SFUInt32 *editSFUpdateMode(void            );
+    const SFUInt32 *getSFUpdateMode (void            ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Container Access                             */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Access                              */
+    /*! \{                                                                 */
+
+    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
+    virtual void   copyToBin  (BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+    virtual void   copyFromBin(BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   your_operators                             */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Assignment                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Comparison                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(      UInt32    uiIndent = 0,
+                      const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef          std::vector<ValueT *>           ValueStore;
+    Int32 _iDataSlotId;
 
-    typedef typename std::vector<ValueT *>::iterator ValueStoreIt;
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Type information                            */
+    /*! \{                                                                 */
 
-    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUInt32 _sfUpdateMode;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    ValueStore   _elementStore;
-    ValueStoreIt _currentFreeElement;
+    StageHandlerMixin(void);
+    StageHandlerMixin(const StageHandlerMixin &source);
 
-    UInt32       _uiAllocated;
-    UInt32       _uiReused;
+    virtual ~StageHandlerMixin(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Changed                                 */
+    /*! \{                                                                 */
+
+    static void classDescInserter(TypeObject &oType);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   MT Destruction                             */
+    /*! \{                                                                 */
+
+#ifdef OSG_MT_FIELDCONTAINERPTR
+    void execSync  (      Self              *pFrom,
+                          ConstFieldMaskArg  whichField,
+                          ConstFieldMaskArg  syncMode  ,
+                    const UInt32             uiSyncInfo,
+                          UInt32             uiCopyOffset);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    void execSync  (      Self              *pFrom,
+                          ConstFieldMaskArg  whichField,
+                          AspectOffsetStore &oOffsets,
+                          ConstFieldMaskArg  syncMode  ,
+                    const UInt32             uiSyncInfo);
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    void onCreateAspect(const Self   *createAspect,
+                        const Self   *source      = NULL);
+
+    void onCreate      (const Self   *source      = NULL);
+
+    void onDestroy     (      UInt32  uiContainerId     );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -125,86 +236,11 @@ class SimpleReusePool
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    SimpleReusePool(const SimpleReusePool &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const SimpleReusePool &source);
-};
-
-template<class PoolTag, class LockPolicy>
-class SimpleReusePool<Int32, PoolTag, LockPolicy>
-{
-    /*==========================  PUBLIC  =================================*/
-
-  public:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    SimpleReusePool(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~SimpleReusePool(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      create                                  */
-    /*! \{                                                                 */
-
-    Int32 create (void       );
-    void  release(Int32 uiVal);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       free                                   */
-    /*! \{                                                                 */
-    
-//    void freeAll(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       stat                                   */
-    /*! \{                                                                 */
-    
-    void printStat(void);
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    void initializeValue(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    volatile Int32 _currentValue;
-
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-
-  private:
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    SimpleReusePool(const SimpleReusePool &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const SimpleReusePool &source);
+    void operator =(const StageHandlerMixin &source);
 };
 
 OSG_END_NAMESPACE
 
-#define OSGSIMPLEREUSEPOOL_HEADER_CVSID "@(#)$Id$"
+#include "OSGStageHandlerMixin.inl"
 
-#include "OSGSimpleReusePool.inl"
-
-#endif /* _OSGSIMPLEREUSEPOOL_H_ */
+#endif /* _OSGSTAGEHANDLERMIXIN_H_ */

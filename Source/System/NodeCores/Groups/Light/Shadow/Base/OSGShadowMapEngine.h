@@ -49,6 +49,7 @@
 #include "OSGChunkMaterialFields.h"
 #include "OSGFrameBufferObject.h"
 
+
 OSG_BEGIN_NAMESPACE
 
 class RenderTraversalAction;
@@ -99,8 +100,6 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
 
     static ChunkMaterialPtr     _pLightPassMat;
 
-           Int32                _iDataSlotId;
-
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -135,13 +134,6 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
     /*---------------------------------------------------------------------*/
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
-
-    void onCreateAspect(const ShadowMapEngine *createAspect,
-                        const ShadowMapEngine *source      = NULL);
-
-    void onCreate      (const ShadowMapEngine *source      = NULL);
-
-    void onDestroy     (      UInt32           uiContainerId     );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

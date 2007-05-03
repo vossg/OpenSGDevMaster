@@ -76,7 +76,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-StageDataBase::TypeObject StageDataBase::_type(true,
+StageDataBase::TypeObject StageDataBase::_type(
     StageDataBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -85,6 +85,7 @@ StageDataBase::TypeObject StageDataBase::_type(true,
     StageData::initMethod,
     NULL,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"

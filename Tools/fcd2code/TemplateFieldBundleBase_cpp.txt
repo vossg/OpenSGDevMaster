@@ -170,7 +170,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 
 @@endif // hasFields
 
-@!Classname!@Base::TypeObject @!Classname!@Base::_type(true,
+@!Classname!@Base::TypeObject @!Classname!@Base::_type(
     @!Classname!@Base::getClassname(),
     Inherited::getClassname(),
     "@!Group!@",
@@ -187,6 +187,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     NULL,
 @@endif // hasFields
     false,
+    @!FieldsUnmarkedOnCreate!@,
     @!Fcdxml!@,
     @!SafeDescription!@
     );

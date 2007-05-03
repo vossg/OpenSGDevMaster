@@ -69,17 +69,19 @@
 
 #include "OSGStageFields.h"
 
+#include "OSGStageParent.h"
+
 OSG_BEGIN_NAMESPACE
 
 class Stage;
 
 //! \brief Stage Base Class.
 
-class OSG_GROUP_DLLMAPPING StageBase : public Group
+class OSG_GROUP_DLLMAPPING StageBase : public StageParent
 {
   public:
 
-    typedef Group Inherited;
+    typedef StageParent Inherited;
     typedef Group ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;

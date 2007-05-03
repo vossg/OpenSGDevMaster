@@ -77,21 +77,37 @@
 
 #include "OSG@!Classname!@Fields.h"
 
+@@if hasMixinParent
+#include "OSG@!MixinParent!@.h"
+@@endif
+
 OSG_BEGIN_NAMESPACE
 
 class @!Classname!@;
 
 //! \brief @!Classname!@ Base Class.
 
+@@if hasMixinParent
+@@if isInLibrary
+class OSG_@!LIBNAME!@_DLLMAPPING @!Classname!@Base : public @!MixinParent!@
+@@else // isInLibrary
+class @!Classname!@Base : public @!MixinParent!@
+@@endif // isInLibrary
+@@else
 @@if isInLibrary
 class OSG_@!LIBNAME!@_DLLMAPPING @!Classname!@Base : public @!Parent!@
 @@else // isInLibrary
 class @!Classname!@Base : public @!Parent!@
 @@endif // isInLibrary
+@@endif // hasMixinParent
 {
   public:
 
+@@if hasMixinParent
+    typedef @!MixinParent!@ Inherited;
+@@else
     typedef @!Parent!@ Inherited;
+@@endif
     typedef @!Parent!@ ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;

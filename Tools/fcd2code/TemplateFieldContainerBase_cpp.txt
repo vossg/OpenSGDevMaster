@@ -111,6 +111,10 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     @@if hasFields
     FieldDescriptionBase *pDesc = NULL;
 
+@@if hasMixinParent
+    Inherited::classDescInserter(oType);
+@@endif
+
     @@endif // hasFields
     @@if isDecorator
     pDesc = new SF@!Parent!@Ptr::Description(
