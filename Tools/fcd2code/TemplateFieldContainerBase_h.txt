@@ -76,8 +76,8 @@
 @@endif // !isDecorator
 
 #include "OSG@!Classname!@Fields.h"
-
 @@if hasMixinParent
+
 #include "OSG@!MixinParent!@.h"
 @@endif
 

@@ -107,6 +107,13 @@ const Int32 &ShadowMapEngineBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32               &ShadowMapEngineBase::getWidth          (void)
+{
+    return this->editWidth          ();
+}
+#endif
 
 //! Set the value of the ShadowMapEngine::_sfWidth field.
 inline
@@ -133,6 +140,13 @@ const Int32 &ShadowMapEngineBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Int32               &ShadowMapEngineBase::getHeight         (void)
+{
+    return this->editHeight         ();
+}
+#endif
 
 //! Set the value of the ShadowMapEngine::_sfHeight field.
 inline
@@ -159,6 +173,13 @@ const Color4f &ShadowMapEngineBase::getShadowColor(void) const
     return _sfShadowColor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Color4f             &ShadowMapEngineBase::getShadowColor    (void)
+{
+    return this->editShadowColor    ();
+}
+#endif
 
 //! Set the value of the ShadowMapEngine::_sfShadowColor field.
 inline
@@ -185,6 +206,13 @@ const Real32 &ShadowMapEngineBase::getOffsetBias(void) const
     return _sfOffsetBias.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32              &ShadowMapEngineBase::getOffsetBias     (void)
+{
+    return this->editOffsetBias     ();
+}
+#endif
 
 //! Set the value of the ShadowMapEngine::_sfOffsetBias field.
 inline
@@ -211,6 +239,13 @@ const Real32 &ShadowMapEngineBase::getOffsetFactor(void) const
     return _sfOffsetFactor.getValue();
 }
 
+#ifdef OSG_1_COMPAT
+inline
+Real32              &ShadowMapEngineBase::getOffsetFactor   (void)
+{
+    return this->editOffsetFactor   ();
+}
+#endif
 
 //! Set the value of the ShadowMapEngine::_sfOffsetFactor field.
 inline

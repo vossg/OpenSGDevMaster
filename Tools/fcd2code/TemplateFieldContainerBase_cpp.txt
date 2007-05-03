@@ -113,8 +113,8 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 
 @@if hasMixinParent
     Inherited::classDescInserter(oType);
-@@endif
 
+@@endif
     @@endif // hasFields
     @@if isDecorator
     pDesc = new SF@!Parent!@Ptr::Description(
