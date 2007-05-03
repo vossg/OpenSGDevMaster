@@ -54,6 +54,9 @@
 #include "OSGRenderPartition.h"
 #include "OSGMaterial.h"
 
+#include "OSGMixinHead.h"
+#include "OSGDataSlotMixin.h"
+
 OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
@@ -66,6 +69,15 @@ class State;
 //   Types
 //---------------------------------------------------------------------------
 
+struct RenderTravDataSlotDesc
+{
+    typedef RenderTraversalActionBase ParentT;
+};
+
+typedef DataSlotMixin< 
+            MixinHead < 
+                RenderTravDataSlotDesc > > RenderTraversalActionParent;
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
@@ -73,8 +85,8 @@ class State;
 /*! \brief RenderTraversalAction class
  */
 
-class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
-    public RenderTraversalActionBase
+class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction : 
+    public RenderTraversalActionParent
 {
   public:
 
@@ -277,7 +289,7 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     //   types
     //-----------------------------------------------------------------------
 
-    typedef RenderTraversalActionBase Inherited;
+    typedef RenderTraversalActionParent Inherited;
 
     //-----------------------------------------------------------------------
     //   class variables

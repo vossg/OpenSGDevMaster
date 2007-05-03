@@ -138,7 +138,7 @@ class MixinHead : public DescT::ParentT
     /*! \{                                                                 */
 
     MixinHead(void);
-    MixinHead(const ContainerMixinHead &source);
+    MixinHead(const MixinHead &source);
 
     ~MixinHead(void);
 
