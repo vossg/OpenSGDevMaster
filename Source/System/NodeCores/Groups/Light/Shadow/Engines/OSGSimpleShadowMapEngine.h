@@ -44,15 +44,8 @@
 
 #include "OSGConfig.h"
 #include "OSGSimpleShadowMapEngineBase.h"
-#include "OSGLightEngineData.h"
 
-#include "OSGCamera.h"
-#include "OSGTextureObjChunk.h"
-#include "OSGTextureBuffer.h"
-#include "OSGLightChunk.h"
-#include "OSGBlendChunk.h"
-#include "OSGTexGenChunk.h"
-#include "OSGPolygonChunk.h"
+#include "OSGSimpleShadowMapEngineData.h"
 
 #include "OSGDirectionalLight.h"
 #include "OSGPointLight.h"
@@ -70,6 +63,9 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngine :
 
   public:
 
+    typedef SimpleShadowMapEngineData EngineData;
+
+#if 0
     struct EngineData : public LightEngineData
     {
         typedef LightEngineData Inherited;
@@ -110,6 +106,7 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngine :
         void                setPolyChunk    (PolygonChunkPtr    pPoly  );
         PolygonChunkPtr     getPolyChunk    (void                      );
     };
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */

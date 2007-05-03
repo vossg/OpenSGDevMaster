@@ -56,6 +56,12 @@
 #include "OSGGroup.h"
 #include "OSGChunkMaterial.h"
 
+#include "OSGTextureBuffer.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGPolygonChunk.h"
+#include "OSGTexGenChunk.h"
+#include "OSGBlendChunk.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -63,6 +69,7 @@ OSG_USING_NAMESPACE
 // To modify it, please change the .fcd file (OSGSimpleShadowMapEngine.fcd) and
 // regenerate the base file.
 
+#if 0
 SimpleShadowMapEngine::EngineData::EngineData(void) :
      Inherited   (      ),
     _pCamera     (NullFC),
@@ -159,6 +166,7 @@ PolygonChunkPtr SimpleShadowMapEngine::EngineData::getPolyChunk(void)
     return _pPolyChunk;
 }
 
+#endif
 
 
 /*! \class OSG::SimpleShadowMapEngine
@@ -485,16 +493,16 @@ void SimpleShadowMapEngine::doLightPass(LightPtr               pLight,
         pTarget = getCPtr(pFBO);
     }
 
-    TextureObjChunkPtr pTexChunk = pEngineData->getTextureChunk();
+    TextureObjChunkPtr pTexChunk = pEngineData->getTexChunk();
     
 
-    TextureBufferPtr pTexBuffer = pEngineData->getTextureBuffer();
+    TextureBufferPtr pTexBuffer = pEngineData->getTexBuffer();
 
     if(pTexBuffer == NullFC)
     {
         pTexBuffer = TextureBuffer::create();
         
-        pEngineData->setTextureBuffer(pTexBuffer);
+        pEngineData->setTexBuffer     (pTexBuffer);
 
         pTexBuffer->setTexture        (pTexChunk );
         pTarget   ->setDepthAttachment(pTexBuffer);
@@ -714,13 +722,13 @@ void SimpleShadowMapEngine::doFinalPass(LightPtr               pLight,
     pTexGen->setGenFuncRPlane(pr);
     pTexGen->setGenFuncQPlane(pq);
     
-    TextureObjChunkPtr pTexChunk = pEngineData->getTextureChunk();
+    TextureObjChunkPtr pTexChunk = pEngineData->getTexChunk();
 
     if(pTexChunk == NullFC)
     {
         pTexChunk = TextureObjChunk::create();
         
-        pEngineData->setTextureChunk(pTexChunk);
+        pEngineData->setTexChunk(pTexChunk);
 
         ImagePtr pImage = Image::create();
         
@@ -789,14 +797,14 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
     LightTypeE             eType,
     RenderTraversalAction *pAction)
 {
-    EngineData *pEngineData = dynamic_cast<EngineData *>(
-        pLight->getLightEngineData());
+    EngineData *pEngineData = 
+        pAction->getData<SimpleShadowMapEngineData *>(_iDataSlotId);
 
     if(pEngineData == NULL)
     {
-        pEngineData = new EngineData;
+        pEngineData = EngineData::create();
 
-        pLight->setLightEngineData(pEngineData);
+        pAction->setData(pEngineData, _iDataSlotId);
     }
 
     BitVector bvMask = pAction->getPassMask() & (bvLightPassMask   |

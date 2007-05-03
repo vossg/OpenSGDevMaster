@@ -133,17 +133,14 @@ void Light::dump(      UInt32    uiIndent,
 
 Light::Light(void) :
      Inherited  (      ),
-    _pChunk     (NullFC),
-    _pEngineData(NULL  )
+    _pChunk     (NullFC)
 {
 }
 
 Light::Light(const Light &source) :
      Inherited  (source             ),
-    _pChunk     (source._pChunk     ),
-    _pEngineData(NULL               )
+    _pChunk     (source._pChunk     )
 {
-    setLightEngineData(source._pEngineData);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -152,7 +149,6 @@ Light::Light(const Light &source) :
 Light::~Light(void)
 {
     OSG::subRef(_pChunk     );
-    OSG::subRef(_pEngineData);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -174,11 +170,6 @@ Action::ResultE Light::renderLeave(Action *action)
     pAction->undropLight(this);
 
     return Action::Continue;
-}
-
-void Light::setLightEngineData(LightEngineData *pData)
-{
-    OSG::setRefd(_pEngineData, pData);
 }
 
 /*-------------------------------------------------------------------------*/

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,34 +36,77 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGLIGHTENGINEDATA_H_
-#define _OSGLIGHTENGINEDATA_H_
-#ifdef __sgi
-#pragma once
-#endif
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
-#include "OSGSystemDef.h"
-#include "OSGMemoryObject.h"
+#include <cstdlib>
+#include <cstdio>
+
+#include <OSGConfig.h>
+
+#include "OSGStageData.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_SYSTEM_DLLMAPPING LightEngineData : public MemoryObject
+// Documentation for this class is emitted in the
+// OSGStageDataBase.cpp file.
+// To modify it, please change the .fcd file (OSGStageData.fcd) and
+// regenerate the base file.
+
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
+
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
+
+void StageData::initMethod(InitPhase ePhase)
 {
-  public:
+    Inherited::initMethod(ePhase);
 
-    typedef MemoryObject Inherited;
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
+}
 
-    LightEngineData(void);
 
-  protected:
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
 
-    virtual ~LightEngineData(void);
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
 
-  private:
-};
+/*----------------------- constructors & destructors ----------------------*/
+
+StageData::StageData(void) :
+    Inherited()
+{
+}
+
+StageData::StageData(const StageData &source) :
+    Inherited(source)
+{
+}
+
+StageData::~StageData(void)
+{
+}
+
+/*----------------------------- class specific ----------------------------*/
+
+void StageData::changed(ConstFieldMaskArg whichField, UInt32 origin)
+{
+    Inherited::changed(whichField, origin);
+}
+
+void StageData::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump StageData NI" << std::endl;
+}
 
 OSG_END_NAMESPACE
-
-#define OSGLIGHTENGINEDATA_HEADER_CVSID "@(#)$Id$"
-
-#endif /* _OSGLIGHTENGINEDATA_H_ */

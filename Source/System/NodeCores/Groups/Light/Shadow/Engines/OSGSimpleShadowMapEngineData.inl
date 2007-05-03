@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                     Copyright 2000-2002 by OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,26 +34,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+
 OSG_BEGIN_NAMESPACE
 
-inline
-void Light::setAmbient(const Color4r &col)
-{
-    Inherited::setAmbient(col);
-}
-
-inline
-void Light::setDiffuse(const Color4r &col)
-{
-    Inherited::setDiffuse(col);
-}
-
-inline
-void Light::setSpecular(const Color4r &col)
-{
-    Inherited::setSpecular(col);
-}
-
 OSG_END_NAMESPACE
-
-#define OSGLIGHT_INLINE_CVSID "@(#)$Id$"

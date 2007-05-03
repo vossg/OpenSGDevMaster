@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,35 +36,51 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSHADOWMAPENGINE_H_
-#define _OSGSHADOWMAPENGINE_H_
+#ifndef _OSGSTAGEDATA_H_
+#define _OSGSTAGEDATA_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGAction.h"
-#include "OSGShadowMapEngineBase.h"
-#include "OSGLightFields.h"
-#include "OSGChunkMaterialFields.h"
-#include "OSGFrameBufferObject.h"
+#include "OSGStageDataBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-class RenderTraversalAction;
-
-/*! \brief ShadowMapEngine is the basic NodeCore for inner nodes in the tree.
-    \ingroup GrpSystemNodeCoresMisc
+/*! \brief StageData class. See \ref
+           PageGroupStageData for a description.
 */
 
-class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
+class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
 {
+  protected:
+
     /*==========================  PUBLIC  =================================*/
 
   public:
 
+    typedef StageDataBase Inherited;
+    typedef StageData     Self;
+
+    typedef BundlePointerBuilder<
+        StageData>::ObjPtr           ObjPtr;
+
+    typedef BundlePointerBuilder<
+        StageData>::ObjPtrConst      ObjPtrConst;
+
+    typedef BundlePointerBuilder<
+        StageData>::ObjConstPtr      ObjConstPtr;
+
+    typedef BundlePointerBuilder<
+        StageData>::ObjConstPtrConst ObjConstPtrConst;
+
+    typedef BundlePointerBuilder<
+        StageData>::ObjPtrArg        ObjPtrArg;
+
+    typedef BundlePointerBuilder<
+        StageData>::ObjPtrConstArg   ObjPtrConstArg;
+
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
     virtual void changed(ConstFieldMaskArg whichField,
@@ -72,103 +88,55 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngine : public ShadowMapEngineBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Render                                 */
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual ActionBase::ResultE runOnEnter(LightPtr               pLight,
-                                           LightTypeE             eType,
-                                           RenderTraversalAction *pAction) = 0;
-    virtual ActionBase::ResultE runOnLeave(LightPtr               pLight,
-                                           LightTypeE             eType,
-                                           RenderTraversalAction *pAction) = 0;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32    uiIndent = 0,
-                      const BitVector bvFlags  = 0) const;
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef ShadowMapEngineBase  Inherited;
-
-    static ChunkMaterialPtr     _pLightPassMat;
-
-           Int32                _iDataSlotId;
+    // Variables should all be in StageDataBase.
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ShadowMapEngine(void);
-    ShadowMapEngine(const ShadowMapEngine &source);
+    StageData(void);
+    StageData(const StageData &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ShadowMapEngine(void);
+    virtual ~StageData(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Init                                  */
+    /*! \name                      Init                                    */
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Action Callbacks                       */
-    /*! \{                                                                 */
-
-    static BitVector bvLightPassMask;
-    static BitVector bvAmbientPassMask;
-    static BitVector bvDiffusePassMask;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Draw                                       */
-    /*! \{                                                                 */
-
-    void onCreateAspect(const ShadowMapEngine *createAspect,
-                        const ShadowMapEngine *source      = NULL);
-
-    void onCreate      (const ShadowMapEngine *source      = NULL);
-
-    void onDestroy     (      UInt32           uiContainerId     );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class ShadowMapEngineBase;
+    friend class FieldBundle;
+    friend class StageDataBase;
 
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
-
-    /*---------------------------------------------------------------------*/
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const ShadowMapEngine &source);
+    // prohibit default functions (move to 'public' if you need one)
+    void operator =(const StageData &source);
 };
-
-typedef ShadowMapEngine *ShadowMapEngineP;
 
 OSG_END_NAMESPACE
 
-#include "OSGShadowMapEngineBase.inl"
-#include "OSGShadowMapEngine.inl"
+#include "OSGStageDataBase.inl"
+#include "OSGStageData.inl"
 
-#define OSGSHADOWMAPENGINE_HEADER_CVSID "@(#)$Id$"
-
-#endif /* _OSGSHADOWMAPENGINE_H_ */
+#endif /* _OSGSTAGEDATA_H_ */

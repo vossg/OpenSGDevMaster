@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,46 +36,77 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
+#include <OSGConfig.h>
 
-#include "OSGLightEngineData.h"
+#include "OSGSimpleShadowMapEngineData.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::LightEngineData
-*/
+// Documentation for this class is emitted in the
+// OSGSimpleShadowMapEngineDataBase.cpp file.
+// To modify it, please change the .fcd file (OSGSimpleShadowMapEngineData.fcd) and
+// regenerate the base file.
 
-LightEngineData::LightEngineData(void) :
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
+
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
+
+void SimpleShadowMapEngineData::initMethod(InitPhase ePhase)
+{
+    Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
+}
+
+
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
+
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
+
+/*----------------------- constructors & destructors ----------------------*/
+
+SimpleShadowMapEngineData::SimpleShadowMapEngineData(void) :
     Inherited()
 {
 }
 
-LightEngineData::~LightEngineData(void)
+SimpleShadowMapEngineData::SimpleShadowMapEngineData(const SimpleShadowMapEngineData &source) :
+    Inherited(source)
 {
 }
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
-
-#ifdef OSG_LINUX_ICC
-#pragma warning( disable : 177 )
-#endif
-
-namespace
+SimpleShadowMapEngineData::~SimpleShadowMapEngineData(void)
 {
-    static Char8 cvsid_cpp[] = "@(#)$Id$";
-    static Char8 cvsid_hpp[] = OSGLIGHTENGINEDATA_HEADER_CVSID;
 }
 
+/*----------------------------- class specific ----------------------------*/
 
+void SimpleShadowMapEngineData::changed(ConstFieldMaskArg whichField, UInt32 origin)
+{
+    Inherited::changed(whichField, origin);
+}
 
+void SimpleShadowMapEngineData::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump SimpleShadowMapEngineData NI" << std::endl;
+}
 
-
-
+OSG_END_NAMESPACE

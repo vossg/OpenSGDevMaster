@@ -48,6 +48,7 @@
 #include "OSGPassMaskPool.h"
 #include "OSGChunkMaterial.h"
 #include "OSGMaterialChunk.h"
+#include "OSGDataSlotPool.h"
 
 OSG_USING_NAMESPACE
 
@@ -83,12 +84,15 @@ void ShadowMapEngine::dump(      UInt32    uiIndent,
 /*                            Constructors                                 */
 
 ShadowMapEngine::ShadowMapEngine(void) :
-    Inherited()
+     Inherited  (  ),
+    _iDataSlotId(-1)
+
 {
 }
 
 ShadowMapEngine::ShadowMapEngine(const ShadowMapEngine &source) :
-    Inherited(source)
+     Inherited  (source),
+    _iDataSlotId(    -1)
 {
 }
 
@@ -135,6 +139,40 @@ void ShadowMapEngine::initMethod(InitPhase ePhase)
     }
 }
 
+void ShadowMapEngine::onCreateAspect(const ShadowMapEngine *createAspect,
+                                     const ShadowMapEngine *source)
+{
+    Inherited::onCreateAspect(createAspect, source);
+
+    // avoid prototype
+    if(GlobalSystemState == Running)
+    {
+        _iDataSlotId = createAspect->_iDataSlotId;
+    }
+}
+
+void ShadowMapEngine::onCreate(const ShadowMapEngine *source)
+{
+    Inherited::onCreate(source);
+
+    // avoid prototype
+    if(GlobalSystemState == Running)
+    {
+        _iDataSlotId = ActionDataSlotPool::the()->create();
+        
+        fprintf(stderr, "Got data slot %d\n", _iDataSlotId);
+    }
+}
+
+void ShadowMapEngine::onDestroy(UInt32 uiContainerId)
+{
+    Inherited::onDestroy(uiContainerId);
+
+    if(GlobalSystemState == Running)
+    {
+        ActionDataSlotPool::the()->release(_iDataSlotId);
+    }
+}
 
 /*-------------------------------------------------------------------------*/
 /*                              cvs id's                                   */
