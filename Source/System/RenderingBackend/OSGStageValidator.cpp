@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,21 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#include <cstdlib>
+#include <cstdio>
 
-OSG_BEGIN_NAMESPACE
+#include "OSGConfig.h"
 
-inline
-void StageData::copyFrom(StageData *pIn)
+#include "OSGStageValidator.h"
+
+OSG_USING_NAMESPACE
+
+/*! \class OSG::DrawEnv
+    \ingroup GrpSystemRenderingBackend
+ */
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+StageValidator::StageValidator(void) :
+    _uiEventCounter(0),
+    _vStatusStore  ( )
 {
-    if(pIn != NULL)
-    {
-        this->_sfPartitionRangeBegin = pIn->_sfPartitionRangeBegin;
-        this->_sfPartitionRangeEnd   = pIn->_sfPartitionRangeEnd;
-        this->_sfGroupMode           = pIn->_sfGroupMode;
-    }
 }
 
-OSG_END_NAMESPACE
+StageValidator::~StageValidator(void) 
+{
+}

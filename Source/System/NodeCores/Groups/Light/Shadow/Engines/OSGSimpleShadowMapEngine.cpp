@@ -804,7 +804,8 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
     {
         pEngineData = EngineData::create();
 
-        pAction->setData(pEngineData, _iDataSlotId);
+        this->setData(pEngineData, _iDataSlotId, pAction);
+//        pAction->setData(pEngineData, _iDataSlotId);
     }
 
     BitVector bvMask = pAction->getPassMask() & (bvLightPassMask   |

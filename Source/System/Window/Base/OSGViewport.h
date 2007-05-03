@@ -59,6 +59,7 @@ class DrawActionBase;
 
 #ifdef OSG_CLEANED_RENDERACTION
 class RenderTraversalActionBase;
+class StageValidator;
 #endif
 
 /*! \brief Viewport base class. See \ref 
@@ -109,6 +110,13 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
+
+    StageValidator *getStageValidator(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   change                                     */
     /*! \{                                                                 */
 
@@ -127,6 +135,8 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*=========================  PROTECTED  ===============================*/
 
  protected:
+
+    StageValidator *_pStageValidator;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -149,6 +159,21 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     
     static void initMethod(InitPhase ePhase);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                MT Construction                               */
+    /*! \{                                                                 */
+
+    void onCreate       (const Viewport *source = NULL);
+
+    void onCreateAspect (const Viewport *createAspect,
+                         const Viewport *source = NULL);
+    
+    void onDestroy      (      UInt32    uiContainerId);
+
+    void onDestroyAspect(      UInt32    uiContainerId,
+                               UInt32    uiAspect     );
+    
     /*! \}                                                                 */
     /*=========================  PRIVATE    ===============================*/
 

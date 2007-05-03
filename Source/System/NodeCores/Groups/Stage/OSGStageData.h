@@ -80,6 +80,13 @@ class OSG_GROUP_DLLMAPPING StageData : public StageDataBase
         StageData>::ObjPtrConstArg   ObjPtrConstArg;
 
     /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    void copyFrom(StageData *pIn);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 

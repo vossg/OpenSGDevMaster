@@ -143,6 +143,19 @@ void RenderTraversalAction::endPartitionGroup(void)
 
 /*-------------------------- your_category---------------------------------*/
 
+inline
+Int32 RenderTraversalAction::getActivePartitionIdx(void)
+{
+    return _iActivePartitionIdx;
+}
+
+
+inline
+Int32 RenderTraversalAction::getLastPartitionIdx(void)
+{
+    return _vRenderPartitions[_currentBuffer].size() - 1;
+}
+
 /*-------------------------- assignment -----------------------------------*/
 
 /*-------------------------- comparison -----------------------------------*/

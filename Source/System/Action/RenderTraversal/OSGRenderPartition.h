@@ -184,6 +184,8 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     /*! MatrixStack keeps track of matrices during traversal */
     typedef std::vector<MatrixStore>                MatrixStack;
 
+    typedef std::vector<RenderPartition *>          GroupStore;
+
     //-----------------------------------------------------------------------
     //   class functions                                                     
     //-----------------------------------------------------------------------
@@ -239,6 +241,10 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
     const Matrix4f &getCameraToWorld    (      void                 );
     const Matrix4f &getVPViewing        (      void                 );
     const Matrix4f &getVPCameraToWorld  (      void                 );
+
+    /*------------------------- your_operators ------------------------------*/
+
+    void addPartition(RenderPartition *pPart);
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -385,6 +391,9 @@ class OSG_RENDERTRAV_DLLMAPPING RenderPartition
 
     Mode                _eMode;
     SetupMode           _eSetupMode;
+    bool                _bDone;
+
+    GroupStore          _vGroupStore;
 
     DrawEnv             _oDrawEnv;
 

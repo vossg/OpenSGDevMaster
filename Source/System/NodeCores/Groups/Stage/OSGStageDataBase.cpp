@@ -72,8 +72,97 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StageData
-    Data use for rendering by the any stage, might hold bookkeeping data
+    Data use for rendering by the any stage, holds bookkeeping data
  */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Int32           StageDataBase::_sfPartitionRangeBegin
+    
+*/
+
+/*! \var Int32           StageDataBase::_sfPartitionRangeEnd
+    
+*/
+
+/*! \var Int32           StageDataBase::_sfGroupMode
+    
+*/
+
+
+void StageDataBase::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc = NULL;
+
+
+#ifdef OSG_1_COMPAT
+    typedef const SFInt32 *(StageDataBase::*GetSFPartitionRangeBeginF)(void) const;
+
+    GetSFPartitionRangeBeginF GetSFPartitionRangeBegin = &StageDataBase::getSFPartitionRangeBegin;
+#endif
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "partitionRangeBegin",
+        "",
+        PartitionRangeBeginFieldId, PartitionRangeBeginFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFPartitionRangeBegin),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFPartitionRangeBegin));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFPartitionRangeBegin));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFInt32 *(StageDataBase::*GetSFPartitionRangeEndF)(void) const;
+
+    GetSFPartitionRangeEndF GetSFPartitionRangeEnd = &StageDataBase::getSFPartitionRangeEnd;
+#endif
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "partitionRangeEnd",
+        "",
+        PartitionRangeEndFieldId, PartitionRangeEndFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFPartitionRangeEnd),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFPartitionRangeEnd));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFPartitionRangeEnd));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFInt32 *(StageDataBase::*GetSFGroupModeF)(void) const;
+
+    GetSFGroupModeF GetSFGroupMode = &StageDataBase::getSFGroupMode;
+#endif
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "groupMode",
+        "",
+        GroupModeFieldId, GroupModeFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&StageDataBase::editSFGroupMode),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFGroupMode));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&StageDataBase::getSFGroupMode));
+#endif
+
+    oType.addInitialDesc(pDesc);
+}
 
 
 StageDataBase::TypeObject StageDataBase::_type(
@@ -83,7 +172,7 @@ StageDataBase::TypeObject StageDataBase::_type(
     0,
     (ProtoBundleCreateF) &StageDataBase::createEmpty,
     StageData::initMethod,
-    NULL,
+    (InitalInsertDescFunc) &StageDataBase::classDescInserter,
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -100,9 +189,36 @@ StageDataBase::TypeObject StageDataBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     ">\n"
-    "Data use for rendering by the any stage, might hold bookkeeping data\n"
+    "Data use for rendering by the any stage, holds bookkeeping data\n"
+    "\t<Field\n"
+    "\t\tname=\"partitionRangeBegin\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"-1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"partitionRangeEnd\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"-1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"groupMode\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
-    "Data use for rendering by the any stage, might hold bookkeeping data\n"
+    "Data use for rendering by the any stage, holds bookkeeping data\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -125,6 +241,63 @@ UInt32 StageDataBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFInt32 *StageDataBase::editSFPartitionRangeBegin(void)
+{
+    editSField(PartitionRangeBeginFieldMask);
+
+    return &_sfPartitionRangeBegin;
+}
+
+const SFInt32 *StageDataBase::getSFPartitionRangeBegin(void) const
+{
+    return &_sfPartitionRangeBegin;
+}
+
+#ifdef OSG_1_COMPAT
+SFInt32             *StageDataBase::getSFPartitionRangeBegin(void)
+{
+    return this->editSFPartitionRangeBegin();
+}
+#endif
+
+SFInt32 *StageDataBase::editSFPartitionRangeEnd(void)
+{
+    editSField(PartitionRangeEndFieldMask);
+
+    return &_sfPartitionRangeEnd;
+}
+
+const SFInt32 *StageDataBase::getSFPartitionRangeEnd(void) const
+{
+    return &_sfPartitionRangeEnd;
+}
+
+#ifdef OSG_1_COMPAT
+SFInt32             *StageDataBase::getSFPartitionRangeEnd(void)
+{
+    return this->editSFPartitionRangeEnd();
+}
+#endif
+
+SFInt32 *StageDataBase::editSFGroupMode(void)
+{
+    editSField(GroupModeFieldMask);
+
+    return &_sfGroupMode;
+}
+
+const SFInt32 *StageDataBase::getSFGroupMode(void) const
+{
+    return &_sfGroupMode;
+}
+
+#ifdef OSG_1_COMPAT
+SFInt32             *StageDataBase::getSFGroupMode      (void)
+{
+    return this->editSFGroupMode      ();
+}
+#endif
+
 
 
 
@@ -135,6 +308,18 @@ UInt32 StageDataBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (PartitionRangeBeginFieldMask & whichField))
+    {
+        returnValue += _sfPartitionRangeBegin.getBinSize();
+    }
+    if(FieldBits::NoField != (PartitionRangeEndFieldMask & whichField))
+    {
+        returnValue += _sfPartitionRangeEnd.getBinSize();
+    }
+    if(FieldBits::NoField != (GroupModeFieldMask & whichField))
+    {
+        returnValue += _sfGroupMode.getBinSize();
+    }
 
     return returnValue;
 }
@@ -144,6 +329,18 @@ void StageDataBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (PartitionRangeBeginFieldMask & whichField))
+    {
+        _sfPartitionRangeBegin.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (PartitionRangeEndFieldMask & whichField))
+    {
+        _sfPartitionRangeEnd.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (GroupModeFieldMask & whichField))
+    {
+        _sfGroupMode.copyToBin(pMem);
+    }
 }
 
 void StageDataBase::copyFromBin(BinaryDataHandler &pMem,
@@ -151,6 +348,18 @@ void StageDataBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (PartitionRangeBeginFieldMask & whichField))
+    {
+        _sfPartitionRangeBegin.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PartitionRangeEndFieldMask & whichField))
+    {
+        _sfPartitionRangeEnd.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (GroupModeFieldMask & whichField))
+    {
+        _sfGroupMode.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -177,12 +386,18 @@ FieldBundleP StageDataBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 StageDataBase::StageDataBase(void) :
-    Inherited()
+    Inherited(),
+    _sfPartitionRangeBegin    (Int32(-1)),
+    _sfPartitionRangeEnd      (Int32(-1)),
+    _sfGroupMode              (Int32(0))
 {
 }
 
 StageDataBase::StageDataBase(const StageDataBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfPartitionRangeBegin    (source._sfPartitionRangeBegin    ),
+    _sfPartitionRangeEnd      (source._sfPartitionRangeEnd      ),
+    _sfGroupMode              (source._sfGroupMode              )
 {
 }
 

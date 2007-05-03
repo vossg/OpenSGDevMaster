@@ -64,6 +64,8 @@
 #include "OSGCamera.h"
 #include "OSGForeground.h"
 
+#include "OSGStageValidator.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -84,6 +86,38 @@ void Viewport::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
+void Viewport::onCreate      (const Viewport *source)
+{
+    Inherited::onCreate(source);
+}
+
+void Viewport::onCreateAspect(const Viewport *createAspect,
+                              const Viewport *source)
+{
+    Inherited::onCreateAspect(createAspect, source);
+
+    // Don't add the prototype instances to the list
+    if(GlobalSystemState != Running)
+        return;
+
+    _pStageValidator = new StageValidator;
+}
+
+void Viewport::onDestroy(UInt32 uiContainerId)
+{
+    Inherited::onDestroy(uiContainerId);
+}
+
+void Viewport::onDestroyAspect(UInt32    uiContainerId,
+                               UInt32    uiAspect     )
+{
+    delete _pStageValidator;
+
+    _pStageValidator = NULL;
+
+    Inherited::onDestroyAspect(uiContainerId, uiAspect);
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
@@ -91,12 +125,14 @@ void Viewport::initMethod(InitPhase ePhase)
 /*------------- constructors & destructors --------------------------------*/
 
 Viewport::Viewport(void) :
-    Inherited()
+     Inherited      (    ),
+    _pStageValidator(NULL)
 {
 }
 
 Viewport::Viewport(const Viewport &source) :
-    Inherited(source)
+     Inherited      (source),
+    _pStageValidator(NULL  )
 {
 }
 
@@ -236,6 +272,8 @@ void Viewport::render(DrawActionBase *action)
 #ifdef OSG_CLEANED_RENDERACTION
 void Viewport::render(RenderTraversalActionBase *action)
 {
+     _pStageValidator->incEventCounter();
+ 
     if(getCamera() == NullFC)
     {
         SWARNING << "Viewport::render: no camera!" << std::endl;

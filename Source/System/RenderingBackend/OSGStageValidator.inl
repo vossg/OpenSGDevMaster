@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,21 +36,55 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
 
 OSG_BEGIN_NAMESPACE
 
 inline
-void StageData::copyFrom(StageData *pIn)
+void StageValidator::incEventCounter(void)
 {
-    if(pIn != NULL)
+    ++_uiEventCounter;
+}
+
+inline
+StageValidator::ValidationStatus StageValidator::validate(Int32 iStageId)
+{
+    if(iStageId < 0)
+        return Self::Unknown;
+
+    if(_vStatusStore.size() <= iStageId)
     {
-        this->_sfPartitionRangeBegin = pIn->_sfPartitionRangeBegin;
-        this->_sfPartitionRangeEnd   = pIn->_sfPartitionRangeEnd;
-        this->_sfGroupMode           = pIn->_sfGroupMode;
+        StageStatus tmpStat;
+        
+        tmpStat._uiLastEvent = 0;
+        tmpStat._eStatus     = Self::Unknown;
+
+        _vStatusStore.resize(iStageId + 1, tmpStat);
     }
+
+    StageStatus            &oStat       = _vStatusStore[iStageId];
+    Self::ValidationStatus  returnValue = Self::Finished;
+
+    if(oStat._uiLastEvent < _uiEventCounter)
+    {
+        oStat._uiLastEvent = _uiEventCounter;
+        oStat._eStatus     = Self::Running;
+
+        returnValue = Self::Run;
+    }
+    else
+    {
+        if(oStat._uiLastEvent == _uiEventCounter)
+        {
+            if(oStat._eStatus == StageValidator::Running)
+            {
+                oStat._eStatus = StageValidator::Finished;
+                
+                returnValue = Self::Run;
+            }
+        }
+    }
+
+    return returnValue;
 }
 
 OSG_END_NAMESPACE

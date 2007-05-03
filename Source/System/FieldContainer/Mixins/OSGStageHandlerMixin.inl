@@ -38,7 +38,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-
 template <class ParentT> inline
 void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
 {
@@ -58,6 +57,201 @@ void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
         NULL);
 
     oType.addInitialDesc(pDesc);
+}
+
+template <class ParentT> inline
+typename StageHandlerMixin<ParentT>::ValidationStatus 
+    StageHandlerMixin<ParentT>::validate(RenderTraversalActionBase *pAction)
+{
+ 
+    StageValidator *pVal = NULL;
+
+    if(_sfUpdateMode.getValue() == Self::PerWindow)
+    {
+        OSG::Window *pWin = pAction->getWindow();
+
+        pVal = pWin->getStageValidator();
+    }
+    else if(_sfUpdateMode.getValue() == Self::PerViewport)
+    {
+        Viewport *pVP = pAction->getViewport();
+
+        pVal = pVP->getStageValidator();
+    }
+    else if(_sfUpdateMode.getValue() == Self::PerTraversal)
+    {
+        pVal = pAction->getStageValidator();
+    }
+    else
+    {
+        return StageValidator::Run;
+    }
+
+    return pVal->validate(_iStageId);
+}
+
+template <class ParentT> inline
+typename StageHandlerMixin<ParentT>::ValidationStatus 
+    StageHandlerMixin<ParentT>::validateOnEnter(
+        RenderTraversalActionBase *pAction)
+{
+    StageValidator::ValidationStatus returnValue = Self::validate(pAction);
+
+    StageDataP pData = pAction->getData<StageData *>(_iDataSlotId);
+
+    if(pData == NULL)
+    {
+        pData = StageData::create();
+
+        pAction->setDataX(pData, _iDataSlotId);
+    }
+
+    if(returnValue == StageValidator::Finished)
+    {
+        if(pData != NULL)
+        {           
+            Int32 iPartBegin = pData->getPartitionRangeBegin();
+            Int32 iPartEnd   = pData->getPartitionRangeEnd  ();
+            
+            while(iPartBegin <= iPartEnd)
+            {
+                pAction->readdPartitionByIndex(iPartBegin);
+                
+                ++iPartBegin;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+template <class ParentT> inline
+typename StageHandlerMixin<ParentT>::ValidationStatus 
+    StageHandlerMixin<ParentT>::validateOnLeave(
+        RenderTraversalActionBase *pAction)
+{
+    return Self::validate(pAction);
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::pushPartition(
+    RenderTraversalActionBase *pAction,
+    UInt32                     uiCopyOnPush, 
+    RenderPartition::Mode      eMode)
+{
+    StageDataP pData = pAction->getData<StageData *>(_iDataSlotId);
+
+    pAction->pushPartition(uiCopyOnPush, eMode);
+
+    if(pData != NULL)
+    {
+        if(pData->getGroupMode() == NoPartitionGroup)
+        {
+            pData->setPartitionRangeBegin(pAction->getActivePartitionIdx());
+        }
+
+    }
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::popPartition(
+    RenderTraversalActionBase *pAction)
+{
+    StageDataP pData = pAction->getData<StageData *>(_iDataSlotId);
+
+    pAction->popPartition();
+
+    if(pData != NULL)
+    {
+        if(pData->getGroupMode() == NoPartitionGroup)
+        {
+            pData->setPartitionRangeEnd(pAction->getLastPartitionIdx());
+        }
+    }
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::beginPartitionGroup(
+    RenderTraversalActionBase *pAction)
+{
+    StageDataP pData = pAction->getData<StageData *>(_iDataSlotId);
+
+    if(pData != NULL)
+    {
+        pData->setGroupMode(InPartitionGroup);
+    }
+
+    pAction->beginPartitionGroup();
+
+    if(pData != NULL)
+    {
+        pData->setPartitionRangeBegin(pAction->getActivePartitionIdx());
+    }
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::endPartitionGroup(
+    RenderTraversalActionBase *pAction)
+{
+    StageDataP pData = pAction->getData<StageData *>(_iDataSlotId);
+
+    if(pData != NULL)
+    {
+        pData->setGroupMode(NoPartitionGroup);
+    }
+
+    pAction->endPartitionGroup();
+
+    if(pData != NULL)
+    {
+        pData->setPartitionRangeEnd(pAction->getLastPartitionIdx());
+    }
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::beginPartitions(
+    RenderTraversalActionBase *pAction)
+{
+    StageDataP pData = pAction->getData<StageData *>(_iDataSlotId);
+
+    if(pData != NULL)
+    {
+        pData->setGroupMode          (InPartitionList                   );
+        pData->setPartitionRangeBegin(pAction->getLastPartitionIdx() + 1);
+    }
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::endPartitions(
+    RenderTraversalActionBase *pAction)
+{
+    StageDataP pData = pAction->getData<StageData *>(_iDataSlotId);
+
+    if(pData != NULL)
+    {
+        pData->setGroupMode        (NoPartitionGroup              );
+        pData->setPartitionRangeEnd(pAction->getLastPartitionIdx());
+    }
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::setData(
+    StageDataP                 pData, 
+    Int32                      iDataSlotId,
+    RenderTraversalActionBase *pAction)
+{
+    StageDataP pStoredData = pAction->getData<StageData *>(_iDataSlotId);
+
+    if(pStoredData == NULL)
+    {
+        pAction->setDataX(pData, iDataSlotId);
+    }
+    else if(pStoredData != pData)
+    {
+        pData->copyFrom(pStoredData);
+
+        pAction->setDataX(pData, iDataSlotId);
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -141,10 +335,11 @@ void StageHandlerMixin<ParentT>::copyFromBin(
 template <class ParentT> inline
 StageHandlerMixin<ParentT>::StageHandlerMixin(void) :
      Inherited   (            ),
-    _sfUpdateMode(PerTraversal),
-    _iDataSlotId (-1          )
-     
+    _iDataSlotId (-1          ),
+    _iStageId    (-1          ),
+    _sfUpdateMode(PerTraversal)
 {
+    _tmpStatus = StageValidator::Finished;
 }
 
 template <class ParentT> inline
@@ -152,9 +347,11 @@ StageHandlerMixin<ParentT>::StageHandlerMixin(
     const StageHandlerMixin &source) :
 
      Inherited   (source              ),
-    _sfUpdateMode(source._sfUpdateMode),
-    _iDataSlotId (                  -1)
+    _iStageId    (-1                  ),
+    _iDataSlotId (-1                  ),
+    _sfUpdateMode(source._sfUpdateMode)
 {
+    _tmpStatus = StageValidator::Finished;
 }
 
 template <class ParentT> inline
@@ -214,9 +411,10 @@ void StageHandlerMixin<ParentT>::onCreateAspect(const Self   *createAspect,
     Inherited::onCreateAspect(createAspect, source);
 
     // avoid prototype
-    if(GlobalSystemState == Running)
+    if(GlobalSystemState == OSG::Running)
     {
         _iDataSlotId = createAspect->_iDataSlotId;
+        _iStageId    = createAspect->_iStageId;
     }
 }
 
@@ -226,11 +424,14 @@ void StageHandlerMixin<ParentT>::onCreate(const Self *source)
     Inherited::onCreate(source);
 
     // avoid prototype
-    if(GlobalSystemState == Running)
+    if(GlobalSystemState == OSG::Running)
     {
         _iDataSlotId = ActionDataSlotPool::the()->create();
-        
-        fprintf(stderr, "Got data slot %d\n", _iDataSlotId);
+        _iStageId    = StageIdPool       ::the()->create();
+
+        fprintf(stderr, "Got data slot %d and stage id %d\n", 
+                _iDataSlotId,
+                _iStageId);
     }
 }
 
@@ -240,9 +441,11 @@ void StageHandlerMixin<ParentT>::onDestroy(UInt32 uiContainerId)
     Inherited::onDestroy(uiContainerId);
 
     // avoid prototype
-    if(GlobalSystemState == Running)
+    if(GlobalSystemState == OSG::Running)
     {
-        ActionDataSlotPool::the()->release(_iDataSlotId);
+        // Fixme OnDestroy is called to early
+        //ActionDataSlotPool::the()->release(_iDataSlotId);
+        //StageIdPool::the()->release(_iStageId);
     }
 }
 

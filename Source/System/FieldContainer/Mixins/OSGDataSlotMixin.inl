@@ -55,7 +55,7 @@ ValuePtr DataSlotMixin<ParentT>::getData(Int32 iSlotId)
 }
 
 template <class ParentT> inline
-void DataSlotMixin<ParentT>::setData(FieldBundleP pBundle, Int32 iSlotId)
+void DataSlotMixin<ParentT>::setDataX(FieldBundleP pBundle, Int32 iSlotId)
 {
     if(iSlotId < 0)
         return;

@@ -43,6 +43,13 @@
 #endif
 
 #include "OSGDataSlotPool.h"
+#include "OSGStageIdPool.h"
+#include "OSGWindow.h"
+#include "OSGViewport.h"
+#include "OSGStageValidator.h"
+#include "OSGStageData.h"
+
+#include "OSGRenderTraversalActionBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -68,11 +75,22 @@ class StageHandlerMixin  : public ParentT
     typedef typename ParentT::Desc                     Desc;
     typedef typename Desc::TypeObject                  TypeObject;
 
+    typedef          StageValidator::ValidationStatus  ValidationStatus;
+
     enum UpdateMode
     {
         PerWindow    = 0x0001,
         PerViewport  = 0x0002,
-        PerTraversal = 0x0003
+        PerTraversal = 0x0003,
+
+        PerVisit     = 0x0004
+    };
+
+    enum GroupMode 
+    {
+        NoPartitionGroup = 0x0000,
+        InPartitionGroup = 0x0001,
+        InPartitionList  = 0x0002
     };
 
     /*---------------------------------------------------------------------*/
@@ -108,10 +126,25 @@ class StageHandlerMixin  : public ParentT
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+    ValidationStatus validateOnEnter(RenderTraversalActionBase *pAction);
+    ValidationStatus validateOnLeave(RenderTraversalActionBase *pAction);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
+
+    void pushPartition      (RenderTraversalActionBase *pAction,
+                             UInt32                     uiCopyOnPush = 0x0000, 
+                             RenderPartition::Mode      eMode        = 
+                                                RenderPartition::StateSorting);
+    void popPartition       (RenderTraversalActionBase *pAction);
+
+    void beginPartitionGroup(RenderTraversalActionBase *pAction);
+    void endPartitionGroup  (RenderTraversalActionBase *pAction);
+
+    void beginPartitions    (RenderTraversalActionBase *pAction);
+    void endPartitions      (RenderTraversalActionBase *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -145,6 +178,10 @@ class StageHandlerMixin  : public ParentT
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
+    void setData(StageDataP                 pData, 
+                 Int32                      iDataSlotId,
+                 RenderTraversalActionBase *pAction    );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Assignment                                */
@@ -168,11 +205,17 @@ class StageHandlerMixin  : public ParentT
 
   protected:
 
-    Int32 _iDataSlotId;
+    Int32  _iDataSlotId;
+    Int32  _iStageId;
+
+
+    StageValidator::ValidationStatus _tmpStatus;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
+
+    ValidationStatus validate(RenderTraversalActionBase *pAction);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -71,6 +71,7 @@ class DrawEnv;
 
 #ifdef OSG_CLEANED_RENDERACTION
 class RenderTraversalActionBase;
+class StageValidator;
 #endif
 
 /*! \brief Window base class. See \ref PageSystemWindowWindow
@@ -257,6 +258,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
+
+    StageValidator *getStageValidator(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
@@ -350,12 +358,15 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                MT Construction                               */
     /*! \{                                                                 */
 
-           void onCreate      (const Window *source = NULL);
+           void onCreate       (const Window *source = NULL);
 
-           void onCreateAspect(const Window *createAspect,
-                               const Window *source = NULL);
+           void onCreateAspect (const Window *createAspect,
+                                const Window *source = NULL);
 
-           void onDestroy     (      UInt32  uiContainerId);
+           void onDestroy      (      UInt32  uiContainerId);
+
+           void onDestroyAspect(      UInt32  uiContainerId,
+                                      UInt32  uiAspect     );
 
     static void staticAcquire (void                       );
     static void staticRelease (void                       );
@@ -436,6 +447,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     UInt32                   _numAvailConstants;
 
     UInt32                   _windowId;
+    StageValidator          *_pStageValidator;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

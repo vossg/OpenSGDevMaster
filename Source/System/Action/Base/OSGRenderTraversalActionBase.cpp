@@ -53,6 +53,7 @@
 #include "OSGDrawable.h"
 #include "OSGViewport.h"
 #include "OSGVolumeDraw.h"
+#include "OSGStageValidator.h"
 
 OSG_USING_NAMESPACE
 
@@ -80,11 +81,14 @@ RenderTraversalActionBase::RenderTraversalActionBase(void) :
     _pWindow        (NULL ),
     _pViewport      (NULL ),
     _pStatistics    (NULL ),
+    _pStageValidator(NULL ),
+
     _bFrustumCulling(true ),
     _bVolumeDrawing (false),
     _bAutoFrustum   (true ),
     _oFrustum       (     )
 {
+    _pStageValidator = new StageValidator();
 }
 
 RenderTraversalActionBase::RenderTraversalActionBase(
@@ -95,6 +99,7 @@ RenderTraversalActionBase::RenderTraversalActionBase(
     _pBackground    (source._pBackground    ),
     _pWindow        (source._pWindow        ),
     _pViewport      (source._pViewport      ),
+    _pStageValidator(NULL                   ),
     _pStatistics    (NULL                   ),
     _bFrustumCulling(source._bFrustumCulling),
     _bVolumeDrawing (source._bVolumeDrawing ),
@@ -102,6 +107,8 @@ RenderTraversalActionBase::RenderTraversalActionBase(
     _oFrustum       (source._oFrustum       )
 {
     OSG::setRefd(_pStatistics, source._pStatistics);
+
+    _pStageValidator = new StageValidator();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -110,6 +117,8 @@ RenderTraversalActionBase::RenderTraversalActionBase(
 RenderTraversalActionBase::~RenderTraversalActionBase(void)
 {
     OSG::subRef(_pStatistics);
+
+    delete _pStageValidator;
 }
 
 ActionBase::ResultE RenderTraversalActionBase::start(void)
@@ -141,8 +150,10 @@ ActionBase::ResultE RenderTraversalActionBase::start(void)
             _pStatistics->getElem(Drawable::statNPoints    )->set(0);
             _pStatistics->getElem(Drawable::statNVertices  )->set(0);
             _pStatistics->getElem(Drawable::statNPrimitives)->set(0);
+        }
     }
-    }
+
+    _pStageValidator->incEventCounter();
 
     return Action::Continue;
 }

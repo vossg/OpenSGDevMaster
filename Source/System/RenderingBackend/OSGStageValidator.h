@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,36 +36,77 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGDATASLOTMIXIN_H_
-#define _OSGDATASLOTMIXIN_H_
+#ifndef _OSGSTAGEVALIDATOR_H_
+#define _OSGSTAGEVALIDATOR_H_
+
 #ifdef __sgi
 #pragma once
 #endif
 
+#include "OSGBaseTypes.h"
+#include "OSGSystemDef.h"
+
 OSG_BEGIN_NAMESPACE
 
-template <class ParentT>
-class DataSlotMixin : public ParentT
+/*! \ingroup GrpSystemRenderingBackend
+*/
+
+class OSG_SYSTEM_DLLMAPPING StageValidator
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef ParentT Inherited;
+    enum ValidationStatus
+    {
+        Unknown  = 0x0000,
+
+        Run      = 0x0001,
+        Running  = 0x0002,
+
+        Finished = 0x1000
+    };
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      dcast                                   */
+    /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    template<class ValuePtr>
-    ValuePtr getData(Int32 iSlotId);
+    StageValidator(void);
+    ~StageValidator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name        General Fieldcontainer Declaration                    */
+    /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    void setDataX(FieldBundleP pBundle, Int32 iSlotId);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void incEventCounter(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    ValidationStatus validate(Int32 iStageId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -78,98 +119,30 @@ class DataSlotMixin : public ParentT
     /*! \{                                                                 */
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Get                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   your_category                              */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                 Container Access                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Access                              */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   your_operators                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Assignment                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Comparison                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Type information                            */
-    /*! \{                                                                 */
+    typedef StageValidator Self;
 
-    typedef typename Inherited::Desc      Desc;
+    struct StageStatus
+    {
+        UInt32           _uiLastEvent;
+        ValidationStatus _eStatus;
+    };
 
-    typedef typename Desc     ::DataStore DataStore;
+    typedef std::vector<StageStatus> StatusStore;
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    DataStore _mfData;
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    DataSlotMixin(void);
-    DataSlotMixin(const DataSlotMixin &source);
-
-    virtual ~DataSlotMixin(void);
+    UInt32      _uiEventCounter;
+    StatusStore _vStatusStore;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Changed                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   MT Destruction                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
     /*! \}                                                                 */
@@ -177,12 +150,14 @@ class DataSlotMixin : public ParentT
 
   private:
 
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const DataSlotMixin &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    StageValidator(const StageValidator &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const StageValidator &source);
 };
 
 OSG_END_NAMESPACE
 
-#include "OSGDataSlotMixin.inl"
+#include "OSGStageValidator.inl"
 
-#endif /* _OSGDATASLOTMIXIN_H_ */
+#endif /* _OSGSTAGEVALIDATOR_H_ */

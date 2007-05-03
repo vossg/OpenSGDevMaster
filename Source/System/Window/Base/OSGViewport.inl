@@ -73,6 +73,11 @@ void Viewport::setSize(Real32 left,
     setTop   (top   );
 }
 
+inline
+StageValidator *Viewport::getStageValidator(void)
+{
+    return _pStageValidator;
+}
 
 OSG_END_NAMESPACE
 

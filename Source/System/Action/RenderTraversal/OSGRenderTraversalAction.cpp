@@ -751,6 +751,7 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
     }
     else
     {
+/*
         RenderPartitionStore::iterator it = 
             _vRenderPartitions[_currentBuffer].begin();
 
@@ -760,6 +761,20 @@ void RenderTraversalAction::pushPartition(UInt32                uiCopyOnPush,
             _pPartitionPools  [_currentBuffer]->create(eMode);
 
         _vRenderPartitions[_currentBuffer].insert(it, _pActivePartition);
+ */
+        _pActivePartition    = 
+            _pPartitionPools  [_currentBuffer]->create(eMode);
+
+        if(_iActivePartitionIdx == _vRenderPartitions[_currentBuffer].size())
+        {
+            _vRenderPartitions[_currentBuffer].push_back(_pActivePartition);
+        }
+        else
+        {
+            _vRenderPartitions[_currentBuffer]
+                              [_iActivePartitionIdx]->addPartition(
+                                  _pActivePartition);
+        }
 
         _bInPartitionGroup   = false;
     }
@@ -785,6 +800,24 @@ void RenderTraversalAction::popPartition(void)
     _sRenderPartitionStack   .pop();
     _sRenderPartitionIdxStack.pop();
     _sRenderPartitionGrpStack.pop();
+}
+
+void RenderTraversalAction::readdPartitionByIndex(UInt32 uiPartIdx)
+{
+    OSG_ASSERT(uiPartIdx < _vRenderPartitions[_currentBuffer].size());
+
+    _vRenderPartitions[_currentBuffer].push_back(
+        _vRenderPartitions[_currentBuffer][uiPartIdx]);
+}
+
+void RenderTraversalAction::dumpPartitionList(void)
+{
+    fprintf(stderr, "Dump PartitionList \n");
+
+    for(UInt32 i = 0; i < _vRenderPartitions[_currentBuffer].size(); ++i)
+    {
+        fprintf(stderr, "    %p\n", _vRenderPartitions[_currentBuffer][i]);
+    }
 }
 
 RenderPartition *RenderTraversalAction::getActivePartition(void)

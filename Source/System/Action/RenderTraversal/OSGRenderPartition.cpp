@@ -138,6 +138,8 @@ void RenderPartition::setAction(RenderTraversalAction *pAction)
 RenderPartition::RenderPartition(Mode eMode) :
     _eMode                   (eMode    ),
     _eSetupMode              (FullSetup),
+    _bDone                   (false    ),
+    _vGroupStore             (         ),
 
     _oDrawEnv                (         ),
     _oSimpleDrawCallback     (     NULL),
@@ -214,6 +216,10 @@ void RenderPartition::reset(Mode eMode)
     _eMode = eMode;
 
     _eSetupMode = FullSetup;
+
+    _bDone      = false;
+
+    _vGroupStore.clear();
 
     if(_eMode == StateSorting || _eMode == TransformSorting)
     {
@@ -345,6 +351,9 @@ void RenderPartition::calcViewportDimension(Real32 rLeft,
 
 void RenderPartition::setupExecution(void)
 {
+    if(_bDone == true)
+        return;
+
 #ifdef OSG_TRACE_PARTITION
     if(_szDebugString.size() != 0)
     {
@@ -392,6 +401,9 @@ void RenderPartition::setupExecution(void)
 
 void RenderPartition::doExecution   (void)
 {
+    if(_bDone == true)
+        return;
+
 #ifdef OSG_TRACE_PARTITION
     if(_szDebugString.size() != 0)
     {
@@ -461,8 +473,22 @@ void RenderPartition::doExecution   (void)
 
 void RenderPartition::execute(void)
 {
+    if(_bDone == true)
+        return;
+
     setupExecution();
-    doExecution   ();
+    doExecution   ();  
+
+    GroupStore::iterator gIt  = _vGroupStore.begin();
+    GroupStore::iterator gEnd = _vGroupStore.end  ();
+
+    while(gIt != gEnd)
+    {
+        (*gIt)->execute();
+        (*gIt)->exit   ();
+
+        ++gIt;
+    }
 }
 
 /*---------------------------- properties ---------------------------------*/
@@ -946,9 +972,14 @@ void RenderPartition::initVPMatricesFromCamera(void)
 
 void RenderPartition::exit(void)
 {
+    if(_bDone == true)
+        return;
+
     _sStateOverrides.pop();
 
     _oDrawEnv.deactivateState();
+
+    _bDone = true;
 }
 
 

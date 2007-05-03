@@ -73,6 +73,105 @@ OSG::UInt16 StageDataBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the StageData::_sfPartitionRangeBegin field.
+
+inline
+Int32 &StageDataBase::editPartitionRangeBegin(void)
+{
+    editSField(PartitionRangeBeginFieldMask);
+
+    return _sfPartitionRangeBegin.getValue();
+}
+
+//! Get the value of the StageData::_sfPartitionRangeBegin field.
+inline
+const Int32 &StageDataBase::getPartitionRangeBegin(void) const
+{
+    return _sfPartitionRangeBegin.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Int32               &StageDataBase::getPartitionRangeBegin(void)
+{
+    return this->editPartitionRangeBegin();
+}
+#endif
+
+//! Set the value of the StageData::_sfPartitionRangeBegin field.
+inline
+void StageDataBase::setPartitionRangeBegin(const Int32 &value)
+{
+    editSField(PartitionRangeBeginFieldMask);
+
+    _sfPartitionRangeBegin.setValue(value);
+}
+//! Get the value of the StageData::_sfPartitionRangeEnd field.
+
+inline
+Int32 &StageDataBase::editPartitionRangeEnd(void)
+{
+    editSField(PartitionRangeEndFieldMask);
+
+    return _sfPartitionRangeEnd.getValue();
+}
+
+//! Get the value of the StageData::_sfPartitionRangeEnd field.
+inline
+const Int32 &StageDataBase::getPartitionRangeEnd(void) const
+{
+    return _sfPartitionRangeEnd.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Int32               &StageDataBase::getPartitionRangeEnd(void)
+{
+    return this->editPartitionRangeEnd();
+}
+#endif
+
+//! Set the value of the StageData::_sfPartitionRangeEnd field.
+inline
+void StageDataBase::setPartitionRangeEnd(const Int32 &value)
+{
+    editSField(PartitionRangeEndFieldMask);
+
+    _sfPartitionRangeEnd.setValue(value);
+}
+//! Get the value of the StageData::_sfGroupMode field.
+
+inline
+Int32 &StageDataBase::editGroupMode(void)
+{
+    editSField(GroupModeFieldMask);
+
+    return _sfGroupMode.getValue();
+}
+
+//! Get the value of the StageData::_sfGroupMode field.
+inline
+const Int32 &StageDataBase::getGroupMode(void) const
+{
+    return _sfGroupMode.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Int32               &StageDataBase::getGroupMode      (void)
+{
+    return this->editGroupMode      ();
+}
+#endif
+
+//! Set the value of the StageData::_sfGroupMode field.
+inline
+void StageDataBase::setGroupMode(const Int32 &value)
+{
+    editSField(GroupModeFieldMask);
+
+    _sfGroupMode.setValue(value);
+}
 
 //! create a new instance of the class
 inline

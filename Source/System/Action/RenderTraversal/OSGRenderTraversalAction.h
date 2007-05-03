@@ -201,14 +201,21 @@ class OSG_RENDERTRAV_DLLMAPPING RenderTraversalAction :
     /*------------------------- comparison ----------------------------------*/
 
 
-    void pushPartition      (UInt32 uiCopyOnPush = 0x0000, 
-                             RenderPartition::Mode eMode = 
+    void pushPartition         (UInt32                uiCopyOnPush = 0x0000, 
+                                RenderPartition::Mode eMode        = 
                                                 RenderPartition::StateSorting);
 
-    void popPartition       (void                                            );
+    void popPartition          (void                                         );
 
-    void beginPartitionGroup(void                                            );
-    void endPartitionGroup  (void                                            );
+    void beginPartitionGroup   (void                                         );
+    void endPartitionGroup     (void                                         );
+
+    Int32 getActivePartitionIdx(void                                         );
+    Int32 getLastPartitionIdx  (void                                         );
+    
+    void  readdPartitionByIndex(UInt32                uiPartIdx              );
+    
+    void  dumpPartitionList    (void                                         );
 
     /*------------------------- comparison ----------------------------------*/
 

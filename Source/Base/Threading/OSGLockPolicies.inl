@@ -69,6 +69,7 @@ void NoLockPolicy::release(void)
 inline
 bool NoLockPolicy::request(void)
 {
+    return true;
 }
 
 

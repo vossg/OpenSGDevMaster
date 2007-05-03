@@ -65,6 +65,9 @@
 
 #include "OSGFieldBundle.h" // Parent
 
+#include "OSGInt32Fields.h" // PartitionRangeBegin type
+#include "OSGInt32Fields.h" // PartitionRangeEnd type
+#include "OSGInt32Fields.h" // GroupMode type
 
 #include "OSGStageDataFields.h"
 
@@ -106,6 +109,22 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
 
   public:
 
+    enum
+    {
+        PartitionRangeBeginFieldId = Inherited::NextFieldId,
+        PartitionRangeEndFieldId = PartitionRangeBeginFieldId + 1,
+        GroupModeFieldId = PartitionRangeEndFieldId + 1,
+        NextFieldId = GroupModeFieldId + 1
+    };
+
+    static const OSG::BitVector PartitionRangeBeginFieldMask =
+        (TypeTraits<BitVector>::One << PartitionRangeBeginFieldId);
+    static const OSG::BitVector PartitionRangeEndFieldMask =
+        (TypeTraits<BitVector>::One << PartitionRangeEndFieldId);
+    static const OSG::BitVector GroupModeFieldMask =
+        (TypeTraits<BitVector>::One << GroupModeFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -124,6 +143,63 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     virtual const FieldBundleType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+#ifdef OSG_1_COMPAT
+                  SFInt32             *getSFPartitionRangeBegin (void);
+#endif
+                  SFInt32             *editSFPartitionRangeBegin(void);
+            const SFInt32             *getSFPartitionRangeBegin (void) const;
+
+#ifdef OSG_1_COMPAT
+                  SFInt32             *getSFPartitionRangeEnd (void);
+#endif
+                  SFInt32             *editSFPartitionRangeEnd(void);
+            const SFInt32             *getSFPartitionRangeEnd (void) const;
+
+#ifdef OSG_1_COMPAT
+                  SFInt32             *getSFGroupMode       (void);
+#endif
+                  SFInt32             *editSFGroupMode      (void);
+            const SFInt32             *getSFGroupMode       (void) const;
+
+
+#ifdef OSG_1_COMPAT
+                  Int32               &getPartitionRangeBegin (void);
+#endif
+                  Int32               &editPartitionRangeBegin(void);
+            const Int32               &getPartitionRangeBegin (void) const;
+
+#ifdef OSG_1_COMPAT
+                  Int32               &getPartitionRangeEnd (void);
+#endif
+                  Int32               &editPartitionRangeEnd(void);
+            const Int32               &getPartitionRangeEnd (void) const;
+
+#ifdef OSG_1_COMPAT
+                  Int32               &getGroupMode       (void);
+#endif
+                  Int32               &editGroupMode      (void);
+            const Int32               &getGroupMode       (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setPartitionRangeBegin(const Int32 &value);
+            void setPartitionRangeEnd(const Int32 &value);
+            void setGroupMode      (const Int32 &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -162,6 +238,15 @@ class OSG_GROUP_DLLMAPPING StageDataBase : public FieldBundle
     static void   classDescInserter(TypeObject &oType);
     static Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFInt32           _sfPartitionRangeBegin;
+    SFInt32           _sfPartitionRangeEnd;
+    SFInt32           _sfGroupMode;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */

@@ -133,6 +133,12 @@ StatCollector* RenderTraversalActionBase::getStatCollector(void) const
     return _pStatistics;
 }
 
+inline
+StageValidator *RenderTraversalActionBase::getStageValidator(void)
+{
+    return _pStageValidator;
+}
+
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/

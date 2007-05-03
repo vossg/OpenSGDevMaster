@@ -12,5 +12,32 @@
     useLocalIncludes="false"
     isNodeCore="false"
 >
-Data use for rendering by the any stage, might hold bookkeeping data
+Data use for rendering by the any stage, holds bookkeeping data
+	<Field
+		name="partitionRangeBegin"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="-1"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="partitionRangeEnd"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="-1"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="groupMode"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	</Field>
 </FieldContainer>

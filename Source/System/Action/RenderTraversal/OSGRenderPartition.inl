@@ -255,6 +255,12 @@ const Matrix4f &RenderPartition::getVPCameraToWorld(void)
     return _oDrawEnv.getCameraToWorld();
 }
 
+inline
+void RenderPartition::addPartition(RenderPartition *pPart)
+{
+    _vGroupStore.push_back(pPart);
+}
+
 inline 
 void RenderPartition::setNear(Real32 camNear)
 {

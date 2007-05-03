@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTPASSMASKPOOL_H_
-#define _OSGTPASSMASKPOOL_H_
+#ifndef _OSGDATASLOTPOOL_H_
+#define _OSGDATASLOTPOOL_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -66,4 +66,4 @@ typedef TaggedSingletonHolder<DataSlotPoolBase,
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGPASSPOOL_H_ */
+#endif /* _OSGDATASLOTPOOL_H_ */

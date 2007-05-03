@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -38,17 +40,27 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#include <cstdlib>
+#include <cstdio>
+
+#include "OSGConfig.h"
+
+#ifdef OSG_CLEANED_RENDERACTION
+
+#include "OSGBaseInitFunctions.h"
+#include "OSGStageIdPool.h"
+#include "OSGTaggedSingletonHolder.ins"
+
+OSG_USING_NAMESPACE
+
 OSG_BEGIN_NAMESPACE
 
-inline
-void StageData::copyFrom(StageData *pIn)
-{
-    if(pIn != NULL)
-    {
-        this->_sfPartitionRangeBegin = pIn->_sfPartitionRangeBegin;
-        this->_sfPartitionRangeEnd   = pIn->_sfPartitionRangeEnd;
-        this->_sfGroupMode           = pIn->_sfGroupMode;
-    }
-}
+OSG_TAGGEDSINGLETON_INST(StageIdPoolBase, 
+                         StageIdPoolTag  )
+
+template class TaggedSingletonHolder<StageIdPoolBase, 
+                                     StageIdPoolTag >;
 
 OSG_END_NAMESPACE
+
+#endif

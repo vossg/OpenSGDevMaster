@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *           Copyright (C) 2000,2001,2002 by the OpenSG Forum                *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,21 +36,34 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGTPASSMASKPOOL_H_
+#define _OSGTPASSMASKPOOL_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSGTaggedSingletonHolder.h"
+#include "OSGSimpleReusePool.h"
 
 OSG_BEGIN_NAMESPACE
 
-inline
-void StageData::copyFrom(StageData *pIn)
+struct StageIdPoolTag;
+
+typedef SimpleReusePool<Int32, 
+                        StageIdPoolTag, 
+                        SingleLockPolicy> StageIdPoolBase;
+
+template<> inline
+void SimpleReusePool<Int32, 
+                     StageIdPoolTag, 
+                     SingleLockPolicy  >::initializeValue(void)
 {
-    if(pIn != NULL)
-    {
-        this->_sfPartitionRangeBegin = pIn->_sfPartitionRangeBegin;
-        this->_sfPartitionRangeEnd   = pIn->_sfPartitionRangeEnd;
-        this->_sfGroupMode           = pIn->_sfGroupMode;
-    }
+    _currentValue = 0;
 }
 
+typedef TaggedSingletonHolder<StageIdPoolBase, 
+                              StageIdPoolTag > StageIdPool;
+
 OSG_END_NAMESPACE
+
+#endif /* _OSGPASSPOOL_H_ */

@@ -82,6 +82,8 @@
 #include "OSGRenderTraversalActionBase.h"
 #endif
 
+#include "OSGStageValidator.h"
+
 OSG_USING_NAMESPACE
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
@@ -295,9 +297,10 @@ bool OSG::Window::terminate(void)
  */
 
 OSG::Window::Window(void) :
-     Inherited (    ),
-    _windowId  (   0),
-    _initNeeded(true)
+     Inherited      (    ),
+    _windowId       (   0),
+    _initNeeded     (true),
+    _pStageValidator(NULL)
 {
     // only called for prototypes, no need to init them
 }
@@ -316,7 +319,8 @@ OSG::Window::Window(const Window &source) :
     _availConstants     (                              ),
     _numAvailConstants  (                             0),
     _windowId           (                             0),
-    _initNeeded         (                          true)
+    _initNeeded         (                          true),
+    _pStageValidator    (NULL                          )
 {       
 }
 
@@ -365,6 +369,8 @@ void OSG::Window::onCreateAspect(const Window *createAspect,
         return;
 
     _windowId = _currentWindowId;
+
+    _pStageValidator = new StageValidator;
 }
 
 /*! instance deletion
@@ -406,6 +412,16 @@ void OSG::Window::onDestroy(UInt32 uiContainerId)
         _allWindows.erase( it );
 
     Inherited::onDestroy(uiContainerId);
+}
+
+void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
+                                  UInt32  uiAspect     )
+{
+    delete _pStageValidator;
+
+    _pStageValidator = NULL;
+
+    Inherited::onDestroyAspect(uiContainerId, uiAspect);
 }
 
 void OSG::Window::staticAcquire(void)
@@ -1293,6 +1309,8 @@ void OSG::Window::frameInit(void)
         glGetError(); // clear the error flag 
     }
 #endif
+
+    _pStageValidator->incEventCounter();
 }
 
 /*! Do everything that needs to be done after the Window is redrawn. This

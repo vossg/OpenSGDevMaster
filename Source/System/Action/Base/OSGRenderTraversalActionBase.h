@@ -51,6 +51,7 @@
 #include "OSGDataSlotMixin.h"
 
 #include "OSGFieldBundleMFields.h"
+#include "OSGRenderPartition.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -60,6 +61,7 @@ class Camera;
 class Background;
 class Window;
 class StatCollector;
+class StageValidator;
 
 struct RenderTravDataSlotDesc
 {
@@ -157,6 +159,28 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase :
     /*! \name                   Lights                                     */
     /*! \{                                                                 */
 
+    StageValidator *getStageValidator(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Lights                                     */
+    /*! \{                                                                 */
+
+    // tmp for testing
+
+    virtual void  pushPartition        (UInt32                uiCopyOnPush, 
+                                        RenderPartition::Mode eMode       )= 0;
+
+    virtual void  popPartition         (void                              )= 0;
+
+    virtual void  beginPartitionGroup  (void                              )= 0;
+    virtual void  endPartitionGroup    (void                              )= 0;
+
+    virtual Int32 getActivePartitionIdx(void                              )= 0;
+    virtual Int32 getLastPartitionIdx  (void                              )= 0;
+
+    virtual void  readdPartitionByIndex(UInt32                uiPartIdx   )= 0;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -183,12 +207,13 @@ class OSG_SYSTEM_DLLMAPPING RenderTraversalActionBase :
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
-    Camera        *_pCamera;
-    Background    *_pBackground;
-    Window        *_pWindow;
-    Viewport      *_pViewport;
+    Camera         *_pCamera;
+    Background     *_pBackground;
+    Window         *_pWindow;
+    Viewport       *_pViewport;
 
-    StatCollector *_pStatistics;
+    StatCollector  *_pStatistics;
+    StageValidator *_pStageValidator;
 
     // frustum culling attributes
     

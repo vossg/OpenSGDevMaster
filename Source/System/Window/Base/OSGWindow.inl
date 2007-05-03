@@ -313,6 +313,7 @@ UInt32 Window::GLObject::decRefCounter(void)
     }
 
     _GLObjectLock->acquire();
+
 #endif
 
     if(_refCounter)
@@ -329,7 +330,14 @@ UInt32 Window::GLObject::decRefCounter(void)
 #endif
 
     return val;
+}    
+
+inline
+StageValidator *Window::getStageValidator(void)
+{
+    return _pStageValidator;
 }
+
 
 OSG_END_NAMESPACE
 
