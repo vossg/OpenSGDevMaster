@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="TestMultiPartitionStage"
+	parent="Stage"
+	library="Group"
+	pointerfieldtypes="none"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+    isNodeCore="true"
+>
+just dumps a message on traversal and render for testing
+	<Field
+		name="message"
+		type="std::string"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+    <Field
+        name="numPartitions"
+        type="Int32"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="1"
+    >
+    </Field>
+    <Field
+        name="order"
+        type="Int32"
+        cardinality="multi"
+        visibility="external"
+        access="public"
+    >
+    </Field>
+    <Field
+        name="useGroup"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        access="public"
+    >
+    </Field>
+</FieldContainer>

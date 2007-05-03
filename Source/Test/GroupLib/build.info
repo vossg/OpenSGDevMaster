@@ -1,0 +1,14 @@
+#!python
+#
+if option_pass:
+   print "Processing option pass"
+else:
+
+   tc_option = opts.GetOption("enable_testcontainer")
+
+   if not tc_option.getValue():
+      stop_traversal = True
+   
+   # This is part of the System lib, but not the main file for it.
+   # See Source/System/build.info for that.
+   library = "OSGGroup"
