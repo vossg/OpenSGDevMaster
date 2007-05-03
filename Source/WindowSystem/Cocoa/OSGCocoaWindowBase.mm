@@ -53,8 +53,8 @@
 
 #define OSG_COMPILECOCOAWINDOWINST
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
@@ -113,7 +113,7 @@ void CocoaWindowBase::classDescInserter(TypeObject &oType)
 }
 
 
-CocoaWindowBase::TypeObject CocoaWindowBase::_type(true,
+CocoaWindowBase::TypeObject CocoaWindowBase::_type(
     CocoaWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
@@ -122,6 +122,7 @@ CocoaWindowBase::TypeObject CocoaWindowBase::_type(true,
     CocoaWindow::initMethod,
     (InitalInsertDescFunc) &CocoaWindowBase::classDescInserter,
     false,
+    0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
@@ -328,15 +329,8 @@ void CocoaWindowBase::resolveLinks(void)
 
 OSG_END_NAMESPACE
 
-#include "OSGSField.ins"
-#include "OSGMField.ins"
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGSFieldFuncs.ins"
-#include "OSGMFieldFuncs.ins"
-#endif
+#include "OSGSFieldAdaptor.ins"
+#include "OSGMFieldAdaptor.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -346,7 +340,7 @@ DataType FieldTraits<CocoaWindowPtr>::_type("CocoaWindowPtr", "WindowPtr");
 
 OSG_FIELDTRAITS_GETTYPE(CocoaWindowPtr)
 
-OSG_FIELD_DLLEXPORT_DEF1(SField, CocoaWindowPtr);
-OSG_FIELD_DLLEXPORT_DEF1(MField, CocoaWindowPtr);
+OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, CocoaWindowPtr, SFFieldContainerPtr);
+OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, CocoaWindowPtr, MFFieldContainerPtr);
 
 OSG_END_NAMESPACE
