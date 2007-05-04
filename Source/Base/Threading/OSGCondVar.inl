@@ -63,17 +63,13 @@ bool PThreadCondVarBase::request(void)
 inline
 void PThreadCondVarBase::signal()
 {
-    const int result = pthread_cond_signal(&(_pLowLevelCondVar));
-    //assert(result == 0);
-    //boost::ignore_unused_variable_warning(result);
+    pthread_cond_signal(&(_pLowLevelCondVar));
 }
 
 inline
 void PThreadCondVarBase::broadcast()
 {
-    const int result = pthread_cond_broadcast(&(_pLowLevelCondVar));
-    //assert(result == 0);
-    //boost::ignore_unused_variable_warning(result);
+    pthread_cond_broadcast(&(_pLowLevelCondVar));
 }
 
 #endif /* OSG_USE_PTHREADS */

@@ -217,25 +217,25 @@ struct FieldTraits<StatCollectorP> :
         return 0;
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem,
-                          const StatCollectorP    &oObject)
+    static void copyToBin(      BinaryDataHandler & /* pMem */,
+                          const StatCollectorP    & /* oObject */)
     {
     }
 
-    static void copyToBin(      BinaryDataHandler &pMem,
-                          const StatCollectorP    *pObjectStore,
-                                UInt32             uiNumObjects)
+    static void copyToBin(      BinaryDataHandler & /* pMem */,
+                          const StatCollectorP    * /* pObjectStore */,
+                                UInt32              /* uiNumObjects */)
     {
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem,
-                            StatCollectorP    &oObject)
+    static void copyFromBin(BinaryDataHandler & /* pMem */,
+                            StatCollectorP    & /* oObject */)
     {
     }
 
-    static void copyFromBin(BinaryDataHandler &pMem,
-                            StatCollectorP    *pObjectStore,
-                            UInt32             uiNumObjects)
+    static void copyFromBin(BinaryDataHandler & /* pMem */,
+                            StatCollectorP    * /* pObjectStore */,
+                            UInt32              /* uiNumObjects */)
     {
     }
 };

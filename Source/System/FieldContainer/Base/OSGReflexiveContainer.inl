@@ -179,7 +179,7 @@ ReflexiveContainer::ReflexiveContainer(void) :
 }
 
 inline
-ReflexiveContainer::ReflexiveContainer(const ReflexiveContainer &source) :
+ReflexiveContainer::ReflexiveContainer(const ReflexiveContainer &) :
     _bvChanged        (TypeTraits<BitVector>::BitsClear),
     _pContainerChanges(NULL                            )
 {
@@ -199,7 +199,7 @@ ReflexiveContainer::~ReflexiveContainer(void)
 
 
 inline
-void ReflexiveContainer::initMethod(InitPhase ePhase)
+void ReflexiveContainer::initMethod(InitPhase)
 {
 }
 
@@ -214,8 +214,8 @@ void ReflexiveContainer::onDestroy(UInt32)
 }
 
 inline
-void ReflexiveContainer::onDestroyAspect(UInt32 uiContainerId,
-                                         UInt32 uiAspect     )
+void ReflexiveContainer::onDestroyAspect(UInt32 ,
+                                         UInt32 )
 {
 }
 

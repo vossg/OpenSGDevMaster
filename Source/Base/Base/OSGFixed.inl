@@ -312,7 +312,7 @@ Fixed32 operator *(const Real32 lhs, const Fixed32 rhs)
 }
 
 inline
-std::ostream &operator << (std::ostream &os, Fixed32 fVal)
+std::ostream &operator << (std::ostream &os, Fixed32)
 {
     return os;
 }

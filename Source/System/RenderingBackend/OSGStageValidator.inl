@@ -51,7 +51,7 @@ StageValidator::ValidationStatus StageValidator::validate(Int32 iStageId)
     if(iStageId < 0)
         return Self::Unknown;
 
-    if(_vStatusStore.size() <= iStageId)
+    if(_vStatusStore.size() <= static_cast<UInt32>(iStageId))
     {
         StageStatus tmpStat;
         

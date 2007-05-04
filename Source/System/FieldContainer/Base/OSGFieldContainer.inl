@@ -36,6 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#include <boost/concept_check.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
@@ -61,7 +63,7 @@ UInt16 FieldContainer::getClassGroupId(void)
 
 inline
 void FieldContainer::changed(ConstFieldMaskArg whichField, 
-                             UInt32            origin    )
+                             UInt32                      )
 {
     callChangedFunctors(whichField);
 }
@@ -370,7 +372,7 @@ void FieldContainer::onCreateAspect(const FieldContainer *,
 }
 
 inline
-void FieldContainer::onCreate(const FieldContainer *source)
+void FieldContainer::onCreate(const FieldContainer *)
 {
     registerChangedContainer();
     
@@ -387,6 +389,8 @@ void FieldContainer::onDestroy(UInt32 uiContainerId)
     _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
 
     OSG::subRef(_pAspectStore);
+#else
+    boost::ignore_unused_variable_warning(uiContainerId);
 #endif
 }
 

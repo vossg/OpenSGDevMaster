@@ -137,12 +137,14 @@ inline
 bool SingleStaticInitLockPolicy::init(void)
 {
     _pLock = Lock::create();
+    return true;
 }
 
 inline
 bool SingleStaticInitLockPolicy::shutdown(void)
 {
     OSG::clearRef(_pLock);
+    return true;
 }
 
 inline

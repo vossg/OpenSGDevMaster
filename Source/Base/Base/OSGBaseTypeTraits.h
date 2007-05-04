@@ -1139,7 +1139,7 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
 
 
     static Fixed32 getFromCString   (const Char8 * pData,
-                                           Char8 *&pDataEnd)
+                                           Char8 *& /* pDataEnd */)
     {
         if(pData != NULL)
         {
@@ -1158,8 +1158,8 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
         return getFromCString(pData, pDataEnd);
     }
 
-    static void putToString(const Fixed32      val,
-                                  std::string &out)
+    static void putToString(const Fixed32       /* val */,
+                                  std::string & /* out */)
     {
 /*
         Char8 buffer[20];

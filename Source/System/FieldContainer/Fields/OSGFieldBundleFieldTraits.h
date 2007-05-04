@@ -146,8 +146,8 @@ struct FieldTraitsFBPtrBase<ParentFieldBundleP, 1> :
         return sizeof(UInt32) * uiNumObjects;
     }
 
-    static void copyToBin(      BinaryDataHandler  &pMem, 
-                          const ParentFieldBundleP &pObject)
+    static void copyToBin(      BinaryDataHandler  & /* pMem */,
+                          const ParentFieldBundleP & /* pObject */)
     {
     }
     static void copyToBin(      BinaryDataHandler  &pMem, 
@@ -160,13 +160,13 @@ struct FieldTraitsFBPtrBase<ParentFieldBundleP, 1> :
         }
     }
 
-    static void copyFromBin(BinaryDataHandler  &pMem, 
-                            ParentFieldBundleP &pObject)
+    static void copyFromBin(BinaryDataHandler  & /* pMem */,
+                            ParentFieldBundleP & /* pObject */)
     {
     }
-    static void copyFromBin(BinaryDataHandler  &pMem, 
-                            ParentFieldBundleP *pObjectStore,
-                            UInt32              uiNumObjects)
+    static void copyFromBin(BinaryDataHandler  & /* pMem */,
+                            ParentFieldBundleP * /* pObjectStore */,
+                            UInt32               /* uiNumObjects */)
     {
     }
 };

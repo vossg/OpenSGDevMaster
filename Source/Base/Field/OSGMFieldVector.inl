@@ -155,7 +155,7 @@ MFieldVector<Tp, Alloc>::~MFieldVector()
 
 template <> inline
 void MFieldVector<UInt32>::dump(      UInt32    uiIndent,
-                                const BitVector bvFlags ) const
+                                const BitVector         ) const
 {
     for(UInt32 i = 0; i < uiIndent; ++i)
         fprintf(stderr, " ");

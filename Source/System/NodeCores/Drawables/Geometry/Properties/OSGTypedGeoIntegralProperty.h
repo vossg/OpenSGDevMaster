@@ -328,7 +328,7 @@ struct TypedGeoIntegralPropertyDescBase
         return "TypedGeoIntegralProperty";  
     }
 
-    static void initMethod(InitPhase ePhase) {}
+    static void initMethod(InitPhase /* ePhase */) {}
 
     static UInt32         getStride    (void) { return 0; }
 
