@@ -154,6 +154,7 @@ void ContainerChangeEntry::commitChanges(void)
 #endif
         
         BitVector tmpChanges;
+        //OSG_ASSERT(NULL !=  bvUncommittedChanges);
         if (NULL != bvUncommittedChanges)
         { 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
@@ -188,6 +189,7 @@ void ContainerChangeEntry::commitChangesAndClear(void)
 #endif
         
         BitVector tmpChanges;
+        //OSG_ASSERT(NULL !=  bvUncommittedChanges);
         if (NULL != bvUncommittedChanges)
         { 
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
