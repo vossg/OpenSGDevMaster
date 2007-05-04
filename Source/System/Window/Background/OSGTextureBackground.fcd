@@ -25,7 +25,7 @@ camera with known intrinsic parameters.
 	</Field>
 	<Field
 		name="texture"
-		type="TextureObjChunkPtr"
+		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
 		access="public"

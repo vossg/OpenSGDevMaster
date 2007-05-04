@@ -116,14 +116,14 @@ class OSG_WINDOW_DLLMAPPING SkyBackground : public SkyBackgroundBase
     /*! \name                   Draw Helper                                */
     /*! \{                                                                 */
 
-    void drawFace(      DrawEnv            * action, 
-                        TextureObjChunkPtr   tex, 
-                        StateChunk         *&oldtex, 
-                  const Pnt3f               &p1, 
-                  const Pnt3f               &p2, 
-                  const Pnt3f               &p3, 
-                  const Pnt3f               &p4,  
-                  const Vec3f              * texCoord);
+    void drawFace(      DrawEnv             * action, 
+                        TextureBaseChunkPtr   tex, 
+                        StateChunk          *&oldtex, 
+                  const Pnt3f                &p1, 
+                  const Pnt3f                &p2, 
+                  const Pnt3f                &p3, 
+                  const Pnt3f                &p4,  
+                  const Vec3f               * texCoord);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

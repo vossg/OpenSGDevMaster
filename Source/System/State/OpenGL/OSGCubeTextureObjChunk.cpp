@@ -99,6 +99,13 @@ const StateChunkClass *CubeTextureObjChunk::getClass(void) const
 
 /*------------------------------- Sync -----------------------------------*/
 
+bool CubeTextureObjChunk::isCubeTexture(void)
+{
+    return true;
+}
+
+
+
 void CubeTextureObjChunk::changed(ConstFieldMaskArg whichField, UInt32 origin)
 {
     Inherited::changed(whichField, origin);

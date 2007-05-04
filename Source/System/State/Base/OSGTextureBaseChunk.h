@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase
     /*! \name                       State                                  */
     /*! \{                                                                 */
 
+    virtual bool isCubeTexture(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       query                                  */

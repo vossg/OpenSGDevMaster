@@ -99,14 +99,14 @@ void SkyBackground::dump(     UInt32    ,
 
 /*-------------------------- drawing ---------------------------------*/
 
-void SkyBackground::drawFace(      DrawEnv            * pEnv, 
-                                   TextureObjChunkPtr   tex, 
-                                   StateChunk         *&oldtex, 
-                             const Pnt3f               &p1, 
-                             const Pnt3f               &p2, 
-                             const Pnt3f               &p3, 
-                             const Pnt3f               &p4, 
-                             const Vec3f              * texCoord)
+void SkyBackground::drawFace(      DrawEnv             * pEnv, 
+                                   TextureBaseChunkPtr   tex, 
+                                   StateChunk          *&oldtex, 
+                             const Pnt3f                &p1, 
+                             const Pnt3f                &p2, 
+                             const Pnt3f                &p3, 
+                             const Pnt3f                &p4, 
+                             const Vec3f               * texCoord)
 {
     
     if(tex != NullFC)
@@ -355,8 +355,7 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     
     #undef tfac
     #define tfac(t,c)  \
-        defaulttc[(c)*((t) != NullFC && (t)->getImage() != NullFC && \
-                  (t)->getImage()->getSideCount() == 6)]
+        defaulttc[(c)*((t) != NullFC && (t)->isCubeTexture() == true)]
      
     drawFace(pEnv, getBackTexture(),   tchunk,
                                          Pnt3f(0.5, -0.5,  0.5),

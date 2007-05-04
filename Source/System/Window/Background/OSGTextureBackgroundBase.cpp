@@ -61,7 +61,7 @@
 
 
 
-#include <OSGTextureObjChunk.h> // Texture Class
+#include <OSGTextureBaseChunk.h> // Texture Class
 
 #include "OSGTextureBackgroundBase.h"
 #include "OSGTextureBackground.h"
@@ -87,7 +87,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var TextureObjChunkPtr TextureBackgroundBase::_sfTexture
+/*! \var TextureBaseChunkPtr TextureBackgroundBase::_sfTexture
     
 */
 
@@ -139,8 +139,8 @@ void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFTextureObjChunkPtr::Description(
-        SFTextureObjChunkPtr::getClassType(),
+    pDesc = new SFTextureBaseChunkPtr::Description(
+        SFTextureBaseChunkPtr::getClassType(),
         "texture",
         "",
         TextureFieldId, TextureFieldMask,
@@ -300,7 +300,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"texture\"\n"
-    "\t\ttype=\"TextureObjChunkPtr\"\n"
+    "\t\ttype=\"TextureBaseChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -399,7 +399,7 @@ SFColor4f           *TextureBackgroundBase::getSFColor          (void)
 #endif
 
 //! Get the TextureBackground::_sfTexture field.
-const SFTextureObjChunkPtr *TextureBackgroundBase::getSFTexture(void) const
+const SFTextureBaseChunkPtr *TextureBackgroundBase::getSFTexture(void) const
 {
     return &_sfTexture;
 }
@@ -508,7 +508,7 @@ void TextureBackgroundBase::pushToField(      FieldContainerPtrConstArg pNewElem
     if(uiFieldId == TextureFieldId)
     {
         static_cast<TextureBackground *>(this)->setTexture(
-            cast_dynamic<TextureObjChunkPtr>(pNewElement));
+            cast_dynamic<TextureBaseChunkPtr>(pNewElement));
     }
 }
 

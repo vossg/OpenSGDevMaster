@@ -176,6 +176,10 @@ void TextureBaseChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
     SLOG << "Dump TextureBaseChunk NI" << std::endl;
 }
 
+bool TextureBaseChunk::isCubeTexture(void)
+{
+    return false;
+}
 
 /*------------------------------ State ------------------------------------*/
 

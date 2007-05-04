@@ -74,6 +74,8 @@ class OSG_SYSTEM_DLLMAPPING TextureChunk : public TextureChunkBase
     /*! \name                    Chunk Id                                  */
     /*! \{                                                                 */
 
+    virtual bool isCubeTexture(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */

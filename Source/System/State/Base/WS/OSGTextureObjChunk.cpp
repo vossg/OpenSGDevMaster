@@ -211,6 +211,13 @@ TextureObjChunk::~TextureObjChunk(void)
 
 /*------------------------- Chunk Class Access ---------------------------*/
 
+bool TextureObjChunk::isCubeTexture(void)
+{
+    return 
+        this->getImage()                 != NullFC && 
+        this->getImage()->getSideCount() == 6;
+}
+
 /*------------------------------- Sync -----------------------------------*/
 
 /*! React to field changes.

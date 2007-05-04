@@ -75,7 +75,7 @@ and _sfBottomTexture fields.
 	</Field>
 	<Field
 		name="backTexture"
-		type="TextureObjChunkPtr"
+		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -85,7 +85,7 @@ and _sfBottomTexture fields.
 	</Field>
 	<Field
 		name="bottomTexture"
-		type="TextureObjChunkPtr"
+		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -95,7 +95,7 @@ and _sfBottomTexture fields.
 	</Field>
 	<Field
 		name="frontTexture"
-		type="TextureObjChunkPtr"
+		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -105,7 +105,7 @@ and _sfBottomTexture fields.
 	</Field>
 	<Field
 		name="leftTexture"
-		type="TextureObjChunkPtr"
+		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -115,7 +115,7 @@ and _sfBottomTexture fields.
 	</Field>
 	<Field
 		name="rightTexture"
-		type="TextureObjChunkPtr"
+		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"
@@ -125,7 +125,7 @@ and _sfBottomTexture fields.
 	</Field>
 	<Field
 		name="topTexture"
-		type="TextureObjChunkPtr"
+		type="TextureBaseChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NullFC"

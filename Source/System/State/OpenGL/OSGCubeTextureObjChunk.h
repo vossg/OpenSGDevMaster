@@ -83,6 +83,13 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunk : public CubeTextureObjChunkBase
                          UInt32            origin    );
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       State                                  */
+    /*! \{                                                                 */
+
+    virtual bool isCubeTexture(void);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/ 
     /*! \name                     Output                                   */ 
     /*! \{                                                                 */
