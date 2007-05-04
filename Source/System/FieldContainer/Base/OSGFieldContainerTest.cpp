@@ -127,6 +127,27 @@ TEST(checkMemoryCleanup)
    CHECK(OSG::FieldContainerFactory::the()->getContainer(node_id) == OSGNullFC);
 }
 
+// Test to show the bug where uncommitted changes was referencing old data
+//
+TEST(testUncommittedChangesRegression)
+{
+   // The idea here is to try to force a subref/addref change using an old
+   // entry that would contain invalid data
+   OSG::NodeRefPtr outer_node(OSG::Node::create());
+   OSG::NodeRefPtr outer_node2(OSG::Node::create());
+   for(unsigned i=0;i<100;i++)
+   {
+      if ((i%5) == 0)
+      { outer_node = OSG::NodeRefPtr(OSG::Node::create()); }
+
+      OSG::NodeRefPtr temp_node = outer_node2;
+      OSG::NodeRefPtr temp_node2 = outer_node2;
+
+      OSG::commitChanges();
+      OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+   }   
+}
+
 // ---- Memory Debugging Tests ---- //
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
 
