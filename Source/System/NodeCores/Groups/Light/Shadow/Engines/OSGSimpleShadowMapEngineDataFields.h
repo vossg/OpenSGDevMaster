@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGRenderTravDef.h"
 
 #include "OSGStageDataFields.h"
 
@@ -91,7 +91,7 @@ typedef BundlePointerBuilder<
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpRenderTravFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */

@@ -221,7 +221,7 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "<FieldContainer\n"
     "    name=\"SimpleShadowMapEngineData\"\n"
     "    parent=\"StageData\"\n"
-    "    library=\"Group\"\n"
+    "    library=\"RenderTrav\"\n"
     "    pointerfieldtypes=\"none\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"

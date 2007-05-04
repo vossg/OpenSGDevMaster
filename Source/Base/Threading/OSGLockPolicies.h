@@ -56,7 +56,7 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpBaseBase
  */
 
-class OSG_BASE_DLLMAPPING NoLockPolicy
+class NoLockPolicy
 {
 
     /*==========================  PUBLIC  =================================*/
@@ -99,7 +99,7 @@ class OSG_BASE_DLLMAPPING NoLockPolicy
     void operator =(const NoLockPolicy &source);
 };
 
-class OSG_BASE_DLLMAPPING SingleLockPolicy
+class SingleLockPolicy
 {
 
     /*==========================  PUBLIC  =================================*/
@@ -145,7 +145,7 @@ class OSG_BASE_DLLMAPPING SingleLockPolicy
 };
 
 
-class OSG_BASE_DLLMAPPING SingleStaticInitLockPolicy
+class SingleStaticInitLockPolicy
 {
 
     /*==========================  PUBLIC  =================================*/
