@@ -422,7 +422,7 @@ struct TypedGeoVectorPropertyDescBase
         return "TypedGeoVectorProperty";
     }
 
-    static void initMethod(InitPhase /* ePhase */) {}
+    static void initMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
 
     static UInt32             getStride    (void) { return 0;               }
 
@@ -449,7 +449,7 @@ struct TypedNormGeoVectorPropertyDescBase
         return "TypedNormGeoVectorProperty";
     }
 
-    static void initMethod(InitPhase /* ePhase */) {}
+    static void initMethod(InitPhase OSG_CHECK_ARG(ePhase)) {}
 
     static UInt32             getStride    (void) { return 0;               }
 

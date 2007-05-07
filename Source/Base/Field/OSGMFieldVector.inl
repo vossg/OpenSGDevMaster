@@ -155,7 +155,7 @@ MFieldVector<Tp, Alloc>::~MFieldVector()
 
 template <> inline
 void MFieldVector<UInt32>::dump(      UInt32    uiIndent,
-                                const BitVector         ) const
+                                const BitVector OSG_CHECK_ARG(bvFlags)) const
 {
     for(UInt32 i = 0; i < uiIndent; ++i)
         fprintf(stderr, " ");

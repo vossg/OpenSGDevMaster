@@ -63,7 +63,7 @@ UInt16 FieldContainer::getClassGroupId(void)
 
 inline
 void FieldContainer::changed(ConstFieldMaskArg whichField, 
-                             UInt32                      )
+                             UInt32            OSG_CHECK_ARG(origin))
 {
     callChangedFunctors(whichField);
 }
@@ -372,7 +372,7 @@ void FieldContainer::onCreateAspect(const FieldContainer *,
 }
 
 inline
-void FieldContainer::onCreate(const FieldContainer *)
+void FieldContainer::onCreate(const FieldContainer *OSG_CHECK_ARG(source))
 {
     registerChangedContainer();
     

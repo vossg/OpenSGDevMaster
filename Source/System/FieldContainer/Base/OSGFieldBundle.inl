@@ -39,7 +39,7 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-void FieldBundle::editSField(ConstFieldMaskArg /*whichField*/)
+void FieldBundle::editSField(ConstFieldMaskArg OSG_CHECK_ARG(whichField))
 {
 #if 0
     if(_bvChanged == TypeTraits<BitVector>::BitsClear)

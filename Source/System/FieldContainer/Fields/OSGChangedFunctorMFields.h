@@ -56,7 +56,7 @@ typedef MField<ChangedFunctorCallback> MFChangedFunctorCallback;
 // there is no good way of comparing boost function objects
 template<> inline
 bool MField<ChangedFunctorCallback, 0>::operator ==(
-    const MField<ChangedFunctorCallback, 0> & /* source */) const
+    const MField<ChangedFunctorCallback, 0> & OSG_CHECK_ARG(source)) const
 {
     return false;
 }
