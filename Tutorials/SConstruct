@@ -160,8 +160,7 @@ if not sca_util.hasHelpFlag():
          for l in open(file).readlines():
             if l.startswith("// Libs:"):
                 mylibs += ["OSG"+m for m in l[8:].split()]
-         
-         print file, mylibs
+
          # Build the test program and install into tree
          loader = local_env.Program(name+runtime_suffix, file, LIBS = mylibs)
 
