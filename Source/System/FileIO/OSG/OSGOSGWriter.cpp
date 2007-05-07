@@ -263,14 +263,14 @@ void OSGWriter::visitField(const FieldHandle &hF)
         //this Field points to FC
 
         //to access the content of a field one must know the cardinality
-        if(hF.getCardinality() == SingleField)
+        if(hF.getCardinality() == FieldType::SINGLE_FIELD)
         {
             const SFFieldContainerPtr *sfFCPtr =
                 reinterpret_cast<const SFFieldContainerPtr *>(hF.getField());
 
             visitContainer(sfFCPtr->getValue());
         }
-        else if(hF.getCardinality() == MultiField)
+        else if(hF.getCardinality() == FieldType::MULTI_FIELD)
         {
             const MFFieldContainerPtr *mfFCPtr =
                 reinterpret_cast<const MFFieldContainerPtr *>(hF.getField());
@@ -512,7 +512,7 @@ void OSGWriter::writeField(const FieldHandle &hF)
 
         //to access the content of a field via a Field*
         //one must know the cardinality
-        if(hF.getCardinality() == SingleField)
+        if(hF.getCardinality() == FieldType::SINGLE_FIELD)
         {
             _outStream << " ";
 
@@ -520,7 +520,7 @@ void OSGWriter::writeField(const FieldHandle &hF)
 
             _outStream << EndElemNL;
         }
-        else if(hF.getCardinality() == MultiField)
+        else if(hF.getCardinality() == FieldType::MULTI_FIELD)
         {
             _outStream << " #";
 
