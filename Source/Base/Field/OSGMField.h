@@ -44,6 +44,7 @@
 
 #include "OSGField.h"
 #include "OSGFieldTraits.h"
+#include "OSGSysFieldTraits.h"
 #include "OSGFieldType.h"
 #include "OSGMFieldVector.h"
 #include "OSGBinaryDataHandler.h"

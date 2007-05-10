@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGBaseTypes.h"
+#include "OSGFieldTraits.h"
 
 OSG_BEGIN_NAMESPACE
 
