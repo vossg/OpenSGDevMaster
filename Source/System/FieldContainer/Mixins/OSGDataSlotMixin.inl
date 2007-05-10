@@ -44,7 +44,7 @@ ValuePtr DataSlotMixin<ParentT>::getData(Int32 iSlotId)
 {
     ValuePtr returnValue = NULL;
 
-    if(iSlotId >= 0 && iSlotId < _mfData.size())
+    if(iSlotId >= 0 && static_cast<UInt32>(iSlotId) < _mfData.size())
     {
         FieldBundleP pTmp = _mfData[iSlotId];
 
@@ -60,7 +60,7 @@ void DataSlotMixin<ParentT>::setDataX(FieldBundleP pBundle, Int32 iSlotId)
     if(iSlotId < 0)
         return;
 
-    if(iSlotId <= _mfData.size())
+    if(static_cast<UInt32>(iSlotId) <= _mfData.size())
     {
         _mfData.resize(iSlotId + 1, NULL);
     }
