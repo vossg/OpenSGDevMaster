@@ -81,8 +81,23 @@ TypedGeoVectorProperty< DESC >::TypeObject &            \
     TypedGeoVectorProperty< DESC >::getClassType(void)  \
 {                                                       \
     return _type;                                       \
-}
+}                                                       \
+                                                        \
+template <> OSG_DLL_EXPORT                              \
+OSG::UInt32 TypedGeoVectorProperty< DESC >::getClassTypeId(void)        \
+{                                                       \
+    return _type.getId();                               \
+}                                                       \
+                                                        \
+template <> OSG_DLL_EXPORT                              \
+OSG::UInt32 TypedGeoVectorProperty< DESC >::getClassGroupId(void)       \
+{                                                       \
+    return _type.getGroupId();                          \
+}                                                       \
 
+//OSG_RC_GET_TYPE_INL_TMPL_DEF(TypedGeoVectorProperty, DESC)
+//OSG_RC_GET_STATIC_TYPE_INL_TMPL_DEF(TypedGeoVectorProperty, DESC)
+//OSG_RC_GET_STATIC_TYPE_ID_INL_TMPL_DEF(TypedGeoVectorProperty, DESC)
 
 OSG_EXPORT_PROP(GeoVec1ubPropertyDesc)
 OSG_EXPORT_PROP(GeoVec2ubPropertyDesc)
