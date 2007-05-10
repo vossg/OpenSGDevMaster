@@ -177,7 +177,7 @@ void StageDataBase::setGroupMode(const Int32 &value)
 inline
 StageDataP StageDataBase::create(void)
 {
-    StageDataP fc;
+    StageDataP fc(NULL);
 
     if(getClassType().getPrototype() != NULL)
     {
