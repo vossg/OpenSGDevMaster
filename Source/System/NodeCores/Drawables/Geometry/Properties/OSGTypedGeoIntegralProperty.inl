@@ -34,17 +34,7 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if !defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) && \
-    !defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGTypedGeoIntegralPropertyFuncs.ins"
-
-#endif
-
 OSG_BEGIN_NAMESPACE
-
-OSG_FIELD_CONTAINER_TMPL_DEF(TypedGeoIntegralProperty,
-                             GeoPropertyDesc)
 
 
 template <class GeoPropertyDesc> inline 

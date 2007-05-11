@@ -42,6 +42,9 @@
 #pragma once
 #endif
 
+#include <OpenSG/OSGFieldContainerPtr.h>
+#include <boost/preprocessor/facilities/empty.hpp>
+
 /*---------------------------- get type decl --------------------------------*/
 
 #define OSG_RC_GET_TYPE_DECL                                                  \
@@ -79,14 +82,6 @@
         return _type;                                                         \
     }
 
-#define OSG_RC_GET_STATIC_TYPE_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)        \
-    template< class OSG_TMPL_PARAM > inline                                   \
-    typename OSG_CLASS< OSG_TMPL_PARAM >::TypeObject &                        \
-        OSG_CLASS< OSG_TMPL_PARAM >::getClassType(void)                       \
-    {                                                                         \
-        return Self::_type;                                                   \
-    }
-
 #define OSG_RC_GET_STATIC_TYPE_ID_INL_DEF(OSG_CLASS)                          \
     inline                                                                    \
     OSG::UInt32 OSG_CLASS::getClassTypeId(void)                               \
@@ -99,31 +94,76 @@
         return _type.getGroupId();                                            \
     }
 
-#define OSG_RC_GET_STATIC_TYPE_ID_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)     \
-    template< class OSG_TMPL_PARAM > inline                                   \
-    OSG::UInt32 OSG_CLASS< OSG_TMPL_PARAM >::getClassTypeId(void)             \
+// -- Macros for defining the rc methods for template types -- //
+#define OSG_RC_GET_STATIC_TYPE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)    \
+    template< class OSG_TMPL_PARAM >                                          \
+    INLINE typename OSG_CLASS< OSG_TMPL_PARAM >::TypeObject &                 \
+        OSG_CLASS< OSG_TMPL_PARAM >::getClassType(void)                       \
+    {                                                                         \
+        return Self::_type;                                                   \
+    }
+#define OSG_RC_GET_STATIC_TYPE_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)     \
+        OSG_RC_GET_STATIC_TYPE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, BOOST_PP_EMPTY() )
+#define OSG_RC_GET_STATIC_TYPE_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)        \
+        OSG_RC_GET_STATIC_TYPE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, inline)
+
+#define OSG_RC_GET_STATIC_TYPE_ID_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE) \
+    template< class OSG_TMPL_PARAM >                                          \
+    INLINE OSG::UInt32 OSG_CLASS< OSG_TMPL_PARAM >::getClassTypeId(void)      \
     {                                                                         \
         return Self::_type.getId();                                           \
     }                                                                         \
-    template< class OSG_TMPL_PARAM > inline                                   \
-    OSG::UInt32 OSG_CLASS< OSG_TMPL_PARAM >::getClassGroupId(void)            \
+    template< class OSG_TMPL_PARAM >                                          \
+    INLINE OSG::UInt32 OSG_CLASS< OSG_TMPL_PARAM >::getClassGroupId(void)     \
     {                                                                         \
         return Self::_type.getGroupId();                                      \
     }
+#define OSG_RC_GET_STATIC_TYPE_ID_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)  \
+        OSG_RC_GET_STATIC_TYPE_ID_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, BOOST_PP_EMPTY() )
+#define OSG_RC_GET_STATIC_TYPE_ID_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)     \
+        OSG_RC_GET_STATIC_TYPE_ID_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, inline)
 
-#define OSG_RC_GET_TYPE_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)               \
-    template< class OSG_TMPL_PARAM > inline                                   \
-    typename OSG_CLASS< OSG_TMPL_PARAM >::TypeObject &                        \
+#define OSG_RC_GET_TYPE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)           \
+    template< class OSG_TMPL_PARAM >                                          \
+    INLINE typename OSG_CLASS< OSG_TMPL_PARAM >::TypeObject &                 \
         OSG_CLASS< OSG_TMPL_PARAM >::getType(void)                            \
     {                                                                         \
         return _type;                                                         \
     }                                                                         \
-    template< class OSG_TMPL_PARAM > inline                                   \
-    const typename OSG_CLASS< OSG_TMPL_PARAM >::TypeObject &                  \
+    template< class OSG_TMPL_PARAM >                                          \
+    INLINE const typename OSG_CLASS< OSG_TMPL_PARAM >::TypeObject &           \
         OSG_CLASS< OSG_TMPL_PARAM >::getType(void) const                      \
     {                                                                         \
         return _type;                                                         \
     }
+#define OSG_RC_GET_TYPE_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)            \
+        OSG_RC_GET_TYPE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, BOOST_PP_EMPTY() )
+#define OSG_RC_GET_TYPE_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)               \
+        OSG_RC_GET_TYPE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, inline)
+
+
+/** Macro for defining fully specialized version of the getType methods. */
+#define OSG_RC_GET_TYPE_SPECIALIZED_TMPL_DEF(OSG_CLASS, TMPL_TYPE)            \
+    template<> OSG_DLL_EXPORT                                                 \
+    OSG_CLASS< TMPL_TYPE >::TypeObject &                                      \
+        OSG_CLASS< TMPL_TYPE >::getType(void)                                 \
+    {                                                                         \
+        return _type;                                                         \
+    }                                                                         \
+    template<> OSG_DLL_EXPORT                                                 \
+    const OSG_CLASS< TMPL_TYPE >::TypeObject &                                \
+        OSG_CLASS< TMPL_TYPE >::getType(void) const                           \
+    {                                                                         \
+        return _type;                                                         \
+    }                                                                         \
+                                                                              \
+    template <> OSG_DLL_EXPORT                                                \
+    OSG_CLASS< TMPL_TYPE >::TypeObject &                                      \
+       OSG_CLASS< TMPL_TYPE >::getClassType(void)                             \
+    {                                                                         \
+       return _type;                                                          \
+    }
+
 
 #define OSG_RC_TYPE_FUNCTIONS_DEF(OSG_CLASS)                                  \
     OSG_RC_GET_TYPE_DEF(OSG_CLASS)
@@ -132,10 +172,11 @@
     OSG_RC_GET_STATIC_TYPE_INL_DEF   (OSG_CLASS)                              \
     OSG_RC_GET_STATIC_TYPE_ID_INL_DEF(OSG_CLASS)
 
-#define OSG_RC_TYPE_FUNCTIONS_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
-    OSG_RC_GET_STATIC_TYPE_INL_TMPL_DEF   (OSG_CLASS, OSG_TMPL_PARAM)         \
-    OSG_RC_GET_STATIC_TYPE_ID_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
-    OSG_RC_GET_TYPE_INL_TMPL_DEF          (OSG_CLASS, OSG_TMPL_PARAM)
+#define OSG_RC_TYPE_FUNCTIONS_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)      \
+    OSG_RC_GET_STATIC_TYPE_NONINL_TMPL_DEF   (OSG_CLASS, OSG_TMPL_PARAM)      \
+    OSG_RC_GET_STATIC_TYPE_ID_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)      \
+    OSG_RC_GET_TYPE_NONINL_TMPL_DEF          (OSG_CLASS, OSG_TMPL_PARAM)
+
 
 /*---------------------------- create decl ----------------------------------*/
 
@@ -165,8 +206,8 @@
         return returnValue;                                                   \
     } 
 
-#define OSG_RC_SHALLOWCOPY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)                \
-    template < class OSG_TMPL_PARAM > inline                                  \
+#define OSG_RC_SHALLOWCOPY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)    \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
     OSG::FieldContainerPtr                                                    \
         OSG_CLASS< OSG_TMPL_PARAM >::shallowCopy(void) const                  \
     {                                                                         \
@@ -175,7 +216,11 @@
         Self::template newPtr<Self>(returnValue, this);                       \
                                                                               \
         return returnValue;                                                   \
-    } 
+    }
+#define OSG_RC_SHALLOWCOPY_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
+        OSG_RC_SHALLOWCOPY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, BOOST_PP_EMPTY() )
+#define OSG_RC_SHALLOWCOPY_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)            \
+        OSG_RC_SHALLOWCOPY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, inline)
 
 
 #define OSG_RC_CREATE_INL_DEF(OSG_CLASS)                                      \
@@ -191,16 +236,38 @@
         return fc;                                                            \
     }
 
-#define OSG_RC_CREATE_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)                 \
-    template < class OSG_TMPL_PARAM > inline                                  \
+#define OSG_RC_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)             \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
     typename OSG_CLASS < OSG_TMPL_PARAM >::ObjPtr                             \
         OSG_CLASS< OSG_TMPL_PARAM >::create(void)                             \
     {                                                                         \
         ObjPtr fc;                                                            \
                                                                               \
         if(getClassType().getPrototype() != OSGNullFC)                        \
-         fc = OSG::cast_dynamic<typename Self::ObjPtr>(                       \
-             getClassType().getPrototype()->shallowCopy());                   \
+        {                                                                     \
+         OSG::FieldContainerPtr temp_ptr = getClassType().getPrototype()->shallowCopy();  \
+         fc = OSG::cast_dynamic<typename Self::ObjPtr>(temp_ptr);             \
+        }                                                                     \
+                                                                              \
+        return fc;                                                            \
+    }
+#define OSG_RC_CREATE_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)              \
+        OSG_RC_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, BOOST_PP_EMPTY() )
+#define OSG_RC_CREATE_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)                 \
+        OSG_RC_CREATE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, inline)
+
+#define OSG_RC_CREATE_SPECIALIZED_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
+    template <>                                                               \
+    OSG_CLASS < OSG_TMPL_PARAM >::ObjPtr                                      \
+        OSG_CLASS< OSG_TMPL_PARAM >::create(void)                             \
+    {                                                                         \
+        ObjPtr fc;                                                            \
+                                                                              \
+        if(getClassType().getPrototype() != OSGNullFC)                        \
+        { \
+         OSG::FieldContainerPtr temp_ptr = getClassType().getPrototype()->shallowCopy();  \
+         fc = OSG::cast_dynamic<Self::ObjPtr>(temp_ptr);                      \
+        }                                                                     \
                                                                               \
         return fc;                                                            \
     }
@@ -216,8 +283,8 @@
         return returnValue;                                                   \
     }
 
-#define OSG_RC_CREATE_EMPTY_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)           \
-    template < class OSG_TMPL_PARAM > inline                                  \
+#define OSG_RC_CREATE_EMPTY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)       \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
     typename OSG_CLASS< OSG_TMPL_PARAM >::ObjPtr                              \
         OSG_CLASS< OSG_TMPL_PARAM >::createEmpty(void)                        \
     {                                                                         \
@@ -227,12 +294,25 @@
                                                                               \
         return returnValue;                                                   \
     }
+#define OSG_RC_CREATE_EMPTY_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)        \
+        OSG_RC_CREATE_EMPTY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, BOOST_PP_EMPTY() )
+#define OSG_RC_CREATE_EMPTY_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)           \
+        OSG_RC_CREATE_EMPTY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, inline)
+
+#define OSG_RC_CREATE_EMPTY_SPECIALIZED_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)   \
+    template < >                                                              \
+    OSG_CLASS< OSG_TMPL_PARAM >::ObjPtr                                       \
+        OSG_CLASS< OSG_TMPL_PARAM >::createEmpty(void)                        \
+    {                                                                         \
+        ObjPtr returnValue;                                                   \
+                                                                              \
+        Self::newPtr<Self>(returnValue);                                      \
+                                                                              \
+        return returnValue;                                                   \
+    }
 
 #define OSG_RC_CREATE_FUNCTIONS_DEF(OSG_CLASS)                                \
     OSG_RC_SHALLOWCOPY_DEF(OSG_CLASS)
-
-#define OSG_RC_CREATE_FUNCTIONS_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)           \
-    OSG_RC_SHALLOWCOPY_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
 
 #define OSG_RC_CREATE_FUNCTIONS_INL_DEF(OSG_CLASS)                            \
     OSG_RC_CREATE_INL_DEF      (OSG_CLASS)                                    \
@@ -241,6 +321,10 @@
 #define OSG_RC_CREATE_FUNCTIONS_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)       \
     OSG_RC_CREATE_INL_TMPL_DEF      (OSG_CLASS, OSG_TMPL_PARAM)               \
     OSG_RC_CREATE_EMPTY_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
+
+#define OSG_RC_CREATE_FUNCTIONS_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)    \
+    OSG_RC_CREATE_NONINL_TMPL_DEF      (OSG_CLASS, OSG_TMPL_PARAM)            \
+    OSG_RC_CREATE_EMPTY_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
 
 
 /*-------------------------- get size decl ----------------------------------*/
@@ -259,18 +343,25 @@
         return sizeof(OSG_CLASS);                                             \
     }
 
-#define OSG_RC_GET_SIZE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)                   \
-    template < class OSG_TMPL_PARAM > inline                                  \
+#define OSG_RC_GET_SIZE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, INLINE)           \
+    template < class OSG_TMPL_PARAM > INLINE                                  \
     OSG::UInt32 OSG_CLASS< OSG_TMPL_PARAM >::getContainerSize(void) const     \
     {                                                                         \
         return sizeof(OSG_CLASS< OSG_TMPL_PARAM >);                           \
     }
+#define OSG_RC_GET_SIZE_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)            \
+        OSG_RC_GET_SIZE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, BOOST_PP_EMPTY() )
+#define OSG_RC_GET_SIZE_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)               \
+        OSG_RC_GET_SIZE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM, inline)
 
 #define OSG_RC_SIZE_FUNCTIONS_DEF(OSG_CLASS)                                  \
     OSG_RC_GET_SIZE_DEF(OSG_CLASS)
 
-#define OSG_RC_SIZE_FUNCTIONS_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)             \
-    OSG_RC_GET_SIZE_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
+#define OSG_RC_SIZE_FUNCTIONS_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
+    OSG_RC_GET_SIZE_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
+#define OSG_RC_SIZE_FUNCTIONS_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)      \
+    OSG_RC_GET_SIZE_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
+
 
 /*------------------------ decl and def macros ------------------------------*/
 
@@ -293,15 +384,26 @@
     OSG_RC_TYPE_FUNCTIONS_INL_DEF  (OSG_CLASS)                                \
     OSG_RC_CREATE_FUNCTIONS_INL_DEF(OSG_CLASS)
 
-#define OSG_FIELD_CONTAINER_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)               \
-    OSG_RC_CREATE_FUNCTIONS_TMPL_DEF    (OSG_CLASS, OSG_TMPL_PARAM)           \
-    OSG_RC_SIZE_FUNCTIONS_TMPL_DEF      (OSG_CLASS, OSG_TMPL_PARAM)           \
+#define OSG_FIELD_CONTAINER_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)           \
+    OSG_RC_SHALLOWCOPY_INL_TMPL_DEF     (OSG_CLASS, OSG_TMPL_PARAM)           \
+    OSG_RC_SIZE_FUNCTIONS_INL_TMPL_DEF  (OSG_CLASS, OSG_TMPL_PARAM)           \
     OSG_RC_CREATE_FUNCTIONS_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
 
+#define OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)        \
+    OSG_RC_SHALLOWCOPY_NONINL_TMPL_DEF     (OSG_CLASS, OSG_TMPL_PARAM)        \
+    OSG_RC_SIZE_FUNCTIONS_NONINL_TMPL_DEF  (OSG_CLASS, OSG_TMPL_PARAM)        \
+    OSG_RC_CREATE_FUNCTIONS_NONINL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
+
+// This method looks like a duplicate.  If the define works below, we should
+// remove it and just use the one above.
+/*
 #define OSG_FIELD_CONTAINER_TMPL_NO_TYPE_DEF(OSG_CLASS, OSG_TMPL_PARAM)       \
-    OSG_RC_CREATE_FUNCTIONS_TMPL_DEF    (OSG_CLASS, OSG_TMPL_PARAM)           \
-    OSG_RC_SIZE_FUNCTIONS_TMPL_DEF      (OSG_CLASS, OSG_TMPL_PARAM)           \
+    OSG_RC_SHALLOWCOPY_INL_TMPL_DEF     (OSG_CLASS, OSG_TMPL_PARAM)           \
+    OSG_RC_SIZE_FUNCTIONS_INL_TMPL_DEF  (OSG_CLASS, OSG_TMPL_PARAM)           \
     OSG_RC_CREATE_FUNCTIONS_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
+*/
+#define OSG_FIELD_CONTAINER_TMPL_NO_TYPE_DEF(OSG_CLASS, OSG_TMPL_PARAM)       \
+        OSG_FIELD_CONTAINER_INL_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)
 
 /*--------------------- abstr decl and def macros --------------------------*/
 
@@ -317,7 +419,7 @@
     OSG_RC_TYPE_FUNCTIONS_INL_DEF  (OSG_CLASS)
 
 #define OSG_ABSTR_FIELD_CONTAINER_TMPL_DEF(OSG_CLASS, OSG_TMPL_PARAM)         \
-    OSG_RC_SIZE_FUNCTIONS_TMPL_DEF      (OSG_CLASS, OSG_TMPL_PARAM)           \
+    OSG_RC_SIZE_FUNCTIONS_INL_TMPL_DEF    (OSG_CLASS, OSG_TMPL_PARAM)           \
 
 
 #ifndef WIN32

@@ -47,20 +47,32 @@
 
 #include "OSGTypedGeoIntegralProperty.h"
 
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
 #include "OSGTypedGeoIntegralPropertyFuncs.ins"
-
-#endif
-
 #include "OSGTypedGeoIntegralProperty.ins"
 
 OSG_USING_NAMESPACE
 
+OSG_BEGIN_NAMESPACE
 
-template class OSG_DLL_EXPORT TypedGeoIntegralProperty<GeoUInt8PropertyDesc>;
-template class OSG_DLL_EXPORT TypedGeoIntegralProperty<GeoUInt16PropertyDesc>;
+//
+// Ideas:
+// - Fully specialize the _type object
+
+OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(TypedGeoIntegralProperty, GeoPropertyDesc)
+
+#define EXPORT_PROP(TMPL_PARAM)                                         \
+   OSG_RC_GET_TYPE_SPECIALIZED_TMPL_DEF(TypedGeoIntegralProperty, TMPL_PARAM)   \
+   OSG_RC_CREATE_SPECIALIZED_TMPL_DEF(TypedGeoIntegralProperty, TMPL_PARAM)     \
+   template class OSG_DLL_EXPORT TypedGeoIntegralProperty<TMPL_PARAM>;
+   
+
+
+EXPORT_PROP(GeoUInt8PropertyDesc)
+EXPORT_PROP(GeoUInt16PropertyDesc)
 #ifndef OSG_WINCE
-template class OSG_DLL_EXPORT TypedGeoIntegralProperty<GeoUInt32PropertyDesc>;
+EXPORT_PROP(GeoUInt32PropertyDesc)
 #endif
+
+
+OSG_END_NAMESPACE
+

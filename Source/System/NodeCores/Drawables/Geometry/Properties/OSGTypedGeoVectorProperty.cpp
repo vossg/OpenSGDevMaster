@@ -47,13 +47,7 @@
 
 #include "OSGTypedGeoVectorProperty.h"
 
-
-#if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
-    defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-//#include "OSGTypedGeoVectorPropertyFuncs.ins"
-
-#endif
+#include "OSGTypedGeoVectorPropertyFuncs.ins"
 
 #include "OSGTypedGeoVectorProperty.ins"
 
@@ -61,43 +55,14 @@ OSG_USING_NAMESPACE
 
 OSG_BEGIN_NAMESPACE
 
-#define OSG_EXPORT_PROP(DESC)                           \
-template <> OSG_DLL_EXPORT                              \
-TypedGeoVectorProperty< DESC >::TypeObject &            \
-    TypedGeoVectorProperty< DESC >::getType(void)       \
-{                                                       \
-    return _type;                                       \
-}                                                       \
-                                                        \
-template <> OSG_DLL_EXPORT                              \
-const TypedGeoVectorProperty< DESC >::TypeObject &      \
-    TypedGeoVectorProperty< DESC >::getType(void) const \
-{                                                       \
-    return _type;                                       \
-}                                                       \
-                                                        \
-template <> OSG_DLL_EXPORT                              \
-TypedGeoVectorProperty< DESC >::TypeObject &            \
-    TypedGeoVectorProperty< DESC >::getClassType(void)  \
-{                                                       \
-    return _type;                                       \
-}                                                       \
-                                                        \
-template <> OSG_DLL_EXPORT                              \
-OSG::UInt32 TypedGeoVectorProperty< DESC >::getClassTypeId(void)        \
-{                                                       \
-    return _type.getId();                               \
-}                                                       \
-                                                        \
-template <> OSG_DLL_EXPORT                              \
-OSG::UInt32 TypedGeoVectorProperty< DESC >::getClassGroupId(void)       \
-{                                                       \
-    return _type.getGroupId();                          \
-}                                                       \
+OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(TypedGeoVectorProperty,
+                             GeoPropertyDesc)
 
-//OSG_RC_GET_TYPE_INL_TMPL_DEF(TypedGeoVectorProperty, DESC)
-//OSG_RC_GET_STATIC_TYPE_INL_TMPL_DEF(TypedGeoVectorProperty, DESC)
-//OSG_RC_GET_STATIC_TYPE_ID_INL_TMPL_DEF(TypedGeoVectorProperty, DESC)
+#define OSG_EXPORT_PROP(DESC)                           \
+   OSG_RC_GET_TYPE_SPECIALIZED_TMPL_DEF(TypedGeoVectorProperty, DESC) \
+   OSG_RC_CREATE_SPECIALIZED_TMPL_DEF(TypedGeoVectorProperty, DESC)   \
+   template class OSG_DLL_EXPORT TypedGeoVectorProperty<DESC>;
+
 
 OSG_EXPORT_PROP(GeoVec1ubPropertyDesc)
 OSG_EXPORT_PROP(GeoVec2ubPropertyDesc)

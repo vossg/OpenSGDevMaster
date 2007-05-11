@@ -34,18 +34,7 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if !defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) && \
-    !defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )
-
-#include "OSGTypedGeoVectorPropertyFuncs.ins"
-
-#endif
-
 OSG_BEGIN_NAMESPACE
-
-OSG_FIELD_CONTAINER_TMPL_DEF(TypedGeoVectorProperty,
-                             GeoPropertyDesc)
-
 
 template <class GeoPropertyDesc> inline
 TypedGeoVectorProperty<GeoPropertyDesc>::TypedGeoVectorProperty(void) :
