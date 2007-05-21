@@ -368,34 +368,13 @@ class PointInterface : public StorageInterfaceT
     explicit PointInterface(const ValueTypeT     *pVals );
     explicit PointInterface(      ValueTypeT     *pVals );
 
-    /* This inline code was brought to you by Microsoft */
+    template <class ValueType2T, class StorageInterface2T> 
+    explicit PointInterface(const PointInterface<ValueType2T, 
+                                                 StorageInterface2T> &vec);
 
-    template<class EVT, class EST> 
-#ifndef OSG_MICROSOFT_DOTNET_COMPILER_HACKS
-    explicit 
-#endif
-             PointInterface(const PointInterface<EVT,EST>   &vec   )
-    {
-        if(Self::_uiSize <= PointInterface<EVT,EST>::_uiSize)
-        {
-            for(UInt32 i = 0; i < Self::_uiSize; i++)
-            {
-                Self::_values[i] = vec.getValues()[i];
-            }
-        }
-        else
-        {
-            UInt32 i;
-            for(i = 0; i < PointInterface<EVT,EST>::_uiSize; i++)
-            {
-                Self::_values[i] = vec.getValues()[i];
-            }
-            for(i = PointInterface<EVT,EST>::_uiSize; i < Self::_uiSize; i++)
-            {
-                Self::_values[i] = TypeTraits<ValueTypeT>::getZeroElement();
-            }
-        }
-    }
+    template <class ValueType2T, class StorageInterface2T> 
+    explicit PointInterface(const VectorInterface<ValueType2T, 
+                                                  StorageInterface2T> &vec);
 
     
     
@@ -405,7 +384,7 @@ class PointInterface : public StorageInterfaceT
        interface :-(. I still find them a little bit wrong placed (GV)
     */
 
-//    PointInterface(const ValueTypeT rVal1);
+    PointInterface(const ValueTypeT rVal1);
 
     PointInterface(const ValueTypeT rVal1, const ValueTypeT rVal2);
 
@@ -434,19 +413,9 @@ class PointInterface : public StorageInterfaceT
 
     void setValue(const PointInterface &vec     );
 
-    /* This inline code was brought to you by Microsoft */
-
-    template<class EVT, class EST>
-    void setValue(const PointInterface<EVT,EST> &vec    )
-    {
-        for(UInt32   i = 0;
-                     i < (Self::_uiSize < PointInterface<EVT,EST>::_uiSize ? 
-                          Self::_uiSize : PointInterface<EVT,EST>::_uiSize);
-                   ++i)
-        {
-            Self::_values[i] = vec.getValues()[i];
-        }
-    }
+    template <class ValueType2T, class StorageInterface2T> 
+    void setValue(const PointInterface<ValueType2T, 
+                                       StorageInterface2T> &vec);
 
     void setValue           (const ValueTypeT     *pVals   );
     void setValue           (      ValueTypeT     *pVals   );
@@ -609,61 +578,15 @@ class VectorInterface :
     explicit VectorInterface(const ValueTypeT      *pVals );
     explicit VectorInterface(      ValueTypeT      *pVals );
 
-    /* This inline code was brought to you by Microsoft */
+    template <class ValueType2T, class StorageInterface2T> 
+    explicit VectorInterface(const PointInterface<ValueType2T, 
+                                                  StorageInterface2T> &vec);
 
-    template<class EVT, class EST> 
-#ifndef OSG_MICROSOFT_DOTNET_COMPILER_HACKS
-    explicit 
-#endif
-    VectorInterface(const VectorInterface<EVT,EST> &vec   )
-    {
-        if(Self::_uiSize <= VectorInterface<EVT,EST>::_uiSize)
-        {
-            for(UInt32 i = 0; i < Self::_uiSize; i++)
-            {
-                Self::_values[i] = vec.getValues()[i];
-            }
-        }
-        else
-        {
-            UInt32 i;
-            for(i = 0; i < VectorInterface<EVT,EST>::_uiSize; i++)
-            {
-                Self::_values[i] = vec.getValues()[i];
-            }
-            for(i = VectorInterface<EVT,EST>::_uiSize; i < Self::_uiSize; i++)
-            {
-                Self::_values[i] = TypeTraits<ValueTypeT>::getZeroElement();
-            }
-        }
-    }
+    template <class ValueType2T, class StorageInterface2T> 
+    explicit VectorInterface(const VectorInterface<ValueType2T, 
+                                                   StorageInterface2T> &vec);
 
-    template<class EVT, class EST> 
-#ifndef OSG_MICROSOFT_DOTNET_COMPILER_HACKS
-    explicit 
-#endif
-    VectorInterface(const PointInterface<EVT,EST> &vec   )
-    {
-        if(Self::_uiSize <= PointInterface<EVT,EST>::_uiSize)
-        {
-            for(UInt32 i = 0; i < Self::_uiSize; i++)
-            {
-                Self::_values[i] = vec.getValues()[i];
-            }
-        }
-        else
-        {
-            UInt32 i;
-            for(i = 0; i < PointInterface<EVT,EST>::_uiSize; i++)
-            {
-                Self::_values[i] = vec.getValues()[i];
-            }
-            for(i = PointInterface<EVT,EST>::_uiSize; i < Self::_uiSize; i++)
-            {
-                Self::_values[i] = TypeTraits<ValueTypeT>::getZeroElement();
-            }
-        }
-    }
+
 
     VectorInterface(const VectorInterface &source);
 
@@ -672,7 +595,7 @@ class VectorInterface :
        interface :-(. I still find them a little bit wrong placed (GV)
     */
 
-    //VectorInterface(const ValueTypeT       rVal1 );
+    VectorInterface(const ValueTypeT rVal1);
 
     VectorInterface(const ValueTypeT rVal1, const ValueTypeT rVal2);
 

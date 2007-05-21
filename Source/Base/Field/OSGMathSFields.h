@@ -65,6 +65,17 @@ typedef SField          <Matrix         > SFMatrix;
 OSG_FIELD_DLLEXPORT_DECL1(SField, Matrix, OSG_BASE_DLLTMPLMAPPING)
 #endif
 
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+/*! \ingroup GrpBaseFieldSingle */
+
+typedef SField          <Matrix4d       > SFMatrix4d;
+
+#endif
+
+#ifndef OSG_COMPILEFIELDINST
+OSG_FIELD_DLLEXPORT_DECL1(SField, Matrix, OSG_BASE_DLLTMPLMAPPING)
+#endif
+
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */

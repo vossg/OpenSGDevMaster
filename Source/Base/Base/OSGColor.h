@@ -158,7 +158,7 @@ class Color3 : public VectorInterface< ValueTypeT, VecStorage3<ValueTypeT> >
 template <class ValueTypeT>
 class Color4 : public VectorInterface< ValueTypeT, VecStorage4<ValueTypeT> >
 {
-    /*==========================  PUBLIC  =================================*/    
+    /*==========================  PUBLIC  =================================*/ 
   public:
 
     typedef ValueTypeT ValueType;

@@ -201,6 +201,7 @@ DataType FieldTraits<Pnt4d        >::_type("Pnt4d" ,       "BaseType"    );
 DataType FieldTraits<Pnt4ld       >::_type("Pnt4ld",       "BaseType"    );
 
 DataType FieldTraits<Matrix       >::_type("Matrix"    ,   "BaseType"    );
+DataType FieldTraits<Matrix4d     >::_type("Matrix4d"  ,   "BaseType"    );
 DataType FieldTraits<Matrix4fx    >::_type("Matrix4fx" ,   "BaseType"    );
 DataType FieldTraits<Quaternion   >::_type("Quaternion",   "BaseType"    );
 DataType FieldTraits<Quaternionfx >::_type("Quaternionfx", "BaseType"    );
@@ -322,6 +323,7 @@ OSG_FIELDTRAITS_GETTYPE   (Pnt4d          )
 OSG_FIELDTRAITS_GETTYPE   (Pnt4ld         )
 
 OSG_FIELDTRAITS_GETTYPE   (Matrix         )
+OSG_FIELDTRAITS_GETTYPE   (Matrix4d       )
 OSG_FIELDTRAITS_GETTYPE   (Matrix4fx      )
 OSG_FIELDTRAITS_GETTYPE   (Quaternion     )
 OSG_FIELDTRAITS_GETTYPE   (Quaternionfx   )
@@ -562,11 +564,13 @@ OSG_FIELD_DLLEXPORT_DEF1(MField, Pnt4d          )
 OSG_FIELD_DLLEXPORT_DEF1(MField, Pnt4ld         )
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, Matrix         )
+OSG_FIELD_DLLEXPORT_DEF1(SField, Matrix4d       )
 OSG_FIELD_DLLEXPORT_DEF1(SField, Matrix4fx      )
 OSG_FIELD_DLLEXPORT_DEF1(SField, Quaternion     )
 OSG_FIELD_DLLEXPORT_DEF1(SField, Quaternionfx   )
 
 OSG_FIELD_DLLEXPORT_DEF1(MField, Matrix         )
+OSG_FIELD_DLLEXPORT_DEF1(MField, Matrix4d       )
 OSG_FIELD_DLLEXPORT_DEF1(MField, Matrix4fx      )
 OSG_FIELD_DLLEXPORT_DEF1(MField, Quaternion     )
 OSG_FIELD_DLLEXPORT_DEF1(MField, Quaternionfx   )

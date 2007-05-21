@@ -419,40 +419,15 @@ PointInterface<ValueTypeT,
     }
 }
 
-#if 0
-
-/*! \brief Constructor which take a lot of types as it's argument :-).
-  
-  The argument type must provide a _uiSize enum entry, a *getValueRef(void)
-  function and the value types must be convertable to the current one.
-  The main problem is that through the constructor
-  VecBase(const ValueTypeT *pVals); and the following cast
-  operator const ValueTypeT * (void); you are able to to the
-  following :
-  \code
-  void foo(void)
-  {
-      ClassWithValueTypeT_*_Cast v2f;
-      Vec4f v4f(v2f);
-  }
-  \endcode
-  This will at least give you some array read out of bounds erros;
-  So this constructor make the things a little bit more save, but you
-  will get nasty error messages from the compiler if the argument does
-  not satisfy the requirements given above.
-*/
-
-#ifdef __sgi
-#pragma set woff 1209
-#endif
-
 template <class ValueTypeT,
           class StorageInterfaceT> 
-template <class VectorT> inline
-PointInterface<ValueTypeT, 
-               StorageInterfaceT>::PointInterface(const VectorT &vec) : 
-                   Inherited()
+template <class ValueType2T, 
+          class StorageInterface2T> inline
+PointInterface<ValueTypeT, StorageInterfaceT>::PointInterface(
+    const PointInterface<ValueType2T, StorageInterface2T> &vec)
 {
+    typedef PointInterface<ValueType2T, StorageInterface2T> VectorT;
+
     if(Self::_uiSize <= VectorT::_uiSize)
     {
         for(UInt32 i = 0; i < Self::_uiSize; i++)
@@ -474,11 +449,35 @@ PointInterface<ValueTypeT,
     }
 }
 
-#ifdef __sgi
-#pragma reset woff 1209
-#endif
+template <class ValueTypeT,
+          class StorageInterfaceT> 
+template <class ValueType2T, 
+          class StorageInterface2T> inline
+PointInterface<ValueTypeT, StorageInterfaceT>::PointInterface(
+    const VectorInterface<ValueType2T, StorageInterface2T> &vec)
+{
+    typedef VectorInterface<ValueType2T, StorageInterface2T> VectorT;
 
-#endif
+    if(Self::_uiSize <= VectorT::_uiSize)
+    {
+        for(UInt32 i = 0; i < Self::_uiSize; i++)
+        {
+            Self::_values[i] = vec.getValues()[i];
+        }
+    }
+    else
+    {
+        UInt32 i;
+        for(i = 0; i < VectorT::_uiSize; i++)
+        {
+            Self::_values[i] = vec.getValues()[i];
+        }
+        for(i = VectorT::_uiSize; i < Self::_uiSize; i++)
+        {
+            Self::_values[i] = TypeTraits<ValueTypeT>::getZeroElement();
+        }
+    }
+}
 
 
 template <class ValueTypeT,
@@ -495,7 +494,7 @@ PointInterface<ValueTypeT, StorageInterfaceT>::PointInterface(
 }
 
 
-/*
+
 template <class    ValueTypeT,
           class    StorageInterfaceT> inline
 PointInterface<ValueTypeT, StorageInterfaceT>::PointInterface(
@@ -503,14 +502,14 @@ PointInterface<ValueTypeT, StorageInterfaceT>::PointInterface(
 {
     UInt32 i;
 
-    _values[0] = rVal1;
+    Self::_values[0] = rVal1;
 
     for(i = 1; i < Self::_uiSize; i++)
     {
-        _values[i] = TypeTraits<ValueTypeT>::getZeroElement();
+        Self::_values[i] = TypeTraits<ValueTypeT>::getZeroElement();
     }
 }
-*/
+
 
 
 #ifdef __sgi
@@ -678,55 +677,25 @@ void PointInterface<ValueTypeT,
     }
 }
 
-#if 0
-/*! \brief Set function which take a lot of types as it's argument :-).
-  
-  The argument type must provide a _uiSize enum entry, a *getValues(void)
-  function and the value types must be convertable to the current one.
-  The main problem is that through the set function
-  void setValue(const ValueTypeT *pVals); and the following cast
-  operator const ValueTypeT * (void); you are able to to the
-  following :
-  \code
-  void foo(void)
-  {
-      ClassWithValueTypeT_*_Cast v2f;
-      Vec4f v4f;
-  
-      v4f.setValue(v2f);
-  }
-  \endcode
-  This will at least give you some array read out of bounds erros;
-  So this function make the things a little bit more save, but you
-  will get nasty error messages from the compiler if the argument does
-  not satisfy the requirements given above.
-*/
-
-#ifdef __sgi
-#pragma set woff 1209
-#endif
-
 template <class ValueTypeT,
           class StorageInterfaceT> 
-template <class VectorT> inline
+template <class ValueType2T, 
+          class StorageInterface2T> inline
 void PointInterface<ValueTypeT, 
-                    StorageInterfaceT>::setValue(const VectorT &vec)
+                    StorageInterfaceT>::setValue(
+                        const PointInterface<ValueType2T, 
+                                             StorageInterface2T> &vec)
 {
-    for(UInt32   i = 0;
-                 i < (Self::_uiSize < VectorT::_uiSize ? 
-                      Self::_uiSize : VectorT::_uiSize);
-               ++i)
+    typedef PointInterface<ValueType2T, StorageInterface2T> VectorT;
+
+    static const UInt32 nElementsToCopy = 
+        Self::_uiSize < VectorT::_uiSize ? Self::_uiSize : VectorT::_uiSize;
+
+    for(UInt32 i = 0; i < nElementsToCopy; ++i)
     {
         Self::_values[i] = vec.getValues()[i];
     }
 }
-
-#ifdef __sgi
-#pragma reset woff 1209
-#endif
-#endif
-
-//! Set value from a given array, be sure to match sizes
 
 template <class ValueTypeT,
           class StorageInterfaceT> inline
@@ -1404,64 +1373,28 @@ VectorInterface<ValueTypeT,
 {
 }
 
-#if 0
-/*! \brief Constructor which take a lot of types as it's argument :-).
-  
-  The argument type must provide a _uiSize enum entry, a *getValueRef(void)
-  function and the value types must be convertable to the current one.
-  The main problem is that through the constructor
-  VecBase(const ValueTypeT *pVals); and the following cast
-  operator const ValueTypeT * (void); you are able to to the
-  following :
-  \code
-  void foo(void)
-  {
-      ClassWithValueTypeT_*_Cast v2f;
-      Vec4f v4f(v2f);
-  }
-  \endcode
-  This will at least give you some array read out of bounds erros;
-  So this constructor make the things a little bit more save, but you
-  will get nasty error messages from the compiler if the argument does
-  not satisfy the requirements given above.
-*/
+template <class ValueTypeT,
+          class StorageInterfaceT> 
+template <class ValueType2T, 
+          class StorageInterface2T> inline
+VectorInterface<ValueTypeT, StorageInterfaceT>::VectorInterface(
+    const PointInterface<ValueType2T, StorageInterface2T> &vec) :
 
-#ifdef __sgi
-#pragma set woff 1209
-#endif
+    Inherited(vec)
+{
+}
 
 template <class ValueTypeT,
           class StorageInterfaceT> 
-template <class VectorT          > inline
-VectorInterface<ValueTypeT, 
-                StorageInterfaceT>::VectorInterface(const VectorT &vec) : 
-                    Inherited()
+template <class ValueType2T, 
+          class StorageInterface2T> inline
+VectorInterface<ValueTypeT, StorageInterfaceT>::VectorInterface(
+    const VectorInterface<ValueType2T, StorageInterface2T> &vec) :
+
+    Inherited(vec)
 {
-    if(Self::_uiSize <= VectorT::_uiSize)
-    {
-        for(UInt32 i = 0; i < Self::_uiSize; i++)
-        {
-            Self::_values[i] = vec.getValues()[i];
-        }
-    }
-    else
-    {
-        UInt32 i;
-        for(i = 0; i < VectorT::_uiSize; i++)
-        {
-            Self::_values[i] = vec.getValues()[i];
-        }
-        for(i = VectorT::_uiSize; i < Self::_uiSize; i++)
-        {
-            Self::_values[i] = TypeTraits<ValueTypeT>::getZeroElement();
-        }
-    }
 }
 
-#ifdef __sgi
-#pragma reset woff 1209
-#endif
-#endif
 
 template <class ValueTypeT,
           class StorageInterfaceT> inline
@@ -1472,11 +1405,10 @@ VectorInterface<ValueTypeT, StorageInterfaceT>::VectorInterface(
 {
 }
 
-/*
 template <class    ValueTypeT,
           class    StorageInterfaceT> inline
-VectorInterface<ValueTypeT, StorageInterfaceT>::VectorInterface(
-    const ValueTypeT rVal1)
+VectorInterface<ValueTypeT, 
+                StorageInterfaceT>::VectorInterface(const ValueTypeT rVal1)
 {
     UInt32 i;
 
@@ -1487,7 +1419,6 @@ VectorInterface<ValueTypeT, StorageInterfaceT>::VectorInterface(
         Self::_values[i] = TypeTraits<ValueTypeT>::getZeroElement();
     }
 }
-*/
 
 template <class ValueTypeT,
           class StorageInterfaceT> inline

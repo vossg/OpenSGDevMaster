@@ -557,7 +557,7 @@ void GroupMCastConnection::initialize()
     std::string   clientHost;
     UInt32        index;
     UInt32        len;
-    UInt32        ackNum = (UInt32) osgSqrt(_sockets.size());
+    UInt32        ackNum = (UInt32) osgSqrt(Real32(_sockets.size()));
     UInt32        numSource;
     UInt32        sendTo;
     BinaryMessage message;

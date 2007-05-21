@@ -413,6 +413,15 @@
 # endif // defined(__INTEL_COMPILER) && defined(__linux)
 
 /*-------------------------------------------------------------------------*/
+/*                              Linux icc ia64                             */
+
+# if defined(__INTEL_COMPILER) && defined(__linux) && defined(__ia64)
+ 
+# define OSG_NO_INT8_PNT
+
+# endif // defined(__GNUC__) && defined(__linux) && defined(__ia64)
+
+/*-------------------------------------------------------------------------*/
 /*                              Windows icc                                */
 
 # if defined(__INTEL_COMPILER) && !defined(__linux) && !defined(_WIN32_WCE)

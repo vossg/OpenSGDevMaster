@@ -1194,6 +1194,55 @@
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
+/*! \name GL_EXT_blend_func_separate                                   */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#ifndef GL_EXT_blend_color
+#define GL_CONSTANT_COLOR_EXT             0x8001
+#define GL_ONE_MINUS_CONSTANT_COLOR_EXT   0x8002
+#define GL_CONSTANT_ALPHA_EXT             0x8003
+#define GL_ONE_MINUS_CONSTANT_ALPHA_EXT   0x8004
+#define GL_BLEND_COLOR_EXT                0x8005
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_EXT_blend_minmax                                          */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#ifndef GL_EXT_blend_minmax
+#define GL_FUNC_ADD_EXT                   0x8006
+#define GL_MIN_EXT                        0x8007
+#define GL_MAX_EXT                        0x8008
+#define GL_BLEND_EQUATION_EXT             0x8009
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_EXT_blend_substract                                       */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#ifndef GL_EXT_blend_subtract
+#define GL_FUNC_SUBTRACT_EXT              0x800A
+#define GL_FUNC_REVERSE_SUBTRACT_EXT      0x800B
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_EXT_blend_equation_separate                               */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#ifndef GL_EXT_blend_equation_separate
+#define GL_BLEND_EQUATION_RGB_EXT         GL_BLEND_EQUATION
+#define GL_BLEND_EQUATION_ALPHA_EXT       0x883D
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 /*! \name GL_UNSIGNED_SHORT_5_6_5                                      */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
 /*  \{                                                                 */
@@ -1594,7 +1643,11 @@
 #define GL_DEPTH_TEXTURE_MODE_ARB 0x884B
 #endif
 
-#define OSGGLEXT_HEADER_CVSID "@(#)$Id$"
+// Hack for SGI Prisms...
+ 
+#ifdef GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENTS_EXT
+#define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT 0x8CD6
+#endif
 
 #else
 

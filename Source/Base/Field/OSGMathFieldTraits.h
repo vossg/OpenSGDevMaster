@@ -176,17 +176,121 @@ struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
 
 };
 
-#ifdef FDFOO
-struct MatrixFieldDesc : public FieldDescBase
-{
-    typedef Matrix ValueType;
-};
-#endif
-
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<Matrix> */
 /*! \hideinhierarchy                        */
 #endif
+
+
+template <>
+struct FieldTraits<Matrix4d> : public FieldTraitsTemplateBase<Matrix4d>
+{
+  private:
+
+    static DataType _type;
+
+  public:
+
+    typedef FieldTraits<Matrix4d>  Self;
+
+    enum             { StringConvertable = (Self::FromStringConvertible |
+                                            Self::ToStreamConvertible   ) };
+
+    static OSG_BASE_DLLMAPPING
+           DataType &getType       (void);
+
+    static Char8    *getSName      (void) { return "SFMatrix4d";       }
+    static Char8    *getMName      (void) { return "MFMatrix4d";       }
+
+    static Matrix4d  getDefault    (void) { return Matrix4d();         }
+
+    static bool      getFromCString(      Matrix4d   &outVal,
+                                    const Char8     *&inVal)
+    {
+        outVal.setValue(inVal, false);
+        return true;
+    }
+
+    static void      putToStream  (const Matrix4d  &val,
+                                         OutStream &outStr)
+    {
+        typedef TypeTraits<Matrix4d::ValueType> TypeTrait;
+
+        TypeTrait::putToStream((val.getValues())[0], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[4], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[8], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[12], outStr);
+
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[1], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[5], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[9], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[13], outStr);
+
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[2], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[6], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[10], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[14], outStr);
+
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[3], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[7], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[11], outStr);
+        outStr << " ";
+        TypeTrait::putToStream((val.getValues())[15], outStr);
+    }
+
+    static       UInt32    getBinSize (const Matrix4d &)
+    {
+        return sizeof(Real64) * 16;
+    }
+
+    static       UInt32    getBinSize (const Matrix4d  *,
+                                             UInt32  uiNumObjects)
+    {
+        return sizeof(Real64) * 16 * uiNumObjects;
+    }
+
+    static void   copyToBin  (      BinaryDataHandler &pMem, 
+                              const Matrix4d          &oObject)
+    {
+        pMem.putValues(&oObject[0][0], 16);
+    }
+
+
+    static void   copyFromBin(      BinaryDataHandler &pMem, 
+                                    Matrix4d          &oObject)
+    {
+        pMem.getValues(&oObject[0][0], 16);
+    }
+
+    static void copyToBin(      BinaryDataHandler &pMem,
+                          const Matrix4d          *pObjectStore,
+                                UInt32             uiNumObjects)
+    {
+        pMem.putValues(&pObjectStore[0][0][0], uiNumObjects * 16);
+    }
+    
+    static void copyFromBin(    BinaryDataHandler &pMem,
+                                Matrix4d          *pObjectStore,
+                                UInt32             uiNumObjects)
+    {
+        pMem.getValues(&pObjectStore[0][0][0], uiNumObjects * 16);
+    }
+};
+
 
 
 /*! \ingroup GrpBaseFieldTraits
