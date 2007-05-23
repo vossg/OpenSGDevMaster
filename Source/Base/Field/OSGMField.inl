@@ -488,6 +488,15 @@ void MField<FieldTypeT, fieldNameSpace>::swap(MField &right)
     _values.swap(right._values);
 }
 
+#ifdef OSG_1_COMPAT
+template <class FieldTypeT, Int32 fieldNameSpace> inline
+void MField<FieldTypeT, fieldNameSpace>::addValue (ArgumentType value)
+{
+    _values.push_back(value);
+    
+}
+#endif
+
 /*-------------------------------------------------------------------------*/
 /*                           Index Operator                                */
 

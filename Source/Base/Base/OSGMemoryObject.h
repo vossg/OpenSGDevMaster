@@ -111,6 +111,19 @@ void setRefd(T *&pObject, T * const pNewObject);
 template <class T> inline
 void clearRef(T *&pObject);
  
+#ifdef OSG_1_COMPAT
+inline
+void subRefP(MemoryObjectPConst pObject)
+{
+    subRef(pObject);
+}
+inline
+void addRefP(MemoryObjectPConst pObject)
+{
+    addRef(pObject);
+}
+#endif
+
 OSG_END_NAMESPACE
 
 #include "OSGMemoryObject.inl"

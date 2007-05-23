@@ -223,6 +223,10 @@ class MField : public Field
     bool                   empty    (void                              ) const;
     void                   swap     (MField                      &right);
 
+#ifdef OSG_1_COMPAT
+    void                   addValue (ArgumentType value                );
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Index Operator                              */
