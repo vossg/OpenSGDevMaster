@@ -124,6 +124,13 @@ UInt32 ImageFileType::getFlags(void) const
 
 //-------------------------------------------------------------------------
 
+const Char8 *ImageFileType::getOptions(void)
+{
+    return _options.c_str();
+}
+
+//-------------------------------------------------------------------------
+
 bool ImageFileType::read(ImagePtrArg pImage, const Char8 *fileName)
 {
     std::ifstream is(fileName, std::ios::binary);
@@ -252,6 +259,13 @@ ImageFileType::~ImageFileType(void)
 }
 
 //-------------------------------------------------------------------------
+
+void ImageFileType::setOptions(const Char8 *options)
+{
+    _options = options;
+}
+
+//-------------------------------------------------------------------------
 /*! Abstract restore method. Should be overwriten by an concrete derived
     class. Tries to restore the image data from the given memblock.
 */
@@ -295,7 +309,7 @@ UInt64 ImageFileType::restore(      ImagePtrArg  pImage,
     Head            head;
     const UChar8    *data = buffer ? (buffer + headSize) : 0;
     ImageFileType   *type;
-    const char      *mimeType;
+    std::string      mimeType;
     Image::Type     dataType;
 
     if((pImage != NullFC) && (buffer != NULL) && (memSize >= headSize))
@@ -305,9 +319,10 @@ UInt64 ImageFileType::restore(      ImagePtrArg  pImage,
 
         memcpy(&head,buffer,sizeof(Head));
         head.netToHost();
-        mimeType = head.mimeType;
+        mimeType = 
+            ImageFileHandler::the()->determineMimetypeFromSuffix(head.suffix);
 
-        if((type = ImageFileHandler::the()->getFileType(mimeType, 0)))
+        if((type = ImageFileHandler::the()->getFileType(mimeType.c_str(), 0)))
         {
             if (head.dataType)
                 dataType = Image::Type(head.dataType);
@@ -364,7 +379,8 @@ UInt64 ImageFileType::restore(      ImagePtrArg  pImage,
             imageSize = 0;
 
             FWARNING(("Can not restore image data, invalid mimeType: %s\n",
-                      mimeType ? mimeType : "Unknown"));
+                      mimeType.empty() == false ? 
+                          mimeType.c_str() : "Unknown"));
         }
     }
 
@@ -451,7 +467,7 @@ UInt64 ImageFileType::store(ImageConstPtrArg  pImage,
         head->attachmentSize = static_cast<unsigned short>(attachmentSize);
         head->hostToNet();
       
-        strcpy(head->mimeType, getMimeType());
+        strcpy(head->suffix, _suffixList.front().c_str());
       
         dest = (UChar8 *) (buffer + headSize);
 

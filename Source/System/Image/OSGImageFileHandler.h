@@ -117,6 +117,15 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Options                                    */
+    /*! \{                                                                 */
+
+    virtual       bool          setOptions(const Char8 *suffix, 
+                                           const Char8 *options);
+    virtual const Char8        *getOptions(const Char8 *suffix);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Storage                                  */
     /*! \{                                                                 */
 
@@ -153,6 +162,8 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     std::string    determineMimetypeFromName  (const std::string  &fileName);
 
     std::string    determineMimetypeFromStream(      std::istream &is      );
+
+    std::string    determineMimetypeFromSuffix(const std::string  &suffix  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -194,7 +205,11 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
     static const std::string _fileNameKey;
     static const std::string _fullFilePathKey;
 
-    bool addImageFileType (ImageFileType &fileType);
+           bool addImageFileType (ImageFileType &fileType);
+
+    static void normalizeMimetype(std::string   &mimetype);
+
+    static void normalizeSuffix  (std::string   &suffix  );
 
     /*==========================  PRIVATE  ================================*/
 

@@ -89,7 +89,14 @@ Int32 Image::_formatDic[][2] =
     { OSG_RGB_DXT1,  3 },
     { OSG_RGBA_DXT1, 4 },
     { OSG_RGBA_DXT3, 4 },
-    { OSG_RGBA_DXT5, 4 }
+    { OSG_RGBA_DXT5, 4 },
+    { OSG_ALPHA_INTEGER_PF,           1 },
+    { OSG_RGB_INTEGER_PF,             3 },
+    { OSG_RGBA_INTEGER_PF,            4 },
+    { OSG_BGR_INTEGER_PF,             3 },
+    { OSG_BGRA_INTEGER_PF,            4 },
+    { OSG_LUMINANCE_INTEGER_PF,       1 },
+    { OSG_LUMINANCE_ALPHA_INTEGER_PF, 2 }
 };
 
 Int32 Image::_typeDic[][2] =
@@ -99,7 +106,9 @@ Int32 Image::_typeDic[][2] =
     { OSG_UINT16_IMAGEDATA,      2 },
     { OSG_UINT32_IMAGEDATA,      4 },
     { OSG_FLOAT32_IMAGEDATA,     4 },
-    { OSG_FLOAT16_IMAGEDATA,     2 }
+    { OSG_FLOAT16_IMAGEDATA,     2 },
+    { OSG_INT16_IMAGEDATA,       2 },
+    { OSG_INT32_IMAGEDATA,       4 }
 };
 
 /*----------------------------- class specific ----------------------------*/
@@ -200,6 +209,27 @@ void Image::dump(      UInt32    ,
         case OSG_RGBA_DXT5:
             pfStr = "RGBA_DXT5";
             break;
+        case OSG_ALPHA_INTEGER_PF:
+            pfStr = "ALPHA_INTEGER";
+            break;
+        case OSG_RGB_INTEGER_PF:
+            pfStr = "RGB_INTEGER";
+            break;
+        case OSG_RGBA_INTEGER_PF:
+            pfStr = "RGBA_INTEGER";
+            break;
+        case OSG_BGR_INTEGER_PF:
+            pfStr = "BGR_INTEGER";
+            break;
+        case OSG_BGRA_INTEGER_PF:
+            pfStr = "BGRA_INTEGER";
+            break;
+        case OSG_LUMINANCE_INTEGER_PF:
+            pfStr = "LUMINANCE_INTEGER";
+            break;
+        case OSG_LUMINANCE_ALPHA_INTEGER_PF:
+            pfStr = "LUMINANCE_ALPHA_INTEGER";
+            break;
         default:
             pfStr = "UNKNOWN_PIXEL_FORMAT";
             break;
@@ -221,6 +251,12 @@ void Image::dump(      UInt32    ,
             break;
         case OSG_FLOAT32_IMAGEDATA:
             typeStr = "IMAGEDATA_TYPE FLOAT32";
+            break;
+        case OSG_INT16_IMAGEDATA:
+            typeStr = "IMAGEDATA_TYPE INT16";
+            break;
+        case OSG_INT32_IMAGEDATA:
+            typeStr = "IMAGEDATA_TYPE INT32";
             break;
 
         default:
@@ -585,6 +621,13 @@ bool Image::addValue(const char *value)
                         break;
                 }
                 break;
+
+			case OSG_INT16_IMAGEDATA:
+			case OSG_INT32_IMAGEDATA:
+            {
+                FFATAL((" 'addValue' NYI\n "));
+            }
+            break;
 
             default:
                 setDataType(OSG_INVALID_IMAGEDATATYPE);
@@ -1947,6 +1990,18 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                     }
                     break;
 
+				case OSG_ALPHA_INTEGER_PF:
+				case OSG_RGB_INTEGER_PF:
+				case OSG_RGBA_INTEGER_PF:
+				case OSG_BGR_INTEGER_PF:
+				case OSG_BGRA_INTEGER_PF:
+				case OSG_LUMINANCE_INTEGER_PF:
+				case OSG_LUMINANCE_ALPHA_INTEGER_PF:
+                {
+                    FFATAL((" 'reformat' NYI\n "));
+                }
+                break;
+
                 default:
                     FWARNING (( "Unvalid pixeldepth (%d) in reformat() !\n",
                                 pixelFormat ));
@@ -2018,6 +2073,13 @@ void Image::swapDataEndian(void)
                 dataF32[i] = p;
             }
             break;
+
+		case OSG_INT16_IMAGEDATA:
+		case OSG_INT32_IMAGEDATA:
+        {
+            FFATAL((" 'swapDataEndian' NYI\n "));
+        }
+		break;
 
         default:
             FWARNING (( "invalid source data type \n"));
@@ -2332,6 +2394,13 @@ bool Image::convertDataTypeTo(Int32 destDataType)
             }
             break;
 
+		case OSG_INT16_IMAGEDATA:
+		case OSG_INT32_IMAGEDATA:
+        {
+            FFATAL((" 'convertDataTypeTo' NYI\n "));
+        }
+        break;
+
         default:
             FWARNING (( "invalid source data type \n"));
             break;
@@ -2524,6 +2593,15 @@ bool Image::scale(Int32    width,
     Int32     oldDepth =getDepth();
     MFUInt8   srcPixel;
 
+    if ( (oldWidth  == width ) &&
+         (oldHeight == height) &&
+         (oldDepth  == depth )   ) 
+    {
+        if(destination != osg::NullFC)
+            *destination = *this;
+        
+        return true;
+    }
     if (hasCompressedData())
     {
         FFATAL (("Invalid Image::scale for compressed image\n"));
@@ -3288,6 +3366,13 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
             }
             break;
 
+		case OSG_INT16_IMAGEDATA:
+		case OSG_INT32_IMAGEDATA:
+        {
+            FFATAL((" 'createMipmap' NYI\n "));
+        }
+        break;
+
         default:
             FWARNING (( "Invalid IMAGE_DATA_TYPE\n" ));
             break;
@@ -3395,7 +3480,12 @@ bool Image::hasAlphaChannel(void)
         (getPixelFormat      () == OSG_RGBA_DXT5) ||
         (getPixelFormat      () == OSG_A_PF     ) ||
         (getPixelFormat      () == OSG_I_PF     ) ||
-        (getPixelFormat      () == OSG_LA_PF    );
+        (getPixelFormat      () == OSG_LA_PF    ) ||
+
+        (getPixelFormat      () == OSG_ALPHA_INTEGER_PF          ) ||
+        (getPixelFormat      () == OSG_RGBA_INTEGER_PF           ) ||
+        (getPixelFormat      () == OSG_BGRA_INTEGER_PF           ) ||
+        (getPixelFormat      () == OSG_LUMINANCE_ALPHA_INTEGER_PF);
 }
 
 /*! Method to check, whether the alpha channel is just fully transparent/
@@ -3426,10 +3516,13 @@ bool Image::hasCompressedData(void)
 bool Image::hasColorChannel(void)
 {
     return
-        ( !( getPixelFormat() == OSG_A_PF ||
-             getPixelFormat() == OSG_I_PF ||
-             getPixelFormat() == OSG_L_PF ||
-             getPixelFormat() == OSG_LA_PF )) ||
+        ( !( getPixelFormat() == OSG_A_PF  ||
+             getPixelFormat() == OSG_I_PF  ||
+             getPixelFormat() == OSG_L_PF  ||
+             getPixelFormat() == OSG_LA_PF ||
+
+             getPixelFormat() == OSG_ALPHA_INTEGER_PF          ||
+             getPixelFormat() == OSG_LUMINANCE_ALPHA_INTEGER_PF )) ||
         getForceColorChannel();
 }
 
@@ -3527,6 +3620,13 @@ bool Image::calcIsAlphaBinary(void)
                     break;
             }
             break;
+        case OSG_INT16_IMAGEDATA:
+        case OSG_INT32_IMAGEDATA:
+		{
+			FFATAL((" 'calcIsAlphaBinary' NYI\n "));
+		}
+		break;
+
         default:
             FWARNING(("Image::calcIsAlphaBinary: found unknown "
                       "data type %d, assumning false.\n",
@@ -3717,7 +3817,8 @@ bool Image::createData(const UInt8 *data, bool allocMem)
     }
 
     // set sideSize
-    setSideSize (calcMipmapSumSize(getMipMapCount()    ));
+	UInt32 mipmapSumSize = calcMipmapSumSize(getMipMapCount());
+    setSideSize (mipmapSumSize);
 
     // set frameSize
     setFrameSize(getSideSize() * getSideCount());

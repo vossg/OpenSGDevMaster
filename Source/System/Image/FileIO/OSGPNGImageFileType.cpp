@@ -138,7 +138,7 @@ static void warningOutput (png_structp OSG_CHECK_ARG(png_ptr),
 
 #endif
 
-PNGImageFileType PNGImageFileType:: _the("png",
+PNGImageFileType PNGImageFileType:: _the("image/png",
                                          suffixArray, sizeof(suffixArray),
                                          (OSG_READ_SUPPORTED | 
                                           OSG_WRITE_SUPPORTED));
@@ -158,7 +158,7 @@ bool PNGImageFileType::read(      ImagePtrArg   OSG_PNG_ARG(pImage  ),
     Image::PixelFormat  pixelFormat = OSG::Image::OSG_INVALID_PF;
     png_structp         png_ptr;
     png_infop           info_ptr;
-    png_uint_32         width, wc, height, h, i;
+    png_uint_32         width, wc, height, h, i, res_x, res_y;
     png_byte            bit_depth, channels, color_type;
     png_bytep           *row_pointers, base;
 
@@ -190,6 +190,8 @@ bool PNGImageFileType::read(      ImagePtrArg   OSG_PNG_ARG(pImage  ),
     width = png_get_image_width(png_ptr, info_ptr);
     height = png_get_image_height(png_ptr, info_ptr);
     bit_depth = png_get_bit_depth(png_ptr, info_ptr);
+    res_x = png_get_x_pixels_per_meter(png_ptr, info_ptr);
+    res_y = png_get_y_pixels_per_meter(png_ptr, info_ptr);
     channels = png_get_channels(png_ptr, info_ptr);
     color_type = png_get_color_type(png_ptr, info_ptr);
 
@@ -198,12 +200,21 @@ bool PNGImageFileType::read(      ImagePtrArg   OSG_PNG_ARG(pImage  ),
     {
         png_set_palette_to_rgb(png_ptr);
         channels = 3;
+        bit_depth = 8;
     }
 
     // Convert < 8 bit to 8 bit
     if(color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
+    {
         png_set_gray_1_2_4_to_8(png_ptr);
-    
+        bit_depth = 8;
+    }
+
+#if BYTE_ORDER == LITTLE_ENDIAN
+    if (bit_depth == 16)
+        png_set_swap(png_ptr);
+#endif
+
     // Add a full alpha channel if there is transparency
     // information in a tRNS chunk
     if(png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
@@ -212,9 +223,21 @@ bool PNGImageFileType::read(      ImagePtrArg   OSG_PNG_ARG(pImage  ),
         ++channels;
     } 
 
-    // Convert 16 bit to 8 bit
-    if(bit_depth == 16)
-        png_set_strip_16(png_ptr);
+    Int32 dataType;
+
+    switch (bit_depth) 
+    {
+        case 8:
+            dataType = Image::OSG_UINT8_IMAGEDATA;
+            break;
+        case 16:
+            dataType = Image::OSG_UINT16_IMAGEDATA;
+            break;
+        default:
+            FWARNING (( "Invalid bit_depth: %d, can not read png-data\n",
+                        bit_depth ));
+            return false;
+    }
 
     switch(channels)
     {
@@ -232,11 +255,26 @@ bool PNGImageFileType::read(      ImagePtrArg   OSG_PNG_ARG(pImage  ),
         break;
     };
     
-    if(pImage->set(pixelFormat, width, height))
+    if(pImage->set(pixelFormat, width, height,
+                   1, 1, 1, 0.0, 0,
+                   dataType))
     {
+        // set resolution png supports only pixel per meter,
+        // so we do a conversion to dpi with some rounding.
+        res_x = png_uint_32((Real32(res_x) / 39.37007874f) < 0.0f ?
+                            (Real32(res_x) / 39.37007874f) - 0.5f :
+                            (Real32(res_x) / 39.37007874f) + 0.5f);
+        res_y = png_uint_32((Real32(res_y) / 39.37007874f) < 0.0f ?
+                            (Real32(res_y) / 39.37007874f) - 0.5f :
+                            (Real32(res_y) / 39.37007874f) + 0.5f);
+
+        pImage->setResX(Real32(res_x));
+        pImage->setResY(Real32(res_y));
+        pImage->setResUnit(Image::OSG_RESUNIT_INCH);
+
         // Calculate the row pointers
         row_pointers = new png_bytep[height];
-        wc = width * channels;
+        wc = width * channels * (bit_depth / 8);
         h = height - 1;
         base = pImage->editData();
 
@@ -362,11 +400,42 @@ bool PNGImageFileType::write(      ImageConstPtrArg  OSG_PNG_ARG(pImage  ),
             
     }
     
+    Int32 bit_depth;
+    switch(pImage->getDataType()) 
+    {
+        case Image::OSG_UINT8_IMAGEDATA:
+            bit_depth = 8;
+            break;
+        case Image::OSG_UINT16_IMAGEDATA:
+            bit_depth = 16;
+            break;
+        default:
+            FWARNING (("Invalid pixeldepth, cannot store data\n"));
+            return false;
+    };
+
     png_set_IHDR(png_ptr, info_ptr, pImage->getWidth(), pImage->getHeight(),
-                 8, ctype,      
+                 bit_depth,ctype,      
                  PNG_INTERLACE_NONE, 
                  PNG_COMPRESSION_TYPE_BASE, 
                  PNG_FILTER_TYPE_BASE);
+
+    // set resolution png supports only meter per pixel,
+    // so we do a conversion from dpi with some rounding.
+    png_uint_32 res_x = pImage->getResX();
+    png_uint_32 res_y = pImage->getResY();
+    if(pImage->getResUnit() == Image::OSG_RESUNIT_INCH)
+    {
+        res_x = png_uint_32((pImage->getResX() * 39.37007874f) < 0.0f ?
+                            (pImage->getResX() * 39.37007874f) - 0.5f :
+                            (pImage->getResX() * 39.37007874f) + 0.5f);
+        res_y = png_uint_32((pImage->getResY() * 39.37007874f) < 0.0f ?
+                            (pImage->getResY() * 39.37007874f) - 0.5f :
+                            (pImage->getResY() * 39.37007874f) + 0.5f);
+    }
+
+    png_set_pHYs(png_ptr, info_ptr, res_x, res_y,
+                 PNG_RESOLUTION_METER);
 
 #if 0
     /* optional significant bit chunk */
@@ -409,6 +478,11 @@ bool PNGImageFileType::write(      ImageConstPtrArg  OSG_PNG_ARG(pImage  ),
 
     /* Write the file header information.  REQUIRED */
     png_write_info(png_ptr, info_ptr);
+
+#if BYTE_ORDER == LITTLE_ENDIAN
+    if (bit_depth == 16) 
+      png_set_swap(png_ptr);
+#endif
 
 #if 0
     /* invert monochrome pixels */
@@ -601,12 +675,21 @@ UInt64 PNGImageFileType::restoreData(      ImagePtrArg  OSG_PNG_ARG  (pImage ),
     {
         png_set_palette_to_rgb(png_ptr);
         channels = 3;
+        bit_depth = 8;
     }
 
     // Convert < 8 bit to 8 bit
     if(color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
+    {
         png_set_gray_1_2_4_to_8(png_ptr);
-    
+        bit_depth = 8;
+    }
+
+#if BYTE_ORDER == LITTLE_ENDIAN
+    if (bit_depth == 16)
+        png_set_swap(png_ptr);
+#endif
+   
     // Add a full alpha channel if there is transparency
     // information in a tRNS chunk
     if(png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
@@ -615,9 +698,21 @@ UInt64 PNGImageFileType::restoreData(      ImagePtrArg  OSG_PNG_ARG  (pImage ),
         ++channels;
     }   
                                                                  
-    // Convert 16 bit to 8 bit
-    if(bit_depth == 16)
-        png_set_strip_16(png_ptr);
+    Int32 dataType;
+
+    switch (bit_depth) 
+    {
+        case 8:
+            dataType = Image::OSG_UINT8_IMAGEDATA;
+            break;
+        case 16:
+            dataType = Image::OSG_UINT16_IMAGEDATA;
+            break;
+        default:
+            FWARNING (( "Invalid bit_depth: %d, can not read png-data\n",
+                        bit_depth ));
+            return false;
+    }
     
     switch(channels)
     {
@@ -635,11 +730,13 @@ UInt64 PNGImageFileType::restoreData(      ImagePtrArg  OSG_PNG_ARG  (pImage ),
             break;
     };
     
-    if(pImage->set(pixelFormat, width, height))
+    if(pImage->set(pixelFormat, width, height,
+                   1, 1, 1, 0.0, 0,
+                   dataType))
     {
         // Calculate the row pointers
         row_pointers = new png_bytep[height];
-        wc = width * channels;
+        wc = width * channels * (bit_depth / 8);
         h = height - 1;
         base = pImage->editData();
 
@@ -783,14 +880,29 @@ UInt64 PNGImageFileType::storeData(ImageConstPtrArg  OSG_PNG_ARG  (pImage  ),
                       pImage->getPixelFormat()));
             png_destroy_write_struct(&png_ptr,  NULL);
 
-            return false;
+            return 0;
     }
     
+    Int32 bit_depth;
+
+    switch (pImage->getDataType()) 
+    {
+        case Image::OSG_UINT8_IMAGEDATA:
+            bit_depth = 8;
+            break;
+        case Image::OSG_UINT16_IMAGEDATA:
+            bit_depth = 16;
+            break;
+        default:
+            FWARNING (("Invalid pixeldepth, cannot store data\n"));
+            return 0;
+    };
+
     png_set_IHDR(png_ptr, 
                  info_ptr, 
                  pImage->getWidth(), 
                  pImage->getHeight(),
-                 8,
+                 bit_depth,
                  ctype,      
                  PNG_INTERLACE_NONE, 
                  PNG_COMPRESSION_TYPE_BASE, 
@@ -803,6 +915,11 @@ UInt64 PNGImageFileType::storeData(ImageConstPtrArg  OSG_PNG_ARG  (pImage  ),
     /* Write the file header information.  REQUIRED */
 
     png_write_info(png_ptr, info_ptr);
+
+#if BYTE_ORDER == LITTLE_ENDIAN
+    if (bit_depth == 16)
+        png_set_swap(png_ptr);
+#endif
     
     if(pImage->getPixelFormat() == Image::OSG_BGR_PF ||
        pImage->getPixelFormat() == Image::OSG_BGRA_PF)

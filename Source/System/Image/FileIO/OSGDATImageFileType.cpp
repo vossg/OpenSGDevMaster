@@ -74,7 +74,7 @@ OSG_USING_NAMESPACE
 
 static const Char8 *suffixArray[] =
 {
-    "dat"
+    "image/x-dat"
 };
 
 DATImageFileType DATImageFileType::_the("dat",

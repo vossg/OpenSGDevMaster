@@ -700,6 +700,105 @@ void ImageBase::setForceAlphaBinary(const bool &value)
 
     _sfForceAlphaBinary.setValue(value);
 }
+//! Get the value of the Image::_sfResX field.
+
+inline
+Real32 &ImageBase::editResX(void)
+{
+    editSField(ResXFieldMask);
+
+    return _sfResX.getValue();
+}
+
+//! Get the value of the Image::_sfResX field.
+inline
+const Real32 &ImageBase::getResX(void) const
+{
+    return _sfResX.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Real32              &ImageBase::getResX           (void)
+{
+    return this->editResX           ();
+}
+#endif
+
+//! Set the value of the Image::_sfResX field.
+inline
+void ImageBase::setResX(const Real32 &value)
+{
+    editSField(ResXFieldMask);
+
+    _sfResX.setValue(value);
+}
+//! Get the value of the Image::_sfResY field.
+
+inline
+Real32 &ImageBase::editResY(void)
+{
+    editSField(ResYFieldMask);
+
+    return _sfResY.getValue();
+}
+
+//! Get the value of the Image::_sfResY field.
+inline
+const Real32 &ImageBase::getResY(void) const
+{
+    return _sfResY.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Real32              &ImageBase::getResY           (void)
+{
+    return this->editResY           ();
+}
+#endif
+
+//! Set the value of the Image::_sfResY field.
+inline
+void ImageBase::setResY(const Real32 &value)
+{
+    editSField(ResYFieldMask);
+
+    _sfResY.setValue(value);
+}
+//! Get the value of the Image::_sfResUnit field.
+
+inline
+UInt16 &ImageBase::editResUnit(void)
+{
+    editSField(ResUnitFieldMask);
+
+    return _sfResUnit.getValue();
+}
+
+//! Get the value of the Image::_sfResUnit field.
+inline
+const UInt16 &ImageBase::getResUnit(void) const
+{
+    return _sfResUnit.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt16              &ImageBase::getResUnit        (void)
+{
+    return this->editResUnit        ();
+}
+#endif
+
+//! Set the value of the Image::_sfResUnit field.
+inline
+void ImageBase::setResUnit(const UInt16 &value)
+{
+    editSField(ResUnitFieldMask);
+
+    _sfResUnit.setValue(value);
+}
 
 //! Get the value of the \a index element the Image::_mfParents field.
 inline
@@ -855,6 +954,15 @@ void ImageBase::execSync(      ImageBase *pOther,
 
     if(FieldBits::NoField != (ForceAlphaBinaryFieldMask & whichField))
         _sfForceAlphaBinary.syncWith(pOther->_sfForceAlphaBinary);
+
+    if(FieldBits::NoField != (ResXFieldMask & whichField))
+        _sfResX.syncWith(pOther->_sfResX);
+
+    if(FieldBits::NoField != (ResYFieldMask & whichField))
+        _sfResY.syncWith(pOther->_sfResY);
+
+    if(FieldBits::NoField != (ResUnitFieldMask & whichField))
+        _sfResUnit.syncWith(pOther->_sfResUnit);
 }
 #endif
 
@@ -936,6 +1044,15 @@ void ImageBase::execSync (      ImageBase *pFrom,
 
     if(FieldBits::NoField != (ForceAlphaBinaryFieldMask & whichField))
         _sfForceAlphaBinary.syncWith(pFrom->_sfForceAlphaBinary);
+
+    if(FieldBits::NoField != (ResXFieldMask & whichField))
+        _sfResX.syncWith(pFrom->_sfResX);
+
+    if(FieldBits::NoField != (ResYFieldMask & whichField))
+        _sfResY.syncWith(pFrom->_sfResY);
+
+    if(FieldBits::NoField != (ResUnitFieldMask & whichField))
+        _sfResUnit.syncWith(pFrom->_sfResUnit);
 }
 #endif
 

@@ -71,7 +71,7 @@ static const Char8 *suffixArray[] =
     "mtd","opensg","opensgImage"
 };
 
-MTDImageFileType MTDImageFileType::_the("mtd",
+MTDImageFileType MTDImageFileType::_the("image/x-mtd",
                                         suffixArray, sizeof(suffixArray),
                                         (OSG_READ_SUPPORTED | 
                                          OSG_WRITE_SUPPORTED));

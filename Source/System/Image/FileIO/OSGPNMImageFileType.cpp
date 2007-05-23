@@ -82,7 +82,7 @@ static const Char8 *suffixArray[] =
 };
 
 
-PNMImageFileType PNMImageFileType::_the("pnm",
+PNMImageFileType PNMImageFileType::_the("image/x-portable-bitmap",
                                         suffixArray, sizeof(suffixArray),
                                         (OSG_READ_SUPPORTED | 
                                          OSG_WRITE_SUPPORTED));

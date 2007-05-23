@@ -218,9 +218,10 @@ DestinationManager::DestinationManager(j_compress_ptr cinfo, std::ostream &os)
     pub.init_destination = ostream_init_destination;
     pub.empty_output_buffer = ostream_empty_output_buffer;
     pub.term_destination = ostream_term_destination;
-    pub.free_in_buffer = 0; /* forces fill_input_buffer on first read */
-    pub.next_output_byte = 0; /* until buffer loaded */
     this->os = &os;
+    buffer = (char*)(*cinfo->mem->alloc_small)((j_common_ptr)cinfo, JPOOL_IMAGE, BUFFERSIZE);
+    pub.free_in_buffer = BUFFERSIZE;
+    pub.next_output_byte = (JOCTET *) buffer;
 }
 
 struct osg_jpeg_error_mgr
@@ -355,9 +356,12 @@ static void jpeg_memory_src(      struct jpeg_decompress_struct *cinfo,
 
 // Static Class Varible implementations:
 
-static const Char8                  *suffixArray[] = { "jpg", "jpeg" };
+static const Char8                  *suffixArray[] = { "jpg", 
+                                                       "jpeg", 
+                                                       "jpe", 
+                                                       "jfif" };
 
-JPGImageFileType JPGImageFileType:: _the("jpeg",
+JPGImageFileType JPGImageFileType:: _the("image/jpeg",
                                          suffixArray, sizeof(suffixArray),
                                          (OSG_READ_SUPPORTED | 
                                           OSG_WRITE_SUPPORTED));
@@ -430,6 +434,20 @@ bool JPGImageFileType::read(      ImagePtrArg   OSG_JPG_ARG(pImage  ),
                    cinfo.output_width, 
                    cinfo.output_height) == true)
     {
+        Real32 res_x = Real32(cinfo.X_density);
+        Real32 res_y = Real32(cinfo.Y_density);
+        UInt16 res_unit = UInt16(cinfo.density_unit);
+        if(res_unit == 2) // centimeter
+        {
+            // convert dpcm to dpi.
+            res_x *= 2.54f;
+            res_y *= 2.54f;
+            res_unit = Image::OSG_RESUNIT_INCH;
+        }
+        pImage->setResX(res_x);
+        pImage->setResY(res_y);
+        pImage->setResUnit(res_unit);
+
         unsigned char *destData = pImage->editData() + pImage->getSize();
 
         int row_stride = cinfo.output_width * cinfo.output_components;
@@ -492,6 +510,14 @@ bool JPGImageFileType::write(      ImageConstPtrArg  OSG_JPG_ARG(pImage  ),
         return false;
     cinfo.err->error_exit = osg_jpeg_error_exit;
     cinfo.err->output_message = osg_jpeg_output_message;
+
+    cinfo.density_unit = 1;  // dpi
+    cinfo.X_density = UInt16(pImage->getResX() < 0.0f ?
+                             pImage->getResX() - 0.5f :
+                             pImage->getResX() + 0.5f);
+    cinfo.Y_density = UInt16(pImage->getResY() < 0.0f ?
+                             pImage->getResY() - 0.5f :
+                             pImage->getResY() + 0.5f);
 
     jpeg_create_compress(&cinfo);
 

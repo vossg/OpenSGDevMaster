@@ -73,6 +73,13 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
 
     virtual ~ImageFileType(void);
 
+     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Set                                        */
+    /*! \{                                                                 */
+    
+    void setOptions(const Char8 *options);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Get  Methods                              */
@@ -83,6 +90,8 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
     const std::list<std::string> &getSuffixList(void) const;
     
     virtual    UInt32             getFlags     (void) const;
+
+    const      Char8             *getOptions   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -170,7 +179,7 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
 
     struct OSG_SYSTEM_DLLMAPPING Head
     {
-        Char8          mimeType[8];
+        Char8          suffix[8];
         
         unsigned short pixelFormat;
         unsigned short width;
@@ -189,8 +198,9 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType
         bool hostToNet(void);
     };
 
-    /*! \}                                                                 */
+    std::string _options;
 
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Default Constructor                           */
     /*! \{                                                                 */

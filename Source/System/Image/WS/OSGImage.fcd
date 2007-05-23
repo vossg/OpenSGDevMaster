@@ -218,4 +218,32 @@ mipMap and simple multi-frame data.
         Set to true if using the image to prevent depth sorting for 
         SimpleTexturedMaterials using this Image.
 	</Field>
+	<Field
+		name="resX"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="72.0f"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="resY"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="72.0f"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="resUnit"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		defaultValue="2"
+		access="public"
+	>
+	resolution unit (invalid=0, none=1, inch=2)
+	</Field>
 </FieldContainer>

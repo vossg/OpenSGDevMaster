@@ -171,6 +171,18 @@ OSG_BEGIN_NAMESPACE
     SimpleTexturedMaterials using this Image.
 */
 
+/*! \var Real32          ImageBase::_sfResX
+    
+*/
+
+/*! \var Real32          ImageBase::_sfResY
+    
+*/
+
+/*! \var UInt16          ImageBase::_sfResUnit
+    resolution unit (invalid=0, none=1, inch=2)
+*/
+
 
 void ImageBase::classDescInserter(TypeObject &oType)
 {
@@ -633,6 +645,72 @@ void ImageBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFReal32 *(ImageBase::*GetSFResXF)(void) const;
+
+    GetSFResXF GetSFResX = &ImageBase::getSFResX;
+#endif
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "resX",
+        "",
+        ResXFieldId, ResXFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFResX),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFResX));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFResX));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFReal32 *(ImageBase::*GetSFResYF)(void) const;
+
+    GetSFResYF GetSFResY = &ImageBase::getSFResY;
+#endif
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "resY",
+        "",
+        ResYFieldId, ResYFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFResY),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFResY));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFResY));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt16 *(ImageBase::*GetSFResUnitF)(void) const;
+
+    GetSFResUnitF GetSFResUnit = &ImageBase::getSFResUnit;
+#endif
+
+    pDesc = new SFUInt16::Description(
+        SFUInt16::getClassType(),
+        "resUnit",
+        "resolution unit (invalid=0, none=1, inch=2)\n",
+        ResUnitFieldId, ResUnitFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&ImageBase::editSFResUnit),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFResUnit));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&ImageBase::getSFResUnit));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -865,6 +943,34 @@ ImageBase::TypeObject ImageBase::_type(
     "\t>\n"
     "        Set to true if using the image to prevent depth sorting for \n"
     "        SimpleTexturedMaterials using this Image.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"resX\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"72.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"resY\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"72.0f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"resUnit\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"2\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tresolution unit (invalid=0, none=1, inch=2)\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "1D/2D/3D Image with various pixel types data, optionally also can hold\n"
@@ -1277,6 +1383,63 @@ SFBool              *ImageBase::getSFForceAlphaBinary(void)
 }
 #endif
 
+SFReal32 *ImageBase::editSFResX(void)
+{
+    editSField(ResXFieldMask);
+
+    return &_sfResX;
+}
+
+const SFReal32 *ImageBase::getSFResX(void) const
+{
+    return &_sfResX;
+}
+
+#ifdef OSG_1_COMPAT
+SFReal32            *ImageBase::getSFResX           (void)
+{
+    return this->editSFResX           ();
+}
+#endif
+
+SFReal32 *ImageBase::editSFResY(void)
+{
+    editSField(ResYFieldMask);
+
+    return &_sfResY;
+}
+
+const SFReal32 *ImageBase::getSFResY(void) const
+{
+    return &_sfResY;
+}
+
+#ifdef OSG_1_COMPAT
+SFReal32            *ImageBase::getSFResY           (void)
+{
+    return this->editSFResY           ();
+}
+#endif
+
+SFUInt16 *ImageBase::editSFResUnit(void)
+{
+    editSField(ResUnitFieldMask);
+
+    return &_sfResUnit;
+}
+
+const SFUInt16 *ImageBase::getSFResUnit(void) const
+{
+    return &_sfResUnit;
+}
+
+#ifdef OSG_1_COMPAT
+SFUInt16            *ImageBase::getSFResUnit        (void)
+{
+    return this->editSFResUnit        ();
+}
+#endif
+
 
 void ImageBase::pushToField(      FieldContainerPtrConstArg pNewElement,
                                     const UInt32                    uiFieldId  )
@@ -1660,6 +1823,18 @@ UInt32 ImageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfForceAlphaBinary.getBinSize();
     }
+    if(FieldBits::NoField != (ResXFieldMask & whichField))
+    {
+        returnValue += _sfResX.getBinSize();
+    }
+    if(FieldBits::NoField != (ResYFieldMask & whichField))
+    {
+        returnValue += _sfResY.getBinSize();
+    }
+    if(FieldBits::NoField != (ResUnitFieldMask & whichField))
+    {
+        returnValue += _sfResUnit.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1753,6 +1928,18 @@ void ImageBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfForceAlphaBinary.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ResXFieldMask & whichField))
+    {
+        _sfResX.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ResYFieldMask & whichField))
+    {
+        _sfResY.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ResUnitFieldMask & whichField))
+    {
+        _sfResUnit.copyToBin(pMem);
+    }
 }
 
 void ImageBase::copyFromBin(BinaryDataHandler &pMem,
@@ -1844,6 +2031,18 @@ void ImageBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfForceAlphaBinary.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ResXFieldMask & whichField))
+    {
+        _sfResX.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ResYFieldMask & whichField))
+    {
+        _sfResY.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ResUnitFieldMask & whichField))
+    {
+        _sfResUnit.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -1891,7 +2090,10 @@ ImageBase::ImageBase(void) :
     _sfForceCompressedData    (bool(false)),
     _sfForceAlphaChannel      (bool(false)),
     _sfForceColorChannel      (bool(false)),
-    _sfForceAlphaBinary       (bool(false))
+    _sfForceAlphaBinary       (bool(false)),
+    _sfResX                   (Real32(72.0f)),
+    _sfResY                   (Real32(72.0f)),
+    _sfResUnit                (UInt16(2))
 {
 }
 
@@ -1917,7 +2119,10 @@ ImageBase::ImageBase(const ImageBase &source) :
     _sfForceCompressedData    (source._sfForceCompressedData    ),
     _sfForceAlphaChannel      (source._sfForceAlphaChannel      ),
     _sfForceColorChannel      (source._sfForceColorChannel      ),
-    _sfForceAlphaBinary       (source._sfForceAlphaBinary       )
+    _sfForceAlphaBinary       (source._sfForceAlphaBinary       ),
+    _sfResX                   (source._sfResX                   ),
+    _sfResY                   (source._sfResY                   ),
+    _sfResUnit                (source._sfResUnit                )
 {
 }
 

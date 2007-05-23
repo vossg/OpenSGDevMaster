@@ -213,7 +213,7 @@ static const Char8 *suffixArray[] =
     "tif", "tiff"
 };
 
-TIFImageFileType TIFImageFileType:: _the("tiff",
+TIFImageFileType TIFImageFileType:: _the("image/tiff",
                                          suffixArray, 
                                          sizeof(suffixArray),
                                          (OSG_READ_SUPPORTED | 
@@ -242,6 +242,8 @@ bool TIFImageFileType::read(      ImagePtrArg   OSG_TIF_ARG(pImage),
                                  unmapFileProc);
     UChar8  *data = 0, *line = 0, *dest;
     UInt32  w, h, u, v;
+    Real32  res_x, res_y;
+    UInt16  res_unit;
     UInt16  bpp;
     Char8   errorMessage[1024];
     UInt16  *sampleinfo;
@@ -251,9 +253,12 @@ bool TIFImageFileType::read(      ImagePtrArg   OSG_TIF_ARG(pImage),
 
     if(in)
     {
-        TIFFGetField(in, TIFFTAG_IMAGEWIDTH, &w);
-
+        TIFFGetField(in, TIFFTAG_IMAGEWIDTH,  &w);
         TIFFGetField(in, TIFFTAG_IMAGELENGTH, &h);
+
+        TIFFGetField(in, TIFFTAG_XRESOLUTION,    &res_x);
+        TIFFGetField(in, TIFFTAG_YRESOLUTION,    &res_y);
+        TIFFGetField(in, TIFFTAG_RESOLUTIONUNIT, &res_unit);
 
         TIFFGetFieldDefaulted(in, TIFFTAG_SAMPLESPERPIXEL, &bpp);
 
@@ -307,6 +312,18 @@ bool TIFImageFileType::read(      ImagePtrArg   OSG_TIF_ARG(pImage),
             }
             
             pImage->set(type, w, h);
+
+            if(res_unit == RESUNIT_CENTIMETER)
+            {
+                // convert it to dpi.
+                res_x    *= 2.54f;
+                res_y    *= 2.54f;
+                res_unit  = Image::OSG_RESUNIT_INCH;
+            }
+            pImage->setResX   (res_x   );
+            pImage->setResY   (res_y   );
+            pImage->setResUnit(res_unit);
+
             dest = pImage->editData();
             
 #if defined(__linux) || defined(_WIN32)
@@ -430,12 +447,24 @@ bool TIFImageFileType::write(      ImageConstPtrArg  OSG_TIF_ARG(pImage),
     {
         TIFFSetField(out, TIFFTAG_IMAGEWIDTH, pImage->getWidth());
         TIFFSetField(out, TIFFTAG_IMAGELENGTH, pImage->getHeight());
+        TIFFSetField(out, TIFFTAG_XRESOLUTION, pImage->getResX());
+        TIFFSetField(out, TIFFTAG_YRESOLUTION, pImage->getResY());
+        TIFFSetField(out, TIFFTAG_RESOLUTIONUNIT, pImage->getResUnit());
         TIFFSetField(out, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
         TIFFSetField(out, TIFFTAG_SAMPLESPERPIXEL, samplesPerPixel);
         TIFFSetField(out, TIFFTAG_BITSPERSAMPLE, 8);
         TIFFSetField(out, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
         TIFFSetField(out, TIFFTAG_PHOTOMETRIC, photometric);
-        TIFFSetField(out, TIFFTAG_COMPRESSION, COMPRESSION_NONE);
+
+        if(_options.find("compressionType=LZW") != std::string::npos)
+        {
+            TIFFSetField(out, TIFFTAG_COMPRESSION, COMPRESSION_LZW);
+        }
+        else
+        {
+            TIFFSetField(out, TIFFTAG_COMPRESSION, COMPRESSION_NONE);
+        }
+
         TIFFSetField(out, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(out, 0));
 
         for(row = 0; row < pImage->getHeight(); row++)

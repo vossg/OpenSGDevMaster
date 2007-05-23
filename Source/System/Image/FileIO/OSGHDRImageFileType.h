@@ -137,14 +137,30 @@ class OSG_IMGFILEIO_DLLMAPPING HDRImageFileType : public ImageFileType
                           int      width);
     void RGBE2Float (     RGBE     rgbe, 
                           Real32  *fcol);
+    void RGBE2Half  (     RGBE     rgbe, 
+                          Real16  *fcol);
 
     int  fwritecolrs(std::ostream &os, 
                           Real32  *scan, 
                           RGBE    *rgbe_scan, 
                           int      width, 
                           int      height);
-    
+
+    int  fwritecolrs(std::ostream &os, 
+                          Real16  *scan, 
+                          RGBE    *rgbe_scan, 
+                          int      width, 
+                          int      height);
+
+    int fwriteRGBE  (std::ostream &os, 
+                          RGBE    *rgbe_scan, 
+                          int      width, 
+                          int      height);
+
     void float2RGBE (     Real32  *fcol, 
+                          RGBE     rgbe);
+
+    void half2RGBE  (     Real16  *fcol, 
                           RGBE     rgbe);
 
 

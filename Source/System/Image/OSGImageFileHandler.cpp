@@ -109,27 +109,20 @@ ImageFileType *ImageFileHandlerBase::getFileType(const Char8 *mimeType,
              ImageFileType *>::iterator  sI;
     const char                           separator = '.';
     int                                  i, l;
-    std::ifstream                        fin;
-    const char                          *mtPrefix = "image/";
-    size_t                               mtLen = strlen(mtPrefix);
 
     if(mimeType && *mimeType)
     {
-        if((strlen(mimeType) > mtLen) && !strncmp (mimeType, mtPrefix, mtLen))
-        {
-            mimeType += mtLen;
-        }
+        std::string mt = mimeType;
 
-        // check mime type
-        for(sI = _suffixTypeMap.begin(); sI != _suffixTypeMap.end(); ++sI)
-        {
-            if(!osgStringCaseCmp(sI->second->getMimeType(), mimeType))
-            {
-                type = sI->second;
+        normalizeMimetype(mt);
 
-                break;
-            }
-        }
+        if(mt.find('/') == std::string::npos)
+            mt.insert(0, "image/");
+
+        TypeMap::iterator tIt = _mimeTypeMap.find(mt);
+
+        if(tIt != _mimeTypeMap.end())
+            type = tIt->second;
 
         if(!type) 
         {
@@ -155,10 +148,7 @@ ImageFileType *ImageFileHandlerBase::getFileType(const Char8 *mimeType,
             {
                 suffix.assign(&(fileName[i + 1]));
 
-                std::transform(  suffix.begin(), 
-                                 suffix.end  (), 
-                                 suffix.begin(), 
-                               ::tolower);
+                normalizeSuffix(suffix);
 
                 sI = _suffixTypeMap.find(suffix);
 
@@ -273,7 +263,7 @@ std::string ImageFileHandlerBase::determineMimetypeFromName(
 
     std::string suffix = fileName.substr(pos + 1);
 
-    std::transform(suffix.begin(), suffix.end(), suffix.begin(), ::tolower);
+    normalizeSuffix(suffix);
 
     // Try to find the suffix in the map of extensions
     std::map<std::string, 
@@ -302,6 +292,25 @@ std::string ImageFileHandlerBase::determineMimetypeFromStream(std::istream &is)
     }
 
     return mimetype;
+}
+
+//-------------------------------------------------------------------------
+/*!
+Tries to determine the mime type from the suffix.
+*/
+std::string ImageFileHandlerBase::determineMimetypeFromSuffix(
+    const std::string &suffix)
+{
+    std::string s = suffix;
+
+    normalizeSuffix(s);
+
+    // Try to find the suffix in the map of extensions
+    std::map<std::string, ImageFileType *>::iterator it = 
+        _suffixTypeMap.find(s);
+
+    return it != _suffixTypeMap.end() ? 
+        std::string(it->second->getMimeType()) : std::string();
 }
 
 //-------------------------------------------------------------------------
@@ -534,6 +543,35 @@ void ImageFileHandlerBase::setPathHandler(PathHandler *pPathHandler)
     _pPathHandler = pPathHandler;
 }
 
+bool ImageFileHandlerBase::setOptions(const Char8 *suffix, 
+                                      const Char8 *options)
+{
+    if(suffix == NULL)
+        return false;
+    
+    ImageFileType *type = getFileType(suffix);
+
+    if(type == NULL)
+        return false;
+    
+    type->setOptions(options);
+    
+    return true;
+}
+
+const Char8 *ImageFileHandlerBase::getOptions(const Char8 *suffix)
+{
+    if(suffix == NULL)
+        return NULL;
+    
+    ImageFileType *type = getFileType(suffix);
+    
+    if(type == NULL)
+        return NULL;
+    
+    return type->getOptions();
+}
+
 //-------------------------------------------------------------------------
 /*! Tries to restore the raster data from
     the given memblock into the given Image. 
@@ -636,10 +674,7 @@ bool ImageFileHandlerBase::addImageFileType(ImageFileType &fileType)
     {
         suffix.assign(sI->c_str());
 
-        std::transform(  suffix.begin(), 
-                         suffix.end  (), 
-                         suffix.begin(), 
-                       ::tolower);
+        normalizeSuffix(suffix);
 
         smI = _suffixTypeMap.find(suffix);
 
@@ -658,10 +693,7 @@ bool ImageFileHandlerBase::addImageFileType(ImageFileType &fileType)
 
     std::string mimetype = fileType.getMimeType();
 
-    std::transform(  mimetype.begin(), 
-                     mimetype.end  (), 
-                     mimetype.begin(), 
-                   ::tolower);
+    normalizeMimetype(mimetype);
 
     TypeMap::iterator tIt = _mimeTypeMap.find(mimetype);
 
@@ -676,6 +708,88 @@ bool ImageFileHandlerBase::addImageFileType(ImageFileType &fileType)
     }
 
     return retCode;
+}
+
+//----------------------------------------------------------------------
+/*!
+  Normalizes a mime type, i.e. removes parameters and whitespaces
+  and transforms it to lowercase
+ */
+
+void ImageFileHandlerBase::normalizeMimetype(std::string &mimetype)
+{
+    // Remove any parameters
+    std::string::size_type endpos = mimetype.find(';');
+
+    if (endpos == 0)
+    {
+        mimetype.erase();
+        return;
+    }
+
+    if (endpos != std::string::npos)
+        --endpos;
+
+    // Remove trailing whitespace
+
+    endpos = mimetype.find_last_not_of(" \t\r\n", endpos);
+
+    if (endpos == std::string::npos)
+    {
+        mimetype.erase();
+        return;
+    }
+
+    mimetype.erase(endpos + 1);
+
+    // Remove leading whitespace
+    std::string::size_type startpos = mimetype.find_first_not_of(" \t\r\n");
+
+    if(startpos == std::string::npos)
+    {
+        mimetype.erase();
+        return;
+    }
+
+    mimetype.erase(0, startpos);
+
+    // Transform to lower case
+    std::transform(mimetype.begin(), 
+                   mimetype.end  (), 
+                   mimetype.begin(), 
+                   ::tolower);
+}
+
+//-------------------------------------------------------------------------
+/*!
+  Normalizes a suffix, i.e. removes whitespaces and transforms it to lowercase
+*/
+void ImageFileHandlerBase::normalizeSuffix(std::string &suffix)
+{
+    // Remove trailing whitespace
+    std::string::size_type endpos = suffix.find_last_not_of(" \t\r\n");
+
+    if (endpos == std::string::npos)
+    {
+        suffix.erase();
+        return;
+    }
+
+    suffix.erase(endpos + 1);
+
+    // Remove leading whitespace
+    std::string::size_type startpos = suffix.find_first_not_of(" \t\r\n");
+
+    if (startpos == std::string::npos)
+    {
+        suffix.erase();
+        return;
+    }
+
+    suffix.erase(0, startpos);
+
+    // Transform to lower case
+    std::transform(suffix.begin(), suffix.end(), suffix.begin(), ::tolower);
 }
 
 //-------------------------------------------------------------------------

@@ -116,7 +116,15 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
 #endif
 
         OSG_RGB_PF     = GL_RGB,
-        OSG_RGBA_PF    = GL_RGBA
+        OSG_RGBA_PF    = GL_RGBA,
+						 
+        OSG_ALPHA_INTEGER_PF           = GL_ALPHA_INTEGER_EXT,
+        OSG_RGB_INTEGER_PF             = GL_RGB_INTEGER_EXT,
+        OSG_RGBA_INTEGER_PF            = GL_RGBA_INTEGER_EXT,
+        OSG_BGR_INTEGER_PF             = GL_BGR_INTEGER_EXT,
+        OSG_BGRA_INTEGER_PF            = GL_BGRA_INTEGER_EXT,
+        OSG_LUMINANCE_INTEGER_PF       = GL_LUMINANCE_INTEGER_EXT,
+        OSG_LUMINANCE_ALPHA_INTEGER_PF = GL_LUMINANCE_ALPHA_INTEGER_EXT
     };
 
     enum Type 
@@ -126,7 +134,16 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
         OSG_UINT16_IMAGEDATA       = GL_UNSIGNED_SHORT,
         OSG_UINT32_IMAGEDATA       = GL_UNSIGNED_INT,
         OSG_FLOAT16_IMAGEDATA      = GL_HALF_FLOAT_NV,
-        OSG_FLOAT32_IMAGEDATA      = GL_FLOAT
+        OSG_FLOAT32_IMAGEDATA      = GL_FLOAT,
+        OSG_INT16_IMAGEDATA        = GL_SHORT,
+        OSG_INT32_IMAGEDATA        = GL_INT
+    };
+
+    enum ResUnit 
+    {
+        OSG_RESUNIT_INVALID       = 0,
+        OSG_RESUNIT_NONE          = 1,
+        OSG_RESUNIT_INCH          = 2
     };
 
     /*---------------------------------------------------------------------*/

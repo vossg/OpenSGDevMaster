@@ -69,12 +69,13 @@ bool createComposedImage ( std::vector<ImagePtr> imageVec,
                            SliceDataType         sliceDataType )
 {
   UInt32 dataSize, i, n = imageVec.size();
-  Int32 w, h;
+  Int32 w = 0;
+  Int32 h = 0;
   UInt8 *destData;
   const UInt8 *srcData;
-  Image::PixelFormat pf;
-  Image::Type        dt;
-  bool needColor, needAlpha, needCopy = false;
+  Image::PixelFormat pf = Image::OSG_INVALID_PF;
+  Image::Type        dt = Image::OSG_INVALID_IMAGEDATATYPE;
+  bool needColor = false, needAlpha = false, needCopy = false;
   ImagePtr copy = Image::create();
   UInt32 depth, frameCount, sideCount;
 
@@ -137,6 +138,7 @@ bool createComposedImage ( std::vector<ImagePtr> imageVec,
       break;
     case SIDE_SDT:
       sideCount = n;
+      break;
     case INVALID_SDT:
     case DEPTH_SDT:
     default:
@@ -757,6 +759,7 @@ bool blendImage ( ImagePtr canvas,
       s = src  + ( ((z+zbMin) * bH + (y+ybMin)) * bW + xbMin) * bBpp;
       for (x = 0; x < width; x++) {
         switch ( bPF ) {
+        case OSG::Image::OSG_A_PF:
         case OSG::Image::OSG_I_PF:
           grey  = *s++;
           red   = int(cred   * grey);

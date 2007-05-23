@@ -91,7 +91,7 @@ static const Char8 *suffixArray[] =
     "mng"
 };
 
-MNGImageFileType MNGImageFileType::_the("mng",
+MNGImageFileType MNGImageFileType::_the("video/x-mng",
                                         suffixArray, 
                                         sizeof(suffixArray));
 
