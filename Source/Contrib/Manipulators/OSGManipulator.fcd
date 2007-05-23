@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="Manipulator"
+	parent="Transform"
+	library="System"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+Baseclass for all Manipulators
+	<Field
+		name="target"
+		type="NodePtr"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="activeSubHandle"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	the active sub handle
+	</Field>
+	<Field
+		name="lastMousePos"
+		type="Pnt2f"
+		cardinality="single"
+		visibility="external"
+		access="protected"
+	>
+	Last mouse position (in pixel, although 2f is used!)
+	</Field>
+	<Field
+		name="viewport"
+		type="ViewportPtr"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="NullFC"
+		header="OSGViewport.h"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="active"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="length"
+		type="Vec3f"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1,1,1"
+		access="public"
+	>
+	The length of the three axes in one vector
+	</Field>
+	<Field
+		name="handleXNode"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The node for the x-handle geometry
+	</Field>
+	<Field
+		name="handleYNode"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The node for the y-handle geometry
+	</Field>
+	<Field
+		name="handleZNode"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The node for the z-handle geometry
+	</Field>
+	<Field
+		name="transXNode"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The node for the x-handle transform
+	</Field>
+	<Field
+		name="transYNode"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The node for the y-handle transform
+	</Field>
+	<Field
+		name="transZNode"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	The node for the z-handle transform
+	</Field>
+	<Field
+		name="materialX"
+		type="MaterialPtr"
+		cardinality="single"
+		visibility="internal"
+		header="OSGMaterial.h"
+		access="public"
+	>
+	material for the x-axis geometry
+	</Field>
+	<Field
+		name="materialY"
+		type="MaterialPtr"
+		cardinality="single"
+		visibility="internal"
+		header="OSGMaterial.h"
+		access="public"
+	>
+	material for the y-axis geometry
+	</Field>
+	<Field
+		name="materialZ"
+		type="MaterialPtr"
+		cardinality="single"
+		visibility="internal"
+		header="OSGMaterial.h"
+		access="public"
+	>
+	material for the z-axis geometry
+	</Field>
+	<Field
+		name="axisLinesN"
+		type="NodePtr"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+	>
+	</Field>
+</FieldContainer>
