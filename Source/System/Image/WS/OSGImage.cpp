@@ -2597,7 +2597,7 @@ bool Image::scale(Int32    width,
          (oldHeight == height) &&
          (oldDepth  == depth )   ) 
     {
-        if(destination != osg::NullFC)
+        if(destination != NullFC)
             *destination = *this;
         
         return true;
