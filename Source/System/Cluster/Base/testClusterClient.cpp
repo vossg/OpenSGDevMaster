@@ -192,7 +192,7 @@ void prepareSceneGraph(const NodePtr &node)
                 }
             }
             // get num positions
-            GeoPositionsPtr positionsPtr=geo->getPositions();
+            GeoVectorPropertyPtr positionsPtr=geo->getPositions();
             if(positionsPtr != NullFC)
                 sum_positions += positionsPtr->getSize();
             // get num triangles

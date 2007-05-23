@@ -1831,7 +1831,7 @@ GeometryPtr makeCoordAxisGeo(Real32 length, Real32 lineWidth, bool showAxisName)
     GeoPnt3fPropertyPtr   pnts    = GeoPnt3fProperty ::create();
     GeoUInt32PropertyPtr  lens    = GeoUInt32Property::create();
     GeoUInt8PropertyPtr   types   = GeoUInt8Property ::create();
-    GeoColor3fPropertyPtr colors  = GeoColors3f::create();
+    GeoColor3fPropertyPtr colors  = GeoColor3fProperty::create();
 
     Int32 pntCnt=0;
 
