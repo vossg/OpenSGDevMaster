@@ -312,6 +312,11 @@ ActionBase::ResultE Action::recurse(NodePtrConstArg node)
     if((node->getTravMask() & getTravMask()) == 0)
         return Continue;
 
+#if OSG_1_COMPAT
+    if(node->getOcclusionMask() & 1)
+        return Continue;
+#endif
+
     NodeCorePtr core = node->getCore();
     
     if(core == NullFC)
