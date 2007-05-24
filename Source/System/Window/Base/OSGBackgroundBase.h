@@ -65,6 +65,8 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
+#include "OSGInt32Fields.h" // ClearStencilBit type
+#include "OSGReal32Fields.h" // Depth type
 
 #include "OSGBackgroundFields.h"
 
@@ -107,6 +109,19 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
 
   public:
 
+    enum
+    {
+        ClearStencilBitFieldId = Inherited::NextFieldId,
+        DepthFieldId = ClearStencilBitFieldId + 1,
+        NextFieldId = DepthFieldId + 1
+    };
+
+    static const OSG::BitVector ClearStencilBitFieldMask =
+        (TypeTraits<BitVector>::One << ClearStencilBitFieldId);
+    static const OSG::BitVector DepthFieldMask =
+        (TypeTraits<BitVector>::One << DepthFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -125,6 +140,50 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+#ifdef OSG_1_COMPAT
+                  SFInt32             *getSFClearStencilBit (void);
+#endif
+                  SFInt32             *editSFClearStencilBit(void);
+            const SFInt32             *getSFClearStencilBit (void) const;
+
+#ifdef OSG_1_COMPAT
+                  SFReal32            *getSFDepth           (void);
+#endif
+                  SFReal32            *editSFDepth          (void);
+            const SFReal32            *getSFDepth           (void) const;
+
+
+#ifdef OSG_1_COMPAT
+                  Int32               &getClearStencilBit (void);
+#endif
+                  Int32               &editClearStencilBit(void);
+            const Int32               &getClearStencilBit (void) const;
+
+#ifdef OSG_1_COMPAT
+                  Real32              &getDepth           (void);
+#endif
+                  Real32              &editDepth          (void);
+            const Real32              &getDepth           (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setClearStencilBit(const Int32 &value);
+            void setDepth          (const Real32 &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,6 +207,14 @@ class OSG_SYSTEM_DLLMAPPING BackgroundBase : public AttachmentContainer
     static void   classDescInserter(TypeObject &oType);
     static Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFInt32           _sfClearStencilBit;
+    SFReal32          _sfDepth;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */

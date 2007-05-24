@@ -71,8 +71,10 @@ bool Window::hasExtension(UInt32 extId)
 inline 
 bool Window::hasCommonExtension(UInt32 extId)
 {
-    bool has = _commonExtensions[extId];
-    return has;
+    if(extId >= _commonExtensions.size())
+        return false;
+
+    return _commonExtensions[extId];
 }
 
 /*! Get the indicated extension function.
@@ -124,13 +126,23 @@ Real32 Window::getConstantValue(GLenum val)
 /*! Set the library name where to find OpenGL extension functions. This has
     to be called before the first extension function is accessed, and it's
     safe to call it before osgInit().
-*/
+ */
+
 inline 
 void Window::setGLLibraryName(const Char8 *s)
 {
     _glLibraryName = s;
 }
 
+/*! Return the version of OpenGL running in the Window in the form
+    0x<major><major><minor><minor>, e.g. 0x0201 for version 2.1.
+ */
+
+inline 
+UInt32 Window::getGLVersion(void)
+{
+    return _glVersion;
+}
 
 /*! Find the id of a registered extension. Return -1 if extension not
     registered.

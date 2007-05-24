@@ -111,19 +111,26 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     virtual void getWorldToScreen        (      Matrixr       &result,
                                           const Viewport      &port  );
 
+	virtual void getDecoration           (      Matrix        &result, 
+                                                UInt32         width, 
+                                                UInt32         height);
+
     // Getters
-    virtual Matrixr getProjectionVal        (   UInt32         width,
-                                                UInt32         height);
+    virtual Matrixr getProjectionVal           (      UInt32         width,
+                                                      UInt32         height);
 
-    virtual Matrixr getProjectionTranslationVal(   UInt32         width,
-                                                UInt32         height);
+    virtual Matrixr getProjectionTranslationVal(      UInt32         width,
+                                                      UInt32         height);
 
-    virtual Matrixr getViewingVal              (   UInt32         width,
-                                                UInt32         height);
+    virtual Matrixr getViewingVal              (      UInt32         width,
+                                                      UInt32         height);
+    virtual Matrixr getWorldToScreenVal        (const Viewport      &port  );
 
-    virtual FrustumVolume getFrustumVal        (  const Viewport      &port  );
+	virtual Matrixr getDecorationVal           (      UInt32         width,
+                                                      UInt32         height);
 
-    virtual Matrixr getWorldToScreenVal        ( const Viewport      &port  );
+    virtual FrustumVolume getFrustumVal        (const Viewport      &port  );
+
 
 
     /*! \}                                                                 */
@@ -196,7 +203,5 @@ OSG_END_NAMESPACE
 
 #include "OSGCameraBase.inl"
 #include "OSGCamera.inl"
-
-#define OSGCAMERA_HEADER_CVSID "@(#)$Id$"
 
 #endif /* _OSGCAMERA_H_ */

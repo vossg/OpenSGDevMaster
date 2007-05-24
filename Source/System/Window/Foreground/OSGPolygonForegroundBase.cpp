@@ -109,6 +109,22 @@ OSG_BEGIN_NAMESPACE
     Define whether the y coordinates are normalized (0-1) or pixel-based.
 */
 
+/*! \var UInt16          PolygonForegroundBase::_sfAspectHeight
+    Useful for keeping aspect ratio when rendering things like images.
+*/
+
+/*! \var UInt16          PolygonForegroundBase::_sfAspectWidth
+    Useful for keeping aspect ratio when rendering things like images.
+*/
+
+/*! \var Real32          PolygonForegroundBase::_sfScale
+    Scale factor for zooming.
+*/
+
+/*! \var bool            PolygonForegroundBase::_sfTile
+    If true the image tiles in multi window settings.
+*/
+
 
 void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -214,6 +230,94 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt16 *(PolygonForegroundBase::*GetSFAspectHeightF)(void) const;
+
+    GetSFAspectHeightF GetSFAspectHeight = &PolygonForegroundBase::getSFAspectHeight;
+#endif
+
+    pDesc = new SFUInt16::Description(
+        SFUInt16::getClassType(),
+        "aspectHeight",
+        "Useful for keeping aspect ratio when rendering things like images.\n",
+        AspectHeightFieldId, AspectHeightFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFAspectHeight),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFAspectHeight));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFAspectHeight));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt16 *(PolygonForegroundBase::*GetSFAspectWidthF)(void) const;
+
+    GetSFAspectWidthF GetSFAspectWidth = &PolygonForegroundBase::getSFAspectWidth;
+#endif
+
+    pDesc = new SFUInt16::Description(
+        SFUInt16::getClassType(),
+        "aspectWidth",
+        "Useful for keeping aspect ratio when rendering things like images.\n",
+        AspectWidthFieldId, AspectWidthFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFAspectWidth),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFAspectWidth));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFAspectWidth));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFReal32 *(PolygonForegroundBase::*GetSFScaleF)(void) const;
+
+    GetSFScaleF GetSFScale = &PolygonForegroundBase::getSFScale;
+#endif
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "scale",
+        "Scale factor for zooming.\n",
+        ScaleFieldId, ScaleFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFScale),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFScale));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFScale));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFBool *(PolygonForegroundBase::*GetSFTileF)(void) const;
+
+    GetSFTileF GetSFTile = &PolygonForegroundBase::getSFTile;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "tile",
+        "If true the image tiles in multi window settings.\n",
+        TileFieldId, TileFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&PolygonForegroundBase::editSFTile),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFTile));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&PolygonForegroundBase::getSFTile));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -296,6 +400,46 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefine whether the y coordinates are normalized (0-1) or pixel-based.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"aspectHeight\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUseful for keeping aspect ratio when rendering things like images.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"aspectWidth\"\n"
+    "\t\ttype=\"UInt16\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUseful for keeping aspect ratio when rendering things like images.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"scale\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tScale factor for zooming.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"tile\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tIf true the image tiles in multi window settings.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowForegrounds\n"
@@ -409,6 +553,82 @@ const SFBool *PolygonForegroundBase::getSFNormalizedY(void) const
 SFBool              *PolygonForegroundBase::getSFNormalizedY    (void)
 {
     return this->editSFNormalizedY    ();
+}
+#endif
+
+SFUInt16 *PolygonForegroundBase::editSFAspectHeight(void)
+{
+    editSField(AspectHeightFieldMask);
+
+    return &_sfAspectHeight;
+}
+
+const SFUInt16 *PolygonForegroundBase::getSFAspectHeight(void) const
+{
+    return &_sfAspectHeight;
+}
+
+#ifdef OSG_1_COMPAT
+SFUInt16            *PolygonForegroundBase::getSFAspectHeight   (void)
+{
+    return this->editSFAspectHeight   ();
+}
+#endif
+
+SFUInt16 *PolygonForegroundBase::editSFAspectWidth(void)
+{
+    editSField(AspectWidthFieldMask);
+
+    return &_sfAspectWidth;
+}
+
+const SFUInt16 *PolygonForegroundBase::getSFAspectWidth(void) const
+{
+    return &_sfAspectWidth;
+}
+
+#ifdef OSG_1_COMPAT
+SFUInt16            *PolygonForegroundBase::getSFAspectWidth    (void)
+{
+    return this->editSFAspectWidth    ();
+}
+#endif
+
+SFReal32 *PolygonForegroundBase::editSFScale(void)
+{
+    editSField(ScaleFieldMask);
+
+    return &_sfScale;
+}
+
+const SFReal32 *PolygonForegroundBase::getSFScale(void) const
+{
+    return &_sfScale;
+}
+
+#ifdef OSG_1_COMPAT
+SFReal32            *PolygonForegroundBase::getSFScale          (void)
+{
+    return this->editSFScale          ();
+}
+#endif
+
+SFBool *PolygonForegroundBase::editSFTile(void)
+{
+    editSField(TileFieldMask);
+
+    return &_sfTile;
+}
+
+const SFBool *PolygonForegroundBase::getSFTile(void) const
+{
+    return &_sfTile;
+}
+
+#ifdef OSG_1_COMPAT
+SFBool              *PolygonForegroundBase::getSFTile           (void)
+{
+    return this->editSFTile           ();
 }
 #endif
 
@@ -665,6 +885,22 @@ UInt32 PolygonForegroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfNormalizedY.getBinSize();
     }
+    if(FieldBits::NoField != (AspectHeightFieldMask & whichField))
+    {
+        returnValue += _sfAspectHeight.getBinSize();
+    }
+    if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
+    {
+        returnValue += _sfAspectWidth.getBinSize();
+    }
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+    {
+        returnValue += _sfScale.getBinSize();
+    }
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+    {
+        returnValue += _sfTile.getBinSize();
+    }
 
     return returnValue;
 }
@@ -694,6 +930,22 @@ void PolygonForegroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfNormalizedY.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (AspectHeightFieldMask & whichField))
+    {
+        _sfAspectHeight.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
+    {
+        _sfAspectWidth.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+    {
+        _sfScale.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+    {
+        _sfTile.copyToBin(pMem);
+    }
 }
 
 void PolygonForegroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -720,6 +972,22 @@ void PolygonForegroundBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (NormalizedYFieldMask & whichField))
     {
         _sfNormalizedY.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (AspectHeightFieldMask & whichField))
+    {
+        _sfAspectHeight.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
+    {
+        _sfAspectWidth.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+    {
+        _sfScale.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+    {
+        _sfTile.copyFromBin(pMem);
     }
 }
 
@@ -752,7 +1020,11 @@ PolygonForegroundBase::PolygonForegroundBase(void) :
     _mfPositions              (),
     _mfTexCoords              (),
     _sfNormalizedX            (bool(true)),
-    _sfNormalizedY            (bool(true))
+    _sfNormalizedY            (bool(true)),
+    _sfAspectHeight           (UInt16(0)),
+    _sfAspectWidth            (UInt16(0)),
+    _sfScale                  (Real32(1.0)),
+    _sfTile                   (bool(true))
 {
 }
 
@@ -762,7 +1034,11 @@ PolygonForegroundBase::PolygonForegroundBase(const PolygonForegroundBase &source
     _mfPositions              (source._mfPositions              ),
     _mfTexCoords              (source._mfTexCoords              ),
     _sfNormalizedX            (source._sfNormalizedX            ),
-    _sfNormalizedY            (source._sfNormalizedY            )
+    _sfNormalizedY            (source._sfNormalizedY            ),
+    _sfAspectHeight           (source._sfAspectHeight           ),
+    _sfAspectWidth            (source._sfAspectWidth            ),
+    _sfScale                  (source._sfScale                  ),
+    _sfTile                   (source._sfTile                   )
 {
 }
 

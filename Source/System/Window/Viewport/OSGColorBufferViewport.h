@@ -83,6 +83,11 @@ class OSG_WINDOW_DLLMAPPING ColorBufferViewport :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
+#if 0 // Have to check GV
+    virtual void activate    (void                             );
+    virtual void deactivate  (void                             );
+#endif
+
 #ifdef OSG_OLD_RENDER_ACTION
     virtual void render(DrawActionBase *action);
 #endif

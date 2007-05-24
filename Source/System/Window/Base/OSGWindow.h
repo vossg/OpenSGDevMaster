@@ -143,13 +143,14 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name             Extension registration                           */
     /*! \{                                                                 */
 
-    static UInt32 registerExtension(const Char8 *s       );
-    static void   ignoreExtensions (const Char8 *s       );
+    static UInt32 registerExtension(const Char8 *s               );
+    static void   ignoreExtensions (const Char8 *s               );
 
     static UInt32 registerFunction (const Char8 *s,
-                                          Int32  ext = -1);
+                                          Int32  ext     = -1,
+                                          UInt32 version = 0xffff);
 
-    static void   registerConstant (       GLenum val    );
+    static void   registerConstant (      GLenum val             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -157,6 +158,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \{                                                                 */
 
     static void                 setGLLibraryName  (const Char8  *s     );
+
+           UInt32               getGLVersion      (      void          );
 
     static Int32                getExtensionId    (const Char8  *s     );
            bool                 hasExtension      (      UInt32  extId );
@@ -424,6 +427,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     static  std::vector<bool       >  _commonExtensions;
     static  std::vector<std::string>  _registeredFunctions;
     static  std::vector<Int32      >  _registeredFunctionExts;
+    static  std::vector<UInt32     >  _registeredFunctionVersions;
 
     static  std::vector<GLenum     >  _registeredConstants;
 
@@ -439,6 +443,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     std::vector<UInt32     > _lastValidate;
     std::vector<UInt32     > _ids;
 
+    UInt32                   _glVersion;
     std::vector<std::string> _extensions;
     std::vector<bool       > _availExtensions;
     std::vector<void      *> _extFunctions;

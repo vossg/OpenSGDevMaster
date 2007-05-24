@@ -56,6 +56,8 @@
 #include "OSGWindow.h"
 #include "OSGBackground.h"
 #include "OSGGradientBackground.h"
+#include "OSGTileCameraDecorator.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 
@@ -109,38 +111,42 @@ void GradientBackground::changed(ConstFieldMaskArg whichField, UInt32 origin)
 /*-------------------------- your_category---------------------------------*/
 
 #ifdef OSG_OLD_RENDER_ACTION
-void GradientBackground::clear(DrawActionBase *, Viewport *)
+void GradientBackground::clear(DrawActionBase *pEnv, Viewport *pPort)
 {
+    Int32 bit = getClearStencilBit();
+
     if(_mfPosition.size() < 2)
     {
+        Real32 r = 0.f, g = 0.f, b = 0.f;
+
         if(_mfPosition.size() == 1)
         {
             Color3f col = _mfColor[0];
-            Real32 r, g, b;
             col.getValuesRGB(r, g, b);
-            glClearColor(r, g, b, 1);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        }
+
+        glClearColor(r, g, b, 1);
+        
+        if (bit >= 0)
+        {
+            glClearStencil(bit);
+            glClear((GL_COLOR_BUFFER_BIT   | 
+                     GL_DEPTH_BUFFER_BIT   | 
+                     GL_STENCIL_BUFFER_BIT ));
         }
         else
         {
-            glClearColor(0, 0, 0, 1);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
     }
     else
     {
-        GLboolean light = glIsEnabled(GL_LIGHTING);
-        if(light)  
-            glDisable(GL_LIGHTING);
-
-        GLint fill[2];
-        glGetIntegerv(GL_POLYGON_MODE, fill);
+        glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 
+                     GL_LIGHTING_BIT);
+        
+        glDisable(GL_LIGHTING);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        GLboolean depth = glIsEnabled(GL_DEPTH_TEST);
         glDisable(GL_DEPTH_TEST);
-
-        GLboolean colmat = glIsEnabled(GL_COLOR_MATERIAL);
         glDisable(GL_COLOR_MATERIAL);
 
         glMatrixMode(GL_MODELVIEW);
@@ -150,7 +156,38 @@ void GradientBackground::clear(DrawActionBase *, Viewport *)
         glMatrixMode(GL_PROJECTION);
         glPushMatrix();
         glLoadIdentity();
-        glOrtho(0, 1, 0, 1, 0, 1);
+
+        UInt32 width  = pPort->getPixelWidth(),
+               height = pPort->getPixelHeight();
+
+        Camera              *cP  = getCPtr(pPort->getCamera());
+        TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
+
+        while(cdP != NULL)
+        {
+            width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
+            height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
+
+            cP  = cdP->getDecoratee().getCPtr();
+            cdP = dynamic_cast<TileCameraDecorator*>(cP);
+        }
+
+        cP  = getCPtr(pPort->getCamera());
+        cdP = dynamic_cast<TileCameraDecorator*>(cP);
+
+        if(cdP != NULL)
+        {
+            Real32 left   = cdP->getLeft(),
+                   right  = cdP->getRight(),
+                   top    = cdP->getTop(),
+                   bottom = cdP->getBottom();
+
+            glOrtho(left , right, bottom, top, 0, 1);
+        }
+        else
+        {
+            glOrtho(0, 1, 0, 1, 0, 1);
+        }
 
         Real32 r1, g1, b1;
         UInt32 size = _mfPosition.size();
@@ -190,53 +227,58 @@ void GradientBackground::clear(DrawActionBase *, Viewport *)
         glMatrixMode(GL_MODELVIEW);
         glPopMatrix();
 
-        if(depth == GL_TRUE)    
-            glEnable(GL_DEPTH_TEST);
-        if(light == GL_TRUE)    
-            glEnable(GL_LIGHTING);
-        if(colmat == GL_TRUE)   
-            glEnable(GL_COLOR_MATERIAL);
-        glPolygonMode(GL_FRONT, fill[0]);
-        glPolygonMode(GL_BACK , fill[1]);
+        glPopAttrib();
 
-        glClear(GL_DEPTH_BUFFER_BIT);
+        if(bit >= 0)
+        {
+            glClearStencil(bit);
+
+            glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        }
+        else
+        {
+            glClear(GL_DEPTH_BUFFER_BIT);
+        }
     }
 }
 #endif
 
-void GradientBackground::clear(DrawEnv *, Viewport *)
+void GradientBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 {
+    Int32 bit = getClearStencilBit();
+
     if(_mfPosition.size() < 2)
     {
+        Real32 r = 0.f, g = 0.f, b = 0.f;
+
         if(_mfPosition.size() == 1)
         {
             Color3f col = _mfColor[0];
-            Real32 r, g, b;
             col.getValuesRGB(r, g, b);
-            glClearColor(r, g, b, 1);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        }
+
+        glClearColor(r, g, b, 1);
+        
+        if (bit >= 0)
+        {
+            glClearStencil(bit);
+            glClear((GL_COLOR_BUFFER_BIT   | 
+                     GL_DEPTH_BUFFER_BIT   | 
+                     GL_STENCIL_BUFFER_BIT ));
         }
         else
         {
-            glClearColor(0, 0, 0, 1);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
     }
     else
     {
-        GLboolean light = glIsEnabled(GL_LIGHTING);
-
-        if(light)  
-            glDisable(GL_LIGHTING);
-
-        GLint fill[2];
-        glGetIntegerv(GL_POLYGON_MODE, fill);
+        glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 
+                     GL_LIGHTING_BIT);
+        
+        glDisable(GL_LIGHTING);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        GLboolean depth = glIsEnabled(GL_DEPTH_TEST);
         glDisable(GL_DEPTH_TEST);
-
-        GLboolean colmat = glIsEnabled(GL_COLOR_MATERIAL);
         glDisable(GL_COLOR_MATERIAL);
 
         glMatrixMode(GL_MODELVIEW);
@@ -246,7 +288,38 @@ void GradientBackground::clear(DrawEnv *, Viewport *)
         glMatrixMode(GL_PROJECTION);
         glPushMatrix();
         glLoadIdentity();
-        glOrtho(0, 1, 0, 1, 0, 1);
+
+        UInt32 width  = pPort->getPixelWidth(),
+               height = pPort->getPixelHeight();
+
+        Camera              *cP  = getCPtr(pPort->getCamera());
+        TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
+
+        while(cdP != NULL)
+        {
+            width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
+            height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
+
+            cP  = cdP->getDecoratee().getCPtr();
+            cdP = dynamic_cast<TileCameraDecorator*>(cP);
+        }
+
+        cP  = getCPtr(pPort->getCamera());
+        cdP = dynamic_cast<TileCameraDecorator*>(cP);
+
+        if(cdP != NULL)
+        {
+            Real32 left   = cdP->getLeft(),
+                   right  = cdP->getRight(),
+                   top    = cdP->getTop(),
+                   bottom = cdP->getBottom();
+
+            glOrtho(left , right, bottom, top, 0, 1);
+        }
+        else
+        {
+            glOrtho(0, 1, 0, 1, 0, 1);
+        }
 
         Real32 r1, g1, b1;
         UInt32 size = _mfPosition.size();
@@ -287,20 +360,19 @@ void GradientBackground::clear(DrawEnv *, Viewport *)
         glMatrixMode(GL_MODELVIEW);
         glPopMatrix();
 
-        if(depth == GL_TRUE)    
-            glEnable(GL_DEPTH_TEST);
+        glPopAttrib();
+        
+        if(bit >= 0)
+        {
+            glClearStencil(bit);
 
-        if(light == GL_TRUE)    
-            glEnable(GL_LIGHTING);
-
-        if(colmat == GL_TRUE)   
-            glEnable(GL_COLOR_MATERIAL);
-
-        glPolygonMode(GL_FRONT, fill[0]);
-        glPolygonMode(GL_BACK , fill[1]);
-
-        glClear(GL_DEPTH_BUFFER_BIT);
-    }
+            glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        }
+        else
+        {
+            glClear(GL_DEPTH_BUFFER_BIT);
+        }
+     }
 }
 
 /*------------------------------- dump ----------------------------------*/

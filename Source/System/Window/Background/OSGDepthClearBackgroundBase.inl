@@ -73,6 +73,39 @@ OSG::UInt16 DepthClearBackgroundBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the DepthClearBackground::_sfClearDepth field.
+
+inline
+bool &DepthClearBackgroundBase::editClearDepth(void)
+{
+    editSField(ClearDepthFieldMask);
+
+    return _sfClearDepth.getValue();
+}
+
+//! Get the value of the DepthClearBackground::_sfClearDepth field.
+inline
+const bool &DepthClearBackgroundBase::getClearDepth(void) const
+{
+    return _sfClearDepth.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+bool                &DepthClearBackgroundBase::getClearDepth     (void)
+{
+    return this->editClearDepth     ();
+}
+#endif
+
+//! Set the value of the DepthClearBackground::_sfClearDepth field.
+inline
+void DepthClearBackgroundBase::setClearDepth(const bool &value)
+{
+    editSField(ClearDepthFieldMask);
+
+    _sfClearDepth.setValue(value);
+}
 
 //! create a new instance of the class
 inline
@@ -98,6 +131,9 @@ void DepthClearBackgroundBase::execSync(      DepthClearBackgroundBase *pOther,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
+
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+        _sfClearDepth.syncWith(pOther->_sfClearDepth);
 }
 #endif
 
@@ -110,6 +146,9 @@ void DepthClearBackgroundBase::execSync (      DepthClearBackgroundBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+        _sfClearDepth.syncWith(pFrom->_sfClearDepth);
 }
 #endif
 

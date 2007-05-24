@@ -156,6 +156,138 @@ void PolygonForegroundBase::setNormalizedY(const bool &value)
 
     _sfNormalizedY.setValue(value);
 }
+//! Get the value of the PolygonForeground::_sfAspectHeight field.
+
+inline
+UInt16 &PolygonForegroundBase::editAspectHeight(void)
+{
+    editSField(AspectHeightFieldMask);
+
+    return _sfAspectHeight.getValue();
+}
+
+//! Get the value of the PolygonForeground::_sfAspectHeight field.
+inline
+const UInt16 &PolygonForegroundBase::getAspectHeight(void) const
+{
+    return _sfAspectHeight.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt16              &PolygonForegroundBase::getAspectHeight   (void)
+{
+    return this->editAspectHeight   ();
+}
+#endif
+
+//! Set the value of the PolygonForeground::_sfAspectHeight field.
+inline
+void PolygonForegroundBase::setAspectHeight(const UInt16 &value)
+{
+    editSField(AspectHeightFieldMask);
+
+    _sfAspectHeight.setValue(value);
+}
+//! Get the value of the PolygonForeground::_sfAspectWidth field.
+
+inline
+UInt16 &PolygonForegroundBase::editAspectWidth(void)
+{
+    editSField(AspectWidthFieldMask);
+
+    return _sfAspectWidth.getValue();
+}
+
+//! Get the value of the PolygonForeground::_sfAspectWidth field.
+inline
+const UInt16 &PolygonForegroundBase::getAspectWidth(void) const
+{
+    return _sfAspectWidth.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt16              &PolygonForegroundBase::getAspectWidth    (void)
+{
+    return this->editAspectWidth    ();
+}
+#endif
+
+//! Set the value of the PolygonForeground::_sfAspectWidth field.
+inline
+void PolygonForegroundBase::setAspectWidth(const UInt16 &value)
+{
+    editSField(AspectWidthFieldMask);
+
+    _sfAspectWidth.setValue(value);
+}
+//! Get the value of the PolygonForeground::_sfScale field.
+
+inline
+Real32 &PolygonForegroundBase::editScale(void)
+{
+    editSField(ScaleFieldMask);
+
+    return _sfScale.getValue();
+}
+
+//! Get the value of the PolygonForeground::_sfScale field.
+inline
+const Real32 &PolygonForegroundBase::getScale(void) const
+{
+    return _sfScale.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Real32              &PolygonForegroundBase::getScale          (void)
+{
+    return this->editScale          ();
+}
+#endif
+
+//! Set the value of the PolygonForeground::_sfScale field.
+inline
+void PolygonForegroundBase::setScale(const Real32 &value)
+{
+    editSField(ScaleFieldMask);
+
+    _sfScale.setValue(value);
+}
+//! Get the value of the PolygonForeground::_sfTile field.
+
+inline
+bool &PolygonForegroundBase::editTile(void)
+{
+    editSField(TileFieldMask);
+
+    return _sfTile.getValue();
+}
+
+//! Get the value of the PolygonForeground::_sfTile field.
+inline
+const bool &PolygonForegroundBase::getTile(void) const
+{
+    return _sfTile.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+bool                &PolygonForegroundBase::getTile           (void)
+{
+    return this->editTile           ();
+}
+#endif
+
+//! Set the value of the PolygonForeground::_sfTile field.
+inline
+void PolygonForegroundBase::setTile(const bool &value)
+{
+    editSField(TileFieldMask);
+
+    _sfTile.setValue(value);
+}
 
 //! Get the value of the \a index element the PolygonForeground::_mfPositions field.
 inline
@@ -296,6 +428,18 @@ void PolygonForegroundBase::execSync(      PolygonForegroundBase *pOther,
 
     if(FieldBits::NoField != (NormalizedYFieldMask & whichField))
         _sfNormalizedY.syncWith(pOther->_sfNormalizedY);
+
+    if(FieldBits::NoField != (AspectHeightFieldMask & whichField))
+        _sfAspectHeight.syncWith(pOther->_sfAspectHeight);
+
+    if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
+        _sfAspectWidth.syncWith(pOther->_sfAspectWidth);
+
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+        _sfScale.syncWith(pOther->_sfScale);
+
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+        _sfTile.syncWith(pOther->_sfTile);
 }
 #endif
 
@@ -329,6 +473,18 @@ void PolygonForegroundBase::execSync (      PolygonForegroundBase *pFrom,
 
     if(FieldBits::NoField != (NormalizedYFieldMask & whichField))
         _sfNormalizedY.syncWith(pFrom->_sfNormalizedY);
+
+    if(FieldBits::NoField != (AspectHeightFieldMask & whichField))
+        _sfAspectHeight.syncWith(pFrom->_sfAspectHeight);
+
+    if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
+        _sfAspectWidth.syncWith(pFrom->_sfAspectWidth);
+
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+        _sfScale.syncWith(pFrom->_sfScale);
+
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+        _sfTile.syncWith(pFrom->_sfTile);
 }
 #endif
 

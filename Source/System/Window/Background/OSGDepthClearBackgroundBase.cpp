@@ -73,7 +73,47 @@ OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::DepthClearBackground
     \ingroup GrpSystemWindowBackgrounds
+
+    A depth-clear background, see \ref PageSystemWindowBackgroundDepthClear for a
+    description.
  */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            DepthClearBackgroundBase::_sfClearDepth
+    If true, depth buffer is cleared.
+*/
+
+
+void DepthClearBackgroundBase::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc = NULL;
+
+
+#ifdef OSG_1_COMPAT
+    typedef const SFBool *(DepthClearBackgroundBase::*GetSFClearDepthF)(void) const;
+
+    GetSFClearDepthF GetSFClearDepth = &DepthClearBackgroundBase::getSFClearDepth;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "clearDepth",
+        "If true, depth buffer is cleared.\n",
+        ClearDepthFieldId, ClearDepthFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&DepthClearBackgroundBase::editSFClearDepth),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFClearDepth));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&DepthClearBackgroundBase::getSFClearDepth));
+#endif
+
+    oType.addInitialDesc(pDesc);
+}
 
 
 DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
@@ -83,7 +123,7 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     0,
     (PrototypeCreateF) &DepthClearBackgroundBase::createEmpty,
     DepthClearBackground::initMethod,
-    NULL,
+    (InitalInsertDescFunc) &DepthClearBackgroundBase::classDescInserter,
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -101,6 +141,16 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     "\n"
     "A depth-clear background, see \\ref PageSystemWindowBackgroundDepthClear for a\n"
     "description.\n"
+    "\t<Field\n"
+    "\t\tname=\"clearDepth\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tIf true, depth buffer is cleared.\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
     "\n"
@@ -128,6 +178,25 @@ UInt32 DepthClearBackgroundBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFBool *DepthClearBackgroundBase::editSFClearDepth(void)
+{
+    editSField(ClearDepthFieldMask);
+
+    return &_sfClearDepth;
+}
+
+const SFBool *DepthClearBackgroundBase::getSFClearDepth(void) const
+{
+    return &_sfClearDepth;
+}
+
+#ifdef OSG_1_COMPAT
+SFBool              *DepthClearBackgroundBase::getSFClearDepth     (void)
+{
+    return this->editSFClearDepth     ();
+}
+#endif
+
 
 
 
@@ -138,6 +207,10 @@ UInt32 DepthClearBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+    {
+        returnValue += _sfClearDepth.getBinSize();
+    }
 
     return returnValue;
 }
@@ -147,6 +220,10 @@ void DepthClearBackgroundBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+    {
+        _sfClearDepth.copyToBin(pMem);
+    }
 }
 
 void DepthClearBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -154,6 +231,10 @@ void DepthClearBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ClearDepthFieldMask & whichField))
+    {
+        _sfClearDepth.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -180,12 +261,14 @@ FieldContainerPtr DepthClearBackgroundBase::shallowCopy(void) const
 /*------------------------- constructors ----------------------------------*/
 
 DepthClearBackgroundBase::DepthClearBackgroundBase(void) :
-    Inherited()
+    Inherited(),
+    _sfClearDepth             (bool(true))
 {
 }
 
 DepthClearBackgroundBase::DepthClearBackgroundBase(const DepthClearBackgroundBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfClearDepth             (source._sfClearDepth             )
 {
 }
 

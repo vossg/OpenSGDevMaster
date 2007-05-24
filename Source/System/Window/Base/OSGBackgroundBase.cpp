@@ -82,7 +82,74 @@ OSG_BEGIN_NAMESPACE
     To create a new Background the method that has be overridden is
     clear(DrawActionBase * action, Viewport * port);. It can directly call OpenGL
     commands, but should restore the state after it's done.
+
+    \endext
  */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var Int32           BackgroundBase::_sfClearStencilBit
+    Usually 0 is used to clear all stencil bitplanes 
+    (clear is deactivated if smaller zero).
+*/
+
+/*! \var Real32          BackgroundBase::_sfDepth
+    Depth value for clear, defaults to 1.
+*/
+
+
+void BackgroundBase::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc = NULL;
+
+
+#ifdef OSG_1_COMPAT
+    typedef const SFInt32 *(BackgroundBase::*GetSFClearStencilBitF)(void) const;
+
+    GetSFClearStencilBitF GetSFClearStencilBit = &BackgroundBase::getSFClearStencilBit;
+#endif
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "clearStencilBit",
+        "Usually 0 is used to clear all stencil bitplanes \n"
+        "(clear is deactivated if smaller zero).\n",
+        ClearStencilBitFieldId, ClearStencilBitFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&BackgroundBase::editSFClearStencilBit),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFClearStencilBit));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&BackgroundBase::getSFClearStencilBit));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFReal32 *(BackgroundBase::*GetSFDepthF)(void) const;
+
+    GetSFDepthF GetSFDepth = &BackgroundBase::getSFDepth;
+#endif
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "depth",
+        "Depth value for clear, defaults to 1.\n",
+        DepthFieldId, DepthFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&BackgroundBase::editSFDepth),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFDepth));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&BackgroundBase::getSFDepth));
+#endif
+
+    oType.addInitialDesc(pDesc);
+}
 
 
 BackgroundBase::TypeObject BackgroundBase::_type(
@@ -92,7 +159,7 @@ BackgroundBase::TypeObject BackgroundBase::_type(
     0,
     NULL,
     Background::initMethod,
-    NULL,
+    (InitalInsertDescFunc) &BackgroundBase::classDescInserter,
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -118,6 +185,27 @@ BackgroundBase::TypeObject BackgroundBase::_type(
     "commands, but should restore the state after it's done.\n"
     "\n"
     "\\endext\n"
+    " \t<Field\n"
+    " \t\tname=\"clearStencilBit\"\n"
+    " \t\ttype=\"Int32\"\n"
+    " \t\tcardinality=\"single\"\n"
+    " \t\tvisibility=\"external\"\n"
+    " \t\tdefaultValue=\"-1\"\n"
+    " \t\taccess=\"public\"\n"
+    " \t>\n"
+    " \tUsually 0 is used to clear all stencil bitplanes \n"
+    "    (clear is deactivated if smaller zero).\n"
+    " \t</Field>\n"
+    " \t<Field\n"
+    " \t\tname=\"depth\"\n"
+    " \t\ttype=\"Real32\"\n"
+    " \t\tcardinality=\"single\"\n"
+    " \t\tvisibility=\"external\"\n"
+    " \t\tdefaultValue=\"1.f\"\n"
+    " \t\taccess=\"public\"\n"
+    " \t>\n"
+    " \tDepth value for clear, defaults to 1.\n"
+    " \t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
     "\n"
@@ -153,6 +241,44 @@ UInt32 BackgroundBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFInt32 *BackgroundBase::editSFClearStencilBit(void)
+{
+    editSField(ClearStencilBitFieldMask);
+
+    return &_sfClearStencilBit;
+}
+
+const SFInt32 *BackgroundBase::getSFClearStencilBit(void) const
+{
+    return &_sfClearStencilBit;
+}
+
+#ifdef OSG_1_COMPAT
+SFInt32             *BackgroundBase::getSFClearStencilBit(void)
+{
+    return this->editSFClearStencilBit();
+}
+#endif
+
+SFReal32 *BackgroundBase::editSFDepth(void)
+{
+    editSField(DepthFieldMask);
+
+    return &_sfDepth;
+}
+
+const SFReal32 *BackgroundBase::getSFDepth(void) const
+{
+    return &_sfDepth;
+}
+
+#ifdef OSG_1_COMPAT
+SFReal32            *BackgroundBase::getSFDepth          (void)
+{
+    return this->editSFDepth          ();
+}
+#endif
+
 
 
 
@@ -163,6 +289,14 @@ UInt32 BackgroundBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (ClearStencilBitFieldMask & whichField))
+    {
+        returnValue += _sfClearStencilBit.getBinSize();
+    }
+    if(FieldBits::NoField != (DepthFieldMask & whichField))
+    {
+        returnValue += _sfDepth.getBinSize();
+    }
 
     return returnValue;
 }
@@ -172,6 +306,14 @@ void BackgroundBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ClearStencilBitFieldMask & whichField))
+    {
+        _sfClearStencilBit.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (DepthFieldMask & whichField))
+    {
+        _sfDepth.copyToBin(pMem);
+    }
 }
 
 void BackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -179,6 +321,14 @@ void BackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ClearStencilBitFieldMask & whichField))
+    {
+        _sfClearStencilBit.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (DepthFieldMask & whichField))
+    {
+        _sfDepth.copyFromBin(pMem);
+    }
 }
 
 
@@ -186,12 +336,16 @@ void BackgroundBase::copyFromBin(BinaryDataHandler &pMem,
 /*------------------------- constructors ----------------------------------*/
 
 BackgroundBase::BackgroundBase(void) :
-    Inherited()
+    Inherited(),
+    _sfClearStencilBit        (Int32(-1)),
+    _sfDepth                  (Real32(1.f))
 {
 }
 
 BackgroundBase::BackgroundBase(const BackgroundBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfClearStencilBit        (source._sfClearStencilBit        ),
+    _sfDepth                  (source._sfDepth                  )
 {
 }
 

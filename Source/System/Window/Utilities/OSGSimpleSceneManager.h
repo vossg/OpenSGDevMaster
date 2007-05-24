@@ -140,6 +140,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     virtual void  setHeadlight     (bool          on        );
     virtual void  turnHeadlightOn  (void                    );
     virtual void  turnHeadlightOff (void                    );
+    virtual void  setCamera        (PerspectiveCameraPtr camera);
 
     virtual void setUseTraversalAction(bool s               );
     virtual bool getUseTraversalAction(void                 );

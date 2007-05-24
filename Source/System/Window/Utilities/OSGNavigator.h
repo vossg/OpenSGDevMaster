@@ -144,6 +144,7 @@ class OSG_UTIL_DLLMAPPING Navigator
     void setUp           (Vec3f         new_up      );
     void set             (Pnt3f         new_from, Pnt3f new_at, Vec3f new_up);
     void set             (const Matrix &new_matrix  );
+    bool setAbsolute     (bool          state       );
     bool setClickCenter  (bool          state       );
 
     bool setClickNoIntersect (bool state);
@@ -164,6 +165,9 @@ class OSG_UTIL_DLLMAPPING Navigator
           Mode    getMode();
           Real32  getRotationAngle();
           Real32  getMotionFactor();
+          bool    getAbsolute();
+          bool    getClickCenter();
+          bool    getClickNoIntersect();
     
           WalkNavigator* getWalkNavigator() { return &_walker; }
 
@@ -183,6 +187,7 @@ class OSG_UTIL_DLLMAPPING Navigator
     Real32      _rMotionFactor;
     State       _currentState;
     Mode        _currentMode;
+    bool        _absolute;
 
     ViewportPtr _vp;
     NodePtr     _cartN;

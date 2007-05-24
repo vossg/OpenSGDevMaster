@@ -133,3 +133,26 @@ void ShearedStereoCameraDecorator::getProjection(Matrix &result,
     result.mult(trans);
 }                                       
 
+void ShearedStereoCameraDecorator::getDecoration(Matrix &result, 
+												 UInt32  width, 
+                                                 UInt32  height)
+{
+    if(width == 0 || height == 0)
+    {
+        result.setIdentity();
+        return;
+    }
+
+    CameraPtr camera = getDecoratee();
+
+    if(camera == NullFC)
+    {
+        FWARNING(("TileCameraDecorator::getProjection: no decoratee!\n"));
+
+        result.setIdentity();
+
+        return;
+    }
+	
+    camera->getDecoration(result, width, height);
+}

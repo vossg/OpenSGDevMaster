@@ -122,6 +122,9 @@ void TextureGrabForeground::dump(      UInt32    ,
 void TextureGrabForeground::draw(DrawEnv  *pEnv, 
                                  Viewport *port  )
 {
+    if(getActive() == false)
+        return;
+
     TextureObjChunkPtr t = getTexture();
     
     if(t == NullFC)       // No texture, no grab.

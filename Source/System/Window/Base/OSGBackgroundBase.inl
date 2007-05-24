@@ -73,6 +73,72 @@ OSG::UInt16 BackgroundBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the Background::_sfClearStencilBit field.
+
+inline
+Int32 &BackgroundBase::editClearStencilBit(void)
+{
+    editSField(ClearStencilBitFieldMask);
+
+    return _sfClearStencilBit.getValue();
+}
+
+//! Get the value of the Background::_sfClearStencilBit field.
+inline
+const Int32 &BackgroundBase::getClearStencilBit(void) const
+{
+    return _sfClearStencilBit.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Int32               &BackgroundBase::getClearStencilBit(void)
+{
+    return this->editClearStencilBit();
+}
+#endif
+
+//! Set the value of the Background::_sfClearStencilBit field.
+inline
+void BackgroundBase::setClearStencilBit(const Int32 &value)
+{
+    editSField(ClearStencilBitFieldMask);
+
+    _sfClearStencilBit.setValue(value);
+}
+//! Get the value of the Background::_sfDepth field.
+
+inline
+Real32 &BackgroundBase::editDepth(void)
+{
+    editSField(DepthFieldMask);
+
+    return _sfDepth.getValue();
+}
+
+//! Get the value of the Background::_sfDepth field.
+inline
+const Real32 &BackgroundBase::getDepth(void) const
+{
+    return _sfDepth.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Real32              &BackgroundBase::getDepth          (void)
+{
+    return this->editDepth          ();
+}
+#endif
+
+//! Set the value of the Background::_sfDepth field.
+inline
+void BackgroundBase::setDepth(const Real32 &value)
+{
+    editSField(DepthFieldMask);
+
+    _sfDepth.setValue(value);
+}
 
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
@@ -84,6 +150,12 @@ void BackgroundBase::execSync(      BackgroundBase *pOther,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
+
+    if(FieldBits::NoField != (ClearStencilBitFieldMask & whichField))
+        _sfClearStencilBit.syncWith(pOther->_sfClearStencilBit);
+
+    if(FieldBits::NoField != (DepthFieldMask & whichField))
+        _sfDepth.syncWith(pOther->_sfDepth);
 }
 #endif
 
@@ -96,6 +168,12 @@ void BackgroundBase::execSync (      BackgroundBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ClearStencilBitFieldMask & whichField))
+        _sfClearStencilBit.syncWith(pFrom->_sfClearStencilBit);
+
+    if(FieldBits::NoField != (DepthFieldMask & whichField))
+        _sfDepth.syncWith(pFrom->_sfDepth);
 }
 #endif
 

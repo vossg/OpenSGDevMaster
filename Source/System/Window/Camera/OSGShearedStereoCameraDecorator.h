@@ -76,7 +76,11 @@ class OSG_WINDOW_DLLMAPPING ShearedStereoCameraDecorator :
     virtual void getProjection(Matrix &result, 
                                UInt32  width, 
                                UInt32  height);
- 
+    
+  	virtual void getDecoration(Matrix &result, 
+                               UInt32  width, 
+                               UInt32  height);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */

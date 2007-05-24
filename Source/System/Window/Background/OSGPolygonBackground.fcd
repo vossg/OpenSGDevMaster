@@ -79,4 +79,34 @@ A Background that renders a single polygon using the specified material.
 	>
 	Useful for keeping aspect ratio when rendering things like images.
 	</Field>
+	<Field
+		name="scale"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.0"
+		access="public"
+	>
+	Scale factor for zooming.
+	</Field>
+	<Field
+		name="cleanup"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	Clear depth/ stencil buffer after applying the material.
+	</Field>
+	<Field
+		name="tile"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	If true the image tiles in multi window settings.
+	</Field>
 </FieldContainer>

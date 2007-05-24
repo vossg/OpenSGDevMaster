@@ -88,6 +88,10 @@ OSG_BEGIN_NAMESPACE
     The background color.
 */
 
+/*! \var Real32          SolidBackgroundBase::_sfAlpha
+    Alpha value (to allow transparent clears).
+*/
+
 
 void SolidBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -112,6 +116,28 @@ void SolidBackgroundBase::classDescInserter(TypeObject &oType)
         reinterpret_cast<FieldGetMethodSig >(GetSFColor));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getSFColor));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFReal32 *(SolidBackgroundBase::*GetSFAlphaF)(void) const;
+
+    GetSFAlphaF GetSFAlpha = &SolidBackgroundBase::getSFAlpha;
+#endif
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "alpha",
+        "Alpha value (to allow transparent clears).\n",
+        AlphaFieldId, AlphaFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SolidBackgroundBase::editSFAlpha),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFAlpha));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SolidBackgroundBase::getSFAlpha));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -152,6 +178,16 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t>\n"
     "\tThe background color.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"alpha\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.f\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tAlpha value (to allow transparent clears).\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
@@ -201,6 +237,25 @@ SFColor3r           *SolidBackgroundBase::getSFColor          (void)
 }
 #endif
 
+SFReal32 *SolidBackgroundBase::editSFAlpha(void)
+{
+    editSField(AlphaFieldMask);
+
+    return &_sfAlpha;
+}
+
+const SFReal32 *SolidBackgroundBase::getSFAlpha(void) const
+{
+    return &_sfAlpha;
+}
+
+#ifdef OSG_1_COMPAT
+SFReal32            *SolidBackgroundBase::getSFAlpha          (void)
+{
+    return this->editSFAlpha          ();
+}
+#endif
+
 
 
 
@@ -215,6 +270,10 @@ UInt32 SolidBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfColor.getBinSize();
     }
+    if(FieldBits::NoField != (AlphaFieldMask & whichField))
+    {
+        returnValue += _sfAlpha.getBinSize();
+    }
 
     return returnValue;
 }
@@ -228,6 +287,10 @@ void SolidBackgroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfColor.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (AlphaFieldMask & whichField))
+    {
+        _sfAlpha.copyToBin(pMem);
+    }
 }
 
 void SolidBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -238,6 +301,10 @@ void SolidBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ColorFieldMask & whichField))
     {
         _sfColor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (AlphaFieldMask & whichField))
+    {
+        _sfAlpha.copyFromBin(pMem);
     }
 }
 
@@ -266,13 +333,15 @@ FieldContainerPtr SolidBackgroundBase::shallowCopy(void) const
 
 SolidBackgroundBase::SolidBackgroundBase(void) :
     Inherited(),
-    _sfColor                  ()
+    _sfColor                  (),
+    _sfAlpha                  (Real32(1.f))
 {
 }
 
 SolidBackgroundBase::SolidBackgroundBase(const SolidBackgroundBase &source) :
     Inherited(source),
-    _sfColor                  (source._sfColor                  )
+    _sfColor                  (source._sfColor                  ),
+    _sfAlpha                  (source._sfAlpha                  )
 {
 }
 

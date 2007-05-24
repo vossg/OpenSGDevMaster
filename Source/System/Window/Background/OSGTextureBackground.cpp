@@ -201,12 +201,12 @@ void TextureBackground::clear(DrawEnv  *pEnv,
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         return;
     }
-    GLboolean light = glIsEnabled(GL_LIGHTING);
-    if (light == GL_TRUE)
-        glDisable(GL_LIGHTING);
 
-    GLint fill[2];
-    glGetIntegerv(GL_POLYGON_MODE, fill);
+    glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 
+                 GL_LIGHTING_BIT);
+
+    glDisable(GL_LIGHTING);
+
 #if 1
     // original mode
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -217,13 +217,8 @@ void TextureBackground::clear(DrawEnv  *pEnv,
 #endif
     glClear(GL_DEPTH_BUFFER_BIT);
 
-    GLboolean depth = glIsEnabled(GL_DEPTH_TEST);
     glDisable(GL_DEPTH_TEST);
-
-    GLint depthFunc;
-    glGetIntegerv(GL_DEPTH_FUNC, &depthFunc);
     glDepthFunc(GL_ALWAYS);
-
     glDepthMask(GL_FALSE);
 
     glMatrixMode(GL_MODELVIEW);
@@ -291,7 +286,8 @@ void TextureBackground::clear(DrawEnv  *pEnv,
 	       _textureCoordArray.size()==gridCoords &&
 	       _indexArray.size()==indexArraySize)
 	    {
-	        // clear background, because possibly the distortion grid could not cover th whole window
+	        // clear background, because possibly the distortion grid 
+            // could not cover th whole window
 	        glClearColor(.5f, 0.5f, 0.5f, 1.0f);
 	        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	        std::vector<UInt32>::iterator i;
@@ -318,21 +314,24 @@ void TextureBackground::clear(DrawEnv  *pEnv,
 
     tex->deactivate(pEnv);
 
-    glClear(GL_DEPTH_BUFFER_BIT);
+    Int32 bit = getClearStencilBit();
+    
+    if (bit >= 0)
+    {
+        glClearStencil(bit);
+        glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    }
+    else
+    {
+        glClear(GL_DEPTH_BUFFER_BIT);
+    }
 
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
 
-    glDepthMask(GL_TRUE);
-    if(depth)
-        glEnable(GL_DEPTH_TEST);
-    glDepthFunc(depthFunc);
+    glPopAttrib();
 
-    glPolygonMode(GL_FRONT, fill[0]);
-    glPolygonMode(GL_BACK , fill[1]);
-    if(light)
-        glEnable(GL_LIGHTING);
     glColor3f(1.0f, 1.0f, 1.0f);
 }
 

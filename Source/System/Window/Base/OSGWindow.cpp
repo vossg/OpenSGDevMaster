@@ -234,6 +234,7 @@ std::vector<std::string            >  OSG::Window::_ignoredExtensions;
 std::vector<bool                   >  OSG::Window::_commonExtensions;
 std::vector<std::string            >  OSG::Window::_registeredFunctions;
 std::vector<Int32                  >  OSG::Window::_registeredFunctionExts;
+std::vector<UInt32                 >  OSG::Window::_registeredFunctionVersions;
 
 // GL constant handling
 
@@ -573,7 +574,7 @@ void OSG::Window::subPort(UInt32  portIndex)
 
 UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor, 
                                      GLObjectFunctor destroy, 
-                                     UInt32 num)
+                                     UInt32          num)
 {
     UInt32    osgId, i; 
     GLObject *pGLObject;
@@ -582,7 +583,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor,
     
     // reserve index 0, illegal for most OpenGL functions
     if(_glObjects.empty())
-        _glObjects.push_back( NULL );   
+        _glObjects.push_back(NULL);
 
     osgId     = _glObjects.size();
     pGLObject = new GLObject(functor, destroy);
@@ -602,12 +603,12 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor,
     
     // doesn't fit, try to find a block in the middle
     
-    UInt32 cnt = 0;        
+    UInt32 cnt = 0;
 
     // start searching at 1, id 0 is reserved for GL
     for(i = 1; i < _glObjects.size(); ++i)
     {       
-        if(!_glObjects[i]) 
+        if(_glObjects[i] == NULL) 
         {
             if(cnt == 0)
             {
@@ -635,24 +636,35 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor functor,
         }
         else
         {
-            cnt = 0;
+            cnt   = 0;
+            osgId = 0;
         }
     }
     
     // no block found, add at the end
     
-    // fill the empty slots at the end 
-    i = osgId + cnt - 1;
-    while ( i >= osgId )
+    if(osgId > 0) // ok the last entries in the vector were empty
     {
-        _glObjects[i] = pGLObject;
-        i = i - 1;
+        // fill the empty slots at the end 
+        i = osgId + cnt - 1;
+
+        while(i >= osgId)
+        {
+            _glObjects[i] = pGLObject;
+
+            i = i - 1;
+        }
     }
-    
+    else
+    {
+        // we found no empty entries so the new id is the size of the vector.
+        osgId = _glObjects.size();
+    }
+
     // expand the vector for the rest 
-    for ( i = 1; i <= num - cnt; i++ ) 
+    for(i = 1; i <= num - cnt; i++) 
     {       
-        _glObjects.push_back( pGLObject );
+        _glObjects.push_back(pGLObject);
     }
                 
     initRegisterGLObject(osgId, num);
@@ -673,14 +685,15 @@ void OSG::Window::validateGLObject(UInt32 osgId, DrawEnv *pEnv)
     if ( osgId == 0 )
     {
         SWARNING << "Window::validateGLObject: id is 0!" << std::endl;
-            return;
+        return;
     }
     
     GLObject *obj = _glObjects[osgId];
     
     if(obj == NULL)
     {
-        SWARNING << "Window::validateGLObject: obj is NULL!" << std::endl;
+        SWARNING << "Window::validateGLObject: obj with id " << osgId 
+                 <<" is NULL!" << std::endl;
         return;
     }
 
@@ -776,7 +789,8 @@ void OSG::Window::refreshGLObject( UInt32 osgId )
 
         if(field.size() <= osgId)
         {
-            field.getValues().insert(field.end(), osgId - field.size() + 1, 0 );
+            field.getValues().insert(field.end(), 
+                                     osgId - field.size() + 1, 0 );
         }
 
         field[osgId] = lastinv;
@@ -926,7 +940,7 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
         for(UInt32 j = 0; j < num ; j++)
         {
             _glObjects[osgId + j] = NULL;
-        }           
+        }
 
         return;
     }
@@ -1115,7 +1129,9 @@ void OSG::Window::ignoreExtensions(const Char8 *s)
     details. Ignores NULL strings.
  */
 
-UInt32 OSG::Window::registerFunction(const Char8 *s, Int32 ext)
+UInt32 OSG::Window::registerFunction(const Char8 *s, 
+                                           Int32  ext,
+                                           UInt32 version)
 {
     if(s == NULL)
         return TypeTraits<UInt32>::getMax();
@@ -1137,8 +1153,10 @@ UInt32 OSG::Window::registerFunction(const Char8 *s, Int32 ext)
     }
             
     UInt32 r=_registeredFunctions.size();
-    _registeredFunctions.push_back(s);
-    _registeredFunctionExts.push_back(ext);
+
+    _registeredFunctions       .push_back(s);
+    _registeredFunctionExts    .push_back(ext);
+    _registeredFunctionVersions.push_back(version);
 
     FPDEBUG(("new id %d\n", r));
     
@@ -1154,8 +1172,13 @@ void OSG::Window::registerConstant(GLenum val)
 {
     staticAcquire();
    
-    _registeredConstants.push_back(val);
-    
+    if(std::find(_registeredConstants.begin(), 
+                 _registeredConstants.end  (),
+                 val                        ) ==  _registeredConstants.end())
+    {
+        _registeredConstants.push_back(val);
+    }
+
     staticRelease();
 }
 
@@ -1214,14 +1237,27 @@ void OSG::Window::frameInit(void)
         init();
     }
     
-    // get extensions and split them
+    // get version/extensions and split them
     if(_extensions.empty())
     {
+        const char *version = 
+                reinterpret_cast<const char *>(glGetString(GL_VERSION));
+        
+        int major = atoi(version);
+        int minor = atoi(strchr(version, '.') + 1);
+        
+        _glVersion = (major << 8) + minor;
+        
+        FDEBUG(("Window %p: GL Version: %4x ('%s')\n", this, 
+                _glVersion, glGetString(GL_VERSION) ));
+
         FDEBUG(("Window %p: GL Extensions: %s\n", this, 
                 glGetString(GL_EXTENSIONS) ));
 
         std::string foo(reinterpret_cast<const char*>
                         (glGetString(GL_EXTENSIONS)));
+
+        FDEBUG(("Window %p: Ignored: ", this));
 
         for(string_token_iterator it = string_token_iterator(foo, ",. ");
             it != string_token_iterator(); ++it)
@@ -1232,7 +1268,12 @@ void OSG::Window::frameInit(void)
             {
                 _extensions.push_back(*it);
             }
+            else
+            {
+                FPDEBUG(("%s ", (*it).c_str()));
+            }
         }
+        FPDEBUG(("\n"));
         std::sort(_extensions.begin(), _extensions.end());
                  
         // if we don't have any extensions, add something anyway
@@ -1258,18 +1299,42 @@ void OSG::Window::frameInit(void)
                                 _extensions.end(),
                                 _registeredExtensions[s]);
 
-            _availExtensions.push_back(supported);
+            /* Is this extension ignored? */
+            bool ignored   = std::binary_search( 
+                                _ignoredExtensions.begin(),
+                                _ignoredExtensions.end(),
+                                _registeredExtensions[s]);
+
+            _availExtensions.push_back(supported && !ignored);
+
             FPDEBUG(("%s:", _registeredExtensions[s].c_str()));
 
             if(_commonExtensions.size() <= s)
             {
-                _commonExtensions.push_back(supported);
-                FPDEBUG(("ok "));
+                _commonExtensions.push_back(supported && !ignored);
+
+                if(supported && !ignored)
+                {
+                    FPDEBUG(("ok "));
+                }
+                else if(!supported)
+                {
+                    FPDEBUG(("NF "));
+                }
+                else
+                {
+                    FPDEBUG(("IGN "));
+                }
             }
             else if (!supported)
             {
                 _commonExtensions[s] = false;
                 FPDEBUG(("NF "));
+            }
+            else
+            {
+                _commonExtensions[s] = false;
+                FPDEBUG(("IGN "));
             }
         }
         FPDEBUG(("\n"));
@@ -1280,10 +1345,13 @@ void OSG::Window::frameInit(void)
     while(_registeredFunctions.size() > _extFunctions.size())
     {   
         const Char8 *s    = _registeredFunctions[_extFunctions.size()].c_str();
-        Int32        ext  = _registeredFunctionExts[_extFunctions.size()];
+
+        Int32        ext  = _registeredFunctionExts    [_extFunctions.size()];
+        UInt32       ver  = _registeredFunctionVersions[_extFunctions.size()];
+
         void        *func = NULL;
         
-        if(ext == -1 || _availExtensions[ext] == true)
+        if(ext == -1 || _availExtensions[ext] == true || _glVersion >= ver)
             func = (void*)getFunctionByName(s);
 
         _extFunctions.push_back(func);
@@ -1379,24 +1447,45 @@ void OSG::Window::frameExit(void)
 
     // Test for OpenGL errors. Just a little precaution to catch
     // stray errors. This is the only OpenGL error test in opt mode
+    // and it needs to be enabled using the OSG_TEST_GL_ERRORS envvar.
+    // In debug mode it is always on.
  
-    GLenum glerr;
-
-    while((glerr = glGetError()) != GL_NO_ERROR)
-    {
-#ifndef OSG_WINCE
-        FWARNING(("Window::frameExit: Caught stray OpenGL error %s (%#x).\n",
-                gluErrorString(glerr),
-                glerr));
+    static bool inited = false;
+#ifndef OSG_DEBUG
+    static bool testGLErrors = false;
 #else
-        FWARNING(("Window::frameExit: Caught stray OpenGL error %#x.\n",
-                glerr));
+    static bool testGLErrors = true;
+#endif
+
+    if(!inited)
+    {
+        inited = true;
+        char *p = getenv("OSG_DEBUG");
+        if(p)
+            testGLErrors = true;
+    }
+ 
+    if(testGLErrors)
+    {
+        GLenum glerr;
+        
+        while((glerr = glGetError()) != GL_NO_ERROR)
+        {
+#ifndef OSG_WINCE
+            FWARNING(("Window::frameExit: Caught stray OpenGL "
+                      "error %s (%#x).\n",
+                      gluErrorString(glerr),
+                      glerr));
+#else
+            FWARNING(("Window::frameExit: Caught stray OpenGL error %#x.\n",
+                      glerr));
 #endif
 
 #ifndef OSG_DEBUG
-        FWARNING(("Rerun with debug-libraries to get more accurate "
-                  "information.\n"));
+            FWARNING(("Rerun with debug-libraries to get more accurate "
+                      "information.\n"));
 #endif
+        }
     }
     
 }
@@ -1477,12 +1566,45 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
 
             if(__GetProcAddress == NULL) 
             {
-                FWARNING(("Neither glXGetProcAddress nor "
-                          "glXGetProcAddressARB found! Disabling all "
-                          " extensions for Window %p!\n")); 
+                // Couldn't find it linked to the executable. Try to open
+                // libGL.so directly.
+                
+                dlclose(libHandle);
+                
+                libHandle = dlopen("libGL.so", RTLD_NOW | RTLD_GLOBAL); 
 
-                _availExtensions.clear();
-                _availExtensions.resize(_registeredExtensions.size(), false);
+                if(!libHandle) 
+                { 
+                    FWARNING(("Error in dlopen: %s\n",dlerror())); 
+                    abort(); 
+                } 
+                else
+                {
+                    FDEBUG(("Opened libGL.so for GL extension handling.\n"));
+                }
+                
+                __GetProcAddress = 
+                    (void (*(*)(const GLubyte*))()) dlsym(
+                        libHandle, "glXGetProcAddressARB"); 
+
+                if(__GetProcAddress == NULL) 
+                { 
+                    __GetProcAddress = 
+                        (void (*(*)(const GLubyte*))())dlsym(
+                            libHandle, "glXGetProcAddress"); 
+                }
+
+
+                if(__GetProcAddress == NULL) 
+                {
+                    FWARNING(("Neither glXGetProcAddress nor "
+                              "glXGetProcAddressARB found! Disabling all "
+                              " extensions for Window %p!\n")); 
+                    
+                    _availExtensions.clear();
+                    _availExtensions.resize(_registeredExtensions.size(), 
+                                            false);
+                }
             } 
             else
             {

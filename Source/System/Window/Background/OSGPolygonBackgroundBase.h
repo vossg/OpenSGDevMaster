@@ -72,6 +72,9 @@
 #include "OSGBoolFields.h" // NormalizedY type
 #include "OSGUInt16Fields.h" // AspectHeight type
 #include "OSGUInt16Fields.h" // AspectWidth type
+#include "OSGReal32Fields.h" // Scale type
+#include "OSGBoolFields.h" // Cleanup type
+#include "OSGBoolFields.h" // Tile type
 
 #include "OSGPolygonBackgroundFields.h"
 
@@ -123,7 +126,10 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
         NormalizedYFieldId = NormalizedXFieldId + 1,
         AspectHeightFieldId = NormalizedYFieldId + 1,
         AspectWidthFieldId = AspectHeightFieldId + 1,
-        NextFieldId = AspectWidthFieldId + 1
+        ScaleFieldId = AspectWidthFieldId + 1,
+        CleanupFieldId = ScaleFieldId + 1,
+        TileFieldId = CleanupFieldId + 1,
+        NextFieldId = TileFieldId + 1
     };
 
     static const OSG::BitVector MaterialFieldMask =
@@ -140,6 +146,12 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
         (TypeTraits<BitVector>::One << AspectHeightFieldId);
     static const OSG::BitVector AspectWidthFieldMask =
         (TypeTraits<BitVector>::One << AspectWidthFieldId);
+    static const OSG::BitVector ScaleFieldMask =
+        (TypeTraits<BitVector>::One << ScaleFieldId);
+    static const OSG::BitVector CleanupFieldMask =
+        (TypeTraits<BitVector>::One << CleanupFieldId);
+    static const OSG::BitVector TileFieldMask =
+        (TypeTraits<BitVector>::One << TileFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -204,6 +216,24 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
                   SFUInt16            *editSFAspectWidth    (void);
             const SFUInt16            *getSFAspectWidth     (void) const;
 
+#ifdef OSG_1_COMPAT
+                  SFReal32            *getSFScale           (void);
+#endif
+                  SFReal32            *editSFScale          (void);
+            const SFReal32            *getSFScale           (void) const;
+
+#ifdef OSG_1_COMPAT
+                  SFBool              *getSFCleanup         (void);
+#endif
+                  SFBool              *editSFCleanup        (void);
+            const SFBool              *getSFCleanup         (void) const;
+
+#ifdef OSG_1_COMPAT
+                  SFBool              *getSFTile            (void);
+#endif
+                  SFBool              *editSFTile           (void);
+            const SFBool              *getSFTile            (void) const;
+
 
                   MaterialPtrConst getMaterial       (void) const;
 
@@ -249,6 +279,24 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
                   UInt16              &editAspectWidth    (void);
             const UInt16              &getAspectWidth     (void) const;
 
+#ifdef OSG_1_COMPAT
+                  Real32              &getScale           (void);
+#endif
+                  Real32              &editScale          (void);
+            const Real32              &getScale           (void) const;
+
+#ifdef OSG_1_COMPAT
+                  bool                &getCleanup         (void);
+#endif
+                  bool                &editCleanup        (void);
+            const bool                &getCleanup         (void) const;
+
+#ifdef OSG_1_COMPAT
+                  bool                &getTile            (void);
+#endif
+                  bool                &editTile           (void);
+            const bool                &getTile            (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -259,6 +307,9 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
             void setNormalizedY    (const bool &value);
             void setAspectHeight   (const UInt16 &value);
             void setAspectWidth    (const UInt16 &value);
+            void setScale          (const Real32 &value);
+            void setCleanup        (const bool &value);
+            void setTile           (const bool &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -367,6 +418,9 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     SFBool            _sfNormalizedY;
     SFUInt16          _sfAspectHeight;
     SFUInt16          _sfAspectWidth;
+    SFReal32          _sfScale;
+    SFBool            _sfCleanup;
+    SFBool            _sfTile;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

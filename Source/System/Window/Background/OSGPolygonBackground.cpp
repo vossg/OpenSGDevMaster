@@ -48,6 +48,7 @@
 #include <OSGViewport.h>
 
 #include "OSGPolygonBackground.h"
+#include "OSGTileCameraDecorator.h"
 
 OSG_USING_NAMESPACE
 
@@ -134,18 +135,28 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
         return;
     }
        
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    Int32 bit = getClearStencilBit();      // 0x0
+    
+    if(bit >= 0)
+    {
+        glClearStencil(bit);
+
+        glClear(GL_COLOR_BUFFER_BIT | 
+                GL_DEPTH_BUFFER_BIT | 
+                GL_STENCIL_BUFFER_BIT);
+    }
+    else
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
 
     glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-    GLboolean depth = glIsEnabled(GL_DEPTH_TEST);
     glDisable(GL_DEPTH_TEST);
-
-    GLint depthFunc;
-    glGetIntegerv(GL_DEPTH_FUNC, &depthFunc);
     glDepthFunc(GL_ALWAYS);
 
-    glDepthMask(GL_FALSE);
+    if(getCleanup())
+        glDepthMask(GL_FALSE);
 
     Real32 aspectX = 1.0f, aspectY = 1.0f;
     
@@ -155,6 +166,10 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
                   ((Real32)pPort->getPixelWidth() / getAspectWidth());
     }
  
+	glMatrixMode(GL_TEXTURE);
+    glPushMatrix();
+    glLoadIdentity();
+
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
@@ -162,9 +177,68 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
+   
+ 	Real32 sFac = getScale() > 0 ? getScale() : 1.0f;
+	
+	UInt32 width  = pPort->getPixelWidth(),
+		   height = pPort->getPixelHeight();
+
+    Camera *cP               = getCPtr(pPort->getCamera());
+    TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
+	
+	while (cdP != NULL)
+	{
+		width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
+		height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
+		
+		cP  = cdP->getDecoratee().getCPtr();
+		cdP = dynamic_cast<TileCameraDecorator*>(cP);
+	}
+	
+	cP  = getCPtr(pPort->getCamera());
+	cdP = dynamic_cast<TileCameraDecorator*>(cP);
     
-    glScalef(aspectX, aspectY, 1);
-    glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
+    if (cdP && !getTile())
+    {
+        Real32 t = 0,
+               left   = cdP->getLeft(),
+               right  = cdP->getRight(),
+               top    = cdP->getTop(),
+               bottom = cdP->getBottom();
+        
+        if (getAspectHeight() && getAspectWidth() &&
+            height != 0 && width != 0)
+        {
+            aspectX = ((Real32)height/getAspectHeight()) /
+                      ((Real32)width / getAspectWidth());
+            t  = (Real32)width * (1 - aspectX) * 0.5f;
+            t *= (Real32)pPort->getPixelWidth() / width;
+        }
+		
+		Matrix sm;
+		cP->getDecoration(sm, width, height);
+        
+        glLoadMatrixf(sm.getValues());
+        glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
+        
+        glTranslatef(t, 0, 0);
+        glScalef(aspectX, aspectY, 1);
+		
+        float t1 = (1 - sFac) * 0.5f * (Real32)pPort->getPixelWidth();
+        float t2 = (1 - sFac) * 0.5f * (Real32)pPort->getPixelHeight();
+        glTranslatef(t1, t2, 0);
+        glScalef(sFac,sFac,1);
+    }
+    else
+    {
+        glScalef(sFac,sFac,1);
+        
+        glScalef(aspectX, aspectY, 1);
+        glOrtho(0, pPort->getPixelWidth(), 
+                0, pPort->getPixelHeight(), 
+                0, 1);    
+    }
+
 
     getMaterial()->getState()->activate(pEnv);
     
@@ -188,16 +262,23 @@ void PolygonBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 
     glScalef(1, 1, 1);
 
-    glClear(GL_DEPTH_BUFFER_BIT);
+    if(getCleanup())
+    {
+        if(bit >= 0)
+        {
+            glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        }
+        else
+        {
+            glClear(GL_DEPTH_BUFFER_BIT);
+        }
+    }
     
-    glDepthMask(GL_TRUE);
-
-    if (depth)    
-        glEnable(GL_DEPTH_TEST);
-    glDepthFunc(depthFunc);
-    
+	glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+	glMatrixMode(GL_TEXTURE);
     glPopMatrix();
 
     glPopAttrib();

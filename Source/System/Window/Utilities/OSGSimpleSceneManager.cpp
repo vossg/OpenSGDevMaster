@@ -431,6 +431,33 @@ void SimpleSceneManager::turnHeadlightOff(void)
     setHeadlight(false);
 }
 
+void SimpleSceneManager::setCamera(PerspectiveCameraPtr camera)
+{
+    if(camera == NullFC)
+        return;
+
+    camera->setBeacon(_camera->getBeacon());
+    camera->setFov   (_camera->getFov());
+    camera->setNear  (_camera->getNear());
+    camera->setFar   (_camera->getFar());
+
+    for(UInt32 i=0;i<_win->getPort().size();++i)
+    {
+        ViewportPtr vp = _win->getPort()[i];
+
+        if(vp != NullFC)
+        {
+            vp->setCamera(camera);
+        }
+    }
+
+    // destroy old camera.
+    addRef( camera);
+    subRef(_camera);
+
+    _camera = camera;
+}
+
 /*! set the highlight object
  */
 void SimpleSceneManager::setHighlight(NodePtr highlight)
@@ -479,6 +506,14 @@ bool SimpleSceneManager::getStatistics(void)
  */
 void SimpleSceneManager::initialize(void)
 {
+    // Check necessary stuff
+    if(_win == NullFC)
+    {
+        FWARNING(("SimpleSceneManager::initialize: window not set, "
+                  "ignoring!\n"));
+        return;
+    }
+
     // the rendering action
     _ownAction    = RenderAction::create();
     _renderAction = _ownAction;
@@ -520,11 +555,8 @@ void SimpleSceneManager::initialize(void)
     _camera->setFar   (10000.f);
 
     // need a viewport?
-    if(_win != NullFC && _win->getPort().size() == 0)
+    if(_win->getPort().size() == 0)
     {
-        // I'd like this to be a gradient background, but it still has
-        // problems on Linux/nVidia
-
         SolidBackgroundPtr bg = SolidBackground::create();
 
         bg->setColor(Color3f(0.2, 0.2, 0.2));

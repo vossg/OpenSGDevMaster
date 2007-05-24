@@ -23,4 +23,14 @@ The color of the background is given by the _sfColor field.
 	>
 	The background color.
 	</Field>
+	<Field
+		name="alpha"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.f"
+		access="public"
+	>
+	Alpha value (to allow transparent clears).
+	</Field>
 </FieldContainer>

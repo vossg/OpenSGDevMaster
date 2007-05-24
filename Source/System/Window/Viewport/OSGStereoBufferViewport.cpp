@@ -94,6 +94,45 @@ void StereoBufferViewport::dump(      UInt32    ,
     SLOG << "Dump StereoBufferViewport NI" << std::endl;
 }
 
+#if 0 // Have to check GV
+void StereoBufferViewport::activate(void)
+{
+    if(getLeftBuffer())
+    {
+        if(getRightBuffer())
+        {
+            glDrawBuffer(GL_BACK);
+            glReadBuffer(GL_BACK);
+        }
+        else
+        {
+            glDrawBuffer(GL_BACK_LEFT);
+            glReadBuffer(GL_BACK_LEFT);
+        }
+    }
+    else
+    {
+        if(getRightBuffer())
+        {
+            glDrawBuffer(GL_BACK_RIGHT);
+            glReadBuffer(GL_BACK_RIGHT);
+        }
+        else
+        {
+            glDrawBuffer(GL_NONE);
+            glReadBuffer(GL_NONE);
+        }
+    }
+    Inherited::activate();
+}
+
+void StereoBufferViewport::deactivate(void)
+{
+    Inherited::deactivate();
+    glDrawBuffer(GL_BACK);
+    glReadBuffer(GL_BACK);
+}
+#endif
 
 #ifdef OSG_OLD_RENDER_ACTION
 void StereoBufferViewport::render(DrawActionBase *action)
@@ -103,10 +142,12 @@ void StereoBufferViewport::render(DrawActionBase *action)
         if(getRightBuffer())
         {
             glDrawBuffer(GL_BACK);
+            glReadBuffer(GL_BACK);
         }
         else
         {
             glDrawBuffer(GL_BACK_LEFT);
+            glReadBuffer(GL_BACK_LEFT);
         }
     }
     else
@@ -114,16 +155,19 @@ void StereoBufferViewport::render(DrawActionBase *action)
         if(getRightBuffer())
         {
             glDrawBuffer(GL_BACK_RIGHT);
+            glReadBuffer(GL_BACK_RIGHT);
         }
         else
         {
             glDrawBuffer(GL_NONE);
+            glReadBuffer(GL_NONE);
         }
     }
 
     Inherited::render(action);
 
     glDrawBuffer(GL_BACK);
+    glReadBuffer(GL_BACK);
 }
 #endif
 
@@ -135,10 +179,12 @@ void StereoBufferViewport::render(RenderTraversalActionBase *action)
         if(getRightBuffer())
         {
             glDrawBuffer(GL_BACK);
+            glReadBuffer(GL_BACK);
         }
         else
         {
             glDrawBuffer(GL_BACK_LEFT);
+            glReadBuffer(GL_BACK_LEFT);
         }
     }
     else
@@ -146,16 +192,19 @@ void StereoBufferViewport::render(RenderTraversalActionBase *action)
         if(getRightBuffer())
         {
             glDrawBuffer(GL_BACK_RIGHT);
+            glReadBuffer(GL_BACK_RIGHT);
         }
         else
         {
             glDrawBuffer(GL_NONE);
+            glReadBuffer(GL_NONE);
         }
     }
 
     Inherited::render(action);
 
     glDrawBuffer(GL_BACK);
+    glReadBuffer(GL_BACK);
 }
 #endif
 

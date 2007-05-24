@@ -103,9 +103,22 @@ void SolidBackground::clear(DrawEnv *, Viewport *)
 {
 	const Color3r &col = getColor();
 
-	GLP::glClearColor(col[0], col[1], col[2], 1.0f);
+	GLP::glClearColor(col[0], col[1], col[2], getAlpha());
+    glClearDepth(getDepth());
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    Int32 bit = getClearStencilBit();   // 0x0
+    
+    if (bit >= 0)
+    {
+        glClearStencil(bit);
+        glClear(GL_COLOR_BUFFER_BIT | 
+                GL_DEPTH_BUFFER_BIT | 
+                GL_STENCIL_BUFFER_BIT);
+    }
+    else
+    {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
 }
 
 /*------------------------------- dump ----------------------------------*/

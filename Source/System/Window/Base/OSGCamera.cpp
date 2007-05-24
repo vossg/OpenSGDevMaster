@@ -227,6 +227,16 @@ void Camera::getWorldToScreen(Matrixr &result, const Viewport& p)
     result.mult(mv );
 }
 
+/*! Get/calculate the decoration matrix for this camera. 
+  The default is identity.
+*/
+
+void Camera::getDecoration(Matrix &result, UInt32 width, UInt32 height)
+{
+    result.setIdentity();
+}
+
+
 Matrixr Camera::getProjectionVal           (   UInt32         width,
                                           UInt32         height)
 {
@@ -265,6 +275,12 @@ Matrixr Camera::getWorldToScreenVal        ( const Viewport      &port  )
    return temp_mat;
 }
 
+Matrixr Camera::getDecorationVal(UInt32 width, UInt32 height)
+{
+   Matrixr temp_mat;
+   this->getDecoration(temp_mat, width, height);
+   return temp_mat;
+}
 
 #ifndef OSG_WINCE
 /*! Calculate a ray that starts at the camera position and goes through the

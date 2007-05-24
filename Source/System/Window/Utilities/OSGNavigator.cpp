@@ -155,6 +155,7 @@ Navigator::Navigator() :
     _rMotionFactor(1.f),
     _currentState(IDLE),
     _currentMode(TRACKBALL),
+    _absolute(true),
     _vp(NullFC),
     _cartN(NullFC),
     _moved(false),
@@ -503,7 +504,7 @@ void Navigator::idle(Int16 buttons, Int16 x, Int16 y)
 void Navigator::updateCameraTransformation()
 {
     theMatrix.setIdentity();
-    if(_cartN != NullFC && _cartN->getParent() != NullFC)
+    if(_absolute && _cartN != NullFC && _cartN->getParent() != NullFC)
     {
         _cartN->getParent()->getToWorld(theMatrix);
         theMatrix.inverse(theMatrix);
@@ -528,7 +529,10 @@ void Navigator::updateCameraTransformation()
         }
         else
         {
-            t->setMatrix(theMatrix);
+            if(t->getMatrix() != theMatrix)
+            {
+                t->setMatrix(theMatrix);
+            }
         }
     }
     else
@@ -731,7 +735,7 @@ void Navigator::setCameraTransformation(const NodePtr & new_cartn)
 
 /*! Get the transformation matrix.
 */
-const Matrix &Navigator::getMatrix()
+const Matrix &Navigator::getMatrix(void)
 {
     switch (_currentMode)
     {
@@ -748,7 +752,7 @@ const Matrix &Navigator::getMatrix()
 
 /*! Get the from point, i.e. the viewer position.
 */
-const Pnt3f  &Navigator::getFrom()
+const Pnt3f  &Navigator::getFrom(void)
 {
     static Pnt3f returnValue(0.f, 0.f, 0.f);
     returnValue = (Pnt3f)_NoneMatrix[3];
@@ -768,7 +772,7 @@ const Pnt3f  &Navigator::getFrom()
 
 /*! Get the at point, i.e. the target position.
 */
-const Pnt3f  &Navigator::getAt()
+const Pnt3f  &Navigator::getAt(void)
 {
     static Pnt3f returnValue(0.f, 0.f, 0.f);
     returnValue = (Pnt3f)(_NoneMatrix[3] - _NoneMatrix[2]);
@@ -788,7 +792,7 @@ const Pnt3f  &Navigator::getAt()
 
 /*! Get the up vector.
 */
-const Vec3f  &Navigator::getUp()
+const Vec3f  &Navigator::getUp(void)
 {
     static Vec3f returnValue(0.f, 0.f, 0.f);
     returnValue = (Vec3f)_NoneMatrix[1];
@@ -809,7 +813,7 @@ const Vec3f  &Navigator::getUp()
 
 /*! Get the distance from the target position.
 */
-Real32 Navigator::getDistance()
+Real32 Navigator::getDistance(void)
 {
     Real32 distance = 0.0f;
     switch (_currentMode)
@@ -832,30 +836,51 @@ Real32 Navigator::getDistance()
 
 /*! Get the navigator's current state.
 */
-Navigator::State Navigator::getState()
+Navigator::State Navigator::getState(void)
 {
     return _currentState;
 }
 
 /*! Get the navigator's current mode.
 */
-Navigator::Mode Navigator::getMode()
+Navigator::Mode Navigator::getMode(void)
 {
     return _currentMode;
 }
 
 /*! Get the navigator's rotation angle.
 */
-Real32 Navigator::getRotationAngle()
+Real32 Navigator::getRotationAngle(void)
 {
     return _rRotationAngle;
 }
 
 /*! Get the navigator's motion factor
 */
-Real32 Navigator::getMotionFactor()
+Real32 Navigator::getMotionFactor(void)
 {
     return _rMotionFactor;
+}
+
+/*! Get the absolute current state.
+*/
+bool Navigator::getAbsolute(void)
+{
+    return _absolute;
+}
+
+/*! Get the clickCenter current state.
+*/
+bool Navigator::getClickCenter(void)
+{
+    return _clickCenter;
+}
+
+/*! Get the clickNoIntersect current state.
+*/
+bool Navigator::getClickNoIntersect(void)
+{
+    return _clickNoIntersect;
 }
 
 /*! Set the clickCenter current state.
@@ -865,6 +890,16 @@ bool Navigator::setClickCenter(bool state)
     bool old = _clickCenter;
 
     _clickCenter = state;
+    return old;
+}
+
+/*! Set absolute mode.
+*/
+bool Navigator::setAbsolute(bool state)
+{
+    bool old = _absolute;
+
+    _absolute = state;
     return old;
 }
 

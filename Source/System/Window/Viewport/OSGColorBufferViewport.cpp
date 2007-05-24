@@ -92,6 +92,19 @@ void ColorBufferViewport::dump(      UInt32    ,
     SLOG << "Dump ColorBufferViewport NI" << std::endl;
 }
 
+#if 0 // Have to check GV
+void ColorBufferViewport::activate(void)
+{
+    glColorMask(getRed(), getGreen(), getBlue(), getAlpha());
+    Inherited::activate();
+}
+
+void ColorBufferViewport::deactivate(void)
+{
+    Inherited::deactivate();
+    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+}
+#endif
 
 #ifdef OSG_OLD_RENDER_ACTION
 void ColorBufferViewport::render(DrawActionBase *action)

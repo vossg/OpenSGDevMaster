@@ -226,13 +226,46 @@ WindowPtrConst Viewport::getParent(void) const
   
   \dev
   
-  Activates scissoring only if the viewport doesn't fill the wholw window, as it
-  significantly slows down some OpenGL implementations.
+  Activates scissoring only if the viewport doesn't fill the wholw window, as
+  it significantly slows down some OpenGL implementations.
   
   \enddev
   
  */
 
+#if 0 // Have to check GV
+void Viewport::activateSize(void)
+{
+    GLint pl = getPixelLeft();
+    GLint pr = getPixelRight();
+    GLint pb = getPixelBottom();
+    GLint pt = getPixelTop();
+    GLint pw = pr - pl + 1;
+    GLint ph = pt - pb + 1;
+
+    glViewport(pl, pb, pw, ph);
+
+    if(!isFullWindow())
+    {
+        glScissor(pl, pb, pw, ph);
+        glEnable(GL_SCISSOR_TEST);
+    }
+    else
+    {
+       glDisable(GL_SCISSOR_TEST);
+    }
+        
+}
+
+void Viewport::activate(void)
+{
+    activateSize();
+}
+
+void Viewport::deactivate(void)
+{
+}
+#endif
 
 #ifdef OSG_OLD_RENDER_ACTION
 void Viewport::render(DrawActionBase *action)
@@ -253,6 +286,10 @@ void Viewport::render(DrawActionBase *action)
         return;
     }
 
+#if 0 // Have to check GV
+    activate();
+#endif
+
     action->setCamera    (getCPtr(getCamera    ()));
     action->setBackground(getCPtr(getBackground()));
     action->setViewport  (this                     );
@@ -266,6 +303,10 @@ void Viewport::render(DrawActionBase *action)
     
     for(UInt16 i=0; i < getForegrounds().size(); i++)
         getForegrounds(i)->draw(&oEnv, this);
+
+#if 0 // Have to check GV
+    deactivate();
+#endif
 }
 #endif
 
@@ -290,6 +331,10 @@ void Viewport::render(RenderTraversalActionBase *action)
         return;
     }
 
+#if 0 // Have to check GV
+    activate();
+#endif
+
     action->setCamera    (getCPtr(getCamera    ()));
     action->setBackground(getCPtr(getBackground()));
     action->setViewport  (this                     );
@@ -303,6 +348,10 @@ void Viewport::render(RenderTraversalActionBase *action)
 
     for(UInt16 i=0; i < getForegrounds().size(); i++)
         getForegrounds(i)->draw(&oEnv, this);
+
+#if 0 // Have to check GV
+    deactivate();
+#endif
 }
 #endif
 

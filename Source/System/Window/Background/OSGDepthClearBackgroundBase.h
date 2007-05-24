@@ -65,6 +65,7 @@
 
 #include "OSGBackground.h" // Parent
 
+#include "OSGBoolFields.h" // ClearDepth type
 
 #include "OSGDepthClearBackgroundFields.h"
 
@@ -107,6 +108,16 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
 
   public:
 
+    enum
+    {
+        ClearDepthFieldId = Inherited::NextFieldId,
+        NextFieldId = ClearDepthFieldId + 1
+    };
+
+    static const OSG::BitVector ClearDepthFieldMask =
+        (TypeTraits<BitVector>::One << ClearDepthFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -125,6 +136,37 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+#ifdef OSG_1_COMPAT
+                  SFBool              *getSFClearDepth      (void);
+#endif
+                  SFBool              *editSFClearDepth     (void);
+            const SFBool              *getSFClearDepth      (void) const;
+
+
+#ifdef OSG_1_COMPAT
+                  bool                &getClearDepth      (void);
+#endif
+                  bool                &editClearDepth     (void);
+            const bool                &getClearDepth      (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setClearDepth     (const bool &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -163,6 +205,13 @@ class OSG_WINDOW_DLLMAPPING DepthClearBackgroundBase : public Background
     static void   classDescInserter(TypeObject &oType);
     static Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFBool            _sfClearDepth;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */

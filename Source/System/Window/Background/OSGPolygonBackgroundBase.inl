@@ -222,6 +222,105 @@ void PolygonBackgroundBase::setAspectWidth(const UInt16 &value)
 
     _sfAspectWidth.setValue(value);
 }
+//! Get the value of the PolygonBackground::_sfScale field.
+
+inline
+Real32 &PolygonBackgroundBase::editScale(void)
+{
+    editSField(ScaleFieldMask);
+
+    return _sfScale.getValue();
+}
+
+//! Get the value of the PolygonBackground::_sfScale field.
+inline
+const Real32 &PolygonBackgroundBase::getScale(void) const
+{
+    return _sfScale.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Real32              &PolygonBackgroundBase::getScale          (void)
+{
+    return this->editScale          ();
+}
+#endif
+
+//! Set the value of the PolygonBackground::_sfScale field.
+inline
+void PolygonBackgroundBase::setScale(const Real32 &value)
+{
+    editSField(ScaleFieldMask);
+
+    _sfScale.setValue(value);
+}
+//! Get the value of the PolygonBackground::_sfCleanup field.
+
+inline
+bool &PolygonBackgroundBase::editCleanup(void)
+{
+    editSField(CleanupFieldMask);
+
+    return _sfCleanup.getValue();
+}
+
+//! Get the value of the PolygonBackground::_sfCleanup field.
+inline
+const bool &PolygonBackgroundBase::getCleanup(void) const
+{
+    return _sfCleanup.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+bool                &PolygonBackgroundBase::getCleanup        (void)
+{
+    return this->editCleanup        ();
+}
+#endif
+
+//! Set the value of the PolygonBackground::_sfCleanup field.
+inline
+void PolygonBackgroundBase::setCleanup(const bool &value)
+{
+    editSField(CleanupFieldMask);
+
+    _sfCleanup.setValue(value);
+}
+//! Get the value of the PolygonBackground::_sfTile field.
+
+inline
+bool &PolygonBackgroundBase::editTile(void)
+{
+    editSField(TileFieldMask);
+
+    return _sfTile.getValue();
+}
+
+//! Get the value of the PolygonBackground::_sfTile field.
+inline
+const bool &PolygonBackgroundBase::getTile(void) const
+{
+    return _sfTile.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+bool                &PolygonBackgroundBase::getTile           (void)
+{
+    return this->editTile           ();
+}
+#endif
+
+//! Set the value of the PolygonBackground::_sfTile field.
+inline
+void PolygonBackgroundBase::setTile(const bool &value)
+{
+    editSField(TileFieldMask);
+
+    _sfTile.setValue(value);
+}
 
 //! Get the value of the \a index element the PolygonBackground::_mfTexCoords field.
 inline
@@ -368,6 +467,15 @@ void PolygonBackgroundBase::execSync(      PolygonBackgroundBase *pOther,
 
     if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
         _sfAspectWidth.syncWith(pOther->_sfAspectWidth);
+
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+        _sfScale.syncWith(pOther->_sfScale);
+
+    if(FieldBits::NoField != (CleanupFieldMask & whichField))
+        _sfCleanup.syncWith(pOther->_sfCleanup);
+
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+        _sfTile.syncWith(pOther->_sfTile);
 }
 #endif
 
@@ -407,6 +515,15 @@ void PolygonBackgroundBase::execSync (      PolygonBackgroundBase *pFrom,
 
     if(FieldBits::NoField != (AspectWidthFieldMask & whichField))
         _sfAspectWidth.syncWith(pFrom->_sfAspectWidth);
+
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+        _sfScale.syncWith(pFrom->_sfScale);
+
+    if(FieldBits::NoField != (CleanupFieldMask & whichField))
+        _sfCleanup.syncWith(pFrom->_sfCleanup);
+
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+        _sfTile.syncWith(pFrom->_sfTile);
 }
 #endif
 

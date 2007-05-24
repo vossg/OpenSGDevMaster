@@ -106,6 +106,39 @@ void SolidBackgroundBase::setColor(const Color3r &value)
 
     _sfColor.setValue(value);
 }
+//! Get the value of the SolidBackground::_sfAlpha field.
+
+inline
+Real32 &SolidBackgroundBase::editAlpha(void)
+{
+    editSField(AlphaFieldMask);
+
+    return _sfAlpha.getValue();
+}
+
+//! Get the value of the SolidBackground::_sfAlpha field.
+inline
+const Real32 &SolidBackgroundBase::getAlpha(void) const
+{
+    return _sfAlpha.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Real32              &SolidBackgroundBase::getAlpha          (void)
+{
+    return this->editAlpha          ();
+}
+#endif
+
+//! Set the value of the SolidBackground::_sfAlpha field.
+inline
+void SolidBackgroundBase::setAlpha(const Real32 &value)
+{
+    editSField(AlphaFieldMask);
+
+    _sfAlpha.setValue(value);
+}
 
 //! create a new instance of the class
 inline
@@ -134,6 +167,9 @@ void SolidBackgroundBase::execSync(      SolidBackgroundBase *pOther,
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pOther->_sfColor);
+
+    if(FieldBits::NoField != (AlphaFieldMask & whichField))
+        _sfAlpha.syncWith(pOther->_sfAlpha);
 }
 #endif
 
@@ -149,6 +185,9 @@ void SolidBackgroundBase::execSync (      SolidBackgroundBase *pFrom,
 
     if(FieldBits::NoField != (ColorFieldMask & whichField))
         _sfColor.syncWith(pFrom->_sfColor);
+
+    if(FieldBits::NoField != (AlphaFieldMask & whichField))
+        _sfAlpha.syncWith(pFrom->_sfAlpha);
 }
 #endif
 

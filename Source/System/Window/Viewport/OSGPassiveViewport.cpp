@@ -102,6 +102,7 @@ void PassiveViewport::dump(      UInt32    ,
 #ifdef OSG_OLD_RENDER_ACTION
 void PassiveViewport::render(DrawActionBase *action)
 {
+#if 1 // Have to check GV
     if ( getCamera() == NullFC )
     {
         SWARNING << "Viewport::render: no camera!" << std::endl;
@@ -124,6 +125,7 @@ void PassiveViewport::render(DrawActionBase *action)
     setBottom(Real32(vp[1]));
     setRight(Real32(vp[0] + vp[2] - 1));
     setTop(Real32(vp[1] + vp[3] - 1)); 
+#endif
 
     Inherited::render(action);
 }
@@ -132,6 +134,7 @@ void PassiveViewport::render(DrawActionBase *action)
 #ifdef OSG_CLEANED_RENDERACTION
 void PassiveViewport::render(RenderTraversalActionBase *action)
 {
+#if 1 // Have to check GV
     if ( getCamera() == NullFC )
     {
         SWARNING << "Viewport::render: no camera!" << std::endl;
@@ -154,6 +157,7 @@ void PassiveViewport::render(RenderTraversalActionBase *action)
     setBottom(Real32(vp[1]));
     setRight(Real32(vp[0] + vp[2] - 1));
     setTop(Real32(vp[1] + vp[3] - 1)); 
+#endif
 
     Inherited::render(action);
 }

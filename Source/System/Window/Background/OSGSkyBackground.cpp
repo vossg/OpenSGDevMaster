@@ -158,7 +158,7 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 
     glDisable(GL_LIGHTING);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glDepthFunc(GL_ALWAYS);
+    glDisable(GL_DEPTH_TEST);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -178,7 +178,7 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 
     m.multLeft(t);
 
-    if (getBeacon() != NullFC)
+    if(getBeacon() != NullFC)
     {
         getBeacon()->getToWorld(t);
         m.mult(t);
@@ -186,13 +186,13 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 
     m[3][0] = m[3][1] = m[3][2] = 0;
     glLoadMatrixf(m.getValues());         
-    Real32 viewscale = (m[0].length() + m[1].length() + m[2].length()) / 3.f;
-    float scale = (pEnv->getCameraFar() + 
-                   pEnv->getCameraNear()) / 2 / viewscale;
-    glScalef(scale, scale, scale);
 
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
+
+    glLoadIdentity();
+    glTranslatef(0.f, 0.f, 0.5);
+    glScalef(1.f, 1.f, 0.f);    
 
 /*
     action->getCamera()->getProjection(m, viewport->getPixelWidth(),
@@ -200,23 +200,26 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
  */
     m = pEnv->getCameraProjection();
     
-    glLoadMatrixf(m.getValues());         
+    glMultMatrixf(m.getValues());         
     
     UInt32 i, j;
     UInt32 sr = _sfSphereRes.getValue() + 1;      // sphere resolution
-    
-    // These should be stored somewhere, not recalced.
-    Real32 *cosval = new Real32 [ sr ];
-    Real32 *sinval = new Real32 [ sr ];
+
+    if(_cosval.size() != sr) 
+    {
+        Real32 da = 2 * Pi / (sr - 1);    
+
+        _cosval.resize(sr);
+        _sinval.resize(sr);
+      
+        for(i = 0; i < sr; ++i)
+        {
+            _cosval[i] = osgCos(i * da);
+            _sinval[i] = osgSin(i * da);     
+        }
+    }
     
     Real32  vcos1,vsin1,vcos2,vsin2;
-    
-    Real32 da = 2 * Pi / (sr - 1);    
-    for(i = 0; i < sr; ++i)
-    {
-        cosval[i] = osgCos(i * da);
-        sinval[i] = osgSin(i * da);     
-    }
     
     if(_mfSkyAngle.size() > 0)
     {
@@ -230,7 +233,7 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 
         for(i = 0; i < sr; ++i)
         {
-            glVertex3f(vsin1 * sinval[i], vcos1, vsin1 * cosval[i]);
+            glVertex3f(vsin1 * _sinval[i], vcos1, vsin1 * _cosval[i]);
         }
 
         glEnd();
@@ -253,9 +256,9 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
             for(i = 0; i < sr; ++i)
             {
                 glColor4fv((GLfloat*) c1.getValuesRGBA());
-                glVertex3f(vsin1 * sinval[i], vcos1, vsin1 * cosval[i]);
+                glVertex3f(vsin1 * _sinval[i], vcos1, vsin1 * _cosval[i]);
                 glColor4fv((GLfloat*) c2.getValuesRGBA());
-                glVertex3f(vsin2 * sinval[i], vcos2, vsin2 * cosval[i]);
+                glVertex3f(vsin2 * _sinval[i], vcos2, vsin2 * _cosval[i]);
             }
             glEnd();
         }
@@ -270,7 +273,7 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
 
             for(i = 0; i < sr; ++i)
             {
-                glVertex3f(vsin1 * sinval[i], vcos1, vsin1 * cosval[i]);
+                glVertex3f(vsin1 * _sinval[i], vcos1, vsin1 * _cosval[i]);
             }
 
             glEnd();
@@ -299,13 +302,18 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
         vsin1 =  osgSin(_mfGroundAngle[0]);
 
         glBegin(GL_TRIANGLE_FAN);
-        glColor4fv((GLfloat*) _mfGroundColor[0].getValuesRGBA());
+
+        if(_mfGroundColor.size())
+            glColor4fv((GLfloat*) _mfGroundColor[0].getValuesRGBA());
+
         glVertex3f(0, -1, 0);
-        glColor4fv((GLfloat*) _mfGroundColor[1].getValuesRGBA());
+
+        if(_mfGroundColor.size() > 1)
+            glColor4fv((GLfloat*) _mfGroundColor[1].getValuesRGBA());
 
         for(i = 0; i < sr; ++i)
         {
-            glVertex3f(vsin1 * sinval[i], vcos1, vsin1 * cosval[i]);
+            glVertex3f(vsin1 * _sinval[i], vcos1, vsin1 * _cosval[i]);
         }
 
         glEnd();
@@ -315,8 +323,11 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
         {
             Color4f c1, c2;
 
-            c1 = _mfGroundColor[j+1];
-            c2 = _mfGroundColor[j+2];
+            if (_mfGroundColor.size() > j+2)
+            {
+                c1 = _mfGroundColor[j+1];
+                c2 = _mfGroundColor[j+2];
+            }
 
             vcos1 = -osgCos(_mfGroundAngle[j  ]);
             vsin1 =  osgSin(_mfGroundAngle[j  ]);
@@ -328,9 +339,9 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
             for(i = 0; i < sr; ++i)
             {
                 glColor4fv((GLfloat*) c1.getValuesRGBA());
-                glVertex3f(vsin1 * sinval[i], vcos1, vsin1 * cosval[i]);
+                glVertex3f(vsin1 * _sinval[i], vcos1, vsin1 * _cosval[i]);
                 glColor4fv((GLfloat*) c2.getValuesRGBA());
-                glVertex3f(vsin2 * sinval[i], vcos2, vsin2 * cosval[i]);
+                glVertex3f(vsin2 * _sinval[i], vcos2, vsin2 * _cosval[i]);
             }
             glEnd();
         }
@@ -415,7 +426,17 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     if(tchunk != NULL)
         tchunk->deactivate(pEnv);
     
-    glClear(GL_DEPTH_BUFFER_BIT);
+    Int32 bit = getClearStencilBit();
+    
+    if (bit >= 0)
+    {
+        glClearStencil(bit);
+        glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    }
+    else
+    {
+        glClear(GL_DEPTH_BUFFER_BIT);
+    }
 
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
@@ -424,8 +445,5 @@ void SkyBackground::clear(DrawEnv *pEnv, Viewport *pPort)
     glPopAttrib();
 
     glColor3f(1.0, 1.0, 1.0);
-
-    delete [] sinval;
-    delete [] cosval;
 }
 

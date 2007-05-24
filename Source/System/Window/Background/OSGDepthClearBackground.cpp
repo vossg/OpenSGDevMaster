@@ -106,13 +106,59 @@ void DepthClearBackground::changed(ConstFieldMaskArg whichField, UInt32 origin)
 #ifdef OSG_OLD_RENDER_ACTION
 void DepthClearBackground::clear(DrawActionBase *, Viewport *)
 {
-    glClear(GL_DEPTH_BUFFER_BIT);
+    Int32 bit = getClearStencilBit();
+
+    glClearDepth(getDepth());
+
+    if(bit >= 0)
+    {
+        glClearStencil(bit);
+
+        if (getClearDepth())
+        {
+            glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        }
+        else
+        {
+            glClear(GL_STENCIL_BUFFER_BIT);
+        }
+    }
+    else
+    {
+        if (getClearDepth())
+        {
+            glClear(GL_DEPTH_BUFFER_BIT);
+        }
+    }
 }
 #endif
 
 void DepthClearBackground::clear(DrawEnv *, Viewport *)
 {
-    glClear(GL_DEPTH_BUFFER_BIT);
+    Int32 bit = getClearStencilBit();
+
+    glClearDepth(getDepth());
+
+    if(bit >= 0)
+    {
+        glClearStencil(bit);
+
+        if (getClearDepth())
+        {
+            glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        }
+        else
+        {
+            glClear(GL_STENCIL_BUFFER_BIT);
+        }
+    }
+    else
+    {
+        if (getClearDepth())
+        {
+            glClear(GL_DEPTH_BUFFER_BIT);
+        }
+    }
 }
 
 /*------------------------------- dump ----------------------------------*/

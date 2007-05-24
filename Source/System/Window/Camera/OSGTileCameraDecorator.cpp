@@ -114,18 +114,29 @@ void TileCameraDecorator::getProjection(Matrix &result,
         return;
     }
     
+    CameraPtr camera = getDecoratee();
+
+    if(camera == NullFC)
+    {
+        FWARNING(("TileCameraDecorator::getProjection: no decoratee!\n"));
+
+        result.setIdentity();
+
+        return;
+    }
+
     if(getFullWidth() != 0)
         width = getFullWidth();
     
     if(getFullHeight() != 0)
         height = getFullHeight();
         
-    getDecoratee()->getProjection(result, width, height);
+    camera->getProjection(result, width, height);
     
-    Real32 left   = getLeft(),
-           right  = getRight(),
-           top    = getTop(),
-           bottom = getBottom();
+    Real32 left   = getLeft  ();
+    Real32 right  = getRight ();
+    Real32 top    = getTop   ();
+    Real32 bottom = getBottom();
            
     if(left < 0)
         left = -left / width;
@@ -140,8 +151,8 @@ void TileCameraDecorator::getProjection(Matrix &result,
         bottom = -bottom / height;
 
     // scale the wanted part from the projection matrix
-    Real32  xs = 1.f / (right - left),
-            ys = 1.f / (top - bottom);
+    Real32 xs = 1.f / (right - left  );
+    Real32 ys = 1.f / (top   - bottom);
 
     Matrix sm(xs,  0, 0, -(left*2-1)*xs-1,  
                0, ys, 0, -(bottom*2-1)*ys-1,  
@@ -150,6 +161,69 @@ void TileCameraDecorator::getProjection(Matrix &result,
     
     result.multLeft(sm);
 }                                       
+
+/*! Get/calculate the decoration matrix for this camera. 
+    The default is identity.
+*/
+
+void TileCameraDecorator::getDecoration(Matrix &result, 
+										UInt32  width, 
+                                        UInt32  height)
+{
+    if(width == 0 || height == 0)
+    {
+        result.setIdentity();
+        return;
+    }
+
+    CameraPtr camera = getDecoratee();
+
+    if(camera == NullFC)
+    {
+        FWARNING(("TileCameraDecorator::getProjection: no decoratee!\n"));
+
+        result.setIdentity();
+
+        return;
+    }
+
+    if(getFullWidth() != 0)
+        width = getFullWidth();
+    
+    if(getFullHeight() != 0)
+        height = getFullHeight();
+	
+	// this is the only difference to getProjection()
+    camera->getDecoration(result, width, height);
+
+    Real32 left   = getLeft  ();
+    Real32 right  = getRight ();
+    Real32 top    = getTop   ();
+    Real32 bottom = getBottom();
+           
+    if(left < 0)
+        left = -left / width;
+        
+    if(right < 0)
+        right = -right / width;
+        
+    if(top < 0)
+        top = -top / height;
+        
+    if(bottom < 0)
+        bottom = -bottom / height;
+
+    // scale the wanted part from the decoration matrix
+    Real32 xs = 1.f / (right - left);
+    Real32 ys = 1.f / (top - bottom);
+
+    Matrix sm(  xs,  0, 0, -(left   * 2 - 1) * xs - 1,  
+                 0, ys, 0, -(bottom * 2 - 1) * ys - 1,  
+                 0,  0, 1, 0, 
+                 0,  0, 0, 1);
+    
+    result.multLeft(sm);
+}
 
 /*------------------------------- dump ----------------------------------*/
 

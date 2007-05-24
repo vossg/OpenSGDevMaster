@@ -52,6 +52,7 @@
 
 #include "OSGCamera.h"
 #include "OSGBackground.h"
+#include "OSGTileCameraDecorator.h"
 
 OSG_USING_NAMESPACE
 
@@ -133,6 +134,9 @@ Real32 PolygonForeground::mapCoordinate(Real32 val, Real32 max, bool norm)
     
 void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 {
+    if(getActive() == false)
+        return;
+
     if(getPositions().size() == 0) // nothing to render
         return;
 
@@ -149,25 +153,94 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     }
        
     glPushAttrib(GL_ALL_ATTRIB_BITS);
+
+    Real32 aspectX = 1.0f, aspectY = 1.0f;
+    
+    if(getAspectHeight() && getAspectWidth())
+    {
+        aspectX = ((Real32) pPort->getPixelHeight() / getAspectHeight()) /
+                  ((Real32) pPort->getPixelWidth()  / getAspectWidth());
+    }
  
+    glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
+
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
     
-    glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
+
+	Real32 sFac = getScale() > 0 ? getScale() : 1.0f;
+	
+	UInt32 width  = pPort->getPixelWidth(),
+		   height = pPort->getPixelHeight();
     
+    Camera              *cP  = getCPtr(pPort->getCamera());
+    TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
+	
+	while (cdP != NULL)
+	{
+		width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
+		height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
+		
+		cP  = cdP->getDecoratee().getCPtr();
+		cdP = dynamic_cast<TileCameraDecorator*>(cP);
+	}
+	
+	cP  = getCPtr(pPort->getCamera());
+	cdP = dynamic_cast<TileCameraDecorator*>(cP);
+
+
+    if (cdP && !getTile())
+    {
+        Real32 t = 0,
+               left   = cdP->getLeft(),
+               right  = cdP->getRight(),
+               top    = cdP->getTop(),
+               bottom = cdP->getBottom();
+        
+        if (getAspectHeight() && getAspectWidth() &&
+            height != 0 && width != 0)
+        {
+            aspectX = ((Real32)height/getAspectHeight()) /
+                      ((Real32)width / getAspectWidth());
+
+            t  = (Real32) width * (1 - aspectX) * 0.5f;
+            t *= (Real32) pPort->getPixelWidth() / width;
+        }
+		
+		Matrix sm;
+		cP->getDecoration(sm, width, height);
+        
+        glLoadMatrixf(sm.getValues());
+        glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
+
+        glTranslatef(t, 0, 0);
+        glScalef(aspectX, aspectY, 1);
+
+        float t1 = (1 - sFac) * 0.5f * (Real32)pPort->getPixelWidth();
+        float t2 = (1 - sFac) * 0.5f * (Real32)pPort->getPixelHeight();
+        glTranslatef(t1, t2, 0);
+        glScalef(sFac,sFac,1);
+    }
+    else
+    {
+        glScalef(sFac,sFac,1);
+        
+        glScalef(aspectX, aspectY, 1);
+        
+        glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
+    }
+
     getMaterial()->getState()->activate(pEnv);
    
-    UInt16 i;
-    
     const Vec3f *tc  = &(getTexCoords()[0]);
     const Pnt2f *pos = &(getPositions()[0]);
     
     glBegin(GL_POLYGON);
     
-    for(i = 0; i < getPositions().size(); i++)
+    for(UInt16 i = 0; i < getPositions().size(); i++)
     {
         glTexCoord3fv( tc[i].getValues() );
         glVertex2f( mapCoordinate(pos[i][0], Real32(pPort->getPixelWidth()),
@@ -179,8 +252,11 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     glEnd();
     
     getMaterial()->getState()->deactivate(pEnv);
+
+    glScalef(1, 1, 1);
     
     glPopMatrix();
+
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
 

@@ -79,12 +79,17 @@ class OSG_WINDOW_DLLMAPPING StereoBufferViewport :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
+#if 0 // Have to check GV
+    virtual void activate    (void                             );
+    virtual void deactivate  (void                             );
+#endif
+
 #ifdef OSG_OLD_RENDER_ACTION
-    virtual void render(DrawActionBase *action);
+    virtual void render      (DrawActionBase *action           );
 #endif
 
 #ifdef OSG_CLEANED_RENDERACTION
-    virtual void render(RenderTraversalActionBase *action);
+    virtual void render      (RenderTraversalActionBase *action);
 #endif
 
     /*! \}                                                                 */

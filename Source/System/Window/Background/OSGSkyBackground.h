@@ -90,6 +90,9 @@ class OSG_WINDOW_DLLMAPPING SkyBackground : public SkyBackgroundBase
 
     // Variables should all be in SkyBackgroundBase.
 
+    std::vector<Real32> _cosval;
+    std::vector<Real32> _sinval;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */

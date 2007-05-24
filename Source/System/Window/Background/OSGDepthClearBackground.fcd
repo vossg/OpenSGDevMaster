@@ -13,4 +13,14 @@
 
 A depth-clear background, see \ref PageSystemWindowBackgroundDepthClear for a
 description.
+	<Field
+		name="clearDepth"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	If true, depth buffer is cleared.
+	</Field>
 </FieldContainer>

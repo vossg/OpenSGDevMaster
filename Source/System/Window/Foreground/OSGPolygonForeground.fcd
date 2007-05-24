@@ -68,4 +68,44 @@ controlled by _sfNormalizedX and _sfNormalizedY.
 	>
 	Define whether the y coordinates are normalized (0-1) or pixel-based.
 	</Field>
+	<Field
+		name="aspectHeight"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Useful for keeping aspect ratio when rendering things like images.
+	</Field>
+	<Field
+		name="aspectWidth"
+		type="UInt16"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Useful for keeping aspect ratio when rendering things like images.
+	</Field>
+	<Field
+		name="scale"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1.0"
+		access="public"
+	>
+	Scale factor for zooming.
+	</Field>
+	<Field
+		name="tile"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="true"
+		access="public"
+	>
+	If true the image tiles in multi window settings.
+	</Field>
 </FieldContainer>

@@ -108,6 +108,18 @@ OSG_BEGIN_NAMESPACE
     Useful for keeping aspect ratio when rendering things like images.
 */
 
+/*! \var Real32          PolygonBackgroundBase::_sfScale
+    Scale factor for zooming.
+*/
+
+/*! \var bool            PolygonBackgroundBase::_sfCleanup
+    Clear depth/ stencil buffer after applying the material.
+*/
+
+/*! \var bool            PolygonBackgroundBase::_sfTile
+    If true the image tiles in multi window settings.
+*/
+
 
 void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -257,6 +269,72 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFReal32 *(PolygonBackgroundBase::*GetSFScaleF)(void) const;
+
+    GetSFScaleF GetSFScale = &PolygonBackgroundBase::getSFScale;
+#endif
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "scale",
+        "Scale factor for zooming.\n",
+        ScaleFieldId, ScaleFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFScale),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFScale));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFScale));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFBool *(PolygonBackgroundBase::*GetSFCleanupF)(void) const;
+
+    GetSFCleanupF GetSFCleanup = &PolygonBackgroundBase::getSFCleanup;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "cleanup",
+        "Clear depth/ stencil buffer after applying the material.\n",
+        CleanupFieldId, CleanupFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFCleanup),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFCleanup));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFCleanup));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFBool *(PolygonBackgroundBase::*GetSFTileF)(void) const;
+
+    GetSFTileF GetSFTile = &PolygonBackgroundBase::getSFTile;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "tile",
+        "If true the image tiles in multi window settings.\n",
+        TileFieldId, TileFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&PolygonBackgroundBase::editSFTile),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFTile));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&PolygonBackgroundBase::getSFTile));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -350,6 +428,36 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tUseful for keeping aspect ratio when rendering things like images.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"scale\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1.0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tScale factor for zooming.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"cleanup\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tClear depth/ stencil buffer after applying the material.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"tile\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"true\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tIf true the image tiles in multi window settings.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "A Background that renders a single polygon using the specified material.\n"
@@ -492,6 +600,63 @@ const SFUInt16 *PolygonBackgroundBase::getSFAspectWidth(void) const
 SFUInt16            *PolygonBackgroundBase::getSFAspectWidth    (void)
 {
     return this->editSFAspectWidth    ();
+}
+#endif
+
+SFReal32 *PolygonBackgroundBase::editSFScale(void)
+{
+    editSField(ScaleFieldMask);
+
+    return &_sfScale;
+}
+
+const SFReal32 *PolygonBackgroundBase::getSFScale(void) const
+{
+    return &_sfScale;
+}
+
+#ifdef OSG_1_COMPAT
+SFReal32            *PolygonBackgroundBase::getSFScale          (void)
+{
+    return this->editSFScale          ();
+}
+#endif
+
+SFBool *PolygonBackgroundBase::editSFCleanup(void)
+{
+    editSField(CleanupFieldMask);
+
+    return &_sfCleanup;
+}
+
+const SFBool *PolygonBackgroundBase::getSFCleanup(void) const
+{
+    return &_sfCleanup;
+}
+
+#ifdef OSG_1_COMPAT
+SFBool              *PolygonBackgroundBase::getSFCleanup        (void)
+{
+    return this->editSFCleanup        ();
+}
+#endif
+
+SFBool *PolygonBackgroundBase::editSFTile(void)
+{
+    editSField(TileFieldMask);
+
+    return &_sfTile;
+}
+
+const SFBool *PolygonBackgroundBase::getSFTile(void) const
+{
+    return &_sfTile;
+}
+
+#ifdef OSG_1_COMPAT
+SFBool              *PolygonBackgroundBase::getSFTile           (void)
+{
+    return this->editSFTile           ();
 }
 #endif
 
@@ -756,6 +921,18 @@ UInt32 PolygonBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfAspectWidth.getBinSize();
     }
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+    {
+        returnValue += _sfScale.getBinSize();
+    }
+    if(FieldBits::NoField != (CleanupFieldMask & whichField))
+    {
+        returnValue += _sfCleanup.getBinSize();
+    }
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+    {
+        returnValue += _sfTile.getBinSize();
+    }
 
     return returnValue;
 }
@@ -793,6 +970,18 @@ void PolygonBackgroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfAspectWidth.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+    {
+        _sfScale.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (CleanupFieldMask & whichField))
+    {
+        _sfCleanup.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+    {
+        _sfTile.copyToBin(pMem);
+    }
 }
 
 void PolygonBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -828,6 +1017,18 @@ void PolygonBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfAspectWidth.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ScaleFieldMask & whichField))
+    {
+        _sfScale.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CleanupFieldMask & whichField))
+    {
+        _sfCleanup.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+    {
+        _sfTile.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -861,7 +1062,10 @@ PolygonBackgroundBase::PolygonBackgroundBase(void) :
     _sfNormalizedX            (bool(true)),
     _sfNormalizedY            (bool(true)),
     _sfAspectHeight           (UInt16(0)),
-    _sfAspectWidth            (UInt16(0))
+    _sfAspectWidth            (UInt16(0)),
+    _sfScale                  (Real32(1.0)),
+    _sfCleanup                (bool(true)),
+    _sfTile                   (bool(true))
 {
 }
 
@@ -873,7 +1077,10 @@ PolygonBackgroundBase::PolygonBackgroundBase(const PolygonBackgroundBase &source
     _sfNormalizedX            (source._sfNormalizedX            ),
     _sfNormalizedY            (source._sfNormalizedY            ),
     _sfAspectHeight           (source._sfAspectHeight           ),
-    _sfAspectWidth            (source._sfAspectWidth            )
+    _sfAspectWidth            (source._sfAspectWidth            ),
+    _sfScale                  (source._sfScale                  ),
+    _sfCleanup                (source._sfCleanup                ),
+    _sfTile                   (source._sfTile                   )
 {
 }
 

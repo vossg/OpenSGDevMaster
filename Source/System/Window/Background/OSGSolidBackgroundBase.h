@@ -66,6 +66,7 @@
 #include "OSGBackground.h" // Parent
 
 #include "OSGColor3rFields.h" // Color type
+#include "OSGReal32Fields.h" // Alpha type
 
 #include "OSGSolidBackgroundFields.h"
 
@@ -111,11 +112,14 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     enum
     {
         ColorFieldId = Inherited::NextFieldId,
-        NextFieldId = ColorFieldId + 1
+        AlphaFieldId = ColorFieldId + 1,
+        NextFieldId = AlphaFieldId + 1
     };
 
     static const OSG::BitVector ColorFieldMask =
         (TypeTraits<BitVector>::One << ColorFieldId);
+    static const OSG::BitVector AlphaFieldMask =
+        (TypeTraits<BitVector>::One << AlphaFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -149,6 +153,12 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
                   SFColor3r           *editSFColor          (void);
             const SFColor3r           *getSFColor           (void) const;
 
+#ifdef OSG_1_COMPAT
+                  SFReal32            *getSFAlpha           (void);
+#endif
+                  SFReal32            *editSFAlpha          (void);
+            const SFReal32            *getSFAlpha           (void) const;
+
 
 #ifdef OSG_1_COMPAT
                   Color3r             &getColor           (void);
@@ -156,12 +166,19 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
                   Color3r             &editColor          (void);
             const Color3r             &getColor           (void) const;
 
+#ifdef OSG_1_COMPAT
+                  Real32              &getAlpha           (void);
+#endif
+                  Real32              &editAlpha          (void);
+            const Real32              &getAlpha           (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
             void setColor          (const Color3r &value);
+            void setAlpha          (const Real32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -210,6 +227,7 @@ class OSG_WINDOW_DLLMAPPING SolidBackgroundBase : public Background
     /*! \{                                                                 */
 
     SFColor3r         _sfColor;
+    SFReal32          _sfAlpha;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
