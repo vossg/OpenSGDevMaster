@@ -184,7 +184,7 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 		width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
 		height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
 		
-		cP  = cdP->getDecoratee().getCPtr();
+		cP  = getCPtr(cdP->getDecoratee());
 		cdP = dynamic_cast<TileCameraDecorator*>(cP);
 	}
 	
