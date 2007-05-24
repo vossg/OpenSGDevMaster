@@ -362,7 +362,7 @@ bool VRMLNodeHelper::prototypeAddField(const Char8  *szFieldType,
         FieldDescriptionBase *pDesc = getFieldDescription(szFieldName,
                                                           uiFieldTypeId);
 
-        if(pDesc != NULL)
+        if(pDesc != NULL && _pGenAttProto != NullFC)
         {
             _pGenAttProto->addField(*pDesc);
 
@@ -2941,8 +2941,6 @@ void VRMLImageTextureHelper::endNode(FieldContainerPtr pFC)
                      << _url[0].c_str()
                      << " !!!"
                      << std::endl;
-
-            subRef(pImage);
         }
     }
     else

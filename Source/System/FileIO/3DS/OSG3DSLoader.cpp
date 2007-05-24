@@ -1336,7 +1336,12 @@ bool L3DS::FindChunk(LChunk &target, const LChunk &parent)
         SkipChunk(chunk);
         if (chunk.end >= parent.end)
             break;
+        unsigned short id = chunk.id;
+        uint end = chunk.end;
         chunk = ReadChunk();
+        // try to detect a endless loop amz
+        if(id == chunk.id && end == chunk.end)
+            break;
     }
     if (chunk.id == target.id)
     {

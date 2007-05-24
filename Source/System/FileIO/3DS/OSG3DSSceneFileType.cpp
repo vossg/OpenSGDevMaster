@@ -66,11 +66,11 @@ OSG_USING_NAMESPACE
 
 const Char8 *A3DSSceneFileType::_suffixA[] = {"3ds"};
 
-A3DSSceneFileType  A3DSSceneFileType::_the         (_suffixA,
-                                                  sizeof(_suffixA),
-                                                  false,
-                                                  10,
-                                                  SceneFileType::OSG_READ_SUPPORTED);
+A3DSSceneFileType  A3DSSceneFileType::_the(_suffixA,
+                                           sizeof(_suffixA),
+                                           false,
+                                           10,
+                                           SceneFileType::OSG_READ_SUPPORTED);
 
 /*!
  * \brief
@@ -142,7 +142,7 @@ A3DSSceneFileType &A3DSSceneFileType::the(void)
  */
 const Char8 *A3DSSceneFileType::getName(void) const
 {
-    return "3DS GEOMETRY";
+    return "3DS Geometry";
 }
 
 

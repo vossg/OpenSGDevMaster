@@ -1274,10 +1274,17 @@ void VRMLWriteAction::writeMaterial(GeometryPtr      pGeo,
             mChunk->getDiffuse()[2]);
 
     pWriter->printIndent();
-    fprintf(pFile, "emissiveColor %f %f %f\n",
-            mChunk->getEmission()[0],
-            mChunk->getEmission()[1],
-            mChunk->getEmission()[2]);
+    if(!mChunk->getLit())
+    {
+        fprintf(pFile, "emissiveColor 1.0 1.0 1.0\n");
+    }
+    else
+    {
+        fprintf(pFile, "emissiveColor %f %f %f\n",
+                mChunk->getEmission()[0],
+                mChunk->getEmission()[1],
+                mChunk->getEmission()[2]);
+    }
 
     pWriter->printIndent();
     fprintf(pFile, "shininess %f\n",

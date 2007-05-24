@@ -216,7 +216,7 @@ typedef union YYSTYPE
     const char *stringVal;
     bool boolVal;
 }
-/* Line 1529 of yacc.c.  */
+/* Line 1489 of yacc.c.  */
 #line 221 "Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.hpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

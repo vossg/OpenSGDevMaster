@@ -59,24 +59,6 @@
 #pragma warning( disable : 193 810 177 279 111 )
 #endif
 
-// This function removes leading and trailing quotes from strings
-// as well as the escape sequences \\ and \"
-static char *stripEscapes(char *s)
-{
-    char *src = s + 1, *dst = s;
-    while (true)
-    {
-        char c = *src++;
-        if ((c == '\\') && ((*src == '\\') || (*src == '"')))
-            c = *src++;
-        else if (c == '"')
-            break;
-        *dst++ = c;
-    }
-    *dst = '\0';
-    return s;
-}
-
 %}
 
 %option yyclass="OSGScanParseLexer"
@@ -85,18 +67,18 @@ static char *stripEscapes(char *s)
 
 %s NODE
 %s HEADER
+%x STRING
+%x COMMENT
 
 hex         [+\-]?0[xX][0-9a-fA-F]+
 int32       [+\-]?[0-9]+
 double      [+\-]?((([0-9]+(\.)?)|([0-9]*\.[0-9]+))([eE][+\-]?[0-9]+)?)
-string      \"([^\\"]|(\\(.|\n)))*\"
     /* Not VRML conformant */
 IdFirstChar [^\x00-\x19 "#'+,\-.0-9[\\\]{}\x7f]
     /* Not VRML conformant */
 IdRestChar  [^\x00-\x19 "#',.[\\\]{}\x7f]
 Id          {IdFirstChar}{IdRestChar}*
-comment     #.*
-ws          [\r\n \t,]|{comment}
+ws          [\r\n \t,]
 utf8bom     \xef\xbb\xbf
 
 %%
@@ -112,7 +94,7 @@ utf8bom     \xef\xbb\xbf
 
 <INITIAL>{utf8bom} BEGIN(HEADER);
 <INITIAL,HEADER>[\r\n \t]+ BEGIN(HEADER);
-<INITIAL,HEADER>{comment} BEGIN(NODE); lvalp->stringVal = yytext; return TOK_HEADER;
+<INITIAL,HEADER>#.* BEGIN(NODE); lvalp->stringVal = yytext; return TOK_HEADER;
 
 PROFILE   BEGIN(NODE); return TOK_PROFILE;
 COMPONENT BEGIN(NODE); return TOK_COMPONENT;
@@ -225,13 +207,19 @@ SFVolume    BEGIN(NODE); lvalp->intVal = TOK_SFVolume; return TOK_SFVolume;
                          return TOK_int32;
                      }
 {double}             BEGIN(NODE); lvalp->doubleVal = strtod(yytext, 0); return TOK_double;
-{string}             BEGIN(NODE); lvalp->stringVal = stripEscapes(yytext); return TOK_string;
     /* Not VRML conformant */
 [Tt][Rr][Uu][Ee]     BEGIN(NODE); lvalp->boolVal = true; return TOK_bool;
     /* Not VRML conformant */
 [Ff][Aa][Ll][Ss][Ee] BEGIN(NODE); lvalp->boolVal = false; return TOK_bool;
 NULL                 BEGIN(NODE); return TOK_NULL;
 {Id}                 BEGIN(NODE); lvalp->stringVal = yytext; return TOK_Id;
+
+"\""            tmpStr.erase(); BEGIN STRING;
+<STRING>"\\\\"  tmpStr.append(1, '\\');
+<STRING>"\\\""  tmpStr.append(1, '"');
+<STRING>[^"]    tmpStr.append(1, yytext[0]);
+<STRING>"\""    BEGIN(NODE); lvalp->stringVal = tmpStr.c_str(); return TOK_string;
+<STRING><<EOF>> BEGIN(NODE); return TOK_Error;
 
 "{" BEGIN(NODE); return '{';
 "}" BEGIN(NODE); return '}';
@@ -240,7 +228,11 @@ NULL                 BEGIN(NODE); return TOK_NULL;
 "." BEGIN(NODE); return '.';
     /*":" BEGIN(NODE); return ':';*/
 
-<NODE>{ws}+
+<NODE>"#"     BEGIN(COMMENT);
+<COMMENT>.
+<COMMENT>"\n" BEGIN(NODE);
+
+<NODE>{ws}
 
 . return TOK_Error;
 

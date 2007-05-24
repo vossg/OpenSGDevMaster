@@ -177,6 +177,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
             }
             else
             {
+                SceneFileHandler::the()->updateReadProgress();
                 elemI = _dataElemMap.find(elem);
                 dataElem = ((elemI == _dataElemMap.end()) ?
                         UNKNOWN_DE : elemI->second );
@@ -462,6 +463,7 @@ NodePtr OBJSceneFileType::read(std::istream &is, const Char8 *) const
         }
     }
 
+    SceneFileHandler::the()->updateReadProgress(100);
     return rootPtr;
 }
 
@@ -678,7 +680,7 @@ OBJSceneFileType::~OBJSceneFileType(void)
 
 const Char8 *OBJSceneFileType::getName(void) const
 {
-    return "OBJ GEOMETRY";
+    return "Wavefront Geometry";
 }
 
 
@@ -730,6 +732,7 @@ void OBJSceneFileType::initElemMap(void)
         _mtlElemMap["Ks"]      = MTL_SPECULAR_ME;
         _mtlElemMap["Ns"]      = MTL_SHININESS_ME;
         _mtlElemMap["Tr"]      = MTL_TRANSPARENCY_ME;
+        _mtlElemMap["d"]       = MTL_DISSOLVE_ME;
         _mtlElemMap["map_Kd"]  = MTL_MAP_KD_ME;
         _mtlElemMap["map_Ka"]  = MTL_MAP_KA_ME;
         _mtlElemMap["map_Ks"]  = MTL_MAP_KS_ME;
@@ -839,6 +842,10 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                                 in >> a;
                                 mtlPtr->setTransparency(a);
                             break;
+                            case MTL_DISSOLVE_ME:
+                                in >> a;
+                                mtlPtr->setTransparency(1.f - a);
+                                break;
                             case MTL_MAP_KD_ME:
                             case MTL_MAP_KA_ME:
                             case MTL_MAP_KS_ME:
@@ -854,10 +861,13 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                                         fullElemPath = elem.c_str();
                                     image = OSG::ImageFileHandler::the()->read(fullElemPath.c_str());
 
-                                    image->setForceAlphaBinary(
-                                                image->calcIsAlphaBinary());
+                                    if(image != NullFC)
+                                    {
+                                        image->setForceAlphaBinary(
+                                            image->calcIsAlphaBinary());
 
-                                    imageMap[elem] = image;
+                                        imageMap[elem] = image;
+                                    }
                                 }
                                 else
                                 {

@@ -303,8 +303,29 @@ NodePtr SceneFileHandlerBase::read(const Char8      *fileName,
 
     if(fullFilePath.empty() == true)
     {
-        SWARNING << "Couldn't open file " << fileName << std::endl;
-        return NullFC;
+        if(_readFP != NULL)
+        {
+            // that's a fallback could be a url so the callback
+            // can handle this correctly.
+            SceneFileType *type = getFileType(fileName);
+            if(type != NULL)
+            {
+                // create a dummy stream with the bad flag set.
+                std::ifstream in;
+                in.setstate(std::ios::badbit);
+                return _readFP(type, in, fileName);
+            }
+            else
+            {
+                SWARNING << "Couldn't open file " << fileName << std::endl;
+                return NullFC;
+            }
+        }
+        else
+        {
+            SWARNING << "Couldn't open file " << fileName << std::endl;
+            return NullFC;
+        }
     }
 
     SceneFileType *type  = getFileType(fullFilePath.c_str());
@@ -586,12 +607,6 @@ std::string SceneFileHandlerBase::initPathHandler(const Char8 *fileName)
         }
 
         fullFilePath = _pathHandler->findFile(fileName);
-
-        // should we do this also for a user PathHandler?
-        if(_pathHandler == &_defaultPathHandler)
-        {
-            _pathHandler->setBaseFile(fullFilePath.c_str());
-        }
     }
     else
     {
@@ -600,6 +615,9 @@ std::string SceneFileHandlerBase::initPathHandler(const Char8 *fileName)
         {
             ImageFileHandler::the()->setPathHandler(&_defaultPathHandler);
         }
+
+        _defaultPathHandler.clearPathList();
+        _defaultPathHandler.clearBaseFile();
 
         _defaultPathHandler.push_frontCurrentDir(        );
 

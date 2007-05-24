@@ -266,14 +266,6 @@ nodeStatement:
     | TOK_USE
     nodeNameId { SKEL->use($2); };
 
-rootNodeStatement:
-    nodeTypeId { SKEL->beginNode($1, 0); }
-    node
-    | TOK_DEF
-    nodeNameId { SKEL->_tmpString1 = $2; }
-    nodeTypeId { SKEL->beginNode($4, SKEL->_tmpString1.c_str()); }
-    node;
-
 protoStatement:
     proto
     | externproto;
@@ -285,10 +277,7 @@ protoStatements:
 proto:
     TOK_PROTO nodeTypeId { SKEL->beginProto($2); }
     '[' interfaceDeclarations ']' { SKEL->endProtoInterface(); }
-    '{' protoBody '}' { SKEL->endProto(); };
-
-protoBody:
-    protoStatements rootNodeStatement statements;
+    '{' statements '}' { SKEL->endProto(); }; /* Not VRML conformant */
 
 interfaceDeclarations:
     interfaceDeclarations interfaceDeclaration
@@ -350,7 +339,7 @@ importStatement:
     '.'
     nodeNameId { SKEL->_tmpString2 = $5; }
     asStatement
-    { 
+    {
         if ($7 != 0)
             SKEL->importElement(SKEL->_tmpString1.c_str(), SKEL->_tmpString2.c_str(), $7);
         else
@@ -361,7 +350,7 @@ exportStatement:
     TOK_EXPORT
     nodeNameId { SKEL->_tmpString1 = $2; }
     asStatement
-    { 
+    {
         if ($4 != 0)
             SKEL->exportElement(SKEL->_tmpString1.c_str(), $4);
         else
@@ -658,9 +647,9 @@ sfmatrix3dValue:
     {
         SKEL->appendValue();
         SKEL->addMatrix3dValue(
-             $1,  $3,  $5,
-             $7,  $9, $11,
-            $13, $15, $17);
+            $1,  $7, $13,
+            $3,  $9, $15,
+            $5, $11, $17);
     };
 
 sfmatrix3fValue:
@@ -676,9 +665,9 @@ sfmatrix3fValue:
     {
         SKEL->appendValue();
         SKEL->addMatrix3fValue(
-             $1,  $3,  $5,
-             $7,  $9, $11,
-            $13, $15, $17);
+            $1,  $7, $13,
+            $3,  $9, $15,
+            $5, $11, $17);
     };
 
 sfmatrix4dValue:
@@ -701,10 +690,10 @@ sfmatrix4dValue:
     {
         SKEL->appendValue();
         SKEL->addMatrix4dValue(Matrix4d(
-             $1,  $3,  $5,  $7,
-             $9, $11, $13, $15,
-            $17, $19, $21, $23,
-            $25, $27, $29, $31));
+            $1,  $9, $17, $25,
+            $3, $11, $19, $27,
+            $5, $13, $21, $29,
+            $7, $15, $23, $31));
     };
 
 sfmatrix4fValue:
@@ -727,10 +716,10 @@ sfmatrix4fValue:
     {
         SKEL->appendValue();
         SKEL->addMatrix4fValue(Matrix4f(
-             $1,  $3,  $5,  $7,
-             $9, $11, $13, $15,
-            $17, $19, $21, $23,
-            $25, $27, $29, $31));
+            $1,  $9, $17, $25,
+            $3, $11, $19, $27,
+            $5, $13, $21, $29,
+            $7, $15, $23, $31));
     };
 
 sfnodeValue:

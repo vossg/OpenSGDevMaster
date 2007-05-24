@@ -207,6 +207,15 @@ public:
     long               get_out_size  (void) const;
     long               get_in_size   (void) const;
 
+protected:
+
+    byte_vector_type    _input_buffer;
+    char_vector_type    _buffer;
+
+    enum StreamType { UNKNOWN_ST, GZIP_ST, DATA_ST };
+
+    StreamType _streamType;
+
 private:
 
     void            put_back_from_zip_stream(void                        );
@@ -217,8 +226,6 @@ private:
     istream_reference   _istream;
     z_stream            _zip_stream;
     int                 _err;
-    byte_vector_type    _input_buffer;
-    char_vector_type    _buffer;
     unsigned long       _crc;
 };
 
@@ -266,10 +273,12 @@ private:
 template <class charT,
           class traits = std::char_traits<charT> >
 class basic_zip_istream :
-    private basic_unzip_streambuf<charT, traits>,
+    public basic_unzip_streambuf<charT, traits>,
     public std::basic_istream<charT, traits>
 {
 public:
+    typedef basic_unzip_streambuf<charT, traits> BufferType;
+
     typedef std::basic_istream<charT, traits>& istream_reference;
 
     explicit basic_zip_istream(istream_reference istream,
