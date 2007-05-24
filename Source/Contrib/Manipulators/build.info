@@ -6,6 +6,7 @@ else:
    glut_option = opts.GetOption("glut")
 
    library = "OSGUI"
+   osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGDrawable', 'OSGGroup']
 
    # Tests' dependencies
    osg_test_libs = ['OSGBase', 'OSGSystem', 'OSGGroup', 'OSGDrawable',

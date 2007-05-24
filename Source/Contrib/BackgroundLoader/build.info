@@ -4,7 +4,7 @@ if option_pass:
    print "Processing option pass"
 else:
    library = "OSGBackgroundLoader"
-   osg_dep_libs = ['OSGBase', 'OSGSystem']
+   osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGDrawable', 'OSGUtil']
 
    # Tests' dependencies
    osg_test_libs = [ 'OSGGroup','OSGDrawable', 'OSGState', 
