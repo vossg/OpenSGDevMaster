@@ -34,4 +34,14 @@ transparent materials to be rendered after the opaque ones.
 		access="public"
 	>
 	</Field>
+	<Field
+		name="transparencyMode"
+		type="Int32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Set the transparency mode, possible values are TransparencyAutoDetection, TransparencyForceTransparent and TransparencyForceOpaque
+	</Field>
 </FieldContainer>

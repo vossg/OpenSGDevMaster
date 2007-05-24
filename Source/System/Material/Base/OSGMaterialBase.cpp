@@ -96,6 +96,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Int32           MaterialBase::_sfTransparencyMode
+    Set the transparency mode, possible values are TransparencyAutoDetection, TransparencyForceTransparent and TransparencyForceOpaque
+*/
+
 
 void MaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -120,6 +124,28 @@ void MaterialBase::classDescInserter(TypeObject &oType)
         reinterpret_cast<FieldGetMethodSig >(GetSFSortKey));
 #else
         reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getSFSortKey));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFInt32 *(MaterialBase::*GetSFTransparencyModeF)(void) const;
+
+    GetSFTransparencyModeF GetSFTransparencyMode = &MaterialBase::getSFTransparencyMode;
+#endif
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "transparencyMode",
+        "Set the transparency mode, possible values are TransparencyAutoDetection, TransparencyForceTransparent and TransparencyForceOpaque\n",
+        TransparencyModeFieldId, TransparencyModeFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&MaterialBase::editSFTransparencyMode),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFTransparencyMode));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&MaterialBase::getSFTransparencyMode));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -171,6 +197,16 @@ MaterialBase::TypeObject MaterialBase::_type(
     "\t\tdefaultValue=\"0\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"transparencyMode\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tSet the transparency mode, possible values are TransparencyAutoDetection, TransparencyForceTransparent and TransparencyForceOpaque\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemMaterial\n"
@@ -228,6 +264,25 @@ SFInt32             *MaterialBase::getSFSortKey        (void)
 }
 #endif
 
+SFInt32 *MaterialBase::editSFTransparencyMode(void)
+{
+    editSField(TransparencyModeFieldMask);
+
+    return &_sfTransparencyMode;
+}
+
+const SFInt32 *MaterialBase::getSFTransparencyMode(void) const
+{
+    return &_sfTransparencyMode;
+}
+
+#ifdef OSG_1_COMPAT
+SFInt32             *MaterialBase::getSFTransparencyMode(void)
+{
+    return this->editSFTransparencyMode();
+}
+#endif
+
 
 
 
@@ -242,6 +297,10 @@ UInt32 MaterialBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfSortKey.getBinSize();
     }
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+    {
+        returnValue += _sfTransparencyMode.getBinSize();
+    }
 
     return returnValue;
 }
@@ -255,6 +314,10 @@ void MaterialBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfSortKey.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+    {
+        _sfTransparencyMode.copyToBin(pMem);
+    }
 }
 
 void MaterialBase::copyFromBin(BinaryDataHandler &pMem,
@@ -266,6 +329,10 @@ void MaterialBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfSortKey.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+    {
+        _sfTransparencyMode.copyFromBin(pMem);
+    }
 }
 
 
@@ -274,13 +341,15 @@ void MaterialBase::copyFromBin(BinaryDataHandler &pMem,
 
 MaterialBase::MaterialBase(void) :
     Inherited(),
-    _sfSortKey                (Int32(0))
+    _sfSortKey                (Int32(0)),
+    _sfTransparencyMode       (Int32(0))
 {
 }
 
 MaterialBase::MaterialBase(const MaterialBase &source) :
     Inherited(source),
-    _sfSortKey                (source._sfSortKey                )
+    _sfSortKey                (source._sfSortKey                ),
+    _sfTransparencyMode       (source._sfTransparencyMode       )
 {
 }
 

@@ -352,6 +352,13 @@ void ChunkMaterial::rebuildState(void)
 
 bool ChunkMaterial::isTransparent(void) const
 {
+    Int32 tm = getTransparencyMode();
+
+    if(tm != Material::TransparencyAutoDetection)
+    {
+        return (tm == Material::TransparencyForceTransparent);
+    }
+
     bool             returnValue = false;
 
     MFStateChunkPtr::const_iterator it        = _mfChunks.begin();

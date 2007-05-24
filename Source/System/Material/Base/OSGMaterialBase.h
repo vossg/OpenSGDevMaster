@@ -66,6 +66,7 @@
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGInt32Fields.h" // SortKey type
+#include "OSGInt32Fields.h" // TransparencyMode type
 
 #include "OSGMaterialFields.h"
 
@@ -111,11 +112,14 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     enum
     {
         SortKeyFieldId = Inherited::NextFieldId,
-        NextFieldId = SortKeyFieldId + 1
+        TransparencyModeFieldId = SortKeyFieldId + 1,
+        NextFieldId = TransparencyModeFieldId + 1
     };
 
     static const OSG::BitVector SortKeyFieldMask =
         (TypeTraits<BitVector>::One << SortKeyFieldId);
+    static const OSG::BitVector TransparencyModeFieldMask =
+        (TypeTraits<BitVector>::One << TransparencyModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -149,6 +153,12 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
                   SFInt32             *editSFSortKey        (void);
             const SFInt32             *getSFSortKey         (void) const;
 
+#ifdef OSG_1_COMPAT
+                  SFInt32             *getSFTransparencyMode (void);
+#endif
+                  SFInt32             *editSFTransparencyMode(void);
+            const SFInt32             *getSFTransparencyMode (void) const;
+
 
 #ifdef OSG_1_COMPAT
                   Int32               &getSortKey         (void);
@@ -156,12 +166,19 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
                   Int32               &editSortKey        (void);
             const Int32               &getSortKey         (void) const;
 
+#ifdef OSG_1_COMPAT
+                  Int32               &getTransparencyMode (void);
+#endif
+                  Int32               &editTransparencyMode(void);
+            const Int32               &getTransparencyMode (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
             void setSortKey        (const Int32 &value);
+            void setTransparencyMode(const Int32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -195,6 +212,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialBase : public AttachmentContainer
     /*! \{                                                                 */
 
     SFInt32           _sfSortKey;
+    SFInt32           _sfTransparencyMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

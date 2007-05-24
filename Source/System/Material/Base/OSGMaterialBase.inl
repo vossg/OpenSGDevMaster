@@ -106,6 +106,39 @@ void MaterialBase::setSortKey(const Int32 &value)
 
     _sfSortKey.setValue(value);
 }
+//! Get the value of the Material::_sfTransparencyMode field.
+
+inline
+Int32 &MaterialBase::editTransparencyMode(void)
+{
+    editSField(TransparencyModeFieldMask);
+
+    return _sfTransparencyMode.getValue();
+}
+
+//! Get the value of the Material::_sfTransparencyMode field.
+inline
+const Int32 &MaterialBase::getTransparencyMode(void) const
+{
+    return _sfTransparencyMode.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+Int32               &MaterialBase::getTransparencyMode(void)
+{
+    return this->editTransparencyMode();
+}
+#endif
+
+//! Set the value of the Material::_sfTransparencyMode field.
+inline
+void MaterialBase::setTransparencyMode(const Int32 &value)
+{
+    editSField(TransparencyModeFieldMask);
+
+    _sfTransparencyMode.setValue(value);
+}
 
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
@@ -120,6 +153,9 @@ void MaterialBase::execSync(      MaterialBase *pOther,
 
     if(FieldBits::NoField != (SortKeyFieldMask & whichField))
         _sfSortKey.syncWith(pOther->_sfSortKey);
+
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+        _sfTransparencyMode.syncWith(pOther->_sfTransparencyMode);
 }
 #endif
 
@@ -135,6 +171,9 @@ void MaterialBase::execSync (      MaterialBase *pFrom,
 
     if(FieldBits::NoField != (SortKeyFieldMask & whichField))
         _sfSortKey.syncWith(pFrom->_sfSortKey);
+
+    if(FieldBits::NoField != (TransparencyModeFieldMask & whichField))
+        _sfTransparencyMode.syncWith(pFrom->_sfTransparencyMode);
 }
 #endif
 

@@ -212,21 +212,15 @@ UInt32 MultiPassMaterial::getNPasses(void)
 
 bool MultiPassMaterial::isTransparent(void) const
 {
-    MFMaterialPtr::const_iterator it      = _mfMaterials.begin();
-    MFMaterialPtr::const_iterator matsEnd = _mfMaterials.end();
+    Int32 tm = getTransparencyMode();
 
-#if 0
-    for(; it != matsEnd; ++it)
+    if(tm != Material::TransparencyAutoDetection)
     {
-        if((*it) == NullFC)
-            return false;
-
-        if(!(*it)->isTransparent())
-            return false;
+        return (tm == Material::TransparencyForceTransparent);
     }
 
-    return true;
-#endif
+    MFMaterialPtr::const_iterator it      = _mfMaterials.begin();
+    MFMaterialPtr::const_iterator matsEnd = _mfMaterials.end();
 
     // ok just check the first (base) material.
     if(  it                   != matsEnd && 

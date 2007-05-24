@@ -76,6 +76,9 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     /*! \{                                                                 */
 
     static const Int32 NoStateSorting;
+    static const Int32 TransparencyAutoDetection;
+    static const Int32 TransparencyForceTransparent;
+    static const Int32 TransparencyForceOpaque;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -102,21 +105,23 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     
 
 #ifdef OLD
-    virtual void     draw         (DrawFunctor      &func,
-                                   DrawActionBase   *action   )       = 0;
+    virtual void     draw          (DrawFunctor      &func,
+                                    DrawActionBase   *action   )       = 0;
 
-    virtual void     draw         (MaterialDrawable *geo,
-                                   DrawActionBase   *action   )       = 0;
+    virtual void     draw          (MaterialDrawable *geo,
+                                    DrawActionBase   *action   )       = 0;
 
-    virtual StatePtr makeState    (void                       )       = 0;
+    virtual StatePtr makeState     (void                       )       = 0;
 #endif
 
-    virtual void     rebuildState (void                       )       = 0;
+    virtual void     rebuildState  (void                       )       = 0;
 
-    virtual StatePtr getState     (UInt32            index = 0);
-    virtual UInt32   getNPasses   (void                       );
+    virtual StatePtr getState      (UInt32            index = 0);
+    virtual UInt32   getNPasses    (void                       );
   
-    virtual bool     isTransparent(void                       ) const = 0;
+    virtual bool     isTransparent (void                       ) const = 0;
+
+    virtual Int32    getRealSortKey(void                       ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

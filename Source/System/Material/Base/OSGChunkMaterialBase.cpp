@@ -148,7 +148,7 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     (InitalInsertDescFunc) &ChunkMaterialBase::classDescInserter,
     false,
     0,
-    "<?xml version=\"1.0\" ?>\n"
+    "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
     "\tname=\"ChunkMaterial\"\n"

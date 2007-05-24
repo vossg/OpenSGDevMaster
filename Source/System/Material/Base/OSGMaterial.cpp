@@ -86,7 +86,10 @@ OSG_BEGIN_NAMESPACE
 OSG_SYSTEM_DLLMAPPING MaterialPtr NullMaterial;
 OSG_END_NAMESPACE
 
-const Int32 Material::NoStateSorting = 0x7fffffff;
+const Int32 Material::NoStateSorting               = 0x7fffffff;
+const Int32 Material::TransparencyAutoDetection    = 0;
+const Int32 Material::TransparencyForceTransparent = 1;
+const Int32 Material::TransparencyForceOpaque      = 2;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -149,6 +152,11 @@ void Material::changed(ConstFieldMaskArg whichField, UInt32 origin)
     Inherited::changed(whichField, origin);
 
     rebuildState();
+}
+
+Int32 Material::getRealSortKey(void) const
+{
+    return _sfSortKey.getValue();
 }
 
 /*------------------------------- dump ----------------------------------*/
