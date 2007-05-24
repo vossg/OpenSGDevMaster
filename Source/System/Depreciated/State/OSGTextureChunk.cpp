@@ -1843,9 +1843,9 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
 				h = i->getHeight();
 				d = i->getDepth();
 				
-				nw = osgnextpower2(w);
-				nh = osgnextpower2(h);
-				nd = osgnextpower2(d);
+				nw = osgNextPower2(w);
+				nh = osgNextPower2(h);
+				nd = osgNextPower2(d);
 				
 				sw = w / static_cast<Real32>(nw);
 				sh = h / static_cast<Real32>(nh);
@@ -2165,9 +2165,9 @@ void TextureChunk::changeFrom(DrawEnv    *pEnv,
 				h = i->getHeight();
 				d = i->getDepth();
 				
-				nw = osgnextpower2(w);
-				nh = osgnextpower2(h);
-				nd = osgnextpower2(d);
+				nw = osgNextPower2(w);
+				nh = osgNextPower2(h);
+				nd = osgNextPower2(d);
 				
 				sw = w / static_cast<Real32>(nw);
 				sh = h / static_cast<Real32>(nh);
