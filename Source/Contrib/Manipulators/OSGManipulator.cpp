@@ -52,7 +52,7 @@
 #include <OSGGeometry.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGWindow.h>
-#include <OSGSimpleAttachments.h>
+#include <OSGNameAttachment.h>
 #include <OSGCamera.h>
 
 #include "OSGManipulator.h"

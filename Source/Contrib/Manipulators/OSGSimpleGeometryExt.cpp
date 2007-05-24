@@ -48,6 +48,8 @@
 #include <OSGSimpleGeometry.h>
 #include <OSGFaceIterator.h>
 #include <OSGComponentTransform.h>
+#include <OSGTypedGeoVectorProperty.h>
+#include <OSGTypedGeoIntegralProperty.h>
 
 using namespace std;
 
@@ -64,11 +66,11 @@ GeometryPtr makeGridGeo(const Real32   width,
     const Color3f darkerColor =
         Color3f(color[0] - 0.4, color[1] - 0.4, color[2] - 0.4);
 
-    GeometryPtr        geo     = Geometry::create();
-    GeoPositions3fPtr  pnts    = GeoPositions3f::create();
-    GeoPLengthsUI32Ptr lens    = GeoPLengthsUI32::create();
-    GeoPTypesUI8Ptr    types   = GeoPTypesUI8::create();
-    GeoColors3fPtr     colors  = GeoColors3f::create();
+    GeometryPtr           geo     = Geometry::create();
+    GeoPnt3fPropertyPtr   pnts    = GeoPnt3fProperty  ::create();
+    GeoUInt32PropertyPtr  lens    = GeoUInt32Property ::create();
+    GeoUInt8PropertyPtr   types   = GeoUInt8Property  ::create();
+    GeoColor3fPropertyPtr colors  = GeoColor3fProperty::create();
 //    GeoIndicesUI32Ptr  indices = GeoIndicesUI32::create();
     SimpleMaterialPtr  mat     = SimpleMaterial::create();
 
@@ -160,11 +162,11 @@ GeometryPtr makeGridBorderGeo(const Real32   width,
     const Color3f darkerColor =
         Color3f( color[0]-0.4, color[1]-0.4, color[2]-0.4 );
 
-    GeometryPtr        geo       = Geometry::create();
-    GeoPositions3fPtr  pnts      = GeoPositions3f::create();
-    GeoPLengthsUI32Ptr lens      = GeoPLengthsUI32::create();
-    GeoPTypesUI8Ptr    types     = GeoPTypesUI8::create();
-    GeoColors3fPtr     colors    = GeoColors3f::create();
+    GeometryPtr           geo    = Geometry::create();
+    GeoPnt3fPropertyPtr   pnts   = GeoPnt3fProperty::create();
+    GeoUInt32PropertyPtr  lens   = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr   types  = GeoUInt8Property::create();
+    GeoColor3fPropertyPtr colors = GeoColor3fProperty::create();
 //    GeoIndicesUI32Ptr  indices   = GeoIndicesUI32::create();
     SimpleMaterialPtr  mat       = SimpleMaterial::create();
     LineChunkPtr       lineChunk = LineChunk::create();
@@ -292,11 +294,11 @@ GeometryPtr makeSelectionGeo(NodePtr geoN)
     Pnt3f min, max;
     geoN->getVolume().getBounds(min, max);
 
-    GeometryPtr        geo       = Geometry::create();
-    GeoPositions3fPtr  newPnts   = GeoPositions3f::create();
-    GeoPLengthsUI32Ptr lens      = GeoPLengthsUI32::create();
-    GeoPTypesUI8Ptr    types     = GeoPTypesUI8::create();
-    GeoColors3fPtr     colors    = GeoColors3f::create();
+    GeometryPtr           geo       = Geometry::create();
+    GeoPnt3fPropertyPtr   newPnts   = GeoPnt3fProperty::create();
+    GeoUInt32PropertyPtr  lens      = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr   types     = GeoUInt8Property::create();
+    GeoColor3fPropertyPtr colors    = GeoColor3fProperty::create();
 
 //    GeoIndicesUI32Ptr  indices   = GeoIndicesUI32::create();
     SimpleMaterialPtr  mat       = SimpleMaterial::create();
@@ -306,7 +308,7 @@ GeometryPtr makeSelectionGeo(NodePtr geoN)
     GeometryPtr selGeoC = cast_dynamic<GeometryPtr>(geoN->getCore());
     if( selGeoC != NullFC )
     {
-        GeoPositions3fPtr pnts = cast_dynamic<GeoPositions3fPtr>(selGeoC->getPositions());
+         GeoPnt3fPropertyPtr pnts = cast_dynamic<GeoPnt3fPropertyPtr>(selGeoC->getPositions());
 //        GeoPositions3f::StoredFieldType     *p = pnts->getFieldPtr();
 
 //        GeoPositions3f::StoredFieldType::iterator it;
@@ -350,11 +352,11 @@ GeometryPtr makeCoordAxisGeo(const Real32 length,
                              const Real32 lineWidth,
                              const bool   showAxisName)
 {
-    GeometryPtr        geo       = Geometry::create();
-    GeoPositions3fPtr  pnts      = GeoPositions3f::create();
-    GeoPLengthsUI32Ptr lens      = GeoPLengthsUI32::create();
-    GeoPTypesUI8Ptr    types     = GeoPTypesUI8::create();
-    GeoColors3fPtr     colors    = GeoColors3f::create();
+    GeometryPtr           geo       = Geometry::create();
+    GeoPnt3fPropertyPtr   pnts      = GeoPnt3fProperty::create();
+    GeoUInt32PropertyPtr  lens      = GeoUInt32Property::create();
+    GeoUInt8PropertyPtr   types     = GeoUInt8Property::create();
+    GeoColor3fPropertyPtr colors    = GeoColor3fProperty::create();
 //    GeoIndicesUI32Ptr  indices   = GeoIndicesUI32::create();
     SimpleMaterialPtr  mat       = SimpleMaterial::create();
     LineChunkPtr       lineChunk = LineChunk::create();

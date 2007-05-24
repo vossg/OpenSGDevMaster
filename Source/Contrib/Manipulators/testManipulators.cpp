@@ -197,15 +197,15 @@ GeometryPtr makeCoordAxesGeo(void)
 {
     GeometryPtr axesG = Geometry::create();
 
-    GeoPTypesUI8Ptr type = GeoPTypesUI8::create();
+    GeoUInt8PropertyPtr type = GeoUInt8Property::create();
     type->addValue(GL_LINES    );
     type->addValue(GL_TRIANGLES);
 
-    GeoPLengthsPtr lens = GeoPLengthsUI32::create();
+    GeoUInt32PropertyPtr lens = GeoUInt32Property::create();
     lens->addValue(6);
     lens->addValue(9);
 
-    GeoPositions3fPtr pnts = GeoPositions3f::create();
+    GeoPnt3fPropertyPtr pnts = GeoPnt3fProperty::create();
     // the 6 points of the three Lines
     pnts->addValue(Pnt3f(0, 0, 0));
     pnts->addValue(Pnt3f(1, 0, 0));
@@ -229,7 +229,7 @@ GeometryPtr makeCoordAxesGeo(void)
     pnts->addValue(Pnt3f( 0.2,  0.2, 0.8));
     pnts->addValue(Pnt3f(-0.2, -0.2, 0.8));
 
-    GeoColors3fPtr colors = GeoColors3f::create();
+    GeoColor3fPropertyPtr colors = GeoColor3fProperty::create();
     colors->addValue(Color3f(1, 0, 0));
     colors->addValue(Color3f(1, 0, 0));
 
