@@ -262,9 +262,44 @@ ParentFieldContainerPtr cast_dynamic(FieldContainer::ObjPtrConst pIn);
 #pragma warning( default : 488 )
 #endif
 
-OSG_END_NAMESPACE
+#ifdef OSG_1_COMPAT
+inline
+void addRefCP(FieldContainerPtrConst objectP)
+{
+    addRef(objectP);
+}
 
-#define OSG_HEADER_CVSID "@(#)$Id$"
+inline
+void subRefCP(FieldContainerPtrConst objectP)
+{
+    subRef(objectP);
+}
+
+template <class PtrT> inline
+void beginEditCP(const PtrT      objectP,
+                       BitVector whichField = FieldBits    ::AllFields,
+                       UInt32    origin     = ChangedOrigin::External)
+{
+    beginEdit(objectP, whichField, origin);
+}
+
+template <class PtrT> inline
+void endEditCP(const PtrT      objectP,
+                     BitVector whichField = FieldBits    ::AllFields,
+                     UInt32    origin     = ChangedOrigin::External)
+{
+    endEdit(objectP, whichField, origin);
+}
+
+template <class StoreT, class SourceT> inline
+void setRefdCP(StoreT  &pTarget,
+               SourceT  pSource)
+{
+    setRefd(pTarget, pSource);
+}
+#endif
+
+OSG_END_NAMESPACE
 
 #include "OSGContainerPtrFuncs.inl"
 //#include "OSGContainerPtrFuncsObjDep.inl"

@@ -62,7 +62,8 @@ OSG_BEGIN_NAMESPACE
 /**
  * A Node in OpenSG is a node in the graph.
  *
- * Nodes are responsible for holding children nodes and a link to their parent node.
+ * Nodes are responsible for holding children nodes and a link to their parent
+ * node.
  *
  * \ingroup baselib
  */
@@ -163,12 +164,15 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    void   setTravMask(UInt32 uiMask);
-    UInt32 getTravMask(void         ) const;
+    void   setTravMask     (UInt32 uiMask);
+    UInt32 getTravMask     (void         ) const;
 
 #ifdef OSG_1_COMPAT
-    bool   getActive  (void         ) const;
-    void   setActive  (bool      val);
+    bool   getActive       (void         ) const;
+    void   setActive       (bool      val);
+
+    void   setOcclusionMask(UInt8     val);
+    UInt8  getOcclusionMask(void         ) const;
 #endif
 
     /*! \}                                                                 */
@@ -307,6 +311,10 @@ class OSG_SYSTEM_DLLMAPPING Node : public AttachmentContainer
     MFNodePtr       _mfChildren;
 
     SFNodeCorePtr   _sfCore;
+
+#ifdef OSG_1_COMPAT
+    UInt8           _occlusionMask;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

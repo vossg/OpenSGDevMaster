@@ -102,6 +102,18 @@ void  Node::setActive(bool val)
     _sfTravMask.setValue(val ? TypeTraits<UInt32>::getMax()        :
                                TypeTraits<UInt32>::getZeroElement() );
 }
+
+inline
+void Node::setOcclusionMask(UInt8 val)
+{
+    _occlusionMask = val;
+}
+
+inline
+UInt8 Node::getOcclusionMask(void) const
+{
+    return _occlusionMask;
+}
 #endif
 
 inline

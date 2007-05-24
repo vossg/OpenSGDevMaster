@@ -567,7 +567,8 @@ void Node::getToWorld(Matrixr &result)
         result.setIdentity();
     }
 
-    getCore()->accumulateMatrix(result);
+    if(getCore() != NullFC)
+        getCore()->accumulateMatrix(result);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -642,19 +643,25 @@ Node::Node(void) :
     _sfParent  (NullFC                      ),
     _mfChildren(                            ),
     _sfCore    (NullFC                      )
+#ifdef OSG_1_COMPAT
+   ,_occlusionMask(0)
+#endif
 {
 }
 
 Node::Node(const Node &source) :
-     Inherited (source            ),
-    _sfVolume  (                  ),
+     Inherited    (source            ),
+    _sfVolume     (                  ),
 
-    _sfTravMask(source._sfTravMask),
+    _sfTravMask   (source._sfTravMask),
 
-    _sfParent  (NullFC            ),
-    _mfChildren(                  ),
+    _sfParent     (NullFC            ),
+    _mfChildren   (                  ),
 
-    _sfCore    (NullFC            )
+    _sfCore       (NullFC            )
+#ifdef OSG_1_COMPAT
+   ,_occlusionMask(source._occlusionMask)
+#endif
 {
 }
 /*-------------------------------------------------------------------------*/
