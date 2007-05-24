@@ -229,7 +229,6 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
             glBlendFunc(src, dest);
         }
 
-#if GL_EXT_blend_color
         // This is not nice, but efficient
         // As the OpenGL constants are fixed it should be safe
         if((src  >= GL_CONSTANT_COLOR_EXT && 
@@ -260,13 +259,11 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
                             _sfColor.getValue().alpha());
             }
         }
-#endif
         glEnable(GL_BLEND);
     }
 
     if(_sfEquation.getValue() != GL_NONE)
     {
-#if defined(GL_ARB_imaging)
         if(pEnv->getWindow()->hasExtension(_extImaging))
         {
             // get "glBlendEquation" function pointer
@@ -276,12 +273,9 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
 
              blendeq(_sfEquation.getValue());
         }
-
-#elif defined(GL_EXT_blend_subtract) || defined(GL_EXT_blend_minmax) || \
-    defined(GL_EXT_blend_logic_op)
-        if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
-           pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
-           pEnv->getWindow()->hasExtension(_extBlendLogicOp))
+        else if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
+                pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
+                pEnv->getWindow()->hasExtension(_extBlendLogicOp))
         {
             // get "glBlendEquationEXT" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
@@ -290,7 +284,6 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
 
              blendeq(_sfEquation.getValue());
         }
-#endif
     }
     
     if(_sfAlphaFunc.getValue() != GL_NONE)
@@ -356,7 +349,6 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
             glBlendFunc(src, dest);
         }
 
-#if GL_EXT_blend_color
         // This is not nice, but efficient
         // As the OpenGL constants are fixed it should be safe
         if((src  >= GL_CONSTANT_COLOR_EXT && 
@@ -387,7 +379,6 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
                            _sfColor.getValue().alpha());
             }
         }
-#endif
         if(osrc == GL_ONE && odest == GL_ZERO)
             glEnable(GL_BLEND);
     }
@@ -403,7 +394,6 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
 
     if(_sfEquation.getValue() != old->_sfEquation.getValue())
     {
-#if defined(GL_ARB_imaging)
         if(pEnv->getWindow()->hasExtension(_extImaging))
         {
             // get "glBlendEquation" function pointer
@@ -413,12 +403,9 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
 
              blendeq(_sfEquation.getValue());
         }
-
-#elif defined(GL_EXT_blend_subtract) || defined(GL_EXT_blend_minmax) || \
-    defined(GL_EXT_blend_logic_op)
-        if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
-           pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
-           pEnv->getWindow()->hasExtension(_extBlendLogicOp))
+        else if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
+                pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
+                pEnv->getWindow()->hasExtension(_extBlendLogicOp))
         {
             // get "glBlendEquationEXT" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
@@ -427,7 +414,6 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
 
              blendeq(_sfEquation.getValue());
         }
-#endif
     }
     
     if(_sfAlphaFunc.getValue() != GL_NONE)
@@ -463,7 +449,6 @@ void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
 
     if(_sfEquation.getValue() != GL_NONE)
     {
-#if defined(GL_ARB_imaging)
         if(pEnv->getWindow()->hasExtension(_extImaging))
         {
             // get "glBlendEquation" function pointer
@@ -473,12 +458,9 @@ void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
 
              blendeq(GL_FUNC_ADD);
         }
-
-#elif defined(GL_EXT_blend_subtract) || defined(GL_EXT_blend_minmax) || \
-    defined(GL_EXT_blend_logic_op)
-        if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
-           pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
-           pEnv->getWindow()->hasExtension(_extBlendLogicOp))
+        else if(pEnv->getWindow()->hasExtension(_extBlendSubtract) ||
+                pEnv->getWindow()->hasExtension(_extBlendMinMax) ||
+                pEnv->getWindow()->hasExtension(_extBlendLogicOp))
         {
             // get "glBlendEquationEXT" function pointer
             void (OSG_APIENTRY* blendeq)(GLenum mode) =
@@ -487,7 +469,6 @@ void BlendChunk::deactivate(DrawEnv *pEnv, UInt32 )
 
              blendeq(GL_FUNC_ADD_EXT);
         }
-#endif
     }
     
     if(_sfAlphaFunc.getValue() != GL_NONE)

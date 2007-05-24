@@ -181,6 +181,10 @@ class OSG_SYSTEM_DLLMAPPING StateChunk : public StateChunkBase
     /*! \name                      State                                   */
     /*! \{                                                                 */
 
+#ifndef OSG_DISABLE_DEPRECATED
+    virtual void update       (DrawEnv   *pEnv      );
+#endif
+
     virtual void activate     (DrawEnv    *pEnv, 
                                UInt32      index = 0) = 0;
 

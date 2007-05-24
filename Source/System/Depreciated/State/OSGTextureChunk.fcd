@@ -48,6 +48,7 @@ extension(s) are also available.
 		visibility="external"
 		access="public"
 	>
+	The texture image.
 	</Field>
 	<Field
 		name="internalFormat"
@@ -622,5 +623,25 @@ extension(s) are also available.
 		defaultHeader="&lt;OSGGL.h&gt;"
 		access="public"
 	>
+	</Field>
+	<Field
+		name="borderWidth"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Texture border width in pixels.
+	</Field>
+	<Field
+		name="NPOTMatrixScale"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
 	</Field>
 </FieldContainer>

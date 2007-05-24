@@ -243,6 +243,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          TextureObjChunkBase::_sfBorderWidth
+    Texture border width in pixels.
+*/
+
+/*! \var UInt32          TextureObjChunkBase::_sfNPOTMatrixScale
+    Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
+*/
+
 
 void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -810,6 +818,50 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt32 *(TextureObjChunkBase::*GetSFBorderWidthF)(void) const;
+
+    GetSFBorderWidthF GetSFBorderWidth = &TextureObjChunkBase::getSFBorderWidth;
+#endif
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "borderWidth",
+        "Texture border width in pixels.\n",
+        BorderWidthFieldId, BorderWidthFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFBorderWidth),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFBorderWidth));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFBorderWidth));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt32 *(TextureObjChunkBase::*GetSFNPOTMatrixScaleF)(void) const;
+
+    GetSFNPOTMatrixScaleF GetSFNPOTMatrixScale = &TextureObjChunkBase::getSFNPOTMatrixScale;
+#endif
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "NPOTMatrixScale",
+        "Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!\n",
+        NPOTMatrixScaleFieldId, NPOTMatrixScaleFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&TextureObjChunkBase::editSFNPOTMatrixScale),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFNPOTMatrixScale));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&TextureObjChunkBase::getSFNPOTMatrixScale));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -1156,6 +1208,26 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_LUMINANCE, GL_INTENSITY, GL_ALPHA\"\n"
     "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"borderWidth\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tTexture border width in pixels.\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"NPOTMatrixScale\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tUse the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
@@ -1674,6 +1746,44 @@ SFGLenum            *TextureObjChunkBase::getSFDepthMode      (void)
 }
 #endif
 
+SFUInt32 *TextureObjChunkBase::editSFBorderWidth(void)
+{
+    editSField(BorderWidthFieldMask);
+
+    return &_sfBorderWidth;
+}
+
+const SFUInt32 *TextureObjChunkBase::getSFBorderWidth(void) const
+{
+    return &_sfBorderWidth;
+}
+
+#ifdef OSG_1_COMPAT
+SFUInt32            *TextureObjChunkBase::getSFBorderWidth    (void)
+{
+    return this->editSFBorderWidth    ();
+}
+#endif
+
+SFUInt32 *TextureObjChunkBase::editSFNPOTMatrixScale(void)
+{
+    editSField(NPOTMatrixScaleFieldMask);
+
+    return &_sfNPOTMatrixScale;
+}
+
+const SFUInt32 *TextureObjChunkBase::getSFNPOTMatrixScale(void) const
+{
+    return &_sfNPOTMatrixScale;
+}
+
+#ifdef OSG_1_COMPAT
+SFUInt32            *TextureObjChunkBase::getSFNPOTMatrixScale(void)
+{
+    return this->editSFNPOTMatrixScale();
+}
+#endif
+
 
 void TextureObjChunkBase::pushToField(      FieldContainerPtrConstArg pNewElement,
                                     const UInt32                    uiFieldId  )
@@ -1843,6 +1953,14 @@ UInt32 TextureObjChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDepthMode.getBinSize();
     }
+    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
+    {
+        returnValue += _sfBorderWidth.getBinSize();
+    }
+    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
+    {
+        returnValue += _sfNPOTMatrixScale.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1952,6 +2070,14 @@ void TextureObjChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDepthMode.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
+    {
+        _sfBorderWidth.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
+    {
+        _sfNPOTMatrixScale.copyToBin(pMem);
+    }
 }
 
 void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -2059,6 +2185,14 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfDepthMode.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
+    {
+        _sfBorderWidth.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
+    {
+        _sfNPOTMatrixScale.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -2110,7 +2244,9 @@ TextureObjChunkBase::TextureObjChunkBase(void) :
     _sfBorderColor            (Color4f(0,0,0,0)),
     _sfCompareMode            (GLenum(GL_NONE)),
     _sfCompareFunc            (GLenum(GL_LEQUAL)),
-    _sfDepthMode              (GLenum(GL_LUMINANCE))
+    _sfDepthMode              (GLenum(GL_LUMINANCE)),
+    _sfBorderWidth            (UInt32(0)),
+    _sfNPOTMatrixScale        (UInt32(0))
 {
 }
 
@@ -2140,7 +2276,9 @@ TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
     _sfBorderColor            (source._sfBorderColor            ),
     _sfCompareMode            (source._sfCompareMode            ),
     _sfCompareFunc            (source._sfCompareFunc            ),
-    _sfDepthMode              (source._sfDepthMode              )
+    _sfDepthMode              (source._sfDepthMode              ),
+    _sfBorderWidth            (source._sfBorderWidth            ),
+    _sfNPOTMatrixScale        (source._sfNPOTMatrixScale        )
 {
 }
 

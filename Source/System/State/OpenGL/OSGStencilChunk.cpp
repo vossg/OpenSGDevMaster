@@ -125,8 +125,13 @@ void StencilChunk::activate(DrawEnv *pEnv, UInt32)
         glEnable(GL_STENCIL_TEST);
         
         if(_sfClearBuffer.getValue() == 1)
+        {
+            glClearStencil(0x0);
             glClear(GL_STENCIL_BUFFER_BIT);
-        
+        }
+
+        glStencilMask(_sfBitMask       .getValue());
+
         glStencilFunc(_sfStencilFunc   .getValue(), 
                       _sfStencilValue  .getValue(), 
                       _sfStencilMask   .getValue());
@@ -142,18 +147,18 @@ void StencilChunk::changeFrom(DrawEnv    *pEnv,
 {
     StencilChunk *old = dynamic_cast<StencilChunk *>(old_chunk);
     
-    if (_sfStencilFunc.getValue() != GL_NONE)
+    if(_sfStencilFunc.getValue() != GL_NONE)
     {
-        if ( old->_sfStencilFunc.getValue()  != _sfStencilFunc.getValue()    ||
-             old->_sfStencilValue.getValue() != _sfStencilValue.getValue()   ||
-             old->_sfStencilMask.getValue()  != _sfStencilMask.getValue() )
+        if ( old->_sfStencilFunc .getValue() != _sfStencilFunc .getValue()  ||
+             old->_sfStencilValue.getValue() != _sfStencilValue.getValue()  ||
+             old->_sfStencilMask .getValue() != _sfStencilMask .getValue() )
         { 
              glStencilFunc( _sfStencilFunc.getValue(), 
                             _sfStencilValue.getValue(), 
                             _sfStencilMask.getValue() );
         }
     
-        if(old->_sfStencilOpFail.getValue()  != _sfStencilOpFail.getValue()  ||
+        if(old->_sfStencilOpFail .getValue() != _sfStencilOpFail .getValue() ||
            old->_sfStencilOpZFail.getValue() != _sfStencilOpZFail.getValue() ||
            old->_sfStencilOpZPass.getValue() != _sfStencilOpZPass.getValue() ) 
         {
@@ -164,21 +169,24 @@ void StencilChunk::changeFrom(DrawEnv    *pEnv,
         if(old->_sfStencilFunc.getValue() == GL_NONE) 
         {     
             glEnable(GL_STENCIL_TEST);
-            
-            /*
-            if (_sfClearBuffer.getValue() == 1)
+        }
+
+        if(     _sfClearBuffer.getValue() == 1 || 
+           old->_sfClearBuffer.getValue() == 2  )
+        {
+                glClearStencil(0x0);
                 glClear(GL_STENCIL_BUFFER_BIT);
-            */
         }
     }
     else 
     {
         if(old->_sfStencilFunc.getValue() != GL_NONE) 
         {      
-            /*
-            if (_sfClearBuffer.getValue() == 2)
+            if(_sfClearBuffer.getValue() == 2)
+            {
+                glClearStencil(0x0);
                 glClear(GL_STENCIL_BUFFER_BIT);
-            */
+            }
                       
             glDisable(GL_STENCIL_TEST); 
         }
@@ -191,7 +199,10 @@ void StencilChunk::deactivate(DrawEnv *pEnv, UInt32 )
     if (_sfStencilFunc.getValue() != GL_NONE)
     {
         if(_sfClearBuffer.getValue() == 2)
+        {
+            glClearStencil(0x0);
             glClear(GL_STENCIL_BUFFER_BIT);
+        }
         
         glDisable(GL_STENCIL_TEST);
     }

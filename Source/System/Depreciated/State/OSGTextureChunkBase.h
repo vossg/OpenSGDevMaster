@@ -118,6 +118,8 @@
 #include "OSGGLenumFields.h" // CompareMode type
 #include "OSGGLenumFields.h" // CompareFunc type
 #include "OSGGLenumFields.h" // DepthMode type
+#include "OSGUInt32Fields.h" // BorderWidth type
+#include "OSGUInt32Fields.h" // NPOTMatrixScale type
 
 #include "OSGTextureChunkFields.h"
 
@@ -215,7 +217,9 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
         CompareModeFieldId = BorderColorFieldId + 1,
         CompareFuncFieldId = CompareModeFieldId + 1,
         DepthModeFieldId = CompareFuncFieldId + 1,
-        NextFieldId = DepthModeFieldId + 1
+        BorderWidthFieldId = DepthModeFieldId + 1,
+        NPOTMatrixScaleFieldId = BorderWidthFieldId + 1,
+        NextFieldId = NPOTMatrixScaleFieldId + 1
     };
 
     static const OSG::BitVector ImageFieldMask =
@@ -324,6 +328,10 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << CompareFuncFieldId);
     static const OSG::BitVector DepthModeFieldMask =
         (TypeTraits<BitVector>::One << DepthModeFieldId);
+    static const OSG::BitVector BorderWidthFieldMask =
+        (TypeTraits<BitVector>::One << BorderWidthFieldId);
+    static const OSG::BitVector NPOTMatrixScaleFieldMask =
+        (TypeTraits<BitVector>::One << NPOTMatrixScaleFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -664,6 +672,18 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
                   SFGLenum            *editSFDepthMode      (void);
             const SFGLenum            *getSFDepthMode       (void) const;
 
+#ifdef OSG_1_COMPAT
+                  SFUInt32            *getSFBorderWidth     (void);
+#endif
+                  SFUInt32            *editSFBorderWidth    (void);
+            const SFUInt32            *getSFBorderWidth     (void) const;
+
+#ifdef OSG_1_COMPAT
+                  SFUInt32            *getSFNPOTMatrixScale (void);
+#endif
+                  SFUInt32            *editSFNPOTMatrixScale(void);
+            const SFUInt32            *getSFNPOTMatrixScale (void) const;
+
 
                   ImagePtrConst getImage          (void) const;
 
@@ -982,6 +1002,18 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
                   GLenum              &editDepthMode      (void);
             const GLenum              &getDepthMode       (void) const;
 
+#ifdef OSG_1_COMPAT
+                  UInt32              &getBorderWidth     (void);
+#endif
+                  UInt32              &editBorderWidth    (void);
+            const UInt32              &getBorderWidth     (void) const;
+
+#ifdef OSG_1_COMPAT
+                  UInt32              &getNPOTMatrixScale (void);
+#endif
+                  UInt32              &editNPOTMatrixScale(void);
+            const UInt32              &getNPOTMatrixScale (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -1039,6 +1071,8 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
             void setCompareMode    (const GLenum &value);
             void setCompareFunc    (const GLenum &value);
             void setDepthMode      (const GLenum &value);
+            void setBorderWidth    (const UInt32 &value);
+            void setNPOTMatrixScale(const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -1180,6 +1214,8 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     SFGLenum          _sfCompareMode;
     SFGLenum          _sfCompareFunc;
     SFGLenum          _sfDepthMode;
+    SFUInt32          _sfBorderWidth;
+    SFUInt32          _sfNPOTMatrixScale;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

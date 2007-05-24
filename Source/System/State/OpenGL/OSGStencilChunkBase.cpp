@@ -117,6 +117,10 @@ OSG_BEGIN_NAMESPACE
     Clear buffer on activate(1) or deactivate(2).
 */
 
+/*! \var UInt32          StencilChunkBase::_sfBitMask
+    Controls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.
+*/
+
 
 void StencilChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -282,6 +286,28 @@ void StencilChunkBase::classDescInserter(TypeObject &oType)
 #endif
 
     oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_COMPAT
+    typedef const SFUInt32 *(StencilChunkBase::*GetSFBitMaskF)(void) const;
+
+    GetSFBitMaskF GetSFBitMask = &StencilChunkBase::getSFBitMask;
+#endif
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "bitMask",
+        "Controls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.\n",
+        BitMaskFieldId, BitMaskFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&StencilChunkBase::editSFBitMask),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFBitMask));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&StencilChunkBase::getSFBitMask));
+#endif
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -388,6 +414,16 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tClear buffer on activate(1) or deactivate(2).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"bitMask\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0xFFFFFFFF\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tControls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and glStencilOp().\n"
@@ -546,6 +582,25 @@ SFInt32             *StencilChunkBase::getSFClearBuffer    (void)
 }
 #endif
 
+SFUInt32 *StencilChunkBase::editSFBitMask(void)
+{
+    editSField(BitMaskFieldMask);
+
+    return &_sfBitMask;
+}
+
+const SFUInt32 *StencilChunkBase::getSFBitMask(void) const
+{
+    return &_sfBitMask;
+}
+
+#ifdef OSG_1_COMPAT
+SFUInt32            *StencilChunkBase::getSFBitMask        (void)
+{
+    return this->editSFBitMask        ();
+}
+#endif
+
 
 
 
@@ -584,6 +639,10 @@ UInt32 StencilChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfClearBuffer.getBinSize();
     }
+    if(FieldBits::NoField != (BitMaskFieldMask & whichField))
+    {
+        returnValue += _sfBitMask.getBinSize();
+    }
 
     return returnValue;
 }
@@ -621,6 +680,10 @@ void StencilChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfClearBuffer.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (BitMaskFieldMask & whichField))
+    {
+        _sfBitMask.copyToBin(pMem);
+    }
 }
 
 void StencilChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -656,6 +719,10 @@ void StencilChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfClearBuffer.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (BitMaskFieldMask & whichField))
+    {
+        _sfBitMask.copyFromBin(pMem);
+    }
 }
 
 //! create an empty new instance of the class, do not copy the prototype
@@ -689,7 +756,8 @@ StencilChunkBase::StencilChunkBase(void) :
     _sfStencilOpFail          (GLenum(GL_KEEP)),
     _sfStencilOpZFail         (GLenum(GL_KEEP)),
     _sfStencilOpZPass         (GLenum(GL_KEEP)),
-    _sfClearBuffer            (Int32(0))
+    _sfClearBuffer            (Int32(0)),
+    _sfBitMask                (UInt32(0xFFFFFFFF))
 {
 }
 
@@ -701,7 +769,8 @@ StencilChunkBase::StencilChunkBase(const StencilChunkBase &source) :
     _sfStencilOpFail          (source._sfStencilOpFail          ),
     _sfStencilOpZFail         (source._sfStencilOpZFail         ),
     _sfStencilOpZPass         (source._sfStencilOpZPass         ),
-    _sfClearBuffer            (source._sfClearBuffer            )
+    _sfClearBuffer            (source._sfClearBuffer            ),
+    _sfBitMask                (source._sfBitMask                )
 {
 }
 

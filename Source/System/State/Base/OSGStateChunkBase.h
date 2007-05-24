@@ -65,6 +65,7 @@
 
 #include "OSGFieldContainerAttachment.h" // Parent
 
+#include "OSGBoolFields.h" // Ignore type
 
 #include "OSGStateChunkFields.h"
 
@@ -107,6 +108,16 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
 
   public:
 
+    enum
+    {
+        IgnoreFieldId = Inherited::NextFieldId,
+        NextFieldId = IgnoreFieldId + 1
+    };
+
+    static const OSG::BitVector IgnoreFieldMask =
+        (TypeTraits<BitVector>::One << IgnoreFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -125,6 +136,37 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+#ifdef OSG_1_COMPAT
+                  SFBool              *getSFIgnore          (void);
+#endif
+                  SFBool              *editSFIgnore         (void);
+            const SFBool              *getSFIgnore          (void) const;
+
+
+#ifdef OSG_1_COMPAT
+                  bool                &getIgnore          (void);
+#endif
+                  bool                &editIgnore         (void);
+            const bool                &getIgnore          (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setIgnore         (const bool &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,6 +190,13 @@ class OSG_SYSTEM_DLLMAPPING StateChunkBase : public FieldContainerAttachment
     static void   classDescInserter(TypeObject &oType);
     static Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFBool            _sfIgnore;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */

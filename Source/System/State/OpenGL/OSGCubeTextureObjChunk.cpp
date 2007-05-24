@@ -238,8 +238,8 @@ void CubeTextureObjChunk::handleGL(DrawEnv                 *pEnv,
 
 
 void CubeTextureObjChunk::handleDestroyGL(DrawEnv                 *pEnv, 
-                               UInt32                   osgid, 
-                               Window::GLObjectStatusE  mode)
+                                          UInt32                   osgid, 
+                                          Window::GLObjectStatusE  mode)
 {
     GLuint  id;
 
@@ -320,6 +320,22 @@ void CubeTextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
   
     FDEBUG(("CubeTextureObjChunk::activate - %d\n", getGLId()));
 
+
+    // Update the texture statistics
+    StatCollectorP pColl = pEnv->getStatCollector();
+    
+    if(NULL != pColl)
+    {
+        pColl->getElem(TextureObjChunk::statNTextures)->inc(getGLId());
+
+        if(getImage() != NullFC)
+        {
+            pColl->getElem(TextureObjChunk::statNTexBytes)->add(
+                getGLId(), 
+                getImage()->getSize(true,true,true) * 6);
+        }
+    }
+
     glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, win->getGLObjectId(getGLId()));
 
     pEnv->setActiveTexTarget(idx, GL_TEXTURE_CUBE_MAP_ARB);
@@ -394,6 +410,21 @@ void CubeTextureObjChunk::changeFrom(DrawEnv    *pEnv,
     win->validateGLObject(getGLId(), pEnv);
     
     FDEBUG(("CubeTextureObjChunk::activate - %d\n", getGLId()));
+
+    // Update the texture statistics
+    StatCollectorP pColl = pEnv->getStatCollector();
+    
+    if(NULL != pColl)
+    {
+        pColl->getElem(TextureObjChunk::statNTextures)->inc(getGLId());
+
+        if(getImage() != NullFC)
+        {
+            pColl->getElem(TextureObjChunk::statNTexBytes)->add(
+                getGLId(), 
+                getImage()->getSize(true,true,true) * 6);
+        }
+    }
 
     glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, win->getGLObjectId(getGLId()));
 

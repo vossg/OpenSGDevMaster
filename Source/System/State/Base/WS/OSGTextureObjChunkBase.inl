@@ -882,6 +882,72 @@ void TextureObjChunkBase::setDepthMode(const GLenum &value)
 
     _sfDepthMode.setValue(value);
 }
+//! Get the value of the TextureObjChunk::_sfBorderWidth field.
+
+inline
+UInt32 &TextureObjChunkBase::editBorderWidth(void)
+{
+    editSField(BorderWidthFieldMask);
+
+    return _sfBorderWidth.getValue();
+}
+
+//! Get the value of the TextureObjChunk::_sfBorderWidth field.
+inline
+const UInt32 &TextureObjChunkBase::getBorderWidth(void) const
+{
+    return _sfBorderWidth.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32              &TextureObjChunkBase::getBorderWidth    (void)
+{
+    return this->editBorderWidth    ();
+}
+#endif
+
+//! Set the value of the TextureObjChunk::_sfBorderWidth field.
+inline
+void TextureObjChunkBase::setBorderWidth(const UInt32 &value)
+{
+    editSField(BorderWidthFieldMask);
+
+    _sfBorderWidth.setValue(value);
+}
+//! Get the value of the TextureObjChunk::_sfNPOTMatrixScale field.
+
+inline
+UInt32 &TextureObjChunkBase::editNPOTMatrixScale(void)
+{
+    editSField(NPOTMatrixScaleFieldMask);
+
+    return _sfNPOTMatrixScale.getValue();
+}
+
+//! Get the value of the TextureObjChunk::_sfNPOTMatrixScale field.
+inline
+const UInt32 &TextureObjChunkBase::getNPOTMatrixScale(void) const
+{
+    return _sfNPOTMatrixScale.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32              &TextureObjChunkBase::getNPOTMatrixScale(void)
+{
+    return this->editNPOTMatrixScale();
+}
+#endif
+
+//! Set the value of the TextureObjChunk::_sfNPOTMatrixScale field.
+inline
+void TextureObjChunkBase::setNPOTMatrixScale(const UInt32 &value)
+{
+    editSField(NPOTMatrixScaleFieldMask);
+
+    _sfNPOTMatrixScale.setValue(value);
+}
 
 //! create a new instance of the class
 inline
@@ -982,6 +1048,12 @@ void TextureObjChunkBase::execSync(      TextureObjChunkBase *pOther,
 
     if(FieldBits::NoField != (DepthModeFieldMask & whichField))
         _sfDepthMode.syncWith(pOther->_sfDepthMode);
+
+    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
+        _sfBorderWidth.syncWith(pOther->_sfBorderWidth);
+
+    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
+        _sfNPOTMatrixScale.syncWith(pOther->_sfNPOTMatrixScale);
 }
 #endif
 
@@ -1069,6 +1141,12 @@ void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
 
     if(FieldBits::NoField != (DepthModeFieldMask & whichField))
         _sfDepthMode.syncWith(pFrom->_sfDepthMode);
+
+    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
+        _sfBorderWidth.syncWith(pFrom->_sfBorderWidth);
+
+    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
+        _sfNPOTMatrixScale.syncWith(pFrom->_sfNPOTMatrixScale);
 }
 #endif
 

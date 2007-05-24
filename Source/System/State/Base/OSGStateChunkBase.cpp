@@ -73,7 +73,46 @@ OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::StateChunk
     \ingroup GrpSystemState
+
+    See \ref PageSystemState for the conceptual background.
  */
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+/*! \var bool            StateChunkBase::_sfIgnore
+    Enables / disables a chunk
+*/
+
+
+void StateChunkBase::classDescInserter(TypeObject &oType)
+{
+    FieldDescriptionBase *pDesc = NULL;
+
+
+#ifdef OSG_1_COMPAT
+    typedef const SFBool *(StateChunkBase::*GetSFIgnoreF)(void) const;
+
+    GetSFIgnoreF GetSFIgnore = &StateChunkBase::getSFIgnore;
+#endif
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "ignore",
+        "Enables / disables a chunk\n",
+        IgnoreFieldId, IgnoreFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&StateChunkBase::editSFIgnore),
+#ifdef OSG_1_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFIgnore));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&StateChunkBase::getSFIgnore));
+#endif
+
+    oType.addInitialDesc(pDesc);
+}
 
 
 StateChunkBase::TypeObject StateChunkBase::_type(
@@ -83,10 +122,10 @@ StateChunkBase::TypeObject StateChunkBase::_type(
     0,
     NULL,
     StateChunk::initMethod,
-    NULL,
+    (InitalInsertDescFunc) &StateChunkBase::classDescInserter,
     false,
     0,
-    "<?xml version=\"1.0\" ?>\n"
+    "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
     "\tname=\"StateChunk\"\n"
@@ -96,10 +135,22 @@ StateChunkBase::TypeObject StateChunkBase::_type(
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
+    "\tdecoratable=\"false\"\n"
+    "\tuseLocalIncludes=\"false\"\n"
     ">\n"
     "\\ingroup GrpSystemState\n"
     "\n"
     "See \\ref PageSystemState for the conceptual background.\n"
+    "\t<Field\n"
+    "\t\tname=\"ignore\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tEnables / disables a chunk\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
     "\n"
@@ -126,6 +177,25 @@ UInt32 StateChunkBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+SFBool *StateChunkBase::editSFIgnore(void)
+{
+    editSField(IgnoreFieldMask);
+
+    return &_sfIgnore;
+}
+
+const SFBool *StateChunkBase::getSFIgnore(void) const
+{
+    return &_sfIgnore;
+}
+
+#ifdef OSG_1_COMPAT
+SFBool              *StateChunkBase::getSFIgnore         (void)
+{
+    return this->editSFIgnore         ();
+}
+#endif
+
 
 
 
@@ -136,6 +206,10 @@ UInt32 StateChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (IgnoreFieldMask & whichField))
+    {
+        returnValue += _sfIgnore.getBinSize();
+    }
 
     return returnValue;
 }
@@ -145,6 +219,10 @@ void StateChunkBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (IgnoreFieldMask & whichField))
+    {
+        _sfIgnore.copyToBin(pMem);
+    }
 }
 
 void StateChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -152,6 +230,10 @@ void StateChunkBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (IgnoreFieldMask & whichField))
+    {
+        _sfIgnore.copyFromBin(pMem);
+    }
 }
 
 
@@ -159,12 +241,14 @@ void StateChunkBase::copyFromBin(BinaryDataHandler &pMem,
 /*------------------------- constructors ----------------------------------*/
 
 StateChunkBase::StateChunkBase(void) :
-    Inherited()
+    Inherited(),
+    _sfIgnore                 (bool(false))
 {
 }
 
 StateChunkBase::StateChunkBase(const StateChunkBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfIgnore                 (source._sfIgnore                 )
 {
 }
 

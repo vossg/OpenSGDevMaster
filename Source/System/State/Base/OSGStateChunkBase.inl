@@ -73,6 +73,39 @@ OSG::UInt16 StateChunkBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the StateChunk::_sfIgnore field.
+
+inline
+bool &StateChunkBase::editIgnore(void)
+{
+    editSField(IgnoreFieldMask);
+
+    return _sfIgnore.getValue();
+}
+
+//! Get the value of the StateChunk::_sfIgnore field.
+inline
+const bool &StateChunkBase::getIgnore(void) const
+{
+    return _sfIgnore.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+bool                &StateChunkBase::getIgnore         (void)
+{
+    return this->editIgnore         ();
+}
+#endif
+
+//! Set the value of the StateChunk::_sfIgnore field.
+inline
+void StateChunkBase::setIgnore(const bool &value)
+{
+    editSField(IgnoreFieldMask);
+
+    _sfIgnore.setValue(value);
+}
 
 
 #ifdef OSG_MT_FIELDCONTAINERPTR
@@ -84,6 +117,9 @@ void StateChunkBase::execSync(      StateChunkBase *pOther,
                                        UInt32             uiCopyOffset)
 {
     Inherited::execSync(pOther, whichField, syncMode, uiSyncInfo, uiCopyOffset);
+
+    if(FieldBits::NoField != (IgnoreFieldMask & whichField))
+        _sfIgnore.syncWith(pOther->_sfIgnore);
 }
 #endif
 
@@ -96,6 +132,9 @@ void StateChunkBase::execSync (      StateChunkBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (IgnoreFieldMask & whichField))
+        _sfIgnore.syncWith(pFrom->_sfIgnore);
 }
 #endif
 

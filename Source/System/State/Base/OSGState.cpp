@@ -167,8 +167,10 @@ void State::rebuildSortKey(void)
     if(uiKey1 != InvalidKey && uiKey1 < uiSizeChunks)
     {
         uiKey1 = 
-            (_mfChunks[uiKey1] == NullFC) ? 
-                0 : _mfChunks[uiKey1]->getChunkId();
+            (_mfChunks[uiKey1]              != NullFC && 
+             _mfChunks[uiKey1]->getIgnore() == false   ) ? 
+
+            _mfChunks[uiKey1]->getChunkId() : 0;
     }
     else
     {
@@ -178,8 +180,10 @@ void State::rebuildSortKey(void)
     if(uiKey2 != InvalidKey && uiKey2 < uiSizeChunks)
     {
         uiKey2 = 
-            (_mfChunks[uiKey2] == NullFC) ? 
-                0 : _mfChunks[uiKey2]->getChunkId();
+            (_mfChunks[uiKey2]              != NullFC &&
+             _mfChunks[uiKey2]->getIgnore() == false   ) ? 
+
+            _mfChunks[uiKey2]->getChunkId() : 0;
     }
     else
     {
@@ -189,8 +193,10 @@ void State::rebuildSortKey(void)
     if(uiKey3 != InvalidKey && uiKey3 < uiSizeChunks)
     {
         uiKey3 = 
-            (_mfChunks[uiKey3] == NullFC) ? 
-                0 : _mfChunks[uiKey3]->getChunkId();
+            (_mfChunks[uiKey3]              != NullFC &&
+             _mfChunks[uiKey3]->getIgnore() == false   ) ? 
+
+            _mfChunks[uiKey3]->getChunkId() : 0;
     }
     else
     {
@@ -265,7 +271,7 @@ void State::activate(DrawEnv *pEnv)
           it != _mfChunks.end  ();
         ++it, ++cind)
     {
-        if(*it != NullFC)
+        if(*it != NullFC && (*it)->getIgnore() == false)
         {
             (*it)->activate(pEnv, UInt32(ind));
         }
@@ -294,9 +300,9 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
         StateChunkPtr o = pOld->getChunk(cind);
         StateChunkPtr n = *it;
 
-        if(n != NullFC)
+        if(n != NullFC && n->getIgnore() == false)
         {
-            if(o != NullFC)
+            if(o != NullFC && o->getIgnore() == false)
             {
                 n->changeFrom(pEnv, getCPtr(o), UInt32(ind));
             }
@@ -305,7 +311,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
                 n->activate(pEnv, UInt32(ind));
             }
         }
-        else if(o != NullFC)
+        else if(o != NullFC && o->getIgnore() == false)
         {
             o->deactivate(pEnv, UInt32(ind));
         }
@@ -321,7 +327,7 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld)
     {
         StateChunkPtr o = pOld->getChunk(i);
 
-        if(o != NullFC)
+        if(o != NullFC && o->getIgnore() == false)
         {
             o->deactivate(pEnv, UInt32(ind));
         }
@@ -348,7 +354,7 @@ void State::deactivate(DrawEnv *pEnv)
           it != _mfChunks.end  ();
         ++it, ++cind)
     {
-        if(*it != NullFC)
+        if(*it != NullFC && (*it)->getIgnore() == false)
             (*it)->deactivate(pEnv, UInt32(ind));
 
         if(++ind >= StateChunkClass::getNumSlots(cind))

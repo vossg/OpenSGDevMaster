@@ -92,4 +92,14 @@ The stencil chunk handles OpenGL stencil tests by wrapping glStencilFunc() and g
 	>
 	Clear buffer on activate(1) or deactivate(2).
 	</Field>
+	<Field
+		name="bitMask"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0xFFFFFFFF"
+		access="public"
+	>
+	Controls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.
+	</Field>
 </FieldContainer>

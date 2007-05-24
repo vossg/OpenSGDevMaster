@@ -72,6 +72,7 @@
 #include "OSGGLenumFields.h" // StencilOpZFail type
 #include "OSGGLenumFields.h" // StencilOpZPass type
 #include "OSGInt32Fields.h" // ClearBuffer type
+#include "OSGUInt32Fields.h" // BitMask type
 
 #include "OSGStencilChunkFields.h"
 
@@ -123,7 +124,8 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
         StencilOpZFailFieldId = StencilOpFailFieldId + 1,
         StencilOpZPassFieldId = StencilOpZFailFieldId + 1,
         ClearBufferFieldId = StencilOpZPassFieldId + 1,
-        NextFieldId = ClearBufferFieldId + 1
+        BitMaskFieldId = ClearBufferFieldId + 1,
+        NextFieldId = BitMaskFieldId + 1
     };
 
     static const OSG::BitVector StencilFuncFieldMask =
@@ -140,6 +142,8 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
         (TypeTraits<BitVector>::One << StencilOpZPassFieldId);
     static const OSG::BitVector ClearBufferFieldMask =
         (TypeTraits<BitVector>::One << ClearBufferFieldId);
+    static const OSG::BitVector BitMaskFieldMask =
+        (TypeTraits<BitVector>::One << BitMaskFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -209,6 +213,12 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
                   SFInt32             *editSFClearBuffer    (void);
             const SFInt32             *getSFClearBuffer     (void) const;
 
+#ifdef OSG_1_COMPAT
+                  SFUInt32            *getSFBitMask         (void);
+#endif
+                  SFUInt32            *editSFBitMask        (void);
+            const SFUInt32            *getSFBitMask         (void) const;
+
 
 #ifdef OSG_1_COMPAT
                   GLenum              &getStencilFunc     (void);
@@ -252,6 +262,12 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
                   Int32               &editClearBuffer    (void);
             const Int32               &getClearBuffer     (void) const;
 
+#ifdef OSG_1_COMPAT
+                  UInt32              &getBitMask         (void);
+#endif
+                  UInt32              &editBitMask        (void);
+            const UInt32              &getBitMask         (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -264,6 +280,7 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
             void setStencilOpZFail (const GLenum &value);
             void setStencilOpZPass (const GLenum &value);
             void setClearBuffer    (const Int32 &value);
+            void setBitMask        (const UInt32 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -318,6 +335,7 @@ class OSG_STATE_DLLMAPPING StencilChunkBase : public StateChunk
     SFGLenum          _sfStencilOpZFail;
     SFGLenum          _sfStencilOpZPass;
     SFInt32           _sfClearBuffer;
+    SFUInt32          _sfBitMask;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

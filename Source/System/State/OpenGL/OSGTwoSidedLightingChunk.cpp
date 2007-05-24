@@ -122,9 +122,7 @@ void TwoSidedLightingChunk::dump(      UInt32    ,
 
 void TwoSidedLightingChunk::activate (DrawEnv *pEnv, UInt32 idx)
 {
-    glGetBooleanv(GL_LIGHT_MODEL_TWO_SIDE, &_state);
-    if(_state == GL_FALSE)
-        glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 }
 
 void TwoSidedLightingChunk::changeFrom(DrawEnv    *pEnv, 
@@ -145,20 +143,12 @@ void TwoSidedLightingChunk::changeFrom(DrawEnv    *pEnv,
     if(old == this)
         return;
 
-    _state = old->_state;
-
-    if(_state == GL_FALSE)
-        glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 }
 
 void TwoSidedLightingChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
-    GLboolean tsl = GL_FALSE;
-
-    glGetBooleanv(GL_LIGHT_MODEL_TWO_SIDE, &tsl);
-
-    if(_state != tsl)
-        glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, _state);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 }
 
 

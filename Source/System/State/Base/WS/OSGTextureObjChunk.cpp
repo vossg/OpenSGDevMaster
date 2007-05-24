@@ -147,10 +147,12 @@ void TextureObjChunk::initMethod(InitPhase ePhase)
 
         _funcTexImage3D    =
             Window::registerFunction (GL_FUNC_TEXIMAGE3D,
-                                      _extTex3D);
+                                      _extTex3D,
+                                      0x0102 );
         _funcTexSubImage3D =
             Window::registerFunction (GL_FUNC_TEXSUBIMAGE3D,
-                                      _extTex3D);
+                                      _extTex3D,
+                                      0x0102);
 
         _funcCompressedTexImage1D    = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glCompressedTexImage1DARB"             ,
@@ -303,7 +305,7 @@ void TextureObjChunk::changed(BitVector whichField, UInt32 origin)
 
 bool TextureObjChunk::isTransparent(void) const
 {
-    // Even if the texture has alpha, the Blending is makes the sorting
+    // Even if the texture has alpha, the Blending makes the sorting
     // important, thus textures per se are not transparent
     return false;
 }
@@ -366,7 +368,9 @@ void TextureObjChunk::handleTexture(Window *win,
 
     if(mode == Window::initialize || mode == Window::reinitialize)
     {
-        if(bindtarget == GL_TEXTURE_3D && !win->hasExtension(_extTex3D))
+        if( bindtarget                   == GL_TEXTURE_3D && 
+           !win->hasExtension(_extTex3D)                  &&
+            win->getGLVersion()          <   0x0102        )
         {
             FNOTICE(("3D textures not supported on Window %p!\n", win));
             return;
@@ -708,13 +712,13 @@ void TextureObjChunk::handleTexture(Window *win,
                         {
                         case GL_TEXTURE_1D:
                             CompressedTexImage1D(GL_TEXTURE_1D, i, internalFormat,
-                                            w, 0,
+                                            w, getBorderWidth(),
                                             img->calcMipmapLevelSize(i),
                                             img->getData(i, frame, side));
                             break;
                         case GL_TEXTURE_2D:
                             CompressedTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, 0,
+                                            w, h, getBorderWidth(),
                                             img->calcMipmapLevelSize(i),
                                             img->getData(i, frame, side));
                             break;
@@ -725,13 +729,13 @@ void TextureObjChunk::handleTexture(Window *win,
                         case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                         case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                             CompressedTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, 0,
+                                            w, h, getBorderWidth(),
                                             img->calcMipmapLevelSize(i),
                                             img->getData(i, frame, side));
                             break;
                         case GL_TEXTURE_3D:
                             CompressedTexImage3D(GL_TEXTURE_3D, i, internalFormat,
-                                            w, h, d, 0,
+                                            w, h, d, getBorderWidth(),
                                             img->calcMipmapLevelSize(i),
                                             img->getData(i, frame, side));
                             break;
@@ -747,7 +751,7 @@ void TextureObjChunk::handleTexture(Window *win,
                         {
                         case GL_TEXTURE_1D:
                             glTexImage1D(GL_TEXTURE_1D, i, internalFormat,
-                                            w, 0,
+                                            w, getBorderWidth(),
                                             externalFormat, type,
                                             img->getData(i, frame, side));
                             break;
@@ -759,13 +763,13 @@ void TextureObjChunk::handleTexture(Window *win,
                         case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                         case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                             glTexImage2D(imgtarget, i, internalFormat,
-                                            w, h, 0,
+                                            w, h, getBorderWidth(),
                                             externalFormat, type,
                                             img->getData(i, frame, side));
                             break;
                         case GL_TEXTURE_3D:
                               TexImage3D(GL_TEXTURE_3D, i, internalFormat,
-                                            w, h, d, 0,
+                                            w, h, d, getBorderWidth(),
                                             externalFormat, type,
                                             img->getData(i, frame, side));
                             break;
@@ -980,7 +984,7 @@ void TextureObjChunk::handleTexture(Window *win,
                        {
                        case GL_TEXTURE_1D:
                            CompressedTexImage1D(GL_TEXTURE_1D, 0, internalFormat,
-                                           osgNextPower2(width), 0, 0, NULL);
+                                           osgNextPower2(width), getBorderWidth(), 0, NULL);
                            CompressedTexSubImage1D(GL_TEXTURE_1D, 0, 0, width,
                                            externalFormat,
                                            img->getFrameSize(),
@@ -988,9 +992,10 @@ void TextureObjChunk::handleTexture(Window *win,
                            break;
                        case GL_TEXTURE_2D:
                            CompressedTexImage2D(imgtarget, 0, internalFormat,
-                                           osgNextPower2(width),
-                                           osgNextPower2(height), 0,
-                                           0, NULL);
+                                                osgNextPower2(width),
+                                                osgNextPower2(height), 
+                                                getBorderWidth(),
+                                                0, NULL);
                            CompressedTexSubImage2D(imgtarget, 0, 0, 0, width, height,
                                            externalFormat,
                                            img->getFrameSize(),
@@ -1004,7 +1009,7 @@ void TextureObjChunk::handleTexture(Window *win,
                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                            CompressedTexImage2D(imgtarget, 0, internalFormat,
                                            osgNextPower2(width),
-                                           osgNextPower2(height), 0,
+                                           osgNextPower2(height), getBorderWidth(),
                                            0, NULL);
                            CompressedTexSubImage2D(imgtarget, 0, 0, 0, width, height,
                                            externalFormat,
@@ -1014,7 +1019,7 @@ void TextureObjChunk::handleTexture(Window *win,
                            break;
                        case GL_TEXTURE_RECTANGLE_ARB:
                            CompressedTexImage2D( GL_TEXTURE_RECTANGLE_ARB, 0, internalFormat,
-                                           width, height, 0,
+                                           width, height, getBorderWidth(),
                                            img->getFrameSize(),
                                            img->getData(0, frame, side));
                            break;
@@ -1023,7 +1028,7 @@ void TextureObjChunk::handleTexture(Window *win,
                                            osgNextPower2(width),
                                            osgNextPower2(height),
                                            osgNextPower2(depth),
-                                           0, 0, NULL);
+                                           getBorderWidth(), 0, NULL);
                            CompressedTexSubImage3D(GL_TEXTURE_3D, 0,  0, 0, 0,
                                            width, height, depth,
                                            externalFormat,
@@ -1041,7 +1046,7 @@ void TextureObjChunk::handleTexture(Window *win,
                        {
                        case GL_TEXTURE_1D:
                            glTexImage1D(GL_TEXTURE_1D, 0, internalFormat,
-                                           osgNextPower2(width), 0,
+                                           osgNextPower2(width), getBorderWidth(),
                                            externalFormat, type,
                                            NULL);
                            glTexSubImage1D(GL_TEXTURE_1D, 0, 0, width,
@@ -1057,7 +1062,7 @@ void TextureObjChunk::handleTexture(Window *win,
                        case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                            glTexImage2D(imgtarget, 0, internalFormat,
                                            osgNextPower2(width),
-                                           osgNextPower2(height), 0,
+                                           osgNextPower2(height), getBorderWidth(),
                                            externalFormat, type,
                                            NULL);
                            glTexSubImage2D(imgtarget, 0, 0, 0, width, height,
@@ -1066,7 +1071,7 @@ void TextureObjChunk::handleTexture(Window *win,
                            break;
                        case GL_TEXTURE_RECTANGLE_ARB:
                            glTexImage2D( GL_TEXTURE_RECTANGLE_ARB, 0, internalFormat,
-                                           width, height, 0,
+                                           width, height, getBorderWidth(),
                                            externalFormat, type,
                                            img->getData(0, frame, side));
                            break;
@@ -1075,7 +1080,7 @@ void TextureObjChunk::handleTexture(Window *win,
                                            osgNextPower2(width),
                                            osgNextPower2(height),
                                            osgNextPower2(depth),
-                                           0, externalFormat, type, NULL);
+                                           getBorderWidth(), externalFormat, type, NULL);
                              TexSubImage3D(GL_TEXTURE_3D, 0,  0, 0, 0,
                                            width, height, depth,
                                            externalFormat, type,
@@ -1112,7 +1117,7 @@ void TextureObjChunk::handleTexture(Window *win,
                      {
                      case GL_TEXTURE_1D:
                          CompressedTexImage1D(GL_TEXTURE_1D, 0, internalFormat,
-                                         width, 0,
+                                         width, getBorderWidth(),
                                          datasize, data);
                          break;
                      case GL_TEXTURE_2D:
@@ -1123,17 +1128,17 @@ void TextureObjChunk::handleTexture(Window *win,
                      case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                      case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                          CompressedTexImage2D(imgtarget, 0, internalFormat,
-                                         width, height, 0,
+                                         width, height, getBorderWidth(),
                                           datasize, data);
                          break;
                      case GL_TEXTURE_RECTANGLE_ARB:
                          CompressedTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, internalFormat,
-                                         width, height, 0,
+                                         width, height, getBorderWidth(),
                                          datasize, data);
                          break;
                      case GL_TEXTURE_3D:
                          CompressedTexImage3D(GL_TEXTURE_3D, 0, internalFormat,
-                                         width, height, depth, 0,
+                                         width, height, depth, getBorderWidth(),
                                          datasize, data);
                          break;
                      default:
@@ -1147,7 +1152,7 @@ void TextureObjChunk::handleTexture(Window *win,
                         {
                         case GL_TEXTURE_1D:
                             glTexImage1D(GL_TEXTURE_1D, 0, internalFormat,
-                                            width, 0,
+                                            width, getBorderWidth(),
                                             externalFormat, type,
                                             data);
                             break;
@@ -1159,19 +1164,19 @@ void TextureObjChunk::handleTexture(Window *win,
                         case GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB:
                         case GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB:
                             glTexImage2D(imgtarget, 0, internalFormat,
-                                            width, height, 0,
+                                            width, height, getBorderWidth(),
                                             externalFormat, type,
                                             data);
                             break;
                         case GL_TEXTURE_RECTANGLE_ARB:
                             glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, internalFormat,
-                                            width, height, 0,
+                                            width, height, getBorderWidth(),
                                             externalFormat, type,
                                             data);
                             break;
                         case GL_TEXTURE_3D:
                               TexImage3D(GL_TEXTURE_3D, 0, internalFormat,
-                                            width, height, depth, 0,
+                                            width, height, depth, getBorderWidth(),
                                             externalFormat, type,
                                             data);
                             break;
@@ -1234,7 +1239,8 @@ void TextureObjChunk::handleTexture(Window *win,
         GLenum externalFormat = img->getPixelFormat();
         GLenum type           = img->getDataType();
         bool   compressedData = img->hasCompressedData();
-        bool   has3DTex       = win->hasExtension(_extTex3D);
+        bool   has3DTex       = win->hasExtension(_extTex3D) ||
+                                win->getGLVersion() >= 0x0102;
 
         if(bindtarget == GL_TEXTURE_3D && !has3DTex)
         {
@@ -1420,7 +1426,8 @@ void TextureObjChunk::handleGL(DrawEnv                 *pEnv,
                 {
                     if(img->getDepth() > 1)
                     {
-                        if(win->hasExtension(_extTex3D))
+                        if(win->hasExtension(_extTex3D) ||
+                           win->getGLVersion() >= 0x0102)
                         {
                             target = GL_TEXTURE_3D;
                         }
@@ -1576,7 +1583,8 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
         {
             if(img->getDepth() > 1)
             {
-                if(win->hasExtension(_extTex3D))
+                if(win->hasExtension(_extTex3D) ||
+                   win->getGLVersion() >= 0x0102)
                 {
                     target = GL_TEXTURE_3D;
                 }
@@ -1610,7 +1618,8 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     if(NULL != pColl)
     {
         pColl->getElem(statNTextures)->inc(getGLId());
-        pColl->getElem(statNTexBytes)->add(getGLId(), img->getSize(true,true,true));
+        pColl->getElem(statNTexBytes)->add(getGLId(), 
+                                           img->getSize(true,true,true));
     }
 
 
@@ -1628,6 +1637,82 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     {
         glEnable(target);
     }
+
+#if 0
+    // Use texture matrix for scaling
+	UInt32 NpotMatScale = getNPOTMatrixScale();
+	
+    if (idx < static_cast<UInt32>(ntexcoords) && !getScale() && NpotMatScale )
+    {
+        ImagePtr i = getImage();
+        
+        if(i != NullFC)
+        {
+			Real32 sw=1.f, sh=1.f, sd=1.f,
+				   tw=0.f, th=0.f, td=0.f;
+			bool setMatrix = false;
+			
+			if ( (NpotMatScale & NPotTexScale_TT) &&
+				  getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
+				 !win->hasExtension(_arbTextureNonPowerOfTwo) )
+			{
+				UInt32 w,h,d,nw,nh,nd;
+				
+				w = i->getWidth();
+				h = i->getHeight();
+				d = i->getDepth();
+				
+				nw = osgnextpower2(w);
+				nh = osgnextpower2(h);
+				nd = osgnextpower2(d);
+				
+				sw = w / static_cast<Real32>(nw);
+				sh = h / static_cast<Real32>(nh);
+				sd = d / static_cast<Real32>(nd);
+				
+				setMatrix = true;
+			}
+			if ( (NpotMatScale & XFlip_TT) )
+			{
+				tw = sw - 1.f;
+				sw *= -1.f;
+				
+				setMatrix = true;
+			}
+			if ( (NpotMatScale & YFlip_TT) )
+			{
+				th = sh - 1.f;
+				sh *= -1.f;
+				
+				setMatrix = true;
+			}
+			if ( (NpotMatScale & ZFlip_TT) )
+			{
+				td = sd - 1.f;
+				sd *= -1.f;
+				
+				setMatrix = true;
+			}
+			
+			if(setMatrix)
+			{
+				Matrix m;
+				
+				m.setIdentity();
+				m.setScale( Vec3f(sw, sh, sd) );
+				m.setTranslate( Vec3f(tw, th, td) );
+				
+				glPushAttrib(GL_TRANSFORM_BIT);
+				glMatrixMode(GL_TEXTURE);
+				
+				glLoadMatrixf(m.getValues());
+				
+				glPopAttrib();
+                glMatrixMode(GL_MODELVIEW);
+			}
+        }
+    }
+#endif
 
     glErr("TextureObjChunk::activate");
 }
@@ -1730,8 +1815,11 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
         {
             if(img->getDepth() > 1)
             {
-                if(win->hasExtension(_extTex3D))
+                if(win->hasExtension(_extTex3D) ||
+                   win->getGLVersion() >= 0x0102)
+                {
                     target = GL_TEXTURE_3D;
+                }
                 else
                 {
                     FWARNING(("TextureObjChunk::changeFrom: 3D textures not "
@@ -1751,28 +1839,38 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
 
     if(oldused)
     {
-        if(oldtarget == GL_NONE)
+        if(oldp->getImage()->getSideCount() == 1)
         {
-            if(oldp->getImage()->getDepth() > 1)
+            if(oldtarget == GL_NONE)
             {
-                if(win->hasExtension(_extTex3D))
-                    oldtarget = GL_TEXTURE_3D;
+                if(oldp->getImage()->getDepth() > 1)
+                {
+                    if(win->hasExtension(_extTex3D) ||
+                       win->getGLVersion() >= 0x0102 )
+                    {
+                        oldtarget = GL_TEXTURE_3D;
+                    }
+                    else
+                    {
+                        FWARNING(("TextureObjChunk::changeFrom: 3D textures "
+                                  "not supported for this window!\n"));
+                        oldp->deactivate(pEnv, idx);
+                        return;
+                    }
+                }
+                else if(oldp->getImage()->getHeight() > 1)
+                {
+                    oldtarget = GL_TEXTURE_2D;
+                }
                 else
                 {
-                    FWARNING(("TextureObjChunk::changeFrom: 3D textures not "
-                                "supported for this window!\n"));
-                    oldp->deactivate(pEnv, idx);
-                    return;
+                    oldtarget = GL_TEXTURE_1D;
                 }
             }
-            else if(oldp->getImage()->getHeight() > 1)
-            {
-                oldtarget = GL_TEXTURE_2D;
-            }
-            else
-            {
-                oldtarget = GL_TEXTURE_1D;
-            }
+        }
+        else
+        {
+            oldtarget = GL_TEXTURE_CUBE_MAP_ARB;
         }
 
         if(target != oldtarget && idx < ntexunits)
@@ -1806,6 +1904,108 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
             glEnable(target);
         }
     }
+
+#if 0
+    // Use texture matrix for scaling
+	UInt32 NpotMatScale = getNPOTMatrixScale();
+	
+    if ( idx < static_cast<UInt32>(ntexcoords) &&
+        !getScale() && NpotMatScale )
+    {
+        ImagePtr i = getImage();
+        
+        if (i != NullFC)
+        {
+			Real32 sw=1.f, sh=1.f, sd=1.f,
+				   tw=0.f, th=0.f, td=0.f;
+			bool setMatrix = false;
+			
+			if ( (NpotMatScale & NPotTexScale_TT) &&
+				  getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
+				 !win->hasExtension(_arbTextureNonPowerOfTwo) )
+			{
+				UInt32 w,h,d,nw,nh,nd;
+				
+				w = i->getWidth();
+				h = i->getHeight();
+				d = i->getDepth();
+				
+				nw = osgnextpower2(w);
+				nh = osgnextpower2(h);
+				nd = osgnextpower2(d);
+				
+				sw = w / static_cast<Real32>(nw);
+				sh = h / static_cast<Real32>(nh);
+				sd = d / static_cast<Real32>(nd);
+				
+				setMatrix = true;
+			}
+			if ( (NpotMatScale & XFlip_TT) )
+			{
+				tw = sw - 1.f;
+				sw *= -1.f;
+				
+				setMatrix = true;
+			}
+			if ( (NpotMatScale & YFlip_TT) )
+			{
+				th = sh - 1.f;
+				sh *= -1.f;
+				
+				setMatrix = true;
+			}
+			if ( (NpotMatScale & ZFlip_TT) )
+			{
+				td = sd - 1.f;
+				sd *= -1.f;
+				
+				setMatrix = true;
+			}
+			
+			if (setMatrix)
+			{
+				Matrix m;
+				
+				m.setIdentity();
+				m.setScale( Vec3f(sw, sh, sd) );
+				m.setTranslate( Vec3f(tw, th, td) );
+				
+				glPushAttrib(GL_TRANSFORM_BIT);
+				glMatrixMode(GL_TEXTURE);
+				
+				glLoadMatrixf(m.getValues());
+				
+				glPopAttrib();
+                glMatrixMode(GL_MODELVIEW);
+			}
+        }
+    }
+	else if(oldused)
+    {
+		NpotMatScale = oldp->getNPOTMatrixScale();
+		
+		if ( idx < static_cast<UInt32>(ntexcoords) && 
+			!oldp->getScale() && NpotMatScale )
+		{
+			if ( ( (NpotMatScale & NPotTexScale_TT) &&
+					oldp->getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
+					!win->hasExtension(_arbTextureNonPowerOfTwo) )
+					||	(NpotMatScale & XFlip_TT)
+					||	(NpotMatScale & YFlip_TT)
+					||	(NpotMatScale & ZFlip_TT)
+				)
+			{
+				glPushAttrib(GL_TRANSFORM_BIT);
+				glMatrixMode(GL_TEXTURE);
+				
+				glLoadIdentity();
+				
+				glPopAttrib();
+                glMatrixMode(GL_MODELVIEW);
+			}     
+		}
+    }
+#endif
 
     glErr("TextureObjChunk::changeFrom");
 }
@@ -1878,8 +2078,11 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         {
             if ( img->getDepth() > 1 )
             {
-                if(win->hasExtension(_extTex3D))
+                if(win->hasExtension(_extTex3D) ||
+                   win->getGLVersion() >= 0x0102)
+                {
                     target = GL_TEXTURE_3D;
+                }
                 else
                 {
                     FWARNING(("TextureObjChunk::deactivate: 3D textures not "
@@ -1896,6 +2099,30 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         target = GL_TEXTURE_CUBE_MAP_ARB;
     }
 
+#if 0
+	UInt32 NpotMatScale = getNPOTMatrixScale();
+	
+	if ( idx < static_cast<UInt32>(ntexcoords) &&
+		!getScale() && NpotMatScale )
+	{
+		if ( ( (NpotMatScale & NPotTexScale_TT) &&
+				getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
+				!win->hasExtension(_arbTextureNonPowerOfTwo) )
+				||	(NpotMatScale & XFlip_TT)
+				||	(NpotMatScale & YFlip_TT)
+				||	(NpotMatScale & ZFlip_TT)
+			)
+		{
+			glPushAttrib(GL_TRANSFORM_BIT);
+			glMatrixMode(GL_TEXTURE);
+			
+			glLoadIdentity();
+			
+			glPopAttrib();
+            glMatrixMode(GL_MODELVIEW);
+		}     
+	}
+#endif
 
     glDisable(target);
 
@@ -1968,13 +2195,14 @@ bool TextureObjChunk::operator == (const StateChunk &other) const
 
 
     bool returnValue =
-        getImage    () == tother->getImage    () &&
-        getMinFilter() == tother->getMinFilter() &&
-        getMagFilter() == tother->getMagFilter() &&
-        getWrapS    () == tother->getWrapS    () &&
-        getWrapT    () == tother->getWrapT    () &&
-        getWrapR    () == tother->getWrapR    () &&
-        getPriority () == tother->getPriority ();
+        getImage          () == tother->getImage          () &&
+        getMinFilter      () == tother->getMinFilter      () &&
+        getMagFilter      () == tother->getMagFilter      () &&
+        getWrapS          () == tother->getWrapS          () &&
+        getWrapT          () == tother->getWrapT          () &&
+        getWrapR          () == tother->getWrapR          () &&
+        getPriority       () == tother->getPriority       () &&
+		getNPOTMatrixScale() == tother->getNPOTMatrixScale();
 
     return returnValue;
 }

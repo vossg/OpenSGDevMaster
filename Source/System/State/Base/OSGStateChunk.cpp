@@ -279,79 +279,9 @@ void StateChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 /*------------------------------ State ------------------------------------*/
 
-#ifdef OSG_OLD_RENDER_ACTION_ACTIVATE
-
-/*! Activate the chunk, i.e. set the OpenGl state covered by the chunk which is
-    different from the default state to the given state.
- */
-
-void StateChunk::activate(DrawActionBase *OSG_CHECK_ARG(action), 
-                          UInt32          OSG_CHECK_ARG(index ))
+#ifndef OSG_DISABLE_DEPRECATED
+void StateChunk::update(DrawEnv *)
 {
-    FWARNING(("StateChunk::activate called!\n"));
-}
-
-/*! Change from an old chunk of the same type to this chunk. Note that in
-    general no type checking is done, make sure to use this on a legal 
-    combination of chunks!
- */
-
-void StateChunk::changeFrom(DrawActionBase *action, 
-                            StateChunk     *old, 
-                            UInt32          index)
-{
-    old->deactivate(action, index);
-    activate(action, index);
-}
-
-/*! Deactivate the chunk, i.e. set the OpenGl state covered by the chunk
-    which is
-    different from the default state to the default state.
- */
-
-void StateChunk::deactivate(DrawActionBase *OSG_CHECK_ARG(action), 
-                            UInt32          OSG_CHECK_ARG(index))
-{
-    FWARNING(("StateChunk::deactivate called!\n"));
-}
-
-#endif
-
-
-#if 0
-/*! Activate the chunk, i.e. set the OpenGl state covered by the chunk which is
-    different from the default state to the given state.
- */
-
-void StateChunk::activate(DrawEnv *, 
-                          UInt32   )
-{
-    FWARNING(("StateChunk::activate called!\n"));
-}
-
-/*! Change from an old chunk of the same type to this chunk. Note that in
-    general no type checking is done, make sure to use this on a legal 
-    combination of chunks!
- */
-
-void StateChunk::changeFrom(DrawEnv    *pEnv, 
-                            StateChunk *pOld, 
-                            UInt32      index)
-{
-    pOld->deactivate(pEnv, index);
-
-    activate(pEnv, index);
-}
-
-/*! Deactivate the chunk, i.e. set the OpenGl state covered by the chunk
-    which is
-    different from the default state to the default state.
- */
-
-void StateChunk::deactivate(DrawEnv *, 
-                            UInt32   index)
-{
-    FWARNING(("StateChunk::deactivate called!\n"));
 }
 #endif
 

@@ -154,6 +154,7 @@ void TextureTransformChunk::activate(DrawEnv *pEnv, UInt32 idx)
     TextureBaseChunk::activateTexture(win, idx);
   
     glMatrixMode(GL_TEXTURE);
+
     if(getUseCameraBeacon())
     {
         Matrix m = pEnv->getCameraToWorld();

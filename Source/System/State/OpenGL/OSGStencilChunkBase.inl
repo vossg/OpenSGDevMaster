@@ -304,6 +304,39 @@ void StencilChunkBase::setClearBuffer(const Int32 &value)
 
     _sfClearBuffer.setValue(value);
 }
+//! Get the value of the StencilChunk::_sfBitMask field.
+
+inline
+UInt32 &StencilChunkBase::editBitMask(void)
+{
+    editSField(BitMaskFieldMask);
+
+    return _sfBitMask.getValue();
+}
+
+//! Get the value of the StencilChunk::_sfBitMask field.
+inline
+const UInt32 &StencilChunkBase::getBitMask(void) const
+{
+    return _sfBitMask.getValue();
+}
+
+#ifdef OSG_1_COMPAT
+inline
+UInt32              &StencilChunkBase::getBitMask        (void)
+{
+    return this->editBitMask        ();
+}
+#endif
+
+//! Set the value of the StencilChunk::_sfBitMask field.
+inline
+void StencilChunkBase::setBitMask(const UInt32 &value)
+{
+    editSField(BitMaskFieldMask);
+
+    _sfBitMask.setValue(value);
+}
 
 //! create a new instance of the class
 inline
@@ -350,6 +383,9 @@ void StencilChunkBase::execSync(      StencilChunkBase *pOther,
 
     if(FieldBits::NoField != (ClearBufferFieldMask & whichField))
         _sfClearBuffer.syncWith(pOther->_sfClearBuffer);
+
+    if(FieldBits::NoField != (BitMaskFieldMask & whichField))
+        _sfBitMask.syncWith(pOther->_sfBitMask);
 }
 #endif
 
@@ -383,6 +419,9 @@ void StencilChunkBase::execSync (      StencilChunkBase *pFrom,
 
     if(FieldBits::NoField != (ClearBufferFieldMask & whichField))
         _sfClearBuffer.syncWith(pFrom->_sfClearBuffer);
+
+    if(FieldBits::NoField != (BitMaskFieldMask & whichField))
+        _sfBitMask.syncWith(pFrom->_sfBitMask);
 }
 #endif
 
