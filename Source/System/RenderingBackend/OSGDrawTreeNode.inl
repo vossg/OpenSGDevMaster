@@ -210,6 +210,18 @@ UInt64 DrawTreeNode::getLightsState(void)
 }
 
 inline
+void DrawTreeNode::setClipPlanesState(UInt32 state)
+{
+    _clipPlanesState = state;
+}
+
+inline
+UInt32 DrawTreeNode::getClipPlanesState(void)
+{
+    return _clipPlanesState;
+}
+
+inline
 void DrawTreeNode::setMultiPass(void)
 {
     _flags |= DrawTreeNode::MultiPass;

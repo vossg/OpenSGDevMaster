@@ -81,48 +81,51 @@ class OSG_SYSTEM_DLLMAPPING DrawTreeNode
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    DrawTreeNode     *getFirstChild   (void                           );
-    DrawTreeNode     *getLastChild    (void                           );
+    DrawTreeNode     *getFirstChild     (void                           );
+    DrawTreeNode     *getLastChild      (void                           );
 
-    void              addChild        (DrawTreeNode *pChild           );
-    void              insertFirstChild(DrawTreeNode *pChild           );
-    void              insertChildAfter(DrawTreeNode *pCurrent, 
-                                       DrawTreeNode *pChild           );
+    void              addChild          (DrawTreeNode *pChild           );
+    void              insertFirstChild  (DrawTreeNode *pChild           );
+    void              insertChildAfter  (DrawTreeNode *pCurrent, 
+                                         DrawTreeNode *pChild           );
 
-    DrawTreeNode     *getBrother      (void);
-    void              setBrother      (DrawTreeNode *pBrother         );
+    DrawTreeNode     *getBrother        (void);
+    void              setBrother        (DrawTreeNode *pBrother         );
 
-    void              setGeometry     (MaterialDrawable *pGeo         );
-    MaterialDrawable *getGeometry     (void                           );
+    void              setGeometry       (MaterialDrawable *pGeo         );
+    MaterialDrawable *getGeometry       (void                           );
 
-    void              setFunctor      (DrawFunctor &func              );
+    void              setFunctor        (DrawFunctor &func              );
     DrawFunctor      &getFunctor(void                                 );
-    bool              hasFunctor      (void                           );
+    bool              hasFunctor        (void                           );
     
-    void              setState        (State    *pState               );
-    State            *getState        (void                           );
+    void              setState          (State    *pState               );
+    State            *getState          (void                           );
     
-    void              setNode         (NodePtr   pNode                );
-    NodePtr           getNode         (void                           );
+    void              setNode           (NodePtr   pNode                );
+    NodePtr           getNode           (void                           );
 
-    void              setMatrixStore  (const MatrixStore &oMatrixStore);
-    MatrixStore      &getMatrixStore  (void                           );
+    void              setMatrixStore    (const MatrixStore &oMatrixStore);
+    MatrixStore      &getMatrixStore    (void                           );
 
-    void              setScalar       (Real   rScalar                 );
-    Real              getScalar       (void                           );
+    void              setScalar         (Real   rScalar                 );
+    Real              getScalar         (void                           );
 
-    void              setLightsState  (UInt64 state                   );
-    UInt64            getLightsState  (void                           );
+    void              setLightsState    (UInt64 state                   );
+    UInt64            getLightsState    (void                           );
 
-    void              setMultiPass    (void                           );
-    void              setLastMultiPass(void                           );
-    bool              isMultiPass     (void                           );
-    bool              isLastMultiPass (void                           );
+    void              setClipPlanesState(UInt32 state                   );
+    UInt32            getClipPlanesState(void                           );
 
-    void              setNoStateSorting(void                           );
-    bool              isNoStateSorting (void                           );
+    void              setMultiPass      (void                           );
+    void              setLastMultiPass  (void                           );
+    bool              isMultiPass       (void                           );
+    bool              isLastMultiPass   (void                           );
 
-    void              reset           (void                           );
+    void              setNoStateSorting (void                           );
+    bool              isNoStateSorting  (void                           );
+
+    void              reset             (void                           );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -150,6 +153,7 @@ class OSG_SYSTEM_DLLMAPPING DrawTreeNode
     Real                       _rScalarVal;
 
     UInt64                     _lightsState;
+    UInt32                     _clipPlanesState;
 
     Int8                       _flags;
 

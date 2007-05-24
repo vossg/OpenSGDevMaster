@@ -130,8 +130,7 @@ bool SharePtrGraphOp::traverse(NodePtr& root)
     FINFO(("Shared %u ptrs with types", _share_counter));
 
     for(fcsMap::iterator i = _fctypes.begin();i != _fctypes.end();++i)
-        FINFO((" '%s'", (*i).first.c_str()));
-    FINFO(("\n"));
+        FINFO(("\t '%s'\n", (*i).first.c_str()));
 
     return result;
 }

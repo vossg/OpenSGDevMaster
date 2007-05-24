@@ -79,7 +79,7 @@ bool GeoTypeGraphOp::travNodeEnter(NodePtr node)
     // amz
 #if 0
 
-#ifndef __sun
+#if !defined(__sun) && !defined(OSG_NO_INT8_PNT)
     // normals
     if(_filter & Geometry::NormalsFieldMask)
     {

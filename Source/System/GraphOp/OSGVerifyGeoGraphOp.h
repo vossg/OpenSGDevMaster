@@ -69,7 +69,7 @@ public:
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    VerifyGeoGraphOp(const char* name = "Verify", bool repair = true);
+    VerifyGeoGraphOp(const char* name = "VerifyGeo", bool repair = true);
 
     GraphOp *create();
 

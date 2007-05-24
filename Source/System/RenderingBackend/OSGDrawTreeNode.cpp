@@ -61,17 +61,18 @@ const UInt8 DrawTreeNode::NoStateSorting = 4;
 /*                            Constructors                                 */
 
 DrawTreeNode::DrawTreeNode(void) :
-    _pFirstChild (NULL ),
-    _pLastChild  (NULL ),
-    _pBrother    (NULL ),
-    _pState      (NULL ),
-    _pGeo        (NULL ),
-    _functor     (     ),
-    _hasFunctor  (false),
-    _oMatrixStore(     ),
-    _rScalarVal  (0.f  ),
-    _lightsState (0    ),
-    _flags       (0    )
+    _pFirstChild     (NULL ),
+    _pLastChild      (NULL ),
+    _pBrother        (NULL ),
+    _pState          (NULL ),
+    _pGeo            (NULL ),
+    _functor         (     ),
+    _hasFunctor      (false),
+    _oMatrixStore    (     ),
+    _rScalarVal      (0.f  ),
+    _lightsState     (0    ),
+    _clipPlanesState (0    ),
+    _flags           (0    )
 {
     _oMatrixStore.first = 0;
 }
