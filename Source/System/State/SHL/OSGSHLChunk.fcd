@@ -68,6 +68,7 @@ The derived parameters supported by default are:
 		cardinality="single"
 		visibility="internal"
 		access="public"
+		defaultValue="0"
         fieldFlags="FClusterLocal"
 	>
 	</Field>
