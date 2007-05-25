@@ -64,6 +64,7 @@
 		visibility="internal"
 		defaultValue="0"
 		access="protected"
+		fieldFlags="FClusterLocal"
 	>
 	The dlist id for the classic rendering mode, if used.
 	</Field>
@@ -74,6 +75,7 @@
 		visibility="internal"
 		defaultValue="0"
 		access="protected"
+		fieldFlags="FClusterLocal"
 	>
 	The dlist id for the attribute-based rendering mode, if used.
 	</Field>

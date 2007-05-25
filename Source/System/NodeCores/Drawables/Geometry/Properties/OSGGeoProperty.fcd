@@ -27,6 +27,7 @@
 		visibility="internal"
 		defaultValue="0"
 		access="protected"
+		fieldFlags="FClusterLocal"
 	>
 	The id used to register with the Window, 0 if not set up yet.
 	</Field>

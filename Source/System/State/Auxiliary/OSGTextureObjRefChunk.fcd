@@ -17,6 +17,7 @@
 		visibility="external"
 		access="public"
 		defaultValue="0"
+		fieldFlags="FClusterLocal"
 	>
 	glid
 	</Field>

@@ -25,7 +25,8 @@
 		cardinality="single"
 		visibility="internal"
 		access="public"
-                defaukt="0"
+                defaultValue="0"
+		fieldFlags="FClusterLocal"
 	>
 	The internal GL object id for the VBO, if used.
 	</Field>
