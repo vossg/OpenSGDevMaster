@@ -276,6 +276,7 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
+    "\t\tdefaultValue=\"0\"\n"
     "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -482,7 +483,7 @@ SHLChunkBase::SHLChunkBase(void) :
     Inherited(),
     _sfCgFrontEnd             (bool(false)),
     _sfPointSize              (bool(false)),
-    _sfGLId                   ()
+    _sfGLId                   (UInt32(0))
 {
 }
 

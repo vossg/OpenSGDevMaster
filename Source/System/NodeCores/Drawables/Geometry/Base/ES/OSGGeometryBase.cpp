@@ -183,7 +183,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         "The dlist id for the classic rendering mode, if used.\n",
         ClassicGLIdFieldId, ClassicGLIdFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editSFClassicGLId),
 #ifdef OSG_1_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFClassicGLId));
@@ -205,7 +205,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         "The dlist id for the attribute-based rendering mode, if used.\n",
         AttGLIdFieldId, AttGLIdFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editSFAttGLId),
 #ifdef OSG_1_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAttGLId));
@@ -293,6 +293,7 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"0\"\n"
     "\t\taccess=\"protected\"\n"
+    "\t\tfieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\tThe dlist id for the classic rendering mode, if used.\n"
     "\t</Field>\n"
@@ -303,6 +304,7 @@ GeometryBase::TypeObject GeometryBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"0\"\n"
     "\t\taccess=\"protected\"\n"
+    "\t\tfieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\tThe dlist id for the attribute-based rendering mode, if used.\n"
     "\t</Field>\n"

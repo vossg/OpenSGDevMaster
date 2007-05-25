@@ -132,7 +132,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         "The id used to register with the Window, 0 if not set up yet.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editSFGLId),
 #ifdef OSG_1_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
@@ -205,6 +205,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"0\"\n"
     "\t\taccess=\"protected\"\n"
+    "\t\tfieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\tThe id used to register with the Window, 0 if not set up yet.\n"
     "\t</Field>\n"

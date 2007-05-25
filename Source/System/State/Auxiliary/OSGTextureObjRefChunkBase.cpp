@@ -101,7 +101,7 @@ void TextureObjRefChunkBase::classDescInserter(TypeObject &oType)
         "glid\n",
         GLIdFieldId, GLIdFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&TextureObjRefChunkBase::editSFGLId),
 #ifdef OSG_1_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
@@ -142,6 +142,7 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t\tdefaultValue=\"0\"\n"
+    "\t\tfieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\tglid\n"
     "\t</Field>\n"

@@ -127,7 +127,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         "The internal GL object id for the VBO, if used.\n",
         GLIdFieldId, GLIdFieldMask,
         true,
-        Field::SFDefaultFlags,
+        (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editSFGLId),
 #ifdef OSG_1_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
@@ -176,7 +176,8 @@ GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
-    "                defaukt=\"0\"\n"
+    "                defaultValue=\"0\"\n"
+    "\t\tfieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\tThe internal GL object id for the VBO, if used.\n"
     "\t</Field>\n"
@@ -402,7 +403,7 @@ FieldContainerPtr GeoMultiPropertyDataBase::shallowCopy(void) const
 GeoMultiPropertyDataBase::GeoMultiPropertyDataBase(void) :
     Inherited(),
     _mfIData                  (),
-    _sfGLId                   ()
+    _sfGLId                   (UInt32(0))
 {
 }
 
