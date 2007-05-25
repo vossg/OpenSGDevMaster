@@ -288,6 +288,150 @@ void MultiDisplayWindow::serverRender(WindowPtr         window,
                                       UInt32            id,
                                       RenderTraversalActionBase *action)
 {
+    TileCameraDecoratorPtr deco;
+    ViewportPtr serverPort;
+    ViewportPtr clientPort;
+    StereoBufferViewportPtr clientStereoPort;
+    UInt32 sv,cv;
+    Int32 l,r,t,b;
+    Int32 cleft,cright,ctop,cbottom;
+
+    if(!getHServers())
+    {
+        setHServers(getServers().size());
+    }
+    if(!getVServers())
+    {
+        setVServers(1);
+    }
+
+    UInt32 row   =id/getHServers();
+    UInt32 column=id%getHServers();
+
+    // calculate width and height from local width and height
+    UInt32 width  = window->getWidth() ;
+    UInt32 height = window->getHeight();
+
+    if(getWidth()==0)
+    {
+        setWidth( width*getHServers() );
+    }
+    if(getHeight()==0)
+    {
+        setHeight( height*getVServers() );
+    }
+
+    Int32 left   = column * width  - column * getXOverlap();
+    Int32 bottom = row    * height - row    * getYOverlap();
+    Int32 right  = left   + width  - 1;
+    Int32 top    = bottom + height - 1;
+    Real64 scaleCWidth  =
+        ((width - getXOverlap()) * (getHServers() - 1) + width) /
+        (float)getWidth();
+    Real64 scaleCHeight =
+        ((height - getYOverlap())* (getVServers() - 1) + height)/
+        (float)getHeight();
+
+    // duplicate viewports
+    for(cv=0,sv=0;cv<getPort().size();cv++)
+    {
+        clientPort = getPort()[cv];
+
+        clientStereoPort = cast_dynamic<StereoBufferViewportPtr>(clientPort);
+
+        cleft   = (Int32)(clientPort->getPixelLeft()      * scaleCWidth)   ;
+        cbottom = (Int32)(clientPort->getPixelBottom()    * scaleCHeight)  ;
+        cright  = (Int32)((clientPort->getPixelRight()+1) * scaleCWidth) -1;
+        ctop    = (Int32)((clientPort->getPixelTop()+1)   * scaleCHeight)-1;
+
+        if(cright  < left   ||
+           cleft   > right  ||
+           ctop    < bottom ||
+           cbottom > top      )
+        {
+            // invisible on this server screen
+            continue;
+        }
+
+        // calculate overlapping viewport
+        l = osgMax(cleft  ,left  ) - left;
+        b = osgMax(cbottom,bottom) - bottom;
+        r = osgMin(cright ,right ) - left;
+        t = osgMin(ctop   ,top   ) - bottom;
+
+        if(window->getPort().size() <= sv)
+        {
+            serverPort = cast_dynamic<ViewportPtr>(clientPort->shallowCopy());
+
+            deco = TileCameraDecorator::create();
+
+            window->addPort(serverPort);
+
+            serverPort->setCamera(deco);
+        }
+        else
+        {
+            serverPort = window->getPort()[sv];
+
+            deco = cast_dynamic<TileCameraDecoratorPtr>(
+                serverPort->getCamera());
+
+            if(window->getPort()[sv]->getType() != clientPort->getType())
+            {
+                // there is a viewport with the wrong type
+                subRef(window->getPort()[sv]);
+
+                serverPort =
+                    cast_dynamic<ViewportPtr>(clientPort->shallowCopy());
+
+                window->replacePort(sv, serverPort);//[sv] = serverPort;
+                serverPort->setCamera(deco);
+            }
+            else
+            {
+                deco = cast_dynamic<TileCameraDecoratorPtr>(
+                    serverPort->getCamera());
+            }
+        }
+
+        // update changed viewport fields
+        updateViewport(serverPort,clientPort);
+
+        // set viewport size
+        serverPort->setSize(Real32(l),Real32(b),Real32(r),Real32(t));
+
+        // use pixel even if pixel = 1
+        if(serverPort->getLeft() == 1.0)
+            serverPort->setLeft(1.0001);
+
+        if(serverPort->getRight() == 1.0)
+            serverPort->setRight(1.0001);
+
+        if(serverPort->getTop() == 1.0)
+            serverPort->setTop(1.0001);
+
+        if(serverPort->getBottom() == 1.0)
+            serverPort->setBottom(1.0001);
+
+        // calculate tile parameters
+        deco->setFullWidth ( cright-cleft );
+        deco->setFullHeight( ctop-cbottom );
+        deco->setSize( ( l+left-cleft     ) / (float)( cright-cleft ),
+                       ( b+bottom-cbottom ) / (float)( ctop-cbottom ),
+                       ( r+left-cleft     ) / (float)( cright-cleft ),
+                       ( t+bottom-cbottom ) / (float)( ctop-cbottom ) );
+        deco->setDecoratee( clientPort->getCamera() );
+
+        sv++;
+    }
+
+    // remove unused ports
+    while(window->getPort().size()>sv)
+    {
+        window->subPort(sv);
+    }
+
+    Inherited::serverRender(window,id,action);
 }
 #endif
 
