@@ -500,12 +500,14 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
             mask  = (*changedI)->whichField;
             mask &=  fcPtr->getFieldFlags()->_bClusterLocalFlags;
 
-            fprintf(stderr, "Send Changed %d %d %p %016llx %016llx\n",
+            /*
+	     fprintf(stderr, "Send Changed %d %d %p %016llx %016llx\n",
                     fcPtr->getTypeId(),
                     (*changedI)->uiContainerId,
                     fcPtr->getFieldFlags(),
                     (*changedI)->whichField,
                     fcPtr->getFieldFlags()->_bClusterLocalFlags);
+	    */
 
             if(mask)
             {
