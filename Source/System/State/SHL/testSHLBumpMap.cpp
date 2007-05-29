@@ -22,7 +22,8 @@
 #include <OSGImage.h>
 #include <OSGChunkMaterial.h>
 #include <OSGMaterialChunk.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
 #include <OSGSHLChunk.h>
 
 // vertex shader program for bump mapping in surface local coordinates
@@ -152,35 +153,32 @@ int main(int argc, char **argv)
     ChunkMaterialPtr cmat = ChunkMaterial::create();
 
     MaterialChunkPtr matc = MaterialChunk::create();
-    beginEditCP(matc);
-        matc->setAmbient(Color4f(0.1, 0.1, 0.1, 1.0));
-        matc->setDiffuse(Color4f(0.3, 0.3, 0.3, 1.0));
-        matc->setSpecular(Color4f(0.8, 0.8, 0.8, 1.0));
-        matc->setShininess(100);
-        matc->setLit(true);
-    endEditCP(matc);
+
+    matc->setAmbient(Color4f(0.1, 0.1, 0.1, 1.0));
+    matc->setDiffuse(Color4f(0.3, 0.3, 0.3, 1.0));
+    matc->setSpecular(Color4f(0.8, 0.8, 0.8, 1.0));
+    matc->setShininess(100);
+    matc->setLit(true);
 
     SHLChunkPtr shl = SHLChunk::create();
-    beginEditCP(shl);
-        shl->setVertexProgram(_vp_program);
-        shl->setFragmentProgram(_fp_program);
-    endEditCP(shl);
 
-    TextureChunkPtr tex_normal_map = TextureChunk::create();
-    beginEditCP(tex_normal_map);
-        tex_normal_map->setImage(normal_map_img);
-        tex_normal_map->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
-        tex_normal_map->setMagFilter(GL_LINEAR);
-        tex_normal_map->setWrapS(GL_REPEAT);
-        tex_normal_map->setWrapT(GL_REPEAT);
-        tex_normal_map->setEnvMode(GL_MODULATE);
-    endEditCP(tex_normal_map);
+    shl->setVertexProgram(_vp_program);
+    shl->setFragmentProgram(_fp_program);
 
-    beginEditCP(cmat);
+    TextureObjChunkPtr tex_normal_map     = TextureObjChunk::create();
+    TextureEnvChunkPtr tex_normal_map_env = TextureEnvChunk::create();
+
+    tex_normal_map->setImage(normal_map_img);
+    tex_normal_map->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
+    tex_normal_map->setMagFilter(GL_LINEAR);
+    tex_normal_map->setWrapS(GL_REPEAT);
+    tex_normal_map->setWrapT(GL_REPEAT);
+    tex_normal_map_env->setEnvMode(GL_MODULATE);
+
         //cmat->addChunk(matc);
-        cmat->addChunk(shl);
-        cmat->addChunk(tex_normal_map);
-    endEditCP(cmat);
+    cmat->addChunk(shl);
+    cmat->addChunk(tex_normal_map);
+    cmat->addChunk(tex_normal_map_env);
 
 
     // create root node
@@ -189,21 +187,17 @@ int main(int argc, char **argv)
     // create geometry
     //GeometryPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
     GeometryPtr geo = makePlaneGeo(1.0, 1.0, 100, 100);
-    beginEditCP( geo, Geometry::MaterialFieldMask);
-        geo->setMaterial(cmat);
-    endEditCP(geo, Geometry::MaterialFieldMask);
+
+    geo->setMaterial(cmat);
 
     NodePtr torus = Node::create();
-    beginEditCP(torus, Node::CoreFieldMask);
-        torus->setCore(geo);
-    endEditCP(torus, Node::CoreFieldMask);
+    torus->setCore(geo);
 
     // add torus to scene
     GroupPtr group = Group::create();
-    beginEditCP(_scene);
-        _scene->setCore(group);
-        _scene->addChild(torus);
-    endEditCP(_scene);
+
+    _scene->setCore(group);
+    _scene->addChild(torus);
 
     // create the SimpleSceneManager helper
     _mgr = new SimpleSceneManager;
