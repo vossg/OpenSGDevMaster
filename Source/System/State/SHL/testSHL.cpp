@@ -22,7 +22,8 @@
 #include <OSGImage.h>
 #include <OSGChunkMaterial.h>
 #include <OSGMaterialChunk.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
 #include <OSGSHLChunk.h>
 
 
@@ -64,23 +65,19 @@ int main(int argc, char **argv)
     ChunkMaterialPtr cmat = ChunkMaterial::create();
 
     MaterialChunkPtr matc = MaterialChunk::create();
-    beginEditCP(matc);
-        matc->setAmbient(Color4f(0.1, 0.1, 0.1, 1.0));
-        matc->setDiffuse(Color4f(0.3, 0.3, 0.3, 1.0));
-        matc->setSpecular(Color4f(0.8, 0.8, 0.8, 1.0));
-        matc->setShininess(100);
-        matc->setLit(true);
-    endEditCP(matc);
+
+    matc->setAmbient(Color4f(0.1, 0.1, 0.1, 1.0));
+    matc->setDiffuse(Color4f(0.3, 0.3, 0.3, 1.0));
+    matc->setSpecular(Color4f(0.8, 0.8, 0.8, 1.0));
+    matc->setShininess(100);
+    matc->setLit(true);
 
     SHLChunkPtr shl = SHLChunk::create();
-    beginEditCP(shl);
-        shl->readVertexProgram(argv[1]);
-        shl->readFragmentProgram(argv[2]);
-    endEditCP(shl);
 
-    beginEditCP(cmat);
-        cmat->addChunk(shl);
-    endEditCP(cmat);
+    shl->readVertexProgram(argv[1]);
+    shl->readFragmentProgram(argv[2]);
+
+    cmat->addChunk(shl);
 
 
     // create root node
@@ -88,21 +85,15 @@ int main(int argc, char **argv)
 
     // create torus
     GeometryPtr geo = makeTorusGeo(.8, 1.8, 128, 128);
-    beginEditCP( geo, Geometry::MaterialFieldMask);
-        geo->setMaterial(cmat);
-    endEditCP(geo, Geometry::MaterialFieldMask);
+    geo->setMaterial(cmat);
 
     NodePtr torus = Node::create();
-    beginEditCP(torus, Node::CoreFieldMask);
-        torus->setCore(geo);
-    endEditCP(torus, Node::CoreFieldMask);
+    torus->setCore(geo);
 
     // add torus to scene
     GroupPtr group = Group::create();
-    beginEditCP(_scene);
-        _scene->setCore(group);
-        _scene->addChild(torus);
-    endEditCP(_scene);
+    _scene->setCore(group);
+    _scene->addChild(torus);
 
     // create the SimpleSceneManager helper
     _mgr = new SimpleSceneManager;
