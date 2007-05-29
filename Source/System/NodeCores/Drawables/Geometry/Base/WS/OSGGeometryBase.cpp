@@ -175,7 +175,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(GeometryBase::*GetSFDlistCacheF)(void) const;
 
     GetSFDlistCacheF GetSFDlistCache = &GeometryBase::getSFDlistCache;
@@ -189,7 +189,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editSFDlistCache),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDlistCache));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getSFDlistCache));
@@ -197,7 +197,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(GeometryBase::*GetSFClassicGLIdF)(void) const;
 
     GetSFClassicGLIdF GetSFClassicGLId = &GeometryBase::getSFClassicGLId;
@@ -211,7 +211,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editSFClassicGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFClassicGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getSFClassicGLId));
@@ -219,7 +219,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(GeometryBase::*GetSFAttGLIdF)(void) const;
 
     GetSFAttGLIdF GetSFAttGLId = &GeometryBase::getSFAttGLId;
@@ -233,7 +233,7 @@ void GeometryBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&GeometryBase::editSFAttGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAttGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeometryBase::getSFAttGLId));
@@ -404,7 +404,7 @@ const SFBool *GeometryBase::getSFDlistCache(void) const
     return &_sfDlistCache;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *GeometryBase::getSFDlistCache     (void)
 {
     return this->editSFDlistCache     ();
@@ -423,7 +423,7 @@ const SFInt32 *GeometryBase::getSFClassicGLId(void) const
     return &_sfClassicGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *GeometryBase::getSFClassicGLId    (void)
 {
     return this->editSFClassicGLId    ();
@@ -442,7 +442,7 @@ const SFInt32 *GeometryBase::getSFAttGLId(void) const
     return &_sfAttGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *GeometryBase::getSFAttGLId        (void)
 {
     return this->editSFAttGLId        ();

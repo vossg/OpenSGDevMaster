@@ -90,7 +90,7 @@ const bool &GeoPropertyBase::getUseVBO(void) const
     return _sfUseVBO.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &GeoPropertyBase::getUseVBO         (void)
 {
@@ -123,7 +123,7 @@ const UInt32 &GeoPropertyBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoPropertyBase::getGLId           (void)
 {
@@ -156,7 +156,7 @@ const Int32 &GeoPropertyBase::getUsage(void) const
     return _sfUsage.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &GeoPropertyBase::getUsage          (void)
 {

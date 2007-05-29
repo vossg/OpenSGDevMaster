@@ -98,7 +98,7 @@ MFReal32 &ScreenLODBase::editCoverageOverride(void)
     return _mfCoverageOverride;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ScreenLODBase::getCoverageOverride(const UInt32 index)
 {

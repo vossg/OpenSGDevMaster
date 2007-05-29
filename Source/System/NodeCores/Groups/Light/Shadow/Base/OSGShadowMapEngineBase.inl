@@ -107,7 +107,7 @@ const Int32 &ShadowMapEngineBase::getWidth(void) const
     return _sfWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ShadowMapEngineBase::getWidth          (void)
 {
@@ -140,7 +140,7 @@ const Int32 &ShadowMapEngineBase::getHeight(void) const
     return _sfHeight.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ShadowMapEngineBase::getHeight         (void)
 {
@@ -173,7 +173,7 @@ const Color4f &ShadowMapEngineBase::getShadowColor(void) const
     return _sfShadowColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &ShadowMapEngineBase::getShadowColor    (void)
 {
@@ -206,7 +206,7 @@ const Real32 &ShadowMapEngineBase::getOffsetBias(void) const
     return _sfOffsetBias.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ShadowMapEngineBase::getOffsetBias     (void)
 {
@@ -239,7 +239,7 @@ const Real32 &ShadowMapEngineBase::getOffsetFactor(void) const
     return _sfOffsetFactor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &ShadowMapEngineBase::getOffsetFactor   (void)
 {

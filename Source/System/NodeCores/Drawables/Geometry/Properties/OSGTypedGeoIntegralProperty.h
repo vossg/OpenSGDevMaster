@@ -106,7 +106,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*! \name                      Access                                  */
     /*! \{                                                                 */
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
           StoredFieldType *getFieldPtr (void);
           StoredFieldType &getField    (void);
 #endif

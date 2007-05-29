@@ -90,7 +90,7 @@ void DirectionalLight::makeChunk(void)
     Vec4r dir(_sfDirection.getValue());
 
     dir[3] = 0.f;
-   
+
     _pChunk->setPosition(dir);
 }
 

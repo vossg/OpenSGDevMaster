@@ -143,14 +143,14 @@ class OSG_GROUP_DLLMAPPING PointLightBase : public Light
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFPnt3r             *getSFPosition        (void);
 #endif
                   SFPnt3r             *editSFPosition       (void);
             const SFPnt3r             *getSFPosition        (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Pnt3r               &getPosition        (void);
 #endif
                   Pnt3r               &editPosition       (void);

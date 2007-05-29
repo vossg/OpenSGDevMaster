@@ -166,31 +166,31 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public ShadowMapEnginePare
 
             const SFFrameBufferObjectPtr *getSFRenderTarget    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFWidth           (void);
 #endif
                   SFInt32             *editSFWidth          (void);
             const SFInt32             *getSFWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFHeight          (void);
 #endif
                   SFInt32             *editSFHeight         (void);
             const SFInt32             *getSFHeight          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFColor4f           *getSFShadowColor     (void);
 #endif
                   SFColor4f           *editSFShadowColor    (void);
             const SFColor4f           *getSFShadowColor     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFOffsetBias      (void);
 #endif
                   SFReal32            *editSFOffsetBias     (void);
             const SFReal32            *getSFOffsetBias      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFOffsetFactor    (void);
 #endif
                   SFReal32            *editSFOffsetFactor   (void);
@@ -199,31 +199,31 @@ class OSG_RENDERTRAV_DLLMAPPING ShadowMapEngineBase : public ShadowMapEnginePare
 
                   FrameBufferObjectPtrConst getRenderTarget   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getWidth           (void);
 #endif
                   Int32               &editWidth          (void);
             const Int32               &getWidth           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getHeight          (void);
 #endif
                   Int32               &editHeight         (void);
             const Int32               &getHeight          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Color4f             &getShadowColor     (void);
 #endif
                   Color4f             &editShadowColor    (void);
             const Color4f             &getShadowColor     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getOffsetBias      (void);
 #endif
                   Real32              &editOffsetBias     (void);
             const Real32              &getOffsetBias      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getOffsetFactor    (void);
 #endif
                   Real32              &editOffsetFactor   (void);

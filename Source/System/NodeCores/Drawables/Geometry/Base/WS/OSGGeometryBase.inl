@@ -150,7 +150,7 @@ const bool &GeometryBase::getDlistCache(void) const
     return _sfDlistCache.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &GeometryBase::getDlistCache     (void)
 {
@@ -183,7 +183,7 @@ const Int32 &GeometryBase::getClassicGLId(void) const
     return _sfClassicGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &GeometryBase::getClassicGLId    (void)
 {
@@ -216,7 +216,7 @@ const Int32 &GeometryBase::getAttGLId(void) const
     return _sfAttGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &GeometryBase::getAttGLId        (void)
 {

@@ -129,7 +129,7 @@ void LightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(LightBase::*GetSFAmbientF)(void) const;
 
     GetSFAmbientF GetSFAmbient = &LightBase::getSFAmbient;
@@ -143,7 +143,7 @@ void LightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFAmbient),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFAmbient));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFAmbient));
@@ -151,7 +151,7 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(LightBase::*GetSFDiffuseF)(void) const;
 
     GetSFDiffuseF GetSFDiffuse = &LightBase::getSFDiffuse;
@@ -165,7 +165,7 @@ void LightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFDiffuse),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDiffuse));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFDiffuse));
@@ -173,7 +173,7 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFColor4r *(LightBase::*GetSFSpecularF)(void) const;
 
     GetSFSpecularF GetSFSpecular = &LightBase::getSFSpecular;
@@ -187,7 +187,7 @@ void LightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFSpecular),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSpecular));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFSpecular));
@@ -207,7 +207,7 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(LightBase::*GetSFOnF)(void) const;
 
     GetSFOnF GetSFOn = &LightBase::getSFOn;
@@ -221,7 +221,7 @@ void LightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFOn),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOn));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFOn));
@@ -229,7 +229,7 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(LightBase::*GetSFConstantAttenuationF)(void) const;
 
     GetSFConstantAttenuationF GetSFConstantAttenuation = &LightBase::getSFConstantAttenuation;
@@ -243,7 +243,7 @@ void LightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFConstantAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFConstantAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFConstantAttenuation));
@@ -251,7 +251,7 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(LightBase::*GetSFLinearAttenuationF)(void) const;
 
     GetSFLinearAttenuationF GetSFLinearAttenuation = &LightBase::getSFLinearAttenuation;
@@ -265,7 +265,7 @@ void LightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFLinearAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFLinearAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFLinearAttenuation));
@@ -273,7 +273,7 @@ void LightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(LightBase::*GetSFQuadraticAttenuationF)(void) const;
 
     GetSFQuadraticAttenuationF GetSFQuadraticAttenuation = &LightBase::getSFQuadraticAttenuation;
@@ -287,7 +287,7 @@ void LightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightBase::editSFQuadraticAttenuation),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFQuadraticAttenuation));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightBase::getSFQuadraticAttenuation));
@@ -466,7 +466,7 @@ const SFColor4r *LightBase::getSFAmbient(void) const
     return &_sfAmbient;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *LightBase::getSFAmbient        (void)
 {
     return this->editSFAmbient        ();
@@ -485,7 +485,7 @@ const SFColor4r *LightBase::getSFDiffuse(void) const
     return &_sfDiffuse;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *LightBase::getSFDiffuse        (void)
 {
     return this->editSFDiffuse        ();
@@ -504,7 +504,7 @@ const SFColor4r *LightBase::getSFSpecular(void) const
     return &_sfSpecular;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFColor4r           *LightBase::getSFSpecular       (void)
 {
     return this->editSFSpecular       ();
@@ -529,7 +529,7 @@ const SFBool *LightBase::getSFOn(void) const
     return &_sfOn;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *LightBase::getSFOn             (void)
 {
     return this->editSFOn             ();
@@ -548,7 +548,7 @@ const SFReal *LightBase::getSFConstantAttenuation(void) const
     return &_sfConstantAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *LightBase::getSFConstantAttenuation(void)
 {
     return this->editSFConstantAttenuation();
@@ -567,7 +567,7 @@ const SFReal *LightBase::getSFLinearAttenuation(void) const
     return &_sfLinearAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *LightBase::getSFLinearAttenuation(void)
 {
     return this->editSFLinearAttenuation();
@@ -586,7 +586,7 @@ const SFReal *LightBase::getSFQuadraticAttenuation(void) const
     return &_sfQuadraticAttenuation;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *LightBase::getSFQuadraticAttenuation(void)
 {
     return this->editSFQuadraticAttenuation();

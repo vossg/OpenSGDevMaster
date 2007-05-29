@@ -168,37 +168,37 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
 
             const SFGeoMultiPropertyDataPtr *getSFContainer       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFOffset          (void);
 #endif
                   SFUInt32            *editSFOffset         (void);
             const SFUInt32            *getSFOffset          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFGLenum            *getSFIFormat         (void);
 #endif
                   SFGLenum            *editSFIFormat        (void);
             const SFGLenum            *getSFIFormat         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFIDimension      (void);
 #endif
                   SFUInt32            *editSFIDimension     (void);
             const SFUInt32            *getSFIDimension      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFISize           (void);
 #endif
                   SFUInt32            *editSFISize          (void);
             const SFUInt32            *getSFISize           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFINormalize      (void);
 #endif
                   SFBool              *editSFINormalize     (void);
             const SFBool              *getSFINormalize      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFIStride         (void);
 #endif
                   SFUInt32            *editSFIStride        (void);
@@ -207,37 +207,37 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyBase : public GeoVectorProperty
 
                   GeoMultiPropertyDataPtrConst getContainer      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getOffset          (void);
 #endif
                   UInt32              &editOffset         (void);
             const UInt32              &getOffset          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   GLenum              &getIFormat         (void);
 #endif
                   GLenum              &editIFormat        (void);
             const GLenum              &getIFormat         (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getIDimension      (void);
 #endif
                   UInt32              &editIDimension     (void);
             const UInt32              &getIDimension      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getISize           (void);
 #endif
                   UInt32              &editISize          (void);
             const UInt32              &getISize           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getINormalize      (void);
 #endif
                   bool                &editINormalize     (void);
             const bool                &getINormalize      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getIStride         (void);
 #endif
                   UInt32              &editIStride        (void);

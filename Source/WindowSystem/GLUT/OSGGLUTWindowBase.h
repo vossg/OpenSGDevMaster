@@ -143,14 +143,14 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFId              (void);
 #endif
                   SFInt32             *editSFId             (void);
             const SFInt32             *getSFId              (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getId              (void);
 #endif
                   Int32               &editId             (void);

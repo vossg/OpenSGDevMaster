@@ -143,14 +143,14 @@ class OSG_RENDERTRAV_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngi
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFForceTextureUnit (void);
 #endif
                   SFInt32             *editSFForceTextureUnit(void);
             const SFInt32             *getSFForceTextureUnit (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getForceTextureUnit (void);
 #endif
                   Int32               &editForceTextureUnit(void);

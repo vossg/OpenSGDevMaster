@@ -143,14 +143,14 @@ class OSG_RENDERTRAV_DLLMAPPING ScreenLODBase : public Group
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFReal32            *getMFCoverageOverride (void);
 #endif
                   MFReal32            *editMFCoverageOverride(void);
             const MFReal32            *getMFCoverageOverride (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getCoverageOverride (const UInt32 index);
                   MFReal32            &getCoverageOverride(void);
 #endif

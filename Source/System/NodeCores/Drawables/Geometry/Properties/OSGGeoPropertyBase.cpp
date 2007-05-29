@@ -98,7 +98,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(GeoPropertyBase::*GetSFUseVBOF)(void) const;
 
     GetSFUseVBOF GetSFUseVBO = &GeoPropertyBase::getSFUseVBO;
@@ -112,7 +112,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editSFUseVBO),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFUseVBO));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getSFUseVBO));
@@ -120,7 +120,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(GeoPropertyBase::*GetSFGLIdF)(void) const;
 
     GetSFGLIdF GetSFGLId = &GeoPropertyBase::getSFGLId;
@@ -134,7 +134,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editSFGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getSFGLId));
@@ -142,7 +142,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(GeoPropertyBase::*GetSFUsageF)(void) const;
 
     GetSFUsageF GetSFUsage = &GeoPropertyBase::getSFUsage;
@@ -156,7 +156,7 @@ void GeoPropertyBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoPropertyBase::editSFUsage),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFUsage));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoPropertyBase::getSFUsage));
@@ -256,7 +256,7 @@ const SFBool *GeoPropertyBase::getSFUseVBO(void) const
     return &_sfUseVBO;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *GeoPropertyBase::getSFUseVBO         (void)
 {
     return this->editSFUseVBO         ();
@@ -275,7 +275,7 @@ const SFUInt32 *GeoPropertyBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *GeoPropertyBase::getSFGLId           (void)
 {
     return this->editSFGLId           ();
@@ -294,7 +294,7 @@ const SFInt32 *GeoPropertyBase::getSFUsage(void) const
     return &_sfUsage;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *GeoPropertyBase::getSFUsage          (void)
 {
     return this->editSFUsage          ();

@@ -514,18 +514,20 @@ void Geometry::changed(ConstFieldMaskArg whichField, UInt32 origin)
         }
 
         Window::refreshGLObject(getClassicGLId());
-        Window::refreshGLObject(getAttGLId());
+        Window::refreshGLObject(getAttGLId    ());
     }
     else
     {
         if(getClassicGLId() != 0)
         {
             Window::destroyGLObject(getClassicGLId(), 1);
+
             setClassicGLId(0);
         }
         if(getAttGLId() != 0)
         {
             Window::destroyGLObject(getAttGLId(), 1);
+
             setAttGLId(0);
         }
     }

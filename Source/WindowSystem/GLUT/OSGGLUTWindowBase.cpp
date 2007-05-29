@@ -89,7 +89,7 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(GLUTWindowBase::*GetSFIdF)(void) const;
 
     GetSFIdF GetSFId = &GLUTWindowBase::getSFId;
@@ -103,7 +103,7 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
         true,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GLUTWindowBase::editSFId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GLUTWindowBase::getSFId));
@@ -181,7 +181,7 @@ const SFInt32 *GLUTWindowBase::getSFId(void) const
     return &_sfId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *GLUTWindowBase::getSFId             (void)
 {
     return this->editSFId             ();

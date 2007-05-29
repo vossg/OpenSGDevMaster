@@ -185,7 +185,7 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(CubeTextureChunkBase::*GetSFIsReflectionMapF)(void) const;
 
     GetSFIsReflectionMapF GetSFIsReflectionMap = &CubeTextureChunkBase::getSFIsReflectionMap;
@@ -199,7 +199,7 @@ void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&CubeTextureChunkBase::editSFIsReflectionMap),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFIsReflectionMap));
 #else
         reinterpret_cast<FieldGetMethodSig >(&CubeTextureChunkBase::getSFIsReflectionMap));
@@ -374,7 +374,7 @@ const SFBool *CubeTextureChunkBase::getSFIsReflectionMap(void) const
     return &_sfIsReflectionMap;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *CubeTextureChunkBase::getSFIsReflectionMap(void)
 {
     return this->editSFIsReflectionMap();

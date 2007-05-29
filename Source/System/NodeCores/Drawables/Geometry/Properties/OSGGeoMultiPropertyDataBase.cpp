@@ -93,7 +93,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFUInt8 *(GeoMultiPropertyDataBase::*GetMFIDataF)(void) const;
 
     GetMFIDataF GetMFIData = &GeoMultiPropertyDataBase::getMFIData;
@@ -107,7 +107,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editMFIData),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFIData));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getMFIData));
@@ -115,7 +115,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(GeoMultiPropertyDataBase::*GetSFGLIdF)(void) const;
 
     GetSFGLIdF GetSFGLId = &GeoMultiPropertyDataBase::getSFGLId;
@@ -129,7 +129,7 @@ void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyDataBase::editSFGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyDataBase::getSFGLId));
@@ -217,7 +217,7 @@ const MFUInt8 *GeoMultiPropertyDataBase::getMFIData(void) const
     return &_mfIData;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFUInt8             *GeoMultiPropertyDataBase::getMFIData          (void)
 {
     return this->editMFIData          ();
@@ -236,7 +236,7 @@ const SFUInt32 *GeoMultiPropertyDataBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *GeoMultiPropertyDataBase::getSFGLId           (void)
 {
     return this->editSFGLId           ();

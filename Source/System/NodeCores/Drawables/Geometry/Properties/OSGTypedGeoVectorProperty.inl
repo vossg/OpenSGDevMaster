@@ -289,7 +289,7 @@ const typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType &
 }
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 template <class GeoPropertyDesc> inline
 typename TypedGeoVectorProperty<GeoPropertyDesc>::StoredFieldType *
     TypedGeoVectorProperty<GeoPropertyDesc>::getFieldPtr (void)

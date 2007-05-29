@@ -147,20 +147,20 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   MFUInt8             *getMFIData           (void);
 #endif
                   MFUInt8             *editMFIData          (void);
             const MFUInt8             *getMFIData           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFGLId            (void);
 #endif
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt8               &getIData           (const UInt32 index);
                   MFUInt8             &getIData          (void);
 #endif
@@ -169,7 +169,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoMultiPropertyDataBase : public StateChunk
                   MFUInt8             &editIData          (void);
             const MFUInt8             &getIData          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getGLId            (void);
 #endif
                   UInt32              &editGLId           (void);

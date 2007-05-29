@@ -90,7 +90,7 @@ const Vec3r &DirectionalLightBase::getDirection(void) const
     return _sfDirection.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3r               &DirectionalLightBase::getDirection      (void)
 {

@@ -126,7 +126,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(GeoMultiPropertyBase::*GetSFOffsetF)(void) const;
 
     GetSFOffsetF GetSFOffset = &GeoMultiPropertyBase::getSFOffset;
@@ -140,7 +140,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFOffset),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFOffset));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFOffset));
@@ -148,7 +148,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFGLenum *(GeoMultiPropertyBase::*GetSFIFormatF)(void) const;
 
     GetSFIFormatF GetSFIFormat = &GeoMultiPropertyBase::getSFIFormat;
@@ -162,7 +162,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFIFormat),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFIFormat));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFIFormat));
@@ -170,7 +170,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(GeoMultiPropertyBase::*GetSFIDimensionF)(void) const;
 
     GetSFIDimensionF GetSFIDimension = &GeoMultiPropertyBase::getSFIDimension;
@@ -184,7 +184,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFIDimension),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFIDimension));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFIDimension));
@@ -192,7 +192,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(GeoMultiPropertyBase::*GetSFISizeF)(void) const;
 
     GetSFISizeF GetSFISize = &GeoMultiPropertyBase::getSFISize;
@@ -206,7 +206,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFISize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFISize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFISize));
@@ -214,7 +214,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(GeoMultiPropertyBase::*GetSFINormalizeF)(void) const;
 
     GetSFINormalizeF GetSFINormalize = &GeoMultiPropertyBase::getSFINormalize;
@@ -228,7 +228,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFINormalize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFINormalize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFINormalize));
@@ -236,7 +236,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(GeoMultiPropertyBase::*GetSFIStrideF)(void) const;
 
     GetSFIStrideF GetSFIStride = &GeoMultiPropertyBase::getSFIStride;
@@ -250,7 +250,7 @@ void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&GeoMultiPropertyBase::editSFIStride),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFIStride));
 #else
         reinterpret_cast<FieldGetMethodSig >(&GeoMultiPropertyBase::getSFIStride));
@@ -407,7 +407,7 @@ const SFUInt32 *GeoMultiPropertyBase::getSFOffset(void) const
     return &_sfOffset;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *GeoMultiPropertyBase::getSFOffset         (void)
 {
     return this->editSFOffset         ();
@@ -426,7 +426,7 @@ const SFGLenum *GeoMultiPropertyBase::getSFIFormat(void) const
     return &_sfIFormat;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFGLenum            *GeoMultiPropertyBase::getSFIFormat        (void)
 {
     return this->editSFIFormat        ();
@@ -445,7 +445,7 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIDimension(void) const
     return &_sfIDimension;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *GeoMultiPropertyBase::getSFIDimension     (void)
 {
     return this->editSFIDimension     ();
@@ -464,7 +464,7 @@ const SFUInt32 *GeoMultiPropertyBase::getSFISize(void) const
     return &_sfISize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *GeoMultiPropertyBase::getSFISize          (void)
 {
     return this->editSFISize          ();
@@ -483,7 +483,7 @@ const SFBool *GeoMultiPropertyBase::getSFINormalize(void) const
     return &_sfINormalize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *GeoMultiPropertyBase::getSFINormalize     (void)
 {
     return this->editSFINormalize     ();
@@ -502,7 +502,7 @@ const SFUInt32 *GeoMultiPropertyBase::getSFIStride(void) const
     return &_sfIStride;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *GeoMultiPropertyBase::getSFIStride        (void)
 {
     return this->editSFIStride        ();

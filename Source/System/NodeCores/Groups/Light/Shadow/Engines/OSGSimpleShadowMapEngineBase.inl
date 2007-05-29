@@ -90,7 +90,7 @@ const Int32 &SimpleShadowMapEngineBase::getForceTextureUnit(void) const
     return _sfForceTextureUnit.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &SimpleShadowMapEngineBase::getForceTextureUnit(void)
 {

@@ -151,38 +151,38 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec3r             *getSFDirection       (void);
 #endif
                   SFVec3r             *editSFDirection      (void);
             const SFVec3r             *getSFDirection       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFSpotExponent    (void);
 #endif
                   SFReal              *editSFSpotExponent   (void);
             const SFReal              *getSFSpotExponent    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal              *getSFSpotCutOff      (void);
 #endif
                   SFReal              *editSFSpotCutOff     (void);
             const SFReal              *getSFSpotCutOff      (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3r               &getDirection       (void);
 #endif
                   Vec3r               &editDirection      (void);
             const Vec3r               &getDirection       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getSpotExponent    (void);
 #endif
                   Real                &editSpotExponent   (void);
             const Real                &getSpotExponent    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real                &getSpotCutOff      (void);
 #endif
                   Real                &editSpotCutOff     (void);

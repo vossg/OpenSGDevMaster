@@ -529,7 +529,7 @@ Action::ResultE RenderTraversalAction::start(void)
 
     _pActivePartition->init();
 
-#ifdef OSG_DEBUG
+#ifdef OSG_DEBUGX
     _pActivePartition->setDebugString("DefaultPartition");
 #endif
 

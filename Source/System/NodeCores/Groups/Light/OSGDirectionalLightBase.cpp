@@ -90,7 +90,7 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec3r *(DirectionalLightBase::*GetSFDirectionF)(void) const;
 
     GetSFDirectionF GetSFDirection = &DirectionalLightBase::getSFDirection;
@@ -104,7 +104,7 @@ void DirectionalLightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&DirectionalLightBase::editSFDirection),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirection));
 #else
         reinterpret_cast<FieldGetMethodSig >(&DirectionalLightBase::getSFDirection));
@@ -183,7 +183,7 @@ const SFVec3r *DirectionalLightBase::getSFDirection(void) const
     return &_sfDirection;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec3r             *DirectionalLightBase::getSFDirection      (void)
 {
     return this->editSFDirection      ();

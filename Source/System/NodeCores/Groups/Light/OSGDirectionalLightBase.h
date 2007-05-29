@@ -143,14 +143,14 @@ class OSG_GROUP_DLLMAPPING DirectionalLightBase : public Light
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec3r             *getSFDirection       (void);
 #endif
                   SFVec3r             *editSFDirection      (void);
             const SFVec3r             *getSFDirection       (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3r               &getDirection       (void);
 #endif
                   Vec3r               &editDirection      (void);

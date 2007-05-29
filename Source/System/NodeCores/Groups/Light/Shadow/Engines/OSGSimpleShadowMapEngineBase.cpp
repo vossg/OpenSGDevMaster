@@ -89,7 +89,7 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFInt32 *(SimpleShadowMapEngineBase::*GetSFForceTextureUnitF)(void) const;
 
     GetSFForceTextureUnitF GetSFForceTextureUnit = &SimpleShadowMapEngineBase::getSFForceTextureUnit;
@@ -103,7 +103,7 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SimpleShadowMapEngineBase::editSFForceTextureUnit),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFForceTextureUnit));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SimpleShadowMapEngineBase::getSFForceTextureUnit));
@@ -180,7 +180,7 @@ const SFInt32 *SimpleShadowMapEngineBase::getSFForceTextureUnit(void) const
     return &_sfForceTextureUnit;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFInt32             *SimpleShadowMapEngineBase::getSFForceTextureUnit(void)
 {
     return this->editSFForceTextureUnit();

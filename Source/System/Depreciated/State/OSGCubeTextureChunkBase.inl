@@ -175,7 +175,7 @@ const bool &CubeTextureChunkBase::getIsReflectionMap(void) const
     return _sfIsReflectionMap.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &CubeTextureChunkBase::getIsReflectionMap(void)
 {

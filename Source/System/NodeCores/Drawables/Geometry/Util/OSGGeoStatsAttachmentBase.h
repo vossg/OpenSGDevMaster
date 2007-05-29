@@ -167,86 +167,86 @@ class OSG_DRAWABLE_DLLMAPPING GeoStatsAttachmentBase : public StatsAttachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFVertices        (void);
 #endif
                   SFUInt32            *editSFVertices       (void);
             const SFUInt32            *getSFVertices        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFPoints          (void);
 #endif
                   SFUInt32            *editSFPoints         (void);
             const SFUInt32            *getSFPoints          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFLines           (void);
 #endif
                   SFUInt32            *editSFLines          (void);
             const SFUInt32            *getSFLines           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFTriangles       (void);
 #endif
                   SFUInt32            *editSFTriangles      (void);
             const SFUInt32            *getSFTriangles       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFProcessedAttributeBytes (void);
 #endif
                   SFUInt32            *editSFProcessedAttributeBytes(void);
             const SFUInt32            *getSFProcessedAttributeBytes (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFStoredAttributeBytes (void);
 #endif
                   SFUInt32            *editSFStoredAttributeBytes(void);
             const SFUInt32            *getSFStoredAttributeBytes (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFValid           (void);
 #endif
                   SFBool              *editSFValid          (void);
             const SFBool              *getSFValid           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getVertices        (void);
 #endif
                   UInt32              &editVertices       (void);
             const UInt32              &getVertices        (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getPoints          (void);
 #endif
                   UInt32              &editPoints         (void);
             const UInt32              &getPoints          (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getLines           (void);
 #endif
                   UInt32              &editLines          (void);
             const UInt32              &getLines           (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getTriangles       (void);
 #endif
                   UInt32              &editTriangles      (void);
             const UInt32              &getTriangles       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getProcessedAttributeBytes (void);
 #endif
                   UInt32              &editProcessedAttributeBytes(void);
             const UInt32              &getProcessedAttributeBytes (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getStoredAttributeBytes (void);
 #endif
                   UInt32              &editStoredAttributeBytes(void);
             const UInt32              &getStoredAttributeBytes (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getValid           (void);
 #endif
                   bool                &editValid          (void);

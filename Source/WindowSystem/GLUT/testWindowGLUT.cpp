@@ -103,9 +103,11 @@ display(void)
 
 //    win->render(rentravact);
 
-
-
     win->render(renact);
+
+//    std::cerr << "------------- AR START --------------" << std::endl;
+
+//    Thread::getCurrentChangeList()->dump();
 }
 
 void reshape( int w, int h )

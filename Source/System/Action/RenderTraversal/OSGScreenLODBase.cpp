@@ -96,7 +96,7 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const MFReal32 *(ScreenLODBase::*GetMFCoverageOverrideF)(void) const;
 
     GetMFCoverageOverrideF GetMFCoverageOverride = &ScreenLODBase::getMFCoverageOverride;
@@ -114,7 +114,7 @@ void ScreenLODBase::classDescInserter(TypeObject &oType)
         false,
         Field::MFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ScreenLODBase::editMFCoverageOverride),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetMFCoverageOverride));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ScreenLODBase::getMFCoverageOverride));
@@ -202,7 +202,7 @@ const MFReal32 *ScreenLODBase::getMFCoverageOverride(void) const
     return &_mfCoverageOverride;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 MFReal32            *ScreenLODBase::getMFCoverageOverride(void)
 {
     return this->editMFCoverageOverride();

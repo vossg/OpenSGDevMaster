@@ -288,7 +288,7 @@ const typename TypedGeoIntegralProperty<GeoPropertyDesc>::StoredFieldType &
     return _field;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 /*! \copydoc OSG::TypedGeoIntegralProperty<GeoPropertyDesc>::editFieldPtr
  */
 template <class GeoPropertyDesc> inline 

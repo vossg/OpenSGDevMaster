@@ -90,7 +90,7 @@ const bool &LightEngineBase::getEnabled(void) const
     return _sfEnabled.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &LightEngineBase::getEnabled        (void)
 {

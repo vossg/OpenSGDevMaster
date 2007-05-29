@@ -90,7 +90,7 @@ const Pnt3r &PointLightBase::getPosition(void) const
     return _sfPosition.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Pnt3r               &PointLightBase::getPosition       (void)
 {

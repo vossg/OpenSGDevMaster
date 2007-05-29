@@ -90,7 +90,7 @@ const UInt32 &GeoStatsAttachmentBase::getVertices(void) const
     return _sfVertices.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoStatsAttachmentBase::getVertices       (void)
 {
@@ -123,7 +123,7 @@ const UInt32 &GeoStatsAttachmentBase::getPoints(void) const
     return _sfPoints.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoStatsAttachmentBase::getPoints         (void)
 {
@@ -156,7 +156,7 @@ const UInt32 &GeoStatsAttachmentBase::getLines(void) const
     return _sfLines.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoStatsAttachmentBase::getLines          (void)
 {
@@ -189,7 +189,7 @@ const UInt32 &GeoStatsAttachmentBase::getTriangles(void) const
     return _sfTriangles.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoStatsAttachmentBase::getTriangles      (void)
 {
@@ -222,7 +222,7 @@ const UInt32 &GeoStatsAttachmentBase::getProcessedAttributeBytes(void) const
     return _sfProcessedAttributeBytes.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoStatsAttachmentBase::getProcessedAttributeBytes(void)
 {
@@ -255,7 +255,7 @@ const UInt32 &GeoStatsAttachmentBase::getStoredAttributeBytes(void) const
     return _sfStoredAttributeBytes.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoStatsAttachmentBase::getStoredAttributeBytes(void)
 {
@@ -288,7 +288,7 @@ const bool &GeoStatsAttachmentBase::getValid(void) const
     return _sfValid.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &GeoStatsAttachmentBase::getValid          (void)
 {

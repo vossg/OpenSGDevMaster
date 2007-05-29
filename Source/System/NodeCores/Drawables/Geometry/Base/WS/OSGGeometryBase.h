@@ -171,7 +171,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
             const MFGeoVectorPropertyPtr *getMFProperties      (void) const;
             const MFGeoIntegralPropertyPtr *getMFPropIndices     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFDlistCache      (void);
 #endif
                   SFBool              *editSFDlistCache     (void);
@@ -188,7 +188,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
                   GeoIntegralPropertyPtrConst getPropIndices    (const UInt32 index) const;
             const MFGeoIntegralPropertyPtr &getPropIndices    (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getDlistCache      (void);
 #endif
                   bool                &editDlistCache     (void);
@@ -337,26 +337,26 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFClassicGLId     (void);
 #endif
                   SFInt32             *editSFClassicGLId    (void);
             const SFInt32             *getSFClassicGLId     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFAttGLId         (void);
 #endif
                   SFInt32             *editSFAttGLId        (void);
             const SFInt32             *getSFAttGLId         (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getClassicGLId     (void);
 #endif
                   Int32               &editClassicGLId    (void);
             const Int32               &getClassicGLId     (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getAttGLId         (void);
 #endif
                   Int32               &editAttGLId        (void);

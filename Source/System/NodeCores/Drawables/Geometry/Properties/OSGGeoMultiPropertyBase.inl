@@ -107,7 +107,7 @@ const UInt32 &GeoMultiPropertyBase::getOffset(void) const
     return _sfOffset.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoMultiPropertyBase::getOffset         (void)
 {
@@ -140,7 +140,7 @@ const GLenum &GeoMultiPropertyBase::getIFormat(void) const
     return _sfIFormat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &GeoMultiPropertyBase::getIFormat        (void)
 {
@@ -173,7 +173,7 @@ const UInt32 &GeoMultiPropertyBase::getIDimension(void) const
     return _sfIDimension.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoMultiPropertyBase::getIDimension     (void)
 {
@@ -206,7 +206,7 @@ const UInt32 &GeoMultiPropertyBase::getISize(void) const
     return _sfISize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoMultiPropertyBase::getISize          (void)
 {
@@ -239,7 +239,7 @@ const bool &GeoMultiPropertyBase::getINormalize(void) const
     return _sfINormalize.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &GeoMultiPropertyBase::getINormalize     (void)
 {
@@ -272,7 +272,7 @@ const UInt32 &GeoMultiPropertyBase::getIStride(void) const
     return _sfIStride.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoMultiPropertyBase::getIStride        (void)
 {

@@ -168,7 +168,7 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
             const SFImagePtr          *getSFPosYImage       (void) const;
             const SFImagePtr          *getSFNegYImage       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFIsReflectionMap (void);
 #endif
                   SFBool              *editSFIsReflectionMap(void);
@@ -185,7 +185,7 @@ class OSG_SYSTEM_DLLMAPPING CubeTextureChunkBase : public TextureChunk
 
                   ImagePtrConst getNegYImage      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getIsReflectionMap (void);
 #endif
                   bool                &editIsReflectionMap(void);

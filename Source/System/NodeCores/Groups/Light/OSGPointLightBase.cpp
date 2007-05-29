@@ -93,7 +93,7 @@ void PointLightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFPnt3r *(PointLightBase::*GetSFPositionF)(void) const;
 
     GetSFPositionF GetSFPosition = &PointLightBase::getSFPosition;
@@ -107,7 +107,7 @@ void PointLightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&PointLightBase::editSFPosition),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPosition));
 #else
         reinterpret_cast<FieldGetMethodSig >(&PointLightBase::getSFPosition));
@@ -192,7 +192,7 @@ const SFPnt3r *PointLightBase::getSFPosition(void) const
     return &_sfPosition;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFPnt3r             *PointLightBase::getSFPosition       (void)
 {
     return this->editSFPosition       ();

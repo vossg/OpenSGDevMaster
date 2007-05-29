@@ -90,7 +90,7 @@ const Int32 &GLUTWindowBase::getId(void) const
     return _sfId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &GLUTWindowBase::getId             (void)
 {

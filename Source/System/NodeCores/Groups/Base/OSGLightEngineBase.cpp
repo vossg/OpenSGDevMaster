@@ -89,7 +89,7 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(LightEngineBase::*GetSFEnabledF)(void) const;
 
     GetSFEnabledF GetSFEnabled = &LightEngineBase::getSFEnabled;
@@ -103,7 +103,7 @@ void LightEngineBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&LightEngineBase::editSFEnabled),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFEnabled));
 #else
         reinterpret_cast<FieldGetMethodSig >(&LightEngineBase::getSFEnabled));
@@ -180,7 +180,7 @@ const SFBool *LightEngineBase::getSFEnabled(void) const
     return &_sfEnabled;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *LightEngineBase::getSFEnabled        (void)
 {
     return this->editSFEnabled        ();

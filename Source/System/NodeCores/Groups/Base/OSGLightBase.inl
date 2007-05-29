@@ -90,7 +90,7 @@ const Color4r &LightBase::getAmbient(void) const
     return _sfAmbient.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &LightBase::getAmbient        (void)
 {
@@ -123,7 +123,7 @@ const Color4r &LightBase::getDiffuse(void) const
     return _sfDiffuse.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &LightBase::getDiffuse        (void)
 {
@@ -156,7 +156,7 @@ const Color4r &LightBase::getSpecular(void) const
     return _sfSpecular.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4r             &LightBase::getSpecular       (void)
 {
@@ -206,7 +206,7 @@ const bool &LightBase::getOn(void) const
     return _sfOn.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &LightBase::getOn             (void)
 {
@@ -239,7 +239,7 @@ const Real &LightBase::getConstantAttenuation(void) const
     return _sfConstantAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &LightBase::getConstantAttenuation(void)
 {
@@ -272,7 +272,7 @@ const Real &LightBase::getLinearAttenuation(void) const
     return _sfLinearAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &LightBase::getLinearAttenuation(void)
 {
@@ -305,7 +305,7 @@ const Real &LightBase::getQuadraticAttenuation(void) const
     return _sfQuadraticAttenuation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &LightBase::getQuadraticAttenuation(void)
 {

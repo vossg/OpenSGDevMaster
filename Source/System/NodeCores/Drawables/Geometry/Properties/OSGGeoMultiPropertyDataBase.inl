@@ -90,7 +90,7 @@ const UInt32 &GeoMultiPropertyDataBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &GeoMultiPropertyDataBase::getGLId           (void)
 {
@@ -131,7 +131,7 @@ MFUInt8 &GeoMultiPropertyDataBase::editIData(void)
     return _mfIData;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt8               &GeoMultiPropertyDataBase::getIData          (const UInt32 index)
 {

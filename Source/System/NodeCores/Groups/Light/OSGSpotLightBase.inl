@@ -90,7 +90,7 @@ const Vec3r &SpotLightBase::getDirection(void) const
     return _sfDirection.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3r               &SpotLightBase::getDirection      (void)
 {
@@ -123,7 +123,7 @@ const Real &SpotLightBase::getSpotExponent(void) const
     return _sfSpotExponent.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &SpotLightBase::getSpotExponent   (void)
 {
@@ -156,7 +156,7 @@ const Real &SpotLightBase::getSpotCutOff(void) const
     return _sfSpotCutOff.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real                &SpotLightBase::getSpotCutOff     (void)
 {

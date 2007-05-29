@@ -107,7 +107,7 @@ const GLenum &TextureChunkBase::getInternalFormat(void) const
     return _sfInternalFormat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getInternalFormat (void)
 {
@@ -140,7 +140,7 @@ const GLenum &TextureChunkBase::getExternalFormat(void) const
     return _sfExternalFormat.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getExternalFormat (void)
 {
@@ -173,7 +173,7 @@ const bool &TextureChunkBase::getScale(void) const
     return _sfScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TextureChunkBase::getScale          (void)
 {
@@ -206,7 +206,7 @@ const UInt32 &TextureChunkBase::getFrame(void) const
     return _sfFrame.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureChunkBase::getFrame          (void)
 {
@@ -239,7 +239,7 @@ const GLenum &TextureChunkBase::getMinFilter(void) const
     return _sfMinFilter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getMinFilter      (void)
 {
@@ -272,7 +272,7 @@ const GLenum &TextureChunkBase::getMagFilter(void) const
     return _sfMagFilter.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getMagFilter      (void)
 {
@@ -305,7 +305,7 @@ const GLenum &TextureChunkBase::getWrapS(void) const
     return _sfWrapS.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getWrapS          (void)
 {
@@ -338,7 +338,7 @@ const GLenum &TextureChunkBase::getWrapT(void) const
     return _sfWrapT.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getWrapT          (void)
 {
@@ -371,7 +371,7 @@ const GLenum &TextureChunkBase::getWrapR(void) const
     return _sfWrapR.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getWrapR          (void)
 {
@@ -404,7 +404,7 @@ const GLenum &TextureChunkBase::getEnvMode(void) const
     return _sfEnvMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvMode        (void)
 {
@@ -437,7 +437,7 @@ const Color4f &TextureChunkBase::getEnvColor(void) const
     return _sfEnvColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &TextureChunkBase::getEnvColor       (void)
 {
@@ -470,7 +470,7 @@ const GLenum &TextureChunkBase::getEnvCombineRGB(void) const
     return _sfEnvCombineRGB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvCombineRGB  (void)
 {
@@ -503,7 +503,7 @@ const GLenum &TextureChunkBase::getEnvCombineAlpha(void) const
     return _sfEnvCombineAlpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvCombineAlpha(void)
 {
@@ -536,7 +536,7 @@ const Real32 &TextureChunkBase::getEnvScaleRGB(void) const
     return _sfEnvScaleRGB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureChunkBase::getEnvScaleRGB    (void)
 {
@@ -569,7 +569,7 @@ const Real32 &TextureChunkBase::getEnvScaleAlpha(void) const
     return _sfEnvScaleAlpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureChunkBase::getEnvScaleAlpha  (void)
 {
@@ -602,7 +602,7 @@ const GLenum &TextureChunkBase::getEnvSource0RGB(void) const
     return _sfEnvSource0RGB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvSource0RGB  (void)
 {
@@ -635,7 +635,7 @@ const GLenum &TextureChunkBase::getEnvSource1RGB(void) const
     return _sfEnvSource1RGB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvSource1RGB  (void)
 {
@@ -668,7 +668,7 @@ const GLenum &TextureChunkBase::getEnvSource2RGB(void) const
     return _sfEnvSource2RGB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvSource2RGB  (void)
 {
@@ -701,7 +701,7 @@ const GLenum &TextureChunkBase::getEnvSource0Alpha(void) const
     return _sfEnvSource0Alpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvSource0Alpha(void)
 {
@@ -734,7 +734,7 @@ const GLenum &TextureChunkBase::getEnvSource1Alpha(void) const
     return _sfEnvSource1Alpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvSource1Alpha(void)
 {
@@ -767,7 +767,7 @@ const GLenum &TextureChunkBase::getEnvSource2Alpha(void) const
     return _sfEnvSource2Alpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvSource2Alpha(void)
 {
@@ -800,7 +800,7 @@ const GLenum &TextureChunkBase::getEnvOperand0RGB(void) const
     return _sfEnvOperand0RGB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvOperand0RGB (void)
 {
@@ -833,7 +833,7 @@ const GLenum &TextureChunkBase::getEnvOperand1RGB(void) const
     return _sfEnvOperand1RGB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvOperand1RGB (void)
 {
@@ -866,7 +866,7 @@ const GLenum &TextureChunkBase::getEnvOperand2RGB(void) const
     return _sfEnvOperand2RGB.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvOperand2RGB (void)
 {
@@ -899,7 +899,7 @@ const GLenum &TextureChunkBase::getEnvOperand0Alpha(void) const
     return _sfEnvOperand0Alpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvOperand0Alpha(void)
 {
@@ -932,7 +932,7 @@ const GLenum &TextureChunkBase::getEnvOperand1Alpha(void) const
     return _sfEnvOperand1Alpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvOperand1Alpha(void)
 {
@@ -965,7 +965,7 @@ const GLenum &TextureChunkBase::getEnvOperand2Alpha(void) const
     return _sfEnvOperand2Alpha.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getEnvOperand2Alpha(void)
 {
@@ -998,7 +998,7 @@ const GLenum &TextureChunkBase::getGLId(void) const
     return _sfGLId.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getGLId           (void)
 {
@@ -1031,7 +1031,7 @@ const Int32 &TextureChunkBase::getIgnoreGLForAspect(void) const
     return _sfIgnoreGLForAspect.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureChunkBase::getIgnoreGLForAspect(void)
 {
@@ -1064,7 +1064,7 @@ const bool &TextureChunkBase::getPointSprite(void) const
     return _sfPointSprite.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 bool                &TextureChunkBase::getPointSprite    (void)
 {
@@ -1097,7 +1097,7 @@ const Real32 &TextureChunkBase::getPriority(void) const
     return _sfPriority.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureChunkBase::getPriority       (void)
 {
@@ -1130,7 +1130,7 @@ const GLenum &TextureChunkBase::getShaderOperation(void) const
     return _sfShaderOperation.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getShaderOperation(void)
 {
@@ -1163,7 +1163,7 @@ const GLenum &TextureChunkBase::getShaderInput(void) const
     return _sfShaderInput.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getShaderInput    (void)
 {
@@ -1196,7 +1196,7 @@ const Real32 &TextureChunkBase::getShaderOffsetScale(void) const
     return _sfShaderOffsetScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureChunkBase::getShaderOffsetScale(void)
 {
@@ -1229,7 +1229,7 @@ const Real32 &TextureChunkBase::getShaderOffsetBias(void) const
     return _sfShaderOffsetBias.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureChunkBase::getShaderOffsetBias(void)
 {
@@ -1262,7 +1262,7 @@ const GLenum &TextureChunkBase::getShaderRGBADotProduct(void) const
     return _sfShaderRGBADotProduct.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getShaderRGBADotProduct(void)
 {
@@ -1295,7 +1295,7 @@ const UInt8 &TextureChunkBase::getShaderCullModes(void) const
     return _sfShaderCullModes.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt8               &TextureChunkBase::getShaderCullModes(void)
 {
@@ -1328,7 +1328,7 @@ const Vec3f &TextureChunkBase::getShaderConstEye(void) const
     return _sfShaderConstEye.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec3f               &TextureChunkBase::getShaderConstEye (void)
 {
@@ -1361,7 +1361,7 @@ const Real32 &TextureChunkBase::getLodBias(void) const
     return _sfLodBias.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureChunkBase::getLodBias        (void)
 {
@@ -1394,7 +1394,7 @@ const Int32 &TextureChunkBase::getDirtyLeft(void) const
     return _sfDirtyLeft.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureChunkBase::getDirtyLeft      (void)
 {
@@ -1427,7 +1427,7 @@ const Int32 &TextureChunkBase::getDirtyMinX(void) const
     return _sfDirtyMinX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureChunkBase::getDirtyMinX      (void)
 {
@@ -1460,7 +1460,7 @@ const Int32 &TextureChunkBase::getDirtyMaxX(void) const
     return _sfDirtyMaxX.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureChunkBase::getDirtyMaxX      (void)
 {
@@ -1493,7 +1493,7 @@ const Int32 &TextureChunkBase::getDirtyMinY(void) const
     return _sfDirtyMinY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureChunkBase::getDirtyMinY      (void)
 {
@@ -1526,7 +1526,7 @@ const Int32 &TextureChunkBase::getDirtyMaxY(void) const
     return _sfDirtyMaxY.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureChunkBase::getDirtyMaxY      (void)
 {
@@ -1559,7 +1559,7 @@ const Int32 &TextureChunkBase::getDirtyMinZ(void) const
     return _sfDirtyMinZ.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureChunkBase::getDirtyMinZ      (void)
 {
@@ -1592,7 +1592,7 @@ const Int32 &TextureChunkBase::getDirtyMaxZ(void) const
     return _sfDirtyMaxZ.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &TextureChunkBase::getDirtyMaxZ      (void)
 {
@@ -1625,7 +1625,7 @@ const Real32 &TextureChunkBase::getAnisotropy(void) const
     return _sfAnisotropy.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureChunkBase::getAnisotropy     (void)
 {
@@ -1658,7 +1658,7 @@ const Color4f &TextureChunkBase::getBorderColor(void) const
     return _sfBorderColor.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Color4f             &TextureChunkBase::getBorderColor    (void)
 {
@@ -1691,7 +1691,7 @@ const GLenum &TextureChunkBase::getCompareMode(void) const
     return _sfCompareMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getCompareMode    (void)
 {
@@ -1724,7 +1724,7 @@ const GLenum &TextureChunkBase::getCompareFunc(void) const
     return _sfCompareFunc.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getCompareFunc    (void)
 {
@@ -1757,7 +1757,7 @@ const GLenum &TextureChunkBase::getDepthMode(void) const
     return _sfDepthMode.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 GLenum              &TextureChunkBase::getDepthMode      (void)
 {
@@ -1790,7 +1790,7 @@ const UInt32 &TextureChunkBase::getBorderWidth(void) const
     return _sfBorderWidth.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureChunkBase::getBorderWidth    (void)
 {
@@ -1823,7 +1823,7 @@ const UInt32 &TextureChunkBase::getNPOTMatrixScale(void) const
     return _sfNPOTMatrixScale.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 UInt32              &TextureChunkBase::getNPOTMatrixScale(void)
 {
@@ -1864,7 +1864,7 @@ MFReal32 &TextureChunkBase::editShaderOffsetMatrix(void)
     return _mfShaderOffsetMatrix;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Real32              &TextureChunkBase::getShaderOffsetMatrix(const UInt32 index)
 {

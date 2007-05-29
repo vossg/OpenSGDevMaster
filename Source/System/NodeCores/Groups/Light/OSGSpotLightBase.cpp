@@ -104,7 +104,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFVec3r *(SpotLightBase::*GetSFDirectionF)(void) const;
 
     GetSFDirectionF GetSFDirection = &SpotLightBase::getSFDirection;
@@ -118,7 +118,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SpotLightBase::editSFDirection),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFDirection));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SpotLightBase::getSFDirection));
@@ -126,7 +126,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(SpotLightBase::*GetSFSpotExponentF)(void) const;
 
     GetSFSpotExponentF GetSFSpotExponent = &SpotLightBase::getSFSpotExponent;
@@ -140,7 +140,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SpotLightBase::editSFSpotExponent),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSpotExponent));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SpotLightBase::getSFSpotExponent));
@@ -148,7 +148,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal *(SpotLightBase::*GetSFSpotCutOffF)(void) const;
 
     GetSFSpotCutOffF GetSFSpotCutOff = &SpotLightBase::getSFSpotCutOff;
@@ -162,7 +162,7 @@ void SpotLightBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SpotLightBase::editSFSpotCutOff),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFSpotCutOff));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SpotLightBase::getSFSpotCutOff));
@@ -271,7 +271,7 @@ const SFVec3r *SpotLightBase::getSFDirection(void) const
     return &_sfDirection;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFVec3r             *SpotLightBase::getSFDirection      (void)
 {
     return this->editSFDirection      ();
@@ -290,7 +290,7 @@ const SFReal *SpotLightBase::getSFSpotExponent(void) const
     return &_sfSpotExponent;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *SpotLightBase::getSFSpotExponent   (void)
 {
     return this->editSFSpotExponent   ();
@@ -309,7 +309,7 @@ const SFReal *SpotLightBase::getSFSpotCutOff(void) const
     return &_sfSpotCutOff;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal              *SpotLightBase::getSFSpotCutOff     (void)
 {
     return this->editSFSpotCutOff     ();

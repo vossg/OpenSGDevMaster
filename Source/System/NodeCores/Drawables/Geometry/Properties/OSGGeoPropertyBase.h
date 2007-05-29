@@ -151,14 +151,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFUseVBO          (void);
 #endif
                   SFBool              *editSFUseVBO         (void);
             const SFBool              *getSFUseVBO          (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getUseVBO          (void);
 #endif
                   bool                &editUseVBO         (void);
@@ -233,26 +233,26 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFGLId            (void);
 #endif
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFUsage           (void);
 #endif
                   SFInt32             *editSFUsage          (void);
             const SFInt32             *getSFUsage           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getGLId            (void);
 #endif
                   UInt32              &editGLId           (void);
             const UInt32              &getGLId            (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getUsage           (void);
 #endif
                   Int32               &editUsage          (void);
