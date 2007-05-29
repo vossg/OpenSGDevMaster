@@ -69,9 +69,13 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     typedef GLint (OSG_APIENTRY *GetUniformLocProc)(      GLuint  programObj,
                                                     const Char8  *name);
 
-    typedef void (*paramtercbfp) (GetUniformLocProc  getUniformLocation,
-                                  DrawEnv           *pEnv,
-                                  GLuint             program);
+    typedef void (*parametercbfp  ) (GetUniformLocProc  getUniformLocation,
+                                     DrawEnv           *pEnv,
+                                     GLuint             program);
+
+    typedef void (*osgparametercbfp)(const ShaderParameterPtr &parameter,
+                                           DrawEnv            *pEnv,
+                                           GLuint              program);
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Chunk Class Access                           */
@@ -121,10 +125,21 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
                                 bool                 force            = false,
                                 bool                 keepProgramActive=false);
 
+
+    void updateProgramParameters(Window *win);
+
+    static void updateParameterLocation(Window *win, 
+                                        GLuint program,
+                                        const ShaderParameterPtr &parameter);
+
+    void updateParameterLocations(Window *win,
+                                  const MFShaderParameterPtr &parameters);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       State                                  */
     /*! \{                                                                 */
+
+    virtual void update    (DrawEnv    *pEnv     );
 
     virtual void activate  (DrawEnv    *pEnv,
                             UInt32      index = 0);
@@ -160,7 +175,22 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \name                    Parameter Callbacks                       */
     /*! \{                                                                 */
 
-    void addParameterCallback(const char *name, paramtercbfp fp);
+    void addParameterCallback(const char *name, parametercbfp    fp);
+    void addParameterCallback(const char *name, osgparametercbfp fp);
+
+    static void setParameterCallback(parametercbfp fp);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Program Parameter                         */
+    /*! \{                                                                 */
+
+    void addProgramParameter(GLenum name, UInt32 value);
+    void subProgramParameter(GLenum name);
+    void setProgramParameter(GLenum name, UInt32 value);
+    UInt32 getProgramParameter(GLenum name);
+    std::vector<std::pair<GLenum, UInt32> > getProgramParameters(void);
+    void clearProgramParameters(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -168,11 +198,13 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     /*! \{                                                                 */
 
     static UInt32 getFuncUniform1i       (void);
+    static UInt32 getFuncUniform1iv      (void);
     static UInt32 getFuncUniform2iv      (void);
     static UInt32 getFuncUniform3iv      (void);
     static UInt32 getFuncUniform4iv      (void);
 
     static UInt32 getFuncUniform1f       (void);
+    static UInt32 getFuncUniform1fv      (void);
     static UInt32 getFuncUniform2fv      (void);
     static UInt32 getFuncUniform3fv      (void);
     static UInt32 getFuncUniform4fv      (void);
@@ -224,7 +256,8 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     template<class ContainerFactoryT>
     friend struct PtrConstructionFunctions;
 
-    typedef std::map<std::string, paramtercbfp> userParameterCallbacksMap;
+    typedef std::map<std::string, std::pair<parametercbfp, osgparametercbfp> >
+        userParameterCallbacksMap;
 
     // class. Used for indexing in State
     static StateChunkClass _class;
@@ -235,8 +268,10 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     static UInt32 _shl_extension;
     static UInt32 _cg_extension;
+    static UInt32 _geometry_extension;
 
     static UInt32 _funcCreateProgramObject;
+    static UInt32 _funcProgramParameteri;
     static UInt32 _funcCreateShaderObject;
     static UInt32 _funcDeleteObject;
     static UInt32 _funcDetachObject;
@@ -256,11 +291,13 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     static UInt32 _funcGetAttribLocation;
 
     static UInt32 _funcUniform1i;
+    static UInt32 _funcUniform1iv;
     static UInt32 _funcUniform2iv;
     static UInt32 _funcUniform3iv;
     static UInt32 _funcUniform4iv;
 
     static UInt32 _funcUniform1f;
+    static UInt32 _funcUniform1fv;
     static UInt32 _funcUniform2fv;
     static UInt32 _funcUniform3fv;
     static UInt32 _funcUniform4fv;
@@ -284,77 +321,92 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
     void operator =(const SHLChunk &source);
 
     void updateProgram      (Window         *win    );
-    void checkOSGParameters (void                   );
+    void checkOSGParameters (bool force = false     );
     void updateOSGParameters(DrawEnv        *pEnv,
-                             GLuint          program);
+                             GLuint          program,
+                             bool update = false);
 
 
-    static void updateCameraOrientation(GetUniformLocProc  getUniformLocation,
+    static void updateWorldMatrix        (const ShaderParameterPtr &parameter,
+                                                DrawEnv            *pEnv, 
+                                                GLuint              program);
+
+    static void updateInvWorldMatrix     (const ShaderParameterPtr &parameter,
+                                                DrawEnv            *pEnv, 
+                                                GLuint              program  );
+
+    static void updateTransInvWorldMatrix(const ShaderParameterPtr &parameter,
+                                                DrawEnv            *pEnv, 
+                                                GLuint              program  );
+
+    static void updateCameraOrientation(const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateCameraPosition   (GetUniformLocProc  getUniformLocation,
+    static void updateCameraPosition   (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateViewMatrix       (GetUniformLocProc  getUniformLocation,
+    static void updateViewMatrix       (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateInvViewMatrix    (GetUniformLocProc  getUniformLocation,
+    static void updateInvViewMatrix    (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateStereoLeftEye    (GetUniformLocProc  getUniformLocation,
+    static void updateStereoLeftEye    (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateClusterId        (GetUniformLocProc  getUniformLocation,
+    static void updateClusterId        (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateActiveLightsMask (GetUniformLocProc  getUniformLocation,
+    static void updateActiveLightsMask (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateLight0Active     (GetUniformLocProc  getUniformLocation,
+    static void updateLight0Active     (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateLight1Active     (GetUniformLocProc  getUniformLocation,
+    static void updateLight1Active     (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateLight2Active     (GetUniformLocProc  getUniformLocation,
+    static void updateLight2Active     (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateLight3Active     (GetUniformLocProc  getUniformLocation,
+    static void updateLight3Active     (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateLight4Active     (GetUniformLocProc  getUniformLocation,
+    static void updateLight4Active     (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateLight5Active     (GetUniformLocProc  getUniformLocation,
+    static void updateLight5Active     (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateLight6Active     (GetUniformLocProc  getUniformLocation,
+    static void updateLight6Active     (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
-    static void updateLight7Active     (GetUniformLocProc  getUniformLocation,
+    static void updateLight7Active     (const ShaderParameterPtr &parameter,
                                         DrawEnv           *pEnv,
                                         GLuint             program           );
 
 
-    std::vector<paramtercbfp> _osgParametersCallbacks;
+    std::vector<std::pair<std::pair<parametercbfp, osgparametercbfp>,
+        ShaderParameterPtr> > _osgParametersCallbacks;
 
     UInt32                    _oldParameterSize;
 
     userParameterCallbacksMap _userParameterCallbacks;
+    static parametercbfp       _userParametersCallback;
 };
 
 typedef SHLChunk *SHLChunkP;

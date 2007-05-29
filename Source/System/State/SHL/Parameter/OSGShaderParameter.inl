@@ -40,6 +40,60 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline
+void ShaderParameter::setTypeId(ShaderParameter::SHPType type)
+{
+    _typeid = type;
+}
+
+inline
+ShaderParameter::SHPType ShaderParameter::getTypeId(void)
+{
+    return _typeid;
+}
+
+inline
+void ShaderParameter::setLocation(GLint location)
+{
+    _location = location;
+}
+
+inline
+GLint ShaderParameter::getLocation(void)
+{
+    return _location;
+}
+
+inline
+bool ShaderParameter::hasChanged(void)
+{
+    return _changed;
+}
+
+inline
+void ShaderParameter::resetChanged(void)
+{
+    _changed = false;
+}
+
+inline
+void ShaderParameter::setChanged(void)
+{
+    _changed = true;
+}
+
+inline
+UInt32 ShaderParameter::getFlags(void)
+{
+    return _flags;
+}
+
+inline
+void  ShaderParameter::setFlags(UInt32 flags)
+{
+    _flags = flags;
+}
+
 OSG_END_NAMESPACE
 
 #define OSGSHADERPARAMETER_INLINE_CVSID "@(#)$Id$"

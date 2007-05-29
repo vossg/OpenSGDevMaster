@@ -89,7 +89,7 @@ void ShaderParameterRealBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFReal32 *(ShaderParameterRealBase::*GetSFValueF)(void) const;
 
     GetSFValueF GetSFValue = &ShaderParameterRealBase::getSFValue;
@@ -103,7 +103,7 @@ void ShaderParameterRealBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ShaderParameterRealBase::editSFValue),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFValue));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ShaderParameterRealBase::getSFValue));
@@ -181,7 +181,7 @@ const SFReal32 *ShaderParameterRealBase::getSFValue(void) const
     return &_sfValue;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFReal32            *ShaderParameterRealBase::getSFValue          (void)
 {
     return this->editSFValue          ();

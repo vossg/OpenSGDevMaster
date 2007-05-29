@@ -96,10 +96,33 @@ class OSG_STATE_DLLMAPPING ShaderParameter : public ShaderParameterBase
         SHPTypeVec3f,
         SHPTypeVec4f,
         SHPTypeMatrix,
-        SHPTypeString
+        SHPTypeString,
+        SHPTypeMBool,
+        SHPTypeMInt,
+        SHPTypeMReal,
+        SHPTypeMVec2s,
+        SHPTypeMVec3s,
+        SHPTypeMVec4s,
+        SHPTypeMVec2f,
+        SHPTypeMVec3f,
+        SHPTypeMVec4f,
+        SHPTypeMMatrix,
+        SHPTypeMString
+    };
+
+    enum SHPFlags
+    {
+        SHPFlagNone = 0,
+        SHPFlagUpdate = 1
     };
 
     SHPType getTypeId(void);
+
+    GLint getLocation(void);
+    void  setLocation(GLint location);
+
+    UInt32 getFlags(void);
+    void  setFlags(UInt32 flags);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -108,6 +131,8 @@ class OSG_STATE_DLLMAPPING ShaderParameter : public ShaderParameterBase
 
     bool    _changed;
     SHPType _typeid;
+    GLint   _location;
+    UInt32  _flags;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

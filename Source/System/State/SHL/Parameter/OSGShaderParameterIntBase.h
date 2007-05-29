@@ -143,14 +143,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterIntBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFInt32             *getSFValue           (void);
 #endif
                   SFInt32             *editSFValue          (void);
             const SFInt32             *getSFValue           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Int32               &getValue           (void);
 #endif
                   Int32               &editValue          (void);

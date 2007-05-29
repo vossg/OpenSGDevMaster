@@ -87,13 +87,17 @@ OSG_BEGIN_NAMESPACE
     fragment program source
 */
 
+/*! \var std::string     ShaderChunkBase::_sfGeometryProgram
+    geometry program source
+*/
+
 
 void ShaderChunkBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ShaderChunkBase::*GetSFVertexProgramF)(void) const;
 
     GetSFVertexProgramF GetSFVertexProgram = &ShaderChunkBase::getSFVertexProgram;
@@ -107,7 +111,7 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editSFVertexProgram),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFVertexProgram));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getSFVertexProgram));
@@ -115,7 +119,7 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ShaderChunkBase::*GetSFFragmentProgramF)(void) const;
 
     GetSFFragmentProgramF GetSFFragmentProgram = &ShaderChunkBase::getSFFragmentProgram;
@@ -129,10 +133,32 @@ void ShaderChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editSFFragmentProgram),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFFragmentProgram));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getSFFragmentProgram));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
+    typedef const SFString *(ShaderChunkBase::*GetSFGeometryProgramF)(void) const;
+
+    GetSFGeometryProgramF GetSFGeometryProgram = &ShaderChunkBase::getSFGeometryProgram;
+#endif
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "geometryProgram",
+        "geometry program source\n",
+        GeometryProgramFieldId, GeometryProgramFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&ShaderChunkBase::editSFGeometryProgram),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetSFGeometryProgram));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&ShaderChunkBase::getSFGeometryProgram));
 #endif
 
     oType.addInitialDesc(pDesc);
@@ -180,6 +206,15 @@ ShaderChunkBase::TypeObject ShaderChunkBase::_type(
     "\t>\n"
     "\tfragment program source\n"
     "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"geometryProgram\"\n"
+    "\t\ttype=\"std::string\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tgeometry program source\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -216,7 +251,7 @@ const SFString *ShaderChunkBase::getSFVertexProgram(void) const
     return &_sfVertexProgram;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ShaderChunkBase::getSFVertexProgram  (void)
 {
     return this->editSFVertexProgram  ();
@@ -235,10 +270,29 @@ const SFString *ShaderChunkBase::getSFFragmentProgram(void) const
     return &_sfFragmentProgram;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ShaderChunkBase::getSFFragmentProgram(void)
 {
     return this->editSFFragmentProgram();
+}
+#endif
+
+SFString *ShaderChunkBase::editSFGeometryProgram(void)
+{
+    editSField(GeometryProgramFieldMask);
+
+    return &_sfGeometryProgram;
+}
+
+const SFString *ShaderChunkBase::getSFGeometryProgram(void) const
+{
+    return &_sfGeometryProgram;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFString            *ShaderChunkBase::getSFGeometryProgram(void)
+{
+    return this->editSFGeometryProgram();
 }
 #endif
 
@@ -260,6 +314,10 @@ UInt32 ShaderChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfFragmentProgram.getBinSize();
     }
+    if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
+    {
+        returnValue += _sfGeometryProgram.getBinSize();
+    }
 
     return returnValue;
 }
@@ -277,6 +335,10 @@ void ShaderChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfFragmentProgram.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
+    {
+        _sfGeometryProgram.copyToBin(pMem);
+    }
 }
 
 void ShaderChunkBase::copyFromBin(BinaryDataHandler &pMem,
@@ -292,6 +354,10 @@ void ShaderChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfFragmentProgram.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
+    {
+        _sfGeometryProgram.copyFromBin(pMem);
+    }
 }
 
 
@@ -301,14 +367,16 @@ void ShaderChunkBase::copyFromBin(BinaryDataHandler &pMem,
 ShaderChunkBase::ShaderChunkBase(void) :
     Inherited(),
     _sfVertexProgram          (),
-    _sfFragmentProgram        ()
+    _sfFragmentProgram        (),
+    _sfGeometryProgram        ()
 {
 }
 
 ShaderChunkBase::ShaderChunkBase(const ShaderChunkBase &source) :
     Inherited(source),
     _sfVertexProgram          (source._sfVertexProgram          ),
-    _sfFragmentProgram        (source._sfFragmentProgram        )
+    _sfFragmentProgram        (source._sfFragmentProgram        ),
+    _sfGeometryProgram        (source._sfGeometryProgram        )
 {
 }
 

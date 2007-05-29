@@ -63,6 +63,23 @@ The derived parameters supported by default are:
         Flag to indicate whether the shader can change the point size.
 	</Field>
 	<Field
+		name="programParameterNames"
+		type="GLenum"
+		cardinality="multi"
+		visibility="external"
+		defaultHeader="&lt;OSGGL.h&gt;"
+		access="public"
+	>
+	</Field>
+	<Field
+		name="programParameterValues"
+		type="UInt32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+	>
+	</Field>
+	<Field
 		name="GLId"
 		type="UInt32"
 		cardinality="single"

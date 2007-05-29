@@ -90,7 +90,7 @@ const Int32 &ShaderParameterIntBase::getValue(void) const
     return _sfValue.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Int32               &ShaderParameterIntBase::getValue          (void)
 {

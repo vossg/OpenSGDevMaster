@@ -60,6 +60,7 @@
 #include <OSGConfig.h>
 
 
+#include <OSGGL.h>                        // ProgramParameterNames default header
 
 
 #include "OSGSHLChunkBase.h"
@@ -118,6 +119,14 @@ OSG_BEGIN_NAMESPACE
     Flag to indicate whether the shader can change the point size.
 */
 
+/*! \var GLenum          SHLChunkBase::_mfProgramParameterNames
+    
+*/
+
+/*! \var UInt32          SHLChunkBase::_mfProgramParameterValues
+    
+*/
+
 /*! \var UInt32          SHLChunkBase::_sfGLId
     
 */
@@ -128,7 +137,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(SHLChunkBase::*GetSFCgFrontEndF)(void) const;
 
     GetSFCgFrontEndF GetSFCgFrontEnd = &SHLChunkBase::getSFCgFrontEnd;
@@ -142,7 +151,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editSFCgFrontEnd),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFCgFrontEnd));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getSFCgFrontEnd));
@@ -150,7 +159,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(SHLChunkBase::*GetSFPointSizeF)(void) const;
 
     GetSFPointSizeF GetSFPointSize = &SHLChunkBase::getSFPointSize;
@@ -164,7 +173,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editSFPointSize),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFPointSize));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getSFPointSize));
@@ -172,7 +181,51 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
+    typedef const MFGLenum *(SHLChunkBase::*GetMFProgramParameterNamesF)(void) const;
+
+    GetMFProgramParameterNamesF GetMFProgramParameterNames = &SHLChunkBase::getMFProgramParameterNames;
+#endif
+
+    pDesc = new MFGLenum::Description(
+        MFGLenum::getClassType(),
+        "programParameterNames",
+        "",
+        ProgramParameterNamesFieldId, ProgramParameterNamesFieldMask,
+        false,
+        Field::MFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editMFProgramParameterNames),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetMFProgramParameterNames));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getMFProgramParameterNames));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
+    typedef const MFUInt32 *(SHLChunkBase::*GetMFProgramParameterValuesF)(void) const;
+
+    GetMFProgramParameterValuesF GetMFProgramParameterValues = &SHLChunkBase::getMFProgramParameterValues;
+#endif
+
+    pDesc = new MFUInt32::Description(
+        MFUInt32::getClassType(),
+        "programParameterValues",
+        "",
+        ProgramParameterValuesFieldId, ProgramParameterValuesFieldMask,
+        false,
+        Field::MFDefaultFlags,
+        reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editMFProgramParameterValues),
+#ifdef OSG_1_GET_COMPAT
+        reinterpret_cast<FieldGetMethodSig >(GetMFProgramParameterValues));
+#else
+        reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getMFProgramParameterValues));
+#endif
+
+    oType.addInitialDesc(pDesc);
+
+#ifdef OSG_1_GET_COMPAT
     typedef const SFUInt32 *(SHLChunkBase::*GetSFGLIdF)(void) const;
 
     GetSFGLIdF GetSFGLId = &SHLChunkBase::getSFGLId;
@@ -186,7 +239,7 @@ void SHLChunkBase::classDescInserter(TypeObject &oType)
         true,
         (Field::FClusterLocal),
         reinterpret_cast<FieldEditMethodSig>(&SHLChunkBase::editSFGLId),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFGLId));
 #else
         reinterpret_cast<FieldGetMethodSig >(&SHLChunkBase::getSFGLId));
@@ -271,6 +324,23 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(
     "        Flag to indicate whether the shader can change the point size.\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t\tname=\"programParameterNames\"\n"
+    "\t\ttype=\"GLenum\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"programParameterValues\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"GLId\"\n"
     "\t\ttype=\"UInt32\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -347,7 +417,7 @@ const SFBool *SHLChunkBase::getSFCgFrontEnd(void) const
     return &_sfCgFrontEnd;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *SHLChunkBase::getSFCgFrontEnd     (void)
 {
     return this->editSFCgFrontEnd     ();
@@ -366,10 +436,48 @@ const SFBool *SHLChunkBase::getSFPointSize(void) const
     return &_sfPointSize;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *SHLChunkBase::getSFPointSize      (void)
 {
     return this->editSFPointSize      ();
+}
+#endif
+
+MFGLenum *SHLChunkBase::editMFProgramParameterNames(void)
+{
+    editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+
+    return &_mfProgramParameterNames;
+}
+
+const MFGLenum *SHLChunkBase::getMFProgramParameterNames(void) const
+{
+    return &_mfProgramParameterNames;
+}
+
+#ifdef OSG_1_GET_COMPAT
+MFGLenum            *SHLChunkBase::getMFProgramParameterNames(void)
+{
+    return this->editMFProgramParameterNames();
+}
+#endif
+
+MFUInt32 *SHLChunkBase::editMFProgramParameterValues(void)
+{
+    editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+
+    return &_mfProgramParameterValues;
+}
+
+const MFUInt32 *SHLChunkBase::getMFProgramParameterValues(void) const
+{
+    return &_mfProgramParameterValues;
+}
+
+#ifdef OSG_1_GET_COMPAT
+MFUInt32            *SHLChunkBase::getMFProgramParameterValues(void)
+{
+    return this->editMFProgramParameterValues();
 }
 #endif
 
@@ -385,7 +493,7 @@ const SFUInt32 *SHLChunkBase::getSFGLId(void) const
     return &_sfGLId;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFUInt32            *SHLChunkBase::getSFGLId           (void)
 {
     return this->editSFGLId           ();
@@ -394,6 +502,170 @@ SFUInt32            *SHLChunkBase::getSFGLId           (void)
 
 
 
+/*********************************** Non-ptr code ********************************/
+void SHLChunkBase::pushToProgramParameterNames(const GLenum& value)
+{
+    editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+    _mfProgramParameterNames.push_back(value);
+}
+
+void SHLChunkBase::insertIntoProgramParameterNames(UInt32                uiIndex,
+                                                   const GLenum& value   )
+{
+    editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+
+    MFGLenum::iterator fieldIt = _mfProgramParameterNames.begin();
+
+    fieldIt += uiIndex;
+
+    _mfProgramParameterNames.insert(fieldIt, value);
+}
+
+void SHLChunkBase::replaceInProgramParameterNames(UInt32                uiIndex,
+                                                       const GLenum& value   )
+{
+    if(uiIndex >= _mfProgramParameterNames.size())
+        return;
+
+    editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+
+    _mfProgramParameterNames[uiIndex] = value;
+}
+
+void SHLChunkBase::replaceInProgramParameterNames(const GLenum& pOldElem,
+                                                        const GLenum& pNewElem)
+{
+    Int32  elemIdx = _mfProgramParameterNames.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+
+        MFGLenum::iterator fieldIt = _mfProgramParameterNames.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void SHLChunkBase::removeFromProgramParameterNames(UInt32 uiIndex)
+{
+    if(uiIndex < _mfProgramParameterNames.size())
+    {
+        editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+
+        MFGLenum::iterator fieldIt = _mfProgramParameterNames.begin();
+
+        fieldIt += uiIndex;
+        _mfProgramParameterNames.erase(fieldIt);
+    }
+}
+
+void SHLChunkBase::removeFromProgramParameterNames(const GLenum& value)
+{
+    Int32 iElemIdx = _mfProgramParameterNames.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+
+        MFGLenum::iterator fieldIt = _mfProgramParameterNames.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfProgramParameterNames.erase(fieldIt);
+    }
+}
+
+void SHLChunkBase::clearProgramParameterNames(void)
+{
+    editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
+
+    _mfProgramParameterNames.clear();
+}
+/*********************************** Non-ptr code ********************************/
+void SHLChunkBase::pushToProgramParameterValues(const UInt32& value)
+{
+    editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+    _mfProgramParameterValues.push_back(value);
+}
+
+void SHLChunkBase::insertIntoProgramParameterValues(UInt32                uiIndex,
+                                                   const UInt32& value   )
+{
+    editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+
+    MFUInt32::iterator fieldIt = _mfProgramParameterValues.begin();
+
+    fieldIt += uiIndex;
+
+    _mfProgramParameterValues.insert(fieldIt, value);
+}
+
+void SHLChunkBase::replaceInProgramParameterValues(UInt32                uiIndex,
+                                                       const UInt32& value   )
+{
+    if(uiIndex >= _mfProgramParameterValues.size())
+        return;
+
+    editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+
+    _mfProgramParameterValues[uiIndex] = value;
+}
+
+void SHLChunkBase::replaceInProgramParameterValues(const UInt32& pOldElem,
+                                                        const UInt32& pNewElem)
+{
+    Int32  elemIdx = _mfProgramParameterValues.findIndex(pOldElem);
+
+    if(elemIdx != -1)
+    {
+        editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+
+        MFUInt32::iterator fieldIt = _mfProgramParameterValues.begin();
+
+        fieldIt += elemIdx;
+
+        (*fieldIt) = pNewElem;
+    }
+}
+
+void SHLChunkBase::removeFromProgramParameterValues(UInt32 uiIndex)
+{
+    if(uiIndex < _mfProgramParameterValues.size())
+    {
+        editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+
+        MFUInt32::iterator fieldIt = _mfProgramParameterValues.begin();
+
+        fieldIt += uiIndex;
+        _mfProgramParameterValues.erase(fieldIt);
+    }
+}
+
+void SHLChunkBase::removeFromProgramParameterValues(const UInt32& value)
+{
+    Int32 iElemIdx = _mfProgramParameterValues.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+
+        MFUInt32::iterator fieldIt = _mfProgramParameterValues.begin();
+
+        fieldIt += iElemIdx;
+
+        _mfProgramParameterValues.erase(fieldIt);
+    }
+}
+
+void SHLChunkBase::clearProgramParameterValues(void)
+{
+    editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
+
+    _mfProgramParameterValues.clear();
+}
 
 
 /*------------------------------ access -----------------------------------*/
@@ -409,6 +681,14 @@ UInt32 SHLChunkBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (PointSizeFieldMask & whichField))
     {
         returnValue += _sfPointSize.getBinSize();
+    }
+    if(FieldBits::NoField != (ProgramParameterNamesFieldMask & whichField))
+    {
+        returnValue += _mfProgramParameterNames.getBinSize();
+    }
+    if(FieldBits::NoField != (ProgramParameterValuesFieldMask & whichField))
+    {
+        returnValue += _mfProgramParameterValues.getBinSize();
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
@@ -431,6 +711,14 @@ void SHLChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfPointSize.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ProgramParameterNamesFieldMask & whichField))
+    {
+        _mfProgramParameterNames.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ProgramParameterValuesFieldMask & whichField))
+    {
+        _mfProgramParameterValues.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
         _sfGLId.copyToBin(pMem);
@@ -449,6 +737,14 @@ void SHLChunkBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (PointSizeFieldMask & whichField))
     {
         _sfPointSize.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ProgramParameterNamesFieldMask & whichField))
+    {
+        _mfProgramParameterNames.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ProgramParameterValuesFieldMask & whichField))
+    {
+        _mfProgramParameterValues.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (GLIdFieldMask & whichField))
     {
@@ -483,6 +779,8 @@ SHLChunkBase::SHLChunkBase(void) :
     Inherited(),
     _sfCgFrontEnd             (bool(false)),
     _sfPointSize              (bool(false)),
+    _mfProgramParameterNames  (),
+    _mfProgramParameterValues (),
     _sfGLId                   (UInt32(0))
 {
 }
@@ -491,6 +789,8 @@ SHLChunkBase::SHLChunkBase(const SHLChunkBase &source) :
     Inherited(source),
     _sfCgFrontEnd             (source._sfCgFrontEnd             ),
     _sfPointSize              (source._sfPointSize              ),
+    _mfProgramParameterNames  (source._mfProgramParameterNames  ),
+    _mfProgramParameterValues (source._mfProgramParameterValues ),
     _sfGLId                   (source._sfGLId                   )
 {
 }

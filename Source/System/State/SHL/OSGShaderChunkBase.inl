@@ -90,7 +90,7 @@ const std::string &ShaderChunkBase::getVertexProgram(void) const
     return _sfVertexProgram.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ShaderChunkBase::getVertexProgram  (void)
 {
@@ -123,7 +123,7 @@ const std::string &ShaderChunkBase::getFragmentProgram(void) const
     return _sfFragmentProgram.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 std::string         &ShaderChunkBase::getFragmentProgram(void)
 {
@@ -138,6 +138,39 @@ void ShaderChunkBase::setFragmentProgram(const std::string &value)
     editSField(FragmentProgramFieldMask);
 
     _sfFragmentProgram.setValue(value);
+}
+//! Get the value of the ShaderChunk::_sfGeometryProgram field.
+
+inline
+std::string &ShaderChunkBase::editGeometryProgram(void)
+{
+    editSField(GeometryProgramFieldMask);
+
+    return _sfGeometryProgram.getValue();
+}
+
+//! Get the value of the ShaderChunk::_sfGeometryProgram field.
+inline
+const std::string &ShaderChunkBase::getGeometryProgram(void) const
+{
+    return _sfGeometryProgram.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+std::string         &ShaderChunkBase::getGeometryProgram(void)
+{
+    return this->editGeometryProgram();
+}
+#endif
+
+//! Set the value of the ShaderChunk::_sfGeometryProgram field.
+inline
+void ShaderChunkBase::setGeometryProgram(const std::string &value)
+{
+    editSField(GeometryProgramFieldMask);
+
+    _sfGeometryProgram.setValue(value);
 }
 
 
@@ -156,6 +189,9 @@ void ShaderChunkBase::execSync(      ShaderChunkBase *pOther,
 
     if(FieldBits::NoField != (FragmentProgramFieldMask & whichField))
         _sfFragmentProgram.syncWith(pOther->_sfFragmentProgram);
+
+    if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
+        _sfGeometryProgram.syncWith(pOther->_sfGeometryProgram);
 }
 #endif
 
@@ -174,6 +210,9 @@ void ShaderChunkBase::execSync (      ShaderChunkBase *pFrom,
 
     if(FieldBits::NoField != (FragmentProgramFieldMask & whichField))
         _sfFragmentProgram.syncWith(pFrom->_sfFragmentProgram);
+
+    if(FieldBits::NoField != (GeometryProgramFieldMask & whichField))
+        _sfGeometryProgram.syncWith(pFrom->_sfGeometryProgram);
 }
 #endif
 

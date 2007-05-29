@@ -143,14 +143,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterRealBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFReal32            *getSFValue           (void);
 #endif
                   SFReal32            *editSFValue          (void);
             const SFReal32            *getSFValue           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Real32              &getValue           (void);
 #endif
                   Real32              &editValue          (void);

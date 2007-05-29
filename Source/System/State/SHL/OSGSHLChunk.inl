@@ -47,6 +47,12 @@ UInt32 SHLChunk::getFuncUniform1i(void)
 }
 
 inline
+UInt32 SHLChunk::getFuncUniform1iv(void)
+{
+    return _funcUniform1iv;
+}
+
+inline
 UInt32 SHLChunk::getFuncUniform2iv(void)
 {
     return _funcUniform2iv;
@@ -68,6 +74,12 @@ inline
 UInt32 SHLChunk::getFuncUniform1f(void)
 {
     return _funcUniform1f;
+}
+
+inline
+UInt32 SHLChunk::getFuncUniform1fv(void)
+{
+    return _funcUniform1fv;
 }
 
 inline

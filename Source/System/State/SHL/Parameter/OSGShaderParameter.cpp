@@ -81,44 +81,23 @@ void ShaderParameter::initMethod(InitPhase ePhase)
 ShaderParameter::ShaderParameter(void) :
      Inherited(              ),
     _changed  (false         ),
-    _typeid   (SHPTypeUnknown)
+    _typeid   (SHPTypeUnknown),
+    _location (            -1),
+    _flags    (SHPFlagNone   )
 {
 }
 
 ShaderParameter::ShaderParameter(const ShaderParameter &source) :
-     Inherited(source         ),
-    _changed  (source._changed),
-    _typeid   (source._typeid )
+     Inherited(source          ),
+    _changed  (source._changed ),
+    _typeid   (source._typeid  ),
+    _location (source._location),
+    _flags    (source._flags   )
 {
 }
 
 ShaderParameter::~ShaderParameter(void)
 {
-}
-
-void ShaderParameter::setTypeId(ShaderParameter::SHPType type)
-{
-    _typeid = type;
-}
-
-ShaderParameter::SHPType ShaderParameter::getTypeId(void)
-{
-    return _typeid;
-}
-
-bool ShaderParameter::hasChanged(void)
-{
-    return _changed;
-}
-
-void ShaderParameter::resetChanged(void)
-{
-    _changed = false;
-}
-
-void ShaderParameter::setChanged(void)
-{
-    _changed = true;
 }
 
 /*----------------------------- class specific ----------------------------*/

@@ -143,14 +143,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterStringBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFValue           (void);
 #endif
                   SFString            *editSFValue          (void);
             const SFString            *getSFValue           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getValue           (void);
 #endif
                   std::string         &editValue          (void);

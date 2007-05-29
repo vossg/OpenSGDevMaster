@@ -96,6 +96,59 @@ bool ShaderParameterAccess::setParameter(const Char8     *name,
 }
 
 template<class ParameterType, class ValueType> inline
+bool ShaderParameterAccess::setMParameter(const char      *name, 
+                                          const ValueType &value)
+{
+    typedef typename ParameterType::ObjPtr ParamPtr;
+
+    if(name == NULL)
+        return false;
+
+    updateMap();
+
+    parameterIt it = _parametermap.find(name);
+    
+    if(it != _parametermap.end())
+    {
+        //ParameterType::Ptr p = ParameterType::Ptr::dcast(_parameters[(*it).second]);
+        ParamPtr p = cast_dynamic<ParamPtr>(
+            _parameters.getParameters()[(*it).second]);
+
+        if(p == NullFC)
+        {
+            FWARNING(("ShaderParameterAccess::setMParameter : Parameter '%s' "
+                      "has wrong type!\n", name));
+
+            return false;
+        }
+
+        p->editValue() = value;
+    }
+    else
+    {
+        //ParameterType::Ptr p = ParameterType::create();
+        ParamPtr p = ParameterType::create();
+
+        if(p != NullFC)
+        {
+            p->setName(name );
+
+            p->editValue() = value;
+
+            _parameters.addParameter(p);
+
+            _parametermap.insert(
+                std::pair<std::string, 
+                          UInt32>(name, 
+                                  _parameters.getParameters().size()-1));
+
+            _mapsize = _parameters.getParameters().size();
+        }
+    }
+    return true;
+}
+
+template<class ParameterType, class ValueType> inline
 bool ShaderParameterAccess::getParameter(const Char8 *name, ValueType &value)
 {
     typedef typename ParameterType::ObjPtr ParamPtr;

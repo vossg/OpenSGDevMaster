@@ -29,4 +29,13 @@
 	>
 	fragment program source
 	</Field>
+	<Field
+		name="geometryProgram"
+		type="std::string"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	geometry program source
+	</Field>
 </FieldContainer>

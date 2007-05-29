@@ -89,7 +89,7 @@ void ShaderParameterBoolBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFBool *(ShaderParameterBoolBase::*GetSFValueF)(void) const;
 
     GetSFValueF GetSFValue = &ShaderParameterBoolBase::getSFValue;
@@ -103,7 +103,7 @@ void ShaderParameterBoolBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ShaderParameterBoolBase::editSFValue),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFValue));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ShaderParameterBoolBase::getSFValue));
@@ -181,7 +181,7 @@ const SFBool *ShaderParameterBoolBase::getSFValue(void) const
     return &_sfValue;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFBool              *ShaderParameterBoolBase::getSFValue          (void)
 {
     return this->editSFValue          ();

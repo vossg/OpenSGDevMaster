@@ -89,7 +89,7 @@ void ShaderParameterStringBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const SFString *(ShaderParameterStringBase::*GetSFValueF)(void) const;
 
     GetSFValueF GetSFValue = &ShaderParameterStringBase::getSFValue;
@@ -103,7 +103,7 @@ void ShaderParameterStringBase::classDescInserter(TypeObject &oType)
         false,
         Field::SFDefaultFlags,
         reinterpret_cast<FieldEditMethodSig>(&ShaderParameterStringBase::editSFValue),
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(GetSFValue));
 #else
         reinterpret_cast<FieldGetMethodSig >(&ShaderParameterStringBase::getSFValue));
@@ -181,7 +181,7 @@ const SFString *ShaderParameterStringBase::getSFValue(void) const
     return &_sfValue;
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 SFString            *ShaderParameterStringBase::getSFValue          (void)
 {
     return this->editSFValue          ();

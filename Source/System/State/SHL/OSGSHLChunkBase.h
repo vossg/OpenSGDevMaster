@@ -67,6 +67,8 @@
 
 #include "OSGBoolFields.h" // CgFrontEnd type
 #include "OSGBoolFields.h" // PointSize type
+#include "OSGGLenumFields.h" // ProgramParameterNames type
+#include "OSGUInt32Fields.h" // ProgramParameterValues type
 #include "OSGUInt32Fields.h" // GLId type
 
 #include "OSGSHLChunkFields.h"
@@ -114,7 +116,9 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     {
         CgFrontEndFieldId = Inherited::NextFieldId,
         PointSizeFieldId = CgFrontEndFieldId + 1,
-        GLIdFieldId = PointSizeFieldId + 1,
+        ProgramParameterNamesFieldId = PointSizeFieldId + 1,
+        ProgramParameterValuesFieldId = ProgramParameterNamesFieldId + 1,
+        GLIdFieldId = ProgramParameterValuesFieldId + 1,
         NextFieldId = GLIdFieldId + 1
     };
 
@@ -122,6 +126,10 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
         (TypeTraits<BitVector>::One << CgFrontEndFieldId);
     static const OSG::BitVector PointSizeFieldMask =
         (TypeTraits<BitVector>::One << PointSizeFieldId);
+    static const OSG::BitVector ProgramParameterNamesFieldMask =
+        (TypeTraits<BitVector>::One << ProgramParameterNamesFieldId);
+    static const OSG::BitVector ProgramParameterValuesFieldMask =
+        (TypeTraits<BitVector>::One << ProgramParameterValuesFieldId);
     static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector NextFieldMask =
@@ -151,38 +159,68 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFCgFrontEnd      (void);
 #endif
                   SFBool              *editSFCgFrontEnd     (void);
             const SFBool              *getSFCgFrontEnd      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFBool              *getSFPointSize       (void);
 #endif
                   SFBool              *editSFPointSize      (void);
             const SFBool              *getSFPointSize       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
+                  MFGLenum            *getMFProgramParameterNames (void);
+#endif
+                  MFGLenum            *editMFProgramParameterNames(void);
+            const MFGLenum            *getMFProgramParameterNames (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  MFUInt32            *getMFProgramParameterValues (void);
+#endif
+                  MFUInt32            *editMFProgramParameterValues(void);
+            const MFUInt32            *getMFProgramParameterValues (void) const;
+
+#ifdef OSG_1_GET_COMPAT
                   SFUInt32            *getSFGLId            (void);
 #endif
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getCgFrontEnd      (void);
 #endif
                   bool                &editCgFrontEnd     (void);
             const bool                &getCgFrontEnd      (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   bool                &getPointSize       (void);
 #endif
                   bool                &editPointSize      (void);
             const bool                &getPointSize       (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
+                  GLenum              &getProgramParameterNames (const UInt32 index);
+                  MFGLenum            &getProgramParameterNames(void);
+#endif
+                  GLenum              &editProgramParameterNames(const UInt32 index);
+            const GLenum              &getProgramParameterNames (const UInt32 index) const;
+                  MFGLenum            &editProgramParameterNames(void);
+            const MFGLenum            &getProgramParameterNames(void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  UInt32              &getProgramParameterValues (const UInt32 index);
+                  MFUInt32            &getProgramParameterValues(void);
+#endif
+                  UInt32              &editProgramParameterValues(const UInt32 index);
+            const UInt32              &getProgramParameterValues (const UInt32 index) const;
+                  MFUInt32            &editProgramParameterValues(void);
+            const MFUInt32            &getProgramParameterValues(void) const;
+
+#ifdef OSG_1_GET_COMPAT
                   UInt32              &getGLId            (void);
 #endif
                   UInt32              &editGLId           (void);
@@ -201,6 +239,32 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
+
+    void pushToProgramParameterNames       (const GLenum    &value   );
+    void insertIntoProgramParameterNames   (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInProgramParameterNames    (      UInt32     uiIndex,
+                                            const GLenum    &value   );
+    void replaceInProgramParameterNames    (const GLenum    &pOldElem,
+                                            const GLenum    &pNewElem);
+    void removeFromProgramParameterNames   (      UInt32     uiIndex );
+    void removeFromProgramParameterNames   (const GLenum    &value   );
+    void clearProgramParameterNames        (      void               );
+
+
+
+    void pushToProgramParameterValues      (const UInt32    &value   );
+    void insertIntoProgramParameterValues  (      UInt32     uiIndex,
+                                            const UInt32    &value   );
+    void replaceInProgramParameterValues   (      UInt32     uiIndex,
+                                            const UInt32    &value   );
+    void replaceInProgramParameterValues   (const UInt32    &pOldElem,
+                                            const UInt32    &pNewElem);
+    void removeFromProgramParameterValues  (      UInt32     uiIndex );
+    void removeFromProgramParameterValues  (const UInt32    &value   );
+    void clearProgramParameterValues       (      void               );
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -245,6 +309,8 @@ class OSG_STATE_DLLMAPPING SHLChunkBase : public ShaderChunk
 
     SFBool            _sfCgFrontEnd;
     SFBool            _sfPointSize;
+    MFGLenum          _mfProgramParameterNames;
+    MFUInt32          _mfProgramParameterValues;
     SFUInt32          _sfGLId;
 
     /*! \}                                                                 */

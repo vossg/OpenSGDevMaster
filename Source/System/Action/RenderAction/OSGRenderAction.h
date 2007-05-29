@@ -49,6 +49,7 @@
 #include <vector>
 #include <stack>
 #include <map>
+#include <set>
 
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
@@ -70,6 +71,8 @@ class State;
 class Light;
 class LightEnv;
 class LightChunk;
+class ClipPlane;
+class SClipPlaneChunk;
 
 class DrawTreeNodeFactory;
 
@@ -98,6 +101,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
 
     typedef std::map <Material   *,      DrawTreeNode *> MaterialMap;
     typedef std::pair<LightChunk *,      Matrixr       > LightStore;
+    typedef std::pair<SClipPlaneChunk *, Matrix        > ClipPlaneStore;
 
     //-----------------------------------------------------------------------
     //   constants
@@ -108,6 +112,13 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     static StatElemDesc<StatIntElem    > statNMatrices;
     static StatElemDesc<StatIntElem    > statNGeometries;
     static StatElemDesc<StatIntElem    > statNTransGeometries;
+    static StatElemDesc<StatStringElem > statNOcclusionMode;
+    static StatElemDesc<StatIntElem    > statNOcclusionTests;
+    static StatElemDesc<StatIntElem    > statNOcclusionCulled;
+
+    static const Int32 OcclusionStopAndWait;
+    static const Int32 OcclusionMultiFrame;
+    static const Int32 OcclusionHierarchicalMultiFrame;
 
     //-----------------------------------------------------------------------
     //   enums
@@ -162,6 +173,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     void dropLightEnv  (LightEnv  *pLightEnv);
     void undropLightEnv(LightEnv  *pLightEnv);
 
+    void dropClipPlane  (ClipPlane     *pClipPlane);
+    void undropClipPlane(ClipPlane     *pClipPlane);
 
 
     void setStateSorting(bool s);
@@ -171,37 +184,70 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     UInt32 getActiveLightsMask(void);
     UInt32 getActiveLightsCount(void);
 
+    const std::vector<UInt32> &getLightEnvsLightsState(void);
+
+    inline State *getCurrentState(void);
+
     /*------------------------- comparison ----------------------------------*/
 
     void setSortTrans(bool bVal);
-    bool getSortTrans(void);
+    bool getSortTrans(void) const;
+
     void setZWriteTrans(bool bVal);
-    bool getZWriteTrans(void);
+    bool getZWriteTrans(void) const;
+
     void setLocalLights(bool bVal);
-    bool getLocalLights(void);
+    bool getLocalLights(void) const;
+
     void setCorrectTwoSidedLighting(bool bVal);
-    bool getCorrectTwoSidedLighting(void);
+    bool getCorrectTwoSidedLighting(void) const;
+
     void setOcclusionCulling(bool bVal);
-    bool getOcclusionCulling(void);
+    bool getOcclusionCulling(void) const;
+
+    void setOcclusionCullingMode(Int32 mode);
+    Int32 getOcclusionCullingMode(void) const;
+    void setOcclusionCullingPixels(UInt32 pixels);
+    UInt32 getOcclusionCullingPixels(void) const;
+    void setOcclusionCullingThreshold(UInt32 threshold);
+    UInt32 getOcclusionCullingThreshold(void) const;
+
     void setSmallFeatureCulling(bool bVal);
-    bool getSmallFeatureCulling(void);
+    bool getSmallFeatureCulling(void) const;
     void setSmallFeaturePixels(Real32 pixels);
-    Real32 getSmallFeaturePixels(void);
+    Real32 getSmallFeaturePixels(void) const;
     void setSmallFeatureThreshold(UInt32 threshold);
-    UInt32 getSmallFeatureThreshold(void);
+    UInt32 getSmallFeatureThreshold(void) const;
     void setUseGLFinish(bool s);
-    bool getUseGLFinish(void);
+    bool getUseGLFinish(void) const;
 
     /*------------------------- comparison ----------------------------------*/
 
     bool isSmallFeature(const NodePtr &node);
+    bool isOccluded(DrawTreeNode *pRoot);
+    void deleteOcclusionQueriesPool(void);
+    GLuint getOcclusionQuery(void);
+    GLuint getOcclusionQuery(NodePtr node);
+    void setOcclusionQuery(NodePtr node, GLuint occlusionQuery);
+    void resetOcclusionQueryIndex(void);
+    void setOcclusionMask(NodePtr node, UInt8 mask);
+    bool hasGeometryChild(NodePtr node);
 
+    void drawOcclusionBB(const Pnt3f &bbmin, const Pnt3f &bbmax);
+    void drawMultiFrameOcclusionBB(DrawTreeNode *pRoot);
+    void drawHierarchicalMultiFrameOcclusionBB(const Matrix &view, NodePtr node);
     // test a single node
     bool            isVisible( Node* node );
 
     // visibility levels
     bool  pushVisibility(void);
     void  popVisibility(void);
+
+    void (OSG_APIENTRY* _glGenQueriesARB)(GLsizei, GLuint*);
+    void (OSG_APIENTRY* _glDeleteQueriesARB)(GLsizei, GLuint*);
+    void (OSG_APIENTRY* _glBeginQueryARB)(GLenum, GLuint);
+    void (OSG_APIENTRY* _glEndQueryARB)(GLenum);
+    void (OSG_APIENTRY* _glGetQueryObjectuivARB)(GLuint, GLenum, GLuint*);
 
   protected:
 
@@ -267,12 +313,22 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     UInt32                    _uiNumMatrixChanges;
     UInt32                    _uiNumGeometries;
     UInt32                    _uiNumTransGeometries;
+    UInt32                    _uiNumOcclusionTests;
+    UInt32                    _uiNumOcclusionCulled;
 
     bool                      _bSortTrans;
     bool                      _bZWriteTrans;
     bool                      _bLocalLights;
     bool                      _bCorrectTwoSidedLighting;
     bool                      _bOcclusionCulling;
+    Int32                     _occlusionCullingMode;
+    UInt32                    _occlusionCullingPixels;
+    UInt32                    _occlusionCullingThreshold;
+    UInt32                    _currentOcclusionQueryIndex;
+    std::vector<NodePtr>      _occluded_nodes;
+    std::set<UInt32>          _hier_occlusions;
+    UInt32                    _occ_bb_dl;
+
     bool                      _bSmallFeatureCulling;
     Real32                    _smallFeaturesPixels;
     UInt32                    _smallFeaturesThreshold;
@@ -290,17 +346,24 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     std::vector<UInt32>               _lightsPath;
     std::vector<UInt32>               _lightEnvsLightsState;
 
+    std::vector<ClipPlaneStore> _vClipPlanes;
+    std::vector<ClipPlane *>    _clipPlanesMap;
+    UInt32                      _clipPlanesState;
+    UInt32                      _activeClipPlanesState;
+    UInt32                      _activeClipPlanesCount;
+    UInt32                      _activeClipPlanesMask;
+
+    std::vector<std::vector<UInt32> > _clipPlanesTable;
+    std::vector<UInt32>               _clipPlanesPath;
+
     bool                      _stateSorting;
 
     std::vector<FrustumVolume::PlaneSet>  _visibilityStack;
 
     GLuint _occlusionQuery;
+    std::vector<GLuint> _occlusionQueriesPool;
+    std::map<UInt32, GLuint> _occlusionQueries;
 
-    void (OSG_APIENTRY* _glGenQueriesARB)(GLsizei, GLuint*);
-    void (OSG_APIENTRY* _glDeleteQueriesARB)(GLsizei, GLuint*);
-    void (OSG_APIENTRY* _glBeginQueryARB)(GLenum, GLuint);
-    void (OSG_APIENTRY* _glEndQueryARB)(GLenum);
-    void (OSG_APIENTRY* _glGetQueryObjectuivARB)(GLuint, GLenum, GLuint*);
 
     Int32 _cgChunkId;
     Int32 _cgfxChunkId;
@@ -337,6 +400,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
 
     inline  void updateTopMatrix(void);
             void activateLocalLights(DrawTreeNode *pRoot);
+            void activateLocalClipPlanes(DrawTreeNode *pRoot);
 
     void getMaterialStates(Material *mat, std::vector<State *> &states);
 
@@ -353,6 +417,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public DrawActionBase
     //-----------------------------------------------------------------------
     //   friend classes
     //-----------------------------------------------------------------------
+
+    friend class ShadowViewport;
 
     //-----------------------------------------------------------------------
     //   friend functions

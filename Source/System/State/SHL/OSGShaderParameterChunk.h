@@ -46,6 +46,10 @@
 #include "OSGVector.h"
 #include "OSGMatrix.h"
 
+#include "OSGSysMFields.h"
+#include "OSGVecMFields.h"
+#include "OSGMathMFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 class ShaderParameterAccess;
@@ -93,6 +97,13 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunk :
     bool setUniformParameter(const Char8 *name, const Vec4f  &value);
     bool setUniformParameter(const Char8 *name, const Matrix &value);
     
+    bool    setUniformParameter(const char *name, const MFInt32  &value);
+    bool    setUniformParameter(const char *name, const MFReal32 &value);
+    bool    setUniformParameter(const char *name, const MFVec2f  &value);
+    bool    setUniformParameter(const char *name, const MFVec3f  &value);
+    bool    setUniformParameter(const char *name, const MFVec4f  &value);
+    bool    setUniformParameter(const char *name, const MFMatrix &value);
+
     bool getUniformParameter(const Char8 *name,       bool   &value);
     bool getUniformParameter(const Char8 *name,       Int32  &value);
     bool getUniformParameter(const Char8 *name,       Real32 &value);
@@ -100,6 +111,13 @@ class OSG_STATE_DLLMAPPING ShaderParameterChunk :
     bool getUniformParameter(const Char8 *name,       Vec3f  &value);
     bool getUniformParameter(const Char8 *name,       Vec4f  &value);
     bool getUniformParameter(const Char8 *name,       Matrix &value);
+
+    bool    getUniformParameter(const char *name, MFInt32  &value);
+    bool    getUniformParameter(const char *name, MFReal32 &value);
+    bool    getUniformParameter(const char *name, MFVec2f  &value);
+    bool    getUniformParameter(const char *name, MFVec3f  &value);
+    bool    getUniformParameter(const char *name, MFVec4f  &value);
+    bool    getUniformParameter(const char *name, MFMatrix &value);
     
     bool subUniformParameter(const Char8 *name);
     

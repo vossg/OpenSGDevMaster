@@ -125,6 +125,12 @@ StatElemDesc<StatIntElem > RenderAction::statNGeometries("NGeometries",
 "number of Geometry nodes");
 StatElemDesc<StatIntElem > RenderAction::statNTransGeometries("NTransGeometries",
 "number of transformed Geometry nodes");
+StatElemDesc<StatStringElem > RenderAction::statNOcclusionMode("OcclusionMode",
+"occlusion culling mode");
+StatElemDesc<StatIntElem > RenderAction::statNOcclusionTests("NOcclusionTests", 
+"number of occlusion tests");
+StatElemDesc<StatIntElem > RenderAction::statNOcclusionCulled("NOcclusionCulled", 
+"number of objects culled via occlusion culling");
 
 
 UInt32 RenderAction::_arbOcclusionQuery;
@@ -133,6 +139,10 @@ UInt32 RenderAction::_funcDeleteQueriesARB      = Window::invalidFunctionID;
 UInt32 RenderAction::_funcBeginQueryARB         = Window::invalidFunctionID;
 UInt32 RenderAction::_funcEndQueryARB           = Window::invalidFunctionID;
 UInt32 RenderAction::_funcGetQueryObjectuivARB  = Window::invalidFunctionID;
+
+const Int32 RenderAction::OcclusionStopAndWait = 1;
+const Int32 RenderAction::OcclusionMultiFrame  = 2;
+const Int32 RenderAction::OcclusionHierarchicalMultiFrame = 6; // 2 + 4;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -279,13 +289,22 @@ RenderAction::RenderAction(void) :
     _uiNumMaterialChanges(0),
     _uiNumMatrixChanges  (0),
     _uiNumGeometries     (0),
+    _uiNumOcclusionTests (0),
+    _uiNumOcclusionCulled(0),
     _uiNumTransGeometries(0),
 
-    _bSortTrans              (true),
-    _bZWriteTrans            (false),
-    _bLocalLights            (false),
-    _bCorrectTwoSidedLighting(false),
-    _bOcclusionCulling       (false),
+    _bSortTrans               (true),
+    _bZWriteTrans             (false),
+    _bLocalLights             (false),
+    _bCorrectTwoSidedLighting (false),
+    _bOcclusionCulling        (false),
+    _occlusionCullingMode     (OcclusionStopAndWait),
+    _occlusionCullingPixels   (0),
+    _occlusionCullingThreshold(64),
+    _currentOcclusionQueryIndex(0),
+    _occluded_nodes            (),
+    _hier_occlusions           (),
+    _occ_bb_dl                 (0),
 
     _bSmallFeatureCulling   (false),
     _smallFeaturesPixels    (10.0f),
@@ -305,10 +324,23 @@ RenderAction::RenderAction(void) :
     _lightsPath(),
     _lightEnvsLightsState(),
 
+    _vClipPlanes(),
+    _clipPlanesMap(),
+    _clipPlanesState(0),
+    _activeClipPlanesState(0),
+    _activeClipPlanesCount(0),
+    _activeClipPlanesMask(0),
+
+    _clipPlanesTable(),
+    _clipPlanesPath(),
+
     _stateSorting(true),
     _visibilityStack(),
 
     _occlusionQuery         (0),
+    _occlusionQueriesPool   (),
+    _occlusionQueries       (),
+
     _glGenQueriesARB        (NULL),
     _glDeleteQueriesARB     (NULL),
     _glBeginQueryARB        (NULL),
@@ -328,11 +360,11 @@ RenderAction::RenderAction(void) :
     _pNodeFactory = new DrawTreeNodeFactory;
 
     _arbOcclusionQuery          = Window::registerExtension("GL_ARB_occlusion_query");
-    _funcGenQueriesARB          = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glGenQueriesARB");
-    _funcDeleteQueriesARB       = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glDeleteQueriesARB");
-    _funcBeginQueryARB          = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glBeginQueryARB");
-    _funcEndQueryARB            = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glEndQueryARB");
-    _funcGetQueryObjectuivARB   = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glGetQueryObjectuivARB");
+    _funcGenQueriesARB          = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glGenQueriesARB", _arbOcclusionQuery);
+    _funcDeleteQueriesARB       = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glDeleteQueriesARB", _arbOcclusionQuery);
+    _funcBeginQueryARB          = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glBeginQueryARB", _arbOcclusionQuery);
+    _funcEndQueryARB            = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glEndQueryARB", _arbOcclusionQuery);
+    _funcGetQueryObjectuivARB   = Window::registerFunction (OSG_DLSYM_UNDERSCORE"glGetQueryObjectuivARB", _arbOcclusionQuery);
 
     // we can't include OSGCGChunk here because it is in Contrib ...
     StateChunkPtr cgChunk = cast_dynamic<StateChunkPtr>(FieldContainerFactory::the()->createContainer("CGChunk"));
@@ -385,13 +417,22 @@ RenderAction::RenderAction(const RenderAction &source) :
     _uiNumMaterialChanges(source._uiNumMaterialChanges),
     _uiNumMatrixChanges  (source._uiNumMatrixChanges),
     _uiNumGeometries     (source._uiNumGeometries),
+    _uiNumOcclusionTests (source._uiNumOcclusionTests),
+    _uiNumOcclusionCulled(source._uiNumOcclusionCulled),
     _uiNumTransGeometries(source._uiNumTransGeometries),
 
-    _bSortTrans              (source._bSortTrans),
-    _bZWriteTrans            (source._bZWriteTrans),
-    _bLocalLights            (source._bLocalLights),
-    _bCorrectTwoSidedLighting(source._bCorrectTwoSidedLighting),
-    _bOcclusionCulling       (source._bOcclusionCulling),
+    _bSortTrans                (source._bSortTrans),
+    _bZWriteTrans              (source._bZWriteTrans),
+    _bLocalLights              (source._bLocalLights),
+    _bCorrectTwoSidedLighting  (source._bCorrectTwoSidedLighting),
+    _bOcclusionCulling         (source._bOcclusionCulling),
+    _occlusionCullingMode      (source._occlusionCullingMode),
+    _occlusionCullingPixels    (source._occlusionCullingPixels),
+    _occlusionCullingThreshold (source._occlusionCullingThreshold),
+    _currentOcclusionQueryIndex(source._currentOcclusionQueryIndex),
+    _occluded_nodes            (source._occluded_nodes),
+    _hier_occlusions           (source._hier_occlusions),
+    _occ_bb_dl                 (source._occ_bb_dl),
 
     _bSmallFeatureCulling   (source._bSmallFeatureCulling),
     _smallFeaturesPixels    (source._smallFeaturesPixels),
@@ -411,10 +452,23 @@ RenderAction::RenderAction(const RenderAction &source) :
     _lightsPath          (source._lightsPath),
     _lightEnvsLightsState(source._lightEnvsLightsState),
 
+    _vClipPlanes            (source._vClipPlanes),
+    _clipPlanesMap          (source._clipPlanesMap),
+    _clipPlanesState        (source._clipPlanesState),
+    _activeClipPlanesState  (source._activeClipPlanesState),
+    _activeClipPlanesCount  (source._activeClipPlanesCount),
+    _activeClipPlanesMask   (source._activeClipPlanesMask),
+
+    _clipPlanesTable        (source._clipPlanesTable),
+    _clipPlanesPath         (source._clipPlanesPath),
+
     _stateSorting        (source._stateSorting),
     _visibilityStack     (source._visibilityStack),
 
     _occlusionQuery         (source._occlusionQuery),
+    _occlusionQueriesPool   (source._occlusionQueriesPool),
+    _occlusionQueries       (source._occlusionQueries),
+    
     _glGenQueriesARB        (source._glGenQueriesARB),
     _glDeleteQueriesARB     (source._glDeleteQueriesARB),
     _glBeginQueryARB        (source._glBeginQueryARB),
@@ -455,8 +509,13 @@ RenderAction::~RenderAction(void)
 {
     delete _pNodeFactory;
 
+    if(_occ_bb_dl != 0)
+        glDeleteLists(_occ_bb_dl, 1);
+
     if(_occlusionQuery != 0)
         _glDeleteQueriesARB(1, &_occlusionQuery);
+
+    deleteOcclusionQueriesPool();
 }
 
 /*------------------------------ access -----------------------------------*/
@@ -542,7 +601,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
     UInt32 mpMatPasses = states.size();
     bool isMultiPass = (mpMatPasses > 1) || (pMat->getNPasses() != 1);
 
-    Int32 sortKey = pMat->getSortKey();
+    Int32 sortKey = pMat->getRealSortKey();
 
     if(!_stateSorting ||
        (sortKey == Material::NoStateSorting &&
@@ -558,6 +617,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
             pNewElem->setGeometry   (pGeo);
             pNewElem->setMatrixStore(_currMatrix);
             pNewElem->setLightsState(_lightsState);
+            pNewElem->setClipPlanesState(_clipPlanesState);
             pNewElem->setState(pState);
             if(sortKey == Material::NoStateSorting)
                 pNewElem->setNoStateSorting();
@@ -619,6 +679,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
             pNewElem->setState      (pState);
             pNewElem->setScalar     (objPos[2]);
             pNewElem->setLightsState(_lightsState);
+            pNewElem->setClipPlanesState(_clipPlanesState);
 
             if(isMultiPass)
             {
@@ -658,6 +719,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
                 pNewElem->setGeometry   (pGeo);
                 pNewElem->setMatrixStore(_currMatrix);
                 pNewElem->setLightsState(_lightsState);
+                pNewElem->setClipPlanesState(_clipPlanesState);
 
                 if(isMultiPass)
                 {
@@ -680,6 +742,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
                 pNewMatElem->addChild(pNewElem);
                 pNewMatElem->setNode(getActNode());
                 pNewMatElem->setLightsState(_lightsState);
+                pNewMatElem->setClipPlanesState(_clipPlanesState);
 
                 if(_pMatRoots.find(sortKey) == _pMatRoots.end())
                     _pMatRoots.insert(std::make_pair(sortKey, _pNodeFactory->create()));
@@ -692,6 +755,7 @@ void RenderAction::dropGeometry(MaterialDrawable *pGeo)
                 pNewElem->setGeometry   (pGeo);
                 pNewElem->setMatrixStore(_currMatrix);
                 pNewElem->setLightsState(_lightsState);
+                pNewElem->setClipPlanesState(_clipPlanesState);
 
                 if(isMultiPass)
                 {
@@ -733,9 +797,9 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
     UInt32 mpMatPasses = states.size();
     bool isMultiPass = (mpMatPasses > 1) || (pMat->getNPasses() != 1);
 
-    Int32 sortKey = pMat->getSortKey();
+    Int32 sortKey = pMat->getRealSortKey();
 
-    if(_bOcclusionCulling && _stateSorting)
+    if(_bOcclusionCulling  && (_occlusionCullingMode & OcclusionStopAndWait) && _stateSorting)
     {
         DrawTreeNode *pLastMultiPass = NULL;
         for(UInt32 mpi=0;mpi<mpMatPasses;++mpi)
@@ -748,6 +812,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
             pNewElem->setFunctor    (func);
             pNewElem->setMatrixStore(_currMatrix);
             pNewElem->setLightsState(_lightsState);
+            pNewElem->setClipPlanesState(_clipPlanesState);
             pNewElem->setState      (pState);
             if(sortKey == Material::NoStateSorting)
                 pNewElem->setNoStateSorting();
@@ -849,6 +914,7 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
             pNewElem->setFunctor    (func);
             pNewElem->setMatrixStore(_currMatrix);
             pNewElem->setLightsState(_lightsState);
+            pNewElem->setClipPlanesState(_clipPlanesState);
             pNewElem->setState(pState);
             if(sortKey == Material::NoStateSorting)
                 pNewElem->setNoStateSorting();
@@ -891,26 +957,27 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
 
     DrawTreeNode *pLastMultiPass = NULL;
 
-    for(UInt32 mpi=0;mpi<mpMatPasses;++mpi)
+    if(_bSortTrans && pMat->isTransparent())
     {
-        pState = states[mpi];
-
-        if(_bSortTrans && pMat->isTransparent())
+        for(UInt32 mpi=0;mpi<mpMatPasses;++mpi)
         {
+            pState = states[mpi];
+
             DrawTreeNode *pNewElem = _pNodeFactory->create();
-            Pnt3r         objPos;
+            Pnt3f         objPos;
             getActNode()->getVolume().getCenter(objPos);
 
             _currMatrix.second.mult(objPos);
 
             pNewElem->setNode       (getActNode());
-
+                
             pNewElem->setFunctor    (func);
             pNewElem->setMatrixStore(_currMatrix);
-
+                
             pNewElem->setState      (pState);
             pNewElem->setScalar     (objPos[2]);
             pNewElem->setLightsState(_lightsState);
+            pNewElem->setClipPlanesState(_clipPlanesState);
 
             if(isMultiPass)
             {
@@ -935,44 +1002,32 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
 
             _uiNumTransGeometries++;
         }
-        else
+    }
+    else
+    {
+        if(it == _mMatMap.end())
         {
-            DrawTreeNode *pNewElem = _pNodeFactory->create();
+            DrawTreeNode *pNewMatElem = _pNodeFactory->create();
+            _mMatMap[pMat] = pNewMatElem;
 
-            if(it == _mMatMap.end())
+            if(!isMultiPass)
             {
-                DrawTreeNode *pNewMatElem = _pNodeFactory->create();
-                //_mMatMap[pMat].push_back(pNewMatElem);
-                _mMatMap[pMat] = pNewMatElem;
+                pState = states[0];
+                // for non multipass materials there is only one state
+                // for all draw node children.
+                pNewMatElem->setState(pState);
+                pNewMatElem->setNode(getActNode());
+                pNewMatElem->setLightsState(_lightsState);
+                pNewMatElem->setClipPlanesState(_clipPlanesState);
 
+                DrawTreeNode *pNewElem = _pNodeFactory->create();
                 pNewElem->setNode       (getActNode());
                 pNewElem->setFunctor    (func);
                 pNewElem->setMatrixStore(_currMatrix);
                 pNewElem->setLightsState(_lightsState);
-
-                if(isMultiPass)
-                {
-                    // for multipass we have a different state in all draw node
-                    // children.
-                    pNewElem->setState(pState);
-
-                    if(mpi == mpMatPasses-1)
-                        pNewElem->setLastMultiPass();
-                    else
-                        pNewElem->setMultiPass();
-                }
-                else
-                {
-                    // for non multipass materials there is only one state
-                    // for all draw node children.
-                    pNewMatElem->setState(pState);
-                }
+                pNewElem->setClipPlanesState(_clipPlanesState);
 
                 pNewMatElem->addChild(pNewElem);
-                pNewMatElem->setNode(getActNode());
-                pNewMatElem->setLightsState(_lightsState);
-
-                //_pMatRoot->addChild(pNewMatElem);
 
                 if(_pMatRoots.find(sortKey) == _pMatRoots.end())
                     _pMatRoots.insert(std::make_pair(sortKey, _pNodeFactory->create()));
@@ -981,32 +1036,90 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func, Material *mat)
             }
             else
             {
+                pNewMatElem->setNode(getActNode());
+                pNewMatElem->setLightsState(_lightsState);
+                pNewMatElem->setClipPlanesState(_clipPlanesState);
+
+                for(UInt32 mpi=0;mpi<mpMatPasses;++mpi)
+                {
+                    pState = states[mpi];
+
+                    DrawTreeNode *pNewPassElem = _pNodeFactory->create();
+                    pNewPassElem->setState(pState);
+                    pNewPassElem->setNode(getActNode());
+                    pNewPassElem->setLightsState(_lightsState);
+                    pNewPassElem->setClipPlanesState(_clipPlanesState);
+                    pNewMatElem->addChild(pNewPassElem);
+
+                    DrawTreeNode *pNewElem = _pNodeFactory->create();
+                    pNewElem->setNode       (getActNode());
+                    pNewElem->setFunctor    (func);
+                    pNewElem->setMatrixStore(_currMatrix);
+                    pNewElem->setLightsState(_lightsState);
+                    pNewElem->setClipPlanesState(_clipPlanesState);
+
+                    if(isMultiPass)
+                    {
+                        if(mpi == mpMatPasses-1)
+                            pNewElem->setLastMultiPass();
+                        else
+                            pNewElem->setMultiPass();
+                    }
+
+                    pNewPassElem->addChild(pNewElem);
+                }
+
+                if(_pMatRoots.find(sortKey) == _pMatRoots.end())
+                    _pMatRoots.insert(std::make_pair(sortKey, _pNodeFactory->create()));
+
+                _pMatRoots[sortKey]->addChild(pNewMatElem);
+            }
+        }
+        else
+        {
+            if(!isMultiPass)
+            {
+                DrawTreeNode *pNewElem = _pNodeFactory->create();
                 pNewElem->setNode       (getActNode());
                 pNewElem->setFunctor    (func);
                 pNewElem->setMatrixStore(_currMatrix);
                 pNewElem->setLightsState(_lightsState);
-
-                // FIXME call pNewElem->setState(pState); if the _lightsState
-                // is different to the one from the last added child! Without it
-                // activate or changeFrom is never called and the OSGActiveLightsMask in
-                // the SHLChunk never updated.
-
-                if(isMultiPass)
-                {
-                    // for multipass we have a different state in all draw node
-                    // children.
-                    pNewElem->setState(pState);
-
-                    if(mpi == mpMatPasses-1)
-                        pNewElem->setLastMultiPass();
-                    else
-                        pNewElem->setMultiPass();
-                }
-
+                pNewElem->setClipPlanesState(_clipPlanesState);
                 it->second->addChild(pNewElem);
             }
+            else
+            {
+                // for two passes it looks like this.
+                //      root
+                //     /    \
+                //  state1  state2
+                //   / \ \    / \ \
+                //  n1 n2 nx n1 n2 nx
+
+                DrawTreeNode *pNewPassElem = it->second->getFirstChild();
+                for(UInt32 mpi=0;mpi<mpMatPasses;++mpi)
+                {
+                    DrawTreeNode *pNewElem = _pNodeFactory->create();
+                    pNewElem->setNode       (getActNode());
+                    pNewElem->setFunctor    (func);
+                    pNewElem->setMatrixStore(_currMatrix);
+                    pNewElem->setLightsState(_lightsState);
+                    pNewElem->setClipPlanesState(_clipPlanesState);
+
+                    if(isMultiPass)
+                    {
+                        if(mpi == mpMatPasses-1)
+                            pNewElem->setLastMultiPass();
+                        else
+                            pNewElem->setMultiPass();
+                    }
+
+                    pNewPassElem->addChild(pNewElem);
+                    pNewPassElem = pNewPassElem->getBrother();
+                }
+            }
         }
-    } // multipass
+    }
 }
 
 void RenderAction::dropLight(Light *pLight)
@@ -1078,7 +1191,13 @@ void RenderAction::undropLight(Light *pLight)
         return;
 
     if(_lightEnvsLightsState.empty())
+    {
         _lightsPath.pop_back();
+        if(!_lightsPath.empty())
+            _lightsState = _lightsPath.back();
+        else
+            _lightsState = 0;
+    }
 }
 
 void RenderAction::dropLightEnv(LightEnv *pLightEnv)
@@ -1132,6 +1251,73 @@ std::vector<Light *> RenderAction::getActiveLights(void)
     return lights;
 }
 
+void RenderAction::dropClipPlane(ClipPlane *pClipPlane)
+{
+#if 0
+    if(pClipPlane == NULL)
+        return;
+
+    ClipPlaneStore oStore;
+
+    pClipPlane->makeChunk();
+
+    oStore.first  =  pClipPlane->getChunk().getCPtr();
+//    oStore.second = _currMatrix.second;
+
+    Matrix fromworld,tobeacon;
+    
+//        getActNode()->getToWorld(fromworld);
+
+//    fromworld = top_matrix();
+
+    NodePtr beacon = pClipPlane->getBeacon();
+
+    if(beacon == NullFC)
+    {
+        SINFO << "draw: no beacon set!" << std::endl;
+
+        oStore.second = _currMatrix.second;
+    }
+    else
+    {
+        fromworld = _camInverse;
+        fromworld.invert();
+
+        beacon->getToWorld(tobeacon);
+
+//        tobeacon.mult(fromworld);
+        
+        fromworld.mult(tobeacon);
+
+        oStore.second = fromworld;
+    }
+
+    _vClipPlanes.push_back(oStore);
+    _clipPlanesMap.push_back(pClipPlane);
+
+    // clip plane id's are in the range from 1 - N
+    UInt32 clipPlaneState = _vClipPlanes.size();
+    _clipPlanesPath.push_back(clipPlaneState);
+    // add current clip planes path to the lights table.
+    _clipPlanesTable.push_back(_clipPlanesPath);
+    _clipPlanesState = clipPlaneState;
+#endif
+}
+
+void RenderAction::undropClipPlane(ClipPlane *pClipPlane)
+{
+#if 0
+    if(pClipPlane == NULL)
+        return;
+
+    _clipPlanesPath.pop_back();
+    if(!_clipPlanesPath.empty())
+        _clipPlanesState = _clipPlanesPath.back();
+    else
+        _clipPlanesState = 0;
+#endif
+}
+
 bool RenderAction::isVisible( Node* node )
 {
     if ( getFrustumCulling() == false )
@@ -1180,15 +1366,12 @@ bool RenderAction::pushVisibility(void)
     if(getFrustumCulling() == false)
         return true;
 
-    FrustumVolume::PlaneSet inplanes = _visibilityStack.back();
-
     // HACK but light sources beneath a LightEnv node can also
     // light it's brothers or parents.
     if(!_lightEnvsLightsState.empty())
-    {
-        _visibilityStack.push_back(inplanes);
         return true;
-    }
+
+    FrustumVolume::PlaneSet inplanes = _visibilityStack.back();
 
     if(inplanes == FrustumVolume::P_ALL)
     {
@@ -1255,6 +1438,9 @@ bool RenderAction::pushVisibility(void)
 void RenderAction::popVisibility(void)
 {
     if(getFrustumCulling() == false)
+        return;
+
+    if(!_lightEnvsLightsState.empty())
         return;
 
     if(!_visibilityStack.empty())
@@ -1331,7 +1517,7 @@ void RenderAction::activateLocalLights(DrawTreeNode *pRoot)
         //printf("\n");
     }
 
-    if(light_id >= 8)
+    if(light_id > 8)
     {
         SWARNING << "RenderAction::activateLocalLights: maximum light source limit is " <<  8
                  << std::endl;
@@ -1352,6 +1538,54 @@ void RenderAction::activateLocalLights(DrawTreeNode *pRoot)
 
     _activeLightsState = pRoot->getLightsState();
     _activeLightsCount = light_id;
+}
+
+void RenderAction::activateLocalClipPlanes(DrawTreeNode *pRoot)
+{
+    //printf("clipPlanesState: %u %u\n", _activeClipPlanesState, pRoot->getClipPlanesState());
+    if(_activeClipPlanesState == pRoot->getClipPlanesState())
+        return;
+
+    UInt32 clipPlane_id = 0;
+    if(pRoot->getClipPlanesState() > 0)
+    {
+        _activeClipPlanesMask = 0;
+        const std::vector<UInt32> &clipPlanes = _clipPlanesTable[pRoot->getClipPlanesState() - 1];
+
+        //printf("activate clipPlanes: %u : ", pRoot->getClipPlanesState() - 1);
+#if 0
+        for(UInt32 i=0;i<clipPlanes.size();++i)
+        {
+            UInt32 clipPlane_index = clipPlanes[i] - 1;
+            glPushMatrix();
+            glLoadMatrixf(_vClipPlanes[clipPlane_index].second.getValues());
+            _activeClipPlanesMask |= (1 << clipPlane_id);
+            //printf("%u,", clipPlane_id);
+            _vClipPlanes[clipPlane_index].first->activate(this, clipPlane_id++);
+            glPopMatrix();
+        }
+#endif
+        //printf("\n");
+    }
+
+    if(clipPlane_id > 6)
+    {
+        SWARNING << "RenderAction::activateLocalClipPlanes: maximum clipping planes limit is " <<  6
+                 << std::endl;
+    }
+
+    //printf("deactivate clipPlanes: ");
+    const Color4f black(0.0f, 0.0f, 0.0f, 1.0f);
+    for(UInt32 i = clipPlane_id;i < _activeClipPlanesCount;++i)
+    {
+        //printf("%u,", i);
+        _activeClipPlanesMask &= ~(1 << i);
+        glDisable(GL_CLIP_PLANE0 + i);
+    }
+    //printf("\n");
+
+    _activeClipPlanesState = pRoot->getClipPlanesState();
+    _activeClipPlanesCount = clipPlane_id;
 }
 
 bool RenderAction::isSmallFeature(const NodePtr &node)
@@ -1413,6 +1647,446 @@ bool RenderAction::isSmallFeature(const NodePtr &node)
         return true;
 
     return false;
+}
+
+bool RenderAction::isOccluded(DrawTreeNode *pRoot)
+{
+    // Skip draw tree nodes without a functor!
+    if(!pRoot->hasFunctor())
+        return false;
+
+    // skip occlusion test for small sized geometries
+#if 0
+    UInt32 pos_size = 0;
+    if((_bOcclusionCulling || _bSmallFeatureCulling) &&
+        pRoot->getNode()->getCore() != NullFC)
+    {
+        GeometryPtr geo = GeometryPtr::dcast(pRoot->getNode()->getCore());
+        if(geo != NullFC)
+        {
+            if(geo->getPositions() != NullFC)
+                pos_size = geo->getPositions()->getSize();
+        }
+    }
+#else
+    UInt32 pos_size = _smallFeaturesThreshold + 1;
+#endif
+
+    bool foundSmallFeature = false;
+    if(_bSmallFeatureCulling && pos_size > _smallFeaturesThreshold)
+    {    
+        foundSmallFeature = isSmallFeature(pRoot->getNode());
+        if(foundSmallFeature)
+        {
+            if(_statistics != NULL)
+            {
+                _statistics->getElem(statCulledNodes)->inc();
+            }
+            return true;
+        }
+    }
+
+    if(!foundSmallFeature)
+    {
+        if(_bOcclusionCulling && _glGenQueriesARB != NULL &&
+           ((pos_size > _occlusionCullingThreshold) ||
+            (_occlusionCullingMode == OcclusionHierarchicalMultiFrame)))
+        {
+            if(_occlusionCullingMode & OcclusionMultiFrame)
+            {
+                // ok we use a "multi frame" algorithm, which renders
+                // the whole scene first and keeps the depth buffer. For each object
+                // a bounding box is drawn with an occlusion query.
+                // The results are fetched in the next frame, if the box was visible
+                // the corresponding object is drawn.
+                
+                GLuint occlusionQuery = getOcclusionQuery(pRoot->getNode());
+                if(occlusionQuery == 0)
+                    return false;
+
+                GLuint pixels = 0;
+                _glGetQueryObjectuivARB(occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
+                ++_uiNumOcclusionTests;
+                //printf("geo occ test: '%s' %d pixels\n", OSG::getName(pRoot->getNode()), pixels);
+
+                if(pixels > _occlusionCullingPixels)
+                {
+                    // 0 means not occluded.
+#ifdef OSG_1_COMPAT
+                    pRoot->getNode()->setOcclusionMask(0);
+#endif
+                    return false;
+                }
+                else
+                {
+#if OSG_1_COMPAT
+                    // 2 means occluded leaf, 1 means occluded node.
+                    pRoot->getNode()->setOcclusionMask(2);
+                    _occluded_nodes.push_back(pRoot->getNode());
+#endif
+                    if(_statistics != NULL)
+                    {
+                        _statistics->getElem(statCulledNodes)->inc();
+                    }
+                    ++_uiNumOcclusionCulled;
+                    return true;
+                }
+            }
+            else if(_occlusionCullingMode & OcclusionStopAndWait)
+            {
+                // ok we use a simple "stop an wait" algorithm, which renders
+                // the scene in front to back order. For each object (except for the
+                // front most object) a bounding box is drawn with an occlusion query.
+                // The result is fetched immediately afterwards and if the box was visible
+                // the corresponding object is drawn.
+
+                //getStatistics()->getElem(statCullTestedNodes)->inc();
+                glDepthMask(GL_FALSE);
+                glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+                
+                if(_occlusionQuery == 0)
+                    _glGenQueriesARB(1, &_occlusionQuery);
+
+                const DynamicVolume& vol = pRoot->getNode()->getVolume();
+                Pnt3f min,max;
+                vol.getBounds(min, max);
+
+                _glBeginQueryARB(GL_SAMPLES_PASSED_ARB, _occlusionQuery);
+                drawOcclusionBB(min, max);
+                _glEndQueryARB(GL_SAMPLES_PASSED_ARB);
+
+                glDepthMask(GL_TRUE);
+                glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+
+                GLuint pixels = 0;
+                _glGetQueryObjectuivARB(_occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
+                ++_uiNumOcclusionTests;
+
+                if(pixels > _occlusionCullingPixels)
+                {
+                    return false;
+                }
+                else
+                {
+                    if(_statistics != NULL)
+                    {
+                        _statistics->getElem(statCulledNodes)->inc();
+                    }
+                    ++_uiNumOcclusionCulled;
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+void RenderAction::deleteOcclusionQueriesPool(void)
+{
+    for(std::vector<GLuint>::iterator occIt = _occlusionQueriesPool.begin();
+        occIt != _occlusionQueriesPool.end();++occIt)
+    {
+        GLuint occlusionQuery = (*occIt);
+        _glDeleteQueriesARB(1, &occlusionQuery);
+    }
+    _occlusionQueriesPool.clear();
+
+    for(std::map<UInt32, GLuint>::iterator it=_occlusionQueries.begin();
+        it!=_occlusionQueries.end();++it)
+    {
+        NodePtr node = cast_dynamic<NodePtr>(FieldContainerFactory::the()->getContainer((*it).first));
+        if(node != NullFC)
+            setOcclusionMask(node, 0);
+    }
+    _occlusionQueries.clear();
+    _occluded_nodes.clear();
+
+    for(std::set<UInt32>::iterator it=_hier_occlusions.begin();
+        it!=_hier_occlusions.end();++it)
+    {
+        NodePtr node = cast_dynamic<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
+        if(node != NullFC)
+            setOcclusionMask(node, 0);
+    }
+    _hier_occlusions.clear();
+
+#if 0
+    // reset all occlusion masks.
+    Viewport *vp = getViewport();
+    if(vp != NULL)
+    {
+        NodePtr root = vp->getRoot();
+        setOcclusionMask(root, 0);
+    }
+#endif
+}
+
+void RenderAction::resetOcclusionQueryIndex(void)
+{
+    _currentOcclusionQueryIndex = 0;
+}
+
+void RenderAction::setOcclusionMask(NodePtr node, UInt8 mask)
+{
+    if(node == NullFC)
+        return;
+
+#if OSG_1_COMPAT
+    node->setOcclusionMask(mask);
+#endif
+
+    for(UInt32 i=0;i<node->getNChildren();++i)
+        setOcclusionMask(node->getChild(i), mask);
+}
+
+bool RenderAction::hasGeometryChild(NodePtr node)
+{
+#if 0
+    if(node == NullFC)
+        return false;
+
+    if(GeometryPtr::dcast(node->getCore()) != NullFC)
+        return true;
+
+    for(UInt32 i=0;i<node->getNChildren();++i)
+    {
+        if(hasGeometryChild(node->getChild(i)))
+            return true;
+    }
+#endif
+    return false;
+}
+
+GLuint RenderAction::getOcclusionQuery(void)
+{
+    GLuint occlusionQuery = 0;
+    if(_currentOcclusionQueryIndex >= _occlusionQueriesPool.size())
+    {
+        // ok we re-use already created occlusion query objects.
+        _glGenQueriesARB(1, &occlusionQuery);
+        _occlusionQueriesPool.push_back(occlusionQuery);
+    }
+    else
+    {
+        occlusionQuery = _occlusionQueriesPool[_currentOcclusionQueryIndex];
+    }
+
+    ++_currentOcclusionQueryIndex;
+
+    return occlusionQuery;
+}
+
+GLuint RenderAction::getOcclusionQuery(NodePtr node)
+{
+    if(node == NullFC)
+        return 0;
+
+    std::map<UInt32, GLuint>::iterator it = _occlusionQueries.find(getContainerId(node));
+
+    if(it != _occlusionQueries.end())
+        return (*it).second;
+
+    return 0;
+}
+
+void RenderAction::setOcclusionQuery(NodePtr node, GLuint occlusionQuery)
+{
+    if(node == NullFC)
+        return;
+
+    _occlusionQueries.insert(std::make_pair(getContainerId(node), occlusionQuery));
+}
+
+void RenderAction::drawOcclusionBB(const Pnt3f &bbmin, const Pnt3f &bbmax)
+{
+#if 1
+
+#if 0
+    glBegin(GL_TRIANGLE_STRIP);
+    glVertex3f( bbmin[0], bbmin[1], bbmax[2]); // 0
+    glVertex3f( bbmax[0], bbmin[1], bbmax[2]); // 1
+    glVertex3f( bbmin[0], bbmax[1], bbmax[2]); // 2
+    glVertex3f( bbmax[0], bbmax[1], bbmax[2]); // 3
+    glVertex3f( bbmin[0], bbmax[1], bbmin[2]); // 4
+    glVertex3f( bbmax[0], bbmax[1], bbmin[2]); // 5
+    glVertex3f( bbmin[0], bbmin[1], bbmin[2]); // 6
+    glVertex3f( bbmax[0], bbmin[1], bbmin[2]); // 7
+    glEnd();
+
+    glBegin(GL_TRIANGLE_STRIP);
+    glVertex3f( bbmax[0], bbmax[1], bbmin[2]); // 5
+    glVertex3f( bbmax[0], bbmax[1], bbmax[2]); // 3
+    glVertex3f( bbmax[0], bbmin[1], bbmin[2]); // 7
+    glVertex3f( bbmax[0], bbmin[1], bbmax[2]); // 1
+    glVertex3f( bbmin[0], bbmin[1], bbmin[2]); // 6
+    glVertex3f( bbmin[0], bbmin[1], bbmax[2]); // 0
+    glVertex3f( bbmin[0], bbmax[1], bbmin[2]); // 4
+    glVertex3f( bbmin[0], bbmax[1], bbmax[2]); // 2
+    glEnd();
+
+#else
+
+    // not sure if this is faster but it reduces the amount of
+    // gl commands.
+    const GLubyte indices[16] = { 0,1,2,3,4,5,6,7,  5,3,7,1,6,0,4,2 };
+    Real32 vertices[24];
+    vertices[0]  = bbmin[0]; vertices[1]  = bbmin[1]; vertices[2]  = bbmax[2];
+    vertices[3]  = bbmax[0]; vertices[4]  = bbmin[1]; vertices[5]  = bbmax[2];
+    vertices[6]  = bbmin[0]; vertices[7]  = bbmax[1]; vertices[8]  = bbmax[2];
+    vertices[9]  = bbmax[0]; vertices[10] = bbmax[1]; vertices[11] = bbmax[2];
+    vertices[12] = bbmin[0]; vertices[13] = bbmax[1]; vertices[14] = bbmin[2];
+    vertices[15] = bbmax[0]; vertices[16] = bbmax[1]; vertices[17] = bbmin[2];
+    vertices[18] = bbmin[0]; vertices[19] = bbmin[1]; vertices[20] = bbmin[2];
+    vertices[21] = bbmax[0]; vertices[22] = bbmin[1]; vertices[23] = bbmin[2];
+
+    glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glDrawElements(GL_TRIANGLE_STRIP, 8, GL_UNSIGNED_BYTE, &indices[0]);
+    glDrawElements(GL_TRIANGLE_STRIP, 8, GL_UNSIGNED_BYTE, &indices[8]);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+#endif
+
+#else
+
+    if(_occ_bb_dl == 0)
+    {
+        // we create a display list for rendering the occlusion
+        // bounding box.
+        // is this faster ??? need to check it amz.
+        Pnt3f min(-0.5f, -0.5f, -0.5f);
+        Pnt3f max(0.5f, 0.5f, 0.5f);
+        _occ_bb_dl = glGenLists(1);
+
+        const GLubyte indices[16] = { 0,1,2,3,4,5,6,7,  5,3,7,1,6,0,4,2 };
+        Real32 vertices[24];
+        vertices[0]  = min[0]; vertices[1]  = min[1]; vertices[2]  = max[2];
+        vertices[3]  = max[0]; vertices[4]  = min[1]; vertices[5]  = max[2];
+        vertices[6]  = min[0]; vertices[7]  = max[1]; vertices[8]  = max[2];
+        vertices[9]  = max[0]; vertices[10] = max[1]; vertices[11] = max[2];
+        vertices[12] = min[0]; vertices[13] = max[1]; vertices[14] = min[2];
+        vertices[15] = max[0]; vertices[16] = max[1]; vertices[17] = min[2];
+        vertices[18] = min[0]; vertices[19] = min[1]; vertices[20] = min[2];
+        vertices[21] = max[0]; vertices[22] = min[1]; vertices[23] = min[2];
+
+        glNewList(_occ_bb_dl, GL_COMPILE);
+            glVertexPointer(3, GL_FLOAT, 0, &vertices[0]);
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glDrawElements(GL_TRIANGLE_STRIP, 8, GL_UNSIGNED_BYTE, &indices[0]);
+            glDrawElements(GL_TRIANGLE_STRIP, 8, GL_UNSIGNED_BYTE, &indices[8]);
+            glDisableClientState(GL_VERTEX_ARRAY);
+        glEndList();
+    }
+
+    Vec3f s = bbmax - bbmin;
+    Vec3f t = bbmin + bbmax;
+    t *= 0.5f;
+    glPushMatrix();
+        glTranslatef(t[0], t[1], t[2]);
+        glScalef(s[0], s[1], s[2]);
+        glCallList(_occ_bb_dl);
+    glPopMatrix();
+
+#endif
+}
+
+void RenderAction::drawMultiFrameOcclusionBB(DrawTreeNode *pRoot)
+{
+    while(pRoot != NULL)
+    {
+        if(pRoot->hasFunctor())
+        {
+#if 0
+            UInt32 pos_size = 0;
+            GeometryPtr geo = GeometryPtr::dcast(pRoot->getNode()->getCore());
+            if(geo != NullFC)
+            {
+                if(geo->getPositions() != NullFC)
+                    pos_size = geo->getPositions()->getSize();
+            }
+#else
+    UInt32 pos_size = _smallFeaturesThreshold + 1;
+#endif
+
+        
+            if(_glGenQueriesARB != NULL && ((pos_size > _occlusionCullingThreshold) ||
+               (_occlusionCullingMode == OcclusionHierarchicalMultiFrame)))
+            {
+                DynamicVolume vol = pRoot->getNode()->getVolume();
+                vol.transform(pRoot->getMatrixStore().second);
+                // ignore objects behind the camera.
+                if(vol.getMax()[2] < 0.0f)
+                {
+                    UInt32 uiNextMatrix = pRoot->getMatrixStore().first;
+                    if(uiNextMatrix != 0 && uiNextMatrix != _uiActiveMatrix)
+                    {
+                        glLoadMatrixf(pRoot->getMatrixStore().second.getValues());
+        
+                        _uiActiveMatrix = uiNextMatrix;
+                        _uiNumMatrixChanges++;
+                        _currMatrix.second = pRoot->getMatrixStore().second;
+                    }
+
+                    Pnt3f min,max;
+                    pRoot->getNode()->getVolume().getBounds(min, max);
+    
+                    GLuint occlusionQuery = getOcclusionQuery();
+
+                    _glBeginQueryARB(GL_SAMPLES_PASSED_ARB, occlusionQuery);
+                    drawOcclusionBB(min, max);
+                    _glEndQueryARB(GL_SAMPLES_PASSED_ARB);
+
+                    // we use the node because the geometry core could be shared!
+                    setOcclusionQuery(pRoot->getNode(), occlusionQuery);
+                }
+                else
+                {
+                    setOcclusionQuery(pRoot->getNode(), 0);
+                }
+            }
+        }
+
+        if(pRoot->getFirstChild() != NULL)
+        {
+            drawMultiFrameOcclusionBB(pRoot->getFirstChild());
+        }
+
+        pRoot = pRoot->getBrother();
+    }
+}
+
+void RenderAction::drawHierarchicalMultiFrameOcclusionBB(const Matrix &view,
+                                                         NodePtr node)
+{
+    if(node == NullFC || _glGenQueriesARB == NULL)
+        return;
+
+    DynamicVolume vol = node->getVolume();
+    Matrix m = view;
+    if(node->getParent() != NullFC)
+        m.mult(node->getParent()->getToWorld());
+    vol.transform(m);
+    // ignore objects behind the camera.
+    if(vol.getMax()[2] < 0.0f)
+    {
+        glLoadMatrixf(m.getValues());
+        Pnt3f min,max;
+        node->getVolume().getBounds(min, max);
+
+        GLuint occlusionQuery = getOcclusionQuery();
+
+        _glBeginQueryARB(GL_SAMPLES_PASSED_ARB, occlusionQuery);
+        drawOcclusionBB(min, max);
+        _glEndQueryARB(GL_SAMPLES_PASSED_ARB);
+
+        // we use the node because the geometry core could be shared!
+        setOcclusionQuery(node, occlusionQuery);
+    }
+    else
+    {
+        setOcclusionQuery(node, 0);
+    }
 }
 
 //#define PRINT_MAT
@@ -1494,184 +2168,89 @@ void RenderAction::draw(DrawTreeNode *pRoot)
 
         setActNode(pRoot->getNode());
 
-        if(_bLocalLights && _activeLightsState != pRoot->getLightsState())
-            activateLocalLights(pRoot);
-
-        State *pNewState = pRoot->getState();
-
-        if(pNewState != NULL)
+        if(!isOccluded(pRoot))
         {
-            if(_pActiveState != NULL)
+            if(_bLocalLights && _activeLightsState != pRoot->getLightsState())
+                activateLocalLights(pRoot);
+
+            activateLocalClipPlanes(pRoot);
+
+            State *pNewState = pRoot->getState();
+
+            if(pNewState != NULL)
             {
-                // we need this cgfx test because for multipass cgfx materials
-                // the state doesn't change.
-                if(pNewState != _pActiveState                   ||
-                   (_cgfxChunkId != -1 &&
-                     pNewState->getChunk(_cgfxChunkId) != NULL) ||
-                   pRoot->isNoStateSorting())
+                if(_pActiveState != NULL)
                 {
-                    pNewState->changeFrom(_pDrawEnv, _pActiveState);
-
-                    _pActiveState = pNewState;
-
-                    _uiNumMaterialChanges++;
+                    // we need this cgfx test because for multipass cgfx materials
+                    // the state doesn't change.
+                    if(pNewState != _pActiveState ||
+                       (_cgfxChunkId != -1 && pNewState->getChunk(_cgfxChunkId) != NULL) ||
+                       pRoot->isNoStateSorting())
+                    {
+                        State *previous_state = _pActiveState;
+                        _pActiveState = pNewState;
+                        pNewState->changeFrom(_pDrawEnv, previous_state);
+                        _uiNumMaterialChanges++;
+                    }
+                    else
+                    {
+                        // even if the state didn't change we need to update
+                        // the shaders to provide the right world matrix.
+                        updateShader(pNewState);
+                    }
                 }
                 else
                 {
-                    // even if the state didn't change we need to update
-                    // the shaders to provide the right world matrix.
-                    updateShader(pNewState);
+                    _pActiveState = pRoot->getState();
+                    _pActiveState->activate(_pDrawEnv);
+                    _uiNumMaterialChanges++;
                 }
             }
             else
             {
-                _pActiveState = pRoot->getState();
+                updateShader(_pActiveState);
+            }
 
-                _pActiveState->activate(_pDrawEnv);
-
+            if(pRoot->getGeometry() != NULL)
+            {
+                pRoot->getGeometry()->drawPrimitives(_pDrawEnv);
+                
+                _uiNumGeometries++;
+            }
+            else if(pRoot->hasFunctor())
+            {
+                pRoot->getFunctor()(_pDrawEnv);
+                _uiNumGeometries++;
+            }
+        
+            if(pNewState != NULL && pRoot->isLastMultiPass()) // last pass
+            {
+                // without this the deactivate would be called in the next
+                // changeFrom call, but before the deactivate the activate from
+                // the new state is called this conflicts with the cgfx chunk!
+                _pActiveState = NULL; // force a activate
+                
+                pNewState->deactivate(_pDrawEnv);
                 _uiNumMaterialChanges++;
             }
-        }
-        else
-        {
-            updateShader(_pActiveState);
-        }
-
-        if(pRoot->getGeometry() != NULL)
-        {
-            pRoot->getGeometry()->drawPrimitives(_pDrawEnv);
-
-            _uiNumGeometries++;
-        }
-        else if(pRoot->hasFunctor())
-        {
-            // skip occlusion test for small sized geometries
-            UInt32 pos_size = 0;
-            if((_bOcclusionCulling || _bSmallFeatureCulling) &&
-                pRoot->getNode()->getCore() != NullFC)
-            {
-#ifdef GVCHECK
-                GeometryPtr geo = GeometryPtr::dcast(pRoot->getNode()->getCore());
-                if(geo != NullFC)
-                {
-                    if(geo->getPositions() != NullFC)
-                        pos_size = geo->getPositions()->getSize();
-                }
-#else
-                pos_size = _smallFeaturesThreshold + 1;
-#endif
-            }
-
-            bool foundSmallFeature = false;
-            if(_bSmallFeatureCulling && pos_size > _smallFeaturesThreshold)
-            {
-                foundSmallFeature = isSmallFeature(pRoot->getNode());
-                if(foundSmallFeature)
-                {
-                    if(_statistics != NULL)
-                    {
-                        _statistics->getElem(statCulledNodes)->inc();
-                    }
-                }
-            }
-
-            if(!foundSmallFeature)
-            {
-#ifndef OSG_WINCE
-                if(_bOcclusionCulling && _glGenQueriesARB != NULL &&
-                   pos_size > 64)
-                {
-                    //getStatistics()->getElem(statCullTestedNodes)->inc();
-                    glDepthMask(GL_FALSE);
-                    glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
-
-                    if(_occlusionQuery == 0)
-                        _glGenQueriesARB(1, &_occlusionQuery);
-
-                    _glBeginQueryARB(GL_SAMPLES_PASSED_ARB, _occlusionQuery);
-
-                    const DynamicVolume& vol = pRoot->getNode()->getVolume();
-                    Pnt3f min,max;
-                    vol.getBounds(min, max);
-                    glBegin( GL_TRIANGLE_STRIP);
-                    glVertex3f( min[0], min[1], max[2]);
-                    glVertex3f( max[0], min[1], max[2]);
-                    glVertex3f( min[0], max[1], max[2]);
-                    glVertex3f( max[0], max[1], max[2]);
-                    glVertex3f( min[0], max[1], min[2]);
-                    glVertex3f( max[0], max[1], min[2]);
-                    glVertex3f( min[0], min[1], min[2]);
-                    glVertex3f( max[0], min[1], min[2]);
-                    glEnd();
-
-                    glBegin( GL_TRIANGLE_STRIP);
-                    glVertex3f( max[0], max[1], min[2]);
-                    glVertex3f( max[0], max[1], max[2]);
-                    glVertex3f( max[0], min[1], min[2]);
-                    glVertex3f( max[0], min[1], max[2]);
-                    glVertex3f( min[0], min[1], min[2]);
-                    glVertex3f( min[0], min[1], max[2]);
-                    glVertex3f( min[0], max[1], min[2]);
-                    glVertex3f( min[0], max[1], max[2]);
-                    glEnd();
-
-                    _glEndQueryARB(GL_SAMPLES_PASSED_ARB);
-
-                    glDepthMask(GL_TRUE);
-                    glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
-
-                    GLuint pixels = 0;
-                    _glGetQueryObjectuivARB(_occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
-
-                    if(pixels > 0)
-                    {
-                        pRoot->getFunctor()(_pDrawEnv);
-                        _uiNumGeometries++;
-                    }
-                    else
-                    {
-                        if(_statistics != NULL)
-                        {
-                            _statistics->getElem(statCulledNodes)->inc();
-                        }
-                    }
-                }
-                else
-#endif
-                {
-                    pRoot->getFunctor()(_pDrawEnv);
-                    _uiNumGeometries++;
-                }
-            }
-        }
-
-        if(pNewState != NULL && pRoot->isLastMultiPass()) // last pass
-        {
-            // without this the deactivate would be called in the next
-            // changeFrom call, but before the deactivate the activate from
-            // the new state is called this conflicts with the cgfx chunk!
-            _pActiveState = NULL; // force a activate
-
-            pNewState->deactivate(_pDrawEnv);
-
-            _uiNumMaterialChanges++;
         }
 
         if(pRoot->getFirstChild() != NULL)
         {
             draw(pRoot->getFirstChild());
         }
-
+        
         pRoot = pRoot->getBrother();
     }
 }
+
 
 void RenderAction::setSortTrans(bool bVal)
 {
     _bSortTrans = bVal;
 }
 
-bool RenderAction::getSortTrans(void)
+bool RenderAction::getSortTrans(void) const
 {
     return _bSortTrans;
 }
@@ -1681,7 +2260,7 @@ void RenderAction::setZWriteTrans(bool bVal)
     _bZWriteTrans = bVal;
 }
 
-bool RenderAction::getZWriteTrans(void)
+bool RenderAction::getZWriteTrans(void) const
 {
     return _bZWriteTrans;
 }
@@ -1691,7 +2270,7 @@ void RenderAction::setLocalLights(bool bVal)
     _bLocalLights = bVal;
 }
 
-bool RenderAction::getLocalLights(void)
+bool RenderAction::getLocalLights(void) const
 {
     return _bLocalLights;
 }
@@ -1701,19 +2280,47 @@ void RenderAction::setCorrectTwoSidedLighting(bool bVal)
     _bCorrectTwoSidedLighting = bVal;
 }
 
-bool RenderAction::getCorrectTwoSidedLighting(void)
+bool RenderAction::getCorrectTwoSidedLighting(void) const
 {
     return _bCorrectTwoSidedLighting;
 }
 
 void RenderAction::setOcclusionCulling(bool bVal)
 {
+    if(_bOcclusionCulling == bVal)
+        return;
+
+    deleteOcclusionQueriesPool();
     _bOcclusionCulling = bVal;
 }
 
-bool RenderAction::getOcclusionCulling(void)
+bool RenderAction::getOcclusionCulling(void) const
 {
     return _bOcclusionCulling;
+}
+
+void RenderAction::setOcclusionCullingMode(Int32 mode)
+{
+    if(_occlusionCullingMode == mode)
+        return;
+
+    deleteOcclusionQueriesPool();
+    _occlusionCullingMode = mode;
+}
+
+Int32 RenderAction::getOcclusionCullingMode(void) const
+{
+    return _occlusionCullingMode;
+}
+
+void RenderAction::setOcclusionCullingPixels(UInt32 pixels)
+{
+    _occlusionCullingPixels = pixels;
+}
+
+UInt32 RenderAction::getOcclusionCullingPixels(void) const
+{
+    return _occlusionCullingPixels;
 }
 
 void RenderAction::setSmallFeatureCulling(bool bVal)
@@ -1721,7 +2328,7 @@ void RenderAction::setSmallFeatureCulling(bool bVal)
     _bSmallFeatureCulling = bVal;
 }
 
-bool RenderAction::getSmallFeatureCulling(void)
+bool RenderAction::getSmallFeatureCulling(void) const
 {
     return _bSmallFeatureCulling;
 }
@@ -1731,7 +2338,7 @@ void RenderAction::setSmallFeaturePixels(Real32 pixels)
     _smallFeaturesPixels = pixels;
 }
 
-Real32 RenderAction::getSmallFeaturePixels(void)
+Real32 RenderAction::getSmallFeaturePixels(void) const
 {
     return _smallFeaturesPixels;
 }
@@ -1741,9 +2348,19 @@ void RenderAction::setSmallFeatureThreshold(UInt32 threshold)
     _smallFeaturesThreshold = threshold;
 }
 
-UInt32 RenderAction::getSmallFeatureThreshold(void)
+UInt32 RenderAction::getSmallFeatureThreshold(void) const
 {
     return _smallFeaturesThreshold;
+}
+
+void RenderAction::setOcclusionCullingThreshold(UInt32 threshold)
+{
+    _occlusionCullingThreshold = threshold;
+}
+
+UInt32 RenderAction::getOcclusionCullingThreshold(void) const
+{
+    return _occlusionCullingThreshold;
 }
 
 void RenderAction::setUseGLFinish(bool s)
@@ -1751,7 +2368,7 @@ void RenderAction::setUseGLFinish(bool s)
     _useGLFinish = s;
 }
 
-bool RenderAction::getUseGLFinish(void)
+bool RenderAction::getUseGLFinish(void) const
 {
     return _useGLFinish;
 }
@@ -1769,7 +2386,8 @@ Action::ResultE RenderAction::start(void)
         _window->resizeGL();
     }
 
-    if(_window->hasExtension(_arbOcclusionQuery))
+    if(_glGenQueriesARB == NULL &&
+       _window->hasExtension(_arbOcclusionQuery))
     {
         _glGenQueriesARB          = (void (OSG_APIENTRY*)(GLsizei, GLuint *)) _window->getFunction(_funcGenQueriesARB);
         _glDeleteQueriesARB       = (void (OSG_APIENTRY*)(GLsizei, GLuint *)) _window->getFunction(_funcDeleteQueriesARB);
@@ -1886,6 +2504,8 @@ Action::ResultE RenderAction::start(void)
     _uiNumMatrixChanges   = 0;
     _uiNumGeometries      = 0;
     _uiNumTransGeometries = 0;
+    _uiNumOcclusionTests  = 0;
+    _uiNumOcclusionCulled  = 0;
 
     if(_statistics != NULL)
     {
@@ -1916,6 +2536,16 @@ Action::ResultE RenderAction::start(void)
     _lightsTable.clear();
     _lightsPath.clear();
     _lightEnvsLightsState.clear();
+
+    _vClipPlanes.clear();
+    _clipPlanesMap.clear();
+    _clipPlanesState       = 0;
+    _activeClipPlanesState = 0;
+    _activeClipPlanesCount = 0;
+    _activeClipPlanesMask  = 0;
+
+    _clipPlanesTable.clear();
+    _clipPlanesPath.clear();
 
     _stateSorting = true;
 
@@ -1965,21 +2595,38 @@ Action::ResultE RenderAction::stop(ResultE res)
         }
     }
 
+    // disable all clipping planes.
+    for(i = 0;i < 6;++i)
+        glDisable(GL_CLIP_PLANE0 + i);
+
+    glDepthMask(GL_TRUE);
+
     if(_pNoStateSortRoot != NULL)
     {
         draw(_pNoStateSortRoot);
     }
 
-    if(_bOcclusionCulling)
+    if(_bOcclusionCulling && (_occlusionCullingMode & OcclusionStopAndWait) && !_ocRoot.empty())
     {
-        for(OCMap::reverse_iterator it = _ocRoot.rbegin();it != _ocRoot.rend();++it)
-            draw((*it).second);
+        OCMap::reverse_iterator it = _ocRoot.rbegin();
+        // draw the front most object without occlusion query.
+        _bOcclusionCulling = false;
+            draw((*it++).second);
+        _bOcclusionCulling = true;
+
+        while(it != _ocRoot.rend())
+            draw((*it++).second);
     }
 
     if(_pNoStateSortTransRoot != NULL)
     {
         draw(_pNoStateSortTransRoot);
     }
+
+    // for multi frame occlusion culling we disable zwrite transparency.
+    bool bZWriteTrans = _bZWriteTrans;
+    if(_bOcclusionCulling && (_occlusionCullingMode & OcclusionMultiFrame))
+        _bZWriteTrans = false;
 
     SortKeyMap::iterator matRootsIt = _pMatRoots.begin();
     TransSortKeyMap::iterator transMatRootsIt = _pTransMatRoots.begin();
@@ -2019,7 +2666,7 @@ Action::ResultE RenderAction::stop(ResultE res)
                 if(transSortKey <= matSortKey)
                 {
                     if(!_bZWriteTrans)
-                        glDepthMask(false);
+                        glDepthMask(GL_FALSE);
 
                     TransSortMap &ts = (*transMatRootsIt).second;
                     for(TransSortMap::iterator it = ts.begin();it != ts.end();++it)
@@ -2027,14 +2674,14 @@ Action::ResultE RenderAction::stop(ResultE res)
                     //printf("draw transparent %d\n", transSortKey);
 
                     if(!_bZWriteTrans)
-                        glDepthMask(true);
+                        glDepthMask(GL_TRUE);
                     ++transMatRootsIt;
                 }
             }
             else
             {
                 if(!_bZWriteTrans)
-                    glDepthMask(false);
+                    glDepthMask(GL_FALSE);
 
                 TransSortMap &ts = (*transMatRootsIt).second;
                 for(TransSortMap::iterator it = ts.begin();it != ts.end();++it)
@@ -2042,7 +2689,7 @@ Action::ResultE RenderAction::stop(ResultE res)
                 //printf("draw transparent %d\n", transSortKey);
 
                 if(!_bZWriteTrans)
-                    glDepthMask(true);
+                    glDepthMask(GL_TRUE);
                 ++transMatRootsIt;
             }
         }
@@ -2050,7 +2697,12 @@ Action::ResultE RenderAction::stop(ResultE res)
 
     if(_pActiveState != NULL)
     {
-        _pActiveState->deactivate(_pDrawEnv);
+        State *state = _pActiveState;
+        // without this the deactivate would be called in
+        // the next changeFrom call.
+        _pActiveState = NULL;
+
+        state->deactivate(_pDrawEnv);
     }
 
     if(!_bLocalLights)
@@ -2070,6 +2722,206 @@ Action::ResultE RenderAction::stop(ResultE res)
             glDisable(GL_LIGHT0 + i);
         }
     }
+
+    for(i = 0;i < _activeClipPlanesCount;++i)
+        glDisable(GL_CLIP_PLANE0 + i);
+
+    if(_bOcclusionCulling && (_occlusionCullingMode & OcclusionMultiFrame))
+    {
+        if(_occlusionCullingMode == OcclusionHierarchicalMultiFrame)
+        {
+            // check the hierarchical occlusion queries.
+            std::vector<UInt32> remove;
+            for(std::set<UInt32>::iterator it=_hier_occlusions.begin();
+                it!=_hier_occlusions.end();++it)
+            {
+                NodePtr node = cast_dynamic<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
+                if(node != NullFC)
+                {
+                    GLuint occlusionQuery = getOcclusionQuery(node);
+                    if(occlusionQuery == 0)
+                    {
+                        setOcclusionMask(node, 0);
+                        remove.push_back(*it);
+                        continue;
+                    }
+    
+                    GLuint pixels = 0;
+                    _glGetQueryObjectuivARB(occlusionQuery, GL_QUERY_RESULT_ARB, &pixels);
+                    ++_uiNumOcclusionTests;
+                    //printf("hier occ test: '%s' %d pixels\n", OSG::getName(node), pixels);
+
+                    if(pixels > _occlusionCullingPixels)
+                    {
+                        // 0 means not occluded.
+                        setOcclusionMask(node, 0);
+                        remove.push_back(*it);
+                        continue;
+                    }
+                    else
+                    {
+#if OSG_1_COMPAT
+                        // 2 means occluded leaf, 1 means occluded node.
+                        node->setOcclusionMask(1);
+#endif
+
+                        // remove all child nodes.
+                        for(UInt32 i=0;i<node->getNChildren();++i)
+                            remove.push_back(getContainerId(node->getChild(i)));
+                        _occluded_nodes.push_back(node);
+                        ++_uiNumOcclusionCulled;
+                        continue;
+                    }
+                }
+                else
+                {
+                    remove.push_back(*it);
+                }
+            }
+
+            // remove invalid, not occluded or occluded child nodes.
+            for(UInt32 i=0;i<remove.size();++i)
+                _hier_occlusions.erase(remove[i]);
+    
+            // check the occluded nodes.
+            for(std::vector<NodePtr>::iterator it=_occluded_nodes.begin();
+                it!=_occluded_nodes.end();++it)
+            {
+                NodePtr occluded = (*it);
+                NodePtr parent = occluded->getParent();
+                if(parent != NullFC)
+                {
+                    bool all_children_occluded = true;
+
+                    // if the parent is a switch node just check the active child!
+                    bool check_all_childs = false;
+#if 0
+                    SwitchPtr sw = SwitchPtr::dcast(parent->getCore());
+                    if(sw != NullFC)
+                    {
+                        Int32 choice = sw->getChoice();
+                        if(choice == -2) // all visible
+                            check_all_childs = true;
+                        else if(choice >= 0) // one child visible
+                        {
+                            // look for not occluded nodes.
+                            NodePtr child = parent->getChild(choice);
+                            if(child != NullFC && child->getOcclusionMask() == 0)
+                            {
+                                // ignore nodes without a geometry child.
+                                if(!hasGeometryChild(child))
+                                    child->setOcclusionMask(1);
+                                else
+                                    all_children_occluded = false;
+                            }
+                        }
+                        // -1 no children visible we do nothing.
+                    }
+                    else
+#endif
+                    {
+                        check_all_childs = true;
+                    }
+
+                    if(check_all_childs)
+                    {
+                        for(UInt32 i=0;i<parent->getNChildren();++i)
+                        {
+                            // ignore not visible nodes!
+                            if(!parent->getChild(i)->getTravMask())
+                                continue;
+    
+                            // look for not occluded nodes.
+                            NodePtr child = parent->getChild(i);
+#if OSG_1_COMPAT
+                            if(child->getOcclusionMask() == 0)
+                            {
+                                // ignore nodes without a geometry child.
+                                if(!hasGeometryChild(child))
+                                {
+                                    child->setOcclusionMask(1);
+                                }
+                                else
+                                {
+                                    all_children_occluded = false;
+                                    //printf("hier occ not all childs occluded: '%s' '%s'\n", OSG::getName(parent), OSG::getName(parent->getChild(i)));
+                                    break;
+                                }
+                            }
+#endif
+                        }
+                    }
+
+                    if(all_children_occluded)
+                    {
+                        _hier_occlusions.insert(getContainerId(parent));
+                    }
+                    else
+                    {
+#if OSG_1_COMPAT
+                        parent->setOcclusionMask(0);
+#endif
+                    }
+                }
+            }
+            _occluded_nodes.clear();
+        } // hierarchical multi frame bounding boxes.
+
+        // restore old value.
+        _bZWriteTrans = bZWriteTrans;
+
+        _uiActiveMatrix = 0;
+
+        // draw occlusion bounding boxes.
+        // we check the occlusion results in the next frame!
+        // -------
+        glDepthMask(GL_FALSE);
+        glColorMask(GL_FALSE,GL_FALSE,GL_FALSE,GL_FALSE);
+
+        resetOcclusionQueryIndex();
+        _occlusionQueries.clear();
+
+        // now draw the bounding boxes of all opaque objects.
+        matRootsIt = _pMatRoots.begin();
+        while(matRootsIt != _pMatRoots.end())
+            drawMultiFrameOcclusionBB((*matRootsIt++).second->getFirstChild());
+
+        // now draw the bounding boxes of all transparent objects.
+        transMatRootsIt = _pTransMatRoots.begin();
+        while(transMatRootsIt != _pTransMatRoots.end())
+        {
+            TransSortMap &ts = (*transMatRootsIt++).second;
+            for(TransSortMap::iterator tsit = ts.begin();tsit != ts.end();++tsit)
+                drawMultiFrameOcclusionBB((*tsit).second);
+        }
+
+        if(_occlusionCullingMode == OcclusionHierarchicalMultiFrame)
+        {
+            // render hierarchical multi frame bounding boxes.
+            Matrix view;
+            if(_camera != NULL)
+            {
+                _camera->getViewing(view, 
+                                    _viewport->getPixelWidth (),
+                                    _viewport->getPixelHeight());
+            }
+    
+            for(std::set<UInt32>::iterator it=_hier_occlusions.begin();
+                it!=_hier_occlusions.end();++it)
+            {
+                NodePtr node = cast_dynamic<NodePtr>(FieldContainerFactory::the()->getContainer(*it));
+                if(node != NullFC)
+                    drawHierarchicalMultiFrameOcclusionBB(view, node);
+            }
+        }
+
+        glDepthMask(GL_TRUE);
+        glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+
+        glFlush();
+    }
+
+    glDepthMask(GL_TRUE);
 
     if(_useGLFinish)
         glFinish();
@@ -2093,6 +2945,35 @@ Action::ResultE RenderAction::stop(ResultE res)
 
         _statistics->getElem(statNTransGeometries)->set(
             _uiNumTransGeometries);
+
+        _statistics->getElem(statNOcclusionTests )->set(
+            _uiNumOcclusionTests);
+        _statistics->getElem(statNOcclusionCulled )->set(
+            _uiNumOcclusionCulled);
+
+        if(_bOcclusionCulling)
+        {
+            if(_occlusionCullingMode == OcclusionStopAndWait)
+            {
+                _statistics->getElem(statNOcclusionMode)->set(
+                "Stop And Wait");
+            }
+            else if(_occlusionCullingMode == OcclusionMultiFrame)
+            {
+                _statistics->getElem(statNOcclusionMode)->set(
+                "Multi Frame");
+            }
+            else if(_occlusionCullingMode == OcclusionHierarchicalMultiFrame)
+            {
+                _statistics->getElem(statNOcclusionMode)->set(
+                "Hier. Multi Frame");
+            }
+        }
+        else
+        {
+            _statistics->getElem(statNOcclusionMode)->set(
+                "Off");
+        }
     }
 
 

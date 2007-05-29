@@ -67,6 +67,7 @@
 
 #include "OSGStringFields.h" // VertexProgram type
 #include "OSGStringFields.h" // FragmentProgram type
+#include "OSGStringFields.h" // GeometryProgram type
 
 #include "OSGShaderChunkFields.h"
 
@@ -113,13 +114,16 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     {
         VertexProgramFieldId = Inherited::NextFieldId,
         FragmentProgramFieldId = VertexProgramFieldId + 1,
-        NextFieldId = FragmentProgramFieldId + 1
+        GeometryProgramFieldId = FragmentProgramFieldId + 1,
+        NextFieldId = GeometryProgramFieldId + 1
     };
 
     static const OSG::BitVector VertexProgramFieldMask =
         (TypeTraits<BitVector>::One << VertexProgramFieldId);
     static const OSG::BitVector FragmentProgramFieldMask =
         (TypeTraits<BitVector>::One << FragmentProgramFieldId);
+    static const OSG::BitVector GeometryProgramFieldMask =
+        (TypeTraits<BitVector>::One << GeometryProgramFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -147,30 +151,42 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFVertexProgram   (void);
 #endif
                   SFString            *editSFVertexProgram  (void);
             const SFString            *getSFVertexProgram   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFFragmentProgram (void);
 #endif
                   SFString            *editSFFragmentProgram(void);
             const SFString            *getSFFragmentProgram (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFString            *getSFGeometryProgram (void);
+#endif
+                  SFString            *editSFGeometryProgram(void);
+            const SFString            *getSFGeometryProgram (void) const;
 
-#ifdef OSG_1_COMPAT
+
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getVertexProgram   (void);
 #endif
                   std::string         &editVertexProgram  (void);
             const std::string         &getVertexProgram   (void) const;
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getFragmentProgram (void);
 #endif
                   std::string         &editFragmentProgram(void);
             const std::string         &getFragmentProgram (void) const;
+
+#ifdef OSG_1_GET_COMPAT
+                  std::string         &getGeometryProgram (void);
+#endif
+                  std::string         &editGeometryProgram(void);
+            const std::string         &getGeometryProgram (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -179,6 +195,7 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
 
             void setVertexProgram  (const std::string &value);
             void setFragmentProgram(const std::string &value);
+            void setGeometryProgram(const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -213,6 +230,7 @@ class OSG_STATE_DLLMAPPING ShaderChunkBase : public ShaderParameterChunk
 
     SFString          _sfVertexProgram;
     SFString          _sfFragmentProgram;
+    SFString          _sfGeometryProgram;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -90,7 +90,7 @@ const Vec4f &ShaderParameterVec4fBase::getValue(void) const
     return _sfValue.getValue();
 }
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 Vec4f               &ShaderParameterVec4fBase::getValue          (void)
 {

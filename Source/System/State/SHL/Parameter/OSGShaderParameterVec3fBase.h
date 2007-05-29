@@ -143,14 +143,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterVec3fBase : public ShaderParameter
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFVec3f             *getSFValue           (void);
 #endif
                   SFVec3f             *editSFValue          (void);
             const SFVec3f             *getSFValue           (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   Vec3f               &getValue           (void);
 #endif
                   Vec3f               &editValue          (void);

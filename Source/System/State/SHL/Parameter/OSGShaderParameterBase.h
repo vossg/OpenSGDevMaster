@@ -143,14 +143,14 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   SFString            *getSFName            (void);
 #endif
                   SFString            *editSFName           (void);
             const SFString            *getSFName            (void) const;
 
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
                   std::string         &getName            (void);
 #endif
                   std::string         &editName           (void);
