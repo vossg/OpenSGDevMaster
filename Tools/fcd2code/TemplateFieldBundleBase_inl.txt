@@ -159,7 +159,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(void) const
 }
 
             @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 @!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(void)
 {
@@ -210,7 +210,7 @@ inline
 }
 
                 @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 @!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(const UInt32 index)
 {

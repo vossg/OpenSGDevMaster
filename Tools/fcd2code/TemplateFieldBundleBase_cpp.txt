@@ -129,7 +129,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
             @@if CompatOneSix
                 @@if !field.isPtrField
 
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     typedef const @!field.CARD!@@!field.TypeCaps!@ *(@!Classname!@Base::*Get@!field.CARD!@@!field.Name!@F)(void) const;
 
     Get@!field.CARD!@@!field.Name!@F Get@!field.CARD!@@!field.Name!@ = &@!Classname!@Base::get@!field.CARD!@@!field.Name!@;
@@ -151,7 +151,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
             @@endif // field.isPtrField
             @@if !field.isPtrField
                 @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
         reinterpret_cast<FieldGetMethodSig >(Get@!field.CARD!@@!field.Name!@));
 #else
         reinterpret_cast<FieldGetMethodSig >(&@!Classname!@Base::get@!field.CARD!@@!field.Name!@));
@@ -256,7 +256,7 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
     }
 }
             @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
 {
     return this->edit@!field.CARD!@@!field.Name:15!@();
@@ -294,7 +294,7 @@ const @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps!@ *@!Classname!@Base
 }
 
             @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *@!Classname!@Base::get@!field.CARD!@@!field.Name:15!@(void)
 {
     return this->edit@!field.CARD!@@!field.Name:15!@();
@@ -1082,7 +1082,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(void) const
 }
 
                 @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 @!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(void)
 {
     return this->edit@!field.Name:15!@();
@@ -1128,7 +1128,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(const UInt32 index) c
 }
 
                 @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 @!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(const UInt32 index)
 {
     return this->edit@!field.Name:15!@(index);
@@ -1208,7 +1208,7 @@ const @!field.Type!@ &@!Classname!@Base::get@!field.Name!@(void) const
 }
 
                 @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
 inline
 @!field.Type:19!@ &@!Classname!@Base::get@!field.Name:15!@(void)
 {

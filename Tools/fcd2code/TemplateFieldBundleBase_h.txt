@@ -190,7 +190,7 @@ class @!Classname!@Base : public @!Parent!@
             @@else // field.isPtrField
 
                 @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
 #endif
                 @@endif // CompatOneSix
@@ -211,7 +211,7 @@ class @!Classname!@Base : public @!Parent!@
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
                 @@else // field.isPtrField
                     @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (void);
 #endif
                     @@endif // CompatOneSix
@@ -224,7 +224,7 @@ class @!Classname!@Base : public @!Parent!@
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
                 @@else // field.isPtrField
                     @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index);
     @!field.MethodType:7!@       @!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void);
 #endif
@@ -448,7 +448,7 @@ class @!Classname!@Base : public @!Parent!@
             @@else // field.isPtrField
 
                 @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
 #endif
                 @@endif // CompatOneSix
@@ -466,7 +466,7 @@ class @!Classname!@Base : public @!Parent!@
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
                 @@else // field.isPtrField
                     @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (void);
 #endif
                     @@endif // CompatOneSix
@@ -479,7 +479,7 @@ class @!Classname!@Base : public @!Parent!@
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
                 @@else // field.isPtrField
                     @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index);
     @!field.MethodType:7!@       @!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void);
 #endif
@@ -630,7 +630,7 @@ class @!Classname!@Base : public @!Parent!@
             @@else // field.isPtrField
 
                 @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.TypeNamespace!@@!field.CARD!@@!field.TypeCaps:17!@ *get@!field.CARD!@@!field.Name:15!@ (void);
 #endif
                 @@endif // CompatOneSix
@@ -647,7 +647,7 @@ class @!Classname!@Base : public @!Parent!@
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(void) const;
                 @@else // field.isPtrField
                     @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@(void);
 #endif
                     @@endif // CompatOneSix
@@ -660,7 +660,7 @@ class @!Classname!@Base : public @!Parent!@
     @!field.MethodType:7!@       @!field.Type!@Const get@!field.Name:15!@(const UInt32 index) const;
                 @@else // field.isPtrField
                     @@if CompatOneSix
-#ifdef OSG_1_COMPAT
+#ifdef OSG_1_GET_COMPAT
     @!field.MethodType:7!@       @!field.Type:19!@ &get@!field.Name:15!@ (const UInt32 index);
     @!field.MethodType:7!@       @!field.CARD!@@!field.TypeCaps:17!@ &get@!field.Name:15!@(void);
 #endif
